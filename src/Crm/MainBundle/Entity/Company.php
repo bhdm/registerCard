@@ -179,5 +179,437 @@ class Company extends BaseEntity
      */
     protected $copySignatureManager;
 
+    /**
+     * @return mixed
+     */
+    public function getArea()
+    {
+        return $this->area;
+    }
+
+    /**
+     * @param mixed $area
+     */
+    public function setArea($area)
+    {
+        $this->area = $area;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCardEurope()
+    {
+        return $this->cardEurope;
+    }
+
+    /**
+     * @param mixed $cardEurope
+     */
+    public function setCardEurope($cardEurope)
+    {
+        $this->cardEurope = $cardEurope;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCardTeh()
+    {
+        return $this->cardTeh;
+    }
+
+    /**
+     * @param mixed $cardTeh
+     */
+    public function setCardTeh($cardTeh)
+    {
+        $this->cardTeh = $cardTeh;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCity()
+    {
+        return $this->city;
+    }
+
+    /**
+     * @param mixed $city
+     */
+    public function setCity($city)
+    {
+        $this->city = $city;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCopyOrder()
+    {
+        return $this->copyOrder;
+    }
+
+    /**
+     * @param mixed $copyOrder
+     */
+    public function setCopyOrder($copyOrder)
+    {
+        $this->copyOrder = $copyOrder;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCopyPassport()
+    {
+        return $this->copyPassport;
+    }
+
+    /**
+     * @param mixed $copyPassport
+     */
+    public function setCopyPassport($copyPassport)
+    {
+        $this->copyPassport = $copyPassport;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCopyRegisterCompany()
+    {
+        return $this->copyRegisterCompany;
+    }
+
+    /**
+     * @param mixed $copyRegisterCompany
+     */
+    public function setCopyRegisterCompany($copyRegisterCompany)
+    {
+        $this->copyRegisterCompany = $copyRegisterCompany;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCopySignatureDriver()
+    {
+        return $this->copySignatureDriver;
+    }
+
+    /**
+     * @param mixed $copySignatureDriver
+     */
+    public function setCopySignatureDriver($copySignatureDriver)
+    {
+        $this->copySignatureDriver = $copySignatureDriver;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCopySignatureManager()
+    {
+        return $this->copySignatureManager;
+    }
+
+    /**
+     * @param mixed $copySignatureManager
+     */
+    public function setCopySignatureManager($copySignatureManager)
+    {
+        $this->copySignatureManager = $copySignatureManager;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCorp()
+    {
+        return $this->corp;
+    }
+
+    /**
+     * @param mixed $corp
+     */
+    public function setCorp($corp)
+    {
+        $this->corp = $corp;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCountry()
+    {
+        return $this->country;
+    }
+
+    /**
+     * @param mixed $country
+     */
+    public function setCountry($country)
+    {
+        $this->country = $country;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getDelivery()
+    {
+        return $this->delivery;
+    }
+
+    /**
+     * @param mixed $delivery
+     */
+    public function setDelivery($delivery)
+    {
+        $this->delivery = $delivery;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getHome()
+    {
+        return $this->home;
+    }
+
+    /**
+     * @param mixed $home
+     */
+    public function setHome($home)
+    {
+        $this->home = $home;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getLatTitle()
+    {
+        return $this->latTitle;
+    }
+
+    /**
+     * @param mixed $latTitle
+     */
+    public function setLatTitle($latTitle)
+    {
+        $this->latTitle = $latTitle;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getOgrn()
+    {
+        return $this->ogrn;
+    }
+
+    /**
+     * @param mixed $ogrn
+     */
+    public function setOgrn($ogrn)
+    {
+        $this->ogrn = $ogrn;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getOrderDate()
+    {
+        return $this->orderDate;
+    }
+
+    /**
+     * @param mixed $orderDate
+     */
+    public function setOrderDate($orderDate)
+    {
+        $this->orderDate = $orderDate;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getOrderNumber()
+    {
+        return $this->orderNumber;
+    }
+
+    /**
+     * @param mixed $orderNumber
+     */
+    public function setOrderNumber($orderNumber)
+    {
+        $this->orderNumber = $orderNumber;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getPassportNumber()
+    {
+        return $this->passportNumber;
+    }
+
+    /**
+     * @param mixed $passportNumber
+     */
+    public function setPassportNumber($passportNumber)
+    {
+        $this->passportNumber = $passportNumber;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getPassportSeries()
+    {
+        return $this->passportSeries;
+    }
+
+    /**
+     * @param mixed $passportSeries
+     */
+    public function setPassportSeries($passportSeries)
+    {
+        $this->passportSeries = $passportSeries;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getPaymentName()
+    {
+        return $this->paymentName;
+    }
+
+    /**
+     * @param mixed $paymentName
+     */
+    public function setPaymentName($paymentName)
+    {
+        $this->paymentName = $paymentName;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getPost()
+    {
+        return $this->post;
+    }
+
+    /**
+     * @param mixed $post
+     */
+    public function setPost($post)
+    {
+        $this->post = $post;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getRegion()
+    {
+        return $this->region;
+    }
+
+    /**
+     * @param mixed $region
+     */
+    public function setRegion($region)
+    {
+        $this->region = $region;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getRoom()
+    {
+        return $this->room;
+    }
+
+    /**
+     * @param mixed $room
+     */
+    public function setRoom($room)
+    {
+        $this->room = $room;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getStreet()
+    {
+        return $this->street;
+    }
+
+    /**
+     * @param mixed $street
+     */
+    public function setStreet($street)
+    {
+        $this->street = $street;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getTitle()
+    {
+        return $this->title;
+    }
+
+    /**
+     * @param mixed $title
+     */
+    public function setTitle($title)
+    {
+        $this->title = $title;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getTitleForCard()
+    {
+        return $this->titleForCard;
+    }
+
+    /**
+     * @param mixed $titleForCard
+     */
+    public function setTitleForCard($titleForCard)
+    {
+        $this->titleForCard = $titleForCard;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getZipcode()
+    {
+        return $this->zipcode;
+    }
+
+    /**
+     * @param mixed $zipcode
+     */
+    public function setZipcode($zipcode)
+    {
+        $this->zipcode = $zipcode;
+    }
+
 
 }
