@@ -23,7 +23,7 @@ class IndexController extends Controller
      * @Template()
      */
     public function pageAction($url){
-        $page = $this->getDoctrine()->getRepository('CrmMainBundle:page')->findOneByUrl($url);
+        $page = $this->getDoctrine()->getRepository('CrmMainBundle:Page')->findOneByUrl($url);
         return array( 'page' => $page );
     }
 
@@ -32,6 +32,7 @@ class IndexController extends Controller
      * @Template()
      */
     public function documentAction($id){
-        return array();
+        $page = $this->getDoctrine()->getRepository('CrmMainBundle:Document')->findOneById($id);
+        return array( 'page' => $page );
     }
 }
