@@ -15,41 +15,355 @@ class Driver extends BaseEntity
 {
 
     /**
-     * @Assert\NotBlank( message = "Поле фамилия обязательно для заполнения" )
+     * @Assert\NotBlank( message = "Поле почтоый индекс обязательно для заполнения" )
      * @ORM\Column(type="string", length=100)
      */
-    protected  $lastName;
+    protected  $zipcode;
 
     /**
-     * @Assert\NotBlank( message = "Поле имя обязательно для заполнения" )
+     * @Assert\NotBlank( message = "Поле страна обязательно для заполнения" )
      * @ORM\Column(type="string", length=100)
      */
-    protected  $firstName;
+    protected $country;
 
     /**
-     * @Assert\NotBlank( message = "Поле отчество обязательно для заполнения" )
+     * @Assert\NotBlank( message = "Поле регион обязательно для заполнения" )
      * @ORM\Column(type="string", length=100)
      */
-    protected  $surName;
+    protected $region;
 
     /**
-     * @Assert\NotBlank( message = "Поле фамилия латиницей обязательно для заполнения" )
+     * @Assert\NotBlank( message = "Поле город обязательно для заполнения" )
      * @ORM\Column(type="string", length=100)
      */
-    protected  $latLatsName;
+    protected $city;
 
     /**
-     * @Assert\NotBlank( message = "Поле имя латиницей обязательно для заполнения" )
+     * @Assert\NotBlank( message = "Поле область обязательно для заполнения" )
      * @ORM\Column(type="string", length=100)
      */
-    protected  $latFirstName;
+    protected $area;
 
     /**
-     * @Assert\NotBlank( message = "Поле дата рождения обязательно для заполнения" )
+     * @Assert\NotBlank( message = "Поле улица обязательно для заполнения" )
      * @ORM\Column(type="string", length=100)
      */
-    protected  $birthDay;
+    protected $street;
 
+    /**
+     * @Assert\NotBlank( message = "Поле дом обязательно для заполнения" )
+     * @ORM\Column(type="string", length=100)
+     */
+    protected $home;
+
+    /**
+     * @ORM\Column(type="string", length=10, nullable="true")
+     */
+    protected $сorp;
+
+    /**
+     * @Assert\NotBlank( message = "Поле квартира обязательно для заполнения" )
+     * @ORM\Column(type="string", length=100)
+     */
+    protected $room;
+
+    /**
+     * @Assert\NotBlank( message = "Поле тип доставки обязательно для заполнения" )
+     * @ORM\Column(type="integer")
+     */
+    protected $delivery;
+
+    /**
+     * @Assert\NotBlank( message = "Поле тип карты обязательно для заполнения" )
+     * @ORM\Column(type="шnteger")
+     */
+    protected $cardType;
+
+    /**
+     * @Assert\NotBlank( message = "Поле название платильщика обязательно для заполнения" )
+     * @ORM\Column(type="string", length=150)
+     */
+    protected $paymentName;
+
+    /**
+     * @Assert\NotBlank( message = "Поле копия документа удостоверяющая личность обязательно для заполнения" )
+     * @ORM\Column(type="string", length=100)
+     */
+    protected $copyPassport;
+
+    /**
+     * @Assert\NotBlank( message = "Поле копия водительского удостоверения обязательно для заполнения" )
+     * @ORM\Column(type="string", length=100)
+     */
+    protected $copyDriverPassport;
+
+    /**
+     * @Assert\NotBlank( message = "Поле фотография обязательно для заполнения" )
+     * @ORM\Column(type="string", length=100)
+     */
+    protected $photo;
+
+    /**
+     * @Assert\NotBlank( message = "Поле подпись обязательно для заполнения" )
+     * @ORM\Column(type="string", length=100)
+     */
+    protected $copySignatupe;
+
+    /**
+     * @return mixed
+     */
+    public function getArea()
+    {
+        return $this->area;
+    }
+
+    /**
+     * @param mixed $area
+     */
+    public function setArea($area)
+    {
+        $this->area = $area;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCardType()
+    {
+        return $this->cardType;
+    }
+
+    /**
+     * @param mixed $cardType
+     */
+    public function setCardType($cardType)
+    {
+        $this->cardType = $cardType;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCity()
+    {
+        return $this->city;
+    }
+
+    /**
+     * @param mixed $city
+     */
+    public function setCity($city)
+    {
+        $this->city = $city;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCopyDriverPassport()
+    {
+        return $this->copyDriverPassport;
+    }
+
+    /**
+     * @param mixed $copyDriverPassport
+     */
+    public function setCopyDriverPassport($copyDriverPassport)
+    {
+        $this->copyDriverPassport = $copyDriverPassport;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCopyPassport()
+    {
+        return $this->copyPassport;
+    }
+
+    /**
+     * @param mixed $copyPassport
+     */
+    public function setCopyPassport($copyPassport)
+    {
+        $this->copyPassport = $copyPassport;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCopySignatupe()
+    {
+        return $this->copySignatupe;
+    }
+
+    /**
+     * @param mixed $copySignatupe
+     */
+    public function setCopySignatupe($copySignatupe)
+    {
+        $this->copySignatupe = $copySignatupe;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCountry()
+    {
+        return $this->country;
+    }
+
+    /**
+     * @param mixed $country
+     */
+    public function setCountry($country)
+    {
+        $this->country = $country;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getDelivery()
+    {
+        return $this->delivery;
+    }
+
+    /**
+     * @param mixed $delivery
+     */
+    public function setDelivery($delivery)
+    {
+        $this->delivery = $delivery;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getHome()
+    {
+        return $this->home;
+    }
+
+    /**
+     * @param mixed $home
+     */
+    public function setHome($home)
+    {
+        $this->home = $home;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getPaymentName()
+    {
+        return $this->paymentName;
+    }
+
+    /**
+     * @param mixed $paymentName
+     */
+    public function setPaymentName($paymentName)
+    {
+        $this->paymentName = $paymentName;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getPhoto()
+    {
+        return $this->photo;
+    }
+
+    /**
+     * @param mixed $photo
+     */
+    public function setPhoto($photo)
+    {
+        $this->photo = $photo;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getRegion()
+    {
+        return $this->region;
+    }
+
+    /**
+     * @param mixed $region
+     */
+    public function setRegion($region)
+    {
+        $this->region = $region;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getRoom()
+    {
+        return $this->room;
+    }
+
+    /**
+     * @param mixed $room
+     */
+    public function setRoom($room)
+    {
+        $this->room = $room;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getStreet()
+    {
+        return $this->street;
+    }
+
+    /**
+     * @param mixed $street
+     */
+    public function setStreet($street)
+    {
+        $this->street = $street;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getZipcode()
+    {
+        return $this->zipcode;
+    }
+
+    /**
+     * @param mixed $zipcode
+     */
+    public function setZipcode($zipcode)
+    {
+        $this->zipcode = $zipcode;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getСorp()
+    {
+        return $this->сorp;
+    }
+
+    /**
+     * @param mixed $сorp
+     */
+    public function setСorp($сorp)
+    {
+        $this->сorp = $сorp;
+    }
 
 
 }

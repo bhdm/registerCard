@@ -56,6 +56,124 @@ class User extends BaseEntity
      */
     protected  $phone;
 
+    /**
+     * @Assert\NotBlank( message = "Поле E-mail обязательно для заполнения" )
+     * @ORM\Column(type="string", length=15)
+     */
+    protected  $email;
+
+    /**
+     * @return mixed
+     */
+    public function getBirthDay()
+    {
+        return $this->birthDay;
+    }
+
+    /**
+     * @param mixed $birthDay
+     */
+    public function setBirthDay($birthDay)
+    {
+        $this->birthDay = $birthDay;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getFirstName()
+    {
+        return $this->firstName;
+    }
+
+    /**
+     * @param mixed $firstName
+     */
+    public function setFirstName($firstName)
+    {
+        $this->firstName = $firstName;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getLastName()
+    {
+        return $this->lastName;
+    }
+
+    /**
+     * @param mixed $lastName
+     */
+    public function setLastName($lastName)
+    {
+        $this->lastName = $lastName;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getLatFirstName()
+    {
+        return $this->latFirstName;
+    }
+
+    /**
+     * @param mixed $latFirstName
+     */
+    public function setLatFirstName($latFirstName)
+    {
+        $this->latFirstName = $latFirstName;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getLatLatsName()
+    {
+        return $this->latLatsName;
+    }
+
+    /**
+     * @param mixed $latLatsName
+     */
+    public function setLatLatsName($latLatsName)
+    {
+        $this->latLatsName = $latLatsName;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getPhone()
+    {
+        return $this->phone;
+    }
+
+    /**
+     * @param mixed $phone
+     */
+    public function setPhone($phone)
+    {
+        $this->phone = $phone;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getSurName()
+    {
+        return $this->surName;
+    }
+
+    /**
+     * @param mixed $surName
+     */
+    public function setSurName($surName)
+    {
+        $this->surName = $surName;
+    }
+
 
 
 
