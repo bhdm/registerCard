@@ -17,4 +17,19 @@ class IndexController extends Controller
         return array();
     }
 
+    /**
+     * @Route("/page/{Url}", name="page")
+     * @Template()
+     */
+    public function pageAction($url){
+        return array();
+    }
+
+    /**
+     * @Route("/doc/id", name="document")
+     * @Template()
+     */
+    public function documentAction($id){
+        return array();
+    }
 }

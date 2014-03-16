@@ -1,6 +1,6 @@
 <?php
 
-namespace Acme\DemoBundle\Listener;
+namespace Crm\MainBundle\Listener;
 
 use Symfony\Component\HttpKernel\Event\GetResponseEvent;
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
