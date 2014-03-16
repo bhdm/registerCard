@@ -11,42 +11,75 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\Table()
  * @ORM\Entity
  */
-class Page
+class Page extends BaseEntity
 {
-    /**
-     * @var integer
-     * @ORM\Column(name="id", type="integer")
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="AUTO")
-     */
-    private $id;
 
     /**
      * @Assert\NotBlank()
      * @ORM\Column(type="string", length=100)
      */
-    private $url;
+    protected  $url;
 
     /**
      * @Assert\NotBlank()
      * @ORM\Column(type="string", length=150)
      */
-    private $title;
+    protected  $title;
 
     /**
      * @Assert\NotBlank()
      * @ORM\Column(type="text")
      */
-    private $body;
-
+    protected  $body;
 
     /**
-     * Get id
-     *
-     * @return integer 
+     * @return mixed
      */
-    public function getId()
+    public function getBody()
     {
-        return $this->id;
+        return $this->body;
     }
+
+    /**
+     * @param mixed $body
+     */
+    public function setBody($body)
+    {
+        $this->body = $body;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getTitle()
+    {
+        return $this->title;
+    }
+
+    /**
+     * @param mixed $title
+     */
+    public function setTitle($title)
+    {
+        $this->title = $title;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getUrl()
+    {
+        return $this->url;
+    }
+
+    /**
+     * @param mixed $url
+     */
+    public function setUrl($url)
+    {
+        $this->url = $url;
+    }
+
+
+
 }
