@@ -1,11 +1,14 @@
+<!DOCTYPE html>
 <html>
     <head>
-
-        {% if page is defined and page.title is defined  %}
-            <title>{{ page.title }}</title>
-        {% else %}
-            <title>Система подачи заявок</title>
-        {% endif%}
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        {% block title %}
+            {% if page is defined and page.title is defined  %}
+                <title>{{ page.title }}</title>
+            {% else %}
+                <title>Система подачи заявок</title>
+            {% endif%}
+        {% endblock %}
         {% block stylesheets %}
             <link href="{{ asset('bundles/crmmain/stylesheets/common.css') }}" rel="stylesheet" media="all">
         {% endblock %}

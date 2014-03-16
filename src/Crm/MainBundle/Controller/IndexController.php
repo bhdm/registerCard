@@ -5,6 +5,7 @@ namespace Crm\MainBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use Crm\MainBundle\Entity\Page;
 
 class IndexController extends Controller
 {
@@ -22,7 +23,8 @@ class IndexController extends Controller
      * @Template()
      */
     public function pageAction($url){
-        return array();
+        $page = $this->getDoctrine()->getRepository('CrmMainBundle:page')->findOneByUrl($url);
+        return array( 'page' => $page );
     }
 
     /**
