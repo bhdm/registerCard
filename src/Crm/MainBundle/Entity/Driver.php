@@ -16,7 +16,7 @@ class Driver extends BaseEntity
 
     /**
      * @Assert\NotBlank( message = "Поле почтоый индекс обязательно для заполнения" )
-     * @ORM\Column(type="string", length=100)
+     * @ORM\Column(type="string", length=10)
      */
     protected  $zipcode;
 
@@ -39,7 +39,7 @@ class Driver extends BaseEntity
     protected $city;
 
     /**
-     * @Assert\NotBlank( message = "Поле область обязательно для заполнения" )
+     * Район
      * @ORM\Column(type="string", length=100)
      */
     protected $area;
@@ -59,11 +59,11 @@ class Driver extends BaseEntity
     /**
      * @ORM\Column(type="string", length=10, nullable="true")
      */
-    protected $сorp;
+    protected $corp;
 
     /**
-     * @Assert\NotBlank( message = "Поле квартира обязательно для заполнения" )
-     * @ORM\Column(type="string", length=100)
+     * квартира
+     * @ORM\Column(type="string", length=10)
      */
     protected $room;
 
@@ -74,10 +74,14 @@ class Driver extends BaseEntity
     protected $delivery;
 
     /**
-     * @Assert\NotBlank( message = "Поле тип карты обязательно для заполнения" )
-     * @ORM\Column(type="шnteger")
+     * @ORM\Column(type="boolean")
      */
-    protected $cardType;
+    protected $cardEurope = 0;
+
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    protected $cardTeh = 0;
 
     /**
      * @Assert\NotBlank( message = "Поле название платильщика обязательно для заполнения" )
@@ -107,7 +111,7 @@ class Driver extends BaseEntity
      * @Assert\NotBlank( message = "Поле подпись обязательно для заполнения" )
      * @ORM\Column(type="string", length=100)
      */
-    protected $copySignatupe;
+    protected $copySignature;
 
     /**
      * @return mixed
@@ -128,18 +132,35 @@ class Driver extends BaseEntity
     /**
      * @return mixed
      */
-    public function getCardType()
+    public function getCardEurope()
     {
-        return $this->cardType;
+        return $this->cardEurope;
     }
 
     /**
-     * @param mixed $cardType
+     * @param mixed $cardEurope
      */
-    public function setCardType($cardType)
+    public function setCardEurope($cardEurope)
     {
-        $this->cardType = $cardType;
+        $this->cardEurope = $cardEurope;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getCardTeh()
+    {
+        return $this->cardTeh;
+    }
+
+    /**
+     * @param mixed $cardTeh
+     */
+    public function setCardTeh($cardTeh)
+    {
+        $this->cardTeh = $cardTeh;
+    }
+
 
     /**
      * @return mixed
