@@ -54,13 +54,19 @@ class User extends BaseEntity
      * @Assert\NotBlank( message = "Поле телефон обязательно для заполнения" )
      * @ORM\Column(type="string", length=15)
      */
-    protected  $phone;
+    protected  $username;
 
     /**
      * @Assert\NotBlank( message = "Поле E-mail обязательно для заполнения" )
      * @ORM\Column(type="string", length=15)
      */
     protected  $email;
+
+    /**
+     * @Assert\NotBlank( message = "Поле пароль обязательно для заполнения" )
+     * @ORM\Column(type="string", length=25)
+     */
+    protected $password;
 
     /**
      * @return mixed
@@ -145,17 +151,17 @@ class User extends BaseEntity
     /**
      * @return mixed
      */
-    public function getPhone()
+    public function getUsername()
     {
-        return $this->phone;
+        return $this->username;
     }
 
     /**
-     * @param mixed $phone
+     * @param mixed $username
      */
-    public function setPhone($phone)
+    public function setUsername($username)
     {
-        $this->phone = $phone;
+        $this->username = $username;
     }
 
     /**
@@ -174,6 +180,37 @@ class User extends BaseEntity
         $this->surName = $surName;
     }
 
+    /**
+     * @return mixed
+     */
+    public function getEmail()
+    {
+        return $this->email;
+    }
+
+    /**
+     * @param mixed $email
+     */
+    public function setEmail($email)
+    {
+        $this->email = $email;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getPassword()
+    {
+        return $this->password;
+    }
+
+    /**
+     * @param mixed $password
+     */
+    public function setPassword($password)
+    {
+        $this->password = $password;
+    }
 
 
 
