@@ -2,4 +2,5 @@ web
 vendor
 app/cache/
 app/logs/
+app/config/parameters.yml
 .idea
