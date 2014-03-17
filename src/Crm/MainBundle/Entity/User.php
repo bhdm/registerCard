@@ -4,6 +4,8 @@ namespace Crm\MainBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Security\Core\User\UserInterface;
+use Doctrine\Common\Collections\ArrayCollection;
 
 
 /**
@@ -12,7 +14,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\Table()
  * @ORM\Entity
  */
-class User extends BaseEntity
+class User extends BaseEntity implements UserInterface
 {
 
     /**
@@ -68,6 +70,28 @@ class User extends BaseEntity
      * @ORM\Column(type="string", length=25)
      */
     protected $password;
+
+    /**
+     * @ORM\Column(type="string", length="255")
+     * @var string salt
+     */
+    protected $salt;
+
+    /**
+     * @ORM\Column(type="string")
+     */
+    protected $roles;
+
+    public function __construct(){
+        $this->roles    = 'ROLE_UNCONFIRMED';
+    }
+
+    public function __toString()
+    {
+        return $this->lastName . ' '
+        . mb_substr($this->firstName, 0, 1, 'utf-8') . '.'
+        . ($this->surName ? ' ' . mb_substr($this->surName, 0, 1, 'utf-8') . '.' : '');
+    }
 
     /**
      * @return mixed
@@ -211,6 +235,107 @@ class User extends BaseEntity
     public function setPassword($password)
     {
         $this->password = $password;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getRoles()
+    {
+        return $this->roles;
+    }
+
+    /**
+     * @param mixed $roles
+     */
+    public function setRoles($roles)
+    {
+        if (is_array($roles)) {
+            $roles = implode($roles, ';');
+        }
+
+        $this->roles = $roles;
+    }
+
+    /**
+     * @return string
+     */
+    public function getSalt()
+    {
+        return explode(';', $this->roles);
+    }
+
+    /**
+     * @param string $salt
+     */
+    public function setSalt($salt)
+    {
+        $this->salt = $salt;
+    }
+
+    public function addRole($role)
+    {
+        $roles = explode(';', $this->roles);
+
+        if (array_search($role, $roles) === false) {
+            $this->roles .= ';' . $role;
+        }
+
+        return $this;
+    }
+
+    public function removeRole($role)
+    {
+        $roles = explode(';', $this->roles);
+        $key   = array_search($role, $roles);
+
+        if ($key !== false) {
+            unset($roles[$key]);
+            $this->roles = implode($roles, ';');
+        }
+    }
+
+    public function checkRole($role)
+    {
+        $roles = explode(';', $this->roles);
+
+        return in_array($role, $roles);
+    }
+
+    /**
+     * Сброс прав пользователя.
+     */
+    public function eraseCredentials()
+    {
+        $this->roles = 'ROLE_UNCONFIRMED';
+        $this->password = null;
+    }
+
+    public function isEqualTo(UserInterface $user)
+    {
+        return md5($this->getUsername()) == md5($user->getUsername());
+    }
+
+    /**
+     * Сериализуем только id, потому что UserProvider сам перезагружает остальные свойства пользователя по его id
+     *
+     * @see \Serializable::serialize()
+     */
+    public function serialize()
+    {
+        return serialize(array(
+            $this->id
+        ));
+    }
+
+    /**
+     * @see \Serializable::unserialize()
+     */
+    public function unserialize($serialized)
+    {
+        list (
+            $this->id
+            ) = unserialize($serialized);
     }
 
 
