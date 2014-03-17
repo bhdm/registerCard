@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "2ac218e12a9d7950fac2d1a7864d731f",
+    "hash": "ae9665d9d19fb5bde45c9c2199fcaaa7",
     "packages": [
         {
             "name": "doctrine/annotations",
@@ -630,12 +630,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/l3pp4rd/DoctrineExtensions.git",
-                "reference": "417e3cba780e6751ba62b42874c718d272934723"
+                "reference": "75714639eef7fcc29e48be100618167e89facc8f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/l3pp4rd/DoctrineExtensions/zipball/417e3cba780e6751ba62b42874c718d272934723",
-                "reference": "417e3cba780e6751ba62b42874c718d272934723",
+                "url": "https://api.github.com/repos/l3pp4rd/DoctrineExtensions/zipball/75714639eef7fcc29e48be100618167e89facc8f",
+                "reference": "75714639eef7fcc29e48be100618167e89facc8f",
                 "shasum": ""
             },
             "require": {
@@ -702,7 +702,7 @@
                 "tree",
                 "uploadable"
             ],
-            "time": "2014-03-11 09:04:14"
+            "time": "2014-03-16 18:59:19"
         },
         {
             "name": "incenteev/composer-parameter-handler",
@@ -755,6 +755,65 @@
                 "parameters management"
             ],
             "time": "2013-12-07 10:10:39"
+        },
+        {
+            "name": "iphp/filestore-bundle",
+            "version": "dev-master",
+            "target-dir": "Iphp/FileStoreBundle",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/vitiko/IphpFileStoreBundle.git",
+                "reference": "eae902564c0afe98015bc4d99e5a647067ff1705"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/vitiko/IphpFileStoreBundle/zipball/eae902564c0afe98015bc4d99e5a647067ff1705",
+                "reference": "eae902564c0afe98015bc4d99e5a647067ff1705",
+                "shasum": ""
+            },
+            "require": {
+                "symfony/framework-bundle": ">=2.2,<2.5-dev"
+            },
+            "require-dev": {
+                "doctrine/doctrine-bundle": "@stable",
+                "doctrine/orm": "@stable",
+                "mikey179/vfsstream": "v1.2.0",
+                "sensio/framework-extra-bundle": "@stable",
+                "symfony/browser-kit": "@stable",
+                "symfony/class-loader": "@stable",
+                "symfony/css-selector": "@stable",
+                "symfony/finder": "@stable",
+                "symfony/form": "@stable",
+                "symfony/process": "@stable",
+                "symfony/twig-bundle": "@stable",
+                "symfony/validator": "@stable",
+                "symfony/yaml": "@stable"
+            },
+            "type": "bundle",
+            "autoload": {
+                "psr-0": {
+                    "Iphp\\FileStoreBundle": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Vitiko",
+                    "email": "vitiko@mail.ru"
+                }
+            ],
+            "description": "Upload files for doctrine entities in symfony 2 project",
+            "homepage": "http://symfonydev.ru",
+            "keywords": [
+                "file upload",
+                "sonata admin file upload",
+                "symfony file upload",
+                "upload"
+            ],
+            "time": "2014-03-14 05:34:30"
         },
         {
             "name": "jdorn/sql-formatter",
@@ -1648,7 +1707,8 @@
     ],
     "minimum-stability": "stable",
     "stability-flags": {
-        "gedmo/doctrine-extensions": 20
+        "gedmo/doctrine-extensions": 20,
+        "iphp/filestore-bundle": 20
     },
     "platform": {
         "php": ">=5.3.3"
