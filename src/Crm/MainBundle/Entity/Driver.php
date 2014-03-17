@@ -4,12 +4,14 @@ namespace Crm\MainBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use Iphp\FileStoreBundle\Mapping\Annotation as FileStore;
 
 /**
  * Page
  *
  * @ORM\Table()
  * @ORM\Entity
+ * @FileStore\Uploadable
  */
 class Driver extends BaseEntity
 {
@@ -91,25 +93,33 @@ class Driver extends BaseEntity
 
     /**
      * @Assert\NotBlank( message = "Поле копия документа удостоверяющая личность обязательно для заполнения" )
-     * @ORM\Column(type="string", length=100)
+     * @Assert\File(maxSize="5M")
+     * @FileStore\UploadableField(mapping="docs")
+     * @ORM\Column(type="array")
      */
     protected $copyPassport;
 
     /**
      * @Assert\NotBlank( message = "Поле копия водительского удостоверения обязательно для заполнения" )
-     * @ORM\Column(type="string", length=100)
+     * @Assert\File(maxSize="5M")
+     * @FileStore\UploadableField(mapping="docs")
+     * @ORM\Column(type="array")
      */
     protected $copyDriverPassport;
 
     /**
      * @Assert\NotBlank( message = "Поле фотография обязательно для заполнения" )
-     * @ORM\Column(type="string", length=100)
+     * @Assert\File(maxSize="5M")
+     * @FileStore\UploadableField(mapping="docs")
+     * @ORM\Column(type="array")
      */
     protected $photo;
 
     /**
      * @Assert\NotBlank( message = "Поле подпись обязательно для заполнения" )
-     * @ORM\Column(type="string", length=100)
+     * @Assert\File(maxSize="5M")
+     * @FileStore\UploadableField(mapping="docs")
+     * @ORM\Column(type="array")
      */
     protected $copySignature;
 

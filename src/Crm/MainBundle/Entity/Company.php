@@ -151,31 +151,41 @@ class Company extends BaseEntity
 
     /**
      * @Assert\NotBlank( message = "Поле копия свидетельства о регистрации компании обязательно для заполнения" )
-     * @ORM\Column(type="string", length=100)
+     * @Assert\File(maxSize="5M")
+     * @FileStore\UploadableField(mapping="docs")
+     * @ORM\Column(type="array")
      */
     protected $copyRegisterCompany;
 
     /**
      * @Assert\NotBlank( message = "Поле копия документа удостоверяющая личность обязательно для заполнения" )
-     * @ORM\Column(type="string", length=100)
+     * @Assert\File(maxSize="5M")
+     * @FileStore\UploadableField(mapping="docs")
+     * @ORM\Column(type="array")
      */
     protected $copyPassport;
 
     /**
      * @Assert\NotBlank( message = "Поле копия подписи водителя обязательно для заполнения" )
-     * @ORM\Column(type="string", length=100)
+     * @Assert\File(maxSize="5M")
+     * @FileStore\UploadableField(mapping="docs")
+     * @ORM\Column(type="array")
      */
     protected $copySignatureDriver;
 
     /**
      * @Assert\NotBlank( message = "Поле копия приказа обязательно для заполнения" )
-     * @ORM\Column(type="string", length=100)
+     * @Assert\File(maxSize="5M")
+     * @FileStore\UploadableField(mapping="docs")
+     * @ORM\Column(type="array")
      */
     protected $copyOrder;
 
     /**
      * @Assert\NotBlank( message = "Поле подпись руководителя обязательно для заполнения" )
-     * @ORM\Column(type="string", length=100)
+     * @Assert\File(maxSize="5M")
+     * @FileStore\UploadableField(mapping="docs")
+     * @ORM\Column(type="array")
      */
     protected $copySignatureManager;
 
