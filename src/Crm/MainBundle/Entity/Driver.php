@@ -59,7 +59,7 @@ class Driver extends BaseEntity
     protected $home;
 
     /**
-     * @ORM\Column(type="string", length=10, nullable="true")
+     * @ORM\Column(type="string", length=10, nullable=true)
      */
     protected $corp;
 

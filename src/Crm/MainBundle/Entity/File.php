@@ -25,7 +25,7 @@ class File extends BaseEntity
 
     /**
      * @Assert\NotBlank()
-     * @ORM\Column(type="string", size="15")
+     * @ORM\Column(type="string", length=15)
      */
     protected  $type = 'file';
 

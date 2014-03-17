@@ -5,12 +5,7 @@ namespace Crm\MainBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 
-/**
- * Page
- *
- * @ORM\Table()
- * @ORM\Entity
- */
+
 class BaseEntity
 {
     /**

@@ -72,7 +72,7 @@ class User extends BaseEntity implements UserInterface
     protected $password;
 
     /**
-     * @ORM\Column(type="string", length="255")
+     * @ORM\Column(type="string")
      * @var string salt
      */
     protected $salt;

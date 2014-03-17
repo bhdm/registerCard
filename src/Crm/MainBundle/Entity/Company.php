@@ -4,6 +4,7 @@ namespace Crm\MainBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use Iphp\FileStoreBundle\Mapping\Annotation as FileStore;
 
 /**
  * Page
@@ -117,7 +118,7 @@ class Company extends BaseEntity
     protected $home;
 
     /**
-     * @ORM\Column(type="string", length=10, nullable="true")
+     * @ORM\Column(type="string", length=10, nullable=true)
      */
     protected $corp;
 
