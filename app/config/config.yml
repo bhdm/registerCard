@@ -76,3 +76,12 @@ swiftmailer:
     username:  "%mailer_user%"
     password:  "%mailer_password%"
     spool:     { type: memory }
+
+iphp_file_store:
+    mappings:
+        docs:
+            upload_dir: %upload_dir%/docs
+            upload_path: /upload/docs
+            overwrite_duplicates: false
+            namer:
+                translit: ~
