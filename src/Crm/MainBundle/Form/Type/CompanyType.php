@@ -10,11 +10,13 @@ use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\Regex;
 use Doctrine\ORM\EntityManager;
-//use Crm\MainBundle\Form\DataTransformer\CityToStringTransformer;
-//use Crm\MainBundle\Form\DataTransformer\YearToNumberTransformer;
-use Crm\MainBundle\Entity\Driver;
+use Crm\MainBundle\Form\DataTransformer\CountryToStringTransformer;
+use Crm\MainBundle\Form\DataTransformer\RegionToStringTransformer;
+use Crm\MainBundle\Form\DataTransformer\CityToStringTransformer;
+use Crm\MainBundle\Entity\Company;
 
-class RegisterType extends AbstractType
+
+class CompanyType extends AbstractType
 {
     protected $em;
 
@@ -25,8 +27,12 @@ class RegisterType extends AbstractType
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-//        $cityToStringTransformer = new CityToStringTransformer($this->em);
-//        $yearToNumberTransformer = new YearToNumberTransformer($this->em);
+        $countryToStringTransformer = new CountryToStringTransformer($this->em);
+        $regionToStringTransformer  = new RegionToStringTransformer($this->em);
+        $cityToStringTransformer    = new CityToStringTransformer($this->em);
+
+
+//       $yearToNumberTransformer = new YearToNumberTransformer($this->em);
 
 //        $years = array();
 //        for ($i = date('Y'); $i > date('Y') - 70; $i--) {
@@ -38,9 +44,9 @@ class RegisterType extends AbstractType
 
         $builder
             ->add($builder->create('zipcode',   'text', array('label' => 'Почтовый индекс', 'required' => true)))
-            ->add($builder->create('country',   'text', array('label' => 'Страна', 'required' => true)))
-            ->add($builder->create('region',    'text', array('label' => 'Регион', 'required' => true)))
-            ->add($builder->create('city',      'text', array('label' => 'Город', 'required' => true)))
+            ->add($builder->create('country',   'text', array('label' => 'Страна', 'required' => true))->addModelTransformer($countryToStringTransformer))
+            ->add($builder->create('region',    'text', array('label' => 'Регион', 'required' => true))->addModelTransformer($regionToStringTransformer))
+            ->add($builder->create('city',      'text', array('label' => 'Город', 'required' => true))->addModelTransformer($cityToStringTransformer))
             ->add($builder->create('area',      'text', array('label' => 'Район')))
             ->add($builder->create('street',    'text', array('label' => 'Улица', 'required' => true)))
             ->add($builder->create('house',     'text', array('label' => 'Дом', 'required' => true)))
