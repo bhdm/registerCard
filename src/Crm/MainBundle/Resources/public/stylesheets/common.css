@@ -114,3 +114,27 @@ h2{
 .btn:focus{
     outline: none;
 }
+
+.popup{
+    top: 400px;
+    left: 50%;
+    margin-left: -200px;
+    position: absolute;
+    padding: 10px;
+    border: 2px solid #8f8f8f;
+    border-radius: 3px;
+    background: #E9E6E6;
+    width: 400px;
+    min-height: 200px;
+    box-shadow: -5px 5px 20px #CCC;
+    display: none;
+}
+.inpopup{
+    position: relative;
+}
+.btn-close{
+    position: absolute;
+    top: -20px;
+    right: -5px;
+    cursor: pointer;
+}

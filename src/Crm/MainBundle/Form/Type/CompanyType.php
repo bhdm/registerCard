@@ -1,6 +1,6 @@
 <?php
 
-namespace Vidal\MainBundle\Form\Type;
+namespace Crm\MainBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
@@ -49,7 +49,7 @@ class CompanyType extends AbstractType
             ->add($builder->create('city',      'text', array('label' => 'Город', 'required' => true))->addModelTransformer($cityToStringTransformer))
             ->add($builder->create('area',      'text', array('label' => 'Район')))
             ->add($builder->create('street',    'text', array('label' => 'Улица', 'required' => true)))
-            ->add($builder->create('house',     'text', array('label' => 'Дом', 'required' => true)))
+            ->add($builder->create('home',      'text', array('label' => 'Дом', 'required' => true)))
             ->add($builder->create('corp',      'text', array('label' => 'Корпус')))
             ->add($builder->create('room',      'text', array('label' => 'Квартира')))
 
@@ -63,11 +63,11 @@ class CompanyType extends AbstractType
             ))
             ->add('cardEurope', 'checkbox', array(
                 'label'     => 'Тип карты 1',
-                'required'  => false,
+//                'required'  => false,
             ))
             ->add('cardTeh', 'checkbox', array(
                 'label'     => 'Тип карты 2',
-                'required'  => false,
+//                'required'  => false,
             ))
 
             ->add($builder->create('paymentName',      'text', array('label' => 'Название платильщика', 'required' => true)))
@@ -86,7 +86,7 @@ class CompanyType extends AbstractType
 
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
-        $resolver->setDefaults(array('data_class' => 'Vidal\MainBundle\Entity\User'));
+        $resolver->setDefaults(array('data_class' => 'Crm\MainBundle\Entity\Company'));
     }
 
     public function getName()

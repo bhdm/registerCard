@@ -1,0 +1,46 @@
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    {% block title %}
+        {% if page is defined and page.title is defined  %}
+            <title>{{ page.title }}</title>
+        {% else %}
+            <title>Система подачи заявок</title>
+        {% endif%}
+    {% endblock %}
+    {% block stylesheets %}
+        <link href="{{ asset('bundles/crmmain/stylesheets/common.css') }}" rel="stylesheet" media="all">
+    {% endblock %}
+    {% block javascripts %}
+        <script rel="script" src="{{ asset('bundles/crmmain/javascripts/jQuery.js') }}"></script>
+        <script>
+            $(document).ready(function(){
+                $('#popup-close').click(function(){
+                    $('.popup').fadeOut();
+                });
+            })
+        </script>
+    {% endblock %}
+</head>
+<body>
+<div class="body">
+    <header>
+        <img src="{{ asset('bundles/crmmain/images/head.jpg') }}">
+    </header>
+    <div class="content">
+        {% block content %}{% endblock %}
+    </div>
+    {# @todo Перевести в плагин #}
+</div>
+<footer>
+
+</footer>
+<div class="popup">
+    <div class="inpopup">
+        <title></title>
+        <p></p>
+        <img class="btn-close" id="popup-close" src="{{ asset('bundles/crmmain/images/close.png') }}" />
+    </div>
+</div>
+</body>
+</html>

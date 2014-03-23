@@ -1,6 +1,6 @@
 <?php
 
-namespace Vidal\MainBundle\Form\Type;
+namespace Crm\MainBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
@@ -14,7 +14,7 @@ use Doctrine\ORM\EntityManager;
 //use Crm\MainBundle\Form\DataTransformer\YearToNumberTransformer;
 use Crm\MainBundle\Entity\Driver;
 
-class RegisterType extends AbstractType
+class UserType extends AbstractType
 {
     protected $em;
 

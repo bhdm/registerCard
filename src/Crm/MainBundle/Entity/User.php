@@ -62,7 +62,7 @@ class User extends BaseEntity implements UserInterface, EquatableInterface, \Ser
      * @Assert\NotBlank( message = "Поле дата рождения обязательно для заполнения" )
      * @ORM\Column(type="string", length=100)
      */
-    protected  $birthDay;
+    protected  $birthDate;
 
     /**
      * @Assert\NotBlank( message = "Поле телефон обязательно для заполнения" )
@@ -107,17 +107,17 @@ class User extends BaseEntity implements UserInterface, EquatableInterface, \Ser
     /**
      * @return mixed
      */
-    public function getBirthDay()
+    public function getBirthDate()
     {
-        return $this->birthDay;
+        return $this->birthDate;
     }
 
     /**
-     * @param mixed $birthDay
+     * @param mixed $birthDate
      */
-    public function setBirthDay($birthDay)
+    public function setBirthDate($birthDate)
     {
-        $this->birthDay = $birthDay;
+        $this->birthDate = $birthDate;
     }
 
     /**
@@ -381,6 +381,12 @@ class User extends BaseEntity implements UserInterface, EquatableInterface, \Ser
         $this->driver = $driver;
     }
 
+    public function getPhone(){
+        return $this->username;
+    }
 
+    public function setPhone($phone){
+        $this->username = $phone;
+    }
 
 }

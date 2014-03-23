@@ -12,6 +12,9 @@ use Crm\MainBundle\Entity\Page;
 use Crm\MainBundle\Entity\User;
 use Crm\MainBundle\Entity\Driver;
 use Crm\MainBundle\Entity\Company;
+use Crm\MainBundle\Form\Type\UserType;
+use Crm\MainBundle\Form\Type\DriverType;
+use Crm\MainBundle\Form\Type\CompanyType;
 
 
 /**
@@ -72,9 +75,27 @@ class AuthController extends Controller
 
     /**
      * @Route("/auth/authPartyTwo", name="auth_party_2" , options={"expose"=true})
+     * @Template("CrmMainBundle:Form:register.html.twig")
      */
     public function authPartyTwoAction(Request $request){
-        return new Response("It's work");
+        $em   = $this->getDoctrine()->getManager();
+        $session = new Session();
+
+        $user = new User();
+        $user->setLastName($session->get('user')['lastName']);
+        $user->setFirstName($session->get('user')['firstName']);
+        $user->setPhone($session->get('user')['phone']);
+
+        $driver = new Driver();
+        $company = new Company();
+        $formUser       = $this->createForm(new UserType($em), $user);
+        $formCompany    = $this->createForm(new CompanyType($em), $company);
+        $formDriver    = $this->createForm(new DriverType($em), $driver);
+        return array(
+            'formUser'      => $formUser->createView(),
+            'formDriver'    => $formDriver->createView(),
+            'formCompany'   => $formCompany->createView(),
+        );
     }
 
 

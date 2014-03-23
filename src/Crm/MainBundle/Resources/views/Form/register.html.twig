@@ -1,0 +1,15 @@
+{% extends 'CrmMainBundle::layout_min.html.twig' %}
+
+{% block content %}
+    <form id="register_form" action="{{ path('auth_party_2') }}" method="post" {{ form_enctype(formUser) }}>
+        {#{% form_theme form 'VidalMainBundle:Form:profile_form.html.twig' %}#}
+        {{ form_widget(formUser) }}
+    </form>
+
+    <div class="form_driver">
+        {{ form_widget(formDriver) }}
+    </div>
+    <div class="form_company">
+        {{ form_widget(formCompany) }}
+    </div>
+{% endblock %}
