@@ -142,12 +142,12 @@ class Company extends BaseEntity
     /**
      * @ORM\Column(type="boolean")
      */
-    protected $cardEurope = 0;
+    protected $cardEurope = false;
 
     /**
      * @ORM\Column(type="boolean")
      */
-    protected $cardTeh = 0;
+    protected $cardTeh = false;
 
     /**
      * @Assert\NotBlank( message = "Поле название платильщика обязательно для заполнения" )
