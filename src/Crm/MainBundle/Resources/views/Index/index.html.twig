@@ -66,16 +66,29 @@
                 lastName    = $('#lastName').val();
                 firstName   = $('#firstName').val();
                 phone       = $('#phone').val();
+                errorFrom = 0;
                 if (lastName == ''){
                     $('#lastName').css('border','1px solid #cc3333');
+                    errorFrom = 1;
                 }
                 if (firstName == ''){
                     $('#firstName').css('border','1px solid #cc3333');
+                    errorFrom = 1;
                 }
                 if (phone == ''){
                     $('#phone').css('border','1px solid  #cc3333');
+                    errorFrom = 1;
                 }
-
+                if (errorFrom == 0){
+                    $.ajax({
+                        type: "POST",
+                        url: "{{ path('auth_party_1') }}",
+                        data: "lastName="+lastName+"&firstName="+firstName+"&phone="+phone,
+                        success: function(msg){
+                            alert( "Data Saved: " + msg );
+                        }
+                    });
+                }
             });
         })
     </script>
