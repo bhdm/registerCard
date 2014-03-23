@@ -34,7 +34,7 @@ class Driver extends BaseEntity
 
     /**
      * @Assert\NotBlank( message = "Поле регион обязательно для заполнения" )
-     * @ORM\OneToMany(targetEntity="region", mappedBy="drivers")
+     * @ORM\OneToMany(targetEntity="Region", mappedBy="drivers")
      */
     protected $region;
 
