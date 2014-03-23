@@ -15,7 +15,12 @@ class IndexController extends Controller
      */
     public function indexAction()
     {
-        return array();
+        $indexPage_1 = $this->getDoctrine()->getRepository('CrmMainBundle:Page')->findOneByUrl('indexPage_1');
+        $indexPage_2 = $this->getDoctrine()->getRepository('CrmMainBundle:Page')->findOneByUrl('indexPage_2');
+        return array(
+            'indexPage_1'   => $indexPage_1,
+            'indexPage_2'   => $indexPage_2,
+        );
     }
 
     /**

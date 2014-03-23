@@ -4,10 +4,52 @@
     <table>
         <tr>
             <td>
-                <div></div>
+                <div class="text-main">
+                    <h2>{{ indexPage_1.title }}</h2>
+                    <div>{{ indexPage_1.body }}</div>
+                </div>
             </td>
-            <td></td>
-            <td></td>
+            <td>
+                <div class="text-main">
+                    <h2>{{ indexPage_2.title }}</h2>
+                    <div>{{ indexPage_2.body }}</div>
+                </div>
+            </td>
+            <td>
+                <div class="auth">
+                    <h2>Подать заявку</h2>
+                    <div class="input-box"><input type="text" value="" placeholder="Фамилия" name="lastName"></div>
+                    <div class="input-box"><input type="text" value="" placeholder="Имя" name="firstName"></div>
+                    <div class="input-box"><input type="text" value="" placeholder="Телефон" name="phone"></div>
+                    <button class="btn">Отправить заявку</button>
+                </div>
+            </td>
         </tr>
     </table>
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <style>
+        table tr td{
+            vertical-align: top;
+        }
+        .auth{
+            padding: 10px 30px;
+            border: 2px solid #dadada;
+            border-radius: 3px;
+        }
+        .input-box{
+            padding: 5px 0;
+        }
+        input{
+            width: 300px;
+        }
+        .text-main{
+            padding: 10px 30px;
+            color: #333333;
+            line-height: 1.5em;
+            text-align: justify;
+        }
+    </style>
 {% endblock %}
