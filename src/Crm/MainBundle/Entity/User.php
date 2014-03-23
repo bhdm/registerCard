@@ -19,12 +19,12 @@ use Doctrine\Common\Collections\ArrayCollection;
 class User extends BaseEntity implements UserInterface, EquatableInterface, \Serializable
 {
     /**
-     * @OneToOne(targetEntity="Driver", cascade={"persist", "remove"})
+     * @ORM\OneToOne(targetEntity="Driver", cascade={"persist", "remove"})
      */
     protected $driver;
 
     /**
-     * @OneToOne(targetEntity="Company", cascade={"persist", "remove"})
+     * @ORM\OneToOne(targetEntity="Company", cascade={"persist", "remove"})
      */
     protected $company;
 

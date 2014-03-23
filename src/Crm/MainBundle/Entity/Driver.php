@@ -16,7 +16,7 @@ use Iphp\FileStoreBundle\Mapping\Annotation as FileStore;
 class Driver extends BaseEntity
 {
     /**
-     * @OneToOne(targetEntity="User", cascade={"persist", "remove"})
+     * @ORM\OneToOne(targetEntity="User", cascade={"persist", "remove"})
      */
     protected $user;
 
