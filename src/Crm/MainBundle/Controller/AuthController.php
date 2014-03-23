@@ -38,7 +38,8 @@ class AuthController extends Controller
             $firstName = $request->request->get('firstName');
             $phone = $request->request->get('phone');
 
-            $testCode = rand(123456 , 999999);
+//            $testCode = rand(123456 , 999999);
+            $testCode = 12345;
 
             $session = new Session();
             $session->set('user', array(
@@ -66,6 +67,14 @@ class AuthController extends Controller
                 return new Response('fail');
             }
         }
+    }
+
+
+    /**
+     * @Route("/auth/authPartyTwo", name="auth_party_2" , options={"expose"=true})
+     */
+    public function authPartyTwoAction(Request $request){
+        return new Response("It's work");
     }
 
 

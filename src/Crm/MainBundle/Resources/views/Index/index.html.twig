@@ -89,14 +89,16 @@
                                 // Ответ положителен
                                 $('#auth').html(msg);
                             }else{
-                                // Ответ отрицателен
+                                $('.inpopup').children('title').html('Подать заявку');
+                                $('.inpopup').children('p').html('Что-то пошло не так');
+                                $('.popup').fadeIn();
                             }
                         }
                     });
                 }
             });
 
-            $('#auth').on("click", "sendTestPhone", function(){
+            $('#auth').on("click", "#sendTestPhone", function(){
                 errorFrom = 0;
                 testCode    = $('#testCode').val();
                 if (testCode == ''){
@@ -107,13 +109,14 @@
                     $.ajax({
                         type: "POST",
                         url: "{{ path('test_phone') }}",
-                        data: "testPhone="+testPhone,
+                        data: "testCode="+testCode,
                         success: function(msg){
-                            if ('msg' == 'success'){
-                                // Ответ положителен
-
+                            if (msg == 'success'){
+                                window.location.href='{{ path('auth_party_2') }}';
                             }else{
-                                // Ответ отрицателен
+                                $('.inpopup').children('title').html('Подтверждение телефона');
+                                $('.inpopup').children('p').html('Код введен не верно');
+                                $('.popup').fadeIn();
                             }
                         }
                     });

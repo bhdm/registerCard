@@ -10,9 +10,41 @@
         {% endblock %}
         {% block stylesheets %}
             <link href="{{ asset('bundles/crmmain/stylesheets/common.css') }}" rel="stylesheet" media="all">
+            <style>
+                .popup{
+                    top: 400px;
+                    left: 50%;
+                    margin-left: -200px;
+                    position: absolute;
+                    padding: 10px;
+                    border: 2px solid #8f8f8f;
+                    border-radius: 3px;
+                    background: #E9E6E6;
+                    width: 400px;
+                    min-height: 200px;
+                    box-shadow: -5px 5px 20px #CCC;
+                    display: none;
+                }
+                .inpopup{
+                    position: relative;
+                }
+                .btn-close{
+                    position: absolute;
+                    top: -20px;
+                    right: -5px;
+                    cursor: pointer;
+                }
+            </style>
         {% endblock %}
         {% block javascripts %}
             <script rel="script" src="{{ asset('bundles/crmmain/javascripts/jQuery.js') }}"></script>
+            <script>
+                $(document).ready(function(){
+                    $('#popup-close').click(function(){
+                        $('.popup').fadeOut();
+                    });
+                })
+            </script>
         {% endblock %}
     </head>
     <body>
@@ -23,9 +55,17 @@
             <div class="content">
                 {% block content %}{% endblock %}
             </div>
+            {# @todo Перевести в плагин #}
         </div>
         <footer>
 
         </footer>
+        <div class="popup">
+            <div class="inpopup">
+                <title></title>
+                <p></p>
+                <img class="btn-close" id="popup-close" src="{{ asset('bundles/crmmain/images/close.png') }}" />
+            </div>
+        </div>
     </body>
 </html>
