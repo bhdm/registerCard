@@ -15,6 +15,11 @@ use Iphp\FileStoreBundle\Mapping\Annotation as FileStore;
 class Company extends BaseEntity
 {
     /**
+     * @OneToOne(targetEntity="User", cascade={"persist", "remove"})
+     */
+    protected $user;
+
+    /**
      * @Assert\NotBlank( message = "Поле название предприятия обязательно для заполнения" )
      * @ORM\Column(type="string", length=150)
      */
@@ -620,6 +625,22 @@ class Company extends BaseEntity
     public function setZipcode($zipcode)
     {
         $this->zipcode = $zipcode;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getUser()
+    {
+        return $this->user;
+    }
+
+    /**
+     * @param mixed $user
+     */
+    public function setUser($user)
+    {
+        $this->user = $user;
     }
 
 

@@ -15,6 +15,10 @@ use Iphp\FileStoreBundle\Mapping\Annotation as FileStore;
  */
 class Driver extends BaseEntity
 {
+    /**
+     * @OneToOne(targetEntity="User", cascade={"persist", "remove"})
+     */
+    protected $user;
 
     /**
      * @Assert\NotBlank( message = "Поле почтоый индекс обязательно для заполнения" )
@@ -394,6 +398,54 @@ class Driver extends BaseEntity
     public function setСorp($сorp)
     {
         $this->сorp = $сorp;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCopySignature()
+    {
+        return $this->copySignature;
+    }
+
+    /**
+     * @param mixed $copySignature
+     */
+    public function setCopySignature($copySignature)
+    {
+        $this->copySignature = $copySignature;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCorp()
+    {
+        return $this->corp;
+    }
+
+    /**
+     * @param mixed $corp
+     */
+    public function setCorp($corp)
+    {
+        $this->corp = $corp;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getUser()
+    {
+        return $this->user;
+    }
+
+    /**
+     * @param mixed $user
+     */
+    public function setUser($user)
+    {
+        $this->user = $user;
     }
 
 

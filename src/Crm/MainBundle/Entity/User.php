@@ -18,6 +18,15 @@ use Doctrine\Common\Collections\ArrayCollection;
  */
 class User extends BaseEntity implements UserInterface, EquatableInterface, \Serializable
 {
+    /**
+     * @OneToOne(targetEntity="Driver", cascade={"persist", "remove"})
+     */
+    protected $driver;
+
+    /**
+     * @OneToOne(targetEntity="Company", cascade={"persist", "remove"})
+     */
+    protected $company;
 
     /**
      * @Assert\NotBlank( message = "Поле фамилия обязательно для заполнения" )
@@ -309,8 +318,8 @@ class User extends BaseEntity implements UserInterface, EquatableInterface, \Ser
      */
     public function eraseCredentials()
     {
-        $this->roles = 'ROLE_UNCONFIRMED';
-        $this->password = null;
+//        $this->roles = 'ROLE_UNCONFIRMED';
+//        $this->password = null;
     }
 
     public function isEqualTo(UserInterface $user)
@@ -338,6 +347,38 @@ class User extends BaseEntity implements UserInterface, EquatableInterface, \Ser
         list (
             $this->id
             ) = unserialize($serialized);
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCompany()
+    {
+        return $this->company;
+    }
+
+    /**
+     * @param mixed $company
+     */
+    public function setCompany($company)
+    {
+        $this->company = $company;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getDriver()
+    {
+        return $this->driver;
+    }
+
+    /**
+     * @param mixed $driver
+     */
+    public function setDriver($driver)
+    {
+        $this->driver = $driver;
     }
 
 
