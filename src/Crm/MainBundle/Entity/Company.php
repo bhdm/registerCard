@@ -83,19 +83,19 @@ class Company extends BaseEntity
 
     /**
      * @Assert\NotBlank( message = "Поле страна обязательно для заполнения" )
-     * @ORM\Column(type="string", length=100)
+     * @ORM\OneToMany(targetEntity="Country", mappedBy="companies")
      */
     protected $country;
 
     /**
      * @Assert\NotBlank( message = "Поле регион обязательно для заполнения" )
-     * @ORM\Column(type="string", length=100)
+     * @ORM\OneToMany(targetEntity="Region", mappedBy="companies")
      */
     protected $region;
 
     /**
      * @Assert\NotBlank( message = "Поле город обязательно для заполнения" )
-     * @ORM\Column(type="string", length=100)
+     * @ORM\OneToMany(targetEntity="City", mappedBy="companies")
      */
     protected $city;
 

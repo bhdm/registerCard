@@ -4,6 +4,7 @@ namespace Crm\MainBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * Country
@@ -35,6 +36,21 @@ class City
      * @ORM\ManyToOne(targetEntity="Region", inversedBy="cities")
      */
     protected $region;
+
+    /**
+     * @ORM\OneToMany(targetEntity="Driver", mappedBy="city")
+     */
+    protected $drivers;
+
+    /**
+     * @ORM\OneToMany(targetEntity="Company", mappedBy="city")
+     */
+    protected $companies;
+
+    public function __construct(){
+        $this->drivers = new ArrayCollection();
+        $this->companies = new ArrayCollection();
+    }
 
     /**
      * @return mixed
@@ -98,6 +114,38 @@ class City
     public function setTitle($title)
     {
         $this->title = $title;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCompanies()
+    {
+        return $this->companies;
+    }
+
+    /**
+     * @param mixed $companies
+     */
+    public function setCompanies($companies)
+    {
+        $this->companies = $companies;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getDrivers()
+    {
+        return $this->drivers;
+    }
+
+    /**
+     * @param mixed $drivers
+     */
+    public function setDrivers($drivers)
+    {
+        $this->drivers = $drivers;
     }
 
 

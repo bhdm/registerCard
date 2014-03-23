@@ -24,19 +24,19 @@ class Driver extends BaseEntity
 
     /**
      * @Assert\NotBlank( message = "Поле страна обязательно для заполнения" )
-     * @ORM\Column(type="string", length=100)
+     * @ORM\OneToMany(targetEntity="Country", mappedBy="drivers")
      */
     protected $country;
 
     /**
      * @Assert\NotBlank( message = "Поле регион обязательно для заполнения" )
-     * @ORM\Column(type="string", length=100)
+     * @ORM\OneToMany(targetEntity="region", mappedBy="drivers")
      */
     protected $region;
 
     /**
      * @Assert\NotBlank( message = "Поле город обязательно для заполнения" )
-     * @ORM\Column(type="string", length=100)
+     * @ORM\OneToMany(targetEntity="City", mappedBy="drivers")
      */
     protected $city;
 

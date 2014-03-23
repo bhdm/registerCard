@@ -3,6 +3,8 @@
 namespace Crm\MainBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Security\Core\Encoder\EncoderFactoryInterface;
+use Symfony\Component\Security\Core\User\EquatableInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -11,10 +13,10 @@ use Doctrine\Common\Collections\ArrayCollection;
 /**
  * User
  *
- * @ORM\Table()
+ * @ORM\Table("user")
  * @ORM\Entity
  */
-class User extends BaseEntity implements UserInterface
+class User extends BaseEntity implements UserInterface, EquatableInterface, \Serializable
 {
 
     /**

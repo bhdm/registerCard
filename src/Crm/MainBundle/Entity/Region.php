@@ -37,8 +37,20 @@ class Region
      */
     protected $cities;
 
+    /**
+     * @ORM\OneToMany(targetEntity="Driver", mappedBy="region")
+     */
+    protected $drivers;
+
+    /**
+     * @ORM\OneToMany(targetEntity="Company", mappedBy="region")
+     */
+    protected $companies;
+
     public function __construct(){
         $this->cities = new ArrayCollection();
+        $this->drivers = new ArrayCollection();
+        $this->companies = new ArrayCollection();
     }
 
     /**
@@ -115,8 +127,36 @@ class Region
         $this->country = $country;
     }
 
+    /**
+     * @return mixed
+     */
+    public function getCompanies()
+    {
+        return $this->companies;
+    }
 
+    /**
+     * @param mixed $companies
+     */
+    public function setCompanies($companies)
+    {
+        $this->companies = $companies;
+    }
 
+    /**
+     * @return mixed
+     */
+    public function getDrivers()
+    {
+        return $this->drivers;
+    }
 
+    /**
+     * @param mixed $drivers
+     */
+    public function setDrivers($drivers)
+    {
+        $this->drivers = $drivers;
+    }
 
 }
