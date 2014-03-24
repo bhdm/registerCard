@@ -32,9 +32,9 @@ class DriverType extends AbstractType
 
         $builder
             ->add($builder->create('zipcode',   'text', array('label' => 'Почтовый индекс', 'required' => true)))
-            ->add($builder->create('country',   'text', array('label' => 'Страна', 'required' => true))->addModelTransformer($countryToStringTransformer))
-            ->add($builder->create('region',    'text', array('label' => 'Регион', 'required' => true))->addModelTransformer($regionToStringTransformer))
-            ->add($builder->create('city',      'text', array('label' => 'Город', 'required' => true))->addModelTransformer($cityToStringTransformer))
+            ->add($builder->create('country',   'choice', array('label' => 'Страна', 'required' => true))->addModelTransformer($countryToStringTransformer))
+            ->add($builder->create('region',    'choice', array('label' => 'Регион', 'required' => true))->addModelTransformer($regionToStringTransformer))
+            ->add($builder->create('city',      'choice', array('label' => 'Город', 'required' => true))->addModelTransformer($cityToStringTransformer))
             ->add($builder->create('area',      'text', array('label' => 'Район')))
             ->add($builder->create('street',    'text', array('label' => 'Улица', 'required' => true)))
             ->add($builder->create('home',      'text', array('label' => 'Дом', 'required' => true)))
