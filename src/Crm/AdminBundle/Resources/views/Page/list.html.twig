@@ -1,0 +1,46 @@
+{% extends 'CrmAdminBundle::layout.html.twig' %}
+
+{% block content %}
+    <div class="crumbs">
+        <a href="#">Страницы</a>
+        >>
+        <a href="{{ path('page_add') }}">Добавить</a>
+    </div>
+
+    <table class="list">
+        <tr>
+            <th>Название</th>
+            <th>URL</th>
+            <th class="setting"></th>
+        </tr>
+        {% for page in pages %}
+            <tr>
+                <td>{{ page.title }}</td>
+                <td>{{ page.url }}</td>
+                <td class="setting"></td>
+            </tr>
+        {% endfor %}
+    </table>
+{% endblock %}
+
+
+{% block stylesheets %}
+    {{ parent() }}
+    <style>
+        .setting{
+            width: 120px;
+        }
+        .list tr:nth-child(even){
+            background: #dadada;
+        }
+        .list tr th {
+            background: #FFFFFF;
+        }
+        .list{
+            width: 800px;
+            border-radius: 3px;
+            border: 1px solid #636363;
+        }
+
+    </style>
+{% endblock %}

@@ -1,0 +1,36 @@
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    {% block title %}
+        {% if page is defined and page.title is defined  %}
+            <title>{{ page.title }}</title>
+        {% else %}
+            <title>Система подачи заявок | Админ панель</title>
+        {% endif%}
+    {% endblock %}
+    {% block stylesheets %}
+        <link href="{{ asset('bundles/crmmain/stylesheets/common.css') }}" rel="stylesheet" media="all">
+
+    {% endblock %}
+    {% block javascripts %}
+        <script rel="script" src="{{ asset('bundles/crmadmin/javascripts/jQuery.js') }}"></script>
+    {% endblock %}
+</head>
+<body>
+<div class="body">
+    <header>
+
+    </header>
+    <div class="menu">
+        {{ include('CrmAdminBundle::menu.html.twig') }}
+    </div>
+    <div class="content">
+        {% block content %}{% endblock %}
+    </div>
+    {# @todo Перевести в плагин #}
+</div>
+<footer>
+
+</footer>
+</body>
+</html>

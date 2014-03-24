@@ -29,5 +29,5 @@ security:
             security: true
             anonymous: true
 
-    access_control:
-        - { path: /admin, role: ROLE_ADMIN }
+#    access_control:
+#        - { path: /admin, role: ROLE_ADMIN }
