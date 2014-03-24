@@ -8,6 +8,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
+use Crm\MainBundle\Entity\Page;
 
 class PageController extends Controller
 {
@@ -64,7 +65,7 @@ class PageController extends Controller
         $builder
             ->add('title', null, array('label' => 'Заголовок'))
             ->add('url', null, array('label' => 'URL'))
-            ->add('body', null, array())
+            ->add('body', null, array('label' => 'Тело страницы', 'attr' => array('class' => 'ckeditor')))
             ->add('submit', 'submit', array('label' => 'Сохранить', 'attr' => array('class' => 'btn')));
 
         $form    = $builder->getForm();
