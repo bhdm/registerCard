@@ -21,8 +21,8 @@
                     <a href="#" target="_blank"><img class="ico" src="{{ asset('bundles/crmadmin/images/icon/image14.png') }}"/></a>
                 </td>
                 <td class="setting">
-                    <a href="#"><img class="ico" src="{{ asset('bundles/crmadmin/images/icon/image15.png') }}"/></a>
-                    <a href="#"><img class="ico" src="{{ asset('bundles/crmadmin/images/icon/image13.png') }}"/></a>
+                    <a href="{{ path('page_edit',{ 'pageId' : page.id }) }}"><img class="ico" src="{{ asset('bundles/crmadmin/images/icon/image15.png') }}"/></a>
+                    <a href="{{ path('page_delete',{ 'pageId' : page.id }) }}"><img class="ico" src="{{ asset('bundles/crmadmin/images/icon/image13.png') }}"/></a>
                 </td>
             </tr>
         {% endfor %}
