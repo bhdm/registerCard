@@ -78,24 +78,29 @@ class AuthController extends Controller
      * @Template("CrmMainBundle:Form:register.html.twig")
      */
     public function authPartyTwoAction(Request $request){
-        $em   = $this->getDoctrine()->getManager();
         $session = new Session();
 
-        $user = new User();
-        $user->setLastName($session->get('user')['lastName']);
-        $user->setFirstName($session->get('user')['firstName']);
-        $user->setPhone($session->get('user')['phone']);
+        if ($session->get('user')){
+            $em   = $this->getDoctrine()->getManager();
 
-        $driver = new Driver();
-        $company = new Company();
-        $formUser       = $this->createForm(new UserType($em), $user);
-        $formCompany    = $this->createForm(new CompanyType($em), $company);
-        $formDriver    = $this->createForm(new DriverType($em), $driver);
-        return array(
-            'formUser'      => $formUser->createView(),
-            'formDriver'    => $formDriver->createView(),
-            'formCompany'   => $formCompany->createView(),
-        );
+            $user = new User();
+            $user->setLastName($session->get('user')['lastName']);
+            $user->setFirstName($session->get('user')['firstName']);
+            $user->setPhone($session->get('user')['phone']);
+
+            $driver = new Driver();
+            $company = new Company();
+            $formUser       = $this->createForm(new UserType($em), $user);
+            $formCompany    = $this->createForm(new CompanyType($em), $company);
+            $formDriver    = $this->createForm(new DriverType($em), $driver);
+            return array(
+                'formUser'      => $formUser->createView(),
+                'formDriver'    => $formDriver->createView(),
+                'formCompany'   => $formCompany->createView(),
+            );
+        }else{
+            return $this->redirect($this->generateUrl('main'));
+        }
     }
 
 

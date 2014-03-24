@@ -5,6 +5,9 @@ body{
 img{
     border: 0;
 }
+select{
+    min-width: 68px;
+}
 a{
     color: #0088CC;
     text-decoration: none;
@@ -135,4 +138,7 @@ h2{
     top: -20px;
     right: -5px;
     cursor: pointer;
+}
+.raspberry{
+    color: #CC3333;
 }

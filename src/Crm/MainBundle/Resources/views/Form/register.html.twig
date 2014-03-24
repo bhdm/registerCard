@@ -1,15 +1,53 @@
 {% extends 'CrmMainBundle::layout_min.html.twig' %}
 
 {% block content %}
-    <form id="register_form" action="{{ path('auth_party_2') }}" method="post" {{ form_enctype(formUser) }}>
-        {#{% form_theme form 'VidalMainBundle:Form:profile_form.html.twig' %}#}
-        {{ form_widget(formUser) }}
-    </form>
+    <div class="form">
+        <form id="register_form" action="{{ path('auth_party_2') }}" method="post" {{ form_enctype(formUser) }}>
+            {#{% form_theme form 'VidalMainBundle:Form:profile_form.html.twig' %}#}
+            {{ form_widget(formUser) }}
 
-    <div class="form_driver">
-        {{ form_widget(formDriver) }}
+            <select class="userType">
+                <option value="driver">Физическое лицо</option>
+                <option value="company">Предприятие</option>
+            </select>
+
+            <div class="form_driver">
+                {{ form_widget(formDriver) }}
+            </div>
+            <div class="form_company">
+                {{ form_widget(formCompany) }}
+            </div>
+        </form>
     </div>
-    <div class="form_company">
-        {{ form_widget(formCompany) }}
-    </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset("bundles/crmmain/lib/chosen/chosen.jquery.js") }}" type="text/javascript"></script>
+    <script>
+        $(document).ready(function(){
+            $("select").chosen({
+                disable_search_threshold: 10,
+                no_results_text: "Поиск не нашел ничего",
+                disable_search: true
+            });
+
+        });
+    </script>
+
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link href="{{ asset('bundles/crmmain/lib/chosen/chosen.css') }}" rel="stylesheet" media="all">
+    <style>
+        .form_company{
+            display: none;
+        }
+        .form{
+            margin: 0 auto;
+            width: 500px;
+            text-align: center;
+        }
+    </style>
 {% endblock %}

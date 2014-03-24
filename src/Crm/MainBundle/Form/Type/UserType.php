@@ -34,15 +34,15 @@ class UserType extends AbstractType
 //        }
 
         $builder
-            ->add('username', null, array('label' => 'E-mail'))
-            ->add('password', 'password', array(
-                'label'       => 'Придумайте пароль',
-                'constraints' => array(new Regex(array(
-                    'pattern' => '/[а-яА-Я]/',
-                    'match'   => false,
-                    'message' => 'Русские буквы в пароле недопустимы'
-                )))
-            ))
+            ->add('email', null, array('label' => 'E-mail'))
+//            ->add('password', 'password', array(
+//                'label'       => 'Придумайте пароль',
+//                'constraints' => array(new Regex(array(
+//                    'pattern' => '/[а-яА-Я]/',
+//                    'match'   => false,
+//                    'message' => 'Русские буквы в пароле недопустимы'
+//                )))
+//            ))
             ->add('lastName', null, array('label' => 'Фамилия'))
             ->add('firstName', null, array('label' => 'Имя'))
             ->add('surName', null, array('label' => 'Отчество', 'required' => false))
@@ -51,8 +51,7 @@ class UserType extends AbstractType
                 'years'  => range(date('Y') - 111, date('Y')),
                 'data'   => new \DateTime('1970-01-01'),
                 'format' => 'dd MMMM yyyy',
-            ))
-            ->add('submit', 'submit', array('label' => 'Зарегистрироваться'));
+            ));
 
     }
 
