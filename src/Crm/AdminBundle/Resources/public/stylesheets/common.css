@@ -20,16 +20,27 @@ a:hover{
     min-height: 100%;
 }
 header{
-    height: 330px;
-    background: url('../images/bg.png');
+    height: 130px;
+    background: #636363;
     text-align: center;
+    margin-bottom: 10px;
 }
 .content{
     padding-bottom: 60px;
-    width: 90%;
-    min-width: 1200px;
+    /*width: 90%;*/
+    /*min-width: 1200px;*/
     max-width: 1500px;
     margin: 0 auto;
+    float: left;
+    width: 85%;
+}
+.menu{
+    float: left;
+    width: 15%;
+    line-height: 1.5em;
+}
+.menu-items{
+    list-style: none;
 }
 footer{
     margin-top: -50px;
@@ -114,27 +125,32 @@ h2{
 .btn:focus{
     outline: none;
 }
+.ico{
+    width: 24px;
+    margin-bottom: -6px;
+}
 
-.popup{
-    top: 400px;
-    left: 50%;
-    margin-left: -200px;
-    position: absolute;
-    padding: 10px;
-    border: 2px solid #8f8f8f;
-    border-radius: 3px;
-    background: #E9E6E6;
-    width: 400px;
-    min-height: 200px;
-    box-shadow: -5px 5px 20px #CCC;
-    display: none;
+
+.setting{
+    width: 120px;
+    text-align: right;
 }
-.inpopup{
-    position: relative;
+.list tr:nth-child(even){
+    background: #dadada;
 }
-.btn-close{
-    position: absolute;
-    top: -20px;
-    right: -5px;
-    cursor: pointer;
+.list tr th {
+    background: #FFFFFF;
+    text-align: left;
+    padding-left: 25px;
+}
+.list tr td{
+    padding: 5px 10px;
+}
+.list{
+    width: 90%;
+    border-radius: 5px;
+    border: 2px solid #6c9e9f;
+}
+.crumbs{
+    margin-bottom: 25px;
 }

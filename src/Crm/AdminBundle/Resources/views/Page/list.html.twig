@@ -16,38 +16,15 @@
         {% for page in pages %}
             <tr>
                 <td>{{ page.title }}</td>
-                <td>{{ page.url }}</td>
-                <td class="setting"></td>
+                <td>
+                    {{ page.url }}
+                    <a href="#" target="_blank"><img class="ico" src="{{ asset('bundles/crmadmin/images/icon/image14.png') }}"/></a>
+                </td>
+                <td class="setting">
+                    <a href="#"><img class="ico" src="{{ asset('bundles/crmadmin/images/icon/image15.png') }}"/></a>
+                    <a href="#"><img class="ico" src="{{ asset('bundles/crmadmin/images/icon/image13.png') }}"/></a>
+                </td>
             </tr>
         {% endfor %}
     </table>
-{% endblock %}
-
-
-{% block stylesheets %}
-    {{ parent() }}
-    <style>
-        .setting{
-            width: 120px;
-        }
-        .list tr:nth-child(even){
-            background: #dadada;
-        }
-        .list tr th {
-            background: #FFFFFF;
-            text-align: left;
-            padding-left: 25px;
-        }
-        .list tr td{
-            padding: 5px 10px;
-        }
-        .list{
-            width: 90%;
-            border-radius: 5px;
-            border: 2px solid #6c9e9f;
-        }
-        .crumbs{
-            margin-bottom: 25px;
-        }
-    </style>
 {% endblock %}
