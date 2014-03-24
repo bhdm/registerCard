@@ -1,0 +1,40 @@
+{% extends 'CrmAdminBundle::layout.html.twig' %}
+
+{% block content %}
+    <div class="form">
+        <form id="register_form" method="post" {{ form_enctype(form) }}>
+            {{ form_widget(form) }}
+        </form>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset("bundles/crmmain/lib/chosen/chosen.jquery.js") }}" type="text/javascript"></script>
+    <script>
+        $(document).ready(function(){
+            $("select").chosen({
+                disable_search_threshold: 10,
+                no_results_text: "Поиск не нашел ничего",
+                disable_search: true
+            });
+        });
+
+    </script>
+
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link href="{{ asset('bundles/crmmain/lib/chosen/chosen.css') }}" rel="stylesheet" media="all">
+    <style>
+        .label{
+            width: 150px;
+        }
+        .form{
+            margin: 0 auto;
+            width: 900px;
+            text-align: center;
+        }
+    </style>
+{% endblock %}

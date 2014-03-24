@@ -10,10 +10,15 @@
     {% endblock %}
     {% block stylesheets %}
         <link href="{{ asset('bundles/crmadmin/stylesheets/common.css') }}" rel="stylesheet" media="all">
-
     {% endblock %}
     {% block javascripts %}
         <script rel="script" src="{{ asset('bundles/crmadmin/javascripts/jQuery.js') }}"></script>
+        <script rel="script" src="{{ asset('bundles/crmadmin/lib/ckeditor/ckeditor.js') }}"></script>
+        <script>
+            $(document).ready(function(){
+                CKEDITOR.replace( 'textarea' );
+            })
+        </script>
     {% endblock %}
 </head>
 <body>

@@ -6,8 +6,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
-use Crm\MainBundle\Entity\Page;
-use Symfony\Component\BrowserKit\Request;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Request;
 
 class PageController extends Controller
 {
@@ -25,16 +25,17 @@ class PageController extends Controller
      * @Route("/admin/page-edit/{pageId}", name="page_edit")
      * @Template("CrmAdminBundle:Page:edit.html.twig")
      */
-    public function editAction($pageId, Request $request)
+    public function editAction(Request $request, $pageId)
     {
+
         $em = $this->getDoctrine()->getManager();
-        $page = $em->getRepository('CrmMainBundle:page')->findOneById($pageId);
+        $page = $em->getRepository('CrmMainBundle:Page')->findOneById($pageId);
 
         $builder = $this->createFormBuilder($page);
         $builder
             ->add('title', null, array('label' => 'Заголовок'))
             ->add('url', null, array('label' => 'URL'))
-            ->add('body', null, array())
+            ->add('body', null, array('label' => 'Тело страницы', 'attr' => array('class' => 'ckeditor')))
             ->add('submit', 'submit', array('label' => 'Сохранить', 'attr' => array('class' => 'btn')));
 
         $form = $builder->getForm();
@@ -46,6 +47,8 @@ class PageController extends Controller
                 $em->flush();
             }
         }
+
+        return array('form' => $form->createView());
     }
 
     /**
