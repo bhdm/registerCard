@@ -20,9 +20,10 @@ a:hover{
     min-height: 100%;
 }
 header{
-    height: 330px;
-    background: url('../images/bg.png');
+    height: 130px;
+    background: #636363;
     text-align: center;
+    margin-bottom: 10px;
 }
 .content{
     padding-bottom: 60px;
@@ -36,6 +37,10 @@ header{
 .menu{
     float: left;
     width: 15%;
+    line-height: 1.5em;
+}
+.menu-items{
+    list-style: none;
 }
 footer{
     margin-top: -50px;
