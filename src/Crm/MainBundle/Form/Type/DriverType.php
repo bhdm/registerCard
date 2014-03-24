@@ -46,6 +46,7 @@ class DriverType extends AbstractType
                     '0' => 'Доставка 1',
                     '1' => 'Доставка 2'
                 ),
+                'label'       => 'Доставка',
                 'required'    => true,
                 'empty_data'  => null
             ))
@@ -69,7 +70,7 @@ class DriverType extends AbstractType
                     ))
             ))
 
-            ->add('submit', 'submit', array('label' => 'Заказать карту'));
+            ->add('submit', 'submit', array('label' => 'Заказать карту', 'attr' => array('class'=>'btn')));
     }
 
     public function setDefaultOptions(OptionsResolverInterface $resolver)

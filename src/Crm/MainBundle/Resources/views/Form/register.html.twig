@@ -5,12 +5,17 @@
         <form id="register_form" action="{{ path('auth_party_2') }}" method="post" {{ form_enctype(formUser) }}>
             {#{% form_theme form 'VidalMainBundle:Form:profile_form.html.twig' %}#}
             {{ form_widget(formUser) }}
+            <br />
 
-            <select class="userType">
-                <option value="driver">Физическое лицо</option>
-                <option value="company">Предприятие</option>
-            </select>
-
+            <div class="userTypeDiv">
+                <span style="display: inline-block; width: 258px">
+                    Выберите ответственное лицо:
+                </span><select class="userType">
+                    <option value="driver">Физическое лицо</option>
+                    <option value="company">Предприятие</option>
+                </select>
+            </div>
+            <br />
             <div class="form_driver">
                 {{ form_widget(formDriver) }}
             </div>
@@ -31,8 +36,15 @@
                 no_results_text: "Поиск не нашел ничего",
                 disable_search: true
             });
-
+            $('.userType').change(function(){
+                if( $(this).val()=='driver' ){
+                    $('.form_driver').fadeIn(300,function(){ $('.form_company').fadeOut(300)});
+                }else{
+                    $('.form_company').fadeIn(300,function(){ $('.form_driver').fadeOut(300)});
+                }
+            });
         });
+
     </script>
 
 {% endblock %}
@@ -48,6 +60,19 @@
             margin: 0 auto;
             width: 500px;
             text-align: center;
+        }
+        .userTypeDiv{
+            text-align: left;
+        }
+        .userType{
+            width: 215px;
+
+        }
+        .label{
+            width: 250px;
+        }
+        #register_delivery{
+            width: 218px;
         }
     </style>
 {% endblock %}

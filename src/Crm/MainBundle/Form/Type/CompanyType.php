@@ -58,8 +58,10 @@ class CompanyType extends AbstractType
                     '0' => 'Доставка 1',
                     '1' => 'Доставка 2'
                 ),
+                'label'       => 'Доставка',
                 'required'    => true,
-                'empty_data'  => null
+                'empty_data'  => null,
+                'attr' => array('id' => 'register_delivery_company')
             ))
             ->add('cardEurope', 'checkbox', array(
                 'label'     => 'Тип карты 1',
@@ -81,7 +83,7 @@ class CompanyType extends AbstractType
                     ))
             ))
 
-            ->add('submit', 'submit', array('label' => 'Заказать карту'));
+            ->add('submit', 'submit', array('label' => 'Заказать карту', 'attr' => array('class'=>'btn')));
     }
 
     public function setDefaultOptions(OptionsResolverInterface $resolver)
