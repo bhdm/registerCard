@@ -14,6 +14,9 @@ use Crm\MainBundle\Form\DataTransformer\CountryToStringTransformer;
 use Crm\MainBundle\Form\DataTransformer\RegionToStringTransformer;
 use Crm\MainBundle\Form\DataTransformer\CityToStringTransformer;
 use Crm\MainBundle\Entity\Company;
+use Crm\MainBundle\Entity\Country;
+use Crm\MainBundle\Entity\City;
+use Crm\MainBundle\Entity\Region;
 
 
 class CompanyType extends AbstractType
@@ -42,16 +45,34 @@ class CompanyType extends AbstractType
 //        $builder->create('city', 'text', array('label' => 'Город'))->addModelTransformer($cityToStringTransformer)
 //    )
 
+        $tmps = $this->em->getRepository('CrmMainBundle:Country')->findAll();
+        $country = array();
+        foreach ( $tmps as $tmp){
+            $country[$tmp->getId()] = $tmp->getTitle();
+        }
+
+        $tmps = $this->em->getRepository('CrmMainBundle:Region')->findAll();
+        $region = array();
+        foreach ( $tmps as $tmp){
+            $region[$tmp->getId()] = $tmp->getTitle();
+        }
+
+        $tmps = $this->em->getRepository('CrmMainBundle:City')->findAll();
+        $city = array();
+        foreach ( $tmps as $tmp){
+            $city[$tmp->getId()] = $tmp->getTitle();
+        }
+
         $builder
-            ->add($builder->create('zipcode',   'text', array('label' => 'Почтовый индекс', 'required' => true)))
-            ->add($builder->create('country',   'choice', array('label' => 'Страна', 'required' => true))->addModelTransformer($countryToStringTransformer))
-            ->add($builder->create('region',    'choice', array('label' => 'Регион', 'required' => true))->addModelTransformer($regionToStringTransformer))
-            ->add($builder->create('city',      'choice', array('label' => 'Город', 'required' => true))->addModelTransformer($cityToStringTransformer))
-            ->add($builder->create('area',      'text', array('label' => 'Район')))
-            ->add($builder->create('street',    'text', array('label' => 'Улица', 'required' => true)))
-            ->add($builder->create('home',      'text', array('label' => 'Дом', 'required' => true)))
-            ->add($builder->create('corp',      'text', array('label' => 'Корпус')))
-            ->add($builder->create('room',      'text', array('label' => 'Квартира')))
+            ->add($builder->create('zipcode',   'text',   array('required' => true,    'label' => 'Почтовый индекс', 'required' => true)))
+            ->add($builder->create('country',   'choice', array('required' => true,    'label' => 'Страна', 'choices' => $country,  'required' => true , 'attr'=> array('class'=>'place-select', 'style'=> 'width: 150px'))))//->addModelTransformer($countryToStringTransformer))
+            ->add($builder->create('region',    'choice', array('required' => true,    'label' => 'Регион', 'choices' => $region,   'required' => true , 'attr'=> array('class'=>'place-select', 'style'=> 'width: 150px'))))//->addModelTransformer($regionToStringTransformer))
+            ->add($builder->create('city',      'choice', array('required' => true,    'label' => 'Город',  'choices' => $city,  'required' => true  , 'attr'=> array('class'=>'place-select', 'style'=> 'width: 150px'))))//->addModelTransformer($cityToStringTransformer))
+            ->add($builder->create('area',      'text',   array('required' => false,    'label' => 'Район')))
+            ->add($builder->create('street',    'text',   array('required' => true,    'label' => 'Улица')))
+            ->add($builder->create('home',      'text',   array('required' => true,    'label' => 'Дом')))
+            ->add($builder->create('corp',      'text',   array('required' => false,    'label' => 'Корпус')))
+            ->add($builder->create('room',      'text',   array('required' => false,    'label' => 'Квартира')))
 
             ->add('delivery', 'choice', array(
                 'choices' => array(
@@ -61,15 +82,15 @@ class CompanyType extends AbstractType
                 'label'       => 'Доставка',
                 'required'    => true,
                 'empty_data'  => null,
-                'attr' => array('id' => 'register_delivery_company')
+                'attr' => array('class' => 'delivery-select')
             ))
             ->add('cardEurope', 'checkbox', array(
                 'label'     => 'Тип карты 1',
-//                'required'  => false,
+                'required'  => false,
             ))
             ->add('cardTeh', 'checkbox', array(
                 'label'     => 'Тип карты 2',
-//                'required'  => false,
+                'required'  => false,
             ))
 
             ->add($builder->create('paymentName',      'text', array('label' => 'Название платильщика', 'required' => true)))
@@ -93,6 +114,6 @@ class CompanyType extends AbstractType
 
     public function getName()
     {
-        return 'register';
+        return 'company';
     }
 }

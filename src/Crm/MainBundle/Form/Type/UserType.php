@@ -45,12 +45,13 @@ class UserType extends AbstractType
 //            ))
             ->add('lastName', null, array('label' => 'Фамилия'))
             ->add('firstName', null, array('label' => 'Имя'))
-            ->add('surName', null, array('label' => 'Отчество', 'required' => false))
+            ->add('surName', null, array('label' => 'Отчество'))
             ->add('birthdate', 'date', array(
                 'label'  => 'Дата рождения',
                 'years'  => range(date('Y') - 111, date('Y')),
                 'data'   => new \DateTime('1970-01-01'),
                 'format' => 'dd MMMM yyyy',
+                'attr' => array('class' => 'date-select')
             ));
 
     }
@@ -62,6 +63,6 @@ class UserType extends AbstractType
 
     public function getName()
     {
-        return 'register';
+        return 'user';
     }
 }
