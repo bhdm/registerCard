@@ -72,11 +72,11 @@ class DriverType extends AbstractType
             ))
             ->add('cardEurope', 'checkbox', array(
                 'label'     => 'Тип карты 1',
-//                'required'  => false,
+                'required'  => false,
             ))
             ->add('cardTeh', 'checkbox', array(
                 'label'     => 'Тип карты 2',
-//                'required'  => false,
+                'required'  => false,
             ))
 
             ->add($builder->create('paymentName',      'text', array('label' => 'Название платильщика', 'required' => true)))

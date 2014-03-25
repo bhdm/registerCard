@@ -96,12 +96,37 @@ class AuthController extends Controller
             return array(
                 'formUser'      => $formUser->createView(),
                 'formDriver'    => $formDriver->createView(),
-                'formCompany'   => $formCompany->createView(),
+//                'formCompany'   => $formCompany->createView(),
             );
         }else{
             return $this->redirect($this->generateUrl('main'));
         }
     }
 
+    /**
+     * @Route("/auth/register-form-driver", name="get_register_form_driver" , options={"expose"=true})
+     * @Template("CrmMainBundle:Form:register_driver_form.html.twig")
+     */
+    public function driverFormAction(){
+        $em   = $this->getDoctrine()->getManager();
+        $driver = new Driver();
+        $formDriver    = $this->createForm(new DriverType($em), $driver);
+        return array(
+            'formDriver'    => $formDriver->createView(),
+        );
+    }
+
+    /**
+     * @Route("/auth/register-form-company", name="get_register_form_company" , options={"expose"=true})
+     * @Template("CrmMainBundle:Form:register_company_form.html.twig")
+     */
+    public function companyFormAction(){
+        $em   = $this->getDoctrine()->getManager();
+        $company = new Company();
+        $formCompany    = $this->createForm(new CompanyType($em), $company);
+        return array(
+            'formCompany'    => $formCompany->createView(),
+        );
+    }
 
 }
