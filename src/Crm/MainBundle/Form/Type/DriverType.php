@@ -81,6 +81,24 @@ class DriverType extends AbstractType
 
             ->add($builder->create('paymentName',      'text', array('label' => 'Название платильщика', 'required' => true)))
 
+            ->add('copyPassport', 'iphp_file', array(
+                'label'          => 'Копия документа удостоверяющая личность',
+                'required'       => true,
+            ))
+            ->add('copyDriverPassport', 'iphp_file', array(
+                'label'          => 'Копия водительского удостоверения',
+                'required'       => true,
+            ))
+            ->add('photo', 'iphp_file', array(
+                'label'          => 'Фотография',
+                'required'       => true,
+            ))
+            ->add('copySignature', 'iphp_file', array(
+                'label'          => 'Подпись',
+                'required'       => true,
+            ))
+
+
             ->add('eula', 'checkbox', array(
                 'label'       => 'Пользовательское соглашение',
                 'mapped'      => false,

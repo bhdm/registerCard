@@ -95,6 +95,28 @@ class CompanyType extends AbstractType
 
             ->add($builder->create('paymentName',      'text', array('label' => 'Название платильщика', 'required' => true)))
 
+            ->add('copyRegisterCompany', 'iphp_file', array(
+                'label'          => 'Копия свидетельства о регистрации компании',
+                'required'       => true,
+            ))
+            ->add('copyPassport', 'iphp_file', array(
+                'label'          => 'Копия документа удостоверяющая личность',
+                'required'       => true,
+            ))
+            ->add('copySignatureDriver', 'iphp_file', array(
+                'label'          => 'Подпись водителя',
+                'required'       => true,
+                'error_bubbling' => false,
+            ))
+            ->add('copyOrder', 'iphp_file', array(
+                'label'          => 'Копия приказа',
+                'required'       => true,
+            ))
+            ->add('copySignatureManager', 'iphp_file', array(
+                'label'          => 'Подпись руководителя',
+                'required'       => true,
+            ))
+
             ->add('eula', 'checkbox', array(
                 'label'       => 'Пользовательское соглашение',
                 'mapped'      => false,

@@ -15,6 +15,7 @@ use Crm\MainBundle\Entity\Company;
 use Crm\MainBundle\Form\Type\UserType;
 use Crm\MainBundle\Form\Type\DriverType;
 use Crm\MainBundle\Form\Type\CompanyType;
+use Symfony\Component\Form\FormError;
 
 
 /**
@@ -93,10 +94,34 @@ class AuthController extends Controller
             $formUser       = $this->createForm(new UserType($em), $user);
             $formCompany    = $this->createForm(new CompanyType($em), $company);
             $formDriver    = $this->createForm(new DriverType($em), $driver);
+
+            $formUser->handleRequest($request);
+            $formCompany->handleRequest($request);
+            $formDriver->handleRequest($request);
+
+//            if ($request->isMethod('POST')) {
+//                $formUser->submit($request);
+//                if ($formUser->isValid()) {
+//                    $user = $formUser->getData();
+//                    $em->persist($user);
+//                    $em->flush();
+//                }
+//                if ($formCompany->isValid()) {
+//                    $company = $formCompany->getData();
+//                    $em->persist($company);
+//                    $em->flush();
+//                }
+//
+//                if ($formDriver->isValid()) {
+//                    $driver = $formDriver->getData();
+//                    $em->persist($driver);
+//                    $em->flush();
+//                }
+//            }
+
             return array(
                 'formUser'      => $formUser->createView(),
                 'formDriver'    => $formDriver->createView(),
-//                'formCompany'   => $formCompany->createView(),
             );
         }else{
             return $this->redirect($this->generateUrl('main'));
