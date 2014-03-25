@@ -72,7 +72,7 @@ class CompanyType extends AbstractType
             ->add($builder->create('street',    'text',   array('required' => true,    'label' => 'Улица')))
             ->add($builder->create('home',      'text',   array('required' => true,    'label' => 'Дом')))
             ->add($builder->create('corp',      'text',   array('required' => false,    'label' => 'Корпус')))
-            ->add($builder->create('room',      'text',   array('required' => false,    'label' => 'Квартира')))
+            ->add($builder->create('room',      'text',   array('required' => false,    'label' => 'Офис')))
 
             ->add('delivery', 'choice', array(
                 'choices' => array(

@@ -53,47 +53,70 @@
 
             $('.userType').change(function(){
                 if( $(this).val()=='driver' ){
+                    $('.multi-form').html('');
                     $.ajax({
                         type: "GET",
                         url: "{{ path('get_register_form_driver') }}",
                         success: function(msg){
                             $('.multi-form').html(msg);
+                            $(".place-select").chosen({
+                                disable_search_threshold: 10,
+                                no_results_text: "Поиск не нашел ничего",
+                                width: '215px'
+                            });
+                            $(".delivery-select").chosen({
+                                disable_search_threshold: 10,
+                                no_results_text: "Поиск не нашел ничего",
+                                disable_search: true,
+                                width: '215px'
+                            });
+                            $(".date-select select").chosen({
+                                disable_search_threshold: 10,
+                                no_results_text: "Поиск не нашел ничего",
+                                disable_search: true
+                            });
+                            $(".userType").chosen({
+                                disable_search_threshold: 10,
+                                no_results_text: "Поиск не нашел ничего",
+                                disable_search: true
+                            });
                         }
                     });
 //                    $('.form_driver').fadeIn(300,function(){ $('.form_company').fadeOut(300)});
 //                    $('select').trigger("liszt:updated");
                 }else{
+                    $('.multi-form').html('');
                     $.ajax({
                         type: "GET",
                         url: "{{ path('get_register_form_company') }}",
                         success: function(msg){
                             $('.multi-form').html(msg);
+                            $(".place-select").chosen({
+                                disable_search_threshold: 10,
+                                no_results_text: "Поиск не нашел ничего",
+                                width: '215px'
+                            });
+                            $(".delivery-select").chosen({
+                                disable_search_threshold: 10,
+                                no_results_text: "Поиск не нашел ничего",
+                                disable_search: true,
+                                width: '215px'
+                            });
+                            $(".date-select select").chosen({
+                                disable_search_threshold: 10,
+                                no_results_text: "Поиск не нашел ничего",
+                                disable_search: true
+                            });
+                            $(".userType").chosen({
+                                disable_search_threshold: 10,
+                                no_results_text: "Поиск не нашел ничего",
+                                disable_search: true
+                            });
                         }
                     });
 //                    $('.form_company').fadeIn(300,function(){ $('.form_driver').fadeOut(300)});
 //                    $('select').trigger("liszt:updated");
                 }
-                $(".place-select").chosen({
-                    disable_search_threshold: 10,
-                    no_results_text: "Поиск не нашел ничего",
-                    width: '215px'
-                });
-                $(".delivery-select").chosen({
-                    disable_search_threshold: 10,
-                    no_results_text: "Поиск не нашел ничего",
-                    disable_search: true,
-                    width: '215px'
-                });
-                $(".date-select select").chosen({
-                    disable_search_threshold: 10,
-                    no_results_text: "Поиск не нашел ничего",
-                    disable_search: true
-                });
-                $(".userType").chosen({
-                    disable_search_threshold: 10,
-                    no_results_text: "Поиск не нашел ничего",
-                    disable_search: true
-                });
             });
         });
 
