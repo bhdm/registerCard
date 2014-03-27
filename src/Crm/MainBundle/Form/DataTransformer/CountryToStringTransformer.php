@@ -42,9 +42,9 @@ class CountryToStringTransformer implements DataTransformerInterface
     /**
      * Transforms a string (id) to an object (country).
      */
-    public function reverseTransform($string)
+    public function reverseTransform($id)
     {
-        if (empty($string)) {
+        if (empty($id)) {
             return null;
         }
 
@@ -54,15 +54,15 @@ class CountryToStringTransformer implements DataTransformerInterface
         $builder
             ->select('country')
             ->from('CrmMainBundle:Country', 'country')
-            ->where('country.title = :countryTitle')
-            ->setParameter('countryTitle', $string)
+            ->where('country.id = :id')
+            ->setParameter('id', $id)
             ->setMaxResults(1);
 
 
         $country = $builder->getQuery()->getOneOrNullResult();
 
         if (empty($country)) {
-            throw new TransformationFailedException(sprintf('Страна "%s" не найдена!', $string));
+            throw new TransformationFailedException(sprintf('Страна "%s" не найдена!', $id));
         }
 
         return $country;

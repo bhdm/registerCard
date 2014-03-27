@@ -98,22 +98,25 @@ class Driver extends BaseEntity
     /**
      * @Assert\NotBlank( message = "Поле копия документа удостоверяющая личность обязательно для заполнения" )
      * @Assert\File(maxSize="5M")
+     * @Assert\Image()
      * @FileStore\UploadableField(mapping="docs")
      * @ORM\Column(type="array")
      */
     protected $copyPassport;
 
     /**
-     * @Assert\NotBlank( message = "Поле копия водительского удостоверения обязательно для заполнения" )
-     * @Assert\File(maxSize="5M")
-     * @FileStore\UploadableField(mapping="docs")
      * @ORM\Column(type="array")
+     * @Assert\File(maxSize="5M")
+     * @Assert\Image()
+     * @Assert\NotBlank( message = "Поле копия водительского удостоверения обязательно для заполнения" )
+     * @FileStore\UploadableField(mapping="docs")
      */
     protected $copyDriverPassport;
 
     /**
      * @Assert\NotBlank( message = "Поле фотография обязательно для заполнения" )
      * @Assert\File(maxSize="5M")
+     * @Assert\Image()
      * @FileStore\UploadableField(mapping="docs")
      * @ORM\Column(type="array")
      */
@@ -122,6 +125,7 @@ class Driver extends BaseEntity
     /**
      * @Assert\NotBlank( message = "Поле подпись обязательно для заполнения" )
      * @Assert\File(maxSize="5M")
+     * @Assert\Image()
      * @FileStore\UploadableField(mapping="docs")
      * @ORM\Column(type="array")
      */

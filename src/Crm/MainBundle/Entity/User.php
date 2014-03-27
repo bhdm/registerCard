@@ -60,7 +60,7 @@ class User extends BaseEntity implements UserInterface, EquatableInterface, \Ser
 
     /**
      * @Assert\NotBlank( message = "Поле дата рождения обязательно для заполнения" )
-     * @ORM\Column(type="string", length=100)
+     * @ORM\Column(type="datetime", length=100)
      */
     protected  $birthDate;
 

@@ -13,4 +13,4 @@ parameters:
 
     locale:            en
     secret:            ThisTokenIsNotSoSecretChangeIt
-    upload_dir: bundles/crmmain/upload
+    upload_dir:        %kernel.root_dir%/../web/upload

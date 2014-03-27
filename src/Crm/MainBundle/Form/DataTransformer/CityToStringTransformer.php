@@ -46,36 +46,26 @@ class CityToStringTransformer implements DataTransformerInterface
     /**
      * Transforms a string (id) to an object (city).
      */
-    public function reverseTransform($string)
+    public function reverseTransform($id)
     {
-        if (empty($string)) {
+        if (empty($id)) {
             return null;
         }
 
-        $titles       = explode(', ', $string);
-        $cityTitle    = $titles[0];
-        $countryTitle = count($titles) > 1 ? $titles[1] : null;
 
         $builder = $this->om->createQueryBuilder();
 
         $builder
             ->select('city')
             ->from('CrmMainBundle:City', 'city')
-            ->leftJoin('CrmMainBundle:Country', 'country', 'WITH', 'country = city.country')
-            ->where('city.title = :cityTitle')
-            ->orderBy('country.id', 'ASC')
-            ->setParameter('cityTitle', $cityTitle)
+            ->where('city.id = :id')
+            ->setParameter('id', $id)
             ->setMaxResults(1);
-
-        if ($countryTitle) {
-            $builder->andWhere('country.title LIKE :countryTitle')
-                ->setParameter('countryTitle', '%'.$countryTitle.'%');
-        }
 
         $city = $builder->getQuery()->getOneOrNullResult();
 
         if (empty($city)) {
-            throw new TransformationFailedException(sprintf('Город "%s" не найден!', $string));
+            throw new TransformationFailedException(sprintf('Город "%s" не найден!', $id));
         }
 
         return $city;

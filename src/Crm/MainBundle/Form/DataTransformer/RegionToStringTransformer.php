@@ -43,9 +43,9 @@ class RegionToStringTransformer implements DataTransformerInterface
     /**
      * Transforms a string (id) to an object (country).
      */
-    public function reverseTransform($string)
+    public function reverseTransform($id)
     {
-        if (empty($string)) {
+        if (empty($id)) {
             return null;
         }
 
@@ -55,15 +55,15 @@ class RegionToStringTransformer implements DataTransformerInterface
         $builder
             ->select('region')
             ->from('CrmMainBundle:Region', 'region')
-            ->where('region.title = :regionTitle')
-            ->setParameter('regionTitle', $string)
+            ->where('region.id = :id')
+            ->setParameter('id', $id)
             ->setMaxResults(1);
 
 
         $region = $builder->getQuery()->getOneOrNullResult();
 
         if (empty($region)) {
-            throw new TransformationFailedException(sprintf('Регион "%s" не найден!', $string));
+            throw new TransformationFailedException(sprintf('Регион "%s" не найден!', $id));
         }
 
         return $region;
