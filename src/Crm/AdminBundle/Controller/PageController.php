@@ -19,7 +19,7 @@ class PageController extends Controller
     public function listAction()
     {
         $pages = $this->getDoctrine()->getRepository('CrmMainBundle:Page')->findAll();
-        return array('pages' => $pages);
+        return array('pageAct' => 'page-list','pages' => $pages);
     }
 
     /**
@@ -49,7 +49,7 @@ class PageController extends Controller
             }
         }
 
-        return array('form' => $form->createView());
+        return array('pageAct' => 'page-list', 'form' => $form->createView());
     }
 
     /**
@@ -79,6 +79,7 @@ class PageController extends Controller
         }
 
         return array(
+            'pageAct' => 'page-list',
             'form'     => $form->createView(),
         );
 

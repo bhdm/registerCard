@@ -20,7 +20,7 @@ class StatisticController extends Controller
      */
     public function listAction()
     {
-        return array();
+        return array('pageAct' => 'stat_list');
     }
 
 

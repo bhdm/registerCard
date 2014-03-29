@@ -1,6 +1,6 @@
 {% if pageAct is defined %}
 <ul class="menu-items">
-    <li><a href="{{ path('page_list') }}" {{ pageAct == 'page-list' ? 'class="active"' }}>Страницы</a></li>
+    <li><a href="{{ path('page_list') }}" {{ pageAct == 'page_list' ? 'class="active"' }}>Страницы</a></li>
     <li><a href="{{ path('user_list') }}" {{ pageAct == 'user_list' ? 'class="active"' }}>Заявки</a></li>
     <li><a href="{{ path('stat_list') }}" {{ pageAct == 'stat_list' ? 'class="active"' }}>Статистика</a></li>
 </ul>
