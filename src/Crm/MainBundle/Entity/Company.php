@@ -87,20 +87,17 @@ class Company extends BaseEntity
     protected $zipcode;
 
     /**
-     * @Assert\NotBlank( message = "Поле страна обязательно для заполнения" )
-     * @ORM\OneToMany(targetEntity="Country", mappedBy="companies")
+     * @ORM\ManyToOne(targetEntity="Country", inversedBy="companies")
      */
     protected $country;
 
     /**
-     * @Assert\NotBlank( message = "Поле регион обязательно для заполнения" )
-     * @ORM\OneToMany(targetEntity="Region", mappedBy="companies")
+     * @ORM\ManyToOne(targetEntity="Region", inversedBy="companies")
      */
     protected $region;
 
     /**
-     * @Assert\NotBlank( message = "Поле город обязательно для заполнения" )
-     * @ORM\OneToMany(targetEntity="City", mappedBy="companies")
+     * @ORM\ManyToOne(targetEntity="City", inversedBy="companies")
      */
     protected $city;
 

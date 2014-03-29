@@ -90,13 +90,13 @@ class AuthController extends Controller
             $user->setPhone($session->get('user')['phone']);
 
             $driver = new Driver();
-            $company = new Company();
+//            $company = new Company();
             $formUser       = $this->createForm(new UserType($em), $user);
-            $formCompany    = $this->createForm(new CompanyType($em), $company);
+//            $formCompany    = $this->createForm(new CompanyType($em), $company);
             $formDriver    = $this->createForm(new DriverType($em), $driver);
 
             $formUser->handleRequest($request);
-            $formCompany->handleRequest($request);
+//            $formCompany->handleRequest($request);
             $formDriver->handleRequest($request);
 
             if ($request->isMethod('POST')) {
@@ -104,13 +104,13 @@ class AuthController extends Controller
                     $user = $formUser->getData();
                     $user->setSalt(md5($user));
                     $em->persist($user);
+                    $em->flush();
                 }
                 if ($formDriver->isValid()) {
                     $driver = $formDriver->getData();
                     $em->persist($driver);
+                    $em->flush();
                 }
-
-                $em->flush();
             }
 
             return array(

@@ -5,6 +5,7 @@ namespace Crm\MainBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use Iphp\FileStoreBundle\Mapping\Annotation as FileStore;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * Page
@@ -27,20 +28,17 @@ class Driver extends BaseEntity
     protected  $zipcode;
 
     /**
-     * @Assert\NotBlank( message = "Поле страна обязательно для заполнения" )
-     * @ORM\OneToMany(targetEntity="Country", mappedBy="drivers")
+     * @ORM\ManyToOne(targetEntity="Country", inversedBy="drivers")
      */
     protected $country;
 
     /**
-     * @Assert\NotBlank( message = "Поле регион обязательно для заполнения" )
-     * @ORM\OneToMany(targetEntity="Region", mappedBy="drivers")
+     * @ORM\ManyToOne(targetEntity="Region", inversedBy="drivers")
      */
     protected $region;
 
     /**
-     * @Assert\NotBlank( message = "Поле город обязательно для заполнения" )
-     * @ORM\OneToMany(targetEntity="City", mappedBy="drivers")
+     * @ORM\ManyToOne(targetEntity="City", inversedBy="drivers")
      */
     protected $city;
 
@@ -98,7 +96,6 @@ class Driver extends BaseEntity
     /**
      * @Assert\NotBlank( message = "Поле копия документа удостоверяющая личность обязательно для заполнения" )
      * @Assert\File(maxSize="5M")
-     * @Assert\Image()
      * @FileStore\UploadableField(mapping="docs")
      * @ORM\Column(type="array")
      */
@@ -107,7 +104,6 @@ class Driver extends BaseEntity
     /**
      * @ORM\Column(type="array")
      * @Assert\File(maxSize="5M")
-     * @Assert\Image()
      * @Assert\NotBlank( message = "Поле копия водительского удостоверения обязательно для заполнения" )
      * @FileStore\UploadableField(mapping="docs")
      */
@@ -116,7 +112,6 @@ class Driver extends BaseEntity
     /**
      * @Assert\NotBlank( message = "Поле фотография обязательно для заполнения" )
      * @Assert\File(maxSize="5M")
-     * @Assert\Image()
      * @FileStore\UploadableField(mapping="docs")
      * @ORM\Column(type="array")
      */
@@ -125,7 +120,6 @@ class Driver extends BaseEntity
     /**
      * @Assert\NotBlank( message = "Поле подпись обязательно для заполнения" )
      * @Assert\File(maxSize="5M")
-     * @Assert\Image()
      * @FileStore\UploadableField(mapping="docs")
      * @ORM\Column(type="array")
      */
