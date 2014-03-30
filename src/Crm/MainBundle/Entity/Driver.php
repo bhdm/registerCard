@@ -17,7 +17,8 @@ use Doctrine\Common\Collections\ArrayCollection;
 class Driver extends BaseEntity
 {
     /**
-     * @ORM\OneToOne(targetEntity="User", cascade={"persist", "remove"})
+     * @ORM\OneToOne(targetEntity="User", inversedBy="driver")
+     *
      */
     protected $user;
 

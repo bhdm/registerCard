@@ -107,9 +107,11 @@ class AuthController extends Controller
                     $user->setSalt(md5($user));
                     $em->persist($user);
                     $em->flush();
+                    $em->refresh($user);
                 }
                 if ($formDriver->isValid()) {
                     $driver = $formDriver->getData();
+                    $driver->setuser($user);
                     $em->persist($driver);
                     $em->flush();
                 }

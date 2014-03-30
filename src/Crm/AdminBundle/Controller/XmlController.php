@@ -16,6 +16,7 @@ class XmlController extends Controller
 {
     /**
      * @Route("/admin/xml-generator/{userId}", name="xml_generator")
+     * @Template("CrmAdminBundle:Xml:generate_xml.html.twig")
      */
     public function generateAction($userId)
     {
