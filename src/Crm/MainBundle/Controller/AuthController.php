@@ -16,7 +16,7 @@ use Crm\MainBundle\Form\Type\UserType;
 use Crm\MainBundle\Form\Type\DriverType;
 use Crm\MainBundle\Form\Type\CompanyType;
 use Symfony\Component\Form\FormError;
-
+use Zelenin\smsru;
 
 /**
  * http://habrahabr.ru/post/128159/
@@ -41,9 +41,11 @@ class AuthController extends Controller
             $lastName = $request->request->get('lastName');
             $firstName = $request->request->get('firstName');
             $phone = $request->request->get('phone');
-
+            $phone = str_replace(array('(',')','-',''),array('','','',''),$phone);
 //            $testCode = rand(123456 , 999999);
             $testCode = 12345;
+            $sms = new smsru('a8f0f6b6-93d1-3144-a9a1-13415e3b9721');
+            $sms->sms_send( $phone, 'Номер для подтверждения телефона: '.$testCode , 'IM-KARD.RU', time(), false, false ); # последний параметр заменить на true
 
             $session = new Session();
             $session->set('user', array(
