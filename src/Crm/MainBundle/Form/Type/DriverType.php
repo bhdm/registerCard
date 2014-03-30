@@ -51,7 +51,7 @@ class DriverType extends AbstractType
 
         $builder
             ->add($builder->create('zipcode',   'text',   array('required' => true,    'label' => 'Почтовый индекс')))
-            ->add($builder->create('country',   'choice', array('required' => true,    'label' => 'Страна', 'choices' => $country,  'attr'=> array('class'=>'place-select')))->addModelTransformer($countryToStringTransformer))
+//            ->add($builder->create('country',   'choice', array('required' => true,    'label' => 'Страна', 'choices' => $country,  'attr'=> array('class'=>'place-select')))->addModelTransformer($countryToStringTransformer))
             ->add($builder->create('region',    'choice', array('required' => true,    'label' => 'Регион', 'choices' => $region, 'attr'=> array('class'=>'place-select')))->addModelTransformer($regionToStringTransformer))
             ->add($builder->create('city',      'choice', array('required' => true,    'label' => 'Город',  'choices' => $city,  'attr'=> array('class'=>'place-select')))->addModelTransformer($cityToStringTransformer))
             ->add($builder->create('area',      'text',   array('required' => false,    'label' => 'Район')))
@@ -62,20 +62,20 @@ class DriverType extends AbstractType
 
             ->add('delivery', 'choice', array(
                 'choices' => array(
-                    '0' => 'Доставка 1',
-                    '1' => 'Доставка 2'
+                    '0' => 'Курьерской службой компании МосАвтоКарт',
+                    '1' => 'Самовывоз из пункта подачи заявки'
                 ),
-                'label'       => 'Доставка',
+                'label'       => 'Способ доставки',
                 'required'    => true,
                 'empty_data'  => null,
                 'attr' => array('class' => 'delivery-select')
             ))
             ->add('cardEurope', 'checkbox', array(
-                'label'     => 'Тип карты 1',
+                'label'     => 'Отвечающая требованиям европейского соглашения, касающегося работы экипажей транспортных средств, производящих международные автомобильные перевозки (ЕСТР)',
                 'required'  => false,
             ))
             ->add('cardTeh', 'checkbox', array(
-                'label'     => 'Тип карты 2',
+                'label'     => 'Отвечающая требованиям технического регламента «О безопасности колесных транспортных средств»',
                 'required'  => false,
             ))
 

@@ -20,18 +20,31 @@
 
 {% block form_row %}
     {% spaceless %}
-        <tr class="row row_{{ name }}">
-            <td class="label">
-                <div class="form_label">{{ form_label(form) }}</div>
-                {% if attr['data-help'] is defined %}
-                    <div class="data-help">{{ attr['data-help'] }}</div>
-                {% endif %}
-            </td>
-            <td class="widget">
-                <div class="form_widget">{{ form_widget(form) }}</div>
-                <div class="form_error">{{ form_errors(form) }}</div>
-            </td>
-        </tr>
+        {% if 'checkbox' in form.vars.block_prefixes %}
+            <tr class="row row_{{ name }}">
+                <td colspan="2" style="padding: 5px">
+                    <div class="form_widget" style="display: inline; padding-right: 15px;">{{ form_widget(form) }}</div>
+                    <div class="form_label" style="display: inline; padding-right: 15px;">{{ form_label(form) }}</div>
+                    {#{% if attr['data-help'] is defined %}#}
+                    {#<div class="data-help">{{ attr['data-help'] }}</div>#}
+                    {#{% endif %}                #}
+                    {#<div class="form_error">{{ form_errors(form) }}</div>#}
+                </td>
+            </tr>
+        {% else %}
+            <tr class="row row_{{ name }}">
+                <td class="label">
+                    <div class="form_label">{{ form_label(form) }}</div>
+                    {% if attr['data-help'] is defined %}
+                        <div class="data-help">{{ attr['data-help'] }}</div>
+                    {% endif %}
+                </td>
+                <td class="widget">
+                    <div class="form_widget">{{ form_widget(form) }}</div>
+                    <div class="form_error">{{ form_errors(form) }}</div>
+                </td>
+            </tr>
+        {% endif %}
     {% endspaceless %}
 {% endblock form_row %}
 
@@ -56,6 +69,8 @@
     {% endspaceless %}
 {% endblock hidden_row %}
 
+
+
 {% block form_widget_compound %}
     {% spaceless %}
         <table {{ block('widget_container_attributes') }} class="form_table">
@@ -73,3 +88,5 @@
         </table>
     {% endspaceless %}
 {% endblock form_widget_compound %}
+
+
