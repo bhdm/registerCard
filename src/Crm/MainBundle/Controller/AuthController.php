@@ -148,4 +148,11 @@ class AuthController extends Controller
         );
     }
 
+    /**
+     * @Route("/auth/select-city", name="select-city" , options={"expose"=true})
+     */
+    public function selectCity(){
+
+        return array();
+    }
 }
