@@ -16,14 +16,18 @@ class XmlController extends Controller
 {
     /**
      * @Route("/admin/xml-generator/{userId}", name="xml_generator")
-     * @Template("CrmAdminBundle:Xml:generate_xml.html.twig")
      */
     public function generateAction($userId)
     {
+        $user = $this->getDoctrine()->getRepository('CrmMainBundle:User')->findOneById($userId);
+        $driver = $this->getDoctrine()->getRepository('CrmMainBundle:Driver')->findOneByUser($user);
 
-        $driver = $this->getDoctrine()->getRepository('CrmMainBundle:Driver')->findOneById($userId);
-
-        return array('driver' => $driver);
+        $response = new Response();
+        $response->headers->set('Content-Type', 'text/csv');
+        $content = $this->renderView("CrmAdminBundle:Xml:generate_xml.html.twig", array('driver' => $driver));
+        $response->headers->set('Content-Disposition', 'attachment;filename="XMLgeneration.xml');
+        $response->setContent($content);
+        return $response;
     }
 
 
