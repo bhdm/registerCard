@@ -45,7 +45,7 @@ class AuthController extends Controller
 //            $testCode = rand(123456 , 999999);
             $testCode = 12345;
             $sms = new smsru('a8f0f6b6-93d1-3144-a9a1-13415e3b9721');
-            $sms->sms_send( $phone, 'Номер для подтверждения телефона: '.$testCode , 'IM-KARD.RU', time(), false, false ); # последний параметр заменить на true
+            $sms->sms_send( $phone, 'Номер для подтверждения телефона: '.$testCode  ); # последний параметр заменить на true
 
             $session = new Session();
             $session->set('user', array(
