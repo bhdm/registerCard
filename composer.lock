@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "b24c60b17183727af497d1b2f6d84f94",
+    "hash": "d1a70306f3e1e385859538427be1347b",
     "packages": [
         {
             "name": "doctrine/annotations",
@@ -1915,6 +1915,50 @@
             ],
             "description": "JSONP callback validator.",
             "time": "2014-01-20 22:35:06"
+        },
+        {
+            "name": "zelenin/smsru",
+            "version": "1.4.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/zelenin/sms_ru.git",
+                "reference": "945a303608da7b325a8bc77d0772db33bb5f79b2"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/zelenin/sms_ru/zipball/945a303608da7b325a8bc77d0772db33bb5f79b2",
+                "reference": "945a303608da7b325a8bc77d0772db33bb5f79b2",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Zelenin\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Aleksandr Zelenin",
+                    "email": "aleksandr@zelenin.me",
+                    "homepage": "http://zelenin.me",
+                    "role": "Developer"
+                }
+            ],
+            "description": "PHP-класс для работы с api сервиса [sms.ru](http://sms.ru)",
+            "homepage": "https://github.com/zelenin/sms_ru",
+            "keywords": [
+                "api",
+                "sms",
+                "sms.ru"
+            ],
+            "time": "2014-01-10 00:00:00"
         }
     ],
     "packages-dev": [

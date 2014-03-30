@@ -22,7 +22,8 @@
         "gedmo/doctrine-extensions":      "dev-master",
         "iphp/filestore-bundle":"dev-master",
         "knplabs/knp-paginator-bundle": "~2.4",
-        "friendsofsymfony/jsrouting-bundle": "@stable"
+        "friendsofsymfony/jsrouting-bundle": "@stable",
+        "zelenin/smsru" : "1.4.2"
 
     },
     "scripts": {
