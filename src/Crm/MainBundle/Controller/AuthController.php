@@ -149,16 +149,15 @@ class AuthController extends Controller
     }
 
     /**
-     * @Route("/auth/select-city/{regionId}", name="select-city" , options={"expose"=true})
+     * @Route("/auth/select-city/{regionId}", name="select_city" , options={"expose"=true})
      */
     public function selectCity($regionId){
         $region = $this->getDoctrine()->getRepository('CrmMainBundle:Region')->findOneById($regionId);
         if ($region){
             $cities = $this->getDoctrine()->getRepository('CrmMainBundle:City')->findByRegion($region);
-//            return new Response()->te
         }else{
-//            $cities = ''
+            $cities = array();
         }
-        return array();
+        return $cities;
     }
 }

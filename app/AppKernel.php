@@ -18,6 +18,8 @@ class AppKernel extends Kernel
             new Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle(),
             new Iphp\FileStoreBundle\IphpFileStoreBundle(),
             new Knp\Bundle\PaginatorBundle\KnpPaginatorBundle(),
+            new FOS\JsRoutingBundle\FOSJsRoutingBundle(),
+
             new Crm\MainBundle\CrmMainBundle(),
             new Crm\AdminBundle\CrmAdminBundle(),
         );

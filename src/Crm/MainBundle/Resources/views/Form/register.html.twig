@@ -120,6 +120,17 @@
 //                    $('select').trigger("liszt:updated");
                 }
             });
+
+            $('.form_widget').on('change','#driver_region', function(){
+                alert( Routing.generate('select_city', { regionId: $('#driver_region').val() }) );
+                $.ajax({
+                    type: "GET",
+                    url: Routing.generate('select_city', { regionId: $('#driver_region').val() }),
+                    success: function (msg) {
+                        $('#driver_city').html(msg);
+                    }
+                })
+            });
         });
 
     </script>

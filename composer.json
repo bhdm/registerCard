@@ -21,7 +21,8 @@
         "incenteev/composer-parameter-handler": "~2.0",
         "gedmo/doctrine-extensions":      "dev-master",
         "iphp/filestore-bundle":"dev-master",
-        "knplabs/knp-paginator-bundle": "~2.4"
+        "knplabs/knp-paginator-bundle": "~2.4",
+        "friendsofsymfony/jsrouting-bundle": "@stable"
 
     },
     "scripts": {
