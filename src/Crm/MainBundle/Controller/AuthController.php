@@ -150,6 +150,7 @@ class AuthController extends Controller
 
     /**
      * @Route("/auth/select-city/{regionId}", name="select_city" , options={"expose"=true})
+     * @Template("CrmMainBundle:Form:cities.html.twig")
      */
     public function selectCity($regionId){
         $region = $this->getDoctrine()->getRepository('CrmMainBundle:Region')->findOneById($regionId);
@@ -158,6 +159,6 @@ class AuthController extends Controller
         }else{
             $cities = array();
         }
-        return $cities;
+        return array('cities' => $cities);
     }
 }
