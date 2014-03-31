@@ -31,5 +31,16 @@ class XmlController extends Controller
     }
 
 
+    /**
+     * @param array $file
+     * @return string
+     */
+    public function imageToBase64($file){
+        $filePath = $this->getUploadRootDir().'/'.$file['path'];
+        $imagedata = file_get_contents($filePath);
+        $base64 = base64_encode($imagedata);
+        return $base64;
+    }
+
 
 }
