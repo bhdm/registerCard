@@ -10,10 +10,16 @@ a{
     text-decoration: none;
 }
 a:hover{
-    color: #8800cc;
+    color: #0088CC;
     text-decoration: underline;
 }
 
+a.active:after{
+    content: " > ";
+}
+a.active{
+    font-weight: bold;
+}
 
 
 .body{

@@ -19,7 +19,7 @@ class PageController extends Controller
     public function listAction()
     {
         $pages = $this->getDoctrine()->getRepository('CrmMainBundle:Page')->findAll();
-        return array('pageAct' => 'page-list','pages' => $pages);
+        return array('pageAct' => 'page_list','pages' => $pages);
     }
 
     /**
@@ -49,7 +49,7 @@ class PageController extends Controller
             }
         }
 
-        return array('pageAct' => 'page-list', 'form' => $form->createView());
+        return array('pageAct' => 'page_list', 'form' => $form->createView());
     }
 
     /**
@@ -69,6 +69,7 @@ class PageController extends Controller
             ->add('submit', 'submit', array('label' => 'Сохранить', 'attr' => array('class' => 'btn')));
 
         $form    = $builder->getForm();
+        $form->handleRequest($request);
 
         if ($request->isMethod('POST')) {
             if ($form->isValid()){
@@ -79,7 +80,7 @@ class PageController extends Controller
         }
 
         return array(
-            'pageAct' => 'page-list',
+            'pageAct' => 'page_list',
             'form'     => $form->createView(),
         );
 
