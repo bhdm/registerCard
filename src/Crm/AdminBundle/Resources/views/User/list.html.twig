@@ -17,7 +17,12 @@
                 <td>{{ user.lastName }}</td>
                 <td>{{ user.firstName }}</td>
                 <td>{{ user.surName }}</td>
-                <td><a href="{{ path('xml_generator',{ userId : user.id }) }}" target="_blank">скачать XML</a></td>
+                <td>
+                    <a href="{{ path('user_show',{'userId' : user.id}) }}">Просмотр</a>
+                    <span>&nbsp;&nbsp;&nbsp;</span>
+                    <a href="{{ path('xml_generator',{ userId : user.id }) }}" target="_blank">скачать XML</a>
+
+                </td>
             </tr>
         {% endfor %}
     </table>

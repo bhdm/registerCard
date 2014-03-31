@@ -39,7 +39,8 @@ class PageController extends Controller
             ->add('body', null, array('label' => 'Тело страницы', 'attr' => array('class' => 'ckeditor')))
             ->add('submit', 'submit', array('label' => 'Сохранить', 'attr' => array('class' => 'btn')));
 
-        $form = $builder->getForm();
+        $form    = $builder->getForm();
+        $form->handleRequest($request);
 
         if ($request->isMethod('POST')) {
             if ($form->isValid()) {

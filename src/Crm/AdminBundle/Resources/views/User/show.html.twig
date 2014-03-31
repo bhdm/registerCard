@@ -1,0 +1,121 @@
+{% extends 'CrmAdminBundle::layout.html.twig' %}
+
+{% block content %}
+    <div class="crumbs">
+        <a href="{{ path('user_list') }}">Заказы</a>
+        >>
+        <a href="#">{{ user.lastName }} {{ user.firstName }}</a>
+    </div>
+    <div class="show-box">
+        <table class="show">
+            <tr>
+                <td class="label">Фамилия</td>
+                <td class="value">{{ user.lastName }}</td>
+            </tr>
+            <tr>
+                <td class="label">Имя</td>
+                <td class="value">{{ user.firstName }}</td>
+            </tr>
+            <tr>
+                <td class="label">Отчество</td>
+                <td class="value">{{ user.surName }}</td>
+            </tr>
+            <tr>
+                <td class="label">Фамилия на латинице</td>
+                <td class="value">{{ user.latLatsName }}</td>
+            </tr>
+            <tr>
+                <td class="label">Имя на латинице</td>
+                <td class="value">{{ user.latFirstName }}</td>
+            </tr>
+            <tr>
+                <td class="label">Дата рождения</td>
+                <td class="value">{{ user.birthDate | date("d.m.Y") }}</td>
+            </tr>
+            <tr>
+                <td class="label">E-mail</td>
+                <td class="value">{{ user.email }}</td>
+            </tr>
+            <tr>
+                <td class="label">Телефон</td>
+                <td class="value">{{ user.username }}</td>
+            </tr>
+
+            {% if user.driver is not null %}
+                {% set user = user.driver %}
+                <tr>
+                    <td class="label">Индекс</td>
+                    <td class="value">{{ user.zipcode }}</td>
+                </tr>
+                <tr>
+                    <td class="label">Страна</td>
+                    <td class="value">Россия</td>
+                </tr>
+                <tr>
+                    <td class="label">Регион</td>
+                    <td class="value">{{ user.region.title }}</td>
+                </tr>
+                <tr>
+                    <td class="label">Город</td>
+                    <td class="value">{{ user.city.title }}</td>
+                </tr>
+                <tr>
+                    <td class="label">Область</td>
+                    <td class="value">{{ user.area }}</td>
+                </tr>
+                <tr>
+                    <td class="label">Улица</td>
+                    <td class="value">{{ user.street }}</td>
+                </tr>
+                <tr>
+                    <td class="label">Дом</td>
+                    <td class="value">{{ user.home }}</td>
+                </tr>
+                <tr>
+                    <td class="label">Корпус / строение</td>
+                    <td class="value">{{ user.corp }}</td>
+                </tr>
+                <tr>
+                    <td class="label">Квартира</td>
+                    <td class="value">{{ user.room }}</td>
+                </tr>
+                <tr>
+                    <td class="label">Доставка</td>
+                    <td class="value">{{ user.delivery ? '1' : '2'}}</td>
+                </tr>
+
+            {% endif %}
+        </table>
+
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset("bundles/crmmain/lib/chosen/chosen.jquery.js") }}" type="text/javascript"></script>
+    <script>
+
+    </script>
+
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link href="{{ asset('bundles/crmmain/lib/chosen/chosen.css') }}" rel="stylesheet" media="all">
+    <style>
+
+        .show{
+            /*margin-left: 200px;*/
+        }
+        .show .label{
+            width: 250px;
+            /*text-align: right;*/
+            padding: 5px 25px 5px 0;
+            font-weight: bold;
+            border-bottom: 1px solid #dadada;
+        }
+        .show .value{
+            border-bottom: 1px solid #dadada;
+        }
+    </style>
+{% endblock %}

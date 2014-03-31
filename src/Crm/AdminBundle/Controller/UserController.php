@@ -22,4 +22,15 @@ class UserController extends Controller
         );
     }
 
+    /**
+     * @Route("/admin/user-show/{userId}", name="user_show")
+     * @Template("CrmAdminBundle:User:show.html.twig")
+     */
+    public function showAction($userId){
+        $em = $this->getDoctrine()->getManager();
+        $user = $em->getRepository('CrmMainBundle:User')->findOneById($userId);
+
+        return array('pageAct' => 'page_user', 'user' => $user);
+    }
+
 }
