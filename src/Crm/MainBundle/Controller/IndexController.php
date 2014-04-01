@@ -6,6 +6,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Crm\MainBundle\Entity\Page;
+use Crm\MainBundle\Entity\Faq;
+use Crm\MainBundle\Entity\Document;
 
 class IndexController extends Controller
 {
@@ -46,9 +48,7 @@ class IndexController extends Controller
      * @Template()
      */
     public function documentsAction(){
-
         $docs = $this->getDoctrine()->getRepository('CrmMainBundle:Document')->findByEnabled(true);
-
         return array('documents' => $docs);
     }
 
@@ -57,7 +57,8 @@ class IndexController extends Controller
      * @Template()
      */
     public function faqAction(){
-        array();
+        $faqs = $this->getDoctrine()->getRepository('CrmMainBundle:Faq')->findByEnabled(true);
+        return array('faqs' => $faqs);
     }
 
     /**
