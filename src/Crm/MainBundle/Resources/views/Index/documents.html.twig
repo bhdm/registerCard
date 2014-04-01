@@ -1,0 +1,30 @@
+{% extends 'CrmMainBundle::layout.html.twig' %}
+
+{% block content %}
+    <div class="box">
+        <h2>Документы</h2>
+        <table>
+            {% for document in documents %}
+                <tr>
+                    <td>
+                        {{ document.title }}
+                        {{ document.category }}
+                    </td>
+                    <td>
+                        <a href="#">Скачать</a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </table>
+    </div>
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <style>
+        .box{
+            width: 900px;
+            margin: 0 auto;
+        }
+    </style>
+{% endblock %}

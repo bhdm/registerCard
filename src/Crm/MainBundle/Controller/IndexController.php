@@ -46,7 +46,10 @@ class IndexController extends Controller
      * @Template()
      */
     public function documentsAction(){
-        array();
+
+        $docs = $this->getDoctrine()->getRepository('CrmMainBundle:Document')->findByEnabled(true);
+
+        return array('documents' => $docs);
     }
 
     /**

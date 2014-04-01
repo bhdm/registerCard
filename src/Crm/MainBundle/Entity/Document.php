@@ -13,7 +13,7 @@ use Iphp\FileStoreBundle\Mapping\Annotation as FileStore;
  * @ORM\Entity
  * @FileStore\Uploadable
  */
-class File extends BaseEntity
+class Document extends BaseEntity
 {
 
     /**

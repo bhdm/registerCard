@@ -69,11 +69,41 @@ input:focus{
     outline: none;
 }
 h2{
-    color: #333333;
+    color: #1a5f89;
     font-weight: normal;
     text-transform: uppercase;
 }
 
+/* Menu */
+
+.menu{
+    margin-left: 30px;
+    width: 700px;
+    height: 40px;
+}
+.menu span {
+    padding: 10px;
+    display: inline-block;
+    text-transform: uppercase;
+    font-weight: bold;
+    color: #636363;
+}
+.menu span a{
+    color: #636363;
+    text-decoration: none;
+}
+.menu span:hover{
+    border-bottom: 1px solid #1a5f89;
+    cursor: pointer;
+    color: #1a5f89;
+    box-shadow: -5px 5px 15px #888;
+}
+.menu span:hover a{
+    color: #1a5f89;
+}
+
+
+/* **** */
 
 .btn {
     -moz-box-shadow:inset 0px 1px 0px 0px #ffffff;
