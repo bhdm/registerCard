@@ -5,8 +5,8 @@
         <h2>Частые вопросы</h2>
             {% for faq in faqs %}
                 <div class="faq-box">
-                    <div class="faq-question">{{ faq.question }}</div>
-                    <div class="faq-answer">{{ faq.answer }}</div>
+                    <div class="faq-question">{{ faq.question |raw }}</div>
+                    <div class="faq-answer">{{ faq.answer |raw  }}</div>
                 </div>
             {% endfor %}
     </div>
@@ -16,5 +16,34 @@
     {{ parent() }}
     <style>
 
+        .faq-box{
+            padding: 5px 10px;
+            border-bottom: 1px solid #1a5f89;
+        }
+        .faq-box:hover{
+            box-shadow: -5px 5px 15px #888;
+        }
+        .faq-question{
+            color: #1a5f89;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        .faq-answer{
+            color: #444444;
+            padding-left: 30px;
+            display: none;
+        }
     </style>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+        $(document).ready(function(){
+            $('.faq-box').click(function(){
+                $('.faq-answer').fadeOut();
+                $(this).children('.faq-answer').fadeIn();
+            })
+        })
+    </script>
 {% endblock %}

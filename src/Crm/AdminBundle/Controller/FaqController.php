@@ -75,6 +75,8 @@ class FaqController extends Controller
                 $faq = $form->getData();
                 $em->persist($faq);
                 $em->flush();
+                $em->refresh($faq);
+                return $this->redirect($this->generateUrl('faq_edit', array('faqId' => $faq->getId())));
             }
         }
 
