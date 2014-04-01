@@ -24,7 +24,7 @@ class IndexController extends Controller
     }
 
     /**
-     * @Route("/page/{Url}", name="page")
+     * @Route("/page/{url}", name="page")
      * @Template()
      */
     public function pageAction($url){
@@ -40,4 +40,31 @@ class IndexController extends Controller
         $page = $this->getDoctrine()->getRepository('CrmMainBundle:Document')->findOneById($id);
         return array( 'page' => $page );
     }
+
+    /**
+     * @Route("/docments", name="documents")
+     * @Template()
+     */
+    public function documentsAction(){
+        array();
+    }
+
+    /**
+     * @Route("/faq", name="faq")
+     * @Template()
+     */
+    public function faqAction(){
+        array();
+    }
+
+    /**
+     * @Route("/status", name="status")
+     * @Template()
+     */
+    public function statusAction(){
+        array();
+    }
+
+
+
 }

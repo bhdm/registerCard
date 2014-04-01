@@ -10,6 +10,37 @@
         {% endblock %}
         {% block stylesheets %}
             <link href="{{ asset('bundles/crmmain/stylesheets/common.css') }}" rel="stylesheet" media="all">
+            <style>
+                .menu{
+                    margin-left: 30px;
+                    width: 700px;
+                    height: 40px;
+                }
+                .menu span {
+                    padding: 10px;
+                    display: inline-block;
+                    text-transform: uppercase;
+                    font-weight: bold;
+                    color: #636363;
+                }
+                .menu span a{
+                    color: #636363;
+                    text-decoration: none;
+                }
+                .menu span:hover{
+                    border-bottom: 1px solid #1a5f89;
+                    cursor: pointer;
+                    color: #1a5f89;
+                    box-shadow: -5px 5px 15px #888;
+                }
+                .menu span:hover a{
+                    color: #1a5f89;
+                }
+
+                h2{
+                    color: #1a5f89;
+                }
+            </style>
         {% endblock %}
         {% block javascripts %}
             <script rel="script" src="{{ asset('bundles/crmmain/javascripts/jQuery.js') }}"></script>
@@ -30,6 +61,7 @@
                 <img src="{{ asset('bundles/crmmain/images/head.jpg') }}">
             </header>
             <div class="content">
+                {% include ("CrmMainBundle::menu.html.twig")  %}
                 {% block content %}{% endblock %}
             </div>
             {# @todo Перевести в плагин #}
