@@ -1,0 +1,15 @@
+{% extends 'CrmMainBundle::layout.html.twig' %}
+
+{% block content %}
+    <div class="box">
+        <h2>{{ page.title }}</h2>
+        {{ page.body | raw }}
+    </div>
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <style>
+
+    </style>
+{% endblock %}

@@ -1,0 +1,27 @@
+{% extends 'CrmAdminBundle::layout.html.twig' %}
+
+{% block content %}
+    <div class="crumbs">
+        <a href="#">Частые вопросы</a>
+        >>
+        <a href="{{ path('faq_add') }}">Добавить</a>
+    </div>
+
+    <table class="list">
+        <tr>
+            <th>Название</th>
+            <th>URL</th>
+            <th class="setting"></th>
+        </tr>
+        {% for faq in faqs %}
+            <tr>
+                <td>{{ faq.question |raw  [:75] | raw }}</td>
+                <td>{{ faq.answer | raw [:120] | raw }}</td>
+                <td class="setting">
+                    <a href="{{ path('faq_edit',{ 'faqId' : faq.id }) }}"><img class="ico" src="{{ asset('bundles/crmadmin/images/icon/image15.png') }}"/></a>
+                    <a href="{{ path('faq_delete',{ 'faqId' : faq.id }) }}"><img class="ico" src="{{ asset('bundles/crmadmin/images/icon/image13.png') }}"/></a>
+                </td>
+            </tr>
+        {% endfor %}
+    </table>
+{% endblock %}
