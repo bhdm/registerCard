@@ -47,11 +47,17 @@ class Country
      */
     protected $companies;
 
+    /**
+     * @ORM\OneToMany(targetEntity="User", mappedBy="driverDocCountry")
+     */
+    protected $driverDocCountries;
+
     public function __construct(){
         $this->regions = new ArrayCollection();
         $this->cities = new ArrayCollection();
         $this->drivers = new ArrayCollection();
         $this->companies = new ArrayCollection();
+        $this->driverDocCountries = new ArrayCollection();
     }
 
     /**
@@ -169,6 +175,22 @@ class Country
     public function setDrivers($drivers)
     {
         $this->drivers = $drivers;
+    }
+
+    /**
+     * @param mixed $driverDocCountries
+     */
+    public function setDriverDocCountries($driverDocCountries)
+    {
+        $this->driverDocCountries = $driverDocCountries;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getDriverDocCountries()
+    {
+        return $this->driverDocCountries;
     }
 
 

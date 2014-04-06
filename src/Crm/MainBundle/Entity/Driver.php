@@ -22,9 +22,20 @@ class Driver extends BaseEntity
      */
     protected $user;
 
+    # Транспортное предприятие
+
+    /**
+     * @Assert\NotBlank( message = "Поле название транспортного предприятия обязательно для заполнения" )
+     * @ORM\Column(type="string")
+     */
+    protected $companyName;
+
+    # Адрес
+
     /**
      * @Assert\NotBlank( message = "Поле почтоый индекс обязательно для заполнения" )
-     * @ORM\Column(type="string", length=10)
+     * @Assert\Regex(pattern= "/^[0-9]{11}$/", message="Неверный формат ввода.")
+     * @ORM\Column(type="string", length=12)
      */
     protected  $zipcode;
 

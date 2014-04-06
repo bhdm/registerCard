@@ -65,6 +65,7 @@ class User extends BaseEntity implements UserInterface, EquatableInterface, \Ser
     protected  $birthDate;
 
     /**
+     * @Assert\Regex(pattern= "/^[0-9\(\)\-\+\ ]+$/", message="Неверный формат ввода.")
      * @Assert\NotBlank( message = "Поле телефон обязательно для заполнения" )
      * @ORM\Column(type="string", length=15)
      */
@@ -72,9 +73,74 @@ class User extends BaseEntity implements UserInterface, EquatableInterface, \Ser
 
     /**
      * @Assert\NotBlank( message = "Поле E-mail обязательно для заполнения" )
+     * @Assert\Regex(pattern= "/^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{1,})$/", message="Неверный формат ввода.")
      * @ORM\Column(type="string", length=15)
      */
     protected  $email;
+
+    # Паспорт
+
+    /**
+     * @ORM\Column(type="string", nullable=true)
+     */
+    protected $passportSerial;
+
+    /**
+     * @Assert\NotBlank( message = "Поле номер паспорта обязательно для заполнения" )
+     * @ORM\Column(type="string", length=50)
+     */
+    protected $passportNumber;
+
+    /**
+     * @ORM\Column(type="string", nullable=true)
+     */
+    protected $passportIssuance;
+
+    /**
+     * @Assert\NotBlank( message = "Поле дата выдачи паспорта обязательно для заполнения" )
+     * @ORM\Column(type="datetime")
+     */
+    protected $passportIssuanceDate;
+
+    /** Код подразделения
+     * @ORM\Column(type="string", length=15, nullable=true)
+     */
+    protected $passportCode;
+
+    # Водительское удостоверение
+
+    /**
+     * @Assert\NotBlank( message = "Поле Номер водительского удостоверения обязательно для заполнения" )
+     * @Assert\Regex(pattern= "/^[0-9]{2}[А-Я|0-9]{2}[0-9]{6}$/", message="Неверный формат ввода.")
+     * @ORM\Column(type="string")
+     */
+    protected $driverDocNumber;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Country", inversedBy="driverDocCountries")
+     */
+    protected $driverDocCountry;
+
+    /**
+     * @Assert\NotBlank( message = "Поле кем выдано водительское удостоверение обязательно для заполнения" )
+     * @ORM\Column(type="string")
+     */
+    protected $driverDocIssuance;
+
+    /**
+     * @Assert\NotBlank( message = "Поле дата выдачи водительского удостоверения обязательно для заполнения" )
+     * @ORM\Column(type="datetime")
+     */
+    protected $driverDocDateStarts;
+
+    /**
+     * @Assert\NotBlank( message = "Поле действителен до (водительское удостоверение) обязательно для заполнения" )
+     * @ORM\Column(type="datetime")
+     */
+    protected $driverDocDateEnds;
+
+
+
 
     /**
      * @Assert\NotBlank( message = "Поле пароль обязательно для заполнения" )
@@ -87,6 +153,19 @@ class User extends BaseEntity implements UserInterface, EquatableInterface, \Ser
      * @var string salt
      */
     protected $salt;
+
+    /**
+     * @Assert\NotBlank( message = "Поле СНИЛС обязательно для заполнения" )
+     * @Assert\Regex(pattern= "/^[0-9]{11}$/", message="Неверный формат ввода.")
+     * @ORM\Column(type="string")
+     */
+    protected $snils;
+
+    /**
+     * @Assert\Regex(pattern= "/^RU[DMP][A-Z0-9]{13}$/", message="Неверный формат ввода.")
+     * @ORM\Column(type="string", nullable=true)
+     */
+    protected $lastNumberCard;
 
     /**
      * @ORM\Column(type="string")
