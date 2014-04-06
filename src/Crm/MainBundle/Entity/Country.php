@@ -48,7 +48,7 @@ class Country
     protected $companies;
 
     /**
-     * @ORM\OneToMany(targetEntity="User", mappedBy="driverDocCountry")
+     * @ORM\OneToMany(targetEntity="Driver", mappedBy="driverDocCountry")
      */
     protected $driverDocCountries;
 

@@ -30,6 +30,72 @@ class Driver extends BaseEntity
      */
     protected $companyName;
 
+    # Паспорт
+
+    /**
+     * @ORM\Column(type="string", nullable=true)
+     */
+    protected $passportSerial;
+
+    /**
+     * @Assert\NotBlank( message = "Поле номер паспорта обязательно для заполнения" )
+     * @ORM\Column(type="string", length=50)
+     */
+    protected $passportNumber;
+
+    /**
+     * @ORM\Column(type="string", nullable=true)
+     */
+    protected $passportIssuance;
+
+    /**
+     * @Assert\NotBlank( message = "Поле дата выдачи паспорта обязательно для заполнения" )
+     * @ORM\Column(type="datetime")
+     */
+    protected $passportIssuanceDate;
+
+    /** Код подразделения
+     * @ORM\Column(type="string", length=15, nullable=true)
+     */
+    protected $passportCode;
+
+    # Водительское удостоверение
+
+    /**
+     * @Assert\NotBlank( message = "Поле Номер водительского удостоверения обязательно для заполнения" )
+     * @Assert\Regex(pattern= "/^[0-9]{2}[А-Я|0-9]{2}[0-9]{6}$/", message="Неверный формат ввода.")
+     * @ORM\Column(type="string")
+     */
+    protected $driverDocNumber;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Country", inversedBy="driverDocCountries")
+     */
+    protected $driverDocCountry;
+
+    /**
+     * @Assert\NotBlank( message = "Поле кем выдано водительское удостоверение обязательно для заполнения" )
+     * @ORM\Column(type="string")
+     */
+    protected $driverDocIssuance;
+
+    /**
+     * @Assert\NotBlank( message = "Поле дата выдачи водительского удостоверения обязательно для заполнения" )
+     * @ORM\Column(type="datetime")
+     */
+    protected $driverDocDateStarts;
+
+    /**
+     * @Assert\NotBlank( message = "Поле действителен до (водительское удостоверение) обязательно для заполнения" )
+     * @ORM\Column(type="datetime")
+     */
+    protected $driverDocDateEnds;
+    /**
+     * @Assert\Regex(pattern= "/^RU[DMP][A-Z0-9]{13}$/", message="Неверный формат ввода.")
+     * @ORM\Column(type="string", nullable=true)
+     */
+    protected $lastNumberCard;
+
     # Адрес
 
     /**
@@ -457,6 +523,199 @@ class Driver extends BaseEntity
     {
         $this->user = $user;
     }
+
+    /**
+     * @param mixed $companyName
+     */
+    public function setCompanyName($companyName)
+    {
+        $this->companyName = $companyName;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCompanyName()
+    {
+        return $this->companyName;
+    }
+
+    /**
+     * @param mixed $driverDocCountry
+     */
+    public function setDriverDocCountry($driverDocCountry)
+    {
+        $this->driverDocCountry = $driverDocCountry;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getDriverDocCountry()
+    {
+        return $this->driverDocCountry;
+    }
+
+    /**
+     * @param mixed $driverDocDateEnds
+     */
+    public function setDriverDocDateEnds($driverDocDateEnds)
+    {
+        $this->driverDocDateEnds = $driverDocDateEnds;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getDriverDocDateEnds()
+    {
+        return $this->driverDocDateEnds;
+    }
+
+    /**
+     * @param mixed $driverDocDateStarts
+     */
+    public function setDriverDocDateStarts($driverDocDateStarts)
+    {
+        $this->driverDocDateStarts = $driverDocDateStarts;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getDriverDocDateStarts()
+    {
+        return $this->driverDocDateStarts;
+    }
+
+    /**
+     * @param mixed $driverDocIssuance
+     */
+    public function setDriverDocIssuance($driverDocIssuance)
+    {
+        $this->driverDocIssuance = $driverDocIssuance;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getDriverDocIssuance()
+    {
+        return $this->driverDocIssuance;
+    }
+
+    /**
+     * @param mixed $driverDocNumber
+     */
+    public function setDriverDocNumber($driverDocNumber)
+    {
+        $this->driverDocNumber = $driverDocNumber;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getDriverDocNumber()
+    {
+        return $this->driverDocNumber;
+    }
+
+    /**
+     * @param mixed $lastNumberCard
+     */
+    public function setLastNumberCard($lastNumberCard)
+    {
+        $this->lastNumberCard = $lastNumberCard;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getLastNumberCard()
+    {
+        return $this->lastNumberCard;
+    }
+
+    /**
+     * @param mixed $passportCode
+     */
+    public function setPassportCode($passportCode)
+    {
+        $this->passportCode = $passportCode;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getPassportCode()
+    {
+        return $this->passportCode;
+    }
+
+    /**
+     * @param mixed $passportIssuance
+     */
+    public function setPassportIssuance($passportIssuance)
+    {
+        $this->passportIssuance = $passportIssuance;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getPassportIssuance()
+    {
+        return $this->passportIssuance;
+    }
+
+    /**
+     * @param mixed $passportIssuanceDate
+     */
+    public function setPassportIssuanceDate($passportIssuanceDate)
+    {
+        $this->passportIssuanceDate = $passportIssuanceDate;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getPassportIssuanceDate()
+    {
+        return $this->passportIssuanceDate;
+    }
+
+    /**
+     * @param mixed $passportNumber
+     */
+    public function setPassportNumber($passportNumber)
+    {
+        $this->passportNumber = $passportNumber;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getPassportNumber()
+    {
+        return $this->passportNumber;
+    }
+
+    /**
+     * @param mixed $passportSerial
+     */
+    public function setPassportSerial($passportSerial)
+    {
+        $this->passportSerial = $passportSerial;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getPassportSerial()
+    {
+        return $this->passportSerial;
+    }
+
 
 
 }

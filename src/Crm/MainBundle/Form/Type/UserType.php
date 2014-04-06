@@ -10,7 +10,7 @@ use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\Regex;
 use Doctrine\ORM\EntityManager;
-//use Crm\MainBundle\Form\DataTransformer\CityToStringTransformer;
+use Crm\MainBundle\Form\DataTransformer\CountryToStringTransformer;
 //use Crm\MainBundle\Form\DataTransformer\YearToNumberTransformer;
 use Crm\MainBundle\Entity\Driver;
 
@@ -25,13 +25,14 @@ class UserType extends AbstractType
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-//        $cityToStringTransformer = new CityToStringTransformer($this->em);
-//        $yearToNumberTransformer = new YearToNumberTransformer($this->em);
 
-//        $years = array();
-//        for ($i = date('Y'); $i > date('Y') - 70; $i--) {
-//            $years[$i] = $i;
-//        }
+        $countryToStringTransformer = new CountryToStringTransformer($this->em);
+
+        $tmps = $this->em->getRepository('CrmMainBundle:Country')->findAll();
+        $country = array();
+        foreach ( $tmps as $tmp){
+            $country[$tmp->getId()] = $tmp->getTitle();
+        }
 
         $builder
             ->add('email', null, array('label' => 'E-mail'))
@@ -48,7 +49,8 @@ class UserType extends AbstractType
             ->add('surName', null, array('label' => 'Отчество'))
             ->add('latLatsName', null, array('label' => 'Фамилия латиницей'))
             ->add('latFirstName', null, array('label' => 'Имя латиницей'))
-            ->add('password', 'password', array('label' => 'Пароль'))
+//            ->add('password', 'password', array('label' => 'Пароль'))
+            ->add('snils', null, array('label' => 'СНИЛС'))
             ->add('birthdate', 'date', array(
                 'label'  => 'Дата рождения',
                 'years'  => range(date('Y') - 111, date('Y')),
@@ -56,7 +58,6 @@ class UserType extends AbstractType
                 'format' => 'dd MMMM yyyy',
                 'attr' => array('class' => 'date-select')
             ));
-
     }
 
     public function setDefaultOptions(OptionsResolverInterface $resolver)

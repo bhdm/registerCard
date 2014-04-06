@@ -50,6 +50,38 @@ class DriverType extends AbstractType
 
 
         $builder
+            ->add('passportSerial', null, array('label' => 'Серия паспорта'))
+            ->add('passportNumber', null, array('label' => 'Номер паспорта'))
+            ->add('passportIssuance', null, array('label' => 'Кем выдан'))
+            ->add('passportIssuanceDate', 'date', array(
+                'label'  => 'Дата выдачи',
+                'years'  => range(date('Y') - 111, date('Y')),
+                'data'   => new \DateTime('1970-01-01'),
+                'format' => 'dd MMMM yyyy',
+                'attr' => array('class' => 'date-select')
+            ))
+            ->add('passportCode', null, array('label' => 'Код подразделения'))
+
+            ->add('driverDocNumber', null, array('label' => 'Номер водительского удостоверения'))
+            ->add($builder->create('driverDocCountry',   'choice', array('required' => true,    'label' => 'Страна выдачи вод. удостоврения', 'choices' => $country,  'attr'=> array('class'=>'place-select')))->addModelTransformer($countryToStringTransformer))
+            ->add('driverDocIssuance', null, array('label' => 'Кем выдано водительское удостоверение'))
+            ->add('driverDocDateStarts', 'date', array(
+                'label'  => 'Дата выдачи вод. удостоверения',
+                'years'  => range(date('Y') - 111, date('Y')),
+                'data'   => new \DateTime('1970-01-01'),
+                'format' => 'dd MMMM yyyy',
+                'attr' => array('class' => 'date-select')
+            ))
+            ->add('driverDocDateEnds', 'date', array(
+                'label'  => 'Дата окончания вод. удостоверения',
+                'years'  => range(date('Y') - 111, date('Y')),
+                'data'   => new \DateTime('1970-01-01'),
+                'format' => 'dd MMMM yyyy',
+                'attr' => array('class' => 'date-select')
+            ))
+            ->add('lastNumberCard', null, array('label' => 'Номер прошлой карты'))
+
+
             ->add($builder->create('zipcode',   'text',   array('required' => true,    'label' => 'Почтовый индекс')))
 //            ->add($builder->create('country',   'choice', array('required' => true,    'label' => 'Страна', 'choices' => $country,  'attr'=> array('class'=>'place-select')))->addModelTransformer($countryToStringTransformer))
             ->add($builder->create('region',    'choice', array('required' => true,    'label' => 'Регион', 'choices' => $region, 'attr'=> array('class'=>'place-select')))->addModelTransformer($regionToStringTransformer))
