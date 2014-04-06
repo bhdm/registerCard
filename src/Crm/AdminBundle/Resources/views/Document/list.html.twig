@@ -1,0 +1,30 @@
+{% extends 'CrmAdminBundle::layout.html.twig' %}
+
+{% block content %}
+    <div class="crumbs">
+        <a href="#">Документы</a>
+        >>
+        <a href="{{ path('document_add') }}">Добавить</a>
+    </div>
+
+    <table class="list">
+        <tr>
+            <th>Название</th>
+            <th>URL</th>
+            <th class="setting"></th>
+        </tr>
+        {% for document in documents %}
+            <tr>
+                <td>{{ document.title }}</td>
+                <td>
+                    {{ document.url }}
+                    <a href="#" target="_blank"><img class="ico" src="{{ asset('bundles/crmadmin/images/icon/image14.png') }}"/></a>
+                </td>
+                <td class="setting">
+                    <a href="{{ path('document_edit',{ 'documentId' : document.id }) }}"><img class="ico" src="{{ asset('bundles/crmadmin/images/icon/image15.png') }}"/></a>
+                    <a href="{{ path('document_delete',{ 'documentId' : document.id }) }}"><img class="ico" src="{{ asset('bundles/crmadmin/images/icon/image13.png') }}"/></a>
+                </td>
+            </tr>
+        {% endfor %}
+    </table>
+{% endblock %}

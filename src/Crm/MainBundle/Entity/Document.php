@@ -79,7 +79,7 @@ class Document extends BaseEntity
     /**
      * @param mixed $type
      */
-    public function setType($type)
+    public function setType($type = 'file')
     {
         $this->type = $type;
     }
