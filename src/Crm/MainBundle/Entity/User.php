@@ -468,4 +468,197 @@ class User extends BaseEntity implements UserInterface, EquatableInterface, \Ser
         $this->username = $phone;
     }
 
+    /**
+     * @param mixed $driverDocCountry
+     */
+    public function setDriverDocCountry($driverDocCountry)
+    {
+        $this->driverDocCountry = $driverDocCountry;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getDriverDocCountry()
+    {
+        return $this->driverDocCountry;
+    }
+
+    /**
+     * @param mixed $driverDocDateEnds
+     */
+    public function setDriverDocDateEnds($driverDocDateEnds)
+    {
+        $this->driverDocDateEnds = $driverDocDateEnds;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getDriverDocDateEnds()
+    {
+        return $this->driverDocDateEnds;
+    }
+
+    /**
+     * @param mixed $driverDocDateStarts
+     */
+    public function setDriverDocDateStarts($driverDocDateStarts)
+    {
+        $this->driverDocDateStarts = $driverDocDateStarts;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getDriverDocDateStarts()
+    {
+        return $this->driverDocDateStarts;
+    }
+
+    /**
+     * @param mixed $driverDocIssuance
+     */
+    public function setDriverDocIssuance($driverDocIssuance)
+    {
+        $this->driverDocIssuance = $driverDocIssuance;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getDriverDocIssuance()
+    {
+        return $this->driverDocIssuance;
+    }
+
+    /**
+     * @param mixed $driverDocNumber
+     */
+    public function setDriverDocNumber($driverDocNumber)
+    {
+        $this->driverDocNumber = $driverDocNumber;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getDriverDocNumber()
+    {
+        return $this->driverDocNumber;
+    }
+
+    /**
+     * @param mixed $lastNumberCard
+     */
+    public function setLastNumberCard($lastNumberCard)
+    {
+        $this->lastNumberCard = $lastNumberCard;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getLastNumberCard()
+    {
+        return $this->lastNumberCard;
+    }
+
+    /**
+     * @param mixed $passportCode
+     */
+    public function setPassportCode($passportCode)
+    {
+        $this->passportCode = $passportCode;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getPassportCode()
+    {
+        return $this->passportCode;
+    }
+
+    /**
+     * @param mixed $passportIssuance
+     */
+    public function setPassportIssuance($passportIssuance)
+    {
+        $this->passportIssuance = $passportIssuance;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getPassportIssuance()
+    {
+        return $this->passportIssuance;
+    }
+
+    /**
+     * @param mixed $passportIssuanceDate
+     */
+    public function setPassportIssuanceDate($passportIssuanceDate)
+    {
+        $this->passportIssuanceDate = $passportIssuanceDate;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getPassportIssuanceDate()
+    {
+        return $this->passportIssuanceDate;
+    }
+
+    /**
+     * @param mixed $passportNumber
+     */
+    public function setPassportNumber($passportNumber)
+    {
+        $this->passportNumber = $passportNumber;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getPassportNumber()
+    {
+        return $this->passportNumber;
+    }
+
+    /**
+     * @param mixed $passportSerial
+     */
+    public function setPassportSerial($passportSerial)
+    {
+        $this->passportSerial = $passportSerial;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getPassportSerial()
+    {
+        return $this->passportSerial;
+    }
+
+    /**
+     * @param mixed $snils
+     */
+    public function setSnils($snils)
+    {
+        $this->snils = $snils;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getSnils()
+    {
+        return $this->snils;
+    }
+
+
 }
