@@ -1,6 +1,9 @@
-{% extends 'CrmMainBundle::layout_min.html.twig' %}
+{% extends 'CrmMainBundle::layout.html.twig' %}
 
 {% block content %}
+    <div class="box">
+        <h2>Оформление заявки</h2>
+    </div>
     <div class="form">
         <form id="register_form" action="{{ path('auth_party_2') }}" method="post" enctype="multipart/form-data">
             {#{% form_theme form 'VidalMainBundle:Form:profile_form.html.twig' %}#}
@@ -18,7 +21,6 @@
             </div>
             <br />
             <div class="multi-form">
-                {#{{ form_widget(formDriver) }}#}
             </div>
         </form>
     </div>

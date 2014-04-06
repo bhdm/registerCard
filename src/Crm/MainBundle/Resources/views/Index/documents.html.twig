@@ -3,18 +3,33 @@
 {% block content %}
     <div class="box">
         <h2>Документы</h2>
-        <table>
+        <table class="table">
             {% for document in documents %}
                 <tr>
                     <td>
                         {{ document.title }}
-                        {{ document.category }}
                     </td>
-                    <td>
-                        <a href="#">Скачать</a>
+                    <td style="text-align: right">
+                        <a href="{{ asset('bundles/crmmain'~document.file['path']) }}" target="_blank">Скачать</a>
                     </td>
                 </tr>
             {% endfor %}
         </table>
     </div>
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <style>
+        .box .table{
+            width: 100%;
+        }
+        .box .table tr td{
+            padding: 5px;
+        }
+
+        .box .table tr:hover td{
+            border-bottom: 1px dashed #1a5f89;
+        }
+    </style>
 {% endblock %}
