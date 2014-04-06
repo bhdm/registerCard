@@ -85,6 +85,17 @@
                                 no_results_text: "Поиск не нашел ничего",
                                 disable_search: true
                             });
+
+                            $('.form_widget').on('change','#driver_region', function(){
+                                $.ajax({
+                                    type: "GET",
+                                    url: Routing.generate('select_city', { regionId: $('#driver_region').val() }),
+                                    success: function (msg) {
+                                        $('#driver_city').html(msg);
+                                        $('#driver_city').trigger("chosen:updated");
+                                    }
+                                })
+                            });
                         }
                     });
 //                    $('.form_driver').fadeIn(300,function(){ $('.form_company').fadeOut(300)});
@@ -116,6 +127,17 @@
                                 disable_search_threshold: 10,
                                 no_results_text: "Поиск не нашел ничего",
                                 disable_search: true
+                            });
+
+                            $('.form_widget').on('change','#company_region', function(){
+                                $.ajax({
+                                    type: "GET",
+                                    url: Routing.generate('select_city', { regionId: $('#company_region').val() }),
+                                    success: function (msg) {
+                                        $('#company_city').html(msg);
+                                        $('#company_city').trigger("chosen:updated");
+                                    }
+                                })
                             });
                         }
                     });
