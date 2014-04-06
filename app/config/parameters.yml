@@ -13,4 +13,5 @@ parameters:
     mailer_password: null
     locale: ru
     secret: ThisTokenIsNotSoSecretChangeIt
-    upload_dir: bundles/crmmain/upload
+#    upload_dir: bundles/crmmain/upload
+    upload_dir: upload
