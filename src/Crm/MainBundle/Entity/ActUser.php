@@ -4,6 +4,7 @@ namespace Crm\MainBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * Page
@@ -62,6 +63,11 @@ class ActUser extends BaseEntity
     protected $city;
 
     /**
+     * @ORM\OneToMany(targetEntity="ActTransport", mappedBy="actUser")
+     */
+    protected $actTransports;
+
+    /**
      * @Assert\NotBlank()
      * @ORM\Column(type="text")
      */
@@ -72,6 +78,10 @@ class ActUser extends BaseEntity
      * @ORM\Column(type="string", length=35)
      */
     protected $password;
+
+    public function __construct(){
+        $this->actTransports = new ArrayCollection();
+    }
 
     /**
      * @param mixed $adress
@@ -233,5 +243,28 @@ class ActUser extends BaseEntity
         return $this->username;
     }
 
+    /**
+     * @param mixed $actTransports
+     */
+    public function setActTransports($actTransports)
+    {
+        $this->actTransports = $actTransports;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getActTransports()
+    {
+        return $this->actTransports;
+    }
+
+    public function addActTransport($transport){
+        $this->actTransports[] = $transport;
+    }
+
+    public function removeActTransport($transport){
+        $this->actTransports->removeElement($transport);
+    }
 
 }
