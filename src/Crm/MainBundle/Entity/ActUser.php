@@ -17,9 +17,15 @@ class ActUser extends BaseEntity
 
     /**
      * @Assert\NotBlank()
-     * @ORM\Column(type="string", length=100)
+     * @ORM\Column(type="string", length=50)
      */
-    protected  $url;
+    protected $lastName;
+
+    /**
+     * @Assert\NotBlank()
+     * @ORM\Column(type="string", length=50)
+     */
+    protected $firstName;
 
     /**
      * @Assert\NotBlank()
