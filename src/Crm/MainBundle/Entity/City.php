@@ -47,9 +47,17 @@ class City
      */
     protected $companies;
 
+    /**
+     * @ORM\OneToMany(targetEntity="ActUser", mappedBy="city")
+     */
+    protected $actUsers;
+
+
+
     public function __construct(){
         $this->drivers = new ArrayCollection();
         $this->companies = new ArrayCollection();
+        $this->actUsers = new ArrayCollection();
     }
 
     /**
@@ -146,6 +154,22 @@ class City
     public function setDrivers($drivers)
     {
         $this->drivers = $drivers;
+    }
+
+    /**
+     * @param mixed $actUsers
+     */
+    public function setActUsers($actUsers)
+    {
+        $this->actUsers = $actUsers;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getActUsers()
+    {
+        return $this->actUsers;
     }
 
 
