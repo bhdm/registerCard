@@ -12,6 +12,9 @@ a{
     color: #0088CC;
     text-decoration: none;
 }
+select{
+    width: 250px;
+}
 a:hover{
     color: #8800cc;
     text-decoration: underline;
@@ -55,7 +58,7 @@ footer{
     font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
 }
 
-input[type=text], input[type=number], input[type=password], input[type=email], input[type=url]{
+input[type=text], input[type=number], input[type=password], input[type=email], input[type=url], textarea{
     padding: 5px 10px;
     font-size: 16px;
     border-radius: 3px;
@@ -63,8 +66,9 @@ input[type=text], input[type=number], input[type=password], input[type=email], i
     border-left: 2px solid #909090;
     border-bottom: 1px solid #cccccc;
     border-right: 1px solid #cccccc;
+    width: 250px;
 }
-input[type=text]:focus, input[type=number]:focus, input[type=password]:focus, input[type=email]:focus, input[type=url]:focus{
+input[type=text]:focus, input[type=number]:focus, input[type=password]:focus, input[type=email]:focus, input[type=url]:focus, textarea:focus{
     border-top: 2px solid #909090;
     border-left: 2px solid #909090;
     border-bottom: 1px solid #cccccc;

@@ -11,3 +11,32 @@
         </form>
     </div>
 {% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset("bundles/crmmain/lib/chosen/chosen.jquery.js") }}" type="text/javascript"></script>
+    <script>
+        $(document).ready(function(){
+            $("#actUser_city").chosen({
+                disable_search_threshold: 10,
+                no_results_text: "Поиск не нашел ничего",
+                width: '250px'
+            });
+        });
+    </script>
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link href="{{ asset('bundles/crmmain/lib/chosen/chosen.css') }}" rel="stylesheet" media="all">
+    <style>
+        .form{
+            margin: 0 auto;
+            width: 500px;
+            text-align: center;
+        }
+        .label{
+            width: 250px;
+        }
+    </style>
+{% endblock %}
