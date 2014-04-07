@@ -1,0 +1,13 @@
+{% extends 'CrmMainBundle::layout.html.twig' %}
+
+{% block content %}
+    <div class="box">
+        <h2>Регистрация организации</h2>
+    </div>
+    <div class="form">
+        <form id="register_form" action="{{ path('activate_register') }}" method="post" enctype="multipart/form-data">
+            {#{% form_theme form 'VidalMainBundle:Form:profile_form.html.twig' %}#}
+            {{ form_widget(formActUser) }}
+        </form>
+    </div>
+{% endblock %}

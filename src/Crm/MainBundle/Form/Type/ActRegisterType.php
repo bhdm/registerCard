@@ -11,10 +11,9 @@ use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\Regex;
 use Doctrine\ORM\EntityManager;
 use Crm\MainBundle\Form\DataTransformer\CityToStringTransformer;
-//use Crm\MainBundle\Form\DataTransformer\YearToNumberTransformer;
-use Crm\MainBundle\Entity\Driver;
+use Crm\MainBundle\Entity\ActUser;
 
-class UserType extends AbstractType
+class ActRegisterType extends AbstractType
 {
     protected $em;
 
@@ -35,7 +34,7 @@ class UserType extends AbstractType
         }
 
         $builder
-            ->add('email', null, array('label' => 'E-mail'))
+            ->add('username', null, array('label' => 'E-mail'))
             ->add('lastName', null, array('label' => 'Фамилия'))
             ->add('firstName', null, array('label' => 'Имя'))
             ->add('username', null, array('label' => 'E-mail'))
@@ -45,7 +44,7 @@ class UserType extends AbstractType
             ->add('inn', null, array('label' => 'ИНН'))
             ->add('regionCode', null, array('label' => 'Код региона'))
             ->add($builder->create('city',      'choice', array('required' => true,    'label' => 'Город',  'choices' => $city,  'attr'=> array('class'=>'place-select')))->addModelTransformer($cityToStringTransformer))
-            ->add('adress', null, array('label' => 'Адресс'))
+            ->add('adress', null, array('label' => 'Адрес'))
             ->add('password', 'password', array(
                 'label'       => 'Придумайте пароль',
                 'constraints' => array(new Regex(array(
@@ -53,13 +52,22 @@ class UserType extends AbstractType
                     'match'   => false,
                     'message' => 'Русские буквы в пароле недопустимы'
                 )))
-            ));
+            ))
+            ->add('eula', 'checkbox', array(
+                'label'       => 'Пользовательское соглашение',
+                'mapped'      => false,
+                'required'    => true,
+                'constraints' => new True(array(
+                        'message' => 'Пожалуйста, подтвердите что вы согласны с пользовательским соглашением'
+                    ))
+            ))
+            ->add('submit', 'submit', array('label' => 'Зарегистрироваться', 'attr' => array('class'=>'btn')));;
 
     }
 
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
-        $resolver->setDefaults(array('data_class' => 'Crm\MainBundle\Entity\User'));
+        $resolver->setDefaults(array('data_class' => 'Crm\MainBundle\Entity\ActUser'));
     }
 
     public function getName()
