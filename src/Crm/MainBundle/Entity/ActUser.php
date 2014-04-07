@@ -85,6 +85,12 @@ class ActUser extends BaseEntity
      */
     protected $password;
 
+    /**
+     * @Assert\NotBlank()
+     * @ORM\Column(type="string", length=35)
+     */
+    protected $salt;
+
     public function __construct(){
         $this->actTransports = new ArrayCollection();
     }
@@ -304,6 +310,23 @@ class ActUser extends BaseEntity
     {
         return $this->lastName;
     }
+
+    /**
+     * @param mixed $salt
+     */
+    public function setSalt($salt)
+    {
+        $this->salt = $salt;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getSalt()
+    {
+        return $this->salt;
+    }
+
 
 
 }
