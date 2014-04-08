@@ -3,7 +3,10 @@
 namespace Crm\MainBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Security\Core\Encoder\EncoderFactoryInterface;
+use Symfony\Component\Security\Core\User\EquatableInterface;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Security\Core\User\UserInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 
 /**
@@ -12,53 +15,53 @@ use Doctrine\Common\Collections\ArrayCollection;
  * @ORM\Table()
  * @ORM\Entity
  */
-class ActUser extends BaseEntity
+class ActUser extends BaseEntity implements UserInterface, EquatableInterface, \Serializable
 {
 
     /**
-     * @Assert\NotBlank()
+     * @Assert\NotBlank(message="Поле фамилия обязательно для заполнения")
      * @ORM\Column(type="string", length=50)
      */
     protected $lastName;
 
     /**
-     * @Assert\NotBlank()
+     * @Assert\NotBlank(message="Поле имя обязательно для заполнения")
      * @ORM\Column(type="string", length=50)
      */
     protected $firstName;
 
     /**
-     * @Assert\NotBlank()
+     * @Assert\NotBlank(message="Поле название организации обязательно для заполнения")
      * @ORM\Column(type="string", length=150)
      */
     protected  $title;
 
     /**
-     * @Assert\NotBlank()
+     * @Assert\NotBlank(message="Поле e-mail обязательно для заполнения")
      * @ORM\Column(type="string", length=150)
      */
     protected $username;
 
     /**
-     * @Assert\NotBlank()
+     * @Assert\NotBlank(message="Поле телефон обязательно для заполнения")
      * @ORM\Column(type="string", length=150)
      */
     protected $phone;
 
     /**
-     * @Assert\NotBlank()
+     * @Assert\NotBlank(message="Поле ОГРН обязательно для заполнения")
      * @ORM\Column(type="string", length=50)
      */
     protected $ogrn;
 
     /**
-     * @Assert\NotBlank()
+     * @Assert\NotBlank(message="Поле ИНН обязательно для заполнения")
      * @ORM\Column(type="string", length=50)
      */
     protected $inn;
 
     /**
-     * @Assert\NotBlank()
+     * @Assert\NotBlank(message="Поле Код региона обязательно для заполнения")
      * @ORM\Column(type="string", length=50)
      */
     protected $regionCode;
@@ -74,24 +77,31 @@ class ActUser extends BaseEntity
     protected $actTransports;
 
     /**
-     * @Assert\NotBlank()
+     * @Assert\NotBlank(message="Поле адрес обязательно для заполнения")
      * @ORM\Column(type="text")
      */
     protected $adress;
 
     /**
-     * @Assert\NotBlank()
+     * @Assert\NotBlank(message="Поле пароль обязательно для заполнения")
      * @ORM\Column(type="string", length=35)
      */
     protected $password;
 
     /**
-     * @Assert\NotBlank()
-     * @ORM\Column(type="string", length=35)
+     * @ORM\Column(type="string", length=150)
      */
     protected $salt;
 
+    /**
+     * @ORM\Column(type="string", length=150)
+     */
+    protected $roles;
+
+
+
     public function __construct(){
+        $this->roles    = 'ROLE_UNCONFIRMED';
         $this->actTransports = new ArrayCollection();
     }
 
@@ -327,6 +337,83 @@ class ActUser extends BaseEntity
         return $this->salt;
     }
 
+    public function __toString()
+    {
+        return $this->lastName . ' ' . $this->firstName;
+    }
 
+    /**
+     * @return mixed
+     */
+    public function getRoles()
+    {
+        return $this->roles;
+    }
+
+    /**
+     * @param mixed $roles
+     */
+    public function setRoles($roles)
+    {
+        if (is_array($roles)) {
+            $roles = implode($roles, ';');
+        }
+
+        $this->roles = $roles;
+    }
+
+
+    public function removeRole($role)
+    {
+        $roles = explode(';', $this->roles);
+        $key   = array_search($role, $roles);
+
+        if ($key !== false) {
+            unset($roles[$key]);
+            $this->roles = implode($roles, ';');
+        }
+    }
+
+    public function checkRole($role)
+    {
+        $roles = explode(';', $this->roles);
+
+        return in_array($role, $roles);
+    }
+
+    /**
+     * Сброс прав пользователя.
+     */
+    public function eraseCredentials()
+    {
+        return true;
+    }
+
+    public function isEqualTo(UserInterface $user)
+    {
+        return md5($this->getUsername()) == md5($user->getUsername());
+    }
+
+    /**
+     * Сериализуем только id, потому что UserProvider сам перезагружает остальные свойства пользователя по его id
+     *
+     * @see \Serializable::serialize()
+     */
+    public function serialize()
+    {
+        return serialize(array(
+            $this->id
+        ));
+    }
+
+    /**
+     * @see \Serializable::unserialize()
+     */
+    public function unserialize($serialized)
+    {
+        list (
+            $this->id
+            ) = unserialize($serialized);
+    }
 
 }

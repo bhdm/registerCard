@@ -43,7 +43,7 @@ class ActivateController extends Controller
         if ($request->isMethod('POST')) {
             if ($formActUser->isValid()) {
                 $user = $formActUser->getData();
-                $user->setSalt(md5($user));
+                $user->setSalt(md5($user->getLastName().$user->getFirstName().$user->getPassword()));
                 $em->persist($user);
                 $em->flush();
                 $em->refresh($user);
