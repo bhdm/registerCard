@@ -5,6 +5,13 @@ namespace Crm\MainBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+
+use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
+use Symfony\Component\Security\Core\Authentication\Token\RememberMeToken;
+use Symfony\Component\Security\Http\Event\InteractiveLoginEvent;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
+
+
 use Crm\MainBundle\Entity\ActUser;
 use Crm\MainBundle\Entity\ActTransport;
 use Crm\MainBundle\Entity\Document;
@@ -24,9 +31,25 @@ class ActivateController extends Controller
         return array('indexPage' => $indexPage);
     }
 
+    /**
+     * @Route("/activate-auth", name="activate_auth")
+     * @Template("CrmMainBundle:Activate:index.html.twig")
+     */
     public function authAction(Request $request){
 
-        return array();
+        $username = '';
+        $password = '';
+        $record = $this->getDoctrine()->getRepository('CrmMainBundle:ActUser')->findOneBy(array('username' => $username, 'password' => $password));
+
+        if ($record != null ){
+            $roles = $record->getRoles();
+            $token = new UsernamePasswordToken($record, $password, 'security', $roles);
+            $this->get("security.context")->setToken($token);
+
+            $event = new InteractiveLoginEvent($request, $token);
+            $this->get("event_dispatcher")->dispatch("security.interactive_login", $event);
+        }
+        return $this->redirect($this->generateUrl('activate_index'));
     }
 
     /**
