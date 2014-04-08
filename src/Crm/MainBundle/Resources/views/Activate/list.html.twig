@@ -1,0 +1,50 @@
+{% extends 'CrmMainBundle::layout.html.twig' %}
+
+{% block content %}
+    <div class="box">
+        <h2>Транспорт</h2>
+        <a href="{{ path('transport_add') }}"><button class="btn">Добавить</button></a>
+        <table>
+        {% for transport in transports %}
+            <tr>
+                <td>{{ transport.marka }}</td>
+                <td>{{ transport.model }}</td>
+                <td>{{ transport.regNumber }}</td>
+            </tr>
+        {% endfor %}
+        </table>
+    </div>
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <style>
+
+    </style>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+        $(document).ready(function(){
+
+
+            $('#sendOrder').click(function(){
+                username    = $('#username').val();
+                password   = $('#password').val();
+                errorFrom = 0;
+                if (username == ''){
+                    $('#username').css('border','1px solid #cc3333');
+                    errorFrom = 1;
+                }
+                if (password == ''){
+                    $('#password').css('border','1px solid #cc3333');
+                    errorFrom = 1;
+                }
+                if (errorFrom == 0){
+                    $('#auth').submit();
+                }
+            });
+        })
+    </script>
+{% endblock %}

@@ -40,40 +40,45 @@ class ActivateController extends Controller
      */
     public function loginAction(Request $request)
     {
+
         if ($request->attributes->has(SecurityContext::AUTHENTICATION_ERROR)) {
             $error = $request->attributes->get(SecurityContext::AUTHENTICATION_ERROR);
         } else {
             $error = $request->getSession()->get(SecurityContext::AUTHENTICATION_ERROR);
         }
 
-        return $this->render('CrmMainBundle::login.html.twig', array(
-            'last_username' => $request->getSession()->get(SecurityContext::LAST_USERNAME),
-            'error' => $error
-        ));
-        return $this->redirect($this->generateUrl('activate_index'));
-    }
-
-    /**
-     * @Route("/activate-auth", name="activate_auth")
-     */
-    public function authAction(Request $request){
-
-        if ($request->getMethod()=='POST'){
-            $username = $request->request->get('username');
-            $password = $request->request->get('password');
-            $record = $this->getDoctrine()->getRepository('CrmMainBundle:ActUser')->findOneBy(array('username' => $username, 'password' => $password));
-
-            if ($record != null ){
-                $roles = $record->getRoles();
-                $token = new UsernamePasswordToken($record, $password, 'security', $roles);
-                $this->get("security.context")->setToken($token);
-
-                $event = new InteractiveLoginEvent($request, $token);
-                $this->get("event_dispatcher")->dispatch("security.interactive_login", $event);
-            }
+        if ($error){
+            return $this->redirect($this->generateUrl('activate_index', array(
+                'last_username' => $request->getSession()->get(SecurityContext::LAST_USERNAME),
+                'error' => $error
+            )));
         }
-        return array();
+        else{
+            return $this->redirect($this->generateUrl('activate_list'));
+        }
     }
+
+//    /**
+//     * @Route("/activate-auth", name="activate_auth")
+//     */
+//    public function authAction(Request $request){
+//
+//        if ($request->getMethod()=='POST'){
+//            $username = $request->request->get('username');
+//            $password = $request->request->get('password');
+//            $record = $this->getDoctrine()->getRepository('CrmMainBundle:ActUser')->findOneBy(array('username' => $username, 'password' => $password));
+//
+//            if ($record != null ){
+//                $roles = $record->getRoles();
+//                $token = new UsernamePasswordToken($record, $password, 'security', $roles);
+//                $this->get("security.context")->setToken($token);
+//
+//                $event = new InteractiveLoginEvent($request, $token);
+//                $this->get("event_dispatcher")->dispatch("security.interactive_login", $event);
+//            }
+//        }
+//        return array();
+//    }
 
     /**
      * @param Request $request
@@ -98,9 +103,46 @@ class ActivateController extends Controller
         return array( 'formActUser' => $formActUser->createView());
     }
 
-    public function listAction(){}
+    /**
+     * @Route("/activate-list", name="activate_list")
+     * @Template()
+     */
+    public function listAction(){
+        $transports = $this->getDoctrine()->getRepository('CrmMainBundle:ActTransport')->findOneByActUser($this->getUser());
 
-    public function addTransportAction(){}
+        return array('transports' => $transports);
+    }
+
+    /**
+     * @Route("/transport-add", name="transport_add")
+     */
+    public function addTransportAction(Request $request){
+        $em = $this->getDoctrine()->getManager();
+        $tranport = new ActTransport();
+
+        $builder = $this->createFormBuilder($tranport);
+        $builder
+            ->add('question', null, array('label' => 'Вопрос', 'attr' => array('class' => 'ckeditor')))
+            ->add('answer', null, array('label' => 'Ответ', 'attr' => array('class' => 'ckeditor')))
+            ->add('submit', 'submit', array('label' => 'Сохранить', 'attr' => array('class' => 'btn')));
+
+        $form    = $builder->getForm();
+        $form->handleRequest($request);
+
+        if ($request->isMethod('POST')) {
+            if ($form->isValid()){
+                $tranport = $form->getData();
+                $em->persist($tranport);
+                $em->flush();
+                $em->refresh($tranport);
+                return $this->redirect($this->generateUrl('activate_list'));
+            }
+        }
+
+        return array(
+            'form'     => $form->createView(),
+        );
+    }
 
 
 }

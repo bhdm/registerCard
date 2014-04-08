@@ -23,6 +23,7 @@ security:
             form_login:
                 check_path: /login_submit
                 login_path: /login
+                default_target_path: /activate-list
             logout:
                 path:   /logout
                 target: /

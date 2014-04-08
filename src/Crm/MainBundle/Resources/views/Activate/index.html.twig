@@ -12,9 +12,9 @@
             <td>
                 <div class="auth" id="auth">
                     <h2>Авторизация</h2>
-                    <form method="POST" action="{{ path('login') }}">
-                        <div class="input-box"><input type="text" value="" placeholder="E-mail" name="username"  id="username"></div>
-                        <div class="input-box"><input type="password" value="" placeholder="Пароль" name="password" id="password"></div>
+                    <form method="POST" action="{{ path('_security_check') }}">
+                        <div class="input-box"><input type="text" value="" placeholder="E-mail" name="_username"  id="username"></div>
+                        <div class="input-box"><input type="password" value="" placeholder="Пароль" name="_password" id="password"></div>
                         <button class="btn" id="sendOrder">Войти</button>
                         <span style="padding: 0 10px"> </span>
                         <a href="{{ path('activate_register') }}">Регистрация</a>
