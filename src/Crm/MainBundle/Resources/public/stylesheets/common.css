@@ -179,3 +179,12 @@ h2{
 .raspberry{
     color: #CC3333;
 }
+
+.blue{
+    color: #1a5f89;
+}
+
+.ico{
+    width: 32px;
+    cursor: pointer;
+}

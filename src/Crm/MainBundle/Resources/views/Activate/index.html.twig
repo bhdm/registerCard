@@ -11,14 +11,28 @@
             </td>
             <td>
                 <div class="auth" id="auth">
-                    <h2>Авторизация</h2>
-                    <form method="POST" action="{{ path('_security_check') }}">
-                        <div class="input-box"><input type="text" value="" placeholder="E-mail" name="_username"  id="username"></div>
-                        <div class="input-box"><input type="password" value="" placeholder="Пароль" name="_password" id="password"></div>
-                        <button class="btn" id="sendOrder">Войти</button>
-                        <span style="padding: 0 10px"> </span>
-                        <a href="{{ path('activate_register') }}">Регистрация</a>
-                    </form>
+                    {% if user is null %}
+                        <h2>Авторизация</h2>
+                        <form method="POST" action="{{ path('_security_check') }}">
+                            <div class="input-box"><input type="text" value="" placeholder="E-mail" name="_username"  id="username"></div>
+                            <div class="input-box"><input type="password" value="" placeholder="Пароль" name="_password" id="password"></div>
+                            <button class="btn" id="sendOrder">Войти</button>
+                            <span style="padding: 0 10px"> </span>
+                            <a href="{{ path('activate_register') }}">Регистрация</a>
+                        </form>
+                    {% else %}
+                        <div style="text-align: center">
+                            <a href="{{ path('activate_list') }}" class="ablue">
+                                <h2>{{ user.title }}</h2>
+                            </a>
+                        </div>
+                        <span class="blue">Уведомлений 0</span>
+                        <br />
+                        <br />
+                        <a href="{{ path('activate_list') }}"><button class="btn" id="sendOrder">Войти</button></a>
+                        <span style="padding: 0 40px"> </span>
+                        <a href="/logout">Выйти</a>
+                    {% endif %}
                 </div>
             </td>
         </tr>
@@ -35,6 +49,7 @@
             padding: 10px 30px;
             border: 2px solid #dadada;
             border-radius: 3px;
+            width: 250px;
         }
         .input-box{
             padding: 5px 0;
@@ -47,6 +62,9 @@
             color: #333333;
             line-height: 1.5em;
             text-align: justify;
+        }
+        .ablue{
+            color: #1a5f89 !important;
         }
     </style>
 {% endblock %}

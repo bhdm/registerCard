@@ -1,8 +1,11 @@
-{% extends 'CrmAdminBundle::layout.html.twig' %}
+{% extends 'CrmMainBundle::layout.html.twig' %}
 
 {% block content %}
+    <div class="box">
+        <h2>Регистрация технического средства</h2>
+    </div>
     <div class="form">
-        <form id="register_form" method="post" {{ form_enctype(form) }}>
+        <form id="transport_form" method="post" {{ form_enctype(form) }}>
             {{ form_widget(form) }}
         </form>
     </div>

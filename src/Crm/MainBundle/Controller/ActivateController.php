@@ -32,7 +32,7 @@ class ActivateController extends Controller
      */
     public function indexAction(){
         $indexPage = $this->getDoctrine()->getRepository('CrmMainBundle:Page')->findOneByUrl('activate');
-        return array('indexPage' => $indexPage);
+        return array('indexPage' => $indexPage, 'user'=> $this->getUser());
     }
 
     /**
@@ -108,13 +108,14 @@ class ActivateController extends Controller
      * @Template()
      */
     public function listAction(){
-        $transports = $this->getDoctrine()->getRepository('CrmMainBundle:ActTransport')->findOneByActUser($this->getUser());
+        $transports = $this->getDoctrine()->getRepository('CrmMainBundle:ActTransport')->findByActUser($this->getUser());
 
         return array('transports' => $transports);
     }
 
     /**
      * @Route("/transport-add", name="transport_add")
+     * @Template()
      */
     public function addTransportAction(Request $request){
         $em = $this->getDoctrine()->getManager();
@@ -122,8 +123,15 @@ class ActivateController extends Controller
 
         $builder = $this->createFormBuilder($tranport);
         $builder
-            ->add('question', null, array('label' => 'Вопрос', 'attr' => array('class' => 'ckeditor')))
-            ->add('answer', null, array('label' => 'Ответ', 'attr' => array('class' => 'ckeditor')))
+            ->add('mark', null, array('label' => 'марка'))
+            ->add('model', null, array('label' => 'Модель'))
+            ->add('year', null, array('label' => 'Год выпуска'))
+            ->add('color', null, array('label' => 'Цвет'))
+            ->add('regNumber', null, array('label' => 'Регистрационный номер'))
+            ->add('vin', null, array('label' => 'V.I.N.'))
+            ->add('pts', null, array('label' => 'П.Т.С','required'  => false))
+            ->add('adress', null, array('label' => 'Адрес доставки'))
+
             ->add('submit', 'submit', array('label' => 'Сохранить', 'attr' => array('class' => 'btn')));
 
         $form    = $builder->getForm();
@@ -132,6 +140,7 @@ class ActivateController extends Controller
         if ($request->isMethod('POST')) {
             if ($form->isValid()){
                 $tranport = $form->getData();
+                $tranport->setActUser($this->getUser());
                 $em->persist($tranport);
                 $em->flush();
                 $em->refresh($tranport);

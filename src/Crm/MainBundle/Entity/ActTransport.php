@@ -31,7 +31,7 @@ class ActTransport extends BaseEntity
 
     /**
      * @Assert\NotBlank()
-     * @ORM\Column(type="datetime")
+     * @ORM\Column(type="integer")
      */
     protected $year;
 
@@ -58,6 +58,12 @@ class ActTransport extends BaseEntity
      * @ORM\Column(type="string", length=50)
      */
     protected $pts;
+
+    /**
+     * @Assert\NotBlank()
+     * @ORM\Column(type="text")
+     */
+    protected $adress;
 
     /**
      * @param mixed $color
@@ -185,6 +191,22 @@ class ActTransport extends BaseEntity
     public function getActUser()
     {
         return $this->actUser;
+    }
+
+    /**
+     * @param mixed $adress
+     */
+    public function setAdress($adress)
+    {
+        $this->adress = $adress;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getAdress()
+    {
+        return $this->adress;
     }
 
 
