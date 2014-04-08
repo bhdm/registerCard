@@ -10,3 +10,9 @@ crm_main:
 
 fos_js_routing:
     resource: "@FOSJsRoutingBundle/Resources/config/routing/routing.xml"
+
+_security_check:
+    pattern:  /login_submit
+
+_security_logout:
+    pattern:  /logout

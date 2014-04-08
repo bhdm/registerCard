@@ -5,12 +5,16 @@ namespace Crm\MainBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
-
+use Symfony\Component\Security\Core\Exception\AuthenticationException;
+use Symfony\Component\Security\Core\Authentication\Token\PreAuthenticatedToken;
 use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 use Symfony\Component\Security\Core\Authentication\Token\RememberMeToken;
 use Symfony\Component\Security\Http\Event\InteractiveLoginEvent;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
-
+use Symfony\Component\Security\Core\User\UserProviderInterface;
+use Symfony\Component\Security\Core\Exception\UsernameNotFoundException;
+use Symfony\Component\Security\Core\Exception\BadCredentialsException;
+use Symfony\Component\Security\Core\SecurityContext;
 
 use Crm\MainBundle\Entity\ActUser;
 use Crm\MainBundle\Entity\ActTransport;
@@ -32,24 +36,43 @@ class ActivateController extends Controller
     }
 
     /**
+     * @Route("/login", name="login")
+     */
+    public function loginAction(Request $request)
+    {
+        if ($request->attributes->has(SecurityContext::AUTHENTICATION_ERROR)) {
+            $error = $request->attributes->get(SecurityContext::AUTHENTICATION_ERROR);
+        } else {
+            $error = $request->getSession()->get(SecurityContext::AUTHENTICATION_ERROR);
+        }
+
+        return $this->render('CrmMainBundle::login.html.twig', array(
+            'last_username' => $request->getSession()->get(SecurityContext::LAST_USERNAME),
+            'error' => $error
+        ));
+        return $this->redirect($this->generateUrl('activate_index'));
+    }
+
+    /**
      * @Route("/activate-auth", name="activate_auth")
-     * @Template("CrmMainBundle:Activate:index.html.twig")
      */
     public function authAction(Request $request){
 
-        $username = '';
-        $password = '';
-        $record = $this->getDoctrine()->getRepository('CrmMainBundle:ActUser')->findOneBy(array('username' => $username, 'password' => $password));
+        if ($request->getMethod()=='POST'){
+            $username = $request->request->get('username');
+            $password = $request->request->get('password');
+            $record = $this->getDoctrine()->getRepository('CrmMainBundle:ActUser')->findOneBy(array('username' => $username, 'password' => $password));
 
-        if ($record != null ){
-            $roles = $record->getRoles();
-            $token = new UsernamePasswordToken($record, $password, 'security', $roles);
-            $this->get("security.context")->setToken($token);
+            if ($record != null ){
+                $roles = $record->getRoles();
+                $token = new UsernamePasswordToken($record, $password, 'security', $roles);
+                $this->get("security.context")->setToken($token);
 
-            $event = new InteractiveLoginEvent($request, $token);
-            $this->get("event_dispatcher")->dispatch("security.interactive_login", $event);
+                $event = new InteractiveLoginEvent($request, $token);
+                $this->get("event_dispatcher")->dispatch("security.interactive_login", $event);
+            }
         }
-        return $this->redirect($this->generateUrl('activate_index'));
+        return array();
     }
 
     /**

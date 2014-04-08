@@ -347,7 +347,7 @@ class ActUser extends BaseEntity implements UserInterface, EquatableInterface, \
      */
     public function getRoles()
     {
-        return $this->roles;
+        return explode(';', $this->roles);
     }
 
     /**

@@ -25,7 +25,6 @@ use Zelenin\smsru;
 class AuthController extends Controller
 {
     /**
-     * @Route("/login", name="login")
      * @Template()
      */
     public function indexAction()
