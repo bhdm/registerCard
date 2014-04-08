@@ -24,7 +24,10 @@ class ActivateController extends Controller
         return array('indexPage' => $indexPage);
     }
 
-    public function authAction(){}
+    public function authAction(Request $request){
+
+        return array();
+    }
 
     /**
      * @param Request $request
