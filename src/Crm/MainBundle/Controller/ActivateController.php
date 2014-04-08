@@ -15,7 +15,14 @@ use Crm\MainBundle\Form\Type\ActRegisterType;
 class ActivateController extends Controller
 {
 
-    public function indexAction(){}
+    /**
+     * @Route("/activate-index", name="activate_index")
+     * @Template()
+     */
+    public function indexAction(){
+        $indexPage = $this->getDoctrine()->getRepository('CrmMainBundle:Page')->findOneByUrl('activate');
+        return array('indexPage' => $indexPage);
+    }
 
     public function authAction(){}
 

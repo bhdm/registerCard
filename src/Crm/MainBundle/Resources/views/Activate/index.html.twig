@@ -1,0 +1,74 @@
+{% extends 'CrmMainBundle::layout.html.twig' %}
+
+{% block content %}
+    <table>
+        <tr>
+            <td>
+                <div class="text-main">
+                    <h2>{{ indexPage.title | raw }}</h2>
+                    <div>{{ indexPage.body | raw }}</div>
+                </div>
+            </td>
+            <td>
+                <div class="auth" id="auth">
+                    <h2>Авторизация</h2>
+                    <div class="input-box"><input type="text" value="" placeholder="E-mail" name="username"  id="username"></div>
+                    <div class="input-box"><input type="text" value="" placeholder="Пароль" name="password" id="password"></div>
+                    <button class="btn" id="sendOrder">Войти</button>
+                </div>
+            </td>
+        </tr>
+    </table>
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <style>
+        table tr td{
+            vertical-align: top;
+        }
+        .auth{
+            padding: 10px 30px;
+            border: 2px solid #dadada;
+            border-radius: 3px;
+        }
+        .input-box{
+            padding: 5px 0;
+        }
+        input{
+            width: 300px;
+        }
+        .text-main{
+            padding: 10px 30px;
+            color: #333333;
+            line-height: 1.5em;
+            text-align: justify;
+        }
+    </style>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+        $(document).ready(function(){
+
+
+            $('#sendOrder').click(function(){
+                username    = $('#username').val();
+                password   = $('#password').val();
+                errorFrom = 0;
+                if (username == ''){
+                    $('#username').css('border','1px solid #cc3333');
+                    errorFrom = 1;
+                }
+                if (password == ''){
+                    $('#password').css('border','1px solid #cc3333');
+                    errorFrom = 1;
+                }
+                if (errorFrom == 0){
+                    $('#auth').submit();
+                }
+            });
+        })
+    </script>
+{% endblock %}
