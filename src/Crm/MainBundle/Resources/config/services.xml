@@ -8,13 +8,17 @@
     <parameters>
         <parameter key="crm_main.example.class">Crm\MainBundle\Example</parameter>
     </parameters>
-
+-->
     <services>
-        <service id="crm_main.example" class="%crm_main.example.class%">
-            <argument type="service" id="service_id" />
-            <argument>plain_value</argument>
-            <argument>%parameter_name%</argument>
+        <service id="crm_main_bundle.image_type_extension"
+                 class="Crm\MainBundle\Form\Extension\ImageTypeExtension">
+            <tag name="form.type_extension" alias="file" />
+        </service>
+        <service id="crm_main_bundle.image_type_two_extension"
+                 class="Crm\MainBundle\Form\Extension\ImageTypeTwoExtension">
+            <tag name="form.type_extension" alias="iphp_file" />
         </service>
     </services>
-    -->
+
+
 </container>

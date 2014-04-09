@@ -31,6 +31,26 @@
                     {#<div class="form_error">{{ form_errors(form) }}</div>#}
                 </td>
             </tr>
+        {% elseif 'file' in form.vars.block_prefixes or 'iphp_file' in form.vars.block_prefixes %}
+            <tr class="row row_{{ name }}">
+                <td class="label">
+                    <div class="form_label">{{ form_label(form) }}</div>
+                    {% if attr['data-help'] is defined %}
+                        <div class="data-help">{{ attr['data-help'] }}</div>
+                    {% endif %}
+                </td>
+                <td class="widget">
+                    <div class="form_widget">{{ form_widget(form) }}</div>
+                    <div class="form_error">{{ form_errors(form) }}</div>
+                </td>
+            </tr>
+            {% if comment is not null %}
+                <tr>
+                    <td class="row_comment" colspan="2">
+                        {{ comment }}
+                    </td>
+                </tr>
+            {% endif %}
         {% else %}
             <tr class="row row_{{ name }}">
                 <td class="label">

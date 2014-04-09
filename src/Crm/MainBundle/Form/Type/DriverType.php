@@ -48,6 +48,7 @@ class DriverType extends AbstractType
             $city[$tmp->getId()] = $tmp->getTitle();
         }
 
+        $comment = 'Файл должен быть не более 2 Mb';
 
         $builder
             ->add('passportSerial', null, array('label' => 'Серия паспорта'))
@@ -55,8 +56,8 @@ class DriverType extends AbstractType
             ->add('passportIssuance', null, array('label' => 'Кем выдан'))
             ->add('passportIssuanceDate', 'date', array(
                 'label'  => 'Дата выдачи',
-                'years'  => range(date('Y') - 111, date('Y')),
-                'data'   => new \DateTime('1970-01-01'),
+                'years'  => range(date('Y') - 90, date('Y')-17),
+                'data'   => new \DateTime('2000-01-01'),
                 'format' => 'dd MMMM yyyy',
                 'attr' => array('class' => 'date-select')
             ))
@@ -74,7 +75,7 @@ class DriverType extends AbstractType
             ))
             ->add('driverDocDateEnds', 'date', array(
                 'label'  => 'Дата окончания вод. удостоверения',
-                'years'  => range(date('Y') - 111, date('Y')),
+                'years'  => range(date('Y') - 2000, date('Y')),
                 'data'   => new \DateTime('1970-01-01'),
                 'format' => 'dd MMMM yyyy',
                 'attr' => array('class' => 'date-select')
@@ -103,18 +104,22 @@ class DriverType extends AbstractType
 
             ->add('copyPassport', 'iphp_file', array(
                 'label'          => 'Копия документа удостоверяющая личность',
+                'comment'        => $comment,
                 'required'       => true,
             ))
             ->add('copyDriverPassport', 'iphp_file', array(
                 'label'          => 'Копия водительского удостоверения',
+                'comment'        => $comment,
                 'required'       => true,
             ))
             ->add('photo', 'iphp_file', array(
                 'label'          => 'Фотография',
+                'comment'        => $comment,
                 'required'       => true,
             ))
             ->add('copySignature', 'iphp_file', array(
                 'label'          => 'Подпись',
+                'comment'        => $comment,
                 'required'       => true,
             ))
 
