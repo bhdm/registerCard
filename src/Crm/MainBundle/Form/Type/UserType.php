@@ -47,8 +47,6 @@ class UserType extends AbstractType
             ->add('lastName', null, array('label' => 'Фамилия'))
             ->add('firstName', null, array('label' => 'Имя'))
             ->add('surName', null, array('label' => 'Отчество'))
-            ->add('latLatsName', null, array('label' => 'Фамилия латиницей'))
-            ->add('latFirstName', null, array('label' => 'Имя латиницей'))
 //            ->add('password', 'password', array('label' => 'Пароль'))
             ->add('snils', null, array('label' => 'СНИЛС'))
             ->add('birthdate', 'date', array(

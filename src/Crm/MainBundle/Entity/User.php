@@ -41,22 +41,9 @@ class User extends BaseEntity implements UserInterface, EquatableInterface, \Ser
     protected  $firstName;
 
     /**
-     * @Assert\NotBlank( message = "Поле отчество обязательно для заполнения" )
-     * @ORM\Column(type="string", length=100)
+     * @ORM\Column(type="string", length=100, nullable=true)
      */
     protected  $surName;
-
-    /**
-     * @Assert\NotBlank( message = "Поле фамилия латиницей обязательно для заполнения" )
-     * @ORM\Column(type="string", length=100)
-     */
-    protected  $latLatsName;
-
-    /**
-     * @Assert\NotBlank( message = "Поле имя латиницей обязательно для заполнения" )
-     * @ORM\Column(type="string", length=100)
-     */
-    protected  $latFirstName;
 
     /**
      * @Assert\NotBlank( message = "Поле дата рождения обязательно для заполнения" )
@@ -162,38 +149,6 @@ class User extends BaseEntity implements UserInterface, EquatableInterface, \Ser
     public function setLastName($lastName)
     {
         $this->lastName = $lastName;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getLatFirstName()
-    {
-        return $this->latFirstName;
-    }
-
-    /**
-     * @param mixed $latFirstName
-     */
-    public function setLatFirstName($latFirstName)
-    {
-        $this->latFirstName = $latFirstName;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getLatLatsName()
-    {
-        return $this->latLatsName;
-    }
-
-    /**
-     * @param mixed $latLatsName
-     */
-    public function setLatLatsName($latLatsName)
-    {
-        $this->latLatsName = $latLatsName;
     }
 
     /**

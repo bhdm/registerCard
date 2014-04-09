@@ -121,12 +121,6 @@ class Driver extends BaseEntity
     protected $city;
 
     /**
-     * Район
-     * @ORM\Column(type="string", length=100)
-     */
-    protected $area;
-
-    /**
      * @Assert\NotBlank( message = "Поле улица обязательно для заполнения" )
      * @ORM\Column(type="string", length=100)
      */
@@ -154,22 +148,6 @@ class Driver extends BaseEntity
      * @ORM\Column(type="integer")
      */
     protected $delivery;
-
-    /**
-     * @ORM\Column(type="boolean")
-     */
-    protected $cardEurope = false;
-
-    /**
-     * @ORM\Column(type="boolean")
-     */
-    protected $cardTeh = false;
-
-    /**
-     * @Assert\NotBlank( message = "Поле название платильщика обязательно для заполнения" )
-     * @ORM\Column(type="string", length=150)
-     */
-    protected $paymentName;
 
     /**
      * @Assert\NotBlank( message = "Поле копия документа удостоверяющая личность обязательно для заполнения" )
@@ -203,53 +181,6 @@ class Driver extends BaseEntity
      */
     protected $copySignature;
 
-    /**
-     * @return mixed
-     */
-    public function getArea()
-    {
-        return $this->area;
-    }
-
-    /**
-     * @param mixed $area
-     */
-    public function setArea($area)
-    {
-        $this->area = $area;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getCardEurope()
-    {
-        return $this->cardEurope;
-    }
-
-    /**
-     * @param mixed $cardEurope
-     */
-    public function setCardEurope($cardEurope)
-    {
-        $this->cardEurope = $cardEurope;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getCardTeh()
-    {
-        return $this->cardTeh;
-    }
-
-    /**
-     * @param mixed $cardTeh
-     */
-    public function setCardTeh($cardTeh)
-    {
-        $this->cardTeh = $cardTeh;
-    }
 
 
     /**
@@ -303,17 +234,17 @@ class Driver extends BaseEntity
     /**
      * @return mixed
      */
-    public function getCopySignatupe()
+    public function getCopySignature()
     {
-        return $this->copySignatupe;
+        return $this->copySignature;
     }
 
     /**
-     * @param mixed $copySignatupe
+     * @param mixed $copySignature
      */
-    public function setCopySignatupe($copySignatupe)
+    public function setCopySignature($copySignature)
     {
-        $this->copySignatupe = $copySignatupe;
+        $this->copySignature = $copySignature;
     }
 
     /**
@@ -364,21 +295,7 @@ class Driver extends BaseEntity
         $this->home = $home;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getPaymentName()
-    {
-        return $this->paymentName;
-    }
 
-    /**
-     * @param mixed $paymentName
-     */
-    public function setPaymentName($paymentName)
-    {
-        $this->paymentName = $paymentName;
-    }
 
     /**
      * @return mixed
@@ -474,22 +391,6 @@ class Driver extends BaseEntity
     public function setСorp($сorp)
     {
         $this->сorp = $сorp;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getCopySignature()
-    {
-        return $this->copySignature;
-    }
-
-    /**
-     * @param mixed $copySignature
-     */
-    public function setCopySignature($copySignature)
-    {
-        $this->copySignature = $copySignature;
     }
 
     /**

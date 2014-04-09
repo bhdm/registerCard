@@ -86,15 +86,13 @@ class DriverType extends AbstractType
 //            ->add($builder->create('country',   'choice', array('required' => true,    'label' => 'Страна', 'choices' => $country,  'attr'=> array('class'=>'place-select')))->addModelTransformer($countryToStringTransformer))
             ->add($builder->create('region',    'choice', array('required' => true,    'label' => 'Регион', 'choices' => $region, 'attr'=> array('class'=>'place-select')))->addModelTransformer($regionToStringTransformer))
             ->add($builder->create('city',      'choice', array('required' => true,    'label' => 'Город',  'choices' => $city,  'attr'=> array('class'=>'place-select')))->addModelTransformer($cityToStringTransformer))
-            ->add($builder->create('area',      'text',   array('required' => false,    'label' => 'Район')))
             ->add($builder->create('street',    'text',   array('required' => true,    'label' => 'Улица')))
             ->add($builder->create('home',      'text',   array('required' => true,    'label' => 'Дом')))
-            ->add($builder->create('corp',      'text',   array('required' => false,    'label' => 'Корпус')))
+            ->add($builder->create('corp',      'text',   array('required' => false,    'label' => 'Корпус/строение')))
             ->add($builder->create('room',      'text',   array('required' => false,    'label' => 'Квартира')))
 
             ->add('delivery', 'choice', array(
                 'choices' => array(
-                    '0' => 'Курьерской службой компании МосАвтоКарт',
                     '1' => 'Самовывоз из пункта подачи заявки'
                 ),
                 'label'       => 'Способ доставки',
@@ -102,16 +100,6 @@ class DriverType extends AbstractType
                 'empty_data'  => null,
                 'attr' => array('class' => 'delivery-select')
             ))
-            ->add('cardEurope', 'checkbox', array(
-                'label'     => 'Отвечающая требованиям европейского соглашения, касающегося работы экипажей транспортных средств, производящих международные автомобильные перевозки (ЕСТР)',
-                'required'  => false,
-            ))
-            ->add('cardTeh', 'checkbox', array(
-                'label'     => 'Отвечающая требованиям технического регламента «О безопасности колесных транспортных средств»',
-                'required'  => false,
-            ))
-
-            ->add($builder->create('paymentName',      'text', array('label' => 'Название платильщика', 'required' => true)))
 
             ->add('copyPassport', 'iphp_file', array(
                 'label'          => 'Копия документа удостоверяющая личность',
