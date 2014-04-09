@@ -110,3 +110,18 @@
 {% endblock form_widget_compound %}
 
 
+{% block date_widget %}
+    {% spaceless %}
+        {% if widget == 'single_text' %}
+            {{ block('form_widget_simple') }}
+        {% else %}
+            <div {{ block('widget_container_attributes') }}>
+                {{ date_pattern|replace({
+                '{{ year }}':  form_widget(form.year, { 'attr' : {'class' : 'date_year'} }),
+                '{{ month }}': form_widget(form.month, { 'attr' : {'class' : 'date_month'} }),
+                '{{ day }}':   form_widget(form.day, { 'attr' : {'class' : 'date_day'} }),
+                })|raw }}
+            </div>
+        {% endif %}
+    {% endspaceless %}
+{% endblock date_widget %}

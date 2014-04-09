@@ -11,7 +11,7 @@
             <br />
 
             <div class="userTypeDiv">
-                <span style="display: inline-block; width: 258px">
+                <span style="display: inline-block; width: 246px;">
                     Выберите владельца карты:
                 </span><select class="userType" data-placeholder=" владелец... ">
                     <option></option>
@@ -36,14 +36,12 @@
 
             $(".place-select").chosen({
                 disable_search_threshold: 10,
-                no_results_text: "Поиск не нашел ничего",
-                width: '215px'
+                no_results_text: "Поиск не нашел ничего"
             });
             $(".delivery-select").chosen({
                 disable_search_threshold: 10,
                 no_results_text: "Поиск не нашел ничего",
-                disable_search: true,
-                width: '215px'
+                disable_search: true
             });
             $(".date-select select").chosen({
                 disable_search_threshold: 10,
@@ -68,14 +66,12 @@
                             $('.multi-form').html(msg);
                             $(".place-select").chosen({
                                 disable_search_threshold: 10,
-                                no_results_text: "Поиск не нашел ничего",
-                                width: '215px'
+                                no_results_text: "Поиск не нашел ничего"
                             });
                             $(".delivery-select").chosen({
                                 disable_search_threshold: 10,
                                 no_results_text: "Поиск не нашел ничего",
-                                disable_search: true,
-                                width: '215px'
+                                disable_search: true
                             });
                             $(".date-select select").chosen({
                                 disable_search_threshold: 10,
@@ -112,13 +108,11 @@
                             $(".place-select").chosen({
                                 disable_search_threshold: 10,
                                 no_results_text: "Поиск не нашел ничего",
-                                width: '215px'
                             });
                             $(".delivery-select").chosen({
                                 disable_search_threshold: 10,
                                 no_results_text: "Поиск не нашел ничего",
                                 disable_search: true,
-                                width: '215px'
                             });
                             $(".date-select select").chosen({
                                 disable_search_threshold: 10,
@@ -189,10 +183,9 @@
         .userTypeDiv{
             text-align: left;
         }
-        .userType{
-            width: 215px;
-
-        }
+        /*.userType{*/
+            /*width: 215px;*/
+        /*}*/
         .label{
             width: 250px;
         }
@@ -212,6 +205,17 @@
         .row_comment{
             font-size: 12px;
             color: #555555;
+        }
+        .date_year{
+            width: 50px;
+        }
+        .date_month{
+            width: 110px;
+            margin-right: 5px;
+        }
+        .date_day{
+            width: 50px;
+
         }
     </style>
 {% endblock %}
