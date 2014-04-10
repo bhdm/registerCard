@@ -30,17 +30,20 @@ class User extends BaseEntity implements UserInterface, EquatableInterface, \Ser
 
     /**
      * @Assert\NotBlank( message = "Поле фамилия обязательно для заполнения" )
+     * @Assert\Length( max = "35", maxMessage = "Максимум  35 символов")
      * @ORM\Column(type="string", length=100)
      */
     protected  $lastName;
 
     /**
      * @Assert\NotBlank( message = "Поле имя обязательно для заполнения" )
+     * @Assert\Length( max = "35", maxMessage = "Максимум  35 символов")
      * @ORM\Column(type="string", length=100)
      */
     protected  $firstName;
 
     /**
+     * @Assert\Length( max = "35", maxMessage = "Максимум  35 символов")
      * @ORM\Column(type="string", length=100, nullable=true)
      */
     protected  $surName;
@@ -53,6 +56,7 @@ class User extends BaseEntity implements UserInterface, EquatableInterface, \Ser
 
     /**
      * @Assert\Regex(pattern= "/^[0-9\(\)\-\+\ ]+$/", message="Неверный формат ввода.")
+     * @Assert\Length( max = "35", maxMessage = "Максимум  35 символов")
      * @Assert\NotBlank( message = "Поле телефон обязательно для заполнения" )
      * @ORM\Column(type="string", length=15)
      */
@@ -132,7 +136,11 @@ class User extends BaseEntity implements UserInterface, EquatableInterface, \Ser
      */
     public function setFirstName($firstName)
     {
-        $this->firstName = $firstName;
+        $first = mb_substr($firstName,0,1, 'UTF-8');
+        $first = mb_strtoupper($first, 'UTF-8');
+        $last = mb_substr($firstName,1,strlen($firstName),'UTF-8');
+        $last = mb_strtolower($last, 'UTF-8');
+        $this->firstName = $first.$last;
     }
 
     /**
@@ -148,7 +156,11 @@ class User extends BaseEntity implements UserInterface, EquatableInterface, \Ser
      */
     public function setLastName($lastName)
     {
-        $this->lastName = $lastName;
+        $first = mb_substr($lastName,0,1, 'UTF-8');
+        $first = mb_strtoupper($first, 'UTF-8');
+        $last = mb_substr($lastName,1,strlen($lastName),'UTF-8');
+        $last = mb_strtolower($last, 'UTF-8');
+        $this->lastName = $first.$last;
     }
 
     /**
@@ -180,7 +192,11 @@ class User extends BaseEntity implements UserInterface, EquatableInterface, \Ser
      */
     public function setSurName($surName)
     {
-        $this->surName = $surName;
+        $first = mb_substr($surName,0,1, 'UTF-8');
+        $first = mb_strtoupper($first, 'UTF-8');
+        $last = mb_substr($surName,1,strlen($surName),'UTF-8');
+        $last = mb_strtolower($last, 'UTF-8');
+        $this->surName = $first.$last;
     }
 
     /**

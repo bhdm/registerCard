@@ -25,6 +25,7 @@ class Driver extends BaseEntity
     # Транспортное предприятие
 
     /**
+     * @Assert\Length( max = "40", minMessage = "Максимум 40 символов")
      * @Assert\NotBlank( message = "Поле название транспортного предприятия обязательно для заполнения" )
      * @ORM\Column(type="string")
      */
@@ -33,17 +34,20 @@ class Driver extends BaseEntity
     # Паспорт
 
     /**
+     * @Assert\Length( max = "32", maxMessage = "Максимум  32 символа")
      * @ORM\Column(type="string", nullable=true)
      */
     protected $passportSerial;
 
     /**
+     * @Assert\Length( max = "32", maxMessage = "Максимум  32 символа")
      * @Assert\NotBlank( message = "Поле номер паспорта обязательно для заполнения" )
-     * @ORM\Column(type="string", length=50)
+     * @ORM\Column(type="string", length=32)
      */
     protected $passportNumber;
 
     /**
+     * @Assert\Length( max = "63", maxMessage = "Максимум  63 символа")
      * @ORM\Column(type="string", nullable=true)
      */
     protected $passportIssuance;
@@ -122,24 +126,28 @@ class Driver extends BaseEntity
     protected $city;
 
     /**
+     * @Assert\Length( max = "64", maxMessage = "Максимум  64 символа")
      * @Assert\NotBlank( message = "Поле улица обязательно для заполнения" )
      * @ORM\Column(type="string", length=100)
      */
     protected $street;
 
     /**
+     * @Assert\Length( max = "10", maxMessage = "Максимум  10 символов")
      * @Assert\NotBlank( message = "Поле дом обязательно для заполнения" )
      * @ORM\Column(type="string", length=100)
      */
     protected $home;
 
     /**
+     * @Assert\Length( max = "10", maxMessage = "Максимум  10 символов")
      * @ORM\Column(type="string", length=10, nullable=true)
      */
     protected $corp;
 
     /**
      * квартира
+     * @Assert\Length( max = "10", maxMessage = "Максимум  10 символов")
      * @ORM\Column(type="string", length=10)
      */
     protected $room;
@@ -152,7 +160,7 @@ class Driver extends BaseEntity
 
     /**
      * @Assert\NotBlank( message = "Поле копия документа удостоверяющая личность обязательно для заполнения" )
-     * @Assert\File(maxSize="5M")
+     * @Assert\File(maxSize="2M")
      * @FileStore\UploadableField(mapping="docs")
      * @ORM\Column(type="array")
      */
@@ -160,7 +168,7 @@ class Driver extends BaseEntity
 
     /**
      * @ORM\Column(type="array")
-     * @Assert\File(maxSize="5M")
+     * @Assert\File(maxSize="2M")
      * @Assert\NotBlank( message = "Поле копия водительского удостоверения обязательно для заполнения" )
      * @FileStore\UploadableField(mapping="docs")
      */
@@ -168,7 +176,7 @@ class Driver extends BaseEntity
 
     /**
      * @Assert\NotBlank( message = "Поле фотография обязательно для заполнения" )
-     * @Assert\File(maxSize="5M")
+     * @Assert\File(maxSize="2M")
      * @FileStore\UploadableField(mapping="docs")
      * @ORM\Column(type="array")
      */
@@ -176,12 +184,43 @@ class Driver extends BaseEntity
 
     /**
      * @Assert\NotBlank( message = "Поле подпись обязательно для заполнения" )
-     * @Assert\File(maxSize="5M")
+     * @Assert\File(maxSize="2M")
      * @FileStore\UploadableField(mapping="docs")
      * @ORM\Column(type="array")
      */
     protected $copySignature;
 
+    /**
+     * @Assert\NotBlank( message = "Поле подпись обязательно для заполнения" )
+     * @Assert\File(maxSize="2M")
+     * @FileStore\UploadableField(mapping="docs")
+     * @ORM\Column(type="array")
+     */
+    protected $copyOrder;
+
+    /**
+     * @Assert\NotBlank( message = "Поле Заявление на выдачу карты обязательно для заполнения" )
+     * @Assert\File(maxSize="2M")
+     * @FileStore\UploadableField(mapping="docs")
+     * @ORM\Column(type="array")
+     */
+    protected $copyStatement;
+
+    /**
+     * @Assert\NotBlank( message = "Поле копия СНИЛС обязательно для заполнения" )
+     * @Assert\File(maxSize="2M")
+     * @FileStore\UploadableField(mapping="docs")
+     * @ORM\Column(type="array")
+     */
+    protected $copySnils;
+
+    /**
+     * @Assert\NotBlank( message = "Поле справка с места работы карты обязательно для заполнения" )
+     * @Assert\File(maxSize="2M")
+     * @FileStore\UploadableField(mapping="docs")
+     * @ORM\Column(type="array")
+     */
+    protected $copyWork;
 
 
     /**
@@ -617,6 +656,71 @@ class Driver extends BaseEntity
     {
         return $this->passportSerial;
     }
+
+    /**
+     * @param mixed $copyOrder
+     */
+    public function setCopyOrder($copyOrder)
+    {
+        $this->copyOrder = $copyOrder;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCopyOrder()
+    {
+        return $this->copyOrder;
+    }
+
+    /**
+     * @param mixed $copySnils
+     */
+    public function setCopySnils($copySnils)
+    {
+        $this->copySnils = $copySnils;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCopySnils()
+    {
+        return $this->copySnils;
+    }
+
+    /**
+     * @param mixed $copyStatement
+     */
+    public function setCopyStatement($copyStatement)
+    {
+        $this->copyStatement = $copyStatement;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCopyStatement()
+    {
+        return $this->copyStatement;
+    }
+
+    /**
+     * @param mixed $copyWork
+     */
+    public function setCopyWork($copyWork)
+    {
+        $this->copyWork = $copyWork;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCopyWork()
+    {
+        return $this->copyWork;
+    }
+
 
 
 
