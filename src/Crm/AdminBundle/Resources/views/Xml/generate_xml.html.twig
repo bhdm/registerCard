@@ -66,7 +66,7 @@
     <CardManufacturer>ATLAS</CardManufacturer>
     <TransportOrgName>{{ driver.companyName }}</TransportOrgName>
     <TransportOrgAddressPostcode>{{ driver.zipCode }}</TransportOrgAddressPostcode>
-    <TransportOrgAddressRegion>{{ {{ driver.region.title }} }}</TransportOrgAddressRegion>
+    <TransportOrgAddressRegion>{{ driver.region.title }}</TransportOrgAddressRegion>
     <TransportOrgAddressSettlement>г.{{ driver.city.title }}</TransportOrgAddressSettlement>
     <TransportOrgAddressStreet>{{ driver.street }}</TransportOrgAddressStreet>
     <TransportOrgAddressHouse>{{ driver.home }}</TransportOrgAddressHouse>
@@ -77,24 +77,24 @@
         {{ driver.street }}, {{ driver.home }}
         {{ driver.corp }}, {{ driver.room }}
     </TransportOrgAddFullAddress>
-    <LastName>{{ user.lastName }}</LastName>
-    <FirstName>{{ user.firstName }}</FirstName>
-    {% if user.surName %}
-    <MiddleName>{{ user.surName  }}</MiddleName>
+    <LastName>{{ driver.user.lastName }}</LastName>
+    <FirstName>{{ driver.user.firstName }}</FirstName>
+    {% if driver.user.surName %}
+    <MiddleName>{{ driver.user.surName  }}</MiddleName>
     {% endif %}
-    <Snils>{{ user.snils }}</Snils>
-    <DateOfBirth>{{ user.birthDate | date('dd.mm.YYYY') }}</DateOfBirth>
-    <PhoneNumber>{{ user.username }}</PhoneNumber>
+    <Snils>{{ driver.user.snils }}</Snils>
+    <DateOfBirth>{{ driver.user.birthDate | date('d.m.Y') }}</DateOfBirth>
+    <PhoneNumber>{{ driver.user.username }}</PhoneNumber>
     <ContactInfo></ContactInfo>
     <PassportSerial>{{ driver.passportSerial }}</PassportSerial>
     <PassportNumber>{{ driver.passportNumber }}</PassportNumber>
     <PassportIssuer>{{ driver.passportIssuance }}</PassportIssuer>
     <PassportIssuerCode>{{ driver.passportCode  }}</PassportIssuerCode>
-    <PassportIssueDate>{{ driver.passportIssuanceDate | date('dd.mm.YYYY') }}</PassportIssueDate>
+    <PassportIssueDate>{{ driver.passportIssuanceDate | date('d.m.Y') }}</PassportIssueDate>
     <LicenseNumber>{{ driver.driverDocNumber }}</LicenseNumber>
     <LicenseCountry>{{ driver.driverDocCountry.title }}</LicenseCountry>
     <LicenseIssuer>{{ driver.driverDocIssuance }}</LicenseIssuer>
-    <LicenseIssueDate>{{ driver.driverDocDateStarts | date('dd.mm.YYYY') }}</LicenseIssueDate>
-    <LicenseExpiryDate>{{ {{ driver.driverDocEnds | date('dd.mm.YYYY') }} }}</LicenseExpiryDate>
-    <PaymentContract>АО-48/14 от {{ 'now' | date('dd.mm.YYYY') }}</PaymentContract>
+    <LicenseIssueDate>{{ driver.driverDocDateStarts | date('d.m.Y') }}</LicenseIssueDate>
+    <LicenseExpiryDate>{{ driver.driverDocDateEnds | date('d.m.Y') }}</LicenseExpiryDate>
+    <PaymentContract>АО-48/14 от {{ 'now' | date('d.m.Y') }}</PaymentContract>
 </DriverCardRequest>
