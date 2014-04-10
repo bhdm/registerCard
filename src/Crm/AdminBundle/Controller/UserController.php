@@ -10,7 +10,7 @@ use Crm\MainBundle\Entity\User;
 class UserController extends Controller
 {
     /**
-     * @Route("/admin/user/list", name="user_list")
+     * @Route("/admin/user-list", name="user_list")
      * @Template()
      */
     public function listAction()
