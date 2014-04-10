@@ -105,7 +105,7 @@ class Driver extends BaseEntity
 
     /**
      * @Assert\NotBlank( message = "Поле почтоый индекс обязательно для заполнения" )
-     * @Assert\Regex(pattern= "/^[0-9]{11}$/", message="Неверный формат ввода.")
+     * @Assert\Regex(pattern= "/^[0-9]{6}$/", message="Неверный формат ввода.")
      * @ORM\Column(type="string", length=12)
      */
     protected  $zipcode;
@@ -189,14 +189,6 @@ class Driver extends BaseEntity
      * @ORM\Column(type="array")
      */
     protected $copySignature;
-
-    /**
-     * @Assert\NotBlank( message = "Поле подпись обязательно для заполнения" )
-     * @Assert\File(maxSize="2M")
-     * @FileStore\UploadableField(mapping="docs")
-     * @ORM\Column(type="array")
-     */
-    protected $copyOrder;
 
     /**
      * @Assert\NotBlank( message = "Поле Заявление на выдачу карты обязательно для заполнения" )
@@ -657,21 +649,6 @@ class Driver extends BaseEntity
         return $this->passportSerial;
     }
 
-    /**
-     * @param mixed $copyOrder
-     */
-    public function setCopyOrder($copyOrder)
-    {
-        $this->copyOrder = $copyOrder;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getCopyOrder()
-    {
-        return $this->copyOrder;
-    }
 
     /**
      * @param mixed $copySnils
