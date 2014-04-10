@@ -55,6 +55,7 @@ class Driver extends BaseEntity
     protected $passportIssuanceDate;
 
     /** Код подразделения
+     * @Assert\Regex(pattern= "/^[0-9]{3}\-[0-9]{3}$/", message="Неверный формат ввода.")
      * @ORM\Column(type="string", length=15, nullable=true)
      */
     protected $passportCode;

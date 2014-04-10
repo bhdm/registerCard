@@ -56,7 +56,7 @@ class DriverType extends AbstractType
             ->add('passportIssuance', null, array('label' => 'Кем выдан'))
             ->add('passportIssuanceDate', 'date', array(
                 'label'  => 'Дата выдачи',
-                'years'  => range(date('Y') - 90, date('Y')-17),
+                'years'  => range(date('Y') - 90, date('Y')),
                 'data'   => new \DateTime('2000-01-01'),
                 'format' => 'dd MMMM yyyy',
                 'attr' => array('class' => 'date-select')
@@ -69,14 +69,14 @@ class DriverType extends AbstractType
             ->add('driverDocDateStarts', 'date', array(
                 'label'  => 'Дата выдачи вод. удостоверения',
                 'years'  => range(date('Y') - 111, date('Y')),
-                'data'   => new \DateTime('1970-01-01'),
+                'data'   => new \DateTime('2000-01-01'),
                 'format' => 'dd MMMM yyyy',
                 'attr' => array('class' => 'date-select')
             ))
             ->add('driverDocDateEnds', 'date', array(
                 'label'  => 'Дата окончания вод. удостоверения',
-                'years'  => range(date('Y') - 2000, date('Y')),
-                'data'   => new \DateTime('1970-01-01'),
+                'years'  => range(date('Y') - 20, date('Y')+10),
+                'data'   => new \DateTime('2000-01-01'),
                 'format' => 'dd MMMM yyyy',
                 'attr' => array('class' => 'date-select')
             ))

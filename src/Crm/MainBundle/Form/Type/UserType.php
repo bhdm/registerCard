@@ -51,7 +51,7 @@ class UserType extends AbstractType
             ->add('snils', null, array('label' => 'СНИЛС'))
             ->add('birthdate', 'date', array(
                 'label'  => 'Дата рождения',
-                'years'  => range(date('Y') - 111, date('Y')),
+                'years'  => range(date('Y') - 111, date('Y')-17),
                 'data'   => new \DateTime('1970-01-01'),
                 'format' => 'dd MMMM yyyy',
                 'attr' => array('class' => 'date-select')

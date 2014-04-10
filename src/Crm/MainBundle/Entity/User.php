@@ -61,16 +61,16 @@ class User extends BaseEntity implements UserInterface, EquatableInterface, \Ser
     /**
      * @Assert\NotBlank( message = "Поле E-mail обязательно для заполнения" )
      * @Assert\Regex(pattern= "/^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{1,})$/", message="Неверный формат ввода.")
-     * @ORM\Column(type="string", length=15)
+     * @ORM\Column(type="string", length=50)
      */
     protected  $email;
 
 
     /**
      * @Assert\NotBlank( message = "Поле пароль обязательно для заполнения" )
-     * @ORM\Column(type="string", length=25)
+     * @ORM\Column(type="string", length=25, nullable=true)
      */
-    protected $password;
+    protected $password = '1';
 
     /**
      * @ORM\Column(type="string")
@@ -81,7 +81,7 @@ class User extends BaseEntity implements UserInterface, EquatableInterface, \Ser
     /**
      * @Assert\NotBlank( message = "Поле СНИЛС обязательно для заполнения" )
      * @Assert\Regex(pattern= "/^[0-9]{11}$/", message="Неверный формат ввода.")
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string", length=11)
      */
     protected $snils;
 
@@ -210,7 +210,7 @@ class User extends BaseEntity implements UserInterface, EquatableInterface, \Ser
     /**
      * @param mixed $password
      */
-    public function setPassword($password)
+    public function setPassword($password='1')
     {
         $this->password = $password;
     }
