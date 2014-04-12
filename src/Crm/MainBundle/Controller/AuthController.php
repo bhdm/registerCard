@@ -113,6 +113,11 @@ class AuthController extends Controller
                     $driver->setuser($user);
                     $em->persist($driver);
                     $em->flush();
+                }else{
+                    return array(
+                        'formUser'      => $formUser->createView(),
+                        'formDriver'    => $formDriver->createView(),
+                    );
                 }
             }
 
