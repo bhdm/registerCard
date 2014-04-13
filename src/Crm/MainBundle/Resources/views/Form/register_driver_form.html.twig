@@ -1,1 +1,92 @@
-{{ form_widget(formDriver) }}
+<table {{ block('widget_container_attributes') }} class="form_table">
+    {% if formDriver.parent is empty and form_errors(formDriver)|length > 0 %}
+        <tr class="row">
+            <td colspan="2">
+                <div class="form_errors">
+                    {{ form_errors(formDriver) }}
+                </div>
+            </td>
+        </tr>
+    {% endif %}
+    {{ form_row(formDriver.companyName) }}
+        <tr>
+            <td colspan="2">
+                Паспорт
+            </td>
+        </tr>
+    {{ form_row(formDriver.passportSerial) }}
+    {{ form_row(formDriver.passportNumber) }}
+    {{ form_row(formDriver.passportIssuance) }}
+    {{ form_row(formDriver.passportIssuanceDate) }}
+    {{ form_row(formDriver.passportCode) }}
+        <tr>
+            <td colspan="2">
+                Водительское удостоверение
+            </td>
+        </tr>
+    {{ form_row(formDriver.driverDocNumber) }}
+    {{ form_row(formDriver.driverDocCountry) }}
+    {{ form_row(formDriver.driverDocIssuance) }}
+    {{ form_row(formDriver.driverDocDateStarts) }}
+    {{ form_row(formDriver.driverDocDateEnds) }}
+    <tr>
+        <td colspan="2">
+            Номер прошлой карты
+        </td>
+    </tr>
+    {{ form_row(formDriver.lastNumberCard) }}
+    <tr>
+        <td colspan="2">
+            Адрес
+        </td>
+    </tr>
+    {{ form_row(formDriver.zipcode) }}
+    {{ form_row(formDriver.region) }}
+    <tr>
+        <td>{{ form_label(formDriver.cityType) }}</td>
+        <td>
+            {{ form_widget(formDriver.cityType) }}
+            {{ form_widget(formDriver.city) }}
+        </td>
+    </tr>
+
+    <tr>
+        <td>{{ form_label(formDriver.streetType) }}</td>
+        <td>
+            {{ form_widget(formDriver.streetType) }}
+            {{ form_widget(formDriver.street) }}
+        </td>
+    </tr>
+    {{ form_row(formDriver.home) }}
+    <tr>
+        <td>{{ form_label(formDriver.corpType) }}</td>
+        <td>
+            {{ form_widget(formDriver.corpType) }}
+            {{ form_widget(formDriver.corp) }}
+        </td>
+    </tr>
+    <tr>
+        <td>{{ form_label(formDriver.roomType) }}</td>
+        <td>
+            {{ form_widget(formDriver.roomType) }}
+            {{ form_widget(formDriver.room) }}
+        </td>
+    </tr>
+    <tr>
+        <td colspan="2">
+            Приложенные документы
+        </td>
+    </tr>
+    {{ form_row(formDriver.copyPassport) }}
+    {{ form_row(formDriver.copyDriverPassport) }}
+    {{ form_row(formDriver.photo) }}
+    {{ form_row(formDriver.copySignature) }}
+    {{ form_row(formDriver.copyStatement) }}
+    {{ form_row(formDriver.copySnils) }}
+    {{ form_row(formDriver.copyWork) }}
+
+    {{ form_row(formDriver.submit) }}
+    {{ form_row(formDriver._token) }}
+
+    {#{{ form_rest(formDriver) }}#}
+</table>

@@ -22,7 +22,7 @@
             <br />
             <div class="multi-form">
                 {% if formDriver is defined %}
-                    {{ form_widget(formDriver) }}
+                    {{ include('CrmMainBundle:Form:register_driver_form.html.twig') }}
                 {% endif %}
             </div>
         </form>
@@ -56,6 +56,7 @@
                 no_results_text: "Поиск не нашел ничего",
                 disable_search: true
             });
+
             $("#user_snils").mask("999-999-999 99");
             $("#driver_zipcode").mask("999999");
             $("#driver_passportCode").mask("999-999");
@@ -63,6 +64,27 @@
             $.mask.definitions['d'] = "[a-zA-Z0-9 ]";
             $('#driver_lastNumberCard').mask("RUhddddddddddddd");
             $('#driver_driverDocNumber').mask("99dd999999");
+
+            $('#driver_cityType').chosen({
+                disable_search_threshold: 10,
+                disable_search: true,
+                width: 100
+            });
+            $('#driver_streetType').chosen({
+                disable_search_threshold: 10,
+                disable_search: true,
+                width: 100
+            });
+            $('#driver_roomType').chosen({
+                disable_search_threshold: 10,
+                disable_search: true,
+                width: 100
+            });
+            $('#driver_corpType').chosen({
+                disable_search_threshold: 10,
+                disable_search: true,
+                width: 100
+            });
 
             $('.userType').change(function(){
                 $('.multi-form').html('<img src="{{ asset('bundles/crmmain/images/loader.gif') }}" class="loader"/>');
@@ -229,6 +251,9 @@
         .date_day{
             width: 50px;
 
+        }
+        #driver_city , #driver_street, #driver_corp, #driver_room{
+            width: 146px;
         }
     </style>
 {% endblock %}

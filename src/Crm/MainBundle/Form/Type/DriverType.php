@@ -129,21 +129,21 @@ class DriverType extends AbstractType
 
             ->add($builder->create('home',      'text',   array('required' => true,    'label' => 'Дом')))
 
-            ->add($builder->create('corpType',  'choice', array('required' => false,    'label' => 'Корпус/строение', 'choices' => $corpType)))
+            ->add($builder->create('corpType',  'choice', array('required' => false,    'label' => 'Корпус/строение', 'choices' => $corpType, 'attr'=> array('data-placeholder'=>'Выберите'))))
             ->add($builder->create('corp',      'text',   array('required' => false)))
 
-            ->add($builder->create('roomType',  'choice', array('required' => false,    'label' => 'Квартира/офис ', 'choices' => $roomType)))
+            ->add($builder->create('roomType',  'choice', array('required' => false,    'label' => 'Квартира/офис ', 'choices' => $roomType, 'attr'=> array('data-placeholder'=>'Выберите'))))
             ->add($builder->create('room',      'text',   array('required' => false )))
 
-            ->add('delivery', 'choice', array(
-                'choices' => array(
-                    '1' => 'Самовывоз из пункта подачи заявки'
-                ),
-                'label'       => 'Способ доставки',
-                'required'    => true,
-                'empty_data'  => null,
-                'attr' => array('class' => 'delivery-select')
-            ))
+//            ->add('delivery', 'choice', array(
+//                'choices' => array(
+//                    '1' => 'Самовывоз из пункта подачи заявки'
+//                ),
+//                'label'       => 'Способ доставки',
+//                'required'    => true,
+//                'empty_data'  => null,
+//                'attr' => array('class' => 'delivery-select')
+//            ))
 
             ->add('copyPassport', 'iphp_file', array(
                 'label'          => 'Копия документа удостоверяющая личность',

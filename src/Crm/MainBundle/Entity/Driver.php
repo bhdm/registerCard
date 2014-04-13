@@ -186,7 +186,7 @@ class Driver extends BaseEntity
 
     /**
      * @Assert\NotBlank( message = "Поле тип доставки обязательно для заполнения" )
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="integer", nullable=true)
      */
     protected $delivery;
 
