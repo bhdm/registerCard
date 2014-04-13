@@ -120,10 +120,27 @@ class Driver extends BaseEntity
      */
     protected $region;
 
+
     /**
-     * @ORM\ManyToOne(targetEntity="City", inversedBy="drivers")
+     * @Assert\Length( max = "10", maxMessage = "Максимум  10 символа")
+     * @Assert\NotBlank( message = "Поле тип населеного пункта обязательно для заполнения" )
+     * @ORM\Column(type="string", length=10)
+     */
+    protected $cityType;
+
+    /**
+     * @Assert\Length( max = "64", maxMessage = "Максимум  64 символа")
+     * @Assert\NotBlank( message = "Поле город обязательно для заполнения" )
+     * @ORM\Column(type="string", length=64)
      */
     protected $city;
+
+    /**
+     * @Assert\Length( max = "10", maxMessage = "Максимум  10 символа")
+     * @Assert\NotBlank( message = "Поле тип улицы обязательно для заполнения" )
+     * @ORM\Column(type="string", length=10)
+     */
+    protected $streetType;
 
     /**
      * @Assert\Length( max = "64", maxMessage = "Максимум  64 символа")
@@ -131,6 +148,7 @@ class Driver extends BaseEntity
      * @ORM\Column(type="string", length=100)
      */
     protected $street;
+
 
     /**
      * @Assert\Length( max = "10", maxMessage = "Максимум  10 символов")
@@ -140,15 +158,29 @@ class Driver extends BaseEntity
     protected $home;
 
     /**
+     * @Assert\Length( max = "10", maxMessage = "Максимум  10 символа")
+     * @Assert\NotBlank( message = "Поле выбор корп / строение  обязательно для заполнения" )
+     * @ORM\Column(type="string", length=10, nullable=true)
+     */
+    protected $corpType;
+
+    /**
      * @Assert\Length( max = "10", maxMessage = "Максимум  10 символов")
      * @ORM\Column(type="string", length=10, nullable=true)
      */
     protected $corp;
 
     /**
+     * @Assert\Length( max = "10", maxMessage = "Максимум  10 символа")
+     * @Assert\NotBlank( message = "Поле выбор квартиры / офиса  обязательно для заполнения" )
+     * @ORM\Column(type="string", length=10, nullable=true)
+     */
+    protected $roomType;
+
+    /**
      * квартира
      * @Assert\Length( max = "10", maxMessage = "Максимум  10 символов")
-     * @ORM\Column(type="string", length=10)
+     * @ORM\Column(type="string", length=10, nullable=true)
      */
     protected $room;
 
@@ -696,6 +728,70 @@ class Driver extends BaseEntity
     public function getCopyWork()
     {
         return $this->copyWork;
+    }
+
+    /**
+     * @param mixed $cityType
+     */
+    public function setCityType($cityType)
+    {
+        $this->cityType = $cityType;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCityType()
+    {
+        return $this->cityType;
+    }
+
+    /**
+     * @param mixed $corpType
+     */
+    public function setCorpType($corpType)
+    {
+        $this->corpType = $corpType;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCorpType()
+    {
+        return $this->corpType;
+    }
+
+    /**
+     * @param mixed $roomType
+     */
+    public function setRoomType($roomType)
+    {
+        $this->roomType = $roomType;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getRoomType()
+    {
+        return $this->roomType;
+    }
+
+    /**
+     * @param mixed $streetType
+     */
+    public function setStreetType($streetType)
+    {
+        $this->streetType = $streetType;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getStreetType()
+    {
+        return $this->streetType;
     }
 
 

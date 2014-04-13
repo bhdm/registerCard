@@ -56,9 +56,13 @@
                 no_results_text: "Поиск не нашел ничего",
                 disable_search: true
             });
-            $("#user_snils").mask("99-999-999 99");
+            $("#user_snils").mask("999-999-999 99");
             $("#driver_zipcode").mask("999999");
             $("#driver_passportCode").mask("999-999");
+            $.mask.definitions['h'] = "[DMP ]";
+            $.mask.definitions['d'] = "[a-zA-Z0-9 ]";
+            $('#driver_lastNumberCard').mask("RUhddddddddddddd");
+            $('#driver_driverDocNumber').mask("99dd999999");
 
             $('.userType').change(function(){
                 $('.multi-form').html('<img src="{{ asset('bundles/crmmain/images/loader.gif') }}" class="loader"/>');
@@ -90,6 +94,8 @@
                             });
                             $("#driver_passportCode").mask("999-999");
                             $("#user_snils").mask("99-999-999 99");
+                            $('#driver_lastNumberCard').mask("RUhddddddddddddd");
+                            $('#driver_driverDocNumber').mask("99dd999999");
 
                             $('.form_widget').on('change','#driver_region', function(){
                                 $.ajax({
