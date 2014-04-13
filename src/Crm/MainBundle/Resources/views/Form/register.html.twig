@@ -137,7 +137,8 @@
                             });
 
                             $("#driver_passportCode").mask("999-999");
-                            $("#user_snils").mask("99-999-999 99");
+                            $("#user_snils").mask("999-999-999 99");
+                            $("#driver_zipcode").mask("999999");
                             $('#driver_lastNumberCard').mask("RUhddddddddddddd");
                             $('#driver_driverDocNumber').mask("99dd999999");
 
@@ -286,6 +287,11 @@
         label{
             color: #333333;
             font-size: 14px;
+        }
+        .form_errors ul li{
+            color: #CC3333;
+            list-style: none;
+            padding-bottom: 5px;
         }
     </style>
 {% endblock %}
