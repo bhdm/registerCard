@@ -36,7 +36,8 @@ class DriverType extends AbstractType
             $country[$tmp->getId()] = $tmp->getTitle();
         }
 
-        $tmps = $this->em->getRepository('CrmMainBundle:Region')->findAll();
+        $tcountry =$this->em->getRepository('CrmMainBundle:Country')->findOneById(3159);
+        $tmps = $this->em->getRepository('CrmMainBundle:Region')->findByCountry($tcountry);
         $region = array();
         foreach ( $tmps as $tmp){
             $region[$tmp->getId()] = $tmp->getTitle();
@@ -98,7 +99,17 @@ class DriverType extends AbstractType
             ->add('passportCode', null, array('label' => 'Код подразделения'))
 
             ->add('driverDocNumber', null, array('label' => 'Номер водительского удостоверения'))
-            ->add($builder->create('driverDocCountry',   'choice', array('required' => true,    'label' => 'Страна выдачи вод. удостоврения', 'choices' => $country,  'attr'=> array('class'=>'place-select')))->addModelTransformer($countryToStringTransformer))
+            ->add($builder->create('driverDocCountry',
+                'choice',
+                array(
+                        'required' => true,
+                        'label' => 'Страна выдачи вод. удостоврения',
+                        'choices' => $country,
+                        'data' => $this->em->getRepository('CrmMainBundle:Country')->findOneById(3159),
+                        'attr'=> array('class'=>'place-select'),
+                    )
+                )->addModelTransformer($countryToStringTransformer))
+
             ->add('driverDocIssuance', null, array('label' => 'Кем выдано водительское удостоверение'))
             ->add('driverDocDateStarts', 'date', array(
                 'label'  => 'Дата выдачи вод. удостоверения',
@@ -119,12 +130,21 @@ class DriverType extends AbstractType
 
             ->add($builder->create('zipcode',   'text',   array('required' => true,    'label' => 'Почтовый индекс')))
 //            ->add($builder->create('country',   'choice', array('required' => true,    'label' => 'Страна', 'choices' => $country,  'attr'=> array('class'=>'place-select')))->addModelTransformer($countryToStringTransformer))
-            ->add($builder->create('region',    'choice', array('required' => true,    'label' => 'Регион', 'choices' => $region, 'attr'=> array('class'=>'place-select')))->addModelTransformer($regionToStringTransformer))
+            ->add($builder->create('region',
+                'choice',
+                array(
+                    'required' => true,
+                    'label' => 'Регион',
+                    'choices' => $region,
+                    'attr'=> array('class'=>'place-select'),
+                    'data' => $this->em->getRepository('CrmMainBundle:Region')->findOneById(4312)
+                )
+            )->addModelTransformer($regionToStringTransformer))
 
             ->add($builder->create('cityType',  'choice', array('required' => true,    'label' => 'Населеный пункт', 'choices' => $cityType )))
             ->add($builder->create('city',      null, array('required' => true)))
 
-            ->add($builder->create('streetType','choice', array('required' => true,    'label' => 'Тип улицы', 'choices' => $streetType)))
+            ->add($builder->create('streetType','choice', array('required' => true,    'label' => 'Тип улицы', 'choices' => $streetType, 'data' => 'ул.')))
             ->add($builder->create('street',    'text',   array('required' => true)))
 
             ->add($builder->create('home',      'text',   array('required' => true,    'label' => 'Дом')))

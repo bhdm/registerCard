@@ -114,6 +114,28 @@
                                 no_results_text: "Поиск не нашел ничего",
                                 disable_search: true
                             });
+
+                            $('#driver_cityType').chosen({
+                                disable_search_threshold: 10,
+                                disable_search: true,
+                                width: 100
+                            });
+                            $('#driver_streetType').chosen({
+                                disable_search_threshold: 10,
+                                disable_search: true,
+                                width: 100
+                            });
+                            $('#driver_roomType').chosen({
+                                disable_search_threshold: 10,
+                                disable_search: true,
+                                width: 100
+                            });
+                            $('#driver_corpType').chosen({
+                                disable_search_threshold: 10,
+                                disable_search: true,
+                                width: 100
+                            });
+
                             $("#driver_passportCode").mask("999-999");
                             $("#user_snils").mask("99-999-999 99");
                             $('#driver_lastNumberCard').mask("RUhddddddddddddd");
@@ -254,6 +276,16 @@
         }
         #driver_city , #driver_street, #driver_corp, #driver_room{
             width: 146px;
+        }
+        .table-title{
+            border-bottom: 1px solid #CCC;
+            padding: 10px 10px 10px 40px;
+            font-weight: bold;
+            color: #333333;
+        }
+        label{
+            color: #333333;
+            font-size: 14px;
         }
     </style>
 {% endblock %}

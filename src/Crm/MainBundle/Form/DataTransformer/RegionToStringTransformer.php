@@ -35,7 +35,7 @@ class RegionToStringTransformer implements DataTransformerInterface
             return '';
         }
 
-        $title = $region->getTitle();
+        $title = $region->getId();
 
         return $title;
     }

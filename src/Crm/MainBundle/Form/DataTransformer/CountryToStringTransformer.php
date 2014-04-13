@@ -34,7 +34,7 @@ class CountryToStringTransformer implements DataTransformerInterface
             return '';
         }
 
-        $title = $country->getTitle();
+        $title = $country->getId();
 
         return $title;
     }
