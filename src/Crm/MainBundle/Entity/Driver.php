@@ -159,7 +159,6 @@ class Driver extends BaseEntity
 
     /**
      * @Assert\Length( max = "10", maxMessage = "Максимум  10 символа")
-     * @Assert\NotBlank( message = "Поле выбор корп / строение  обязательно для заполнения" )
      * @ORM\Column(type="string", length=10, nullable=true)
      */
     protected $corpType;
@@ -172,7 +171,6 @@ class Driver extends BaseEntity
 
     /**
      * @Assert\Length( max = "10", maxMessage = "Максимум  10 символа")
-     * @Assert\NotBlank( message = "Поле выбор квартиры / офиса  обязательно для заполнения" )
      * @ORM\Column(type="string", length=10, nullable=true)
      */
     protected $roomType;
