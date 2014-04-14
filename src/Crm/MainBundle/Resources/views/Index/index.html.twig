@@ -1,6 +1,9 @@
 {% extends 'CrmMainBundle::layout.html.twig' %}
 
 {% block content %}
+    <div style="text-align: center">
+        <img src="{{ asset('bundles/crmmain/images/3.png') }}">
+    </div>
     <table>
         <tr>
             <td>
@@ -15,7 +18,7 @@
                     <div>{{ indexPage_2.body | raw }}</div>
                 </div>
             </td>
-            <td>
+            <td style="width: 300px">
                 <div class="auth" id="auth">
                     <h2>Подать заявку</h2>
                     <div class="input-box"><input type="text" value="" placeholder="Фамилия" name="lastName" id="lastName"></div>
@@ -37,6 +40,7 @@
     <style>
         table tr td{
             vertical-align: top;
+            width: 40%;
         }
         .auth{
             padding: 10px 30px;
