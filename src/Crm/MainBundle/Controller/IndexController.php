@@ -19,9 +19,11 @@ class IndexController extends Controller
     {
         $indexPage_1 = $this->getDoctrine()->getRepository('CrmMainBundle:Page')->findOneByUrl('indexPage_1');
         $indexPage_2 = $this->getDoctrine()->getRepository('CrmMainBundle:Page')->findOneByUrl('indexPage_2');
+        $indexPage_3 = $this->getDoctrine()->getRepository('CrmMainBundle:Page')->findOneByUrl('indexPage_3');
         return array(
             'indexPage_1'   => $indexPage_1,
             'indexPage_2'   => $indexPage_2,
+            'indexPage_3'   => $indexPage_3,
         );
     }
 
