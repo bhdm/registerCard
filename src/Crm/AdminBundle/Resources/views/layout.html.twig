@@ -10,6 +10,16 @@
     {% endblock %}
     {% block stylesheets %}
         <link href="{{ asset('bundles/crmadmin/stylesheets/common.css') }}" rel="stylesheet" media="all">
+        <style>
+            .logo a{
+                font-size: 18pt;
+                color: #ffffee;
+            }
+            .logo{
+                text-align: left;
+                padding: 50px;
+            }
+        </style>
     {% endblock %}
     {% block javascripts %}
         <script rel="script" src="{{ asset('bundles/crmadmin/javascripts/jQuery.js') }}"></script>
@@ -24,7 +34,9 @@
 <body>
 <div class="body">
     <header>
-
+        <div class="logo">
+            <a href="http://im-kard.ru" target="_blank">Im-kard</a>
+        </div>
     </header>
     <div class="menu">
         {{ include('CrmAdminBundle::menu.html.twig') }}
