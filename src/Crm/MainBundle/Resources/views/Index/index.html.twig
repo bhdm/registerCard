@@ -37,6 +37,7 @@
 
 {% block stylesheets %}
     {{ parent() }}
+    <link href="{{ asset('bundles/crmmain/lib/fancyapps/jquery.fancybox.css') }}" rel="stylesheet" media="all">
     <style>
         table tr td{
             vertical-align: top;
@@ -71,8 +72,12 @@
 {% block javascripts %}
     {{ parent() }}
     <script src="{{ asset('bundles/crmmain/javascripts/jquery.maskedinput.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('bundles/crmmain/lib/fancyapps/jquery.fancybox.js') }}" type="text/javascript"></script>
     <script>
         $(document).ready(function(){
+
+
+            $(".fancybox").fancybox();
 
             $("#phone").mask("+7 (999) 999-9999");
 
