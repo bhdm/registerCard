@@ -96,7 +96,7 @@ class Driver extends BaseEntity
      */
     protected $driverDocDateEnds;
     /**
-     * @Assert\Regex(pattern= "/^RU[DMP][A-Z0-9]{13}$/", message="Неверный формат ввода.")
+     * @Assert\Regex(pattern= "/^RUD[A-Z0-9]{13}$/", message="Неверный формат ввода.")
      * @ORM\Column(type="string", nullable=true)
      */
     protected $lastNumberCard;

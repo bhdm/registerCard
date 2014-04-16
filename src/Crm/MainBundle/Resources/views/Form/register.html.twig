@@ -36,6 +36,39 @@
     <script src="{{ asset('bundles/crmmain/javascripts/jquery.maskedinput.js') }}" type="text/javascript"></script>
     <script>
         $(document).ready(function(){
+
+            function fullAddress(){
+                var adr = $('#driver_zipcode').val() + ', '+
+                        $('#driver_region_chosen .chosen-single span').html() + ', '+
+                        $('#driver_cityType').val() + ' '+
+                        $('#driver_city').val() + ', '+
+                        $('#driver_streetType').val() + ' '+
+                        $('#driver_street').val() + ', '+
+                        'д.'+$('#driver_home').val();
+                    if ($('#driver_corpType').val()!='' && $('#driver_corp').val()!=''){
+                        adr +=', '+ $('#driver_corpType').val()+' '+
+                                    $('#driver_corp').val();
+                    }
+                    if ($('#driver_roomType').val()!='' && $('#driver_room').val()!=''){
+                        adr +=', '+ $('#driver_roomType').val()+' '+
+                                $('#driver_room').val();
+                    }
+                $('#fullAddress').html(adr)
+            }
+
+            $('#driver_zipcode').change( fullAddress);
+            $('#driver_region').change( fullAddress);
+            $('#driver_cityType').change( fullAddress);
+            $('#driver_city').change( fullAddress);
+            $('#driver_streetType').change( fullAddress);
+            $('#driver_street').change( fullAddress);
+            $('#driver_home').change( fullAddress);
+            $('#driver_corpType').change( fullAddress);
+            $('#driver_corp').change( fullAddress);
+            $('#driver_roomType').change( fullAddress);
+            $('#driver_room').change( fullAddress);
+
+
 //            $('.form_table input[type=file]').customFile();
             $(".place-select").chosen({
                 disable_search_threshold: 10,
@@ -62,7 +95,7 @@
             $("#driver_passportCode").mask("999-999");
             $.mask.definitions['h'] = "[DMP ]";
             $.mask.definitions['d'] = "[a-zA-Z0-9 ]";
-            $('#driver_lastNumberCard').mask("RUhddddddddddddd");
+            $('#driver_lastNumberCard').mask("RUDddddddddddddd");
             $('#driver_driverDocNumber').mask("99dd999999");
 
             $('#driver_cityType').chosen({
@@ -139,8 +172,20 @@
                             $("#driver_passportCode").mask("999-999");
                             $("#user_snils").mask("999-999-999 99");
                             $("#driver_zipcode").mask("999999");
-                            $('#driver_lastNumberCard').mask("RUhddddddddddddd");
+                            $('#driver_lastNumberCard').mask("RUDddddddddddddd");
                             $('#driver_driverDocNumber').mask("99dd999999");
+
+                            $('#driver_zipcode').on('change', fullAddress);
+                            $('#driver_region').on('change', fullAddress);
+                            $('#driver_cityType').on('change', fullAddress);
+                            $('#driver_city').on('change', fullAddress);
+                            $('#driver_streetType').on('change', fullAddress);
+                            $('#driver_street').on('change', fullAddress);
+                            $('#driver_home').on('change', fullAddress);
+                            $('#driver_corpType').on('change', fullAddress);
+                            $('#driver_corp').on('change', fullAddress);
+                            $('#driver_roomType').on('change', fullAddress);
+                            $('#driver_room').on('change', fullAddress);
 
                             $('.form_widget').on('change','#driver_region', function(){
                                 $.ajax({
@@ -276,7 +321,7 @@
 
         }
         #driver_city , #driver_street, #driver_corp, #driver_room{
-            width: 146px;
+            width: 145px;
         }
         .table-title{
             border-bottom: 1px solid #CCC;
@@ -292,6 +337,10 @@
             color: #CC3333;
             list-style: none;
             padding-bottom: 5px;
+        }
+        #fullAddress{
+            color: #444;
+            font-size: 0.8em;
         }
     </style>
 {% endblock %}
