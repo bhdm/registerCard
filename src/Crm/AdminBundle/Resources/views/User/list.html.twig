@@ -10,18 +10,20 @@
             <th>Фамилия </th>
             <th>Имя</th>
             <th>Отчество</th>
-            <th></th>
+            <th style="width: 200px"></th>
         </tr>
         {% for user in users %}
             <tr>
                 <td>{{ user.lastName }}</td>
                 <td>{{ user.firstName }}</td>
                 <td>{{ user.surName }}</td>
-                <td>
+                <td style="text-align: right">
                     <a href="{{ path('user_show',{'userId' : user.id}) }}">Просмотр</a>
                     <span>&nbsp;&nbsp;&nbsp;</span>
                     <a href="{{ path('xml_generator',{ userId : user.id }) }}" target="_blank">скачать XML</a>
-
+                    <span style="padding: 0 20px">&nbsp;</span>
+                    <a href="{{ path('user_edit',{ 'userId' : user.id }) }}"><img class="ico" src="{{ asset('bundles/crmadmin/images/icon/image15.png') }}"/></a>
+                    <a href="{{ path('user_delete',{ 'userId' : user.id }) }}"><img class="ico" src="{{ asset('bundles/crmadmin/images/icon/image13.png') }}"/></a>
                 </td>
             </tr>
         {% endfor %}

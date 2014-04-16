@@ -26,7 +26,9 @@
         <script rel="script" src="{{ asset('bundles/crmadmin/lib/ckeditor/ckeditor.js') }}"></script>
         <script>
             $(document).ready(function(){
-                CKEDITOR.replace( 'textarea' );
+                if ($('textarea').length > 0){
+                    CKEDITOR.replace( 'textarea' );
+                }
             })
         </script>
     {% endblock %}

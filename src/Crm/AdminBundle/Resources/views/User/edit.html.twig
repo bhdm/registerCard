@@ -1,0 +1,420 @@
+{% extends 'CrmAdminBundle::layout.html.twig' %}
+
+{% block content %}
+    <form id="register_form" action="{{ path('user_edit',{'userId' : userId }) }}" method="post" enctype="multipart/form-data">
+        {{ form_widget(formUser) }}
+        <table {{ block('widget_container_attributes') }} class="form_table">
+            {% if formDriver.parent is empty and form_errors(formDriver)|length > 0 %}
+                <tr class="row">
+                    <td colspan="2">
+                        <div class="form_errors">
+                            {{ form_errors(formDriver) }}
+                        </div>
+                    </td>
+                </tr>
+            {% endif %}
+            {{ form_row(formDriver.companyName) }}
+            <tr>
+                <td colspan="2" class="table-title">
+                    Паспорт
+                </td>
+            </tr>
+            {{ form_row(formDriver.passportSerial) }}
+            {{ form_row(formDriver.passportNumber) }}
+            {{ form_row(formDriver.passportIssuance) }}
+            {{ form_row(formDriver.passportIssuanceDate) }}
+            {{ form_row(formDriver.passportCode) }}
+            <tr>
+                <td colspan="2" class="table-title">
+                    Водительское удостоверение
+                </td>
+            </tr>
+            {{ form_row(formDriver.driverDocNumber) }}
+            {{ form_row(formDriver.driverDocCountry) }}
+            {{ form_row(formDriver.driverDocIssuance) }}
+            {{ form_row(formDriver.driverDocDateStarts) }}
+            {{ form_row(formDriver.driverDocDateEnds) }}
+            <tr>
+                <td colspan="2" class="table-title">
+                    Номер прошлой карты
+                </td>
+            </tr>
+            {{ form_row(formDriver.lastNumberCard) }}
+            <tr>
+                <td colspan="2" class="table-title">
+                    Адрес
+                </td>
+            </tr>
+            {{ form_row(formDriver.zipcode) }}
+            {{ form_row(formDriver.region) }}
+            <tr>
+                <td>{{ form_label(formDriver.cityType) }}</td>
+                <td>
+                    {{ form_widget(formDriver.cityType) }}
+                    {{ form_widget(formDriver.city) }}
+                </td>
+            </tr>
+
+            <tr>
+                <td>{{ form_label(formDriver.streetType) }}</td>
+                <td>
+                    {{ form_widget(formDriver.streetType) }}
+                    {{ form_widget(formDriver.street) }}
+                </td>
+            </tr>
+            {{ form_row(formDriver.home) }}
+            <tr>
+                <td>{{ form_label(formDriver.corpType) }}</td>
+                <td>
+                    {{ form_widget(formDriver.corpType) }}
+                    {{ form_widget(formDriver.corp) }}
+                </td>
+            </tr>
+            <tr>
+                <td>{{ form_label(formDriver.roomType) }}</td>
+                <td>
+                    {{ form_widget(formDriver.roomType) }}
+                    {{ form_widget(formDriver.room) }}
+                </td>
+            </tr>
+            <tr>
+                <td><label>Вид адреса</label></td>
+                <td><div id="fullAddress"></div></td>
+            </tr>
+            <tr>
+                <td colspan="2" class="table-title">
+                    Приложенные документы
+                </td>
+            </tr>
+            {{ form_row(formDriver.copyPassport) }}
+            {{ form_row(formDriver.copyDriverPassport) }}
+            {{ form_row(formDriver.photo) }}
+            {{ form_row(formDriver.copySignature) }}
+            {{ form_row(formDriver.copyStatement) }}
+            {{ form_row(formDriver.copySnils) }}
+            {{ form_row(formDriver.copyWork) }}
+
+            {{ form_row(formDriver.eula) }}
+            {{ form_row(formDriver.submit) }}
+            {{ form_row(formDriver._token) }}
+
+            {#{{ form_rest(formDriver) }}#}
+        </table>
+    </form>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset("bundles/crmmain/lib/chosen/chosen.jquery.js") }}" type="text/javascript"></script>
+    {#<script type="text/javascript"src="{{ asset('bundles/crmmain/javascripts/jquery.customfile.js') }}"></script>#}
+    <script src="{{ asset('bundles/crmmain/javascripts/jquery.maskedinput.js') }}" type="text/javascript"></script>
+    <script>
+    $(document).ready(function(){
+
+        function fullAddress(){
+            var adr = $('#driver_zipcode').val() + ', '+
+                    $('#driver_region_chosen .chosen-single span').html() + ', '+
+                    $('#driver_cityType').val() + ' '+
+                    $('#driver_city').val() + ', '+
+                    $('#driver_streetType').val() + ' '+
+                    $('#driver_street').val() + ', '+
+                    'д.'+$('#driver_home').val();
+            if ($('#driver_corpType').val()!='' && $('#driver_corp').val()!=''){
+                adr +=', '+ $('#driver_corpType').val()+' '+
+                        $('#driver_corp').val();
+            }
+            if ($('#driver_roomType').val()!='' && $('#driver_room').val()!=''){
+                adr +=', '+ $('#driver_roomType').val()+' '+
+                        $('#driver_room').val();
+            }
+            $('#fullAddress').html(adr)
+        }
+
+        $('#driver_zipcode').change( fullAddress);
+        $('#driver_region').change( fullAddress);
+        $('#driver_cityType').change( fullAddress);
+        $('#driver_city').change( fullAddress);
+        $('#driver_streetType').change( fullAddress);
+        $('#driver_street').change( fullAddress);
+        $('#driver_home').change( fullAddress);
+        $('#driver_corpType').change( fullAddress);
+        $('#driver_corp').change( fullAddress);
+        $('#driver_roomType').change( fullAddress);
+        $('#driver_room').change( fullAddress);
+
+
+//            $('.form_table input[type=file]').customFile();
+        $(".place-select").chosen({
+            disable_search_threshold: 10,
+            no_results_text: "Поиск не нашел ничего"
+        });
+        $(".delivery-select").chosen({
+            disable_search_threshold: 10,
+            no_results_text: "Поиск не нашел ничего",
+            disable_search: true
+        });
+        $(".date-select select").chosen({
+            disable_search_threshold: 10,
+            no_results_text: "Поиск не нашел ничего",
+            disable_search: true
+        });
+        $(".userType").chosen({
+            disable_search_threshold: 10,
+            no_results_text: "Поиск не нашел ничего",
+            disable_search: true
+        });
+
+        $("#user_snils").mask("999-999-999 99");
+        $("#driver_zipcode").mask("999999");
+        $("#driver_passportCode").mask("999-999");
+        $.mask.definitions['h'] = "[DMP ]";
+        $.mask.definitions['d'] = "[a-zA-Z0-9 ]";
+        $('#driver_lastNumberCard').mask("RUDddddddddddddd");
+        $('#driver_driverDocNumber').mask("99dd999999");
+
+        $('#driver_cityType').chosen({
+            disable_search_threshold: 10,
+            disable_search: true,
+            width: 100
+        });
+        $('#driver_streetType').chosen({
+            disable_search_threshold: 10,
+            disable_search: true,
+            width: 100
+        });
+        $('#driver_roomType').chosen({
+            disable_search_threshold: 10,
+            disable_search: true,
+            width: 100
+        });
+        $('#driver_corpType').chosen({
+            disable_search_threshold: 10,
+            disable_search: true,
+            width: 100
+        });
+
+        $('.userType').change(function(){
+            $('.multi-form').html('<img src="{{ asset('bundles/crmmain/images/loader.gif') }}" class="loader"/>');
+            if( $(this).val()=='driver' ){
+//                    $('.multi-form').html('');
+                $.ajax({
+                    type: "GET",
+                    url: "{{ path('get_register_form_driver') }}",
+                    success: function(msg){
+                        $('.multi-form').html(msg);
+                        $(".place-select").chosen({
+                            disable_search_threshold: 10,
+                            no_results_text: "Поиск не нашел ничего"
+                        });
+                        $(".delivery-select").chosen({
+                            disable_search_threshold: 10,
+                            no_results_text: "Поиск не нашел ничего",
+                            disable_search: true
+                        });
+                        $(".date-select select").chosen({
+                            disable_search_threshold: 10,
+                            no_results_text: "Поиск не нашел ничего",
+                            disable_search: true
+                        });
+                        $(".userType").chosen({
+                            disable_search_threshold: 10,
+                            no_results_text: "Поиск не нашел ничего",
+                            disable_search: true
+                        });
+
+                        $('#driver_cityType').chosen({
+                            disable_search_threshold: 10,
+                            disable_search: true,
+                            width: 100
+                        });
+                        $('#driver_streetType').chosen({
+                            disable_search_threshold: 10,
+                            disable_search: true,
+                            width: 100
+                        });
+                        $('#driver_roomType').chosen({
+                            disable_search_threshold: 10,
+                            disable_search: true,
+                            width: 100
+                        });
+                        $('#driver_corpType').chosen({
+                            disable_search_threshold: 10,
+                            disable_search: true,
+                            width: 100
+                        });
+
+                        $("#driver_passportCode").mask("999-999");
+                        $("#user_snils").mask("999-999-999 99");
+                        $("#driver_zipcode").mask("999999");
+                        $('#driver_lastNumberCard').mask("RUDddddddddddddd");
+                        $('#driver_driverDocNumber').mask("99dd999999");
+
+                        $('#driver_zipcode').on('change', fullAddress);
+                        $('#driver_region').on('change', fullAddress);
+                        $('#driver_cityType').on('change', fullAddress);
+                        $('#driver_city').on('change', fullAddress);
+                        $('#driver_streetType').on('change', fullAddress);
+                        $('#driver_street').on('change', fullAddress);
+                        $('#driver_home').on('change', fullAddress);
+                        $('#driver_corpType').on('change', fullAddress);
+                        $('#driver_corp').on('change', fullAddress);
+                        $('#driver_roomType').on('change', fullAddress);
+                        $('#driver_room').on('change', fullAddress);
+
+                        $('.form_widget').on('change','#driver_region', function(){
+                            $.ajax({
+                                type: "GET",
+                                url: Routing.generate('select_city', { regionId: $('#driver_region').val() }),
+                                success: function (msg) {
+                                    $('#driver_city').html(msg);
+                                    $('#driver_city').trigger("chosen:updated");
+                                }
+                            })
+                        });
+                    }
+                });
+//                    $('.form_driver').fadeIn(300,function(){ $('.form_company').fadeOut(300)});
+//                    $('select').trigger("liszt:updated");
+            }else{
+//                    $('.multi-form').html('');
+                $.ajax({
+                    type: "GET",
+                    url: "{{ path('get_register_form_company') }}",
+                    success: function(msg){
+                        $('.multi-form').html(msg);
+                        $(".place-select").chosen({
+                            disable_search_threshold: 10,
+                            no_results_text: "Поиск не нашел ничего"
+                        });
+                        $(".delivery-select").chosen({
+                            disable_search_threshold: 10,
+                            no_results_text: "Поиск не нашел ничего",
+                            disable_search: true
+                        });
+                        $(".date-select select").chosen({
+                            disable_search_threshold: 10,
+                            no_results_text: "Поиск не нашел ничего",
+                            disable_search: true
+                        });
+                        $(".userType").chosen({
+                            disable_search_threshold: 10,
+                            no_results_text: "Поиск не нашел ничего",
+                            disable_search: true
+                        });
+                        $("#company_zipcode").mask("999999");
+                        $('.form_widget').on('change','#company_region', function(){
+                            $.ajax({
+                                type: "GET",
+                                url: Routing.generate('select_city', { regionId: $('#company_region').val() }),
+                                success: function (msg) {
+                                    $('#company_city').html(msg);
+                                    $('#company_city').trigger("chosen:updated");
+                                }
+                            })
+                        });
+                    }
+                });
+//                    $('.form_company').fadeIn(300,function(){ $('.form_driver').fadeOut(300)});
+//                    $('select').trigger("liszt:updated");
+            }
+        });
+
+        $('.form_widget').on('change','#driver_region', function(){
+            $.ajax({
+                type: "GET",
+                url: Routing.generate('select_city', { regionId: $('#driver_region').val() }),
+                success: function (msg) {
+                    $('#driver_city').html(msg);
+                    $('#driver_city').trigger("chosen:updated");
+                }
+            })
+        });
+        $('.form_widget').on('change','#company_region', function(){
+            $.ajax({
+                type: "GET",
+                url: Routing.generate('select_city', { regionId: $('#company_region').val() }),
+                success: function (msg) {
+                    $('#company_city').html(msg);
+                    $('#company_city').trigger("chosen:updated");
+                }
+            })
+        });
+    });
+
+    </script>
+
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link href="{{ asset('bundles/crmmain/lib/chosen/chosen.css') }}" rel="stylesheet" media="all">
+    <style>
+        .form_company{
+            display: none;
+        }
+        .form{
+            margin: 0 auto;
+            width: 500px;
+            text-align: center;
+        }
+        .userTypeDiv{
+            text-align: left;
+        }
+        /*.userType{*/
+        /*width: 215px;*/
+        /*}*/
+        .label{
+            width: 250px;
+        }
+        #register_delivery{
+            width: 218px;
+        }
+        /*.input-upload{*/
+        /*background: #dadada;height: 29px;*/
+        /*padding: 0 20px;*/
+        /*border: none;*/
+        /*cursor: pointer;*/
+        /*font-size: 14px;*/
+        /*}*/
+        .loader{
+            width: 64px;
+        }
+        .row_comment{
+            font-size: 12px;
+            color: #555555;
+        }
+        .date_year{
+            width: 50px;
+        }
+        .date_month{
+            width: 110px;
+            margin-right: 5px;
+        }
+        .date_day{
+            width: 50px;
+
+        }
+        #driver_city , #driver_street, #driver_corp, #driver_room{
+            width: 145px;
+        }
+        .table-title{
+            border-bottom: 1px solid #CCC;
+            padding: 10px 10px 10px 40px;
+            font-weight: bold;
+            color: #333333;
+        }
+        label{
+            color: #333333;
+            font-size: 14px;
+        }
+        .form_errors ul li{
+            color: #CC3333;
+            list-style: none;
+            padding-bottom: 5px;
+        }
+        #fullAddress{
+            color: #444;
+            font-size: 0.8em;
+        }
+    </style>
+{% endblock %}
