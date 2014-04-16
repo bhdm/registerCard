@@ -1,6 +1,7 @@
 {% extends 'CrmAdminBundle::layout.html.twig' %}
 
 {% block content %}
+<div class="form" style="width: 750px;">
     <form id="register_form" action="{{ path('user_edit',{'userId' : userId }) }}" method="post" enctype="multipart/form-data">
         {{ form_widget(formUser) }}
         <table {{ block('widget_container_attributes') }} class="form_table">
@@ -101,6 +102,7 @@
             {#{{ form_rest(formDriver) }}#}
         </table>
     </form>
+</div>
 {% endblock %}
 
 {% block javascripts %}
@@ -384,14 +386,14 @@
             color: #555555;
         }
         .date_year{
-            width: 50px;
+            width: 75px;
         }
         .date_month{
             width: 110px;
             margin-right: 5px;
         }
         .date_day{
-            width: 50px;
+            width: 65px;
 
         }
         #driver_city , #driver_street, #driver_corp, #driver_room{
