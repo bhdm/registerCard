@@ -115,6 +115,10 @@ class Driver extends BaseEntity
      */
     protected $country;
 
+
+    # Адрес предприятия
+
+
     /**
      * @ORM\ManyToOne(targetEntity="Region", inversedBy="drivers")
      */
@@ -181,6 +185,77 @@ class Driver extends BaseEntity
      * @ORM\Column(type="string", length=10, nullable=true)
      */
     protected $room;
+
+    # Адрес доставки
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Region", inversedBy="DileveryDrivers")
+     */
+    protected $deliveryRegion;
+
+
+    /**
+     * @Assert\Length( max = "10", maxMessage = "Максимум  10 символа")
+     * @Assert\NotBlank( message = "Поле тип населеного пункта обязательно для заполнения" )
+     * @ORM\Column(type="string", length=10)
+     */
+    protected $deliveryCityType;
+
+    /**
+     * @Assert\Length( max = "64", maxMessage = "Максимум  64 символа")
+     * @Assert\NotBlank( message = "Поле город обязательно для заполнения" )
+     * @ORM\Column(type="string", length=64)
+     */
+    protected $deliveryCity;
+
+    /**
+     * @Assert\Length( max = "10", maxMessage = "Максимум  10 символа")
+     * @Assert\NotBlank( message = "Поле тип улицы обязательно для заполнения" )
+     * @ORM\Column(type="string", length=10)
+     */
+    protected $deliveryStreetType;
+
+    /**
+     * @Assert\Length( max = "64", maxMessage = "Максимум  64 символа")
+     * @Assert\NotBlank( message = "Поле улица обязательно для заполнения" )
+     * @ORM\Column(type="string", length=100)
+     */
+    protected $deliveryStreet;
+
+
+    /**
+     * @Assert\Length( max = "10", maxMessage = "Максимум  10 символов")
+     * @Assert\NotBlank( message = "Поле дом обязательно для заполнения" )
+     * @ORM\Column(type="string", length=100)
+     */
+    protected $deliveryHome;
+
+    /**
+     * @Assert\Length( max = "10", maxMessage = "Максимум  10 символа")
+     * @ORM\Column(type="string", length=10, nullable=true)
+     */
+    protected $deliveryCorpType;
+
+    /**
+     * @Assert\Length( max = "10", maxMessage = "Максимум  10 символов")
+     * @ORM\Column(type="string", length=10, nullable=true)
+     */
+    protected $deliveryCorp;
+
+    /**
+     * @Assert\Length( max = "10", maxMessage = "Максимум  10 символа")
+     * @ORM\Column(type="string", length=10, nullable=true)
+     */
+    protected $deliveryRoomType;
+
+    /**
+     * квартира
+     * @Assert\Length( max = "10", maxMessage = "Максимум  10 символов")
+     * @ORM\Column(type="string", length=10, nullable=true)
+     */
+    protected $deliveryRoom;
+
+
 
     #* @Assert\NotBlank( message = "Поле тип доставки обязательно для заполнения" )
     /**

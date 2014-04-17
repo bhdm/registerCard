@@ -44,7 +44,10 @@
                 var str = $('#user_lastName').val().charAt(0).toUpperCase() + $('#user_lastName').val().substr(1)
                 $('#user_lastName').val(str);
             });
-
+            $('#user_surName').change(function(){
+                var str = $('#user_surName').val().charAt(0).toUpperCase() + $('#user_surName').val().substr(1)
+                $('#user_surName').val(str);
+            });
             function fullAddress(){
                 var str = $('#driver_street').val().charAt(0).toUpperCase() + $('#driver_street').val().substr(1)
                 $('#driver_street').val(str);

@@ -43,6 +43,11 @@ class Region
     protected $drivers;
 
     /**
+     * @ORM\OneToMany(targetEntity="Driver", mappedBy="deliveryRegion")
+     */
+    protected $DileveryDrivers;
+
+    /**
      * @ORM\OneToMany(targetEntity="Company", mappedBy="region")
      */
     protected $companies;
