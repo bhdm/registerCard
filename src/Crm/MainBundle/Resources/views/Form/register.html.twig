@@ -36,6 +36,14 @@
     <script src="{{ asset('bundles/crmmain/javascripts/jquery.maskedinput.js') }}" type="text/javascript"></script>
     <script>
         $(document).ready(function(){
+            $('#user_firstName').change(function(){
+                var str = $('#user_firstName').val().charAt(0).toUpperCase() + $('#user_firstName').val().substr(1)
+                $('#user_firstName').val(str);
+            });
+            $('#user_lastName').change(function(){
+                var str = $('#user_lastName').val().charAt(0).toUpperCase() + $('#user_lastName').val().substr(1)
+                $('#user_lastName').val(str);
+            });
 
             function fullAddress(){
                 var str = $('#driver_street').val().charAt(0).toUpperCase() + $('#driver_street').val().substr(1)
@@ -350,5 +358,6 @@
             padding: 5px;
             border: 1px solid #CCC;
         }
+
     </style>
 {% endblock %}
