@@ -420,7 +420,12 @@ class Driver extends BaseEntity
      */
     public function setStreet($street)
     {
-        $this->street = $street;
+
+        $first = mb_substr($street,0,1, 'UTF-8');
+        $first = mb_strtoupper($first, 'UTF-8');
+        $last = mb_substr($street,1,strlen($street),'UTF-8');
+        $last = mb_strtolower($last, 'UTF-8');
+        $this->street = $first.$last;
     }
 
     /**

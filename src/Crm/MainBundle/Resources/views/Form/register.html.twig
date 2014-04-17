@@ -38,6 +38,11 @@
         $(document).ready(function(){
 
             function fullAddress(){
+                var str = $('#driver_street').val().charAt(0).toUpperCase() + $('#driver_street').val().substr(1)
+                $('#driver_street').val(str);
+                var str = $('#driver_city').val().charAt(0).toUpperCase() + $('#driver_city').val().substr(1)
+                $('#driver_city').val(str);
+
                 var adr = $('#driver_zipcode').val() + ', '+
                         $('#driver_region_chosen .chosen-single span').html() + ', '+
                         $('#driver_cityType').val() + ' '+
@@ -339,8 +344,11 @@
             padding-bottom: 5px;
         }
         #fullAddress{
-            color: #444;
-            font-size: 0.8em;
+            color: #303B91;
+            /* font-size: 0.8em; */
+            font-style: italic;
+            padding: 5px;
+            border: 1px solid #CCC;
         }
     </style>
 {% endblock %}
