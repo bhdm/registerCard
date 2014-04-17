@@ -189,7 +189,7 @@ class Driver extends BaseEntity
     # Адрес доставки
 
     /**
-     * @ORM\ManyToOne(targetEntity="Region", inversedBy="DileveryDrivers")
+     * @ORM\ManyToOne(targetEntity="Region", inversedBy="dileveryDrivers")
      */
     protected $deliveryRegion;
 
@@ -870,6 +870,166 @@ class Driver extends BaseEntity
     public function getStreetType()
     {
         return $this->streetType;
+    }
+
+    /**
+     * @param mixed $deliveryRoomType
+     */
+    public function setDeliveryRoomType($deliveryRoomType)
+    {
+        $this->deliveryRoomType = $deliveryRoomType;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getDeliveryRoomType()
+    {
+        return $this->deliveryRoomType;
+    }
+
+    /**
+     * @param mixed $deliveryCity
+     */
+    public function setDeliveryCity($deliveryCity)
+    {
+        $this->deliveryCity = $deliveryCity;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getDeliveryCity()
+    {
+        return $this->deliveryCity;
+    }
+
+    /**
+     * @param mixed $deliveryCityType
+     */
+    public function setDeliveryCityType($deliveryCityType)
+    {
+        $this->deliveryCityType = $deliveryCityType;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getDeliveryCityType()
+    {
+        return $this->deliveryCityType;
+    }
+
+    /**
+     * @param mixed $deliveryCorp
+     */
+    public function setDeliveryCorp($deliveryCorp)
+    {
+        $this->deliveryCorp = $deliveryCorp;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getDeliveryCorp()
+    {
+        return $this->deliveryCorp;
+    }
+
+    /**
+     * @param mixed $deliveryCorpType
+     */
+    public function setDeliveryCorpType($deliveryCorpType)
+    {
+        $this->deliveryCorpType = $deliveryCorpType;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getDeliveryCorpType()
+    {
+        return $this->deliveryCorpType;
+    }
+
+    /**
+     * @param mixed $deliveryHome
+     */
+    public function setDeliveryHome($deliveryHome)
+    {
+        $this->deliveryHome = $deliveryHome;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getDeliveryHome()
+    {
+        return $this->deliveryHome;
+    }
+
+    /**
+     * @param mixed $deliveryRegion
+     */
+    public function setDeliveryRegion($deliveryRegion)
+    {
+        $this->deliveryRegion = $deliveryRegion;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getDeliveryRegion()
+    {
+        return $this->deliveryRegion;
+    }
+
+    /**
+     * @param mixed $deliveryRoom
+     */
+    public function setDeliveryRoom($deliveryRoom)
+    {
+        $this->deliveryRoom = $deliveryRoom;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getDeliveryRoom()
+    {
+        return $this->deliveryRoom;
+    }
+
+    /**
+     * @param mixed $deliveryStreet
+     */
+    public function setDeliveryStreet($deliveryStreet)
+    {
+        $this->deliveryStreet = $deliveryStreet;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getDeliveryStreet()
+    {
+        return $this->deliveryStreet;
+    }
+
+    /**
+     * @param mixed $deliveryStreetType
+     */
+    public function setDeliveryStreetType($deliveryStreetType)
+    {
+        $this->deliveryStreetType = $deliveryStreetType;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getDeliveryStreetType()
+    {
+        return $this->deliveryStreetType;
     }
 
 

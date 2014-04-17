@@ -45,7 +45,7 @@ class Region
     /**
      * @ORM\OneToMany(targetEntity="Driver", mappedBy="deliveryRegion")
      */
-    protected $DileveryDrivers;
+    protected $dileveryDrivers;
 
     /**
      * @ORM\OneToMany(targetEntity="Company", mappedBy="region")
@@ -55,6 +55,7 @@ class Region
     public function __construct(){
         $this->cities = new ArrayCollection();
         $this->drivers = new ArrayCollection();
+        $this->dileveryDrivers = new ArrayCollection();
         $this->companies = new ArrayCollection();
     }
 
@@ -163,5 +164,22 @@ class Region
     {
         $this->drivers = $drivers;
     }
+
+    /**
+     * @param mixed $dileveryDrivers
+     */
+    public function setDileveryDrivers($dileveryDrivers)
+    {
+        $this->dileveryDrivers = $dileveryDrivers;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getDileveryDrivers()
+    {
+        return $this->dileveryDrivers;
+    }
+
 
 }
