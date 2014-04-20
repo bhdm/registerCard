@@ -67,7 +67,10 @@
                         {{ form_widget(formUser.room) }}
                     </td>
                 </tr>
-
+                <tr>
+                    <td><label>Вид адреса</label></td>
+                    <td><div id="fullAddress2"></div></td>
+                </tr>
 
 
 
@@ -145,6 +148,41 @@
                     }
                 $('#fullAddress').html(adr)
             }
+
+            function fullAddress2(){
+                var str = $('#user_street').val().charAt(0).toUpperCase() + $('#user_street').val().substr(1)
+                $('#user_street').val(str);
+                var str = $('#user_city').val().charAt(0).toUpperCase() + $('#user_city').val().substr(1)
+                $('#user_city').val(str);
+
+                var adr = $('#user_zipcode').val() + ', '+
+                        $('#user_region_chosen .chosen-single span').html() + ', '+
+                        $('#user_cityType').val() + ' '+
+                        $('#user_city').val() + ', '+
+                        $('#user_streetType').val() + ' '+
+                        $('#user_street').val() + ', '+
+                        'д.'+$('#user_home').val();
+                if ($('#user_corpType').val()!='' && $('#user_corp').val()!=''){
+                    adr +=', '+ $('#user_corpType').val()+' '+
+                            $('#user_corp').val();
+                }
+                if ($('#user_roomType').val()!='' && $('#user_room').val()!=''){
+                    adr +=', '+ $('#user_roomType').val()+' '+
+                            $('#user_room').val();
+                }
+                $('#fullAddress2').html(adr)
+            }
+            $('#user_zipcode').change( fullAddress2);
+            $('#user_region').change( fullAddress2);
+            $('#user_cityType').change( fullAddress2);
+            $('#user_city').change( fullAddress2);
+            $('#user_streetType').change( fullAddress2);
+            $('#user_street').change( fullAddress2);
+            $('#user_home').change( fullAddress2);
+            $('#user_corpType').change( fullAddress2);
+            $('#user_corp').change( fullAddress2);
+            $('#user_roomType').change( fullAddress2);
+            $('#user_room').change( fullAddress2);
 
             $('#driver_zipcode').change( fullAddress);
             $('#driver_region').change( fullAddress);
@@ -461,7 +499,7 @@
             list-style: none;
             padding-bottom: 5px;
         }
-        #fullAddress{
+        #fullAddress, #fullAddress2{
             color: #303B91;
             /* font-size: 0.8em; */
             font-style: italic;
