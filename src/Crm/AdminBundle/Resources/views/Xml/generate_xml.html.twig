@@ -1,7 +1,13 @@
 <ns2:TacPackage xmlns:ns2="http://www.example.org/">
+    <PackageInfo>
+        <PackageNumber>FLGMN-{{ driver.user.id }}</PackageNumber>
+        <PackageDate> {{ "now" | date('Y-m-d')}}Z</PackageDate>
+        <OvkId>FLGMN</OvkId>
+        <CardManufacturerId>ATLAS</CardManufacturerId>
+    </PackageInfo>
     <Order>
-        <OrderNumber>FLGMN</OrderNumber>
-        <OrderDate>2014-03-21Z</OrderDate>
+        <OrderNumber>FLGMN-{{ driver.user.id }}</OrderNumber>
+        <OrderDate>{{ driver.created | date('Y-m-d')}}Z</OrderDate>
         <OrderCardType>D</OrderCardType>
         <OrderCardCount>1</OrderCardCount>
         <PersonOrder>
@@ -20,11 +26,11 @@
             <ContactInfo/>
             <DriverLicense>
                 <DriverLicenseNumber>{{ driver.driverDocNumber }}</DriverLicenseNumber>
-                <DriverLicenseCountryEstrCode>???</DriverLicenseCountryEstrCode>
+                <DriverLicenseCountryEstrCode>43</DriverLicenseCountryEstrCode>
                 <DriverLicenseCountry>{{ driver.driverDocCountry.title }}</DriverLicenseCountry>
                 <DriverLicenseOrg>{{ driver.driverDocIssuance }}</DriverLicenseOrg>
-                <DriverLicenseIssuedDate>{{ driver.driverDocDateStarts | date('d.m.Y') }}</DriverLicenseIssuedDate>
-                <DriverLicenseExpirationDate>{{ driver.driverDocDateEnds | date('d.m.Y') }}</DriverLicenseExpirationDate>
+                <DriverLicenseIssuedDate>{{ driver.driverDocDateStarts | date('d.m.Y') }}Z</DriverLicenseIssuedDate>
+                <DriverLicenseExpirationDate>{{ driver.driverDocDateEnds | date('d.m.Y') }}Z</DriverLicenseExpirationDate>
             </DriverLicense>
             <OrgName>{{ driver.companyName }}</OrgName>
             <OrgPostAddress>
@@ -41,24 +47,6 @@
                 <Building>{{ driver.corpType }} {{ driver.corp }}</Building>
                 <Office>{{ driver.roomType }} {{ driver.room }}</Office>
             </OrgPostAddress>
-            <Passport>
-                <AttachmentName>{{ files[0].file.fileName }}</AttachmentName>
-                <AttachmentType>Passport</AttachmentType>
-                <FileFormat>JPG</FileFormat>
-                <Body>
-                {{ files[0].base }}
-                </Body>
-            </Passport>
-
-            <DriverLicense>
-                <AttachmentName>{{ files[1].file.fileName }}</AttachmentName>
-                <AttachmentType>DriverLicense</AttachmentType>
-                <FileFormat>JPG</FileFormat>
-                <Body>
-                {{ files[1].base }}
-                </Body>
-            </DriverLicense>
-
             <Photo>
                 <AttachmentName>{{ files[2].file.fileName }}</AttachmentName>
                 <AttachmentType>Photo</AttachmentType>
@@ -76,33 +64,6 @@
                 {{ files[3].base }}
                 </Body>
             </Sign>
-
-            <Statement>
-                <AttachmentName>{{ files[4].file.fileName }}</AttachmentName>
-                <AttachmentType>Statement</AttachmentType>
-                <FileFormat>JPG</FileFormat>
-                <Body>
-                {{ files[4].base }}
-                </Body>
-            </Statement>
-
-            <SNILS>
-                <AttachmentName>{{ files[5].file.fileName }}</AttachmentName>
-                <AttachmentType>SNILS</AttachmentType>
-                <FileFormat>JPG</FileFormat>
-                <Body>
-                {{ files[5].base }}
-                </Body>
-            </SNILS>
-
-            <Work>
-                <AttachmentName>{{ files[6].file.fileName }}</AttachmentName>
-                <AttachmentType>Work</AttachmentType>
-                <FileFormat>JPG</FileFormat>
-                <Body>
-                {{ files[6].base }}
-                </Body>
-            </Work>
         </PersonOrder>
     </Order>
 </ns2:TacPackage>

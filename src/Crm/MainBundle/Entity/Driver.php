@@ -803,6 +803,4 @@ class Driver extends BaseEntity
         return $this->streetType;
     }
 
-
-
 }
