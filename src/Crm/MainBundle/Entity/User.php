@@ -455,6 +455,166 @@ class User extends BaseEntity implements UserInterface, EquatableInterface, \Ser
         return $this->snils;
     }
 
+    /**
+     * @param mixed $City
+     */
+    public function setCity($City)
+    {
+        $this->City = $City;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCity()
+    {
+        return $this->City;
+    }
+
+    /**
+     * @param mixed $CityType
+     */
+    public function setCityType($CityType)
+    {
+        $this->CityType = $CityType;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCityType()
+    {
+        return $this->CityType;
+    }
+
+    /**
+     * @param mixed $Corp
+     */
+    public function setCorp($Corp)
+    {
+        $this->Corp = $Corp;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCorp()
+    {
+        return $this->Corp;
+    }
+
+    /**
+     * @param mixed $CorpType
+     */
+    public function setCorpType($CorpType)
+    {
+        $this->CorpType = $CorpType;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCorpType()
+    {
+        return $this->CorpType;
+    }
+
+    /**
+     * @param mixed $Home
+     */
+    public function setHome($Home)
+    {
+        $this->Home = $Home;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getHome()
+    {
+        return $this->Home;
+    }
+
+    /**
+     * @param mixed $Room
+     */
+    public function setRoom($Room)
+    {
+        $this->Room = $Room;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getRoom()
+    {
+        return $this->Room;
+    }
+
+    /**
+     * @param mixed $RoomType
+     */
+    public function setRoomType($RoomType)
+    {
+        $this->RoomType = $RoomType;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getRoomType()
+    {
+        return $this->RoomType;
+    }
+
+    /**
+     * @param mixed $Street
+     */
+    public function setStreet($Street)
+    {
+        $this->Street = $Street;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getStreet()
+    {
+        return $this->Street;
+    }
+
+    /**
+     * @param mixed $StreetType
+     */
+    public function setStreetType($StreetType)
+    {
+        $this->StreetType = $StreetType;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getStreetType()
+    {
+        return $this->StreetType;
+    }
+
+    /**
+     * @param mixed $region
+     */
+    public function setRegion($region)
+    {
+        $this->region = $region;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getRegion()
+    {
+        return $this->region;
+    }
+
 
 
 }
