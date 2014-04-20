@@ -27,7 +27,9 @@
     <body>
         <div class="body">
             <header>
-                <img src="{{ asset('bundles/crmmain/images/head.png') }}">
+                <a href="{{ path('main') }}">
+                    <img src="{{ asset('bundles/crmmain/images/head.png') }}">
+                </a>
             </header>
             <div class="content">
                 {% include ("CrmMainBundle::menu.html.twig")  %}

@@ -12,7 +12,7 @@ use Crm\MainBundle\Entity\Document;
 class IndexController extends Controller
 {
     /**
-     * @Route("/", name="$child")
+     * @Route("/", name="main")
      * @Template()
      */
     public function indexAction()
