@@ -7,7 +7,70 @@
     <div class="form">
         <form id="register_form" action="{{ path('auth_party_2') }}" method="post" enctype="multipart/form-data">
             {#{% form_theme form 'VidalMainBundle:Form:profile_form.html.twig' %}#}
-            {{ form_widget(formUser) }}
+
+            <table {{ block('widget_container_attributes') }} class="form_table">
+                {% if formDriver.parent is empty and form_errors(formDriver)|length > 0 %}
+                    <tr class="row">
+                        <td colspan="2">
+                            <div class="form_errors">
+                                {{ form_errors(formDriver) }}
+                            </div>
+                        </td>
+                    </tr>
+                {% endif %}
+
+                <tr>
+                    <td colspan="2" class="table-title">
+                        Пользователь
+                    </td>
+                </tr>
+                {{ form_row(formUser.email) }}
+                {{ form_row(formUser.lastName) }}
+                {{ form_row(formUser.firstName) }}
+                {{ form_row(formUser.surName) }}
+                {{ form_row(formUser.snils) }}
+                {{ form_row(formUser.birthdate) }}
+                <tr>
+                    <td colspan="2" class="table-title">
+                        Адрес доставки
+                    </td>
+                </tr>
+                {{ form_row(formUser.zipcode) }}
+                {{ form_row(formUser.region) }}
+                <tr>
+                    <td>{{ form_label(formUser.cityType) }}</td>
+                    <td>
+                        {{ form_widget(formUser.cityType) }}
+                        {{ form_widget(formUser.city) }}
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>{{ form_label(formUser.streetType) }}</td>
+                    <td>
+                        {{ form_widget(formUser.streetType) }}
+                        {{ form_widget(formUser.street) }}
+                    </td>
+                </tr>
+                {{ form_row(formUser.home) }}
+                <tr>
+                    <td>{{ form_label(formUser.corpType) }}</td>
+                    <td>
+                        {{ form_widget(formUser.corpType) }}
+                        {{ form_widget(formUser.corp) }}
+                    </td>
+                </tr>
+                <tr>
+                    <td>{{ form_label(formUser.roomType) }}</td>
+                    <td>
+                        {{ form_widget(formUser.roomType) }}
+                        {{ form_widget(formUser.room) }}
+                    </td>
+                </tr>
+
+
+
+
             <br />
 
             {#<div class="userTypeDiv">#}
@@ -154,6 +217,30 @@
                 disable_search: true,
                 width: 100
             });
+
+
+            $('#user_cityType').chosen({
+                disable_search_threshold: 10,
+                disable_search: true,
+                width: 100
+            });
+            $('#user_streetType').chosen({
+                disable_search_threshold: 10,
+                disable_search: true,
+                width: 100
+            });
+            $('#user_roomType').chosen({
+                disable_search_threshold: 10,
+                disable_search: true,
+                width: 100
+            });
+            $('#user_corpType').chosen({
+                disable_search_threshold: 10,
+                disable_search: true,
+                width: 100
+            });
+
+
 
             $('.userType').change(function(){
                 $('.multi-form').html('<img src="{{ asset('bundles/crmmain/images/loader.gif') }}" class="loader"/>');
@@ -356,7 +443,7 @@
             width: 50px;
 
         }
-        #driver_city , #driver_street, #driver_corp, #driver_room{
+        #driver_city , #driver_street, #driver_corp, #driver_room, #user_city , #user_street, #user_corp, #user_room{
             width: 145px;
         }
         .table-title{

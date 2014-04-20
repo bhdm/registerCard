@@ -11,6 +11,7 @@ use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\Regex;
 use Doctrine\ORM\EntityManager;
 use Crm\MainBundle\Form\DataTransformer\CountryToStringTransformer;
+use Crm\MainBundle\Form\DataTransformer\RegionToStringTransformer;
 //use Crm\MainBundle\Form\DataTransformer\YearToNumberTransformer;
 use Crm\MainBundle\Entity\Driver;
 
@@ -26,13 +27,45 @@ class UserType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
 
-        $countryToStringTransformer = new CountryToStringTransformer($this->em);
+        $regionToStringTransformer  = new RegionToStringTransformer($this->em);
 
-        $tmps = $this->em->getRepository('CrmMainBundle:Country')->findAll();
-        $country = array();
+        $tcountry =$this->em->getRepository('CrmMainBundle:Country')->findOneById(3159);
+        $tmps = $this->em->getRepository('CrmMainBundle:Region')->findByCountry($tcountry);
+        $region = array();
         foreach ( $tmps as $tmp){
-            $country[$tmp->getId()] = $tmp->getTitle();
+            $region[$tmp->getId()] = $tmp->getTitle();
         }
+        $cityType = array(
+            'г.' => 'Город',
+            'д.' => 'Деревня',
+            'п.' =>'Поселок',
+            'с.' =>'Село'
+        );
+        $streetType = array(
+            'ул.' => 'Улица',
+            'д.' => 'Дорога',
+            'пр-д.' => 'Проезд',
+            'туп.' => 'Тупик',
+            'ш.' => 'Шоссе',
+            'тр.' => 'Трасса',
+            'пер.' => 'Переулок',
+            'пл.' => 'Площадь',
+            'скв.' => 'Сквер',
+            'алл.' => 'Аллея',
+            'б.' => 'Бульвар',
+            'пр.' => 'Просека',
+            'пр-т' => 'Проспект',
+            'наб.' => 'Набережная',
+            '' => 'Другое',
+        );
+        $corpType = array(
+            'корп.' => 'Корпус',
+            'стр.' => 'Строение',
+        );
+        $roomType = array(
+            'кв.' => 'Квартира',
+            'о.' => 'Офис',
+        );
 
         $builder
             ->add('email', null, array('label' => 'E-mail'))
@@ -55,7 +88,33 @@ class UserType extends AbstractType
                 'data'   => new \DateTime('1970-01-01'),
                 'format' => 'dd MMMM yyyy',
                 'attr' => array('class' => 'date-select')
-            ));
+            ))
+            ->add($builder->create('zipcode',   'text',   array('required' => true,    'label' => 'Почтовый индекс')))
+    //            ->add($builder->create('country',   'choice', array('required' => true,    'label' => 'Страна', 'choices' => $country,  'attr'=> array('class'=>'place-select')))->addModelTransformer($countryToStringTransformer))
+            ->add($builder->create('region',
+                'choice',
+                array(
+                    'required' => true,
+                    'label' => 'Регион',
+                    'choices' => $region,
+                    'attr'=> array('class'=>'place-select'),
+                    'data' => $this->em->getRepository('CrmMainBundle:Region')->findOneById(4312)
+                )
+            )->addModelTransformer($regionToStringTransformer))
+
+            ->add($builder->create('cityType',  'choice', array('required' => true,    'label' => 'Населеный пункт', 'choices' => $cityType )))
+            ->add($builder->create('city',      null, array('required' => true)))
+
+            ->add($builder->create('streetType','choice', array('required' => true,    'label' => 'Тип улицы', 'choices' => $streetType, 'data' => 'ул.')))
+            ->add($builder->create('street',    'text',   array('required' => true)))
+
+            ->add($builder->create('home',      'text',   array('required' => true,    'label' => 'Дом')))
+
+            ->add($builder->create('corpType',  'choice', array('required' => false,    'label' => 'Корпус/строение', 'choices' => $corpType, 'attr'=> array('data-placeholder'=>'Выберите'))))
+            ->add($builder->create('corp',      'text',   array('required' => false)))
+
+            ->add($builder->create('roomType',  'choice', array('required' => false,    'label' => 'Квартира/офис ', 'choices' => $roomType, 'attr'=> array('data-placeholder'=>'Выберите'))))
+            ->add($builder->create('room',      'text',   array('required' => false )));
     }
 
     public function setDefaultOptions(OptionsResolverInterface $resolver)
