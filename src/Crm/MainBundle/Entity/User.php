@@ -89,6 +89,12 @@ class User extends BaseEntity implements UserInterface, EquatableInterface, \Ser
      */
     protected $snils;
 
+    /**
+     * @Assert\NotBlank( message = "Поле почтоый индекс обязательно для заполнения" )
+     * @Assert\Regex(pattern= "/^[0-9]{6}$/", message="Неверный формат ввода.")
+     * @ORM\Column(type="string", length=12)
+     */
+    protected  $zipcode;
 
     /**
      * @ORM\ManyToOne(targetEntity="Region", inversedBy="deliveries")
@@ -101,28 +107,28 @@ class User extends BaseEntity implements UserInterface, EquatableInterface, \Ser
      * @Assert\NotBlank( message = "Поле тип населеного пункта обязательно для заполнения" )
      * @ORM\Column(type="string", length=10)
      */
-    protected $CityType;
+    protected $cityType;
 
     /**
      * @Assert\Length( max = "64", maxMessage = "Максимум  64 символа")
      * @Assert\NotBlank( message = "Поле город обязательно для заполнения" )
      * @ORM\Column(type="string", length=64)
      */
-    protected $City;
+    protected $city;
 
     /**
      * @Assert\Length( max = "10", maxMessage = "Максимум  10 символа")
      * @Assert\NotBlank( message = "Поле тип улицы обязательно для заполнения" )
      * @ORM\Column(type="string", length=10)
      */
-    protected $StreetType;
+    protected $streetType;
 
     /**
      * @Assert\Length( max = "64", maxMessage = "Максимум  64 символа")
      * @Assert\NotBlank( message = "Поле улица обязательно для заполнения" )
      * @ORM\Column(type="string", length=100)
      */
-    protected $Street;
+    protected $street;
 
 
     /**
@@ -130,32 +136,32 @@ class User extends BaseEntity implements UserInterface, EquatableInterface, \Ser
      * @Assert\NotBlank( message = "Поле дом обязательно для заполнения" )
      * @ORM\Column(type="string", length=100)
      */
-    protected $Home;
+    protected $home;
 
     /**
      * @Assert\Length( max = "10", maxMessage = "Максимум  10 символа")
      * @ORM\Column(type="string", length=10, nullable=true)
      */
-    protected $CorpType;
+    protected $corpType;
 
     /**
      * @Assert\Length( max = "10", maxMessage = "Максимум  10 символов")
      * @ORM\Column(type="string", length=10, nullable=true)
      */
-    protected $Corp;
+    protected $corp;
 
     /**
      * @Assert\Length( max = "10", maxMessage = "Максимум  10 символа")
      * @ORM\Column(type="string", length=10, nullable=true)
      */
-    protected $RoomType;
+    protected $roomType;
 
     /**
      * квартира
      * @Assert\Length( max = "10", maxMessage = "Максимум  10 символов")
      * @ORM\Column(type="string", length=10, nullable=true)
      */
-    protected $Room;
+    protected $room;
 
 
     /**
@@ -456,11 +462,11 @@ class User extends BaseEntity implements UserInterface, EquatableInterface, \Ser
     }
 
     /**
-     * @param mixed $City
+     * @param mixed $city
      */
-    public function setCity($City)
+    public function setCity($city)
     {
-        $this->City = $City;
+        $this->city = $city;
     }
 
     /**
@@ -468,15 +474,15 @@ class User extends BaseEntity implements UserInterface, EquatableInterface, \Ser
      */
     public function getCity()
     {
-        return $this->City;
+        return $this->city;
     }
 
     /**
-     * @param mixed $CityType
+     * @param mixed $cityType
      */
-    public function setCityType($CityType)
+    public function setCityType($cityType)
     {
-        $this->CityType = $CityType;
+        $this->cityType = $cityType;
     }
 
     /**
@@ -484,15 +490,15 @@ class User extends BaseEntity implements UserInterface, EquatableInterface, \Ser
      */
     public function getCityType()
     {
-        return $this->CityType;
+        return $this->cityType;
     }
 
     /**
-     * @param mixed $Corp
+     * @param mixed $corp
      */
-    public function setCorp($Corp)
+    public function setCorp($corp)
     {
-        $this->Corp = $Corp;
+        $this->corp = $corp;
     }
 
     /**
@@ -500,15 +506,15 @@ class User extends BaseEntity implements UserInterface, EquatableInterface, \Ser
      */
     public function getCorp()
     {
-        return $this->Corp;
+        return $this->corp;
     }
 
     /**
-     * @param mixed $CorpType
+     * @param mixed $corpType
      */
-    public function setCorpType($CorpType)
+    public function setCorpType($corpType)
     {
-        $this->CorpType = $CorpType;
+        $this->corpType = $corpType;
     }
 
     /**
@@ -516,15 +522,15 @@ class User extends BaseEntity implements UserInterface, EquatableInterface, \Ser
      */
     public function getCorpType()
     {
-        return $this->CorpType;
+        return $this->corpType;
     }
 
     /**
-     * @param mixed $Home
+     * @param mixed $home
      */
-    public function setHome($Home)
+    public function setHome($home)
     {
-        $this->Home = $Home;
+        $this->home = $home;
     }
 
     /**
@@ -532,71 +538,7 @@ class User extends BaseEntity implements UserInterface, EquatableInterface, \Ser
      */
     public function getHome()
     {
-        return $this->Home;
-    }
-
-    /**
-     * @param mixed $Room
-     */
-    public function setRoom($Room)
-    {
-        $this->Room = $Room;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getRoom()
-    {
-        return $this->Room;
-    }
-
-    /**
-     * @param mixed $RoomType
-     */
-    public function setRoomType($RoomType)
-    {
-        $this->RoomType = $RoomType;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getRoomType()
-    {
-        return $this->RoomType;
-    }
-
-    /**
-     * @param mixed $Street
-     */
-    public function setStreet($Street)
-    {
-        $this->Street = $Street;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getStreet()
-    {
-        return $this->Street;
-    }
-
-    /**
-     * @param mixed $StreetType
-     */
-    public function setStreetType($StreetType)
-    {
-        $this->StreetType = $StreetType;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getStreetType()
-    {
-        return $this->StreetType;
+        return $this->home;
     }
 
     /**
@@ -614,6 +556,87 @@ class User extends BaseEntity implements UserInterface, EquatableInterface, \Ser
     {
         return $this->region;
     }
+
+    /**
+     * @param mixed $room
+     */
+    public function setRoom($room)
+    {
+        $this->room = $room;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getRoom()
+    {
+        return $this->room;
+    }
+
+    /**
+     * @param mixed $roomType
+     */
+    public function setRoomType($roomType)
+    {
+        $this->roomType = $roomType;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getRoomType()
+    {
+        return $this->roomType;
+    }
+
+    /**
+     * @param mixed $street
+     */
+    public function setStreet($street)
+    {
+        $this->street = $street;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getStreet()
+    {
+        return $this->street;
+    }
+
+    /**
+     * @param mixed $streetType
+     */
+    public function setStreetType($streetType)
+    {
+        $this->streetType = $streetType;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getStreetType()
+    {
+        return $this->streetType;
+    }
+
+    /**
+     * @param mixed $zipcode
+     */
+    public function setZipcode($zipcode)
+    {
+        $this->zipcode = $zipcode;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getZipcode()
+    {
+        return $this->zipcode;
+    }
+
 
 
 
