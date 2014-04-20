@@ -43,9 +43,9 @@ class Region
     protected $drivers;
 
     /**
-     * @ORM\OneToMany(targetEntity="Driver", mappedBy="deliveryRegion")
+     * @ORM\OneToMany(targetEntity="User", mappedBy="region")
      */
-    protected $dileveryDrivers;
+    protected $deliveries;
 
     /**
      * @ORM\OneToMany(targetEntity="Company", mappedBy="region")
@@ -55,7 +55,7 @@ class Region
     public function __construct(){
         $this->cities = new ArrayCollection();
         $this->drivers = new ArrayCollection();
-        $this->dileveryDrivers = new ArrayCollection();
+        $this->deliveries = new ArrayCollection();
         $this->companies = new ArrayCollection();
     }
 
@@ -166,20 +166,22 @@ class Region
     }
 
     /**
-     * @param mixed $dileveryDrivers
+     * @param mixed $deliveries
      */
-    public function setDileveryDrivers($dileveryDrivers)
+    public function setDeliveries($deliveries)
     {
-        $this->dileveryDrivers = $dileveryDrivers;
+        $this->deliveries = $deliveries;
     }
 
     /**
      * @return mixed
      */
-    public function getDileveryDrivers()
+    public function getDeliveries()
     {
-        return $this->dileveryDrivers;
+        return $this->deliveries;
     }
+
+
 
 
 }

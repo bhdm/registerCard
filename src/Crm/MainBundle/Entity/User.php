@@ -90,6 +90,73 @@ class User extends BaseEntity implements UserInterface, EquatableInterface, \Ser
     protected $snils;
 
 
+    /**
+     * @ORM\ManyToOne(targetEntity="Region", inversedBy="deliveries")
+     */
+    protected $region;
+
+
+    /**
+     * @Assert\Length( max = "10", maxMessage = "Максимум  10 символа")
+     * @Assert\NotBlank( message = "Поле тип населеного пункта обязательно для заполнения" )
+     * @ORM\Column(type="string", length=10)
+     */
+    protected $CityType;
+
+    /**
+     * @Assert\Length( max = "64", maxMessage = "Максимум  64 символа")
+     * @Assert\NotBlank( message = "Поле город обязательно для заполнения" )
+     * @ORM\Column(type="string", length=64)
+     */
+    protected $City;
+
+    /**
+     * @Assert\Length( max = "10", maxMessage = "Максимум  10 символа")
+     * @Assert\NotBlank( message = "Поле тип улицы обязательно для заполнения" )
+     * @ORM\Column(type="string", length=10)
+     */
+    protected $StreetType;
+
+    /**
+     * @Assert\Length( max = "64", maxMessage = "Максимум  64 символа")
+     * @Assert\NotBlank( message = "Поле улица обязательно для заполнения" )
+     * @ORM\Column(type="string", length=100)
+     */
+    protected $Street;
+
+
+    /**
+     * @Assert\Length( max = "10", maxMessage = "Максимум  10 символов")
+     * @Assert\NotBlank( message = "Поле дом обязательно для заполнения" )
+     * @ORM\Column(type="string", length=100)
+     */
+    protected $Home;
+
+    /**
+     * @Assert\Length( max = "10", maxMessage = "Максимум  10 символа")
+     * @ORM\Column(type="string", length=10, nullable=true)
+     */
+    protected $CorpType;
+
+    /**
+     * @Assert\Length( max = "10", maxMessage = "Максимум  10 символов")
+     * @ORM\Column(type="string", length=10, nullable=true)
+     */
+    protected $Corp;
+
+    /**
+     * @Assert\Length( max = "10", maxMessage = "Максимум  10 символа")
+     * @ORM\Column(type="string", length=10, nullable=true)
+     */
+    protected $RoomType;
+
+    /**
+     * квартира
+     * @Assert\Length( max = "10", maxMessage = "Максимум  10 символов")
+     * @ORM\Column(type="string", length=10, nullable=true)
+     */
+    protected $Room;
+
 
     /**
      * @ORM\Column(type="string")
