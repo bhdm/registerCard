@@ -8,12 +8,72 @@
             </td>
         </tr>
     {% endif %}
-    {{ form_row(formDriver.companyName) }}
+
+        <tr>
+            <td colspan="2" class="table-title">
+                Предприятие
+            </td>
+        </tr>
+        {{ form_row(formDriver.companyName) }}
+        {{ form_row(formDriver.zipcode) }}
+        {{ form_row(formDriver.region) }}
+        <tr>
+            <td>{{ form_label(formDriver.cityType) }}</td>
+            <td>
+                {{ form_widget(formDriver.cityType) }}
+                {{ form_widget(formDriver.city) }}
+            </td>
+        </tr>
+
+        <tr>
+            <td>{{ form_label(formDriver.streetType) }}</td>
+            <td>
+                {{ form_widget(formDriver.streetType) }}
+                {{ form_widget(formDriver.street) }}
+            </td>
+        </tr>
+        {{ form_row(formDriver.home) }}
+        <tr>
+            <td>{{ form_label(formDriver.corpType) }}</td>
+            <td>
+                {{ form_widget(formDriver.corpType) }}
+                {{ form_widget(formDriver.corp) }}
+            </td>
+        </tr>
+        <tr>
+            <td>{{ form_label(formDriver.roomType) }}</td>
+            <td>
+                {{ form_widget(formDriver.roomType) }}
+                {{ form_widget(formDriver.room) }}
+            </td>
+        </tr>
+        <tr>
+            <td><label>Вид адреса</label></td>
+            <td><div id="fullAddress"></div></td>
+        </tr>
         <tr>
             <td colspan="2" class="table-title">
                 Паспорт
             </td>
         </tr>
+
+    <tr class="row row_passportType">
+        <td class="label">
+            <div class="form_label">
+                <label for="driver_passportSerial">Тип паспорта</label>
+            </div>
+        </td>
+        <td class="widget">
+            <div class="form_widget">
+                <select class="passportType" id="passportType">
+                    <option value="0">Российская федерация</option>
+                    <option value="1">Иностранный</option>
+                    </select>
+                </select>
+            </div>
+            <div class="form_error"></div>
+        </td>
+    </tr>
     {{ form_row(formDriver.passportSerial) }}
     {{ form_row(formDriver.passportNumber) }}
     {{ form_row(formDriver.passportIssuance) }}
@@ -35,47 +95,6 @@
         </td>
     </tr>
     {{ form_row(formDriver.lastNumberCard) }}
-    <tr>
-        <td colspan="2" class="table-title">
-            Адрес
-        </td>
-    </tr>
-    {{ form_row(formDriver.zipcode) }}
-    {{ form_row(formDriver.region) }}
-    <tr>
-        <td>{{ form_label(formDriver.cityType) }}</td>
-        <td>
-            {{ form_widget(formDriver.cityType) }}
-            {{ form_widget(formDriver.city) }}
-        </td>
-    </tr>
-
-    <tr>
-        <td>{{ form_label(formDriver.streetType) }}</td>
-        <td>
-            {{ form_widget(formDriver.streetType) }}
-            {{ form_widget(formDriver.street) }}
-        </td>
-    </tr>
-    {{ form_row(formDriver.home) }}
-    <tr>
-        <td>{{ form_label(formDriver.corpType) }}</td>
-        <td>
-            {{ form_widget(formDriver.corpType) }}
-            {{ form_widget(formDriver.corp) }}
-        </td>
-    </tr>
-    <tr>
-        <td>{{ form_label(formDriver.roomType) }}</td>
-        <td>
-            {{ form_widget(formDriver.roomType) }}
-            {{ form_widget(formDriver.room) }}
-        </td>
-    </tr>
-    <tr>
-        <td><label>Вид адреса</label></td>
-        <td><div id="fullAddress"></div></td>
-    </tr>
     <tr>
         <td colspan="2" class="table-title">
             Приложенные документы

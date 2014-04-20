@@ -10,15 +10,15 @@
             {{ form_widget(formUser) }}
             <br />
 
-            <div class="userTypeDiv">
-                <span style="display: inline-block; width: 246px;">
-                    Выберите владельца карты:
-                </span><select class="userType" data-placeholder=" владелец... ">
-                    <option></option>
-                    <option value="driver" {{ formFriver is defined ? 'selected' : '' }}>Водитель</option>
-                    <option value="company">Предприятие</option>
-                </select>
-            </div>
+            {#<div class="userTypeDiv">#}
+                {#<span style="display: inline-block; width: 246px;">#}
+                    {#Выберите владельца карты:#}
+                {#</span><select class="userType" data-placeholder=" владелец... ">#}
+                    {#<option></option>#}
+                    {#<option value="driver" {{ formFriver is defined ? 'selected' : '' }}>Водитель</option>#}
+                    {#<option value="company">Предприятие</option>#}
+                {#</select>#}
+            {#</div>#}
             <br />
             <div class="multi-form">
                 {% if formDriver is defined %}
@@ -36,6 +36,17 @@
     <script src="{{ asset('bundles/crmmain/javascripts/jquery.maskedinput.js') }}" type="text/javascript"></script>
     <script>
         $(document).ready(function(){
+
+            $('.passportType').change(function(){
+                if( $(this).val()==0){
+                    $('.row_passportSerial').css('display', 'table-row');
+                    $("#driver_passportNumber").mask("999999");
+                }else{
+                    $('.row_passportSerial').css('display', 'none');
+                    $("#driver_passportNumber").unmask();
+                }
+            })
+
             $('#user_firstName').change(function(){
                 var str = $('#user_firstName').val().charAt(0).toUpperCase() + $('#user_firstName').val().substr(1)
                 $('#user_firstName').val(str);
@@ -106,13 +117,22 @@
                 disable_search: true
             });
 
+            $(".passportType").chosen({
+                disable_search_threshold: 10,
+                no_results_text: "Поиск не нашел ничего",
+                disable_search: true
+            });
+
+
             $("#user_snils").mask("999-999-999 99");
+            $("#driver_passportSerial").mask("9999");
             $("#driver_zipcode").mask("999999");
             $("#driver_passportCode").mask("999-999");
             $.mask.definitions['h'] = "[DMP ]";
             $.mask.definitions['d'] = "[a-zA-Z0-9 ]";
             $('#driver_lastNumberCard').mask("RUDddddddddddddd");
             $('#driver_driverDocNumber').mask("99dd999999");
+            $("#driver_passportNumber").mask("999999");
 
             $('#driver_cityType').chosen({
                 disable_search_threshold: 10,
