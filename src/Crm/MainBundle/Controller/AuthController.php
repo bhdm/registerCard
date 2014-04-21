@@ -112,6 +112,10 @@ class AuthController extends Controller
                         $driver->setuser($user);
                         $em->persist($driver);
                         $em->flush();
+                        $em->refresh($driver);
+                        $user->setDriver($driver);
+                        $em->flush();
+                        return new Response($this->render("CrmMainBundle:Form:success.html.twig", array('user' => $user)));
                     }
                  }
             }
