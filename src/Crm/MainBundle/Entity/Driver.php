@@ -68,7 +68,7 @@ class Driver extends BaseEntity
 
     /**
      * @Assert\NotBlank( message = "Поле Номер водительского удостоверения обязательно для заполнения" )
-     * @Assert\Regex(pattern= "/^[0-9]{2}[А-Я|0-9]{2}[0-9]{6}$/", message="Неверный формат ввода.")
+     * @Assert\Regex(pattern= "/^[а-я|А-Я|a-z|A-Z|0-9]{4}[0-9]{6}$/", message="Неверный формат ввода.")
      * @ORM\Column(type="string")
      */
     protected $driverDocNumber;
