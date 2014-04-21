@@ -72,7 +72,7 @@
                     <td><div id="fullAddress2"></div></td>
                 </tr>
                 {#{{ form_row(formUser._token) }}#}
-
+                </table>
 
             <br />
 
@@ -228,6 +228,7 @@
             $("#user_snils").mask("999-999-999 99");
             $("#driver_passportSerial").mask("9999");
             $("#driver_zipcode").mask("999999");
+            $("#user_zipcode").mask("999999");
             $("#driver_passportCode").mask("999-999");
             $.mask.definitions['h'] = "[DMP ]";
             $.mask.definitions['d'] = "[a-zA-Z0-9 ]";
