@@ -10,6 +10,7 @@
             <th>Фамилия </th>
             <th>Имя</th>
             <th>Отчество</th>
+            <th>Дата заказа</th>
             <th style="width: 200px"></th>
         </tr>
         {% for user in users %}
@@ -17,6 +18,7 @@
                 <td>{{ user.lastName }}</td>
                 <td>{{ user.firstName }}</td>
                 <td>{{ user.surName }}</td>
+                <td>{{ user.created | date("d.m.Y H:i") }}</td>
                 <td style="text-align: right">
                     <a href="{{ path('user_show',{'userId' : user.id}) }}">Просмотр</a>
                     <span>&nbsp;&nbsp;&nbsp;</span>
