@@ -5,7 +5,6 @@ parameters:
     database_port: null
     database_name: crmdb
     database_user: root
-    charset: UTF8
     database_password: 3245897
     mailer_transport: smtp
     mailer_host: 127.0.0.1
@@ -13,5 +12,4 @@ parameters:
     mailer_password: null
     locale: ru
     secret: ThisTokenIsNotSoSecretChangeIt
-#    upload_dir: bundles/crmmain/upload
     upload_dir: upload
