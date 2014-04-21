@@ -119,7 +119,7 @@ class UserType extends AbstractType
 
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
-        $resolver->setDefaults(array('data_class' => 'Crm\MainBundle\Entity\User'));
+        $resolver->setDefaults(array('data_class' => 'Crm\MainBundle\Entity\User', 'csrf_protection' => false));
     }
 
     public function getName()

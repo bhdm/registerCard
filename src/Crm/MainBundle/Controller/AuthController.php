@@ -101,8 +101,8 @@ class AuthController extends Controller
             $formDriver->handleRequest($request);
 
             if ($request->isMethod('POST')) {
-                if ($formDriver->isValid()) {
-                    if ($formUser->isValid()) {
+//                if ($formDriver->isValid()) {
+//                    if ($formUser->isValid()) {
                         $user = $formUser->getData();
                         $user->setSalt(md5($user));
                         $em->persist($user);
@@ -112,8 +112,8 @@ class AuthController extends Controller
                         $driver->setuser($user);
                         $em->persist($driver);
                         $em->flush();
-                    }
-                 }
+//                    }
+//                 }
             }
 
             return array(

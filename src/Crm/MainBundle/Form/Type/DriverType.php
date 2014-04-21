@@ -218,7 +218,7 @@ class DriverType extends AbstractType
 
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
-        $resolver->setDefaults(array('data_class' => 'Crm\MainBundle\Entity\Driver'));
+        $resolver->setDefaults(array('data_class' => 'Crm\MainBundle\Entity\Driver', 'csrf_protection' => false));
     }
 
     public function getName()
