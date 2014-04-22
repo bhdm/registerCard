@@ -1,12 +1,12 @@
 <ns2:TacPackage xmlns:ns2="http://www.example.org/">
     <PackageInfo>
-        <PackageNumber>FLGMN-{{ driver.user.id }}</PackageNumber>
+        <PackageNumber>FLGMN-{{ driver.user.xmlId }}</PackageNumber>
         <PackageDate> {{ "now" | date('Y-m-d')}}Z</PackageDate>
         <OvkId>FLGMN</OvkId>
         <CardManufacturerId>ATLAS</CardManufacturerId>
     </PackageInfo>
     <Order>
-        <OrderNumber>FLGMN-{{ driver.user.id }}</OrderNumber>
+        <OrderNumber>FLGMN-{{ driver.user.xmlId }}</OrderNumber>
         <OrderDate>{{ driver.created | date('Y-m-d')}}Z</OrderDate>
         <OrderCardType>D</OrderCardType>
         <OrderCardCount>1</OrderCardCount>
@@ -29,8 +29,8 @@
                 <DriverLicenseCountryEstrCode>43</DriverLicenseCountryEstrCode>
                 <DriverLicenseCountry>{{ driver.driverDocCountry.title }}</DriverLicenseCountry>
                 <DriverLicenseOrg>{{ driver.driverDocIssuance }}</DriverLicenseOrg>
-                <DriverLicenseIssuedDate>{{ driver.driverDocDateStarts | date('d.m.Y') }}Z</DriverLicenseIssuedDate>
-                <DriverLicenseExpirationDate>{{ driver.driverDocDateEnds | date('d.m.Y') }}Z</DriverLicenseExpirationDate>
+                <DriverLicenseIssuedDate>{{ driver.driverDocDateStarts | date('Y-m-d') }}Z</DriverLicenseIssuedDate>
+                <DriverLicenseExpirationDate>{{ driver.driverDocDateEnds | date('Y-m-d') }}Z</DriverLicenseExpirationDate>
             </DriverLicense>
             <OrgName>{{ driver.companyName }}</OrgName>
             <OrgPostAddress>

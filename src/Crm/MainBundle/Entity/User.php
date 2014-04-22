@@ -169,6 +169,10 @@ class User extends BaseEntity implements UserInterface, EquatableInterface, \Ser
      */
     protected $roles;
 
+    public function getXmlId(){
+        return str_pad($this->id, 8, "0", STR_PAD_LEFT);
+    }
+
     public function __construct(){
         $this->roles    = 'ROLE_UNCONFIRMED';
     }
