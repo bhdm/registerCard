@@ -104,10 +104,13 @@ class AuthController extends Controller
                 if ($formDriver->isValid()) {
                     if ($formUser->isValid()) {
                         $user = $formUser->getData();
+                        $user->setEnabled(0);
                         $user->setSalt(md5($user));
                         $em->persist($user);
                         $em->flush();
                         $em->refresh($user);
+                        $session->set('userId',$user->getId());
+
                         $driver = $formDriver->getData();
                         $driver->setuser($user);
                         $em->persist($driver);
@@ -115,7 +118,7 @@ class AuthController extends Controller
                         $em->refresh($driver);
                         $user->setDriver($driver);
                         $em->flush();
-                        return new Response($this->render("CrmMainBundle:Form:success.html.twig", array('user' => $user)));
+                        return new Response($this->render("CrmMainBundle:Form:confirmation.html.twig", array('user' => $user)));
                     }
                  }
             }
@@ -167,5 +170,26 @@ class AuthController extends Controller
             $cities = array();
         }
         return array('cities' => $cities);
+    }
+
+    /**
+     * @Route("/check-user", name="check_user")
+     */
+    public function checkUserAction(Request $request){
+        $session = $request->getSession();
+        $userId = $session->get('userId');
+        $user = $this->getDoctrine()->getRepository('CrmMainBundle:User')->findOneById($userId);
+        $em = $this->getDoctrine()->getManager();
+        if ( $user != null){
+            if ($request->request->get('eula')){
+                $user->setEnabled(1);
+                $em->flush($user);
+                return new Response($this->render("CrmMainBundle:Form:success.html.twig", array('user' => $user)));
+            }else{
+                return new Response($this->render("CrmMainBundle:Form:confirmation.html.twig", array('user' => $user)));
+            }
+        }else{
+            return $this->redirect($this->generateUrl('main'));
+        }
     }
 }

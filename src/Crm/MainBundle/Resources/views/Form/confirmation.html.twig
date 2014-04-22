@@ -4,7 +4,7 @@
     <div class="box">
         {% set driver = user.driver %}
 
-        <h2>Заявка оформлена</h2>
+        <h2>Проверка данных</h2>
         <table>
             <tr>
                 <td colspan="2">
@@ -140,6 +140,17 @@
                 <td>{{ driver.lastNumberCard }}</td>
             </tr>
             {% endif %}
+            <tr>
+                <td colspan="2">
+                    <br />
+                    <form method="POST" action="{{ path('check_user') }}">
+                        <input type="checkbox" name="eula" required="required">Я согласен с правилами <a href="{{ path('page',{ 'url' : 'eula'}) }}">Лицензионного соглашения</a>
+                        <br/>
+                        <br/>
+                        <button type="submit" id="driver_submit"  class="btn">Подтвердить данные</button>
+                    </form>
+                </td>
+            </tr>
         </table>
     </div>
 {% endblock %}

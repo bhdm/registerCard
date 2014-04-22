@@ -21,7 +21,7 @@ class UserController extends Controller
      */
     public function listAction()
     {
-        $users = $this->getDoctrine()->getRepository('CrmMainBundle:User')->findAll();
+        $users = $this->getDoctrine()->getRepository('CrmMainBundle:User')->findByEnabled(1);
         return array(
             'pageAct' => 'user_list',
             'users' => $users

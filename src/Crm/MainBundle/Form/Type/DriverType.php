@@ -201,18 +201,6 @@ class DriverType extends AbstractType
                 'required'       => true,
             ))
 
-
-
-
-            ->add('eula', 'checkbox', array(
-                'label'       => 'Пользовательское соглашение',
-                'mapped'      => false,
-                'required'    => true,
-                'constraints' => new True(array(
-                        'message' => 'Пожалуйста, подтвердите что вы согласны с пользовательским соглашением'
-                    ))
-            ))
-
             ->add('submit', 'submit', array('label' => 'Заказать карту', 'attr' => array('class'=>'btn')));
     }
 
