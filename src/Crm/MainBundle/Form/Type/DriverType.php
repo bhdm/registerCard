@@ -113,15 +113,15 @@ class DriverType extends AbstractType
             ->add('driverDocIssuance', null, array('label' => 'Кем выдано водительское удостоверение'))
             ->add('driverDocDateStarts', 'date', array(
                 'label'  => 'Дата выдачи вод. удостоверения',
-                'years'  => range(date('Y') - 111, date('Y')),
+                'years'  => range(date('Y') - 20, date('Y')),
                 'data'   => new \DateTime('2000-01-01'),
                 'format' => 'dd MMMM yyyy',
                 'attr' => array('class' => 'date-select')
             ))
             ->add('driverDocDateEnds', 'date', array(
                 'label'  => 'Дата окончания вод. удостоверения',
-                'years'  => range(date('Y') - 20, date('Y')+10),
-                'data'   => new \DateTime('2000-01-01'),
+                'years'  => range(date('Y'), date('Y')+10),
+                'data'   => new \DateTime("+1 month"),
                 'format' => 'dd MMMM yyyy',
                 'attr' => array('class' => 'date-select')
             ))
