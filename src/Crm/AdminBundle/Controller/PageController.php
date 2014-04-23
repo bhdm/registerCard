@@ -37,7 +37,7 @@ class PageController extends Controller
             ->add('title', null, array('label' => 'Заголовок'))
             ->add('url', null, array('label' => 'URL'))
 
-            ->add('metaKeyword', null, array('label' => 'МЕТА Ключевые слова'))
+            ->add('metaKeyword', null, array('label' => 'МЕТА слова'))
             ->add('metaDescription', null, array('label' => 'МЕТА Описание'))
             ->add('menu', null, array('label' => 'Добавить в меню'))
 
