@@ -36,6 +36,11 @@ class PageController extends Controller
         $builder
             ->add('title', null, array('label' => 'Заголовок'))
             ->add('url', null, array('label' => 'URL'))
+
+            ->add('metaKeyword', null, array('label' => 'МЕТА Ключевые слова'))
+            ->add('metaDescription', null, array('label' => 'МЕТА Описание'))
+            ->add('menu', null, array('label' => 'Добавить в меню'))
+
             ->add('body', null, array('label' => 'Тело страницы', 'attr' => array('class' => 'ckeditor')))
             ->add('submit', 'submit', array('label' => 'Сохранить', 'attr' => array('class' => 'btn')));
 
@@ -66,6 +71,9 @@ class PageController extends Controller
         $builder
             ->add('title', null, array('label' => 'Заголовок'))
             ->add('url', null, array('label' => 'URL'))
+            ->add('metaKeyword', null, array('label' => 'мета слова'))
+            ->add('metaDescription', null, array('label' => 'мета Описание'))
+            ->add('menu', null, array('label' => 'Добавить в меню'))
             ->add('body', null, array('label' => 'Тело страницы', 'attr' => array('class' => 'ckeditor')))
             ->add('submit', 'submit', array('label' => 'Сохранить', 'attr' => array('class' => 'btn')));
 
