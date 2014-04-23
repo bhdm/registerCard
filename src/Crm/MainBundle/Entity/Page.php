@@ -33,6 +33,20 @@ class Page extends BaseEntity
     protected  $body;
 
     /**
+     * @ORM\Column(type="string", length=250)
+     */
+    protected $metaKeyword;
+
+    /**
+     * @ORM\Column(type="string", length=250)
+     */
+    protected $metaDescription;
+
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    protected $menu = 0;
+    /**
      * @return mixed
      */
     public function getBody()
@@ -78,6 +92,54 @@ class Page extends BaseEntity
     public function setUrl($url)
     {
         $this->url = $url;
+    }
+
+    /**
+     * @param mixed $menu
+     */
+    public function setMenu($menu = 0)
+    {
+        $this->menu = $menu;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getMenu()
+    {
+        return $this->menu;
+    }
+
+    /**
+     * @param mixed $metaDescription
+     */
+    public function setMetaDescription($metaDescription)
+    {
+        $this->metaDescription = $metaDescription;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getMetaDescription()
+    {
+        return $this->metaDescription;
+    }
+
+    /**
+     * @param mixed $metaKeyword
+     */
+    public function setMetaKeyword($metaKeyword)
+    {
+        $this->metaKeyword = $metaKeyword;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getMetaKeyword()
+    {
+        return $this->metaKeyword;
     }
 
 
