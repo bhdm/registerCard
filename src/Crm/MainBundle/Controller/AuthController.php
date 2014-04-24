@@ -199,12 +199,12 @@ class AuthController extends Controller
      */
     public function generatePdfAction(Request $request){
         if ($request->query->get('ord')!=null){
-            $userId = $request->request->get('ord');
+            $userId = $request->query->get('ord');
             $user = $this->getDoctrine()->getRepository('CrmMainBundle:User')->findOneById($userId);
             $mpdfService = $this->container->get('tfox.mpdfport');
             $html = $this->render('CrmMainBundle:Form:doc.html.twig',array('user' => $user));
             $arguments = array(
-                'constructorArgs' => array('utf-8', 'A4-L', 5 ,5 ,5 ,5,5 ), //Constructor arguments. Numeric array. Don't forget about points 2 and 3 in Warning section!
+//                'constructorArgs' => array('utf-8', 'A4-L', 5 ,5 ,5 ,5,5 ), //Constructor arguments. Numeric array. Don't forget about points 2 and 3 in Warning section!
                 'writeHtmlMode' => null, //$mode argument for WriteHTML method
                 'writeHtmlInitialise' => null, //$mode argument for WriteHTML method
                 'writeHtmlClose' => null, //$close argument for WriteHTML method
