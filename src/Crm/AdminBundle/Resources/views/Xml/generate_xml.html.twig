@@ -64,6 +64,51 @@
                 {{ files[3].base }}
                 </Body>
             </Sign>
+
+            <Attachment>
+                <AttachmentName>{{ files[0].file.fileName }}</AttachmentName>
+                <AttachmentType>Passport</AttachmentType>
+                <FileFormat>JPG</FileFormat>
+                <Body>
+                {{ files[0].base }}
+                </Body>
+            </Attachment>
+
+            <Attachment>
+                <AttachmentName>{{ files[1].file.fileName }}</AttachmentName>
+                <AttachmentType>DriverLicense</AttachmentType>
+                <FileFormat>JPG</FileFormat>
+                <Body>
+                {{ files[1].base }}
+                </Body>
+            </Attachment>
+
+            <Attachment>
+                <AttachmentName>{{ files[4].file.fileName }}</AttachmentName>
+                <AttachmentType>CardOrder</AttachmentType>
+                <FileFormat>JPG</FileFormat>
+                <Body>
+                {{ files[4].base }}
+                </Body>
+            </Attachment>
+
+            <Attachment>
+                <AttachmentName>{{ files[5].file.fileName }}</AttachmentName>
+                <AttachmentType>Snils</AttachmentType>
+                <FileFormat>JPG</FileFormat>
+                <Body>
+                {{ files[5].base }}
+                </Body>
+            </Attachment>
+
+            <Attachment>
+                <AttachmentName>{{ files[6].file.fileName }}</AttachmentName>
+                <AttachmentType>Other</AttachmentType>
+                <FileFormat>JPG</FileFormat>
+                <Body>
+                {{ files[6].base }}
+                </Body>
+            </Attachment>
         </PersonOrder>
     </Order>
 </ns2:TacPackage>
