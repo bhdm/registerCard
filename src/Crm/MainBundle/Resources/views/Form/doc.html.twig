@@ -13,7 +13,7 @@
     </head>
     <body>
     <div style="width: 300px; float: right">
-        В ООО Ромашка<br/>
+        В ООО ИНФОМАКС<br/>
         <div class="comment">наименование организации-изготовителя карт</div><br/>
         от водителя<br/>
         {{ user.lastName }}
@@ -33,7 +33,13 @@
     <br/>
     <div style="text-align: justify">
         <p>
-            Прошу выдать/обновить в связи с истечением срока действия <i>(нужное подчеркнуть)</i> мне карту водителя для использования при осуществлении автомобильных перевозок.
+            Прошу
+            {% if user.driver.lastNumberCard %}
+                выдать/<u>обновить</u>
+            {% else %}
+                <u>выдать</u>/обновить
+            {% endif %}
+            в связи с истечением срока действия <i>(нужное подчеркнуть)</i> мне карту водителя для использования при осуществлении автомобильных перевозок.
         </p>
         <p>
             Для выдачи (обновления) карты предоставляю следующую информацию:
@@ -110,11 +116,11 @@
         <table>
             <tr>
                 <td style="width: 400px">
-                    <img src="http://crm.loc/web{{ user.driver.photo['path'] }}" style="width: 150px"><br/>
+                    <img src="http://im-kard.ru{{ user.driver.photo['path'] }}" style="width: 150px"><br/>
                     <span>Место для фотографии</span>
                 </td>
                 <td style="width: 400px; ">
-                    <img src="http://crm.loc/web{{ user.driver.copySignature['path'] }}" style="width: 150px"><br/>
+                    <img src="http://im-kard.ru{{ user.driver.copySignature['path'] }}" style="width: 150px"><br/>
                     <span>Место для подписи</span><br/>
                     <span><b>Примечание: подпись должна иметь четкие, хорошо различимые линии, ставиться черными чернилами, занимать 80% выделенной области и не выходить за пределы рамки.</b></span>
                 </td>
