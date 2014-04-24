@@ -1,0 +1,69 @@
+<html>
+    <head>
+        <style>
+            *{
+                font-size: 12px;
+            }
+            .bg{
+                position: relative;
+            }
+            .fio1{
+                position: absolute;
+                left: 300px;
+                top: 170px;
+            }
+            .adr1{
+                position: absolute;
+                left: 300px;
+                top: 190px;
+            }
+            .date1{
+                position: absolute;
+                top: 221px;
+                left: 450px;
+            }
+
+            .fio2{
+                position: absolute;
+                left: 300px;
+                top: 440px;
+            }
+            .adr2{
+                position: absolute;
+                left: 300px;
+                top: 460px;
+            }
+            .date2{
+                position: absolute;
+                top: 490px;
+                left: 450px;
+            }
+        </style>
+
+        <body>
+            <div class="bg">
+                <img src="{{ asset('bundles/crmmain/images/doc.png') }}" width="700px">
+                <div class="fio1" >{{ user.lastName }} {{ user.firstName }} {{ user.surName }}</div>
+                <div class="adr1" >
+                    {{ user.cityType }} {{ user.city }},
+                    {{ user.streetType }}{{ user.street }}, д.{{ user.home }}
+                    {{ user.corpType }}{{ user.corp }} {{ user.roomType }}{{ user.room }}
+                </div>
+                <div class="date1">
+                    {{ "now" | date ('d ') }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ "now" | date ('m ') }}<span style="padding-left: 50px">{{ "now" | date ('y') }}</span>
+                </div>
+
+
+                <div class="fio2" >{{ user.lastName }} {{ user.firstName }} {{ user.surName }}</div>
+                <div class="adr2" >
+                    {{ user.cityType }} {{ user.city }},
+                    {{ user.streetType }}{{ user.street }}, д.{{ user.home }}
+                    {{ user.corpType }}{{ user.corp }} {{ user.roomType }}{{ user.room }}
+                </div>
+                <div class="date2">
+                    {{ "now" | date ('d ') }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ "now" | date ('m ') }}<span style="padding-left: 50px">{{ "now" | date ('y') }}</span>
+                </div>
+            </div>
+        </body>
+    </head>
+</html>
