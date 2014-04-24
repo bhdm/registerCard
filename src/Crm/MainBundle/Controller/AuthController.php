@@ -17,6 +17,7 @@ use Crm\MainBundle\Form\Type\DriverType;
 use Crm\MainBundle\Form\Type\CompanyType;
 use Symfony\Component\Form\FormError;
 use Zelenin\smsru;
+use Symfony\Component\DependencyInjection\ContainerInterface as Container;
 
 /**
  * http://habrahabr.ru/post/128159/
@@ -120,7 +121,7 @@ class AuthController extends Controller
                         $em->flush();
                         return new Response($this->render("CrmMainBundle:Form:confirmation.html.twig", array('user' => $user)));
                     }
-                 }
+                }
             }
 
             return array(
@@ -188,6 +189,29 @@ class AuthController extends Controller
             }else{
                 return new Response($this->render("CrmMainBundle:Form:confirmation.html.twig", array('user' => $user)));
             }
+        }else{
+            return $this->redirect($this->generateUrl('main'));
+        }
+    }
+
+    /**
+     * @Route("/generatePdf", name="generate_pdf")
+     */
+    public function generatePdfAction(Request $request){
+        if ($request->query->get('ord')!=null){
+            $userId = $request->request->get('ord');
+            $user = $this->getDoctrine()->getRepository('CrmMainBundle:User')->findOneById($userId);
+            $mpdfService = $this->container->get('tfox.mpdfport');
+            $html = $this->render('CrmMainBundle:Form:doc.html.twig',array('user' => $user));
+            $arguments = array(
+                'constructorArgs' => array('utf-8', 'A4-L', 5 ,5 ,5 ,5,5 ), //Constructor arguments. Numeric array. Don't forget about points 2 and 3 in Warning section!
+                'writeHtmlMode' => null, //$mode argument for WriteHTML method
+                'writeHtmlInitialise' => null, //$mode argument for WriteHTML method
+                'writeHtmlClose' => null, //$close argument for WriteHTML method
+                'outputFilename' => null, //$filename argument for Output method
+                'outputDest' => null, //$dest argument for Output method
+            );
+            $mpdfService->generatePdfResponse($html->getContent(), $arguments);
         }else{
             return $this->redirect($this->generateUrl('main'));
         }

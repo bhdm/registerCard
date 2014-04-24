@@ -23,7 +23,8 @@
         "iphp/filestore-bundle":"dev-master",
         "knplabs/knp-paginator-bundle": "~2.4",
         "friendsofsymfony/jsrouting-bundle": "@stable",
-        "zelenin/smsru" : "1.4.2"
+        "zelenin/smsru" : "1.4.2",
+        "tfox/mpdf-port-bundle": "1.2.*"
 
     },
     "scripts": {
