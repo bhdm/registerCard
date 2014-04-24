@@ -185,7 +185,7 @@ class AuthController extends Controller
             if ($request->request->get('eula')){
                 $user->setEnabled(1);
                 $em->flush($user);
-                return new Response($this->render("CrmMainBundle:Form:success.html.twig", array('user' => $user)));
+                return new Response($this->renderView("CrmMainBundle:Form:success.html.twig", array('user' => $user)));
             }else{
                 return new Response($this->render("CrmMainBundle:Form:confirmation.html.twig", array('user' => $user)));
             }
