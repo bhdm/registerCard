@@ -185,11 +185,6 @@ class DriverType extends AbstractType
                 'comment'        => $comment,
                 'required'       => true,
             ))
-            ->add('copyStatement', 'iphp_file', array(
-                'label'          => 'Заявление на выдачу карты',
-                'comment'        => $comment,
-                'required'       => true,
-            ))
             ->add('copySnils', 'iphp_file', array(
                 'label'          => 'Копия СНИЛС',
                 'comment'        => $comment,

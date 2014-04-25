@@ -227,14 +227,6 @@ class Driver extends BaseEntity
     protected $copySignature;
 
     /**
-     * @Assert\NotBlank( message = "Поле Заявление на выдачу карты обязательно для заполнения" )
-     * @Assert\File(maxSize="2M")
-     * @FileStore\UploadableField(mapping="docs")
-     * @ORM\Column(type="array")
-     */
-    protected $copyStatement;
-
-    /**
      * @Assert\NotBlank( message = "Поле копия СНИЛС обязательно для заполнения" )
      * @Assert\File(maxSize="2M")
      * @FileStore\UploadableField(mapping="docs")
@@ -705,22 +697,6 @@ class Driver extends BaseEntity
     public function getCopySnils()
     {
         return $this->copySnils;
-    }
-
-    /**
-     * @param mixed $copyStatement
-     */
-    public function setCopyStatement($copyStatement)
-    {
-        $this->copyStatement = $copyStatement;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getCopyStatement()
-    {
-        return $this->copyStatement;
     }
 
     /**

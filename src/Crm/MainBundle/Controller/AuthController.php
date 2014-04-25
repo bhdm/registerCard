@@ -43,7 +43,7 @@ class AuthController extends Controller
             $phone = $request->request->get('phone');
             $phone = str_replace(array('(',')','-',''),array('','','',''),$phone);
 //            $testCode = rand(123456 , 999999);
-            $testCode = 12345;
+            $testCode = 54321;
             $sms = new smsru('a8f0f6b6-93d1-3144-a9a1-13415e3b9721');
             $sms->sms_send( $phone, 'Номер для подтверждения телефона: '.$testCode  ); # последний параметр заменить на true
 
