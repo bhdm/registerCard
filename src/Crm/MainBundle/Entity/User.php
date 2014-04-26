@@ -31,6 +31,7 @@ class User extends BaseEntity implements UserInterface, EquatableInterface, \Ser
     /**
      * @Assert\NotBlank( message = "Поле фамилия обязательно для заполнения" )
      * @Assert\Length( max = "35", maxMessage = "Максимум  35 символов")
+     * @Assert\Regex(pattern= "/^[a-zа-яA-ZА-Я]+$/u", message="Неверный формат ввода.")
      * @ORM\Column(type="string", length=100)
      */
     protected  $lastName;
@@ -38,12 +39,14 @@ class User extends BaseEntity implements UserInterface, EquatableInterface, \Ser
     /**
      * @Assert\NotBlank( message = "Поле имя обязательно для заполнения" )
      * @Assert\Length( max = "35", maxMessage = "Максимум  35 символов")
+     * @Assert\Regex(pattern= "/^[a-zа-яA-ZА-Я]+$/u", message="Неверный формат ввода.")
      * @ORM\Column(type="string", length=100)
      */
     protected  $firstName;
 
     /**
      * @Assert\Length( max = "35", maxMessage = "Максимум  35 символов")
+     * @Assert\Regex(pattern= "/^[a-zа-яA-ZА-Я]+$/u", message="Неверный формат ввода.")
      * @ORM\Column(type="string", length=100, nullable=true)
      */
     protected  $surName;
