@@ -7,6 +7,20 @@
             {% else %}
                 <title>Система подачи заявок</title>
             {% endif%}
+
+
+            {% if page is defined and page.metaDescription is defined  %}
+                <meta name="description" content="{{ page.metaDescription }}">
+            {% else %}
+                <meta name="description" content="Система подачи заявок">
+            {% endif%}
+
+
+            {% if page is defined and page.metaKeyword is defined  %}
+                <meta name="keywords" content="{{ page.metaKeyword }}">
+            {% else %}
+                <meta name="keywords" content="Система подачи заявок">
+            {% endif%}
         {% endblock %}
         {% block stylesheets %}
             <link href="{{ asset('bundles/crmmain/stylesheets/common.css') }}" rel="stylesheet" media="all">
