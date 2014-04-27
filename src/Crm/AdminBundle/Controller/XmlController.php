@@ -40,9 +40,9 @@ class XmlController extends Controller
         $files[3]['title'] = 'Signature';
         $files[3]['file'] = $driver->getCopySignature();
 
-        $files[4]['base'] = $this->imageToBase64($driver->getCopyStatement());
-        $files[4]['title'] = 'Statement';
-        $files[4]['file'] = $driver->getCopyStatement();
+//        $files[4]['base'] = $this->imageToBase64($driver->getCopyStatement());
+//        $files[4]['title'] = 'Statement';
+//        $files[4]['file'] = $driver->getCopyStatement();
 
         $files[5]['base'] = $this->imageToBase64($driver->getCopySnils());
         $files[5]['title'] = 'SNILS';
