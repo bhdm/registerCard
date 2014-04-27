@@ -185,6 +185,18 @@ class AuthController extends Controller
             if ($request->request->get('eula')){
                 $user->setEnabled(1);
                 $em->flush($user);
+                $message = \Swift_Message::newInstance()
+                    ->setSubject('Заявка отправлена')
+                    ->setFrom('info@im-kard.ru')
+                    ->setTo($user->getEmail())
+                    ->setBody(
+                        $this->renderView(
+                            'CrmMainBundle:Mail:success.html.twig',
+                            array('order' => $user)
+                        ), 'text/html'
+                    )
+                ;
+                $this->get('mailer')->send($message);
                 return new Response($this->renderView("CrmMainBundle:Form:success.html.twig", array('user' => $user)));
             }else{
                 return new Response($this->render("CrmMainBundle:Form:confirmation.html.twig", array('user' => $user)));
