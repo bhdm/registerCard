@@ -2,7 +2,7 @@
     <head>
         <style>
             div,span,p{
-                font-size: 18px;
+                font-size: 17px;
             }
             .comment{
                 font-size: 10pt;
@@ -92,7 +92,6 @@
         </p>
 
         <br />
-        <br />
         <p>
             Данным заявлением подтверждаю свое согласие на:<br/>
             обработку моих персональных данных, указанных в заявлении на выдачу (обновление) карты водителя;<br/>
@@ -115,13 +114,18 @@
         </p>
         <table>
             <tr>
-                <td style="width: 400px">
-                    <img src="http://im-kard.ru{{ user.driver.photo['path'] }}" style="width: 150px"><br/>
-                    <span>Место для фотографии</span>
+                <td style="width: 400px; vertical-align: top;">
+                    <img src="http://crm.loc/web{{ user.driver.photo['path'] }}" style="width: 200px"><br/>
+                    <div >
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="comment">Место для фотографии</span>
+                    </div>
                 </td>
-                <td style="width: 400px; ">
-                    <img src="http://im-kard.ru{{ user.driver.copySignature['path'] }}" style="width: 150px"><br/>
-                    <span>Место для подписи</span><br/>
+                <td style="width: 400px; vertical-align: top;">
+                    <div style="text-align: center;">
+                        <img src="http://crm.loc/web{{ user.driver.copySignature['path'] }}" style="width: 200px;padding-left: 100px"><br/>
+                    </div>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span  class="comment">Место для подписи</span>
+                    <br/>
                     <span><b>Примечание: подпись должна иметь четкие, хорошо различимые линии, ставиться черными чернилами, занимать 80% выделенной области и не выходить за пределы рамки.</b></span>
                 </td>
             </tr>
