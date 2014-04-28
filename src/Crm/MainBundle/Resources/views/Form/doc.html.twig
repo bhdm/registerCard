@@ -122,7 +122,11 @@
                 </td>
                 <td style="width: 400px; vertical-align: top;">
                     <div style="text-align: center;">
-                        <img src="http://im-kard.ru{{ user.driver.copySignature['path'] }}" style="width: 200px;padding-left: 100px"><br/>
+                        {% if mail is not null %}
+                            <img src="{{ asset('bundles/crmmain/images/nosign.png') }}" style="width: 200px;padding-left: 50px"><br/>
+                        {% else %}
+                            <img src="http://im-kard.ru{{ user.driver.copySignature['path'] }}" style="width: 200px;padding-left: 100px"><br/>
+                        {% endif %}
                     </div>
                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span  class="comment">Место для подписи</span>
                     <br/>
