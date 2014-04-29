@@ -85,14 +85,19 @@ class AuthController extends Controller
 
         if ($session->get('user')){
             $em   = $this->getDoctrine()->getManager();
-
-            $user = new User();
-            $user->setLastName($session->get('user')['lastName']);
-            $user->setFirstName($session->get('user')['firstName']);
-            $user->setPhone($session->get('user')['phone']);
-
-            $driver = new Driver();
+            $userId = $session->get('userId');
+            $user = $this->getDoctrine()->getRepository('CrmMainBundle:User')->findOneById($userId);
+            if (!$user){
+                $user = new User();
+                $user->setLastName($session->get('user')['lastName']);
+                $user->setFirstName($session->get('user')['firstName']);
+                $user->setPhone($session->get('user')['phone']);
+                $driver = new Driver();
+            }else{
+                $driver = $user->getDriver();
+            }
 //            $company = new Company();
+
             $formUser       = $this->createForm(new UserType($em), $user);
 //            $formCompany    = $this->createForm(new CompanyType($em), $company);
             $formDriver    = $this->createForm(new DriverType($em), $driver);
@@ -107,18 +112,31 @@ class AuthController extends Controller
                         $user = $formUser->getData();
                         $user->setEnabled(0);
                         $user->setSalt(md5($user));
-                        $em->persist($user);
-                        $em->flush();
-                        $em->refresh($user);
+                        if (!$userId){
+                            $em->persist($user);
+                            $em->flush();
+                            $em->refresh($user);
+                        }else{
+                            $em->flush();
+                        }
+
                         $session->set('userId',$user->getId());
 
                         $driver = $formDriver->getData();
-                        $driver->setuser($user);
-                        $em->persist($driver);
-                        $em->flush();
-                        $em->refresh($driver);
-                        $user->setDriver($driver);
-                        $em->flush();
+                        $driver->setUser($user);
+                        if (!$userId){
+                            $em->persist($driver);
+                            $em->flush();
+                            $em->refresh($driver);
+                            $user->setDriver($driver);
+                            $em->flush();
+                        }else{
+                            $em->flush();
+                        }
+
+
+                        $session->set('userId',$user->getId());
+
                         return new Response($this->render("CrmMainBundle:Form:confirmation.html.twig", array('user' => $user)));
                     }
                 }

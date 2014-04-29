@@ -2,6 +2,7 @@
 
 {% block content %}
     <div class="box">
+
         {% set driver = user.driver %}
 
         <h2>Проверка данных</h2>
@@ -147,6 +148,10 @@
                         <input type="checkbox" name="eula" required="required">Я согласен с <a href="{{ path('page',{ 'url' : 'eula'}) }}">публичной афертой</a>
                         <br/>
                         <br/>
+                        <a href="{{ path('auth_party_2') }}">
+                            <button type="button" id="driver_btn"  class="btn">Вернуться</button>
+                        </a>
+
                         <button type="submit" id="driver_submit"  class="btn">Подтвердить данные</button>
                     </form>
                 </td>

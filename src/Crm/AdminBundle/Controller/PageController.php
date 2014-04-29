@@ -73,7 +73,11 @@ class PageController extends Controller
             ->add('url', null, array('label' => 'URL'))
             ->add('metaKeyword', null, array('label' => 'мета слова'))
             ->add('metaDescription', null, array('label' => 'мета Описание'))
-            ->add('menu', null, array('label' => 'Добавить в меню'))
+//            ->add('menu', 'checkbox', array('label' => ''))
+            ->add('menu', 'checkbox', array(
+                'label'       => 'Добавить в меню',
+                'mapped'      => false
+            ))
             ->add('body', null, array('label' => 'Тело страницы', 'attr' => array('class' => 'ckeditor')))
             ->add('submit', 'submit', array('label' => 'Сохранить', 'attr' => array('class' => 'btn')));
 
