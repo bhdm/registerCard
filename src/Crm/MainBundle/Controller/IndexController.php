@@ -55,11 +55,13 @@ class IndexController extends Controller
     }
 
     /**
-     * @Route("/faq/category/{catId}", name="faq", defaults={"catId" = 1 })
+     * @Route("/faq/{catId}", name="faq", defaults={"catId" = 1 })
      * @Template()
      */
     public function faqAction($catId){
-        $faqs = $this->getDoctrine()->getRepository('CrmMainBundle:Faq')->findByCategory($catId);
+
+        $faqCat = $this->getDoctrine()->getRepository('CrmMainBundle:FaqCategory')->findOneById($catId);
+        $faqs = $this->getDoctrine()->getRepository('CrmMainBundle:Faq')->findByCategory($faqCat);
         return array('faqs' => $faqs);
     }
 
