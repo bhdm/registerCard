@@ -1,38 +1,28 @@
-{% extends '::base.html.twig' %}
+{% extends 'CrmAdminBundle::layout.html.twig' %}
 
-{% block body -%}
-    <h1>FaqCategory list</h1>
+{% block content %}
+    <div class="crumbs">
+        <a href="#">Категории вопросов</a>
+        >>
+        <a href="{{ path('admin_faqcategory_new') }}">Добавить</a>
+    </div>
 
-    <table class="records_list">
+    <table class="list">
         <thead>
             <tr>
-                <th>Url</th>
-                <th>Title</th>
                 <th>Id</th>
-                <th>Created</th>
-                <th>Updated</th>
-                <th>Enabled</th>
-                <th>Actions</th>
+                <th>Название</th>
+                <th>Действия</th>
             </tr>
         </thead>
         <tbody>
         {% for entity in entities %}
             <tr>
-                <td><a href="{{ path('admin_faqcategory_show', { 'id': entity.id }) }}">{{ entity.url }}</a></td>
-                <td>{{ entity.title }}</td>
                 <td>{{ entity.id }}</td>
-                <td>{% if entity.created %}{{ entity.created|date('Y-m-d H:i:s') }}{% endif %}</td>
-                <td>{% if entity.updated %}{{ entity.updated|date('Y-m-d H:i:s') }}{% endif %}</td>
-                <td>{{ entity.enabled }}</td>
+                <td>{{ entity.title }}</td>
                 <td>
-                <ul>
-                    <li>
-                        <a href="{{ path('admin_faqcategory_show', { 'id': entity.id }) }}">show</a>
-                    </li>
-                    <li>
-                        <a href="{{ path('admin_faqcategory_edit', { 'id': entity.id }) }}">edit</a>
-                    </li>
-                </ul>
+                        <a href="{{ path('admin_faqcategory_edit', { 'id': entity.id }) }}">Изменить</a>
+                        <a href="{{ path('admin_faqcategory_delete', { 'id': entity.id }) }}">Удалить</a>
                 </td>
             </tr>
         {% endfor %}
@@ -42,7 +32,7 @@
         <ul>
         <li>
             <a href="{{ path('admin_faqcategory_new') }}">
-                Create a new entry
+                Создать новую категорию
             </a>
         </li>
     </ul>

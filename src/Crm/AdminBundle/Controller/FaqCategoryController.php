@@ -205,25 +205,22 @@ class FaqCategoryController extends Controller
     /**
      * Deletes a FaqCategory entity.
      *
-     * @Route("/{id}", name="admin_faqcategory_delete")
-     * @Method("DELETE")
+     * @Route("/delete/{id}", name="admin_faqcategory_delete")
+     * @Method("GET")
      */
     public function deleteAction(Request $request, $id)
     {
-        $form = $this->createDeleteForm($id);
-        $form->handleRequest($request);
 
-        if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $entity = $em->getRepository('CrmMainBundle:FaqCategory')->find($id);
 
             if (!$entity) {
-                throw $this->createNotFoundException('Unable to find FaqCategory entity.');
+                throw $this->createNotFoundException('Ошибка сущностей');
             }
 
             $em->remove($entity);
             $em->flush();
-        }
+
 
         return $this->redirect($this->generateUrl('admin_faqcategory'));
     }
