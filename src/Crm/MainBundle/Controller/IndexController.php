@@ -55,13 +55,15 @@ class IndexController extends Controller
     }
 
     /**
-     * @Route("/faq", name="faq")
+     * @Route("/faq/category/{catId}", name="faq", defaults={"catId" = 1 })
      * @Template()
      */
-    public function faqAction(){
-        $faqs = $this->getDoctrine()->getRepository('CrmMainBundle:Faq')->findByEnabled(true);
+    public function faqAction($catId){
+        $faqs = $this->getDoctrine()->getRepository('CrmMainBundle:Faq')->findByCategory($catId);
         return array('faqs' => $faqs);
     }
+
+
 
     /**
      * @Route("/status", name="status")

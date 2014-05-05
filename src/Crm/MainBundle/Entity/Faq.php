@@ -15,6 +15,12 @@ class Faq extends BaseEntity
 {
 
     /**
+     * @ORM\ManyToOne(targetEntity="FaqCategory", inversedBy="faq")
+     */
+    protected $category;
+
+
+    /**
      * @Assert\NotBlank()
      * @ORM\Column(type="text")
      */
@@ -57,4 +63,22 @@ class Faq extends BaseEntity
     {
         $this->question = $question;
     }
+
+    /**
+     * @param mixed $category
+     */
+    public function setCategory($category)
+    {
+        $this->category = $category;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCategory()
+    {
+        return $this->category;
+    }
+
+
 }
