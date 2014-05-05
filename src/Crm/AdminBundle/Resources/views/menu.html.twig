@@ -3,6 +3,7 @@
     <li><a href="{{ path('page_list') }}" {{ pageAct == 'page_list' ? 'class="active"' : ''}}>Страницы</a></li>
     <li><a href="{{ path('document_list') }}" {{ pageAct == 'document_list' ? 'class="active"' : ''}}>Документы</a></li>
     <li><a href="{{ path('faq_list') }}" {{ pageAct == 'faq_list' ? 'class="active"' : ''}}>Вопросы</a></li>
+    <li><a href="{{ path('admin_faqcategory') }}" {{ pageAct == 'faq_category' ? 'class="active"' : ''}}>Категории FAQ</a></li>
 
     <li><a href="{{ path('user_list') }}" {{ pageAct == 'user_list' ? 'class="active"' : '' }}>Заявки</a></li>
     <li><a href="{{ path('stat_list') }}" {{ pageAct == 'stat_list' ? 'class="active"' : '' }}>Статистика</a></li>
@@ -12,6 +13,7 @@
         <li><a href="{{ path('page_list') }}">Страницы</a></li>
         <li><a href="{{ path('document_list') }}">Документы</a></li>
         <li><a href="{{ path('faq_list') }}">Вопросы</a></li>
+        <li><a href="{{ path('admin_faqcategory') }}">Категории FAQ</a></li>
         <li><a href="{{ path('user_list') }}">Заявки</a></li>
         <li><a href="{{ path('stat_list') }}">Статистика</a></li>
     </ul>

@@ -31,9 +31,10 @@ class FaqController extends Controller
 
         $em = $this->getDoctrine()->getManager();
         $faq = $em->getRepository('CrmMainBundle:Faq')->findOneById($faqId);
-
+        $categories = $em->getRepository('CrmMainBundle:FaqCategory')->findAll();
         $builder = $this->createFormBuilder($faq);
         $builder
+            ->add($builder->create('category',  'choice', array('required' => false,    'label' => 'Категория', 'choices' => $categories, 'attr'=> array('data-placeholder'=>'Выберите'))))
             ->add('question', null, array('label' => 'Вопрос', 'attr' => array('class' => 'ckeditor')))
             ->add('answer', null, array('label' => 'Ответ', 'attr' => array('class' => 'ckeditor')))
             ->add('submit', 'submit', array('label' => 'Сохранить', 'attr' => array('class' => 'btn')));
@@ -60,9 +61,18 @@ class FaqController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $faq = new Faq();
+        $categories = $em->getRepository('CrmMainBundle:FaqCategory')->findAll();
+
+        $cats = array();
+        foreach ($categories as $cat){
+            $cats[$cat->getId()] = $cat->getTitle();
+        }
+        $categories  = $cats;
+
 
         $builder = $this->createFormBuilder($faq);
         $builder
+            ->add($builder->create('category',  'choice', array('required' => false,    'label' => 'Категория', 'choices' => $categories, 'attr'=> array('data-placeholder'=>'Выберите'))))
             ->add('question', null, array('label' => 'Вопрос', 'attr' => array('class' => 'ckeditor')))
             ->add('answer', null, array('label' => 'Ответ', 'attr' => array('class' => 'ckeditor')))
             ->add('submit', 'submit', array('label' => 'Сохранить', 'attr' => array('class' => 'btn')));

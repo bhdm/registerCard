@@ -9,12 +9,14 @@
 
     <table class="list">
         <tr>
+            <th>Категория</th>
             <th>Название</th>
             <th>URL</th>
             <th class="setting"></th>
         </tr>
         {% for faq in faqs %}
             <tr>
+                <td>{{ faq.category is not null ? faq.category.title : ''}}</td>
                 <td>{{ faq.question |raw  [:75] | raw }}</td>
                 <td>{{ faq.answer | raw [:120] | raw }}</td>
                 <td class="setting">
