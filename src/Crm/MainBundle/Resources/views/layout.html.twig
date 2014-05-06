@@ -24,6 +24,21 @@
         {% endblock %}
         {% block stylesheets %}
             <link href="{{ asset('bundles/crmmain/stylesheets/common.css') }}" rel="stylesheet" media="all">
+            <style>
+                .logo{
+                    position: absolute;
+                    top: 10px;
+                    left: 50px;
+                }
+                .phone{
+                    position: absolute;
+                    top: 28px;
+                    right: 50px;
+                    font-size: 23px;
+                    text-align: right;
+                    color: #2222CE;
+                }
+            </style>
         {% endblock %}
         {% block javascripts %}
             <script rel="script" src="{{ asset('bundles/crmmain/javascripts/jQuery.js') }}"></script>
@@ -44,6 +59,11 @@
                 <a href="{{ path('main') }}">
                     <img src="{{ asset('bundles/crmmain/images/head.png') }}">
                 </a>
+                    <img src="{{ asset('bundles/crmmain/images/Logotip.png') }}" class="logo">
+                <div class="phone">
+                    8&nbsp;(812)&nbsp;425 - 12 - 44<br />
+                    пн.-пт. с 10-00 до 20-00
+                </div>
             </header>
             <div class="content">
                 {% include ("CrmMainBundle::menu.html.twig")  %}
