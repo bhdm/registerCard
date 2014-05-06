@@ -1,3 +1,4 @@
+{% spaceless %}
 <ns2:TacPackage xmlns:ns2="http://www.example.org/">
     <PackageInfo>
         <PackageNumber>FLGMN-{{ driver.user.xmlId }}</PackageNumber>
@@ -34,11 +35,7 @@
             </DriverLicense>
             <OrgName>{{ driver.companyName }}</OrgName>
             <OrgPostAddress>
-                <FullAddress>
-                    {{ driver.zipcode }}, Россия, {{ driver.region.title }}, {{ driver.cityType }} {{ driver.city }},
-                    {{ driver.streetType }}{{ driver.street }}, д.{{ driver.home }}
-                    {{ driver.corpType }}{{ driver.corp }}, {{ driver.roomType }}{{ driver.room }}
-                </FullAddress>
+                <FullAddress>{{ driver.zipcode }}, Россия, {{ driver.region.title }}, {{ driver.cityType }} {{ driver.city }},{{ driver.streetType }}{{ driver.street }}, д.{{ driver.home }}{{ driver.corpType }}{{ driver.corp }}, {{ driver.roomType }}{{ driver.room }}</FullAddress>
                 <PostCode>{{ driver.zipcode }}</PostCode>
                 <RegionCode>{{ driver.region.title }}</RegionCode>
                 <Settlement>{{ driver.cityType}} {{ driver.city }}</Settlement>
@@ -50,156 +47,40 @@
             <Photo>
                 <AttachmentName>{{ files[2].file.fileName }}</AttachmentName>
                 <AttachmentType>Photo</AttachmentType>
-                <FileFormat>
-                    {% if files[2].file.mimeType == 'image/jpeg' %}
-                        JPG
-                    {% elseif files[2].file.mimeType == 'image/png' %}
-                        PNG
-                    {% elseif files[2].file.mimeType == 'image/gif' %}
-                        GIF
-                    {% else %}
-                        FILE
-                    {% endif %}
-                </FileFormat>
-                <Body>
-                {{ files[2].base }}
-                </Body>
+                <FileFormat>{% if files[2].file.mimeType == 'image/jpeg' %}JPG{% elseif files[2].file.mimeType == 'image/png' %}PNG{% elseif files[2].file.mimeType == 'image/gif' %}GIF{% else %}FILE{% endif %}</FileFormat>
+                <Body>{{ files[2].base }}</Body>
             </Photo>
-
             <Sign>
                 <AttachmentName>{{ files[3].file.fileName }}</AttachmentName>
                 <AttachmentType>Signature</AttachmentType>
-                <FileFormat>
-                    {% if files[3].file.mimeType == 'image/jpeg' %}
-                        JPG
-                    {% elseif files[3].file.mimeType == 'image/png' %}
-                        PNG
-                    {% elseif files[3].file.mimeType == 'image/gif' %}
-                        GIF
-                    {% else %}
-                        FILE
-                    {% endif %}
-                </FileFormat>
-                <Body>
-                {{ files[3].base }}
-                </Body>
+                <FileFormat>{% if files[3].file.mimeType == 'image/jpeg' %}JPG{% elseif files[3].file.mimeType == 'image/png' %}PNG{% elseif files[3].file.mimeType == 'image/gif' %}GIF{% else %}FILE{% endif %}</FileFormat>
+                <Body>{{ files[3].base }}</Body>
             </Sign>
-
             <Attachment>
                 <AttachmentName>{{ files[0].file.fileName }}</AttachmentName>
                 <AttachmentType>Passport</AttachmentType>
-                <FileFormat>
-                    {% if files[0].file.mimeType == 'image/jpeg' %}
-                        JPG
-                    {% elseif files[0].file.mimeType == 'image/png' %}
-                        PNG
-                    {% elseif files[0].file.mimeType == 'image/gif' %}
-                        GIF
-                    {% else %}
-                        FILE
-                    {% endif %}
-                </FileFormat>
-                <Body>
-                {{ files[0].base }}
-                </Body>
+                <FileFormat>{% if files[0].file.mimeType == 'image/jpeg' %}JPG{% elseif files[0].file.mimeType == 'image/png' %}PNG{% elseif files[0].file.mimeType == 'image/gif' %}GIF{% else %}FILE{% endif %}</FileFormat>
+                <Body>{{ files[0].base }}</Body>
             </Attachment>
-
             <Attachment>
                 <AttachmentName>{{ files[1].file.fileName }}</AttachmentName>
                 <AttachmentType>DriverLicense</AttachmentType>
-                <FileFormat>
-                    {% if files[1].file.mimeType == 'image/jpeg' %}
-                        JPG
-                    {% elseif files[1].file.mimeType == 'image/png' %}
-                        PNG
-                    {% elseif files[1].file.mimeType == 'image/gif' %}
-                        GIF
-                    {% else %}
-                        FILE
-                    {% endif %}
-                </FileFormat>
-                <Body>
-                {{ files[1].base }}
-                </Body>
+                <FileFormat>{% if files[1].file.mimeType == 'image/jpeg' %}JPG{% elseif files[1].file.mimeType == 'image/png' %}PNG{% elseif files[1].file.mimeType == 'image/gif' %}GIF{% else %}FILE{% endif %}</FileFormat>
+                <Body>{{ files[1].base }}</Body>
             </Attachment>
-
-            {# CardOrder #}
-
             <Attachment>
                 <AttachmentName>{{ files[5].file.fileName }}</AttachmentName>
                 <AttachmentType>Snils</AttachmentType>
-                <FileFormat>
-                    {% if files[5].file.mimeType == 'image/jpeg' %}
-                        JPG
-                    {% elseif files[5].file.mimeType == 'image/png' %}
-                        PNG
-                    {% elseif files[5].file.mimeType == 'image/gif' %}
-                        GIF
-                    {% else %}
-                        FILE
-                    {% endif %}
-                </FileFormat>
-                <Body>
-                {{ files[5].base }}
-                </Body>
+                <FileFormat>{% if files[5].file.mimeType == 'image/jpeg' %}JPG{% elseif files[5].file.mimeType == 'image/png' %}PNG{% elseif files[5].file.mimeType == 'image/gif' %}GIF{% else %}FILE{% endif %}</FileFormat>
+                <Body>{{ files[5].base }}</Body>
             </Attachment>
-
             <Attachment>
                 <AttachmentName>{{ files[6].file.fileName }}</AttachmentName>
                 <AttachmentType>Other</AttachmentType>
-                <FileFormat>
-                    {% if files[6].file.mimeType == 'image/jpeg' %}
-                        JPG
-                    {% elseif files[6].file.mimeType == 'image/png' %}
-                        PNG
-                    {% elseif files[6].file.mimeType == 'image/gif' %}
-                        GIF
-                    {% else %}
-                        FILE
-                    {% endif %}
-                </FileFormat>
-                <Body>
-                {{ files[6].base }}
-                </Body>
+                <FileFormat>{% if files[6].file.mimeType == 'image/jpeg' %}JPG{% elseif files[6].file.mimeType == 'image/png' %}PNG{% elseif files[6].file.mimeType == 'image/gif' %}GIF{% else %}FILE{% endif %}</FileFormat>
+                <Body>{{ files[6].base }}</Body>
             </Attachment>
         </PersonOrder>
     </Order>
 </ns2:TacPackage>
-{#<DriverCardRequest>#}
-    {#<Ovk>FLGMN</Ovk>#}
-    {#<CardManufacturer>ATLAS</CardManufacturer>#}
-    {#<TransportOrgName>{{ driver.companyName }}</TransportOrgName>#}
-    {#<TransportOrgAddressPostcode>{{ driver.zipCode }}</TransportOrgAddressPostcode>#}
-    {#<TransportOrgAddressRegion>{{ driver.region.title }}</TransportOrgAddressRegion>#}
-    {#<TransportOrgAddressSettlement>г.{{ driver.city }}</TransportOrgAddressSettlement>#}
-    {#<TransportOrgAddressStreet>{{ driver.street }}</TransportOrgAddressStreet>#}
-    {#<TransportOrgAddressHouse>{{ driver.home }}</TransportOrgAddressHouse>#}
-    {#<TransportOrgAddressBuilding>{{ driver.corp }}</TransportOrgAddressBuilding>#}
-    {#<TransportOrgAddressOffice>{{ driver.room }}</TransportOrgAddressOffice>#}
-    {#<TransportOrgAddFullAddress>#}
-        {#{{ driver.zipcode }}, Россия, {{ driver.region.title }}, {{ driver.cityType }} {{ driver.city }},#}
-        {#{{ driver.streetType }}{{ driver.street }}, д.{{ driver.home }}#}
-        {#{{ driver.corpType }}{{ driver.corp }}, {{ driver.roomType }}{{ driver.room }}#}
-    {#</TransportOrgAddFullAddress>#}
-    {#<LastName>{{ driver.user.lastName }}</LastName>#}
-    {#<FirstName>{{ driver.user.firstName }}</FirstName>#}
-    {#{% if driver.user.surName %}#}
-    {#<MiddleName>{{ driver.user.surName  }}</MiddleName>#}
-    {#{% endif %}#}
-    {#<Snils>{{ driver.user.snils }}</Snils>#}
-    {#<DateOfBirth>{{ driver.user.birthDate | date('d.m.Y') }}</DateOfBirth>#}
-    {#<PhoneNumber>{{ driver.user.username }}</PhoneNumber>#}
-    {#<ContactInfo></ContactInfo>#}
-    {#<PassportSerial>{{ driver.passportSerial }}</PassportSerial>#}
-    {#<PassportNumber>{{ driver.passportNumber }}</PassportNumber>#}
-    {#<PassportIssuer>{{ driver.passportIssuance }}</PassportIssuer>#}
-    {#<PassportIssuerCode>{{ driver.passportCode  }}</PassportIssuerCode>#}
-    {#<PassportIssueDate>{{ driver.passportIssuanceDate | date('d.m.Y') }}</PassportIssueDate>#}
-    {#<LicenseNumber>{{ driver.driverDocNumber }}</LicenseNumber>#}
-    {#<LicenseCountry>{{ driver.driverDocCountry.title }}</LicenseCountry>#}
-    {#<LicenseIssuer>{{ driver.driverDocIssuance }}</LicenseIssuer>#}
-    {#<LicenseIssueDate>{{ driver.driverDocDateStarts | date('d.m.Y') }}</LicenseIssueDate>#}
-    {#<LicenseExpiryDate>{{ driver.driverDocDateEnds | date('d.m.Y') }}</LicenseExpiryDate>#}
-    {#<PaymentContract>АО-48/14 от {{ 'now' | date('d.m.Y') }}</PaymentContract>#}
-
-{#</DriverCardRequest>#}
+{% endspaceless %}
