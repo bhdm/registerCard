@@ -112,9 +112,9 @@ class IndexController extends Controller
                 }
             }
             if( $data['phone'] ){
-                $user = $this->getDoctrine()->getRepository('CrmMainBundle:User')->findOneByUsername($data['phone']);
+                $phone = str_replace(array('(',')','-','','+'),array('','','','',' '), $data['phone']);
+                $user = $this->getDoctrine()->getRepository('CrmMainBundle:User')->findOneByUsername($phone);
                 if ( $user ){
-                    $phone = str_replace(array('(',')','-',''),array('','','',''),$user->getusername());
                     $send = true;
                     $sms = new smsru('a8f0f6b6-93d1-3144-a9a1-13415e3b9721');
                     $sms->sms_send( $phone, 'Статус вашей карты: '.$user->getStatusString()  );

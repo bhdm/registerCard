@@ -4,9 +4,9 @@
     <div class="box">
         <h2>Проверка статуса карты</h2>
         {% if send == true %}
-            Запрос отправлен
+            <div class="greenblock">Запрос отправлен</div>
         {% elseif send == true %}
-            Ошибка: такого телефона или Email не существует в базе
+        <div class="redblock">Ошибка: такого телефона или Email не существует в базе</div>
         {% endif %}
         <form method="POST">
             {{ form_widget(form) }}
@@ -17,6 +17,29 @@
 {% block stylesheets %}
     {{ parent() }}
     <style>
-
+        .greenblock{
+            padding: 10px;
+            border-radius: 5px;
+            border: 2px solid #006600;
+            background: rgba(0, 102, 0, 0.20);
+            text-align: center;
+        }
+        .redblock{
+            padding: 10px;
+            border-radius: 5px;
+            border: 2px solid #660000;
+            background: rgba(102, 0, 0, 0.20);
+            text-align: center;
+        }
     </style>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset('bundles/crmmain/javascripts/jquery.maskedinput.js') }}" type="text/javascript"></script>
+    <script>
+        $(document).ready(function(){
+            $("#form_phone").mask("+7 (999) 999-9999");
+        });
+    </script>
 {% endblock %}
