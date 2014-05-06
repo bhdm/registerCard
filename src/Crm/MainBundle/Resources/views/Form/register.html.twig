@@ -434,22 +434,24 @@
                 $('.row_birthdate .widget .form_error').html('');
                 $('.row_driverDocDateEnds .widget .form_error').html('');
                 year =  $('#user_birthdate_year').val();
-                month = $('#user_birthdate_month').val();
+                month = $('#user_birthdate_month').val()-1;
                 day =   $('#user_birthdate_day').val();
                 var tmpdate = new Date(year,month,day);
                 var tmpdate2 = new Date();
                 tmpdate = ( tmpdate2 - tmpdate) /(1000*60*60*24*365) ;
+                console.log(tmpdate);
                 if ( tmpdate < 18 ){
                     $('.row_birthdate').children('.widget').children('.form_error').html('Возраст должен быть более 18 лет');
                     return false;
                 }
 
                 year =  $('#driver_driverDocDateEnds_year').val();
-                month = $('#driver_driverDocDateEnds_month').val();
+                month = $('#driver_driverDocDateEnds_month').val()-1;
                 day =   $('#driver_driverDocDateEnds_day').val();
                 var tmpdate = new Date(year,month,day);
                 var tmpdate2 = new Date();
-                tmpdate = ( tmpdate - tmpdate2) /(1000*60*60*24*12) ;
+                tmpdate = ( tmpdate - tmpdate2) /(1000*60*60*24*30) ;
+                console.log(tmpdate);
                 if ( tmpdate < 1 ){
                     $('.row_driverDocDateEnds').children('.widget').children('.form_error').html('Минимальный срок вод. прав должен быть больше 1 месяца');
                     return false;
