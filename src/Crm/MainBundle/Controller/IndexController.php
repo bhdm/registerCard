@@ -2,12 +2,15 @@
 
 namespace Crm\MainBundle\Controller;
 
+use Crm\MainBundle\Form\FeedbackType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Crm\MainBundle\Entity\Page;
 use Crm\MainBundle\Entity\Faq;
+use Crm\MainBundle\Entity\Feedback;
 use Crm\MainBundle\Entity\Document;
+use Symfony\Component\HttpFoundation\Request;
 
 class IndexController extends Controller
 {
@@ -67,8 +70,6 @@ class IndexController extends Controller
         return array('faqs' => $faqs);
     }
 
-
-
     /**
      * @Route("/status", name="status")
      * @Template()
@@ -77,6 +78,25 @@ class IndexController extends Controller
         array();
     }
 
+    /**
+     * @Route("/feedback", name="feedback")
+     * @Template()
+     */
+    public function feedback(Request $request){
 
+        $feedback = new Feedback();
+        $em = $this->getDoctrine()->getManager();
+        $formFeedback = $this->createForm(new FeedbackType($em), $feedback);
 
+        $formFeedback->handleRequest($request);
+
+        if ($request->isMethod('POST')) {
+            if ($formFeedback->isValid()) {
+                $feedback = $formFeedback->getData();
+                $em->persist($feedback);
+                $em->flush();
+            }
+        }
+        return array ();
+    }
 }
