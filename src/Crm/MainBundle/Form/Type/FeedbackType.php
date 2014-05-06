@@ -1,6 +1,6 @@
 <?php
 
-namespace Crm\MainBundle\Form;
+namespace Crm\MainBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -15,9 +15,10 @@ class FeedbackType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('name', array('label' => 'Имя'))
-            ->add('email', array('label' => 'Email'))
-            ->add('body', array('label' => 'Сообщение'));
+            ->add('name',  null, array('label' => 'Имя'))
+            ->add('email', null, array('label' => 'Email'))
+            ->add('body',  null, array('label' => 'Сообщение'))
+            ->add('submit', 'submit', array('label' => 'Отправить сообщение', 'attr' => array('class'=>'btn')));
     }
     
     /**

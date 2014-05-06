@@ -1,0 +1,17 @@
+{% extends 'CrmMainBundle::layout.html.twig' %}
+
+{% block content %}
+    <div class="box">
+        <h2>Форма обратной связи</h2>
+        <form method="POST">
+            {{ form_widget(formFeedback) }}
+        </form>
+    </div>
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <style>
+
+    </style>
+{% endblock %}

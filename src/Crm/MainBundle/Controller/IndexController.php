@@ -2,7 +2,7 @@
 
 namespace Crm\MainBundle\Controller;
 
-use Crm\MainBundle\Form\FeedbackType;
+use Crm\MainBundle\Form\Type\FeedbackType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
@@ -82,7 +82,7 @@ class IndexController extends Controller
      * @Route("/feedback", name="feedback")
      * @Template()
      */
-    public function feedback(Request $request){
+    public function feedbackAction(Request $request){
 
         $feedback = new Feedback();
         $em = $this->getDoctrine()->getManager();
@@ -97,6 +97,6 @@ class IndexController extends Controller
                 $em->flush();
             }
         }
-        return array ();
+        return array ('formFeedback' => $formFeedback->createView());
     }
 }
