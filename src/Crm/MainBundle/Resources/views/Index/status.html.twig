@@ -1,0 +1,22 @@
+{% extends 'CrmMainBundle::layout.html.twig' %}
+
+{% block content %}
+    <div class="box">
+        <h2>Проверка статуса карты</h2>
+        {% if send == true %}
+            Запрос отправлен
+        {% elseif send == true %}
+            Ошибка: такого телефона или Email не существует в базе
+        {% endif %}
+        <form method="POST">
+            {{ form_widget(form) }}
+        </form>
+    </div>
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <style>
+
+    </style>
+{% endblock %}

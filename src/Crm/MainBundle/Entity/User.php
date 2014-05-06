@@ -166,6 +166,10 @@ class User extends BaseEntity implements UserInterface, EquatableInterface, \Ser
      */
     protected $room;
 
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    protected $status = 0;
 
     /**
      * @ORM\Column(type="string")
@@ -642,6 +646,41 @@ class User extends BaseEntity implements UserInterface, EquatableInterface, \Ser
     public function getZipcode()
     {
         return $this->zipcode;
+    }
+
+    /**
+     * @param mixed $status
+     */
+    public function setStatus($status=0)
+    {
+        $this->status = $status;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getStatus()
+    {
+        return $this->status;
+    }
+
+    public function getStatusString(){
+        $status = null;
+        switch ($this->status){
+            case null:
+                $status = 'В ожидании модерации';
+                break;
+            case 0:
+                $status = 'В ожидании модерации';
+                break;
+            case 1:
+                $status = 'Передан на производство';
+                break;
+            case 2:
+                $status = 'Отправлен клиенту';
+                break;
+        }
+        return $status;
     }
 
 

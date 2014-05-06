@@ -11,7 +11,7 @@ use Crm\MainBundle\Entity\Faq;
 use Crm\MainBundle\Entity\Feedback;
 use Crm\MainBundle\Entity\Document;
 use Symfony\Component\HttpFoundation\Request;
-
+use Zelenin\smsru;
 class IndexController extends Controller
 {
     /**
@@ -71,11 +71,61 @@ class IndexController extends Controller
     }
 
     /**
+     * Форма проверки статуса.
+     * Ввод может быть телефона или почты, в зависимости от этого присылается туда статус таксокартыы
      * @Route("/status", name="status")
      * @Template()
      */
-    public function statusAction(){
-        array();
+    public function statusAction(Request $request){
+        $em = $this->getDoctrine()->getManager();
+
+        $builder = $this->createFormBuilder();
+        $builder
+            ->add('email', null, array('label' => 'Email:','required'       => false))
+            ->add('phone', null, array('label' => 'Телефон:','required'       => false))
+            ->add('submit', 'submit', array('label' => 'проверить статус', 'attr' => array('class'=>'btn')));
+
+        $form    = $builder->getForm();
+        $form->handleRequest($request);
+        $send = null;
+        if ($request->isMethod('POST')) {
+            $data = $form->getData();
+
+            if( $data['email'] ){
+                $user = $this->getDoctrine()->getRepository('CrmMainBundle:User')->findOneByEmail($data['email']);
+                if ( $user ){
+                    $send = true;
+                    $message = \Swift_Message::newInstance()
+                        ->setSubject('Статус карты')
+                        ->setFrom('info@im-kard.ru')
+                        ->setTo($user->getEmail())
+                        ->setBody(
+                            $this->renderView(
+                                'CrmMainBundle:Mail:status.html.twig',
+                                array('user' => $user)
+                            ), 'text/html'
+                        )
+                    ;
+                    $this->get('mailer')->send($message);
+                }else{
+                    $send = false;
+                }
+            }
+            if( $data['phone'] ){
+                $user = $this->getDoctrine()->getRepository('CrmMainBundle:User')->findOneByUsername($data['phone']);
+                if ( $user ){
+                    $phone = str_replace(array('(',')','-',''),array('','','',''),$user->getusername());
+                    $send = true;
+                    $sms = new smsru('a8f0f6b6-93d1-3144-a9a1-13415e3b9721');
+                    $sms->sms_send( $phone, 'Статус вашей карты: '.$user->getStatusString()  );
+                }else{
+                    $send = false;
+                }
+            }
+
+
+        }
+        return array('send' => $send, 'form'=>$form->createView());
     }
 
     /**
@@ -89,7 +139,6 @@ class IndexController extends Controller
         $formFeedback = $this->createForm(new FeedbackType($em), $feedback);
 
         $formFeedback->handleRequest($request);
-
         if ($request->isMethod('POST')) {
             if ($formFeedback->isValid()) {
                 $feedback = $formFeedback->getData();
