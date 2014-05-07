@@ -10,7 +10,7 @@
                         {{ document.title }}
                     </td>
                     <td style="text-align: right">
-                        <a href="{{ asset('bundles/crmmain'~document.file['path']) }}" target="_blank">Скачать</a>
+                        <a href="{{ path('document',{ id : document.id }) }}">Скачать</a>
                     </td>
                 </tr>
             {% endfor %}

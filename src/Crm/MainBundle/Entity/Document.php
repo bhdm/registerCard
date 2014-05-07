@@ -4,61 +4,26 @@ namespace Crm\MainBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
-use Iphp\FileStoreBundle\Mapping\Annotation as FileStore;
 
 /**
- * File
+ * Docs
  *
  * @ORM\Table()
  * @ORM\Entity
- * @FileStore\Uploadable
  */
 class Document extends BaseEntity
 {
-
     /**
      * @Assert\NotBlank()
-     * @ORM\Column(type="string", length=100)
-     * @FileStore\Uploadable
+     * @ORM\Column(type="string", length=150)
      */
     protected  $title;
 
     /**
      * @Assert\NotBlank()
-     * @ORM\Column(type="string", length=15)
+     * @ORM\Column(type="text")
      */
-    protected  $type = 'file';
-
-    /**
-     * @Assert\File(maxSize="5M")
-     * @FileStore\UploadableField(mapping="docs")
-     * @ORM\Column(type="array")
-     */
-    protected  $file;
-
-    /**
-     * @return mixed
-     */
-    public function getFile()
-    {
-        return $this->file;
-    }
-
-    /**
-     * @param mixed $file
-     */
-    public function setFile($file)
-    {
-        $this->file = $file;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getTitle()
-    {
-        return $this->title;
-    }
+    protected  $body;
 
     /**
      * @param mixed $title
@@ -71,20 +36,26 @@ class Document extends BaseEntity
     /**
      * @return mixed
      */
-    public function getType()
+    public function getTitle()
     {
-        return $this->type;
+        return $this->title;
     }
 
     /**
-     * @param mixed $type
+     * @param mixed $body
      */
-    public function setType($type = 'file')
+    public function setBody($body)
     {
-        $this->type = $type;
+        $this->body = $body;
     }
 
-
+    /**
+     * @return mixed
+     */
+    public function getBody()
+    {
+        return $this->body;
+    }
 
 
 }

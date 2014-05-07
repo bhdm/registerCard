@@ -42,7 +42,7 @@ class IndexController extends Controller
     }
 
     /**
-     * @Route("/doc/id", name="document")
+     * @Route("/doc/{id}", name="document")
      * @Template()
      */
     public function documentAction($id){
