@@ -7,10 +7,7 @@
             {% for document in documents %}
                 <tr>
                     <td>
-                        {{ document.title }}
-                    </td>
-                    <td style="text-align: right">
-                        <a href="{{ path('document',{ id : document.id }) }}">Скачать</a>
+                        <a href="{{ path('document',{ id : document.id }) }}">{{ document.title }}</a>
                     </td>
                 </tr>
             {% endfor %}
