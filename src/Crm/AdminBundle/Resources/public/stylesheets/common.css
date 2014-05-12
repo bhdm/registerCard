@@ -15,12 +15,24 @@ a:hover{
 }
 
 a.active:after{
-    content: " > ";
+    /*content: " > ";*/
 }
 a.active{
     font-weight: bold;
 }
-
+.menu-items li a{
+    text-transform: uppercase;
+}
+.menu-items li img{
+    width: 16px;
+    padding: 10px;
+    margin-bottom: -10px;
+}
+.addnew{
+    width: 24px;
+    padding-left: 10px;
+    margin-bottom: -7px;
+}
 
 .body{
     min-height: 100%;
