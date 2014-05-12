@@ -37,7 +37,7 @@ class DocumentController extends Controller
         $builder = $this->createFormBuilder($document);
         $builder
             ->add('title', null, array('label' => 'Заголовок'))
-            ->add('file', 'iphp_file', array('label' => 'Документ' , 'comment' => 'Файл должен быть не более 2 Mb'))
+            ->add('body', null, array('label' => 'Тело страницы', 'attr' => array('class' => 'ckeditor')))
             ->add('submit', 'submit', array('label' => 'Сохранить', 'attr' => array('class' => 'btn')));
 
         $form    = $builder->getForm();
@@ -67,7 +67,7 @@ class DocumentController extends Controller
         $builder = $this->createFormBuilder($document);
         $builder
             ->add('title', null, array('label' => 'Заголовок'))
-            ->add('file', null, array('label' => 'Документ', 'comment' => 'Файл должен быть не более 2 Mb'))
+            ->add('body', null, array('label' => 'Тело страницы', 'attr' => array('class' => 'ckeditor')))
             ->add('submit', 'submit', array('label' => 'Сохранить', 'attr' => array('class' => 'btn')));
 
         $form    = $builder->getForm();

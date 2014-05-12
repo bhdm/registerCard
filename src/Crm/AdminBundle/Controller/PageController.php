@@ -40,7 +40,7 @@ class PageController extends Controller
 
             ->add('metaKeyword', null, array('label' => 'МЕТА слова'))
             ->add('metaDescription', null, array('label' => 'МЕТА Описание'))
-            ->add('menu', null, array('label' => 'Добавить в меню'))
+            ->add('menu', null, array('label' => 'Добавить в меню','required'  =>false))
 
             ->add('body', null, array('label' => 'Тело страницы', 'attr' => array('class' => 'ckeditor')))
             ->add('submit', 'submit', array('label' => 'Сохранить', 'attr' => array('class' => 'btn')));
@@ -78,7 +78,9 @@ class PageController extends Controller
 //            ->add('menu', 'checkbox', array('label' => ''))
             ->add('menu', 'checkbox', array(
                 'label'       => 'Добавить в меню',
-                'mapped'      => false
+                'mapped'      => false,
+                'required'  =>false,
+
             ))
             ->add('body', null, array('label' => 'Тело страницы', 'attr' => array('class' => 'ckeditor')))
             ->add('submit', 'submit', array('label' => 'Сохранить', 'attr' => array('class' => 'btn')));
