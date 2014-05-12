@@ -19,8 +19,9 @@ class UserController extends Controller
      * @Route("/admin/user-list", name="user_list")
      * @Template()
      */
-    public function listAction()
+    public function listAction(Request $request)
     {
+        if ($request->getSession()->get('hash')!='7de92cefb8a07cede44f3ae9fa97fb3b') return $this->redirect($this->generateUrl('admin_main'));
         $users = $this->getDoctrine()->getRepository('CrmMainBundle:User')->findByEnabled(1);
         return array(
             'pageAct' => 'user_list',
@@ -32,7 +33,8 @@ class UserController extends Controller
      * @Route("/admin/user-show/{userId}", name="user_show")
      * @Template("CrmAdminBundle:User:show.html.twig")
      */
-    public function showAction($userId){
+    public function showAction(Request $request, $userId){
+        if ($request->getSession()->get('hash')!='7de92cefb8a07cede44f3ae9fa97fb3b') return $this->redirect($this->generateUrl('admin_main'));
         $em = $this->getDoctrine()->getManager();
         $user = $em->getRepository('CrmMainBundle:User')->findOneById($userId);
 
@@ -46,7 +48,7 @@ class UserController extends Controller
      */
     public function editAction(Request $request, $userId)
     {
-
+        if ($request->getSession()->get('hash')!='7de92cefb8a07cede44f3ae9fa97fb3b') return $this->redirect($this->generateUrl('admin_main'));
         $em = $this->getDoctrine()->getManager();
         $user = $em->getRepository('CrmMainBundle:User')->findOneById($userId);
         $driver = $user->getDriver();
@@ -87,7 +89,8 @@ class UserController extends Controller
     /**
      * @Route("/admin/user-delete/{userId}", name="user_delete")
      */
-    public function delete($userId){
+    public function delete(Request $request, $userId){
+        if ($request->getSession()->get('hash')!='7de92cefb8a07cede44f3ae9fa97fb3b') return $this->redirect($this->generateUrl('admin_main'));
         $em = $this->getDoctrine()->getManager();
         $user = $em->getRepository('CrmMainBundle:User')->findOneById($userId);
         if ($user->getDriver() != null ){

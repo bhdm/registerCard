@@ -1,1 +1,85 @@
-Hello !
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    {% block title %}
+        {% if page is defined and page.title is defined  %}
+            <title>{{ page.title }}</title>
+        {% else %}
+            <title>Система подачи заявок | Админ панель</title>
+        {% endif%}
+    {% endblock %}
+    {% block stylesheets %}
+        <link href="{{ asset('bundles/crmadmin/stylesheets/common.css') }}" rel="stylesheet" media="all">
+        <style>
+            .logo a{
+                font-size: 18pt;
+                color: #ffffee;
+            }
+            .logo{
+                text-align: left;
+                padding: 50px;
+            }
+            .login{
+                width: 415px;
+                margin: 0 auto;
+            }
+        </style>
+    {% endblock %}
+    {% block javascripts %}
+        <script rel="script" src="{{ asset('bundles/crmadmin/javascripts/jQuery.js') }}"></script>
+        <script rel="script" src="{{ asset('bundles/crmadmin/lib/ckeditor/ckeditor.js') }}"></script>
+        <script>
+            //            $(document).ready(function(){
+            //                if ($('textarea').length > 0){
+            //                    CKEDITOR.replace( 'textarea' );
+            //                }
+            //
+            //            })
+        </script>
+    {% endblock %}
+</head>
+<body>
+<div class="body">
+    <header>
+        <div class="logo">
+            <a href="http://im-kard.ru" target="_blank">Im-kard</a>
+        </div>
+    </header>
+    <div class="content">
+        <div class="login">
+            <form method="post">
+                <table>
+                    <tr>
+                        <td>
+                            Введите логин:
+                        </td>
+                        <td>
+                            <input type="text" name="asuser">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Введите пароль:
+                        </td>
+                        <td>
+                            <input type="password" name="aspassword">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>
+                            <input type="submit" value="Войти"  class="btn"/>
+                        </td>
+                    </tr>
+                </table>
+            </form>
+        </div>
+    </div>
+    <br style="clear: both" />
+
+</div>
+<footer>
+
+</footer>
+</body>
+</html>

@@ -12,12 +12,14 @@ use Crm\MainBundle\Entity\Document;
 
 class DocumentController extends Controller
 {
+    protected $hash = '7de92cefb8a07cede44f3ae9fa97fb3b';
     /**
      * @Route("/admin/document-list", name="document_list")
      * @Template()
      */
-    public function listAction()
+    public function listAction(Request $request)
     {
+        if ($request->getSession()->get('hash')!='7de92cefb8a07cede44f3ae9fa97fb3b') return $this->redirect($this->generateUrl('admin_main'));
         $document = $this->getDoctrine()->getRepository('CrmMainBundle:Document')->findAll();
         return array('pageAct' => 'document_list','documents' => $document);
     }
@@ -28,7 +30,7 @@ class DocumentController extends Controller
      */
     public function editAction(Request $request, $documentId)
     {
-
+        if ($request->getSession()->get('hash')!='7de92cefb8a07cede44f3ae9fa97fb3b') return $this->redirect($this->generateUrl('admin_main'));
         $em = $this->getDoctrine()->getManager();
         $document = $em->getRepository('CrmMainBundle:Document')->findOneById($documentId);
 
@@ -58,6 +60,7 @@ class DocumentController extends Controller
      */
     public function addAction(Request $request)
     {
+        if ($request->getSession()->get('hash')!='7de92cefb8a07cede44f3ae9fa97fb3b') return $this->redirect($this->generateUrl('admin_main'));
         $em = $this->getDoctrine()->getManager();
         $document = new Document();
 
@@ -88,7 +91,8 @@ class DocumentController extends Controller
     /**
      * @Route("/admin/document-delete/{documentId}", name="document_delete")
      */
-    public function delete($documentId){
+    public function delete(Request $request, $documentId){
+        if ($request->getSession()->get('hash')!='7de92cefb8a07cede44f3ae9fa97fb3b') return $this->redirect($this->generateUrl('admin_main'));
         $em = $this->getDoctrine()->getManager();
         $document = $em->getRepository('CrmMainBundle:Document')->findOneById($documentId);
         $em->remove($document);

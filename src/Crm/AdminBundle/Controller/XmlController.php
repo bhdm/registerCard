@@ -17,8 +17,9 @@ class XmlController extends Controller
     /**
      * @Route("/admin/xml-generator/{userId}", name="xml_generator")
      */
-    public function generateAction($userId)
+    public function generateAction(Request $request, $userId)
     {
+        if ($request->getSession()->get('hash')!='7de92cefb8a07cede44f3ae9fa97fb3b') return $this->redirect($this->generateUrl('admin_main'));
         $user = $this->getDoctrine()->getRepository('CrmMainBundle:User')->findOneById($userId);
         $driver = $this->getDoctrine()->getRepository('CrmMainBundle:Driver')->findOneByUser($user);
 

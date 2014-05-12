@@ -16,8 +16,9 @@ class FaqController extends Controller
      * @Route("/admin/faq_list", name="faq_list")
      * @Template()
      */
-    public function listAction()
+    public function listAction(Request $request)
     {
+        if ($request->getSession()->get('hash')!='7de92cefb8a07cede44f3ae9fa97fb3b') return $this->redirect($this->generateUrl('admin_main'));
         $faqs = $this->getDoctrine()->getRepository('CrmMainBundle:Faq')->findAll();
         return array('pageAct' => 'faq_list','faqs' => $faqs);
     }
@@ -28,7 +29,7 @@ class FaqController extends Controller
      */
     public function editAction(Request $request, $faqId)
     {
-
+        if ($request->getSession()->get('hash')!='7de92cefb8a07cede44f3ae9fa97fb3b') return $this->redirect($this->generateUrl('admin_main'));
         $em = $this->getDoctrine()->getManager();
         $faq = $em->getRepository('CrmMainBundle:Faq')->findOneById($faqId);
         $categories = $em->getRepository('CrmMainBundle:FaqCategory')->findAll();
@@ -59,6 +60,7 @@ class FaqController extends Controller
      */
     public function addAction(Request $request)
     {
+        if ($request->getSession()->get('hash')!='7de92cefb8a07cede44f3ae9fa97fb3b') return $this->redirect($this->generateUrl('admin_main'));
         $em = $this->getDoctrine()->getManager();
         $faq = new Faq();
         $categories = $em->getRepository('CrmMainBundle:FaqCategory')->findAll();
@@ -100,7 +102,8 @@ class FaqController extends Controller
     /**
      * @Route("/admin/faq-delete/{faqId}", name="faq_delete")
      */
-    public function delete($faqId){
+    public function delete(Request $request, $faqId){
+        if ($request->getSession()->get('hash')!='7de92cefb8a07cede44f3ae9fa97fb3b') return $this->redirect($this->generateUrl('admin_main'));
         $em = $this->getDoctrine()->getManager();
         $faq = $em->getRepository('CrmMainBundle:Faq')->findOneById($faqId);
         $em->remove($faq);

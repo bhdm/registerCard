@@ -16,8 +16,9 @@ class PageController extends Controller
      * @Route("/admin/page-list", name="page_list")
      * @Template()
      */
-    public function listAction()
+    public function listAction(Request $request)
     {
+        if ($request->getSession()->get('hash')!='7de92cefb8a07cede44f3ae9fa97fb3b') return $this->redirect($this->generateUrl('admin_main'));
         $pages = $this->getDoctrine()->getRepository('CrmMainBundle:Page')->findAll();
         return array('pageAct' => 'page_list','pages' => $pages);
     }
@@ -28,7 +29,7 @@ class PageController extends Controller
      */
     public function editAction(Request $request, $pageId)
     {
-
+        if ($request->getSession()->get('hash')!='7de92cefb8a07cede44f3ae9fa97fb3b') return $this->redirect($this->generateUrl('admin_main'));
         $em = $this->getDoctrine()->getManager();
         $page = $em->getRepository('CrmMainBundle:Page')->findOneById($pageId);
 
@@ -64,6 +65,7 @@ class PageController extends Controller
      */
     public function addAction(Request $request)
     {
+        if ($request->getSession()->get('hash')!='7de92cefb8a07cede44f3ae9fa97fb3b') return $this->redirect($this->generateUrl('admin_main'));
         $em = $this->getDoctrine()->getManager();
         $page = new Page();
 
@@ -102,7 +104,8 @@ class PageController extends Controller
     /**
      * @Route("/admin/page-delete/{pageId}", name="page_delete")
      */
-    public function delete($pageId){
+    public function delete(Request $request, $pageId){
+        if ($request->getSession()->get('hash')!='7de92cefb8a07cede44f3ae9fa97fb3b') return $this->redirect($this->generateUrl('admin_main'));
         $em = $this->getDoctrine()->getManager();
         $page = $em->getRepository('CrmMainBundle:Page')->findOneById($pageId);
         $em->remove($page);

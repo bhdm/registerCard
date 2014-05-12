@@ -25,8 +25,10 @@ class FaqCategoryController extends Controller
      * @Method("GET")
      * @Template()
      */
-    public function indexAction()
+    public function indexAction(Request $request)
     {
+        if ($request->getSession()->get('hash')!='7de92cefb8a07cede44f3ae9fa97fb3b') return $this->redirect($this->generateUrl('admin_main'));
+
         $em = $this->getDoctrine()->getManager();
 
         $entities = $em->getRepository('CrmMainBundle:FaqCategory')->findAll();
@@ -44,6 +46,7 @@ class FaqCategoryController extends Controller
      */
     public function createAction(Request $request)
     {
+        if ($request->getSession()->get('hash')!='7de92cefb8a07cede44f3ae9fa97fb3b') return $this->redirect($this->generateUrl('admin_main'));
         $entity = new FaqCategory();
         $form = $this->createCreateForm($entity);
         $form->handleRequest($request);
@@ -69,8 +72,10 @@ class FaqCategoryController extends Controller
     *
     * @return \Symfony\Component\Form\Form The form
     */
-    private function createCreateForm(FaqCategory $entity)
+    private function createCreateForm(Request $request, FaqCategory $entity)
     {
+        if ($request->getSession()->get('hash')!='7de92cefb8a07cede44f3ae9fa97fb3b') return $this->redirect($this->generateUrl('admin_main'));
+
         $form = $this->createForm(new FaqCategoryType(), $entity, array(
             'action' => $this->generateUrl('admin_faqcategory_create'),
             'method' => 'POST',
@@ -88,8 +93,9 @@ class FaqCategoryController extends Controller
      * @Method("GET")
      * @Template()
      */
-    public function newAction()
+    public function newAction(Request $request)
     {
+        if ($request->getSession()->get('hash')!='7de92cefb8a07cede44f3ae9fa97fb3b') return $this->redirect($this->generateUrl('admin_main'));
         $entity = new FaqCategory();
         $form   = $this->createCreateForm($entity);
 
@@ -131,8 +137,10 @@ class FaqCategoryController extends Controller
      * @Method("GET")
      * @Template()
      */
-    public function editAction($id)
+    public function editAction(Request $request, $id)
     {
+        if ($request->getSession()->get('hash')!='7de92cefb8a07cede44f3ae9fa97fb3b') return $this->redirect($this->generateUrl('admin_main'));
+
         $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('CrmMainBundle:FaqCategory')->find($id);
@@ -178,6 +186,8 @@ class FaqCategoryController extends Controller
      */
     public function updateAction(Request $request, $id)
     {
+        if ($request->getSession()->get('hash')!='7de92cefb8a07cede44f3ae9fa97fb3b') return $this->redirect($this->generateUrl('admin_main'));
+
         $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('CrmMainBundle:FaqCategory')->find($id);
@@ -210,7 +220,7 @@ class FaqCategoryController extends Controller
      */
     public function deleteAction(Request $request, $id)
     {
-
+        if ($request->getSession()->get('hash')!='7de92cefb8a07cede44f3ae9fa97fb3b') return $this->redirect($this->generateUrl('admin_main'));
             $em = $this->getDoctrine()->getManager();
             $entity = $em->getRepository('CrmMainBundle:FaqCategory')->find($id);
 
