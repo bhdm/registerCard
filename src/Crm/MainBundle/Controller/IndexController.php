@@ -144,6 +144,18 @@ class IndexController extends Controller
                 $feedback = $formFeedback->getData();
                 $em->persist($feedback);
                 $em->flush();
+                $message = \Swift_Message::newInstance()
+                    ->setSubject('Заявка отправлена')
+                    ->setFrom('info@im-kard.ru')
+                    ->setTo('bipur@mail.ru')
+                    ->setBody(
+                        $this->renderView(
+                            'CrmMainBundle:Mail:feedback.html.twig',
+                            array('feedback' => $feedback)
+                        ), 'text/html'
+                    )
+                ;
+                $this->get('mailer')->send($message);
             }
         }
         return array ('formFeedback' => $formFeedback->createView());
