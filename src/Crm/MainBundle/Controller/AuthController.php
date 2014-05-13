@@ -215,9 +215,9 @@ class AuthController extends Controller
                     )
                 ;
                 $this->get('mailer')->send($message);
-                return new Response($this->renderView("CrmMainBundle:Form:success.html.twig", array('user' => $user)));
+                return $this->render("CrmMainBundle:Form:success.html.twig", array('user' => $user));
             }else{
-                return new Response($this->render("CrmMainBundle:Form:confirmation.html.twig", array('user' => $user)));
+                return $this->render("CrmMainBundle:Form:confirmation.html.twig", array('user' => $user));
             }
         }else{
             return $this->redirect($this->generateUrl('main'));
