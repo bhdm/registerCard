@@ -273,7 +273,18 @@ class AuthController extends Controller
                 'outputFilename' => null, //$filename argument for Output method
                 'outputDest' => null, //$dest argument for Output method
             );
-            return $mpdfService->generatePdfResponse($html->getContent(), $arguments);
+
+           $html =  $mpdfService->generatePdf($html->getContent(), $arguments);
+            $response = new Response();
+            $response->headers->set('Content-type', 'application/octect-stream');
+            $response->headers->set("Content-Description", "File Transfer");
+            $response->headers->set('Content-Disposition', 'attachment; filename="doc.pdf"');
+            $response->headers->set('Content-Transfer-Encoding', 'binary');
+            $response->headers->set('Pragma', 'no-cache');
+            $response->headers->set('Expires', '0');
+            $response->setContent($html);
+            return $response;
+
         }else{
             return $this->redirect($this->generateUrl('main'));
         }
