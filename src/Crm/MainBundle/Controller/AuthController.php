@@ -264,9 +264,9 @@ class AuthController extends Controller
             $user = $this->getDoctrine()->getRepository('CrmMainBundle:User')->findOneById($userId);
             $mpdfService = $this->container->get('tfox.mpdfport');
             $html = $this->render('CrmMainBundle:Form:payment_doc.html.twig',array('user' => $user));
-            return $html;
+//            return $html;
             $arguments = array(
-//                'constructorArgs' => array('utf-8', 'A4-L', 5 ,5 ,5 ,5,5 ), //Constructor arguments. Numeric array. Don't forget about points 2 and 3 in Warning section!
+//                'constructorArgs' => array('utf-8', 'A4', 5 ,5 ,5 ,5,5 ), //Constructor arguments. Numeric array. Don't forget about points 2 and 3 in Warning section!
                 'writeHtmlMode' => null, //$mode argument for WriteHTML method
                 'writeHtmlInitialise' => null, //$mode argument for WriteHTML method
                 'writeHtmlClose' => null, //$close argument for WriteHTML method
