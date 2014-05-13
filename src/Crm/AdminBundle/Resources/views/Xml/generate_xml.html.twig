@@ -20,8 +20,8 @@
                 <Passport>
                     <PassportSeries>{{ driver.passportSerial }}</PassportSeries>
                     <PassportNumber>{{ driver.passportNumber }}</PassportNumber>
-                    <PassportIssuedBy></PassportIssuedBy>
-                    <PassportDivision></PassportDivision>
+                    <PassportIssuedBy>{{ driver.passportIssuanceDate }}</PassportIssuedBy>
+                    <PassportDivision>{{ driver.passportIssuance }}</PassportDivision>
                 </Passport>
             </PersonInfo>
             <ContactInfo/>
@@ -37,7 +37,7 @@
             <OrgPostAddress>
                 <FullAddress>{{ driver.zipcode }}, Россия, {{ driver.region.title }}, {{ driver.cityType }} {{ driver.city }},{{ driver.streetType }}{{ driver.street }}, д.{{ driver.home }}{{ driver.corpType }}{{ driver.corp }}, {{ driver.roomType }}{{ driver.room }}</FullAddress>
                 <PostCode>{{ driver.zipcode }}</PostCode>
-                <RegionCode>{{ driver.region.title }}</RegionCode>
+                <RegionCode>{{ driver.region.id }}</RegionCode>
                 <Settlement>{{ driver.cityType}} {{ driver.city }}</Settlement>
                 <Street>{{ driver.streetType }} {{ driver.street }}</Street>
                 <House>{{ driver.home }}</House>
