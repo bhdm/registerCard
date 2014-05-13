@@ -3,14 +3,25 @@
 {% block content %}
     <div class="box">
         <h2>Проверка статуса карты</h2>
-        {% if send == true %}
-            <div class="greenblock">Запрос отправлен</div>
-        {% elseif send == true %}
-        <div class="redblock">Ошибка: такого телефона или Email не существует в базе</div>
-        {% endif %}
-        <form method="POST">
-            {{ form_widget(form) }}
-        </form>
+        <table>
+            <tr>
+                <td>
+                    {% if send == true %}
+                        <div class="greenblock">Запрос отправлен</div>
+                    {% elseif send == true %}
+                        <div class="redblock">Ошибка: такого телефона или Email не существует в базе</div>
+                    {% endif %}
+                    <form method="POST">
+                        {{ form_widget(form) }}
+                    </form>
+                </td>
+                <td class="status-text">
+                    Для получения статуса Вашей Заявки необходимо ввести адрес
+                    почты(e-mail) который Вы указали при подаче Заявки или номер телефона
+                    который использовался для входа на страницу подачи Заявки (шаг №1).
+                </td>
+            </tr>
+        </table>
     </div>
 {% endblock %}
 
@@ -30,6 +41,13 @@
             border: 2px solid #660000;
             background: rgba(102, 0, 0, 0.20);
             text-align: center;
+        }
+        .status-text{
+            vertical-align: top;
+            padding-left: 10px;
+            font-weight: bold;
+            color: #1a5f89;
+            width: 400px;
         }
     </style>
 {% endblock %}
