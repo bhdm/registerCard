@@ -22,7 +22,7 @@
                     <PassportNumber>{{ driver.passportNumber }}</PassportNumber>
                     <PassportIssuedBy>{{ driver.passportIssuance }}</PassportIssuedBy>
                     <PassportDivision>{{ driver.passportCode }}</PassportDivision>
-                    <PassportIssuedDate>{{ driver.passportIssuanceDate | date('Y-m-d') }}</PassportIssuedDate>
+                    <PassportIssuedDate>{{ driver.passportIssuanceDate | date('Y-m-d') }}Z</PassportIssuedDate>
                 </Passport>
             </PersonInfo>
             <ContactInfo/>
