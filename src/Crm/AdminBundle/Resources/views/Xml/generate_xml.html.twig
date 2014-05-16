@@ -21,7 +21,8 @@
                     <PassportSeries>{{ driver.passportSerial }}</PassportSeries>
                     <PassportNumber>{{ driver.passportNumber }}</PassportNumber>
                     <PassportIssuedBy>{{ driver.passportIssuance }}</PassportIssuedBy>
-                    <PassportDivision>{{ driver.passportIssuanceDate | date('Y-m-d') }}</PassportDivision>
+                    <PassportDivision>{{ driver.passportCode }}</PassportDivision>
+                    <PassportIssuedDate>{{ driver.passportIssuanceDate | date('Y-m-d') }}</PassportIssuedDate>
                 </Passport>
             </PersonInfo>
             <ContactInfo/>
@@ -35,7 +36,7 @@
             </DriverLicense>
             <OrgName>{{ driver.companyName }}</OrgName>
             <OrgPostAddress>
-                <FullAddress>{{ driver.zipcode }}, Россия, {{ driver.region.title }}, {{ driver.cityType }} {{ driver.city }},{{ driver.streetType }}{{ driver.street }}, д.{{ driver.home }}{{ driver.corpType }}{{ driver.corp }}, {{ driver.roomType }}{{ driver.room }}</FullAddress>
+                <FullAddress>{{ driver.zipcode }},Россия, {{ driver.region.title }}, {{ driver.cityType }} {{ driver.city }},{{ driver.streetType }}{{ driver.street }},д.{{ driver.home }} {{ driver.corpType }}{{ driver.corp }}, {{ driver.roomType }}{{ driver.room }}</FullAddress>
                 <PostCode>{{ driver.zipcode }}</PostCode>
                 <RegionCode>{{ driver.region.id }}</RegionCode>
                 <Settlement>{{ driver.cityType}} {{ driver.city }}</Settlement>
