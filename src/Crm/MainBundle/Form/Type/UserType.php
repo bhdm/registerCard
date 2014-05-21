@@ -69,6 +69,7 @@ class UserType extends AbstractType
 
         $builder
             ->add('email', null, array('label' => 'E-mail'))
+            ->add('username', null, array('label' => 'Телефон'))
 //            ->add('password', 'password', array(
 //                'label'       => 'Придумайте пароль',
 //                'constraints' => array(new Regex(array(

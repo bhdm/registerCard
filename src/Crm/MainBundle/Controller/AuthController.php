@@ -83,7 +83,7 @@ class AuthController extends Controller
     public function authPartyTwoAction(Request $request){
         $session = new Session();
 
-        if ($session->get('user')){
+//        if ($session->get('user')){
             $em   = $this->getDoctrine()->getManager();
             $userId = $session->get('userId');
             $user = $this->getDoctrine()->getRepository('CrmMainBundle:User')->findOneById($userId);
@@ -146,9 +146,9 @@ class AuthController extends Controller
                 'formUser'      => $formUser->createView(),
                 'formDriver'    => $formDriver->createView(),
             );
-        }else{
-            return $this->redirect($this->generateUrl('main'));
-        }
+//        }else{
+//            return $this->redirect($this->generateUrl('main'));
+//        }
     }
 
     /**

@@ -25,6 +25,7 @@
                     </td>
                 </tr>
                 {{ form_row(formUser.email) }}
+                {{ form_row(formUser.username) }}
                 {{ form_row(formUser.lastName) }}
                 {{ form_row(formUser.firstName) }}
                 {{ form_row(formUser.surName) }}
@@ -102,7 +103,7 @@
     <script src="{{ asset('bundles/crmmain/javascripts/jquery.maskedinput.js') }}" type="text/javascript"></script>
     <script>
         $(document).ready(function(){
-
+            $("#user_username").mask("+7 (999) 999-9999");
             $('.passportType').change(function(){
                 if( $(this).val()==0){
                     $('.row_passportSerial').css('display', 'table-row');
