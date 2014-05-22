@@ -22,6 +22,7 @@ class AppKernel extends Kernel
             new TFox\MpdfPortBundle\TFoxMpdfPortBundle(),
             new Crm\MainBundle\CrmMainBundle(),
             new Crm\AdminBundle\CrmAdminBundle(),
+            new Gregwar\CaptchaBundle\GregwarCaptchaBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

@@ -195,7 +195,7 @@ class DriverType extends AbstractType
                 'comment'        => $comment,
                 'required'       => true,
             ))
-
+            ->add('captcha', 'captcha', array('label' => 'Введите код с картинки'))
             ->add('submit', 'submit', array('label' => 'Заказать карту', 'attr' => array('class'=>'btn')));
     }
 

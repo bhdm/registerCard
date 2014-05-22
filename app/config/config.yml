@@ -89,3 +89,10 @@ iphp_file_store:
             overwrite_duplicates: false
             namer:
                 translit: ~
+gregwar_captcha:
+    width:   250
+    height:  50
+    length:  6
+    charset: 123456789
+    background_color: [210,210,210]
+    invalid_message: "Код с картинки введен не правильно"
