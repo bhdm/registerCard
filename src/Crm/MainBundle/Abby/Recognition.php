@@ -13,10 +13,12 @@ class Recognition{
 
     protected $xml;
 
+    protected $data;
+
     public function __construct(){
         $this->applicationId = 'taxoCard';
         $this->password = 'ILCL63gtPIQP7GOXDlqgHS4F';
-        $this->path = '/var/www/crm/web/upload/docs';
+        $this->path = '/var/www/imkard/web/upload/docs';
     }
 
     /**
@@ -99,7 +101,7 @@ class Recognition{
         return $this->xml;
     }
 
-    public function getText($file = NULL){
+    public function getRequestXml($file = NULL){
         if ( $file === null ){
             $file = $this->getFilename();
         }
@@ -220,8 +222,57 @@ class Recognition{
         // Let user donwload rtf result
 //        header('Content-type: application/xml');
 //        header('Content-Disposition: attachment; filename="file.xml"');
-        $this->xml = $response;
+        $this->xml  = new \SimpleXMLElement($response);
         return $this;
+    }
+
+    public function getRequestRow($numRow = 0){
+        if ($this->xml == NULL ){
+            return 'error: XML Не получен';
+        }
+
+        $xml = $this->xml;
+        $txt = '';
+        while (true){
+            $i = 0;
+            if (isset($xml->page->block[$numRow]->text)){
+                if (!is_array($xml->page->block[$numRow]->text->par)){
+                    foreach ( $xml->page->block[$numRow]->text->par->line->formatting->charParams as $charset){
+                        $txt .= $charset;
+                    }
+                }else{
+//                    foreach ()
+//                        foreach ( $xml->page->block[$numRow]->text->par->line->formatting->charParams as $charset){
+//                            $txt .= $charset;
+//                        }
+                }
+
+                return $txt;
+            }else{
+                $i++;
+                if ($i > 10){
+                    return $txt;
+                }
+                $numRow++;
+            }
+        }
+        return $txt;
+    }
+
+    /**
+     * @param mixed $data
+     */
+    public function setData($data)
+    {
+        $this->data = $data;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getData()
+    {
+        return $this->data;
     }
 
 

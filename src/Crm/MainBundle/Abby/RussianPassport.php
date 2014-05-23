@@ -3,25 +3,46 @@ namespace Crm\MainBundle\Abby;
 
 class RussianPassport extends Recognition{
 
+
     public function __construct(){
         parent::__construct();
         $this->filename='passport-rus.jpg';
+        $this->data = array();
     }
 
-    public function getRow($numRow = 0){
-        if ($this->xml == NULL ){
-            return 'error: XML Не получен';
+    public function getLastName(){
+        $rowNumber = 8;
+        $row = $this->getRequestRow($rowNumber);
+        return $this->removeTrash($row);
+    }
+
+    public function getFirstName(){
+        $rowNumber = 9;
+        $row = $this->getRequestRow($rowNumber);
+        return $this->removeTrash($row);
+    }
+
+    public function getSurName(){
+        $rowNumber = 10;
+        $row = $this->getRequestRow($rowNumber);
+        return $this->removeTrash($row);
+    }
+
+    public function getText(){
+        $this->data[] = $this->getLastName();
+        $this->data[] = $this->getFirstName();
+        $this->data[] = $this->getSurName();
+        return $this->data;
+    }
+
+    public function removeTrash($text, $space = false){
+        $text = str_replace("^", "", $text);
+        $text = str_replace(";", "", $text);
+        $text = str_replace("'", "", $text);
+        if ($space === true){
+            $text = str_replace(" ", "", $text);
         }
 
-        $xml = $this->xml;
-        $xml = new \SimpleXMLElement($xml);
-        $txt = '';
-        foreach ( $xml->page->block[$numRow]->text->par->line->formatting->charParams as $charset){
-            //if (is_string($charset)){
-                $txt .= $charset;
-            //}
-        }
-
-        return $txt;
+        return $text;
     }
 }

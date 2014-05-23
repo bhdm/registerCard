@@ -18,12 +18,15 @@ class AbbyController extends Controller
 
         $abby = new RussianPassport();
 
-        $abby->getText();
-        $xml = $abby->getRow(7);
-        $response = new Response();
+        $abby->getRequestXml();
+        $xml = $abby->getText();
+        var_dump($xml);
+        exit;
+//        $response = new Response();
+
 //        $response->headers->set('Content-type', 'application/xml');
-        $response->setContent($xml);
+//        $response->setContent(va);
 //        $response->send();
-        return $response;
+//        return $response;
     }
 }
