@@ -6,6 +6,7 @@ use Crm\MainBundle\Abby\Driver1;
 use Crm\MainBundle\Abby\Driver2;
 use Crm\MainBundle\Abby\kirgizPassport;
 use Crm\MainBundle\Abby\Snils;
+use Crm\MainBundle\Abby\TadjikPassport;
 use Crm\MainBundle\Form\Type\FeedbackType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -20,7 +21,7 @@ class AbbyController extends Controller
      */
     public function russianPassportAction(){
 
-        $abby = new kirgizPassport();
+        $abby = new TadjikPassport();
 
         $abby->getRequestXml();
         $xml = $abby->getText();
