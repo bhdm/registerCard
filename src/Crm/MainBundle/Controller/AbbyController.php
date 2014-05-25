@@ -2,6 +2,7 @@
 
 namespace Crm\MainBundle\Controller;
 
+use Crm\MainBundle\Abby\Driver1;
 use Crm\MainBundle\Abby\Snils;
 use Crm\MainBundle\Form\Type\FeedbackType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -17,7 +18,7 @@ class AbbyController extends Controller
      */
     public function russianPassportAction(){
 
-        $abby = new Snils();
+        $abby = new Driver1();
 
         $abby->getRequestXml();
         $xml = $abby->getText();
