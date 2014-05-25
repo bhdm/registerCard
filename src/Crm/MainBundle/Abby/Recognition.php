@@ -18,7 +18,7 @@ class Recognition{
     public function __construct(){
         $this->applicationId = 'taxoCard';
         $this->password = 'ILCL63gtPIQP7GOXDlqgHS4F';
-        $this->path = '/var/www/imkard/web/upload/docs';
+        $this->path = '/var/www/crm/web/upload/docs';
     }
 
     /**
@@ -222,7 +222,10 @@ class Recognition{
         // Let user donwload rtf result
 //        header('Content-type: application/xml');
 //        header('Content-Disposition: attachment; filename="file.xml"');
-        $this->xml  = new \SimpleXMLElement($response);
+//        $this->xml  = new \SimpleXMLElement($response);
+        $this->xml  = $response;
+//        echo $response;
+//        exit;
         return $this;
     }
 
