@@ -1,12 +1,12 @@
 <?php
 namespace Crm\MainBundle\Abby;
 
-class Driver1 extends Recognition{
+class Driver2 extends Recognition{
 
 
     public function __construct(){
         parent::__construct();
-        $this->filename='driver1.jpg';
+        $this->filename='driver2.jpg';
         $this->data = array();
     }
 
@@ -22,14 +22,18 @@ class Driver1 extends Recognition{
         $xml = preg_replace("/\r\n/",'',$xml);
         $xml  =  preg_replace('/.*([0-9]{3}-[0-9]{3}-[0-9]{3}-[0-9]{2}).*/', '$1', $xml);
 
-        $this->data['driverDate1']=  preg_replace('/.*([0-9]{2}\.[0-9]{2}\.[0-9]{4}).*([0-9]{2}\.[0-9]{2}\.[0-9]{4}).*/', '$1', $xml);
-        $this->data['driverDate2']=  preg_replace('/.*([0-9]{2}\.[0-9]{2}\.[0-9]{4}).*([0-9]{2}\.[0-9]{2}\.[0-9]{4}).*/', '$2', $xml);
-        $this->data['driverNumber']= preg_replace('/.*([0-9]{2} [0-9]{2} [0-9]{6}).*/', '$1', $xml);
-
-//        echo '<pre>';
-//        print_r($this->data);
-//        echo '</pre>';
+//        echo $xml;
 //        exit;
+
+
+        $this->data['driverDate1']=  preg_replace('/.*([0-9]{2}[\.\-][0-9]{2}[\.\-][0-9]{4}).*([0-9]{2}[\.\-][0-9]{2}[\.\-][0-9]{4}).*([0-9]{2}[\.\-][0-9]{2}[\.\-][0-9]{4}).*/is', '$2', $xml);
+        $this->data['driverDate2']=  preg_replace('/.*([0-9]{2}[\.\-][0-9]{2}[\.\-][0-9]{4}).*([0-9]{2}[\.\-][0-9]{2}[\.\-][0-9]{4}).*([0-9]{2}[\.\-][0-9]{2}[\.\-][0-9]{4}).*/is', '$3', $xml);
+        $this->data['driverNumber']= preg_replace('/.*([0-9]{2}.*[0-9]{6}).*/', '$1', $xml);
+
+        echo '<pre>';
+        print_r($this->data);
+        echo '</pre>';
+        exit;
         return $this->data;
     }
 
