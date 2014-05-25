@@ -10,24 +10,6 @@ class RussianPassport extends Recognition{
         $this->data = array();
     }
 
-    public function getLastName(){
-        $rowNumber = 8;
-        $row = $this->getRequestRow($rowNumber);
-        return $this->removeTrash($row);
-    }
-
-    public function getFirstName(){
-        $rowNumber = 9;
-        $row = $this->getRequestRow($rowNumber);
-        return $this->removeTrash($row);
-    }
-
-    public function getSurName(){
-        $rowNumber = 10;
-        $row = $this->getRequestRow($rowNumber);
-        return $this->removeTrash($row);
-    }
-
     public function getText(){
         $xml = $this->xml;
         $xml  =  preg_replace('/<charParams( [^>]+)?>(.*)<\/charParams>/isU', '$2', $xml);
@@ -63,11 +45,7 @@ class RussianPassport extends Recognition{
         $this->data['passportCode']= preg_replace('/.*([0-9]{3}\-[0-9]{3}).*/','$1',$xml[4]);
         $this->data['passportNumber']= preg_replace('/.*([0-9]{2} [0-9]{2} [0-9]{6}).*/','$1',$xml[13]);
 
-        echo '<pre>';
-        print_r($this->data);
-        echo '</pre>';
-        exit;
-        return $xml;
+        return $this->data;
     }
 
     public function removeTrash($text, $space = false){
@@ -81,20 +59,5 @@ class RussianPassport extends Recognition{
         return $text;
     }
 
-    public function objectToArray($object)
-    {
-        if (is_object($object))
-        {
-            $object = get_object_vars($object);
-        }
 
-        if (is_array($object))
-        {
-            return array_map( array($this, __FUNCTION__), $object );
-        }
-        else
-        {
-            return $object;
-        }
-    }
 }

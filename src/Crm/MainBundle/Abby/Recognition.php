@@ -278,6 +278,21 @@ class Recognition{
         return $this->data;
     }
 
+    public function objectToArray($object)
+    {
+        if (is_object($object))
+        {
+            $object = get_object_vars($object);
+        }
 
+        if (is_array($object))
+        {
+            return array_map( array($this, __FUNCTION__), $object );
+        }
+        else
+        {
+            return $object;
+        }
+    }
 
 }
