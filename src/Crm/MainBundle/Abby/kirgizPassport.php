@@ -1,7 +1,7 @@
 <?php
 namespace Crm\MainBundle\Abby;
 
-class Driver2 extends Recognition{
+class kirgizPassport extends Recognition{
 
 
     public function __construct(){
@@ -19,16 +19,34 @@ class Driver2 extends Recognition{
         $xml  =  preg_replace('/<text( [^>]+)?>(.*)<\/text>/isU', '$2', $xml);
         $xml  =  preg_replace('/<region( [^>]+)?>(.*)<\/region>/isU', '', $xml);
         $xml  =  preg_replace('/<separator( [^>]+)?>(.*)<\/separator>/isU', '', $xml);
+        $array = array('/Кыргыз/','/Республикасы/','/паспорт/','/Кыргызская/','/Республика/','/КЫРГЫЗСТАН/');
+        $array2 = array('','','','','','');
         $xml = preg_replace("/\r\n/",'',$xml);
+        $xml = preg_replace($array,$array2,$xml);
+
 //        $xml  =  preg_replace('/.*([0-9]{3}-[0-9]{3}-[0-9]{3}-[0-9]{2}).*/', '$1', $xml);
 
-        echo $xml;
-        exit;
+//        echo $xml;
+
+        $this->data['PassportBirthDay']=  preg_replace('/.*([0-9]{2}\s[0-9]{2}\s[0-9]{3,4}).*/', '$1', $xml);
+        $this->data['PassportNumber'] =   preg_replace('/.*([0-9]{14}).*/is', '$1', $xml);
+
+        $xml = new \SimpleXMLElement($xml);
+        $xml2 = $this->objectToArray($xml->page);
+
+        $xml = array();
+        foreach ($xml2['line'] as $key => $val){
+            if (is_array($val)){
+                $xml[$key] = '';
+            }else{
+                $xml[$key] = $val;
+            }
+        }
+
+        $this->data['lastName'] = $xml[3];
+        $this->data['firstName'] = $xml[4];
 
 
-        $this->data['driverDate1']=  preg_replace('/.*([0-9]{2}[\.\-][0-9]{2}[\.\-][0-9]{4}).*([0-9]{2}[\.\-][0-9]{2}[\.\-][0-9]{4}).*([0-9]{2}[\.\-][0-9]{2}[\.\-][0-9]{4}).*/is', '$2', $xml);
-        $this->data['driverDate2']=  preg_replace('/.*([0-9]{2}[\.\-][0-9]{2}[\.\-][0-9]{4}).*([0-9]{2}[\.\-][0-9]{2}[\.\-][0-9]{4}).*([0-9]{2}[\.\-][0-9]{2}[\.\-][0-9]{4}).*/is', '$3', $xml);
-        $this->data['driverNumber']= preg_replace('/.*([0-9]{2}.*[0-9]{6}).*/', '$1', $xml);
 
         echo '<pre>';
         print_r($this->data);

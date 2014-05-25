@@ -23,8 +23,8 @@ class RussianPassport extends Recognition{
         $array2 = array('','','','','','','','','','','','','');
         $xml = preg_replace("/\r\n/",'',$xml);
         $xml = preg_replace($array,$array2,$xml);
-        $xml = new \SimpleXMLElement($xml);
 
+        $xml = new \SimpleXMLElement($xml);
         $xml2 = $this->objectToArray($xml->page);
 
         $xml = array();
