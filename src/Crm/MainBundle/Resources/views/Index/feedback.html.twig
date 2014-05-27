@@ -3,15 +3,22 @@
 {% block content %}
     <div class="box">
         <h2>Форма обратной связи</h2>
-        <form method="POST">
-            {{ form_widget(formFeedback) }}
-        </form>
+        {% if msg == false %}
+            <form method="POST">
+                {{ form_widget(formFeedback) }}
+            </form>
+        {% else %}
+            <div class="msg">Ваше сообщение отправлено</div>
+        {% endif %}
     </div>
 {% endblock %}
 
 {% block stylesheets %}
     {{ parent() }}
     <style>
-
+        .msg{
+            color: #006600;
+            font-size: 18pt;
+        }
     </style>
 {% endblock %}

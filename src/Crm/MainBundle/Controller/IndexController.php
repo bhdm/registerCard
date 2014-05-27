@@ -137,10 +137,11 @@ class IndexController extends Controller
         $feedback = new Feedback();
         $em = $this->getDoctrine()->getManager();
         $formFeedback = $this->createForm(new FeedbackType($em), $feedback);
-
+        $msg = false;
         $formFeedback->handleRequest($request);
         if ($request->isMethod('POST')) {
             if ($formFeedback->isValid()) {
+                $msg = true;
                 $feedback = $formFeedback->getData();
                 $em->persist($feedback);
                 $em->flush();
@@ -158,6 +159,6 @@ class IndexController extends Controller
                 $this->get('mailer')->send($message);
             }
         }
-        return array ('formFeedback' => $formFeedback->createView());
+        return array ('msg'=>$msg, 'formFeedback' => $formFeedback->createView());
     }
 }
