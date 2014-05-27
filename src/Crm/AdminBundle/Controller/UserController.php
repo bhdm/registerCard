@@ -104,4 +104,22 @@ class UserController extends Controller
 
         return $this->redirect($this->generateUrl('user_list'));
     }
+
+    /**
+     * @Route("/change-status/{userId}", name="change-status")
+     */
+    public function changeStatusAction($userId){
+        $request = $this->getRequest();
+        if ($request->getSession()->get('hash')!='7de92cefb8a07cede44f3ae9fa97fb3b') return $this->redirect($this->generateUrl('admin_main'));
+
+        $user = $this->getDoctrine()->getRepository('CrmMainBundle:User')->findOneById($userId);
+        if ($user->getStatus() == 2){
+            $user->setStatus(0);
+        }else{
+            $user->setStatus($user->getStatus()+1);
+        }
+        $this->getDoctrine()->getManager()->flush($user);
+        $referer = $request->headers->get('referer');
+        return $this->redirect($referer);
+    }
 }

@@ -11,6 +11,7 @@
             <th>Имя</th>
             <th>Отчество</th>
             <th>Дата заказа</th>
+            <th>Статус</th>
             <th style="width: 200px"></th>
         </tr>
         {% for user in users %}
@@ -19,6 +20,16 @@
                 <td>{{ user.firstName }}</td>
                 <td>{{ user.surName }}</td>
                 <td>{{ user.created | date("d.m.Y H:i") }}</td>
+                <td style="text-align: center"><a href="{{ path('change-status',{ userId: user.id}) }}" style="text-decoration: none; font-size: 12px;">
+                    {% if user.status is null or user.status == 0%}
+                        <span style="color: #d7442a; border-radius: 3px; ">{{ user.statusString }}</span>
+                    {% elseif  user.status == 1 %}
+                        <span style="color: #d79834;  border-radius: 3px; ">{{ user.statusString }}</span>
+                    {% else %}
+                        <span style="color: #23d752;  border-radius: 3px; ">{{ user.statusString }}</span>
+                    {% endif %}
+                    </a>
+                </td>
                 <td style="text-align: right">
                     <a href="{{ path('user_show',{'userId' : user.id}) }}">Просмотр</a>
                     <span>&nbsp;&nbsp;&nbsp;</span>
