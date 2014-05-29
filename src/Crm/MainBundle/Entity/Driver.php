@@ -195,50 +195,44 @@ class Driver extends BaseEntity
     protected $delivery;
 
     /**
-     * @Assert\NotBlank( message = "Поле копия документа удостоверяющая личность обязательно для заполнения" )
      * @Assert\File(maxSize="2M")
      * @FileStore\UploadableField(mapping="docs")
-     * @ORM\Column(type="array")
+     * @ORM\Column(type="array", nullable=true)
      */
     protected $copyPassport;
 
     /**
-     * @ORM\Column(type="array")
+     * @ORM\Column(type="array", nullable=true)
      * @Assert\File(maxSize="2M")
-     * @Assert\NotBlank( message = "Поле копия водительского удостоверения обязательно для заполнения" )
      * @FileStore\UploadableField(mapping="docs")
      */
     protected $copyDriverPassport;
 
     /**
-     * @Assert\NotBlank( message = "Поле фотография обязательно для заполнения" )
      * @Assert\File(maxSize="2M")
      * @FileStore\UploadableField(mapping="docs")
-     * @ORM\Column(type="array")
+     * @ORM\Column(type="array", nullable=true)
      */
     protected $photo;
 
     /**
-     * @Assert\NotBlank( message = "Поле подпись обязательно для заполнения" )
      * @Assert\File(maxSize="2M")
      * @FileStore\UploadableField(mapping="docs")
-     * @ORM\Column(type="array")
+     * @ORM\Column(type="array", nullable=true)
      */
     protected $copySignature;
 
     /**
-     * @Assert\NotBlank( message = "Поле копия СНИЛС обязательно для заполнения" )
      * @Assert\File(maxSize="2M")
      * @FileStore\UploadableField(mapping="docs")
-     * @ORM\Column(type="array")
+     * @ORM\Column(type="array", nullable=true)
      */
     protected $copySnils;
 
     /**
-     * @Assert\NotBlank( message = "Поле справка с места работы карты обязательно для заполнения" )
      * @Assert\File(maxSize="2M")
      * @FileStore\UploadableField(mapping="docs")
-     * @ORM\Column(type="array")
+     * @ORM\Column(type="array", nullable=true)
      */
     protected $copyWork;
 
