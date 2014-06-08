@@ -6,7 +6,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Crm\MainBundle\Form\Type\UserType;
-use Crm\MainBundle\Form\Type\DriverType;
+use Crm\MainBundle\Form\Type\AdminDriverType;
 use Crm\MainBundle\Entity\User;
 use Crm\MainBundle\Entity\Driver;
 use Symfony\Component\HttpFoundation\Response;
@@ -55,7 +55,7 @@ class UserController extends Controller
         $driver = $user->getDriver();
 
         $formUser       = $this->createForm(new UserType($em), $user);
-        $formDriver    = $this->createForm(new DriverType($em), $driver);
+        $formDriver    = $this->createForm(new AdminDriverType($em), $driver);
 
         $formUser->handleRequest($request);
         $formDriver->handleRequest($request);
@@ -64,17 +64,21 @@ class UserController extends Controller
             if ($formUser->isValid()) {
                 $user = $formUser->getData();
                 $user->setSalt(md5($user));
-                $em->persist($user);
-                $em->flush();
+                $em->flush($user);
                 $em->refresh($user);
             }
             if ($formDriver->isValid()) {
                 $driver = $formDriver->getData();
                 $driver->setuser($user);
-                $em->persist($driver);
-                $em->flush();
+                $em->flush($driver);
             }
+            $user = $em->getRepository('CrmMainBundle:User')->findOneById($userId);
+            $driver = $user->getDriver();
+
+            $formUser       = $this->createForm(new UserType($em), $user);
+            $formDriver    = $this->createForm(new AdminDriverType($em), $driver);
         }
+        $em->refresh($user);
         return array(
             'userId'    => $userId,
             'formUser'      => $formUser->createView(),
