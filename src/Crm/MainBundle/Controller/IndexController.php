@@ -83,7 +83,7 @@ class IndexController extends Controller
         $builder
             ->add('email', null, array('label' => 'Email:','required'       => false))
             ->add('phone', null, array('label' => 'Телефон:','required'       => false))
-            ->add('submit', 'submit', array('label' => 'проверить статус', 'attr' => array('class'=>'btn')));
+            ->add('submit', 'submit', array('label' => 'проверить', 'attr' => array('class'=>'btn')));
 
         $form    = $builder->getForm();
         $form->handleRequest($request);

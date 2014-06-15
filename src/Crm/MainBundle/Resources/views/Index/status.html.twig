@@ -3,7 +3,7 @@
 {% block content %}
     <div class="box">
         <h2>Проверка статуса карты</h2>
-        <table>
+        <table style="width: 100%">
             <tr>
                 <td>
                     {% if send == true %}
@@ -16,7 +16,7 @@
                     </form>
                 </td>
                 <td class="status-text">
-                    Для получения статуса Вашей Заявки необходимо ввести адрес почты(e-mail)  или номер телефона, который Вы указали при подаче Заявки .
+                    Для получения статуса Вашей заявки необходимо ввести адрес почты(e-mail)  или номер телефона, который Вы указали при подаче Заявки .
                 </td>
             </tr>
         </table>
@@ -43,9 +43,12 @@
         .status-text{
             vertical-align: top;
             padding-left: 10px;
-            font-weight: bold;
-            color: #1a5f89;
-            width: 400px;
+            color: #444;
+            width: 500px;
+            line-height: 30px;
+        }
+        .label{
+            width: 100px;
         }
     </style>
 {% endblock %}
