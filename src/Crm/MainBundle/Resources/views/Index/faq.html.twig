@@ -18,13 +18,14 @@
 
         .faq-box{
             padding: 5px 10px;
-            border-bottom: 1px solid #1a5f89;
+            border-bottom: 1px solid #CCC;
         }
         .faq-box:hover{
-            box-shadow: -5px 5px 15px #888;
+            /*box-shadow: -5px 5px 15px #888;*/
+            background: #EEEEEE;
         }
         .faq-question{
-            color: #1a5f89;
+            color: #ae3538;
             font-weight: bold;
             cursor: pointer;
         }
@@ -43,6 +44,8 @@
             $('.faq-box').click(function(){
                 $('.faq-answer').fadeOut();
                 $(this).children('.faq-answer').fadeIn();
+                $('.faq-box').css('background','none');
+                $(this).css('background','#EEEEEE');
             })
         })
     </script>
