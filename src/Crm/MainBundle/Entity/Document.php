@@ -26,6 +26,12 @@ class Document extends BaseEntity
     protected  $body;
 
     /**
+     * @Assert\NotBlank()
+     * @ORM\Column(type="string", length=6)
+     */
+    protected $type;
+
+    /**
      * @param mixed $title
      */
     public function setTitle($title)
@@ -57,5 +63,25 @@ class Document extends BaseEntity
         return $this->body;
     }
 
+    /**
+     * @param mixed $type
+     */
+    public function setType($type)
+    {
+        $this->type = $type;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getType()
+    {
+        return $this->type;
+    }
+
+    public function getAllTypes()
+    {
+        return array('pdf', 'doc', 'docx', 'txt', 'jpg' , 'png');
+    }
 
 }

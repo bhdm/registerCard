@@ -3,9 +3,15 @@
 {% block content %}
     <div class="box">
         <h2>Документы</h2>
-        <table class="table">
+        <table class="table" cellpadding="0" cellspacing="0" border="0">
             {% for document in documents %}
                 <tr>
+                    <td style="vertical-align: middle; width: 120px" class="doc-type">
+                       <div style="display: inline-block; padding-top: 4px; padding-left: 10px">{{ document.type }}</div>
+                       <div style="float: right; padding-right: 15px">
+                           <img src="{{ asset('bundles/crmmain/images/ico-doc.png') }}">
+                       </div>
+                    </td>
                     <td>
                         <a href="{{ path('document',{ id : document.id }) }}">{{ document.title }}</a>
                     </td>
@@ -27,6 +33,10 @@
 
         .box .table tr:hover td{
             /*border-bottom: 1px dashed #1a5f89;*/
+        }
+        tr:hover .doc-type{
+            background: #ae3538;
+            cursor: pointer;
         }
     </style>
 {% endblock %}
