@@ -4,6 +4,18 @@
     <div class="box">
         <h2>Оформление заявки</h2>
     </div>
+    <div class="bg-gray"></div>
+    <div class="img-pop-up">
+        <div class="img-pop-up-title">
+            выберите область с паспортом. При необходимости переверните фото.
+        </div>
+        <div id="passport-img"></div>
+        <div class="img-pop-up-nav">
+            <input type="button" value="Сохранить">
+            <input type="button" value="Повернуть">
+        </div>
+    </div>
+
     <div class="form">
         <table>
             <tr>
@@ -13,13 +25,6 @@
                         <input name="passport" id="passportFile" type="file" value="Выбирите файл">
                         <progress id="progress-passport"></progress>
                     </form>
-                </td>
-            </tr>
-            <tr>
-                <td class="td-example" colspan="2">
-                    <div id="passport-img">
-
-                    </div>
                 </td>
             </tr>
         </table>
@@ -46,6 +51,11 @@
                     $('progress').attr({value:e.loaded,max:e.total});
                 }
             }
+            function showImgPopUp(){
+                $('.bg-gray').fadeIn();
+                $('.img-pop-up').fadeIn();
+                $('input, select').styler();
+            }
 
             function prepareUpload(event)
             {
@@ -69,6 +79,7 @@
                     //error: ,
                     success: function(msg){
                         $('#passport-img').append('<img src="'+msg+'" />');
+                        showImgPopUp();
                         $('#passport-img img').imgAreaSelect({
                             handles: true
 //                            onSelectEnd: someFunction
@@ -96,9 +107,38 @@
         progress{
             display: none;
         }
-        .td-example img{
-            max-width: 600px;
-            max-height: 500px;
+        .img-pop-up{
+            position: absolute;
+            width: 700px;
+            max-height: 700px;
+            min-height: 300px;
+            background: #ffffff;
+            border: 1px solid #ae3538;
+            left: 50%;
+            top: 100px;
+            margin-left: -350px;
+            z-index: 905;
+            display: none;
+        }
+        .img-pop-up img{
+            width: 650px;
+            max-height: 560px;
+            padding: 25px;
+        }
+        .bg-gray{
+            position: fixed;
+            left: 0;
+            right: 0;
+            top: 0;
+            bottom: 0;
+            background: #555555;
+            opacity: 0.3;
+            z-index: 900;
+            display: none;
+        }
+        .img-pop-up-title, .img-pop-up-nav{
+            text-align: center;
+            padding: 10px;
         }
     </style>
 {% endblock %}
