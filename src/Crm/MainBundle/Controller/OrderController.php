@@ -36,11 +36,11 @@ class OrderController extends Controller{
         $file = $request->files->get('0');
         $base = $this->imgToBase($file->getPathName());
         $session = $request->getSession();
-        $session->set('passport', array(
-            'info'=>    $file,
-            'content'=> $base
-            )
-        );
+//        $session->set('passport', array(
+//            'info'=>    $file,
+//            'content'=> $base
+//            )
+//        );
         $response = new Response();
         $response->headers->set('Content-Type','image/jpeg');
         $response->setContent($base);
@@ -62,7 +62,7 @@ class OrderController extends Controller{
         );
         $res = imagecrop($img, $rect);
 
-        #@todo преобразование ресурса в файл
+        #@todo преобразование ресурса в base
     }
 
     public function BaseToImg($base){
