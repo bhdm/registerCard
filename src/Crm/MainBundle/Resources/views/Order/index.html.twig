@@ -11,7 +11,11 @@
         </div>
         <div id="passport-img"></div>
         <div class="img-pop-up-nav">
-            <input type="button" value="Сохранить">
+            <input type="hidden" name="x1" id="x1">
+            <input type="hidden" name="y1" id="y1">
+            <input type="hidden" name="x2" id="x2">
+            <input type="hidden" name="y2" id="y2">
+            <input type="button" value="Сохранить" id="sendCoords">
             <input type="button" value="Повернуть">
         </div>
     </div>
@@ -19,13 +23,31 @@
     <div class="form">
         <table>
             <tr>
-                <td class="label">Выберите пасспорт</td>
+                <td class="label">
+                    <div class="label-text">Выберите пасспорт</div>
+                </td>
                 <td class="value">
                     <form enctype="multipart/form-data" id="form-1">
                         <input name="passport" id="passportFile" type="file" value="Выбирите файл">
                         <progress id="progress-passport"></progress>
                     </form>
                 </td>
+            </tr>
+            <tr class="passportFields">
+                <td class="label">Фамилия</td>
+                <td class="value"><input type="text" name="passportLastName" id="passportLastName"></td>
+            </tr>
+            <tr class="passportFields">
+                <td class="label">Имя</td>
+                <td class="value"><input type="text" name="passportFirstName" id="passportFirstName"></td>
+            </tr>
+            <tr class="passportFields">
+                <td class="label">Отчество</td>
+                <td class="value"><input type="text" name="passportSurName" id="passportSurName"></td>
+            </tr>
+            <tr class="passportFields">
+                <td class="label">Дата рождения</td>
+                <td class="value"><input type="text" name="passportBirtday" id="passportBirtday"></td>
             </tr>
         </table>
     </div>
@@ -46,6 +68,27 @@
             $('input, select').styler();
             $('input[type=file]').on('change', prepareUpload);
 
+
+            $('#sendCoords').click(function(){
+                type= 'passport';
+                x1 = $('input[name="x1"]').val();
+                y1 = $('input[name="y1"]').val();
+                x2 = $('input[name="x2"]').val()-x1;
+                y2 = $('input[name="y2"]').val()-y1;
+                $.ajax({
+                    type: "POST",
+                    url: Routing.generate('send_coordinates', {'type': type}),
+                    data: 'x='+x1+'&y='+y1+'&x2='+x2+'&y2='+y2,
+                    success: function(msg){
+                        $('#passport-img').html('<img src="'+msg+'" />');
+                        $(".imgareaselect-selection").parent().remove();
+                        $(".imgareaselect-outer").remove();
+                        hideImgPopUp();
+                        getImgData('passport');
+                    }
+                });
+            });
+
             function progressHandlingFunction(e){
                 if(e.lengthComputable){
                     $('progress').attr({value:e.loaded,max:e.total});
@@ -57,8 +100,12 @@
                 $('input, select').styler();
             }
 
-            function prepareUpload(event)
-            {
+            function hideImgPopUp(){
+                $('.bg-gray').fadeOut();
+                $('.img-pop-up').fadeOut();
+            }
+
+            function prepareUpload(event){
                 files = event.target.files;
                 var formData = new FormData();
                 $.each(files, function(key, value){
@@ -81,8 +128,14 @@
                         $('#passport-img').append('<img src="'+msg+'" />');
                         showImgPopUp();
                         $('#passport-img img').imgAreaSelect({
-                            handles: true
-//                            onSelectEnd: someFunction
+                            x1: 120, y1: 90, x2: 280, y2: 210,
+                            handles: true,
+                            onSelectEnd: function (img, selection) {
+                                $('input[name="x1"]').val(selection.x1);
+                                $('input[name="y1"]').val(selection.y1);
+                                $('input[name="x2"]').val(selection.x2);
+                                $('input[name="y2"]').val(selection.y2);
+                            }
                         });
                     },
                     data: formData,
@@ -92,7 +145,21 @@
                 });
             }
 
-
+            function getImgData(type){
+                $.ajax({
+                    type: "POST",
+                    url: Routing.generate('get_img_data', {'type': type}),
+                    success: function(msg){
+                        obj = jQuery.parseJSON(msg);
+                        obj = obj.data;
+                        $('#passportLastNam').val(obj.lastName);
+                        $('#passportFirstNa').val(obj.firstName);
+                        $('#passportSurName').val(obj.surName);
+                        $('#passportBirtday').val(obj.birthday);
+                        $('.passportFields').css('display','table');
+                    }
+                });
+            }
 
         });
     </script>
@@ -139,6 +206,12 @@
         .img-pop-up-title, .img-pop-up-nav{
             text-align: center;
             padding: 10px;
+        }
+        .label-text{
+            margin-top: -15px;
+        }
+        .passportFields{
+            display: none;
         }
     </style>
 {% endblock %}

@@ -3,13 +3,6 @@ namespace Crm\MainBundle\Abby;
 
 class RussianPassport extends Recognition{
 
-
-    public function __construct(){
-        parent::__construct();
-        $this->filename='passport-rus.jpg';
-        $this->data = array();
-    }
-
     public function getText(){
         $xml = $this->xml;
         $xml  =  preg_replace('/<charParams( [^>]+)?>(.*)<\/charParams>/isU', '$2', $xml);
@@ -26,7 +19,6 @@ class RussianPassport extends Recognition{
 
         $xml = new \SimpleXMLElement($xml);
         $xml2 = $this->objectToArray($xml->page);
-
         $xml = array();
         foreach ($xml2['line'] as $key => $val){
             if (is_array($val)){
@@ -37,6 +29,7 @@ class RussianPassport extends Recognition{
         }
 
 //        $xml = $xml2['line'];
+
         $this->data['firstName']=$xml[6];
         $this->data['lastName']=$xml[7];
         $this->data['surName']=$xml[8];

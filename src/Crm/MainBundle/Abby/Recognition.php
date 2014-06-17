@@ -15,10 +15,12 @@ class Recognition{
 
     protected $data;
 
-    public function __construct(){
+    public function __construct($fileName){
         $this->applicationId = 'taxoCard';
         $this->password = 'ILCL63gtPIQP7GOXDlqgHS4F';
-        $this->path = '/var/www/crm/web/upload/docs';
+//        $this->path = '/var/www/crm/web/upload/docs';
+        $this->path = $fileName;
+        $this->data = array();
     }
 
     /**
@@ -106,7 +108,7 @@ class Recognition{
             $file = $this->getFilename();
         }
 
-        $filePath = $this->path.'/'.$file;
+        $filePath = $this->path;
         if(!file_exists($filePath))
         {
             return 'error: Ошибка файла';
@@ -226,6 +228,7 @@ class Recognition{
         $this->xml  = $response;
 //        echo $response;
 //        exit;
+//        $this->xml = file_get_contents('')
         return $this;
     }
 
