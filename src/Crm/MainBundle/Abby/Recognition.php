@@ -122,7 +122,7 @@ class Recognition{
         // You can use combination of languages like ?language=english,russian or
         // ?language=english,french,dutch
         // For details, see API reference for processImage method
-        $url = 'http://cloud.ocrsdk.com/processImage?language=russian&exportFormat=xml';
+        $url = 'http://cloud.ocrsdk.com/processImage?language=Russian&exportFormat=xml';
 
         // Send HTTP POST request and ret xml response
         $curlHandle = curl_init();

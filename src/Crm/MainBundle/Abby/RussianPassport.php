@@ -30,13 +30,14 @@ class RussianPassport extends Recognition{
 
 //        $xml = $xml2['line'];
 
-        $this->data['firstName']=$xml[6];
+        $this->data['firstName']=$xml[8];
         $this->data['lastName']=$xml[7];
-        $this->data['surName']=$xml[8];
-        $this->data['passportPlace']=$xml[0].$xml[1].$xml[2].$xml[3];
-        $this->data['passportDate']= preg_replace('/.*([0-9]{2}\.[0-9]{2}\.[0-9]{4}).*/','$1',$xml[4]);
-        $this->data['passportCode']= preg_replace('/.*([0-9]{3}\-[0-9]{3}).*/','$1',$xml[4]);
-        $this->data['passportNumber']= preg_replace('/.*([0-9]{2} [0-9]{2} [0-9]{6}).*/','$1',$xml[13]);
+        $this->data['surName']=$xml[9];
+        $this->data['passportPlace']=$xml[2].$xml[3].$xml[4];
+        $this->data['passportDate']= preg_replace('/.*([0-9]{2}\.[0-9]{2}\.[0-9]{4}).*/','$1',implode(' ',$xml));
+        $this->data['passportCode']= preg_replace('/.*([0-9]{3}[\-\~][0-9]{3}).*/','$1',implode(' ',$xml));
+        $this->data['passportCode']= str_replace('~','-',$this->data['passportCode']);
+        $this->data['passportNumber']= preg_replace('/.*([0-9]{2} [0-9]{2} [0-9]{6}).*/','$1', implode(' ',$xml));
 
         return $this->data;
     }

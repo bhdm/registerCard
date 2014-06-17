@@ -49,6 +49,14 @@
                 <td class="label">Дата рождения</td>
                 <td class="value"><input type="text" name="passportBirtday" id="passportBirtday"></td>
             </tr>
+            <tr class="passportFields">
+                <td class="label">Код подразделения</td>
+                <td class="value"><input type="text" name="passportCode" id="passportCode"></td>
+            </tr>
+            <tr class="passportFields">
+                <td class="label">Серия и номер</td>
+                <td class="value"><input type="text" name="passportNumber" id="passportNumber"></td>
+            </tr>
         </table>
     </div>
 {% endblock %}
@@ -80,7 +88,7 @@
                     url: Routing.generate('send_coordinates', {'type': type}),
                     data: 'x='+x1+'&y='+y1+'&x2='+x2+'&y2='+y2,
                     success: function(msg){
-                        $('#passport-img').html('<img src="'+msg+'" />');
+                        $('#passport-img').html('<div style="display: inline-block"><img id="passport-img-img" src="'+msg+'" /></div>');
                         $(".imgareaselect-selection").parent().remove();
                         $(".imgareaselect-outer").remove();
                         hideImgPopUp();
@@ -125,9 +133,9 @@
                     //beforeSend: ,
                     //error: ,
                     success: function(msg){
-                        $('#passport-img').append('<img src="'+msg+'" />');
+                        $('#passport-img').append('<div style="display: inline-block"><img id="passport-img-img" src="'+msg+'" /></div>');
                         showImgPopUp();
-                        $('#passport-img img').imgAreaSelect({
+                        $('#passport-img-img').imgAreaSelect({
                             x1: 120, y1: 90, x2: 280, y2: 210,
                             handles: true,
                             onSelectEnd: function (img, selection) {
@@ -150,13 +158,15 @@
                     type: "POST",
                     url: Routing.generate('get_img_data', {'type': type}),
                     success: function(msg){
-                        obj = jQuery.parseJSON(msg);
+                        obj = msg
                         obj = obj.data;
-                        $('#passportLastNam').val(obj.lastName);
-                        $('#passportFirstNa').val(obj.firstName);
+                        $('#passportLastName').val(obj.lastName);
+                        $('#passportFirstName').val(obj.firstName);
                         $('#passportSurName').val(obj.surName);
-                        $('#passportBirtday').val(obj.birthday);
-                        $('.passportFields').css('display','table');
+                        $('#passportBirtday').val(obj.passportDate);
+                        $('#passportCode').val(obj.passportCode);
+                        $('#passportNumber').val(obj.passportNumber);
+                        $('.passportFields').css('display','table-row');
                     }
                 });
             }
@@ -186,11 +196,10 @@
             margin-left: -350px;
             z-index: 905;
             display: none;
+            text-align: center;
         }
         .img-pop-up img{
-            width: 650px;
-            max-height: 560px;
-            padding: 25px;
+            /*padding: 25px;*/
         }
         .bg-gray{
             position: fixed;
