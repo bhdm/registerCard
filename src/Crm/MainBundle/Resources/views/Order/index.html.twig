@@ -20,10 +20,11 @@
         </div>
     </div>
 
-    <div class="form">
+    <div class="box">
         <table>
+            <form method="POST" action="{{ path('order_confirmation') }}">
             <tr>
-                <td class="label">E-mail:</td>
+                <td class="label">E-mail<span class="required">*</span>:</td>
                 <td class="value">
                         <input name="email" id="email" type="text" placeholder="Укажите вашу почту">
                 </td>
@@ -37,40 +38,55 @@
                 <td class="phoneStatus"></td>
             </tr>
             <tr>
-                <td class="label">Гражданство:</td>
+                <td class="label">Гражданство<span class="required">*</span>:</td>
                 <td class="value">
                     <select name="rezident" id="rezident">
                         <option value="1">гражданин РФ</option>
                         <option value="2">иностранный гражданин</option>
                     </select>
                 </td>
-                <td class="phoneStatus"></td>
+                <td ></td>
             </tr>
             <tr><td colspan="2" class="empty-row"><div class="empty-row-border"></div></td></tr>
             <tr>
-                <td class="label">Название организации:</td>
+                <td class="label">Название организации<span class="required">*</span>:</td>
                 <td class="value">
-                    <input name="phone" id="phone" type="text" placeholder="">
+                    <input name="phone" id="companyName" type="text" placeholder="">
                 </td>
-                <td class="phoneStatus"></td>
+                <td class="companyNameStatus"></td>
             </tr>
             <tr>
-                <td class="label">Адрес организации:</td>
+                <td class="label">Адрес организации<span class="required">*</span>:</td>
                 <td class="value">
-                    <input name="" id="" type="text" placeholder="Индекс"><br />
-                    <input name="" id="" type="text" placeholder="регион"><br />
-                    <input name="" id="" type="text" placeholder="Город"><br />
-                    <input name="" id="" type="text" placeholder="Улица"><br />
-                    <input name="" id="" type="text" placeholder="Дом" class="little">
-                    <input name="" id="" type="text" placeholder="Корп /Стр"  class="little">
-                    <input name="" id="" type="text" placeholder="Кв / оф"  class="little">
+                    <input name="companyZipcode" id="companyZipcode"  type="text" placeholder="Индекс"><br />
+                    <input name="companyRegion"  id="companyRegion"   type="text" placeholder="регион"><br />
+                    <input name="companyCity"    id="companyCity"     type="text" placeholder="Город"><br />
+                    <input name="companyStreet"  id="companyStreet"   type="text" placeholder="Улица"><br />
+                    <input name="companyHouse"   id="companyHouse"    type="text" placeholder="Дом" class="little">
+                    <input name="companyCorp"    id="companyCorp"     type="text" placeholder="Корп /Стр"  class="little">
+                    <input name="companyRoom"    id="companyRoom"     type="text" placeholder="Кв / оф"  class="little">
                 </td>
-                <td class="phoneStatus"></td>
+                <td class="companyAdressStatus"></td>
             </tr>
+            <tr><td colspan="2" class="empty-row"><div class="empty-row-border"></div></td></tr>
+            <tr>
+                <td class="label">Адрес доставки<span class="required">*</span>:</td>
+                <td class="value">
+                    <input name="deliveryZipcode" id="deliveryZipcode" type="text" placeholder="Индекс"><br />
+                    <input name="deliveryRegion"  id="deliveryRegion"  type="text" placeholder="регион"><br />
+                    <input name="deliveryCity"    id="deliveryCity"    type="text" placeholder="Город"><br />
+                    <input name="deliveryStreet"  id="deliveryStreet"  type="text" placeholder="Улица"><br />
+                    <input name="deliveryHouse"   id="deliveryHouse"   type="text" placeholder="Дом" class="little">
+                    <input name="deliveryCorp"    id="deliveryCorp"    type="text" placeholder="Корп /Стр"  class="little">
+                    <input name="deliveryRoom"    id="deliveryRoom"    type="text" placeholder="Кв / оф"  class="little">
+                </td>
+                <td class="deliveryAdressStatus"></td>
+            </tr>
+            </form>
             <tr><td colspan="2" class="empty-row"><div class="empty-row-border"></div></td></tr>
             <tr>
                 <td class="label">
-                    <div class="label-text">Копия паспорта:</div>
+                    <div class="label-text">Копия паспорта<span class="required">*</span>:</div>
                 </td>
                 <td class="value">
                     <form enctype="multipart/form-data" id="form-1">
@@ -81,7 +97,7 @@
             </tr>
             <tr>
                 <td class="label">
-                    <div class="label-text">Копия водительского удостоверения:</div>
+                    <div class="label-text">Копия водительского удостоверения<span class="required">*</span>:</div>
                 </td>
                 <td class="value">
                     <form enctype="multipart/form-data" id="form-2">
@@ -96,10 +112,10 @@
                 </td>
                 <td class="value">
                     <form enctype="multipart/form-data" id="form-2">
-                        <input name="driver" id="driverFile" type="file" value="Выбирите файл">
+                        <input name="snils" id="snilsFile" type="file" value="Выбирите файл">
                     </form>
                 </td>
-                <td class="driverStatus"></td>
+                <td class="snilsStatus"></td>
             </tr>
             <tr id="notrus" style="display: none;">
                 <td class="label">
@@ -107,25 +123,12 @@
                 </td>
                 <td class="value">
                     <form enctype="multipart/form-data" id="form-2">
-                        <input name="driver" id="driverFile" type="file" value="Выбирите файл">
+                        <input name="work" id="workFile" type="file" value="Выбирите файл">
                     </form>
                 </td>
-                <td class="driverStatus"></td>
+                <td class="workStatus"></td>
             </tr>
-            <tr><td colspan="2" class="empty-row"><div class="empty-row-border"></div></td></tr>
-            <tr>
-                <td class="label">Адрес доставки:</td>
-                <td class="value">
-                    <input name="" id="" type="text" placeholder="Индекс"><br />
-                    <input name="" id="" type="text" placeholder="регион"><br />
-                    <input name="" id="" type="text" placeholder="Город"><br />
-                    <input name="" id="" type="text" placeholder="Улица"><br />
-                    <input name="" id="" type="text" placeholder="Дом" class="little">
-                    <input name="" id="" type="text" placeholder="Корп /Стр"  class="little">
-                    <input name="" id="" type="text" placeholder="Кв / оф"  class="little">
-                </td>
-                <td class="phoneStatus"></td>
-            </tr>
+            <tr><td colspan="2" class="empty-row"><br /></td></tr>
             <tr>
                 <td></td>
                 <td style="text-align: right">
@@ -300,6 +303,9 @@
         }
         .empty-row-border{
             border: 1px solid #CCCCCC;
+        }
+        .required{
+            color: #CC0000;
         }
     </style>
 {% endblock %}
