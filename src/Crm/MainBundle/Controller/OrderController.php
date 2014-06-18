@@ -30,6 +30,7 @@ class OrderController extends Controller{
     }
 
     /**
+     * @todo Удалить заменить на uploadDoc
      * @Route("/uploadPassport", name="uploadPassport", options={"expose"=true})
      */
     public function uploadPassportAction(Request $request){
@@ -47,6 +48,25 @@ class OrderController extends Controller{
         return $response;
     }
 
+
+    /**
+     * @Route("/uploadDoc/{type}", name="uploadDoc", options={"expose"=true})
+     */
+    public function uploadDocAction(Request $request,$type){
+        $file = $request->files->get('0');
+        $base = $this->imgToBase($file->getPathName());
+        $session = $request->getSession();
+        $session->set($type, array(
+                'content'=> $base
+                #@todo добавить тип изображения для вывода и crop
+            )
+        );
+        $response = new Response();
+        $response->headers->set('Content-Type','image/jpeg');
+        $response->setContent($base);
+
+        return $response;
+    }
 
     /**
      * @Route("send-coordinates/{type}", name="send_coordinates", options={"expose"=true})
