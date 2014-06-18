@@ -196,6 +196,15 @@ class OrderController extends Controller{
         return $this->imgToBase($pathName);
     }
 
+    public function rotateImage($img,$degree = 90){
+        $pathName = $this->BaseToImg($img);
+        $image = imagecreatefromjpeg($pathName);
+        $rotate = imagerotate($image, $degree, 0);
+        $pathName = tempnam('/tmp','img-');
+        imagejpeg($rotate, $pathName);
+        return $this->imgToBase($pathName);
+    }
+
     public function BaseToImg($base){
         $filePathName  = tempnam('/tmp','img-');
         $ifp = fopen($filePathName, "wb");

@@ -203,9 +203,9 @@
                 $.each(files, function(key, value){
                     formData.append(key, value);
                 });
-
+                type = 'passport';
                 $.ajax({
-                    url: '{{ path('uploadPassport') }}',
+                    url: Routing.generate('uploadDoc', {'type': type}),
                     type: 'POST',
                     xhr: function() {
                         var myXhr = $.ajaxSettings.xhr();
