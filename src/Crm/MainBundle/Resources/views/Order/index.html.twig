@@ -143,17 +143,52 @@
                 </td>
                 <td class="driverStatus"></td>
             </tr>
+            <tr >
+                <td class="label">
+                    <div class="label-text">Фотография:</div>
+                </td>
+                <td class="value">
+                    <form enctype="multipart/form-data" id="form-5">
+                        <input name="photo" id="photoFile" type="file" value="Выбирите файл">
+                    </form>
+                </td>
+                <td class="photoStatus"></td>
+            </tr>
+            <tr >
+                <td class="label">
+                    <div class="label-text">Подпись:</div>
+                </td>
+                <td class="value">
+                    <form enctype="multipart/form-data" id="form-6">
+                        <input name="sign" id="signFile" type="file" value="Выбирите файл">
+                    </form>
+                </td>
+                <td class="signStatus"></td>
+            </tr>
+
             <tr id="rus">
                 <td class="label">
                     <div class="label-text">Копия СНИЛС:</div>
                 </td>
                 <td class="value">
-                    <form enctype="multipart/form-data" id="form-2">
+                    <form enctype="multipart/form-data" id="form-3">
                         <input name="snils" id="snilsFile" type="file" value="Выбирите файл">
                     </form>
                 </td>
                 <td class="snilsStatus"></td>
             </tr>
+            <tr id="notrus" style="display: none;">
+                <td class="label">
+                    <div class="label-text">Разрешение на работу:</div>
+                </td>
+                <td class="value">
+                    <form enctype="multipart/form-data" id="form-4">
+                        <input name="work" id="workFile" type="file" value="Выбирите файл">
+                    </form>
+                </td>
+                <td class="workStatus"></td>
+            </tr>
+
             <tr id="notrus" style="display: none;">
                 <td class="label">
                     <div class="label-text">Разрешение на работу:</div>
@@ -165,6 +200,8 @@
                 </td>
                 <td class="workStatus"></td>
             </tr>
+
+
             <tr><td colspan="2"><br /></td></tr>
             <tr>
                 <td></td>
@@ -389,47 +426,3 @@
 
     </style>
 {% endblock %}
-
-{#<tr><td colspan="2" class="empty-row">Организация</td></tr>#}
-{#<tr>#}
-    {#<td class="label">Название организации<span class="required">*</span>:</td>#}
-    {#<td class="value">#}
-        {#<input name="phone" id="companyName" type="text" placeholder=""  required>#}
-    {#</td>#}
-    {#<td class="companyNameStatus"></td>#}
-{#</tr>#}
-{#<tr>#}
-    {#<td class="label">Адрес организации<span class="required">*</span>:</td>#}
-    {#<td class="value">#}
-        {#<input name="companyZipcode" id="companyZipcode"  type="text" placeholder="Индекс"  required><br />#}
-        {#<input name="companyRegion"  id="companyRegion"   type="text" placeholder="регион" required ><br />#}
-        {#<input name="companyCity"    id="companyCity"     type="text" placeholder="Город" required><br />#}
-        {#<input name="companyStreet"  id="companyStreet"   type="text" placeholder="Улица"><br />#}
-        {#<input name="companyHouse"   id="companyHouse"    type="text" placeholder="Дом" class="little" required>#}
-        {#<input name="companyCorp"    id="companyCorp"     type="text" placeholder="Корп /Стр"  class="little">#}
-        {#<input name="companyRoom"    id="companyRoom"     type="text" placeholder="Кв / оф"  class="little">#}
-    {#</td>#}
-    {#<td class="companyAdressStatus"></td>#}
-{#</tr>#}
-{#<tr><td colspan="2" class="empty-row">Другая информация</td></tr>#}
-{#<tr>#}
-    {#<td class="label">Номер прошлой карты:</td>#}
-    {#<td class="value">#}
-        {#<input name="oldNumber" id="oldNumber" type="text"  >#}
-    {#</td>#}
-    {#<td class="oldNumberStatus"></td>#}
-{#</tr>#}
-{#<tr><td colspan="2" class="empty-row">Информация о доставке</td></tr>#}
-{#<tr>#}
-    {#<td class="label">Адрес доставки<span class="required">*</span>:</td>#}
-    {#<td class="value">#}
-        {#<input name="deliveryZipcode" id="deliveryZipcode" type="text" placeholder="Индекс" required><br />#}
-        {#<input name="deliveryRegion"  id="deliveryRegion"  type="text" placeholder="регион" required><br />#}
-        {#<input name="deliveryCity"    id="deliveryCity"    type="text" placeholder="Город" required><br />#}
-        {#<input name="deliveryStreet"  id="deliveryStreet"  type="text" placeholder="Улица"><br />#}
-        {#<input name="deliveryHouse"   id="deliveryHouse"   type="text" placeholder="Дом" class="little" required>#}
-        {#<input name="deliveryCorp"    id="deliveryCorp"    type="text" placeholder="Корп /Стр"  class="little">#}
-        {#<input name="deliveryRoom"    id="deliveryRoom"    type="text" placeholder="Кв / оф"  class="little">#}
-    {#</td>#}
-    {#<td class="deliveryAdressStatus"></td>#}
-{#</tr>#}
