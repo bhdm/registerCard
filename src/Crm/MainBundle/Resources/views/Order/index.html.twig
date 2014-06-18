@@ -7,9 +7,9 @@
     <div class="bg-gray"></div>
     <div class="img-pop-up">
         <div class="img-pop-up-title">
-            выберите область с паспортом. При необходимости переверните фото.
+            выберите область с документом. При необходимости переверните фото.
         </div>
-        <div id="passport-img"></div>
+        <div id="img-pop-up-img"></div>
         <div class="img-pop-up-nav">
             <input type="hidden" name="x1" id="x1">
             <input type="hidden" name="y1" id="y1">
@@ -23,39 +23,114 @@
     <div class="form">
         <table>
             <tr>
+                <td class="label">E-mail:</td>
+                <td class="value">
+                        <input name="email" id="email" type="text" placeholder="Укажите вашу почту">
+                </td>
+                <td class="emailStatus"></td>
+            </tr>
+            <tr>
+                <td class="label">Телефон:</td>
+                <td class="value">
+                    <input name="phone" id="phone" type="text" placeholder="Укажите ваш телефон">
+                </td>
+                <td class="phoneStatus"></td>
+            </tr>
+            <tr>
+                <td class="label">Гражданство:</td>
+                <td class="value">
+                    <select name="rezident" id="rezident">
+                        <option value="1">гражданин РФ</option>
+                        <option value="2">иностранный гражданин</option>
+                    </select>
+                </td>
+                <td class="phoneStatus"></td>
+            </tr>
+            <tr><td colspan="2" class="empty-row"><div class="empty-row-border"></div></td></tr>
+            <tr>
+                <td class="label">Название организации:</td>
+                <td class="value">
+                    <input name="phone" id="phone" type="text" placeholder="">
+                </td>
+                <td class="phoneStatus"></td>
+            </tr>
+            <tr>
+                <td class="label">Адрес организации:</td>
+                <td class="value">
+                    <input name="" id="" type="text" placeholder="Индекс"><br />
+                    <input name="" id="" type="text" placeholder="регион"><br />
+                    <input name="" id="" type="text" placeholder="Город"><br />
+                    <input name="" id="" type="text" placeholder="Улица"><br />
+                    <input name="" id="" type="text" placeholder="Дом" class="little">
+                    <input name="" id="" type="text" placeholder="Корп /Стр"  class="little">
+                    <input name="" id="" type="text" placeholder="Кв / оф"  class="little">
+                </td>
+                <td class="phoneStatus"></td>
+            </tr>
+            <tr><td colspan="2" class="empty-row"><div class="empty-row-border"></div></td></tr>
+            <tr>
                 <td class="label">
-                    <div class="label-text">Выберите пасспорт:</div>
+                    <div class="label-text">Копия паспорт:</div>
                 </td>
                 <td class="value">
                     <form enctype="multipart/form-data" id="form-1">
                         <input name="passport" id="passportFile" type="file" value="Выбирите файл">
-                        <progress id="progress-passport"></progress>
                     </form>
                 </td>
+                <td class="passportStatus"></td>
             </tr>
-            <tr class="passportFields">
-                <td class="label">Фамилия:</td>
-                <td class="value"><input type="text" name="passportLastName" id="passportLastName"></td>
+            <tr>
+                <td class="label">
+                    <div class="label-text">Копия водительского удостоверения:</div>
+                </td>
+                <td class="value">
+                    <form enctype="multipart/form-data" id="form-2">
+                        <input name="driver" id="driverFile" type="file" value="Выбирите файл">
+                    </form>
+                </td>
+                <td class="driverStatus"></td>
             </tr>
-            <tr class="passportFields">
-                <td class="label">Имя:</td>
-                <td class="value"><input type="text" name="passportFirstName" id="passportFirstName"></td>
+            <tr id="rus">
+                <td class="label">
+                    <div class="label-text">Копия СНИЛС:</div>
+                </td>
+                <td class="value">
+                    <form enctype="multipart/form-data" id="form-2">
+                        <input name="driver" id="driverFile" type="file" value="Выбирите файл">
+                    </form>
+                </td>
+                <td class="driverStatus"></td>
             </tr>
-            <tr class="passportFields">
-                <td class="label">Отчество:</td>
-                <td class="value"><input type="text" name="passportSurName" id="passportSurName"></td>
+            <tr id="notrus" style="display: none;">
+                <td class="label">
+                    <div class="label-text">Разрешение на работу:</div>
+                </td>
+                <td class="value">
+                    <form enctype="multipart/form-data" id="form-2">
+                        <input name="driver" id="driverFile" type="file" value="Выбирите файл">
+                    </form>
+                </td>
+                <td class="driverStatus"></td>
             </tr>
-            <tr class="passportFields">
-                <td class="label">Дата рождения:</td>
-                <td class="value"><input type="text" name="passportBirtday" id="passportBirtday"></td>
+            <tr><td colspan="2" class="empty-row"><div class="empty-row-border"></div></td></tr>
+            <tr>
+                <td class="label">Адрес доставки:</td>
+                <td class="value">
+                    <input name="" id="" type="text" placeholder="Индекс"><br />
+                    <input name="" id="" type="text" placeholder="регион"><br />
+                    <input name="" id="" type="text" placeholder="Город"><br />
+                    <input name="" id="" type="text" placeholder="Улица"><br />
+                    <input name="" id="" type="text" placeholder="Дом" class="little">
+                    <input name="" id="" type="text" placeholder="Корп /Стр"  class="little">
+                    <input name="" id="" type="text" placeholder="Кв / оф"  class="little">
+                </td>
+                <td class="phoneStatus"></td>
             </tr>
-            <tr class="passportFields">
-                <td class="label">Код подразделения:</td>
-                <td class="value"><input type="text" name="passportCode" id="passportCode"></td>
-            </tr>
-            <tr class="passportFields">
-                <td class="label">Серия и номер:</td>
-                <td class="value"><input type="text" name="passportNumber" id="passportNumber"></td>
+            <tr>
+                <td></td>
+                <td style="text-align: right">
+                    <input type="button" value="Далее" class="btn">
+                </td>
             </tr>
         </table>
     </div>
@@ -76,6 +151,15 @@
             $('input, select').styler();
             $('input[type=file]').on('change', prepareUpload);
 
+            $('#rezident').change(function(){
+                if ( $(this).val() == '1' ){
+                    $('#rus').css('display','table-row');
+                    $('#notrus').css('display','none');
+                }else{
+                    $('#rus').css('display','none');
+                    $('#notrus').css('display','table-row');
+                }
+            });
 
             $('#sendCoords').click(function(){
                 type= 'passport';
@@ -88,11 +172,11 @@
                     url: Routing.generate('send_coordinates', {'type': type}),
                     data: 'x='+x1+'&y='+y1+'&x2='+x2+'&y2='+y2,
                     success: function(msg){
-                        $('#passport-img').html('<div style="display: inline-block"><img id="passport-img-img" src="'+msg+'" /></div>');
+                        $('#img-pop-up-img').html('<div style="display: inline-block"><img src="'+msg+'" /></div>');
                         $(".imgareaselect-selection").parent().remove();
                         $(".imgareaselect-outer").remove();
                         hideImgPopUp();
-                        getImgData('passport');
+//                        getImgData('passport');
                     }
                 });
             });
@@ -133,9 +217,9 @@
                     //beforeSend: ,
                     //error: ,
                     success: function(msg){
-                        $('#passport-img').append('<div style="display: inline-block"><img id="passport-img-img" src="'+msg+'" /></div>');
+                        $('#img-pop-up-img').html('<div style="display: inline-block"><img  src="'+msg+'" /></div>');
                         showImgPopUp();
-                        $('#passport-img-img').imgAreaSelect({
+                        $('#img-pop-up-img div img').imgAreaSelect({
                             x1: 120, y1: 90, x2: 280, y2: 210,
                             handles: true,
                             onSelectEnd: function (img, selection) {
@@ -152,25 +236,6 @@
                     processData: false
                 });
             }
-
-            function getImgData(type){
-                $.ajax({
-                    type: "POST",
-                    url: Routing.generate('get_img_data', {'type': type}),
-                    success: function(msg){
-                        obj = msg
-                        obj = obj.data;
-                        $('#passportLastName').val(obj.lastName);
-                        $('#passportFirstName').val(obj.firstName);
-                        $('#passportSurName').val(obj.surName);
-                        $('#passportBirtday').val(obj.passportDate);
-                        $('#passportCode').val(obj.passportCode);
-                        $('#passportNumber').val(obj.passportNumber);
-                        $('.passportFields').css('display','table-row');
-                    }
-                });
-            }
-
         });
     </script>
 {% endblock %}
@@ -192,14 +257,18 @@
             background: #ffffff;
             border: 1px solid #ae3538;
             left: 50%;
-            top: 100px;
+            top: 50px;
             margin-left: -350px;
             z-index: 905;
             display: none;
             text-align: center;
         }
-        .img-pop-up img{
-            /*padding: 25px;*/
+        #img-pop-up-img div{
+            width: 680px;
+        }
+        #img-pop-up-img div img{
+            max-width: 680px;
+            max-height: 400px;
         }
         .bg-gray{
             position: fixed;
@@ -215,12 +284,22 @@
         .img-pop-up-title, .img-pop-up-nav{
             text-align: center;
             padding: 10px;
+            max-width: 680px;
         }
         .label-text{
-            margin-top: -15px;
+            /*margin-top: -15px;*/
         }
-        .passportFields{
-            display: none;
+        .label{
+            width: 315px;
+        }
+        form{
+            margin: 0;
+        }
+        .empty-row{
+            padding: 5px;
+        }
+        .empty-row-border{
+            border: 1px solid #CCCCCC;
         }
     </style>
 {% endblock %}
