@@ -2,7 +2,7 @@
 
 {% block content %}
     <div class="box">
-        <h2>Оформление заявки</h2>
+        <h2>Оформление заявки - Шаг 1</h2>
     </div>
     <div class="bg-gray"></div>
     <div class="img-pop-up">
@@ -15,10 +15,82 @@
             <input type="hidden" name="y1" id="y1">
             <input type="hidden" name="x2" id="x2">
             <input type="hidden" name="y2" id="y2">
-            <input type="button" value="Выбрать" id="sendCoords">
-            <input type="button" value="Повернуть">
+            <input type="button" value="Выбрать" id="sendCoords" class="btn">
+            <input type="button" value="Повернуть"  class="btn" >
         </div>
     </div>
+    <div class="inp-pop-up">
+        <div class="inp-passport">
+            <table>
+                <tr><td colspan="2" class="empty-row">Паспортные данные</td></tr>
+                <tr>
+                    <td class="label">Фамилия<span class="required">*</span>:</td>
+                    <td class="value">
+                        <input name="lastName" id="lastName" type="text" >
+                    </td>
+                    <td class="lastNameStatus"></td>
+                </tr>
+                <tr>
+                    <td class="label">Имя<span class="required">*</span>:</td>
+                    <td class="value">
+                        <input name="firstName" id="firstName" type="text" >
+                    </td>
+                    <td class="firstNameStatus"></td>
+                </tr>
+                <tr>
+                    <td class="label">Отчество<span class="required">*</span>:</td>
+                    <td class="value">
+                        <input name="surName" id="surName" type="text" >
+                    </td>
+                    <td class="surNameStatus"></td>
+                </tr>
+                <tr>
+                    <td class="label">Дата рождения<span class="required">*</span>:</td>
+                    <td class="value">
+                        <input name="dateBrithdate" id="dateBrithdate" type="text" >
+                    </td>
+                    <td class="dateBrithdateStatus"></td>
+                </tr>
+                <tr>
+                    <td class="label">Серия и номер паспорта<span class="required">*</span>:</td>
+                    <td class="value">
+                        <input name="passportNumber" id="passportNumber" type="text"  >
+                    </td>
+                    <td class="passportNumberStatus"></td>
+                </tr>
+                <tr>
+                    <td class="label">Кем выдан<span class="required">*</span>:</td>
+                    <td class="value">
+                        <input name="passportPlace" id="passportPlace" type="text"  >
+                    </td>
+                    <td class="passportPlaceStatus"></td>
+                </tr>
+                <tr>
+                    <td class="label">Дата выдачи<span class="required">*</span>:</td>
+                    <td class="value">
+                        <input name="passportDate" id="passportDate" type="text"  >
+                    </td>
+                    <td class="passportPlaceStatus"></td>
+                </tr>
+                <tr>
+                    <td class="label">Код подразделения:</td>
+                    <td class="value">
+                        <input name="passportCode" id="passportCode" type="text"  >
+                    </td>
+                    <td class="passportCodeStatus"></td>
+                </tr>
+                <tr>
+                    <td>
+                        <input type="button" id="back" value="Назад" class="btn">
+                    </td>
+                    <td style="text-align: right">
+                        <input type="button" id="savePassport" value="Подтвердить данные" class="btn">
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+
 
     <div class="box">
         <table>
@@ -46,49 +118,6 @@
                     </select>
                 </td>
                 <td ></td>
-            </tr>
-                <tr><td colspan="2" class="empty-row">Организация</td></tr>
-            <tr>
-                <td class="label">Название организации<span class="required">*</span>:</td>
-                <td class="value">
-                    <input name="phone" id="companyName" type="text" placeholder=""  required>
-                </td>
-                <td class="companyNameStatus"></td>
-            </tr>
-            <tr>
-                <td class="label">Адрес организации<span class="required">*</span>:</td>
-                <td class="value">
-                    <input name="companyZipcode" id="companyZipcode"  type="text" placeholder="Индекс"  required><br />
-                    <input name="companyRegion"  id="companyRegion"   type="text" placeholder="регион" required ><br />
-                    <input name="companyCity"    id="companyCity"     type="text" placeholder="Город" required><br />
-                    <input name="companyStreet"  id="companyStreet"   type="text" placeholder="Улица"><br />
-                    <input name="companyHouse"   id="companyHouse"    type="text" placeholder="Дом" class="little" required>
-                    <input name="companyCorp"    id="companyCorp"     type="text" placeholder="Корп /Стр"  class="little">
-                    <input name="companyRoom"    id="companyRoom"     type="text" placeholder="Кв / оф"  class="little">
-                </td>
-                <td class="companyAdressStatus"></td>
-            </tr>
-            <tr><td colspan="2" class="empty-row">Другая информация</td></tr>
-            <tr>
-                <td class="label">Номер прошлой карты:</td>
-                <td class="value">
-                    <input name="oldNumber" id="oldNumber" type="text"  >
-                </td>
-                <td class="oldNumberStatus"></td>
-            </tr>
-            <tr><td colspan="2" class="empty-row">Информация о доставке</td></tr>
-            <tr>
-                <td class="label">Адрес доставки<span class="required">*</span>:</td>
-                <td class="value">
-                    <input name="deliveryZipcode" id="deliveryZipcode" type="text" placeholder="Индекс" required><br />
-                    <input name="deliveryRegion"  id="deliveryRegion"  type="text" placeholder="регион" required><br />
-                    <input name="deliveryCity"    id="deliveryCity"    type="text" placeholder="Город" required><br />
-                    <input name="deliveryStreet"  id="deliveryStreet"  type="text" placeholder="Улица"><br />
-                    <input name="deliveryHouse"   id="deliveryHouse"   type="text" placeholder="Дом" class="little" required>
-                    <input name="deliveryCorp"    id="deliveryCorp"    type="text" placeholder="Корп /Стр"  class="little">
-                    <input name="deliveryRoom"    id="deliveryRoom"    type="text" placeholder="Кв / оф"  class="little">
-                </td>
-                <td class="deliveryAdressStatus"></td>
             </tr>
             </form>
             <tr><td colspan="2" class="empty-row">Документы</td></tr>
@@ -192,6 +221,8 @@
                         $(".imgareaselect-outer").remove();
                         hideImgPopUp();
 //                        getImgData('passport');
+                        showInpPopUp();
+
                     }
                 });
             });
@@ -201,6 +232,18 @@
                     $('progress').attr({value:e.loaded,max:e.total});
                 }
             }
+
+            function showInpPopUp(){
+                $('.bg-gray').fadeIn();
+                $('.inp-pop-up').fadeIn();
+                $('input, select').styler();
+            }
+
+            function hideInpPopUp(){
+                $('.bg-gray').fadeOut();
+                $('.inp-pop-up').fadeOut();
+            }
+
             function showImgPopUp(){
                 $('.bg-gray').fadeIn();
                 $('.img-pop-up').fadeIn();
@@ -278,6 +321,20 @@
             display: none;
             text-align: center;
         }
+        .inp-pop-up{
+            position: absolute;
+            width: 700px;
+            max-height: 700px;
+            min-height: 300px;
+            background: #ffffff;
+            border: 1px solid #ae3538;
+            left: 50%;
+            top: 50px;
+            margin-left: -350px;
+            z-index: 905;
+            display: none;
+            text-align: center;
+        }
         #img-pop-up-img div{
             width: 680px;
         }
@@ -292,7 +349,7 @@
             top: 0;
             bottom: 0;
             background: #555555;
-            opacity: 0.3;
+            opacity: 0.5;
             z-index: 900;
             display: none;
         }
@@ -322,5 +379,57 @@
         .required{
             color: #CC0000;
         }
+        .inp-pop-up div table{
+            margin: 20px auto;
+        }
+
+        .inp-pop-up div table tr .empty-row{
+            border-top: none;
+        }
+
     </style>
 {% endblock %}
+
+{#<tr><td colspan="2" class="empty-row">Организация</td></tr>#}
+{#<tr>#}
+    {#<td class="label">Название организации<span class="required">*</span>:</td>#}
+    {#<td class="value">#}
+        {#<input name="phone" id="companyName" type="text" placeholder=""  required>#}
+    {#</td>#}
+    {#<td class="companyNameStatus"></td>#}
+{#</tr>#}
+{#<tr>#}
+    {#<td class="label">Адрес организации<span class="required">*</span>:</td>#}
+    {#<td class="value">#}
+        {#<input name="companyZipcode" id="companyZipcode"  type="text" placeholder="Индекс"  required><br />#}
+        {#<input name="companyRegion"  id="companyRegion"   type="text" placeholder="регион" required ><br />#}
+        {#<input name="companyCity"    id="companyCity"     type="text" placeholder="Город" required><br />#}
+        {#<input name="companyStreet"  id="companyStreet"   type="text" placeholder="Улица"><br />#}
+        {#<input name="companyHouse"   id="companyHouse"    type="text" placeholder="Дом" class="little" required>#}
+        {#<input name="companyCorp"    id="companyCorp"     type="text" placeholder="Корп /Стр"  class="little">#}
+        {#<input name="companyRoom"    id="companyRoom"     type="text" placeholder="Кв / оф"  class="little">#}
+    {#</td>#}
+    {#<td class="companyAdressStatus"></td>#}
+{#</tr>#}
+{#<tr><td colspan="2" class="empty-row">Другая информация</td></tr>#}
+{#<tr>#}
+    {#<td class="label">Номер прошлой карты:</td>#}
+    {#<td class="value">#}
+        {#<input name="oldNumber" id="oldNumber" type="text"  >#}
+    {#</td>#}
+    {#<td class="oldNumberStatus"></td>#}
+{#</tr>#}
+{#<tr><td colspan="2" class="empty-row">Информация о доставке</td></tr>#}
+{#<tr>#}
+    {#<td class="label">Адрес доставки<span class="required">*</span>:</td>#}
+    {#<td class="value">#}
+        {#<input name="deliveryZipcode" id="deliveryZipcode" type="text" placeholder="Индекс" required><br />#}
+        {#<input name="deliveryRegion"  id="deliveryRegion"  type="text" placeholder="регион" required><br />#}
+        {#<input name="deliveryCity"    id="deliveryCity"    type="text" placeholder="Город" required><br />#}
+        {#<input name="deliveryStreet"  id="deliveryStreet"  type="text" placeholder="Улица"><br />#}
+        {#<input name="deliveryHouse"   id="deliveryHouse"   type="text" placeholder="Дом" class="little" required>#}
+        {#<input name="deliveryCorp"    id="deliveryCorp"    type="text" placeholder="Корп /Стр"  class="little">#}
+        {#<input name="deliveryRoom"    id="deliveryRoom"    type="text" placeholder="Кв / оф"  class="little">#}
+    {#</td>#}
+    {#<td class="deliveryAdressStatus"></td>#}
+{#</tr>#}

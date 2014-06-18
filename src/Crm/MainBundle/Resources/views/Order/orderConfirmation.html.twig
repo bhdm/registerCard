@@ -2,122 +2,13 @@
 
 {% block content %}
     <div class="box">
-        <h2>Оформление заявки</h2>
-    </div>
-    <div class="bg-gray"></div>
-    <div class="img-pop-up">
-        <div class="img-pop-up-title">
-            выберите область с документом. При необходимости переверните фото.
-        </div>
-        <div id="img-pop-up-img"></div>
-        <div class="img-pop-up-nav">
-            <input type="hidden" name="x1" id="x1">
-            <input type="hidden" name="y1" id="y1">
-            <input type="hidden" name="x2" id="x2">
-            <input type="hidden" name="y2" id="y2">
-            <input type="button" value="Сохранить" id="sendCoords">
-            <input type="button" value="Повернуть">
-        </div>
+        <h2>Оформление заявки - Шаг 2</h2>
     </div>
 
     <div class="box">
         <table>
             <form method="POST" action="{{ path('order_confirmation') }}">
-                <tr>
-                    <td class="label">E-mail<span class="required">*</span>:</td>
-                    <td class="value">
-                        <input name="email" id="email" type="text" placeholder="">
-                    </td>
-                    <td class="emailStatus"></td>
-                </tr>
-                <tr>
-                    <td class="label">Телефон:</td>
-                    <td class="value">
-                        <input name="phone" id="phone" type="text" placeholder="">
-                    </td>
-                    <td class="phoneStatus"></td>
-                </tr>
-                <tr><td colspan="2" class="empty-row">Паспортные данные</td></tr>
-                <tr>
-                    <td class="label">Фамилия<span class="required">*</span>:</td>
-                    <td class="value">
-                        <input name="lastName" id="lastName" type="text" >
-                    </td>
-                    <td class="lastNameStatus"></td>
-                </tr>
-                <tr>
-                    <td class="label">Имя<span class="required">*</span>:</td>
-                    <td class="value">
-                        <input name="firstName" id="firstName" type="text" >
-                    </td>
-                    <td class="firstNameStatus"></td>
-                </tr>
-                <tr>
-                    <td class="label">Отчество<span class="required">*</span>:</td>
-                    <td class="value">
-                        <input name="surName" id="surName" type="text" >
-                    </td>
-                    <td class="surNameStatus"></td>
-                </tr>
-                <tr>
-                    <td class="label">Дата рождения<span class="required">*</span>:</td>
-                    <td class="value">
-                        <input name="dateBrithdate" id="dateBrithdate" type="text" >
-                    </td>
-                    <td class="dateBrithdateStatus"></td>
-                </tr>
-                <tr>
-                    <td class="label">Серия и номер паспорта<span class="required">*</span>:</td>
-                    <td class="value">
-                        <input name="passportNumber" id="passportNumber" type="text"  >
-                    </td>
-                    <td class="passportNumberStatus"></td>
-                </tr>
-                <tr>
-                    <td class="label">Кем выдан<span class="required">*</span>:</td>
-                    <td class="value">
-                        <input name="passportPlace" id="passportPlace" type="text"  >
-                    </td>
-                    <td class="passportPlaceStatus"></td>
-                </tr>
-                <tr>
-                    <td class="label">Дата выдачи<span class="required">*</span>:</td>
-                    <td class="value">
-                        <input name="passportDate" id="passportDate" type="text"  >
-                    </td>
-                    <td class="passportPlaceStatus"></td>
-                </tr>
-                <tr>
-                    <td class="label">Код подразделения:</td>
-                    <td class="value">
-                        <input name="passportCode" id="passportCode" type="text"  >
-                    </td>
-                    <td class="passportCodeStatus"></td>
-                </tr>
-                <tr><td colspan="2" class="empty-row">Водительское удостоверение</td></tr>
-                <tr>
-                    <td class="label">Номер удостоверения водителя:</td>
-                    <td class="value">
-                        <input name="snils" id="snils" type="text"  >
-                    </td>
-                    <td class="snilsStatus"></td>
-                </tr>
-                <tr>
-                    <td class="label">Дата выдачи:</td>
-                    <td class="value">
-                        <input name="snils" id="snils" type="text"  >
-                    </td>
-                    <td class="snilsStatus"></td>
-                </tr>
-                <tr>
-                    <td class="label">Дата окончания:</td>
-                    <td class="value">
-                        <input name="snils" id="snils" type="text"  >
-                    </td>
-                    <td class="snilsStatus"></td>
-                </tr>
-
-                <tr><td colspan="2" class="empty-row">Организация</td></tr>
+                <tr><td colspan="2" class="empty-row" style="border-top: none;">Организация</td></tr>
                 <tr>
                     <td class="label">Название организации<span class="required">*</span>:</td>
                     <td class="value">
@@ -139,23 +30,6 @@
                     <td class="companyAdressStatus"></td>
                 </tr>
 
-                <tr><td colspan="2" class="empty-row">Другая информация</td></tr>
-                <tr>
-                    <td class="label">Номер СНИЛС:</td>
-                    <td class="value">
-                        <input name="snils" id="snils" type="text"  >
-                    </td>
-                    <td class="snilsStatus"></td>
-                </tr>
-                <tr>
-                    <td class="label">Номер прошлой карты:</td>
-                    <td class="value">
-                        <input name="oldNumber" id="oldNumber" type="text"  >
-                    </td>
-                    <td class="oldNumberStatus"></td>
-                </tr>
-
-
                 <tr><td colspan="2" class="empty-row">Информация о доставке</td></tr>
                 <tr>
                     <td class="label">Адрес доставки<span class="required">*</span>:</td>
@@ -171,11 +45,20 @@
                     <td class="deliveryAdressStatus"></td>
                 </tr>
 
-                <tr><td colspan="2" class="empty-row"><br /></td></tr>
+                <tr><td colspan="2" class="empty-row">Другая информация</td></tr>
+                <tr>
+                    <td class="label">Номер прошлой карты:</td>
+                    <td class="value">
+                        <input name="oldNumber" id="oldNumber" type="text"  >
+                    </td>
+                    <td class="oldNumberStatus"></td>
+                </tr>
+
+                <tr><td colspan="2"><br /></td></tr>
                 <tr>
                     <td></td>
                     <td style="text-align: right">
-                        <input type="button" value="Подтвердить" class="btn">
+                        <input type="button" value="Оформить заявку" class="btn">
                     </td>
                 </tr>
             </form>
