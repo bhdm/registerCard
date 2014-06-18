@@ -20,7 +20,7 @@
         </div>
     </div>
     <div class="inp-pop-up">
-        <div class="inp-passport">
+        <div class="inp-passport inp-box">
             <table>
                 <tr><td colspan="2" class="empty-row">Паспортные данные</td></tr>
                 <tr>
@@ -86,6 +86,44 @@
                     <td style="text-align: right">
                         <input type="button" id="savePassport" value="Подтвердить данные" class="btn">
                     </td>
+                </tr>
+            </table>
+        </div>
+        <div class="inp-driver inp-box">
+            <table>
+                <tr><td colspan="2" class="empty-row">Водительское удостоверение</td></tr>
+                <tr>
+                    <td class="label">Номер удостоверения водителя:</td>
+                    <td class="value">
+                        <input name="driverNumber" id="driverNumber" type="text"  >
+                    </td>
+                    <td class="driverNumberStatus"></td>
+                </tr>
+                <tr>
+                    <td class="label">Дата выдачи:</td>
+                    <td class="value">
+                        <input name="driverDateStarts" id="driverDateStarts" type="text"  >
+                    </td>
+                    <td class="driverDateStartsStatus"></td>
+                </tr>
+                <tr>
+                    <td class="label">Дата окончания:</td>
+                    <td class="value">
+                        <input name="driverDateEnds" id="driverDateEnds" type="text"  >
+                    </td>
+                    <td class="driverDateEndsStatus"></td>
+                </tr>
+            </table>
+         </div>
+        <div class="inp-snils inp-box">
+            <table>
+                <tr><td colspan="2" class="empty-row">Страховой номер индивидуального лицевого счёта</td></tr>
+                <tr>
+                    <td class="label">Номер СНИЛС</td>
+                    <td class="value">
+                        <input name="snils" id="snils" type="text"  >
+                    </td>
+                    <td class="snilsStatus"></td>
                 </tr>
             </table>
         </div>
@@ -423,6 +461,8 @@
         .inp-pop-up div table tr .empty-row{
             border-top: none;
         }
-
+        .inp-box{
+            display: none;
+        }
     </style>
 {% endblock %}
