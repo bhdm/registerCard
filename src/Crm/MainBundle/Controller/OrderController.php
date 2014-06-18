@@ -104,61 +104,35 @@ class OrderController extends Controller{
      * @Template(")
      */
     public function orderConfirmationAction(Request $request){
-        $session = new Session();
 
-//        if ($session->get('user')){
         $em   = $this->getDoctrine()->getManager();
-        $userId = $session->get('userId');
-        $user = $this->getDoctrine()->getRepository('CrmMainBundle:User')->findOneById($userId);
-        if (!$user){
-            $user = new User();
-            $user->setLastName($session->get('user')['lastName']);
-            $user->setFirstName($session->get('user')['firstName']);
-            $user->setPhone($session->get('user')['phone']);
-            $driver = new Driver();
-        }else{
-            $driver = $user->getDriver();
-        }
-//            $company = new Company();
+
+        $user = new User;
+        $driver = new Driver;
 
         $formUser       = $this->createForm(new UserType($em), $user);
-//            $formCompany    = $this->createForm(new CompanyType($em), $company);
         $formDriver    = $this->createForm(new DriverType($em), $driver);
 
         $formUser->handleRequest($request);
-//            $formCompany->handleRequest($request);
         $formDriver->handleRequest($request);
 
+        #@todo объединить ceoyjcnm User и Driver в одну большую Driver (для теста можно пока что UserDriver)
         if ($request->isMethod('POST')) {
             if ($formDriver->isValid()) {
                 if ($formUser->isValid()) {
                     $user = $formUser->getData();
                     $user->setEnabled(0);
                     $user->setSalt(md5($user));
-                    if (!$userId){
-                        $em->persist($user);
-                        $em->flush();
-                        $em->refresh($user);
-                    }else{
-                        $em->flush();
-                    }
-
-                    $session->set('userId',$user->getId());
-
+                    $em->persist($user);
+                    $em->flush();
+                    $em->refresh($user);
                     $driver = $formDriver->getData();
                     $driver->setUser($user);
-                    if (!$userId){
-                        $em->persist($driver);
-                        $em->flush();
-                        $em->refresh($driver);
-                        $user->setDriver($driver);
-                        $em->flush();
-                    }else{
-                        $em->flush();
-                    }
-
-
-                    $session->set('userId',$user->getId());
+                    $em->persist($driver);
+                    $em->flush();
+                    $em->refresh($driver);
+                    $user->setDriver($driver);
+                    $em->flush();
 
                     return new Response($this->render("CrmMainBundle:Form:confirmation.html.twig", array('user' => $user)));
                 }
@@ -169,15 +143,7 @@ class OrderController extends Controller{
             'formUser'      => $formUser->createView(),
             'formDriver'    => $formDriver->createView(),
         );
-//        }else{
-//            return $this->redirect($this->generateUrl('main'));
-//        }
     }
-
-
-
-
-
 
 
 
