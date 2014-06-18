@@ -161,4 +161,25 @@ class IndexController extends Controller
         }
         return array ('msg'=>$msg, 'formFeedback' => $formFeedback->createView());
     }
+
+    /**
+     * @Route("/testEmail", name="testEmail")
+     * @Template()
+     */
+    public function testEmailAction(){
+        $message = \Swift_Message::newInstance()
+            ->setSubject('Тестовая рассылка')
+            ->setFrom('info@im-kard.ru')
+//            ->setTo(array('damyanov.i@medinform.ru','tulupov.m@gmail.com'))
+            ->setTo(array('bhd.m@ya.ru','dronovrom@gmail.com'))
+            ->setBody(
+                $this->renderView(
+                    'CrmMainBundle:Mail:testEmail.html.twig',
+                    array()
+                ), 'text/html'
+            )
+        ;
+        $this->get('mailer')->send($message);
+    }
+
 }
