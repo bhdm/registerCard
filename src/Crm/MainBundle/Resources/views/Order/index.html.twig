@@ -22,11 +22,11 @@
 
     <div class="box">
         <table>
-            <form method="POST" action="{{ path('order_confirmation') }}">
+            <form method="POST" action="{{ path('order_confirmation') }}" id="main-form">
             <tr>
                 <td class="label">E-mail<span class="required">*</span>:</td>
                 <td class="value">
-                        <input name="email" id="email" type="text" placeholder="Укажите вашу почту">
+                        <input name="email" id="email" type="text" placeholder="Укажите вашу почту" required>
                 </td>
                 <td class="emailStatus"></td>
             </tr>
@@ -47,43 +47,51 @@
                 </td>
                 <td ></td>
             </tr>
-            <tr><td colspan="2" class="empty-row"><div class="empty-row-border"></div></td></tr>
+                <tr><td colspan="2" class="empty-row">Организация</td></tr>
             <tr>
                 <td class="label">Название организации<span class="required">*</span>:</td>
                 <td class="value">
-                    <input name="phone" id="companyName" type="text" placeholder="">
+                    <input name="phone" id="companyName" type="text" placeholder=""  required>
                 </td>
                 <td class="companyNameStatus"></td>
             </tr>
             <tr>
                 <td class="label">Адрес организации<span class="required">*</span>:</td>
                 <td class="value">
-                    <input name="companyZipcode" id="companyZipcode"  type="text" placeholder="Индекс"><br />
-                    <input name="companyRegion"  id="companyRegion"   type="text" placeholder="регион"><br />
-                    <input name="companyCity"    id="companyCity"     type="text" placeholder="Город"><br />
+                    <input name="companyZipcode" id="companyZipcode"  type="text" placeholder="Индекс"  required><br />
+                    <input name="companyRegion"  id="companyRegion"   type="text" placeholder="регион" required ><br />
+                    <input name="companyCity"    id="companyCity"     type="text" placeholder="Город" required><br />
                     <input name="companyStreet"  id="companyStreet"   type="text" placeholder="Улица"><br />
-                    <input name="companyHouse"   id="companyHouse"    type="text" placeholder="Дом" class="little">
+                    <input name="companyHouse"   id="companyHouse"    type="text" placeholder="Дом" class="little" required>
                     <input name="companyCorp"    id="companyCorp"     type="text" placeholder="Корп /Стр"  class="little">
                     <input name="companyRoom"    id="companyRoom"     type="text" placeholder="Кв / оф"  class="little">
                 </td>
                 <td class="companyAdressStatus"></td>
             </tr>
-            <tr><td colspan="2" class="empty-row"><div class="empty-row-border"></div></td></tr>
+            <tr><td colspan="2" class="empty-row">Другая информация</td></tr>
+            <tr>
+                <td class="label">Номер прошлой карты:</td>
+                <td class="value">
+                    <input name="oldNumber" id="oldNumber" type="text"  >
+                </td>
+                <td class="oldNumberStatus"></td>
+            </tr>
+            <tr><td colspan="2" class="empty-row">Информация о доставке</td></tr>
             <tr>
                 <td class="label">Адрес доставки<span class="required">*</span>:</td>
                 <td class="value">
-                    <input name="deliveryZipcode" id="deliveryZipcode" type="text" placeholder="Индекс"><br />
-                    <input name="deliveryRegion"  id="deliveryRegion"  type="text" placeholder="регион"><br />
-                    <input name="deliveryCity"    id="deliveryCity"    type="text" placeholder="Город"><br />
+                    <input name="deliveryZipcode" id="deliveryZipcode" type="text" placeholder="Индекс" required><br />
+                    <input name="deliveryRegion"  id="deliveryRegion"  type="text" placeholder="регион" required><br />
+                    <input name="deliveryCity"    id="deliveryCity"    type="text" placeholder="Город" required><br />
                     <input name="deliveryStreet"  id="deliveryStreet"  type="text" placeholder="Улица"><br />
-                    <input name="deliveryHouse"   id="deliveryHouse"   type="text" placeholder="Дом" class="little">
+                    <input name="deliveryHouse"   id="deliveryHouse"   type="text" placeholder="Дом" class="little" required>
                     <input name="deliveryCorp"    id="deliveryCorp"    type="text" placeholder="Корп /Стр"  class="little">
                     <input name="deliveryRoom"    id="deliveryRoom"    type="text" placeholder="Кв / оф"  class="little">
                 </td>
                 <td class="deliveryAdressStatus"></td>
             </tr>
             </form>
-            <tr><td colspan="2" class="empty-row"><div class="empty-row-border"></div></td></tr>
+            <tr><td colspan="2" class="empty-row">Документы</td></tr>
             <tr>
                 <td class="label">
                     <div class="label-text">Копия паспорта<span class="required">*</span>:</div>
@@ -128,11 +136,11 @@
                 </td>
                 <td class="workStatus"></td>
             </tr>
-            <tr><td colspan="2" class="empty-row"><br /></td></tr>
+            <tr><td colspan="2"><br /></td></tr>
             <tr>
                 <td></td>
                 <td style="text-align: right">
-                    <input type="button" value="Далее" class="btn">
+                    <input type="button" value="Далее" class="btn" id="submit">
                 </td>
             </tr>
         </table>
@@ -153,6 +161,10 @@
             var files;
             $('input, select').styler();
             $('input[type=file]').on('change', prepareUpload);
+
+            $('#submit').click(function(){
+                $('#main-form').submit();
+            });
 
             $('#rezident').change(function(){
                 if ( $(this).val() == '1' ){
@@ -299,7 +311,10 @@
             margin: 0;
         }
         .empty-row{
-            padding: 5px;
+            border-top: 1px solid #CCC;
+            border-bottom: 1px solid #CCC;
+            padding: 30px 10px 10px 10px;
+            font-weight: bold;
         }
         .empty-row-border{
             border: 1px solid #CCCCCC;

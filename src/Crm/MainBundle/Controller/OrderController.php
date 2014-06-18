@@ -107,41 +107,41 @@ class OrderController extends Controller{
 
         $em   = $this->getDoctrine()->getManager();
 
-        $user = new User;
-        $driver = new Driver;
-
-        $formUser       = $this->createForm(new UserType($em), $user);
-        $formDriver    = $this->createForm(new DriverType($em), $driver);
-
-        $formUser->handleRequest($request);
-        $formDriver->handleRequest($request);
-
-        #@todo объединить ceoyjcnm User и Driver в одну большую Driver (для теста можно пока что UserDriver)
-        if ($request->isMethod('POST')) {
-            if ($formDriver->isValid()) {
-                if ($formUser->isValid()) {
-                    $user = $formUser->getData();
-                    $user->setEnabled(0);
-                    $user->setSalt(md5($user));
-                    $em->persist($user);
-                    $em->flush();
-                    $em->refresh($user);
-                    $driver = $formDriver->getData();
-                    $driver->setUser($user);
-                    $em->persist($driver);
-                    $em->flush();
-                    $em->refresh($driver);
-                    $user->setDriver($driver);
-                    $em->flush();
-
-                    return new Response($this->render("CrmMainBundle:Form:confirmation.html.twig", array('user' => $user)));
-                }
-            }
-        }
+//        $user = new User;
+//        $driver = new Driver;
+//
+//        $formUser       = $this->createForm(new UserType($em), $user);
+//        $formDriver    = $this->createForm(new DriverType($em), $driver);
+//
+//        $formUser->handleRequest($request);
+//        $formDriver->handleRequest($request);
+//
+//        #@todo объединить ceoyjcnm User и Driver в одну большую Driver (для теста можно пока что UserDriver)
+//        if ($request->isMethod('POST')) {
+//            if ($formDriver->isValid()) {
+//                if ($formUser->isValid()) {
+//                    $user = $formUser->getData();
+//                    $user->setEnabled(0);
+//                    $user->setSalt(md5($user));
+//                    $em->persist($user);
+//                    $em->flush();
+//                    $em->refresh($user);
+//                    $driver = $formDriver->getData();
+//                    $driver->setUser($user);
+//                    $em->persist($driver);
+//                    $em->flush();
+//                    $em->refresh($driver);
+//                    $user->setDriver($driver);
+//                    $em->flush();
+//
+//                    return new Response($this->render("CrmMainBundle:Form:confirmation.html.twig", array('user' => $user)));
+//                }
+//            }
+//        }
 
         return array(
-            'formUser'      => $formUser->createView(),
-            'formDriver'    => $formDriver->createView(),
+//            'formUser'      => $formUser->createView(),
+//            'formDriver'    => $formDriver->createView(),
         );
     }
 
