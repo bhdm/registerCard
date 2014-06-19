@@ -84,7 +84,7 @@
                         <input type="button" id="back" value="Назад" class="btn">
                     </td>
                     <td style="text-align: right">
-                        <input type="button" id="savePassport" value="Подтвердить данные" class="btn">
+                        <input type="button" id="savePassport" value="Подтвердить данные" class="btn saveForm">
                     </td>
                 </tr>
             </table>
@@ -113,6 +113,14 @@
                     </td>
                     <td class="driverDateEndsStatus"></td>
                 </tr>
+                <tr>
+                    <td>
+                        <input type="button" id="back" value="Назад" class="btn">
+                    </td>
+                    <td style="text-align: right">
+                        <input type="button" id="savePassport" value="Подтвердить данные" class="btn saveForm">
+                    </td>
+                </tr>
             </table>
          </div>
         <div class="inp-snils inp-box">
@@ -124,6 +132,14 @@
                         <input name="snils" id="snils" type="text"  >
                     </td>
                     <td class="snilsStatus"></td>
+                </tr>
+                <tr>
+                    <td>
+                        <input type="button" id="back" value="Назад" class="btn">
+                    </td>
+                    <td style="text-align: right">
+                        <input type="button" id="savePassport" value="Подтвердить данные" class="btn saveForm">
+                    </td>
                 </tr>
             </table>
         </div>
@@ -264,73 +280,26 @@
         $(document).ready(function(){
             var files;
             $('input, select').styler();
-            $('input[type=file]').on('change', prepareUpload);
 
-            $('#submit').click(function(){
-                $('#main-form').submit();
-            });
 
-            $('#rezident').change(function(){
-                if ( $(this).val() == '1' ){
-                    $('#rus').css('display','table-row');
-                    $('#notrus').css('display','none');
-                }else{
-                    $('#rus').css('display','none');
-                    $('#notrus').css('display','table-row');
+            $('input[type=file]').on('change', function(event){
+
+                $('.inp-box').css('display','none');
+
+                if ($(this).attr('name')=='passport' ){
+                    $('.inp-passport').css('display','block');
                 }
-            });
 
-            $('#sendCoords').click(function(){
-                type= 'passport';
-                x1 = $('input[name="x1"]').val();
-                y1 = $('input[name="y1"]').val();
-                x2 = $('input[name="x2"]').val()-x1;
-                y2 = $('input[name="y2"]').val()-y1;
-                $.ajax({
-                    type: "POST",
-                    url: Routing.generate('send_coordinates', {'type': type}),
-                    data: 'x='+x1+'&y='+y1+'&x2='+x2+'&y2='+y2,
-                    success: function(msg){
-                        $('#img-pop-up-img').html('<div style="display: inline-block"><img src="'+msg+'" /></div>');
-                        $(".imgareaselect-selection").parent().remove();
-                        $(".imgareaselect-outer").remove();
-                        hideImgPopUp();
-//                        getImgData('passport');
-                        showInpPopUp();
-
-                    }
-                });
-            });
-
-            function progressHandlingFunction(e){
-                if(e.lengthComputable){
-                    $('progress').attr({value:e.loaded,max:e.total});
+                if ($(this).attr('name')=='driver' ){
+                    $('.inp-driver').css('display','block');
                 }
-            }
 
-            function showInpPopUp(){
-                $('.bg-gray').fadeIn();
-                $('.inp-pop-up').fadeIn();
-                $('input, select').styler();
-            }
+                if ($(this).attr('name')=='snils' ){
+                    $('.inp-snils').css('display','block');
+                }
 
-            function hideInpPopUp(){
-                $('.bg-gray').fadeOut();
-                $('.inp-pop-up').fadeOut();
-            }
 
-            function showImgPopUp(){
-                $('.bg-gray').fadeIn();
-                $('.img-pop-up').fadeIn();
-                $('input, select').styler();
-            }
 
-            function hideImgPopUp(){
-                $('.bg-gray').fadeOut();
-                $('.img-pop-up').fadeOut();
-            }
-
-            function prepareUpload(event){
                 files = event.target.files;
                 var formData = new FormData();
                 $.each(files, function(key, value){
@@ -368,6 +337,75 @@
                     contentType: false,
                     processData: false
                 });
+            });
+
+            $('#submit').click(function(){
+                $('#main-form').submit();
+            });
+
+            $('#rezident').change(function(){
+                if ( $(this).val() == '1' ){
+                    $('#rus').css('display','table-row');
+                    $('#notrus').css('display','none');
+                }else{
+                    $('#rus').css('display','none');
+                    $('#notrus').css('display','table-row');
+                }
+            });
+
+            $('#sendCoords').click(function(){
+                type= 'passport';
+                x1 = $('input[name="x1"]').val();
+                y1 = $('input[name="y1"]').val();
+                x2 = $('input[name="x2"]').val()-x1;
+                y2 = $('input[name="y2"]').val()-y1;
+//                $.ajax({
+//                    type: "POST",
+//                    url: Routing.generate('send_coordinates', {'type': type}),
+//                    data: 'x='+x1+'&y='+y1+'&x2='+x2+'&y2='+y2,
+//                    success: function(msg){
+//                        $('#img-pop-up-img').html('<div style="display: inline-block"><img src="'+msg+'" /></div>');
+                        $(".imgareaselect-selection").parent().remove();
+                        $(".imgareaselect-outer").remove();
+                        hideImgPopUp();
+////                        getImgData('passport');
+                        showInpPopUp();
+//
+//                    }
+//                });
+            });
+
+            $('.saveForm').click(function(){
+               hideInpPopUp();
+               hideImgPopUp();
+            });
+
+            function progressHandlingFunction(e){
+                if(e.lengthComputable){
+                    $('progress').attr({value:e.loaded,max:e.total});
+                }
+            }
+
+            function showInpPopUp(){
+                $('.bg-gray').fadeIn();
+                $('.inp-pop-up').fadeIn();
+                $('input, select').styler();
+            }
+
+            function hideInpPopUp(){
+                $('.bg-gray').fadeOut();
+                $('.inp-pop-up').fadeOut();
+            }
+
+            function showImgPopUp(){
+                $('.bg-gray').fadeIn();
+                $('.img-pop-up').fadeIn();
+                $('input, select').styler();
+            }
+
+            function hideImgPopUp(){
+                $('.bg-gray').fadeOut();
+                $('.img-pop-up').fadeOut();
             }
         });
     </script>
