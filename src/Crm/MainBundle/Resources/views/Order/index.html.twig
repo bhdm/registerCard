@@ -150,7 +150,7 @@
         <table>
             <form method="POST" action="{{ path('order_confirmation') }}" id="main-form">
             <tr>
-                <td class="label">E-mail<span class="required">*</span>:</td>
+                <td class="label">E-mail:</td>
                 <td class="value">
                         <input name="email" id="email" type="text" placeholder="Укажите вашу почту" required>
                 </td>
@@ -359,20 +359,19 @@
                 y1 = $('input[name="y1"]').val();
                 x2 = $('input[name="x2"]').val()-x1;
                 y2 = $('input[name="y2"]').val()-y1;
-//                $.ajax({
-//                    type: "POST",
-//                    url: Routing.generate('send_coordinates', {'type': type}),
-//                    data: 'x='+x1+'&y='+y1+'&x2='+x2+'&y2='+y2,
-//                    success: function(msg){
-//                        $('#img-pop-up-img').html('<div style="display: inline-block"><img src="'+msg+'" /></div>');
+                $.ajax({
+                    type: "POST",
+                    url: Routing.generate('send_coordinates', {'type': type}),
+                    data: 'x='+x1+'&y='+y1+'&x2='+x2+'&y2='+y2+'&originalWidth='+$('#img-pop-up-img img').css('width'),
+                    success: function(msg){
+                        $('#img-pop-up-img').html('<div style="display: inline-block"><img src="'+msg+'" /></div>');
                         $(".imgareaselect-selection").parent().remove();
                         $(".imgareaselect-outer").remove();
                         hideImgPopUp();
-////                        getImgData('passport');
+                        getImgData('passport');
                         showInpPopUp();
-//
-//                    }
-//                });
+                    }
+                });
             });
 
             $('.saveForm').click(function(){

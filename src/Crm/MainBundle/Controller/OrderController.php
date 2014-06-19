@@ -54,11 +54,15 @@ class OrderController extends Controller{
      */
     public function uploadDocAction(Request $request,$type){
         $file = $request->files->get('0');
+        #@todo Добавить проверку на разхмер картинки
         $base = $this->imgToBase($file->getPathName());
         $session = $request->getSession();
+        list($width, $height) = getimagesize('path_to_image');
         $session->set($type, array(
-                'content'=> $base
-                #@todo добавить тип изображения для вывода и crop
+                'content'=> $base,
+                'mimeType'=> $file->getMimeType(),
+                'width'=> $width,
+                'height'=> $height,
             )
         );
         $response = new Response();
@@ -77,11 +81,16 @@ class OrderController extends Controller{
         $base = $session->get($type);
         $base = $base['content'];
 
+        $aspect = $session->get($type)['width'] / $request->request->get('originalWidth');
+
         $rect = array(
-            'x' => $request->request->get('x'),
-            'y' => $request->request->get('y'),
-            'width' => $request->request->get('x2'),
-            'height' => $request->request->get('y2'),
+            'x' => $request->request->get('x')*$aspect,
+            'y' => $request->request->get('y')*$aspect,
+            'width' => $request->request->get('x2')*$aspect,
+            'height' => $request->request->get('y2')*$aspect,
+            'smallWidth' => $request->request->get('originalWidth'),
+            'originWidth' => $session->get($type)['width'],
+            'originHeight'=> $session->get($type)['height']
         );
 
         $base = $this->cropimage($base,$rect);
@@ -153,7 +162,12 @@ class OrderController extends Controller{
      * @param $rect array(x,y,x2,y2)
      */
     public function cropimage($img, $rect){
+
+        #Получаем оригинальные размеры картинки
         $pathName = $this->BaseToImg($img);
+
+
+
         $image = imagecreatefromjpeg($pathName);
         $crop = imagecreatetruecolor($rect['width'],$rect['height']);
         imagecopy ( $crop, $image, 0, 0, $rect['x'], $rect['y'], $rect['width'], $rect['height'] );
