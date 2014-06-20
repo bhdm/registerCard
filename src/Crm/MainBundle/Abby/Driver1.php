@@ -13,11 +13,14 @@ class Driver1 extends Recognition{
         $xml  =  preg_replace('/<region( [^>]+)?>(.*)<\/region>/isU', '', $xml);
         $xml  =  preg_replace('/<separator( [^>]+)?>(.*)<\/separator>/isU', '', $xml);
         $xml = preg_replace("/\r\n/",'',$xml);
-        $xml  =  preg_replace('/.*([0-9]{3}-[0-9]{3}-[0-9]{3}-[0-9]{2}).*/', '$1', $xml);
 
-        $this->data['driverDate1']=  preg_replace('/.*([0-9]{2}\.[0-9]{2}\.[0-9]{4}).*([0-9]{2}\.[0-9]{2}\.[0-9]{4}).*/', '$1', $xml);
-        $this->data['driverDate2']=  preg_replace('/.*([0-9]{2}\.[0-9]{2}\.[0-9]{4}).*([0-9]{2}\.[0-9]{2}\.[0-9]{4}).*/', '$2', $xml);
-        $this->data['driverNumber']= preg_replace('/.*([0-9]{2} [0-9]{2} [0-9]{6}).*/', '$1', $xml);
+//        print_r($xml);
+//        exit;
+//        $xml  =  preg_replace('/.*([0-9]{3}-[0-9]{3}-[0-9]{3}-[0-9]{2}).*/', '$1', $xml);
+
+        $this->data['driverDateStarts']=  preg_replace('/.*([0-9]{2}\.[0-9]{2}\.[0-9]{4}).*([0-9]{2}\.[0-9]{2}\.[0-9]{4}).*/', '$1', $xml);
+        $this->data['driverDateEnds']=  preg_replace('/.*([0-9]{2}\.[0-9]{2}\.[0-9]{4}).*([0-9]{2}\.[0-9]{2}\.[0-9]{4}).*/', '$2', $xml);
+        $this->data['driverNumber']= preg_replace('/.*([0-9]{2}.*[0-9]{2}.*[0-9]{6}).*/', '$1', $xml);
 
 //        echo '<pre>';
 //        print_r($this->data);
