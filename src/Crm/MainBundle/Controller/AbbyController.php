@@ -58,6 +58,12 @@ class AbbyController extends Controller
             $abby->getRequestXml();
             $xml = $abby->getText();
         }
+        if ($type == 'driver'){
+            $filepath = $this->baseToImg($base);
+            $abby = new Driver1($filepath);
+            $abby->getRequestXml();
+            $xml = $abby->getText();
+        }
         return new JsonResponse(array('data'=>$xml));
 
     }

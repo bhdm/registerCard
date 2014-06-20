@@ -3,13 +3,6 @@ namespace Crm\MainBundle\Abby;
 
 class Driver1 extends Recognition{
 
-
-    public function __construct(){
-        parent::__construct();
-        $this->filename='driver1.jpg';
-        $this->data = array();
-    }
-
     public function getText(){
         $xml = $this->xml;
         $xml  =  preg_replace('/<charParams( [^>]+)?>(.*)<\/charParams>/isU', '$2', $xml);
