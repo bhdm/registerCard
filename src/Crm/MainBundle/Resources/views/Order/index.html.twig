@@ -359,7 +359,7 @@
             });
 
             $('#sendCoords').click(function(){
-                type= 'passport';
+                type = $('.img-pop-up').attr('type-doc');
                 x1 = $('input[name="x1"]').val();
                 y1 = $('input[name="y1"]').val();
                 x2 = $('input[name="x2"]').val()-x1;
@@ -373,11 +373,34 @@
                         $(".imgareaselect-selection").parent().remove();
                         $(".imgareaselect-outer").remove();
                         hideImgPopUp();
-                        getImgData('passport');
+                        getImgData(type);
                         showInpPopUp();
                     }
                 });
             });
+
+            function getImgData(type){
+                $.ajax({
+                    type: "POST",
+                    url: Routing.generate('get_img_data', {'type': type}),
+                    success: function(msg){
+//                        obj = jQuery.parseJSON(msg);
+                        obj = msg.data;
+                        if (type == 'passport'){
+                            $('#lastName').val(obj.lastName);
+                            $('#firstName').val(obj.firstName);
+                            $('#surName').val(obj.surName);
+                            $('#dateBrithdate').val(obj.passportDate);
+                            $('#passportNumber').val(obj.passportNumber);
+                            $('#passportCode').val(obj.passportCode);
+                            $('#passportPlace').val(obj.passportPlace);
+                        }
+                        if (type == snils){
+                            $('#snils').val(obj.snils);
+                        }
+                    }
+                });
+            }
 
             $('.saveForm').click(function(){
                hideInpPopUp();

@@ -51,10 +51,14 @@ class AbbyController extends Controller
             $abby = new RussianPassport($filepath);
             $abby->getRequestXml();
             $xml = $abby->getText();
-//            var_dump($xml);
-//            exit;
-            return new JsonResponse(array('data'=>$xml));
         }
+        if ($type == 'snils'){
+            $filepath = $this->baseToImg($base);
+            $abby = new Snils($filepath);
+            $abby->getRequestXml();
+            $xml = $abby->getText();
+        }
+        return new JsonResponse(array('data'=>$xml));
 
     }
 

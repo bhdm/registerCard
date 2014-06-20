@@ -5,6 +5,7 @@ class RussianPassport extends Recognition{
 
     public function getText(){
         $xml = $this->xml;
+
         $xml  =  preg_replace('/<charParams( [^>]+)?>(.*)<\/charParams>/isU', '$2', $xml);
         $xml  =  preg_replace('/<formatting( [^>]+)?>(.*)<\/formatting>/isU', '$2', $xml);
         $xml  =  preg_replace('/<par( [^>]+)?>(.*)<\/par>/isU', '$2', $xml);
@@ -13,36 +14,49 @@ class RussianPassport extends Recognition{
         $xml  =  preg_replace('/<region( [^>]+)?>(.*)<\/region>/isU', '', $xml);
         $xml  =  preg_replace('/<separator( [^>]+)?>(.*)<\/separator>/isU', '', $xml);
         $array = array(
-            '/Фамилия/','/РОССИЙСКАЯ/','/ФЕДЕРАЦИЯ/','/паспорт/','/Выдан/',
+            '/Фамилия/','/РОССИЙСКАЯ/','/ФЕДЕРАЦИЯ/','/паспорт/','/Выдан/','/выдан/',
             '/Пол/','/Нол/','/рождения/','/Дата/','/Место/','/рождения/',
             '/„Ыд\.«/','/Отчество/','/Имя/',
-            '/Личный/','/код/','/подпись/','подразделения'
+            '/Личный/','/код/','/подпись/','/подразделения/' ,'/выдачи/', '/Паспорт/'
         );
-        $array2 = array('','','','','','','','','','','','','','','','','','','');
+//        $array2 = array('','','','','','','','','','','','','','','','','','','');
         $xml = preg_replace("/\r\n/",'',$xml);
-        $xml = preg_replace($array,$array2,$xml);
-
+        $xml = preg_replace($array,'',$xml);
         $xml = new \SimpleXMLElement($xml);
         $xml2 = $this->objectToArray($xml->page);
-        $xml = array();
-        foreach ($xml2['line'] as $key => $val){
-            if (is_array($val)){
-                $xml[$key] = '';
+        $xml3 = array();
+        foreach($xml2['line'] as $k => $val){
+            if (is_array($val) || $val == null || empty($val) ){
+                unset($xml2['line'][$k]);
             }else{
-                $xml[$key] = $val;
+                $xml3[] = $xml2['line'][$k];
             }
         }
+        $xml2 = $xml3;
+        $xml = $xml2;
+//        print_r($xml2);
+//        exit;
 
-//        $xml = $xml2['line'];
+//        $xml = array();
+//        foreach ($xml2['line'] as $key => $val){
+//            if (is_array($val)){
+//                $xml[$key] = '';
+//            }else{
+//                $xml[$key] = $val;
+//            }
+//        }
 
-        $this->data['firstName']=$xml[8];
-        $this->data['lastName']=$xml[7];
-        $this->data['surName']=$xml[9];
-        $this->data['passportPlace']=$xml[2].$xml[3].$xml[4];
+
+//        var_dump($xml);
+//        exit;
+        $this->data['firstName']=$xml[5];
+        $this->data['lastName']=$xml[4];
+        $this->data['surName']=$xml[6];
+        $this->data['passportPlace']=$xml[0].$xml[1].$xml[2];
         $this->data['passportDate']= preg_replace('/.*([0-9]{2}\.[0-9]{2}\.[0-9]{4}).*/','$1',implode(' ',$xml));
         $this->data['passportCode']= preg_replace('/.*([0-9]{3}[\-\~][0-9]{3}).*/','$1',implode(' ',$xml));
         $this->data['passportCode']= str_replace('~','-',$this->data['passportCode']);
-        $this->data['passportNumber']= preg_replace('/.*([0-9]{2} [0-9]{2} [0-9]{6}).*/','$1', implode(' ',$xml));
+        $this->data['passportNumber']= preg_replace('/.*([0-9]{2}.+[0-9]{2}.+[0-9]{6}).*/','$1', implode(' ',$xml));
 
         return $this->data;
     }
