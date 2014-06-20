@@ -288,14 +288,17 @@
 
                 if ($(this).attr('name')=='passport' ){
                     $('.inp-passport').css('display','block');
+                    $('.img-pop-up').attr('type-doc','passport');
                 }
 
                 if ($(this).attr('name')=='driver' ){
                     $('.inp-driver').css('display','block');
+                    $('.img-pop-up').attr('type-doc','driver');
                 }
 
                 if ($(this).attr('name')=='snils' ){
                     $('.inp-snils').css('display','block');
+                    $('.img-pop-up').attr('type-doc','snils');
                 }
 
 
@@ -305,38 +308,40 @@
                 $.each(files, function(key, value){
                     formData.append(key, value);
                 });
-                type = 'passport';
-                $.ajax({
-                    url: Routing.generate('uploadDoc', {'type': type}),
-                    type: 'POST',
-                    xhr: function() {
-                        var myXhr = $.ajaxSettings.xhr();
-                        if(myXhr.upload){
-                            myXhr.upload.addEventListener('#progress-passport',progressHandlingFunction, false);
-                        }
-                        return myXhr;
-                    },
-                    //beforeSend: ,
-                    //error: ,
-                    success: function(msg){
-                        $('#img-pop-up-img').html('<div style="display: inline-block"><img  src="'+msg+'" /></div>');
-                        showImgPopUp();
-                        $('#img-pop-up-img div img').imgAreaSelect({
-                            x1: 120, y1: 90, x2: 280, y2: 210,
-                            handles: true,
-                            onSelectEnd: function (img, selection) {
-                                $('input[name="x1"]').val(selection.x1);
-                                $('input[name="y1"]').val(selection.y1);
-                                $('input[name="x2"]').val(selection.x2);
-                                $('input[name="y2"]').val(selection.y2);
+                if ($('.img-pop-up').attr('type-doc') != ''){
+                    type = $('.img-pop-up').attr('type-doc');
+                    $.ajax({
+                        url: Routing.generate('uploadDoc', {'type': type}),
+                        type: 'POST',
+                        xhr: function() {
+                            var myXhr = $.ajaxSettings.xhr();
+                            if(myXhr.upload){
+                                myXhr.upload.addEventListener('#progress-passport',progressHandlingFunction, false);
                             }
-                        });
-                    },
-                    data: formData,
-                    cache: false,
-                    contentType: false,
-                    processData: false
-                });
+                            return myXhr;
+                        },
+                        //beforeSend: ,
+                        //error: ,
+                        success: function(msg){
+                            $('#img-pop-up-img').html('<div style="display: inline-block"><img  src="'+msg+'" /></div>');
+                            showImgPopUp();
+                            $('#img-pop-up-img div img').imgAreaSelect({
+                                x1: 120, y1: 90, x2: 280, y2: 210,
+                                handles: true,
+                                onSelectEnd: function (img, selection) {
+                                    $('input[name="x1"]').val(selection.x1);
+                                    $('input[name="y1"]').val(selection.y1);
+                                    $('input[name="x2"]').val(selection.x2);
+                                    $('input[name="y2"]').val(selection.y2);
+                                }
+                            });
+                        },
+                        data: formData,
+                        cache: false,
+                        contentType: false,
+                        processData: false
+                    });
+                }
             });
 
             $('#submit').click(function(){

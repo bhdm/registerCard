@@ -57,7 +57,7 @@ class OrderController extends Controller{
         #@todo Добавить проверку на разхмер картинки
         $base = $this->imgToBase($file->getPathName());
         $session = $request->getSession();
-        list($width, $height) = getimagesize('path_to_image');
+        list($width, $height) = getimagesize($file->getPathName());
         $session->set($type, array(
                 'content'=> $base,
                 'mimeType'=> $file->getMimeType(),
