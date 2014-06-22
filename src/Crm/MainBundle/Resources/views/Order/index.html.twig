@@ -17,6 +17,7 @@
             <input type="hidden" name="y2" id="y2">
             <input type="button" value="Выбрать" id="sendCoords" class="btn">
             <input type="button" value="Повернуть"  class="btn" >
+            <input type="button" value="Вперед"  id="forward" class="btn" style="display: none;">
         </div>
     </div>
     <div class="inp-pop-up">
@@ -144,7 +145,7 @@
             </table>
         </div>
     </div>
-
+    <div id="loader"></div>
 
     <div class="box">
         <table>
@@ -274,6 +275,7 @@
     <script src="{{ asset('bundles/crmmain/javascripts/jquery.maskedinput.js') }}" type="text/javascript"></script>
     <script src="{{ asset('bundles/crmmain/lib/styler/jquery.formstyler.min.js') }}" type="text/javascript"></script>
     <script src="{{ asset('bundles/crmmain/lib/odyniec/jquery.imgareaselect.min.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('bundles/crmmain/javascripts/spin.js') }}" type="text/javascript"></script>
 
 
     <script>
@@ -284,6 +286,7 @@
 
             $('input[type=file]').on('change', function(event){
 
+                $('#forward').fadeOut();
                 $('.inp-box').css('display','none');
 
                 if ($(this).attr('name')=='passport' ){
@@ -358,7 +361,19 @@
                 }
             });
 
+            $('#back').click(function(){
+                showImgPopUp();
+                hideInpPopUp();
+            });
+
+            $('#forward').click(function(){
+                hideImgPopUp();
+                showInpPopUp();
+            });
+
+
             $('#sendCoords').click(function(){
+                $('#forward').fadeIn();
                 type = $('.img-pop-up').attr('type-doc');
                 x1 = $('input[name="x1"]').val();
                 y1 = $('input[name="y1"]').val();
@@ -373,6 +388,7 @@
                         $(".imgareaselect-selection").parent().remove();
                         $(".imgareaselect-outer").remove();
                         hideImgPopUp();
+                        showloader();
                         getImgData(type);
                         showInpPopUp();
                     }
@@ -384,6 +400,7 @@
                     type: "POST",
                     url: Routing.generate('get_img_data', {'type': type}),
                     success: function(msg){
+                        hideloader();
 //                        obj = jQuery.parseJSON(msg);
                         obj = msg.data;
                         if (type == 'passport'){
@@ -439,6 +456,38 @@
                 $('.bg-gray').fadeOut();
                 $('.img-pop-up').fadeOut();
             }
+
+            function hideloader(){
+                $('.bg-gray').fadeOut();
+                $('#loader').fadeOut();
+            }
+
+            function showloader(){
+                $('.bg-gray').fadeIn();
+                $('#loader').fadeIn();
+            }
+
+            var opts = {
+                lines: 13, // The number of lines to draw
+                length: 20, // The length of each line
+                width: 10, // The line thickness
+                radius: 30, // The radius of the inner circle
+                corners: 1, // Corner roundness (0..1)
+                rotate: 0, // The rotation offset
+                direction: 1, // 1: clockwise, -1: counterclockwise
+                color: '#000', // #rgb or #rrggbb or array of colors
+                speed: 1.3, // Rounds per second
+                trail: 60, // Afterglow percentage
+                shadow: false, // Whether to render a shadow
+                hwaccel: false, // Whether to use hardware acceleration
+                className: 'spinner', // The CSS class to assign to the spinner
+                zIndex: 2e9, // The z-index (defaults to 2000000000)
+                top: '50%', // Top position relative to parent
+                left: '50%' // Left position relative to parent
+            };
+            var target = document.getElementById('loader');
+            var spinner = new Spinner(opts).spin(target);
+
         });
     </script>
 {% endblock %}
@@ -532,6 +581,9 @@
             border-top: none;
         }
         .inp-box{
+            display: none;
+        }
+        #loader{
             display: none;
         }
     </style>
