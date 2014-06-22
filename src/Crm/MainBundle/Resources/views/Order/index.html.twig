@@ -462,11 +462,13 @@
             }
 
             function hideloader(){
+                showInpPopUp();
                 $('.bg-gray').fadeOut();
                 $('#loader').fadeOut();
             }
 
             function showloader(){
+                hideInpPopUp();
                 $('.bg-gray').fadeIn();
                 $('#loader').fadeIn();
             }
