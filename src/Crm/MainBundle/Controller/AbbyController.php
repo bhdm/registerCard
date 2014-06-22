@@ -55,18 +55,18 @@ class AbbyController extends Controller
 //                        <option value="6">Украина</option>
             $filepath = $this->baseToImg($base);
 
-            switch ($rezident){
-                case 1: $abby = new RussianPassport($filepath); break;
-                case 2: $abby = new RussianPassport($filepath); break;
-                case 3: $abby = new RussianPassport($filepath); break;
-                case 4: $abby = new kirgizPassport($filepath); break;
-                case 5: $abby = new TadjikPassport($filepath); break;
-                case 6: $abby = new RussianPassport($filepath); break;
-                default: $abby = new RussianPassport($filepath); break;
-            }
+//            switch ($rezident){
+//                case 1: $abby = new RussianPassport($filepath); break;
+//                case 2: $abby = new RussianPassport($filepath); break;
+//                case 3: $abby = new RussianPassport($filepath); break;
+//                case 4: $abby = new kirgizPassport($filepath); break;
+//                case 5: $abby = new TadjikPassport($filepath); break;
+//                case 6: $abby = new RussianPassport($filepath); break;
+//                default: $abby = new RussianPassport($filepath); break;
+//            }
 
 
-
+            $abby = new RussianPassport($filepath);
             $abby->getRequestXml();
             $xml = $abby->getText();
         }
