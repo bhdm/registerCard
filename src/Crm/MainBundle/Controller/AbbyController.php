@@ -40,15 +40,33 @@ class AbbyController extends Controller
     /**
      * @param Request $request
      * @param $type
-     * @Route("/get-img-data/{type}", name="get_img_data", options={"expose"=true})
+     * @Route("/get-img-data/{type}/{rezident}", name="get_img_data", options={"expose"=true})
      */
-    public function getImgData(Request $request, $type){
+    public function getImgData(Request $request, $type, $rezident){
         $session = $request->getSession();
         $base = $session->get($type);
         $base = $base['content'];
         if ($type == 'passport'){
+//                        <option value="1">Россия</option>
+//                        <option value="2">Беларусь</option>
+//                        <option value="3">Казахстан</option>
+//                        <option value="4">Киргизия</option>
+//                        <option value="5">Таджикистан</option>
+//                        <option value="6">Украина</option>
             $filepath = $this->baseToImg($base);
-            $abby = new RussianPassport($filepath);
+
+            switch ($rezident){
+                case 1: $abby = new RussianPassport($filepath); break;
+                case 2: $abby = new RussianPassport($filepath); break;
+                case 3: $abby = new RussianPassport($filepath); break;
+                case 4: $abby = new kirgizPassport($filepath); break;
+                case 5: $abby = new TadjikPassport($filepath); break;
+                case 6: $abby = new RussianPassport($filepath); break;
+                default: $abby = new RussianPassport($filepath); break;
+            }
+
+
+
             $abby->getRequestXml();
             $xml = $abby->getText();
         }

@@ -168,8 +168,12 @@
                 <td class="label">Гражданство<span class="required">*</span>:</td>
                 <td class="value">
                     <select name="rezident" id="rezident">
-                        <option value="1">гражданин РФ</option>
-                        <option value="2">иностранный гражданин</option>
+                        <option value="1">Россия</option>
+                        <option value="2">Беларусь</option>
+                        <option value="3">Казахстан</option>
+                        <option value="4">Киргизия</option>
+                        <option value="5">Таджикистан</option>
+                        <option value="6">Украина</option>
                     </select>
                 </td>
                 <td ></td>
@@ -398,7 +402,7 @@
             function getImgData(type){
                 $.ajax({
                     type: "POST",
-                    url: Routing.generate('get_img_data', {'type': type}),
+                    url: Routing.generate('get_img_data', {'type': type, 'rezident' : $('#rezident').val()}),
                     success: function(msg){
                         hideloader();
 //                        obj = jQuery.parseJSON(msg);
