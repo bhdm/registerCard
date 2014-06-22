@@ -171,10 +171,8 @@ class Recognition{
 
         // Check task status in a loop until it is finished
         // TODO: support states indicating error
-        $i = 0;
         while(true)
         {
-            $i ++;
             sleep(5);
             $curlHandle = curl_init();
             curl_setopt($curlHandle, CURLOPT_URL, $url.$qry_str);
@@ -207,11 +205,6 @@ class Recognition{
                 die("Task processing failed: ".$arr["error"]);
             }
             die("Unexpected task status ".$taskStatus);
-
-            if ($i > 10){
-                echo 'превышен лимит оживания';
-                exit;
-            }
         }
 
         // Result is ready. Download it
@@ -246,8 +239,8 @@ class Recognition{
 
         $xml = $this->xml;
         $txt = '';
-        $i = 0;
         while (true){
+            $i = 0;
             if (isset($xml->page->block[$numRow]->text)){
                 if (!is_array($xml->page->block[$numRow]->text->par)){
                     foreach ( $xml->page->block[$numRow]->text->par->line->formatting->charParams as $charset){
@@ -259,7 +252,7 @@ class Recognition{
 //                            $txt .= $charset;
 //                        }
                 }
-                $i++;
+
                 return $txt;
             }else{
                 $i++;

@@ -51,7 +51,7 @@ class RussianPassport extends Recognition{
 //        exit;
         $this->data['firstName']=( substr_count($xml[5],' ') > 1 ? '' : $xml[5]);
         $this->data['lastName']=( substr_count($xml[4],' ') > 1 ? '' : $xml[4]);
-        $this->data['surName']=( substr_count($xml[5],' ') > 1 ? '' : $xml[6]);
+        $this->data['surName']=( substr_count($xml[6],' ') > 1 ? '' : $xml[6]);
         $this->data['passportPlace']=( substr_count($xml[0].$xml[1].$xml[2],' ') > 7 ? '' : $xml[0].$xml[1].$xml[2]);
         $this->data['passportDate']= preg_replace('/.*([0-9]{2}\.[0-9]{2}\.[0-9]{4}).*/','$1',implode(' ',$xml));
         $this->data['passportCode']= preg_replace('/.*([0-9]{3}[\-\~][0-9]{3}).*/','$1',implode(' ',$xml));
