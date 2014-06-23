@@ -61,7 +61,7 @@
                             <td style=" width: 200px; padding-top: 15px">
                                 <span class="phone">8 123 456 - 12 - 12</span>
                                 <br />
-                                <img src="{{ asset('bundles/crmmain/images/msg.png') }}" class="msg">&nbsp;<span style="padding: 0 18px"> </span>&nbsp;<a href="#"><b>задать вопрос</b></a>
+                                <a href="{{ path('faq') }}" class="no-bootom-line"><img src="{{ asset('bundles/crmmain/images/msg.png') }}" class="msg"></a>&nbsp;<span style="padding: 0 18px"> </span>&nbsp;<a href="#"><b>задать вопрос</b></a>
                             </td>
                         </tr>
                     </table>
@@ -80,7 +80,7 @@
                     ООО "НПО ТЕХНОЛОГ" 2014 год
                 </div>
                 <div style="float: right">
-                    <a href="#">Контакты</a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="#">О компании</a>
+                    <a href="{{ path('page',{ 'url' : 'contact'}) }}">Контакты</a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="{{ path('page',{ 'url' : 'about'}) }}">О компании</a>
                 </div>
             </div>
         </footer>

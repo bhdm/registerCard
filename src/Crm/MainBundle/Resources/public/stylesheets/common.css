@@ -217,7 +217,7 @@ h2{
     height: 70px;
     line-height: 70px;
     text-align: center;
-    margin: 0 -20px;
+    /*margin: 0 -20px;*/
 }
 .center{
     text-align: center;
@@ -290,4 +290,7 @@ h2{
 }
 input.little{
     width: 87px;
+}
+.no-bootom-line:hover{
+    border: none;
 }
