@@ -155,6 +155,15 @@ class OrderController extends Controller{
     }
 
 
+    /**
+     * @Route("/order-help/{type}", name="order_help" , options={"expose"=true})
+     */
+    public function orderHelpAction($type){
+        $page = $this->getDoctrine()->getRepository('CrmMainBundle:Page')->findOneByUrl($type);
+        $response = new Response();
+        $response->setContent($page->getBody());
+        return $response;
+    }
 
 
     /**

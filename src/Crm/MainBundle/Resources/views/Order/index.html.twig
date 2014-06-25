@@ -5,6 +5,11 @@
         <h2>Оформление заявки - Шаг 1</h2>
     </div>
     <div class="bg-gray"></div>
+    <div class="help-pop-up">
+        <img src="{{ asset('bundles/crmmain/images/close_ico.png') }}" class="close-pop-up ico" />
+        <div class="text"></div>
+    </div>
+
     <div class="img-pop-up">
         <div class="img-pop-up-title">
             выберите область с документом. При необходимости переверните фото.
@@ -195,7 +200,7 @@
                         <input name="passport" id="passportFile" type="file" value="Выбирите файл">
                     </form>
                 </td>
-                <td class="passportStatus"></td>
+                <td class="passportStatus"><img src="{{ asset('bundles/crmmain/images/help.png') }}" class="ico help" id="helpPassport"></td>
             </tr>
             <tr>
                 <td class="label">
@@ -206,7 +211,7 @@
                         <input name="driver" id="driverFile" type="file" value="Выбирите файл">
                     </form>
                 </td>
-                <td class="driverStatus"></td>
+                <td class="driverStatus"><img src="{{ asset('bundles/crmmain/images/help.png') }}" class="ico help" id="helpDriver"></td>
             </tr>
             <tr >
                 <td class="label">
@@ -217,7 +222,7 @@
                         <input name="photo" id="photoFile" type="file" value="Выбирите файл">
                     </form>
                 </td>
-                <td class="photoStatus"></td>
+                <td class="photoStatus"><img src="{{ asset('bundles/crmmain/images/help.png') }}" class="ico help" id="helpPhoto"></td>
             </tr>
             <tr >
                 <td class="label">
@@ -228,7 +233,7 @@
                         <input name="sign" id="signFile" type="file" value="Выбирите файл">
                     </form>
                 </td>
-                <td class="signStatus"></td>
+                <td class="signStatus"><img src="{{ asset('bundles/crmmain/images/help.png') }}" class="ico help" id="helpSign"></td>
             </tr>
 
             <tr id="rus">
@@ -240,7 +245,7 @@
                         <input name="snils" id="snilsFile" type="file" value="Выбирите файл">
                     </form>
                 </td>
-                <td class="snilsStatus"></td>
+                <td class="snilsStatus"><img src="{{ asset('bundles/crmmain/images/help.png') }}" class="ico help" id="helpSnils"></td>
             </tr>
             <tr id="notrus" style="display: none;">
                 <td class="label">
@@ -251,19 +256,7 @@
                         <input name="work" id="workFile" type="file" value="Выбирите файл">
                     </form>
                 </td>
-                <td class="workStatus"></td>
-            </tr>
-
-            <tr id="notrus" style="display: none;">
-                <td class="label">
-                    <div class="label-text">Разрешение на работу:</div>
-                </td>
-                <td class="value">
-                    <form enctype="multipart/form-data" id="form-2">
-                        <input name="work" id="workFile" type="file" value="Выбирите файл">
-                    </form>
-                </td>
-                <td class="workStatus"></td>
+                <td class="workStatus"><img src="{{ asset('bundles/crmmain/images/help.png') }}" class="ico help" id="helpWork"></td>
             </tr>
 
 
@@ -276,7 +269,7 @@
                         <input name="hod" id="hodFile" type="file" value="Выбирите файл">
                     </form>
                 </td>
-                <td class="hodStatus"></td>
+                <td class="hodStatus"><img src="{{ asset('bundles/crmmain/images/help.png') }}" class="ico help" id="helpHod"></td>
             </tr>
 
             <tr><td colspan="2"><br /></td></tr>
@@ -567,6 +560,23 @@
             var target = document.getElementById('loader');
             var spinner = new Spinner(opts).spin(target);
 
+
+            $('.help').click(function(){
+                var typeHelp = $(this).attr('id');
+                $.ajax({
+                    type: "POST",
+                    url: Routing.generate('order_help', {'type': typeHelp }),
+                    success: function(msg){
+                        $('.help-pop-up .text').html(msg);
+                        $('.bg-gray').fadeIn();
+                        $('.help-pop-up').fadeIn();
+                    }
+                });
+            });
+            $('.close-pop-up').click(function(){
+                $('.bg-gray').fadeOut();
+                $('.help-pop-up').fadeOut();
+            });
         });
     </script>
 {% endblock %}
@@ -608,6 +618,22 @@
             display: none;
             text-align: center;
         }
+        .help-pop-up{
+            position: absolute;
+            width: 680px;
+            max-height: 700px;
+            min-height: 300px;
+            background: #ffffff;
+            border: 1px solid #ae3538;
+            left: 50%;
+            top: 50px;
+            margin-left: -350px;
+            z-index: 905;
+            display: none;
+            text-align: left;
+            padding: 10px;
+        }
+
         #img-pop-up-img div{
             width: 680px;
         }
@@ -664,6 +690,17 @@
         }
         #loader{
             display: none;
+        }
+        .ico{
+            width: 24px;
+        }
+        .close-pop-up{
+            position: absolute;
+            right: 0;
+            top: 0;
+        }
+        .close-pop-up{
+            width: 32px;
         }
     </style>
 {% endblock %}
