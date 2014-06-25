@@ -78,7 +78,7 @@ class AbbyController extends Controller
         }
         if ($type == 'driver'){
             $filepath = $this->baseToImg($base);
-            $abby = new Driver1($filepath);
+            $abby = new Driver2($filepath);
             $abby->getRequestXml();
             $xml = $abby->getText();
         }
