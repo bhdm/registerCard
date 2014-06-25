@@ -151,6 +151,11 @@
         <table>
             <form method="POST" action="{{ path('order_confirmation') }}" id="main-form">
             <tr>
+               <td colspan="3">
+                    <div class="error-msg"></div>
+               </td>
+            </tr>
+            <tr>
                 <td class="label">E-mail:</td>
                 <td class="value">
                         <input name="email" id="email" type="text" placeholder="Укажите вашу почту" required>
@@ -365,7 +370,52 @@
             });
 
             $('#submit').click(function(){
-                $('#main-form').submit();
+                //Validation
+                errorI = 1 ;
+                error = '';
+                if ( $('#email')!='' || $('#phone')!='' ){
+                    $('#email').css('borderColor', '#cc3333');
+                    $('#phone').css('borderColor', '#cc3333');
+                    error += errorI+'. Одно из полей (телефон или e-mail) обязательно должно быть заполнено<br />';
+                    errorI++;
+                }
+                if ( $('#passportFile-styler .jq-file__name').html() == 'Файл не выбран'){
+                    error += errorI+'. Поле пасспорт обязательно для заполнения<br />';
+                    $('#passportFile-styler .jq-file__name').css('borderColor', '#cc3333');
+                    errorI++;
+                }
+
+                if ( $('#driverFile-styler .jq-file__name').html() == 'Файл не выбран'){
+                    error += errorI+'. Поле водительское удостоверение обязательно для заполнения<br />';
+                    $('#driverFile-styler .jq-file__name').css('borderColor', '#cc3333');
+                    errorI++;
+                }
+
+                if ( $('#photoFile-styler .jq-file__name').html() == 'Файл не выбран'){
+                    error += errorI+'. Поле фотография обязательно для заполнения<br />';
+                    $('#photoFile-styler .jq-file__name').css('borderColor', '#cc3333');
+                    errorI++;
+                }
+
+                if ( $('#signFile-styler .jq-file__name').html() == 'Файл не выбран'){
+                    error += errorI+'. Поле подпись обязательно для заполнения<br />';
+                    $('#signFile-styler .jq-file__name').css('borderColor', '#cc3333');
+                    errorI++;
+                }
+
+                if ($('#rezident').val() == 1 && $('#snilsFile-styler .jq-file__name').html() == 'Файл не выбран' ){
+                    error += errorI+'. Поле Страховой номер лицевого счета обязательно для заполнения<br />';
+                    $('#snilsFile-styler .jq-file__name').css('borderColor', '#cc3333');
+                    errorI++;
+                }
+
+
+                if (error === ''){
+                    $('#main-form').submit();
+                }else{
+                    $('.error-msg').fadeIn();
+                    $('.error-msg').html(error);
+                }
             });
 
             $('#rezident').change(function(){
@@ -404,9 +454,14 @@
                         $('#img-pop-up-img').html('<div style="display: inline-block"><img src="'+msg+'" /></div>');
                         $(".imgareaselect-selection").parent().remove();
                         $(".imgareaselect-outer").remove();
-                        hideImgPopUp();
-                        showloader();
-                        getImgData(type);
+                        if (type == 'snils' || type == 'driver' || type == 'passport'){
+                            hideImgPopUp();
+                            showloader();
+                            getImgData(type);
+                        }else{
+                            hideImgPopUp();
+                        }
+
 //                        showInpPopUp();
                     }
                 });
@@ -417,7 +472,11 @@
                     type: "POST",
                     url: Routing.generate('get_img_data', {'type': type, 'rezident' : $('#rezident').val()}),
                     success: function(msg){
-                        hideloader();
+                        if (type == 'snils' || type == 'driver' || type == 'passport'){
+                            hideloader(1);
+                        }else{
+                            hideloader(0);
+                        }
 //                        obj = jQuery.parseJSON(msg);
                         obj = msg.data;
                         if (type == 'passport'){
@@ -474,8 +533,9 @@
                 $('.img-pop-up').fadeOut();
             }
 
-            function hideloader(){
-                showInpPopUp();
+            function hideloader(x){
+                if (x == 1)
+                    showInpPopUp();
                 $('.bg-gray').fadeOut();
                 $('#loader').fadeOut();
             }
