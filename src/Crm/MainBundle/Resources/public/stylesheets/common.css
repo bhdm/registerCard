@@ -1,6 +1,7 @@
 body{
     margin: 0;
     padding: 0;
+    min-width: 100%;
 }
 img{
     border: 0;
@@ -42,7 +43,8 @@ header table tr td{
     vertical-align: top;
 }
 .content{
-    width: 980px;
+    /*width: 980px;*/
+    width: 910px;
     padding: 0 20px 60px 20px;
     margin: 0 auto;
     background: #FFFFFF;
