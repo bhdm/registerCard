@@ -15,13 +15,14 @@
             выберите область с документом. При необходимости переверните фото.
         </div>
         <div id="img-pop-up-img"></div>
+        <img src="{{ asset('bundles/crmmain/images/close_ico.png') }}" class="close-pop-up ico" />
         <div class="img-pop-up-nav">
             <input type="hidden" name="x1" id="x1" value="0">
             <input type="hidden" name="y1" id="y1" value="0">
             <input type="hidden" name="x2" id="x2" value="0">
             <input type="hidden" name="y2" id="y2" value="0">
             <input type="button" value="Выбрать" id="sendCoords" class="btn">
-            <input type="button" value="Повернуть"  class="btn" >
+            <input type="button" value="Повернуть"  class="btn" id="rotate">
             <input type="button" value="Вперед"  id="forward" class="btn" style="display: none;">
         </div>
     </div>
@@ -131,7 +132,7 @@
          </div>
         <div class="inp-snils inp-box">
             <table>
-                <tr><td colspan="2" class="empty-row">Страховой номер индивидуального лицевого счёта</td></tr>
+                <tr><td colspan="2" class="empty-row">Страховой номер индивидуального лицевого счёта (СНИЛС)</td></tr>
                 <tr>
                     <td class="label">Страховой номер лицевого счета</td>
                     <td class="value">
@@ -165,14 +166,15 @@
                 <td class="value">
                         <input name="email" id="email" type="text" placeholder="Укажите вашу почту" required>
                 </td>
-                <td class="emailStatus"></td>
+                <td class="emailStatus" rowspan="2" style="padding-left: 10px; font-size: 12px">
+                    <i>Для создания заявки необходимо заполнить хотя бы одно из полей - Email или телефон</i>
+                </td>
             </tr>
             <tr>
                 <td class="label">Телефон:</td>
                 <td class="value">
                     <input name="phone" id="phone" type="text" placeholder="Укажите ваш телефон">
                 </td>
-                <td class="phoneStatus"></td>
             </tr>
             <tr>
                 <td class="label">Гражданство<span class="required">*</span>:</td>
@@ -238,7 +240,7 @@
 
             <tr id="rus">
                 <td class="label">
-                    <div class="label-text">Страховой номер лицевого счета:</div>
+                    <div class="label-text">Страховой номер лицевого счета (СНИЛС):</div>
                 </td>
                 <td class="value">
                     <form enctype="multipart/form-data" id="form-3">
@@ -247,7 +249,7 @@
                 </td>
                 <td class="snilsStatus"><img src="{{ asset('bundles/crmmain/images/help.png') }}" class="ico help" id="helpSnils"></td>
             </tr>
-            <tr id="notrus" style="display: none;">
+            <tr>
                 <td class="label">
                     <div class="label-text">Разрешение на работу:</div>
                 </td>
@@ -303,6 +305,8 @@
             $('input[type=file]').on('change', function(event){
 
                 $('#forward').fadeOut();
+                $('#rotate').fadeIn();
+                $('#sendCoords').fadeIn();
                 $('.inp-box').css('display','none');
 
                 if ($(this).attr('name')=='passport' ){
@@ -318,6 +322,14 @@
                 if ($(this).attr('name')=='snils' ){
                     $('.inp-snils').css('display','block');
                     $('.img-pop-up').attr('type-doc','snils');
+                }
+
+                if ($(this).attr('name')=='photo' ){
+                    $('.img-pop-up').attr('type-doc','photo');
+                }
+
+                if ($(this).attr('name')=='sign' ){
+                    $('.img-pop-up').attr('type-doc','sign');
                 }
 
 
@@ -363,6 +375,28 @@
                 }
             });
 
+            $('#rotate').click(function(){
+                type = $('.img-pop-up').attr('type-doc');
+                $.ajax({
+                    type: "POST",
+                    url: Routing.generate('rotate-image', {'type': type}),
+                    success: function(msg){
+                        $('#img-pop-up-img').html('<div style="display: inline-block"><img  src="'+msg+'" /></div>');
+                        showImgPopUp();
+                        $('#img-pop-up-img div img').imgAreaSelect({
+                            x1: 120, y1: 90, x2: 280, y2: 210,
+                            handles: true,
+                            onSelectEnd: function (img, selection) {
+                                $('input[name="x1"]').val(selection.x1);
+                                $('input[name="y1"]').val(selection.y1);
+                                $('input[name="x2"]').val(selection.x2);
+                                $('input[name="y2"]').val(selection.y2);
+                            }
+                        });
+                    }
+                });
+            });
+
             $('#submit').click(function(){
                 //Validation
                 errorI = 1 ;
@@ -394,6 +428,12 @@
                 if ( $('#signFile-styler .jq-file__name').html() == 'Файл не выбран'){
                     error += errorI+'. Поле подпись обязательно для заполнения<br />';
                     $('#signFile-styler .jq-file__name').css('borderColor', '#cc3333');
+                    errorI++;
+                }
+
+                if ( $('#hodFile-styler .jq-file__name').html() == 'Файл не выбран'){
+                    error += errorI+'. Поле ходатайство обязательно для заполнения<br />';
+                    $('#hodFile-styler .jq-file__name').css('borderColor', '#cc3333');
                     errorI++;
                 }
 
@@ -429,12 +469,14 @@
 
             $('#forward').click(function(){
                 hideImgPopUp();
-                showInpPopUp();
+                type = $('.img-pop-up').attr('type-doc');
+                if (type == 'snils' || type == 'driver' || type == 'passport'){
+                    showInpPopUp();
+                }
             });
 
 
             $('#sendCoords').click(function(){
-                $('#forward').fadeIn();
                 type = $('.img-pop-up').attr('type-doc');
                 x1 = $('input[name="x1"]').val();
                 y1 = $('input[name="y1"]').val();
@@ -449,11 +491,15 @@
                         $(".imgareaselect-selection").parent().remove();
                         $(".imgareaselect-outer").remove();
                         if (type == 'snils' || type == 'driver' || type == 'passport'){
+                            $('#forward').fadeIn();
                             hideImgPopUp();
                             showloader();
                             getImgData(type);
                         }else{
-                            hideImgPopUp();
+                            $('#forward').fadeIn();
+                            $('#rotate').fadeOut();
+                            $('#sendCoords').fadeOut();
+//                            hideImgPopUp();
                         }
 
 //                        showInpPopUp();
@@ -469,10 +515,11 @@
                         if (type == 'snils' || type == 'driver' || type == 'passport'){
                             hideloader(1);
                         }else{
-                            hideloader(0);
+//                            hideloader(0);
                         }
 //                        obj = jQuery.parseJSON(msg);
                         obj = msg.data;
+                        return true;
                         if (type == 'passport'){
                             $('#lastName').val(obj.lastName);
                             $('#firstName').val(obj.firstName);
@@ -577,6 +624,9 @@
             $('.close-pop-up').click(function(){
                 $('.bg-gray').fadeOut();
                 $('.help-pop-up').fadeOut();
+                $(".imgareaselect-selection").parent().remove();
+                $(".imgareaselect-outer").remove();
+                hideImgPopUp();
             });
         });
     </script>
@@ -621,13 +671,13 @@
         }
         .help-pop-up{
             position: absolute;
-            width: 680px;
+            width: 450px;
             max-height: 700px;
-            min-height: 300px;
+            min-height: 150px;
             background: #ffffff;
             border: 1px solid #ae3538;
             left: 50%;
-            top: 50px;
+            top: 160px;
             margin-left: -350px;
             z-index: 905;
             display: none;

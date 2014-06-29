@@ -93,16 +93,15 @@ class OrderController extends Controller{
             'originWidth' => $session->get($type)['width'],
             'originHeight'=> $session->get($type)['height']
         );
-//        if ($request->request->get('originalWidth')==0 or $request->request->get('originalHeight')==1){
-//
-//            $rect['width'] = $request->request->get('originalWidth');
-//            $rect['height'] = $request->request->get('originalHeight');
-//        }
         $base = $this->cropimage($base,$rect);
         $session->set($type, array(
                 'content'=> $base
             )
         );
+
+        if ($type == 'photo' || $type == 'sign'){
+            $base = $this->blackImage($base);
+        }
 
         $response = new Response();
         $response->headers->set('Content-Type','image/jpeg');
@@ -175,6 +174,25 @@ class OrderController extends Controller{
         return $response;
     }
 
+    /**
+     * @Route("/rotate-image/{type}", name="rotate-image" , options={"expose"=true})
+     */
+    public function rotateAction(Request $request, $type){
+        $session = $request->getSession();
+        $base = $session->get($type);
+        $baseContent = $base['content'];
+
+        $baseContent = $this->rotateImage($baseContent);
+
+        $base['content'] = $baseContent;
+
+        $session->set($type,$base);
+
+        $response = new Response();
+        $response->headers->set('Content-Type','image/jpeg');
+        $response->setContent($baseContent);
+        return $response;
+    }
 
     /**
      * @param $img  base64
@@ -192,7 +210,15 @@ class OrderController extends Controller{
         imagecopy ( $crop, $image, 0, 0, $rect['x'], $rect['y'], $rect['width'], $rect['height'] );
         $pathName = tempnam('/tmp','img-');
         imagejpeg($crop, $pathName);
+        return $this->imgToBase($pathName);
+    }
 
+    public function blackImage($img){
+        $pathName = $this->BaseToImg($img);
+        $image = imagecreatefromjpeg($pathName);
+        imagefilter($image, IMG_FILTER_GRAYSCALE );
+        $pathName = tempnam('/tmp','img-');
+        imagejpeg($image, $pathName);
         return $this->imgToBase($pathName);
     }
 

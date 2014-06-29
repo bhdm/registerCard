@@ -44,6 +44,12 @@ class AbbyController extends Controller
      */
     public function getImgData(Request $request, $type, $rezident){
         $session = $request->getSession();
+
+        /**
+         * Без распознвоания
+         */
+        return new Response('');
+
         $base = $session->get($type);
         $base = $base['content'];
         if ($type == 'passport'){
