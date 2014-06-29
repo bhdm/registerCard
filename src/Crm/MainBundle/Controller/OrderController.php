@@ -109,10 +109,10 @@ class OrderController extends Controller{
 
 
     /**
-     * @Route("/order-confirmation", name="order_confirmation" , options={"expose"=true})
-     * @Template(")
+     * @Route("/order-register", name="order_register" , options={"expose"=true})
+     * @Template()
      */
-    public function orderConfirmationAction(Request $request){
+    public function orderRegisterAction(Request $request){
 
         $em   = $this->getDoctrine()->getManager();
 

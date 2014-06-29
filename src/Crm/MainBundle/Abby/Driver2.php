@@ -5,8 +5,6 @@ class Driver2 extends Recognition{
 
 
     public function __construct(){
-        parent::__construct();
-        $this->filename='driver2.jpg';
         $this->data = array();
     }
 

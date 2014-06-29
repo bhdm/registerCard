@@ -7,7 +7,12 @@
 
     <div class="box">
         <table>
-            <form method="POST" action="{{ path('order_confirmation') }}">
+            <form method="POST" action="{{ path('order_register') }}" id="formSubmit">
+                <tr>
+                    <td colspan="3">
+                        <div class="error-msg"></div>
+                    </td>
+                </tr>
                 <tr><td colspan="2" class="empty-row" style="border-top: none;">Организация</td></tr>
                 <tr>
                     <td class="label">Название организации<span class="required">*</span>:</td>
@@ -57,14 +62,14 @@
                 <tr><td colspan="2"><br /></td></tr>
                 <tr>
                     <td style="text-align: right" colspan="2">
-                        Я принимаю <a href="{{ path('page',{'url' : 'eula'}) }}">условия обслуживания сайта im-kard.ru</a>&nbsp;&nbsp;&nbsp;<input type="checkbox" name="eula" id="eula">
+                        <span id="eulaText">Я принимаю <a href="{{ path('page',{'url' : 'eula'}) }}">условия обслуживания сайта im-kard.ru</a>&nbsp;&nbsp;&nbsp;<input type="checkbox" name="eula" id="eula"></span>
                     </td>
                 </tr>
                 <tr><td colspan="2"><br /></td></tr>
                 <tr>
                     <td></td>
                     <td style="text-align: right">
-                        <input type="button" value="Оформить заявку" class="btn">
+                        <input type="button" value="Оформить заявку" class="btn" id="formBtn">
                     </td>
                 </tr>
             </form>
@@ -83,95 +88,66 @@
 
     <script>
         $(document).ready(function(){
-            var files;
-            $('input, select').styler();
-            $('input[type=file]').on('change', prepareUpload);
+            $("#deliveryZipcode").mask("999999");
+            $("#companyZipcode").mask("999999");
 
-            $('#rezident').change(function(){
-                if ( $(this).val() == '1' ){
-                    $('#rus').css('display','table-row');
-                    $('#notrus').css('display','none');
+            $('#formBtn').click(function(){
+                var error = ''
+
+                if ($('#companyName').val() == ''){
+                    error += 'Поле  название организации обязательно для заполнения <br />';
+                    $('#companyName').css('borderColor','#CC3333');
+                }
+                if ($('#companyZipcode').val() == ''){
+                    error += 'Поле  индекс обязательно для заполнения <br />';
+                    $('#companyZipcode').css('borderColor','#CC3333');
+                }
+                if ($('#companyRegion').val() == ''){
+                    error += 'Поле регион обязательно для заполнения <br />';
+                    $('#companyRegion').css('borderColor','#CC3333');
+                }
+                if ($('#companyCity').val() == ''){
+                    error += 'Поле город обязательно для заполнения <br />';
+                    $('#companyCity').css('borderColor','#CC3333');
+                }
+                if ($('#companyHouse').val() == ''){
+                    error += 'Поле название номер дома обязательно для заполнения <br />';
+                    $('#companyHouse').css('borderColor','#CC3333');
+                }
+
+                if ($('#deliveryZipcode').val() == ''){
+                    error += 'Поле  индекс обязательно для заполнения <br />';
+                    $('#deliveryZipcode').css('borderColor','#CC3333');
+                }
+                if ($('#deliveryRegion').val() == ''){
+                    error += 'Поле  регион обязательно для заполнения <br />';
+                    $('#deliveryRegion').css('borderColor','#CC3333');
+                }
+                if ($('#deliveryCity').val() == ''){
+                    error += 'Поле город обязательно для заполнения <br />';
+                    $('#deliveryCity').css('borderColor','#CC3333');
+                }
+                if ($('#deliveryHouse').val() == ''){
+                    error += 'Поле дом обязательно для заполнения <br />';
+                    $('#deliveryHouse').css('borderColor','#CC3333');
+                }
+
+                if (!$('#eula').prop("checked")){
+                    error += 'для регистрации нужно принять условия обслуживания сайтом <br />';
+                    $('#eulaText').css('color','#CC3333');
+                    $('#eulaText a').css('color','#CC3333');
+                }
+
+
+                if (error === ''){
+                    $('#formSubmit').submit();
                 }else{
-                    $('#rus').css('display','none');
-                    $('#notrus').css('display','table-row');
+                    $('.error-msg').fadeIn();
+                    $('.error-msg').html(error);
                 }
+
+
             });
-
-            $('#sendCoords').click(function(){
-                type= 'passport';
-                x1 = $('input[name="x1"]').val();
-                y1 = $('input[name="y1"]').val();
-                x2 = $('input[name="x2"]').val()-x1;
-                y2 = $('input[name="y2"]').val()-y1;
-                $.ajax({
-                    type: "POST",
-                    url: Routing.generate('send_coordinates', {'type': type}),
-                    data: 'x='+x1+'&y='+y1+'&x2='+x2+'&y2='+y2,
-                    success: function(msg){
-                        $('#img-pop-up-img').html('<div style="display: inline-block"><img src="'+msg+'" /></div>');
-                        $(".imgareaselect-selection").parent().remove();
-                        $(".imgareaselect-outer").remove();
-                        hideImgPopUp();
-//                        getImgData('passport');
-                    }
-                });
-            });
-
-            function progressHandlingFunction(e){
-                if(e.lengthComputable){
-                    $('progress').attr({value:e.loaded,max:e.total});
-                }
-            }
-            function showImgPopUp(){
-                $('.bg-gray').fadeIn();
-                $('.img-pop-up').fadeIn();
-                $('input, select').styler();
-            }
-
-            function hideImgPopUp(){
-                $('.bg-gray').fadeOut();
-                $('.img-pop-up').fadeOut();
-            }
-
-            function prepareUpload(event){
-                files = event.target.files;
-                var formData = new FormData();
-                $.each(files, function(key, value){
-                    formData.append(key, value);
-                });
-                type = 'passport';
-                $.ajax({
-                    url: Routing.generate('uploadDoc', {'type': type}),
-                    type: 'POST',
-                    xhr: function() {
-                        var myXhr = $.ajaxSettings.xhr();
-                        if(myXhr.upload){
-                            myXhr.upload.addEventListener('#progress-passport',progressHandlingFunction, false);
-                        }
-                        return myXhr;
-                    },
-                    //beforeSend: ,
-                    //error: ,
-                    success: function(msg){
-                        $('#img-pop-up-img').html('<div style="display: inline-block"><img  src="'+msg+'" /></div>');
-                        showImgPopUp();
-                        $('#img-pop-up-img div img').imgAreaSelect({
-                            x1: 120, y1: 90, x2: 280, y2: 210,
-                            handles: true,
-                            onSelectEnd: function (img, selection) {
-                                $('input[name="x1"]').val(selection.x1);
-                                $('input[name="y1"]').val(selection.y1);
-                                $('input[name="x2"]').val(selection.x2);
-                                $('input[name="y2"]').val(selection.y2);
-                            }
-                        });
-                    },
-                    data: formData,
-                    cache: false,
-                    contentType: false,
-                    processData: false
-                });
-            }
         });
     </script>
 {% endblock %}

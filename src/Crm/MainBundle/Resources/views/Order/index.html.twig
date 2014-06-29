@@ -154,7 +154,7 @@
 
     <div class="box">
         <table>
-            <form method="POST" action="{{ path('order_confirmation') }}" id="main-form">
+            <form method="POST" action="{{ path('order_register') }}" id="main-form">
             <tr>
                <td colspan="3">
                     <div class="error-msg"></div>
@@ -295,6 +295,7 @@
 
     <script>
         $(document).ready(function(){
+            $("#phone").mask("+7 (999) 999-9999");
             var files;
             $('input, select').styler();
 
@@ -366,7 +367,7 @@
                 //Validation
                 errorI = 1 ;
                 error = '';
-                if ( $('#email')!='' || $('#phone')!='' ){
+                if ( $('#email').val()=='' &&  $('#phone').val()=='' ){
                     $('#email').css('borderColor', '#cc3333');
                     $('#phone').css('borderColor', '#cc3333');
                     error += errorI+'. Одно из полей (телефон или e-mail) обязательно должно быть заполнено<br />';
@@ -402,7 +403,7 @@
                     errorI++;
                 }
 
-
+                error = '';
                 if (error === ''){
                     $('#main-form').submit();
                 }else{
