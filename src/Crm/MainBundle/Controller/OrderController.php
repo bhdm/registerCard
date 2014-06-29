@@ -88,11 +88,16 @@ class OrderController extends Controller{
             'y' => $request->request->get('y')*$aspect,
             'width' => $request->request->get('x2')*$aspect,
             'height' => $request->request->get('y2')*$aspect,
+
             'smallWidth' => $request->request->get('originalWidth'),
             'originWidth' => $session->get($type)['width'],
             'originHeight'=> $session->get($type)['height']
         );
-
+//        if ($request->request->get('originalWidth')==0 or $request->request->get('originalHeight')==1){
+//
+//            $rect['width'] = $request->request->get('originalWidth');
+//            $rect['height'] = $request->request->get('originalHeight');
+//        }
         $base = $this->cropimage($base,$rect);
         $session->set($type, array(
                 'content'=> $base
@@ -178,15 +183,16 @@ class OrderController extends Controller{
     public function cropimage($img, $rect){
 
         #Получаем оригинальные размеры картинки
+        if ($rect['width'] == 0 or $rect['height'] == 0){
+            return $img;
+        }
         $pathName = $this->BaseToImg($img);
-
-
-
         $image = imagecreatefromjpeg($pathName);
         $crop = imagecreatetruecolor($rect['width'],$rect['height']);
         imagecopy ( $crop, $image, 0, 0, $rect['x'], $rect['y'], $rect['width'], $rect['height'] );
         $pathName = tempnam('/tmp','img-');
         imagejpeg($crop, $pathName);
+
         return $this->imgToBase($pathName);
     }
 
