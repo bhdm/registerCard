@@ -800,6 +800,438 @@ class User extends BaseEntity implements UserInterface, EquatableInterface, \Ser
         return $status;
     }
 
+    /**
+     * @param mixed $copyDriverPassport
+     */
+    public function setCopyDriverPassport($copyDriverPassport)
+    {
+        $this->copyDriverPassport = $copyDriverPassport;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCopyDriverPassport()
+    {
+        return $this->copyDriverPassport;
+    }
+
+    /**
+     * @param mixed $copyPassport
+     */
+    public function setCopyPassport($copyPassport)
+    {
+        $this->copyPassport = $copyPassport;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCopyPassport()
+    {
+        return $this->copyPassport;
+    }
+
+    /**
+     * @param mixed $copySignature
+     */
+    public function setCopySignature($copySignature)
+    {
+        $this->copySignature = $copySignature;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCopySignature()
+    {
+        return $this->copySignature;
+    }
+
+    /**
+     * @param mixed $copySnils
+     */
+    public function setCopySnils($copySnils)
+    {
+        $this->copySnils = $copySnils;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCopySnils()
+    {
+        return $this->copySnils;
+    }
+
+    /**
+     * @param mixed $copyWork
+     */
+    public function setCopyWork($copyWork)
+    {
+        $this->copyWork = $copyWork;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCopyWork()
+    {
+        return $this->copyWork;
+    }
+
+    /**
+     * @param mixed $delivery
+     */
+    public function setDelivery($delivery)
+    {
+        $this->delivery = $delivery;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getDelivery()
+    {
+        return $this->delivery;
+    }
+
+    /**
+     * @param mixed $dileveryCity
+     */
+    public function setDileveryCity($dileveryCity)
+    {
+        $this->dileveryCity = $dileveryCity;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getDileveryCity()
+    {
+        return $this->dileveryCity;
+    }
+
+    /**
+     * @param mixed $dileveryCityType
+     */
+    public function setDileveryCityType($dileveryCityType)
+    {
+        $this->dileveryCityType = $dileveryCityType;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getDileveryCityType()
+    {
+        return $this->dileveryCityType;
+    }
+
+    /**
+     * @param mixed $dileveryCorp
+     */
+    public function setDileveryCorp($dileveryCorp)
+    {
+        $this->dileveryCorp = $dileveryCorp;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getDileveryCorp()
+    {
+        return $this->dileveryCorp;
+    }
+
+    /**
+     * @param mixed $dileveryCorpType
+     */
+    public function setDileveryCorpType($dileveryCorpType)
+    {
+        $this->dileveryCorpType = $dileveryCorpType;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getDileveryCorpType()
+    {
+        return $this->dileveryCorpType;
+    }
+
+    /**
+     * @param mixed $dileveryHome
+     */
+    public function setDileveryHome($dileveryHome)
+    {
+        $this->dileveryHome = $dileveryHome;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getDileveryHome()
+    {
+        return $this->dileveryHome;
+    }
+
+    /**
+     * @param mixed $dileveryRoom
+     */
+    public function setDileveryRoom($dileveryRoom)
+    {
+        $this->dileveryRoom = $dileveryRoom;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getDileveryRoom()
+    {
+        return $this->dileveryRoom;
+    }
+
+    /**
+     * @param mixed $dileveryRoomType
+     */
+    public function setDileveryRoomType($dileveryRoomType)
+    {
+        $this->dileveryRoomType = $dileveryRoomType;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getDileveryRoomType()
+    {
+        return $this->dileveryRoomType;
+    }
+
+    /**
+     * @param mixed $dileveryStreet
+     */
+    public function setDileveryStreet($dileveryStreet)
+    {
+        $this->dileveryStreet = $dileveryStreet;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getDileveryStreet()
+    {
+        return $this->dileveryStreet;
+    }
+
+    /**
+     * @param mixed $dileveryStreetType
+     */
+    public function setDileveryStreetType($dileveryStreetType)
+    {
+        $this->dileveryStreetType = $dileveryStreetType;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getDileveryStreetType()
+    {
+        return $this->dileveryStreetType;
+    }
+
+    /**
+     * @param mixed $driverDocCountry
+     */
+    public function setDriverDocCountry($driverDocCountry)
+    {
+        $this->driverDocCountry = $driverDocCountry;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getDriverDocCountry()
+    {
+        return $this->driverDocCountry;
+    }
+
+    /**
+     * @param mixed $driverDocDateEnds
+     */
+    public function setDriverDocDateEnds($driverDocDateEnds)
+    {
+        $this->driverDocDateEnds = $driverDocDateEnds;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getDriverDocDateEnds()
+    {
+        return $this->driverDocDateEnds;
+    }
+
+    /**
+     * @param mixed $driverDocDateStarts
+     */
+    public function setDriverDocDateStarts($driverDocDateStarts)
+    {
+        $this->driverDocDateStarts = $driverDocDateStarts;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getDriverDocDateStarts()
+    {
+        return $this->driverDocDateStarts;
+    }
+
+    /**
+     * @param mixed $driverDocIssuance
+     */
+    public function setDriverDocIssuance($driverDocIssuance)
+    {
+        $this->driverDocIssuance = $driverDocIssuance;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getDriverDocIssuance()
+    {
+        return $this->driverDocIssuance;
+    }
+
+    /**
+     * @param mixed $driverDocNumber
+     */
+    public function setDriverDocNumber($driverDocNumber)
+    {
+        $this->driverDocNumber = $driverDocNumber;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getDriverDocNumber()
+    {
+        return $this->driverDocNumber;
+    }
+
+    /**
+     * @param mixed $lastNumberCard
+     */
+    public function setLastNumberCard($lastNumberCard)
+    {
+        $this->lastNumberCard = $lastNumberCard;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getLastNumberCard()
+    {
+        return $this->lastNumberCard;
+    }
+
+    /**
+     * @param mixed $passportCode
+     */
+    public function setPassportCode($passportCode)
+    {
+        $this->passportCode = $passportCode;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getPassportCode()
+    {
+        return $this->passportCode;
+    }
+
+    /**
+     * @param mixed $passportIssuance
+     */
+    public function setPassportIssuance($passportIssuance)
+    {
+        $this->passportIssuance = $passportIssuance;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getPassportIssuance()
+    {
+        return $this->passportIssuance;
+    }
+
+    /**
+     * @param mixed $passportIssuanceDate
+     */
+    public function setPassportIssuanceDate($passportIssuanceDate)
+    {
+        $this->passportIssuanceDate = $passportIssuanceDate;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getPassportIssuanceDate()
+    {
+        return $this->passportIssuanceDate;
+    }
+
+    /**
+     * @param mixed $passportNumber
+     */
+    public function setPassportNumber($passportNumber)
+    {
+        $this->passportNumber = $passportNumber;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getPassportNumber()
+    {
+        return $this->passportNumber;
+    }
+
+    /**
+     * @param mixed $passportSerial
+     */
+    public function setPassportSerial($passportSerial)
+    {
+        $this->passportSerial = $passportSerial;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getPassportSerial()
+    {
+        return $this->passportSerial;
+    }
+
+    /**
+     * @param mixed $photo
+     */
+    public function setPhoto($photo)
+    {
+        $this->photo = $photo;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getPhoto()
+    {
+        return $this->photo;
+    }
+
 
 
 
