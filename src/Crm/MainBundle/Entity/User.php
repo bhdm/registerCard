@@ -8,23 +8,20 @@ use Symfony\Component\Security\Core\User\EquatableInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Doctrine\Common\Collections\ArrayCollection;
-
+use Iphp\FileStoreBundle\Mapping\Annotation as FileStore;
 
 /**
  * User
  *
  * @ORM\Table("user")
  * @ORM\Entity
+ * @FileStore\Uploadable
  */
 class User extends BaseEntity implements UserInterface, EquatableInterface, \Serializable
 {
     /**
-     * @ORM\OneToOne(targetEntity="Driver", mappedBy="user")
-     */
-    protected $driver;
-
-    /**
-     * @ORM\OneToOne(targetEntity="Company", mappedBy="user")
+     * Тут будет информация о компании
+     * @ORM\ManyToOne(targetEntity="Company", inversedBy="users")
      */
     protected $company;
 
@@ -111,28 +108,28 @@ class User extends BaseEntity implements UserInterface, EquatableInterface, \Ser
      * @Assert\NotBlank( message = "Поле тип населеного пункта обязательно для заполнения" )
      * @ORM\Column(type="string", length=10)
      */
-    protected $cityType;
+    protected $dileveryCityType;
 
     /**
      * @Assert\Length( max = "64", maxMessage = "Максимум  64 символа")
      * @Assert\NotBlank( message = "Поле город обязательно для заполнения" )
      * @ORM\Column(type="string", length=64)
      */
-    protected $city;
+    protected $dileveryCity;
 
     /**
      * @Assert\Length( max = "10", maxMessage = "Максимум  10 символа")
      * @Assert\NotBlank( message = "Поле тип улицы обязательно для заполнения" )
      * @ORM\Column(type="string", length=10)
      */
-    protected $streetType;
+    protected $dileveryStreetType;
 
     /**
      * @Assert\Length( max = "64", maxMessage = "Максимум  64 символа")
      * @Assert\NotBlank( message = "Поле улица обязательно для заполнения" )
      * @ORM\Column(type="string", length=100)
      */
-    protected $street;
+    protected $dileveryStreet;
 
 
     /**
@@ -140,37 +137,156 @@ class User extends BaseEntity implements UserInterface, EquatableInterface, \Ser
      * @Assert\NotBlank( message = "Поле дом обязательно для заполнения" )
      * @ORM\Column(type="string", length=100)
      */
-    protected $home;
+    protected $dileveryHome;
 
     /**
      * @Assert\Length( max = "10", maxMessage = "Максимум  10 символа")
      * @ORM\Column(type="string", length=10, nullable=true)
      */
-    protected $corpType;
+    protected $dileveryCorpType;
 
     /**
      * @Assert\Length( max = "10", maxMessage = "Максимум  10 символов")
      * @ORM\Column(type="string", length=10, nullable=true)
      */
-    protected $corp;
+    protected $dileveryCorp;
 
     /**
      * @Assert\Length( max = "10", maxMessage = "Максимум  10 символа")
      * @ORM\Column(type="string", length=10, nullable=true)
      */
-    protected $roomType;
+    protected $dileveryRoomType;
 
     /**
      * квартира
      * @Assert\Length( max = "10", maxMessage = "Максимум  10 символов")
      * @ORM\Column(type="string", length=10, nullable=true)
      */
-    protected $room;
+    protected $dileveryRoom;
 
     /**
      * @ORM\Column(type="integer", nullable=true)
      */
     protected $status = 0;
+
+
+    /**
+     * @Assert\Length( max = "32", maxMessage = "Максимум  32 символа")
+     * @ORM\Column(type="string", nullable=true)
+     */
+    protected $passportSerial;
+
+    /**
+     * @Assert\Length( max = "32", maxMessage = "Максимум  32 символа")
+     * @Assert\NotBlank( message = "Поле номер паспорта обязательно для заполнения" )
+     * @ORM\Column(type="string", length=32)
+     */
+    protected $passportNumber;
+
+    /**
+     * @Assert\Length( max = "63", maxMessage = "Максимум  63 символа")
+     * @ORM\Column(type="string", nullable=true)
+     */
+    protected $passportIssuance;
+
+    /**
+     * @Assert\NotBlank( message = "Поле дата выдачи паспорта обязательно для заполнения" )
+     * @ORM\Column(type="datetime")
+     */
+    protected $passportIssuanceDate;
+
+    /** Код подразделения
+     * @Assert\Regex(pattern= "/^[0-9]{3}\-[0-9]{3}$/", message="Неверный формат ввода.")
+     * @ORM\Column(type="string", length=15, nullable=true)
+     */
+    protected $passportCode;
+
+    # Водительское удостоверение
+
+    /**
+     * @Assert\NotBlank( message = "Поле Номер водительского удостоверения обязательно для заполнения" )
+     * @Assert\Regex(pattern= "/^[а-я|А-Я|a-z|A-Z|0-9]{4}[0-9]{6}$/", message="Неверный формат ввода.")
+     * @ORM\Column(type="string")
+     */
+    protected $driverDocNumber;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Country", inversedBy="driverDocCountries")
+     */
+    protected $driverDocCountry;
+
+    /**
+     * @Assert\NotBlank( message = "Поле кем выдано водительское удостоверение обязательно для заполнения" )
+     * @ORM\Column(type="string")
+     */
+    protected $driverDocIssuance;
+
+    /**
+     * @Assert\NotBlank( message = "Поле дата выдачи водительского удостоверения обязательно для заполнения" )
+     * @ORM\Column(type="datetime")
+     */
+    protected $driverDocDateStarts;
+
+    /**
+     * @Assert\NotBlank( message = "Поле действителен до (водительское удостоверение) обязательно для заполнения" )
+     * @ORM\Column(type="datetime")
+     */
+    protected $driverDocDateEnds;
+    /**
+     * @Assert\Regex(pattern= "/^RUD[A-Z0-9]{13}$/", message="Неверный формат ввода.")
+     * @ORM\Column(type="string", nullable=true)
+     */
+    protected $lastNumberCard;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    protected $delivery;
+
+    /**
+     * @Assert\File(maxSize="2M")
+     * @FileStore\UploadableField(mapping="docs")
+     * @ORM\Column(type="array", nullable=true)
+     */
+    protected $copyPassport;
+
+    /**
+     * @ORM\Column(type="array", nullable=true)
+     * @Assert\File(maxSize="2M")
+     * @FileStore\UploadableField(mapping="docs")
+     */
+    protected $copyDriverPassport;
+
+    /**
+     * @Assert\File(maxSize="2M")
+     * @FileStore\UploadableField(mapping="docs")
+     * @ORM\Column(type="array", nullable=true)
+     */
+    protected $photo;
+
+    /**
+     * @Assert\File(maxSize="2M")
+     * @FileStore\UploadableField(mapping="docs")
+     * @ORM\Column(type="array", nullable=true)
+     */
+    protected $copySignature;
+
+    /**
+     * @Assert\File(maxSize="2M")
+     * @FileStore\UploadableField(mapping="docs")
+     * @ORM\Column(type="array", nullable=true)
+     */
+    protected $copySnils;
+
+    /**
+     * @Assert\File(maxSize="2M")
+     * @FileStore\UploadableField(mapping="docs")
+     * @ORM\Column(type="array", nullable=true)
+     */
+    protected $copyWork;
+
+
+
 
     /**
      * @ORM\Column(type="string")

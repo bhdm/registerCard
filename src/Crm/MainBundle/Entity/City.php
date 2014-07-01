@@ -38,11 +38,6 @@ class City
     protected $region;
 
     /**
-     * @ORM\OneToMany(targetEntity="Driver", mappedBy="city")
-     */
-    protected $drivers;
-
-    /**
      * @ORM\OneToMany(targetEntity="Company", mappedBy="city")
      */
     protected $companies;
