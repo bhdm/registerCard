@@ -596,6 +596,7 @@
                 $('.bg-gray').fadeIn();
                 $('.img-pop-up').fadeIn();
                 $('input, select').styler();
+                activeMask();
             }
 
             function hideImgPopUp(){
@@ -614,6 +615,18 @@
                 hideInpPopUp();
                 $('.bg-gray').fadeIn();
                 $('#loader').fadeIn();
+            }
+
+            function activeMask(){
+                $("#snils").mask("999-999-999 99");
+
+                $("#passportCode").mask("999-999");
+                $('#driverNumber').mask("dddd999999");
+
+                $("#driverDateStarts").mask("99.99.9999");
+                $("#driverDateEnds").mask("99.99.9999");
+                $("#birthdate").mask("99.99.9999");
+                $("#passportDate").mask("99.99.9999");
             }
 
             var opts = {
