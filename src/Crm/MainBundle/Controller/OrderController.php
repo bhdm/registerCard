@@ -152,9 +152,36 @@ class OrderController extends Controller{
 
         # Теперь сохраняем файлы и присоединяем к сущности
 
-        if (('passport'))
-        $fileName = $this->saveFile('passport');
-        $user->setCopyPassport($fileName);
+        if ($session->get('passport')){
+            $fileName = $this->saveFile('passport');
+            $user->setCopyPassport($fileName);
+        }
+        if ($session->get('driver')){
+            $fileName = $this->saveFile('driver');
+            $user->setCopyDriverPassport($fileName);
+        }
+        if ($session->get('photo')){
+            $fileName = $this->saveFile('photo');
+            $user->setPhoto($fileName);
+        }
+        if ($session->get('sign')){
+            $fileName = $this->saveFile('sign');
+            $user->setCopySignature($fileName);
+        }
+        if ($session->get('snils')){
+            $fileName = $this->saveFile('snils');
+            $user->setCopySnils($fileName);
+        }
+         if ($session->get('hod')){
+            $fileName = $this->saveFile('hod');
+            $user->setCopyPetition($fileName);
+        }
+         if ($session->get('work')){
+            $fileName = $this->saveFile('work');
+            $user->setCopyWork($fileName);
+        }
+        $user = $user;
+
 
 
 
@@ -250,6 +277,30 @@ class OrderController extends Controller{
         return $base64;
     }
 
+    public function saveFile($type){
+        $session = new Session();
+        $file = $session->get($type);
+        $file = $file['content'];
+        $pathName = $this->BaseToImg($file);
+        $image = imagecreatefromjpeg($pathName);
+        $fileName = $this->genRandomString();
+        $pathName = $this->get('request')->getBasePath().'/upload/docs/'.$fileName;
+        imagejpeg($image, $pathName);
+    }
 
+    public function genRandomString(){
+        $length = 5;
+        $characters = "0123456789ABCDEFGHIJKLMNOPQRSTUVWZYZ";
+
+        $real_string_length = strlen($characters) ;
+        $string="id";
+
+        for ($p = 0; $p < $length; $p++)
+        {
+            $string .= $characters[mt_rand(0, $real_string_length-1)];
+        }
+
+        return strtolower($string);
+    }
 }
 
