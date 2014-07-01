@@ -249,7 +249,7 @@
                 </td>
                 <td class="snilsStatus"><img src="{{ asset('bundles/crmmain/images/help.png') }}" class="ico help" id="helpSnils"></td>
             </tr>
-            <tr>
+            <tr id="notrus" style="display: none;">
                 <td class="label">
                     <div class="label-text">Разрешение на работу:</div>
                 </td>
@@ -262,7 +262,7 @@
             </tr>
 
 
-            <tr style="display: none;">
+            <tr>
                 <td class="label">
                     <div class="label-text">Ходатайство с места работы:</div>
                 </td>
@@ -332,6 +332,10 @@
                     $('.img-pop-up').attr('type-doc','sign');
                 }
 
+                if ($(this).attr('name')=='hod' ){
+                    $('.img-pop-up').attr('type-doc','hod');
+                }
+
 
 
                 files = event.target.files;
@@ -354,18 +358,20 @@
                         //beforeSend: ,
                         //error: ,
                         success: function(msg){
-                            $('#img-pop-up-img').html('<div style="display: inline-block"><img  src="'+msg+'" /></div>');
-                            showImgPopUp();
-                            $('#img-pop-up-img div img').imgAreaSelect({
-                                x1: 120, y1: 90, x2: 280, y2: 210,
-                                handles: true,
-                                onSelectEnd: function (img, selection) {
-                                    $('input[name="x1"]').val(selection.x1);
-                                    $('input[name="y1"]').val(selection.y1);
-                                    $('input[name="x2"]').val(selection.x2);
-                                    $('input[name="y2"]').val(selection.y2);
-                                }
-                            });
+                            if ($('.img-pop-up').attr('type-doc') != 'hod' ){
+                                $('#img-pop-up-img').html('<div style="display: inline-block"><img  src="'+msg+'" /></div>');
+                                showImgPopUp();
+                                $('#img-pop-up-img div img').imgAreaSelect({
+                                    x1: 120, y1: 90, x2: 280, y2: 210,
+                                    handles: true,
+                                    onSelectEnd: function (img, selection) {
+                                        $('input[name="x1"]').val(selection.x1);
+                                        $('input[name="y1"]').val(selection.y1);
+                                        $('input[name="x2"]').val(selection.x2);
+                                        $('input[name="y2"]').val(selection.y2);
+                                    }
+                                });
+                            }
                         },
                         data: formData,
                         cache: false,
@@ -473,6 +479,7 @@
                 hideImgPopUp();
                 type = $('.img-pop-up').attr('type-doc');
                 if (type == 'snils' || type == 'driver' || type == 'passport'){
+                    alert('1');
                     showInpPopUp();
                 }
             });
@@ -578,6 +585,7 @@
 
             function hideloader(x){
                 if (x == 1)
+                    alert('1');
                     showInpPopUp();
                 $('.bg-gray').fadeOut();
                 $('#loader').fadeOut();
