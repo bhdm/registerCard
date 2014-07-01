@@ -29,6 +29,11 @@
     <div class="inp-pop-up">
         <div class="inp-passport inp-box">
             <table>
+                <tr>
+                    <td colspan="3">
+                        <div class="error-msg-p"></div>
+                    </td>
+                </tr>
                 <tr><td colspan="2" class="empty-row">Паспортные данные</td></tr>
                 <tr>
                     <td class="label">Фамилия<span class="required">*</span>:</td>
@@ -98,6 +103,11 @@
         </div>
         <div class="inp-driver inp-box">
             <table>
+                <tr>
+                    <td colspan="3">
+                        <div class="error-msg-d"></div>
+                    </td>
+                </tr>
                 <tr><td colspan="2" class="empty-row">Водительское удостоверение</td></tr>
                 <tr>
                     <td class="label">Номер удостоверения водителя:</td>
@@ -125,13 +135,18 @@
                         <input type="button" id="back" value="Назад" class="btn">
                     </td>
                     <td style="text-align: right">
-                        <input type="button" id="savePassport" value="Подтвердить данные" class="btn saveForm">
+                        <input type="button" id="saveDriver" value="Подтвердить данные" class="btn saveForm">
                     </td>
                 </tr>
             </table>
          </div>
         <div class="inp-snils inp-box">
             <table>
+                <tr>
+                    <td colspan="3">
+                        <div class="error-msg-s"></div>
+                    </td>
+                </tr>
                 <tr><td colspan="2" class="empty-row">Страховой номер индивидуального лицевого счёта (СНИЛС)</td></tr>
                 <tr>
                     <td class="label">Страховой номер лицевого счета</td>
@@ -145,7 +160,7 @@
                         <input type="button" id="back" value="Назад" class="btn">
                     </td>
                     <td style="text-align: right">
-                        <input type="button" id="savePassport" value="Подтвердить данные" class="btn saveForm">
+                        <input type="button" id="saveSnils" value="Подтвердить данные" class="btn saveForm">
                     </td>
                 </tr>
             </table>
@@ -332,7 +347,7 @@
                     $('.img-pop-up').attr('type-doc','sign');
                 }
 
-                if ($(this).attr('name')=='hod' ){
+                if ($(this).attr('name')=='hopassportSaved' ){
                     $('.img-pop-up').attr('type-doc','hod');
                 }
 
@@ -571,8 +586,85 @@
             }
 
             $('.saveForm').click(function(){
-               hideInpPopUp();
-               hideImgPopUp();
+
+                errorI = 1 ;
+                error = '';
+                //Паспорт
+                if ( $(this).attr('id')=='savePassport' ){
+                    if ( $('#lastName').val()==''){
+                        $('#lastName').css('borderColor', '#cc3333');
+                        error += errorI+'. Поле фамилия обязательно для заполнения<br />';
+                        errorI++;
+                    }
+                    if ( $('#firstName').val()==''){
+                        $('#firstName').css('borderColor', '#cc3333');
+                        error += errorI+'. Поле имя обязательно для заполнения<br />';
+                        errorI++;
+                    }
+                    if ( $('#birthdate').val()==''){
+                        $('#birthdate').css('borderColor', '#cc3333');
+                        error += errorI+'. Поле дата рождения обязательно для заполнения<br />';
+                        errorI++;
+                    }
+                    if ( $('#passportNumber').val()==''){
+                        $('#passportNumber').css('borderColor', '#cc3333');
+                        error += errorI+'. Поле серия и номер обязательно для заполнения<br />';
+                        errorI++;
+                    }
+                    if ( $('#passportPlace').val()==''){
+                        $('#passportPlace').css('borderColor', '#cc3333');
+                        error += errorI+'. Поле кем выдан обязательно для заполнения<br />';
+                        errorI++;
+                    }
+                    if ( $('#passportDate').val()==''){
+                        $('#passportDate').css('borderColor', '#cc3333');
+                        error += errorI+'. Поле дата выдачи обязательно для заполнения<br />';
+                        errorI++;
+                    }
+                }
+                if ( $(this).attr('id')=='saveDriver' ){
+                    if ( $('#driverNumber').val()==''){
+                        $('#driverNumber').css('borderColor', '#cc3333');
+                        error += errorI+'. Поле номер удостоверения водителя обязательно для заполнения<br />';
+                        errorI++;
+                    }
+                    if ( $('#driverDateStarts').val()==''){
+                        $('#driverDateStarts').css('borderColor', '#cc3333');
+                        error += errorI+'. Поле дата выдачи обязательно для заполнения<br />';
+                        errorI++;
+                    }
+                    if ( $('#driverDateEnds').val()==''){
+                        $('#driverDateEnds').css('borderColor', '#cc3333');
+                        error += errorI+'. Поле дата окончания обязательно для заполнения<br />';
+                        errorI++;
+                    }
+                }
+                if ( $(this).attr('id')=='saveSnils' ){
+                    if ( $('#snils').val()==''){
+                        $('#snils').css('borderColor', '#cc3333');
+                        error += errorI+'. Поле номер удостоверения водителя обязательно для заполнения<br />';
+                        errorI++;
+                    }
+                }
+                if (error === ''){
+                    hideInpPopUp();
+                    hideImgPopUp();
+                }else{
+                    if ( $(this).attr('id')=='savePassport' ){
+                        $('.error-msg-p').fadeIn();
+                        $('.error-msg-p').html(error);
+                    }
+                    if ( $(this).attr('id')=='saveDriver' ){
+                        $('.error-msg-d').fadeIn();
+                        $('.error-msg-d').html(error);
+                    }
+                    if ( $(this).attr('id')=='saveSnils' ){
+                        $('.error-msg-s').fadeIn();
+                        $('.error-msg-s').html(error);
+                    }
+
+
+                }
             });
 
             function progressHandlingFunction(e){
@@ -621,6 +713,8 @@
                 $("#snils").mask("999-999-999 99");
 
                 $("#passportCode").mask("999-999");
+
+                $.mask.definitions['d'] = "[a-zA-Z0-9а-яА-Я ]";
                 $('#driverNumber').mask("dddd999999");
 
                 $("#driverDateStarts").mask("99.99.9999");

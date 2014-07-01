@@ -296,7 +296,7 @@ input.little{
 .no-bootom-line:hover{
     border: none;
 }
-.error-msg{
+.error-msg, .error-msg-p, .error-msg-d, .error-msg-s{
     color: #CC3333;
     padding: 10px;
 }
