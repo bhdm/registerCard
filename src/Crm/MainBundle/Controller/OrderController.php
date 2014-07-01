@@ -172,10 +172,10 @@ class OrderController extends Controller{
             $fileName = $this->saveFile('snils');
             $user->setCopySnils($fileName);
         }
-         if ($session->get('hod')){
-            $fileName = $this->saveFile('hod');
-            $user->setCopyPetition($fileName);
-        }
+//         if ($session->get('hod')){
+//            $fileName = $this->saveFile('hod');
+//            $user->setCopyPetition($fileName);
+//        }
          if ($session->get('work')){
             $fileName = $this->saveFile('work');
             $user->setCopyWork($fileName);
@@ -284,12 +284,13 @@ class OrderController extends Controller{
         $pathName = $this->BaseToImg($file);
         $image = imagecreatefromjpeg($pathName);
         $fileName = $this->genRandomString();
-        $pathName = $this->get('request')->getBasePath().'/upload/docs/'.$fileName;
+        $pathName = 'upload/docs/'.$fileName;
         imagejpeg($image, $pathName);
+        return $pathName;
     }
 
     public function genRandomString(){
-        $length = 5;
+        $length = 16;
         $characters = "0123456789ABCDEFGHIJKLMNOPQRSTUVWZYZ";
 
         $real_string_length = strlen($characters) ;
