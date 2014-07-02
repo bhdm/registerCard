@@ -41,6 +41,7 @@ class OrderController extends Controller{
             'content'=> $base
             )
         );
+        $session->save();
         $response = new Response();
         $response->headers->set('Content-Type','image/jpeg');
         $response->setContent($base);
@@ -65,6 +66,7 @@ class OrderController extends Controller{
                 'height'=> $height,
             )
         );
+        $session->save();
         $response = new Response();
         $response->headers->set('Content-Type','image/jpeg');
         $response->setContent($base);
@@ -98,10 +100,14 @@ class OrderController extends Controller{
                 'content'=> $base
             )
         );
+        $session->save();
+
 
         if ($type == 'photo' || $type == 'sign'){
             $base = $this->blackImage($base);
         }
+
+
 
         $response = new Response();
         $response->headers->set('Content-Type','image/jpeg');
@@ -120,42 +126,64 @@ class OrderController extends Controller{
 
         $em   = $this->getDoctrine()->getManager();
 
+        $user = new User();
+        $data = $request->request;
+        $session = $request->getSession();
 
+        # Сохраняем данные в сущность
 
+        $user->setEmail($data->get('email'));
+        $user->setPhone($data->get('phone'));
 
+        $user->setLastName($data->get('PassportLastName'));
+        $user->setFirstName($data->get('PassportFirstName'));
+        $user->setSurName($data->get('PassportSurName'));
+        $user->setBirthDate($data->get('PassportBirthdate'));
+        $user->setPassportNumber($data->get('PassportNumber'));
+        $user->setPassportIssuance($data->get('PassportPlace'));
+        $user->setPassportIssuanceDate($data->get('PassportDate'));
+        $user->setPassportCode($data->get('PassportCode'));
 
+        $user->setDriverDocNumber($data->get('driverNumber'));
+        $user->setDriverDocDateStarts($data->get('driverDateStarts'));
+        $user->setDriverDocDateEnds($data->get('driverDateEnds'));
 
-//        $user = new User;
-//        $driver = new Driver;
-//
-//        $formUser       = $this->createForm(new UserType($em), $user);
-//        $formDriver    = $this->createForm(new DriverType($em), $driver);
-//
-//        $formUser->handleRequest($request);
-//        $formDriver->handleRequest($request);
-//
-//        #@todo объединить ceoyjcnm User и Driver в одну большую Driver (для теста можно пока что UserDriver)
-//        if ($request->isMethod('POST')) {
-//            if ($formDriver->isValid()) {
-//                if ($formUser->isValid()) {
-//                    $user = $formUser->getData();
-//                    $user->setEnabled(0);
-//                    $user->setSalt(md5($user));
-//                    $em->persist($user);
-//                    $em->flush();
-//                    $em->refresh($user);
-//                    $driver = $formDriver->getData();
-//                    $driver->setUser($user);
-//                    $em->persist($driver);
-//                    $em->flush();
-//                    $em->refresh($driver);
-//                    $user->setDriver($driver);
-//                    $em->flush();
-//
-//                    return new Response($this->render("CrmMainBundle:Form:confirmation.html.twig", array('user' => $user)));
-//                }
-//            }
+        $user->setSnils($data->get('snils'));
+
+        # Теперь сохраняем файлы и присоединяем к сущности
+
+        if ($session->get('passport')){
+            $fileName = $this->saveFile('passport');
+            $user->setCopyPassport($fileName);
+        }
+        if ($session->get('driver')){
+            $fileName = $this->saveFile('driver');
+            $user->setCopyDriverPassport($fileName);
+        }
+        if ($session->get('photo')){
+            $fileName = $this->saveFile('photo');
+            $user->setPhoto($fileName);
+        }
+        if ($session->get('sign')){
+            $fileName = $this->saveFile('sign');
+            $user->setCopySignature($fileName);
+        }
+        if ($session->get('snils')){
+            $fileName = $this->saveFile('snils');
+            $user->setCopySnils($fileName);
+        }
+//         if ($session->get('hod')){
+//            $fileName = $this->saveFile('hod');
+//            $user->setCopyPetition($fileName);
 //        }
+         if ($session->get('work')){
+            $fileName = $this->saveFile('work');
+            $user->setCopyWork($fileName);
+        }
+        $user = $user;
+
+
+
 
         return array(
 //            'formUser'      => $formUser->createView(),
@@ -187,6 +215,7 @@ class OrderController extends Controller{
         $base['content'] = $baseContent;
 
         $session->set($type,$base);
+        $session->save();
 
         $response = new Response();
         $response->headers->set('Content-Type','image/jpeg');
@@ -248,6 +277,31 @@ class OrderController extends Controller{
         return $base64;
     }
 
+    public function saveFile($type){
+        $session = new Session();
+        $file = $session->get($type);
+        $file = $file['content'];
+        $pathName = $this->BaseToImg($file);
+        $image = imagecreatefromjpeg($pathName);
+        $fileName = $this->genRandomString();
+        $pathName = 'upload/docs/'.$fileName;
+        imagejpeg($image, $pathName);
+        return $pathName;
+    }
 
+    public function genRandomString(){
+        $length = 16;
+        $characters = "0123456789ABCDEFGHIJKLMNOPQRSTUVWZYZ";
+
+        $real_string_length = strlen($characters) ;
+        $string="id";
+
+        for ($p = 0; $p < $length; $p++)
+        {
+            $string .= $characters[mt_rand(0, $real_string_length-1)];
+        }
+
+        return strtolower($string);
+    }
 }
 
