@@ -604,6 +604,15 @@
                         $('#birthdate').css('borderColor', '#cc3333');
                         error += errorI+'. Поле дата рождения обязательно для заполнения<br />';
                         errorI++;
+                    }else{
+                        var tmpdate = new Date($('#birthdate').val());
+                        var tmpdate2 = new Date();
+                        tmpdate = ( tmpdate2 - tmpdate) /(1000*60*60*24*365) ;
+                        console.log(tmpdate);
+                        if ( tmpdate < 18 ){
+                            error += errorI+'. Возраст должен быть более 18 лет<br />';
+                            errorI++;
+                        }
                     }
                     if ( $('#passportNumber').val()==''){
                         $('#passportNumber').css('borderColor', '#cc3333');
@@ -620,7 +629,12 @@
                         error += errorI+'. Поле дата выдачи обязательно для заполнения<br />';
                         errorI++;
                     }
+
+
+
                 }
+
+
                 if ( $(this).attr('id')=='saveDriver' ){
                     if ( $('#driverNumber').val()==''){
                         $('#driverNumber').css('borderColor', '#cc3333');
@@ -636,7 +650,21 @@
                         $('#driverDateEnds').css('borderColor', '#cc3333');
                         error += errorI+'. Поле дата окончания обязательно для заполнения<br />';
                         errorI++;
+                    }else{
+                        var tmpdate = new Date($('#driverDateEnds').val());
+                        var tmpdate2 = new Date();
+                        tmpdate = ( tmpdate - tmpdate2) /(1000*60*60*24*30) ;
+                        console.log(tmpdate);
+                        if ( tmpdate < 1 ){
+                            error += errorI+'. Минимальный срок вод. прав должен быть больше 1 месяца<br />';
+                            errorI++;
+                        }
                     }
+
+
+
+
+
                 }
                 if ( $(this).attr('id')=='saveSnils' ){
                     if ( $('#snils').val()==''){
