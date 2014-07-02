@@ -50,7 +50,7 @@
                     <td class="firstNameStatus"></td>
                 </tr>
                 <tr>
-                    <td class="label">Отчество<span class="required">*</span>:</td>
+                    <td class="label">Отчество:</td>
                     <td class="value">
                         <input name="surName" id="surName" type="text" >
                     </td>
@@ -351,7 +351,7 @@
                     $('.img-pop-up').attr('type-doc','hod');
                 }
 
-                if ($(this).attr('name')=='hot' ){
+                if ($(this).attr('name')=='hod' ){
                     $('.img-pop-up').attr('type-doc','hod');
                 }
 
@@ -381,7 +381,7 @@
                                 $('#img-pop-up-img').html('<div style="display: inline-block"><img  src="'+msg+'" /></div>');
                                 showImgPopUp();
                                 $('#img-pop-up-img div img').imgAreaSelect({
-                                    x1: 120, y1: 90, x2: 280, y2: 210,
+                                    x1: 0, y1: 0, x2: 120, y2: 120,
                                     handles: true,
                                     onSelectEnd: function (img, selection) {
                                         $('input[name="x1"]').val(selection.x1);
