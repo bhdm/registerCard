@@ -17,13 +17,20 @@ use Zelenin\smsru;
 class UserController extends Controller
 {
     /**
-     * @Route("/admin/user-list", name="user_list")
+     * @Route("/admin/user-list/{companyId}", name="user_list", defaults={ "companyId"="0" })
      * @Template()
      */
-    public function listAction(Request $request)
+    public function listAction(Request $request, $companyId = 0)
     {
         if ($request->getSession()->get('hash')!='7de92cefb8a07cede44f3ae9fa97fb3b') return $this->redirect($this->generateUrl('admin_main'));
-        $users = $this->getDoctrine()->getRepository('CrmMainBundle:User')->findByEnabled(1);
+        if ($companyId == 0){
+            $users = $this->getDoctrine()->getRepository('CrmMainBundle:User')->findByEnabled(1);
+        }else{
+            $company = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->findOneById($companyId);
+            if ($company){
+                $users = $this->getDoctrine()->getRepository('CrmMainBundle:User')->findBy(array('enabled' => 1, 'company' => $company));
+            }
+        }
         return array(
             'pageAct' => 'user_list',
             'users' => $users

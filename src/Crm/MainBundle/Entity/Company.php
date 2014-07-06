@@ -34,10 +34,10 @@ class Company extends BaseEntity
      */
     protected  $zipcode;
 
-    /**
-     * @ORM\ManyToOne(targetEntity="Country", inversedBy="companies")
-     */
-    protected $country;
+//    /**
+//     * @ORM\ManyToOne(targetEntity="Country", inversedBy="companies")
+//     */
+//    protected $country;
 
 
     # Адрес предприятия
@@ -50,25 +50,11 @@ class Company extends BaseEntity
 
 
     /**
-     * @Assert\Length( max = "10", maxMessage = "Максимум  10 символа")
-     * @Assert\NotBlank( message = "Поле тип населеного пункта обязательно для заполнения" )
-     * @ORM\Column(type="string", length=10)
-     */
-    protected $cityType;
-
-    /**
      * @Assert\Length( max = "64", maxMessage = "Максимум  64 символа")
      * @Assert\NotBlank( message = "Поле город обязательно для заполнения" )
      * @ORM\Column(type="string", length=64)
      */
     protected $city;
-
-    /**
-     * @Assert\Length( max = "10", maxMessage = "Максимум  10 символа")
-     * @Assert\NotBlank( message = "Поле тип улицы обязательно для заполнения" )
-     * @ORM\Column(type="string", length=10)
-     */
-    protected $streetType;
 
     /**
      * @Assert\Length( max = "64", maxMessage = "Максимум  64 символа")
@@ -86,22 +72,10 @@ class Company extends BaseEntity
     protected $home;
 
     /**
-     * @Assert\Length( max = "10", maxMessage = "Максимум  10 символа")
-     * @ORM\Column(type="string", length=10, nullable=true)
-     */
-    protected $corpType;
-
-    /**
      * @Assert\Length( max = "10", maxMessage = "Максимум  10 символов")
      * @ORM\Column(type="string", length=10, nullable=true)
      */
     protected $corp;
-
-    /**
-     * @Assert\Length( max = "10", maxMessage = "Максимум  10 символа")
-     * @ORM\Column(type="string", length=10, nullable=true)
-     */
-    protected $roomType;
 
     /**
      * квартира
@@ -109,6 +83,235 @@ class Company extends BaseEntity
      * @ORM\Column(type="string", length=10, nullable=true)
      */
     protected $room;
+
+    /**
+     * @ORM\Column(type="string", length=150, nullable=true)
+     */
+    protected $login;
+
+    /**
+     * @ORM\Column(type="string", length=150, nullable=true)
+     */
+    protected $url;
+
+    /**
+     * @ORM\Column(type="string", length=150, nullable=true)
+     */
+    protected $password;
+
+    public function __toString(){
+        return $this->title;
+    }
+
+    /**
+     * @param mixed $city
+     */
+    public function setCity($city)
+    {
+        $this->city = $city;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCity()
+    {
+        return $this->city;
+    }
+
+    /**
+     * @param mixed $corp
+     */
+    public function setCorp($corp)
+    {
+        $this->corp = $corp;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCorp()
+    {
+        return $this->corp;
+    }
+
+//    /**
+//     * @param mixed $country
+//     */
+//    public function setCountry($country)
+//    {
+//        $this->country = $country;
+//    }
+//
+//    /**
+//     * @return mixed
+//     */
+//    public function getCountry()
+//    {
+//        return $this->country;
+//    }
+
+    /**
+     * @param mixed $home
+     */
+    public function setHome($home)
+    {
+        $this->home = $home;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getHome()
+    {
+        return $this->home;
+    }
+
+    /**
+     * @param mixed $login
+     */
+    public function setLogin($login)
+    {
+        $this->login = $login;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getLogin()
+    {
+        return $this->login;
+    }
+
+    /**
+     * @param mixed $password
+     */
+    public function setPassword($password)
+    {
+        $this->password = $password;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getPassword()
+    {
+        return $this->password;
+    }
+
+    /**
+     * @param mixed $region
+     */
+    public function setRegion($region)
+    {
+        $this->region = $region;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getRegion()
+    {
+        return $this->region;
+    }
+
+    /**
+     * @param mixed $room
+     */
+    public function setRoom($room)
+    {
+        $this->room = $room;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getRoom()
+    {
+        return $this->room;
+    }
+
+    /**
+     * @param mixed $street
+     */
+    public function setStreet($street)
+    {
+        $this->street = $street;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getStreet()
+    {
+        return $this->street;
+    }
+
+    /**
+     * @param mixed $title
+     */
+    public function setTitle($title)
+    {
+        $this->title = $title;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getTitle()
+    {
+        return $this->title;
+    }
+
+    /**
+     * @param mixed $users
+     */
+    public function setUsers($users)
+    {
+        $this->users = $users;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getUsers()
+    {
+        return $this->users;
+    }
+
+    /**
+     * @param mixed $zipcode
+     */
+    public function setZipcode($zipcode)
+    {
+        $this->zipcode = $zipcode;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getZipcode()
+    {
+        return $this->zipcode;
+    }
+
+    /**
+     * @param mixed $url
+     */
+    public function setUrl($url)
+    {
+        $this->url = $url;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getUrl()
+    {
+        return $this->url;
+    }
+
+
 
 
 }
