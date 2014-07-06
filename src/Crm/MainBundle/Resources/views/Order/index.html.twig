@@ -205,7 +205,7 @@
             <tr><td colspan="2" class="empty-row">Документы</td></tr>
             <tr>
                 <td class="label">
-                    <div class="label-text">Паспорта<span class="required">*</span>:</div>
+                    <div class="label-text">Паспорт<span class="required">*</span>:</div>
                 </td>
                 <td class="value">
                     <form enctype="multipart/form-data" id="form-1">
@@ -375,16 +375,31 @@
                             if ($('.img-pop-up').attr('type-doc') != 'hod' ){
                                 $('#img-pop-up-img').html('<div style="display: inline-block"><img  src="'+msg+'" /></div>');
                                 showImgPopUp();
-                                $('#img-pop-up-img div img').imgAreaSelect({
-                                    x1: 0, y1: 0, x2: 120, y2: 120,
-                                    handles: true,
-                                    onSelectEnd: function (img, selection) {
-                                        $('input[name="x1"]').val(selection.x1);
-                                        $('input[name="y1"]').val(selection.y1);
-                                        $('input[name="x2"]').val(selection.x2);
-                                        $('input[name="y2"]').val(selection.y2);
-                                    }
-                                });
+                                if ( type == 'photo'){
+                                    $('#img-pop-up-img div img').imgAreaSelect({
+                                        aspectRatio: '3:4',
+//                                x1: 120, y1: 90, x2: 280, y2: 210,
+                                        handles: true,
+                                        onSelectEnd: function (img, selection) {
+                                            $('input[name="x1"]').val(selection.x1);
+                                            $('input[name="y1"]').val(selection.y1);
+                                            $('input[name="x2"]').val(selection.x2);
+                                            $('input[name="y2"]').val(selection.y2);
+                                            $('.imgareaselect-selection').addClass('imgareaselect-selection2');
+                                        }
+                                    });
+                                }else{
+                                    $('#img-pop-up-img div img').imgAreaSelect({
+                                        x1: 120, y1: 90, x2: 280, y2: 210,
+                                        handles: true,
+                                        onSelectEnd: function (img, selection) {
+                                            $('input[name="x1"]').val(selection.x1);
+                                            $('input[name="y1"]').val(selection.y1);
+                                            $('input[name="x2"]').val(selection.x2);
+                                            $('input[name="y2"]').val(selection.y2);
+                                        }
+                                    });
+                                }
                             }
                         },
                         data: formData,
@@ -405,16 +420,32 @@
                         $(".imgareaselect-outer").remove();
                         $('#img-pop-up-img').html('<div style="display: inline-block"><img  src="'+msg+'" /></div>');
                         showImgPopUp();
-                        $('#img-pop-up-img div img').imgAreaSelect({
-                            x1: 120, y1: 90, x2: 280, y2: 210,
-                            handles: true,
-                            onSelectEnd: function (img, selection) {
-                                $('input[name="x1"]').val(selection.x1);
-                                $('input[name="y1"]').val(selection.y1);
-                                $('input[name="x2"]').val(selection.x2);
-                                $('input[name="y2"]').val(selection.y2);
-                            }
-                        });
+                        if ( type == 'photo'){
+                            $('#img-pop-up-img div img').imgAreaSelect({
+                                aspectRatio: '3:5',
+//                                x1: 120, y1: 90, x2: 280, y2: 210,
+                                handles: true,
+                                onSelectEnd: function (img, selection) {
+                                    $('input[name="x1"]').val(selection.x1);
+                                    $('input[name="y1"]').val(selection.y1);
+                                    $('input[name="x2"]').val(selection.x2);
+                                    $('input[name="y2"]').val(selection.y2);
+                                }
+                            });
+                            $('.imgareaselect-selection').addClass('imgareaselect-selection2');
+                        }else{
+                            $('#img-pop-up-img div img').imgAreaSelect({
+                                x1: 120, y1: 90, x2: 280, y2: 210,
+                                handles: true,
+                                onSelectEnd: function (img, selection) {
+                                    $('input[name="x1"]').val(selection.x1);
+                                    $('input[name="y1"]').val(selection.y1);
+                                    $('input[name="x2"]').val(selection.x2);
+                                    $('input[name="y2"]').val(selection.y2);
+                                }
+                            });
+                        }
+
                     }
                 });
             });
@@ -916,6 +947,13 @@
         }
         .close-pop-up{
             width: 32px;
+        }
+        .imgareaselect-selection2{
+            background: url({{ asset('bundles/crmmain/images/nophoto.png') }}) no-repeat;
+            -moz-background-size: 100%; /* Firefox 3.6+ */
+            -webkit-background-size: 100%; /* Safari 3.1+ и Chrome 4.0+ */
+            -o-background-size: 100%; /* Opera 9.6+ */
+            background-size: 100%;
         }
     </style>
 {% endblock %}
