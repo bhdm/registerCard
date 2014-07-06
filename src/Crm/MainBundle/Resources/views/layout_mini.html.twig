@@ -1,0 +1,103 @@
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    {% block title %}
+        {% if page is defined and page.title is defined  %}
+            <title>{{ page.title }}</title>
+        {% else %}
+            <title>Система подачи заявок</title>
+        {% endif%}
+
+
+        {% if page is defined and page.metaDescription is defined  %}
+            <meta name="description" content="{{ page.metaDescription }}">
+        {% else %}
+            <meta name="description" content="Система подачи заявок">
+        {% endif%}
+
+
+        {% if page is defined and page.metaKeyword is defined  %}
+            <meta name="keywords" content="{{ page.metaKeyword }}">
+        {% else %}
+            <meta name="keywords" content="Система подачи заявок">
+        {% endif%}
+    {% endblock %}
+    {% block stylesheets %}
+        <link href="{{ asset('bundles/crmmain/stylesheets/common.css') }}" rel="stylesheet" media="all">
+    {% endblock %}
+    {% block javascripts %}
+        <script rel="script" src="{{ asset('bundles/crmmain/javascripts/jQuery.js') }}"></script>
+        <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
+        <script src="{{ path('fos_js_routing_js', {"callback": "fos.Router.setData"}) }}"></script>
+        <script>
+            $(document).ready(function(){
+                $('#popup-close').click(function(){
+                    $('.popup').fadeOut();
+                });
+            })
+        </script>
+    {% endblock %}
+</head>
+<body>
+<div class="body">
+    <div class="menu"></div>
+    {#{% include ("CrmMainBundle::menu.html.twig")  %}#}
+    <div class="content">
+        <br />
+        {% block content %}{% endblock %}
+    </div>
+    {# @todo Перевести в плагин #}
+</div>
+<footer>
+    <div class="center-block">
+        <div style="float: left">
+            ООО "НПО ТЕХНОЛОГ" 2014 год
+        </div>
+        <div style="float: right">
+            <a href="{{ path('page',{ 'url' : 'contact'}) }}">Контакты</a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="{{ path('page',{ 'url' : 'about'}) }}">О компании</a>
+        </div>
+    </div>
+</footer>
+<!-- Yandex.Metrika counter -->
+<script type="text/javascript">
+    var yaParams = {/*Çäåñü ïàðàìåòðû âèçèòà*/};
+</script>
+
+<script type="text/javascript">
+    (function (d, w, c) {
+        (w[c] = w[c] || []).push(function() {
+            try {
+                w.yaCounter24911744 = new Ya.Metrika({id:24911744,
+                    webvisor:true,
+                    clickmap:true,
+                    trackLinks:true,
+                    accurateTrackBounce:true,params:window.yaParams||{ }});
+            } catch(e) { }
+        });
+
+        var n = d.getElementsByTagName("script")[0],
+                s = d.createElement("script"),
+                f = function () { n.parentNode.insertBefore(s, n); };
+        s.type = "text/javascript";
+        s.async = true;
+        s.src = (d.location.protocol == "https:" ? "https:" : "http:") + "//mc.yandex.ru/metrika/watch.js";
+
+        if (w.opera == "[object Opera]") {
+            d.addEventListener("DOMContentLoaded", f, false);
+        } else { f(); }
+    })(document, window, "yandex_metrika_callbacks");
+</script>
+<!-- /Yandex.Metrika counter -->
+
+<script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-51650904-1', 'im-kard.ru');
+    ga('send', 'pageview');
+
+</script>
+</body>
+</html>

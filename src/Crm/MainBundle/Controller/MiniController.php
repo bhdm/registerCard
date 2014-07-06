@@ -19,21 +19,21 @@ use Symfony\Component\Form\FormError;
 use Test\Fixture\Document\Image;
 use Zelenin\smsru;
 
-class OrderController extends Controller{
+class MiniController extends Controller{
 
     /**
-     * @Route("/order", name="order")
+     * @Route("/company/order/{compnayUrl}", name="order_mini")
      * @Template()
      */
-    public function indexAction(Request $request){
+    public function indexAction(Request $request, $compnayUrl){
         return array('typeLayout' => 'mini');
     }
 
     /**
-     * @Route("/order-register", name="order_register" , options={"expose"=true})
+     * @Route("/company/order-register/{compnayUrl}", name="order_register_mini" , options={"expose"=true})
      * @Template()
      */
-    public function orderRegisterAction(Request $request){
+    public function orderRegisterAction(Request $request, $compnayUrl){
 
         $em   = $this->getDoctrine()->getManager();
 
