@@ -110,6 +110,13 @@
                 </tr>
                 <tr><td colspan="2" class="empty-row">Водительское удостоверение</td></tr>
                 <tr>
+                    <td class="label">Место выдачи:</td>
+                    <td class="value">
+                        <input name="driverDocIssuance" id="driverDocIssuance" type="text"  >
+                    </td>
+                    <td class="driverDocIssuanceStatus"></td>
+                </tr>
+                <tr>
                     <td class="label">Номер удостоверения водителя:</td>
                     <td class="value">
                         <input name="driverNumber" id="driverNumber" type="text"  >
@@ -507,10 +514,12 @@
                     form.append('PassportPlace',$('#passportPlace').val());
                     form.append('PassportDate',$('#passportDate').val());
                     form.append('PassportCode',$('#passportCode').val());
+                    form.append('PassportCode',$('#passportCode').val());
 
                     form.append('driverNumber',$('#driverNumber').val());
                     form.append('driverDateStarts',$('#driverDateStarts').val());
                     form.append('driverDateEnds',$('#driverDateEnds').val());
+                    form.append('driverDocIssuance',$('#driverDocIssuance').val());
 
                     form.append('snils',$('#snils').val());
 

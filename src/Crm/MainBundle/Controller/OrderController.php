@@ -150,6 +150,7 @@ class OrderController extends Controller{
             $user->setDriverDocNumber($data->get('driverNumber'));
             $user->setDriverDocDateStarts($data->get('driverDateStarts'));
             $user->setDriverDocDateEnds($data->get('driverDateEnds'));
+            $user->setDriverDocIssuance($data->get('driverDocIssuance'));
 
             $user->setSnils($data->get('snils'));
 
@@ -226,7 +227,6 @@ class OrderController extends Controller{
             $region = $this->getDoctrine()->getRepository('CrmMainBundle:Region')->findOneById($data->get('companyRegion'));
             $company = new Company();
             $company->setTitle($data->get('companyName'));
-            $company->setTitle('ООО Ромашка');
             $company->setZipcode($data->get('companyZipcode'));
             $company->setRegion($region);
             $company->setCity($data->get('companyCity'));
@@ -261,22 +261,21 @@ class OrderController extends Controller{
             $date = new \DateTime($user->getDriverDocDateEnds());
             $user->setDriverDocDateEnds($date);
 
-//            $user->setCopyPassport($this->getArrayToImg($user->getCopyPassport()));
-//            $user->setCopyDriverPassport($this->getArrayToImg($user->getCopyDriverPassport()));
-//            $user->setPhoto($this->getArrayToImg($user->getPhoto()));
-//            $user->setCopySignature($this->getArrayToImg($user->getCopySignature()));
-//            $user->setCopySnils($this->getArrayToImg($user->getCopySnils()));
-//            $user->setCopyWork($this->getArrayToImg($user->getCopyWork()));
-//            $user->setCopyPetition($this->getArrayToImg($user->getCopyPetition()));
+            $user->setCopyPassport($this->getArrayToImg($user->getCopyPassport()));
+            $user->setCopyDriverPassport($this->getArrayToImg($user->getCopyDriverPassport()));
+            $user->setPhoto($this->getArrayToImg($user->getPhoto()));
+            $user->setCopySignature($this->getArrayToImg($user->getCopySignature()));
+            $user->setCopySnils($this->getArrayToImg($user->getCopySnils()));
+            $user->setCopyWork($this->getArrayToImg($user->getCopyWork()));
+            $user->setCopyPetition($this->getArrayToImg($user->getCopyPetition()));
 
-            $user->setCopyPassport(null);
-            $user->setCopyDriverPassport(null);
-            $user->setPhoto(null);
-            $user->setCopySignature(null);
-            $user->setCopySnils(null);
-            $user->setCopyWork(null);
-            $user->setCopyPetition(null);
-            $user->setDriverDocIssuance('');
+//            $user->setCopyPassport(null);
+//            $user->setCopyDriverPassport(null);
+//            $user->setPhoto(null);
+//            $user->setCopySignature(null);
+//            $user->setCopySnils(null);
+//            $user->setCopyWork(null);
+//            $user->setCopyPetition(null);
 
             $em->persist($user);
             $em->flush($user);
