@@ -221,33 +221,30 @@ class OrderController extends Controller{
         $region = $this->getDoctrine()->getRepository('CrmMainBundle:Region')->findOneById($data->get('companyRegion'));
         $company = new Company();
         $company->setTitle($data->get('companyName'));
+        $company->setZipcode($data->get('companyZipcode'));
         $company->setRegion($region);
         $company->setCity($data->get('companyCity'));
         $company->setStreet($data->get('companyStreet'));
         $company->setHome($data->get('companyHouse'));
-        $company->setCorp($data->get('deliveryCorp'));
-        $company->setRoom($data->get('deliveryRoom'));
+        $company->setCorp($data->get('companyCorp'));
+        $company->setRoom($data->get('companyRoom'));
         $em->persist($company);
         $em->flush($company);
         $em->refresh($company);
 
-        $user->setCompany($company);
-        $user->setRegion($region);
-        $user->setCity($data->get('companyCity'));
-        $user->setStreet($data->get('companyStreet'));
-        $user->setHome($data->get('companyHouse'));
-        $user->setCorp($data->get('deliveryCorp'));
-        $user->setRoom($data->get('deliveryRoom'));
-        $em->persist($company);
-        $em->flush($company);
-        $em->refresh($company);
-
-
-
+        $region = $this->getDoctrine()->getRepository('CrmMainBundle:Region')->findOneById($data->get('deliveryRegion'));
+        $user->setDileveryZipcode($data->get('deliveryZipcode'));
+        $user->setDileveryRegion($region);
+        $user->setDileveryCity($data->get('deliveryCity'));
+        $user->setDileveryStreet($data->get('deliveryStreet'));
+        $user->setDileveryHome($data->get('deliveryHouse'));
+        $user->setDileveryCorp($data->get('deliveryCorp'));
+        $user->setDileveryRoom($data->get('deliveryRoom'));
         $em->persist($user);
-        $em->flush();
+        $em->flush($user);
+        $em->refresh($user);
 
-        return new Response($this->render("CrmMainBundle:Order:confirmation.html.twig", array('user' => $user)));
+        return new Response($this->render("CrmMainBundle:Order:success.html.twig", array('user' => $user)));
     }
 
 
