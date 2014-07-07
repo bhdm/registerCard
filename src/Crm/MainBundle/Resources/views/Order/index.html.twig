@@ -497,7 +497,7 @@
                     errorI++;
                 }
 
-                if (error === ''){
+//                if (error === ''){
                     var form = new FormData();
                     form.append('PassportLastName',$('#lastName').val());
                     form.append('PassportFirstName',$('#firstName').val());
@@ -525,10 +525,10 @@
                         window.location.href = '{{ path('order_register') }}';
                     }
 
-                }else{
-                    $('.error-msg').fadeIn();
-                    $('.error-msg').html(error);
-                }
+//                }else{
+//                    $('.error-msg').fadeIn();
+//                    $('.error-msg').html(error);
+//                }
             });
 
             $('#rezident').change(function(){

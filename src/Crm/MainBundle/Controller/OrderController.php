@@ -190,11 +190,13 @@ class OrderController extends Controller{
 
         $session->set('user', $jsonContent);
 
-
+        $country = $this->getDoctrine()->getRepository('CrmMainBundle:Country')->findOneById(3159);
+        $regions = $this->getDoctrine()->getRepository('CrmMainBundle:Region')->findByCountry($country);
 
         return array(
 //            'formUser'      => $formUser->createView(),
 //            'formDriver'    => $formDriver->createView(),
+              'regions'       => $regions
         );
     }
 
