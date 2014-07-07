@@ -95,20 +95,13 @@ class User extends BaseEntity implements UserInterface, EquatableInterface, \Ser
      * @Assert\Regex(pattern= "/^[0-9]{6}$/", message="Неверный формат ввода.")
      * @ORM\Column(type="string", length=12)
      */
-    protected  $zipcode;
+    protected  $dileveryZipcode;
 
     /**
      * @ORM\ManyToOne(targetEntity="Region", inversedBy="deliveries")
      */
-    protected $region;
+    protected $dileveryRegion;
 
-
-    /**
-     * @Assert\Length( max = "10", maxMessage = "Максимум  10 символа")
-     * @Assert\NotBlank( message = "Поле тип населеного пункта обязательно для заполнения" )
-     * @ORM\Column(type="string", length=10)
-     */
-    protected $dileveryCityType;
 
     /**
      * @Assert\Length( max = "64", maxMessage = "Максимум  64 символа")
@@ -117,12 +110,6 @@ class User extends BaseEntity implements UserInterface, EquatableInterface, \Ser
      */
     protected $dileveryCity;
 
-    /**
-     * @Assert\Length( max = "10", maxMessage = "Максимум  10 символа")
-     * @Assert\NotBlank( message = "Поле тип улицы обязательно для заполнения" )
-     * @ORM\Column(type="string", length=10)
-     */
-    protected $dileveryStreetType;
 
     /**
      * @Assert\Length( max = "64", maxMessage = "Максимум  64 символа")
@@ -139,23 +126,12 @@ class User extends BaseEntity implements UserInterface, EquatableInterface, \Ser
      */
     protected $dileveryHome;
 
-    /**
-     * @Assert\Length( max = "10", maxMessage = "Максимум  10 символа")
-     * @ORM\Column(type="string", length=10, nullable=true)
-     */
-    protected $dileveryCorpType;
 
     /**
      * @Assert\Length( max = "10", maxMessage = "Максимум  10 символов")
      * @ORM\Column(type="string", length=10, nullable=true)
      */
     protected $dileveryCorp;
-
-    /**
-     * @Assert\Length( max = "10", maxMessage = "Максимум  10 символа")
-     * @ORM\Column(type="string", length=10, nullable=true)
-     */
-    protected $dileveryRoomType;
 
     /**
      * квартира
@@ -555,22 +531,6 @@ class User extends BaseEntity implements UserInterface, EquatableInterface, \Ser
         $this->company = $company;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getDriver()
-    {
-        return $this->driver;
-    }
-
-    /**
-     * @param mixed $driver
-     */
-    public function setDriver($driver)
-    {
-        $this->driver = $driver;
-    }
-
     public function getPhone(){
         return $this->username;
     }
@@ -595,181 +555,7 @@ class User extends BaseEntity implements UserInterface, EquatableInterface, \Ser
         return $this->snils;
     }
 
-    /**
-     * @param mixed $city
-     */
-    public function setCity($city)
-    {
-        $this->city = $city;
-    }
 
-    /**
-     * @return mixed
-     */
-    public function getCity()
-    {
-        return $this->city;
-    }
-
-    /**
-     * @param mixed $cityType
-     */
-    public function setCityType($cityType)
-    {
-        $this->cityType = $cityType;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getCityType()
-    {
-        return $this->cityType;
-    }
-
-    /**
-     * @param mixed $corp
-     */
-    public function setCorp($corp)
-    {
-        $this->corp = $corp;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getCorp()
-    {
-        return $this->corp;
-    }
-
-    /**
-     * @param mixed $corpType
-     */
-    public function setCorpType($corpType)
-    {
-        $this->corpType = $corpType;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getCorpType()
-    {
-        return $this->corpType;
-    }
-
-    /**
-     * @param mixed $home
-     */
-    public function setHome($home)
-    {
-        $this->home = $home;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getHome()
-    {
-        return $this->home;
-    }
-
-    /**
-     * @param mixed $region
-     */
-    public function setRegion($region)
-    {
-        $this->region = $region;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getRegion()
-    {
-        return $this->region;
-    }
-
-    /**
-     * @param mixed $room
-     */
-    public function setRoom($room)
-    {
-        $this->room = $room;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getRoom()
-    {
-        return $this->room;
-    }
-
-    /**
-     * @param mixed $roomType
-     */
-    public function setRoomType($roomType)
-    {
-        $this->roomType = $roomType;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getRoomType()
-    {
-        return $this->roomType;
-    }
-
-    /**
-     * @param mixed $street
-     */
-    public function setStreet($street)
-    {
-        $this->street = $street;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getStreet()
-    {
-        return $this->street;
-    }
-
-    /**
-     * @param mixed $streetType
-     */
-    public function setStreetType($streetType)
-    {
-        $this->streetType = $streetType;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getStreetType()
-    {
-        return $this->streetType;
-    }
-
-    /**
-     * @param mixed $zipcode
-     */
-    public function setZipcode($zipcode)
-    {
-        $this->zipcode = $zipcode;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getZipcode()
-    {
-        return $this->zipcode;
-    }
 
     /**
      * @param mixed $status
@@ -918,21 +704,7 @@ class User extends BaseEntity implements UserInterface, EquatableInterface, \Ser
         return $this->dileveryCity;
     }
 
-    /**
-     * @param mixed $dileveryCityType
-     */
-    public function setDileveryCityType($dileveryCityType)
-    {
-        $this->dileveryCityType = $dileveryCityType;
-    }
 
-    /**
-     * @return mixed
-     */
-    public function getDileveryCityType()
-    {
-        return $this->dileveryCityType;
-    }
 
     /**
      * @param mixed $dileveryCorp
@@ -950,21 +722,7 @@ class User extends BaseEntity implements UserInterface, EquatableInterface, \Ser
         return $this->dileveryCorp;
     }
 
-    /**
-     * @param mixed $dileveryCorpType
-     */
-    public function setDileveryCorpType($dileveryCorpType)
-    {
-        $this->dileveryCorpType = $dileveryCorpType;
-    }
 
-    /**
-     * @return mixed
-     */
-    public function getDileveryCorpType()
-    {
-        return $this->dileveryCorpType;
-    }
 
     /**
      * @param mixed $dileveryHome
@@ -998,21 +756,7 @@ class User extends BaseEntity implements UserInterface, EquatableInterface, \Ser
         return $this->dileveryRoom;
     }
 
-    /**
-     * @param mixed $dileveryRoomType
-     */
-    public function setDileveryRoomType($dileveryRoomType)
-    {
-        $this->dileveryRoomType = $dileveryRoomType;
-    }
 
-    /**
-     * @return mixed
-     */
-    public function getDileveryRoomType()
-    {
-        return $this->dileveryRoomType;
-    }
 
     /**
      * @param mixed $dileveryStreet
@@ -1030,21 +774,6 @@ class User extends BaseEntity implements UserInterface, EquatableInterface, \Ser
         return $this->dileveryStreet;
     }
 
-    /**
-     * @param mixed $dileveryStreetType
-     */
-    public function setDileveryStreetType($dileveryStreetType)
-    {
-        $this->dileveryStreetType = $dileveryStreetType;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getDileveryStreetType()
-    {
-        return $this->dileveryStreetType;
-    }
 
     /**
      * @param mixed $driverDocCountry
@@ -1254,7 +983,39 @@ class User extends BaseEntity implements UserInterface, EquatableInterface, \Ser
         return $this->copyPetition;
     }
 
-    
+    /**
+     * @param mixed $dileveryRegion
+     */
+    public function setDileveryRegion($dileveryRegion)
+    {
+        $this->dileveryRegion = $dileveryRegion;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getDileveryRegion()
+    {
+        return $this->dileveryRegion;
+    }
+
+    /**
+     * @param mixed $dileveryZipcode
+     */
+    public function setDileveryZipcode($dileveryZipcode)
+    {
+        $this->dileveryZipcode = $dileveryZipcode;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getDileveryZipcode()
+    {
+        return $this->dileveryZipcode;
+    }
+
+
 
 
 }

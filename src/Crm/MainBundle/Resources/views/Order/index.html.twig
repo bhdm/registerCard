@@ -497,7 +497,7 @@
                     errorI++;
                 }
 
-                if (error === ''){
+//                if (error === ''){
                     var form = new FormData();
                     form.append('PassportLastName',$('#lastName').val());
                     form.append('PassportFirstName',$('#firstName').val());
@@ -519,13 +519,16 @@
 
 
                     var request = new XMLHttpRequest();
-                    request.open("POST", "{{ path('order_register') }}");
+                    request.open("POST", "{{ path('order_register') }}", false);
                     request.send(form);
-                    window.location.href = '{{ path('order_register') }}';
-                }else{
-                    $('.error-msg').fadeIn();
-                    $('.error-msg').html(error);
-                }
+                    if(request.status == 200) {
+                        window.location.href = '{{ path('order_register') }}';
+                    }
+
+//                }else{
+//                    $('.error-msg').fadeIn();
+//                    $('.error-msg').html(error);
+//                }
             });
 
             $('#rezident').change(function(){

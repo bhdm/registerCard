@@ -38,7 +38,7 @@ class Region
     protected $cities;
 
     /**
-     * @ORM\OneToMany(targetEntity="User", mappedBy="region")
+     * @ORM\OneToMany(targetEntity="User", mappedBy="dileveryRegion")
      */
     protected $deliveries;
 

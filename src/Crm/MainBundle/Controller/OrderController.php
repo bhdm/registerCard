@@ -10,7 +10,6 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Crm\MainBundle\Entity\Page;
 use Crm\MainBundle\Entity\User;
-use Crm\MainBundle\Entity\Driver;
 use Crm\MainBundle\Entity\Company;
 use Crm\MainBundle\Form\Type\UserType;
 use Crm\MainBundle\Form\Type\DriverType;
@@ -18,6 +17,11 @@ use Crm\MainBundle\Form\Type\CompanyType;
 use Symfony\Component\Form\FormError;
 use Test\Fixture\Document\Image;
 use Zelenin\smsru;
+
+use Symfony\Component\Serializer\Serializer;
+use Symfony\Component\Serializer\Encoder\XmlEncoder;
+use Symfony\Component\Serializer\Encoder\JsonEncoder;
+use Symfony\Component\Serializer\Normalizer\GetSetMethodNormalizer;
 
 class OrderController extends Controller{
 
@@ -116,8 +120,6 @@ class OrderController extends Controller{
         return $response;
     }
 
-
-
     /**
      * @Route("/order-register", name="order_register" , options={"expose"=true})
      * @Template()
@@ -172,16 +174,21 @@ class OrderController extends Controller{
             $fileName = $this->saveFile('snils');
             $user->setCopySnils($fileName);
         }
-//         if ($session->get('hod')){
-//            $fileName = $this->saveFile('hod');
-//            $user->setCopyPetition($fileName);
-//        }
+         if ($session->get('hod')){
+            $fileName = $this->saveFile('hod');
+            $user->setCopyPetition($fileName);
+        }
          if ($session->get('work')){
             $fileName = $this->saveFile('work');
             $user->setCopyWork($fileName);
         }
-        $user = $user;
+        $encoders = array(new XmlEncoder(), new JsonEncoder());
+        $normalizers = array(new GetSetMethodNormalizer());
+        $serializer = new Serializer($normalizers, $encoders);
 
+        $jsonContent = $serializer->serialize($user, 'json');
+
+        $session->set('user', $jsonContent);
 
 
 
@@ -189,6 +196,58 @@ class OrderController extends Controller{
 //            'formUser'      => $formUser->createView(),
 //            'formDriver'    => $formDriver->createView(),
         );
+    }
+
+    /**
+     * @param Request $request
+     * @return Response
+     * @Route("/order-confirm", name="order_confirm")
+     */
+    public function confirmAction(Request $request){
+
+        $session = $request->getSession();
+        $data = $session->get('user');
+        $em = $this->getDoctrine()->getManager();
+
+
+        $encoders = array(new XmlEncoder(), new JsonEncoder());
+        $normalizers = array(new GetSetMethodNormalizer());
+        $serializer = new Serializer($normalizers, $encoders);
+
+
+        $user = $serializer->deserialize($data,'Crm\MainBundle\Entity\User','json');
+        $data = $request->request;
+
+        $region = $this->getDoctrine()->getRepository('CrmMainBundle:Region')->findOneById($data->get('companyRegion'));
+        $company = new Company();
+        $company->setTitle($data->get('companyName'));
+        $company->setRegion($region);
+        $company->setCity($data->get('companyCity'));
+        $company->setStreet($data->get('companyStreet'));
+        $company->setHome($data->get('companyHouse'));
+        $company->setCorp($data->get('deliveryCorp'));
+        $company->setRoom($data->get('deliveryRoom'));
+        $em->persist($company);
+        $em->flush($company);
+        $em->refresh($company);
+
+        $user->setCompany($company);
+        $user->setRegion($region);
+        $user->setCity($data->get('companyCity'));
+        $user->setStreet($data->get('companyStreet'));
+        $user->setHome($data->get('companyHouse'));
+        $user->setCorp($data->get('deliveryCorp'));
+        $user->setRoom($data->get('deliveryRoom'));
+        $em->persist($company);
+        $em->flush($company);
+        $em->refresh($company);
+
+
+
+        $em->persist($user);
+        $em->flush();
+
+        return new Response($this->render("CrmMainBundle:Order:confirmation.html.twig", array('user' => $user)));
     }
 
 
