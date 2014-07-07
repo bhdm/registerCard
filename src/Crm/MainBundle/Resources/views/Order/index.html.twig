@@ -322,6 +322,9 @@
 
             $('input[type=file]').on('change', function(event){
 
+                $('.bg-gray').fadeIn();
+                $('#loader').fadeIn();
+
                 $('#forward').fadeOut();
                 $('#rotate').fadeIn();
                 $('#sendCoords').fadeIn();
@@ -380,6 +383,10 @@
                         //beforeSend: ,
                         //error: ,
                         success: function(msg){
+
+                            $('.bg-gray').fadeOut();
+                            $('#loader').fadeOut();
+
                             if ($('.img-pop-up').attr('type-doc') != 'hod' ){
                                 $('#img-pop-up-img').html('<div style="display: inline-block"><img  src="'+msg+'" /></div>');
                                 showImgPopUp();
