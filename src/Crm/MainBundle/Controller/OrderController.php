@@ -128,67 +128,70 @@ class OrderController extends Controller{
 
         $em   = $this->getDoctrine()->getManager();
 
-        $user = new User();
-        $data = $request->request;
-        $session = $request->getSession();
+        if ($request->getMethod()=='POST'){
+            $user = new User();
+            $data = $request->request;
+            $session = $request->getSession();
 
-        # Сохраняем данные в сущность
+            # Сохраняем данные в сущность
 
-        $user->setEmail($data->get('email'));
-        $user->setPhone($data->get('phone'));
+            $user->setEmail($data->get('email'));
+            $user->setPhone($data->get('phone'));
 
-        $user->setLastName($data->get('PassportLastName'));
-        $user->setFirstName($data->get('PassportFirstName'));
-        $user->setSurName($data->get('PassportSurName'));
-        $user->setBirthDate($data->get('PassportBirthdate'));
-        $user->setPassportNumber($data->get('PassportNumber'));
-        $user->setPassportIssuance($data->get('PassportPlace'));
-        $user->setPassportIssuanceDate($data->get('PassportDate'));
-        $user->setPassportCode($data->get('PassportCode'));
+            $user->setLastName($data->get('PassportLastName'));
+            $user->setFirstName($data->get('PassportFirstName'));
+            $user->setSurName($data->get('PassportSurName'));
+            $user->setBirthDate($data->get('PassportBirthdate'));
+            $user->setPassportNumber($data->get('PassportNumber'));
+            $user->setPassportIssuance($data->get('PassportPlace'));
+            $user->setPassportIssuanceDate($data->get('PassportDate'));
+            $user->setPassportCode($data->get('PassportCode'));
 
-        $user->setDriverDocNumber($data->get('driverNumber'));
-        $user->setDriverDocDateStarts($data->get('driverDateStarts'));
-        $user->setDriverDocDateEnds($data->get('driverDateEnds'));
+            $user->setDriverDocNumber($data->get('driverNumber'));
+            $user->setDriverDocDateStarts($data->get('driverDateStarts'));
+            $user->setDriverDocDateEnds($data->get('driverDateEnds'));
 
-        $user->setSnils($data->get('snils'));
+            $user->setSnils($data->get('snils'));
 
-        # Теперь сохраняем файлы и присоединяем к сущности
+            # Теперь сохраняем файлы и присоединяем к сущности
 
-        if ($session->get('passport')){
-            $fileName = $this->saveFile('passport');
-            $user->setCopyPassport($fileName);
+            if ($session->get('passport')){
+                $fileName = $this->saveFile('passport');
+                $user->setCopyPassport($fileName);
+            }
+            if ($session->get('driver')){
+                $fileName = $this->saveFile('driver');
+                $user->setCopyDriverPassport($fileName);
+            }
+            if ($session->get('photo')){
+                $fileName = $this->saveFile('photo');
+                $user->setPhoto($fileName);
+            }
+            if ($session->get('sign')){
+                $fileName = $this->saveFile('sign');
+                $user->setCopySignature($fileName);
+            }
+            if ($session->get('snils')){
+                $fileName = $this->saveFile('snils');
+                $user->setCopySnils($fileName);
+            }
+            if ($session->get('hod')){
+                $fileName = $this->saveFile('hod');
+                $user->setCopyPetition($fileName);
+            }
+            if ($session->get('work')){
+                $fileName = $this->saveFile('work');
+                $user->setCopyWork($fileName);
+            }
+            $encoders = array(new XmlEncoder(), new JsonEncoder());
+            $normalizers = array(new GetSetMethodNormalizer());
+            $serializer = new Serializer($normalizers, $encoders);
+
+            $jsonContent = $serializer->serialize($user, 'json');
+
+            $session->set('user', $jsonContent);
+            $session->save();
         }
-        if ($session->get('driver')){
-            $fileName = $this->saveFile('driver');
-            $user->setCopyDriverPassport($fileName);
-        }
-        if ($session->get('photo')){
-            $fileName = $this->saveFile('photo');
-            $user->setPhoto($fileName);
-        }
-        if ($session->get('sign')){
-            $fileName = $this->saveFile('sign');
-            $user->setCopySignature($fileName);
-        }
-        if ($session->get('snils')){
-            $fileName = $this->saveFile('snils');
-            $user->setCopySnils($fileName);
-        }
-         if ($session->get('hod')){
-            $fileName = $this->saveFile('hod');
-            $user->setCopyPetition($fileName);
-        }
-         if ($session->get('work')){
-            $fileName = $this->saveFile('work');
-            $user->setCopyWork($fileName);
-        }
-        $encoders = array(new XmlEncoder(), new JsonEncoder());
-        $normalizers = array(new GetSetMethodNormalizer());
-        $serializer = new Serializer($normalizers, $encoders);
-
-        $jsonContent = $serializer->serialize($user, 'json');
-
-        $session->set('user', $jsonContent);
 
         $country = $this->getDoctrine()->getRepository('CrmMainBundle:Country')->findOneById(3159);
         $regions = $this->getDoctrine()->getRepository('CrmMainBundle:Region')->findByCountry($country);
@@ -211,42 +214,76 @@ class OrderController extends Controller{
         $data = $session->get('user');
         $em = $this->getDoctrine()->getManager();
 
+        if ($request->getMethod() == 'POST'){
+            $encoders = array(new XmlEncoder(), new JsonEncoder());
+            $normalizers = array(new GetSetMethodNormalizer());
+            $serializer = new Serializer($normalizers, $encoders);
 
-        $encoders = array(new XmlEncoder(), new JsonEncoder());
-        $normalizers = array(new GetSetMethodNormalizer());
-        $serializer = new Serializer($normalizers, $encoders);
 
+            $user = $serializer->deserialize($data,'Crm\MainBundle\Entity\User','json');
+            $data = $request->request;
 
-        $user = $serializer->deserialize($data,'Crm\MainBundle\Entity\User','json');
-        $data = $request->request;
+            $region = $this->getDoctrine()->getRepository('CrmMainBundle:Region')->findOneById($data->get('companyRegion'));
+            $company = new Company();
+            $company->setTitle($data->get('companyName'));
+            $company->setTitle('ООО Ромашка');
+            $company->setZipcode($data->get('companyZipcode'));
+            $company->setRegion($region);
+            $company->setCity($data->get('companyCity'));
+            $company->setStreet($data->get('companyStreet'));
+            $company->setHome($data->get('companyHouse'));
+            $company->setCorp($data->get('companyCorp'));
+            $company->setRoom($data->get('companyRoom'));
+            $em->persist($company);
+            $em->flush($company);
+            $em->refresh($company);
 
-        $region = $this->getDoctrine()->getRepository('CrmMainBundle:Region')->findOneById($data->get('companyRegion'));
-        $company = new Company();
-        $company->setTitle($data->get('companyName'));
-        $company->setZipcode($data->get('companyZipcode'));
-        $company->setRegion($region);
-        $company->setCity($data->get('companyCity'));
-        $company->setStreet($data->get('companyStreet'));
-        $company->setHome($data->get('companyHouse'));
-        $company->setCorp($data->get('companyCorp'));
-        $company->setRoom($data->get('companyRoom'));
-        $em->persist($company);
-        $em->flush($company);
-        $em->refresh($company);
+            $region = $this->getDoctrine()->getRepository('CrmMainBundle:Region')->findOneById($data->get('deliveryRegion'));
+            $user->setCompany($company);
+            $user->setDileveryZipcode($data->get('deliveryZipcode'));
+            $user->setDileveryRegion($region);
+            $user->setDileveryCity($data->get('deliveryCity'));
+            $user->setDileveryStreet($data->get('deliveryStreet'));
+            $user->setDileveryHome($data->get('deliveryHouse'));
+            $user->setDileveryCorp($data->get('deliveryCorp'));
+            $user->setDileveryRoom($data->get('deliveryRoom'));
+            $user->setSalt(md5(time()));
 
-        $region = $this->getDoctrine()->getRepository('CrmMainBundle:Region')->findOneById($data->get('deliveryRegion'));
-        $user->setDileveryZipcode($data->get('deliveryZipcode'));
-        $user->setDileveryRegion($region);
-        $user->setDileveryCity($data->get('deliveryCity'));
-        $user->setDileveryStreet($data->get('deliveryStreet'));
-        $user->setDileveryHome($data->get('deliveryHouse'));
-        $user->setDileveryCorp($data->get('deliveryCorp'));
-        $user->setDileveryRoom($data->get('deliveryRoom'));
-        $em->persist($user);
-        $em->flush($user);
-        $em->refresh($user);
+            $date = new \DateTime($user->getBirthDate());
+            $user->setBirthDate($date);
 
-        return new Response($this->render("CrmMainBundle:Order:success.html.twig", array('user' => $user)));
+            $date = new \DateTime($user->getPassportIssuanceDate());
+            $user->setPassportIssuanceDate($date);
+
+            $date = new \DateTime($user->getDriverDocDateStarts());
+            $user->setDriverDocDateStarts($date);
+
+            $date = new \DateTime($user->getDriverDocDateEnds());
+            $user->setDriverDocDateEnds($date);
+
+//            $user->setCopyPassport($this->getArrayToImg($user->getCopyPassport()));
+//            $user->setCopyDriverPassport($this->getArrayToImg($user->getCopyDriverPassport()));
+//            $user->setPhoto($this->getArrayToImg($user->getPhoto()));
+//            $user->setCopySignature($this->getArrayToImg($user->getCopySignature()));
+//            $user->setCopySnils($this->getArrayToImg($user->getCopySnils()));
+//            $user->setCopyWork($this->getArrayToImg($user->getCopyWork()));
+//            $user->setCopyPetition($this->getArrayToImg($user->getCopyPetition()));
+
+            $user->setCopyPassport(null);
+            $user->setCopyDriverPassport(null);
+            $user->setPhoto(null);
+            $user->setCopySignature(null);
+            $user->setCopySnils(null);
+            $user->setCopyWork(null);
+            $user->setCopyPetition(null);
+            $user->setDriverDocIssuance('');
+
+            $em->persist($user);
+            $em->flush($user);
+            $em->refresh($user);
+        }
+
+        return new Response($this->renderView("CrmMainBundle:Order:success.html.twig", array('user' => $user)));
     }
 
 
@@ -360,6 +397,26 @@ class OrderController extends Controller{
         }
 
         return strtolower($string);
+    }
+    public function getArrayToImg($img){
+        if ($img == null){
+            $array =  array();
+        }else{
+            $path = $img;
+            $size = filesize($img);
+            $fileName = basename($img);
+            $originalName = basename($img);
+            $mimeType = mime_content_type($img);
+            $array =  array(
+                'path' =>$path,
+                'size' =>$size,
+                'fileName' =>$fileName,
+                'originalName' =>$originalName,
+                'mimeType' =>$mimeType,
+            );
+        }
+        return serialize($array);
+
     }
 }
 

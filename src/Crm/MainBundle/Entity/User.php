@@ -439,7 +439,7 @@ class User extends BaseEntity implements UserInterface, EquatableInterface, \Ser
      */
     public function getSalt()
     {
-        return explode(';', $this->roles);
+        return explode(';', $this->salt);
     }
 
     /**
