@@ -74,7 +74,7 @@ header{
     background: #FFFFFF;
     max-width: 1500px;
     float: left;
-    min-width: 950px;
+    width: 75%;
     padding: 10px;
     padding-bottom: 60px;
 }
