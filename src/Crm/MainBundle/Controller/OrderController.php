@@ -81,12 +81,13 @@ class OrderController extends Controller{
      * @Route("send-coordinates/{type}", name="send_coordinates", options={"expose"=true})
      */
     public function sendCoordinatesAction(Request $request, $type){
-        $session = $request->getSession();
+        $session = new Session();
 
         $base = $session->get($type);
         $base = $base['content'];
 
         $aspect = $session->get($type)['width'] / $request->request->get('originalWidth');
+//        $aspect = 1;
 
         $rect = array(
             'x' => $request->request->get('x')*$aspect,
@@ -302,12 +303,17 @@ class OrderController extends Controller{
         $base = $session->get($type);
         $baseContent = $base['content'];
 
+
         $baseContent = $this->rotateImage($baseContent);
 
         $base['content'] = $baseContent;
 
+        $tmp = $base['width'];
+        $base['width'] = $base['height'];
+        $base['height'] = $tmp;
         $session->set($type,$base);
         $session->save();
+
 
         $response = new Response();
         $response->headers->set('Content-Type','image/jpeg');
@@ -349,6 +355,7 @@ class OrderController extends Controller{
         $rotate = imagerotate($image, $degree, 0);
         $pathName = tempnam('/tmp','img-');
         imagejpeg($rotate, $pathName);
+//        imagejpeg($rotate, $pathName);
         return $this->imgToBase($pathName);
     }
 
