@@ -99,6 +99,11 @@ class Company extends BaseEntity
      */
     protected $password;
 
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    protected $enabled = 0;
+
     public function __toString(){
         return $this->title;
     }
@@ -309,6 +314,22 @@ class Company extends BaseEntity
     public function getUrl()
     {
         return $this->url;
+    }
+
+    /**
+     * @param mixed $enabled
+     */
+    public function setEnabled($enabled = 0 )
+    {
+        $this->enabled = $enabled;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getEnabled()
+    {
+        return $this->enabled;
     }
 
 

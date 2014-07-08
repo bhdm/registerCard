@@ -20,7 +20,7 @@ class CompanyController extends Controller
     public function listAction(Request $request)
     {
         if ($request->getSession()->get('hash')!='7de92cefb8a07cede44f3ae9fa97fb3b') return $this->redirect($this->generateUrl('admin_main'));
-        $companies = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->findAll();
+        $companies = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->findByEnabled(1);
         return array('companyAct' => 'company_list','companies' => $companies);
     }
 
@@ -74,6 +74,7 @@ class CompanyController extends Controller
         if ($request->isMethod('POST')) {
             if ($form->isValid()) {
                 $company = $form->getData();
+                $company->setEnabled(1);
                 $em->persist($company);
                 $em->flush();
             }

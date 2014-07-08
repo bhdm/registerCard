@@ -1,3 +1,4 @@
+<div class="menu">
 {% if pageAct is defined %}
 <ul class="menu-items">
     <li><img src="{{ asset('bundles/crmadmin/images/Ico/Align-Justify.png') }}"><a href="{{ path('page_list') }}" {{ pageAct == 'page_list' ? 'class="active"' : ''}}>Страницы</a></li>
@@ -20,3 +21,5 @@
         <li><img src="{{ asset('bundles/crmadmin/images/Ico/Show-Progress.png') }}"><a href="{{ path('stat_list') }}">Статистика</a></li>
     </ul>
 {% endif %}
+</div>
+<div class="slidebar-title"></div>
