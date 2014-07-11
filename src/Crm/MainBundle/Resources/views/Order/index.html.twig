@@ -417,11 +417,18 @@
                                 }
                             }
                         },
+//                        error:function (error) {
+//                            alert("error"+error);
+//                        },
                         data: formData,
                         cache: false,
                         contentType: false,
                         processData: false
                     });
+                }
+                if ( $('#signFile-styler').children('.jq-file__name').html() == 'Файл не выбран'){
+                    hideloader();
+                    hideImgPopUp();
                 }
             });
 
@@ -588,9 +595,11 @@
                         if (type == 'snils' || type == 'driver' || type == 'passport'){
                             $('#forward').fadeIn();
 //                            hideImgPopUp();
-                            $( ".img-pop-up" ).draggable();
-                            $('.img-pop-up').css('top','350px');
-                            $( ".inp-pop-up" ).draggable();
+                            if ($( ".img-pop-up").length > 0){
+                                $( ".img-pop-up" ).draggable();
+                                $('.img-pop-up').css('top','350px');
+                                $( ".inp-pop-up" ).draggable();
+                            }
                             showloader();
                             getImgData(type);
                         }else{
