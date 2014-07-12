@@ -46,7 +46,6 @@ class CompanyController extends Controller
         $builder
             ->add('title', null, array('label' => 'Название компании'))
             ->add('zipcode', null, array('label' => 'Индекс'))
-            ->add('country', null, array('label' => 'Страна'))
             ->add($builder->create('region',
                 'choice',
                 array(
@@ -80,7 +79,8 @@ class CompanyController extends Controller
             }
         }
 
-        return array('companyAct' => 'company_list', 'form' => $form->createView());
+        $companyUrl = $company->getUrl();
+        return array('companyAct' => 'company_list', 'form' => $form->createView(),'companyUrl' => $companyUrl);
     }
 
     /**
