@@ -296,7 +296,12 @@
                 <td class="label">Адрес доставки<span class="required">*</span>:</td>
                 <td class="value">
                     <input name="deliveryZipcode" id="deliveryZipcode" type="text" placeholder="Индекс"><br />
-                    <input name="deliveryRegion"  id="deliveryRegion"  type="text" placeholder="регион"><br />
+                    <select name="deliveryRegion" id="deliveryRegion">
+                        <option value="" disabled selected>Регион</option>
+                        {% for region in regions %}
+                            <option value="{{ region.id }}">{{ region.title }}</option>
+                        {% endfor %}
+                    </select><br />
                     <input name="deliveryCity"    id="deliveryCity"    type="text" placeholder="Город"><br />
                     <input name="deliveryStreet"  id="deliveryStreet"  type="text" placeholder="Улица"><br />
                     <input name="deliveryHouse"   id="deliveryHouse"   type="text" placeholder="Дом" class="little">

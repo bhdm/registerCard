@@ -26,7 +26,13 @@ class MiniController extends Controller{
      * @Template()
      */
     public function indexAction(Request $request, $compnayUrl){
-        return array('typeLayout' => 'mini', 'compnayUrl' => $compnayUrl);
+        $country = $this->getDoctrine()->getRepository('CrmMainBundle:Country')->findOneById(3159);
+        $regions = $this->getDoctrine()->getRepository('CrmMainBundle:Region')->findByCountry($country);
+        return array(
+            'typeLayout' => 'mini',
+            'compnayUrl' => $compnayUrl,
+            'regions'   => $regions,
+        );
     }
 
     /**
@@ -61,6 +67,19 @@ class MiniController extends Controller{
 
         $user->setSnils($data->get('snils'));
 
+        $company  = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->findOneByUrl($compnayUrl);
+        $region = $this->getDoctrine()->getRepository('CrmMainBundle:Region')->findOneById($data->get('deliveryRegion'));
+        $user->setCompany($company);
+        $user->setDileveryZipcode($data->get('deliveryZipcode'));
+        $user->setDileveryRegion($region);
+        $user->setDileveryCity($data->get('deliveryCity'));
+        $user->setDileveryStreet($data->get('deliveryStreet'));
+        $user->setDileveryHome($data->get('deliveryHouse'));
+        $user->setDileveryCorp($data->get('deliveryCorp'));
+        $user->setDileveryRoom($data->get('deliveryRoom'));
+        $user->setSalt(md5(time()));
+        
+
         # Теперь сохраняем файлы и присоединяем к сущности
 
         if ($session->get('passport')){
@@ -83,22 +102,44 @@ class MiniController extends Controller{
             $fileName = $this->saveFile('snils');
             $user->setCopySnils($fileName);
         }
-//         if ($session->get('hod')){
-//            $fileName = $this->saveFile('hod');
-//            $user->setCopyPetition($fileName);
-//        }
+         if ($session->get('hod')){
+            $fileName = $this->saveFile('hod');
+            $user->setCopyPetition($fileName);
+        }
+
         if ($session->get('work')){
             $fileName = $this->saveFile('work');
             $user->setCopyWork($fileName);
         }
-        $user = $user;
 
+        $date = new \DateTime($user->getBirthDate());
+        $user->setBirthDate($date);
+
+        $date = new \DateTime($user->getPassportIssuanceDate());
+        $user->setPassportIssuanceDate($date);
+
+        $date = new \DateTime($user->getDriverDocDateStarts());
+        $user->setDriverDocDateStarts($date);
+
+        $date = new \DateTime($user->getDriverDocDateEnds());
+        $user->setDriverDocDateEnds($date);
+
+        $user->setCopyPassport($this->getArrayToImg($user->getCopyPassport()));
+        $user->setCopyDriverPassport($this->getArrayToImg($user->getCopyDriverPassport()));
+        $user->setPhoto($this->getArrayToImg($user->getPhoto()));
+        $user->setCopySignature($this->getArrayToImg($user->getCopySignature()));
+        $user->setCopySnils($this->getArrayToImg($user->getCopySnils()));
+        $user->setCopyWork($this->getArrayToImg($user->getCopyWork()));
+        $user->setCopyPetition($this->getArrayToImg($user->getCopyPetition()));
+
+
+        $em->persist($user);
+        $em->flush($user);
+        $em->refresh($user);
 
 
 
         return array(
-//            'formUser'      => $formUser->createView(),
-//            'formDriver'    => $formDriver->createView(),
             'typeLayout' => 'mini'
         );
     }
