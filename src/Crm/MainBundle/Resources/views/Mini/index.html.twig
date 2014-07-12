@@ -2,7 +2,7 @@
 
 {% block content %}
     <div class="box">
-        <h2>Оформление заявки - Шаг 1</h2>
+        <h2>Оформление заявки</h2>
     </div>
     <div class="bg-gray"></div>
     <div class="help-pop-up">
@@ -330,17 +330,7 @@
             <tr>
                 <td></td>
                 <td style="text-align: right">
-                    <input type="button" value="Оформить заявку" class="btn" id="formBtn">
-                </td>
-            </tr>
-
-
-
-            <tr><td colspan="2"><br /></td></tr>
-            <tr>
-                <td></td>
-                <td style="text-align: right">
-                    <input type="button" value="Далее" class="btn" id="submit">
+                    <input type="button" value="Оформить заявку" class="btn" id="submit">
                 </td>
             </tr>
         </table>
@@ -585,12 +575,22 @@
                 form.append('email',$('#email').val());
                 form.append('phone',$('#phone').val());
 
+                form.append('deliveryZipcode',$('#deliveryZipcode').val());
+                form.append('deliveryRegion',$('#deliveryRegion').val());
+                form.append('deliveryCity',$('#deliveryCity').val());
+                form.append('deliveryStreet',$('#deliveryStreet').val());
+                form.append('deliveryHouse',$('#deliveryHouse').val());
+                form.append('deliveryCorp',$('#deliveryCorp').val());
+                form.append('deliveryRoom',$('#deliveryRoom').val());
+
 
                 var request = new XMLHttpRequest();
                 request.open("POST", "{{ path('order_register_mini',{'compnayUrl' : compnayUrl}) }}", false);
                 request.send(form);
                 if(request.status == 200) {
-                    id = request.responseText.data.id;
+                    id = $.parseJSON(request.responseText);
+                    console.log(request.responseText);
+                    id = id.data.id;
                     window.location.href = Routing.generate('order_success_mini',{ 'id' : id});
                 }
 

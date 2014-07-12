@@ -313,10 +313,7 @@ class OrderController extends Controller{
         return $response;
     }
 
-    /**
-     * @param $img  base64
-     * @param $rect array(x,y,x2,y2)
-     */
+
     public function cropimage($img, $rect){
 
         #Получаем оригинальные размеры картинки
