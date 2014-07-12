@@ -8,7 +8,6 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Crm\MainBundle\Form\Type\UserType;
 use Crm\MainBundle\Form\Type\AdminDriverType;
 use Crm\MainBundle\Entity\User;
-use Crm\MainBundle\Entity\Driver;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Session\Session;
@@ -59,13 +58,10 @@ class UserController extends Controller
         if ($request->getSession()->get('hash')!='7de92cefb8a07cede44f3ae9fa97fb3b') return $this->redirect($this->generateUrl('admin_main'));
         $em = $this->getDoctrine()->getManager();
         $user = $em->getRepository('CrmMainBundle:User')->findOneById($userId);
-        $driver = $user->getDriver();
 
         $formUser       = $this->createForm(new UserType($em), $user);
-        $formDriver    = $this->createForm(new AdminDriverType($em), $driver);
 
         $formUser->handleRequest($request);
-        $formDriver->handleRequest($request);
 
         if ($request->isMethod('POST')) {
             if ($formUser->isValid()) {
@@ -74,22 +70,14 @@ class UserController extends Controller
                 $em->flush($user);
                 $em->refresh($user);
             }
-            if ($formDriver->isValid()) {
-                $driver = $formDriver->getData();
-                $driver->setuser($user);
-                $em->flush($driver);
-            }
-            $user = $em->getRepository('CrmMainBundle:User')->findOneById($userId);
-            $driver = $user->getDriver();
 
+            $user = $em->getRepository('CrmMainBundle:User')->findOneById($userId);
             $formUser       = $this->createForm(new UserType($em), $user);
-            $formDriver    = $this->createForm(new AdminDriverType($em), $driver);
         }
         $em->refresh($user);
         return array(
             'userId'    => $userId,
             'formUser'      => $formUser->createView(),
-            'formDriver'    => $formDriver->createView(),
             'pageAct' => 'page_list',
         );
     }
