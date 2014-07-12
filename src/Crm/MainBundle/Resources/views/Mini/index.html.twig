@@ -590,7 +590,8 @@
                 request.open("POST", "{{ path('order_register_mini',{'compnayUrl' : compnayUrl}) }}", false);
                 request.send(form);
                 if(request.status == 200) {
-                    window.location.href = '{{ path('order_register_mini',{'compnayUrl' : compnayUrl}) }}';
+                    id = request.responseText.data.id;
+                    window.location.href = Routing.generate('order_success_mini',{ 'id' : id});
                 }
 
             }else{

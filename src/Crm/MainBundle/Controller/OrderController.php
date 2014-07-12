@@ -269,14 +269,6 @@ class OrderController extends Controller{
             $user->setCopyWork($this->getArrayToImg($user->getCopyWork()));
             $user->setCopyPetition($this->getArrayToImg($user->getCopyPetition()));
 
-//            $user->setCopyPassport(null);
-//            $user->setCopyDriverPassport(null);
-//            $user->setPhoto(null);
-//            $user->setCopySignature(null);
-//            $user->setCopySnils(null);
-//            $user->setCopyWork(null);
-//            $user->setCopyPetition(null);
-
             $em->persist($user);
             $em->flush($user);
             $em->refresh($user);

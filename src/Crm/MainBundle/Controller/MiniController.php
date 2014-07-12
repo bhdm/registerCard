@@ -5,6 +5,7 @@ namespace Crm\MainBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Session\Session;
@@ -78,7 +79,7 @@ class MiniController extends Controller{
         $user->setDileveryCorp($data->get('deliveryCorp'));
         $user->setDileveryRoom($data->get('deliveryRoom'));
         $user->setSalt(md5(time()));
-        
+
 
         # Теперь сохраняем файлы и присоединяем к сущности
 
@@ -137,11 +138,16 @@ class MiniController extends Controller{
         $em->flush($user);
         $em->refresh($user);
 
+        $id = array('id' => $user->getId());
 
-
-        return array(
-            'typeLayout' => 'mini'
-        );
+        return new JsonResponse(array('data'=>$id));
     }
 
+    /**
+     * @Route("/company/order-success/{id}", name="order_success_mini" )
+     */
+    public function successAction($id){
+        $user = $this->getDoctrine()->getRepository('CrmMainBundle:User')->findOneById($id);
+        return new Response($this->renderView("CrmMainBundle:Order:success.html.twig", array('user' => $user)));
+    }
 }
