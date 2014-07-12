@@ -110,6 +110,13 @@
                 </tr>
                 <tr><td colspan="2" class="empty-row">Водительское удостоверение</td></tr>
                 <tr>
+                    <td class="label">Место выдачи:</td>
+                    <td class="value">
+                        <input name="driverDocIssuance" id="driverDocIssuance" type="text"  >
+                    </td>
+                    <td class="driverDocIssuanceStatus"></td>
+                </tr>
+                <tr>
                     <td class="label">Номер удостоверения водителя:</td>
                     <td class="value">
                         <input name="driverNumber" id="driverNumber" type="text"  >
@@ -139,7 +146,7 @@
                     </td>
                 </tr>
             </table>
-         </div>
+        </div>
         <div class="inp-snils inp-box">
             <table>
                 <tr>
@@ -170,37 +177,37 @@
 
     <div class="box">
         <table>
-            <form method="POST" action="{{ path('order_register') }}" id="main-form">
-            <tr>
-               <td colspan="3">
-                    <div class="error-msg"></div>
-               </td>
-            </tr>
-            <tr>
-                <td class="label">E-mail:</td>
-                <td class="value">
+            <form method="POST" action="{{ path('order_register_mini',{'compnayUrl' : compnayUrl}) }}" id="main-form">
+                <tr>
+                    <td colspan="3">
+                        <div class="error-msg"></div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="label">E-mail:</td>
+                    <td class="value">
                         <input name="email" id="email" type="text" placeholder="Укажите вашу почту" required>
-                </td>
-                <td class="emailStatus" rowspan="2" style="padding-left: 10px; font-size: 12px">
-                    <i>Для создания заявки необходимо заполнить хотя бы одно из полей - Email или телефон</i>
-                </td>
-            </tr>
-            <tr>
-                <td class="label">Телефон:</td>
-                <td class="value">
-                    <input name="phone" id="phone" type="text" placeholder="Укажите ваш телефон">
-                </td>
-            </tr>
-            <tr>
-                <td class="label">Гражданство<span class="required">*</span>:</td>
-                <td class="value">
-                    <select name="rezident" id="rezident">
-                        <option value="1">Россия</option>
-                        <option value="2">Другое</option>
-                    </select>
-                </td>
-                <td ></td>
-            </tr>
+                    </td>
+                    <td class="emailStatus" rowspan="2" style="padding-left: 10px; font-size: 12px">
+                        <i>Для создания заявки необходимо заполнить хотя бы одно из полей - Email или телефон</i>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="label">Телефон:</td>
+                    <td class="value">
+                        <input name="phone" id="phone" type="text" placeholder="Укажите ваш телефон">
+                    </td>
+                </tr>
+                <tr>
+                    <td class="label">Гражданство<span class="required">*</span>:</td>
+                    <td class="value">
+                        <select name="rezident" id="rezident">
+                            <option value="1">Россия</option>
+                            <option value="2">Другое</option>
+                        </select>
+                    </td>
+                    <td ></td>
+                </tr>
             </form>
             <tr><td colspan="2" class="empty-row">Документы</td></tr>
             <tr>
@@ -284,6 +291,46 @@
                 <td class="hodStatus"><img src="{{ asset('bundles/crmmain/images/help.png') }}" class="ico help" id="helpHod"></td>
             </tr>
 
+            <tr><td colspan="2" class="empty-row">Информация о доставке</td></tr>
+            <tr>
+                <td class="label">Адрес доставки<span class="required">*</span>:</td>
+                <td class="value">
+                    <input name="deliveryZipcode" id="deliveryZipcode" type="text" placeholder="Индекс"><br />
+                    <input name="deliveryRegion"  id="deliveryRegion"  type="text" placeholder="регион"><br />
+                    <input name="deliveryCity"    id="deliveryCity"    type="text" placeholder="Город"><br />
+                    <input name="deliveryStreet"  id="deliveryStreet"  type="text" placeholder="Улица"><br />
+                    <input name="deliveryHouse"   id="deliveryHouse"   type="text" placeholder="Дом" class="little">
+                    <input name="deliveryCorp"    id="deliveryCorp"    type="text" placeholder="Корп /Стр"  class="little">
+                    <input name="deliveryRoom"    id="deliveryRoom"    type="text" placeholder="Кв / оф"  class="little">
+                </td>
+                <td class="deliveryAdressStatus"></td>
+            </tr>
+
+            <tr><td colspan="2" class="empty-row">Другая информация</td></tr>
+            <tr>
+                <td class="label">Номер прошлой карты:</td>
+                <td class="value">
+                    <input name="oldNumber" id="oldNumber" type="text"  >
+                </td>
+                <td class="oldNumberStatus"></td>
+            </tr>
+
+            <tr><td colspan="2"><br /></td></tr>
+            <tr>
+                <td style="text-align: right" colspan="2">
+                    <span id="eulaText">Я принимаю <a href="{{ path('page',{'url' : 'eula'}) }}">условия обслуживания сайта im-kard.ru</a>&nbsp;&nbsp;&nbsp;<input type="checkbox" name="eula" id="eula"></span>
+                </td>
+            </tr>
+            <tr><td colspan="2"><br /></td></tr>
+            <tr>
+                <td></td>
+                <td style="text-align: right">
+                    <input type="button" value="Оформить заявку" class="btn" id="formBtn">
+                </td>
+            </tr>
+
+
+
             <tr><td colspan="2"><br /></td></tr>
             <tr>
                 <td></td>
@@ -307,528 +354,549 @@
 
 
     <script>
-        $(document).ready(function(){
-            $("#phone").mask("+7 (999) 999-9999");
-            var files;
-            $('input, select').styler();
+    $(document).ready(function(){
+        $("#phone").mask("+7 (999) 999-9999");
+        var files;
+        $('input, select').styler();
 
 
-            $('input[type=file]').on('change', function(event){
+        $('input[type=file]').on('change', function(event){
 
-                $('#forward').fadeOut();
-                $('#rotate').fadeIn();
-                $('#sendCoords').fadeIn();
-                $('.inp-box').css('display','none');
+            $('.bg-gray').fadeIn();
+            $('#loader').fadeIn();
 
-                if ($(this).attr('name')=='passport' ){
-                    $('.inp-passport').css('display','block');
-                    $('.img-pop-up').attr('type-doc','passport');
-                }
+            $('#forward').fadeOut();
+            $('#rotate').fadeIn();
+            $('#sendCoords').fadeIn();
+            $('.inp-box').css('display','none');
 
-                if ($(this).attr('name')=='driver' ){
-                    $('.inp-driver').css('display','block');
-                    $('.img-pop-up').attr('type-doc','driver');
-                }
+            if ($(this).attr('name')=='passport' ){
+                $('.inp-passport').css('display','block');
+                $('.img-pop-up').attr('type-doc','passport');
+            }
 
-                if ($(this).attr('name')=='snils' ){
-                    $('.inp-snils').css('display','block');
-                    $('.img-pop-up').attr('type-doc','snils');
-                }
+            if ($(this).attr('name')=='driver' ){
+                $('.inp-driver').css('display','block');
+                $('.img-pop-up').attr('type-doc','driver');
+            }
 
-                if ($(this).attr('name')=='photo' ){
-                    $('.img-pop-up').attr('type-doc','photo');
-                }
+            if ($(this).attr('name')=='snils' ){
+                $('.inp-snils').css('display','block');
+                $('.img-pop-up').attr('type-doc','snils');
+            }
 
-                if ($(this).attr('name')=='sign' ){
-                    $('.img-pop-up').attr('type-doc','sign');
-                }
+            if ($(this).attr('name')=='photo' ){
+                $('.img-pop-up').attr('type-doc','photo');
+            }
 
-                if ($(this).attr('name')=='work' ){
-                    $('.img-pop-up').attr('type-doc','hod');
-                }
+            if ($(this).attr('name')=='sign' ){
+                $('.img-pop-up').attr('type-doc','sign');
+            }
 
-                if ($(this).attr('name')=='hod' ){
-                    $('.img-pop-up').attr('type-doc','hod');
-                }
+            if ($(this).attr('name')=='work' ){
+                $('.img-pop-up').attr('type-doc','hod');
+            }
+
+            if ($(this).attr('name')=='hod' ){
+                $('.img-pop-up').attr('type-doc','hod');
+            }
 
 
 
-                files = event.target.files;
-                var formData = new FormData();
-                $.each(files, function(key, value){
-                    formData.append(key, value);
-                });
-                if ($('.img-pop-up').attr('type-doc') != ''){
-                    type = $('.img-pop-up').attr('type-doc');
-                    $.ajax({
-                        url: Routing.generate('uploadDoc', {'type': type}),
-                        type: 'POST',
-                        xhr: function() {
-                            var myXhr = $.ajaxSettings.xhr();
-                            if(myXhr.upload){
-                                myXhr.upload.addEventListener('#progress-passport',progressHandlingFunction, false);
-                            }
-                            return myXhr;
-                        },
-                        //beforeSend: ,
-                        //error: ,
-                        success: function(msg){
-                            if ($('.img-pop-up').attr('type-doc') != 'hod' ){
-                                $('#img-pop-up-img').html('<div style="display: inline-block"><img  src="'+msg+'" /></div>');
-                                showImgPopUp();
-                                if ( type == 'photo'){
-                                    $('#img-pop-up-img div img').imgAreaSelect({
-                                        aspectRatio: '3:4',
-//                                x1: 120, y1: 90, x2: 280, y2: 210,
-                                        handles: true,
-                                        onSelectEnd: function (img, selection) {
-                                            $('input[name="x1"]').val(selection.x1);
-                                            $('input[name="y1"]').val(selection.y1);
-                                            $('input[name="x2"]').val(selection.x2);
-                                            $('input[name="y2"]').val(selection.y2);
-                                            $('.imgareaselect-selection').addClass('imgareaselect-selection2');
-                                        }
-                                    });
-                                }else{
-                                    $('#img-pop-up-img div img').imgAreaSelect({
-                                        x1: 120, y1: 90, x2: 280, y2: 210,
-                                        handles: true,
-                                        onSelectEnd: function (img, selection) {
-                                            $('input[name="x1"]').val(selection.x1);
-                                            $('input[name="y1"]').val(selection.y1);
-                                            $('input[name="x2"]').val(selection.x2);
-                                            $('input[name="y2"]').val(selection.y2);
-                                        }
-                                    });
-                                }
-                            }
-                        },
-                        data: formData,
-                        cache: false,
-                        contentType: false,
-                        processData: false
-                    });
-                }
+            files = event.target.files;
+            var formData = new FormData();
+            $.each(files, function(key, value){
+                formData.append(key, value);
             });
-
-            $('#rotate').click(function(){
+            if ($('.img-pop-up').attr('type-doc') != ''){
                 type = $('.img-pop-up').attr('type-doc');
                 $.ajax({
-                    type: "POST",
-                    url: Routing.generate('rotate-image', {'type': type}),
-                    success: function(msg){
-                        $(".imgareaselect-selection").parent().remove();
-                        $(".imgareaselect-outer").remove();
-                        $('#img-pop-up-img').html('<div style="display: inline-block"><img  src="'+msg+'" /></div>');
-                        showImgPopUp();
-                        if ( type == 'photo'){
-                            $('#img-pop-up-img div img').imgAreaSelect({
-                                aspectRatio: '3:5',
-//                                x1: 120, y1: 90, x2: 280, y2: 210,
-                                handles: true,
-                                onSelectEnd: function (img, selection) {
-                                    $('input[name="x1"]').val(selection.x1);
-                                    $('input[name="y1"]').val(selection.y1);
-                                    $('input[name="x2"]').val(selection.x2);
-                                    $('input[name="y2"]').val(selection.y2);
-                                }
-                            });
-                            $('.imgareaselect-selection').addClass('imgareaselect-selection2');
-                        }else{
-                            $('#img-pop-up-img div img').imgAreaSelect({
-                                x1: 120, y1: 90, x2: 280, y2: 210,
-                                handles: true,
-                                onSelectEnd: function (img, selection) {
-                                    $('input[name="x1"]').val(selection.x1);
-                                    $('input[name="y1"]').val(selection.y1);
-                                    $('input[name="x2"]').val(selection.x2);
-                                    $('input[name="y2"]').val(selection.y2);
-                                }
-                            });
+                    url: Routing.generate('uploadDoc', {'type': type}),
+                    type: 'POST',
+                    xhr: function() {
+                        var myXhr = $.ajaxSettings.xhr();
+                        if(myXhr.upload){
+                            myXhr.upload.addEventListener('#progress-passport',progressHandlingFunction, false);
                         }
-
-                    }
-                });
-            });
-
-            $('#submit').click(function(){
-                //Validation
-                errorI = 1 ;
-                error = '';
-                if ( $('#email').val()=='' &&  $('#phone').val()=='' ){
-                    $('#email').css('borderColor', '#cc3333');
-                    $('#phone').css('borderColor', '#cc3333');
-                    error += errorI+'. Одно из полей (телефон или e-mail) обязательно должно быть заполнено<br />';
-                    errorI++;
-                }
-                if ( $('#passportFile-styler .jq-file__name').html() == 'Файл не выбран'){
-                    error += errorI+'. Поле пасспорт обязательно для заполнения<br />';
-                    $('#passportFile-styler .jq-file__name').css('borderColor', '#cc3333');
-                    errorI++;
-                }
-
-                if ( $('#driverFile-styler .jq-file__name').html() == 'Файл не выбран'){
-                    error += errorI+'. Поле водительское удостоверение обязательно для заполнения<br />';
-                    $('#driverFile-styler .jq-file__name').css('borderColor', '#cc3333');
-                    errorI++;
-                }
-
-                if ( $('#photoFile-styler .jq-file__name').html() == 'Файл не выбран'){
-                    error += errorI+'. Поле фотография обязательно для заполнения<br />';
-                    $('#photoFile-styler .jq-file__name').css('borderColor', '#cc3333');
-                    errorI++;
-                }
-
-                if ( $('#signFile-styler .jq-file__name').html() == 'Файл не выбран'){
-                    error += errorI+'. Поле подпись обязательно для заполнения<br />';
-                    $('#signFile-styler .jq-file__name').css('borderColor', '#cc3333');
-                    errorI++;
-                }
-
-                if ( $('#hodFile-styler .jq-file__name').html() == 'Файл не выбран'){
-                    error += errorI+'. Поле ходатайство обязательно для заполнения<br />';
-                    $('#hodFile-styler .jq-file__name').css('borderColor', '#cc3333');
-                    errorI++;
-                }
-
-                if ($('#rezident').val() == 1 && $('#snilsFile-styler .jq-file__name').html() == 'Файл не выбран' ){
-                    error += errorI+'. Поле Страховой номер лицевого счета обязательно для заполнения<br />';
-                    $('#snilsFile-styler .jq-file__name').css('borderColor', '#cc3333');
-                    errorI++;
-                }
-
-                if (error === ''){
-                    var form = new FormData();
-                    form.append('PassportLastName',$('#lastName').val());
-                    form.append('PassportFirstName',$('#firstName').val());
-                    form.append('PassportSurName',$('#surName').val());
-                    form.append('PassportBirthdate',$('#birthdate').val());
-                    form.append('PassportNumber',$('#passportNumber').val());
-                    form.append('PassportPlace',$('#passportPlace').val());
-                    form.append('PassportDate',$('#passportDate').val());
-                    form.append('PassportCode',$('#passportCode').val());
-
-                    form.append('driverNumber',$('#driverNumber').val());
-                    form.append('driverDateStarts',$('#driverDateStarts').val());
-                    form.append('driverDateEnds',$('#driverDateEnds').val());
-
-                    form.append('snils',$('#snils').val());
-
-                    form.append('email',$('#email').val());
-                    form.append('phone',$('#phone').val());
-
-
-                    var request = new XMLHttpRequest();
-                    request.open("POST", "{{ path('order_register') }}");
-                    request.send(form);
-                    window.location.href = '{{ path('order_register') }}';
-                }else{
-                    $('.error-msg').fadeIn();
-                    $('.error-msg').html(error);
-                }
-            });
-
-            $('#rezident').change(function(){
-                if ( $(this).val() == '1' ){
-                    $('#rus').css('display','table-row');
-                    $('#notrus').css('display','none');
-                }else{
-                    $('#rus').css('display','none');
-                    $('#notrus').css('display','table-row');
-                }
-            });
-
-            $('.back').click(function(){
-                showImgPopUp();
-                hideInpPopUp();
-            });
-
-            $('#forward').click(function(){
-                hideImgPopUp();
-                type = $('.img-pop-up').attr('type-doc');
-                if (type == 'snils' || type == 'driver' || type == 'passport'){
-                    showInpPopUp();
-                }
-            });
-
-
-            $('#sendCoords').click(function(){
-                type = $('.img-pop-up').attr('type-doc');
-                x1 = $('input[name="x1"]').val();
-                y1 = $('input[name="y1"]').val();
-                x2 = $('input[name="x2"]').val()-x1;
-                y2 = $('input[name="y2"]').val()-y1;
-                $.ajax({
-                    type: "POST",
-                    url: Routing.generate('send_coordinates', {'type': type}),
-                    data: 'x='+x1+'&y='+y1+'&x2='+x2+'&y2='+y2+'&originalWidth='+$('#img-pop-up-img img').css('width'),
+                        return myXhr;
+                    },
+                    //beforeSend: ,
+                    //error: ,
                     success: function(msg){
-                        $('#img-pop-up-img').html('<div style="display: inline-block"><img src="'+msg+'" /></div>');
-                        $(".imgareaselect-selection").parent().remove();
-                        $(".imgareaselect-outer").remove();
-                        if (type == 'snils' || type == 'driver' || type == 'passport'){
-                            $('#forward').fadeIn();
+
+                        $('.bg-gray').fadeOut();
+                        $('#loader').fadeOut();
+
+                        if ($('.img-pop-up').attr('type-doc') != 'hod' ){
+                            $('#img-pop-up-img').html('<div style="display: inline-block"><img  src="'+msg+'" /></div>');
+                            showImgPopUp();
+                            if ( type == 'photo'){
+                                $('#img-pop-up-img div img').imgAreaSelect({
+                                    aspectRatio: '3:4',
+//                                x1: 120, y1: 90, x2: 280, y2: 210,
+                                    handles: true,
+                                    onSelectEnd: function (img, selection) {
+                                        $('input[name="x1"]').val(selection.x1);
+                                        $('input[name="y1"]').val(selection.y1);
+                                        $('input[name="x2"]').val(selection.x2);
+                                        $('input[name="y2"]').val(selection.y2);
+                                        $('.imgareaselect-selection').addClass('imgareaselect-selection2');
+                                    }
+                                });
+                            }else{
+                                $('#img-pop-up-img div img').imgAreaSelect({
+                                    x1: 120, y1: 90, x2: 280, y2: 210,
+                                    handles: true,
+                                    onSelectEnd: function (img, selection) {
+                                        $('input[name="x1"]').val(selection.x1);
+                                        $('input[name="y1"]').val(selection.y1);
+                                        $('input[name="x2"]').val(selection.x2);
+                                        $('input[name="y2"]').val(selection.y2);
+                                    }
+                                });
+                            }
+                        }
+                    },
+//                        error:function (error) {
+//                            alert("error"+error);
+//                        },
+                    data: formData,
+                    cache: false,
+                    contentType: false,
+                    processData: false
+                });
+            }
+            if ( $('#signFile-styler').children('.jq-file__name').html() == 'Файл не выбран'){
+                hideloader();
+                hideImgPopUp();
+            }
+        });
+
+        $('#rotate').click(function(){
+            type = $('.img-pop-up').attr('type-doc');
+            $.ajax({
+                type: "POST",
+                url: Routing.generate('rotate-image', {'type': type}),
+                success: function(msg){
+                    $(".imgareaselect-selection").parent().remove();
+                    $(".imgareaselect-outer").remove();
+                    $('#img-pop-up-img').html('<div style="display: inline-block"><img  src="'+msg+'" /></div>');
+                    showImgPopUp();
+                    if ( type == 'photo'){
+                        $('#img-pop-up-img div img').imgAreaSelect({
+                            aspectRatio: '3:5',
+//                                x1: 120, y1: 90, x2: 280, y2: 210,
+                            handles: true,
+                            onSelectEnd: function (img, selection) {
+                                $('input[name="x1"]').val(selection.x1);
+                                $('input[name="y1"]').val(selection.y1);
+                                $('input[name="x2"]').val(selection.x2);
+                                $('input[name="y2"]').val(selection.y2);
+                            }
+                        });
+                        $('.imgareaselect-selection').addClass('imgareaselect-selection2');
+                    }else{
+                        $('#img-pop-up-img div img').imgAreaSelect({
+                            x1: 120, y1: 90, x2: 280, y2: 210,
+                            handles: true,
+                            onSelectEnd: function (img, selection) {
+                                $('input[name="x1"]').val(selection.x1);
+                                $('input[name="y1"]').val(selection.y1);
+                                $('input[name="x2"]').val(selection.x2);
+                                $('input[name="y2"]').val(selection.y2);
+                            }
+                        });
+                    }
+
+                }
+            });
+        });
+
+        $('#submit').click(function(){
+            //Validation
+            errorI = 1 ;
+            error = '';
+            if ( $('#email').val()=='' &&  $('#phone').val()=='' ){
+                $('#email').css('borderColor', '#cc3333');
+                $('#phone').css('borderColor', '#cc3333');
+                error += errorI+'. Одно из полей (телефон или e-mail) обязательно должно быть заполнено<br />';
+                errorI++;
+            }
+            if ( $('#passportFile-styler .jq-file__name').html() == 'Файл не выбран'){
+                error += errorI+'. Поле пасспорт обязательно для заполнения<br />';
+                $('#passportFile-styler .jq-file__name').css('borderColor', '#cc3333');
+                errorI++;
+            }
+
+            if ( $('#driverFile-styler .jq-file__name').html() == 'Файл не выбран'){
+                error += errorI+'. Поле водительское удостоверение обязательно для заполнения<br />';
+                $('#driverFile-styler .jq-file__name').css('borderColor', '#cc3333');
+                errorI++;
+            }
+
+            if ( $('#photoFile-styler .jq-file__name').html() == 'Файл не выбран'){
+                error += errorI+'. Поле фотография обязательно для заполнения<br />';
+                $('#photoFile-styler .jq-file__name').css('borderColor', '#cc3333');
+                errorI++;
+            }
+
+            if ( $('#signFile-styler .jq-file__name').html() == 'Файл не выбран'){
+                error += errorI+'. Поле подпись обязательно для заполнения<br />';
+                $('#signFile-styler .jq-file__name').css('borderColor', '#cc3333');
+                errorI++;
+            }
+
+            if ( $('#hodFile-styler .jq-file__name').html() == 'Файл не выбран'){
+                error += errorI+'. Поле ходатайство обязательно для заполнения<br />';
+                $('#hodFile-styler .jq-file__name').css('borderColor', '#cc3333');
+                errorI++;
+            }
+
+            if ($('#rezident').val() == 1 && $('#snilsFile-styler .jq-file__name').html() == 'Файл не выбран' ){
+                error += errorI+'. Поле Страховой номер лицевого счета обязательно для заполнения<br />';
+                $('#snilsFile-styler .jq-file__name').css('borderColor', '#cc3333');
+                errorI++;
+            }
+
+            if (error === ''){
+                var form = new FormData();
+                form.append('PassportLastName',$('#lastName').val());
+                form.append('PassportFirstName',$('#firstName').val());
+                form.append('PassportSurName',$('#surName').val());
+                form.append('PassportBirthdate',$('#birthdate').val());
+                form.append('PassportNumber',$('#passportNumber').val());
+                form.append('PassportPlace',$('#passportPlace').val());
+                form.append('PassportDate',$('#passportDate').val());
+                form.append('PassportCode',$('#passportCode').val());
+                form.append('PassportCode',$('#passportCode').val());
+
+                form.append('driverNumber',$('#driverNumber').val());
+                form.append('driverDateStarts',$('#driverDateStarts').val());
+                form.append('driverDateEnds',$('#driverDateEnds').val());
+                form.append('driverDocIssuance',$('#driverDocIssuance').val());
+
+                form.append('snils',$('#snils').val());
+
+                form.append('email',$('#email').val());
+                form.append('phone',$('#phone').val());
+
+
+                var request = new XMLHttpRequest();
+                request.open("POST", "{{ path('order_register_mini',{'compnayUrl' : compnayUrl}) }}", false);
+                request.send(form);
+                if(request.status == 200) {
+                    window.location.href = '{{ path('order_register_mini',{'compnayUrl' : compnayUrl}) }}';
+                }
+
+            }else{
+                $('.error-msg').fadeIn();
+                $('.error-msg').html(error);
+            }
+        });
+
+        $('#rezident').change(function(){
+            if ( $(this).val() == '1' ){
+                $('#rus').css('display','table-row');
+                $('#notrus').css('display','none');
+            }else{
+                $('#rus').css('display','none');
+                $('#notrus').css('display','table-row');
+            }
+        });
+
+        $('.back').click(function(){
+            showImgPopUp();
+            hideInpPopUp();
+        });
+
+        $('#forward').click(function(){
+            hideImgPopUp();
+            type = $('.img-pop-up').attr('type-doc');
+            if (type == 'snils' || type == 'driver' || type == 'passport'){
+                showInpPopUp();
+            }
+        });
+
+
+        $('#sendCoords').click(function(){
+            type = $('.img-pop-up').attr('type-doc');
+            x1 = $('input[name="x1"]').val();
+            y1 = $('input[name="y1"]').val();
+            x2 = $('input[name="x2"]').val()-x1;
+            y2 = $('input[name="y2"]').val()-y1;
+            $.ajax({
+                type: "POST",
+                url: Routing.generate('send_coordinates', {'type': type}),
+                data: 'x='+x1+'&y='+y1+'&x2='+x2+'&y2='+y2+'&originalWidth='+$('#img-pop-up-img img').css('width'),
+                success: function(msg){
+                    $('#img-pop-up-img').html('<div style="display: inline-block"><img src="'+msg+'" /></div>');
+                    $(".imgareaselect-selection").parent().remove();
+                    $(".imgareaselect-outer").remove();
+                    if (type == 'snils' || type == 'driver' || type == 'passport'){
+                        $('#forward').fadeIn();
 //                            hideImgPopUp();
+                        if ($( ".img-pop-up").length > 0){
                             $( ".img-pop-up" ).draggable();
                             $('.img-pop-up').css('top','350px');
                             $( ".inp-pop-up" ).draggable();
-                            showloader();
-                            getImgData(type);
-                        }else{
-                            $('#forward').fadeIn();
-                            $('#rotate').fadeOut();
-                            $('#sendCoords').fadeOut();
-//                            hideImgPopUp();
                         }
+                        showloader();
+                        getImgData(type);
+                    }else{
+                        $('#forward').fadeIn();
+                        $('#rotate').fadeOut();
+                        $('#sendCoords').fadeOut();
+//                            hideImgPopUp();
+                    }
 
 //                        showInpPopUp();
-                    }
-                });
-            });
-
-            function getImgData(type){
-                $.ajax({
-                    type: "POST",
-                    url: Routing.generate('get_img_data', {'type': type, 'rezident' : $('#rezident').val()}),
-                    success: function(msg){
-                        if (type == 'snils' || type == 'driver' || type == 'passport'){
-                            hideloader(1);
-                        }else{
-//                            hideloader(0);
-                        }
-//                        obj = jQuery.parseJSON(msg);
-                        obj = msg.data;
-                        return true;
-                        if (type == 'passport'){
-                            $('#lastName').val(obj.lastName);
-                            $('#firstName').val(obj.firstName);
-                            $('#surName').val(obj.surName);
-                            $('#dateBrithdate').val(obj.passportDate);
-                            $('#passportNumber').val(obj.passportNumber);
-                            $('#passportCode').val(obj.passportCode);
-                            $('#passportPlace').val(obj.passportPlace);
-                        }
-                        if (type == 'snils'){
-                            $('#snils').val(obj.snils);
-                        }
-                        if (type == 'driver'){
-                            $('#driverNumber').val(obj.driverNumber);
-                            $('#driverDateStarts').val(obj.driverDateStarts);
-                            $('#driverDateEnds').val(obj.driverDateEnds);
-                        }
-                    }
-                });
-            }
-
-            $('.saveForm').click(function(){
-
-                errorI = 1 ;
-                error = '';
-                //Паспорт
-                if ( $(this).attr('id')=='savePassport' ){
-                    if ( $('#lastName').val()==''){
-                        $('#lastName').css('borderColor', '#cc3333');
-                        error += errorI+'. Поле фамилия обязательно для заполнения<br />';
-                        errorI++;
-                    }
-                    if ( $('#firstName').val()==''){
-                        $('#firstName').css('borderColor', '#cc3333');
-                        error += errorI+'. Поле имя обязательно для заполнения<br />';
-                        errorI++;
-                    }
-                    if ( $('#birthdate').val()==''){
-                        $('#birthdate').css('borderColor', '#cc3333');
-                        error += errorI+'. Поле дата рождения обязательно для заполнения<br />';
-                        errorI++;
-                    }else{
-                        var tmpdate = new Date($('#birthdate').val());
-                        var tmpdate2 = new Date();
-                        tmpdate = ( tmpdate2 - tmpdate) /(1000*60*60*24*365) ;
-                        console.log(tmpdate);
-                        if ( tmpdate < 18 ){
-                            error += errorI+'. Возраст должен быть более 18 лет<br />';
-                            errorI++;
-                        }
-                    }
-                    if ( $('#passportNumber').val()==''){
-                        $('#passportNumber').css('borderColor', '#cc3333');
-                        error += errorI+'. Поле серия и номер обязательно для заполнения<br />';
-                        errorI++;
-                    }
-                    if ( $('#passportPlace').val()==''){
-                        $('#passportPlace').css('borderColor', '#cc3333');
-                        error += errorI+'. Поле кем выдан обязательно для заполнения<br />';
-                        errorI++;
-                    }
-                    if ( $('#passportDate').val()==''){
-                        $('#passportDate').css('borderColor', '#cc3333');
-                        error += errorI+'. Поле дата выдачи обязательно для заполнения<br />';
-                        errorI++;
-                    }
-
-
-
                 }
-
-
-                if ( $(this).attr('id')=='saveDriver' ){
-                    if ( $('#driverNumber').val()==''){
-                        $('#driverNumber').css('borderColor', '#cc3333');
-                        error += errorI+'. Поле номер удостоверения водителя обязательно для заполнения<br />';
-                        errorI++;
-                    }
-                    if ( $('#driverDateStarts').val()==''){
-                        $('#driverDateStarts').css('borderColor', '#cc3333');
-                        error += errorI+'. Поле дата выдачи обязательно для заполнения<br />';
-                        errorI++;
-                    }
-                    if ( $('#driverDateEnds').val()==''){
-                        $('#driverDateEnds').css('borderColor', '#cc3333');
-                        error += errorI+'. Поле дата окончания обязательно для заполнения<br />';
-                        errorI++;
-                    }else{
-                        var tmpdate = new Date($('#driverDateEnds').val());
-                        var tmpdate2 = new Date();
-                        tmpdate = ( tmpdate - tmpdate2) /(1000*60*60*24*30) ;
-                        console.log(tmpdate);
-                        if ( tmpdate < 1 ){
-                            error += errorI+'. Минимальный срок вод. прав должен быть больше 1 месяца<br />';
-                            errorI++;
-                        }
-                    }
-
-
-
-
-
-                }
-                if ( $(this).attr('id')=='saveSnils' ){
-                    if ( $('#snils').val()==''){
-                        $('#snils').css('borderColor', '#cc3333');
-                        error += errorI+'. Поле номер удостоверения водителя обязательно для заполнения<br />';
-                        errorI++;
-                    }
-                }
-                if (error === ''){
-                    hideInpPopUp();
-                    hideImgPopUp();
-                }else{
-                    if ( $(this).attr('id')=='savePassport' ){
-                        $('.error-msg-p').fadeIn();
-                        $('.error-msg-p').html(error);
-                    }
-                    if ( $(this).attr('id')=='saveDriver' ){
-                        $('.error-msg-d').fadeIn();
-                        $('.error-msg-d').html(error);
-                    }
-                    if ( $(this).attr('id')=='saveSnils' ){
-                        $('.error-msg-s').fadeIn();
-                        $('.error-msg-s').html(error);
-                    }
-
-
-                }
-            });
-
-            function progressHandlingFunction(e){
-                if(e.lengthComputable){
-                    $('progress').attr({value:e.loaded,max:e.total});
-                }
-            }
-
-            function showInpPopUp(){
-                $('.bg-gray').fadeIn();
-                $('.inp-pop-up').fadeIn();
-                $('input, select').styler();
-            }
-
-            function hideInpPopUp(){
-                $('.bg-gray').fadeOut();
-                $('.inp-pop-up').fadeOut();
-            }
-
-            function showImgPopUp(){
-                $('.bg-gray').fadeIn();
-                $('.img-pop-up').css('top','50px');
-                $('.img-pop-up').fadeIn();
-                $('input, select').styler();
-                activeMask();
-            }
-
-            function hideImgPopUp(){
-                $('.bg-gray').fadeOut();
-                $('.img-pop-up').fadeOut();
-            }
-
-            function hideloader(x){
-                if (x == 1)
-                    showInpPopUp();
-                $('.bg-gray').fadeOut();
-                $('#loader').fadeOut();
-            }
-
-            function showloader(){
-                hideInpPopUp();
-                $('.bg-gray').fadeIn();
-                $('#loader').fadeIn();
-            }
-
-            function activeMask(){
-                $("#snils").mask("999-999-999 99");
-
-                $("#passportCode").mask("999-999");
-
-                $.mask.definitions['d'] = "[a-zA-Z0-9а-яА-Я ]";
-                $('#driverNumber').mask("dddd999999");
-
-                $("#driverDateStarts").mask("99.99.9999");
-                $("#driverDateEnds").mask("99.99.9999");
-                $("#birthdate").mask("99.99.9999");
-                $("#passportDate").mask("99.99.9999");
-            }
-
-            var opts = {
-                lines: 13, // The number of lines to draw
-                length: 20, // The length of each line
-                width: 10, // The line thickness
-                radius: 30, // The radius of the inner circle
-                corners: 1, // Corner roundness (0..1)
-                rotate: 0, // The rotation offset
-                direction: 1, // 1: clockwise, -1: counterclockwise
-                color: '#000', // #rgb or #rrggbb or array of colors
-                speed: 1.3, // Rounds per second
-                trail: 60, // Afterglow percentage
-                shadow: false, // Whether to render a shadow
-                hwaccel: false, // Whether to use hardware acceleration
-                className: 'spinner', // The CSS class to assign to the spinner
-                zIndex: 2e9, // The z-index (defaults to 2000000000)
-                top: '50%', // Top position relative to parent
-                left: '50%' // Left position relative to parent
-            };
-            var target = document.getElementById('loader');
-            var spinner = new Spinner(opts).spin(target);
-
-
-            $('.help').click(function(){
-                var typeHelp = $(this).attr('id');
-                $.ajax({
-                    type: "POST",
-                    url: Routing.generate('order_help', {'type': typeHelp }),
-                    success: function(msg){
-                        $('.help-pop-up .text').html(msg);
-                        $('.bg-gray').fadeIn();
-                        $('.help-pop-up').fadeIn();
-                    }
-                });
-            });
-            $('.close-pop-up').click(function(){
-                $('.bg-gray').fadeOut();
-                $('.help-pop-up').fadeOut();
-                $(".imgareaselect-selection").parent().remove();
-                $(".imgareaselect-outer").remove();
-                hideImgPopUp();
             });
         });
+
+        function getImgData(type){
+            $.ajax({
+                type: "POST",
+                url: Routing.generate('get_img_data', {'type': type, 'rezident' : $('#rezident').val()}),
+                success: function(msg){
+                    if (type == 'snils' || type == 'driver' || type == 'passport'){
+                        hideloader(1);
+                    }else{
+//                            hideloader(0);
+                    }
+//                        obj = jQuery.parseJSON(msg);
+                    obj = msg.data;
+                    return true;
+                    if (type == 'passport'){
+                        $('#lastName').val(obj.lastName);
+                        $('#firstName').val(obj.firstName);
+                        $('#surName').val(obj.surName);
+                        $('#dateBrithdate').val(obj.passportDate);
+                        $('#passportNumber').val(obj.passportNumber);
+                        $('#passportCode').val(obj.passportCode);
+                        $('#passportPlace').val(obj.passportPlace);
+                    }
+                    if (type == 'snils'){
+                        $('#snils').val(obj.snils);
+                    }
+                    if (type == 'driver'){
+                        $('#driverNumber').val(obj.driverNumber);
+                        $('#driverDateStarts').val(obj.driverDateStarts);
+                        $('#driverDateEnds').val(obj.driverDateEnds);
+                    }
+                }
+            });
+        }
+
+        $('.saveForm').click(function(){
+
+            errorI = 1 ;
+            error = '';
+            //Паспорт
+            if ( $(this).attr('id')=='savePassport' ){
+                if ( $('#lastName').val()==''){
+                    $('#lastName').css('borderColor', '#cc3333');
+                    error += errorI+'. Поле фамилия обязательно для заполнения<br />';
+                    errorI++;
+                }
+                if ( $('#firstName').val()==''){
+                    $('#firstName').css('borderColor', '#cc3333');
+                    error += errorI+'. Поле имя обязательно для заполнения<br />';
+                    errorI++;
+                }
+                if ( $('#birthdate').val()==''){
+                    $('#birthdate').css('borderColor', '#cc3333');
+                    error += errorI+'. Поле дата рождения обязательно для заполнения<br />';
+                    errorI++;
+                }else{
+                    var tmpdate = new Date($('#birthdate').val());
+                    var tmpdate2 = new Date();
+                    tmpdate = ( tmpdate2 - tmpdate) /(1000*60*60*24*365) ;
+                    console.log(tmpdate);
+                    if ( tmpdate < 18 ){
+                        error += errorI+'. Возраст должен быть более 18 лет<br />';
+                        errorI++;
+                    }
+                }
+                if ( $('#passportNumber').val()==''){
+                    $('#passportNumber').css('borderColor', '#cc3333');
+                    error += errorI+'. Поле серия и номер обязательно для заполнения<br />';
+                    errorI++;
+                }
+                if ( $('#passportPlace').val()==''){
+                    $('#passportPlace').css('borderColor', '#cc3333');
+                    error += errorI+'. Поле кем выдан обязательно для заполнения<br />';
+                    errorI++;
+                }
+                if ( $('#passportDate').val()==''){
+                    $('#passportDate').css('borderColor', '#cc3333');
+                    error += errorI+'. Поле дата выдачи обязательно для заполнения<br />';
+                    errorI++;
+                }
+
+
+
+            }
+
+
+            if ( $(this).attr('id')=='saveDriver' ){
+                if ( $('#driverNumber').val()==''){
+                    $('#driverNumber').css('borderColor', '#cc3333');
+                    error += errorI+'. Поле номер удостоверения водителя обязательно для заполнения<br />';
+                    errorI++;
+                }
+                if ( $('#driverDateStarts').val()==''){
+                    $('#driverDateStarts').css('borderColor', '#cc3333');
+                    error += errorI+'. Поле дата выдачи обязательно для заполнения<br />';
+                    errorI++;
+                }
+                if ( $('#driverDateEnds').val()==''){
+                    $('#driverDateEnds').css('borderColor', '#cc3333');
+                    error += errorI+'. Поле дата окончания обязательно для заполнения<br />';
+                    errorI++;
+                }else{
+                    var tmpdate = new Date($('#driverDateEnds').val());
+                    var tmpdate2 = new Date();
+                    tmpdate = ( tmpdate - tmpdate2) /(1000*60*60*24*30) ;
+                    console.log(tmpdate);
+                    if ( tmpdate < 1 ){
+                        error += errorI+'. Минимальный срок вод. прав должен быть больше 1 месяца<br />';
+                        errorI++;
+                    }
+                }
+
+
+
+
+
+            }
+            if ( $(this).attr('id')=='saveSnils' ){
+                if ( $('#snils').val()==''){
+                    $('#snils').css('borderColor', '#cc3333');
+                    error += errorI+'. Поле номер удостоверения водителя обязательно для заполнения<br />';
+                    errorI++;
+                }
+            }
+            if (error === ''){
+                hideInpPopUp();
+                hideImgPopUp();
+            }else{
+                if ( $(this).attr('id')=='savePassport' ){
+                    $('.error-msg-p').fadeIn();
+                    $('.error-msg-p').html(error);
+                }
+                if ( $(this).attr('id')=='saveDriver' ){
+                    $('.error-msg-d').fadeIn();
+                    $('.error-msg-d').html(error);
+                }
+                if ( $(this).attr('id')=='saveSnils' ){
+                    $('.error-msg-s').fadeIn();
+                    $('.error-msg-s').html(error);
+                }
+
+
+            }
+        });
+
+        function progressHandlingFunction(e){
+            if(e.lengthComputable){
+                $('progress').attr({value:e.loaded,max:e.total});
+            }
+        }
+
+        function showInpPopUp(){
+            $('.bg-gray').fadeIn();
+            $('.inp-pop-up').fadeIn();
+            $('input, select').styler();
+        }
+
+        function hideInpPopUp(){
+            $('.bg-gray').fadeOut();
+            $('.inp-pop-up').fadeOut();
+        }
+
+        function showImgPopUp(){
+            $('.bg-gray').fadeIn();
+            $('.img-pop-up').css('top','50px');
+            $('.img-pop-up').fadeIn();
+            $('input, select').styler();
+            activeMask();
+        }
+
+        function hideImgPopUp(){
+            $('.bg-gray').fadeOut();
+            $('.img-pop-up').fadeOut();
+        }
+
+        function hideloader(x){
+            if (x == 1)
+                showInpPopUp();
+            $('.bg-gray').fadeOut();
+            $('#loader').fadeOut();
+        }
+
+        function showloader(){
+            hideInpPopUp();
+            $('.bg-gray').fadeIn();
+            $('#loader').fadeIn();
+        }
+
+        function activeMask(){
+            $("#snils").mask("999-999-999 99");
+
+            $("#passportCode").mask("999-999");
+
+            $.mask.definitions['d'] = "[a-zA-Z0-9а-яА-Я ]";
+            $('#driverNumber').mask("dddd999999");
+
+            $("#driverDateStarts").mask("99.99.9999");
+            $("#driverDateEnds").mask("99.99.9999");
+            $("#birthdate").mask("99.99.9999");
+            $("#passportDate").mask("99.99.9999");
+        }
+
+        var opts = {
+            lines: 13, // The number of lines to draw
+            length: 20, // The length of each line
+            width: 10, // The line thickness
+            radius: 30, // The radius of the inner circle
+            corners: 1, // Corner roundness (0..1)
+            rotate: 0, // The rotation offset
+            direction: 1, // 1: clockwise, -1: counterclockwise
+            color: '#000', // #rgb or #rrggbb or array of colors
+            speed: 1.3, // Rounds per second
+            trail: 60, // Afterglow percentage
+            shadow: false, // Whether to render a shadow
+            hwaccel: false, // Whether to use hardware acceleration
+            className: 'spinner', // The CSS class to assign to the spinner
+            zIndex: 2e9, // The z-index (defaults to 2000000000)
+            top: '50%', // Top position relative to parent
+            left: '50%' // Left position relative to parent
+        };
+        var target = document.getElementById('loader');
+        var spinner = new Spinner(opts).spin(target);
+
+
+        $('.help').click(function(){
+            var typeHelp = $(this).attr('id');
+            $.ajax({
+                type: "POST",
+                url: Routing.generate('order_help', {'type': typeHelp }),
+                success: function(msg){
+                    $('.help-pop-up .text').html(msg);
+                    $('.bg-gray').fadeIn();
+                    $('.help-pop-up').fadeIn();
+                }
+            });
+        });
+        $('.close-pop-up').click(function(){
+            $('.bg-gray').fadeOut();
+            $('.help-pop-up').fadeOut();
+            $(".imgareaselect-selection").parent().remove();
+            $(".imgareaselect-outer").remove();
+            hideImgPopUp();
+        });
+    });
     </script>
 {% endblock %}
 

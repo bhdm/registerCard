@@ -26,7 +26,7 @@ class MiniController extends Controller{
      * @Template()
      */
     public function indexAction(Request $request, $compnayUrl){
-        return array('typeLayout' => 'mini');
+        return array('typeLayout' => 'mini', 'compnayUrl' => $compnayUrl);
     }
 
     /**
