@@ -219,7 +219,7 @@
                         <input name="passport" id="passportFile" type="file" value="Выбирите файл">
                     </form>
                 </td>
-                <td class="passportStatus"><img src="{{ asset('bundles/crmmain/images/help.png') }}" class="ico help" id="helpPassport"></td>
+                <td class="passportStatus"><img src="{{ asset('bundles/crmmain/images/help.png') }}" class="ico help" id="helpPassport" title="Инструкция по заполнению"></td>
             </tr>
             <tr>
                 <td class="label">
@@ -230,7 +230,7 @@
                         <input name="driver" id="driverFile" type="file" value="Выбирите файл">
                     </form>
                 </td>
-                <td class="driverStatus"><img src="{{ asset('bundles/crmmain/images/help.png') }}" class="ico help" id="helpDriver"></td>
+                <td class="driverStatus"><img src="{{ asset('bundles/crmmain/images/help.png') }}" class="ico help" id="helpDriver" title="Инструкция по заполнению"></td>
             </tr>
             <tr >
                 <td class="label">
@@ -241,7 +241,7 @@
                         <input name="photo" id="photoFile" type="file" value="Выбирите файл">
                     </form>
                 </td>
-                <td class="photoStatus"><img src="{{ asset('bundles/crmmain/images/help.png') }}" class="ico help" id="helpPhoto"></td>
+                <td class="photoStatus"><img src="{{ asset('bundles/crmmain/images/help.png') }}" class="ico help" id="helpPhoto" title="Инструкция по заполнению"></td>
             </tr>
             <tr >
                 <td class="label">
@@ -252,7 +252,7 @@
                         <input name="sign" id="signFile" type="file" value="Выбирите файл">
                     </form>
                 </td>
-                <td class="signStatus"><img src="{{ asset('bundles/crmmain/images/help.png') }}" class="ico help" id="helpSign"></td>
+                <td class="signStatus"><img src="{{ asset('bundles/crmmain/images/help.png') }}" class="ico help" id="helpSign" title="Инструкция по заполнению"></td>
             </tr>
 
             <tr id="rus">
@@ -264,7 +264,7 @@
                         <input name="snils" id="snilsFile" type="file" value="Выбирите файл">
                     </form>
                 </td>
-                <td class="snilsStatus"><img src="{{ asset('bundles/crmmain/images/help.png') }}" class="ico help" id="helpSnils"></td>
+                <td class="snilsStatus"><img src="{{ asset('bundles/crmmain/images/help.png') }}" class="ico help" id="helpSnils" title="Инструкция по заполнению"></td>
             </tr>
             <tr id="notrus" style="display: none;">
                 <td class="label">
@@ -275,7 +275,7 @@
                         <input name="work" id="workFile" type="file" value="Выбирите файл">
                     </form>
                 </td>
-                <td class="workStatus"><img src="{{ asset('bundles/crmmain/images/help.png') }}" class="ico help" id="helpWork"></td>
+                <td class="workStatus"><img src="{{ asset('bundles/crmmain/images/help.png') }}" class="ico help" id="helpWork" title="Инструкция по заполнению"></td>
             </tr>
 
 
@@ -288,7 +288,7 @@
                         <input name="hod" id="hodFile" type="file" value="Выбирите файл">
                     </form>
                 </td>
-                <td class="hodStatus"><img src="{{ asset('bundles/crmmain/images/help.png') }}" class="ico help" id="helpHod"></td>
+                <td class="hodStatus"><img src="{{ asset('bundles/crmmain/images/help.png') }}" class="ico help" id="helpHod" title="Инструкция по заполнению"></td>
             </tr>
 
             <tr><td colspan="2">
@@ -357,7 +357,7 @@
                 }
 
                 if ($(this).attr('name')=='work' ){
-                    $('.img-pop-up').attr('type-doc','hod');
+                    $('.img-pop-up').attr('type-doc','work');
                 }
 
                 if ($(this).attr('name')=='hod' ){
