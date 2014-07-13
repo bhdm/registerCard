@@ -326,7 +326,10 @@
                     <span id="eulaText">Я принимаю <a href="{{ path('page',{'url' : 'eula'}) }}">условия обслуживания сайта im-kard.ru</a>&nbsp;&nbsp;&nbsp;<input type="checkbox" name="eula" id="eula"></span>
                 </td>
             </tr>
-            <tr><td colspan="2"><br /></td></tr>
+            <tr><td colspan="2">
+                    <i style="font-size: 14px; color: #CC3333">* Поля отмеченные звездочкой обязательны для заполнения</i>
+                    <br />
+                </td></tr>
             <tr>
                 <td></td>
                 <td style="text-align: right">
@@ -350,6 +353,7 @@
 
     <script>
     $(document).ready(function(){
+        $("#deliveryZipcode").mask("999999");
         $("#phone").mask("+7 (999) 999-9999");
         var files;
         $('input, select').styler();
@@ -551,6 +555,34 @@
                 error += errorI+'. Поле Страховой номер лицевого счета обязательно для заполнения<br />';
                 $('#snilsFile-styler .jq-file__name').css('borderColor', '#cc3333');
                 errorI++;
+            }
+
+            if ($('#deliveryZipcode').val() == ''){
+                error += errorI+'. Поле  индекс обязательно для заполнения <br />';
+                $('#deliveryZipcode').css('borderColor','#CC3333');
+                errorI++;
+            }
+            if ($('#deliveryRegion').val() == ''){
+                error += errorI+'. Поле  регион обязательно для заполнения <br />';
+                $('#deliveryRegion').css('borderColor','#CC3333');
+                errorI++;
+            }
+            if ($('#deliveryCity').val() == ''){
+                error += errorI+'. Поле город обязательно для заполнения <br />';
+                $('#deliveryCity').css('borderColor','#CC3333');
+                errorI++;
+            }
+            if ($('#deliveryHouse').val() == ''){
+                error += errorI+'. Поле дом обязательно для заполнения <br />';
+                $('#deliveryHouse').css('borderColor','#CC3333');
+                errorI++;
+            }
+
+            if (!$('#eula').prop("checked")){
+                error += errorI+'. для регистрации нужно принять условия обслуживания сайтом <br />';
+                errorI++;
+                $('#eulaText').css('color','#CC3333');
+                $('#eulaText a').css('color','#CC3333');
             }
 
             if (error === ''){
@@ -771,8 +803,33 @@
                     }
                 }
 
+                if ($('#deliveryZipcode').val() == ''){
+                    error += errorI+'. Поле  индекс обязательно для заполнения <br />';
+                    $('#deliveryZipcode').css('borderColor','#CC3333');
+                    errorI++;
+                }
+                if ($('#deliveryRegion').val() == ''){
+                    error += errorI+'. Поле  регион обязательно для заполнения <br />';
+                    $('#deliveryRegion').css('borderColor','#CC3333');
+                    errorI++;
+                }
+                if ($('#deliveryCity').val() == ''){
+                    error += errorI+'. Поле город обязательно для заполнения <br />';
+                    $('#deliveryCity').css('borderColor','#CC3333');
+                    errorI++;
+                }
+                if ($('#deliveryHouse').val() == ''){
+                    error += errorI+'. Поле дом обязательно для заполнения <br />';
+                    $('#deliveryHouse').css('borderColor','#CC3333');
+                    errorI++;
+                }
 
-
+                if (!$('#eula').prop("checked")){
+                    error += errorI+'. для регистрации нужно принять условия обслуживания сайтом <br />';
+                    errorI++;
+                    $('#eulaText').css('color','#CC3333');
+                    $('#eulaText a').css('color','#CC3333');
+                }
 
 
             }
