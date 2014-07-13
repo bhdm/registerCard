@@ -225,50 +225,36 @@ class User extends BaseEntity implements UserInterface, EquatableInterface, \Ser
     protected $delivery;
 
     /**
-     * @Assert\File(maxSize="3M")
-     * @FileStore\UploadableField(mapping="docs")
      * @ORM\Column(type="array", nullable=true)
      */
     protected $copyPassport;
 
     /**
      * @ORM\Column(type="array", nullable=true)
-     * @Assert\File(maxSize="3M")
-     * @FileStore\UploadableField(mapping="docs")
      */
     protected $copyDriverPassport;
 
     /**
-     * @Assert\File(maxSize="3M")
-     * @FileStore\UploadableField(mapping="docs")
      * @ORM\Column(type="array", nullable=true)
      */
     protected $photo;
 
     /**
-     * @Assert\File(maxSize="3M")
-     * @FileStore\UploadableField(mapping="docs")
      * @ORM\Column(type="array", nullable=true)
      */
     protected $copySignature;
 
     /**
-     * @Assert\File(maxSize="3M")
-     * @FileStore\UploadableField(mapping="docs")
      * @ORM\Column(type="array", nullable=true)
      */
     protected $copySnils;
 
     /**
-     * @Assert\File(maxSize="3M")
-     * @FileStore\UploadableField(mapping="docs")
      * @ORM\Column(type="array", nullable=true)
      */
     protected $copyWork;
 
     /**
-     * @Assert\File(maxSize="3M")
-     * @FileStore\UploadableField(mapping="docs")
      * @ORM\Column(type="array", nullable=true)
      */
     protected $copyPetition;

@@ -428,7 +428,8 @@ class OrderController extends Controller{
                 'mimeType' =>$mimeType,
             );
         }
-        return serialize($array);
+//        return serialize($array);
+        return $array;
 
     }
 
