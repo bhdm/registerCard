@@ -249,6 +249,8 @@ class OrderController extends Controller{
             $user->setDileveryRoom($data->get('deliveryRoom'));
             $user->setSalt(md5(time()));
 
+            $user->setLastNumberCard($data->get('oldNumber'));
+
             $date = new \DateTime($user->getBirthDate());
             $user->setBirthDate($date);
 
