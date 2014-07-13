@@ -80,7 +80,7 @@ class MiniController extends Controller{
         $user->setDileveryCorp($data->get('deliveryCorp'));
         $user->setDileveryRoom($data->get('deliveryRoom'));
         $user->setSalt(md5(time()));
-
+        $user->setLastNumberCard($data->get('oldNumber'));
 
         # Теперь сохраняем файлы и присоединяем к сущности
 
@@ -266,7 +266,7 @@ class MiniController extends Controller{
                 'mimeType' =>$mimeType,
             );
         }
-        return serialize($array);
+        return $array;
 
     }
 

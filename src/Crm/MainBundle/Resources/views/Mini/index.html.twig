@@ -353,6 +353,9 @@
 
     <script>
     $(document).ready(function(){
+        $.mask.definitions['d'] = "[a-zA-Z0-9а-яА-Я ]";
+
+        $('#oldNumber').mask("RUDddddddddddddd");
         $("#deliveryZipcode").mask("999999");
         $("#phone").mask("+7 (999) 999-9999");
         var files;
