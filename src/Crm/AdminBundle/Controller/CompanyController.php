@@ -10,17 +10,35 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use Crm\MainBundle\Entity\Company;
 use Crm\MainBundle\Form\DataTransformer\RegionToStringTransformer;
+use Symfony\Component\HttpFoundation\Session\Session;
 
-class CompanyController extends Controller
-{
+class CompanyController extends Controller{
+
+    public function isCompany(){
+        $session = new Session();
+        if ($session->get('role') == 'ROLE_COMPANY'){
+            $companyId = $session->get('companyId');
+            $company = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->findOneById($companyId);
+            if($company){
+                return true;
+            }
+        }
+        return false;
+    }
+
     /**
      * @Route("/admin/company-list", name="company_list")
      * @Template()
      */
     public function listAction(Request $request)
     {
-        if ($request->getSession()->get('hash')!='7de92cefb8a07cede44f3ae9fa97fb3b') return $this->redirect($this->generateUrl('admin_main'));
-        $companies = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->findByEnabled(1);
+        $session = $request->getSession();
+        if ($request->getSession()->get('hash')!='7de92cefb8a07cede44f3ae9fa97fb3b' and $this->isCompany() != true ) return $this->redirect($this->generateUrl('admin_main'));
+        if ( $session->get('companyId')){
+            $companies = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->findById($session->get('companyId'));
+        }else{
+            $companies = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->findByEnabled(1);
+        }
         return array('companyAct' => 'company_list','companies' => $companies);
     }
 
@@ -30,9 +48,15 @@ class CompanyController extends Controller
      */
     public function editAction(Request $request, $companyId)
     {
-        if ($request->getSession()->get('hash')!='7de92cefb8a07cede44f3ae9fa97fb3b') return $this->redirect($this->generateUrl('admin_main'));
+
+        if ($request->getSession()->get('hash')!='7de92cefb8a07cede44f3ae9fa97fb3b' and $this->isCompany() != true ) return $this->redirect($this->generateUrl('admin_main'));
         $em = $this->getDoctrine()->getManager();
-        $company = $em->getRepository('CrmMainBundle:Company')->findOneById($companyId);
+        $session = $request->getSession();
+        if ( $session->get('companyId')){
+            $company = $em->getRepository('CrmMainBundle:Company')->findOneById($session->get('companyId'));
+        }else{
+            $company = $em->getRepository('CrmMainBundle:Company')->findOneById($companyId);
+        }
         $regionToStringTransformer  = new RegionToStringTransformer($this->getDoctrine()->getManager());
 
         $tcountry =$this->getDoctrine()->getManager()->getRepository('CrmMainBundle:Country')->findOneById(3159);
@@ -150,7 +174,7 @@ class CompanyController extends Controller
      * @Route("/admin/company-delete/{companyId}", name="company_delete")
      */
     public function delete(Request $request, $companyId){
-        if ($request->getSession()->get('hash')!='7de92cefb8a07cede44f3ae9fa97fb3b') return $this->redirect($this->generateUrl('admin_main'));
+        if ($request->getSession()->get('hash')!='7de92cefb8a07cede44f3ae9fa97fb3b' and $this->isCompany() != true ) return $this->redirect($this->generateUrl('admin_main'));
         $em = $this->getDoctrine()->getManager();
         $company = $em->getRepository('CrmMainBundle:Company')->findOneById($companyId);
         $em->remove($company);

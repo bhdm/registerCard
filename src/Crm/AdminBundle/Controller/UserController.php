@@ -15,15 +15,33 @@ use Zelenin\smsru;
 
 class UserController extends Controller
 {
+    public function isCompany(){
+        $session = new Session();
+        if ($session->get('role') == 'ROLE_COMPANY'){
+            $companyId = $session->get('companyId');
+            $company = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->findOneById($companyId);
+            if($company){
+                return true;
+            }
+        }
+        return false;
+    }
+
     /**
      * @Route("/admin/user-list/{companyId}", name="user_list", defaults={ "companyId"="0" })
      * @Template()
      */
     public function listAction(Request $request, $companyId = 0)
     {
-        if ($request->getSession()->get('hash')!='7de92cefb8a07cede44f3ae9fa97fb3b') return $this->redirect($this->generateUrl('admin_main'));
+        $sesssion = $request->getSession();
+        if ($request->getSession()->get('hash')!='7de92cefb8a07cede44f3ae9fa97fb3b' and $this->isCompany() != true) return $this->redirect($this->generateUrl('admin_main'));
         if ($companyId == 0){
-            $users = $this->getDoctrine()->getRepository('CrmMainBundle:User')->findByEnabled(1);
+            if ($sesssion->get('companyId')){
+                $company = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->findOneById($sesssion->get('companyId'));
+                $users = $this->getDoctrine()->getRepository('CrmMainBundle:User')->findByCompany($company);
+            }else{
+                $users = $this->getDoctrine()->getRepository('CrmMainBundle:User')->findByEnabled(1);
+            }
         }else{
             $company = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->findOneById($companyId);
             if ($company){
@@ -41,7 +59,7 @@ class UserController extends Controller
      * @Template("CrmAdminBundle:User:show.html.twig")
      */
     public function showAction(Request $request, $userId){
-        if ($request->getSession()->get('hash')!='7de92cefb8a07cede44f3ae9fa97fb3b') return $this->redirect($this->generateUrl('admin_main'));
+        if ($request->getSession()->get('hash')!='7de92cefb8a07cede44f3ae9fa97fb3b' and $this->isCompany() != true) return $this->redirect($this->generateUrl('admin_main'));
         $em = $this->getDoctrine()->getManager();
         $user = $em->getRepository('CrmMainBundle:User')->findOneById($userId);
 
@@ -55,7 +73,7 @@ class UserController extends Controller
      */
     public function editAction(Request $request, $userId)
     {
-        if ($request->getSession()->get('hash')!='7de92cefb8a07cede44f3ae9fa97fb3b') return $this->redirect($this->generateUrl('admin_main'));
+        if ($request->getSession()->get('hash')!='7de92cefb8a07cede44f3ae9fa97fb3b' and $this->isCompany() != true) return $this->redirect($this->generateUrl('admin_main'));
         $em = $this->getDoctrine()->getManager();
         $user = $em->getRepository('CrmMainBundle:User')->findOneById($userId);
 
@@ -89,8 +107,8 @@ class UserController extends Controller
     /**
      * @Route("/admin/user-delete/{userId}", name="user_delete")
      */
-    public function delete(Request $request, $userId){
-        if ($request->getSession()->get('hash')!='7de92cefb8a07cede44f3ae9fa97fb3b') return $this->redirect($this->generateUrl('admin_main'));
+    public function deleteAction(Request $request, $userId){
+        if ($request->getSession()->get('hash')!='7de92cefb8a07cede44f3ae9fa97fb3b' and $this->isCompany() != true) return $this->redirect($this->generateUrl('admin_main'));
         $em = $this->getDoctrine()->getManager();
         $user = $em->getRepository('CrmMainBundle:User')->findOneById($userId);
         if ($user->getDriver() != null ){
@@ -108,9 +126,8 @@ class UserController extends Controller
     /**
      * @Route("/change-status/{userId}", name="change-status")
      */
-    public function changeStatusAction($userId){
-        $request = $this->getRequest();
-        if ($request->getSession()->get('hash')!='7de92cefb8a07cede44f3ae9fa97fb3b') return $this->redirect($this->generateUrl('admin_main'));
+    public function changeStatusAction(Request $request, $userId){
+        if ($request->getSession()->get('hash')!='7de92cefb8a07cede44f3ae9fa97fb3b' and $this->isCompany() != true) return $this->redirect($this->generateUrl('admin_main'));
 
         $user = $this->getDoctrine()->getRepository('CrmMainBundle:User')->findOneById($userId);
         if ($user->getStatus() == 2){
@@ -133,7 +150,8 @@ class UserController extends Controller
     /**
      * @Route("/user-check-paid/{id}", name="user_check_paid", options={"expose" = true})
      */
-    public function userCheckPaid($id){
+    public function userCheckPaidAction(Request $request, $id){
+        if ($request->getSession()->get('hash')!='7de92cefb8a07cede44f3ae9fa97fb3b' and $this->isCompany() != true) return $this->redirect($this->generateUrl('admin_main'));
         $user = $this->getDoctrine()->getRepository('CrmMainBundle:User')->findOneById($id);
         if ($user){
             if ($user->getPaid() == 0){
