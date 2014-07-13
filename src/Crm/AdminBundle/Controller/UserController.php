@@ -129,4 +129,20 @@ class UserController extends Controller
         $referer = $request->headers->get('referer');
         return $this->redirect($referer);
     }
+
+    /**
+     * @Route("/user-check-paid/{id}", name="user_check_paid", options={"expose" = true})
+     */
+    public function userCheckPaid($id){
+        $user = $this->getDoctrine()->getRepository('CrmMainBundle:User')->findOneById($id);
+        if ($user){
+            if ($user->getPaid() == 0){
+                $user->setPaid(1);
+            }else{
+                $user->setPaid(0);
+            }
+            $this->getDoctrine()->getManager()->flush($user);
+            exit;
+        }
+    }
 }

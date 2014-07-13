@@ -9,10 +9,12 @@
     <div class="show-box">
         <table class="show">
             <tr>
+                <td class="label">Оплачено</td>
+                <td class="value">{{ paid == 0 ? 'Да' : 'Нет' }} </td>
+            </tr>
             <tr>
                 <td class="label">Компания</td>
                 <td class="value"><a href="{{ path('company_edit',{'companyId' : user.company.id}) }}">{{ user.company.title }}</a></td>
-            </tr>
             </tr>
             <tr>
                 <td class="label">Фамилия</td>

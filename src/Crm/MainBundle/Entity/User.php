@@ -145,6 +145,11 @@ class User extends BaseEntity implements UserInterface, EquatableInterface, \Ser
      */
     protected $status = 0;
 
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    protected $paid = 0;
+
 
     /**
      * @Assert\Length( max = "32", maxMessage = "Максимум  32 символа")
@@ -1013,6 +1018,22 @@ class User extends BaseEntity implements UserInterface, EquatableInterface, \Ser
     public function getDileveryZipcode()
     {
         return $this->dileveryZipcode;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getPaid()
+    {
+        return $this->paid;
+    }
+
+    /**
+     * @param mixed $paid
+     */
+    public function setPaid($paid = 0)
+    {
+        $this->paid = $paid;
     }
 
 
