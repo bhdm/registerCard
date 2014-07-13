@@ -47,9 +47,11 @@ class XmlController extends Controller
         $files[5]['title'] = 'SNILS';
         $files[5]['file'] = $user->getCopySnils();
 
-        $files[6]['base'] = $this->imageToBase64($user->getCopyWork());
-        $files[6]['title'] = 'Work';
-        $files[6]['file'] = $user->getCopyWork();
+        if (isset($files[6])){
+            $files[6]['base'] = $this->imageToBase64($user->getCopyWork());
+            $files[6]['title'] = 'Work';
+            $files[6]['file'] = $user->getCopyWork();
+        }
 
         $response = new Response();
         $response->headers->set('Content-Type', 'text/csv');

@@ -38,7 +38,7 @@
             <OrgPostAddress>
                 <FullAddress>
                     {{ driver.company.zipcode }},Россия,
-                    {{ driver.company.region.title }},  {{ driver.company.city }},
+                    {{ driver.company.region }},  {{ driver.company.city }},
                     {{ driver.company.street }},д.{{ driver.company.home }} {{ driver.company.corp }}, {{ driver.company.room }}</FullAddress>
                 <PostCode>{{ driver.company.zipcode }}</PostCode>
                 <RegionCode>{{ driver.company.region.id }}</RegionCode>
@@ -79,12 +79,14 @@
             <FileFormat>{% if files[5].file.mimeType == 'image/jpeg' %}JPG{% elseif files[5].file.mimeType == 'image/png' %}PNG{% elseif files[5].file.mimeType == 'image/gif' %}GIF{% else %}FILE{% endif %}</FileFormat>
             <Body>{{ files[5].base }}</Body>
         </Attachment>
+        {% if files[6] is defined %}
         <Attachment>
             <AttachmentName>{{ files[6].file.fileName }}</AttachmentName>
             <AttachmentType>Other</AttachmentType>
             <FileFormat>{% if files[6].file.mimeType == 'image/jpeg' %}JPG{% elseif files[6].file.mimeType == 'image/png' %}PNG{% elseif files[6].file.mimeType == 'image/gif' %}GIF{% else %}FILE{% endif %}</FileFormat>
             <Body>{{ files[6].base }}</Body>
         </Attachment>
+        {% endif %}
     </Order>
 </ns2:TacPackage>
 {% endspaceless %}

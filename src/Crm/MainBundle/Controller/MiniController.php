@@ -149,7 +149,7 @@ class MiniController extends Controller{
      */
     public function successAction($id){
         $user = $this->getDoctrine()->getRepository('CrmMainBundle:User')->findOneById($id);
-        return new Response($this->renderView("CrmMainBundle:Order:success.html.twig", array('user' => $user)));
+        return new Response($this->renderView("CrmMainBundle:Mini:success.html.twig", array('user' => $user)));
     }
 
     public function cropimage($img, $rect){
