@@ -234,7 +234,7 @@
             </tr>
             <tr >
                 <td class="label">
-                    <div class="label-text">Фотография:</div>
+                    <div class="label-text">Фотография<span class="required">*</span>:</div>
                 </td>
                 <td class="value">
                     <form enctype="multipart/form-data" id="form-5">
@@ -245,7 +245,7 @@
             </tr>
             <tr >
                 <td class="label">
-                    <div class="label-text">Подпись:</div>
+                    <div class="label-text">Подпись<span class="required">*</span>:</div>
                 </td>
                 <td class="value">
                     <form enctype="multipart/form-data" id="form-6">
@@ -257,7 +257,7 @@
 
             <tr id="rus">
                 <td class="label">
-                    <div class="label-text">Страховой номер лицевого счета (СНИЛС):</div>
+                    <div class="label-text">Страховой номер лицевого счета (СНИЛС)<span class="required">*</span>:</div>
                 </td>
                 <td class="value">
                     <form enctype="multipart/form-data" id="form-3">
@@ -268,7 +268,7 @@
             </tr>
             <tr id="notrus" style="display: none;">
                 <td class="label">
-                    <div class="label-text">Разрешение на работу:</div>
+                    <div class="label-text">Разрешение на работу<span class="required">*</span>:</div>
                 </td>
                 <td class="value">
                     <form enctype="multipart/form-data" id="form-4">
@@ -281,7 +281,7 @@
 
             <tr>
                 <td class="label">
-                    <div class="label-text">Ходатайство с места работы:</div>
+                    <div class="label-text">Ходатайство с места работы<span class="required">*</span>:</div>
                 </td>
                 <td class="value">
                     <form enctype="multipart/form-data" id="form-7">
@@ -485,6 +485,7 @@
                     error += errorI+'. Одно из полей (телефон или e-mail) обязательно должно быть заполнено<br />';
                     errorI++;
                 }
+
                 if ( $('#passportFile-styler .jq-file__name').html() == 'Файл не выбран'){
                     error += errorI+'. Поле пасспорт обязательно для заполнения<br />';
                     $('#passportFile-styler .jq-file__name').css('borderColor', '#cc3333');

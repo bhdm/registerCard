@@ -122,9 +122,9 @@
                     error += 'Поле  индекс обязательно для заполнения <br />';
                     $('#companyZipcode').css('borderColor','#CC3333');
                 }
-                if ($('#companyRegion').val() == ''){
-                    error += 'Поле регион обязательно для заполнения <br />';
-                    $('#companyRegion').css('borderColor','#CC3333');
+                if ( $('#companyRegion').val()=='' || $('#companyRegion').val()=='Регион' || $('#companyRegion').val() == null ){
+                    $('#companyRegion-styler').css('border', '1px solid #CC3333');
+                    error += 'Поле регион обязательно для заполнения<br />';
                 }
                 if ($('#companyCity').val() == ''){
                     error += 'Поле город обязательно для заполнения <br />';
@@ -139,9 +139,9 @@
                     error += 'Поле  индекс обязательно для заполнения <br />';
                     $('#deliveryZipcode').css('borderColor','#CC3333');
                 }
-                if ($('#deliveryRegion').val() == ''){
-                    error += 'Поле  регион обязательно для заполнения <br />';
-                    $('#deliveryRegion').css('borderColor','#CC3333');
+                if ( $('#deliveryRegion').val()=='' || $('#deliveryRegion').val()=='Регион' || $('#deliveryRegion').val() == null ){
+                    $('#deliveryRegion-styler').css('border', '1px solid #CC3333');
+                    error += 'Поле регион обязательно для заполнения<br />';
                 }
                 if ($('#deliveryCity').val() == ''){
                     error += 'Поле город обязательно для заполнения <br />';

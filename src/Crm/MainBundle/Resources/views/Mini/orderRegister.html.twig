@@ -102,10 +102,15 @@
                     error += 'Поле  индекс обязательно для заполнения <br />';
                     $('#companyZipcode').css('borderColor','#CC3333');
                 }
-                if ($('#companyRegion').val() == ''){
-                    error += 'Поле регион обязательно для заполнения <br />';
-                    $('#companyRegion').css('borderColor','#CC3333');
+//                if ($('#companyRegion').val() == ''){
+//                    error += 'Поле регион обязательно для заполнения <br />';
+//                    $('#companyRegion').css('borderColor','#CC3333');
+//                }
+                if ( $('#companyRegion').val()=='' || $('#companyRegion').val()=='Регион' || $('#companyRegion').val() == null ){
+                    $('#companyRegion-styler').css('borderColor', '#cc3333');
+                    error += 'Поле Регион обязательно для заполнения<br />';
                 }
+
                 if ($('#companyCity').val() == ''){
                     error += 'Поле город обязательно для заполнения <br />';
                     $('#companyCity').css('borderColor','#CC3333');

@@ -234,7 +234,7 @@
             </tr>
             <tr >
                 <td class="label">
-                    <div class="label-text">Фотография:</div>
+                    <div class="label-text">Фотография<span class="required">*</span>:</div>
                 </td>
                 <td class="value">
                     <form enctype="multipart/form-data" id="form-5">
@@ -245,7 +245,7 @@
             </tr>
             <tr >
                 <td class="label">
-                    <div class="label-text">Подпись:</div>
+                    <div class="label-text">Подпись<span class="required">*</span>:</div>
                 </td>
                 <td class="value">
                     <form enctype="multipart/form-data" id="form-6">
@@ -257,7 +257,7 @@
 
             <tr id="rus">
                 <td class="label">
-                    <div class="label-text">Страховой номер лицевого счета (СНИЛС):</div>
+                    <div class="label-text">Страховой номер лицевого счета (СНИЛС)<span class="required">*</span>:</div>
                 </td>
                 <td class="value">
                     <form enctype="multipart/form-data" id="form-3">
@@ -268,7 +268,7 @@
             </tr>
             <tr id="notrus" style="display: none;">
                 <td class="label">
-                    <div class="label-text">Разрешение на работу:</div>
+                    <div class="label-text">Разрешение на работу<span class="required">*</span>:</div>
                 </td>
                 <td class="value">
                     <form enctype="multipart/form-data" id="form-4">
@@ -804,34 +804,6 @@
                         error += errorI+'. Минимальный срок вод. прав должен быть больше 1 месяца<br />';
                         errorI++;
                     }
-                }
-
-                if ($('#deliveryZipcode').val() == ''){
-                    error += errorI+'. Поле  индекс обязательно для заполнения <br />';
-                    $('#deliveryZipcode').css('borderColor','#CC3333');
-                    errorI++;
-                }
-                if ($('#deliveryRegion').val() == ''){
-                    error += errorI+'. Поле  регион обязательно для заполнения <br />';
-                    $('#deliveryRegion').css('borderColor','#CC3333');
-                    errorI++;
-                }
-                if ($('#deliveryCity').val() == ''){
-                    error += errorI+'. Поле город обязательно для заполнения <br />';
-                    $('#deliveryCity').css('borderColor','#CC3333');
-                    errorI++;
-                }
-                if ($('#deliveryHouse').val() == ''){
-                    error += errorI+'. Поле дом обязательно для заполнения <br />';
-                    $('#deliveryHouse').css('borderColor','#CC3333');
-                    errorI++;
-                }
-
-                if (!$('#eula').prop("checked")){
-                    error += errorI+'. для регистрации нужно принять условия обслуживания сайтом <br />';
-                    errorI++;
-                    $('#eulaText').css('color','#CC3333');
-                    $('#eulaText a').css('color','#CC3333');
                 }
 
 
