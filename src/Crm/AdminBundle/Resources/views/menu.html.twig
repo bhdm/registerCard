@@ -1,6 +1,6 @@
 <div class="menu">
 {#{% if pageAct is defined %}#}
-<ul class="menu-items">
+{#<ul class="menu-items">#}
     {#<li><img src="{{ asset('bundles/crmadmin/images/Ico/Align-Justify.png') }}"><a href="{{ path('page_list') }}" {{ pageAct == 'page_list' ? 'class="active"' : ''}}>Страницы</a></li>#}
     {#<li><img src="{{ asset('bundles/crmadmin/images/Ico/Documents-02.png') }}"><a href="{{ path('document_list') }}" {{ pageAct == 'document_list' ? 'class="active"' : ''}}>Документы</a></li>#}
     {#<li><img src="{{ asset('bundles/crmadmin/images/Ico/Help.png') }}"><a href="{{ path('faq_list') }}" {{ pageAct == 'faq_list' ? 'class="active"' : ''}}>Вопросы</a></li>#}
@@ -12,15 +12,23 @@
     {#<li><img src="{{ asset('bundles/crmadmin/images/Ico/Show-Progress.png') }}"><a href="{{ path('stat_list') }}" {{ pageAct == 'stat_list' ? 'class="active"' : '' }}>Статистика</a></li>#}
 {#</ul>#}
 {#{% else %}#}
-    <ul class="menu-items">
-        <li><img src="{{ asset('bundles/crmadmin/images/Ico/Align-Justify.png') }}"><a href="{{ path('page_list') }}">Страницы</a></li>
-        <li><img src="{{ asset('bundles/crmadmin/images/Ico/Documents-02.png') }}"><a href="{{ path('document_list') }}">Документы</a></li>
-        <li><img src="{{ asset('bundles/crmadmin/images/Ico/Help.png') }}"><a href="{{ path('faq_list') }}">Вопросы</a></li>
-        <li><img src="{{ asset('bundles/crmadmin/images/Ico/Help.png') }}"><a href="{{ path('admin_faqcategory') }}">Категории FAQ</a></li>
-        <li><img src="{{ asset('bundles/crmadmin/images/Ico/Align-Justify.png') }}"><a href="{{ path('company_list') }}">Компании</a></li>
-        <li><img src="{{ asset('bundles/crmadmin/images/Ico/Purchase-Order.png') }}"><a href="{{ path('user_list') }}">Заявки</a></li>
-        <li><img src="{{ asset('bundles/crmadmin/images/Ico/Show-Progress.png') }}"><a href="{{ path('stat_list') }}">Статистика</a></li>
-    </ul>
+    {% if app.session.get('companyId') is defined and app.session.get('companyId') is not null  %}
+        <ul class="menu-items">
+            <li><img src="{{ asset('bundles/crmadmin/images/Ico/Align-Justify.png') }}"><a href="{{ path('company_list') }}">Компания</a></li>
+            <li><img src="{{ asset('bundles/crmadmin/images/Ico/Purchase-Order.png') }}"><a href="{{ path('user_list') }}">Заявки</a></li>
+        </ul>
+    {% else %}
+        <ul class="menu-items">
+            <li><img src="{{ asset('bundles/crmadmin/images/Ico/Align-Justify.png') }}"><a href="{{ path('page_list') }}">Страницы</a></li>
+            <li><img src="{{ asset('bundles/crmadmin/images/Ico/Documents-02.png') }}"><a href="{{ path('document_list') }}">Документы</a></li>
+            <li><img src="{{ asset('bundles/crmadmin/images/Ico/Help.png') }}"><a href="{{ path('faq_list') }}">Вопросы</a></li>
+            <li><img src="{{ asset('bundles/crmadmin/images/Ico/Help.png') }}"><a href="{{ path('admin_faqcategory') }}">Категории FAQ</a></li>
+            <li><img src="{{ asset('bundles/crmadmin/images/Ico/Align-Justify.png') }}"><a href="{{ path('company_list') }}">Компании</a></li>
+            <li><img src="{{ asset('bundles/crmadmin/images/Ico/Purchase-Order.png') }}"><a href="{{ path('user_list') }}">Заявки</a></li>
+            <li><img src="{{ asset('bundles/crmadmin/images/Ico/Show-Progress.png') }}"><a href="{{ path('stat_list') }}">Статистика</a></li>
+        </ul>
+    {% endif %}
+
 {#{% endif %}#}
 </div>
 <div class="slidebar-title"></div>
