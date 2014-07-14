@@ -158,7 +158,7 @@ class OrderController extends Controller{
             $company = new Company();
             $company->setTitle($data->get('companyName'));
             $company->setZipcode($data->get('companyZipcode'));
-            $region = $this->getDoctrine()->getRepository('CrmMainBundle:Region')->findOneById($data->get('companyregion'));
+            $region = $this->getDoctrine()->getRepository('CrmMainBundle:Region')->findOneById($data->get('companyRegion'));
             $company->setRegion($region);
             $company->setCity($data->get('companyCity'));
             $company->setTypeStreet($data->get('companyTypeStreet'));
