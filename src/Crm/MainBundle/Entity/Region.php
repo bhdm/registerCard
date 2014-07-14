@@ -180,7 +180,20 @@ class Region
         return $this->deliveries;
     }
 
+    public function addDelivery($delivery){
+        $this->deliveries[] = $delivery;
+    }
 
+    public function removeDelivery($delivery){
+        $this->deliveries->removeElement($delivery);
+    }
 
+    public function addCompany($company){
+        $this->companies[] = $company;
+    }
+
+    public function removeCompany($company){
+        $this->companies->removeElement($company);
+    }
 
 }

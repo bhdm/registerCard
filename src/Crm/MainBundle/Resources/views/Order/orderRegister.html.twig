@@ -26,7 +26,6 @@
                     <td class="value">
                         <input name="companyZipcode" id="companyZipcode"  type="text" placeholder="Индекс"><br />
                         <select name="companyRegion" id="companyRegion">
-                            <option value="" disabled selected>Регион</option>
                             {% for region in regions %}
                                 <option value="{{ region.id }}">{{ region.title }}</option>
                             {% endfor %}
@@ -46,7 +45,6 @@
                     <td class="value">
                         <input name="deliveryZipcode" id="deliveryZipcode" type="text" placeholder="Индекс"><br />
                         <select name="deliveryRegion" id="deliveryRegion">
-                            <option value="" disabled selected>Регион</option>
                             {% for region in regions %}
                                 <option value="{{ region.id }}">{{ region.title }}</option>
                             {% endfor %}
@@ -105,7 +103,7 @@
 
             $('#oldNumber').mask("RUDddddddddddddd");
 
-            $('input, select').styler();
+            $('input').styler();
             $("#deliveryZipcode").mask("999999");
             $("#companyZipcode").mask("999999");
 
