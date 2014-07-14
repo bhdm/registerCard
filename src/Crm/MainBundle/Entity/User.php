@@ -259,7 +259,10 @@ class User extends BaseEntity implements UserInterface, EquatableInterface, \Ser
      */
     protected $copyPetition;
 
-
+    /**
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    protected $companyPetition = 0;
 
     /**
      * @ORM\Column(type="string")
@@ -1020,6 +1023,22 @@ class User extends BaseEntity implements UserInterface, EquatableInterface, \Ser
     public function setPaid($paid = 0)
     {
         $this->paid = $paid;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCompanyPetition()
+    {
+        return $this->companyPetition;
+    }
+
+    /**
+     * @param mixed $companyPetition
+     */
+    public function setCompanyPetition($companyPetition = 0)
+    {
+        $this->companyPetition = $companyPetition;
     }
 
 

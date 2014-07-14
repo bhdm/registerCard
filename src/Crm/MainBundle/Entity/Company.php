@@ -34,11 +34,6 @@ class Company extends BaseEntity
      */
     protected  $zipcode;
 
-//    /**
-//     * @ORM\ManyToOne(targetEntity="Country", inversedBy="companies")
-//     */
-//    protected $country;
-
 
     # Адрес предприятия
 
@@ -118,6 +113,17 @@ class Company extends BaseEntity
      * @ORM\Column(type="string", length=150, nullable=true)
      */
     protected $password;
+
+
+    /**
+     * @ORM\Column(type="array", nullable=true)
+     */
+    protected $copyPetition;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Operator", inversedBy="companies")
+     */
+    protected $operator;
 
     /**
      * @ORM\Column(type="boolean")
@@ -398,6 +404,38 @@ class Company extends BaseEntity
     public function setTypeStreet($typeStreet)
     {
         $this->typeStreet = $typeStreet;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCopyPetition()
+    {
+        return $this->copyPetition;
+    }
+
+    /**
+     * @param mixed $copyPetition
+     */
+    public function setCopyPetition($copyPetition)
+    {
+        $this->copyPetition = $copyPetition;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getOperator()
+    {
+        return $this->operator;
+    }
+
+    /**
+     * @param mixed $operator
+     */
+    public function setOperator($operator)
+    {
+        $this->operator = $operator;
     }
 
 
