@@ -30,7 +30,9 @@ class OrderController extends Controller{
      * @Template()
      */
     public function indexAction(Request $request){
-        return array();
+        $country = $this->getDoctrine()->getRepository('CrmMainBundle:Country')->findOneById(3159);
+        $regions = $this->getDoctrine()->getRepository('CrmMainBundle:Region')->findByCountry($country);
+        return array('regions' => $regions);
     }
 
     /**

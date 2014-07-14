@@ -172,6 +172,70 @@
                 </tr>
             </table>
         </div>
+        <div class="inp-hod inp-box">
+            <table style="width: 600px;">
+                <tr>
+                    <td colspan="3">
+                        <div class="error-msg-h"></div>
+                    </td>
+                </tr>
+                <tr><td colspan="2" class="empty-row">Информация о компании</td></tr>
+                <tr>
+                    <td class="label">Название организации<span class="required">*</span>:</td>
+                    <td class="value">
+                        <input id="companyName" name="companyName" type="text" placeholder="">
+                    </td>
+                </tr>
+                <tr>
+                    <td class="label">Адрес организации<span class="required">*</span>:</td>
+                    <td class="value">
+                        <input name="companyZipcode" id="companyZipcode"  type="text" placeholder="Индекс"><br />
+                        <select name="companyRegion" id="companyRegion">
+                            {% for region in regions %}
+                                <option value="{{ region.id }}">{{ region.title }}</option>
+                            {% endfor %}
+                        </select><br />
+                        <input name="companyCity"    id="companyCity"     type="text" placeholder="Город"><br />
+
+                        <select name="companyTypeStreet" id="companyTypeStreet">
+                            <option value="ул."     >Улица</option>
+                            <option value="д."      >Дорога</option>
+                            <option value="пр-д."   >Проезд</option>
+                            <option value="туп."    >Тупик</option>
+                            <option value="ш."      >Шоссе</option>
+                            <option value="тр."     >Трасса</option>
+                            <option value="пер."    >Переулок</option>
+                            <option value="пл."     >Площадь</option>
+                            <option value="скв."    >Сквер</option>
+                            <option value="алл."    >Аллея</option>
+                            <option value="б."      >Бульвар</option>
+                            <option value="пр."     >Просека</option>
+                            <option value="пр-т"    >Проспект</option>
+                            <option value="наб."    >Набережная</option>
+                            <option value=""        >Другое</option>
+                        </select>
+                        <input name="companyStreet"  id="companyStreet"   type="text" placeholder="Название"><br />
+
+                        <input name="companyHouse"   id="companyHouse"    type="text" placeholder="Дом" class="little">
+                        <input name="companyCorp"    id="companyCorp"     type="text" placeholder="Корп"  class="little">
+                        <input name="companyStructure"    id="companyStructure"     type="text" placeholder="Строение"  class="little"><br />
+
+                        <select name="companyTypeRoom" id="companyTypeRoom">
+                            <option value="кв.">Квартира</option>
+                            <option value="оф.">Офис</option>
+                        </select>
+                        <input name="companyRoom"    id="companyRoom"  type="text" placeholder="Номер"  class="little">
+                    </td>
+                </tr>
+                <tr><td colspan="2">&nbsp;</td></tr>
+                <tr>
+                    <td></td>
+                    <td style="text-align: right">
+                        <input type="button" id="saveHod" value="Подтвердить данные" class="btn saveForm">
+                    </td>
+                </tr>
+            </table>
+        </div>
     </div>
     <div id="loader"></div>
 
@@ -318,9 +382,30 @@
 
     <script>
         $(document).ready(function(){
+            $('input, select').styler();
             $("#phone").mask("+7 (999) 999-9999");
             var files;
-            $('input, select').styler();
+
+            var opts = {
+                lines: 13, // The number of lines to draw
+                length: 20, // The length of each line
+                width: 10, // The line thickness
+                radius: 30, // The radius of the inner circle
+                corners: 1, // Corner roundness (0..1)
+                rotate: 0, // The rotation offset
+                direction: 1, // 1: clockwise, -1: counterclockwise
+                color: '#000', // #rgb or #rrggbb or array of colors
+                speed: 1.3, // Rounds per second
+                trail: 60, // Afterglow percentage
+                shadow: false, // Whether to render a shadow
+                hwaccel: false, // Whether to use hardware acceleration
+                className: 'spinner', // The CSS class to assign to the spinner
+                zIndex: 2e9, // The z-index (defaults to 2000000000)
+                top: '50%', // Top position relative to parent
+                left: '50%' // Left position relative to parent
+            };
+            var target = document.getElementById('loader');
+            var spinner = new Spinner(opts).spin(target);
 
 
             $('input[type=file]').on('change', function(event){
@@ -361,6 +446,7 @@
                 }
 
                 if ($(this).attr('name')=='hod' ){
+                    $('.inp-hod').css('display','block');
                     $('.img-pop-up').attr('type-doc','hod');
                 }
 
@@ -390,7 +476,7 @@
                             $('.bg-gray').fadeOut();
                             $('#loader').fadeOut();
 
-                            if ($('.img-pop-up').attr('type-doc') != 'hod' ){
+                            if ($('.img-pop-up').attr('type-doc') != 'work' ){
                                 $('#img-pop-up-img').html('<div style="display: inline-block"><img  src="'+msg+'" /></div>');
                                 showImgPopUp();
                                 if ( type == 'photo'){
@@ -576,11 +662,10 @@
             $('#forward').click(function(){
                 hideImgPopUp();
                 type = $('.img-pop-up').attr('type-doc');
-                if (type == 'snils' || type == 'driver' || type == 'passport'){
+                if (type == 'snils' || type == 'driver' || type == 'passport' || type == 'hod' ){
                     showInpPopUp();
                 }
             });
-
 
             $('#sendCoords').click(function(){
                 type = $('.img-pop-up').attr('type-doc');
@@ -596,7 +681,7 @@
                         $('#img-pop-up-img').html('<div style="display: inline-block"><img src="'+msg+'" /></div>');
                         $(".imgareaselect-selection").parent().remove();
                         $(".imgareaselect-outer").remove();
-                        if (type == 'snils' || type == 'driver' || type == 'passport'){
+                        if (type == 'snils' || type == 'driver' || type == 'passport' || type == 'hod'){
                             $('#forward').fadeIn();
 //                            hideImgPopUp();
                             if ($( ".img-pop-up").length > 0){
@@ -617,40 +702,6 @@
                     }
                 });
             });
-
-            function getImgData(type){
-                $.ajax({
-                    type: "POST",
-                    url: Routing.generate('get_img_data', {'type': type, 'rezident' : $('#rezident').val()}),
-                    success: function(msg){
-                        if (type == 'snils' || type == 'driver' || type == 'passport'){
-                            hideloader(1);
-                        }else{
-//                            hideloader(0);
-                        }
-//                        obj = jQuery.parseJSON(msg);
-                        obj = msg.data;
-                        return true;
-                        if (type == 'passport'){
-                            $('#lastName').val(obj.lastName);
-                            $('#firstName').val(obj.firstName);
-                            $('#surName').val(obj.surName);
-                            $('#dateBrithdate').val(obj.passportDate);
-                            $('#passportNumber').val(obj.passportNumber);
-                            $('#passportCode').val(obj.passportCode);
-                            $('#passportPlace').val(obj.passportPlace);
-                        }
-                        if (type == 'snils'){
-                            $('#snils').val(obj.snils);
-                        }
-                        if (type == 'driver'){
-                            $('#driverNumber').val(obj.driverNumber);
-                            $('#driverDateStarts').val(obj.driverDateStarts);
-                            $('#driverDateEnds').val(obj.driverDateEnds);
-                        }
-                    }
-                });
-            }
 
             $('.saveForm').click(function(){
 
@@ -728,11 +779,6 @@
                             errorI++;
                         }
                     }
-
-
-
-
-
                 }
                 if ( $(this).attr('id')=='saveSnils' ){
                     if ( $('#snils').val()==''){
@@ -741,6 +787,35 @@
                         errorI++;
                     }
                 }
+
+                if ($(this).attr('id') == 'saveHod'){
+                    if ($('#companyName').val() == ''){
+                        error += errorI+'.Поле  название организации обязательно для заполнения <br />';
+                        $('#companyName').css('borderColor','#CC3333');
+                        errorI++;
+                    }
+                    if ($('#companyZipcode').val() == ''){
+                        error += errorI+'.Поле  индекс обязательно для заполнения <br />';
+                        $('#companyZipcode').css('borderColor','#CC3333');
+                        errorI++;
+                    }
+                    if ( $('#companyRegion').val()=='' || $('#companyRegion').val()=='Регион' || $('#companyRegion').val() == null ){
+                        $('#companyRegion-styler').css('border', '1px solid #CC3333');
+                        error += errorI+'.Поле регион обязательно для заполнения<br />';
+                        errorI++;
+                    }
+                    if ($('#companyCity').val() == ''){
+                        error += errorI+'.Поле город обязательно для заполнения <br />';
+                        $('#companyCity').css('borderColor','#CC3333');
+                        errorI++;
+                    }
+                    if ($('#companyHouse').val() == ''){
+                        error += errorI+'.Поле название номер дома обязательно для заполнения <br />';
+                        $('#companyHouse').css('borderColor','#CC3333');
+                        errorI++;
+                    }
+                }
+
                 if (error === ''){
                     hideInpPopUp();
                     hideImgPopUp();
@@ -757,10 +832,69 @@
                         $('.error-msg-s').fadeIn();
                         $('.error-msg-s').html(error);
                     }
+                    if ( $(this).attr('id')=='saveHod' ){
+                        $('.error-msg-h').fadeIn();
+                        $('.error-msg-h').html(error);
+                    }
 
 
                 }
             });
+
+            $('.help').click(function(){
+                var typeHelp = $(this).attr('id');
+                $.ajax({
+                    type: "POST",
+                    url: Routing.generate('order_help', {'type': typeHelp }),
+                    success: function(msg){
+                        $('.help-pop-up .text').html(msg);
+                        $('.bg-gray').fadeIn();
+                        $('.help-pop-up').fadeIn();
+                    }
+                });
+            });
+
+            $('.close-pop-up').click(function(){
+                $('.bg-gray').fadeOut();
+                $('.help-pop-up').fadeOut();
+                $(".imgareaselect-selection").parent().remove();
+                $(".imgareaselect-outer").remove();
+                hideImgPopUp();
+            });
+
+            function getImgData(type){
+                $.ajax({
+                    type: "POST",
+                    url: Routing.generate('get_img_data', {'type': type, 'rezident' : $('#rezident').val()}),
+                    success: function(msg){
+                        if (type == 'snils' || type == 'driver' || type == 'passport' || type == 'hod'){
+                            hideloader(1);
+                        }else{
+//                            hideloader(0);
+                        }
+//                        obj = jQuery.parseJSON(msg);
+                        obj = msg.data;
+                        return true;
+//                        if (type == 'passport'){
+//                            $('#lastName').val(obj.lastName);
+//                            $('#firstName').val(obj.firstName);
+//                            $('#surName').val(obj.surName);
+//                            $('#dateBrithdate').val(obj.passportDate);
+//                            $('#passportNumber').val(obj.passportNumber);
+//                            $('#passportCode').val(obj.passportCode);
+//                            $('#passportPlace').val(obj.passportPlace);
+//                        }
+//                        if (type == 'snils'){
+//                            $('#snils').val(obj.snils);
+//                        }
+//                        if (type == 'driver'){
+//                            $('#driverNumber').val(obj.driverNumber);
+//                            $('#driverDateStarts').val(obj.driverDateStarts);
+//                            $('#driverDateEnds').val(obj.driverDateEnds);
+//                        }
+                    }
+                });
+            }
 
             function progressHandlingFunction(e){
                 if(e.lengthComputable){
@@ -819,47 +953,6 @@
                 $("#passportDate").mask("99.99.9999");
             }
 
-            var opts = {
-                lines: 13, // The number of lines to draw
-                length: 20, // The length of each line
-                width: 10, // The line thickness
-                radius: 30, // The radius of the inner circle
-                corners: 1, // Corner roundness (0..1)
-                rotate: 0, // The rotation offset
-                direction: 1, // 1: clockwise, -1: counterclockwise
-                color: '#000', // #rgb or #rrggbb or array of colors
-                speed: 1.3, // Rounds per second
-                trail: 60, // Afterglow percentage
-                shadow: false, // Whether to render a shadow
-                hwaccel: false, // Whether to use hardware acceleration
-                className: 'spinner', // The CSS class to assign to the spinner
-                zIndex: 2e9, // The z-index (defaults to 2000000000)
-                top: '50%', // Top position relative to parent
-                left: '50%' // Left position relative to parent
-            };
-            var target = document.getElementById('loader');
-            var spinner = new Spinner(opts).spin(target);
-
-
-            $('.help').click(function(){
-                var typeHelp = $(this).attr('id');
-                $.ajax({
-                    type: "POST",
-                    url: Routing.generate('order_help', {'type': typeHelp }),
-                    success: function(msg){
-                        $('.help-pop-up .text').html(msg);
-                        $('.bg-gray').fadeIn();
-                        $('.help-pop-up').fadeIn();
-                    }
-                });
-            });
-            $('.close-pop-up').click(function(){
-                $('.bg-gray').fadeOut();
-                $('.help-pop-up').fadeOut();
-                $(".imgareaselect-selection").parent().remove();
-                $(".imgareaselect-outer").remove();
-                hideImgPopUp();
-            });
         });
     </script>
 {% endblock %}
@@ -904,14 +997,14 @@
         }
         .help-pop-up{
             position: absolute;
-            width: 450px;
+            width: 640px;
             max-height: 700px;
             min-height: 150px;
             background: #ffffff;
             border: 1px solid #ae3538;
             left: 50%;
-            top: 160px;
-            margin-left: -350px;
+            top: 2150px;
+            margin-left: -320px;
             z-index: 905;
             display: none;
             text-align: left;
@@ -980,8 +1073,8 @@
         }
         .close-pop-up{
             position: absolute;
-            right: 0;
-            top: 0;
+            right: -16px;
+            top: -16px;
         }
         .close-pop-up{
             width: 32px;
@@ -992,6 +1085,18 @@
             -webkit-background-size: 100%; /* Safari 3.1+ и Chrome 4.0+ */
             -o-background-size: 100%; /* Opera 9.6+ */
             background-size: 100%;
+        }
+        #companyTypeRoom-styler .jq-selectbox__select{
+            width: 122px !important;
+        }
+        #companyTypeRoom-styler{
+            margin-top: -1px;
+        }
+        #companyRegion-styler .jq-selectbox__dropdown, #companyTypeStreet-styler .jq-selectbox__dropdown{
+            width: 272px !important;
+        }
+        #companyTypeRoom-styler .jq-selectbox__dropdown{
+            width: 180px !important;
         }
     </style>
 {% endblock %}

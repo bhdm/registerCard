@@ -13,31 +13,7 @@
                         <div class="error-msg"></div>
                     </td>
                 </tr>
-                <tr><td colspan="2" class="empty-row" style="border-top: none;">Организация</td></tr>
-                <tr>
-                    <td class="label">Название организации<span class="required">*</span>:</td>
-                    <td class="value">
-                        <input id="companyName" name="companyName" type="text" placeholder="">
-                    </td>
-                    <td class="companyNameStatus"></td>
-                </tr>
-                <tr>
-                    <td class="label">Адрес организации<span class="required">*</span>:</td>
-                    <td class="value">
-                        <input name="companyZipcode" id="companyZipcode"  type="text" placeholder="Индекс"><br />
-                        <select name="companyRegion" id="companyRegion">
-                            {% for region in regions %}
-                                <option value="{{ region.id }}">{{ region.title }}</option>
-                            {% endfor %}
-                        </select><br />
-                        <input name="companyCity"    id="companyCity"     type="text" placeholder="Город"><br />
-                        <input name="companyStreet"  id="companyStreet"   type="text" placeholder="Улица"><br />
-                        <input name="companyHouse"   id="companyHouse"    type="text" placeholder="Дом" class="little">
-                        <input name="companyCorp"    id="companyCorp"     type="text" placeholder="Корп /Стр"  class="little">
-                        <input name="companyRoom"    id="companyRoom"     type="text" placeholder="Кв / оф"  class="little">
-                    </td>
-                    <td class="companyAdressStatus"></td>
-                </tr>
+
 
                 <tr><td colspan="2" class="empty-row">Информация о доставке</td></tr>
                 <tr>
@@ -111,27 +87,6 @@
 
             $('#formBtn').click(function(){
                 var error = ''
-
-                if ($('#companyName').val() == ''){
-                    error += 'Поле  название организации обязательно для заполнения <br />';
-                    $('#companyName').css('borderColor','#CC3333');
-                }
-                if ($('#companyZipcode').val() == ''){
-                    error += 'Поле  индекс обязательно для заполнения <br />';
-                    $('#companyZipcode').css('borderColor','#CC3333');
-                }
-                if ( $('#companyRegion').val()=='' || $('#companyRegion').val()=='Регион' || $('#companyRegion').val() == null ){
-                    $('#companyRegion-styler').css('border', '1px solid #CC3333');
-                    error += 'Поле регион обязательно для заполнения<br />';
-                }
-                if ($('#companyCity').val() == ''){
-                    error += 'Поле город обязательно для заполнения <br />';
-                    $('#companyCity').css('borderColor','#CC3333');
-                }
-                if ($('#companyHouse').val() == ''){
-                    error += 'Поле название номер дома обязательно для заполнения <br />';
-                    $('#companyHouse').css('borderColor','#CC3333');
-                }
 
                 if ($('#deliveryZipcode').val() == ''){
                     error += 'Поле  индекс обязательно для заполнения <br />';
