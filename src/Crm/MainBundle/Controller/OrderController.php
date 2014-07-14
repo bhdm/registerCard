@@ -232,6 +232,7 @@ class OrderController extends Controller{
 
         $session = $request->getSession();
         $data = $session->get('user');
+        $company = $session->get('company');
         $em = $this->getDoctrine()->getManager();
 
         if ($request->getMethod() == 'POST'){
@@ -241,18 +242,19 @@ class OrderController extends Controller{
 
 
             $user = $serializer->deserialize($data,'Crm\MainBundle\Entity\User','json');
+            $company = $serializer->deserialize($company,'Crm\MainBundle\Entity\Company','json');
             $data = $request->request;
 
-            $region = $this->getDoctrine()->getRepository('CrmMainBundle:Region')->findOneById($data->get('companyRegion'));
-            $company = new Company();
-            $company->setTitle($data->get('companyName'));
-            $company->setZipcode($data->get('companyZipcode'));
-            $company->setRegion($region);
-            $company->setCity($data->get('companyCity'));
-            $company->setStreet($data->get('companyStreet'));
-            $company->setHome($data->get('companyHouse'));
-            $company->setCorp($data->get('companyCorp'));
-            $company->setRoom($data->get('companyRoom'));
+//            $region = $this->getDoctrine()->getRepository('CrmMainBundle:Region')->findOneById($data->get('companyRegion'));
+//            $company = new Company();
+//            $company->setTitle($data->get('companyName'));
+//            $company->setZipcode($data->get('companyZipcode'));
+//            $company->setRegion($region);
+//            $company->setCity($data->get('companyCity'));
+//            $company->setStreet($data->get('companyStreet'));
+//            $company->setHome($data->get('companyHouse'));
+//            $company->setCorp($data->get('companyCorp'));
+//            $company->setRoom($data->get('companyRoom'));
             $em->persist($company);
             $em->flush($company);
             $em->refresh($company);
