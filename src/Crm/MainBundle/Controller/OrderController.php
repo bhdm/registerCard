@@ -135,8 +135,7 @@ class OrderController extends Controller{
             $data = $request->request;
             $session = $request->getSession();
 
-            # Сохраняем данные в сущность
-
+            # Сохраняем данные Пользователя в сущность
             $user->setEmail($data->get('email'));
             $user->setPhone($data->get('phone'));
 
@@ -153,8 +152,23 @@ class OrderController extends Controller{
             $user->setDriverDocDateStarts($data->get('driverDateStarts'));
             $user->setDriverDocDateEnds($data->get('driverDateEnds'));
             $user->setDriverDocIssuance($data->get('driverDocIssuance'));
-
             $user->setSnils($data->get('snils'));
+
+            #Теперь делаем компанию
+            $company = new Company();
+            $company->setTitle($data->get('companyName'));
+            $company->setZipcode($data->get('companyZipcode'));
+            $region = $this->getDoctrine()->getRepository('CrmMainBundle:Region')->findOneById($data->get('companyregion'));
+            $company->setRegion($region);
+            $company->setCity($data->get('companyCity'));
+            $company->setTypeStreet($data->get('companyTypeStreet'));
+            $company->setStreet($data->get('companyStreet'));
+            $company->setHome($data->get('companyHouse'));
+            $company->setCorp($data->get('companyCorp'));
+            $company->setStructure($data->get('companyStructure'));
+            $company->setTypeRoom($data->get('companyTypeRoom'));
+            $company->setRoom($data->get('companyRoom'));
+
 
             # Теперь сохраняем файлы и присоединяем к сущности
 
@@ -191,8 +205,11 @@ class OrderController extends Controller{
             $serializer = new Serializer($normalizers, $encoders);
 
             $jsonContent = $serializer->serialize($user, 'json');
-
             $session->set('user', $jsonContent);
+
+            $jsonContent = $serializer->serialize($company, 'json');
+            $session->set('company', $jsonContent);
+
             $session->save();
         }
 

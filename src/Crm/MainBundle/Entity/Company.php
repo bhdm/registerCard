@@ -57,6 +57,12 @@ class Company extends BaseEntity
     protected $city;
 
     /**
+     * @Assert\Length( max = "10", maxMessage = "Максимум  10 символов")
+     * @ORM\Column(type="string", length=10, nullable=true)
+     */
+    protected $typeStreet;
+
+    /**
      * @Assert\Length( max = "64", maxMessage = "Максимум  64 символа")
      * @Assert\NotBlank( message = "Поле улица обязательно для заполнения" )
      * @ORM\Column(type="string", length=100)
@@ -76,6 +82,20 @@ class Company extends BaseEntity
      * @ORM\Column(type="string", length=10, nullable=true)
      */
     protected $corp;
+
+    /**
+     * Это строение
+     * @Assert\Length( max = "10", maxMessage = "Максимум  10 символов")
+     * @ORM\Column(type="string", length=10, nullable=true)
+     */
+    protected $structure;
+
+    /**
+     * Офис или квартира
+     * @Assert\Length( max = "10", maxMessage = "Максимум  10 символов")
+     * @ORM\Column(type="string", length=10, nullable=true)
+     */
+    protected $typeRoom;
 
     /**
      * квартира
@@ -330,6 +350,54 @@ class Company extends BaseEntity
     public function getEnabled()
     {
         return $this->enabled;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getStructure()
+    {
+        return $this->structure;
+    }
+
+    /**
+     * @param mixed $structure
+     */
+    public function setStructure($structure)
+    {
+        $this->structure = $structure;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getTypeRoom()
+    {
+        return $this->typeRoom;
+    }
+
+    /**
+     * @param mixed $typeRoom
+     */
+    public function setTypeRoom($typeRoom)
+    {
+        $this->typeRoom = $typeRoom;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getTypeStreet()
+    {
+        return $this->typeStreet;
+    }
+
+    /**
+     * @param mixed $typeStreet
+     */
+    public function setTypeStreet($typeStreet)
+    {
+        $this->typeStreet = $typeStreet;
     }
 
 
