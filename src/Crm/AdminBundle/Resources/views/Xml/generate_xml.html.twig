@@ -73,12 +73,12 @@
             <FileFormat>{% if files[1].file.mimeType == 'image/jpeg' %}JPG{% elseif files[1].file.mimeType == 'image/png' %}PNG{% elseif files[1].file.mimeType == 'image/gif' %}GIF{% else %}FILE{% endif %}</FileFormat>
             <Body>{{ files[1].base }}</Body>
         </Attachment>
-        <Attachment>
-            <AttachmentName>{{ files[5].file.fileName }}</AttachmentName>
-            <AttachmentType>Other</AttachmentType>
-            <FileFormat>{% if files[5].file.mimeType == 'image/jpeg' %}JPG{% elseif files[5].file.mimeType == 'image/png' %}PNG{% elseif files[5].file.mimeType == 'image/gif' %}GIF{% else %}FILE{% endif %}</FileFormat>
-            <Body>{{ files[5].base }}</Body>
-        </Attachment>
+        {#<Attachment>#}
+            {#<AttachmentName>{{ files[5].file.fileName }}</AttachmentName>#}
+            {#<AttachmentType>Other</AttachmentType>#}
+            {#<FileFormat>{% if files[5].file.mimeType == 'image/jpeg' %}JPG{% elseif files[5].file.mimeType == 'image/png' %}PNG{% elseif files[5].file.mimeType == 'image/gif' %}GIF{% else %}FILE{% endif %}</FileFormat>#}
+            {#<Body>{{ files[5].base }}</Body>#}
+        {#</Attachment>#}
         {% if files[6] is defined %}
         <Attachment>
             <AttachmentName>{{ files[6].file.fileName }}</AttachmentName>
@@ -86,6 +86,14 @@
             <FileFormat>{% if files[6].file.mimeType == 'image/jpeg' %}JPG{% elseif files[6].file.mimeType == 'image/png' %}PNG{% elseif files[6].file.mimeType == 'image/gif' %}GIF{% else %}FILE{% endif %}</FileFormat>
             <Body>{{ files[6].base }}</Body>
         </Attachment>
+        {% endif %}
+        {% if files[7] is defined %}
+            <Attachment>
+                <AttachmentName>/document</AttachmentName>
+                <AttachmentType>Other</AttachmentType>
+                <FileFormat>PDF</FileFormat>
+                <Body>{{ files[7].base }}</Body>
+            </Attachment>
         {% endif %}
     </Order>
 </ns2:TacPackage>

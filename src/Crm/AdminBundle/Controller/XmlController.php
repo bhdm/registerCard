@@ -53,6 +53,13 @@ class XmlController extends Controller
             $files[6]['file'] = $user->getCopyWork();
         }
 
+        # Ходатайство
+        $url = 'http://'.$request->server->get('HTTP_HOST').'/web/app_dev.php/generatePdf?ord='.$user->getId();
+        $files[7]['base'] = $this->pdfToBase64($url);
+        $files[7]['title'] = 'hod';
+
+
+
         $response = new Response();
         $response->headers->set('Content-Type', 'text/csv');
         $content = $this->renderView("CrmAdminBundle:Xml:generate_xml.html.twig", array('driver' => $user, 'files' => $files));
@@ -71,6 +78,13 @@ class XmlController extends Controller
         $filePath = __DIR__.'/../../../../../'.$file['path'];
         $imagedata = file_get_contents($filePath);
         $base64 = base64_encode($imagedata);
+        return $base64;
+    }
+
+    public function pdfToBase64($url){
+//        $filePath = __DIR__.'/../../../../../'.$file['path'];
+        $pdfdata = file_get_contents($url);
+        $base64 = base64_encode($pdfdata);
         return $base64;
     }
 
