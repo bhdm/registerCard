@@ -158,8 +158,8 @@ class OrderController extends Controller{
             $company = new Company();
             $company->setTitle($data->get('companyName'));
             $company->setZipcode($data->get('companyZipcode'));
-            $region = $this->getDoctrine()->getRepository('CrmMainBundle:Region')->findOneById($data->get('companyRegion'));
-            $company->setRegion($region);
+//            $region = $this->getDoctrine()->getRepository('CrmMainBundle:Region')->findOneById($data->get('companyRegion'));
+            $company->setRegion($data->get('companyRegion'));
             $company->setCity($data->get('companyCity'));
             $company->setTypeStreet($data->get('companyTypeStreet'));
             $company->setStreet($data->get('companyStreet'));
@@ -255,11 +255,17 @@ class OrderController extends Controller{
 //            $company->setHome($data->get('companyHouse'));
 //            $company->setCorp($data->get('companyCorp'));
 //            $company->setRoom($data->get('companyRoom'));
+            $region = $this->getDoctrine()->getRepository('CrmMainBundle:Region')->findOneById($company->getRegion());
+            $company->setRegion($region);
+
             $em->persist($company);
             $em->flush($company);
             $em->refresh($company);
 
+
             $region = $this->getDoctrine()->getRepository('CrmMainBundle:Region')->findOneById($data->get('deliveryRegion'));
+
+
             $user->setCompany($company);
             $user->setDileveryZipcode($data->get('deliveryZipcode'));
             $user->setDileveryRegion($region);
