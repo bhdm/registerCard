@@ -7,6 +7,9 @@
             <div class="feedback-box">
                 <form method="POST">
                     {{ form_widget(formFeedback) }}
+                    <div style="text-align: right">
+                        <i style="font-size: 14px; color: #CC3333">* Поля отмеченные звездочкой обязательны для заполнения</i>
+                    </div>
                 </form>
             </div>
         {% else %}

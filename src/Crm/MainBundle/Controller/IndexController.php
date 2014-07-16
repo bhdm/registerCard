@@ -63,11 +63,40 @@ class IndexController extends Controller
      * @Route("/faq/{catId}", name="faq", defaults={"catId" = 1 })
      * @Template()
      */
-    public function faqAction($catId){
+    public function faqAction(Request $request, $catId){
+        $feedback = new Feedback();
+        $em = $this->getDoctrine()->getManager();
+        $formFeedback = $this->createForm(new FeedbackType($em), $feedback);
+        $msg = false;
+        $formFeedback->handleRequest($request);
+        if ($request->isMethod('POST')) {
+            if ($formFeedback->isValid()) {
+                $msg = true;
+                $feedback = $formFeedback->getData();
+                $em->persist($feedback);
+                $em->flush();
+                $message = \Swift_Message::newInstance()
+                    ->setSubject('Заявка отправлена')
+                    ->setFrom('info@im-kard.ru')
+                    ->setTo('bipur@mail.ru')
+                    ->setBody(
+                        $this->renderView(
+                            'CrmMainBundle:Mail:feedback.html.twig',
+                            array('feedback' => $feedback)
+                        ), 'text/html'
+                    )
+                ;
+                $this->get('mailer')->send($message);
+            }
+        }
 
         $faqCat = $this->getDoctrine()->getRepository('CrmMainBundle:FaqCategory')->findOneById($catId);
         $faqs = $this->getDoctrine()->getRepository('CrmMainBundle:Faq')->findByCategory($faqCat);
-        return array('faqs' => $faqs);
+        return array(
+            'formFeedback' => $formFeedback->createView(),
+            'faqs' => $faqs,
+            'msg'=>$msg,
+        );
     }
 
     /**
