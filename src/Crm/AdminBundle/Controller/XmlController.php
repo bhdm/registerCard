@@ -61,7 +61,7 @@ class XmlController extends Controller
         # Ходатайство
         $files[8]['base'] = $this->imageToBase64($user->getCopyPetition());
         $files[8]['title'] = 'Hod';
-        $files[8]['file'] = $user->getCopyWork();
+        $files[8]['file'] = $user->getCopyPetition();
 
 
         $response = new Response();
