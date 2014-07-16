@@ -3,19 +3,32 @@
 {% block content %}
     <div class="box">
         <h2>Частые вопросы</h2>
-            {% for faq in faqs %}
-                <div class="faq-box">
-                    <div class="faq-question">{{ faq.question |raw }}</div>
-                    <div class="faq-answer">{{ faq.answer |raw  }}</div>
-                </div>
-            {% endfor %}
+        {% if msg == false %}
+            <div class="feedback-box">
+                <form method="POST">
+                    {{ form_widget(formFeedback) }}
+                </form>
+            </div>
+        {% else %}
+            <div class="msg">Ваше сообщение отправлено</div>
+        {% endif %}
+
+        {% for faq in faqs %}
+            <div class="faq-box">
+                <div class="faq-question">{{ faq.question |raw }}</div>
+                <div class="faq-answer">{{ faq.answer |raw  }}</div>
+            </div>
+        {% endfor %}
     </div>
 {% endblock %}
 
 {% block stylesheets %}
     {{ parent() }}
     <style>
-
+        textarea{
+            width: 520px;
+            height: 120px;
+        }
         .faq-box{
             padding: 5px 10px;
             border-bottom: 1px solid #CCC;
@@ -33,6 +46,13 @@
             color: #444444;
             padding-left: 30px;
             display: none;
+        }
+        .feedback-box{
+            background: #F8F8F8;
+            border: 1px solid #cfd1cf;
+            width: 630px;
+            padding: 20px 20px 0 20px;
+            border-radius: 10px;
         }
     </style>
 {% endblock %}
