@@ -87,6 +87,16 @@
             <Body>{{ files[6].base }}</Body>
         </Attachment>
         {% endif %}
+
+        {% if files[8] is defined %}
+            <Attachment>
+                <AttachmentName>{{ files[8].file.fileName }}</AttachmentName>
+                <AttachmentType>Other</AttachmentType>
+                <FileFormat>{% if files[8].file.mimeType == 'image/jpeg' %}JPG{% elseif files[6].file.mimeType == 'image/png' %}PNG{% elseif files[6].file.mimeType == 'image/gif' %}GIF{% else %}FILE{% endif %}</FileFormat>
+                <Body>{{ files[8].base }}</Body>
+            </Attachment>
+        {% endif %}
+
         {% if files[7] is defined %}
             <Attachment>
                 <AttachmentName>/document</AttachmentName>

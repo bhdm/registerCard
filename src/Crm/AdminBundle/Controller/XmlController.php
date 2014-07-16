@@ -47,17 +47,21 @@ class XmlController extends Controller
         $files[5]['title'] = 'SNILS';
         $files[5]['file'] = $user->getCopySnils();
 
-        if (isset($files[6])){
-            $files[6]['base'] = $this->imageToBase64($user->getCopyWork());
-            $files[6]['title'] = 'Work';
-            $files[6]['file'] = $user->getCopyWork();
-        }
+//        if (isset($files[6])){
+//            $files[6]['base'] = $this->imageToBase64($user->getCopyWork());
+//            $files[6]['title'] = 'Work';
+//            $files[6]['file'] = $user->getCopyWork();
+//        }
 
-        # Ходатайство
+        # Заявление
         $url = 'http://'.$request->server->get('HTTP_HOST').'/app.php/generatePdf?ord='.$user->getId();
         $files[7]['base'] = $this->pdfToBase64($url);
-        $files[7]['title'] = 'hod';
+        $files[7]['title'] = 'Order';
 
+        # Ходатайство
+        $files[8]['base'] = $this->imageToBase64($user->getCopyPetition());
+        $files[8]['title'] = 'Hod';
+        $files[8]['file'] = $user->getCopyWork();
 
 
         $response = new Response();
