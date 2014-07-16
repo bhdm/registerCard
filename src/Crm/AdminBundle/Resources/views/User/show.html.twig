@@ -9,6 +9,14 @@
     <div class="show-box">
         <table class="show">
             <tr>
+                <td class="label">Оплачено</td>
+                <td class="value">{{ user.paid == 0 ? 'Да' : 'Нет' }} </td>
+            </tr>
+            <tr>
+                <td class="label">Компания</td>
+                <td class="value"><a href="{{ path('company_edit',{'companyId' : user.company.id}) }}">{{ user.company.title }}</a></td>
+            </tr>
+            <tr>
                 <td class="label">Фамилия</td>
                 <td class="value">{{ user.lastName }}</td>
             </tr>
@@ -33,46 +41,44 @@
                 <td class="value">{{ user.username }}</td>
             </tr>
 
-            {% if user.driver is not null %}
-                {% set user = user.driver %}
                 <tr>
                     <td class="label">Индекс</td>
-                    <td class="value">{{ user.zipcode }}</td>
+                    <td class="value">{{ user.dileveryZipcode }}</td>
                 </tr>
                 <tr>
                     <td class="label">Страна</td>
                     <td class="value">Россия</td>
                 </tr>
-                <tr>
-                    <td class="label">Регион</td>
-                    <td class="value">{{ user.region.title }}</td>
-                </tr>
+                {% if user.dileveryRegion is defined and user.dileveryRegion is not null %}
+                    <tr>
+                        <td class="label">Регион</td>
+                        <td class="value">{{ user.dileveryRegion }}</td>
+                    </tr>
+                {% endif %}
                 <tr>
                     <td class="label">Город</td>
-                    <td class="value">{{ user.city }}</td>
+                    <td class="value">{{ user.dileveryCity }}</td>
                 </tr>
                 <tr>
                     <td class="label">Улица</td>
-                    <td class="value">{{ user.street }}</td>
+                    <td class="value">{{ user.dileveryStreet }}</td>
                 </tr>
                 <tr>
                     <td class="label">Дом</td>
-                    <td class="value">{{ user.home }}</td>
+                    <td class="value">{{ user.dileveryHome }}</td>
                 </tr>
                 <tr>
                     <td class="label">Корпус / строение</td>
-                    <td class="value">{{ user.corp }}</td>
+                    <td class="value">{{ user.dileveryCorp }}</td>
                 </tr>
                 <tr>
                     <td class="label">Квартира</td>
-                    <td class="value">{{ user.room }}</td>
+                    <td class="value">{{ user.dileveryRoom }}</td>
                 </tr>
-                <tr>
-                    <td class="label">Доставка</td>
-                    <td class="value">{{ user.delivery ? '1' : '2'}}</td>
-                </tr>
-
-            {% endif %}
+                {#<tr>#}
+                    {#<td class="label">Доставка</td>#}
+                    {#<td class="value">{{ user.delivery ? '1' : '2'}}</td>#}
+                {#</tr>#}
         </table>
 
     </div>

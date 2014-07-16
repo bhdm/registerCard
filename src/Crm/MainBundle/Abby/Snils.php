@@ -4,12 +4,6 @@ namespace Crm\MainBundle\Abby;
 class Snils extends Recognition{
 
 
-    public function __construct(){
-        parent::__construct();
-        $this->filename='snils.jpg';
-        $this->data = array();
-    }
-
     public function getText(){
         $xml = $this->xml;
         $xml  =  preg_replace('/<charParams( [^>]+)?>(.*)<\/charParams>/isU', '$2', $xml);
@@ -20,8 +14,10 @@ class Snils extends Recognition{
         $xml  =  preg_replace('/<region( [^>]+)?>(.*)<\/region>/isU', '', $xml);
         $xml  =  preg_replace('/<separator( [^>]+)?>(.*)<\/separator>/isU', '', $xml);
         $xml = preg_replace("/\r\n/",'',$xml);
-        $xml  =  preg_replace('/.*([0-9]{3}-[0-9]{3}-[0-9]{3}-[0-9]{2}).*/', '$1', $xml);
-
+        $xml = preg_replace("/I/",'1',$xml);
+        $xml  =  preg_replace('/.*([0-9Ii]{3}-[0-9Ii]{3}-[0-9]{3}(-[0-9]{1,2})?).*/', '$1', $xml);
+        $xml = preg_replace("/I/",'1',$xml);
+        $xml = preg_replace("/i/",'1',$xml);
         $this->data['snils']= $xml;
 
         return $this->data;

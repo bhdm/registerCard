@@ -54,12 +54,12 @@
         </style>
     </head>
     <body>
-            <img src="{{ asset('bundles/crmmain/images/doc.png') }}" width="700px">
-            <div class="fio1">{{ user.lastName }} {{ user.firstName }} {{ user.surName }}</div>
+            <img src="{{ asset('bundles/crmmain/images/doc-template.png') }}" width="700px">
+            <div class="fio1">{{ user.lastName }} {{ user.firstName }} {{ user.surName is not null ? user.surName : ''}}</div>
             <div class="adr1" >
-                {{ user.cityType }} {{ user.city }},
-                {{ user.streetType }}{{ user.street }}, д.{{ user.home }}
-                {{ user.corpType }}{{ user.corp }} {{ user.roomType }}{{ user.room }}
+                {{ user.company.zipcode }},
+                {{ user.company.city }},
+                {{ user.company.street }}, д.{{ user.company.home }} {{ user.company.corp }} {{ user.company.room }}
             </div>
             <div class="date1">
                 &nbsp;{{ "now" | date ('d ') }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ "now" | date ('m ') }}<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ "now" | date ('y') }}</span>
@@ -68,11 +68,12 @@
                 Оплата за заказ № {{ user.id }}
             </div>
 
-            <div class="fio2" >{{ user.lastName }} {{ user.firstName }} {{ user.surName }}</div>
+            <div class="fio2" >{{ user.lastName }} {{ user.firstName }} {{ user.surName is not null ? user.surName : ''}}</div>
             <div class="adr2" >
-                {{ user.cityType }} {{ user.city }},
-                {{ user.streetType }}{{ user.street }}, д.{{ user.home }}
-                {{ user.corpType }}{{ user.corp }} {{ user.roomType }}{{ user.room }}
+                {{ user.dileveryZipcode }},
+                {{ user.dileveryCity }},
+                {{ user.dileveryStreet }}, д.{{ user.dileveryHome }}
+                {{ user.dileveryCorp }} {{ user.dileveryRoom }}
             </div>
             <div class="date2">
                 &nbsp;{{ "now" | date ('d ') }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ "now" | date ('m ') }}<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ "now" | date ('y') }}</span>

@@ -24,21 +24,6 @@
         {% endblock %}
         {% block stylesheets %}
             <link href="{{ asset('bundles/crmmain/stylesheets/common.css') }}" rel="stylesheet" media="all">
-            <style>
-                .logo{
-                    position: absolute;
-                    top: 10px;
-                    left: 50px;
-                }
-                .phone{
-                    position: absolute;
-                    top: 28px;
-                    right: 50px;
-                    font-size: 23px;
-                    text-align: right;
-                    color: #2222CE;
-                }
-            </style>
         {% endblock %}
         {% block javascripts %}
             <script rel="script" src="{{ asset('bundles/crmmain/javascripts/jQuery.js') }}"></script>
@@ -56,34 +41,50 @@
     <body>
         <div class="body">
             <header>
+                <div class="center-block">
+                    <table cellpading="0" cellspacing="0">
+                        <tr>
+                            <td style="width: 130px;padding-right: 10px;">
+                                <a href="{{ path('main') }}" style="border-bottom: none;"><img src="{{ asset('bundles/crmmain/images/logo1.png') }}"></a>
+                            </td>
+                            <td style="width: 5px">
+                                <img src="{{ asset('bundles/crmmain/images/v-line-1.jpg') }}">
+                            </td>
+                            <td style="width: 260px; padding-left: 20px; padding-top: 15px">
+                                <a href="{{ path('main') }}" style="border-bottom: none;"><img src="{{ asset('bundles/crmmain/images/logo2.png') }}"></a>
+                                <br />
+                                <span class="gray" style="font-size: 14px;">Оформление&nbsp;карты&nbsp;водителя</span>
+                            </td>
+                            <td>
 
-                    <img src="{{ asset('bundles/crmmain/images/head.png') }}">
-                <a href="{{ path('main') }}">
-                    <img src="{{ asset('bundles/crmmain/images/Logotip.png') }}" class="logo">
-                </a>
-                {#<div class="phone">#}
-                    {#8&nbsp;(812)&nbsp;425 - 12 - 44<br />#}
-                    {#пн.-пт. с 10-00 до 20-00#}
-                {#</div>#}
+                            </td>
+                            <td style=" width: 250px; padding-top: 15px">
+                                <span class="phone">8 (812) 425 - 12 - 44</span>
+                                <br />
+                                <a href="{{ path('faq') }}" class="no-bootom-line"><img src="{{ asset('bundles/crmmain/images/msg.png') }}" class="msg"></a>
+                                &nbsp;<span style="padding: 0 18px"> </span>&nbsp;<a href="{{ path('faq') }}"><b>задать вопрос</b></a>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
             </header>
+            {% include ("CrmMainBundle::menu.html.twig")  %}
             <div class="content">
-                {% include ("CrmMainBundle::menu.html.twig")  %}
+                <br />
                 {% block content %}{% endblock %}
             </div>
             {# @todo Перевести в плагин #}
         </div>
         <footer>
-            <div style="color: #333333; font-size: 10pt; padding-top: 25px; text-align: center">
-                ООО "НПО ТЕХНОЛОГ" 2014 год
+            <div class="center-block">
+                <div style="float: left">
+                    ООО "НПО ТЕХНОЛОГ" 2014 год
+                </div>
+                <div style="float: right">
+                    <a href="{{ path('page',{ 'url' : 'contact'}) }}">Контакты</a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="{{ path('page',{ 'url' : 'about'}) }}">О компании</a>
+                </div>
             </div>
         </footer>
-        <div class="popup">
-            <div class="inpopup">
-                <title></title>
-                <p></p>
-                <img class="btn-close" id="popup-close" src="{{ asset('bundles/crmmain/images/close.png') }}" />
-            </div>
-        </div>
         <!-- Yandex.Metrika counter -->
         <script type="text/javascript">
             var yaParams = {/*Çäåñü ïàðàìåòðû âèçèòà*/};

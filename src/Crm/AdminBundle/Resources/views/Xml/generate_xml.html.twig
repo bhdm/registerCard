@@ -1,22 +1,22 @@
 {% spaceless %}
 <ns2:TacPackage xmlns:ns2="http://www.example.org/">
     <PackageInfo>
-        <PackageNumber>FLGMN-{{ driver.user.xmlId }}</PackageNumber>
+        <PackageNumber>FLGMN-{{ driver.xmlId }}</PackageNumber>
         <PackageDate> {{ "now" | date('Y-m-d')}}Z</PackageDate>
         <OvkId>FLGMN</OvkId>
         <CardManufacturerId>ATLAS</CardManufacturerId>
     </PackageInfo>
     <Order>
-        <OrderNumber>FLGMN-{{ driver.user.xmlId }}</OrderNumber>
+        <OrderNumber>FLGMN-{{ driver.xmlId }}</OrderNumber>
         <OrderDate>{{ driver.created | date('Y-m-d')}}Z</OrderDate>
         <OrderCardType>D</OrderCardType>
         <OrderCardCount>1</OrderCardCount>
         <PersonOrder>
             <PersonInfo>
-                <NameFirst>{{ driver.user.firstName }}</NameFirst>
-                <NameLast>{{ driver.user.lastName }}</NameLast>
-                <BirthDate>{{ driver.user.birthDate | date('Y-m-d') }}Z</BirthDate>
-                <SNILS>{{ driver.user.snils }}</SNILS>
+                <NameFirst>{{ driver.firstName }}</NameFirst>
+                <NameLast>{{ driver.lastName }}</NameLast>
+                <BirthDate>{{ driver.birthDate | date('Y-m-d') }}Z</BirthDate>
+                <SNILS>{{ driver.snils }}</SNILS>
                 <Passport>
                     <PassportSeries>{{ driver.passportSerial }}</PassportSeries>
                     <PassportNumber>{{ driver.passportNumber }}</PassportNumber>
@@ -34,16 +34,19 @@
                 <DriverLicenseIssuedDate>{{ driver.driverDocDateStarts | date('Y-m-d') }}Z</DriverLicenseIssuedDate>
                 <DriverLicenseExpirationDate>{{ driver.driverDocDateEnds | date('Y-m-d') }}Z</DriverLicenseExpirationDate>
             </DriverLicense>
-            <OrgName>{{ driver.companyName }}</OrgName>
+            <OrgName>{{ driver.company.title }}</OrgName>
             <OrgPostAddress>
-                <FullAddress>{{ driver.zipcode }},Россия, {{ driver.region.title }}, {{ driver.cityType }} {{ driver.city }},{{ driver.streetType }}{{ driver.street }},д.{{ driver.home }} {{ driver.corpType }}{{ driver.corp }}, {{ driver.roomType }}{{ driver.room }}</FullAddress>
-                <PostCode>{{ driver.zipcode }}</PostCode>
-                <RegionCode>{{ driver.region.id }}</RegionCode>
-                <Settlement>{{ driver.cityType}} {{ driver.city }}</Settlement>
-                <Street>{{ driver.streetType }} {{ driver.street }}</Street>
-                <House>{{ driver.home }}</House>
-                <Building>{{ driver.corpType }} {{ driver.corp }}</Building>
-                <Office>{{ driver.roomType }} {{ driver.room }}</Office>
+                <FullAddress>
+                    {{ driver.company.zipcode }},Россия,
+                    {{ driver.company.region }},  {{ driver.company.city }},
+                    {{ driver.company.street }},д.{{ driver.company.home }} {{ driver.company.corp }}, {{ driver.company.room }}</FullAddress>
+                <PostCode>{{ driver.company.zipcode }}</PostCode>
+                <RegionCode>{{ driver.company.region.id }}</RegionCode>
+                <Settlement>{{ driver.company.city }}</Settlement>
+                <Street>{{ driver.company.street }}</Street>
+                <House>{{ driver.company.home }}</House>
+                <Building>{{ driver.company.corp }}</Building>
+                <Office>{{ driver.company.room }}</Office>
             </OrgPostAddress>
             <Photo>
                 <AttachmentName>{{ files[2].file.fileName }}</AttachmentName>
@@ -70,18 +73,38 @@
             <FileFormat>{% if files[1].file.mimeType == 'image/jpeg' %}JPG{% elseif files[1].file.mimeType == 'image/png' %}PNG{% elseif files[1].file.mimeType == 'image/gif' %}GIF{% else %}FILE{% endif %}</FileFormat>
             <Body>{{ files[1].base }}</Body>
         </Attachment>
-        <Attachment>
-            <AttachmentName>{{ files[5].file.fileName }}</AttachmentName>
-            <AttachmentType>Other</AttachmentType>
-            <FileFormat>{% if files[5].file.mimeType == 'image/jpeg' %}JPG{% elseif files[5].file.mimeType == 'image/png' %}PNG{% elseif files[5].file.mimeType == 'image/gif' %}GIF{% else %}FILE{% endif %}</FileFormat>
-            <Body>{{ files[5].base }}</Body>
-        </Attachment>
+        {#<Attachment>#}
+            {#<AttachmentName>{{ files[5].file.fileName }}</AttachmentName>#}
+            {#<AttachmentType>Other</AttachmentType>#}
+            {#<FileFormat>{% if files[5].file.mimeType == 'image/jpeg' %}JPG{% elseif files[5].file.mimeType == 'image/png' %}PNG{% elseif files[5].file.mimeType == 'image/gif' %}GIF{% else %}FILE{% endif %}</FileFormat>#}
+            {#<Body>{{ files[5].base }}</Body>#}
+        {#</Attachment>#}
+        {% if files[6] is defined %}
         <Attachment>
             <AttachmentName>{{ files[6].file.fileName }}</AttachmentName>
             <AttachmentType>Other</AttachmentType>
             <FileFormat>{% if files[6].file.mimeType == 'image/jpeg' %}JPG{% elseif files[6].file.mimeType == 'image/png' %}PNG{% elseif files[6].file.mimeType == 'image/gif' %}GIF{% else %}FILE{% endif %}</FileFormat>
             <Body>{{ files[6].base }}</Body>
         </Attachment>
+        {% endif %}
+
+        {% if files[8] is defined %}
+            <Attachment>
+                <AttachmentName>{{ files[8].file.fileName }}</AttachmentName>
+                <AttachmentType>Other</AttachmentType>
+                <FileFormat>{% if files[8].file.mimeType == 'image/jpeg' %}JPG{% elseif files[6].file.mimeType == 'image/png' %}PNG{% elseif files[6].file.mimeType == 'image/gif' %}GIF{% else %}FILE{% endif %}</FileFormat>
+                <Body>{{ files[8].base }}</Body>
+            </Attachment>
+        {% endif %}
+
+        {% if files[7] is defined %}
+            <Attachment>
+                <AttachmentName>/document</AttachmentName>
+                <AttachmentType>Other</AttachmentType>
+                <FileFormat>PDF</FileFormat>
+                <Body>{{ files[7].base }}</Body>
+            </Attachment>
+        {% endif %}
     </Order>
 </ns2:TacPackage>
 {% endspaceless %}

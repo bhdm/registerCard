@@ -15,9 +15,9 @@ use Iphp\FileStoreBundle\Mapping\Annotation as FileStore;
 class Company extends BaseEntity
 {
     /**
-     * @ORM\OneToOne(targetEntity="User", inversedBy="driver")
+     * @ORM\OneToMany(targetEntity="User", mappedBy="company")
      */
-    protected $user;
+    protected $users;
 
     /**
      * @Assert\NotBlank( message = "Поле название предприятия обязательно для заполнения" )
@@ -25,227 +25,113 @@ class Company extends BaseEntity
      */
     protected $title;
 
-    /**
-     * @Assert\NotBlank( message = "Поле ОГРН предприятия обязательно для заполнения" )
-     * @ORM\Column(type="string", length=150)
-     */
-    protected $ogrn;
-
-    /**
-     * @Assert\NotBlank( message = "Поле название для карты обязательно для заполнения" )
-     * @ORM\Column(type="string", length=150)
-     */
-    protected $titleForCard;
-
-    /**
-     * @Assert\NotBlank( message = "Поле название латинскими буквами обязательно для заполнения" )
-     * @ORM\Column(type="string", length=150)
-     */
-    protected $latTitle;
-
-    /**
-     * @Assert\NotBlank( message = "Поле должность обязательно для заполнения" )
-     * @ORM\Column(type="string", length=150)
-     */
-    protected $post;
-
-    # СВЕДЕНИЯ О ДОКУМЕНТЕ, УДОСТОВЕРЯЮЩЕМ ЛИЧНОСТЬ
-
-    /**
-     * @Assert\NotBlank( message = "Поле серия обязательно для заполнения" )
-     * @ORM\Column(type="string", length=20)
-     */
-    protected $passportSeries;
-
-    /**
-     * @Assert\NotBlank( message = "Поле номер обязательно для заполнения" )
-     * @ORM\Column(type="string", length=20)
-     */
-    protected $passportNumber;
-
-    # ПРИКАЗ О НАЗНАЧЕНИИ ЛИЦА, ОТВЕТСТВЕННОГО ЗА ПОЛУЧЕНИЕ, ХРАНЕНИЕ И ИСПОЛЬЗОВАНИЯ КАРТ
-
-    /**
-     * @Assert\NotBlank( message = "Поле номер приказа обязательно для заполнения" )
-     * @ORM\Column(type="string", length=50)
-     */
-    protected $orderNumber;
-
-    /**
-     * @Assert\NotBlank( message = "Поле дата приказа обязательно для заполнения" )
-     * @ORM\Column(type="datetime")
-     */
-    protected $orderDate;
-
-
-    # ЮРИДИЧЕСКИЙ АДРЕС ПРЕДПРИЯТИЯ СОГЛАСНО РЕГИСТРАЦИОННЫМ ДОКУМЕНТАМ
+    # Адрес
 
     /**
      * @Assert\NotBlank( message = "Поле почтоый индекс обязательно для заполнения" )
-     * @ORM\Column(type="string", length=10)
+     * @Assert\Regex(pattern= "/^[0-9]{6}$/", message="Неверный формат ввода.")
+     * @ORM\Column(type="string", length=12)
      */
-    protected $zipcode;
+    protected  $zipcode;
 
-    /**
-     * @ORM\ManyToOne(targetEntity="Country", inversedBy="companies")
-     */
-    protected $country;
+
+    # Адрес предприятия
+
 
     /**
      * @ORM\ManyToOne(targetEntity="Region", inversedBy="companies")
      */
     protected $region;
 
+
     /**
-     * @ORM\ManyToOne(targetEntity="City", inversedBy="companies")
+     * @Assert\Length( max = "64", maxMessage = "Максимум  64 символа")
+     * @Assert\NotBlank( message = "Поле город обязательно для заполнения" )
+     * @ORM\Column(type="string", length=64)
      */
     protected $city;
 
     /**
-     * Район
-     * @ORM\Column(type="string", length=100)
+     * @Assert\Length( max = "10", maxMessage = "Максимум  10 символов")
+     * @ORM\Column(type="string", length=10, nullable=true)
      */
-    protected $area;
+    protected $typeStreet;
 
     /**
+     * @Assert\Length( max = "64", maxMessage = "Максимум  64 символа")
      * @Assert\NotBlank( message = "Поле улица обязательно для заполнения" )
      * @ORM\Column(type="string", length=100)
      */
     protected $street;
 
+
     /**
+     * @Assert\Length( max = "10", maxMessage = "Максимум  10 символов")
      * @Assert\NotBlank( message = "Поле дом обязательно для заполнения" )
      * @ORM\Column(type="string", length=100)
      */
     protected $home;
 
     /**
+     * @Assert\Length( max = "10", maxMessage = "Максимум  10 символов")
      * @ORM\Column(type="string", length=10, nullable=true)
      */
     protected $corp;
 
     /**
+     * Это строение
+     * @Assert\Length( max = "10", maxMessage = "Максимум  10 символов")
+     * @ORM\Column(type="string", length=10, nullable=true)
+     */
+    protected $structure;
+
+    /**
+     * Офис или квартира
+     * @Assert\Length( max = "10", maxMessage = "Максимум  10 символов")
+     * @ORM\Column(type="string", length=10, nullable=true)
+     */
+    protected $typeRoom;
+
+    /**
      * квартира
-     * @ORM\Column(type="string", length=10)
+     * @Assert\Length( max = "10", maxMessage = "Максимум  10 символов")
+     * @ORM\Column(type="string", length=10, nullable=true)
      */
     protected $room;
 
     /**
-     * @Assert\NotBlank( message = "Поле тип доставки обязательно для заполнения" )
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="string", length=150, nullable=true)
      */
-    protected $delivery;
+    protected $login;
+
+    /**
+     * @ORM\Column(type="string", length=150, nullable=true)
+     */
+    protected $url;
+
+    /**
+     * @ORM\Column(type="string", length=150, nullable=true)
+     */
+    protected $password;
+
+
+    /**
+     * @ORM\Column(type="array", nullable=true)
+     */
+    protected $copyPetition;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Operator", inversedBy="companies")
+     */
+    protected $operator;
 
     /**
      * @ORM\Column(type="boolean")
      */
-    protected $cardEurope = false;
+    protected $enabled = 0;
 
-    /**
-     * @ORM\Column(type="boolean")
-     */
-    protected $cardTeh = false;
-
-    /**
-     * @Assert\NotBlank( message = "Поле название платильщика обязательно для заполнения" )
-     * @ORM\Column(type="string", length=150)
-     */
-    protected $paymentName;
-
-    /**
-     * @Assert\NotBlank( message = "Поле копия свидетельства о регистрации компании обязательно для заполнения" )
-     * @Assert\File(maxSize="5M")
-     * @FileStore\UploadableField(mapping="docs")
-     * @ORM\Column(type="array")
-     */
-    protected $copyRegisterCompany;
-
-    /**
-     * @Assert\NotBlank( message = "Поле копия документа удостоверяющая личность обязательно для заполнения" )
-     * @Assert\File(maxSize="5M")
-     * @FileStore\UploadableField(mapping="docs")
-     * @ORM\Column(type="array")
-     */
-    protected $copyPassport;
-
-    /**
-     * @Assert\NotBlank( message = "Поле копия подписи водителя обязательно для заполнения" )
-     * @Assert\File(maxSize="5M")
-     * @FileStore\UploadableField(mapping="docs")
-     * @ORM\Column(type="array")
-     */
-    protected $copySignatureDriver;
-
-    /**
-     * @Assert\NotBlank( message = "Поле копия приказа обязательно для заполнения" )
-     * @Assert\File(maxSize="5M")
-     * @FileStore\UploadableField(mapping="docs")
-     * @ORM\Column(type="array")
-     */
-    protected $copyOrder;
-
-    /**
-     * @Assert\NotBlank( message = "Поле подпись руководителя обязательно для заполнения" )
-     * @Assert\File(maxSize="5M")
-     * @FileStore\UploadableField(mapping="docs")
-     * @ORM\Column(type="array")
-     */
-    protected $copySignatureManager;
-
-    /**
-     * @return mixed
-     */
-    public function getArea()
-    {
-        return $this->area;
-    }
-
-    /**
-     * @param mixed $area
-     */
-    public function setArea($area)
-    {
-        $this->area = $area;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getCardEurope()
-    {
-        return $this->cardEurope;
-    }
-
-    /**
-     * @param mixed $cardEurope
-     */
-    public function setCardEurope($cardEurope)
-    {
-        $this->cardEurope = $cardEurope;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getCardTeh()
-    {
-        return $this->cardTeh;
-    }
-
-    /**
-     * @param mixed $cardTeh
-     */
-    public function setCardTeh($cardTeh)
-    {
-        $this->cardTeh = $cardTeh;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getCity()
-    {
-        return $this->city;
+    public function __toString(){
+        return $this->title;
     }
 
     /**
@@ -259,89 +145,9 @@ class Company extends BaseEntity
     /**
      * @return mixed
      */
-    public function getCopyOrder()
+    public function getCity()
     {
-        return $this->copyOrder;
-    }
-
-    /**
-     * @param mixed $copyOrder
-     */
-    public function setCopyOrder($copyOrder)
-    {
-        $this->copyOrder = $copyOrder;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getCopyPassport()
-    {
-        return $this->copyPassport;
-    }
-
-    /**
-     * @param mixed $copyPassport
-     */
-    public function setCopyPassport($copyPassport)
-    {
-        $this->copyPassport = $copyPassport;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getCopyRegisterCompany()
-    {
-        return $this->copyRegisterCompany;
-    }
-
-    /**
-     * @param mixed $copyRegisterCompany
-     */
-    public function setCopyRegisterCompany($copyRegisterCompany)
-    {
-        $this->copyRegisterCompany = $copyRegisterCompany;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getCopySignatureDriver()
-    {
-        return $this->copySignatureDriver;
-    }
-
-    /**
-     * @param mixed $copySignatureDriver
-     */
-    public function setCopySignatureDriver($copySignatureDriver)
-    {
-        $this->copySignatureDriver = $copySignatureDriver;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getCopySignatureManager()
-    {
-        return $this->copySignatureManager;
-    }
-
-    /**
-     * @param mixed $copySignatureManager
-     */
-    public function setCopySignatureManager($copySignatureManager)
-    {
-        $this->copySignatureManager = $copySignatureManager;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getCorp()
-    {
-        return $this->corp;
+        return $this->city;
     }
 
     /**
@@ -355,42 +161,26 @@ class Company extends BaseEntity
     /**
      * @return mixed
      */
-    public function getCountry()
+    public function getCorp()
     {
-        return $this->country;
+        return $this->corp;
     }
 
-    /**
-     * @param mixed $country
-     */
-    public function setCountry($country)
-    {
-        $this->country = $country;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getDelivery()
-    {
-        return $this->delivery;
-    }
-
-    /**
-     * @param mixed $delivery
-     */
-    public function setDelivery($delivery)
-    {
-        $this->delivery = $delivery;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getHome()
-    {
-        return $this->home;
-    }
+//    /**
+//     * @param mixed $country
+//     */
+//    public function setCountry($country)
+//    {
+//        $this->country = $country;
+//    }
+//
+//    /**
+//     * @return mixed
+//     */
+//    public function getCountry()
+//    {
+//        return $this->country;
+//    }
 
     /**
      * @param mixed $home
@@ -403,137 +193,41 @@ class Company extends BaseEntity
     /**
      * @return mixed
      */
-    public function getLatTitle()
+    public function getHome()
     {
-        return $this->latTitle;
+        return $this->home;
     }
 
     /**
-     * @param mixed $latTitle
+     * @param mixed $login
      */
-    public function setLatTitle($latTitle)
+    public function setLogin($login)
     {
-        $this->latTitle = $latTitle;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getOgrn()
-    {
-        return $this->ogrn;
-    }
-
-    /**
-     * @param mixed $ogrn
-     */
-    public function setOgrn($ogrn)
-    {
-        $this->ogrn = $ogrn;
+        $this->login = $login;
     }
 
     /**
      * @return mixed
      */
-    public function getOrderDate()
+    public function getLogin()
     {
-        return $this->orderDate;
+        return $this->login;
     }
 
     /**
-     * @param mixed $orderDate
+     * @param mixed $password
      */
-    public function setOrderDate($orderDate)
+    public function setPassword($password)
     {
-        $this->orderDate = $orderDate;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getOrderNumber()
-    {
-        return $this->orderNumber;
-    }
-
-    /**
-     * @param mixed $orderNumber
-     */
-    public function setOrderNumber($orderNumber)
-    {
-        $this->orderNumber = $orderNumber;
+        $this->password = $password;
     }
 
     /**
      * @return mixed
      */
-    public function getPassportNumber()
+    public function getPassword()
     {
-        return $this->passportNumber;
-    }
-
-    /**
-     * @param mixed $passportNumber
-     */
-    public function setPassportNumber($passportNumber)
-    {
-        $this->passportNumber = $passportNumber;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getPassportSeries()
-    {
-        return $this->passportSeries;
-    }
-
-    /**
-     * @param mixed $passportSeries
-     */
-    public function setPassportSeries($passportSeries)
-    {
-        $this->passportSeries = $passportSeries;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getPaymentName()
-    {
-        return $this->paymentName;
-    }
-
-    /**
-     * @param mixed $paymentName
-     */
-    public function setPaymentName($paymentName)
-    {
-        $this->paymentName = $paymentName;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getPost()
-    {
-        return $this->post;
-    }
-
-    /**
-     * @param mixed $post
-     */
-    public function setPost($post)
-    {
-        $this->post = $post;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getRegion()
-    {
-        return $this->region;
+        return $this->password;
     }
 
     /**
@@ -547,9 +241,9 @@ class Company extends BaseEntity
     /**
      * @return mixed
      */
-    public function getRoom()
+    public function getRegion()
     {
-        return $this->room;
+        return $this->region;
     }
 
     /**
@@ -563,9 +257,9 @@ class Company extends BaseEntity
     /**
      * @return mixed
      */
-    public function getStreet()
+    public function getRoom()
     {
-        return $this->street;
+        return $this->room;
     }
 
     /**
@@ -579,9 +273,9 @@ class Company extends BaseEntity
     /**
      * @return mixed
      */
-    public function getTitle()
+    public function getStreet()
     {
-        return $this->title;
+        return $this->street;
     }
 
     /**
@@ -595,25 +289,25 @@ class Company extends BaseEntity
     /**
      * @return mixed
      */
-    public function getTitleForCard()
+    public function getTitle()
     {
-        return $this->titleForCard;
+        return $this->title;
     }
 
     /**
-     * @param mixed $titleForCard
+     * @param mixed $users
      */
-    public function setTitleForCard($titleForCard)
+    public function setUsers($users)
     {
-        $this->titleForCard = $titleForCard;
+        $this->users = $users;
     }
 
     /**
      * @return mixed
      */
-    public function getZipcode()
+    public function getUsers()
     {
-        return $this->zipcode;
+        return $this->users;
     }
 
     /**
@@ -627,18 +321,124 @@ class Company extends BaseEntity
     /**
      * @return mixed
      */
-    public function getUser()
+    public function getZipcode()
     {
-        return $this->user;
+        return $this->zipcode;
     }
 
     /**
-     * @param mixed $user
+     * @param mixed $url
      */
-    public function setUser($user)
+    public function setUrl($url)
     {
-        $this->user = $user;
+        $this->url = $url;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getUrl()
+    {
+        return $this->url;
+    }
+
+    /**
+     * @param mixed $enabled
+     */
+    public function setEnabled($enabled = 0 )
+    {
+        $this->enabled = $enabled;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getEnabled()
+    {
+        return $this->enabled;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getStructure()
+    {
+        return $this->structure;
+    }
+
+    /**
+     * @param mixed $structure
+     */
+    public function setStructure($structure)
+    {
+        $this->structure = $structure;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getTypeRoom()
+    {
+        return $this->typeRoom;
+    }
+
+    /**
+     * @param mixed $typeRoom
+     */
+    public function setTypeRoom($typeRoom)
+    {
+        $this->typeRoom = $typeRoom;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getTypeStreet()
+    {
+        return $this->typeStreet;
+    }
+
+    /**
+     * @param mixed $typeStreet
+     */
+    public function setTypeStreet($typeStreet)
+    {
+        $this->typeStreet = $typeStreet;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCopyPetition()
+    {
+        return $this->copyPetition;
+    }
+
+    /**
+     * @param mixed $copyPetition
+     */
+    public function setCopyPetition($copyPetition)
+    {
+        $this->copyPetition = $copyPetition;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getOperator()
+    {
+        return $this->operator;
+    }
+
+    /**
+     * @param mixed $operator
+     */
+    public function setOperator($operator)
+    {
+        $this->operator = $operator;
+    }
+
+
 
 
 }

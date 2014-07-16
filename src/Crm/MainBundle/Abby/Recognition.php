@@ -15,10 +15,12 @@ class Recognition{
 
     protected $data;
 
-    public function __construct(){
+    public function __construct($fileName){
         $this->applicationId = 'taxoCard';
         $this->password = 'ILCL63gtPIQP7GOXDlqgHS4F';
-        $this->path = '/var/www/crm/web/upload/docs';
+//        $this->path = '/var/www/crm/web/upload/docs';
+        $this->path = $fileName;
+        $this->data = array();
     }
 
     /**
@@ -106,7 +108,7 @@ class Recognition{
             $file = $this->getFilename();
         }
 
-        $filePath = $this->path.'/'.$file;
+        $filePath = $this->path;
         if(!file_exists($filePath))
         {
             return 'error: Ошибка файла';
@@ -120,7 +122,7 @@ class Recognition{
         // You can use combination of languages like ?language=english,russian or
         // ?language=english,french,dutch
         // For details, see API reference for processImage method
-        $url = 'http://cloud.ocrsdk.com/processImage?language=russian&exportFormat=xml';
+        $url = 'http://cloud.ocrsdk.com/processImage?language=Russian&exportFormat=xml';
 
         // Send HTTP POST request and ret xml response
         $curlHandle = curl_init();
@@ -226,6 +228,7 @@ class Recognition{
         $this->xml  = $response;
 //        echo $response;
 //        exit;
+//        $this->xml = file_get_contents('')
         return $this;
     }
 

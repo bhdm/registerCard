@@ -84,8 +84,8 @@ class AdminDriverType extends AbstractType
         );
 
         $builder
-            ->add('companyName', null, array('label' => 'Название транспортной компании'))
-            ->add('passportSerial', null, array('label' => 'Серия паспорта'))
+//            ->add('companyName', null, array('label' => 'Название транспортной компании'))
+//            ->add('passportSerial', null, array('label' => 'Серия паспорта'))
             ->add('passportNumber', null, array('label' => 'Номер паспорта'))
             ->add('passportIssuance', null, array('label' => 'Кем выдан'))
             ->add('passportIssuanceDate', 'date', array(

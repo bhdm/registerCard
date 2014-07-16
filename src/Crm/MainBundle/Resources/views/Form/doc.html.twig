@@ -18,10 +18,10 @@
         от водителя<br/>
         {{ user.lastName }}
         {{ user.firstname }}
-        {{ user.surName }}
+        {{ user.surName is not null ? user.surName : '' }}
         <br/>
         <div class="comment">Ф.И.О.</div><br/>
-        В {{ user.driver.companyName }}<br/>
+        В {{ user.company.title }}<br/>
         <span class="comment">наименование транспортного предприятия</span><br/>
         <br/>
     </div>
@@ -34,28 +34,28 @@
     <div style="text-align: justify">
         <p>
             Прошу
-            {% if user.driver.lastNumberCard %}
-                выдать/<u>обновить</u>
-            {% else %}
+            {#{% if user.driver.lastNumberCard %}#}
+                {#выдать/<u>обновить</u>#}
+            {#{% else %}#}
                 <u>выдать</u>/обновить
-            {% endif %}
+            {#{% endif %}#}
             в связи с истечением срока действия <i>(нужное подчеркнуть)</i> мне карту водителя для использования при осуществлении автомобильных перевозок.
         </p>
         <p>
             Для выдачи (обновления) карты предоставляю следующую информацию:
         </p>
-        {% if user.driver.lastNumberCard %}
+        {#{% if user.driver.lastNumberCard %}#}
+        {#<p>#}
+            {#- Номер ранее выданной карты: RUD <B>{{ user.driver.lastNumberCard }}</B>#}
+        {#</p>#}
+        {#{% endif %}#}
         <p>
-            - Номер ранее выданной карты: RUD <B>{{ user.driver.lastNumberCard }}</B>
+            - Ф.И.О.: <b>{{ user.lastName }} {{ user.firstName }} {{ user.surName is not null ? user.surName : '' }}</b>
         </p>
-        {% endif %}
         <p>
-            - Ф.И.О.: <b>{{ user.lastName }} {{ user.firstName }} {{ user.surName }}</b>
-        </p>
-        <p>
-            - Почтовый адрес транспортного предприятия: <b>{{ user.driver.zipcode }}, Россия, {{ user.driver.region.title }}, {{ user.driver.cityType }} {{ user.driver.city }},
-            {{ user.driver.streetType }}{{ user.driver.street }}, д.{{ user.driver.home }}
-            {{ user.driver.corpType }}{{ user.driver.corp }}, {{ user.driver.roomType }}{{ user.driver.room }}</b>
+            - Почтовый адрес транспортного предприятия: <b>{{ user.company.zipcode }}, Россия, {{ user.company.region is not null ? user.company.region.title  : ''}},  {{ user.company.city }},
+            {{ user.company.street }}, д.{{ user.company.home }}
+            {{ user.company.corp }}, {{ user.company.room }}</b>
             <br />
             <span class="comment">(индекс, страна, край/область, населенный пункт (город, село и т.п.), улица, дом, офис)</span>
         </p>
@@ -71,22 +71,22 @@
             номер паспорта ,
             кем и когда выдан,
             код подразделения: <br/>
-            выдан: <b>{{ user.driver.passportIssuance }}</b> <br/>
-            серия: <b>{{ user.driver.passportSerial }}</b> номер: <b>{{ user.driver.passportNumber }}</b> дата выдачи: <b>{{ user.driver.passportIssuanceDate | date ('d.m.Y')}}</b> <br/>
-            код подразделения  <b>{{ user.driver.passportCode }}</b> <br/>
+            выдан: <b>{{ user.passportIssuance }}</b> <br/>
+            серия и номер: <b>{{ user.passportNumber }}</b> дата выдачи: <b>{{ user.passportIssuanceDate | date ('d.m.Y')}}</b> <br/>
+            код подразделения  <b>{{ user.passportCode }}</b> <br/>
         </p>
         <p>
             - Наименование организации, выдавшей водительское удостоверение, номер водительского удостоверения, кем и когда выдано:<br/>
 
-            Серия: <b>{{ user.driver.driverDocNumber |slice(0, 4) }}</b> номер: <b>{{ user.driver.driverDocNumber |slice(4, 10)}}</b> выдано: <b>{{ user.driver.driverDocIssuance }}</b>
+            Серия: <b>{{ user.driverDocNumber |slice(0, 4) }}</b> номер: <b>{{ user.driverDocNumber |slice(4, 10)}}</b> выдано: <b>{{ user.driverDocIssuance }}</b>
         </p>
         <p>
-            - наименование страны, выдавшей водительское удостоверение: <b>{{ user.driver.driverDocCountry.title }}</b>
+            - наименование страны, выдавшей водительское удостоверение: <b> Россия </b>
         </p>
         <p>
             - контактная информация:
             <br />
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;тел. <b>{{ user.username }}</b>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;тел. <b>{{ user.phone }}</b>
             <br />
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;e-mail: <b>{{ user.email }}</b>
         </p>
@@ -115,7 +115,7 @@
         <table>
             <tr>
                 <td style="width: 400px; vertical-align: top;">
-                    <img src="http://im-kard.ru{{ user.driver.photo['path'] }}" style="width: 200px"><br/>
+                    <img src="http://im-kard.ru{{ user.photo is not null ? user.photo['path'] : ''}}" style="width: 200px"><br/>
                     <div >
                         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="comment">Место для фотографии</span>
                     </div>
@@ -125,7 +125,7 @@
                         {% if mail is not null %}
                             <img src="{{ asset('bundles/crmmain/images/nosign.png') }}" style="width: 200px;padding-left: 50px"><br/>
                         {% else %}
-                            <img src="http://im-kard.ru{{ user.driver.copySignature['path'] }}" style="width: 200px;padding-left: 100px"><br/>
+                            <img src="http://im-kard.ru{{ user.copySignature is not null ? user.copySignature['path'] : ''}}" style="width: 200px;padding-left: 100px"><br/>
                         {% endif %}
                     </div>
                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span  class="comment">Место для подписи</span>

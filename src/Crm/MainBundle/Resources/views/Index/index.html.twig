@@ -1,81 +1,62 @@
 {% extends 'CrmMainBundle::layout.html.twig' %}
 
 {% block content %}
-    <div style="text-align: center">
-        <div class="com">
-            {{ indexPage_4.body | raw }}
-        </div>
-    </div>
-    <table>
+    <table class="table-100" style="width: 98%;">
         <tr>
-            <td>
-                <div class="text-main">
-                    <h2>{{ indexPage_1.title | raw }}</h2>
-                    <div>{{ indexPage_1.body | raw }}</div>
-                </div>
+            <td style="width: 570px; padding-right: 15px;">
+                {{ indexPage_1.body | raw }}
             </td>
-            <td>
-                <div class="text-main">
-                    <h2>{{ indexPage_2.title | raw }}</h2>
-                    <div>{{ indexPage_2.body | raw }}</div>
-                </div>
-            </td>
-            <td style="width: 300px">
-                <div class="auth" id="auth" style="text-align: center; border-color: #1a5f89">
-                    <h2>Подать заявку</h2>
-                    {#<div class="input-box"><input type="text" value="" placeholder="Фамилия" name="lastName" id="lastName"></div>#}
-                    {#<div class="input-box"><input type="text" value="" placeholder="Имя" name="firstName"  id="firstName"></div>#}
-                    {#<div class="input-box"><input type="text" value="" placeholder="Телефон" name="phone" id="phone"></div>#}
-                    <button class="btn" id="sendOrder">Открыть заявку</button>
-                </div>
-                <br/>
-                <div class="text-main-2">
-                    <div>{{ indexPage_3.body | raw }}</div>
-                </div>
+            <td  style="width: 410px; text-align: right" valign="top">
+                <img src="{{ asset('bundles/crmmain/images/img1.png') }}" />
+                {% spaceless %}
+                    <br/>
+                    <br/>
+                    <div class="index-line">
+                        <table style="margin: 0 auto">
+                            <tr>
+                                <td style="vertical-align: middle; padding-right: 20px">
+                                    <b>Продано карт:</b>
+                                </td>
+                                <td>
+                                    {#<div class="digital--"></div>#}
+                                    {#<div class="digital-0"></div>#}
+                                    <div class="digital-1"></div>
+                                    <div class="digital-8"></div>
+                                    {#<div class="digital-2"></div>#}
+                                    {#<div class="digital-3"></div>#}
+                                    <div class="digital-2"></div>
+                                    {#<div class="digital-5"></div>#}
+                                    {#<div class="digital-6"></div>#}
+                                    {#<div class="digital-7"></div>#}
+                                    <div class="digital-4"></div>
+                                    {#<div class="digital-9"></div>#}
+                                    <div class="digital-1"></div>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                {% endspaceless %}
             </td>
         </tr>
     </table>
+    <div>
+        <div class="center">
+            <br/>
+            <br/>
+                {#<b>Получите карту водителя за 3 шага</b>#}
+            <br/>
+            <br/>
+            {#<img src="{{ asset('bundles/crmmain/images/img2.png') }}">#}
+        </div>
+    </div>
+    <br/>
 {% endblock %}
 
 {% block stylesheets %}
     {{ parent() }}
     <link href="{{ asset('bundles/crmmain/lib/fancyapps/jquery.fancybox.css') }}" rel="stylesheet" media="all">
     <style>
-        table tr td{
-            vertical-align: top;
-            width: 40%;
-        }
-        .auth{
-            padding: 10px 30px;
-            border: 2px solid #dadada;
-            border-radius: 3px;
-        }
-        .input-box{
-            padding: 5px 0;
-        }
-        input{
-            width: 300px;
-        }
-        .text-main{
-            padding: 10px 30px;
-            color: #333333;
-            line-height: 1.5em;
-            text-align: justify;
-        }
-        .text-main-2{
-            width: 312px;
-            color: #333333;
-            line-height: 1.5em;
-            text-align: justify;
-        }
-        .com{
-            background: url('{{ asset('bundles/crmmain/images/com2.png') }}') no-repeat;
-            width: 670px;
-            height: 94px;
-            padding: 10px 10px 10px 100px;
-            margin: 0 auto;
-            text-align: left;
-        }
+
     </style>
 {% endblock %}
 

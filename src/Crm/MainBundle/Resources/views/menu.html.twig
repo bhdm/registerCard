@@ -1,10 +1,14 @@
 <div class="menu">
-    <span><a href="{{ path('page',{ 'url' : 'about'}) }}">О проекте</a></span>
+
+    <span><a href="{{ path('main') }}">Главная</a></span>
+    {#<span><a href="{{ path('auth_party_2') }}">Подать заявку</a></span>#}
+    <span><a href="{{ path('order') }}">Подать заявку</a></span>
     <span><a href="{{ path('documents') }}">Документы</a></span>
     <span><a href="{{ path('faq') }}">Частые вопросы</a></span>
     <span><a href="{{ path('status') }}">Проверить статус</a></span>
-    <span><a href="{{ path('page',{ 'url' : 'contact'}) }}">Контакты</a></span>
     {#<span><a href="{{ path('activate_index') }}">Активация</a></span>#}
-    <span><a href="{{ path('feedback') }}">Обратная связь</a></span>
+    {#<span><a href="{{ path('feedback') }}">Обратная связь</a></span>#}
+    <span><a href="{{ path('page',{ 'url' : 'about'}) }}">О компании</a></span>
+    <span><a href="{{ path('page',{ 'url' : 'contact'}) }}">Контакты</a></span>
 </div>
 

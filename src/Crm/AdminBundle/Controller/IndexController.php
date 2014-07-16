@@ -6,6 +6,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Component\HttpFoundation\Request;
+use Crm\MainBundle\Entity\Company;
 
 class IndexController extends Controller
 {
@@ -23,6 +24,17 @@ class IndexController extends Controller
                 $hash = md5($user.$password);
                 $request->getSession()->set('hash',$hash);
                 return $this->redirect($this->generateUrl('user_list'));
+            }else{
+                $company = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->findOneByLogin($request->request->get('asuser'));
+                if ($company){
+                    if ( $company->getPassword() == $request->request->get('aspassword')){
+                        if ($company->getEnabled() == 1){
+                            $request->getSession()->set('role','ROLE_COMPANY');
+                            $request->getSession()->set('companyId',$company->getId());
+                            return $this->redirect($this->generateUrl('user_list'));
+                        }
+                    }
+                }
             }
         }
         return array();

@@ -38,12 +38,7 @@ class Region
     protected $cities;
 
     /**
-     * @ORM\OneToMany(targetEntity="Driver", mappedBy="region")
-     */
-    protected $drivers;
-
-    /**
-     * @ORM\OneToMany(targetEntity="User", mappedBy="region")
+     * @ORM\OneToMany(targetEntity="User", mappedBy="dileveryRegion")
      */
     protected $deliveries;
 
@@ -57,6 +52,10 @@ class Region
         $this->drivers = new ArrayCollection();
         $this->deliveries = new ArrayCollection();
         $this->companies = new ArrayCollection();
+    }
+
+    public function __toString(){
+        return $this->title;
     }
 
     /**
@@ -181,7 +180,20 @@ class Region
         return $this->deliveries;
     }
 
+    public function addDelivery($delivery){
+        $this->deliveries[] = $delivery;
+    }
 
+    public function removeDelivery($delivery){
+        $this->deliveries->removeElement($delivery);
+    }
 
+    public function addCompany($company){
+        $this->companies[] = $company;
+    }
+
+    public function removeCompany($company){
+        $this->companies->removeElement($company);
+    }
 
 }

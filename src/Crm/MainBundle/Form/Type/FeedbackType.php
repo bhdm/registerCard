@@ -18,7 +18,7 @@ class FeedbackType extends AbstractType
             ->add('name',  null, array('label' => 'Имя'))
             ->add('email', null, array('label' => 'Email'))
             ->add('body',  null, array('label' => 'Сообщение'))
-            ->add('submit', 'submit', array('label' => 'Отправить сообщение', 'attr' => array('class'=>'btn')));
+            ->add('submit', 'submit', array('label' => 'Задать вопрос', 'attr' => array('class'=>'btn')));
     }
     
     /**

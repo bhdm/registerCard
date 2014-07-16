@@ -17,13 +17,16 @@
             }
             .logo{
                 text-align: left;
-                padding: 50px;
+                line-height: 48px;
+                padding-left: 50px;
             }
         </style>
     {% endblock %}
     {% block javascripts %}
         <script rel="script" src="{{ asset('bundles/crmadmin/javascripts/jQuery.js') }}"></script>
         <script rel="script" src="{{ asset('bundles/crmadmin/lib/ckeditor/ckeditor.js') }}"></script>
+        <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
+        <script src="{{ path('fos_js_routing_js', {"callback": "fos.Router.setData"}) }}"></script>
         <script>
 //            $(document).ready(function(){
 //                if ($('textarea').length > 0){
@@ -38,10 +41,10 @@
 <div class="body">
     <header>
         <div class="logo">
-            <a href="http://im-kard.ru" target="_blank">Im-kard</a>
+            <a href="http://im-kard.ru" target="_blank">ADMIN Panel</a>
         </div>
     </header>
-    <div class="menu">
+    <div class="left-slidebar">
         {{ include('CrmAdminBundle::menu.html.twig') }}
     </div>
     <div class="content">

@@ -1,0 +1,25 @@
+{% extends 'CrmAdminBundle::layout.html.twig' %}
+
+{% block content %}
+    <div class="crumbs">
+        <a href="#">Страницы</a>
+        >>
+        <a href="{{ path('company_add') }}">Добавить<img src="{{ asset('bundles/crmadmin/images/Ico/Add-New.png') }}" class="addnew"></a>
+    </div>
+
+    <table class="list">
+        <tr>
+            <th>Название</th>
+            <th class="setting"></th>
+        </tr>
+        {% for company in companies %}
+            <tr>
+                <td><a href="{{ path('user_list',{'companyId' : company.id}) }}">{{ company.title }}</a></td>
+                <td class="setting">
+                    <a href="{{ path('company_edit',{ 'companyId' : company.id }) }}"><img class="ico" src="{{ asset('bundles/crmadmin/images/icon/image15.png') }}"/></a>
+                    <a href="{{ path('company_delete',{ 'companyId' : company.id }) }}"><img class="ico" src="{{ asset('bundles/crmadmin/images/icon/image13.png') }}"/></a>
+                </td>
+            </tr>
+        {% endfor %}
+    </table>
+{% endblock %}
