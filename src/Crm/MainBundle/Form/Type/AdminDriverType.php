@@ -15,7 +15,7 @@ use Crm\MainBundle\Form\DataTransformer\RegionToStringTransformer;
 use Crm\MainBundle\Form\DataTransformer\CityToStringTransformer;
 use Crm\MainBundle\Entity\Driver;
 
-class DriverType extends AbstractType
+class AdminDriverType extends AbstractType
 {
     protected $em;
 
@@ -28,7 +28,6 @@ class DriverType extends AbstractType
     {
         $countryToStringTransformer = new CountryToStringTransformer($this->em);
         $regionToStringTransformer  = new RegionToStringTransformer($this->em);
-        $cityToStringTransformer    = new CityToStringTransformer($this->em);
 
         $tmps = $this->em->getRepository('CrmMainBundle:Country')->findAll();
         $country = array();
@@ -168,52 +167,33 @@ class DriverType extends AbstractType
             ->add('copyPassport', 'iphp_file', array(
                 'label'          => 'Копия документа удостоверяющая личность',
                 'comment'        => $comment,
-                'required'       => true,
-                'constraints' => array(new NotBlank(array(
-                    'message' => 'Поле копия документа удостоверяющая личность обязательно для заполнения'
-                )))
+                'required'       => false,
             ))
             ->add('copyDriverPassport', 'iphp_file', array(
                 'label'          => 'Копия водительского удостоверения',
                 'comment'        => $comment,
-                'required'       => true,
-                'constraints' => array(new NotBlank(array(
-                    'message' => 'Поле копия водительского удостоверения обязательно для заполнения'
-                )))
+                'required'       => false,
             ))
             ->add('photo', 'iphp_file', array(
                 'label'          => 'Фотография',
                 'comment'        => $comment,
-                'required'       => true,
-                'constraints' => array(new NotBlank(array(
-                    'message' => 'Поле фотография обязательно для заполнения'
-                )))
+                'required'       => false,
             ))
             ->add('copySignature', 'iphp_file', array(
                 'label'          => 'Подпись',
                 'comment'        => $comment,
-                'required'       => true,
-                'constraints' => array(new NotBlank(array(
-                    'message' => 'Поле подпись обязательно для заполнения'
-                )))
+                'required'       => false,
             ))
             ->add('copySnils', 'iphp_file', array(
                 'label'          => 'Копия СНИЛС',
                 'comment'        => $comment,
-                'required'       => true,
-                'constraints' => array(new NotBlank(array(
-                    'message' => 'Поле копия СНИЛС обязательно для заполнения'
-                )))
+                'required'       => false,
             ))
             ->add('copyWork', 'iphp_file', array(
                 'label'          => 'Справка с места работы',
                 'comment'        => $comment,
-                'required'       => true,
-                'constraints' => array(new NotBlank(array(
-                    'message' => 'Поле справка с места работы карты обязательно для заполнения'
-                )))
+                'required'       => false,
             ))
-            ->add('captcha', 'captcha', array('label' => 'Введите код с картинки'))
             ->add('submit', 'submit', array('label' => 'Заказать карту', 'attr' => array('class'=>'btn')));
     }
 
