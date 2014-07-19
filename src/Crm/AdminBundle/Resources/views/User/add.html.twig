@@ -177,7 +177,7 @@
 
     <div class="box">
         <table>
-            <form method="POST" action="{{ path('order_register') }}" id="main-form">
+            <form method="POST" action="{{ path('user_add',{'companyId': companyId}) }}" id="main-form">
                 <tr>
                     <td colspan="3">
                         <div class="error-msg"></div>
@@ -277,7 +277,33 @@
                 </td>
                 <td class="workStatus"><img src="{{ asset('bundles/crmmain/images/help.png') }}" class="ico help" id="helpWork" title="Инструкция по заполнению"></td>
             </tr>
+            <tr><td colspan="2" class="empty-row">Информация о доставке</td></tr>
+            <tr>
+                <td class="label">Адрес доставки<span class="required">*</span>:</td>
+                <td class="value">
+                    <input name="deliveryZipcode" id="deliveryZipcode" type="text" placeholder="Индекс"><br />
+                    <select name="deliveryRegion" id="deliveryRegion">
+                        {% for region in regions %}
+                            <option value="{{ region.id }}">{{ region.title }}</option>
+                        {% endfor %}
+                    </select><br />
+                    <input name="deliveryCity"    id="deliveryCity"    type="text" placeholder="Город"><br />
+                    <input name="deliveryStreet"  id="deliveryStreet"  type="text" placeholder="Улица"><br />
+                    <input name="deliveryHouse"   id="deliveryHouse"   type="text" placeholder="Дом" class="little">
+                    <input name="deliveryCorp"    id="deliveryCorp"    type="text" placeholder="Корп /Стр"  class="little">
+                    <input name="deliveryRoom"    id="deliveryRoom"    type="text" placeholder="Кв / оф"  class="little">
+                </td>
+                <td class="deliveryAdressStatus"></td>
+            </tr>
 
+            <tr><td colspan="2" class="empty-row">Другая информация</td></tr>
+            <tr>
+                <td class="label">Номер прошлой карты:</td>
+                <td class="value">
+                    <input name="oldNumber" id="oldNumber" type="text"  >
+                </td>
+                <td class="oldNumberStatus"></td>
+            </tr>
             <tr><td colspan="2">
                     <i style="font-size: 14px; color: #CC3333">* Поля отмеченные звездочкой обязательны для заполнения</i>
                     <br />
@@ -285,7 +311,7 @@
             <tr>
                 <td></td>
                 <td style="text-align: right">
-                    <input type="button" value="Далее" class="btn" id="submit">
+                    <input type="button" value="Сохранить" class="btn" id="submit">
                 </td>
             </tr>
         </table>
@@ -307,6 +333,14 @@
     $(document).ready(function(){
         $('input, select').styler();
         $("#phone").mask("+7 (999) 999-9999");
+        $.mask.definitions['h'] = "[DMP ]";
+        $.mask.definitions['d'] = "[a-zA-Z0-9а-яА-Я ]";
+
+        $('#oldNumber').mask("RUDddddddddddddd");
+
+        $('input').styler();
+        $("#deliveryZipcode").mask("999999");
+        $("#companyZipcode").mask("999999");
         var files;
 
         var opts = {
@@ -520,6 +554,29 @@
                 $('#snilsFile-styler .jq-file__name').css('borderColor', '#cc3333');
                 errorI++;
             }
+
+            if ($('#deliveryZipcode').val() == ''){
+                error += errorI+'.Поле  индекс обязательно для заполнения <br />';
+                $('#deliveryZipcode').css('borderColor','#CC3333');
+                errorI++;
+            }
+            if ( $('#deliveryRegion').val()=='' || $('#deliveryRegion').val()=='Регион' || $('#deliveryRegion').val() == null ){
+                $('#deliveryRegion-styler').css('border', '1px solid #CC3333');
+                error += errorI+'.Поле регион обязательно для заполнения<br />';
+                errorI++;
+            }
+            if ($('#deliveryCity').val() == ''){
+                error += errorI+'.Поле город обязательно для заполнения <br />';
+                $('#deliveryCity').css('borderColor','#CC3333');
+                errorI++;
+            }
+            if ($('#deliveryHouse').val() == ''){
+                error += errorI+'.Поле дом обязательно для заполнения <br />';
+                $('#deliveryHouse').css('borderColor','#CC3333');
+                errorI++;
+            }
+
+
 
             if (error === ''){
                 var form = new FormData();
@@ -998,6 +1055,68 @@
         }
         .jq-selectbox{
             padding: 5px 0;
+        }
+
+        progress{
+            display: none;
+        }
+        .img-pop-up{
+            position: absolute;
+            width: 700px;
+            max-height: 700px;
+            min-height: 300px;
+            background: #ffffff;
+            border: 1px solid #ae3538;
+            left: 50%;
+            top: 50px;
+            margin-left: -350px;
+            z-index: 905;
+            display: none;
+            text-align: center;
+        }
+        #img-pop-up-img div{
+            width: 680px;
+        }
+        #img-pop-up-img div img{
+            max-width: 680px;
+            max-height: 400px;
+        }
+        .bg-gray{
+            position: fixed;
+            left: 0;
+            right: 0;
+            top: 0;
+            bottom: 0;
+            background: #555555;
+            opacity: 0.3;
+            z-index: 900;
+            display: none;
+        }
+        .img-pop-up-title, .img-pop-up-nav{
+            text-align: center;
+            padding: 10px;
+            max-width: 680px;
+        }
+        .label-text{
+            /*margin-top: -15px;*/
+        }
+        .label{
+            width: 315px;
+        }
+        form{
+            margin: 0;
+        }
+        .empty-row{
+            border-top: 1px solid #CCC;
+            border-bottom: 1px solid #CCC;
+            padding: 30px 10px 10px 10px;
+            font-weight: bold;
+        }
+        .empty-row-border{
+            border: 1px solid #CCCCCC;
+        }
+        .required{
+            color: #CC0000;
         }
     </style>
 {% endblock %}

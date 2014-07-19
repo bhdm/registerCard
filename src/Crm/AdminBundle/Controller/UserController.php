@@ -36,6 +36,7 @@ class UserController extends Controller
     {
         $sesssion = $request->getSession();
         if ($request->getSession()->get('hash')!='7de92cefb8a07cede44f3ae9fa97fb3b' and $this->isCompany() != true) return $this->redirect($this->generateUrl('admin_main'));
+        if ($request->getSession()->get('hash')=='7de92cefb8a07cede44f3ae9fa97fb3b') $isAdmin = true; else $isAdmin = false;
         if ($companyId == 0){
             if ($sesssion->get('companyId')){
                 $company = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->findOneById($sesssion->get('companyId'));
@@ -51,7 +52,8 @@ class UserController extends Controller
         }
         return array(
             'pageAct' => 'user_list',
-            'users' => $users
+            'users' => $users,
+            'isAdmin' => $isAdmin,
         );
     }
 
@@ -139,75 +141,16 @@ class UserController extends Controller
      * @Template("CrmAdminBundle:User:add.html.twig")
      */
     public function addAction(Request $request, $companyId){
-//        $company = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->findOneById($companyId);
-//        if ($request->getSession()->get('hash')!='7de92cefb8a07cede44f3ae9fa97fb3b' and $this->isCompany() != true) return $this->redirect($this->generateUrl('admin_main'));
-//        $em = $this->getDoctrine()->getManager();
-//        $user = new User();
-//
-//        $formUser       = $this->createFormBuilder($user);
-//        $formUser
-//            ->add('username',null, array('label' => 'Телефон'))
-//            ->add('email',null, array('label' => 'Email'))
-//            ->add('lastName',null, array('label' => 'Фамилия'))
-//            ->add('firstName',null, array('label' => 'Имя'))
-//            ->add('surName',null, array('label' => 'Отчество'))
-//            ->add('birthDate','date', array('label' => 'Дата рождения'))
-//            ->add('snils',null, array('label' => 'СНИЛС'))
-//            ->add('dileveryZipcode',null, array('label' => 'Индекс доставки'))
-//            ->add('dileveryCity',null, array('label' => 'Город доставки'))
-//            ->add('dileveryStreet',null, array('label' => 'Улица доставки'))
-//            ->add('dileveryHome',null, array('label' => 'Дом доставки'))
-//            ->add('dileveryCorp',null, array('label' => 'Корпус доставки'))
-//            ->add('dileveryRoom',null, array('label' => 'Квартира доставки'))
-//
-//            ->add('passportNumber',null, array('label' => 'Паспорт номер'))
-//            ->add('passportIssuance',null, array('label' => 'Паспорт выдан'))
-//            ->add('passportIssuanceDate','date', array('label' => 'Паспорт дата'))
-//            ->add('passportCode',null, array('label' => 'Пасспорт код'))
-//            ->add('driverDocNumber',null, array('label' => 'Права номер'))
-//            ->add('driverDocIssuance',null, array('label' => 'Права кем выдан'))
-//            ->add('driverDocDateStarts','date', array('label' => 'Права дата выдачи'))
-//            ->add('driverDocDateEnds','date', array('label' => 'Права дата окончания'))
-//
-//            ->add('copyDriverPassport','file', array('label' => 'Водительские права','comment'=>''))
-//            ->add('copyPassport','file', array('label' => 'Пасппорт','comment'=>''))
-//            ->add('copyPetition','file', array('label' => 'Ходатайство','comment'=>''))
-//            ->add('copySignature','file', array('label' => 'Подпись','comment'=>''))
-//            ->add('copySnils','file', array('label' => 'СНИЛС','comment'=>''))
-//            ->add('photo','file', array('label' => 'Фотография','comment'=>''))
-//
-//            ->add('submit', 'submit', array('label' => 'Сохранить', 'attr' => array('class' => 'btn')));
-//
-//
-//        $formUser = $formUser->getForm();
-//        $formUser->handleRequest($request);
-//
-//        if ($request->isMethod('POST')) {
-//            if ($formUser->isValid()) {
-//                $user = $formUser->getData();
-//                $user->setSalt(md5($user));
-//                $user->setCompany($company);
-//                $em->persist($user);
-//                $em->flush($user);
-//                $em->refresh($user);
-//            }
-//        }
-//        $user = new User();
-//        return array(
-//            'formUser'      => $formUser->createView(),
-//            'pageAct' => 'page_list',
-//            'companyId' => $companyId,
-//            'company'   => $company
-//        );
 
         $em   = $this->getDoctrine()->getManager();
-
+        $company = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->findOneById($companyId);
         if ($request->getMethod()=='POST'){
             $user = new User();
             $data = $request->request;
             $session = $request->getSession();
 
             # Сохраняем данные Пользователя в сущность
+
             $user->setEmail($data->get('email'));
             $user->setPhone($data->get('phone'));
 
@@ -227,20 +170,7 @@ class UserController extends Controller
             $user->setSnils($data->get('snils'));
 
             #Теперь делаем компанию
-            $company = new Company();
-            $company->setTitle($data->get('companyName'));
-            $company->setZipcode($data->get('companyZipcode'));
-//            $region = $this->getDoctrine()->getRepository('CrmMainBundle:Region')->findOneById($data->get('companyRegion'));
-            $company->setRegion($data->get('companyRegion'));
-            $company->setCity($data->get('companyCity'));
-            $company->setTypeStreet($data->get('companyTypeStreet'));
-            $company->setStreet($data->get('companyStreet'));
-            $company->setHome($data->get('companyHouse'));
-            $company->setCorp($data->get('companyCorp'));
-            $company->setStructure($data->get('companyStructure'));
-            $company->setTypeRoom($data->get('companyTypeRoom'));
-            $company->setRoom($data->get('companyRoom'));
-
+            $user->setCompany($company);
 
             # Теперь сохраняем файлы и присоединяем к сущности
 
@@ -272,26 +202,29 @@ class UserController extends Controller
                 $fileName = $this->saveFile('work');
                 $user->setCopyWork($fileName);
             }
-            $encoders = array(new XmlEncoder(), new JsonEncoder());
-            $normalizers = array(new GetSetMethodNormalizer());
-            $serializer = new Serializer($normalizers, $encoders);
 
-            $jsonContent = $serializer->serialize($user, 'json');
-            $session->set('user', $jsonContent);
 
-            $jsonContent = $serializer->serialize($company, 'json');
-            $session->set('company', $jsonContent);
+            $user->setCopyPassport($this->getArrayToImg($user->getCopyPassport()));
+            $user->setCopyDriverPassport($this->getArrayToImg($user->getCopyDriverPassport()));
+            $user->setPhoto($this->getArrayToImg($user->getPhoto()));
+            $user->setCopySignature($this->getArrayToImg($user->getCopySignature()));
+            $user->setCopySnils($this->getArrayToImg($user->getCopySnils()));
+            $user->setCopyWork($this->getArrayToImg($user->getCopyWork()));
+            $user->setCopyPetition($this->getArrayToImg($user->getCopyPetition()));
 
-            $session->save();
+            $em->persist($user);
+            $em->flush($user);
+            $em->refresh($user);
+
+
         }
 
         $country = $this->getDoctrine()->getRepository('CrmMainBundle:Country')->findOneById(3159);
         $regions = $this->getDoctrine()->getRepository('CrmMainBundle:Region')->findByCountry($country);
 
         return array(
-//            'formUser'      => $formUser->createView(),
-//            'formDriver'    => $formDriver->createView(),
-            'regions'       => $regions
+            'regions'       => $regions,
+            'companyId' =>$company->getId(),
         );
     }
 

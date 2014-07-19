@@ -22,7 +22,9 @@
                 <td>{{ user.surName }}</td>
                 <td>{{ user.created | date("d.m.Y H:i") }}</td>
                 <td style="text-align: center">
-                    <input type="checkbox" class="checkPaid" {{ user.paid == 1 ? 'checked="checked"' }} data-id="{{ user.id }}">
+                    {% if isAdmin ==  true %}
+                        <input type="checkbox" class="checkPaid" {{ user.paid == 1 ? 'checked="checked"' }} data-id="{{ user.id }}">
+                    {% endif %}
                 </td>
                 <td style="text-align: center"><a href="{{ path('change-status',{ userId: user.id}) }}" style="text-decoration: none; font-size: 12px;">
                     {% if user.status is null or user.status == 0%}
@@ -35,10 +37,12 @@
                     </a>
                 </td>
                 <td style="text-align: right">
-                    <a href="{{ path('user_show',{'userId' : user.id}) }}">Просмотр</a>
-                    <span>&nbsp;&nbsp;&nbsp;</span>
-                    <a href="{{ path('xml_generator',{ userId : user.id }) }}" target="_blank">скачать XML</a>
+                    {% if isAdmin ==  true %}
+                        <span>&nbsp;&nbsp;&nbsp;</span>
+                        <a href="{{ path('xml_generator',{ userId : user.id }) }}" target="_blank">XML</a>
+                    {% endif %}
                     <span style="padding: 0 20px">&nbsp;</span>
+                    <a href="{{ path('user_show',{'userId' : user.id}) }}"><img class="ico" src="{{ asset('bundles/crmadmin/images/icon/image18.png') }}"></a>
                     <a href="{{ path('user_edit',{ 'userId' : user.id }) }}"><img class="ico" src="{{ asset('bundles/crmadmin/images/icon/image15.png') }}"/></a>
                     <a href="{{ path('user_delete',{ 'userId' : user.id }) }}"><img class="ico" src="{{ asset('bundles/crmadmin/images/icon/image13.png') }}"/></a>
                 </td>
