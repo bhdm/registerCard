@@ -8,14 +8,12 @@ use Symfony\Component\Security\Core\User\EquatableInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Doctrine\Common\Collections\ArrayCollection;
-use Iphp\FileStoreBundle\Mapping\Annotation as FileStore;
 
 /**
  * User
  *
  * @ORM\Table("user")
  * @ORM\Entity
- * @FileStore\Uploadable
  */
 class User extends BaseEntity implements UserInterface, EquatableInterface, \Serializable
 {
@@ -56,16 +54,13 @@ class User extends BaseEntity implements UserInterface, EquatableInterface, \Ser
 
     /**
      * @Assert\Regex(pattern= "/^[0-9\(\)\-\+\ ]+$/", message="Неверный формат ввода.")
-     * @Assert\Length( max = "70", maxMessage = "Максимум  35 символов")
-     * @Assert\NotBlank( message = "Поле телефон обязательно для заполнения" )
-     * @ORM\Column(type="string", length=70)
+     * @ORM\Column(type="string", length=70, nullable=true)
      */
     protected  $username;
 
     /**
-     * @Assert\NotBlank( message = "Поле E-mail обязательно для заполнения" )
      * @Assert\Regex(pattern= "/^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{1,})$/", message="Неверный формат ввода.")
-     * @ORM\Column(type="string", length=50)
+     * @ORM\Column(type="string", length=50, nullable=true)
      */
     protected  $email;
 
