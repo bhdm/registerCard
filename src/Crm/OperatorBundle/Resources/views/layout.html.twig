@@ -8,95 +8,7 @@
     {% block stylesheets %}
         <link href="{{ asset('bundles/crmoperator/stylesheets/common.css') }}" rel="stylesheet" media="all">
         <style>
-            *{
-                font-family: Verdana, Arial, Helvetica, sans-serif;
-            }
-            a{
-                text-decoration: none;
-            }
-            body, img{
-                margin: 0;
-                padding: 0;
-            }
-            body{
-                background: #e0e0e0;
-            }
-            /*
-            * Шапка сайта
-            */
-            .header{
-                height: 35px;
-                background: #000000;
-                margin-bottom: 10px;
-                padding-top: 15px;
-            }
-            .header-content{
-                width: 1200px;
-                margin: 0 auto;
-                color: #e0e0e0;
-            }
-            .right-top-menu{
-                float: right;
-            }
-            .right-top-menu a{
-                color: #e0e0e0;
-            }
-            /*
-            * Меню
-            */
-            .main-content{
-                width: 1200px;
-                margin: 0 auto;
-            }
-            .menu{
-                background: #6c9e9f;
-                padding: 10px;
-                height: 300px;
-                width: 170px;
-                margin-right: 20px;
-                border-radius: 5px;
-                border: 1px solid #CCCCCC;
-                float: left;
-            }
-            .menu-title{
-                color: #e0e0e0;
-                text-align: center;
-                text-transform: uppercase;
-            }
-            .menu-items{
-                margin: 0;
-                padding: 0;
-            }
-            .menu-item{
-                padding: 5px 10px;
-                border-radius: 5px;
-                color: #e0e0e0;
-                list-style: none;
-                text-align: right;
-            }
-            .menu-item:hover{
-                background: #e0e0e0;
-                color: #6c9e9f;
-                cursor: pointer;
-            }
-            /*
-            * Контент
-            */
-            .content{
-                width: 980px;
-                background: #FFFFFF;
-                min-height: 50px;
-                border: 1px solid #CCCCCC;
-                border-radius: 5px;
-                float: left;
-            }
 
-            .color-red{
-                color: #CC3333;
-            }
-            .nbsp-10{
-                padding: 0 10px;
-            }
         </style>
     {% endblock %}
 </head>
@@ -124,8 +36,15 @@
             <li  class="menu-item">Статистика</li>
         </ul>
     </div>
+    <div class="crosh">
+        {% block crosh %}
+        <a href="#">Главная</a> &raquo; <a href="#">Пользователи</a> &raquo; <a href="#">Список</a>
+        {% endblock %}
+    </div>
     <div class="content">
+        {% block content %}
 
+        {% endblock %}
     </div>
 </div>
 </body>
