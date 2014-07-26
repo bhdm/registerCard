@@ -1,9 +1,9 @@
 security:
     encoders:
         Crm\MainBundle\Entity\Operator:
-            algorithm: sha512
-            encode-as-base64: true
-            iterations: 10
+           algorithm: sha512
+           encode-as-base64: true
+           iterations: 10
 
 #    role_hierarchy:
 #        ROLE_DRIVER:  [ROLE_USER]
@@ -17,16 +17,17 @@ security:
 #                    user:  { password: userpass, roles: [ 'ROLE_USER' ] }
 #                    admin: { password: adminpass, roles: [ 'ROLE_ADMIN' ] }
     providers:
-        operator:
+        main:
             entity: { class: CrmMainBundle:Operator, property: username }
     firewalls:
-        operator:
+        main:
             pattern: /operator
             form_login:
                 check_path: /operator/login_check
                 login_path: /operator/login
                 default_target_path: /operator/activate-list
-            logout: true
+            logout:
+                path:   /operator/logout
             security: true
             anonymous: true
 

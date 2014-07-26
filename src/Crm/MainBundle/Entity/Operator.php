@@ -6,6 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Security\Core\Role\RoleInterface;
 
 /**
  * Operator
@@ -13,7 +14,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
  * @ORM\Table()
  * @ORM\Entity
  */
-class Operator extends BaseEntity
+class Operator extends BaseEntity implements UserInterface
 {
     /**
      * @ORM\Column(type="string", length=100)
@@ -64,6 +65,8 @@ class Operator extends BaseEntity
     {
         return explode(';', $this->roles);
     }
+
+
 
     /**
      * @param mixed $roles

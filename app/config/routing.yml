@@ -8,7 +8,7 @@ crm_main:
     type:     annotation
     prefix:   /
 
-crm_main:
+crm_operator:
     resource: "@CrmOperatorBundle/Controller/"
     type:     annotation
     prefix:   /
