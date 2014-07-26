@@ -23,6 +23,7 @@ class AppKernel extends Kernel
             new Crm\MainBundle\CrmMainBundle(),
             new Crm\AdminBundle\CrmAdminBundle(),
             new Gregwar\CaptchaBundle\GregwarCaptchaBundle(),
+            new Crm\OperatorBundle\CrmOperatorBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

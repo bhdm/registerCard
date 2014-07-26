@@ -1,10 +1,12 @@
 security:
     encoders:
-        Crm\MainBundle\Entity\ActUser:
-            algorithm: plaintext
+        Crm\MainBundle\Entity\Operator:
+            algorithm: sha512
+            encode-as-base64: true
+            iterations: 10
 
-    role_hierarchy:
-        ROLE_DRIVER:  [ROLE_USER]
+#    role_hierarchy:
+#        ROLE_DRIVER:  [ROLE_USER]
 #        ROLE_COMPANY: [ROLE_USER]
 #        ROLE_ADMIN:   [ROLE_DRIVER, ROLE_COMPANY]
 
@@ -15,25 +17,20 @@ security:
 #                    user:  { password: userpass, roles: [ 'ROLE_USER' ] }
 #                    admin: { password: adminpass, roles: [ 'ROLE_ADMIN' ] }
     providers:
-        main:
-            entity: { class: CrmMainBundle:ActUser, property: username }
+        operator:
+            entity: { class: CrmMainBundle:Operator, property: username }
     firewalls:
-        main:
-            pattern: ^/
+        operator:
+            pattern: /operator
             form_login:
-                check_path: /login_submit
-                login_path: /login
-                default_target_path: /activate-list
-            logout:
-                path:   /logout
-                target: /
-            remember_me:
-                key:      "%secret%"
-                lifetime: 31536000
-                path:     /
-                domain:   ~
-            anonymous: ~
+                check_path: /operator/login_check
+                login_path: /operator/login
+                default_target_path: /operator/activate-list
+            logout: true
+            security: true
+            anonymous: true
+
 
     access_control:
+#        - { path: /operator/.*, role: ROLE_OPERATOR }
         - { path: /.*, role: IS_AUTHENTICATED_ANONYMOUSLY }
-#        - { path: /admin, role: ROLE_ADMIN }
