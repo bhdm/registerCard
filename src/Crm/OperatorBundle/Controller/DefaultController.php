@@ -19,12 +19,12 @@ class DefaultController extends Controller
 {
     /**
      * @Security("has_role('ROLE_OPERATOR')")
-     * @Route("/")
+     * @Route("/", name="operator_main")
      * @Template()
      */
     public function indexAction()
     {
-        $manager = $this->getDoctrine()->getManager();
+//        $manager = $this->getDoctrine()->getManager();
 
 //        // создание пользователя
 //        $user = new Operator();
@@ -40,24 +40,24 @@ class DefaultController extends Controller
 //        $manager->persist($user);
 //        $manager->flush($user);
 
-        return array('name' => 'sd');
+        return array();
     }
-
 
     /**
      * @Route("/login")
      * @Template()
      */
     public function loginAction(Request $request){
-//        if ($request->attributes->has(SecurityContext::AUTHENTICATION_ERROR)) {
-//            $error = $request->attributes->get(SecurityContext::AUTHENTICATION_ERROR);
-//        } else {
-//            $error = true;
-//        }
+        if ($request->attributes->has(SecurityContext::AUTHENTICATION_ERROR)) {
+            $error = $request->attributes->get(SecurityContext::AUTHENTICATION_ERROR);
+        } else {
+            $error = true;
+        }
 
         return  array(
 //            'last_username' => $request->getSession()->get(SecurityContext::LAST_USERNAME),
-//            'error' => $error
+            'error' => $error
         );
     }
+
 }

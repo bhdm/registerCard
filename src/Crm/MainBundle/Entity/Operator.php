@@ -55,7 +55,7 @@ class Operator extends BaseEntity implements UserInterface
 
     public function __toString()
     {
-        return $this->$username;
+        return $this->username;
     }
 
     /**

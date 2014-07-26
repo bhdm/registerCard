@@ -1,0 +1,132 @@
+<html>
+<head>
+    {% block javascripts %}
+        <script rel="script" src="{{ asset('bundles/crmmain/javascripts/jQuery.js') }}"></script>
+        <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
+        <script src="{{ path('fos_js_routing_js', {"callback": "fos.Router.setData"}) }}"></script>
+    {% endblock %}
+    {% block stylesheets %}
+        <link href="{{ asset('bundles/crmoperator/stylesheets/common.css') }}" rel="stylesheet" media="all">
+        <style>
+            *{
+                font-family: Verdana, Arial, Helvetica, sans-serif;
+            }
+            a{
+                text-decoration: none;
+            }
+            body, img{
+                margin: 0;
+                padding: 0;
+            }
+            body{
+                background: #e0e0e0;
+            }
+            /*
+            * Шапка сайта
+            */
+            .header{
+                height: 35px;
+                background: #000000;
+                margin-bottom: 10px;
+                padding-top: 15px;
+            }
+            .header-content{
+                width: 1200px;
+                margin: 0 auto;
+                color: #e0e0e0;
+            }
+            .right-top-menu{
+                float: right;
+            }
+            .right-top-menu a{
+                color: #e0e0e0;
+            }
+            /*
+            * Меню
+            */
+            .main-content{
+                width: 1200px;
+                margin: 0 auto;
+            }
+            .menu{
+                background: #6c9e9f;
+                padding: 10px;
+                height: 300px;
+                width: 170px;
+                margin-right: 20px;
+                border-radius: 5px;
+                border: 1px solid #CCCCCC;
+                float: left;
+            }
+            .menu-title{
+                color: #e0e0e0;
+                text-align: center;
+                text-transform: uppercase;
+            }
+            .menu-items{
+                margin: 0;
+                padding: 0;
+            }
+            .menu-item{
+                padding: 5px 10px;
+                border-radius: 5px;
+                color: #e0e0e0;
+                list-style: none;
+                text-align: right;
+            }
+            .menu-item:hover{
+                background: #e0e0e0;
+                color: #6c9e9f;
+                cursor: pointer;
+            }
+            /*
+            * Контент
+            */
+            .content{
+                width: 980px;
+                background: #FFFFFF;
+                min-height: 50px;
+                border: 1px solid #CCCCCC;
+                border-radius: 5px;
+                float: left;
+            }
+
+            .color-red{
+                color: #CC3333;
+            }
+            .nbsp-10{
+                padding: 0 10px;
+            }
+        </style>
+    {% endblock %}
+</head>
+
+<body>
+<div class="header">
+    <div class="header-content">
+        ПАНЕЛЬ <span class="color-red">[ ОПЕРАТОРА ]</span>
+        <div class="right-top-menu">
+            {{ app.user }}
+            <span class="nbsp-10">&nbsp;</span>
+            <a href="{{ path('_security_logout') }}">Выйти</a>
+        </div>
+    </div>
+</div>
+<div class="main-content">
+    <div class="menu">
+        <div class="menu-title">
+            Навигация
+        </div>
+        <br />
+        <ul class="menu-items">
+            <li  class="menu-item">Компании</li>
+            <li  class="menu-item">Пользователи</li>
+            <li  class="menu-item">Статистика</li>
+        </ul>
+    </div>
+    <div class="content">
+
+    </div>
+</div>
+</body>
+</html>
