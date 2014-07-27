@@ -11,6 +11,7 @@ use Crm\MainBundle\Entity\Faq;
 use Crm\MainBundle\Entity\Feedback;
 use Crm\MainBundle\Entity\Document;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Zelenin\smsru;
 class IndexController extends Controller
 {
@@ -189,5 +190,16 @@ class IndexController extends Controller
             }
         }
         return array ('msg'=>$msg, 'formFeedback' => $formFeedback->createView());
+    }
+
+    /**
+     * @Route("/sitemap")
+     * @Template()
+     */
+    public function sitemapAction(){
+        $response = new Response();
+        $response->headers->set('Content-Type', 'text/xml');
+        $response->setContent($this->renderView('CrmMainBundle:Index:sitemap.html.twig'));
+        return $response;
     }
 }
