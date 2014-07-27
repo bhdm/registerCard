@@ -190,7 +190,7 @@
                 <tr>
                     <td class="label">E-mail:</td>
                     <td class="value">
-                        <input name="email" id="email" type="text" placeholder="Укажите вашу почту" required>
+                        <input name="email" id="email" type="text" placeholder="Укажите email почту" required>
                     </td>
                     <td class="emailStatus" rowspan="2" style="padding-left: 10px; font-size: 12px">
                         <i>Для создания заявки необходимо заполнить хотя бы одно из полей - Email или телефон</i>
@@ -199,7 +199,7 @@
                 <tr>
                     <td class="label">Телефон:</td>
                     <td class="value">
-                        <input name="phone" id="phone" type="text" placeholder="Укажите ваш телефон">
+                        <input name="phone" id="phone" type="text" placeholder="Укажите телефон">
                     </td>
                 </tr>
                 <tr>
@@ -281,7 +281,12 @@
                 </td>
                 <td class="workStatus"><img src="{{ asset('bundles/crmmain/images/help.png') }}" class="ico help" id="helpWork" title="Инструкция по заполнению"></td>
             </tr>
-
+            <tr>
+                <td class="label">Номер прошлой карты:</td>
+                <td class="value">
+                    <input name="oldNumber" id="oldNumber" type="text" placeholder="Номер прошлой карты">
+                </td>
+            </tr>
             <tr><td colspan="2">
                     <i style="font-size: 14px; color: #CC3333">* Поля отмеченные звездочкой обязательны для заполнения</i>
                     <br />
