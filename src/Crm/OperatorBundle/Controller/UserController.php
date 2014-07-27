@@ -41,16 +41,176 @@ class UserController extends Controller{
     }
 
     /**
-     * @Route("/add", name="operator_user_add")
+     * @Route("/add/{companyId}", name="operator_user_add")
      * @Template()
      */
-    public function addAction(){}
+    public function addAction(Request $request, $companyId){
+        $em   = $this->getDoctrine()->getManager();
+
+        if ($request->getMethod()=='POST'){
+            $user = new User();
+            $data = $request->request;
+            $session = $request->getSession();
+
+            # Сохраняем данные Пользователя в сущность
+            $user->setEmail($data->get('email'));
+            $user->setPhone($data->get('phone'));
+
+            $user->setLastName($data->get('PassportLastName'));
+            $user->setFirstName($data->get('PassportFirstName'));
+            $user->setSurName($data->get('PassportSurName'));
+            $user->setBirthDate($data->get('PassportBirthdate'));
+            $user->setPassportNumber($data->get('PassportNumber'));
+            $user->setPassportIssuance($data->get('PassportPlace'));
+            $user->setPassportIssuanceDate($data->get('PassportDate'));
+            $user->setPassportCode($data->get('PassportCode'));
+
+            $user->setDriverDocNumber($data->get('driverNumber'));
+            $user->setDriverDocDateStarts($data->get('driverDateStarts'));
+            $user->setDriverDocDateEnds($data->get('driverDateEnds'));
+            $user->setDriverDocIssuance($data->get('driverDocIssuance'));
+            $user->setSnils($data->get('snils'));
+
+            $company = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->findOneById($companyId);
+            $user->setCompany($company);
+
+
+            # Теперь сохраняем файлы и присоединяем к сущности
+
+            if ($session->get('passport')){
+                $fileName = $this->saveFile('passport');
+                $user->setCopyPassport($fileName);
+            }
+            if ($session->get('driver')){
+                $fileName = $this->saveFile('driver');
+                $user->setCopyDriverPassport($fileName);
+            }
+            if ($session->get('photo')){
+                $fileName = $this->saveFile('photo');
+                $user->setPhoto($fileName);
+            }
+            if ($session->get('sign')){
+                $fileName = $this->saveFile('sign');
+                $user->setCopySignature($fileName);
+            }
+            if ($session->get('snils')){
+                $fileName = $this->saveFile('snils');
+                $user->setCopySnils($fileName);
+            }
+            if ($session->get('hod')){
+                $fileName = $this->saveFile('hod');
+                $user->setCopyPetition($fileName);
+            }
+            if ($session->get('work')){
+                $fileName = $this->saveFile('work');
+                $user->setCopyWork($fileName);
+            }
+            $encoders = array(new XmlEncoder(), new JsonEncoder());
+            $normalizers = array(new GetSetMethodNormalizer());
+            $serializer = new Serializer($normalizers, $encoders);
+
+            $jsonContent = $serializer->serialize($user, 'json');
+            $session->set('user', $jsonContent);
+
+            $jsonContent = $serializer->serialize($company, 'json');
+            $session->set('company', $jsonContent);
+
+            $session->save();
+        }
+
+        $country = $this->getDoctrine()->getRepository('CrmMainBundle:Country')->findOneById(3159);
+        $regions = $this->getDoctrine()->getRepository('CrmMainBundle:Region')->findByCountry($country);
+
+        return array(
+            'regions'       => $regions
+        );
+    }
 
     /**
-     * @Route("/edit/{userId}", name="operator_user_edit")
+     * @Route("/edit/{companyId}/{userId}", name="operator_user_edit")
      * @Template()
      */
-    public function editAction($userId){}
+    public function editAction(Request $request, $companyId, $userId){
+        $em   = $this->getDoctrine()->getManager();
+
+        if ($request->getMethod()=='POST'){
+            $user = $this->getDoctrine()->getRepository('CrmMainBundle:User')->findOneById($userId);
+            $data = $request->request;
+            $session = $request->getSession();
+
+            # Сохраняем данные Пользователя в сущность
+            $user->setEmail($data->get('email'));
+            $user->setPhone($data->get('phone'));
+
+            $user->setLastName($data->get('PassportLastName'));
+            $user->setFirstName($data->get('PassportFirstName'));
+            $user->setSurName($data->get('PassportSurName'));
+            $user->setBirthDate($data->get('PassportBirthdate'));
+            $user->setPassportNumber($data->get('PassportNumber'));
+            $user->setPassportIssuance($data->get('PassportPlace'));
+            $user->setPassportIssuanceDate($data->get('PassportDate'));
+            $user->setPassportCode($data->get('PassportCode'));
+
+            $user->setDriverDocNumber($data->get('driverNumber'));
+            $user->setDriverDocDateStarts($data->get('driverDateStarts'));
+            $user->setDriverDocDateEnds($data->get('driverDateEnds'));
+            $user->setDriverDocIssuance($data->get('driverDocIssuance'));
+            $user->setSnils($data->get('snils'));
+
+            $company = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->findOneById($companyId);
+            $user->setCompany($company);
+
+
+            # Теперь сохраняем файлы и присоединяем к сущности
+
+            if ($session->get('passport')){
+                $fileName = $this->saveFile('passport');
+                $user->setCopyPassport($fileName);
+            }
+            if ($session->get('driver')){
+                $fileName = $this->saveFile('driver');
+                $user->setCopyDriverPassport($fileName);
+            }
+            if ($session->get('photo')){
+                $fileName = $this->saveFile('photo');
+                $user->setPhoto($fileName);
+            }
+            if ($session->get('sign')){
+                $fileName = $this->saveFile('sign');
+                $user->setCopySignature($fileName);
+            }
+            if ($session->get('snils')){
+                $fileName = $this->saveFile('snils');
+                $user->setCopySnils($fileName);
+            }
+            if ($session->get('hod')){
+                $fileName = $this->saveFile('hod');
+                $user->setCopyPetition($fileName);
+            }
+            if ($session->get('work')){
+                $fileName = $this->saveFile('work');
+                $user->setCopyWork($fileName);
+            }
+            $encoders = array(new XmlEncoder(), new JsonEncoder());
+            $normalizers = array(new GetSetMethodNormalizer());
+            $serializer = new Serializer($normalizers, $encoders);
+
+            $jsonContent = $serializer->serialize($user, 'json');
+            $session->set('user', $jsonContent);
+
+            $jsonContent = $serializer->serialize($company, 'json');
+            $session->set('company', $jsonContent);
+
+            $session->save();
+        }
+
+        $country = $this->getDoctrine()->getRepository('CrmMainBundle:Country')->findOneById(3159);
+        $regions = $this->getDoctrine()->getRepository('CrmMainBundle:Region')->findByCountry($country);
+
+        return array(
+            'regions'       => $regions
+        );
+    }
 
     /**
      * @Route("/remove/{userId}", name="operator_user_remove")
