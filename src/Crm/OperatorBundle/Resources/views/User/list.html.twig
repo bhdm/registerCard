@@ -4,7 +4,20 @@
 {% block crosh %}
     <a href="{{ path('operator_main') }}">Главная</a> &raquo;
     <a href="{{ path('operator_company_list') }}">Список компаний</a> &raquo;
+    <a href="#">{{ company.title }}</a> &raquo;
     <a href="{{ path('operator_user_list',{'companyId': company.id }) }}">Список пользователей</a>
+    <div class="right">
+        <a href="{{ path('operator_user_add',{'companyId': company.id}) }}">Добавить</a>
+    </div>
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <style>
+        .right{
+            float: right;
+        }
+    </style>
 {% endblock %}
 
 {% block content%}
@@ -19,7 +32,7 @@
             </tr>
             {% for user in users %}
                 <tr>
-                    <td><a href="{{ path('operator_user_edit' , { 'userId' : user.id}) }}">{{ user }}</a></td>
+                    <td><a href="{{ path('operator_user_edit' , { 'companyId' : company.id, 'userId' : user.id}) }}">{{ user }}</a></td>
                     <td></td>
                     <td class="options">
                         <img src="{{ asset('bundles/crmoperator/images/icon/image22.png') }}" class="icon"/>
