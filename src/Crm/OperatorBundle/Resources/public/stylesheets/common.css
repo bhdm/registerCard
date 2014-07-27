@@ -3,6 +3,15 @@
 }
 a{
     text-decoration: none;
+    color: #234546;
+}
+a:hover{
+    border-bottom: 1px dotted #234546;
+}
+
+h3{
+    padding: 10px;
+    text-align: center;
 }
 body, img{
     margin: 0;
@@ -104,4 +113,47 @@ body{
 }
 .crosh a{
     color: #6c9e9f;
+}
+
+/*****/
+
+.lists{
+    width: 100%;
+    border: 1px solid #CCCCCC;
+    border-collapse: collapse;
+}
+.lists tr td{
+    border-top: 1px solid #CCCCCC;
+    border-bottom: 1px solid #CCCCCC;
+    border-collapse: collapse;
+    padding: 5px 10px;
+    color: #333333;
+}
+.lists tr:nth-child(odd){
+    background: #e0e0e0;
+}
+.lists tr:first-child{
+    background: #ffffff;
+}
+
+.lists tr th{
+    color: #6c9e9f;
+    font-weight: normal;
+    text-align: left;
+    padding-left: 20px;
+}
+.lists tr .options{
+    width: 100px;
+}
+.lists tr td.options{
+    text-align: right;
+}
+
+
+
+/*****/
+
+.icon{
+    width: 24px;
+    margin-left: 10px;
 }

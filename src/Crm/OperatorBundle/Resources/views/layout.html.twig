@@ -25,6 +25,8 @@
     </div>
 </div>
 <div class="main-content">
+
+    {% if is_granted('ROLE_ADMIN') %}
     <div class="menu">
         <div class="menu-title">
             Навигация
@@ -36,6 +38,8 @@
             <li  class="menu-item">Статистика</li>
         </ul>
     </div>
+    {% endif %}
+
     <div class="crosh">
         {% block crosh %}
         <a href="#">Главная</a> &raquo; <a href="#">Пользователи</a> &raquo; <a href="#">Список</a>

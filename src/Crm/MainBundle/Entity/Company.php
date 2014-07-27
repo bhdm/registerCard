@@ -19,6 +19,7 @@ class Company extends BaseEntity
      */
     protected $users;
 
+
     /**
      * @Assert\NotBlank( message = "Поле название предприятия обязательно для заполнения" )
      * @ORM\Column(type="string", length=150)

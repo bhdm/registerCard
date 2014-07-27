@@ -40,7 +40,8 @@ class DefaultController extends Controller
 //        $manager->persist($user);
 //        $manager->flush($user);
 
-        return array();
+        return $this->redirect($this->generateUrl('operator_company_list'));
+
     }
 
     /**

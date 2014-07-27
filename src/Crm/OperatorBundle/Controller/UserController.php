@@ -19,7 +19,7 @@ use Symfony\Component\HttpFoundation\Request;
 /**
  * Class UserController
  * @package Crm\OperatorBundle\Controller
- * @Route("/operator/user/")
+ * @Route("/operator/user")
  * @Security("has_role('ROLE_OPERATOR')")
  */
 class UserController extends Controller{
@@ -31,13 +31,13 @@ class UserController extends Controller{
      */
     public function listAction($companyId){
         $company = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->findOneById($companyId);
-        if ($company->haveOperator($this->getUser()))
+        if ($company->getOperator($this->getUser()))
             $users = $company->getUsers();
         else{
             return $this->redirect($this->generateUrl('operator_main'));
         }
 
-        return array('users' => $users);
+        return array('company'=> $company,  'users' => $users);
     }
 
     /**
@@ -56,7 +56,11 @@ class UserController extends Controller{
      * @Route("/remove/{userId}", name="operator_user_remove")
      * @Template()
      */
-    public function removeAction($userId){}
+    public function removeAction(Request $request, $userId){
+        $user = $this->getDoctrine()->getRepository('CrmMainBundle:User')->findOneById($userId);
+        $this->getDoctrine()->getManager()->remove($user);
+        return $this->redirect($request->headers->get('referer'));
+    }
 
     /**
      * @Route("/enabled/{userId}", name="operator_user_enabled")

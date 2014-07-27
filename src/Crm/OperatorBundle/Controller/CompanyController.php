@@ -18,7 +18,7 @@ use Symfony\Component\HttpFoundation\Request;
 /**
  * Class CompanyController
  * @package Crm\OperatorBundle\Controller
- * @Route("/operator/company/")
+ * @Route("/operator/company")
  * @Security("has_role('ROLE_OPERATOR')")
  */
 class CompanyController extends Controller{
@@ -29,21 +29,44 @@ class CompanyController extends Controller{
      * @Template()
      */
     public function listAction(){
-        $companies = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->findByUser($this->getUser());
-        if (!$companies){
-            return $this->redirect($this->generateUrl('operator_main'));
-        }
+        $companies = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->findByOperator($this->getUser());
+//        if (!$companies){
+//            return $this->redirect($this->generateUrl('operator_main'));
+//        }
         return array('companies' => $companies);
     }
 
     /**
-     * @param $companyId
      * @Route("/edit/{companyId}", name="operator_company_edit")
      * @Template()
      */
-    public function editAction($companyId){
+    public function editAction(Request $request, $companyId){
 
+        $em = $this->getDoctrine()->getManager();
+
+        if ($request->getMethod() == 'POST'){
+            $data = $request->request;
+            $company = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->findOneById($companyId);
+            $company->setTitle($data->get('companyName'));
+            $company->setZipcode($data->get('companyZipcode'));
+            $region = $this->getDoctrine()->getRepository('CrmMainBundle:Region')->findOneById($data->get('companyRegion'));
+            $company->setRegion($region);
+            $company->setCity($data->get('companyCity'));
+            $company->setTypeStreet($data->get('companyTypeStreet'));
+            $company->setStreet($data->get('companyStreet'));
+            $company->setHome($data->get('companyHouse'));
+            $company->setCorp($data->get('companyCorp'));
+            $company->setStructure($data->get('companyStructure'));
+            $company->setTypeRoom($data->get('companyTypeRoom'));
+            $company->setRoom($data->get('companyRoom'));
+            $em->flush($company);
+        }
+
+        $country = $this->getDoctrine()->getRepository('CrmMainBundle:Country')->findOneById(3159);
+        $regions = $this->getDoctrine()->getRepository('CrmMainBundle:Region')->findByCountry($country);
+        return array('company'=> $company, 'regions' => $regions);
     }
+
 
 
 
