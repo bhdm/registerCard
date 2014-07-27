@@ -166,7 +166,8 @@ h2{
 }
 .btn:focus{
     outline: none;
-}.popup{
+}
+.popup{
     top: 400px;
     left: 50%;
     margin-left: -200px;

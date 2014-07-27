@@ -1,0 +1,109 @@
+{% extends 'CrmOperatorBundle::layout.html.twig' %}
+
+
+{% block crosh %}
+    <a href="{{ path('operator_main') }}">Главная</a> &raquo;
+    <a href="{{ path('operator_company_list') }}">Список компаний</a> &raquo;
+    <a href="#">{{ company.title }}</a>
+{% endblock %}
+
+{% block content %}
+    <form method="POST">
+        <table>
+            <tr>
+                <td class="label">Название организации<span class="required">*</span>:</td>
+                <td class="value">
+                    <input name="companyName" id="companyName" type="text" value="{{ company.title }}" placeholder="Название">
+                </td>
+            </tr>
+            <tr>
+                <td class="label">Адрес организации<span class="required">*</span>:</td>
+                <td class="value">
+                    <input name="companyZipcode" id="companyZipcode"  type="text" placeholder="Индекс" value="{{ company.zipcode }}"><br />
+                    <select name="companyRegion" id="companyRegion">
+                        {% for region in regions %}
+                            {% if region == company.region %}
+                                <option value="{{ region.id }}" selected="selected">{{ region.title }}</option>
+                            {% else %}
+                                <option value="{{ region.id }}">{{ region.title }}</option>
+                            {% endif %}
+                        {% endfor %}
+                    </select><br />
+                    <input name="companyCity"    id="companyCity"     type="text" placeholder="Город" value="{{ company.city }}"><br />
+
+                    <select name="companyTypeStreet" id="companyTypeStreet">
+                        <option value="ул."  {{ company.typeStreet == 'ул.' ? 'selected="selected"'}}    >Улица</option>
+                        <option value="д."   {{ company.typeStreet == 'д.' ? 'selected="selected"'}}    >Дорога</option>
+                        <option value="пр-д."{{ company.typeStreet == 'пр-д.' ? 'selected="selected"'}}   >Проезд</option>
+                        <option value="туп." {{ company.typeStreet == 'туп.' ? 'selected="selected"'}}   >Тупик</option>
+                        <option value="ш."   {{ company.typeStreet == 'ш.' ? 'selected="selected"'}}   >Шоссе</option>
+                        <option value="тр."  {{ company.typeStreet == 'тр.' ? 'selected="selected"'}}   >Трасса</option>
+                        <option value="пер." {{ company.typeStreet == 'пер.' ? 'selected="selected"'}}   >Переулок</option>
+                        <option value="пл."  {{ company.typeStreet == 'пл.' ? 'selected="selected"'}}   >Площадь</option>
+                        <option value="скв." {{ company.typeStreet == 'скв.' ? 'selected="selected"'}}   >Сквер</option>
+                        <option value="алл." {{ company.typeStreet == 'алл.' ? 'selected="selected"'}}   >Аллея</option>
+                        <option value="б."   {{ company.typeStreet == 'б.' ? 'selected="selected"'}}   >Бульвар</option>
+                        <option value="пр."  {{ company.typeStreet == 'пр.' ? 'selected="selected"'}}   >Просека</option>
+                        <option value="пр-т" {{ company.typeStreet == 'пр-т' ? 'selected="selected"'}}   >Проспект</option>
+                        <option value="наб." {{ company.typeStreet == 'наб.' ? 'selected="selected"'}}   >Набережная</option>
+                        <option value=""     {{ company.typeStreet == '' ? 'selected="selected"'}}   >Другое</option>
+                    </select>
+                    <input name="companyStreet"  id="companyStreet"   type="text" placeholder="Название улицы" value="{{ company.street }}"><br />
+
+                    <input name="companyHouse"   id="companyHouse"    type="text" placeholder="Дом" class="little" value="{{ company.home }}">
+                    <input name="companyCorp"    id="companyCorp"     type="text" placeholder="Корп"  class="little" value="{{ company.corp }}">
+                    <input name="companyStructure"    id="companyStructure"     type="text" placeholder="Строение"  class="little" value="{{ company.structure }}"><br />
+
+                    <select name="companyTypeRoom" id="companyTypeRoom">
+                        <option value="кв." {{ company.typeRoom == 'кв.' ? 'selected="selected"'}}>Квартира</option>
+                        <option value="оф." {{ company.typeRoom == 'оф.' ? 'selected="selected"'}}>Офис</option>
+                    </select>
+                    <input name="companyRoom"    id="companyRoom"  type="text" placeholder="Номер"  class="little" value="{{ company.room }}">
+                </td>
+            </tr>
+            <tr><td colspan="2">&nbsp;</td></tr>
+            <tr>
+                <td></td>
+                <td style="text-align: right">
+                    <input type="submit" id="saveHod" value="Подтвердить данные" class="btn saveForm">
+                </td>
+            </tr>
+        </table>
+    </form>
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <style>
+        .label{
+            width: 250px;
+        }
+        #companyZipcode{
+            width: 358px;
+        }
+        #companyName{
+            width: 358px;
+        }
+        #companyCity{
+            width: 358px;
+        }
+        #companyStreet{
+            width: 215px;
+        }
+        #companyTypeRoom-styler .jq-selectbox__select{
+            width: 122px !important;
+        }
+        #companyTypeRoom-styler{
+            margin-top: -1px;
+        }
+        #companyRegion-styler .jq-selectbox__dropdown, #companyTypeStreet-styler .jq-selectbox__dropdown{
+            width: 272px !important;
+        }
+        #companyTypeRoom-styler .jq-selectbox__dropdown{
+            width: 180px !important;
+        }
+        .jq-selectbox{
+            padding: 5px 0;
+        }
+    </style>
+{% endblock %}

@@ -2,10 +2,19 @@
 <head>
     {% block javascripts %}
         <script rel="script" src="{{ asset('bundles/crmmain/javascripts/jQuery.js') }}"></script>
+        <script src="{{ asset('bundles/crmmain/javascripts/jquery.maskedinput.js') }}" type="text/javascript"></script>
+        <script src="{{ asset('bundles/crmmain/lib/styler/jquery.formstyler.min.js') }}" type="text/javascript"></script>
         <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
         <script src="{{ path('fos_js_routing_js', {"callback": "fos.Router.setData"}) }}"></script>
+        <script>
+            $(document).ready(function(){
+                $('input, select').styler();
+            });
+        </script>
     {% endblock %}
     {% block stylesheets %}
+        <link href="{{ asset('bundles/crmmain/lib/chosen/chosen.css') }}" rel="stylesheet" media="all">
+        <link href="{{ asset('bundles/crmmain/lib/styler/jquery.formstyler.css') }}" rel="stylesheet" media="all">
         <link href="{{ asset('bundles/crmoperator/stylesheets/common.css') }}" rel="stylesheet" media="all">
         <style>
 

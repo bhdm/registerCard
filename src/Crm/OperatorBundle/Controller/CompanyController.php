@@ -43,23 +43,26 @@ class CompanyController extends Controller{
     public function editAction(Request $request, $companyId){
 
         $em = $this->getDoctrine()->getManager();
+        $company = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->findOneById($companyId);
 
         if ($request->getMethod() == 'POST'){
             $data = $request->request;
-            $company = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->findOneById($companyId);
-            $company->setTitle($data->get('companyName'));
-            $company->setZipcode($data->get('companyZipcode'));
-            $region = $this->getDoctrine()->getRepository('CrmMainBundle:Region')->findOneById($data->get('companyRegion'));
-            $company->setRegion($region);
-            $company->setCity($data->get('companyCity'));
-            $company->setTypeStreet($data->get('companyTypeStreet'));
-            $company->setStreet($data->get('companyStreet'));
-            $company->setHome($data->get('companyHouse'));
-            $company->setCorp($data->get('companyCorp'));
-            $company->setStructure($data->get('companyStructure'));
-            $company->setTypeRoom($data->get('companyTypeRoom'));
-            $company->setRoom($data->get('companyRoom'));
-            $em->flush($company);
+            if ($company){
+                $company->setTitle($data->get('companyName'));
+                $company->setZipcode($data->get('companyZipcode'));
+                $region = $this->getDoctrine()->getRepository('CrmMainBundle:Region')->findOneById($data->get('companyRegion'));
+                $company->setRegion($region);
+                $company->setCity($data->get('companyCity'));
+                $company->setTypeStreet($data->get('companyTypeStreet'));
+                $company->setStreet($data->get('companyStreet'));
+                $company->setHome($data->get('companyHouse'));
+                $company->setCorp($data->get('companyCorp'));
+                $company->setStructure($data->get('companyStructure'));
+                $company->setTypeRoom($data->get('companyTypeRoom'));
+                $company->setRoom($data->get('companyRoom'));
+                $em->flush($company);
+                $em->refresh($company);
+            }
         }
 
         $country = $this->getDoctrine()->getRepository('CrmMainBundle:Country')->findOneById(3159);
