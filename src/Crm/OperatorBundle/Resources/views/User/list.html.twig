@@ -35,7 +35,9 @@
                     <td><a href="{{ path('operator_user_edit' , { 'companyId' : company.id, 'userId' : user.id}) }}">{{ user }}</a></td>
                     <td></td>
                     <td class="options">
-                        <img src="{{ asset('bundles/crmoperator/images/icon/image22.png') }}" class="icon"/>
+                        <a href="{{ path('operator_user_edit' , { 'companyId' : company.id, 'userId' : user.id}) }}">
+                            <img src="{{ asset('bundles/crmoperator/images/icon/image22.png') }}" class="icon"/>
+                        </a>
                     </td>
                 </tr>
             {% endfor %}

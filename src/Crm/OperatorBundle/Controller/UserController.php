@@ -97,26 +97,35 @@ class UserController extends Controller{
                 $fileName = $this->saveFile('snils');
                 $user->setCopySnils($fileName);
             }
-            if ($session->get('hod')){
-                $fileName = $this->saveFile('hod');
-                $user->setCopyPetition($fileName);
-            }
+
             if ($session->get('work')){
                 $fileName = $this->saveFile('work');
                 $user->setCopyWork($fileName);
             }
-            $encoders = array(new XmlEncoder(), new JsonEncoder());
-            $normalizers = array(new GetSetMethodNormalizer());
-            $serializer = new Serializer($normalizers, $encoders);
 
-            $jsonContent = $serializer->serialize($user, 'json');
-            $session->set('user', $jsonContent);
+            $user->setLastNumberCard($data->get('oldNumber'));
 
-            $jsonContent = $serializer->serialize($company, 'json');
-            $session->set('company', $jsonContent);
+            $date = new \DateTime($user->getBirthDate());
+            $user->setBirthDate($date);
 
-            $session->save();
+            $date = new \DateTime($user->getPassportIssuanceDate());
+            $user->setPassportIssuanceDate($date);
+
+            $date = new \DateTime($user->getDriverDocDateStarts());
+            $user->setDriverDocDateStarts($date);
+
+            $date = new \DateTime($user->getDriverDocDateEnds());
+            $user->setDriverDocDateEnds($date);
+
+            $user->setCopyPassport($this->getArrayToImg($user->getCopyPassport()));
+            $user->setCopyDriverPassport($this->getArrayToImg($user->getCopyDriverPassport()));
+            $user->setPhoto($this->getArrayToImg($user->getPhoto()));
+            $user->setCopySignature($this->getArrayToImg($user->getCopySignature()));
+            $user->setCopySnils($this->getArrayToImg($user->getCopySnils()));
+            $user->setCopyWork($this->getArrayToImg($user->getCopyWork()));
+
         }
+
 
         $country = $this->getDoctrine()->getRepository('CrmMainBundle:Country')->findOneById(3159);
         $regions = $this->getDoctrine()->getRepository('CrmMainBundle:Region')->findByCountry($country);
@@ -132,9 +141,8 @@ class UserController extends Controller{
      */
     public function editAction(Request $request, $companyId, $userId){
         $em   = $this->getDoctrine()->getManager();
-
+        $user = $this->getDoctrine()->getRepository('CrmMainBundle:User')->findOneById($userId);
         if ($request->getMethod()=='POST'){
-            $user = $this->getDoctrine()->getRepository('CrmMainBundle:User')->findOneById($userId);
             $data = $request->request;
             $session = $request->getSession();
 
@@ -183,10 +191,6 @@ class UserController extends Controller{
                 $fileName = $this->saveFile('snils');
                 $user->setCopySnils($fileName);
             }
-            if ($session->get('hod')){
-                $fileName = $this->saveFile('hod');
-                $user->setCopyPetition($fileName);
-            }
             if ($session->get('work')){
                 $fileName = $this->saveFile('work');
                 $user->setCopyWork($fileName);
@@ -212,9 +216,6 @@ class UserController extends Controller{
             $user->setCopySignature($this->getArrayToImg($user->getCopySignature()));
             $user->setCopySnils($this->getArrayToImg($user->getCopySnils()));
             $user->setCopyWork($this->getArrayToImg($user->getCopyWork()));
-            $user->setCopyPetition($this->getArrayToImg($user->getCopyPetition()));
-
-
 
         }
 
@@ -222,7 +223,8 @@ class UserController extends Controller{
         $regions = $this->getDoctrine()->getRepository('CrmMainBundle:Region')->findByCountry($country);
 
         return array(
-            'regions'       => $regions
+            'user'          => $user,
+            'regions'       => $regions,
         );
     }
 
