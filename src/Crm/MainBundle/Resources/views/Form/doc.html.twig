@@ -115,6 +115,7 @@
         <table>
             <tr>
                 <td style="width: 400px; vertical-align: top;">
+                    http://im-kard.ru/{{ user.photo is not null ? user.photo['path'] : ''}}
                     <img src="http://im-kard.ru/{{ user.photo is not null ? user.photo['path'] : ''}}" style="width: 200px"><br/>
                     <div >
                         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="comment">Место для фотографии</span>
@@ -122,6 +123,7 @@
                 </td>
                 <td style="width: 400px; vertical-align: top;">
                     <div style="text-align: center;">
+                        http://im-kard.ru/{{ user.copySignature is not null ? user.copySignature['path'] : ''}}
                         {% if mail is not null %}
                             <img src="{{ asset('bundles/crmmain/images/nosign.png') }}" style="width: 200px;padding-left: 50px"><br/>
                         {% else %}
