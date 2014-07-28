@@ -34,21 +34,21 @@
     <div style="text-align: justify">
         <p>
             Прошу
-            {#{% if user.driver.lastNumberCard %}#}
-                {#выдать/<u>обновить</u>#}
-            {#{% else %}#}
+            {% if user.lastNumberCard %}
+                выдать/<u>обновить</u>
+            {% else %}
                 <u>выдать</u>/обновить
-            {#{% endif %}#}
+            {% endif %}
             в связи с истечением срока действия <i>(нужное подчеркнуть)</i> мне карту водителя для использования при осуществлении автомобильных перевозок.
         </p>
         <p>
             Для выдачи (обновления) карты предоставляю следующую информацию:
         </p>
-        {#{% if user.driver.lastNumberCard %}#}
-        {#<p>#}
-            {#- Номер ранее выданной карты: RUD <B>{{ user.driver.lastNumberCard }}</B>#}
-        {#</p>#}
-        {#{% endif %}#}
+        {% if user.lastNumberCard %}
+        <p>
+            - Номер ранее выданной карты: RUD <B>{{ user.lastNumberCard }}</B>
+        </p>
+        {% endif %}
         <p>
             - Ф.И.О.: <b>{{ user.lastName }} {{ user.firstName }} {{ user.surName is not null ? user.surName : '' }}</b>
         </p>
@@ -115,7 +115,7 @@
         <table>
             <tr>
                 <td style="width: 400px; vertical-align: top;">
-                    <img src="http://im-kard.ru{{ user.photo is not null ? user.photo['path'] : ''}}" style="width: 200px"><br/>
+                    <img src="http://im-kard.ru/{{ user.photo is not null ? user.photo['path'] : ''}}" style="width: 200px"><br/>
                     <div >
                         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="comment">Место для фотографии</span>
                     </div>
@@ -125,7 +125,7 @@
                         {% if mail is not null %}
                             <img src="{{ asset('bundles/crmmain/images/nosign.png') }}" style="width: 200px;padding-left: 50px"><br/>
                         {% else %}
-                            <img src="http://im-kard.ru{{ user.copySignature is not null ? user.copySignature['path'] : ''}}" style="width: 200px;padding-left: 100px"><br/>
+                            <img src="http://im-kard.ru/{{ user.copySignature is not null ? user.copySignature['path'] : ''}}" style="width: 200px;padding-left: 100px"><br/>
                         {% endif %}
                     </div>
                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span  class="comment">Место для подписи</span>
