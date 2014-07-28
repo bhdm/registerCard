@@ -17,6 +17,33 @@ use Symfony\Component\Security\Core\Encoder\MessageDigestPasswordEncoder;
  */
 class DefaultController extends Controller
 {
+
+    /**
+     * @Route("/dd", name="operator_dd")
+     * @Template()
+     */
+    public function ddAction()
+    {
+        $manager = $this->getDoctrine()->getManager();
+
+        // создание пользователя
+        $user = new Operator();
+        $user->setUsername('b');
+        $user->setSalt(md5(time()));
+        $user->setRoles('ROLE_OPERATOR');
+        // шифрует и устанавливает пароль для пользователя,
+        // эти настройки совпадают с конфигурационными файлами
+        $encoder = new MessageDigestPasswordEncoder('sha512', true, 10);
+        $password = $encoder->encodePassword('b', $user->getSalt());
+        $user->setPassword($password);
+
+        $manager->persist($user);
+        $manager->flush($user);
+
+        return $this->redirect($this->generateUrl('operator_company_list'));
+
+    }
+
     /**
      * @Security("has_role('ROLE_OPERATOR')")
      * @Route("/", name="operator_main")
