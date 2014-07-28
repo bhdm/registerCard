@@ -60,6 +60,7 @@ class UserController extends Controller{
             $user->setFirstName($data->get('PassportFirstName'));
             $user->setSurName($data->get('PassportSurName'));
             $user->setBirthDate($data->get('PassportBirthdate'));
+            $user->setPassportSerial($data->get('passportSeries'));
             $user->setPassportNumber($data->get('PassportNumber'));
             $user->setPassportIssuance($data->get('PassportPlace'));
             $user->setPassportIssuanceDate($data->get('PassportDate'));
@@ -154,6 +155,7 @@ class UserController extends Controller{
             $user->setFirstName($data->get('PassportFirstName'));
             $user->setSurName($data->get('PassportSurName'));
             $user->setBirthDate($data->get('PassportBirthdate'));
+            $user->setPassportSerial($data->get('passportSeries'));
             $user->setPassportNumber($data->get('PassportNumber'));
             $user->setPassportIssuance($data->get('PassportPlace'));
             $user->setPassportIssuanceDate($data->get('PassportDate'));

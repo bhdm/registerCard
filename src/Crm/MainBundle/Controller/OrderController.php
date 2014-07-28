@@ -144,6 +144,7 @@ class OrderController extends Controller{
             $user->setSurName($data->get('PassportSurName'));
             $user->setBirthDate($data->get('PassportBirthdate'));
             $user->setPassportNumber($data->get('PassportNumber'));
+            $user->setPassportSerial($data->get('passportSeries'));
             $user->setPassportIssuance($data->get('PassportPlace'));
             $user->setPassportIssuanceDate($data->get('PassportDate'));
             $user->setPassportCode($data->get('PassportCode'));
