@@ -5,6 +5,9 @@
         <tr>
             <td style="width: 570px; padding-right: 15px;">
                 {{ indexPage_1.body | raw }}
+                <br />
+                <div class="important" id="important1">Важное разъяснение</div>
+                <div class="important" id="important2">Если вы предприятие</div>
             </td>
             <td  style="width: 410px; text-align: right" valign="top">
                 <img src="{{ asset('bundles/crmmain/images/img1.png') }}" />
@@ -55,12 +58,76 @@
         </div>
     </div>
     <br/>
+    <div class="bg-gray"></div>
+    <div class="pop-up" id="pop-up-1">
+        <img src="{{ asset('bundles/crmmain/images/close_ico.png') }}" class="close-pop-up ico" />
+        <div>
+            Согласно приказу ФБУ "Росавтотранс" 125 от 20.11.2013 года предприятия  могут только оплачивать карты водителя, а получать ее может только тот на кого она выписана или его представитель (обязательно наличие лицензии ФСБ на распространение СКЗИ).
+        </div>
+    </div>
+    <div class="pop-up" id="pop-up-2">
+        <img src="{{ asset('bundles/crmmain/images/close_ico.png') }}" class="close-pop-up ico" />
+        <div>
+            <b>Последовательность действий:</b>
+            <ul>
+                <li>Заключить договор на оплату карт для водителей; должна быть ссылка на образец договора и разъяснение для бухгалтерии по оформлению.</li>
+                <li>Получить ссылку для заполнения вашему сотрудниками; ссылка на общую инструкцию по заполнению для водителя, соответственно без ходатайства.</li>
+                <li>Подписать ходатайство на выпуск карт для своих сотрудников по представленном нами форме; здесь должно быть разъяснение что это за документ для производства и какую роль он решает в наших с ними отношениях.</li>
+                <li>Оплатить производство карт;</li>
+                <li>Подписать акт выполненных работ после доставки каждому водителю.</li>
+            </ul>
+        </div>
+    </div>
 {% endblock %}
 
 {% block stylesheets %}
     {{ parent() }}
     <link href="{{ asset('bundles/crmmain/lib/fancyapps/jquery.fancybox.css') }}" rel="stylesheet" media="all">
     <style>
+        .close-pop-up{
+            width: 32px;
+            position: absolute;
+            right: 0;
+            top: 0;
+        }
+        .bg-gray{
+            position: fixed;
+            left: 0;
+            right: 0;
+            top: 0;
+            bottom: 0;
+            background: #555555;
+            opacity: 0.5;
+            z-index: 900;
+            display: none;
+        }
+        .pop-up{
+            position: fixed;
+            width: 500px;
+            padding: 15px;
+            border: 1px solid #636363;
+            border-radius: 5px;
+            left: 50%;
+            margin-left: -250px;
+            top: 300px;
+            background: #e3e3e3;
+            z-index: 910;
+            display: none;
+        }
+
+        .important{
+            padding: 20px;
+            margin-bottom: 10px;
+            border: 1px solid #636363;
+            background: #DDD;
+            border-radius: 5px;
+            width: 300px;
+            cursor: pointer;
+            text-align: center;
+            font-size: 24px;
+            color: #333333;
+
+        }
         .advw{
             line-height: 30px;
             border: 2px solid #AAAAAA;
@@ -87,6 +154,20 @@
     <script>
         $(document).ready(function(){
 
+            $('.close-pop-up').click(function(){
+                $('.pop-up').css('display', 'none');
+                $('.bg-gray').css('display', 'none');
+            });
+
+            $('#important1').click(function(){
+                $('#pop-up-1').css('display', 'block');
+                $('.bg-gray').css('display', 'block');
+            });
+
+            $('#important2').click(function(){
+                $('#pop-up-2').css('display', 'block');
+                $('.bg-gray').css('display', 'block');
+            });
 
             $(".fancybox").fancybox();
 
