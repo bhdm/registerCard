@@ -233,3 +233,6 @@ input.little{
 .fancy{
     border-bottom: none;
 }
+.right{
+    float: right;
+}

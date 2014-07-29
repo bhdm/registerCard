@@ -8,6 +8,7 @@
 
 namespace Crm\OperatorBundle\Controller;
 
+use Crm\MainBundle\Entity\Company;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -63,6 +64,41 @@ class CompanyController extends Controller{
                 $em->flush($company);
                 $em->refresh($company);
             }
+        }
+
+        $country = $this->getDoctrine()->getRepository('CrmMainBundle:Country')->findOneById(3159);
+        $regions = $this->getDoctrine()->getRepository('CrmMainBundle:Region')->findByCountry($country);
+        return array('company'=> $company, 'regions' => $regions);
+    }
+
+    /**
+     * @Route("/add", name="operator_company_add")
+     * @Template()
+     */
+    public function addAction(Request $request){
+
+        $em = $this->getDoctrine()->getManager();
+        $company = new Company();
+
+        if ($request->getMethod() == 'POST'){
+            $data = $request->request;
+            $company->setTitle($data->get('companyName'));
+            $company->setZipcode($data->get('companyZipcode'));
+            $region = $this->getDoctrine()->getRepository('CrmMainBundle:Region')->findOneById($data->get('companyRegion'));
+            $company->setRegion($region);
+            $company->setCity($data->get('companyCity'));
+            $company->setTypeStreet($data->get('companyTypeStreet'));
+            $company->setStreet($data->get('companyStreet'));
+            $company->setHome($data->get('companyHouse'));
+            $company->setCorp($data->get('companyCorp'));
+            $company->setStructure($data->get('companyStructure'));
+            $company->setTypeRoom($data->get('companyTypeRoom'));
+            $company->setRoom($data->get('companyRoom'));
+            $company->setOperator($this->getUser());
+            $em->persist($company);
+            $em->flush($company);
+            $em->refresh($company);
+            return $this->redirect($this->generateUrl('operator_company_list'));
         }
 
         $country = $this->getDoctrine()->getRepository('CrmMainBundle:Country')->findOneById(3159);
