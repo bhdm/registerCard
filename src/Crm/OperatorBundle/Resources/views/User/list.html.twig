@@ -15,18 +15,27 @@
     {{ parent() }}
 {% endblock %}
 
+{% block javascripts %}
+    {{ parent() }}
+
+{% endblock %}
+
 {% block content%}
     {% if users is empty %}
         <h3 class="color-red">Пользователей не найдено</h3>
     {% else %}
         <table class="lists">
             <tr>
+                <th style="width: 30px"></th>
                 <th>ФИО</th>
                 <th class="empty"></th>
                 <th class="options">Действия</th>
             </tr>
             {% for user in users %}
                 <tr>
+                    <td>
+                        <input type="checkbox" name="check[{{ company.id }}]">
+                    </td>
                     <td><a href="{{ path('operator_user_edit' , { 'companyId' : company.id, 'userId' : user.id}) }}">{{ user }}</a></td>
                     <td></td>
                     <td class="options">
@@ -36,6 +45,11 @@
                     </td>
                 </tr>
             {% endfor %}
+            <tr>
+                <td colspan="4">
+                    <button>Сгенерировать ходатайство на выделенных пользователей</button>
+                </td>
+            </tr>
         </table>
     {% endif %}
 
