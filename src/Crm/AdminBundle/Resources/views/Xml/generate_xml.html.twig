@@ -15,6 +15,7 @@
             <PersonInfo>
                 <NameFirst>{{ driver.firstName }}</NameFirst>
                 <NameLast>{{ driver.lastName }}</NameLast>
+                <NameMiddle>{{ driver.surName is not null ? driver.surName : '' }}</NameMiddle>
                 <BirthDate>{{ driver.birthDate | date('Y-m-d') }}Z</BirthDate>
                 <SNILS>{{ driver.snils }}</SNILS>
                 <Passport>
@@ -36,8 +37,7 @@
             </DriverLicense>
             <OrgName>{{ driver.company.title }}</OrgName>
             <OrgPostAddress>
-                <FullAddress>
-                    {{ driver.company.zipcode }},Россия,
+                <FullAddress>{{ driver.company.zipcode }},
                     {{ driver.company.region }},  {{ driver.company.city }},
                     {{ driver.company.street }},д.{{ driver.company.home }} {{ driver.company.corp }}, {{ driver.company.room }}</FullAddress>
                 <PostCode>{{ driver.company.zipcode }}</PostCode>
