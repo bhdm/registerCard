@@ -2,7 +2,7 @@
 
 {% block content %}
     <div class="box">
-        <h2>Частые вопросы</h2>
+        <h2>Задать вопрос</h2>
         {% if msg == false %}
             <div class="feedback-box">
                 <form method="POST">
@@ -16,6 +16,7 @@
             <div class="msg">Ваше сообщение отправлено</div>
         {% endif %}
 
+        <h2>Частые вопросы</h2>
         {% for faq in faqs %}
             <div class="faq-box">
                 <div class="faq-question">{{ faq.question |raw }}</div>

@@ -8,8 +8,18 @@
 {% endblock %}
 
 {% block content %}
+    {% if companyUrl is defined and companyUrl is not null %}
+        <div  class="link"><b>Ссылка для регистрации:</b> {{ path('order_register_mini',{'compnayUrl' : companyUrl }) }}</div>
+    {% endif %}
+
     <form method="POST">
         <table>
+            <tr>
+                <td class="label">URL компании:</td>
+                <td class="value">
+                    <input name="url" id="url" type="text" value="{{ company.url }}" placeholder="company URL">
+                </td>
+            </tr>
             <tr>
                 <td class="label">Название организации<span class="required">*</span>:</td>
                 <td class="value">
@@ -77,6 +87,9 @@
     <style>
         .label{
             width: 250px;
+        }
+        #url{
+            width: 358px;
         }
         #companyZipcode{
             width: 358px;
