@@ -61,14 +61,19 @@ class CompanyController extends Controller{
                 $company->setStructure($data->get('companyStructure'));
                 $company->setTypeRoom($data->get('companyTypeRoom'));
                 $company->setRoom($data->get('companyRoom'));
+                $company->setUrl($data->get('url'));
                 $em->flush($company);
                 $em->refresh($company);
             }
         }
-
+        if ($company->getUrl()){
+            $companyUrl = 'http://doroga01.ru/company/order-register/'.$company->getUrl();
+        }else{
+            $companyUrl = null;
+        }
         $country = $this->getDoctrine()->getRepository('CrmMainBundle:Country')->findOneById(3159);
         $regions = $this->getDoctrine()->getRepository('CrmMainBundle:Region')->findByCountry($country);
-        return array('company'=> $company, 'regions' => $regions);
+        return array('company'=> $company, 'regions' => $regions,'companyUrl' => $companyUrl);
     }
 
     /**
@@ -95,6 +100,7 @@ class CompanyController extends Controller{
             $company->setTypeRoom($data->get('companyTypeRoom'));
             $company->setRoom($data->get('companyRoom'));
             $company->setOperator($this->getUser());
+            $company->setUrl($data->get('url'));
             $em->persist($company);
             $em->flush($company);
             $em->refresh($company);

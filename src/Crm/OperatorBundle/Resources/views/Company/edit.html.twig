@@ -8,12 +8,16 @@
 {% endblock %}
 
 {% block content %}
-    {% if companyUrl is defined and companyUrl is not null %}
-        <div  class="link"><b>Ссылка для регистрации:</b> {{ path('order_register_mini',{'compnayUrl' : companyUrl }) }}</div>
-    {% endif %}
-
     <form method="POST">
         <table>
+            {% if companyUrl is not null %}
+                <tr>
+                    <td class="label">Ссылка для регистрации:</td>
+                    <td class="value">
+                        <a href="{{ companyUrl }}" target="_blank"><b>{{ companyUrl  }}</b></a>
+                    </td>
+                </tr>
+            {% endif %}
             <tr>
                 <td class="label">URL компании:</td>
                 <td class="value">
