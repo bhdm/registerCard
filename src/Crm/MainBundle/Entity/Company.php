@@ -138,7 +138,52 @@ class Company extends BaseEntity
     protected $petitions;
 
     /**
-     * @ORM\Column(type="boolean")
+     * Для Ходатайства
+     */
+
+    /**
+     * (ООО / ОАО / ЗАО)
+     * @ORM\Column(type="string", nullable=true)
+     */
+    protected $forma;
+
+    /**
+     * @ORM\Column(type="string", nullable=true)
+     */
+    protected $inn;
+
+    /**
+     * @ORM\Column(type="string", nullable=true)
+     */
+    protected $kpp;
+
+    /**
+     * @ORM\Column(type="string", nullable=true)
+     */
+    protected $ogrn;
+
+    /**
+     * @ORM\Column(type="string", nullable=true)
+     */
+    protected $rchet;
+
+    /**
+     * @ORM\Column(type="string", nullable=true)
+     */
+    protected $bank;
+
+    /**
+     * @ORM\Column(type="string", nullable=true)
+     */
+    protected $korchet;
+
+    /**
+     * @ORM\Column(type="string", nullable=true)
+     */
+    protected $bik;
+
+    /**
+     * @ORM\Column(type="boolean", nullable=true)
      */
     protected $enabled = 0;
 
@@ -512,4 +557,134 @@ class Company extends BaseEntity
 
         return $summ;
     }
+
+    /**
+     * @param mixed $bank
+     */
+    public function setBank($bank)
+    {
+        $this->bank = $bank;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getBank()
+    {
+        return $this->bank;
+    }
+
+    /**
+     * @param mixed $bik
+     */
+    public function setBik($bik)
+    {
+        $this->bik = $bik;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getBik()
+    {
+        return $this->bik;
+    }
+
+    /**
+     * @param mixed $forma
+     */
+    public function setForma($forma)
+    {
+        $this->forma = $forma;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getForma()
+    {
+        return $this->forma;
+    }
+
+    /**
+     * @param mixed $inn
+     */
+    public function setInn($inn)
+    {
+        $this->inn = $inn;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getInn()
+    {
+        return $this->inn;
+    }
+
+    /**
+     * @param mixed $korchet
+     */
+    public function setKorchet($korchet)
+    {
+        $this->korchet = $korchet;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getKorchet()
+    {
+        return $this->korchet;
+    }
+
+    /**
+     * @param mixed $kpp
+     */
+    public function setKpp($kpp)
+    {
+        $this->kpp = $kpp;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getKpp()
+    {
+        return $this->kpp;
+    }
+
+    /**
+     * @param mixed $ogrn
+     */
+    public function setOgrn($ogrn)
+    {
+        $this->ogrn = $ogrn;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getOgrn()
+    {
+        return $this->ogrn;
+    }
+
+    /**
+     * @param mixed $rchet
+     */
+    public function setRchet($rchet)
+    {
+        $this->rchet = $rchet;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getRchet()
+    {
+        return $this->rchet;
+    }
+
+
 }
