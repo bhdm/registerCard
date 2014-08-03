@@ -26,7 +26,6 @@ class Document extends BaseEntity
     protected  $body;
 
     /**
-     * @Assert\NotBlank()
      * @ORM\Column(type="string", length=6, nullable=true)
      */
     protected $type;
