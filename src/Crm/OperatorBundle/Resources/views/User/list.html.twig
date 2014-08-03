@@ -3,12 +3,16 @@
 
 {% block crosh %}
     <a href="{{ path('operator_main') }}">Главная</a> &raquo;
-    <a href="{{ path('operator_company_list') }}">Список компаний</a> &raquo;
-    <a href="#">{{ company.title }}</a> &raquo;
-    <a href="{{ path('operator_user_list',{'companyId': company.id }) }}">Список пользователей</a>
-    <div class="right">
-        <a href="{{ path('operator_user_add',{'companyId': company.id}) }}">Добавить</a>
-    </div>
+    {% if company != null %}
+        <a href="{{ path('operator_company_list') }}">Список компаний</a> &raquo;
+        <a href="#">{{ company.title }}</a> &raquo;
+        <a href="{{ path('operator_user_list',{'companyId': company.id }) }}">Список пользователей</a>
+        <div class="right">
+            <a href="{{ path('operator_user_add',{'companyId': company.id}) }}">Добавить</a>
+        </div>
+    {% else %}
+        <a href="{{ path('operator_user_list') }}">Список пользователей</a>
+    {% endif %}
 {% endblock %}
 
 {% block stylesheets %}
@@ -24,10 +28,15 @@
     {% if users is empty %}
         <h3 class="color-red">Пользователей не найдено</h3>
     {% else %}
-        <form method="POST" action="{{ path('operator_petition_generate',{'companyId' : company.id}) }}">
+        {% if company != null %}
+            <form method="POST" action="{{ path('operator_petition_generate',{'companyId' : company.id}) }}">
+        {% endif %}
             <table class="lists">
                 <tr>
                     <th style="width: 30px"></th>
+                    {% if company == null %}
+                        <th>Компания</th>
+                    {% endif %}
                     <th>ФИО</th>
                     <th class="empty"></th>
                     <th class="options">Действия</th>
@@ -37,7 +46,14 @@
                         <td>
                             <input type="checkbox" name="check[{{ user.id }}]">
                         </td>
-                        <td><a href="{{ path('operator_user_edit' , { 'companyId' : company.id, 'userId' : user.id}) }}">{{ user }}</a></td>
+                        {% if company == null %}
+                            <td>
+                                <a href="{{ path('operator_user_list' , { 'companyId' : user.company.id}) }}">{{ user.company }}</a>
+                            </td>
+                        {% endif %}
+                        <td>
+                            <a href="{{ path('operator_user_edit' , { 'companyId' : user.company.id, 'userId' : user.id}) }}">{{ user }}</a>
+                        </td>
                         <td></td>
                         <td class="options">
                             {% if user.companyPetition != null %}
@@ -45,17 +61,19 @@
                                     <img src="{{ asset('bundles/crmoperator/images/icon/image26.png') }}" class="icon"/>
                                 </a>
                             {% endif %}
-                            <a href="{{ path('operator_user_edit' , { 'companyId' : company.id, 'userId' : user.id}) }}">
+                            <a href="{{ path('operator_user_edit' , { 'companyId' : user.company.id, 'userId' : user.id}) }}">
                                 <img src="{{ asset('bundles/crmoperator/images/icon/image22.png') }}" class="icon"/>
                             </a>
                         </td>
                     </tr>
                 {% endfor %}
-                <tr>
-                    <td colspan="4">
-                        <button type="submit">Сгенерировать ходатайство на выделенных пользователей</button>
-                    </td>
-                </tr>
+                {% if company != null %}
+                    <tr>
+                        <td colspan="4">
+                            <button type="submit">Сгенерировать ходатайство на выделенных пользователей</button>
+                        </td>
+                    </tr>
+                {% endif %}
             </table>
         </form>
     {% endif %}

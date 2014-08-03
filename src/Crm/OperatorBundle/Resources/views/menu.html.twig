@@ -6,23 +6,14 @@
         <br />
         <ul class="menu-items">
             <li  class="menu-item"><a href="{{ path('operator_company_list') }}">Компании</a></li>
-            <li  class="menu-item"><a>Пользователи</a></li>
+            <li  class="menu-item"><a href="{{ path('operator_user_list') }}">Пользователи</a></li>
             <li  class="menu-item"><a href="{{ path('operator_petition_list') }}">Ходатайства</a></li>
-        </ul>
-    </div>
-{% endif %}
 
-{% if is_granted('ROLE_ADMIN') %}
-    <div class="menu">
-        <div class="menu-title">
-            Навигация
-        </div>
-        <br />
-        <ul class="menu-items">
-            <li  class="menu-item">Компании</li>
-            <li  class="menu-item">Пользователи</li>
-            <li  class="menu-item">Оплата</li>
-            <li  class="menu-item">Статистика</li>
+            {% if is_granted('ROLE_ADMIN') %}
+                <li  class="menu-item">Оплаты</li>
+                <li  class="menu-item">Операторы</li>
+                <li  class="menu-item">Статистика</li>
+            {% endif %}
         </ul>
     </div>
 {% endif %}

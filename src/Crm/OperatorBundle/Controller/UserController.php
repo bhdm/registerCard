@@ -26,17 +26,21 @@ class UserController extends Controller{
 
     /**
      * Показывает водителей определенной компании
-     * @Route("/list/{companyId}", name="operator_user_list")
+     * @Route("/list/{companyId}", name="operator_user_list", defaults={"companyId=null"})
      * @Template()
      */
-    public function listAction($companyId){
-        $company = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->findOneById($companyId);
-        if ($company->getOperator($this->getUser()))
-            $users = $company->getUsers();
-        else{
-            return $this->redirect($this->generateUrl('operator_main'));
+    public function listAction($companyId = null){
+        if ($companyId == null && $this->get('security.context')->isGranted('ROLE_ADMIN')){
+            $company = null;
+            $users = $this->getDoctrine()->getRepository('CrmMainBundle:User')->findAll();
+        }else{
+            $company = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->findOneById($companyId);
+            if ($company->getOperator($this->getUser()) || $this->get('security.context')->isGranted('ROLE_ADMIN'))
+                $users = $company->getUsers();
+            else{
+                return $this->redirect($this->generateUrl('operator_main'));
+            }
         }
-
         return array('company'=> $company,  'users' => $users);
     }
 
