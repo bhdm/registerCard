@@ -10,8 +10,8 @@
             <li  class="menu-item"><a href="{{ path('operator_petition_list') }}">Ходатайства</a></li>
 
             {% if is_granted('ROLE_ADMIN') %}
+                <li  class="menu-item"><a href="{{ path('operator_operator_list') }}">Операторы</a></li>
                 <li  class="menu-item">Оплаты</li>
-                <li  class="menu-item">Операторы</li>
                 <li  class="menu-item">Статистика</li>
             {% endif %}
         </ul>

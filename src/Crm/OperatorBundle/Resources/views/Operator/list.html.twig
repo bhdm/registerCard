@@ -1,0 +1,32 @@
+{% extends 'CrmOperatorBundle::layout.html.twig' %}
+
+
+{% block crosh %}
+    <a href="{{ path('operator_main') }}">Главная</a> &raquo;
+    <a href="#"> Операторы </a>
+{% endblock %}
+
+{% block content%}
+    {% if operators is empty %}
+        <h3 class="color-red">Операторы не найдены</h3>
+    {% else %}
+        <table class="lists">
+            <tr>
+                <th>Оператор</th>
+                <th class="empty"></th>
+                <th class="options">Действия</th>
+            </tr>
+            {% for operator in operators %}
+                <tr>
+                    <td><a href="{{ path('operator_operator_edit',{'operatorId' : operator.id}) }}">{{ operator.username }}</a></td>
+                    <td></td>
+                    <td class="options">
+                        <a class="no-underline" href="{{ path('operator_operator_edit',{ 'operatorId' : operator.id}) }}"><img src="{{ asset('bundles/crmoperator/images/icon/image22.png') }}" class="icon"/></a>
+                        <a class="no-underline" href="{{ path('operator_operator_remove',{ 'operatorId' : operator.id}) }}"><img src="{{ asset('bundles/crmoperator/images/icon/image11.png') }}" class="icon"/></a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </table>
+    {% endif %}
+
+{% endblock %}
