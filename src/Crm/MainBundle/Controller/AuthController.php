@@ -10,7 +10,6 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Crm\MainBundle\Entity\Page;
 use Crm\MainBundle\Entity\User;
-use Crm\MainBundle\Entity\Driver;
 use Crm\MainBundle\Entity\Company;
 use Crm\MainBundle\Form\Type\UserType;
 use Crm\MainBundle\Form\Type\DriverType;

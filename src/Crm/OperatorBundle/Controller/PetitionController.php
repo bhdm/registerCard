@@ -17,6 +17,7 @@ use Crm\MainBundle\Entity\CompanyPetition;
 use Symfony\Component\Security\Core\Encoder\MessageDigestPasswordEncoder;
 
 /**
+ * @Security("has_role('ROLE_OPERATOR')")
  * @Route("/operator/petition")
  */
 class PetitionController extends Controller
@@ -88,6 +89,32 @@ class PetitionController extends Controller
         }else{
             return $this->redirect($this->generateUrl('operator_main'));
         }
+    }
+
+
+    /**
+     * @Route("/generate-file/{petitionId}", name="operator_generate_file")
+     * @Template()
+     */
+    public function generateFileAction(Request $request, $petitionId){
+        $petition = $this->getDoctrine()->getRepository('CrmMainBundle:CompanyPetition')->findOneById($petitionId);
+        if ($petition){
+            if ($this->get('security.context')->isGranted('ROLE_ADMIN') or $petition->getOperator() == $this->getUser()){
+                $mpdfService = $this->container->get('tfox.mpdfport');
+
+                $html = $this->render('CrmOperatorBundle:Petition:file.html.twig',array('petition' => $petition));
+                $arguments = array(
+//                'constructorArgs' => array('utf-8', 'A4-L', 5 ,5 ,5 ,5,5 ), //Constructor arguments. Numeric array. Don't forget about points 2 and 3 in Warning section!
+                    'writeHtmlMode' => null, //$mode argument for WriteHTML method
+                    'writeHtmlInitialise' => null, //$mode argument for WriteHTML method
+                    'writeHtmlClose' => null, //$close argument for WriteHTML method
+                    'outputFilename' => null, //$filename argument for Output method
+                    'outputDest' => null, //$dest argument for Output method
+                );
+                $mpdfService->generatePdfResponse($html->getContent(), $arguments);
+            }
+        }
+        return $this->redirect($request->headers->get('referer'));
     }
 
     /**

@@ -21,6 +21,7 @@
                 {% endif %}
                 <th>Кол-во клиентов</th>
                 <th>Оператор</th>
+                <th>Ходатайство</th>
                 <th class="empty"></th>
                 <th class="options">Действия</th>
             </tr>
@@ -32,6 +33,7 @@
                     {% endif %}
                     <td style="text-align: center">{{ petition.users | length }}</td>
                     <td><a href="#">{{ petition.operator.username }}</a></td>
+                    <td><a href="{{ path('operator_generate_file', { 'petitionId' : petition.id }) }}" target="_blank">Скачать</a></td>
                     <td></td>
                     <td class="options">
                         {% if petition.status == false %}
