@@ -15,15 +15,23 @@
     {% else %}
         <table class="lists">
             <tr>
-                <th>Название</th>
+                <th style="width: 300px">Название</th>
+                <th>Ходатайств</th>
                 <th class="empty"></th>
                 <th class="options">Действия</th>
             </tr>
             {% for company in companies %}
                 <tr>
                     <td><a href="{{ path('operator_user_list',{'companyId' : company.id}) }}">{{ company.title }}</a></td>
+                    <td>
+                        <span  class="comment" title="Разрешено">{{ company.paymentCount }}</span>
+                        /
+                        <span  class="comment" title="Сделано (кол-во пользователей)">{{ company.users | length }}</span>
+                    </td>
                     <td></td>
                     <td class="options">
+                        <a class="no-underline" href="{{ path('operator_user_list',{ 'companyId' : company.id}) }}"><img src="{{ asset('bundles/crmoperator/images/icon/image20.png') }}" class="icon"/></a>
+                        <a class="no-underline" href="{{ path('operator_petition_list',{ 'companyId' : company.id}) }}"><img src="{{ asset('bundles/crmoperator/images/icon/image26.png') }}" class="icon"/></a>
                         <a class="no-underline" href="{{ path('operator_company_edit',{ 'companyId' : company.id}) }}"><img src="{{ asset('bundles/crmoperator/images/icon/image22.png') }}" class="icon"/></a>
                     </td>
                 </tr>

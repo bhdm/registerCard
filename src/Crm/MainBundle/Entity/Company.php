@@ -11,7 +11,7 @@ use Doctrine\Common\Collections\ArrayCollection;
  * Page
  *
  * @ORM\Table()
- * @ORM\Entity
+ * @ORM\Entity()
  */
 class Company extends BaseEntity
 {
@@ -501,5 +501,15 @@ class Company extends BaseEntity
 
     public function removePetititon($petition){
         $this->petitions->removeElement($petition);
+    }
+
+    public function getPaymentCount(){
+        $payments = $this->getPayments();
+        $summ = 0;
+        foreach ($payments as $val){
+            $summ += $val->getCount();
+        }
+
+        return $summ;
     }
 }

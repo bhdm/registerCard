@@ -3,79 +3,38 @@
 
 {% block crosh %}
     <a href="{{ path('operator_main') }}">Главная</a> &raquo;
-    <a href="{{ path('operator_company_list') }}">Список компаний</a> &raquo;
-    <a href="#">{{ company.title }}</a>
+    <a href="{{ path('operator_petition_list',{'compnayId' petition.company.id }) }}">Ходатайства {{ petition.company }}</a> &raquo;
+    <a href="#">Ходатайство от {{ petition.created | date("d.m.Y H:i:s") }}</a>
 {% endblock %}
 
 {% block content %}
-    {% if companyUrl is defined and companyUrl is not null %}
-        <div  class="link"><b>Ссылка для регистрации:</b> {{ path('order_register_mini',{'compnayUrl' : companyUrl }) }}</div>
-    {% endif %}
-
     <form method="POST">
         <table>
             <tr>
-                <td class="label">URL компании:</td>
+                <td class="label">Дата ходатайства:</td>
                 <td class="value">
-                    <input name="url" id="url" type="text" value="{{ company.url }}" placeholder="company URL">
+                    {{ petition.created | date("d.m.Y H:i:s") }}
                 </td>
             </tr>
             <tr>
-                <td class="label">Название организации<span class="required">*</span>:</td>
+                <td class="label">Название организации ходатайства:</td>
                 <td class="value">
-                    <input name="companyName" id="companyName" type="text" value="{{ company.title }}" placeholder="Название">
+                    <a href="{{ path("operator_company_edit",{"compnayId" : petition.company.id }) }}">{{ petition.company }}</a>
                 </td>
             </tr>
             <tr>
-                <td class="label">Адрес организации<span class="required">*</span>:</td>
+                <td class="label">Клиенты:</td>
                 <td class="value">
-                    <input name="companyZipcode" id="companyZipcode"  type="text" placeholder="Индекс" value="{{ company.zipcode }}"><br />
-                    <select name="companyRegion" id="companyRegion">
-                        {% for region in regions %}
-                            {% if region == company.region %}
-                                <option value="{{ region.id }}" selected="selected">{{ region.title }}</option>
-                            {% else %}
-                                <option value="{{ region.id }}">{{ region.title }}</option>
-                            {% endif %}
-                        {% endfor %}
-                    </select><br />
-                    <input name="companyCity"    id="companyCity"     type="text" placeholder="Город" value="{{ company.city }}"><br />
-
-                    <select name="companyTypeStreet" id="companyTypeStreet">
-                        <option value="ул."  {{ company.typeStreet == 'ул.' ? 'selected="selected"'}}    >Улица</option>
-                        <option value="д."   {{ company.typeStreet == 'д.' ? 'selected="selected"'}}    >Дорога</option>
-                        <option value="пр-д."{{ company.typeStreet == 'пр-д.' ? 'selected="selected"'}}   >Проезд</option>
-                        <option value="туп." {{ company.typeStreet == 'туп.' ? 'selected="selected"'}}   >Тупик</option>
-                        <option value="ш."   {{ company.typeStreet == 'ш.' ? 'selected="selected"'}}   >Шоссе</option>
-                        <option value="тр."  {{ company.typeStreet == 'тр.' ? 'selected="selected"'}}   >Трасса</option>
-                        <option value="пер." {{ company.typeStreet == 'пер.' ? 'selected="selected"'}}   >Переулок</option>
-                        <option value="пл."  {{ company.typeStreet == 'пл.' ? 'selected="selected"'}}   >Площадь</option>
-                        <option value="скв." {{ company.typeStreet == 'скв.' ? 'selected="selected"'}}   >Сквер</option>
-                        <option value="алл." {{ company.typeStreet == 'алл.' ? 'selected="selected"'}}   >Аллея</option>
-                        <option value="б."   {{ company.typeStreet == 'б.' ? 'selected="selected"'}}   >Бульвар</option>
-                        <option value="пр."  {{ company.typeStreet == 'пр.' ? 'selected="selected"'}}   >Просека</option>
-                        <option value="пр-т" {{ company.typeStreet == 'пр-т' ? 'selected="selected"'}}   >Проспект</option>
-                        <option value="наб." {{ company.typeStreet == 'наб.' ? 'selected="selected"'}}   >Набережная</option>
-                        <option value=""     {{ company.typeStreet == '' ? 'selected="selected"'}}   >Другое</option>
-                    </select>
-                    <input name="companyStreet"  id="companyStreet"   type="text" placeholder="Название улицы" value="{{ company.street }}"><br />
-
-                    <input name="companyHouse"   id="companyHouse"    type="text" placeholder="Дом" class="little" value="{{ company.home }}">
-                    <input name="companyCorp"    id="companyCorp"     type="text" placeholder="Корп"  class="little" value="{{ company.corp }}">
-                    <input name="companyStructure"    id="companyStructure"     type="text" placeholder="Строение"  class="little" value="{{ company.structure }}"><br />
-
-                    <select name="companyTypeRoom" id="companyTypeRoom">
-                        <option value="кв." {{ company.typeRoom == 'кв.' ? 'selected="selected"'}}>Квартира</option>
-                        <option value="оф." {{ company.typeRoom == 'оф.' ? 'selected="selected"'}}>Офис</option>
-                    </select>
-                    <input name="companyRoom"    id="companyRoom"  type="text" placeholder="Номер"  class="little" value="{{ company.room }}">
+                    {% for user in petition.users %}
+                        <a href="{{ path("operator_user_edit",{"userId" : user.id }) }}">{{ user }}</a><br />
+                    {% endfor %}
                 </td>
             </tr>
             <tr><td colspan="2">&nbsp;</td></tr>
             <tr>
                 <td></td>
                 <td style="text-align: right">
-                    <input type="submit" id="saveHod" value="Подтвердить данные" class="btn saveForm">
+                    <input type="submit" id="saveHod" value="Отправить в обработку" class="btn saveForm">
                 </td>
             </tr>
         </table>

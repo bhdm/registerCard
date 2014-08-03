@@ -160,10 +160,13 @@ body{
     padding-left: 20px;
 }
 .lists tr .options{
-    width: 100px;
+    width: 150px;
 }
 .lists tr td.options{
     text-align: right;
+}
+.lists tr th.options{
+    text-align: center;
 }
 
 
@@ -248,4 +251,7 @@ input.little{
 }
 .right{
     float: right;
+}
+.comment{
+    cursor: pointer;
 }
