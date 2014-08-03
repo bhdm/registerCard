@@ -77,11 +77,20 @@ body{
     list-style: none;
     text-align: right;
 }
+.menu-item a{
+    color: #e0e0e0;
+}
+
 .menu-item:hover{
     background: #e0e0e0;
     color: #6c9e9f;
     cursor: pointer;
 }
+.menu-item:hover a{
+    color: #6c9e9f;
+    border: none;
+}
+
 /*
 * Контент
 */
@@ -98,6 +107,10 @@ body{
 .color-red{
     color: #CC3333;
 }
+.color-white{
+    color: #FFFFFF;
+}
+
 .nbsp-10{
     padding: 0 10px;
 }
