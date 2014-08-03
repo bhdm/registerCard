@@ -31,6 +31,10 @@ class CompanyPetition extends BaseEntity{
     protected $operator;
 
     /**
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    protected $status = 0;
+    /**
      * @ORM\Column(type="array", nullable=true)
      */
     protected $file;
@@ -110,6 +114,23 @@ class CompanyPetition extends BaseEntity{
     {
         return $this->operator;
     }
+
+    /**
+     * @param mixed $status
+     */
+    public function setStatus($status = 0)
+    {
+        $this->status = $status;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getStatus()
+    {
+        return $this->status;
+    }
+
 
 
 }

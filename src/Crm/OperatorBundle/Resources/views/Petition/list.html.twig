@@ -3,28 +3,36 @@
 
 {% block crosh %}
     <a href="{{ path('operator_main') }}">Главная</a> &raquo;
-    <a href="{{ path('operator_company_list') }}">Список компаний</a>
-    <div class="right">
-        <a href="{{ path('operator_company_add') }}">Добавить</a>
-    </div>
+    <a href="{{ path('operator_company_list') }}">
+        Список ходатайств
+        {% if company is not null %} {{ company }} {% endif %}
+    </a>
 {% endblock %}
 
 {% block content%}
-    {% if companies is empty %}
-        <h3 class="color-red">Компаний не найдено</h3>
+    {% if petitions is empty %}
+        <h3 class="color-red">Хадатайства не найдены</h3>
     {% else %}
         <table class="lists">
             <tr>
-                <th>Название</th>
+                <th>Дата</th>
+                {% if company is null %}
+                    <th>Компания</th>
+                {% endif %}
+                <th>Оператор</th>
                 <th class="empty"></th>
                 <th class="options">Действия</th>
             </tr>
-            {% for company in companies %}
+            {% for petition in petitions %}
                 <tr>
-                    <td><a href="{{ path('operator_user_list',{'companyId' : company.id}) }}">{{ company.title }}</a></td>
+                    <td><a href="{{ path('operator_petition_edit',{'petitionId' : petition.id}) }}">{{ petition.created | date("d.m.Y H:i:s") }}</a></td>
+                    {% if company is null %}
+                        <td><a href="{{ path('operator_petition_list',{'companyId' : petition.company.id}) }}">{{ petition.company }}</a></td>
+                    {% endif %}
+                    <td><a href="#">{{ petition.operator.username }}</a></td>
                     <td></td>
                     <td class="options">
-                        <a class="no-underline" href="{{ path('operator_company_edit',{ 'companyId' : company.id}) }}"><img src="{{ asset('bundles/crmoperator/images/icon/image22.png') }}" class="icon"/></a>
+                        <a class="no-underline" href="{{ path('operator_petition_edit',{ 'petitionId' : petition.id}) }}"><img src="{{ asset('bundles/crmoperator/images/icon/image22.png') }}" class="icon"/></a>
                     </td>
                 </tr>
             {% endfor %}
