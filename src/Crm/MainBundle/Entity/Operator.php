@@ -41,11 +41,16 @@ class Operator extends BaseEntity implements UserInterface
      */
     protected $roles;
 
+    /**
+     * @ORM\OneToMany(targetEntity="CompanyPetition", mappedBy="operator")
+     */
+    protected $petitions;
 
 
     public function __construct(){
         $this->roles    = 'ROLE_OPERATOR';
         $this->companies = new ArrayCollection();
+        $this->petitions = new ArrayCollection();
     }
 
     public function equals(UserInterface $user)
@@ -206,5 +211,28 @@ class Operator extends BaseEntity implements UserInterface
         $this->username = $username;
     }
 
+    /**
+     * @param mixed $petitions
+     */
+    public function setPetitions($petitions)
+    {
+        $this->petitions = $petitions;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getPetitions()
+    {
+        return $this->petitions;
+    }
+
+    public function addPetition($petition){
+        $this->petitions[] = $petition;
+    }
+
+    public function removePetition($petition){
+        $this->petitions->removeElement($petition);
+    }
 
 }

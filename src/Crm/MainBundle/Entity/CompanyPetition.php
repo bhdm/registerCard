@@ -26,6 +26,11 @@ class CompanyPetition extends BaseEntity{
     protected $users;
 
     /**
+     * @ORM\ManyToOne(targetEntity="Operator", inversedBy="petitions")
+     */
+    protected $operator;
+
+    /**
      * @ORM\Column(type="array", nullable=true)
      */
     protected $file;
@@ -89,4 +94,22 @@ class CompanyPetition extends BaseEntity{
     public function removeUser($user){
         $this->users->removeElement($user);
     }
+
+    /**
+     * @param mixed $operator
+     */
+    public function setOperator($operator)
+    {
+        $this->operator = $operator;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getOperator()
+    {
+        return $this->operator;
+    }
+
+
 }
