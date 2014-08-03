@@ -67,11 +67,26 @@ class PetitionController extends Controller
      * @Template()
      */
     public function generateAction(Request $request, $companyId){
+        $em = $this->getDoctrine()->getManager();
         if ($request->getMethod() == 'POST'){
-
+            $company = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->findOneById($companyId);
+            $usersId = $request->request->get('check');
             $petition = new CompanyPetition();
+            $petition->setCompany($company);
+            $petition->setOperator($this->getUser());
+            $em->persist($petition);
+            $em->flush($petition);
+            $em->refresh($petition);
+            foreach($usersId as $key => $val){
+                $user = $this->getDoctrine()->getRepository('CrmMainBundle:User')->findOneById($key);
+                if ($user->getCompany() == $company){
+                    $user->setCompanyPetition($petition);
+                }
+                $em->flush($user);
+            }
+            return $this->redirect($request->headers->get('referer'));
         }else{
-            return array();
+            return $this->redirect($this->generateUrl('operator_main'));
         }
     }
 
@@ -94,4 +109,17 @@ class PetitionController extends Controller
         return array('return' => false );
     }
 
+    /**
+     * @Security("has_role('ROLE_OPERATOR')")
+     * @Route("/edit/{petitionId}", name="operator_petition_edit")
+     * @Template()
+     */
+    public function editAction($petitionId){
+        $petition = $this->getDoctrine()->getRepository('CrmMainBundle:CompanyPetition')->findOneById($petitionId);
+        if ( $petition && $petition->getOperator() == $this->getUser() ){
+            return array ('petition' => $petition);
+        }else{
+            return $this->redirect($this->generateUrl('operator_main'));
+        }
+    }
 }

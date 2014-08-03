@@ -24,33 +24,40 @@
     {% if users is empty %}
         <h3 class="color-red">Пользователей не найдено</h3>
     {% else %}
-        <table class="lists">
-            <tr>
-                <th style="width: 30px"></th>
-                <th>ФИО</th>
-                <th class="empty"></th>
-                <th class="options">Действия</th>
-            </tr>
-            {% for user in users %}
+        <form method="POST" action="{{ path('operator_petition_generate',{'companyId' : company.id}) }}">
+            <table class="lists">
                 <tr>
-                    <td>
-                        <input type="checkbox" name="check[{{ company.id }}]">
-                    </td>
-                    <td><a href="{{ path('operator_user_edit' , { 'companyId' : company.id, 'userId' : user.id}) }}">{{ user }}</a></td>
-                    <td></td>
-                    <td class="options">
-                        <a href="{{ path('operator_user_edit' , { 'companyId' : company.id, 'userId' : user.id}) }}">
-                            <img src="{{ asset('bundles/crmoperator/images/icon/image22.png') }}" class="icon"/>
-                        </a>
+                    <th style="width: 30px"></th>
+                    <th>ФИО</th>
+                    <th class="empty"></th>
+                    <th class="options">Действия</th>
+                </tr>
+                {% for user in users %}
+                    <tr>
+                        <td>
+                            <input type="checkbox" name="check[{{ user.id }}]">
+                        </td>
+                        <td><a href="{{ path('operator_user_edit' , { 'companyId' : company.id, 'userId' : user.id}) }}">{{ user }}</a></td>
+                        <td></td>
+                        <td class="options">
+                            {% if user.companyPetition != null %}
+                                <a class="no-underline" href="{{ path("operator_petition_edit",{ 'petitionId' : user.companyPetition.id }) }}">
+                                    <img src="{{ asset('bundles/crmoperator/images/icon/image26.png') }}" class="icon"/>
+                                </a>
+                            {% endif %}
+                            <a href="{{ path('operator_user_edit' , { 'companyId' : company.id, 'userId' : user.id}) }}">
+                                <img src="{{ asset('bundles/crmoperator/images/icon/image22.png') }}" class="icon"/>
+                            </a>
+                        </td>
+                    </tr>
+                {% endfor %}
+                <tr>
+                    <td colspan="4">
+                        <button type="submit">Сгенерировать ходатайство на выделенных пользователей</button>
                     </td>
                 </tr>
-            {% endfor %}
-            <tr>
-                <td colspan="4">
-                    <button>Сгенерировать ходатайство на выделенных пользователей</button>
-                </td>
-            </tr>
-        </table>
+            </table>
+        </form>
     {% endif %}
 
 {% endblock %}

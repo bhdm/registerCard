@@ -3,7 +3,7 @@
 
 {% block crosh %}
     <a href="{{ path('operator_main') }}">Главная</a> &raquo;
-    <a href="{{ path('operator_petition_list',{'compnayId' petition.company.id }) }}">Ходатайства {{ petition.company }}</a> &raquo;
+    <a href="{{ path('operator_petition_list',{'compnayId': petition.company.id }) }}">Ходатайства {{ petition.company }}</a> &raquo;
     <a href="#">Ходатайство от {{ petition.created | date("d.m.Y H:i:s") }}</a>
 {% endblock %}
 
@@ -19,14 +19,14 @@
             <tr>
                 <td class="label">Название организации ходатайства:</td>
                 <td class="value">
-                    <a href="{{ path("operator_company_edit",{"compnayId" : petition.company.id }) }}">{{ petition.company }}</a>
+                    <a href="{{ path("operator_company_edit",{"companyId" : petition.company.id }) }}">{{ petition.company }}</a>
                 </td>
             </tr>
             <tr>
                 <td class="label">Клиенты:</td>
                 <td class="value">
                     {% for user in petition.users %}
-                        <a href="{{ path("operator_user_edit",{"userId" : user.id }) }}">{{ user }}</a><br />
+                        <a href="{{ path("operator_user_edit",{"companyId" : petition.company.id , "userId" : user.id }) }}">{{ user }}</a><br />
                     {% endfor %}
                 </td>
             </tr>

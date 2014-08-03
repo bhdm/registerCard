@@ -255,9 +255,9 @@ class User extends BaseEntity implements UserInterface, EquatableInterface, \Ser
     protected $copyPetition;
 
     /**
-     * @ORM\Column(type="boolean", nullable=true)
+     * @ORM\ManyToOne(targetEntity="CompanyPetition", inversedBy="users")
      */
-    protected $companyPetition = 0;
+    protected $companyPetition;
 
     /**
      * @ORM\Column(type="string")
@@ -1031,7 +1031,7 @@ class User extends BaseEntity implements UserInterface, EquatableInterface, \Ser
     /**
      * @param mixed $companyPetition
      */
-    public function setCompanyPetition($companyPetition = 0)
+    public function setCompanyPetition($companyPetition)
     {
         $this->companyPetition = $companyPetition;
     }

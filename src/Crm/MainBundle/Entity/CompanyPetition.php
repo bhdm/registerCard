@@ -21,7 +21,7 @@ class CompanyPetition extends BaseEntity{
     protected $company;
 
     /**
-     * @ORM\OneToMany(targetEntity="User", mappedBy="petition")
+     * @ORM\OneToMany(targetEntity="User", mappedBy="companyPetition")
      */
     protected $users;
 
