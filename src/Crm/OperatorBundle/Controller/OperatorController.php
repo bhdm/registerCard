@@ -49,7 +49,60 @@ class OperatorController extends Controller{
      * @Template()
      */
     public function editAction(Request $request, $operatorId){
+        $em = $this->getDoctrine()->getManager();
         $operator = $this->getDoctrine()->getRepository('CrmMainBundle:Operator')->findOneById($operatorId);
+        if (!$operator){
+            return $this->redirect($this->generateUrl('operator_operator_list'));
+        }
+
+        if ($request->getMethod() == 'POST'){
+            $operator->setUsername($request->request->get('username'));
+            $operator->setRoles($request->request->get('role'));
+            if ($request->request->get('password') != ''){
+                if ($request->request->get('password') == $request->request->get('password2')){
+                    $operator->setSalt(md5(time()));
+                    // шифрует и устанавливает пароль для пользователя,
+                    // эти настройки совпадают с конфигурационными файлами
+                    $encoder = new MessageDigestPasswordEncoder('sha512', true, 10);
+                    $password = $encoder->encodePassword('b', $operator->getSalt());
+                    $operator->setPassword($password);
+                }else{
+                    return array('operator' => $operator);
+                }
+            }
+            $em->flush($operator);
+            return $this->redirect($this->generateUrl('operator_operator_list'));
+        }
+        return array('operator' => $operator);
+    }
+
+    /**
+     * @Route("/add", name="operator_operator_add")
+     * @Template()
+     */
+    public function addAction(Request $request){
+        $em = $this->getDoctrine()->getManager();
+        $operator = new Operator();
+        if (!$operator){
+            return $this->redirect($this->generateUrl('operator_operator_list'));
+        }
+
+        if ($request->getMethod() == 'POST'){
+            $operator->setUsername($request->request->get('username'));
+            $operator->setRoles($request->request->get('role'));
+            if ($request->request->get('password') == $request->request->get('password2')){
+                $operator->setSalt(md5(time()));
+                // шифрует и устанавливает пароль для пользователя,
+                // эти настройки совпадают с конфигурационными файлами
+                $encoder = new MessageDigestPasswordEncoder('sha512', true, 10);
+                $password = $encoder->encodePassword('b', $operator->getSalt());
+                $operator->setPassword($password);
+            }else{
+                return array('operator' => $operator);
+            }
+            $em->flush($operator);
+            return $this->redirect($this->generateUrl('operator_operator_list'));
+        }
         return array('operator' => $operator);
     }
 

@@ -27,8 +27,8 @@ class DefaultController extends Controller
         $manager = $this->getDoctrine()->getManager();
 
         // создание пользователя
-        $user = new Operator();
-        $user->setUsername('b');
+//        $user = new Operator();
+//        $user->setUsername('b');
         $user->setSalt(md5(time()));
         $user->setRoles('ROLE_OPERATOR');
         // шифрует и устанавливает пароль для пользователя,

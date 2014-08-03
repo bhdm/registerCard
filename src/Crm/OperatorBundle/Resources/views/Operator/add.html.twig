@@ -1,0 +1,97 @@
+{% extends 'CrmOperatorBundle::layout.html.twig' %}
+
+
+{% block crosh %}
+    <a href="{{ path('operator_main') }}">Главная</a> &raquo;
+    <a href="{{ path('operator_operator_list') }}">Операторы</a> &raquo;
+    <a href="#">Добавить нового оператора</a>
+{% endblock %}
+
+{% block content %}
+    <form method="POST">
+        <table>
+            <tr>
+                <td class="label">Логин:</td>
+                <td class="value">
+                    <input name="username" id="username" type="text" value="{{ operator.username }}" placeholder="Логин оператора">
+                </td>
+            </tr>
+            <tr>
+                <td class="label">Права:</td>
+                <td class="value">
+                    <select name="role" id="role" style="width: 270px;">
+                        <option value="ROLE_OPERATOR" {{ operator.roles[0] == 'ROLE_OPERATOR' ? 'selected'  : ''}}>Оператор</option>
+                        <option value="ROLE_ADMIN"  {{ operator.roles[0] == 'ROLE_ADMIN' ? 'selected'  : ''}}>Администратор</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td class="label">Пароль<span class="required">*</span>:</td>
+                <td class="value">
+                    <input name="password" id="password" type="password" value="" placeholder="Пароль">
+                </td>
+            </tr>
+            <tr>
+                <td class="label">Повторите пароль<span class="required">*</span>:</td>
+                <td class="value">
+                    <input name="password2" id="password2" type="password" value="" placeholder="Повторите пароль">
+                </td>
+            </tr>
+            <tr><td colspan="2">&nbsp;</td></tr>
+            <tr>
+                <td></td>
+                <td style="text-align: right">
+                    <input type="submit" id="saveHod" value="Сохранить" class="btn saveForm">
+                </td>
+            </tr>
+        </table>
+    </form>
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <style>
+        #role-styler .jq-selectbox__select{
+            width: 212px !important;
+        }
+        .table-edit{
+            margin-left: 20px;
+        }
+        .table-edit tr td{
+            padding: 10px 0;
+        }
+        .label{
+            width: 250px;
+        }
+        #url{
+            width: 358px;
+        }
+        #companyZipcode{
+            width: 358px;
+        }
+        #companyName{
+            width: 358px;
+        }
+        #companyCity{
+            width: 358px;
+        }
+        #companyStreet{
+            width: 215px;
+        }
+        #companyTypeRoom-styler .jq-selectbox__select{
+            width: 122px !important;
+        }
+        #companyTypeRoom-styler{
+            margin-top: -1px;
+        }
+        #companyRegion-styler .jq-selectbox__dropdown, #companyTypeStreet-styler .jq-selectbox__dropdown{
+            width: 272px !important;
+        }
+        #companyTypeRoom-styler .jq-selectbox__dropdown{
+            width: 180px !important;
+        }
+        .jq-selectbox{
+            padding: 5px 0;
+        }
+    </style>
+{% endblock %}

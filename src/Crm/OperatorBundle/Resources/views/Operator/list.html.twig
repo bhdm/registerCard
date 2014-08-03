@@ -4,6 +4,10 @@
 {% block crosh %}
     <a href="{{ path('operator_main') }}">Главная</a> &raquo;
     <a href="#"> Операторы </a>
+
+    <div class="right">
+        <a href="{{ path('operator_operator_add') }}">Добавить</a>
+    </div>
 {% endblock %}
 
 {% block content%}
@@ -13,12 +17,22 @@
         <table class="lists">
             <tr>
                 <th>Оператор</th>
+                <th>Права</th>
                 <th class="empty"></th>
                 <th class="options">Действия</th>
             </tr>
             {% for operator in operators %}
                 <tr>
                     <td><a href="{{ path('operator_operator_edit',{'operatorId' : operator.id}) }}">{{ operator.username }}</a></td>
+                    <td>
+                        {% for role in operator.roles %}
+                            {% if role == 'ROLE_ADMIN' %}
+                                Администратор<br />
+                            {% elseif role == 'ROLE_OPERATOR' %}
+                                Оператор<br />
+                            {% endif %}
+                        {% endfor %}
+                    </td>
                     <td></td>
                     <td class="options">
                         <a class="no-underline" href="{{ path('operator_operator_edit',{ 'operatorId' : operator.id}) }}"><img src="{{ asset('bundles/crmoperator/images/icon/image22.png') }}" class="icon"/></a>
