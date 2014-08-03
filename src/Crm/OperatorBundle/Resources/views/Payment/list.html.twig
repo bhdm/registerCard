@@ -1,0 +1,48 @@
+{% extends 'CrmOperatorBundle::layout.html.twig' %}
+
+
+{% block crosh %}
+    <a href="{{ path('operator_main') }}">Главная</a> &raquo;
+    <a href="{{ path('operator_payment_list') }}">
+        Список платежей
+        {% if company is not null %} {{ company }} {% endif %}
+    </a>
+    <div class="right">
+        <a href="{{ path('operator_payment_add') }}">Добавить</a>
+    </div>
+{% endblock %}
+
+{% block content%}
+    {% if payments is empty %}
+        <h3 class="color-red">Платежи не найдены</h3>
+    {% else %}
+        <table class="lists">
+            <tr>
+                <th>Дата</th>
+                {% if company is null %}
+                    <th>Компания</th>
+                {% endif %}
+                <th>Кол-во ходатайств</th>
+                <th>Сумма платежа</th>
+                <th class="empty"></th>
+                <th class="options">Действия</th>
+            </tr>
+            {% for payment in payments %}
+                <tr>
+                    <td><a href="{{ path('operator_payment_edit',{'paymentId' : payment.id}) }}">{{ payment.created | date("d.m.Y H:i:s") }}</a></td>
+                    {% if company is null %}
+                        <td><a href="{{ path('operator_payment_list',{'companyId' : payment.company.id}) }}">{{ payment.company }}</a></td>
+                    {% endif %}
+                    <td style="text-align: center">{{ payment.count  }}</td>
+                    <td style="text-align: center">{{ payment.summ  }}</td>
+                    <td></td>
+                    <td class="options">
+                        <a class="no-underline" href="{{ path('operator_payment_remove',{ 'paymentId' : payment.id}) }}"><img src="{{ asset('bundles/crmoperator/images/icon/image11.png') }}" class="icon"/></a>
+                        <a class="no-underline" href="{{ path('operator_payment_edit',{ 'paymentId' : payment.id}) }}"><img src="{{ asset('bundles/crmoperator/images/icon/image22.png') }}" class="icon"/></a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </table>
+    {% endif %}
+
+{% endblock %}

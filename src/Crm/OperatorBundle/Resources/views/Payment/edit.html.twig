@@ -3,38 +3,37 @@
 
 {% block crosh %}
     <a href="{{ path('operator_main') }}">Главная</a> &raquo;
-    <a href="{{ path('operator_petition_list',{'compnayId': petition.company.id }) }}">Ходатайства {{ petition.company }}</a> &raquo;
-    <a href="#">Ходатайство от {{ petition.created | date("d.m.Y H:i:s") }}</a>
+    <a href="{{ path('operator_payment_list') }}">Платежи</a> &raquo;
+    <a href="#">Платеж от {{ payment.created | date("d.m.Y H:i:s") }}</a>
 {% endblock %}
 
 {% block content %}
-    <form method="POST" id="petitionForm">
+    <form method="POST">
         <table class="table-edit">
             <tr>
-                <td class="label">Дата ходатайства:</td>
+                <td class="label">Организация:</td>
                 <td class="value">
-                    {{ petition.created | date("d.m.Y H:i:s") }}
+                    <select name="company" id="company">
+                        {% for company in companies %}
+                            {% if company.id == payment.company.id %}
+                                <option value="{{ company.id }}" selected>{{ company }}</option>
+                            {% else %}
+                                <option value="{{ company.id }}">{{ company }}</option>
+                            {% endif %}
+                        {% endfor %}
+                    </select>
                 </td>
             </tr>
             <tr>
-                <td class="label">Название организации:</td>
+                <td class="label">Кол-во ходатайств:</td>
                 <td class="value">
-                    <a href="{{ path("operator_company_edit",{"companyId" : petition.company.id }) }}">{{ petition.company }}</a>
+                    <input type="text" name="count" id="count" value="{{ payment.count }}">
                 </td>
             </tr>
             <tr>
-                <td class="label">Клиенты:</td>
+                <td class="label">Сумма платежа:</td>
                 <td class="value">
-                    {% for user in petition.users %}
-                        <a href="{{ path("operator_user_edit",{"companyId" : petition.company.id , "userId" : user.id }) }}">{{ user }}</a><br />
-                    {% endfor %}
-                </td>
-            </tr>
-
-            <tr>
-                <td class="label">Подписанное ходатайство:</td>
-                <td class="value">
-                    <input type="file" name="petitionFile">
+                    <input type="text" name="summ" id="summ" value="{{ payment.summ }}">
                 </td>
             </tr>
 
@@ -42,32 +41,21 @@
             <tr>
                 <td></td>
                 <td style="text-align: right">
-                    <input type="submit" id="savePetition" value="Отправить в обработку" class="btn saveForm">
+                    <input type="submit" value="Сохранить" class="btn saveForm">
                 </td>
             </tr>
         </table>
     </form>
 {% endblock %}
 
-{% block javascripts %}
-    {{ parent() }}
-    <script>
-        $(document).ready(function(){
-            $('#savePetition').click(function(){
-                if ( $('input[type=file]').val() != '' ){
-                    $('#petitionForm').submit();
-                }else{
-                    $('.jq-file__name').css('borderColor', '#CC0000');
-                    return false;
-                }
-            });
-        });
-    </script>
-{% endblock %}
+
 
 {% block stylesheets %}
     {{ parent() }}
     <style>
+        #company-styler .jq-selectbox__select{
+            width: 212px !important;
+        }
         .table-edit{
             margin-left: 20px;
         }

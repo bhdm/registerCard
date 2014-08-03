@@ -97,7 +97,7 @@ class PetitionController extends Controller
      * @Template()
      */
     public function generateFileAction(Request $request, $petitionId){
-        $petition = $this->getDoctrine()->getRepository('CrmMainBundle:CompanyPetition')->findOneById($petitionId);
+        $petition = $this->getDoctrine()->getRepository('CrmMainBundle:CompanyPetition')->findOnById($petitionId);
         if ($petition){
             if ($this->get('security.context')->isGranted('ROLE_ADMIN') or $petition->getOperator() == $this->getUser()){
                 $mpdfService = $this->container->get('tfox.mpdfport');
