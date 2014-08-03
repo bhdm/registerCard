@@ -34,21 +34,7 @@
     </div>
 </div>
 <div class="main-content">
-
-    {% if is_granted('ROLE_ADMIN') %}
-    <div class="menu">
-        <div class="menu-title">
-            Навигация
-        </div>
-        <br />
-        <ul class="menu-items">
-            <li  class="menu-item">Компании</li>
-            <li  class="menu-item">Пользователи</li>
-            <li  class="menu-item">Статистика</li>
-        </ul>
-    </div>
-    {% endif %}
-
+    {% include "menu.html.twig" %}
     <div class="crosh">
         {% block crosh %}
         <a href="#">Главная</a> &raquo; <a href="#">Пользователи</a> &raquo; <a href="#">Список</a>

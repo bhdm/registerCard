@@ -1,0 +1,27 @@
+{% if is_granted('ROLE_OPERATOR') %}
+    <div class="menu">
+        <div class="menu-title">
+            Навигация
+        </div>
+        <br />
+        <ul class="menu-items">
+            <li  class="menu-item">Компании</li>
+            <li  class="menu-item">Пользователи</li>
+            <li  class="menu-item">Оплата</li>
+        </ul>
+    </div>
+{% endif %}
+
+{% if is_granted('ROLE_ADMIN') %}
+    <div class="menu">
+        <div class="menu-title">
+            Навигация
+        </div>
+        <br />
+        <ul class="menu-items">
+            <li  class="menu-item">Компании</li>
+            <li  class="menu-item">Пользователи</li>
+            <li  class="menu-item">Статистика</li>
+        </ul>
+    </div>
+{% endif %}

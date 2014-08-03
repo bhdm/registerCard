@@ -5,6 +5,7 @@ namespace Crm\MainBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use Iphp\FileStoreBundle\Mapping\Annotation as FileStore;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * Page
@@ -127,9 +128,24 @@ class Company extends BaseEntity
     protected $operator;
 
     /**
+     * @ORM\OneToMany(targetEntity="CompanyPayment", mappedBy="company")
+     */
+    protected $payments;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="CompanyPetition", inversedBy="company")
+     */
+    protected $petitions;
+
+    /**
      * @ORM\Column(type="boolean")
      */
     protected $enabled = 0;
+
+    public function __construct(){
+        $this->payments = new ArrayCollection();
+        $this->petitions = new ArrayCollection();
+    }
 
     public function __toString(){
         return $this->title;
@@ -439,7 +455,51 @@ class Company extends BaseEntity
         $this->operator = $operator;
     }
 
+    /**
+     * @param mixed $payments
+     */
+    public function setPayments($payments)
+    {
+        $this->payments = $payments;
+    }
 
+    /**
+     * @return mixed
+     */
+    public function getPayments()
+    {
+        return $this->payments;
+    }
 
+    public function addPayment($payment){
+        $this->payments[] = $payment;
+    }
 
+    public function removePayment($payment){
+        $this->payments->removeElement($payment);
+    }
+
+    /**
+     * @param mixed $petitions
+     */
+    public function setPetitions($petitions)
+    {
+        $this->petitions = $petitions;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getPetitions()
+    {
+        return $this->petitions;
+    }
+
+    public function addPetititon($petition){
+        $this->petitions[] = $petition;
+    }
+
+    public function removePetititon($petition){
+        $this->petitions->removeElement($petition);
+    }
 }
