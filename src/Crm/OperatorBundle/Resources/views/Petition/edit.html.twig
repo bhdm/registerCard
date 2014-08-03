@@ -9,7 +9,7 @@
 
 {% block content %}
     <form method="POST">
-        <table>
+        <table class="table-edit">
             <tr>
                 <td class="label">Дата ходатайства:</td>
                 <td class="value">
@@ -17,7 +17,7 @@
                 </td>
             </tr>
             <tr>
-                <td class="label">Название организации ходатайства:</td>
+                <td class="label">Название организации:</td>
                 <td class="value">
                     <a href="{{ path("operator_company_edit",{"companyId" : petition.company.id }) }}">{{ petition.company }}</a>
                 </td>
@@ -44,6 +44,12 @@
 {% block stylesheets %}
     {{ parent() }}
     <style>
+        .table-edit{
+            margin-left: 20px;
+        }
+        .table-edit tr td{
+            padding: 10px 0;
+        }
         .label{
             width: 250px;
         }

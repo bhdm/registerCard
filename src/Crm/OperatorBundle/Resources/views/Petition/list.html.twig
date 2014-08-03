@@ -19,6 +19,7 @@
                 {% if company is null %}
                     <th>Компания</th>
                 {% endif %}
+                <th>Кол-во клиентов</th>
                 <th>Оператор</th>
                 <th class="empty"></th>
                 <th class="options">Действия</th>
@@ -29,9 +30,13 @@
                     {% if company is null %}
                         <td><a href="{{ path('operator_petition_list',{'companyId' : petition.company.id}) }}">{{ petition.company }}</a></td>
                     {% endif %}
+                    <td style="text-align: center">{{ petition.users | length }}</td>
                     <td><a href="#">{{ petition.operator.username }}</a></td>
                     <td></td>
                     <td class="options">
+                        {% if petition.status == false %}
+                            <a class="no-underline" href="{{ path('operator_petition_remove',{ 'petitionId' : petition.id}) }}"><img src="{{ asset('bundles/crmoperator/images/icon/image11.png') }}" class="icon"/></a>
+                        {% endif %}
                         <a class="no-underline" href="{{ path('operator_petition_edit',{ 'petitionId' : petition.id}) }}"><img src="{{ asset('bundles/crmoperator/images/icon/image22.png') }}" class="icon"/></a>
                     </td>
                 </tr>

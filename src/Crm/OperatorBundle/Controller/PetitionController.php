@@ -122,4 +122,20 @@ class PetitionController extends Controller
             return $this->redirect($this->generateUrl('operator_main'));
         }
     }
+
+    /**
+     * @Security("has_role('ROLE_OPERATOR')")
+     * @Route("/remove/{petitionId}", name="operator_petition_remove")
+     * @Template()
+     */
+    public function removeAction(Request $request, $petitionId){
+        $petition = $this->getDoctrine()->getRepository('CrmMainBundle:CompanyPetition')->findOneById($petitionId);
+        if ( $petition && $petition->getOperator() == $this->getUser() ){
+            $this->getDoctrine()->getManager()->remove($petition);
+            $this->getDoctrine()->getManager()->flush();
+            return $this->redirect($request->headers->get('referer'));
+        }else{
+            return $this->redirect($this->generateUrl('operator_main'));
+        }
+    }
 }
