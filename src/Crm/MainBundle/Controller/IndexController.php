@@ -16,7 +16,6 @@ use Zelenin\smsru;
 class IndexController extends Controller
 {
     /**
-     * @Route("/", name="main")
      * @Template()
      */
     public function indexAction()
@@ -34,7 +33,6 @@ class IndexController extends Controller
     }
 
     /**
-     * @Route("/page/{url}", name="page")
      * @Template()
      */
     public function pageAction($url){
@@ -43,7 +41,6 @@ class IndexController extends Controller
     }
 
     /**
-     * @Route("/doc/{id}", name="document")
      * @Template()
      */
     public function documentAction($id){
@@ -52,7 +49,6 @@ class IndexController extends Controller
     }
 
     /**
-     * @Route("/docments", name="documents")
      * @Template()
      */
     public function documentsAction(){
@@ -61,7 +57,6 @@ class IndexController extends Controller
     }
 
     /**
-     * @Route("/faq/{catId}", name="faq", defaults={"catId" = 1 })
      * @Template()
      */
     public function faqAction(Request $request, $catId){
@@ -103,7 +98,6 @@ class IndexController extends Controller
     /**
      * Форма проверки статуса.
      * Ввод может быть телефона или почты, в зависимости от этого присылается туда статус таксокартыы
-     * @Route("/status", name="status")
      * @Template()
      */
     public function statusAction(Request $request){
@@ -159,7 +153,6 @@ class IndexController extends Controller
     }
 
     /**
-     * @Route("/feedback", name="feedback")
      * @Template()
      */
     public function feedbackAction(Request $request){
@@ -193,7 +186,6 @@ class IndexController extends Controller
     }
 
     /**
-     * @Route("/sitemap")
      * @Template()
      */
     public function sitemapAction(){
