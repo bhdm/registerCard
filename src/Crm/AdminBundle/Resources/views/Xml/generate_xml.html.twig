@@ -14,8 +14,8 @@
         <PersonOrder>
             <PersonInfo>
                 <NameFirst>{{ driver.firstName }}</NameFirst>
-                <NameLast>{{ driver.lastName }}</NameLast>
                 <NameMiddle>{{ driver.surName is not null ? driver.surName : '' }}</NameMiddle>
+                <NameLast>{{ driver.lastName }}</NameLast>
                 <BirthDate>{{ driver.birthDate | date('Y-m-d') }}Z</BirthDate>
                 <SNILS>{{ driver.snils }}</SNILS>
                 <Passport>
