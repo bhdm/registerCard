@@ -59,9 +59,15 @@
                         <td></td>
                         <td class="options">
                             {% if user.companyPetition != null %}
-                                <a class="no-underline" href="{{ path("operator_petition_edit",{ 'petitionId' : user.companyPetition.id }) }}">
-                                    <img src="{{ asset('bundles/crmoperator/images/icon/image26.png') }}" class="icon"/>
-                                </a>
+                                {% if user.companyPetition.status == 0 %}
+                                    <a class="no-underline" href="{{ path("operator_petition_edit",{ 'petitionId' : user.companyPetition.id }) }}">
+                                        <img src="{{ asset('bundles/crmoperator/images/icon/image26.png') }}" class="icon"/>
+                                    </a>
+                                {% else %}
+                                    <a class="no-underline" href="{{ path("operator_petition_edit",{ 'petitionId' : user.companyPetition.id }) }}">
+                                        <img src="{{ asset('bundles/crmoperator/images/icon/image26_green.png') }}" class="icon"/>
+                                    </a>
+                                {% endif %}
                             {% endif %}
                             <a class="no-underline" href="{{ path('operator_user_edit' , { 'companyId' : user.company.id, 'userId' : user.id}) }}">
                                 <img src="{{ asset('bundles/crmoperator/images/icon/image22.png') }}" class="icon"/>
