@@ -37,6 +37,15 @@ class MiniController extends Controller{
     }
 
     /**
+     * @Route("/page/{url}", name="page")
+     * @Template()
+     */
+    public function pageAction($url){
+        $page = $this->getDoctrine()->getRepository('CrmMainBundle:Page')->findOneByUrl($url);
+        return array( 'page' => $page );
+    }
+
+    /**
      * @Route("/company/order-register/{compnayUrl}", name="order_register_mini" , options={"expose"=true})
      * @Template()
      */
