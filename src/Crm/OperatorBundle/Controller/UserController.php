@@ -35,10 +35,14 @@ class UserController extends Controller{
             $users = $this->getDoctrine()->getRepository('CrmMainBundle:User')->findAll();
         }else{
             $company = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->findOneById($companyId);
-            if ($company->getOperator($this->getUser()) || $this->get('security.context')->isGranted('ROLE_ADMIN'))
-                $users = $company->getUsers();
-            else{
-                return $this->redirect($this->generateUrl('operator_main'));
+            if ($company){
+                if ($company->getOperator($this->getUser()) || $this->get('security.context')->isGranted('ROLE_ADMIN'))
+                    $users = $company->getUsers();
+                else{
+                    return $this->redirect($this->generateUrl('operator_main'));
+                }
+            }else{
+                $users = $this->getDoctrine()->getRepository('CrmMainBundle:User')->ofOperator($this->getUser());
             }
         }
         return array('company'=> $company,  'users' => $users);
