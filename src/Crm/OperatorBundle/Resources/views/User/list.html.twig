@@ -34,6 +34,7 @@
             <table class="lists">
                 <tr>
                     <th style="width: 30px"></th>
+                    <th>Дата</th>
                     {% if company == null %}
                         <th>Компания</th>
                     {% endif %}
@@ -46,6 +47,7 @@
                         <td>
                             <input type="checkbox" name="check[{{ user.id }}]">
                         </td>
+                        <td>{{ user.created | date("d.m.Y") }}</td>
                         {% if company == null %}
                             <td>
                                 <a href="{{ path('operator_user_list' , { 'companyId' : user.company.id}) }}">{{ user.company }}</a>
