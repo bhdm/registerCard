@@ -26,8 +26,7 @@ class Document extends BaseEntity
     protected  $body;
 
     /**
-     * @Assert\NotBlank()
-     * @ORM\Column(type="string", length=6)
+     * @ORM\Column(type="string", length=6, nullable=true)
      */
     protected $type;
 
@@ -66,7 +65,7 @@ class Document extends BaseEntity
     /**
      * @param mixed $type
      */
-    public function setType($type)
+    public function setType($type = 'doc')
     {
         $this->type = $type;
     }
