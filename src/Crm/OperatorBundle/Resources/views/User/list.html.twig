@@ -63,8 +63,12 @@
                                     <img src="{{ asset('bundles/crmoperator/images/icon/image26.png') }}" class="icon"/>
                                 </a>
                             {% endif %}
-                            <a href="{{ path('operator_user_edit' , { 'companyId' : user.company.id, 'userId' : user.id}) }}">
+                            <a class="no-underline" href="{{ path('operator_user_edit' , { 'companyId' : user.company.id, 'userId' : user.id}) }}">
                                 <img src="{{ asset('bundles/crmoperator/images/icon/image22.png') }}" class="icon"/>
+                            </a>
+
+                            <a class="no-underline" href="{{ path('operator_user_remove' , { 'userId' : user.id}) }}">
+                                <img src="{{ asset('bundles/crmoperator/images/icon/image11.png') }}" class="icon"/>
                             </a>
                         </td>
                     </tr>
