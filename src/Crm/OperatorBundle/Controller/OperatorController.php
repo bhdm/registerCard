@@ -65,7 +65,7 @@ class OperatorController extends Controller{
                     // шифрует и устанавливает пароль для пользователя,
                     // эти настройки совпадают с конфигурационными файлами
                     $encoder = new MessageDigestPasswordEncoder('sha512', true, 10);
-                    $password = $encoder->encodePassword('b', $operator->getSalt());
+                    $password = $encoder->encodePassword($request->request->get('password'), $operator->getSalt());
                     $operator->setPassword($password);
                 }else{
                     return array('operator' => $operator);
