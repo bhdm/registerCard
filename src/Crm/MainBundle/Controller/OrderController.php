@@ -258,7 +258,7 @@ class OrderController extends Controller{
 //            $company->setRoom($data->get('companyRoom'));
             $region = $this->getDoctrine()->getRepository('CrmMainBundle:Region')->findOneById($company->getRegion());
             $company->setRegion($region);
-
+            $company->setPetitions(null);
             $em->persist($company);
             $em->flush($company);
             $em->refresh($company);
