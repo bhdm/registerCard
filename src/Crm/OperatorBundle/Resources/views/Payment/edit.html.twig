@@ -14,11 +14,11 @@
                 <td class="label">Организация:</td>
                 <td class="value">
                     <select name="company" id="company">
-                        {% for company in companies %}
-                            {% if company.id == payment.company.id %}
-                                <option value="{{ company.id }}" selected>{{ company }}</option>
+                        {% for o in operators %}
+                            {% if o.id == payment.company.id %}
+                                <option value="{{ o.id }}" selected>{{ o }}</option>
                             {% else %}
-                                <option value="{{ company.id }}">{{ company }}</option>
+                                <option value="{{ o.id }}">{{ o }}</option>
                             {% endif %}
                         {% endfor %}
                     </select>

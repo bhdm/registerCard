@@ -26,9 +26,9 @@ class CompanyPayment extends BaseEntity{
     protected $summ;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Company", inversedBy="payments")
+     * @ORM\ManyToOne(targetEntity="Operator", inversedBy="payments")
      */
-    protected $company;
+    protected $operator;
 
     /**
      * @param mixed $company

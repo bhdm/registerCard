@@ -11,17 +11,17 @@
     <form method="POST">
         <table class="table-edit">
             <tr>
-                <td class="label">Организация:</td>
+                <td class="label">Оператор:</td>
                 <td class="value">
                     <select name="company" id="company">
-                        {% for company in companies %}
-                            <option value="{{ company.id }}">{{ company }}</option>
+                        {% for o in operators %}
+                            <option value="{{ o.id }}">{{ o }}</option>
                         {% endfor %}
                     </select>
                 </td>
             </tr>
             <tr>
-                <td class="label">Кол-во ходатайств:</td>
+                <td class="label">Кол-во пользователей:</td>
                 <td class="value">
                     <input type="text" name="count" id="count" value="">
                 </td>

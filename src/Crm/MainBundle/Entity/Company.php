@@ -128,11 +128,6 @@ class Company extends BaseEntity
     protected $operator;
 
     /**
-     * @ORM\OneToMany(targetEntity="CompanyPayment", mappedBy="company")
-     */
-    protected $payments;
-
-    /**
      * @ORM\ManyToOne(targetEntity="CompanyPetition", inversedBy="company")
      */
     protected $petitions;
@@ -188,7 +183,6 @@ class Company extends BaseEntity
     protected $enabled = 0;
 
     public function __construct(){
-        $this->payments = new ArrayCollection();
         $this->petitions = new ArrayCollection();
     }
 
@@ -500,29 +494,6 @@ class Company extends BaseEntity
         $this->operator = $operator;
     }
 
-    /**
-     * @param mixed $payments
-     */
-    public function setPayments($payments)
-    {
-        $this->payments = $payments;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getPayments()
-    {
-        return $this->payments;
-    }
-
-    public function addPayment($payment){
-        $this->payments[] = $payment;
-    }
-
-    public function removePayment($payment){
-        $this->payments->removeElement($payment);
-    }
 
     /**
      * @param mixed $petitions
@@ -548,15 +519,6 @@ class Company extends BaseEntity
         $this->petitions->removeElement($petition);
     }
 
-    public function getPaymentCount(){
-        $payments = $this->getPayments();
-        $summ = 0;
-        foreach ($payments as $val){
-            $summ += $val->getCount();
-        }
-
-        return $summ;
-    }
 
     /**
      * @param mixed $bank
