@@ -18,6 +18,7 @@
             <tr>
                 <th>Оператор</th>
                 <th>Права</th>
+                <th>Кол-во</th>
                 <th class="empty"></th>
                 <th class="options">Действия</th>
             </tr>
@@ -33,6 +34,7 @@
                             {% endif %}
                         {% endfor %}
                     </td>
+                    <td style="text-align: center">{{ operator.paymentCount }}</td>
                     <td></td>
                     <td class="options">
                         <a class="no-underline" href="{{ path('operator_operator_edit',{ 'operatorId' : operator.id}) }}"><img src="{{ asset('bundles/crmoperator/images/icon/image22.png') }}" class="icon"/></a>
@@ -42,5 +44,4 @@
             {% endfor %}
         </table>
     {% endif %}
-
 {% endblock %}

@@ -46,8 +46,8 @@ class PaymentController extends Controller
         $em = $this->getDoctrine()->getManager();
         if ( $request->getMethod() == 'POST'){
             $payment = new CompanyPayment();
-            $company = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->findOneById($request->request->get('company'));
-            $payment->setCompany($company);
+            $operator = $this->getDoctrine()->getRepository('CrmMainBundle:Operator')->findOneById($request->request->get('operator'));
+            $payment->setCompany($operator);
             $payment->setCount($request->request->get('count'));
             $payment->setSumm($request->request->get('summ'));
             $em->persist($payment);
@@ -67,8 +67,8 @@ class PaymentController extends Controller
         $payment = $this->getDoctrine()->getRepository('CrmMainBundle:CompanyPayment')->findOneById($paymentId);
         if ($payment){
             if ( $request->getMethod() == 'POST'){
-                $company = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->findOneById($request->request->get('company'));
-                $payment->setCompany($company);
+                $operator = $this->getDoctrine()->getRepository('CrmMainBundle:Operator')->findOneById($request->request->get('operator'));
+                $payment->setCompany($operator);
                 $payment->setCount($request->request->get('count'));
                 $payment->setSumm($request->request->get('summ'));
                 $em->flush($payment);
