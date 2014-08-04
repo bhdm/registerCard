@@ -11,6 +11,12 @@ use Doctrine\ORM\NoResultException;
 
 class OperatorRepository extends EntityRepository implements UserProviderInterface
 {
+
+    public function findAll()
+    {
+        return $this->findBy(array('enabled'=> 1 ), array('created' => 'DESC'));
+    }
+
     public function loadUserByUsername($username)
     {
         $q = $this
