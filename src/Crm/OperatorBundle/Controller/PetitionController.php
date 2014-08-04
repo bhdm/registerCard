@@ -157,12 +157,23 @@ class PetitionController extends Controller
      */
     public function removeAction(Request $request, $petitionId){
         $petition = $this->getDoctrine()->getRepository('CrmMainBundle:CompanyPetition')->findOneById($petitionId);
-        if ( $petition && $petition->getOperator() == $this->getUser() ){
+        if ( $petition && ( $petition->getOperator() == $this->getUser() || $this->get('security.context')->isGranted('ROLE_ADMIN') )){
             $this->getDoctrine()->getManager()->remove($petition);
             $this->getDoctrine()->getManager()->flush();
             return $this->redirect($request->headers->get('referer'));
         }else{
             return $this->redirect($this->generateUrl('operator_main'));
         }
+    }
+
+    /**
+     * @Security("has_role('ROLE_ADMIN')")
+     * @Route("/arhive/{petitionId}", name="operator_petition_arhive")
+     */
+    public function arhiveAction(Request $request, $petitionId){
+        $petition = $this->getDoctrine()->getRepository('CrmMainBundle:CompanyPetition')->findOneById($petitionId);
+        $petition->setEnabled(false);
+        $this->getDoctrine()->getManager()->flush($petition);
+        return $this->redirect($request->headers->get('referer'));
     }
 }

@@ -36,6 +36,9 @@
                     <td><a href="{{ path('operator_generate_file', { 'petitionId' : petition.id }) }}" target="_blank">Скачать</a></td>
                     <td></td>
                     <td class="options">
+                        {% if is_granted('ROLE_ADMIN') %}
+                            <a class="no-underline" href="{{ path('operator_petition_arhive',{ 'petitionId' : petition.id}) }}"><img src="{{ asset('bundles/crmoperator/images/icon/image20.png') }}" class="icon" title="Добавить в архив"/></a>
+                        {% endif %}
                         {% if petition.status == false %}
                             <a class="no-underline" href="{{ path('operator_petition_remove',{ 'petitionId' : petition.id}) }}"><img src="{{ asset('bundles/crmoperator/images/icon/image11.png') }}" class="icon"/></a>
                         {% endif %}
