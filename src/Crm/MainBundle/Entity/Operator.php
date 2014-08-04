@@ -27,7 +27,7 @@ class Operator extends BaseEntity implements UserInterface
     protected $password;
 
     /**
-     * @ORM\OneToMany(targetEntity="Company", mappedBy="operator")
+     * @ORM\OneToMany(targetEntity="Company", mappedBy="operator", orphanRemoval=false)
      */
     protected $companies;
 
@@ -42,12 +42,12 @@ class Operator extends BaseEntity implements UserInterface
     protected $roles;
 
     /**
-     * @ORM\OneToMany(targetEntity="CompanyPetition", mappedBy="operator")
+     * @ORM\OneToMany(targetEntity="CompanyPetition", mappedBy="operator", cascade={"all"})
      */
     protected $petitions;
 
     /**
-     * @ORM\OneToMany(targetEntity="CompanyPayment", mappedBy="operator")
+     * @ORM\OneToMany(targetEntity="CompanyPayment", mappedBy="operator", cascade={"all"})
      */
     protected $payments;
 

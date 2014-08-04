@@ -23,18 +23,18 @@ use Symfony\Component\Security\Core\Encoder\MessageDigestPasswordEncoder;
 class PaymentController extends Controller
 {
     /**
-     * @Route("/list/{companyId}", name="operator_payment_list", defaults={"companyId" = null })
+     * @Route("/list/{operatorId}", name="operator_payment_list", defaults={"operatorId" = null })
      * @Template()
      */
-    public function listAction($companyId = null){
-        if ($companyId){
-            $company = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->findOneById($companyId);
-            $payments = $this->getDoctrine()->getRepository('CrmMainBundle:CompanyPayment')->findByCompany($company);
+    public function listAction($operatorId = null){
+        if ($operatorId){
+            $operator = $this->getDoctrine()->getRepository('CrmMainBundle:Operator')->findOneById($operatorId);
+            $payments = $this->getDoctrine()->getRepository('CrmMainBundle:CompanyPayment')->findByOperator($operator);
         }else{
             $payments = $this->getDoctrine()->getRepository('CrmMainBundle:CompanyPayment')->findAll();
-            $company = null;
+            $operator = null;
         }
-        return array('payments' => $payments, 'company' => $company );
+        return array('payments' => $payments, 'operator' => $operator );
     }
 
     /**

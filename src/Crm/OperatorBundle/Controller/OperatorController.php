@@ -40,8 +40,8 @@ class OperatorController extends Controller{
      */
     public function removeAction(Request $request, $operatorId){
             $operator = $this->getDoctrine()->getRepository('CrmMainBundle:Operator')->findOneById($operatorId);
-            $this->getDoctrine()->getManager()->remove($operator);
-            $this->getDoctrine()->getManager()->flush();
+            $operator->setEnabled(false);
+            $this->getDoctrine()->getManager()->flush($operator);
             return $this->redirect($request->headers->get('referer'));
     }
 

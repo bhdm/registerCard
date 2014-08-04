@@ -31,22 +31,6 @@ class CompanyPayment extends BaseEntity{
     protected $operator;
 
     /**
-     * @param mixed $company
-     */
-    public function setCompany($company)
-    {
-        $this->company = $company;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getCompany()
-    {
-        return $this->company;
-    }
-
-    /**
      * @param mixed $count
      */
     public function setCount($count)
@@ -77,5 +61,22 @@ class CompanyPayment extends BaseEntity{
     {
         return $this->summ;
     }
+
+    /**
+     * @param mixed $operator
+     */
+    public function setOperator($operator)
+    {
+        $this->operator = $operator;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getOperator()
+    {
+        return $this->operator;
+    }
+
 
 }
