@@ -60,7 +60,7 @@ class BaseEntity
     /**
      * @param mixed $enabled
      */
-    public function setEnabled($enabled)
+    public function setEnabled($enabled = 1)
     {
         $this->enabled = $enabled;
     }

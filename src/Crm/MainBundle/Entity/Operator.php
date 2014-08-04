@@ -12,7 +12,7 @@ use Symfony\Component\Security\Core\Role\RoleInterface;
  * Operator
  *
  * @ORM\Table()
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="OperatorRepository")
  */
 class Operator extends BaseEntity implements UserInterface
 {

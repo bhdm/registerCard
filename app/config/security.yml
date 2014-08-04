@@ -18,7 +18,7 @@ security:
 #                    admin: { password: adminpass, roles: [ 'ROLE_ADMIN' ] }
     providers:
         main:
-            entity: { class: CrmMainBundle:Operator, property: username }
+            entity: { class: CrmMainBundle:Operator }
     firewalls:
         main:
             pattern: /operator
