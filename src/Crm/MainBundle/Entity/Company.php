@@ -137,6 +137,11 @@ class Company extends BaseEntity
      */
 
     /**
+     * @ORM\Column(type="array", nullable=true)
+     */
+    protected $logo;
+
+    /**
      * (ООО / ОАО / ЗАО)
      * @ORM\Column(type="string", nullable=true)
      */
@@ -647,6 +652,23 @@ class Company extends BaseEntity
     {
         return $this->rchet;
     }
+
+    /**
+     * @param mixed $logo
+     */
+    public function setLogo($logo)
+    {
+        $this->logo = $logo;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getLogo()
+    {
+        return $this->logo;
+    }
+
 
 
 }
