@@ -78,7 +78,7 @@ class CompanyController extends Controller{
             }
         }
         if ($company->getUrl()){
-            $companyUrl = 'http://doroga01.ru/app.php/company/order-register/'.$company->getUrl();
+            $companyUrl = 'http://doroga01.ru/app.php/company/order/'.$company->getUrl();
         }else{
             $companyUrl = null;
         }
