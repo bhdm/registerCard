@@ -304,6 +304,18 @@ class OrderController extends Controller{
             $em->persist($user);
             $em->flush($user);
             $em->refresh($user);
+            $message = \Swift_Message::newInstance()
+                ->setSubject('Заявка отправлена')
+                ->setFrom('info@im-kard.ru')
+                ->setTo($user->getEmail())
+                ->setBody(
+                    $this->renderView(
+                        'CrmMainBundle:Mail:success.html.twig',
+                        array('order' => $user)
+                    ), 'text/html'
+                )
+            ;
+            $this->get('mailer')->send($message);
         }
 
         return new Response($this->renderView("CrmMainBundle:Order:success.html.twig", array('user' => $user)));
