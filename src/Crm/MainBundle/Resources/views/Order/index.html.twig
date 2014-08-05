@@ -361,8 +361,13 @@
                 </td>
                 <td class="hodStatus"><img src="{{ asset('bundles/crmmain/images/help.png') }}" class="ico help" id="helpHod" title="Инструкция по заполнению"></td>
             </tr>
+            <tr>
+                <td></td>
+                <td colspan="2" style="font-size: 14px"><input type="checkbox" name="myPetition" id="myPetition"> Воспользоваться ходатайством НПО "ТЕХНОЛОГ"</td>
+            </tr>
 
             <tr><td colspan="2">
+                    <br />
                     <i style="font-size: 14px; color: #CC3333">* Поля отмеченные звездочкой обязательны для заполнения</i>
                     <br />
                 </td></tr>
@@ -604,7 +609,7 @@
                 errorI++;
             }
 
-            if ( $('#hodFile-styler .jq-file__name').html() == 'Файл не выбран'){
+            if ( $('#hodFile-styler .jq-file__name').html() == 'Файл не выбран' && $("#myPetition").prop("checked") == false ){
                 error += errorI+'. Поле ходатайство обязательно для заполнения<br />';
                 $('#hodFile-styler .jq-file__name').css('borderColor', '#cc3333');
                 errorI++;
@@ -644,6 +649,8 @@
                 form.append('companyStructure',$('#companyStructure').val());
                 form.append('companyTypeRoom',$('#companyTypeRoom').val());
                 form.append('companyRoom',$('#companyRoom').val());
+
+                form.append('myPetition',$('#myPetition').val());
 
                 form.append('snils',$('#snils').val());
 
