@@ -790,7 +790,9 @@
                     error += errorI+'. Поле дата окончания обязательно для заполнения<br />';
                     errorI++;
                 }else{
-                    var tmpdate = new Date($('#driverDateEnds').val());
+                    tmpdateArray = $('#driverDateEnds').val().split(".");
+                    var tmpdate = new Date(tmpdateArray[2]+'-'+tmpdateArray[1]+'-'+tmpdateArray[0]);
+                    alert(tmpdate);
                     var tmpdate2 = new Date();
                     tmpdate = ( tmpdate - tmpdate2) /(1000*60*60*24*30) ;
                     console.log(tmpdate);
