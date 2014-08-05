@@ -57,7 +57,7 @@
                         <td>
                             <a href="{{ path('operator_user_edit' , { 'companyId' : user.company.id, 'userId' : user.id}) }}">{{ user }}</a>
                         </td>
-                        <td><a href="{{ path('generate_payment_pdf') }}?ord={{ user.id }}" target="_blank">Скачать</a></td>
+                        <td style="text-align: center"><a href="{{ path('generate_payment_pdf') }}?ord={{ user.id }}" target="_blank">Скачать</a></td>
                         <td></td>
                         <td class="options">
                             {% if user.companyPetition != null %}
