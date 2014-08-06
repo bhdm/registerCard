@@ -35,7 +35,7 @@
                 <DriverLicenseIssuedDate>{{ driver.driverDocDateStarts | date('Y-m-d') }}Z</DriverLicenseIssuedDate>
                 <DriverLicenseExpirationDate>{{ driver.driverDocDateEnds | date('Y-m-d') }}Z</DriverLicenseExpirationDate>
             </DriverLicense>
-            {% if driver.company is not null %}
+            {% if driver.company.title  == '' %}
                 <OrgName>{{ driver.company.title }}</OrgName>
                 <OrgPostAddress>
                     <FullAddress>{{ driver.company.zipcode }},
