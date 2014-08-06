@@ -38,10 +38,10 @@ class UserController extends Controller{
         $toArhive =     null;
 
         if ( $arhive ){ $toArhive = true; }
-        if ( $new == 1 ){ $toDay = true; }
-        if ( $new == 2 ){ $toWeek = true; }
-        if ( $petition == 1 ){ $toPetition = true; }
-        if ( $petition == 2 ){ $toDeploy = true; }
+        if ( $new == 'day' ){ $toDay = true; }
+        if ( $new == 'week' ){ $toWeek = true; }
+        if ( $petition == 'true' ){ $toPetition = true; }
+        if ( $petition == 'deploy' ){ $toDeploy = true; }
         if ( $companyId ){
             $company = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->findOneById($companyId);
         }else{
