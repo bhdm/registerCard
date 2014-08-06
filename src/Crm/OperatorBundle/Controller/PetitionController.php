@@ -127,7 +127,7 @@ class PetitionController extends Controller
 //            if ($this->get('security.context')->isGranted('ROLE_ADMIN') or $petition->getOperator() == $this->getUser()){
                 $mpdfService = $this->container->get('tfox.mpdfport');
 
-                $html = $this->render('CrmOperatorBundle:Petition:file.html.twig',array('user' => $user));
+                $html = $this->render('CrmOperatorBundle:Petition:file2.html.twig',array('user' => $user));
                 $arguments = array(
 //                'constructorArgs' => array('utf-8', 'A4-L', 5 ,5 ,5 ,5,5 ), //Constructor arguments. Numeric array. Don't forget about points 2 and 3 in Warning section!
                     'writeHtmlMode' => null, //$mode argument for WriteHTML method
