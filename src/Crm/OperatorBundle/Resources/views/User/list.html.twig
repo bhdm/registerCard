@@ -17,6 +17,27 @@
 
 {% block stylesheets %}
     {{ parent() }}
+    <style>
+        .filter-btn{
+            background: #EEEEEE;
+            color: #6c9e9f;
+            border: 1px solid #cccccc;
+            border-radius: 5px;
+            padding: 3px 10px;
+            cursor: pointer;
+            font-size: 12px;
+        }
+        .filter-btn-active{
+            background: #CCCCCC;
+            color: #6c9e9f;
+            border: 1px solid #EEEEEE;
+            border-radius: 5px;
+            padding: 3px 10px;
+            cursor: pointer;
+            font-size: 12px;
+        }
+
+    </style>
 {% endblock %}
 
 {% block javascripts %}
@@ -25,6 +46,19 @@
 {% endblock %}
 
 {% block content%}
+    <div class="filter">
+        {#<a href="#"><button>С ходатайством</button></a>#}
+        {#<a href="#"><button>В производстве</button></a>#}
+        {#<a href="#"><button>Архив</button></a>#}
+        <span class="filter-btn{{ toDay ? '-active' : '' }}">За сегодня</span>
+        <span class="filter-btn{{ toWeek ? '-active' : '' }}">За неделю</span>
+        <span class="filter-btn{{ toPetition ? '-active' : '' }}">С ходатайством</span>
+        <span class="filter-btn{{ toDeploy ? '-active' : '' }}">В производстве</span>
+        <span class="filter-btn{{ toArhive ? '-active' : '' }}">В архиве</span>
+        <br />
+        <br />
+    </div>
+
     {% if users is empty %}
         <h3 class="color-red">Пользователей не найдено</h3>
     {% else %}

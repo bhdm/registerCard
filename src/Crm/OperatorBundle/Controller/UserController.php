@@ -26,26 +26,60 @@ class UserController extends Controller{
 
     /**
      * Показывает водителей определенной компании
-     * @Route("/list/{companyId}", name="operator_user_list", defaults={"companyId=null"})
+     * @Route("/list/{companyId}/{new}/{petition}/{arhive}", name="operator_user_list", defaults={"companyId"=null, "new"=null, "petition"=null, "arhive"=null})
      * @Template()
      */
-    public function listAction($companyId = null){
-        if ($companyId == null && $this->get('security.context')->isGranted('ROLE_ADMIN')){
-            $company = null;
-            $users = $this->getDoctrine()->getRepository('CrmMainBundle:User')->findAll();
-        }else{
+    public function listAction($companyId = null, $new = null, $petition=null, $arhive=null){
+
+        $toDay =        null;
+        $toWeek =       null;
+        $toPetition =   null;
+        $toDeploy =     null;
+        $toArhive =     null;
+
+        if ( $arhive ){ $toArhive = true; }
+        if ( $new == 1 ){ $toDay = true; }
+        if ( $new == 2 ){ $toWeek = true; }
+        if ( $petition == 1 ){ $toPetition = true; }
+        if ( $petition == 2 ){ $toDeploy = true; }
+        if ( $companyId ){
             $company = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->findOneById($companyId);
-            if ($company){
-                if ($company->getOperator($this->getUser()) || $this->get('security.context')->isGranted('ROLE_ADMIN'))
-                    $users = $company->getUsers();
-                else{
-                    return $this->redirect($this->generateUrl('operator_main'));
-                }
-            }else{
-                $users = $this->getDoctrine()->getRepository('CrmMainBundle:User')->ofOperator($this->getUser());
-            }
+        }else{
+            $company = null;
         }
-        return array('company'=> $company,  'users' => $users);
+        if ( $this->get('security.context')->isGranted('ROLE_OPERATOR') ){
+            $operator = $this->getUser();
+        }else{
+            $operator = null;
+        }
+
+        $users = $this->getDoctrine()->getRepository('CrmMainBundle:User')->filter($operator,$company, $toDay, $toWeek, $toPetition, $toDeploy, $toArhive);
+
+//        if ($companyId == null && $this->get('security.context')->isGranted('ROLE_ADMIN')){
+//            $company = null;
+//            $users = $this->getDoctrine()->getRepository('CrmMainBundle:User')->findAll();
+//        }else{
+//            $company = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->findOneById($companyId);
+//            if ($company){
+//                if ($company->getOperator($this->getUser()) || $this->get('security.context')->isGranted('ROLE_ADMIN'))
+//                    $users = $company->getUsers();
+//                else{
+//                    return $this->redirect($this->generateUrl('operator_main'));
+//                }
+//            }else{
+//                $users = $this->getDoctrine()->getRepository('CrmMainBundle:User')->ofOperator($this->getUser());
+//            }
+//        }
+
+        return array(
+            'company'   => $company,
+            'users'     => $users,
+            'toDay'     => $toDay,
+            'toWeek'    => $toWeek,
+            'toPetition'=> $toPetition,
+            'toDeploy'  => $toDeploy,
+            'toArhive'  => $toArhive,
+        );
     }
 
     /**
