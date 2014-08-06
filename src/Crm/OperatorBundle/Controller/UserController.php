@@ -47,7 +47,7 @@ class UserController extends Controller{
         }else{
             $company = null;
         }
-        if ( $this->get('security.context')->isGranted('ROLE_OPERATOR') ){
+        if ( !$this->get('security.context')->isGranted('ROLE_ADMIN') ){
             $operator = $this->getUser();
         }else{
             $operator = null;
