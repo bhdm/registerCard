@@ -104,7 +104,7 @@
 
         {% if files[8] is defined %}
             <Attachment>
-                <AttachmentName>{{ files[8].file.fileName }}</AttachmentName>
+                <AttachmentName>{{ files[8].file.fileName ? files[8].file.fileName : 'hod.pdf' }}</AttachmentName>
                 <AttachmentType>Other</AttachmentType>
                 <FileFormat>{% if files[8].file.mimeType == 'image/jpeg' %}JPG{% elseif files[6].file.mimeType == 'image/png' %}PNG{% elseif files[6].file.mimeType == 'image/gif' %}GIF{% else %}FILE{% endif %}</FileFormat>
                 <Body>{{ files[8].base }}</Body>
@@ -113,7 +113,7 @@
 
         {% if files[7] is defined %}
             <Attachment>
-                <AttachmentName>/document</AttachmentName>
+                <AttachmentName>document.pdf</AttachmentName>
                 <AttachmentType>Other</AttachmentType>
                 <FileFormat>PDF</FileFormat>
                 <Body>{{ files[7].base }}</Body>
