@@ -653,15 +653,15 @@
 
             if (error === ''){
                 var form = new FormData();
-                form.append('PassportLastName',$('#lastName').val());
-                form.append('PassportFirstName',$('#firstName').val());
-                form.append('PassportSurName',$('#surName').val());
-                form.append('PassportBirthdate',$('#birthdate').val());
+                form.append('passportLastName',$('#lastName').val());
+                form.append('passportFirstName',$('#firstName').val());
+                form.append('passportSurName',$('#surName').val());
+                form.append('passportBirthdate',$('#birthdate').val());
                 form.append('passportSeries',$('#passportSeries').val());
-                form.append('PassportNumber',$('#passportNumber').val());
-                form.append('PassportPlace',$('#passportPlace').val());
-                form.append('PassportDate',$('#passportDate').val());
-                form.append('PassportCode',$('#passportCode').val());
+                form.append('passportNumber',$('#passportNumber').val());
+                form.append('passportPlace',$('#passportPlace').val());
+                form.append('passportDate',$('#passportDate').val());
+                form.append('passportCode',$('#passportCode').val());
 
                 form.append('driverNumber',$('#driverNumber').val());
                 form.append('driverDateStarts',$('#driverDateStarts').val());
@@ -829,6 +829,7 @@
                 }else{
                     tmpdateArray = $('#driverDateEnds').val().split(".");
                     var tmpdate = new Date(tmpdateArray[2]+'-'+tmpdateArray[1]+'-'+tmpdateArray[0]);
+                    alert(tmpdate);
                     var tmpdate2 = new Date();
                     tmpdate = ( tmpdate - tmpdate2) /(1000*60*60*24*30) ;
                     console.log(tmpdate);

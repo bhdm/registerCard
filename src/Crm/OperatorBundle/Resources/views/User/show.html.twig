@@ -77,34 +77,34 @@
             <tr>
                 <td class="label">Фамилия<span class="required">*</span>:</td>
                 <td class="value">
-                    <input name="PassportLastName" id="lastName" type="text" value="{{ user.lastName }}">
+                    <input name="passportLastName" id="lastName" type="text" value="{{ user.lastName }}">
                 </td>
             </tr>
             <tr>
                 <td class="label">Имя<span class="required">*</span>:</td>
                 <td class="value">
-                    <input name="PassportFirstName" id="firstName" type="text" value="{{ user.firstName }}" >
+                    <input name="passportFirstName" id="firstName" type="text" value="{{ user.firstName }}" >
                 </td>
 
             </tr>
             <tr>
                 <td class="label">Отчество:</td>
                 <td class="value">
-                    <input name="PassportSurName" id="surName" type="text" value="{{ user.surName }}">
+                    <input name="passportSurName" id="surName" type="text" value="{{ user.surName }}">
                 </td>
 
             </tr>
             <tr>
                 <td class="label">Дата рождения<span class="required">*</span>:</td>
                 <td class="value">
-                    <input name="PassportBirthdate" id="birthdate" type="text" value="{{ user.birthDate | date('d.m.Y') }}">
+                    <input name="passportBirthdate" id="birthdate" type="text" value="{{ user.birthDate | date('d.m.Y') }}">
                 </td>
 
             </tr>
             <tr>
                 <td class="label">Серия паспорта:</td>
                 <td class="value">
-                    <input name="passportSeries" id="passportSeries" type="text"  data-placeholder="Для паспорта РФ">
+                    <input name="passportSeries" id="passportSeries" type="text"  value="{{ user.passportSerial }}" data-placeholder="Для паспорта РФ">
                 </td>
 
             </tr>
@@ -229,25 +229,30 @@
                 </td>
             </tr>
 
-            {% if user.copyPetition.path is defined %}
                 <tr>
                     <td class="label">Ходатайство</td>
                     <td>
                         <input type="file" id="hod">
+                        <br /><br />
+                        <input type="checkbox" value="1" {{ user.myPetition == 1 ? 'checked="checked"' : '' }}> Использовать ходатайство НПО  "ТЕХНОЛОГ"
                     </td>
                     <td class="value copyDocs" colspan="2">
+                        {% if user.copyPetition.path is defined %}
                         <img  id="hodImg" src="/{{ user.copyPetition.path }}">
+                        {% endif %}
                     </td>
                 </tr>
-            {% endif %}
-            {% if user.copyWork.path is defined %}
                 <tr>
                     <td class="label">Разрешение на работу</td>
-                    <td class="value copyDocs" colspan="2">
-                        <img src="/{{ user.copyWork.path }}">
+                    <td>
+                        <input type="file" id="work">
+                    </td>
+                    <td class="value copyDocs">
+                        {% if user.copyWork.path is defined %}
+                            <img src="/{{ user.copyWork.path }}">
+                        {% endif %}
                     </td>
                 </tr>
-            {% endif %}
             <tr>
                 <td colspan="2">
                     <i style="font-size: 14px; color: #CC3333">* Поля отмеченные звездочкой обязательны для заполнения</i>

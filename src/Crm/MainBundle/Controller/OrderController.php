@@ -146,15 +146,15 @@ class OrderController extends Controller{
             $user->setEmail($data->get('email'));
             $user->setPhone($data->get('phone'));
 
-            $user->setLastName($data->get('PassportLastName'));
-            $user->setFirstName($data->get('PassportFirstName'));
-            $user->setSurName($data->get('PassportSurName'));
-            $user->setBirthDate($data->get('PassportBirthdate'));
-            $user->setPassportNumber($data->get('PassportNumber'));
+            $user->setLastName($data->get('passportLastName'));
+            $user->setFirstName($data->get('passportFirstName'));
+            $user->setSurName($data->get('passportSurName'));
+            $user->setBirthDate($data->get('passportBirthdate'));
+            $user->setPassportNumber($data->get('passportNumber'));
             $user->setPassportSerial($data->get('passportSeries'));
-            $user->setPassportIssuance($data->get('PassportPlace'));
-            $user->setPassportIssuanceDate($data->get('PassportDate'));
-            $user->setPassportCode($data->get('PassportCode'));
+            $user->setPassportIssuance($data->get('passportPlace'));
+            $user->setPassportIssuanceDate($data->get('passportDate'));
+            $user->setPassportCode($data->get('passportCode'));
 
             $user->setDriverDocNumber($data->get('driverNumber'));
             $user->setDriverDocDateStarts($data->get('driverDateStarts'));
