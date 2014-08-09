@@ -341,6 +341,17 @@ class UserController extends Controller{
                     )
                 );
 
+                # Ходатайство
+                $file = $user->getCopyPetition();
+                list($width, $height) = getimagesize('/var/www/'.$file['path']);
+                $session->set('hod', array(
+                        'content'=> $this->imgToBase('/var/www/'.$file['path']),
+                        'mimeType'=> 'image/jpeg',
+                        'width'=> $width,
+                        'height'=> $height,
+                    )
+                );
+
                 $session->save();
             }
 

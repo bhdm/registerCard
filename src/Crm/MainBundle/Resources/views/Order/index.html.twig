@@ -829,7 +829,6 @@
                 }else{
                     tmpdateArray = $('#driverDateEnds').val().split(".");
                     var tmpdate = new Date(tmpdateArray[2]+'-'+tmpdateArray[1]+'-'+tmpdateArray[0]);
-                    alert(tmpdate);
                     var tmpdate2 = new Date();
                     tmpdate = ( tmpdate - tmpdate2) /(1000*60*60*24*30) ;
                     console.log(tmpdate);
@@ -842,7 +841,7 @@
             if ( $(this).attr('id')=='saveSnils' ){
                 if ( $('#snils').val()==''){
                     $('#snils').css('borderColor', '#cc3333');
-                    error += errorI+'. Поле номер удостоверения водителя обязательно для заполнения<br />';
+                    error += errorI+'. Поле СНИЛС обязательно для заполнения<br />';
                     errorI++;
                 }
             }

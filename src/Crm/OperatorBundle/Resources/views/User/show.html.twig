@@ -68,7 +68,7 @@
             <tr>
                 <td class="empty-row">Паспортные данные</td>
                 <td class="value">
-                    <input type="file" name="passport" id="passport">
+                    <input type="file" id="passport">
                 </td>
                 <td rowspan="10" class="copyDocs">
                     <img id="passportImg" src="/{{ user.copyPassport.path }}">
@@ -141,7 +141,7 @@
             <tr>
                 <td class="empty-row">Водительские права</td>
                 <td class="value">
-                    <input type="file" name="driver" id="driver">
+                    <input type="file" id="driver">
                 </td>
                 <td rowspan="5" class="copyDocs">
                     <img id="driverImg" src="/{{ user.copyDriverPassport.path }}">
@@ -179,7 +179,7 @@
             <tr>
                 <td class="empty-row">С Н И Л С</td>
                 <td class="value">
-                    <input type="file" name="snils" id="snils">
+                    <input type="file" id="snils">
                 </td>
                 <td class="copyDocs" rowspan="2">
                     <img id="snilsImg" src="/{{ user.copySnils.path }}">
@@ -195,15 +195,21 @@
             <tr><td colspan="2" class="empty-row">Другие прикрепленные файлы</td></tr>
             <tr>
                 <td class="label">Фотография</td>
-                <td class="value copyDocs" colspan="2">
-                    <img src="/{{ user.photo.path }}">
+                <td>
+                    <input type="file" id="photo">
+                </td>
+                <td class="value copyDocs">
+                    <img id="photoImg" src="/{{ user.photo.path }}">
                 </td>
             </tr>
             {% if user.copyPetition.path is defined %}
                 <tr>
                     <td class="label">Ходатайство</td>
+                    <td>
+                        <input type="file" id="hod">
+                    </td>
                     <td class="value copyDocs" colspan="2">
-                        <img src="/{{ user.copyPetition.path }}">
+                        <img  id="hodImg" src="/{{ user.copyPetition.path }}">
                     </td>
                 </tr>
             {% endif %}
@@ -352,6 +358,7 @@
             $("#driverDateEnds").mask("99.99.9999");
             $("#birthdate").mask("99.99.9999");
             $("#passportDate").mask("99.99.9999");
+            $("#snils").mask("999-999-999 99");
             var files;
             var opts = {
                 lines: 13, // The number of lines to draw
@@ -380,7 +387,7 @@
             $('input[type=file]').on('change', function(event){
                 $('.bg-gray').fadeIn();
                 $('#loader').fadeIn();
-                $('.img-pop-up').attr('type-doc', $(this).attr('name'));
+                $('.img-pop-up').attr('type-doc', $(this).attr('id'));
 
                 files = event.target.files;
                 var formData = new FormData();
@@ -533,19 +540,11 @@
                     url: Routing.generate('send_coordinates', {'type': type}),
                     data: 'x='+x1+'&y='+y1+'&x2='+x2+'&y2='+y2+'&originalWidth='+$('#img-pop-up-img img').css('width'),
                     success: function(msg){
-//                        $('#img-pop-up-img').html('<div style="display: inline-block"><img src="'+msg+'" /></div>');
                         $(".imgareaselect-selection").parent().remove();
                         $(".imgareaselect-outer").remove();
-//                        if (type == 'snils' || type == 'driver' || type == 'passport' || type == 'hod'){
-//                            if ($( ".img-pop-up").length > 0){
-//                                $( ".img-pop-up" ).draggable();
-//                                $('.img-pop-up').css('top','350px');
-//                            }
                             $("#"+type+"Img").attr('src', msg);
                             showloader();
                             getImgData(type);
-
-//                        }
                     }
                 });
             });
@@ -604,12 +603,8 @@
                     type: "POST",
                     url: Routing.generate('get_img_data', {'type': type, 'rezident' : $('#rezident').val()}),
                     success: function(msg){
-                        if (type == 'snils' || type == 'driver' || type == 'passport' || type == 'hod'){
                             hideloader();
                             hideImgPopUp();
-                        }else
-                        obj = msg.data;
-                        return true;
                     }
                 });
             }
@@ -646,6 +641,92 @@
                 showImgPopUp();
             });
 
+            $('#submit').click(function(){
+                var error = '';
+                var errorI = 1 ;
+
+                if ( $('#email').val()=='' &&  $('#phone').val()=='' ){
+                    $('#email').css('borderColor', '#cc3333');
+                    $('#phone').css('borderColor', '#cc3333');
+                    error += errorI+'. Одно из полей (телефон или e-mail) обязательно должно быть заполнено<br />';
+                    errorI++;
+                }
+
+                if ( $('#driverNumber').val()==''){
+                    $('#driverNumber').css('borderColor', '#cc3333');
+                    error += errorI+'. Поле номер удостоверения водителя обязательно для заполнения<br />';
+                    errorI++;
+                }
+                if ( $('#driverDateStarts').val()==''){
+                    $('#driverDateStarts').css('borderColor', '#cc3333');
+                    error += errorI+'. Поле дата выдачи обязательно для заполнения<br />';
+                    errorI++;
+                }
+                if ( $('#driverDateEnds').val()==''){
+                    $('#driverDateEnds').css('borderColor', '#cc3333');
+                    error += errorI+'. Поле дата окончания обязательно для заполнения<br />';
+                    errorI++;
+                }else{
+                    tmpdateArray = $('#driverDateEnds').val().split(".");
+                    var tmpdate = new Date(tmpdateArray[2]+'-'+tmpdateArray[1]+'-'+tmpdateArray[0]);
+                    var tmpdate2 = new Date();
+                    tmpdate = ( tmpdate - tmpdate2) /(1000*60*60*24*30) ;
+                    console.log(tmpdate);
+                    if ( tmpdate < 1 ){
+                        error += errorI+'. Минимальный срок вод. прав должен быть больше 1 месяца<br />';
+                        errorI++;
+                    }
+                }
+                if ( $('#lastName').val()==''){
+                    $('#lastName').css('borderColor', '#cc3333');
+                    error += errorI+'. Поле фамилия обязательно для заполнения<br />';
+                    errorI++;
+                }
+                if ( $('#firstName').val()==''){
+                    $('#firstName').css('borderColor', '#cc3333');
+                    error += errorI+'. Поле имя обязательно для заполнения<br />';
+                    errorI++;
+                }
+                if ( $('#birthdate').val()==''){
+                    $('#birthdate').css('borderColor', '#cc3333');
+                    error += errorI+'. Поле дата рождения обязательно для заполнения<br />';
+                    errorI++;
+                }else{
+                    var tmpdate = new Date($('#birthdate').val());
+                    var tmpdate2 = new Date();
+                    tmpdate = ( tmpdate2 - tmpdate) /(1000*60*60*24*365) ;
+                    console.log(tmpdate);
+                    if ( tmpdate < 18 ){
+                        error += errorI+'. Возраст должен быть более 18 лет<br />';
+                        errorI++;
+                    }
+                }
+                if ( $('#passportNumber').val()==''){
+                    $('#passportNumber').css('borderColor', '#cc3333');
+                    error += errorI+'. Поле серия и номер обязательно для заполнения<br />';
+                    errorI++;
+                }
+                if ( $('#passportPlace').val()==''){
+                    $('#passportPlace').css('borderColor', '#cc3333');
+                    error += errorI+'. Поле кем выдан обязательно для заполнения<br />';
+                    errorI++;
+                }
+                if ( $('#passportDate').val()==''){
+                    $('#passportDate').css('borderColor', '#cc3333');
+                    error += errorI+'. Поле дата выдачи обязательно для заполнения<br />';
+                    errorI++;
+                }
+
+                if ( $('#snils').val()==''){
+                    $('#snils').css('borderColor', '#cc3333');
+                    error += errorI+'. Поле СНИЛС обязательно для заполнения<br />';
+                    errorI++;
+                }
+                if (error === ''){
+                    $('form').submit();
+                }
+
+            })
 
         });
 
