@@ -23,7 +23,6 @@
             <input type="hidden" name="y2" id="y2" value="0">
             <input type="button" value="Выбрать" id="sendCoords" class="btn">
             <input type="button" value="Повернуть"  class="btn" id="rotate">
-            <input type="button" value="Вперед"  id="forward" class="btn" style="display: none;">
         </div>
     </div>
     <div id="loader"></div>
@@ -250,6 +249,61 @@
         td{
             vertical-align: top;
         }
+        progress{
+            display: none;
+        }
+        .required{
+            color: #CC0000;
+        }
+        .img-pop-up{
+            position: absolute;
+            width: 700px;
+            max-height: 700px;
+            min-height: 300px;
+            background: #ffffff;
+            border: 1px solid #ae3538;
+            left: 50%;
+            top: 50px;
+            margin-left: -350px;
+            z-index: 905;
+            display: none;
+            text-align: center;
+        }
+        #loader{
+            display: none;
+        }
+        .ico{
+            width: 24px;
+        }
+        .close-pop-up{
+            position: absolute;
+            right: -16px;
+            top: -16px;
+            width: 32px;
+        }
+
+        .imgareaselect-selection2{
+            background: url({{ asset('bundles/crmmain/images/nophoto.png') }}) no-repeat;
+            -moz-background-size: 100%; /* Firefox 3.6+ */
+            -webkit-background-size: 100%; /* Safari 3.1+ и Chrome 4.0+ */
+            -o-background-size: 100%; /* Opera 9.6+ */
+            background-size: 100%;
+        }
+        #companyTypeRoom-styler .jq-selectbox__select{
+            width: 122px !important;
+        }
+        #companyTypeRoom-styler{
+            margin-top: -1px;
+        }
+        #companyRegion-styler .jq-selectbox__dropdown, #companyTypeStreet-styler .jq-selectbox__dropdown{
+            width: 272px !important;
+        }
+        #companyTypeRoom-styler .jq-selectbox__dropdown{
+            width: 180px !important;
+        }
+        .jq-selectbox{
+            padding: 5px 0;
+        }
     </style>
 {% endblock %}
 
@@ -331,7 +385,7 @@
                                 showImgPopUp();
                                 if ( type == 'photo'){
                                     $('#img-pop-up-img div img').imgAreaSelect({
-                                        aspectRatio: '3:4',
+                                        aspectRatio: '1:1.285',
                                         handles: true,
                                         onSelectEnd: function (img, selection) {
                                             $('input[name="x1"]').val(selection.x1);
@@ -342,16 +396,30 @@
                                         }
                                     });
                                 }else{
-                                    $('#img-pop-up-img div img').imgAreaSelect({
-                                        x1: 120, y1: 90, x2: 280, y2: 210,
-                                        handles: true,
-                                        onSelectEnd: function (img, selection) {
-                                            $('input[name="x1"]').val(selection.x1);
-                                            $('input[name="y1"]').val(selection.y1);
-                                            $('input[name="x2"]').val(selection.x2);
-                                            $('input[name="y2"]').val(selection.y2);
-                                        }
-                                    });
+                                    if (type == 'sign'){
+                                        $('#img-pop-up-img div img').imgAreaSelect({
+                                            aspectRatio: '5:1',
+//                                x1: 120, y1: 90, x2: 280, y2: 210,
+                                            handles: true,
+                                            onSelectEnd: function (img, selection) {
+                                                $('input[name="x1"]').val(selection.x1);
+                                                $('input[name="y1"]').val(selection.y1);
+                                                $('input[name="x2"]').val(selection.x2);
+                                                $('input[name="y2"]').val(selection.y2);
+                                            }
+                                        });
+                                    }else{
+                                        $('#img-pop-up-img div img').imgAreaSelect({
+                                            x1: 120, y1: 90, x2: 280, y2: 210,
+                                            handles: true,
+                                            onSelectEnd: function (img, selection) {
+                                                $('input[name="x1"]').val(selection.x1);
+                                                $('input[name="y1"]').val(selection.y1);
+                                                $('input[name="x2"]').val(selection.x2);
+                                                $('input[name="y2"]').val(selection.y2);
+                                            }
+                                        });
+                                    }
                                 }
                             }
                         },
@@ -370,7 +438,6 @@
                 }
             });
 
-
             $('#rotate').click(function(){
                 type = $('.img-pop-up').attr('type-doc');
                 $.ajax({
@@ -383,7 +450,7 @@
                         showImgPopUp();
                         if ( type == 'photo'){
                             $('#img-pop-up-img div img').imgAreaSelect({
-                                aspectRatio: '3:5',
+                                aspectRatio: '1:1.285',
 //                                x1: 120, y1: 90, x2: 280, y2: 210,
                                 handles: true,
                                 onSelectEnd: function (img, selection) {
@@ -391,33 +458,90 @@
                                     $('input[name="y1"]').val(selection.y1);
                                     $('input[name="x2"]').val(selection.x2);
                                     $('input[name="y2"]').val(selection.y2);
+                                    $('.imgareaselect-selection').addClass('imgareaselect-selection2');
                                 }
                             });
                             $('.imgareaselect-selection').addClass('imgareaselect-selection2');
                         }else{
-                            $('#img-pop-up-img div img').imgAreaSelect({
-                                x1: 120, y1: 90, x2: 280, y2: 210,
-                                handles: true,
-                                onSelectEnd: function (img, selection) {
-                                    $('input[name="x1"]').val(selection.x1);
-                                    $('input[name="y1"]').val(selection.y1);
-                                    $('input[name="x2"]').val(selection.x2);
-                                    $('input[name="y2"]').val(selection.y2);
-                                }
-                            });
+                            if (type == 'sign'){
+                                $('#img-pop-up-img div img').imgAreaSelect({
+                                    aspectRatio: '5:1',
+//                                x1: 120, y1: 90, x2: 280, y2: 210,
+                                    handles: true,
+                                    onSelectEnd: function (img, selection) {
+                                        $('input[name="x1"]').val(selection.x1);
+                                        $('input[name="y1"]').val(selection.y1);
+                                        $('input[name="x2"]').val(selection.x2);
+                                        $('input[name="y2"]').val(selection.y2);
+                                        $('.imgareaselect-selection').addClass('imgareaselect-selection2');
+                                    }
+                                });
+                                $('.imgareaselect-selection').addClass('imgareaselect-selection2');
+                            }else{
+                                $('#img-pop-up-img div img').imgAreaSelect({
+                                    x1: 120, y1: 90, x2: 280, y2: 210,
+                                    handles: true,
+                                    onSelectEnd: function (img, selection) {
+                                        $('input[name="x1"]').val(selection.x1);
+                                        $('input[name="y1"]').val(selection.y1);
+                                        $('input[name="x2"]').val(selection.x2);
+                                        $('input[name="y2"]').val(selection.y2);
+                                    }
+                                });
+                            }
                         }
 
                     }
                 });
             });
 
+            $('#sendCoords').click(function(){
+                type = $('.img-pop-up').attr('type-doc');
+                x1 = $('input[name="x1"]').val();
+                y1 = $('input[name="y1"]').val();
+                x2 = $('input[name="x2"]').val()-x1;
+                y2 = $('input[name="y2"]').val()-y1;
+                $.ajax({
+                    type: "POST",
+                    url: Routing.generate('send_coordinates', {'type': type}),
+                    data: 'x='+x1+'&y='+y1+'&x2='+x2+'&y2='+y2+'&originalWidth='+$('#img-pop-up-img img').css('width'),
+                    success: function(msg){
+                        $('#img-pop-up-img').html('<div style="display: inline-block"><img src="'+msg+'" /></div>');
+                        $(".imgareaselect-selection").parent().remove();
+                        $(".imgareaselect-outer").remove();
+                        if (type == 'snils' || type == 'driver' || type == 'passport' || type == 'hod'){
+                            if ($( ".img-pop-up").length > 0){
+//                                $( ".img-pop-up" ).draggable();
+//                                $('.img-pop-up').css('top','350px');
+                            }
+                            showloader();
+                            getImgData(type);
+                        }
+                    }
+                });
+            });
 
+            function getImgData(type){
+                $.ajax({
+                    type: "POST",
+                    url: Routing.generate('get_img_data', {'type': type, 'rezident' : $('#rezident').val()}),
+                    success: function(msg){
+                        if (type == 'snils' || type == 'driver' || type == 'passport' || type == 'hod'){
+                            hideloader();
+                        }else
+                        obj = msg.data;
+                        return true;
+                    }
+                });
+            }
 
-
-
-
-
-
+            $('.close-pop-up').click(function(){
+                $('.bg-gray').fadeOut();
+                $('.help-pop-up').fadeOut();
+                $(".imgareaselect-selection").parent().remove();
+                $(".imgareaselect-outer").remove();
+                hideImgPopUp();
+            });
 
             function showImgPopUp(){
                 $('.bg-gray').fadeIn();
@@ -429,9 +553,7 @@
                 $('.img-pop-up').fadeOut();
             }
 
-            function hideloader(x){
-                if (x == 1)
-                    showInpPopUp();
+            function hideloader(){
                 $('.bg-gray').fadeOut();
                 $('#loader').fadeOut();
             }
@@ -441,6 +563,12 @@
                 $('.bg-gray').fadeIn();
                 $('#loader').fadeIn();
             }
+
+            $('.back').click(function(){
+                showImgPopUp();
+                hideInpPopUp();
+            });
+
 
         });
 

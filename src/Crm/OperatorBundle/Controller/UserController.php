@@ -287,9 +287,10 @@ class UserController extends Controller{
                 #Помещаем все фалы-картинки в сессию, что бы потом можно было бы редактировать
 
                 # Пасспорт
-                list($width, $height) = getimagesize('/var/www/upload/docs/'.$user->getCopyPassport['path']);
+                $file = $user->getCopyPassport();
+                list($width, $height) = getimagesize('/var/www/'.$file['path']);
                 $session->set('passport', array(
-                        'content'=> $this->imgToBase('/var/www/upload/docs/'.$user->getCopyPassport['path']),
+                        'content'=> $this->imgToBase('/var/www/'.$file['path']),
                         'mimeType'=> 'image/jpeg',
                         'width'=> $width,
                         'height'=> $height,
@@ -297,9 +298,10 @@ class UserController extends Controller{
                 );
 
                 # Права
-                list($width, $height) = getimagesize('/var/www/upload/docs/'.$user->getCopyDriverPassport['path']);
+                $file = $user->getCopyDriverPassport();
+                list($width, $height) = getimagesize('/var/www/'.$file['path']);
                 $session->set('driver', array(
-                        'content'=> $this->imgToBase('/var/www/upload/docs/'.$user->getCopyDriverPassport['path']),
+                        'content'=> $this->imgToBase('/var/www/'.$file['path']),
                         'mimeType'=> 'image/jpeg',
                         'width'=> $width,
                         'height'=> $height,
@@ -307,9 +309,10 @@ class UserController extends Controller{
                 );
 
                 # СНИЛС
-                list($width, $height) = getimagesize('/var/www/upload/docs/'.$user->getCopySnils['path']);
+                $file = $user->getCopySnils();
+                list($width, $height) = getimagesize('/var/www/'.$file['path']);
                 $session->set('snils', array(
-                        'content'=> $this->imgToBase('/var/www/upload/docs/'.$user->getCopySnils['path']),
+                        'content'=> $this->imgToBase('/var/www/'.$file['path']),
                         'mimeType'=> 'image/jpeg',
                         'width'=> $width,
                         'height'=> $height,
@@ -317,9 +320,10 @@ class UserController extends Controller{
                 );
 
                 # Фото
-                list($width, $height) = getimagesize('/var/www/upload/docs/'.$user->getPhoto['path']);
+                $file = $user->getPhoto();
+                list($width, $height) = getimagesize('/var/www/'.$file['path']);
                 $session->set('photo', array(
-                        'content'=> $this->imgToBase('/var/www/upload/docs/'.$user->getPhoto['path']),
+                        'content'=> $this->imgToBase('/var/www/'.$file['path']),
                         'mimeType'=> 'image/jpeg',
                         'width'=> $width,
                         'height'=> $height,
@@ -327,9 +331,10 @@ class UserController extends Controller{
                 );
 
                 # Подпись
-                list($width, $height) = getimagesize('/var/www/upload/docs/'.$user->setCopySignature['path']);
+                $file = $user->getCopySignature();
+                list($width, $height) = getimagesize('/var/www/'.$file['path']);
                 $session->set('sign', array(
-                        'content'=> $this->imgToBase('/var/www/upload/docs/'.$user->setCopySignature['path']),
+                        'content'=> $this->imgToBase('/var/www/'.$file['path']),
                         'mimeType'=> 'image/jpeg',
                         'width'=> $width,
                         'height'=> $height,
