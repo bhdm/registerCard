@@ -59,9 +59,15 @@ class XmlController extends Controller
         $files[7]['title'] = 'Order';
 
         # Ходатайство
-        $files[8]['base'] = $this->imageToBase64($user->getCopyPetition());
-        $files[8]['title'] = 'Hod';
-        $files[8]['file'] = $user->getCopyPetition();
+        if ($user->getMyPetition() == true){
+            $url = 'http://'.$request->server->get('HTTP_HOST').'/app.php/myfile/'.$user->getId();
+            $files[8]['base'] = $this->pdfToBase64($url);
+            $files[8]['title'] = 'Order';
+        }else{
+            $files[8]['base'] = $this->imageToBase64($user->getCopyPetition());
+            $files[8]['title'] = 'Hod';
+            $files[8]['file'] = $user->getCopyPetition();
+        }
 
 
         $response = new Response();

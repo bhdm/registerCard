@@ -1,0 +1,86 @@
+<html>
+    <body>
+        <table>
+            <tr>
+                <td style="width:200px">
+                    <img src="{{ asset('bundles/crmmain/images/logo1.png') }}">
+                </td>
+                <td style="text-align: center">
+                    Общество с ограниченной ответственностью<br />
+                    <h2>«НПО «ТЕХНОЛОГ»</h2><br />
+                    195196, Санкт-Петербург, ул.Громова, д.14/6, лит. А, пом. 3-Н<br />
+                    ИНН 7806462451, КПП 780601001, ОГРН 1117847401033,<br />
+                    р/сч 40702810201001409323 в филиол «Петровский» ОАО Банк «ОТКРЫТИЕ»<br />
+                    кор/сч 30101810400000000766, БИК 044030766<br />
+                    {#{% set company = petition.company %}#}
+                    {#{% spaceless %}#}
+                        {#{{ company.forma }}<br />#}
+                        {#<h2>{{ company.title }}</h2><br />#}
+                        {#{{ company.zipcode }},#}
+                        {#{{ company.city }},#}
+                        {#{{ company.typeStreet }} {{ company.street }},#}
+                        {#{{ company.home }},#}
+                        {#{{ company.typeRoom }} {{ company.room }},#}
+                        {#{{ company.structure ? 'стр. '~company.structure : '' }}#}
+                        {#{{ company.corp ? 'корп. '~company.corp : '' }}<br />#}
+
+                        {#{{ company.inn ? 'ИНН '~company.inn : '' }}#}
+                        {#{{ company.kpp ? ', КПП '~company.kpp : '' }}#}
+                        {#{{ company.ogrn ? ', ОГРН '~company.ogrn : '' }}#}
+
+                        {#{{ company.rchet ? ', р/счет '~company.rchet : '' }}#}
+                        {#{{ company.bank ? company.bank : '' }}<br />#}
+
+                        {#{{ company.korchet ? ', кор/сч '~company.korchet : '' }}#}
+                        {#{{ company.bik ? ', БИК '~company.bik : '' }}#}
+                    {#{% endspaceless %}#}
+                    <br>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <hr>
+                    <br />
+                </td>
+            </tr>
+            <tr>
+                <td style="padding: 20px; font-size: 18px">
+                    {{ petition.created | date("d.m.Y") }}
+                </td>
+                <td style="text-align: right;  font-size: 18px">
+                    г. Санкт - Петербург
+                    {#{{ company.city }}#}
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2" style="text-align: center">
+                    <br />
+                    <span style="font-size: 18px">Ходатайство</span>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2" style="padding: 20px; font-size: 18px">
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Прошу изготовить карту водителя для тахографа с блоком СКЗИ.
+                    <br />
+                    <br />
+                    <b>Водители:</b> <br />
+                    {% for user in  petition.users %}
+                        {% if not loop.last %}
+                            {{ user.lastName }} {{ user.firstName }} {{ user.surName }}, <br />
+                        {% else %}
+                            {{ user.lastName }} {{ user.firstName }} {{ user.surName }}. <br />
+                        {% endif %}
+                    {% endfor %}
+                </td>
+            </tr>
+            <tr>
+                <td style="padding: 20px; font-size: 18px">
+                    <br />
+                    <br />
+                    <br />
+                    Руководитель
+                </td>
+            </tr>
+        </table>
+    </body>
+</html>

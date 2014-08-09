@@ -21,7 +21,11 @@
         {{ user.surName is not null ? user.surName : '' }}
         <br/>
         <div class="comment">Ф.И.О.</div><br/>
-        В {{ user.company.title }}<br/>
+        {% if user.myPetition == 0 %}
+            В {{ user.company.title }}<br/>
+        {% else %}
+            В НПО "ТЕХНОЛОГ"
+        {% endif %}
         <span class="comment">наименование транспортного предприятия</span><br/>
         <br/>
     </div>
@@ -53,9 +57,13 @@
             - Ф.И.О.: <b>{{ user.lastName }} {{ user.firstName }} {{ user.surName is not null ? user.surName : '' }}</b>
         </p>
         <p>
-            - Почтовый адрес транспортного предприятия: <b>{{ user.company.zipcode }}, Россия, {{ user.company.region is not null ? user.company.region.title  : ''}},  {{ user.company.city }},
-            {{ user.company.street }}, д.{{ user.company.home }}
-            {{ user.company.corp }}, {{ user.company.room }}</b>
+            {% if user.myPetition == 0 %}
+                - Почтовый адрес транспортного предприятия: <b>{{ user.company.zipcode }}, Россия, {{ user.company.region is not null ? user.company.region.title  : ''}},  {{ user.company.city }},
+                {{ user.company.street }}, д.{{ user.company.home }}
+                {{ user.company.corp }}, {{ user.company.room }}</b>
+            {% else %}
+                - Почтовый адрес транспортного предприятия: <b>195196, Санкт-Петербург, ул.Громова, д.14/6, лит. А, пом. 3-Н</b>
+            {% endif %}
             <br />
             <span class="comment">(индекс, страна, край/область, населенный пункт (город, село и т.п.), улица, дом, офис)</span>
         </p>
