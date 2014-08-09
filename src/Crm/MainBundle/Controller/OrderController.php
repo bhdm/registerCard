@@ -155,7 +155,9 @@ class OrderController extends Controller{
             $user->setDriverDocIssuance($data->get('driverDocIssuance'));
             $user->setSnils($data->get('snils'));
 
-            $user->setMyPetition($data->get('myPetition'));
+            if ($data->get('myPetition')){
+                $user->setMyPetition(1);
+            }
 
             #Теперь делаем компанию
             $company = new Company();

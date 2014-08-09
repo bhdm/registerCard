@@ -239,6 +239,20 @@ class UserController extends Controller{
     }
 
     /**
+     * @Route("/show/{userId}", name="operator_show_user")
+     * @Template()
+     */
+    public function showAction(Request $request, $userId){
+        $user = $this->getDoctrine()->getRepository('CrmMainBundle:User')->findOneById($userId);
+        if ($user && ( $user->getCompany()->getOperator() == $this->getUser() || $this->get('security.context')->isGranted('ROLE_ADMIN'))){
+            return array('user' => $user);
+        }else{
+            return $this->redirect($request->headers->get('referer'));
+        }
+
+    }
+
+    /**
      * @Route("/remove/{userId}", name="operator_user_remove")
      * @Template()
      */
@@ -272,7 +286,6 @@ class UserController extends Controller{
      * @Template()
      */
     public function generatePetitionAction(){}
-
 
     public function cropimage($img, $rect){
 
