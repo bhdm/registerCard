@@ -243,8 +243,68 @@ class UserController extends Controller{
      * @Template()
      */
     public function showAction(Request $request, $userId){
+        $session = $request->getSession();
         $user = $this->getDoctrine()->getRepository('CrmMainBundle:User')->findOneById($userId);
+
         if ($user && ( $user->getCompany()->getOperator() == $this->getUser() || $this->get('security.context')->isGranted('ROLE_ADMIN'))){
+            if ($request->getMethod() == 'POST'){
+
+            }else{
+                #Помещаем все фалы-картинки в сессию, что бы потом можно было бы редактировать
+
+                # Пасспорт
+                list($width, $height) = getimagesize('/var/www/upload/docs/'.$user->getCopyPassport['path']);
+                $session->set('passport', array(
+                        'content'=> $this->imgToBase('/var/www/upload/docs/'.$user->getCopyPassport['path']),
+                        'mimeType'=> 'image/jpeg',
+                        'width'=> $width,
+                        'height'=> $height,
+                    )
+                );
+
+                # Права
+                list($width, $height) = getimagesize('/var/www/upload/docs/'.$user->getCopyDriverPassport['path']);
+                $session->set('driver', array(
+                        'content'=> $this->imgToBase('/var/www/upload/docs/'.$user->getCopyDriverPassport['path']),
+                        'mimeType'=> 'image/jpeg',
+                        'width'=> $width,
+                        'height'=> $height,
+                    )
+                );
+
+                # СНИЛС
+                list($width, $height) = getimagesize('/var/www/upload/docs/'.$user->getCopySnils['path']);
+                $session->set('snils', array(
+                        'content'=> $this->imgToBase('/var/www/upload/docs/'.$user->getCopySnils['path']),
+                        'mimeType'=> 'image/jpeg',
+                        'width'=> $width,
+                        'height'=> $height,
+                    )
+                );
+
+                # Фото
+                list($width, $height) = getimagesize('/var/www/upload/docs/'.$user->getPhoto['path']);
+                $session->set('photo', array(
+                        'content'=> $this->imgToBase('/var/www/upload/docs/'.$user->getPhoto['path']),
+                        'mimeType'=> 'image/jpeg',
+                        'width'=> $width,
+                        'height'=> $height,
+                    )
+                );
+
+                # Подпись
+                list($width, $height) = getimagesize('/var/www/upload/docs/'.$user->setCopySignature['path']);
+                $session->set('sign', array(
+                        'content'=> $this->imgToBase('/var/www/upload/docs/'.$user->setCopySignature['path']),
+                        'mimeType'=> 'image/jpeg',
+                        'width'=> $width,
+                        'height'=> $height,
+                    )
+                );
+
+                $session->save();
+            }
+
             return array('user' => $user);
         }else{
             return $this->redirect($request->headers->get('referer'));

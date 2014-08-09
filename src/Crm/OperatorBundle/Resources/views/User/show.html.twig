@@ -8,6 +8,26 @@
 {% endblock %}
 
 {% block content %}
+
+    <div class="bg-gray"></div>
+    <div class="img-pop-up ui-widget-content">
+        <div class="img-pop-up-title">
+            выберите область с документом. При необходимости переверните фото.
+        </div>
+        <div id="img-pop-up-img"></div>
+        <img src="{{ asset('bundles/crmmain/images/close_ico.png') }}" class="close-pop-up ico" />
+        <div class="img-pop-up-nav">
+            <input type="hidden" name="x1" id="x1" value="0">
+            <input type="hidden" name="y1" id="y1" value="0">
+            <input type="hidden" name="x2" id="x2" value="0">
+            <input type="hidden" name="y2" id="y2" value="0">
+            <input type="button" value="Выбрать" id="sendCoords" class="btn">
+            <input type="button" value="Повернуть"  class="btn" id="rotate">
+            <input type="button" value="Вперед"  id="forward" class="btn" style="display: none;">
+        </div>
+    </div>
+    <div id="loader"></div>
+
     <form method="post">
         <table class="table-edit">
             <tr>
@@ -250,7 +270,181 @@
             $("#driverDateEnds").mask("99.99.9999");
             $("#birthdate").mask("99.99.9999");
             $("#passportDate").mask("99.99.9999");
+            var files;
+            var opts = {
+                lines: 13, // The number of lines to draw
+                length: 20, // The length of each line
+                width: 10, // The line thickness
+                radius: 30, // The radius of the inner circle
+                corners: 1, // Corner roundness (0..1)
+                rotate: 0, // The rotation offset
+                direction: 1, // 1: clockwise, -1: counterclockwise
+                color: '#000', // #rgb or #rrggbb or array of colors
+                speed: 1.3, // Rounds per second
+                trail: 60, // Afterglow percentage
+                shadow: false, // Whether to render a shadow
+                hwaccel: false, // Whether to use hardware acceleration
+                className: 'spinner', // The CSS class to assign to the spinner
+                zIndex: 2e9, // The z-index (defaults to 2000000000)
+                top: '50%', // Top position relative to parent
+                left: '50%' // Left position relative to parent
+            };
+            var target = document.getElementById('loader');
+            var spinner = new Spinner(opts).spin(target);
+
+
+            //Загрузка нового файла
+
+            $('input[type=file]').on('change', function(event){
+                $('.bg-gray').fadeIn();
+                $('#loader').fadeIn();
+
+                $('.img-pop-up').attr('type-doc', $(this).attr('name'));
+
+
+                files = event.target.files;
+                var formData = new FormData();
+                $.each(files, function(key, value){
+                    formData.append(key, value);
+                });
+                if ($('.img-pop-up').attr('type-doc') != ''){
+                    type = $('.img-pop-up').attr('type-doc');
+                    $.ajax({
+                        url: Routing.generate('uploadDoc', {'type': type}),
+                        type: 'POST',
+                        xhr: function() {
+                            var myXhr = $.ajaxSettings.xhr();
+                            if(myXhr.upload){
+                                myXhr.upload.addEventListener('#progress-passport',progressHandlingFunction, false);
+                            }
+                            return myXhr;
+                        },
+                        //beforeSend: ,
+                        //error: ,
+                        success: function(msg){
+
+                            $('.bg-gray').fadeOut();
+                            $('#loader').fadeOut();
+
+                            if ($('.img-pop-up').attr('type-doc') != 'work' ){
+                                $('#img-pop-up-img').html('<div style="display: inline-block"><img  src="'+msg+'" /></div>');
+                                showImgPopUp();
+                                if ( type == 'photo'){
+                                    $('#img-pop-up-img div img').imgAreaSelect({
+                                        aspectRatio: '3:4',
+                                        handles: true,
+                                        onSelectEnd: function (img, selection) {
+                                            $('input[name="x1"]').val(selection.x1);
+                                            $('input[name="y1"]').val(selection.y1);
+                                            $('input[name="x2"]').val(selection.x2);
+                                            $('input[name="y2"]').val(selection.y2);
+                                            $('.imgareaselect-selection').addClass('imgareaselect-selection2');
+                                        }
+                                    });
+                                }else{
+                                    $('#img-pop-up-img div img').imgAreaSelect({
+                                        x1: 120, y1: 90, x2: 280, y2: 210,
+                                        handles: true,
+                                        onSelectEnd: function (img, selection) {
+                                            $('input[name="x1"]').val(selection.x1);
+                                            $('input[name="y1"]').val(selection.y1);
+                                            $('input[name="x2"]').val(selection.x2);
+                                            $('input[name="y2"]').val(selection.y2);
+                                        }
+                                    });
+                                }
+                            }
+                        },
+//                        error:function (error) {
+//                            alert("error"+error);
+//                        },
+                        data: formData,
+                        cache: false,
+                        contentType: false,
+                        processData: false
+                    });
+                }
+                if ( $('#signFile-styler').children('.jq-file__name').html() == 'Файл не выбран'){
+                    hideloader();
+                    hideImgPopUp();
+                }
+            });
+
+
+            $('#rotate').click(function(){
+                type = $('.img-pop-up').attr('type-doc');
+                $.ajax({
+                    type: "POST",
+                    url: Routing.generate('rotate-image', {'type': type}),
+                    success: function(msg){
+                        $(".imgareaselect-selection").parent().remove();
+                        $(".imgareaselect-outer").remove();
+                        $('#img-pop-up-img').html('<div style="display: inline-block"><img  src="'+msg+'" /></div>');
+                        showImgPopUp();
+                        if ( type == 'photo'){
+                            $('#img-pop-up-img div img').imgAreaSelect({
+                                aspectRatio: '3:5',
+//                                x1: 120, y1: 90, x2: 280, y2: 210,
+                                handles: true,
+                                onSelectEnd: function (img, selection) {
+                                    $('input[name="x1"]').val(selection.x1);
+                                    $('input[name="y1"]').val(selection.y1);
+                                    $('input[name="x2"]').val(selection.x2);
+                                    $('input[name="y2"]').val(selection.y2);
+                                }
+                            });
+                            $('.imgareaselect-selection').addClass('imgareaselect-selection2');
+                        }else{
+                            $('#img-pop-up-img div img').imgAreaSelect({
+                                x1: 120, y1: 90, x2: 280, y2: 210,
+                                handles: true,
+                                onSelectEnd: function (img, selection) {
+                                    $('input[name="x1"]').val(selection.x1);
+                                    $('input[name="y1"]').val(selection.y1);
+                                    $('input[name="x2"]').val(selection.x2);
+                                    $('input[name="y2"]').val(selection.y2);
+                                }
+                            });
+                        }
+
+                    }
+                });
+            });
+
+
+
+
+
+
+
+
+
+            function showImgPopUp(){
+                $('.bg-gray').fadeIn();
+                $('.img-pop-up').fadeIn();
+            }
+
+            function hideImgPopUp(){
+                $('.bg-gray').fadeOut();
+                $('.img-pop-up').fadeOut();
+            }
+
+            function hideloader(x){
+                if (x == 1)
+                    showInpPopUp();
+                $('.bg-gray').fadeOut();
+                $('#loader').fadeOut();
+            }
+
+            function showloader(){
+                hideInpPopUp();
+                $('.bg-gray').fadeIn();
+                $('#loader').fadeIn();
+            }
+
         });
+
+
 
 
     </script>
