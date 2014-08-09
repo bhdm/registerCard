@@ -282,10 +282,95 @@ class UserController extends Controller{
 
         if ($user && ( $user->getCompany()->getOperator() == $this->getUser() || $this->get('security.context')->isGranted('ROLE_ADMIN'))){
             if ($request->getMethod() == 'POST'){
+                $data = $request->request;
+
+                $user->setEmail($data->get('email'));
+                $user->setPhone($data->get('phone'));
+
+                $user->setLastName($data->get('PassportLastName'));
+                $user->setFirstName($data->get('PassportFirstName'));
+                $user->setSurName($data->get('PassportSurName'));
+                $user->setBirthDate($data->get('PassportBirthdate'));
+                $user->setPassportNumber($data->get('PassportNumber'));
+                $user->setPassportSerial($data->get('passportSeries'));
+                $user->setPassportIssuance($data->get('PassportPlace'));
+                $user->setPassportIssuanceDate($data->get('PassportDate'));
+                $user->setPassportCode($data->get('PassportCode'));
+
+                $user->setDriverDocNumber($data->get('driverNumber'));
+                $user->setDriverDocDateStarts($data->get('driverDateStarts'));
+                $user->setDriverDocDateEnds($data->get('driverDateEnds'));
+                $user->setDriverDocIssuance($data->get('driverDocIssuance'));
+                $user->setSnils($data->get('snils'));
+                $user->setLastNumberCard($data->get('oldNumber'));
+
+                $user->setDileveryZipcode($data->get('deliveryZipcode'));
+                $region = $this->getDoctrine()->getRepository('CrmMainBundle:Region')->findOneById($data->get('deliveryRegion'));
+                $user->setDileveryRegion($region);
+                $user->setDileveryCity($data->get('deliveryCity'));
+                $user->setDileveryStreet($data->get('deliveryStreet'));
+                $user->setDileveryHome($data->get('deliveryHouse'));
+                $user->setDileveryCorp($data->get('deliveryCorp'));
+                $user->setDileveryRoom($data->get('deliveryRoom'));
+                $user->setSalt(md5(time()));
+
+
+                if ($data->get('myPetition')){
+                    $user->setMyPetition(1);
+                }
+
+                $date = new \DateTime($user->getBirthDate());
+                $user->setBirthDate($date);
+
+                $date = new \DateTime($user->getPassportIssuanceDate());
+                $user->setPassportIssuanceDate($date);
+
+                $date = new \DateTime($user->getDriverDocDateStarts());
+                $user->setDriverDocDateStarts($date);
+
+                $date = new \DateTime($user->getDriverDocDateEnds());
+                $user->setDriverDocDateEnds($date);
+
+                if ($session->get('passport')){
+                    $fileName = $this->saveFile('passport');
+                    $user->setCopyPassport($fileName);
+                }
+                if ($session->get('driver')){
+                    $fileName = $this->saveFile('driver');
+                    $user->setCopyDriverPassport($fileName);
+                }
+                if ($session->get('photo')){
+                    $fileName = $this->saveFile('photo');
+                    $user->setPhoto($fileName);
+                }
+                if ($session->get('sign')){
+                    $fileName = $this->saveFile('sign');
+                    $user->setCopySignature($fileName);
+                }
+                if ($session->get('snils')){
+                    $fileName = $this->saveFile('snils');
+                    $user->setCopySnils($fileName);
+                }
+                if ($session->get('hod')){
+                    $fileName = $this->saveFile('hod');
+                    $user->setCopyPetition($fileName);
+                }
+                if ($session->get('work')){
+                    $fileName = $this->saveFile('work');
+                    $user->setCopyWork($fileName);
+                }
+
+                $user->setCopyPassport($this->getArrayToImg($user->getCopyPassport()));
+                $user->setCopyDriverPassport($this->getArrayToImg($user->getCopyDriverPassport()));
+                $user->setPhoto($this->getArrayToImg($user->getPhoto()));
+                $user->setCopySignature($this->getArrayToImg($user->getCopySignature()));
+                $user->setCopySnils($this->getArrayToImg($user->getCopySnils()));
+                $user->setCopyWork($this->getArrayToImg($user->getCopyWork()));
+                $user->setCopyPetition($this->getArrayToImg($user->getCopyPetition()));
+
 
             }else{
                 #Помещаем все фалы-картинки в сессию, что бы потом можно было бы редактировать
-
                 # Пасспорт
                 $file = $user->getCopyPassport();
                 list($width, $height) = getimagesize('/var/www/'.$file['path']);
