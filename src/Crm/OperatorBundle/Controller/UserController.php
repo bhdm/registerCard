@@ -373,69 +373,94 @@ class UserController extends Controller{
                 #Помещаем все фалы-картинки в сессию, что бы потом можно было бы редактировать
                 # Пасспорт
                 $file = $user->getCopyPassport();
-                list($width, $height) = getimagesize('/var/www/'.$file['path']);
-                $session->set('passport', array(
-                        'content'=> $this->imgToBase('/var/www/'.$file['path']),
-                        'mimeType'=> 'image/jpeg',
-                        'width'=> $width,
-                        'height'=> $height,
-                    )
-                );
+                if (!empty($file)){
+                    list($width, $height) = getimagesize('/var/www/'.$file['path']);
+                    $session->set('passport', array(
+                            'content'=> $this->imgToBase('/var/www/'.$file['path']),
+                            'mimeType'=> 'image/jpeg',
+                            'width'=> $width,
+                            'height'=> $height,
+                        )
+                    );
+                }
 
                 # Права
                 $file = $user->getCopyDriverPassport();
-                list($width, $height) = getimagesize('/var/www/'.$file['path']);
-                $session->set('driver', array(
-                        'content'=> $this->imgToBase('/var/www/'.$file['path']),
-                        'mimeType'=> 'image/jpeg',
-                        'width'=> $width,
-                        'height'=> $height,
-                    )
-                );
+                if (!empty($file)){
+                    list($width, $height) = getimagesize('/var/www/'.$file['path']);
+                    $session->set('driver', array(
+                            'content'=> $this->imgToBase('/var/www/'.$file['path']),
+                            'mimeType'=> 'image/jpeg',
+                            'width'=> $width,
+                            'height'=> $height,
+                        )
+                    );
+                }
 
                 # СНИЛС
                 $file = $user->getCopySnils();
-                list($width, $height) = getimagesize('/var/www/'.$file['path']);
-                $session->set('snils', array(
-                        'content'=> $this->imgToBase('/var/www/'.$file['path']),
-                        'mimeType'=> 'image/jpeg',
-                        'width'=> $width,
-                        'height'=> $height,
-                    )
-                );
+                if (!empty($file)){
+                    list($width, $height) = getimagesize('/var/www/'.$file['path']);
+                    $session->set('snils', array(
+                            'content'=> $this->imgToBase('/var/www/'.$file['path']),
+                            'mimeType'=> 'image/jpeg',
+                            'width'=> $width,
+                            'height'=> $height,
+                        )
+                    );
+                }
 
                 # Фото
                 $file = $user->getPhoto();
-                list($width, $height) = getimagesize('/var/www/'.$file['path']);
-                $session->set('photo', array(
-                        'content'=> $this->imgToBase('/var/www/'.$file['path']),
-                        'mimeType'=> 'image/jpeg',
-                        'width'=> $width,
-                        'height'=> $height,
-                    )
-                );
+                if (!empty($file)){
+                    list($width, $height) = getimagesize('/var/www/'.$file['path']);
+                    $session->set('photo', array(
+                            'content'=> $this->imgToBase('/var/www/'.$file['path']),
+                            'mimeType'=> 'image/jpeg',
+                            'width'=> $width,
+                            'height'=> $height,
+                        )
+                    );
+                }
 
                 # Подпись
                 $file = $user->getCopySignature();
-                list($width, $height) = getimagesize('/var/www/'.$file['path']);
-                $session->set('sign', array(
-                        'content'=> $this->imgToBase('/var/www/'.$file['path']),
-                        'mimeType'=> 'image/jpeg',
-                        'width'=> $width,
-                        'height'=> $height,
-                    )
-                );
+                if (!empty($file)){
+                    list($width, $height) = getimagesize('/var/www/'.$file['path']);
+                    $session->set('sign', array(
+                            'content'=> $this->imgToBase('/var/www/'.$file['path']),
+                            'mimeType'=> 'image/jpeg',
+                            'width'=> $width,
+                            'height'=> $height,
+                        )
+                    );
+                }
 
                 # Ходатайство
                 $file = $user->getCopyPetition();
-                list($width, $height) = getimagesize('/var/www/'.$file['path']);
-                $session->set('hod', array(
-                        'content'=> $this->imgToBase('/var/www/'.$file['path']),
-                        'mimeType'=> 'image/jpeg',
-                        'width'=> $width,
-                        'height'=> $height,
-                    )
-                );
+                if (!empty($file)){
+                    list($width, $height) = getimagesize('/var/www/'.$file['path']);
+                    $session->set('hod', array(
+                            'content'=> $this->imgToBase('/var/www/'.$file['path']),
+                            'mimeType'=> 'image/jpeg',
+                            'width'=> $width,
+                            'height'=> $height,
+                        )
+                    );
+                }
+
+                # Ходатайство
+                $file = $user->getCopyWork();
+                if (!empty($file)){
+                    list($width, $height) = getimagesize('/var/www/'.$file['path']);
+                    $session->set('work', array(
+                            'content'=> $this->imgToBase('/var/www/'.$file['path']),
+                            'mimeType'=> 'image/jpeg',
+                            'width'=> $width,
+                            'height'=> $height,
+                        )
+                    );
+                }
 
                 $session->save();
             }
