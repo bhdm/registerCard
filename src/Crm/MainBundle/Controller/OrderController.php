@@ -88,30 +88,37 @@ class OrderController extends Controller{
         $base = $session->get($type);
         $base = $base['content'];
 
-        $aspect = $session->get($type)['width'] / $request->request->get('originalWidth');
+        $aspect = $session->get($type)['width'] / (int) $request->request->get('originalWidth');
 //        $aspect = 1;
 
         $rect = array(
             'x' => $request->request->get('x')*$aspect,
             'y' => $request->request->get('y')*$aspect,
-            'width' => $request->request->get('x2')*$aspect,
-            'height' => $request->request->get('y2')*$aspect,
+            'width' => (int) $request->request->get('x2')*$aspect,
+            'height' => (int) $request->request->get('y2')*$aspect,
 
-            'smallWidth' => $request->request->get('originalWidth'),
-            'originWidth' => $session->get($type)['width'],
-            'originHeight'=> $session->get($type)['height']
+            'smallWidth' => (int) $request->request->get('originalWidth'),
+            'originWidth' => (int) $session->get($type)['width'],
+            'originHeight'=> (int) $session->get($type)['height']
         );
-        $base = $this->cropimage($base,$rect);
-        $session->set($type, array(
-                'content'=> $base
-            )
-        );
-        $session->save();
-
+        $base = $this->cropimage($base,$rect, $type);
+        $file = $this->BaseToImg($base);
+        list($width, $height) = getimagesize($file);
 
         if ($type == 'photo' || $type == 'sign'){
             $base = $this->blackImage($base, $type);
         }
+
+        $session->set($type, array(
+                'content'=> $base,
+                'width'=> $width,
+                'height'=> $height,
+                'mimeType'=> 'image/jpeg',
+            )
+        );
+
+        $session->save();
+
 
 
 
@@ -360,7 +367,7 @@ class OrderController extends Controller{
     }
 
 
-    public function cropimage($img, $rect){
+    public function cropimage($img, $rect, $type = null){
 
         #Получаем оригинальные размеры картинки
         if ($rect['width'] == 0 or $rect['height'] == 0){
@@ -370,6 +377,19 @@ class OrderController extends Controller{
         $image = imagecreatefromjpeg($pathName);
         $crop = imagecreatetruecolor($rect['width'],$rect['height']);
         imagecopy ( $crop, $image, 0, 0, $rect['x'], $rect['y'], $rect['width'], $rect['height'] );
+
+//        if ($type == 'photo'){
+//            $crop = imagecreatetruecolor(394,506);
+//            imagecopyresized( $crop, $image, 0, 0,0, 0, 394, 506, imagesx($image), imagesy($image) );
+//            $image = $crop;
+//        }
+//
+//        if ($type == 'sign'){
+//            $crop = imagecreatetruecolor(591,118);
+//            imagecopyresized( $crop, $image, 0, 0,0, 0, 591, 118, imagesx($image), imagesy($image) );
+//            $image = $crop;
+//        }
+
         $pathName = tempnam('/tmp','img-');
         imagejpeg($crop, $pathName);
         return $this->imgToBase($pathName);

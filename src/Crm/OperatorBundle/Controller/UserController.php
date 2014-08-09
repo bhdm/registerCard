@@ -14,6 +14,7 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
@@ -440,7 +441,8 @@ class UserController extends Controller{
                 $session->save();
             }
 
-            return array('user' => $user);
+            $regions = $this->getDoctrine()->getRepository('CrmMainBundle:Region')->findAll();
+            return array('user' => $user, 'regions' => $regions);
         }else{
             return $this->redirect($request->headers->get('referer'));
         }
