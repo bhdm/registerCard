@@ -523,10 +523,32 @@ class UserController extends Controller{
         return $this->imgToBase($pathName);
     }
 
-    public function blackImage($img){
+    public function blackImage($img, $type = null){
         $pathName = $this->BaseToImg($img);
         $image = imagecreatefromjpeg($pathName);
         imagefilter($image, IMG_FILTER_GRAYSCALE );
+
+        if ($type == 'photo'){
+            $crop = imagecreatetruecolor(394,506);
+            imagecopyresized( $crop, $image, 0, 0,0, 0, 394, 506, imagesx($image), imagesy($image) );
+            $image = $crop;
+        }
+
+        if ($type == 'sign'){
+            #тут делаем ее определенного размера
+            $crop = imagecreatetruecolor(591,118);
+            $white = imagecolorallocate($crop, 255, 255, 255);
+            imagefill($crop, 0, 0, $white);
+
+            $ph = imagesy($image) / 118;
+            $width = imagesx($image) /$ph;
+            $margin = (591-$width)/2;
+            $height = 118;
+
+            imagecopyresized( $crop, $image, $margin, 0,0, 0, $width, $height, imagesx($image), imagesy($image) );
+            $image = $crop;
+        }
+
         $pathName = tempnam('/tmp','img-');
         imagejpeg($image, $pathName);
         return $this->imgToBase($pathName);
