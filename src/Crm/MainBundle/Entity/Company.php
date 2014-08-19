@@ -128,7 +128,7 @@ class Company extends BaseEntity
     protected $operator;
 
     /**
-     * @ORM\ManyToOne(targetEntity="CompanyPetition", inversedBy="company")
+     * @ORM\OneToMany(targetEntity="CompanyPetition", mappedBy="company")
      */
     protected $petitions;
 
