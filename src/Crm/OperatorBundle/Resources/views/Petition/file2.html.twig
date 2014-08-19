@@ -63,13 +63,8 @@
                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Прошу изготовить карту водителя для тахографа с блоком СКЗИ.
                     <br />
                     <br />
-                    <b>Водители:</b> <br />
-                    {% for user in  petition.users %}
-                        {% if not loop.last %}
-                            {{ user.lastName }} {{ user.firstName }} {{ user.surName }}, <br />
-                        {% else %}
+                    <b>Водитель:</b> <br />
                             {{ user.lastName }} {{ user.firstName }} {{ user.surName }}. <br />
-                        {% endif %}
                     {% endfor %}
                 </td>
             </tr>
