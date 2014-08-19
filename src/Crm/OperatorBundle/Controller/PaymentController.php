@@ -42,7 +42,7 @@ class PaymentController extends Controller
      * @Template()
      */
     public function addAction(Request $request){
-        $companies = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->findAll();
+        $perators = $this->getDoctrine()->getRepository('CrmMainBundle:Operator')->findAll();
         $em = $this->getDoctrine()->getManager();
         if ( $request->getMethod() == 'POST'){
             $payment = new CompanyPayment();
@@ -54,7 +54,7 @@ class PaymentController extends Controller
             $em->flush();
             return $this->redirect($this->generateUrl('operator_payment_list'));
         }
-        return array('companies' => $companies);
+        return array('perators' => $perators);
     }
 
     /**
@@ -62,7 +62,7 @@ class PaymentController extends Controller
      * @Template()
      */
     public function editAction(Request $request, $paymentId){
-        $companies = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->findAll();
+        $operators = $this->getDoctrine()->getRepository('CrmMainBundle:Operator')->findAll();
         $em = $this->getDoctrine()->getManager();
         $payment = $this->getDoctrine()->getRepository('CrmMainBundle:CompanyPayment')->findOneById($paymentId);
         if ($payment){
@@ -75,7 +75,7 @@ class PaymentController extends Controller
                 return $this->redirect($this->generateUrl('operator_payment_list'));
             }
         }
-        return array('payment'=> $payment, 'companies' => $companies);
+        return array('payment'=> $payment, 'operators' => $operators);
     }
 
     /**
