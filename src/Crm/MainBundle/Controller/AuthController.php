@@ -254,20 +254,20 @@ class AuthController extends Controller
         }
     }
     /**
-     * @Route("/generatePdfDoc", name="generate_pdf_doc")
+     * @Route("/generatePdfDoc/{id}", name="generate_pdf_doc")
      */
-    public function generatePdfDocAction(Request $request){
+    public function generatePdfDocAction(Request $request, $id){
 //            if ($request->query->get('mail')){
 //                $mail = $request->query->get('mail');
 //            }else{
 //                $mail = null;
 //            }
 
-//            $user = $this->getDoctrine()->getRepository('CrmMainBundle:User')->findOneById($id);
+            $user = $this->getDoctrine()->getRepository('CrmMainBundle:User')->findOneById($id);
             $mpdfService = $this->container->get('tfox.mpdfport');
 
 //            $html = $this->render('CrmMainBundle:Form:doc2.html.twig',array('user' => $user));
-            $html = $this->render('CrmMainBundle:Form:doc2.html.twig',array());
+            $html = $this->render('CrmMainBundle:Form:doc2.html.twig',array('user' => $user));
             $arguments = array(
                 'constructorArgs' => array('utf-8', 'A4', 0 ,0 ,0 ,0, 3), //Constructor arguments. Numeric array. Don't forget about points 2 and 3 in Warning section!
                 'writeHtmlMode' => null, //$mode argument for WriteHTML method
@@ -276,8 +276,8 @@ class AuthController extends Controller
                 'outputFilename' => null, //$filename argument for Output method
                 'outputDest' => null, //$dest argument for Output method
             );
-            $response = $mpdfService->generatePdf($html->getContent(), $arguments);
-            return $this->render('CrmMainBundle:Form:doc2.html.twig',array());
+//            $response = $mpdfService->generatePdf($html->getContent(), $arguments);
+            return $this->render('CrmMainBundle:Form:doc2.html.twig', array('user' => $user));
     }
 
     /**

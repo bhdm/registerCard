@@ -27,11 +27,16 @@
                 font-size: 15px;
             }
             .snils{
+                /*position: absolute;*/
+                /*top: 559px;*/
+                /*left: 492px;*/
+                /*font-size: 15px;*/
+                /*letter-spacing: 2px;*/
                 position: absolute;
                 top: 559px;
-                left: 492px;
+                left: 500px;
                 font-size: 15px;
-                letter-spacing: 2px;
+                letter-spacing: 3px;
             }
             .passportNumber{
                 position: absolute;
@@ -93,7 +98,7 @@
             }
             .sign{
                 position: absolute;
-                top: 1323px;
+                top: 1022px;
                 width: 235px;
                 left: 351px;
                 z-index: 999;
@@ -148,39 +153,45 @@
 
     <body>
         <img src="{{ asset('bundles/crmmain/page1.png') }}" style="">
+        <br />
         <img src="{{ asset('bundles/crmmain/page2.png') }}" style="">
 
         <div class="company0">НПО РОМАШКА</div>
-        <div class="fio0">Степанов Виктор Викторович абрам</div>
+        <div class="fio0">{{ user.lastName }} {{ user.firstName }} {{ user.surName }}</div>
 
         <div class="rud" style="">
-            1234567891123
+            {{ user.lastNumberCard }}
         </div>
         <div class="fio" style="">
-            Степанов Виктор Викторович абрам
+            {{ user.lastName }} {{ user.firstName }} {{ user.surName }}
         </div>
-        <div class="companyName">Общество с ограниченной ответственностью "Коммункационная группа TWIGA"</div>
-        <div class="companyAdress">127455,г. Москва, ул Широкая, д 19 к 3 кв 426 Дополнительный текст</div>
-        <div class="snils">133 123 123 13</div>
+        <div class="companyName">{{ user.company.title }}</div>
+        <div class="companyAdress">
+            {{ user.company.zipcode }},
+            {{ user.company.region }},  {{ user.company.city }},
+            {{ user.company.street }},д.{{ user.company.home }} {{ user.company.corp }}, {{ user.company.room }}
+        </div>
+        <div class="snils">{{ user.snils }}</div>
 
-        <div class="passportNumber">4507 071445</div>
-        <div class="passportDate">25&nbsp;&nbsp;&nbsp;&nbsp;Декабря&nbsp;&nbsp;&nbsp;&nbsp;1991</div>
-        <div class="passportPlace">УФМС города Москва по району северное медведково</div>
-        <div class="passportCode">133&nbsp;&nbsp;&nbsp;132</div>
+        <div class="passportNumber">{{ user.passportSerial }} {{ user.passportNumber }}</div>
+        <div class="passportDate">{{ user.passportIssuanceDate | date("d") }}&nbsp;&nbsp;&nbsp;&nbsp;{{ user.passportIssuanceDate | date("m") }}&nbsp;&nbsp;&nbsp;&nbsp;{{ user.passportIssuanceDate | date("Y") }}</div>
+        <div class="passportPlace">{{ user.passportIssuance }}</div>
+        <div class="passportCode">{{ user.passportCode }}</div>
+        {#<div class="passportCode">133&nbsp;&nbsp;&nbsp;132</div>#}
 
-        <div class="driverNumber">12365491011</div>
-        <div class="driverDate">22&nbsp;&nbsp;&nbsp;&nbsp;Декабря&nbsp;&nbsp;&nbsp;&nbsp;2014</div>
-        <div class="driverPlace">ГИБДД РФ 1</div>
-        <div class="driverCountry">Российская федерация</div>
+        <div class="driverNumber">{{ user.driverDocNumber }}</div>
+        <div class="driverDate">{{ user.driverDocDateStarts | date("d") }}&nbsp;&nbsp;&nbsp;&nbsp;{{ user.driverDocDateStarts | date("m") }}&nbsp;&nbsp;&nbsp;&nbsp;{{ user.driverDocDateStarts | date("Y") }}</div>
+        <div class="driverPlace">{{ user.driverDocIssuance }}</div>
+        <div class="driverCountry">{{ user.driverDocCountry }}</div>
 
         <div class="photo"><img src="/upload/docs/idf5zelaozw5e7mhpr"></div>
         <div class="sign"><img src="/upload/docs/idcrrg9rzqedfzycib"></div>
 
         <img src="/upload/docs/idcrrg9rzqedfzycib" class="sign2">
-        <div class="date2">22&nbsp;&nbsp;&nbsp;&nbsp;Декабря&nbsp;&nbsp;&nbsp;&nbsp;2014</div>
-        <div class="fio2">Степанов В. В.</div>
+        <div class="date2">{{ user.created| date("d") }}&nbsp;&nbsp;&nbsp;&nbsp;{{ user.created| date("m") }}&nbsp;&nbsp;&nbsp;&nbsp;{{ user.created | date("Y") }}</div>
+        <div class="fio2">{{ user.lastName }} {{ user.firstName|first }}. {{ user.surName|first }}.</div>
 
         <img src="/upload/docs/idcrrg9rzqedfzycib" class="sign3">
-        <div class="fio3">Степанов В. В.</div>
+        <div class="fio3">{{ user.lastName }} {{ user.firstName|first }}. {{ user.surName|first }}.</div>
     </body>
 </html>
