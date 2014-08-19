@@ -60,9 +60,9 @@
             .passportCode{
                 position: absolute;
                 top: 691px;
-                left: 305px;
+                left: 300px;
                 font-size: 15px;
-                letter-spacing: 4px;
+                letter-spacing: 12px;
             }
 
             .driverCountry{
@@ -92,7 +92,7 @@
             }
             .photo{
                 position: absolute;
-                top: 1002px;
+                top: 302px;
                 width: 102px;
                 left: 75px;
             }
@@ -154,15 +154,16 @@
                 left: 345px;
                 font-size: 17px
             }
+            img{
+                page-break-after: avoid
+            }
         </style>
     </head>
 
     <body>
         <img src="{{ asset('bundles/crmmain/page1.png') }}" style="">
-        <br />
-        <img src="{{ asset('bundles/crmmain/page2.png') }}" style="position: absolute; top: 950px">
 
-        <div class="company0">НПО РОМАШКА</div>
+        <div class="company0">ЗАО Флагман</div>
         <div class="fio0">{{ user.lastName }} {{ user.firstName }} {{ user.surName }}</div>
 
         <div class="rud" style="">
@@ -188,16 +189,17 @@
         <div class="driverNumber">{{ user.driverDocNumber }}</div>
         <div class="driverDate">{{ user.driverDocDateStarts | date("d") }}&nbsp;&nbsp;&nbsp;&nbsp;{{ user.driverDocDateStarts | date("m") }}&nbsp;&nbsp;&nbsp;&nbsp;{{ user.driverDocDateStarts | date("Y") }}</div>
         <div class="driverPlace">{{ user.driverDocIssuance }}</div>
-        <div class="driverCountry">{{ user.driverDocCountry }}</div>
+        <div class="driverCountry" style="width: 100px">РФ</div>
+<div>
+        <img src="{{ asset('bundles/crmmain/page2.png') }}" style="position: absolute; top: 0">
+        <img src="/{{ user.photo.path }}" class="photo" style="margin-top: -750px; margin-bottom: 750px; position: relative; margin-left: -602px">
+        <img src="/{{ user.copySignature.path }}" class="sign" style="margin-top: -680px; margin-bottom: 680px; margin-left: 170px">
+        <img src="/{{ user.copySignature.path }}" class="sign2" style="margin-top: -630px; margin-bottom: 630px; margin-left: 280px">
+        <img src="/{{ user.copySignature.path }}" class="sign3" style="margin-top: -300px; margin-bottom: 300px; margin-left: -165px">
 
-        <div class="photo"><img src="/{{ user.photo.path }}"></div>
-        <div class="sign"><img src="/{{ user.copySignature.path }}"></div>
-
-        <img src="/{{ user.copySignature.path }}" class="sign2">
-        <div class="date2">{{ user.created| date("d") }}&nbsp;&nbsp;&nbsp;&nbsp;{{ user.created| date("m") }}&nbsp;&nbsp;&nbsp;&nbsp;{{ user.created | date("Y") }}</div>
-        <div class="fio2">{{ user.lastName }} {{ user.firstName|first }}. {{ user.surName|first }}.</div>
-
-        <img src="/{{ user.copySignature.path }}" class="sign3">
-        <div class="fio3">{{ user.lastName }} {{ user.firstName|first }}. {{ user.surName|first }}.</div>
+        <div class="date2" style="margin-top: -705px; margin-left: 75px">{{ user.created| date("d") }}&nbsp;&nbsp;&nbsp;&nbsp;{{ user.created| date("m") }}&nbsp;&nbsp;&nbsp;&nbsp;{{ user.created | date("Y") }}</div>
+        <div class="fio2" style="margin-left: 440px; margin-top: -20px">{{ user.lastName }} {{ user.firstName|first }}. {{ user.surName|first }}.</div>
+        <div class="fio3" style="margin-left: 440px; margin-top: 295px">{{ user.lastName }} {{ user.firstName|first }}. {{ user.surName|first }}.</div>
+</div>
     </body>
 </html>

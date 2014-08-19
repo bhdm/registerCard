@@ -276,8 +276,8 @@ class AuthController extends Controller
                 'outputFilename' => null, //$filename argument for Output method
                 'outputDest' => null, //$dest argument for Output method
             );
-//            $response = $mpdfService->generatePdf($html->getContent(), $arguments);
-            return $this->render('CrmMainBundle:Form:doc2.html.twig', array('user' => $user));
+            $response = $mpdfService->generatePdf($html->getContent(), $arguments);
+//            return $this->render('CrmMainBundle:Form:doc2.html.twig', array('user' => $user));
     }
 
     /**
