@@ -54,7 +54,7 @@ class PaymentController extends Controller
             $em->flush();
             return $this->redirect($this->generateUrl('operator_payment_list'));
         }
-        return array('perators' => $perators);
+        return array('operators' => $perators);
     }
 
     /**
