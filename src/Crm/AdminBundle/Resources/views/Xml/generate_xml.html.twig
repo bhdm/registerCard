@@ -104,9 +104,11 @@
 
         {% if files[8] is defined %}
             <Attachment>
-                <AttachmentName>{{ files[8].file.fileName ? files[8].file.fileName : 'hod.pdf' }}</AttachmentName>
+                <AttachmentName>petition.pdf</AttachmentName>
                 <AttachmentType>Other</AttachmentType>
-                <FileFormat>{% if files[8].file.mimeType == 'image/jpeg' %}JPG{% elseif files[6].file.mimeType == 'image/png' %}PNG{% elseif files[6].file.mimeType == 'image/gif' %}GIF{% else %}PDF{% endif %}</FileFormat>
+                <FileFormat>
+                    {% if files[8].file is defined %}{% if files[8].file.mimeType == 'image/jpeg' %}JPG{% elseif files[6].file.mimeType == 'image/png' %}PNG{% elseif files[6].file.mimeType == 'image/gif' %}GIF{% else %}PDF{% endif %}{% else %}PDF{% endif %}
+                </FileFormat>
                 <Body>{{ files[8].base }}</Body>
             </Attachment>
         {% endif %}
