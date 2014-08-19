@@ -47,7 +47,7 @@ class PaymentController extends Controller
         if ( $request->getMethod() == 'POST'){
             $payment = new CompanyPayment();
             $operator = $this->getDoctrine()->getRepository('CrmMainBundle:Operator')->findOneById($request->request->get('operator'));
-            $payment->setCompany($operator);
+            $payment->setOperator($operator);
             $payment->setCount($request->request->get('count'));
             $payment->setSumm($request->request->get('summ'));
             $em->persist($payment);
@@ -68,7 +68,7 @@ class PaymentController extends Controller
         if ($payment){
             if ( $request->getMethod() == 'POST'){
                 $operator = $this->getDoctrine()->getRepository('CrmMainBundle:Operator')->findOneById($request->request->get('operator'));
-                $payment->setCompany($operator);
+                $payment->setOperator($operator);
                 $payment->setCount($request->request->get('count'));
                 $payment->setSumm($request->request->get('summ'));
                 $em->flush($payment);
