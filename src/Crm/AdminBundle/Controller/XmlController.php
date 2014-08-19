@@ -54,7 +54,7 @@ class XmlController extends Controller
 //        }
 
         # Заявление
-        $url = 'http://'.$request->server->get('HTTP_HOST').'/app.php/generatePdf?ord='.$user->getId();
+        $url = 'http://'.$request->server->get('HTTP_HOST').'/app.php/generatePdfDoc/'.$user->getId();
         $files[7]['base'] = $this->pdfToBase64($url);
         $files[7]['title'] = 'Order';
 
