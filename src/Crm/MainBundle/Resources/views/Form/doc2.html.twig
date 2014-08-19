@@ -92,16 +92,22 @@
             }
             .photo{
                 position: absolute;
-                top: 998px;
-                width: 106px;
-                left: 73px;
+                top: 1002px;
+                width: 102px;
+                left: 75px;
+            }
+            .photo img{
+                width: 102px;
             }
             .sign{
                 position: absolute;
-                top: 1022px;
+                top: 1026px;
                 width: 235px;
                 left: 351px;
                 z-index: 999;
+            }
+            .sign{
+                width: 235px;
             }
             .sign2{
                 position: absolute;
@@ -184,14 +190,14 @@
         <div class="driverPlace">{{ user.driverDocIssuance }}</div>
         <div class="driverCountry">{{ user.driverDocCountry }}</div>
 
-        <div class="photo"><img src="/upload/docs/idf5zelaozw5e7mhpr"></div>
-        <div class="sign"><img src="/upload/docs/idcrrg9rzqedfzycib"></div>
+        <div class="photo"><img src="/{{ user.photo.path }}"></div>
+        <div class="sign"><img src="/{{ user.copySignature.path }}"></div>
 
-        <img src="/upload/docs/idcrrg9rzqedfzycib" class="sign2">
+        <img src="/{{ user.copySignature.path }}" class="sign2">
         <div class="date2">{{ user.created| date("d") }}&nbsp;&nbsp;&nbsp;&nbsp;{{ user.created| date("m") }}&nbsp;&nbsp;&nbsp;&nbsp;{{ user.created | date("Y") }}</div>
         <div class="fio2">{{ user.lastName }} {{ user.firstName|first }}. {{ user.surName|first }}.</div>
 
-        <img src="/upload/docs/idcrrg9rzqedfzycib" class="sign3">
+        <img src="/{{ user.copySignature.path }}" class="sign3">
         <div class="fio3">{{ user.lastName }} {{ user.firstName|first }}. {{ user.surName|first }}.</div>
     </body>
 </html>
