@@ -295,7 +295,7 @@ class UserController extends Controller{
                 $user->setPassportNumber($data->get('passportNumber'));
                 $user->setPassportSerial($data->get('passportSeries'));
                 $user->setPassportIssuance($data->get('PassportPlace'));
-                $user->setPassportIssuanceDate($data->get('PassportDate'));
+                $user->setPassportIssuanceDate($data->get('passportDate'));
                 $user->setPassportCode($data->get('passportCode'));
 
                 $user->setDriverDocNumber($data->get('driverNumber'));
