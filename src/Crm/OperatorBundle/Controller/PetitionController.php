@@ -117,30 +117,6 @@ class PetitionController extends Controller
         return $this->redirect($request->headers->get('referer'));
     }
 
-    /**
-     * @Route("/myfile/{userId}", name="operator_myfile")
-     * @Template()
-     */
-    public function myfileAction(Request $request, $userId){
-        $user = $this->getDoctrine()->getRepository('CrmMainBundle:User')->findOneById($userId);
-        if ($user){
-//            if ($this->get('security.context')->isGranted('ROLE_ADMIN') or $petition->getOperator() == $this->getUser()){
-                $mpdfService = $this->container->get('tfox.mpdfport');
-
-                $html = $this->render('CrmOperatorBundle:Petition:file2.html.twig',array('user' => $user));
-                $arguments = array(
-//                'constructorArgs' => array('utf-8', 'A4-L', 5 ,5 ,5 ,5,5 ), //Constructor arguments. Numeric array. Don't forget about points 2 and 3 in Warning section!
-                    'writeHtmlMode' => null, //$mode argument for WriteHTML method
-                    'writeHtmlInitialise' => null, //$mode argument for WriteHTML method
-                    'writeHtmlClose' => null, //$close argument for WriteHTML method
-                    'outputFilename' => null, //$filename argument for Output method
-                    'outputDest' => null, //$dest argument for Output method
-                );
-                $mpdfService->generatePdfResponse($html->getContent(), $arguments);
-//            }
-        }
-        return $this->redirect($request->headers->get('referer'));
-    }
 
 
     /**
