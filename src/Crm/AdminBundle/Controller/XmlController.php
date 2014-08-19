@@ -85,7 +85,7 @@ class XmlController extends Controller
      */
     public function imageToBase64($file){
 //        $filePath = '../../../../../upload/docs'.$file['path'];
-        $filePath = __DIR__.'/../../../web/'.$file['path'];
+        $filePath = __DIR__.'/../../../../web/'.$file['path'];
         $imagedata = file_get_contents($filePath);
         $base64 = base64_encode($imagedata);
         return $base64;
