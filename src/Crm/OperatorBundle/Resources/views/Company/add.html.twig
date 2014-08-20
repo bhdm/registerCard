@@ -11,6 +11,12 @@
     <form method="POST">
         <table>
             <tr>
+                <td class="label">URL компании:</td>
+                <td class="value">
+                    <input name="url" id="url" type="text" value="{{ company.url }}" placeholder="company URL">
+                </td>
+            </tr>
+            <tr>
                 <td class="label">Название организации<span class="required">*</span>:</td>
                 <td class="value">
                     <input name="companyName" id="companyName" type="text" value="" placeholder="Название">
