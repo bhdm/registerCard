@@ -101,8 +101,9 @@
             }
             .sign{
                 position: absolute;
-                top: 1026px;
+                top: 806px;
                 width: 235px;
+                /*height: 100px;*/
                 left: 351px;
                 z-index: 999;
             }
@@ -178,11 +179,15 @@
         <div class="fio" style="">
             {{ user.lastName }} {{ user.firstName }} {{ user.surName }}
         </div>
-        <div class="companyName">{{ user.company.title }}</div>
+        <div class="companyName">{{ user.myPetition == 1? '«НПО «ТЕХНОЛОГ»' : user.company.title }}</div>
         <div class="companyAdress">
-            {{ user.company.zipcode }},
-            {{ user.company.region }},  {{ user.company.city }},
-            {{ user.company.street }},д.{{ user.company.home }} {{ user.company.corp }}, {{ user.company.room }}
+            {% if user.myPetition == 1 %}
+                195196, Санкт-Петербург, ул.Громова, д.14/6, лит. А, пом. 3-Н
+            {% else %}
+                {{ user.company.zipcode }},
+                {{ user.company.region }},  {{ user.company.city }},
+                {{ user.company.street }},д.{{ user.company.home }} {{ user.company.corp }}, {{ user.company.room }}
+            {% endif %}
         </div>
         <div class="snils">{{ user.snils }}</div>
 
@@ -199,12 +204,13 @@
 <div>
         <img src="{{ asset('bundles/crmmain/page2.png') }}" style="position: absolute; top: 0">
         <img src="/{{ user.photo.path }}" class="photo" style="margin-top: -750px; margin-bottom: 750px; position: relative; margin-left: -602px">
-        <img src="/{{ user.copySignature.path }}" class="sign" style="margin-top: -680px; margin-bottom: 680px; margin-left: 170px">
-        <img src="/{{ user.copySignature.path }}" class="sign2" style="margin-top: -630px; margin-bottom: 630px; margin-left: 280px">
-        <img src="/{{ user.copySignature.path }}" class="sign3" style="margin-top: -300px; margin-bottom: 300px; margin-left: -165px">
+        <img src="/{{ user.copySignature.path }}" class="sign" style="margin-top: -760px; margin-bottom: 760px; margin-left: 170px; max-height: 100px">
+        <img src="/{{ user.copySignature.path }}" class="sign2" style="margin-top: -630px; margin-bottom: 630px; margin-left: 280px; max-height: 75px">
+        <img src="/{{ user.copySignature.path }}" class="sign3" style="margin-top: -300px; margin-bottom: 300px; margin-left: -165px; max-height: 75px">
 
-        <div class="date2" style="margin-top: -705px; margin-left: 75px">{{ user.created| date("d") }}&nbsp;&nbsp;&nbsp;&nbsp;{{ user.created| date("m") }}&nbsp;&nbsp;&nbsp;&nbsp;{{ user.created | date("Y") }}</div>
-        <div class="fio2" style="margin-left: 440px; margin-top: -20px">{{ user.lastName }} {{ user.firstName|first }}. {{ user.surName|first }}.</div>
+        <div class="date2" style="margin-top: -670px; margin-left: 75px">{{ user.created| date("d") }}&nbsp;&nbsp;&nbsp;&nbsp;{{ user.created| date("m") }}&nbsp;&nbsp;&nbsp;&nbsp;{{ user.created | date("Y") }}</div>
+
+        <div class="fio2" style="margin-left: 440px; margin-top: -25px">{{ user.lastName }} {{ user.firstName|first }}. {{ user.surName|first }}.</div>
         <div class="fio3" style="margin-left: 440px; margin-top: 295px">{{ user.lastName }} {{ user.firstName|first }}. {{ user.surName|first }}.</div>
 </div>
     </body>
