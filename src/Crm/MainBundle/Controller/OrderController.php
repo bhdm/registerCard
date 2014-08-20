@@ -105,9 +105,9 @@ class OrderController extends Controller{
         $file = $this->BaseToImg($base);
         list($width, $height) = getimagesize($file);
 
-        if ($type == 'photo' || $type == 'sign'){
+//        if ($type == 'photo' || $type == 'sign'){
             $base = $this->blackImage($base, $type);
-        }
+//        }
 
         $session->set($type, array(
                 'content'=> $base,
