@@ -28,7 +28,7 @@ class XmlController extends Controller
         $files[0]['title'] = 'Passport';
         $files[0]['file'] = $user->getCopyPassport();
 
-        $files[1]['base'] = $this->imageToPdf($this->getCopyDriverPassport()['originalName']);
+        $files[1]['base'] = $this->imageToPdf($user->getCopyDriverPassport()['originalName']);
         $files[1]['title'] = 'DriverLicense';
         $files[1]['file'] = $user->getCopyDriverPassport();
 
@@ -96,7 +96,7 @@ class XmlController extends Controller
     }
 
     public function imageToPdf($filename){
-        $url = $this->generateUrl('ImageToPdf',array('filename' => $filename));
+        $url = 'http://'.$_SERVER['SERVER_NAME'].$this->generateUrl('ImageToPdf',array('filename' => $filename));
         $pdfdata = file_get_contents($url);
         $base64 = base64_encode($pdfdata);
         return $base64;
@@ -110,6 +110,7 @@ class XmlController extends Controller
     }
 
     public function pdfToBase64($url){
+        $url = 'http://'.$_SERVER['SERVER_NAME'].$url;
         $pdfdata = file_get_contents($url);
         $base64 = base64_encode($pdfdata);
         return $base64;
