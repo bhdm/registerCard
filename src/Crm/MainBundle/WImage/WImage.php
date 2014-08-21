@@ -70,7 +70,7 @@
             return self::getTmpPath($crop);
         }
 
-        public function ImageToBlackAndWhite($path) {
+        static public function ImageToBlackAndWhite($path) {
             $im = imagecreatefromjpeg(__DIR__.'/../../../../web/'.$path['path']);
             for ($x = imagesx($im); $x--;) {
                 for ($y = imagesy($im); $y--;) {

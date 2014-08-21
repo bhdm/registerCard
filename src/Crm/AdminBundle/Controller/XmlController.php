@@ -10,6 +10,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use Crm\MainBundle\Entity\User;
 use Crm\MainBundle\Entity\Company;
+use Crm\MainBundle\WImage\WImage;
 
 class XmlController extends Controller
 {
@@ -22,12 +23,13 @@ class XmlController extends Controller
         $user = $this->getDoctrine()->getRepository('CrmMainBundle:User')->findOneById($userId);
 
         $files = array();
-
-        $files[0]['base'] = $this->pdfToBase64($this->ImageToPdf($user->getCopyPassport()));
+        $url = 'http://'.$request->server->get('HTTP_HOST').'/app.php/ImageToPdf/'.$user->getCopyPassport()['originalName'];
+        $files[0]['base'] = $this->pdfToBase64($url);
         $files[0]['title'] = 'Passport';
         $files[0]['file'] = $user->getCopyPassport();
 
-        $files[1]['base'] = $this->pdfToBase64($this->ImageToPdf($user->getCopyDriverPassport()));
+        $url = 'http://'.$request->server->get('HTTP_HOST').'/app.php/ImageToPdf/'.$user->getCopyDriverPassport()['originalName'];
+        $files[1]['base'] = $this->pdfToBase64($url);
         $files[1]['title'] = 'DriverLicense';
         $files[1]['file'] = $user->getCopyDriverPassport();
 
@@ -36,8 +38,11 @@ class XmlController extends Controller
         $files[2]['file'] = $user->getPhoto();
 
 //        $files[3]['base'] = $this->imageToBase64($user->getCopySignature());
-        $files[3]['base'] = $this->ImageToBlackAndWhite($user->getCopySignature());
-        $files[3]['base'] = $this->imageToBase64($files[3]['base']);
+//        $files[3]['base'] = $this->ImageToBlackAndWhite($user->getCopySignature());
+        $file = $user->getCopySignature();
+        $file = WImage::ImageToBlackAndWhite($file);
+        $file = WImage::imgToBase($file);
+        $files[3]['base'] = $file;
         $files[3]['title'] = 'Signature';
         $files[3]['file'] = $user->getCopySignature();
 //        $this->ImageToBlackAndWhite($user->getCopySignature())
@@ -45,8 +50,8 @@ class XmlController extends Controller
 //        $files[4]['base'] = $this->imageToBase64($driver->getCopyStatement());
 //        $files[4]['title'] = 'Statement';
 //        $files[4]['file'] = $driver->getCopyStatement();
-
-        $files[5]['base'] = $this->pdfToBase64($this->ImageToPdf($user->getCopySnils()));
+        $url = 'http://'.$request->server->get('HTTP_HOST').'/app.php/ImageToPdf/'.$user->getCopySnils()['originalName'];
+        $files[5]['base'] = $this->pdfToBase64($this->ImageToPdf($url));
         $files[5]['title'] = 'SNILS';
         $files[5]['file'] = $user->getCopySnils();
 
@@ -82,7 +87,7 @@ class XmlController extends Controller
     }
 
     /**
-     * @Route("ImageToPdf/{filename}", name="ImageToPdf")
+     * @Route("ImageToPdf/{w1}{w2}{filename}", name="ImageToPdf")
      */
     public function imageToPdfAction($filename){
         $mpdfService = $this->container->get('tfox.mpdfport');
@@ -99,6 +104,11 @@ class XmlController extends Controller
         $mpdfService->generatePdfResponse($html, $arguments);
     }
 
+    public function ImageToPdf($url){
+        $pdfdata = file_get_contents($url);
+        $base64 = base64_encode($pdfdata);
+        return $base64;
+    }
     /**
      * @param array $file
      * @return string
