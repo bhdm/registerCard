@@ -17,6 +17,7 @@ use Crm\MainBundle\Form\Type\CompanyType;
 use Symfony\Component\Form\FormError;
 use Zelenin\smsru;
 use Symfony\Component\DependencyInjection\ContainerInterface as Container;
+use Crm\MainBundle\WImage\WImage;
 
 /**
  * http://habrahabr.ru/post/128159/
@@ -266,8 +267,16 @@ class AuthController extends Controller
             $user = $this->getDoctrine()->getRepository('CrmMainBundle:User')->findOneById($id);
             $mpdfService = $this->container->get('tfox.mpdfport');
 
+            $file = $user->getCopySignature();
+            $bigSign = WImage::cropSign(__DIR__.'/../../../../web/'.$file['path'], 285,140, false);
+            $bigSign = '/upload/tmp/'.substr($bigSign, strrpos($bigSign, '/')+1);
+            $miniSign = $bigSign;
+//            $miniSign = WImage::cropSign(__DIR__.'/../../../../web/'.$file['path'], 591,118, false);
+//            $miniSign = '/upload/tmp/'.substr($miniSign, strrpos($miniSign, '/')+1);
+
 //            $html = $this->render('CrmMainBundle:Form:doc2.html.twig',array('user' => $user));
-            $html = $this->render('CrmMainBundle:Form:doc2.html.twig',array('user' => $user));
+            $html = $this->render('CrmMainBundle:Form:doc2.html.twig',array('user' => $user, 'bigSign' => $bigSign, 'miniSign' => $miniSign));
+
             $arguments = array(
                 'constructorArgs' => array('utf-8', 'A4', 0 ,0 ,0 ,0, 3), //Constructor arguments. Numeric array. Don't forget about points 2 and 3 in Warning section!
                 'writeHtmlMode' => null, //$mode argument for WriteHTML method
@@ -277,7 +286,7 @@ class AuthController extends Controller
                 'outputDest' => null, //$dest argument for Output method
             );
             $response = $mpdfService->generatePdf($html->getContent(), $arguments);
-//            return $this->render('CrmMainBundle:Form:doc2.html.twig', array('user' => $user));
+//            return $this->render('CrmMainBundle:Form:doc2.html.twig', array('user' => $user, 'bigSign' => $bigSign, 'miniSign' => $miniSign));
     }
 
     /**
