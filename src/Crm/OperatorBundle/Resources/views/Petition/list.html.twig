@@ -33,7 +33,7 @@
                     {% endif %}
                     <td style="text-align: center">{{ petition.users | length }}</td>
                     <td><a href="#">{{ petition.operator.username }}</a></td>
-                    <td><a href="{{ path('operator_generate_file', { 'petitionId' : petition.id }) }}" target="_blank">Скачать</a></td>
+                    <td><a href="{{ path('operator_generate_petition', { 'petitionId' : petition.id }) }}" target="_blank">Скачать</a></td>
                     <td></td>
                     <td class="options">
                         {% if is_granted('ROLE_ADMIN') %}

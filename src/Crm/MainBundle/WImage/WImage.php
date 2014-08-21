@@ -15,23 +15,6 @@
             return $pathName;
         }
 
-
-        static public function cropSign_591_117($path){
-
-            $image = self::getResourceImage($path);
-            $crop = imagecreatetruecolor(591,118);
-            $white = imagecolorallocate($crop, 255, 255, 255);
-            imagefill($crop, 0, 0, $white);
-
-            $ph = imagesy($image) / 118;
-            $width = imagesx($image) /$ph;
-            $margin = (591-$width)/2;
-            $height = 118;
-            imagecopyresized( $crop, $image, $margin, 0,0, 0, $width, $height, imagesx($image), imagesy($image) );
-
-            return self::getTmpPath($crop);
-        }
-
         static public function cropSign( $path, $w, $h , $base = false){
 
             $image = self::getResourceImage($path);
@@ -54,23 +37,7 @@
             }
         }
 
-        static public function cropSign_285_145($path){
-
-            $image = self::getResourceImage($path);
-            $crop = imagecreatetruecolor(285,145);
-            $white = imagecolorallocate($crop, 255, 255, 255);
-            imagefill($crop, 0, 0, $white);
-
-            $ph = imagesy($image) / 145;
-            $width = imagesx($image) /$ph;
-            $margin = (285-$width)/2;
-            $height = 145;
-            imagecopyresized( $crop, $image, $margin, 0,0, 0, $width, $height, imagesx($image), imagesy($image) );
-
-            return self::getTmpPath($crop);
-        }
-
-        static public function ImageToBlackAndWhite($path) {
+        static public function imageToBlackAndWhite($path) {
             $im = imagecreatefromjpeg(__DIR__.'/../../../../web/'.$path['path']);
             for ($x = imagesx($im); $x--;) {
                 for ($y = imagesy($im); $y--;) {
@@ -122,7 +89,7 @@
             return $base64;
         }
 
-        public function ImageCreateFromBMP($filename){
+        public function imageCreateFromBMP($filename){
 //Ouverture du fichier en mode binaire
             if (! $f1 = fopen($filename,"rb")) return FALSE;
 
@@ -207,6 +174,39 @@
             fclose($f1);
 
             return $res;
+        }
+
+
+        static public function cropSign_591_117($path){
+
+            $image = self::getResourceImage($path);
+            $crop = imagecreatetruecolor(591,118);
+            $white = imagecolorallocate($crop, 255, 255, 255);
+            imagefill($crop, 0, 0, $white);
+
+            $ph = imagesy($image) / 118;
+            $width = imagesx($image) /$ph;
+            $margin = (591-$width)/2;
+            $height = 118;
+            imagecopyresized( $crop, $image, $margin, 0,0, 0, $width, $height, imagesx($image), imagesy($image) );
+
+            return self::getTmpPath($crop);
+        }
+
+        static public function cropSign_285_145($path){
+
+            $image = self::getResourceImage($path);
+            $crop = imagecreatetruecolor(285,145);
+            $white = imagecolorallocate($crop, 255, 255, 255);
+            imagefill($crop, 0, 0, $white);
+
+            $ph = imagesy($image) / 145;
+            $width = imagesx($image) /$ph;
+            $margin = (285-$width)/2;
+            $height = 145;
+            imagecopyresized( $crop, $image, $margin, 0,0, 0, $width, $height, imagesx($image), imagesy($image) );
+
+            return self::getTmpPath($crop);
         }
 
     }

@@ -63,61 +63,70 @@
                 </OrgPostAddress>
             {% endif %}
             <Photo>
-                <AttachmentName>{{ files[2].file.fileName }}</AttachmentName>
+                <AttachmentName>{{ files[2].title }}</AttachmentName>
                 <AttachmentType>Photo</AttachmentType>
                 <FileFormat>{% if files[2].file.mimeType == 'image/jpeg' %}JPG{% elseif files[2].file.mimeType == 'image/png' %}PNG{% elseif files[2].file.mimeType == 'image/gif' %}GIF{% else %}FILE{% endif %}</FileFormat>
                 <Body>{{ files[2].base }}</Body>
             </Photo>
+
             <Sign>
-                <AttachmentName>{{ files[3].file.fileName }}</AttachmentName>
+                <AttachmentName>{{ files[3].title }}</AttachmentName>
                 <AttachmentType>Signature</AttachmentType>
                 <FileFormat>{% if files[3].file.mimeType == 'image/jpeg' %}JPG{% elseif files[3].file.mimeType == 'image/png' %}PNG{% elseif files[3].file.mimeType == 'image/gif' %}GIF{% else %}FILE{% endif %}</FileFormat>
                 <Body>{{ files[3].base }}</Body>
             </Sign>
         </PersonOrder>
+
+        {# Паспорт #}
         <Attachment>
-            <AttachmentName>{{ files[0].file.fileName }}</AttachmentName>
+            <AttachmentName>{{ files[0].title }}</AttachmentName>
             <AttachmentType>Other</AttachmentType>
-            <FileFormat>{% if files[0].file.mimeType == 'image/jpeg' %}JPG{% elseif files[0].file.mimeType == 'image/png' %}PNG{% elseif files[0].file.mimeType == 'image/gif' %}GIF{% else %}FILE{% endif %}</FileFormat>
+            <FileFormat>PDF</FileFormat>
             <Body>{{ files[0].base }}</Body>
         </Attachment>
+
+        {# Водительское удостоверение #}
         <Attachment>
-            <AttachmentName>{{ files[1].file.fileName }}</AttachmentName>
+            <AttachmentName>{{ files[1].title }}</AttachmentName>
             <AttachmentType>Other</AttachmentType>
-            <FileFormat>{% if files[1].file.mimeType == 'image/jpeg' %}JPG{% elseif files[1].file.mimeType == 'image/png' %}PNG{% elseif files[1].file.mimeType == 'image/gif' %}GIF{% else %}FILE{% endif %}</FileFormat>
+            <FileFormat>PDF</FileFormat>
             <Body>{{ files[1].base }}</Body>
         </Attachment>
+
+        {# СНИЛС #}
         {% if files[5] is defined %}
         <Attachment>
-            <AttachmentName>{{ files[5].file.fileName }}</AttachmentName>
+            <AttachmentName>{{ files[5].title }}</AttachmentName>
             <AttachmentType>Other</AttachmentType>
-            <FileFormat>{% if files[5].file.mimeType == 'image/jpeg' %}JPG{% elseif files[5].file.mimeType == 'image/png' %}PNG{% elseif files[5].file.mimeType == 'image/gif' %}GIF{% else %}FILE{% endif %}</FileFormat>
+            <FileFormat>PDF</FileFormat>
             <Body>{{ files[5].base }}</Body>
         </Attachment>
         {% endif %}
+
+        {# Разрешение на работу #}
         {% if files[6] is defined %}
         <Attachment>
-            <AttachmentName>{{ files[6].file.fileName }}</AttachmentName>
+            <AttachmentName>{{ files[6].title }}</AttachmentName>
             <AttachmentType>Other</AttachmentType>
-            <FileFormat>{% if files[6].file.mimeType == 'image/jpeg' %}JPG{% elseif files[6].file.mimeType == 'image/png' %}PNG{% elseif files[6].file.mimeType == 'image/gif' %}GIF{% else %}FILE{% endif %}</FileFormat>
+            <FileFormat>PDF</FileFormat>
             <Body>{{ files[6].base }}</Body>
         </Attachment>
         {% endif %}
 
+        {# Ходатайство #}
         {% if files[8] is defined %}
             <Attachment>
                 <AttachmentName>petition.pdf</AttachmentName>
                 <AttachmentType>Other</AttachmentType>
-                <FileFormat>
-                    {% if files[8].file is defined %}{% if files[8].file.mimeType == 'image/jpeg' %}JPG{% elseif files[6].file.mimeType == 'image/png' %}PNG{% elseif files[6].file.mimeType == 'image/gif' %}GIF{% else %}PDF{% endif %}{% else %}PDF{% endif %}
-                </FileFormat>
+                <FileFormat>PDF</FileFormat>
                 <Body>{{ files[8].base }}</Body>
             </Attachment>
         {% endif %}
 
+        {# Заявление #}
         {% if files[7] is defined %}
             <Attachment>
-                <AttachmentName>document.pdf</AttachmentName>
+                <AttachmentName>statement.pdf</AttachmentName>
                 <AttachmentType>Other</AttachmentType>
                 <FileFormat>PDF</FileFormat>
                 <Body>{{ files[7].base }}</Body>

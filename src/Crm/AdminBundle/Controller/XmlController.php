@@ -19,67 +19,59 @@ class XmlController extends Controller
      */
     public function generateAction(Request $request, $userId)
     {
-        if ($request->getSession()->get('hash')!='7de92cefb8a07cede44f3ae9fa97fb3b') return $this->redirect($this->generateUrl('admin_main'));
+//        if ($request->getSession()->get('hash')!='7de92cefb8a07cede44f3ae9fa97fb3b') return $this->redirect($this->generateUrl('admin_main'));
         $user = $this->getDoctrine()->getRepository('CrmMainBundle:User')->findOneById($userId);
 
         $files = array();
-        $url = 'http://'.$request->server->get('HTTP_HOST').'/app.php/ImageToPdf/'.$user->getCopyPassport()['originalName'];
-        $files[0]['base'] = $this->pdfToBase64($url);
+
+        $files[0]['base'] = $this->imageToPdf($user->getCopyPassport()['originalName']);
         $files[0]['title'] = 'Passport';
         $files[0]['file'] = $user->getCopyPassport();
 
-        $url = 'http://'.$request->server->get('HTTP_HOST').'/app.php/ImageToPdf/'.$user->getCopyDriverPassport()['originalName'];
-        $files[1]['base'] = $this->pdfToBase64($url);
+        $files[1]['base'] = $this->imageToPdf($this->getCopyDriverPassport()['originalName']);
         $files[1]['title'] = 'DriverLicense';
         $files[1]['file'] = $user->getCopyDriverPassport();
 
-        $files[2]['base'] = $this->imageToBase64($user->getPhoto());
+        $files[2]['base'] = $this->imageToBase64($user->getPhoto()['path']);
         $files[2]['title'] = 'Photo';
         $files[2]['file'] = $user->getPhoto();
 
-//        $files[3]['base'] = $this->imageToBase64($user->getCopySignature());
-//        $files[3]['base'] = $this->ImageToBlackAndWhite($user->getCopySignature());
         $file = $user->getCopySignature();
         $file = WImage::ImageToBlackAndWhite($file);
+        $file = WImage::cropSign($file, 591,118);
         $file = WImage::imgToBase($file);
         $files[3]['base'] = $file;
         $files[3]['title'] = 'Signature';
         $files[3]['file'] = $user->getCopySignature();
-//        $this->ImageToBlackAndWhite($user->getCopySignature())
-
-//        $files[4]['base'] = $this->imageToBase64($driver->getCopyStatement());
-//        $files[4]['title'] = 'Statement';
-//        $files[4]['file'] = $driver->getCopyStatement();
-        $url = 'http://'.$request->server->get('HTTP_HOST').'/app.php/ImageToPdf/'.$user->getCopySnils()['originalName'];
-        $files[5]['base'] = $this->pdfToBase64($this->ImageToPdf($url));
+;
+        $files[5]['base'] = $this->ImageToPdf($user->getCopySnils()['originalName']);
         $files[5]['title'] = 'SNILS';
         $files[5]['file'] = $user->getCopySnils();
 
-//        if (isset($files[6])){
-//            $files[6]['base'] = $this->imageToBase64($user->getCopyWork());
-//            $files[6]['title'] = 'Work';
-//            $files[6]['file'] = $user->getCopyWork();
-//        }
+        if (isset($files[6])){
+            $files[6]['base'] = $this->ImageToPdf($user->getCopyWork()['originalName']);
+            $files[6]['title'] = 'Work';
+            $files[6]['file'] = $user->getCopyWork();
+        }
 
         # Заявление
-        $url = 'http://'.$request->server->get('HTTP_HOST').'/app.php/generatePdfDoc/'.$user->getId();
+        $url = $this->generateUrl('generate_pdf_statement',array('id'=>$user->getId()));
         $files[7]['base'] = $this->pdfToBase64($url);
         $files[7]['title'] = 'Order';
 
         # Ходатайство
         if ($user->getMyPetition() == true){
-            $url = 'http://'.$request->server->get('HTTP_HOST').'/app.php/myfile/'.$user->getId();
+            $url = $this->generateUrl('my-petition', array('userId' => $user->getId()));
             $files[8]['base'] = $this->pdfToBase64($url);
-            $files[8]['title'] = 'Order';
+            $files[8]['title'] = 'Petition';
         }else{
-            $files[8]['base'] = $this->pdfToBase64($this->ImageToPdf($user->getCopyPetition()));
-            $files[8]['title'] = 'Hod';
-            $files[8]['file'] = $user->getCopyPetition();
+            $files[8]['base'] = $this->ImageToPdf($user->getCopyPetition());
+            $files[8]['title'] = 'Petition';
         }
 
 
         $response = new Response();
-        $response->headers->set('Content-Type', 'text/csv');
+        $response->headers->set('Content-Type', 'text/xml');
         $content = $this->renderView("CrmAdminBundle:Xml:generate_xml.html.twig", array('driver' => $user, 'files' => $files));
         $response->headers->set('Content-Disposition', 'attachment;filename="XMLgeneration.xml');
         $response->setContent($content);
@@ -87,14 +79,13 @@ class XmlController extends Controller
     }
 
     /**
-     * @Route("ImageToPdf/{w1}{w2}{filename}", name="ImageToPdf")
+     * @Route("image-to-pdf/{filename}", name="ImageToPdf")
      */
     public function imageToPdfAction($filename){
         $mpdfService = $this->container->get('tfox.mpdfport');
-
         $html = '<img src="/upload/docs/'.$filename.'" />';
         $arguments = array(
-//                'constructorArgs' => array('utf-8', 'A4-L', 5 ,5 ,5 ,5,5 ), //Constructor arguments. Numeric array. Don't forget about points 2 and 3 in Warning section!
+//            'constructorArgs' => array('utf-8', 'A4-P', 5 ,5 ,5 ,5,5 ),
             'writeHtmlMode' => null, //$mode argument for WriteHTML method
             'writeHtmlInitialise' => null, //$mode argument for WriteHTML method
             'writeHtmlClose' => null, //$close argument for WriteHTML method
@@ -104,61 +95,24 @@ class XmlController extends Controller
         $mpdfService->generatePdfResponse($html, $arguments);
     }
 
-    public function ImageToPdf($url){
+    public function imageToPdf($filename){
+        $url = $this->generateUrl('ImageToPdf',array('filename' => $filename));
         $pdfdata = file_get_contents($url);
         $base64 = base64_encode($pdfdata);
         return $base64;
     }
-    /**
-     * @param array $file
-     * @return string
-     */
-    public function imageToBase64($file){
-        if (is_array($file)){
-            //        $filePath = '../../../../../upload/docs'.$file['path'];
-            $filePath = __DIR__.'/../../../../web/'.$file['path'];
-        }else{
-            $filePath = $file;
-        }
+
+    public function imageToBase64($filePath){
+        $filePath = __DIR__.'/../../../../web/'.$filePath;
         $imagedata = file_get_contents($filePath);
         $base64 = base64_encode($imagedata);
         return $base64;
     }
 
     public function pdfToBase64($url){
-//        $filePath = __DIR__.'/../../../../../'.$file['path'];
         $pdfdata = file_get_contents($url);
         $base64 = base64_encode($pdfdata);
         return $base64;
-    }
-
-//    public function imgToPdf(){
-//
-//    }
-
-    public function ImageToBlackAndWhite($file) {
-        $im = imagecreatefromjpeg(__DIR__.'/../../../../web/'.$file['path']);
-        for ($x = imagesx($im); $x--;) {
-            for ($y = imagesy($im); $y--;) {
-                $rgb = imagecolorat($im, $x, $y);
-                $r = ($rgb >> 16) & 0xFF;
-                $g = ($rgb >> 8 ) & 0xFF;
-                $b = $rgb & 0xFF;
-                $gray = ($r + $g + $b) / 3;
-                if ($gray < 0xD0) {
-
-                    imagesetpixel($im, $x, $y, 0xFFFFFF);
-                }else
-                    imagesetpixel($im, $x, $y, 0x000000);
-            }
-        }
-
-        imagefilter($im, IMG_FILTER_NEGATE);
-        $pathName = tempnam('/tmp','img-');
-//        header('Content-Type: image/jpeg');
-//        imagejpeg($im);
-        imagejpeg($im, $pathName);
-        return $pathName;
     }
 
 }

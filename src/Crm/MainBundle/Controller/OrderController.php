@@ -130,8 +130,9 @@ class OrderController extends Controller{
     }
 
     /**
-     * @Route("/myfile/{userId}", name="operator_myfile")
+     * @Route("/my-petition/{userId}", name="my-petition")
      * @Template()
+     * @todo Это повторение от оператор контроллер ходатайств
      */
     public function myfileAction(Request $request, $userId){
         $user = $this->getDoctrine()->getRepository('CrmMainBundle:User')->findOneById($userId);

@@ -255,7 +255,7 @@ class AuthController extends Controller
         }
     }
     /**
-     * @Route("/generatePdfDoc/{id}", name="generate_pdf_doc")
+     * @Route("/generate-statement/{id}", name="generate_pdf_statement")
      */
     public function generatePdfDocAction(Request $request, $id){
 //            if ($request->query->get('mail')){
