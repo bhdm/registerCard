@@ -269,7 +269,7 @@ class AuthController extends Controller
 
             $file = $user->getCopySignature();
             $bigSign = WImage::cropSign(__DIR__.'/../../../../web/'.$file['path'], 285,140, false);
-            $bigSign = '/upload/tmp/'.substr($bigSign, strrpos($bigSign, '/')+1);
+//            $bigSign = '/upload/temp/'.substr($bigSign, strrpos($bigSign, '/')+1);
             $miniSign = $bigSign;
 //            $miniSign = WImage::cropSign(__DIR__.'/../../../../web/'.$file['path'], 591,118, false);
 //            $miniSign = '/upload/tmp/'.substr($miniSign, strrpos($miniSign, '/')+1);
