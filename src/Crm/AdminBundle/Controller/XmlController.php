@@ -119,14 +119,14 @@ class XmlController extends Controller
         $url = 'http://'.$_SERVER['SERVER_NAME'].$url;
         $pdfdata = file_get_contents($url);
 
-//Decode pdf content
-        $pdf_decoded = base64_decode ($pdf_content);
-//Write data back to pdf file
-        $pdf = fopen ('test.pdf','w');
-        fwrite ($pdf,$pdf_decoded);
-//close output file
-        fclose ($pdf);
-        echo 'Done';
+////Decode pdf content
+//        $pdf_decoded = base64_decode ($pdf_content);
+////Write data back to pdf file
+//        $pdf = fopen ('test.pdf','w');
+//        fwrite ($pdf,$pdf_decoded);
+////close output file
+//        fclose ($pdf);
+//        echo 'Done';
 
         $base64 = base64_encode($pdfdata);
         return $base64;
