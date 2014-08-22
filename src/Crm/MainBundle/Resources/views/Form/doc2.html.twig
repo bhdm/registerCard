@@ -193,6 +193,25 @@ GNU nano 2.2.6                                         File: src/Crm/MainBundle/
             border-bottom: 3px solid #000000;
             left: 310px;
         }
+
+        .line10{
+            position: absolute;
+            top: 255px;
+            border-bottom: 3px solid #000000;
+            left: 140px;
+        }
+        .line11{
+            position: absolute;
+            top: 255px;
+            border-bottom: 3px solid #000000;
+            left: 198px;
+        }
+        .line12{
+            position: absolute;
+            top: 255px;
+            border-bottom: 3px solid #000000;
+            left: 270px;
+        }
     </style>
 </head>
 
@@ -201,7 +220,8 @@ GNU nano 2.2.6                                         File: src/Crm/MainBundle/
 
 <div class="company0">ООО "ЦЗИ"Флагман"</div>
 <div class="fio0">{{ user.lastName }} {{ user.firstName }} {{ user.surName }}</div>
-<div class="line{{ user.typeCard }}">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
+<div class="line{{ user.typeCard }}">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
+<div class="line1{{ user.typeCard }}">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
 <div class="gal" style="font-size: 48px">&bull;</div>
 <div class="rud" style="">
     {{ user.lastNumberCard }}
