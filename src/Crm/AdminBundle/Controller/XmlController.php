@@ -39,7 +39,7 @@ class XmlController extends Controller
         $file = $user->getCopySignature();
         $file = WImage::ImageToBlackAndWhite($file);
         $file = WImage::cropSign($file, 591,118);
-        $file = $this->imageToBase64($file);
+        $file = $this->imageToBase64_2($file);
         $files[3]['base'] = $file;
         $files[3]['title'] = 'Signature';
         $files[3]['file'] = $user->getCopySignature();
@@ -104,6 +104,12 @@ class XmlController extends Controller
 
     public function imageToBase64($filePath){
         $filePath = __DIR__.'/../../../../web/'.$filePath;
+        $imagedata = file_get_contents($filePath);
+        $base64 = base64_encode($imagedata);
+        return $base64;
+    }
+
+    public function imageToBase64_2($filePath){
         $imagedata = file_get_contents($filePath);
         $base64 = base64_encode($imagedata);
         return $base64;
