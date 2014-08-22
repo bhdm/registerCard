@@ -39,7 +39,7 @@ class XmlController extends Controller
         $file = $user->getCopySignature();
         $file = WImage::ImageToBlackAndWhite($file);
         $file = WImage::cropSign($file, 591,118);
-        $file = WImage::imgToBase($file);
+        $file = $this->imageToBase64($file);
         $files[3]['base'] = $file;
         $files[3]['title'] = 'Signature';
         $files[3]['file'] = $user->getCopySignature();
@@ -112,6 +112,16 @@ class XmlController extends Controller
     public function pdfToBase64($url){
         $url = 'http://'.$_SERVER['SERVER_NAME'].$url;
         $pdfdata = file_get_contents($url);
+
+//Decode pdf content
+        $pdf_decoded = base64_decode ($pdf_content);
+//Write data back to pdf file
+        $pdf = fopen ('test.pdf','w');
+        fwrite ($pdf,$pdf_decoded);
+//close output file
+        fclose ($pdf);
+        echo 'Done';
+
         $base64 = base64_encode($pdfdata);
         return $base64;
     }
