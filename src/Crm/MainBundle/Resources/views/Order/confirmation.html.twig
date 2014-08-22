@@ -140,6 +140,18 @@
                 <td>Номер прошлой карты:</td>
                 <td>{{ driver.lastNumberCard }}</td>
             </tr>
+            <tr>
+                <td>Выбор типа карты: </td>
+                <td>
+                    {% if driver.typeCard = 0 %}
+                        Выдача первой карты
+                    {% elseif  driver.typeCard = 1 %}
+                        Замена карты
+                    {% else %}
+                        Обновление карты
+                    {% endif %}
+                </td>
+            </tr>
             {% endif %}
             <tr>
                 <td colspan="2">
