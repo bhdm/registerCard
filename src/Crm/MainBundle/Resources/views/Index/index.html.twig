@@ -3,7 +3,8 @@
 {% block content %}
     <table class="table-100" style="width: 98%;">
         <tr>
-            <td style="width: 570px; padding-right: 15px;">
+            <td style="width: 570px; padding-right: 15px; vertical-align: top;">
+                <div class="important" id="important3" style="width: auto; color: #CC3333">Важное разъяснение</div>
                 {{ indexPage_1.body | raw }}
             </td>
             <td  style="width: 410px; text-align: right" valign="top">
@@ -86,6 +87,12 @@
                 <li>Оплатить производство карт;</li>
                 <li>Подписать акт выполненных работ после доставки каждому водителю.</li>
             </ul>
+        </div>
+    </div>
+    <div class="pop-up" id="pop-up-3" style="width: 640px; height: 360px; top: 160px; margin-left: -320px">
+        <img src="{{ asset('bundles/crmmain/images/close_ico.png') }}" class="close-pop-up ico" />
+        <div>
+            <iframe width="640" height="360" src="//www.youtube.com/embed/2WkicwKfhMc" frameborder="0" allowfullscreen></iframe>
         </div>
     </div>
 {% endblock %}
@@ -176,6 +183,10 @@
 
             $('#important2').click(function(){
                 $('#pop-up-2').css('display', 'block');
+                $('.bg-gray').css('display', 'block');
+            });
+            $('#important3').click(function(){
+                $('#pop-up-3').css('display', 'block');
                 $('.bg-gray').css('display', 'block');
             });
 
