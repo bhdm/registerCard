@@ -53,14 +53,15 @@ class MiniController extends Controller{
         $user->setEmail($data->get('email'));
         $user->setPhone($data->get('phone'));
 
-        $user->setLastName($data->get('PassportLastName'));
-        $user->setFirstName($data->get('PassportFirstName'));
-        $user->setSurName($data->get('PassportSurName'));
-        $user->setBirthDate($data->get('PassportBirthdate'));
-        $user->setPassportNumber($data->get('PassportNumber'));
-        $user->setPassportIssuance($data->get('PassportPlace'));
-        $user->setPassportIssuanceDate($data->get('PassportDate'));
-        $user->setPassportCode($data->get('PassportCode'));
+        $user->setLastName($data->get('passportLastName'));
+        $user->setFirstName($data->get('passportFirstName'));
+        $user->setSurName($data->get('passportSurName'));
+        $user->setBirthDate($data->get('passportBirthdate'));
+        $user->setPassportNumber($data->get('passportNumber'));
+        $user->setPassportSerial($data->get('passportSeries'));
+        $user->setPassportIssuance($data->get('passportPlace'));
+        $user->setPassportIssuanceDate($data->get('passportDate'));
+        $user->setPassportCode($data->get('passportCode'));
 
         $user->setDriverDocNumber($data->get('driverNumber'));
         $user->setDriverDocDateStarts($data->get('driverDateStarts'));
@@ -152,7 +153,7 @@ class MiniController extends Controller{
         return new Response($this->renderView("CrmMainBundle:Mini:success.html.twig", array('user' => $user)));
     }
 
-    public function cropimage($img, $rect){
+    public function cropimage($img, $rect, $type = null){
 
         #Получаем оригинальные размеры картинки
         if ($rect['width'] == 0 or $rect['height'] == 0){
@@ -162,15 +163,50 @@ class MiniController extends Controller{
         $image = imagecreatefromjpeg($pathName);
         $crop = imagecreatetruecolor($rect['width'],$rect['height']);
         imagecopy ( $crop, $image, 0, 0, $rect['x'], $rect['y'], $rect['width'], $rect['height'] );
+
+//        if ($type == 'photo'){
+//            $crop = imagecreatetruecolor(394,506);
+//            imagecopyresized( $crop, $image, 0, 0,0, 0, 394, 506, imagesx($image), imagesy($image) );
+//            $image = $crop;
+//        }
+//
+//        if ($type == 'sign'){
+//            $crop = imagecreatetruecolor(591,118);
+//            imagecopyresized( $crop, $image, 0, 0,0, 0, 591, 118, imagesx($image), imagesy($image) );
+//            $image = $crop;
+//        }
+
         $pathName = tempnam('/tmp','img-');
         imagejpeg($crop, $pathName);
         return $this->imgToBase($pathName);
     }
 
-    public function blackImage($img){
+    public function blackImage($img, $type = null){
         $pathName = $this->BaseToImg($img);
         $image = imagecreatefromjpeg($pathName);
         imagefilter($image, IMG_FILTER_GRAYSCALE );
+
+        if ($type == 'photo'){
+            $crop = imagecreatetruecolor(394,506);
+            imagecopyresized( $crop, $image, 0, 0,0, 0, 394, 506, imagesx($image), imagesy($image) );
+            $image = $crop;
+        }
+
+//        if ($type == 'sign'){
+//            #тут делаем ее определенного размера
+//            $crop = imagecreatetruecolor(591,118);
+//            $white = imagecolorallocate($crop, 255, 255, 255);
+//            imagefill($crop, 0, 0, $white);
+//
+//            $ph = imagesy($image) / 118;
+//            $width = imagesx($image) /$ph;
+//            $margin = (591-$width)/2;
+//            $height = 118;
+//
+//            imagecopyresized( $crop, $image, $margin, 0,0, 0, $width, $height, imagesx($image), imagesy($image) );
+//            $image = $crop;
+//        }
+
         $pathName = tempnam('/tmp','img-');
         imagejpeg($image, $pathName);
         return $this->imgToBase($pathName);
