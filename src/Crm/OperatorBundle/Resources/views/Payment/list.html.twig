@@ -5,7 +5,7 @@
     <a href="{{ path('operator_main') }}">Главная</a> &raquo;
     <a href="{{ path('operator_payment_list') }}">
         Список платежей
-        {% if company is not null %} {{ company }} {% endif %}
+        {% if operator is not null %} {{ operator }} {% endif %}
     </a>
     <div class="right">
         <a href="{{ path('operator_payment_add') }}">Добавить</a>
@@ -19,8 +19,8 @@
         <table class="lists">
             <tr>
                 <th>Дата</th>
-                {% if company is null %}
-                    <th>Компания</th>
+                {% if operator is null %}
+                    <th>Оператор</th>
                 {% endif %}
                 <th>Кол-во ходатайств</th>
                 <th>Сумма платежа</th>
@@ -30,8 +30,8 @@
             {% for payment in payments %}
                 <tr>
                     <td><a href="{{ path('operator_payment_edit',{'paymentId' : payment.id}) }}">{{ payment.created | date("d.m.Y H:i:s") }}</a></td>
-                    {% if company is null %}
-                        <td><a href="{{ path('operator_payment_list',{'companyId' : payment.company.id}) }}">{{ payment.company }}</a></td>
+                    {% if operator is null and payment.operator is not null  %}
+                        <td><a href="{{ path('operator_payment_list',{'operatorId' : payment.operator.id}) }}">{{ payment.operator }}</a></td>
                     {% endif %}
                     <td style="text-align: center">{{ payment.count  }}</td>
                     <td style="text-align: center">{{ payment.summ  }}</td>

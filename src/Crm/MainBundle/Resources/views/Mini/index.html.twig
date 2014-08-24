@@ -27,157 +27,228 @@
         </div>
     </div>
     <div class="inp-pop-up">
-        <div class="inp-passport inp-box">
-            <table>
-                <tr>
-                    <td colspan="3">
-                        <div class="error-msg-p"></div>
-                    </td>
-                </tr>
-                <tr><td colspan="2" class="empty-row">Паспортные данные</td></tr>
-                <tr>
-                    <td class="label">Фамилия<span class="required">*</span>:</td>
-                    <td class="value">
-                        <input name="lastName" id="lastName" type="text" >
-                    </td>
-                    <td class="lastNameStatus"></td>
-                </tr>
-                <tr>
-                    <td class="label">Имя<span class="required">*</span>:</td>
-                    <td class="value">
-                        <input name="firstName" id="firstName" type="text" >
-                    </td>
-                    <td class="firstNameStatus"></td>
-                </tr>
-                <tr>
-                    <td class="label">Отчество:</td>
-                    <td class="value">
-                        <input name="surName" id="surName" type="text" >
-                    </td>
-                    <td class="surNameStatus"></td>
-                </tr>
-                <tr>
-                    <td class="label">Дата рождения<span class="required">*</span>:</td>
-                    <td class="value">
-                        <input name="birthdate" id="birthdate" type="text" >
-                    </td>
-                    <td class="dateBrithdateStatus"></td>
-                </tr>
-                <tr>
-                    <td class="label">Серия и номер паспорта<span class="required">*</span>:</td>
-                    <td class="value">
-                        <input name="passportNumber" id="passportNumber" type="text"  >
-                    </td>
-                    <td class="passportNumberStatus"></td>
-                </tr>
-                <tr>
-                    <td class="label">Кем выдан<span class="required">*</span>:</td>
-                    <td class="value">
-                        <input name="passportPlace" id="passportPlace" type="text"  >
-                    </td>
-                    <td class="passportPlaceStatus"></td>
-                </tr>
-                <tr>
-                    <td class="label">Дата выдачи<span class="required">*</span>:</td>
-                    <td class="value">
-                        <input name="passportDate" id="passportDate" type="text"  >
-                    </td>
-                    <td class="passportPlaceStatus"></td>
-                </tr>
-                <tr>
-                    <td class="label">Код подразделения:</td>
-                    <td class="value">
-                        <input name="passportCode" id="passportCode" type="text"  >
-                    </td>
-                    <td class="passportCodeStatus"></td>
-                </tr>
-                <tr>
-                    <td>
-                        <input type="button" id="" value="Назад" class="btn back">
-                    </td>
-                    <td style="text-align: right">
-                        <input type="button" id="savePassport" value="Подтвердить данные" class="btn saveForm">
-                    </td>
-                </tr>
-            </table>
-        </div>
-        <div class="inp-driver inp-box">
-            <table>
-                <tr>
-                    <td colspan="3">
-                        <div class="error-msg-d"></div>
-                    </td>
-                </tr>
-                <tr><td colspan="2" class="empty-row">Водительское удостоверение</td></tr>
-                <tr>
-                    <td class="label">Место выдачи:</td>
-                    <td class="value">
-                        <input name="driverDocIssuance" id="driverDocIssuance" type="text"  >
-                    </td>
-                    <td class="driverDocIssuanceStatus"></td>
-                </tr>
-                <tr>
-                    <td class="label">Номер удостоверения водителя:</td>
-                    <td class="value">
-                        <input name="driverNumber" id="driverNumber" type="text"  >
-                    </td>
-                    <td class="driverNumberStatus"></td>
-                </tr>
-                <tr>
-                    <td class="label">Дата выдачи:</td>
-                    <td class="value">
-                        <input name="driverDateStarts" id="driverDateStarts" type="text"  >
-                    </td>
-                    <td class="driverDateStartsStatus"></td>
-                </tr>
-                <tr>
-                    <td class="label">Дата окончания:</td>
-                    <td class="value">
-                        <input name="driverDateEnds" id="driverDateEnds" type="text"  >
-                    </td>
-                    <td class="driverDateEndsStatus"></td>
-                </tr>
-                <tr>
-                    <td>
-                        <input type="button" id="" value="Назад" class="btn back">
-                    </td>
-                    <td style="text-align: right">
-                        <input type="button" id="saveDriver" value="Подтвердить данные" class="btn saveForm">
-                    </td>
-                </tr>
-            </table>
-        </div>
-        <div class="inp-snils inp-box">
-            <table>
-                <tr>
-                    <td colspan="3">
-                        <div class="error-msg-s"></div>
-                    </td>
-                </tr>
-                <tr><td colspan="2" class="empty-row">Страховой номер индивидуального лицевого счёта (СНИЛС)</td></tr>
-                <tr>
-                    <td class="label">Страховой номер лицевого счета</td>
-                    <td class="value">
-                        <input name="snils" id="snils" type="text"  >
-                    </td>
-                    <td class="snilsStatus"></td>
-                </tr>
-                <tr>
-                    <td>
-                        <input type="button" id="" value="Назад" class="btn back">
-                    </td>
-                    <td style="text-align: right">
-                        <input type="button" id="saveSnils" value="Подтвердить данные" class="btn saveForm">
-                    </td>
-                </tr>
-            </table>
-        </div>
+    <div class="inp-passport inp-box">
+        <table>
+            <tr>
+                <td colspan="3">
+                    <div class="error-msg-p"></div>
+                </td>
+            </tr>
+            <tr><td colspan="2" class="empty-row">Паспортные данные</td></tr>
+            <tr>
+                <td class="label">Фамилия<span class="required">*</span>:</td>
+                <td class="value">
+                    <input name="lastName" id="lastName" type="text" >
+                </td>
+                <td class="lastNameStatus"></td>
+            </tr>
+            <tr>
+                <td class="label">Имя<span class="required">*</span>:</td>
+                <td class="value">
+                    <input name="firstName" id="firstName" type="text" >
+                </td>
+                <td class="firstNameStatus"></td>
+            </tr>
+            <tr>
+                <td class="label">Отчество:</td>
+                <td class="value">
+                    <input name="surName" id="surName" type="text" >
+                </td>
+                <td class="surNameStatus"></td>
+            </tr>
+            <tr>
+                <td class="label">Дата рождения<span class="required">*</span>:</td>
+                <td class="value">
+                    <input name="birthdate" id="birthdate" type="text" >
+                </td>
+                <td class="dateBrithdateStatus"></td>
+            </tr>
+            <tr>
+                <td class="label">Серия паспорта:</td>
+                <td class="value">
+                    <input name="passportSeries" id="passportSeries" type="text"  data-placeholder="Для паспорта РФ">
+                </td>
+                <td class="passportSeriesStatus"></td>
+            </tr>
+            <tr>
+                <td class="label">Номер паспорта<span class="required">*</span>:</td>
+                <td class="value">
+                    <input name="passportNumber" id="passportNumber" type="text"  >
+                </td>
+                <td class="passportNumberStatus"></td>
+            </tr>
+            <tr>
+                <td class="label">Кем выдан<span class="required">*</span>:</td>
+                <td class="value">
+                    <input name="passportPlace" id="passportPlace" type="text"  >
+                </td>
+                <td class="passportPlaceStatus"></td>
+            </tr>
+            <tr>
+                <td class="label">Дата выдачи<span class="required">*</span>:</td>
+                <td class="value">
+                    <input name="passportDate" id="passportDate" type="text"  >
+                </td>
+                <td class="passportPlaceStatus"></td>
+            </tr>
+            <tr>
+                <td class="label">Код подразделения:</td>
+                <td class="value">
+                    <input name="passportCode" id="passportCode" type="text"  >
+                </td>
+                <td class="passportCodeStatus"></td>
+            </tr>
+            <tr>
+                <td>
+                    <input type="button" id="" value="Назад" class="btn back">
+                </td>
+                <td style="text-align: right">
+                    <input type="button" id="savePassport" value="Подтвердить данные" class="btn saveForm">
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="inp-driver inp-box">
+        <table>
+            <tr>
+                <td colspan="3">
+                    <div class="error-msg-d"></div>
+                </td>
+            </tr>
+            <tr><td colspan="2" class="empty-row">Водительское удостоверение</td></tr>
+            <tr>
+                <td class="label">Кем выдан:</td>
+                <td class="value">
+                    <input name="driverDocIssuance" id="driverDocIssuance" type="text"  >
+                </td>
+                <td class="driverDocIssuanceStatus"></td>
+            </tr>
+            <tr>
+                <td class="label">Номер удостоверения водителя:</td>
+                <td class="value">
+                    <input name="driverNumber" id="driverNumber" type="text"  >
+                </td>
+                <td class="driverNumberStatus"></td>
+            </tr>
+            <tr>
+                <td class="label">Дата выдачи:</td>
+                <td class="value">
+                    <input name="driverDateStarts" id="driverDateStarts" type="text"  >
+                </td>
+                <td class="driverDateStartsStatus"></td>
+            </tr>
+            <tr>
+                <td class="label">Дата окончания:</td>
+                <td class="value">
+                    <input name="driverDateEnds" id="driverDateEnds" type="text"  >
+                </td>
+                <td class="driverDateEndsStatus"></td>
+            </tr>
+            <tr>
+                <td>
+                    <input type="button" id="" value="Назад" class="btn back">
+                </td>
+                <td style="text-align: right">
+                    <input type="button" id="saveDriver" value="Подтвердить данные" class="btn saveForm">
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="inp-snils inp-box">
+        <table>
+            <tr>
+                <td colspan="3">
+                    <div class="error-msg-s"></div>
+                </td>
+            </tr>
+            <tr><td colspan="2" class="empty-row">Страховой номер индивидуального лицевого счёта (СНИЛС)</td></tr>
+            <tr>
+                <td class="label">Страховой номер лицевого счета</td>
+                <td class="value">
+                    <input name="snils" id="snils" type="text"  >
+                </td>
+                <td class="snilsStatus"></td>
+            </tr>
+            <tr>
+                <td>
+                    <input type="button" id="" value="Назад" class="btn back">
+                </td>
+                <td style="text-align: right">
+                    <input type="button" id="saveSnils" value="Подтвердить данные" class="btn saveForm">
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="inp-hod inp-box">
+        <table style="width: 600px;">
+            <tr>
+                <td colspan="3">
+                    <div class="error-msg-h"></div>
+                </td>
+            </tr>
+            <tr><td colspan="2" class="empty-row">Информация о компании</td></tr>
+            <tr>
+                <td class="label">Название организации<span class="required">*</span>:</td>
+                <td class="value">
+                    <input id="companyName" name="companyName" type="text" placeholder="">
+                </td>
+            </tr>
+            <tr>
+                <td class="label">Адрес организации<span class="required">*</span>:</td>
+                <td class="value">
+                    <input name="companyZipcode" id="companyZipcode"  type="text" placeholder="Индекс"><br />
+                    <select name="companyRegion" id="companyRegion">
+                        {% for region in regions %}
+                            <option value="{{ region.id }}">{{ region.title }}</option>
+                        {% endfor %}
+                    </select><br />
+                    <input name="companyCity"    id="companyCity"     type="text" placeholder="Город"><br />
+
+                    <select name="companyTypeStreet" id="companyTypeStreet">
+                        <option value="ул."     >Улица</option>
+                        <option value="д."      >Дорога</option>
+                        <option value="пр-д."   >Проезд</option>
+                        <option value="туп."    >Тупик</option>
+                        <option value="ш."      >Шоссе</option>
+                        <option value="тр."     >Трасса</option>
+                        <option value="пер."    >Переулок</option>
+                        <option value="пл."     >Площадь</option>
+                        <option value="скв."    >Сквер</option>
+                        <option value="алл."    >Аллея</option>
+                        <option value="б."      >Бульвар</option>
+                        <option value="пр."     >Просека</option>
+                        <option value="пр-т"    >Проспект</option>
+                        <option value="наб."    >Набережная</option>
+                        <option value=""        >Другое</option>
+                    </select>
+                    <input name="companyStreet"  id="companyStreet"   type="text" placeholder="Название улицы"><br />
+
+                    <input name="companyHouse"   id="companyHouse"    type="text" placeholder="Дом" class="little">
+                    <input name="companyCorp"    id="companyCorp"     type="text" placeholder="Корп"  class="little">
+                    <input name="companyStructure"    id="companyStructure"     type="text" placeholder="Строение"  class="little"><br />
+
+                    <select name="companyTypeRoom" id="companyTypeRoom">
+                        <option value="кв.">Квартира</option>
+                        <option value="оф.">Офис</option>
+                    </select>
+                    <input name="companyRoom"    id="companyRoom"  type="text" placeholder="Номер"  class="little">
+                </td>
+            </tr>
+            <tr><td colspan="2">&nbsp;</td></tr>
+            <tr>
+                <td></td>
+                <td style="text-align: right">
+                    <input type="button" id="saveHod" value="Подтвердить данные" class="btn saveForm">
+                </td>
+            </tr>
+        </table>
+    </div>
     </div>
     <div id="loader"></div>
 
     <div class="box">
         <table>
-            <form method="POST" action="{{ path('order_register_mini',{'compnayUrl' : compnayUrl}) }}" id="main-form">
+            <form method="POST" action="{{ path('order_register') }}" id="main-form">
                 <tr>
                     <td colspan="3">
                         <div class="error-msg"></div>
@@ -219,7 +290,7 @@
                         <input name="passport" id="passportFile" type="file" value="Выбирите файл">
                     </form>
                 </td>
-                <td class="passportStatus"><img src="{{ asset('bundles/crmmain/images/help.png') }}" class="ico help" id="helpPassport" title="Инструкция по заполнению"></td>
+                <td class="passportStatus"><span id="helpPassport" class="help">Инструкция по заполнению</span></td>
             </tr>
             <tr>
                 <td class="label">
@@ -230,7 +301,7 @@
                         <input name="driver" id="driverFile" type="file" value="Выбирите файл">
                     </form>
                 </td>
-                <td class="driverStatus"><img src="{{ asset('bundles/crmmain/images/help.png') }}" class="ico help" id="helpDriver" title="Инструкция по заполнению"></td>
+                <td class="driverStatus"><span id="helpDriver" class="help">Инструкция по заполнению</span></td>
             </tr>
             <tr >
                 <td class="label">
@@ -241,7 +312,7 @@
                         <input name="photo" id="photoFile" type="file" value="Выбирите файл">
                     </form>
                 </td>
-                <td class="photoStatus"><img src="{{ asset('bundles/crmmain/images/help.png') }}" class="ico help" id="helpPhoto" title="Инструкция по заполнению"></td>
+                <td class="photoStatus"><span id="helpPhoto" class="help">Инструкция по заполнению</span></td>
             </tr>
             <tr >
                 <td class="label">
@@ -252,7 +323,7 @@
                         <input name="sign" id="signFile" type="file" value="Выбирите файл">
                     </form>
                 </td>
-                <td class="signStatus"><img src="{{ asset('bundles/crmmain/images/help.png') }}" class="ico help" id="helpSign" title="Инструкция по заполнению"></td>
+                <td class="signStatus"><span id="helpSign" class="help">Инструкция по заполнению</span></td>
             </tr>
 
             <tr id="rus">
@@ -264,7 +335,7 @@
                         <input name="snils" id="snilsFile" type="file" value="Выбирите файл">
                     </form>
                 </td>
-                <td class="snilsStatus"><img src="{{ asset('bundles/crmmain/images/help.png') }}" class="ico help" id="helpSnils" title="Инструкция по заполнению"></td>
+                <td class="snilsStatus"><span id="helpSnils" class="help">Инструкция по заполнению</span></td>
             </tr>
             <tr id="notrus" style="display: none;">
                 <td class="label">
@@ -275,9 +346,8 @@
                         <input name="work" id="workFile" type="file" value="Выбирите файл">
                     </form>
                 </td>
-                <td class="workStatus"><img src="{{ asset('bundles/crmmain/images/help.png') }}" class="ico help" id="helpWork" title="Инструкция по заполнению"></td>
+                <td class="workStatus"><span id="helpWork" class="help">Инструкция по заполнению</span></td>
             </tr>
-
 
             {#<tr>#}
                 {#<td class="label">#}
@@ -354,12 +424,32 @@
     <script>
     $(document).ready(function(){
         $.mask.definitions['d'] = "[a-zA-Z0-9а-яА-Я ]";
-
         $('#oldNumber').mask("RUDddddddddddddd");
         $("#deliveryZipcode").mask("999999");
         $("#phone").mask("+7 (999) 999-9999");
         var files;
         $('input, select').styler();
+        var opts = {
+            lines: 13, // The number of lines to draw
+            length: 20, // The length of each line
+            width: 10, // The line thickness
+            radius: 30, // The radius of the inner circle
+            corners: 1, // Corner roundness (0..1)
+            rotate: 0, // The rotation offset
+            direction: 1, // 1: clockwise, -1: counterclockwise
+            color: '#000', // #rgb or #rrggbb or array of colors
+            speed: 1.3, // Rounds per second
+            trail: 60, // Afterglow percentage
+            shadow: false, // Whether to render a shadow
+            hwaccel: false, // Whether to use hardware acceleration
+            className: 'spinner', // The CSS class to assign to the spinner
+            zIndex: 2e9, // The z-index (defaults to 2000000000)
+            top: '50%', // Top position relative to parent
+            left: '50%' // Left position relative to parent
+        };
+        var target = document.getElementById('loader');
+        var spinner = new Spinner(opts).spin(target);
+
 
 
         $('input[type=file]').on('change', function(event){
@@ -429,12 +519,12 @@
                         $('.bg-gray').fadeOut();
                         $('#loader').fadeOut();
 
-                        if ($('.img-pop-up').attr('type-doc') != 'hod' ){
+                        if ($('.img-pop-up').attr('type-doc') != 'work' ){
                             $('#img-pop-up-img').html('<div style="display: inline-block"><img  src="'+msg+'" /></div>');
                             showImgPopUp();
                             if ( type == 'photo'){
                                 $('#img-pop-up-img div img').imgAreaSelect({
-                                    aspectRatio: '3:4',
+                                    aspectRatio: '1:1.285',
 //                                x1: 120, y1: 90, x2: 280, y2: 210,
                                     handles: true,
                                     onSelectEnd: function (img, selection) {
@@ -445,17 +535,32 @@
                                         $('.imgareaselect-selection').addClass('imgareaselect-selection2');
                                     }
                                 });
+                                $('.imgareaselect-selection').addClass('imgareaselect-selection2');
                             }else{
-                                $('#img-pop-up-img div img').imgAreaSelect({
-                                    x1: 120, y1: 90, x2: 280, y2: 210,
-                                    handles: true,
-                                    onSelectEnd: function (img, selection) {
-                                        $('input[name="x1"]').val(selection.x1);
-                                        $('input[name="y1"]').val(selection.y1);
-                                        $('input[name="x2"]').val(selection.x2);
-                                        $('input[name="y2"]').val(selection.y2);
-                                    }
-                                });
+                                if (type == 'sign'){
+                                    $('#img-pop-up-img div img').imgAreaSelect({
+//                                        aspectRatio: '5:1',
+//                                x1: 120, y1: 90, x2: 280, y2: 210,
+                                        handles: true,
+                                        onSelectEnd: function (img, selection) {
+                                            $('input[name="x1"]').val(selection.x1);
+                                            $('input[name="y1"]').val(selection.y1);
+                                            $('input[name="x2"]').val(selection.x2);
+                                            $('input[name="y2"]').val(selection.y2);
+                                        }
+                                    });
+                                }else{
+                                    $('#img-pop-up-img div img').imgAreaSelect({
+                                        x1: 120, y1: 90, x2: 280, y2: 210,
+                                        handles: true,
+                                        onSelectEnd: function (img, selection) {
+                                            $('input[name="x1"]').val(selection.x1);
+                                            $('input[name="y1"]').val(selection.y1);
+                                            $('input[name="x2"]').val(selection.x2);
+                                            $('input[name="y2"]').val(selection.y2);
+                                        }
+                                    });
+                                }
                             }
                         }
                     },
@@ -486,7 +591,7 @@
                     showImgPopUp();
                     if ( type == 'photo'){
                         $('#img-pop-up-img div img').imgAreaSelect({
-                            aspectRatio: '3:5',
+                            aspectRatio: '1:1.285',
 //                                x1: 120, y1: 90, x2: 280, y2: 210,
                             handles: true,
                             onSelectEnd: function (img, selection) {
@@ -494,20 +599,35 @@
                                 $('input[name="y1"]').val(selection.y1);
                                 $('input[name="x2"]').val(selection.x2);
                                 $('input[name="y2"]').val(selection.y2);
+                                $('.imgareaselect-selection').addClass('imgareaselect-selection2');
                             }
                         });
                         $('.imgareaselect-selection').addClass('imgareaselect-selection2');
                     }else{
-                        $('#img-pop-up-img div img').imgAreaSelect({
-                            x1: 120, y1: 90, x2: 280, y2: 210,
-                            handles: true,
-                            onSelectEnd: function (img, selection) {
-                                $('input[name="x1"]').val(selection.x1);
-                                $('input[name="y1"]').val(selection.y1);
-                                $('input[name="x2"]').val(selection.x2);
-                                $('input[name="y2"]').val(selection.y2);
-                            }
-                        });
+                        if (type == 'sign'){
+                            $('#img-pop-up-img div img').imgAreaSelect({
+//                                aspectRatio: '5:1',
+//                                x1: 120, y1: 90, x2: 280, y2: 210,
+                                handles: true,
+                                onSelectEnd: function (img, selection) {
+                                    $('input[name="x1"]').val(selection.x1);
+                                    $('input[name="y1"]').val(selection.y1);
+                                    $('input[name="x2"]').val(selection.x2);
+                                    $('input[name="y2"]').val(selection.y2);
+                                }
+                            });
+                        }else{
+                            $('#img-pop-up-img div img').imgAreaSelect({
+                                x1: 120, y1: 90, x2: 280, y2: 210,
+                                handles: true,
+                                onSelectEnd: function (img, selection) {
+                                    $('input[name="x1"]').val(selection.x1);
+                                    $('input[name="y1"]').val(selection.y1);
+                                    $('input[name="x2"]').val(selection.x2);
+                                    $('input[name="y2"]').val(selection.y2);
+                                }
+                            });
+                        }
                     }
 
                 }
@@ -524,6 +644,7 @@
                 error += errorI+'. Одно из полей (телефон или e-mail) обязательно должно быть заполнено<br />';
                 errorI++;
             }
+
             if ( $('#passportFile-styler .jq-file__name').html() == 'Файл не выбран'){
                 error += errorI+'. Поле пасспорт обязательно для заполнения<br />';
                 $('#passportFile-styler .jq-file__name').css('borderColor', '#cc3333');
@@ -590,15 +711,15 @@
 
             if (error === ''){
                 var form = new FormData();
-                form.append('PassportLastName',$('#lastName').val());
-                form.append('PassportFirstName',$('#firstName').val());
-                form.append('PassportSurName',$('#surName').val());
-                form.append('PassportBirthdate',$('#birthdate').val());
-                form.append('PassportNumber',$('#passportNumber').val());
-                form.append('PassportPlace',$('#passportPlace').val());
-                form.append('PassportDate',$('#passportDate').val());
-                form.append('PassportCode',$('#passportCode').val());
-                form.append('PassportCode',$('#passportCode').val());
+                form.append('passportLastName',$('#lastName').val());
+                form.append('passportFirstName',$('#firstName').val());
+                form.append('passportSurName',$('#surName').val());
+                form.append('passportBirthdate',$('#birthdate').val());
+                form.append('passportSeries',$('#passportSeries').val());
+                form.append('passportNumber',$('#passportNumber').val());
+                form.append('passportPlace',$('#passportPlace').val());
+                form.append('passportDate',$('#passportDate').val());
+                form.append('passportCode',$('#passportCode').val());
 
                 form.append('driverNumber',$('#driverNumber').val());
                 form.append('driverDateStarts',$('#driverDateStarts').val());
@@ -695,40 +816,6 @@
             });
         });
 
-        function getImgData(type){
-            $.ajax({
-                type: "POST",
-                url: Routing.generate('get_img_data', {'type': type, 'rezident' : $('#rezident').val()}),
-                success: function(msg){
-                    if (type == 'snils' || type == 'driver' || type == 'passport'){
-                        hideloader(1);
-                    }else{
-//                            hideloader(0);
-                    }
-//                        obj = jQuery.parseJSON(msg);
-                    obj = msg.data;
-                    return true;
-                    if (type == 'passport'){
-                        $('#lastName').val(obj.lastName);
-                        $('#firstName').val(obj.firstName);
-                        $('#surName').val(obj.surName);
-                        $('#dateBrithdate').val(obj.passportDate);
-                        $('#passportNumber').val(obj.passportNumber);
-                        $('#passportCode').val(obj.passportCode);
-                        $('#passportPlace').val(obj.passportPlace);
-                    }
-                    if (type == 'snils'){
-                        $('#snils').val(obj.snils);
-                    }
-                    if (type == 'driver'){
-                        $('#driverNumber').val(obj.driverNumber);
-                        $('#driverDateStarts').val(obj.driverDateStarts);
-                        $('#driverDateEnds').val(obj.driverDateEnds);
-                    }
-                }
-            });
-        }
-
         $('.saveForm').click(function(){
 
             errorI = 1 ;
@@ -796,7 +883,8 @@
                     error += errorI+'. Поле дата окончания обязательно для заполнения<br />';
                     errorI++;
                 }else{
-                    var tmpdate = new Date($('#driverDateEnds').val());
+                    tmpdateArray = $('#driverDateEnds').val().split(".");
+                    var tmpdate = new Date(tmpdateArray[2]+'-'+tmpdateArray[1]+'-'+tmpdateArray[0]);
                     var tmpdate2 = new Date();
                     tmpdate = ( tmpdate - tmpdate2) /(1000*60*60*24*30) ;
                     console.log(tmpdate);
@@ -811,7 +899,7 @@
             if ( $(this).attr('id')=='saveSnils' ){
                 if ( $('#snils').val()==''){
                     $('#snils').css('borderColor', '#cc3333');
-                    error += errorI+'. Поле номер удостоверения водителя обязательно для заполнения<br />';
+                    error += errorI+'. Поле СНИЛС обязательно для заполнения<br />';
                     errorI++;
                 }
             }
@@ -835,6 +923,61 @@
 
             }
         });
+
+        $('.help').click(function(){
+            var typeHelp = $(this).attr('id');
+            $.ajax({
+                type: "POST",
+                url: Routing.generate('order_help', {'type': typeHelp }),
+                success: function(msg){
+                    $('.help-pop-up .text').html(msg);
+                    $('.bg-gray').fadeIn();
+                    $('.help-pop-up').fadeIn();
+                }
+            });
+        });
+
+        $('.close-pop-up').click(function(){
+            $('.bg-gray').fadeOut();
+            $('.help-pop-up').fadeOut();
+            $(".imgareaselect-selection").parent().remove();
+            $(".imgareaselect-outer").remove();
+            hideImgPopUp();
+        });
+
+        function getImgData(type){
+            $.ajax({
+                type: "POST",
+                url: Routing.generate('get_img_data', {'type': type, 'rezident' : $('#rezident').val()}),
+                success: function(msg){
+                    if (type == 'snils' || type == 'driver' || type == 'passport' || type == 'hod'){
+                        hideloader(1);
+                    }else{
+//                            hideloader(0);
+                    }
+//                        obj = jQuery.parseJSON(msg);
+                    obj = msg.data;
+                    return true;
+//                        if (type == 'passport'){
+//                            $('#lastName').val(obj.lastName);
+//                            $('#firstName').val(obj.firstName);
+//                            $('#surName').val(obj.surName);
+//                            $('#dateBrithdate').val(obj.passportDate);
+//                            $('#passportNumber').val(obj.passportNumber);
+//                            $('#passportCode').val(obj.passportCode);
+//                            $('#passportPlace').val(obj.passportPlace);
+//                        }
+//                        if (type == 'snils'){
+//                            $('#snils').val(obj.snils);
+//                        }
+//                        if (type == 'driver'){
+//                            $('#driverNumber').val(obj.driverNumber);
+//                            $('#driverDateStarts').val(obj.driverDateStarts);
+//                            $('#driverDateEnds').val(obj.driverDateEnds);
+//                        }
+                }
+            });
+        }
 
         function progressHandlingFunction(e){
             if(e.lengthComputable){
@@ -892,48 +1035,6 @@
             $("#birthdate").mask("99.99.9999");
             $("#passportDate").mask("99.99.9999");
         }
-
-        var opts = {
-            lines: 13, // The number of lines to draw
-            length: 20, // The length of each line
-            width: 10, // The line thickness
-            radius: 30, // The radius of the inner circle
-            corners: 1, // Corner roundness (0..1)
-            rotate: 0, // The rotation offset
-            direction: 1, // 1: clockwise, -1: counterclockwise
-            color: '#000', // #rgb or #rrggbb or array of colors
-            speed: 1.3, // Rounds per second
-            trail: 60, // Afterglow percentage
-            shadow: false, // Whether to render a shadow
-            hwaccel: false, // Whether to use hardware acceleration
-            className: 'spinner', // The CSS class to assign to the spinner
-            zIndex: 2e9, // The z-index (defaults to 2000000000)
-            top: '50%', // Top position relative to parent
-            left: '50%' // Left position relative to parent
-        };
-        var target = document.getElementById('loader');
-        var spinner = new Spinner(opts).spin(target);
-
-
-        $('.help').click(function(){
-            var typeHelp = $(this).attr('id');
-            $.ajax({
-                type: "POST",
-                url: Routing.generate('order_help', {'type': typeHelp }),
-                success: function(msg){
-                    $('.help-pop-up .text').html(msg);
-                    $('.bg-gray').fadeIn();
-                    $('.help-pop-up').fadeIn();
-                }
-            });
-        });
-        $('.close-pop-up').click(function(){
-            $('.bg-gray').fadeOut();
-            $('.help-pop-up').fadeOut();
-            $(".imgareaselect-selection").parent().remove();
-            $(".imgareaselect-outer").remove();
-            hideImgPopUp();
-        });
     });
     </script>
 {% endblock %}
@@ -945,6 +1046,11 @@
     <link href="{{ asset('bundles/crmmain/lib/odyniec/distfiles/css/imgareaselect-default.css') }}" rel="stylesheet" media="all">
     <link href="{{ asset('bundles/crmmain/lib/jquery-ui/jquery-ui.min.css') }}" rel="stylesheet" media="all">
     <style>
+        span.help{
+            cursor: pointer;
+            font-size: 12px;
+            color: #e8313e;
+        }
         progress{
             display: none;
         }
@@ -978,14 +1084,14 @@
         }
         .help-pop-up{
             position: absolute;
-            width: 450px;
+            width: 640px;
             max-height: 700px;
             min-height: 150px;
             background: #ffffff;
             border: 1px solid #ae3538;
             left: 50%;
-            top: 160px;
-            margin-left: -350px;
+            top: 215px;
+            margin-left: -320px;
             z-index: 905;
             display: none;
             text-align: left;
@@ -1054,12 +1160,11 @@
         }
         .close-pop-up{
             position: absolute;
-            right: 0;
-            top: 0;
-        }
-        .close-pop-up{
+            right: -16px;
+            top: -16px;
             width: 32px;
         }
+
         .imgareaselect-selection2{
             background: url({{ asset('bundles/crmmain/images/nophoto.png') }}) no-repeat;
             -moz-background-size: 100%; /* Firefox 3.6+ */

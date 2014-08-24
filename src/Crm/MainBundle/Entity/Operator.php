@@ -12,7 +12,7 @@ use Symfony\Component\Security\Core\Role\RoleInterface;
  * Operator
  *
  * @ORM\Table()
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="OperatorRepository")
  */
 class Operator extends BaseEntity implements UserInterface
 {
@@ -27,7 +27,7 @@ class Operator extends BaseEntity implements UserInterface
     protected $password;
 
     /**
-     * @ORM\OneToMany(targetEntity="Company", mappedBy="operator")
+     * @ORM\OneToMany(targetEntity="Company", mappedBy="operator", orphanRemoval=false)
      */
     protected $companies;
 
@@ -42,15 +42,30 @@ class Operator extends BaseEntity implements UserInterface
     protected $roles;
 
     /**
-     * @ORM\OneToMany(targetEntity="CompanyPetition", mappedBy="operator")
+     * @ORM\OneToMany(targetEntity="CompanyPetition", mappedBy="operator", cascade={"all"})
      */
     protected $petitions;
 
+    /**
+     * @ORM\OneToMany(targetEntity="CompanyPayment", mappedBy="operator", cascade={"all"})
+     */
+    protected $payments;
 
     public function __construct(){
         $this->roles    = 'ROLE_OPERATOR';
         $this->companies = new ArrayCollection();
         $this->petitions = new ArrayCollection();
+        $this->payments = new ArrayCollection();
+    }
+
+    public function getPaymentCount(){
+        $payments = $this->getPayments();
+        $summ = 0;
+        foreach ($payments as $val){
+            $summ += $val->getCount();
+        }
+
+        return $summ;
     }
 
     public function equals(UserInterface $user)
@@ -233,6 +248,30 @@ class Operator extends BaseEntity implements UserInterface
 
     public function removePetition($petition){
         $this->petitions->removeElement($petition);
+    }
+
+    /**
+     * @param mixed $payments
+     */
+    public function setPayments($payments)
+    {
+        $this->payments = $payments;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getPayments()
+    {
+        return $this->payments;
+    }
+
+    public function addPayment($payment){
+        $this->payments[] = $payment;
+    }
+
+    public function removePayment($payment){
+        $this->payments->removeElement($payment);
     }
 
 }

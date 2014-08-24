@@ -88,30 +88,37 @@ class OrderController extends Controller{
         $base = $session->get($type);
         $base = $base['content'];
 
-        $aspect = $session->get($type)['width'] / $request->request->get('originalWidth');
+        $aspect = $session->get($type)['width'] / (int) $request->request->get('originalWidth');
 //        $aspect = 1;
 
         $rect = array(
             'x' => $request->request->get('x')*$aspect,
             'y' => $request->request->get('y')*$aspect,
-            'width' => $request->request->get('x2')*$aspect,
-            'height' => $request->request->get('y2')*$aspect,
+            'width' => (int) $request->request->get('x2')*$aspect,
+            'height' => (int) $request->request->get('y2')*$aspect,
 
-            'smallWidth' => $request->request->get('originalWidth'),
-            'originWidth' => $session->get($type)['width'],
-            'originHeight'=> $session->get($type)['height']
+            'smallWidth' => (int) $request->request->get('originalWidth'),
+            'originWidth' => (int) $session->get($type)['width'],
+            'originHeight'=> (int) $session->get($type)['height']
         );
-        $base = $this->cropimage($base,$rect);
+        $base = $this->cropimage($base,$rect, $type);
+        $file = $this->BaseToImg($base);
+        list($width, $height) = getimagesize($file);
+
+//        if ($type == 'photo' || $type == 'sign'){
+            $base = $this->blackImage($base, $type);
+//        }
+
         $session->set($type, array(
-                'content'=> $base
+                'content'=> $base,
+                'width'=> $width,
+                'height'=> $height,
+                'mimeType'=> 'image/jpeg',
             )
         );
+
         $session->save();
 
-
-        if ($type == 'photo' || $type == 'sign'){
-            $base = $this->blackImage($base);
-        }
 
 
 
@@ -120,6 +127,32 @@ class OrderController extends Controller{
         $response->setContent($base);
 
         return $response;
+    }
+
+    /**
+     * @Route("/my-petition/{userId}", name="my-petition")
+     * @Template()
+     * @todo Это повторение от оператор контроллер ходатайств
+     */
+    public function myfileAction(Request $request, $userId){
+        $user = $this->getDoctrine()->getRepository('CrmMainBundle:User')->findOneById($userId);
+        if ($user){
+//            if ($this->get('security.context')->isGranted('ROLE_ADMIN') or $petition->getOperator() == $this->getUser()){
+            $mpdfService = $this->container->get('tfox.mpdfport');
+
+            $html = $this->render('CrmOperatorBundle:Petition:file2.html.twig',array('user' => $user));
+            $arguments = array(
+//                'constructorArgs' => array('utf-8', 'A4-L', 5 ,5 ,5 ,5,5 ), //Constructor arguments. Numeric array. Don't forget about points 2 and 3 in Warning section!
+                'writeHtmlMode' => null, //$mode argument for WriteHTML method
+                'writeHtmlInitialise' => null, //$mode argument for WriteHTML method
+                'writeHtmlClose' => null, //$close argument for WriteHTML method
+                'outputFilename' => null, //$filename argument for Output method
+                'outputDest' => null, //$dest argument for Output method
+            );
+            $mpdfService->generatePdfResponse($html->getContent(), $arguments);
+//            }
+        }
+        return $this->redirect($request->headers->get('referer'));
     }
 
     /**
@@ -139,21 +172,25 @@ class OrderController extends Controller{
             $user->setEmail($data->get('email'));
             $user->setPhone($data->get('phone'));
 
-            $user->setLastName($data->get('PassportLastName'));
-            $user->setFirstName($data->get('PassportFirstName'));
-            $user->setSurName($data->get('PassportSurName'));
-            $user->setBirthDate($data->get('PassportBirthdate'));
-            $user->setPassportNumber($data->get('PassportNumber'));
+            $user->setLastName($data->get('passportLastName'));
+            $user->setFirstName($data->get('passportFirstName'));
+            $user->setSurName($data->get('passportSurName'));
+            $user->setBirthDate($data->get('passportBirthdate'));
+            $user->setPassportNumber($data->get('passportNumber'));
             $user->setPassportSerial($data->get('passportSeries'));
-            $user->setPassportIssuance($data->get('PassportPlace'));
-            $user->setPassportIssuanceDate($data->get('PassportDate'));
-            $user->setPassportCode($data->get('PassportCode'));
+            $user->setPassportIssuance($data->get('passportPlace'));
+            $user->setPassportIssuanceDate($data->get('passportDate'));
+            $user->setPassportCode($data->get('passportCode'));
 
             $user->setDriverDocNumber($data->get('driverNumber'));
             $user->setDriverDocDateStarts($data->get('driverDateStarts'));
             $user->setDriverDocDateEnds($data->get('driverDateEnds'));
             $user->setDriverDocIssuance($data->get('driverDocIssuance'));
             $user->setSnils($data->get('snils'));
+
+            if ($data->get('myPetition')){
+                $user->setMyPetition(1);
+            }
 
             #Теперь делаем компанию
             $company = new Company();
@@ -258,7 +295,7 @@ class OrderController extends Controller{
 //            $company->setRoom($data->get('companyRoom'));
             $region = $this->getDoctrine()->getRepository('CrmMainBundle:Region')->findOneById($company->getRegion());
             $company->setRegion($region);
-
+            $company->setPetitions(null);
             $em->persist($company);
             $em->flush($company);
             $em->refresh($company);
@@ -278,6 +315,7 @@ class OrderController extends Controller{
             $user->setSalt(md5(time()));
 
             $user->setLastNumberCard($data->get('oldNumber'));
+            $user->setTypeCard($data->get('typeCard'));
 
             $date = new \DateTime($user->getBirthDate());
             $user->setBirthDate($date);
@@ -302,6 +340,18 @@ class OrderController extends Controller{
             $em->persist($user);
             $em->flush($user);
             $em->refresh($user);
+            $message = \Swift_Message::newInstance()
+                ->setSubject('Заявка отправлена')
+                ->setFrom('info@im-kard.ru')
+                ->setTo($user->getEmail())
+                ->setBody(
+                    $this->renderView(
+                        'CrmMainBundle:Mail:success.html.twig',
+                        array('order' => $user)
+                    ), 'text/html'
+                )
+            ;
+            $this->get('mailer')->send($message);
         }
 
         return new Response($this->renderView("CrmMainBundle:Order:success.html.twig", array('user' => $user)));
@@ -344,7 +394,7 @@ class OrderController extends Controller{
     }
 
 
-    public function cropimage($img, $rect){
+    public function cropimage($img, $rect, $type = null){
 
         #Получаем оригинальные размеры картинки
         if ($rect['width'] == 0 or $rect['height'] == 0){
@@ -354,15 +404,50 @@ class OrderController extends Controller{
         $image = imagecreatefromjpeg($pathName);
         $crop = imagecreatetruecolor($rect['width'],$rect['height']);
         imagecopy ( $crop, $image, 0, 0, $rect['x'], $rect['y'], $rect['width'], $rect['height'] );
+
+//        if ($type == 'photo'){
+//            $crop = imagecreatetruecolor(394,506);
+//            imagecopyresized( $crop, $image, 0, 0,0, 0, 394, 506, imagesx($image), imagesy($image) );
+//            $image = $crop;
+//        }
+//
+//        if ($type == 'sign'){
+//            $crop = imagecreatetruecolor(591,118);
+//            imagecopyresized( $crop, $image, 0, 0,0, 0, 591, 118, imagesx($image), imagesy($image) );
+//            $image = $crop;
+//        }
+
         $pathName = tempnam('/tmp','img-');
         imagejpeg($crop, $pathName);
         return $this->imgToBase($pathName);
     }
 
-    public function blackImage($img){
+    public function blackImage($img, $type = null){
         $pathName = $this->BaseToImg($img);
         $image = imagecreatefromjpeg($pathName);
         imagefilter($image, IMG_FILTER_GRAYSCALE );
+
+        if ($type == 'photo'){
+            $crop = imagecreatetruecolor(394,506);
+            imagecopyresized( $crop, $image, 0, 0,0, 0, 394, 506, imagesx($image), imagesy($image) );
+            $image = $crop;
+        }
+
+//        if ($type == 'sign'){
+//            #тут делаем ее определенного размера
+//            $crop = imagecreatetruecolor(591,118);
+//            $white = imagecolorallocate($crop, 255, 255, 255);
+//            imagefill($crop, 0, 0, $white);
+//
+//            $ph = imagesy($image) / 118;
+//            $width = imagesx($image) /$ph;
+//            $margin = (591-$width)/2;
+//            $height = 118;
+//
+//            imagecopyresized( $crop, $image, $margin, 0,0, 0, $width, $height, imagesx($image), imagesy($image) );
+//            $image = $crop;
+//        }
+
         $pathName = tempnam('/tmp','img-');
         imagejpeg($image, $pathName);
         return $this->imgToBase($pathName);

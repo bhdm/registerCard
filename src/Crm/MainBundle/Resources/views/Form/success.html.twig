@@ -13,7 +13,7 @@
         <br/>
         <a href="{{ path('generate_payment_pdf') }}?ord={{ user.id }}" target="_blank">Документ на оплату</a>
         <br/>
-        <a href="{{ path('generate_pdf') }}?ord={{ user.id }}">Заявление</a>
+        <a href="{{ path('generate_pdf_statement',{'id' : user.id }) }}">Заявление</a>
     </div>
 {% endblock %}
 

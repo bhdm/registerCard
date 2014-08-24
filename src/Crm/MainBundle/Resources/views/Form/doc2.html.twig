@@ -1,0 +1,269 @@
+GNU nano 2.2.6                                         File: src/Crm/MainBundle/Resources/views/Form/doc2.html.twig
+
+<html>
+<head>
+    <style>
+        .rud{
+            letter-spacing: 7px;
+            position: absolute;
+            top: 332px;
+            left: 112px;
+            font-size: 17px;
+        }
+        .fio{
+            position: absolute;
+            top: 368px;
+            left: 73px;
+            font-size: 17px;
+        }
+        .companyName{
+            position: absolute;
+            top: 442px;
+            left: 73px;
+            font-size: 15px;
+        }
+        .companyAdress{
+            position: absolute;
+            top: 496px;
+            left: 73px;
+            font-size: 15px;
+        }
+        .snils{
+            /*position: absolute;*/
+            /*top: 559px;*/
+            /*left: 492px;*/
+            /*font-size: 15px;*/
+            /*letter-spacing: 2px;*/
+            position: absolute;
+            top: 559px;
+            left: 500px;
+            font-size: 15px;
+            letter-spacing: 3px;
+        }
+        .passportNumber{
+            position: absolute;
+            top: 630px;
+            left: 170px;
+            font-size: 15px;
+        }
+        .passportDate{
+            position: absolute;
+            top: 630px;
+            left: 350px;
+            font-size: 15px;
+            letter-spacing: 2px;
+        }
+        .passportPlace{
+            position: absolute;
+            top: 648px;
+            left: 147px;
+            font-size: 15px;
+        }
+        .passportCode{
+            position: absolute;
+            top: 691px;
+            left: 300px;
+            font-size: 15px;
+            letter-spacing: 12px;
+        }
+
+        .driverCountry{
+            position: absolute;
+            top: 769px;
+            left: 186px;
+            font-size: 15px;
+        }
+        .driverNumber{
+            position: absolute;
+            top: 735px;
+            left: 116px;
+            font-size: 15px;
+        }
+        .driverNumber{
+            position: absolute;
+            top: 735px;
+            left: 116px;
+            font-size: 15px;
+        }
+        .driverDate{
+            position: absolute;
+            top: 735px;
+            left: 279px;
+            font-size: 15px;
+            letter-spacing: 2px;
+        }
+        .driverPlace{
+            position: absolute;
+            top: 752px;
+            left: 160px;
+            font-size: 15px;
+        }
+        .photo{
+            position: absolute;
+            top: 302px;
+            width: 102px;
+            left: 75px;
+        }
+        .photo img{
+            width: 102px;
+        }
+        .photo img{
+            width: 102px;
+        }
+        .sign{
+            position: absolute;
+            top: 806px;
+            width: 235px;
+            /*height: 100px;*/
+            left: 351px;
+            z-index: 999;
+        }
+        .sign img{
+            width: 235px;
+        }
+        .sign2{
+            position: absolute;
+            top: 1268px;
+            width: 136px;
+            left: 294px;
+        }
+        .sign3{
+            position: absolute;
+            top: 1585px;
+            width: 136px;
+            left: 264px;
+        }
+        .date2{
+            position: absolute;
+            top: 1296px;
+            width: 136px;
+            left: 81px;
+            letter-spacing: 1px;
+        }
+        .fio2{
+            position: absolute;
+            top: 1296px;
+            width: 136px;
+            left: 451px;
+            letter-spacing: 1px;
+        }
+        .fio3{
+            position: absolute;
+            top: 1608px;
+            width: 136px;
+            left: 451px;
+            letter-spacing: 1px;
+        }
+        .company0{
+            position: absolute;
+            top: 53px;
+            left: 345px;
+            font-size: 17px
+        }
+        .fio0{
+            position: absolute;
+            top: 95px;
+            left: 345px;
+            font-size: 17px
+        }
+        img{
+            page-break-after: avoid
+        }
+        .gal{
+            position: absolute;
+            top: 324px;
+            left: 233px;
+            font-size: 17px;
+        }
+        .line0{
+            position: absolute;
+            top: 202px;
+            border-bottom: 3px solid #000000;
+            left: 160px;
+        }
+        .line1{
+            position: absolute;
+            top: 202px;
+            border-bottom: 3px solid #000000;
+            left: 230px;
+        }
+        .line2{
+            position: absolute;
+            top: 202px;
+            border-bottom: 3px solid #000000;
+            left: 310px;
+        }
+
+        .line10{
+            position: absolute;
+            top: 255px;
+            border-bottom: 3px solid #000000;
+            left: 140px;
+        }
+        .line11{
+            position: absolute;
+            top: 255px;
+            border-bottom: 3px solid #000000;
+            left: 198px;
+        }
+        .line12{
+            position: absolute;
+            top: 255px;
+            border-bottom: 3px solid #000000;
+            left: 270px;
+        }
+    </style>
+</head>
+
+<body>
+<img src="{{ asset('bundles/crmmain/page1.png') }}" style="">
+
+<div class="company0">ООО "ЦЗИ"Флагман"</div>
+<div class="fio0">{{ user.lastName }} {{ user.firstName }} {{ user.surName }}</div>
+<div class="line{{ user.typeCard }}">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
+<div class="line1{{ user.typeCard }}">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
+<div class="gal" style="font-size: 48px">&bull;</div>
+<div class="rud" style="">
+    {{ user.lastNumberCard }}
+</div>
+<div class="fio" style="">
+    {{ user.lastName }} {{ user.firstName }} {{ user.surName }}
+</div>
+<div class="companyName">{{ user.myPetition == 1? '«НПО «ТЕХНОЛОГ»' : user.company.title }}</div>
+<div class="companyAdress">
+    {% if user.myPetition == 1 %}
+    195196, Санкт-Петербург, ул.Громова, д.14/6, лит. А, пом. 3-Н
+    {% else %}
+    {{ user.company.zipcode }},
+    {{ user.company.region }},  {{ user.company.city }},
+        {{ user.company.street }},д.{{ user.company.home }} {{ user.company.corp }}, {{ user.company.room }}
+    {% endif %}
+</div>
+<div class="snils">{{ user.snils }}</div>
+
+<div class="passportNumber">{{ user.passportSerial }} {{ user.passportNumber }}</div>
+<div class="passportDate">{{ user.passportIssuanceDate | date("d") }}&nbsp;&nbsp;&nbsp;&nbsp;{{ user.passportIssuanceDate | date("m") }}&nbsp;&nbsp;&nbsp;&nbsp;{{ user.passportIssuanceDate |  date("Y") }}</div>
+    <div class="passportPlace">{{ user.passportIssuance }}</div>
+    <div class="passportCode">{{ user.passportCode }}</div>
+    {#<div class="passportCode">133&nbsp;&nbsp;&nbsp;132</div>#}
+
+    <div class="driverNumber">{{ user.driverDocNumber }}</div>
+    <div class="driverDate">{{ user.driverDocDateStarts | date("d") }}&nbsp;&nbsp;&nbsp;&nbsp;{{ user.driverDocDateStarts | date("m") }}&nbsp;&nbsp;&nbsp;&nbsp;{{ user.driverDocDateStarts | date("Y") }}</div>
+        <div class="driverPlace">{{ user.driverDocIssuance }}</div>
+        <div class="driverCountry" style="width: 100px">РФ</div>
+        <div>
+            <img src="{{ asset('bundles/crmmain/page2.png') }}" style="position: absolute; top: 0">
+            <img src="/{{ user.photo.path }}" class="photo" style="margin-top: -750px; margin-bottom: 750px; position: relative; margin-left: -602px">
+            <img src="{{ bigSign }}" class="sign" style="margin-top: -749px; margin-bottom: 749px; margin-left: 170px; max-height: 150px">
+
+            <img src="{{ miniSign }}" class="sign2" style="margin-top: -620px; margin-bottom: 620px; margin-left: 280px; max-height: 75px">
+            <img src="{{ miniSign }}" class="sign3" style="margin-top: -300px; margin-bottom: 300px; margin-left: -165px; max-height: 75px">
+
+            <div class="date2" style="margin-top: -665px; margin-left: 75px">{{ user.created| date("d") }}&nbsp;&nbsp;&nbsp;&nbsp;{{ user.created| date("m") }}&nbsp;&nbsp;&nbsp;&nbsp;{{ user.created | date("Y") }}</div>
+
+        <div class="fio2" style="margin-left: 440px; margin-top: -25px">{{ user.lastName }} {{ user.firstName|first }}. {{ user.surName|first }}.</div>
+            <div class="fio3" style="margin-left: 440px; margin-top: 300px">{{ user.lastName }} {{ user.firstName|first }}. {{ user.surName|first }}.</div>
+        </div>
+</body>
+</html>
+

@@ -13,7 +13,7 @@ use Doctrine\Common\Collections\ArrayCollection;
  * User
  *
  * @ORM\Table("user")
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="UserRepository")
  */
 class User extends BaseEntity implements UserInterface, EquatableInterface, \Serializable
 {
@@ -145,6 +145,10 @@ class User extends BaseEntity implements UserInterface, EquatableInterface, \Ser
      */
     protected $paid = 0;
 
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    protected $myPetition = 0;
 
     /**
      * @Assert\Length( max = "32", maxMessage = "Максимум  32 символа")
@@ -263,6 +267,11 @@ class User extends BaseEntity implements UserInterface, EquatableInterface, \Ser
      * @ORM\Column(type="string")
      */
     protected $roles;
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    protected $typeCard;
 
     public function getXmlId(){
         return str_pad($this->id, 8, "0", STR_PAD_LEFT);
@@ -1034,6 +1043,38 @@ class User extends BaseEntity implements UserInterface, EquatableInterface, \Ser
     public function setCompanyPetition($companyPetition)
     {
         $this->companyPetition = $companyPetition;
+    }
+
+    /**
+     * @param mixed $myPetition
+     */
+    public function setMyPetition($myPetition)
+    {
+        $this->myPetition = $myPetition;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getMyPetition()
+    {
+        return $this->myPetition;
+    }
+
+    /**
+     * @param mixed $typeCard
+     */
+    public function setTypeCard($typeCard)
+    {
+        $this->typeCard = $typeCard;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getTypeCard()
+    {
+        return $this->typeCard;
     }
 
 

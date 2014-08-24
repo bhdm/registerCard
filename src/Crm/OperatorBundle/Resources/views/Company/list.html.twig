@@ -16,7 +16,7 @@
         <table class="lists">
             <tr>
                 <th style="width: 300px">Название</th>
-                <th>Ходатайств</th>
+                <th>Кол-во</th>
                 <th class="empty"></th>
                 <th class="options">Действия</th>
             </tr>
@@ -24,8 +24,6 @@
                 <tr>
                     <td><a href="{{ path('operator_user_list',{'companyId' : company.id}) }}">{{ company.title }}</a></td>
                     <td>
-                        <span  class="comment" title="Разрешено">{{ company.paymentCount }}</span>
-                        /
                         <span  class="comment" title="Сделано (кол-во пользователей)">{{ company.users | length }}</span>
                     </td>
                     <td></td>

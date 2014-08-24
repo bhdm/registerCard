@@ -11,7 +11,7 @@ use Doctrine\Common\Collections\ArrayCollection;
  * CompanyPayment
  *
  * @ORM\Table()
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="CompanyPetitionRepository")
  */
 class CompanyPetition extends BaseEntity{
 

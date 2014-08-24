@@ -1,0 +1,798 @@
+{% extends 'CrmOperatorBundle::layout.html.twig' %}
+
+
+{% block crosh %}
+    <a href="{{ path('operator_main') }}">Главная</a> &raquo;
+    <a href="{{ path('operator_company_list') }}">Пользователи</a> &raquo;
+    <a href="#">{{ user }}</a>
+{% endblock %}
+
+{% block content %}
+
+    <div class="bg-gray"></div>
+    <div class="img-pop-up ui-widget-content">
+        <div class="img-pop-up-title">
+            выберите область с документом. При необходимости переверните фото.
+        </div>
+        <div id="img-pop-up-img"></div>
+        <img src="{{ asset('bundles/crmmain/images/close_ico.png') }}" class="close-pop-up ico" />
+        <div class="img-pop-up-nav">
+            <input type="hidden" name="x1" id="x1" value="0">
+            <input type="hidden" name="y1" id="y1" value="0">
+            <input type="hidden" name="x2" id="x2" value="0">
+            <input type="hidden" name="y2" id="y2" value="0">
+            <input type="button" value="Выбрать" id="sendCoords" class="btn">
+            <input type="button" value="Повернуть"  class="btn" id="rotate">
+        </div>
+    </div>
+    <div id="loader"></div>
+
+    <form method="POST" id="formSend">
+        <table class="table-edit">
+            <tr>
+                <td colspan="3">
+                    <div class="error-msg-p"></div>
+                </td>
+            </tr>
+            <tr>
+                <td class="label">E-mail:</td>
+                <td class="value">
+                    <input name="email" id="email" type="text" placeholder="Укажите email почту" required  value="{{ user.email }}">
+                </td>
+                <td class="emailStatus" rowspan="2" style="padding-left: 10px; font-size: 12px; vertical-align: middle">
+                    <i>Необходимо заполнить хотя бы одно из полей - Email или телефон</i>
+                </td>
+            </tr>
+            <tr>
+                <td class="label">Телефон:</td>
+                <td class="value">
+                    <input name="phone" id="phone" type="text" placeholder="Укажите телефон" value="{{ user.phone }}">
+                </td>
+            </tr>
+            <tr>
+                <td class="label">Гражданство<span class="required">*</span>:</td>
+                <td class="value">
+                    <select name="rezident" id="rezident">
+                        <option value="1">Россия</option>
+                        <option value="2">Другое</option>
+                    </select>
+                </td>
+                <td ></td>
+            </tr>
+            <tr>
+                <td class="label">Номер прошлой карты:</td>
+                <td class="value">
+                    <input name="oldNumber" id="oldNumber" type="text" placeholder="Номер прошлой карты">
+                </td>
+            </tr>
+            <tr>
+                <td class="empty-row">Паспортные данные</td>
+                <td class="value">
+                    <input type="file" id="passport">
+                </td>
+                <td rowspan="10" class="copyDocs">
+                    <img id="passportImg" src="/{{ user.copyPassport.path }}">
+                </td>
+            </tr>
+            <tr>
+                <td class="label">Фамилия<span class="required">*</span>:</td>
+                <td class="value">
+                    <input name="passportLastName" id="lastName" type="text" value="{{ user.lastName }}">
+                </td>
+            </tr>
+            <tr>
+                <td class="label">Имя<span class="required">*</span>:</td>
+                <td class="value">
+                    <input name="passportFirstName" id="firstName" type="text" value="{{ user.firstName }}" >
+                </td>
+
+            </tr>
+            <tr>
+                <td class="label">Отчество:</td>
+                <td class="value">
+                    <input name="passportSurName" id="surName" type="text" value="{{ user.surName }}">
+                </td>
+
+            </tr>
+            <tr>
+                <td class="label">Дата рождения<span class="required">*</span>:</td>
+                <td class="value">
+                    <input name="passportBirthdate" id="birthdate" type="text" value="{{ user.birthDate | date('d.m.Y') }}">
+                </td>
+
+            </tr>
+            <tr>
+                <td class="label">Серия паспорта:</td>
+                <td class="value">
+                    <input name="passportSeries" id="passportSeries" type="text"  value="{{ user.passportSerial }}" data-placeholder="Для паспорта РФ">
+                </td>
+
+            </tr>
+            <tr>
+                <td class="label">Номер паспорта<span class="required">*</span>:</td>
+                <td class="value">
+                    <input name="passportNumber" id="passportNumber" type="text"  value="{{ user.passportNumber }}">
+                </td>
+
+            </tr>
+            <tr>
+                <td class="label">Кем выдан<span class="required">*</span>:</td>
+                <td class="value">
+                    <input name="PassportPlace" id="passportPlace" type="text"  value="{{ user.passportIssuance }}">
+                </td>
+
+            </tr>
+            <tr>
+                <td class="label">Дата выдачи<span class="required">*</span>:</td>
+                <td class="value">
+                    <input name="passportDate" id="passportDate" type="text"  value="{{ user.passportIssuanceDate | date('d.m.Y') }}">
+                </td>
+
+            </tr>
+            <tr>
+                <td class="label">Код подразделения:</td>
+                <td class="value">
+                    <input name="passportCode" id="passportCode" type="text"  value="{{ user.passportCode }}">
+                </td>
+
+            </tr>
+
+
+            <tr>
+                <td class="empty-row">Водительские права</td>
+                <td class="value">
+                    <input type="file" id="driver">
+                </td>
+                <td rowspan="5" class="copyDocs">
+                    <img id="driverImg" src="/{{ user.copyDriverPassport.path }}">
+                </td>
+            </tr>
+            <tr>
+                <td class="label">Кем выдан:</td>
+                <td class="value">
+                    <input name="driverDocIssuance" id="driverDocIssuance" type="text"  value="{{ user.driverDocIssuance }}">
+                </td>
+            </tr>
+            <tr>
+                <td class="label">Номер удостоверения водителя:</td>
+                <td class="value">
+                    <input name="driverNumber" id="driverNumber" type="text"  value="{{ user.driverDocNumber }}">
+                </td>
+
+            </tr>
+            <tr>
+                <td class="label">Дата выдачи:</td>
+                <td class="value">
+                    <input name="driverDateStarts" id="driverDateStarts" type="text"  value="{{ user.driverDocDateStarts | date('d.m.Y')}}">
+                </td>
+
+            </tr>
+            <tr>
+                <td class="label">Дата окончания:</td>
+                <td class="value">
+                    <input name="driverDateEnds" id="driverDateEnds" type="text"  value="{{ user.driverDocDateEnds | date('d.m.Y')}}" >
+                </td>
+
+            </tr>
+
+
+            <tr>
+                <td class="empty-row">С Н И Л С</td>
+                <td class="value">
+                    <input type="file" id="snils">
+                </td>
+                <td class="copyDocs" rowspan="2">
+                    <img id="snilsImg" src="/{{ user.copySnils.path }}">
+                </td>
+            </tr>
+            <tr>
+                <td class="label">Страховой номер лицевого счета</td>
+                <td class="value">
+                    <input name="snils" id="snilsText" type="text"  value="{{ user.snils }}">
+                </td>
+            </tr>
+            <tr><td colspan="2" class="empty-row">Информация о доставке</td></tr>
+            <tr>
+                <td class="label">Адрес доставки<span class="required">*</span>:</td>
+                <td class="value">
+                    <input name="deliveryZipcode" id="deliveryZipcode" type="text" placeholder="Индекс" value="{{ user.dileveryZipcode }}"><br />
+                    <select name="deliveryRegion" id="deliveryRegion">
+                        {% for region in regions %}
+                            <option value="{{ region.id }}" {{ user.dileveryRegion.id is defined and user.dileveryRegion.id == region.id ? 'selected' : ''  }}>{{ region.title }}</option>
+                        {% endfor %}
+                    </select><br />
+                    <input name="deliveryCity"    id="deliveryCity"    type="text" placeholder="Город" value="{{ user.dileveryCity }}"><br />
+                    <input name="deliveryStreet"  id="deliveryStreet"  type="text" placeholder="Улица" value="{{ user.dileveryStreet }}"><br />
+                    <input name="deliveryHouse"   id="deliveryHouse"   type="text" placeholder="Дом" class="little" value="{{ user.dileveryHome }}">
+                    <input name="deliveryCorp"    id="deliveryCorp"    type="text" placeholder="Корп /Стр"  class="little" value="{{ user.dileveryCorp }}">
+                    <input name="deliveryRoom"    id="deliveryRoom"    type="text" placeholder="Кв / оф"  class="little" value="{{ user.dileveryRoom }}">
+                </td>
+                <td class="deliveryAdressStatus"></td>
+            </tr>
+            <tr><td colspan="2" class="empty-row">Другие прикрепленные файлы</td></tr>
+            <tr>
+                <td class="label">Фотография</td>
+                <td>
+                    <input type="file" id="photo">
+                </td>
+                <td class="value copyDocs">
+                    <img id="photoImg" src="/{{ user.photo.path }}">
+                </td>
+            </tr>
+            <tr>
+                <td class="label">Подпись</td>
+                <td>
+                    <input type="file" id="sign">
+                </td>
+                <td class="value copyDocs">
+                    <img id="signImg" src="/{{ user.copySignature.path }}">
+                </td>
+            </tr>
+
+                <tr>
+                    <td class="label">Ходатайство</td>
+                    <td>
+                        <input type="file" id="hod">
+                        <br /><br />
+                        <input type="checkbox" value="1" {{ user.myPetition == 1 ? 'checked="checked"' : '' }}> Использовать ходатайство НПО  "ТЕХНОЛОГ"
+                    </td>
+                    <td class="value copyDocs" colspan="2">
+                        {% if user.copyPetition.path is defined %}
+                        <img  id="hodImg" src="/{{ user.copyPetition.path }}">
+                        {% endif %}
+                    </td>
+                </tr>
+                <tr>
+                    <td class="label">Разрешение на работу</td>
+                    <td>
+                        <input type="file" id="work">
+                    </td>
+                    <td class="value copyDocs">
+                        {% if user.copyWork.path is defined %}
+                            <img src="/{{ user.copyWork.path }}">
+                        {% endif %}
+                    </td>
+                </tr>
+            <tr>
+                <td colspan="2">
+                    <i style="font-size: 14px; color: #CC3333">* Поля отмеченные звездочкой обязательны для заполнения</i>
+                    <br />
+                </td>
+            </tr>
+            <tr>
+                <td></td>
+                <td style="text-align: right">
+                    <input type="submit" value="Сохранить" class="btn" id="submit">
+                </td>
+            </tr>
+        </table>
+    </form>
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <style>
+        .empty-row{
+            font-weight: bold;
+        }
+
+        .copyDocs{
+            vertical-align: top;
+        }
+        .copyDocs img{
+            margin-left: 10px;
+            max-width: 410px;
+            max-height: 400px;
+        }
+        td{
+            vertical-align: top;
+        }
+        progress{
+            display: none;
+        }
+        .required{
+            color: #CC0000;
+        }
+        .img-pop-up{
+            position: fixed;
+            width: 700px;
+            max-height: 700px;
+            min-height: 300px;
+            background: #ffffff;
+            border: 1px solid #ae3538;
+            left: 50%;
+            top: 50px;
+            margin-left: -350px;
+            z-index: 905;
+            display: none;
+            text-align: center;
+        }
+        #loader{
+            display: none;
+            position: fixed;
+            top: 50%;
+            width: 960px;
+        }
+        .ico{
+            width: 24px;
+        }
+        .close-pop-up{
+            cursor: pointer;
+            position: absolute;
+            right: -16px;
+            top: -16px;
+            width: 32px;
+        }
+
+        .imgareaselect-selection2{
+            background: url({{ asset('bundles/crmmain/images/nophoto.png') }}) no-repeat;
+            -moz-background-size: 100%; /* Firefox 3.6+ */
+            -webkit-background-size: 100%; /* Safari 3.1+ и Chrome 4.0+ */
+            -o-background-size: 100%; /* Opera 9.6+ */
+            background-size: 100%;
+        }
+        #companyTypeRoom-styler .jq-selectbox__select{
+            width: 122px !important;
+        }
+        #companyTypeRoom-styler{
+            margin-top: -1px;
+        }
+        #companyRegion-styler .jq-selectbox__dropdown, #companyTypeStreet-styler .jq-selectbox__dropdown{
+            width: 272px !important;
+        }
+        #companyTypeRoom-styler .jq-selectbox__dropdown{
+            width: 180px !important;
+        }
+        .jq-selectbox{
+            padding: 5px 0;
+        }
+        #img-pop-up-img div{
+            width: 680px;
+        }
+        #img-pop-up-img div img{
+            max-width: 680px;
+            max-height: 400px;
+        }
+        .bg-gray{
+            position: fixed;
+            left: 0;
+            right: 0;
+            top: 0;
+            bottom: 0;
+            background: #555555;
+            opacity: 0.5;
+            z-index: 900;
+            display: none;
+        }
+        .img-pop-up-title, .img-pop-up-nav{
+            text-align: center;
+            padding: 10px;
+            max-width: 680px;
+        }
+        #deliveryRegion-styler{
+            width: 270px;
+        }
+
+    </style>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset('bundles/crmmain/lib/odyniec/jquery.imgareaselect.min.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('bundles/crmmain/javascripts/spin.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('bundles/crmmain/lib/jquery-ui/jquery-ui.min.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('bundles/crmmain/lib/fancyapps/jquery.fancybox.js') }}" type="text/javascript"></script>
+    <link href="{{ asset('bundles/crmmain/lib/odyniec/distfiles/css/imgareaselect-default.css') }}" rel="stylesheet" media="all">
+    <script>
+        $(document).ready(function(){
+            $('input, select').styler();
+            $("#phone").mask("+7 (999) 999-9999");
+            $("#passportCode").mask("999-999");
+            $.mask.definitions['d'] = "[a-zA-Z0-9а-яА-Я ]";
+            $('#driverNumber').mask("dddd999999");
+            $("#driverDateStarts").mask("99.99.9999");
+            $("#driverDateEnds").mask("99.99.9999");
+            $("#birthdate").mask("99.99.9999");
+            $("#passportDate").mask("99.99.9999");
+            $("#snils").mask("999-999-999 99");
+            var files;
+            var opts = {
+                lines: 13, // The number of lines to draw
+                length: 20, // The length of each line
+                width: 10, // The line thickness
+                radius: 30, // The radius of the inner circle
+                corners: 1, // Corner roundness (0..1)
+                rotate: 0, // The rotation offset
+                direction: 1, // 1: clockwise, -1: counterclockwise
+                color: '#000', // #rgb or #rrggbb or array of colors
+                speed: 1.3, // Rounds per second
+                trail: 60, // Afterglow percentage
+                shadow: false, // Whether to render a shadow
+                hwaccel: false, // Whether to use hardware acceleration
+                className: 'spinner', // The CSS class to assign to the spinner
+                zIndex: 2e9, // The z-index (defaults to 2000000000)
+                top: '50%', // Top position relative to parent
+                left: '50%' // Left position relative to parent
+            };
+            var target = document.getElementById('loader');
+            var spinner = new Spinner(opts).spin(target);
+
+
+            //Загрузка нового файла
+
+            $('input[type=file]').on('change', function(event){
+                $('.bg-gray').fadeIn();
+                $('#loader').fadeIn();
+                $('.img-pop-up').attr('type-doc', $(this).attr('id'));
+
+                files = event.target.files;
+                var formData = new FormData();
+                $.each(files, function(key, value){
+                    formData.append(key, value);
+                });
+                if ($('.img-pop-up').attr('type-doc') != ''){
+                    type = $('.img-pop-up').attr('type-doc');
+                    $.ajax({
+                        url: Routing.generate('uploadDoc', {'type': type}),
+                        type: 'POST',
+                        xhr: function() {
+                            var myXhr = $.ajaxSettings.xhr();
+                            return myXhr;
+                        },
+                        //beforeSend: ,
+                        error: function(){
+                            alert('Ошибка загрузки')
+                            $('.bg-gray').fadeOut();
+                            $('#loader').fadeOut();
+                        },
+                        success: function(msg){
+
+                            $('.bg-gray').fadeOut();
+                            $('#loader').fadeOut();
+
+                            if ($('.img-pop-up').attr('type-doc') != 'work' ){
+                                $('#img-pop-up-img').html('<div style="display: inline-block"><img  src="'+msg+'" /></div>');
+                                showImgPopUp();
+                                if ( type == 'photo'){
+                                    $('#img-pop-up-img div img').imgAreaSelect({
+                                        aspectRatio: '1:1.285',
+                                        handles: true,
+                                        onSelectEnd: function (img, selection) {
+                                            $('input[name="x1"]').val(selection.x1);
+                                            $('input[name="y1"]').val(selection.y1);
+                                            $('input[name="x2"]').val(selection.x2);
+                                            $('input[name="y2"]').val(selection.y2);
+                                            $('.imgareaselect-selection').addClass('imgareaselect-selection2');
+                                        }
+                                    });
+                                    $('.imgareaselect-selection').addClass('imgareaselect-selection2');
+                                }else{
+                                    if (type == 'sign'){
+                                        $('#img-pop-up-img div img').imgAreaSelect({
+//                                            aspectRatio: '5:1',
+//                                x1: 120, y1: 90, x2: 280, y2: 210,
+                                            handles: true,
+                                            onSelectEnd: function (img, selection) {
+                                                $('input[name="x1"]').val(selection.x1);
+                                                $('input[name="y1"]').val(selection.y1);
+                                                $('input[name="x2"]').val(selection.x2);
+                                                $('input[name="y2"]').val(selection.y2);
+                                            }
+                                        });
+                                    }else{
+                                        $('#img-pop-up-img div img').imgAreaSelect({
+                                            x1: 120, y1: 90, x2: 280, y2: 210,
+                                            handles: true,
+                                            onSelectEnd: function (img, selection) {
+                                                $('input[name="x1"]').val(selection.x1);
+                                                $('input[name="y1"]').val(selection.y1);
+                                                $('input[name="x2"]').val(selection.x2);
+                                                $('input[name="y2"]').val(selection.y2);
+                                            }
+                                        });
+                                    }
+                                }
+                            }
+                        },
+//                        error:function (error) {
+//                            alert("error"+error);
+//                        },
+                        data: formData,
+                        cache: false,
+                        contentType: false,
+                        processData: false
+                    });
+                }
+                if ( $('#signFile-styler').children('.jq-file__name').html() == 'Файл не выбран'){
+                    hideloader();
+                    hideImgPopUp();
+                }
+            });
+
+            $('#rotate').click(function(){
+                type = $('.img-pop-up').attr('type-doc');
+                $.ajax({
+                    type: "POST",
+                    url: Routing.generate('rotate-image', {'type': type}),
+                    success: function(msg){
+                        $(".imgareaselect-selection").parent().remove();
+                        $(".imgareaselect-outer").remove();
+                        $('#img-pop-up-img').html('<div style="display: inline-block"><img  src="'+msg+'" /></div>');
+                        showImgPopUp();
+                        if ( type == 'photo'){
+                            $('#img-pop-up-img div img').imgAreaSelect({
+                                aspectRatio: '1:1.285',
+//                                x1: 120, y1: 90, x2: 280, y2: 210,
+                                handles: true,
+                                onSelectEnd: function (img, selection) {
+                                    $('input[name="x1"]').val(selection.x1);
+                                    $('input[name="y1"]').val(selection.y1);
+                                    $('input[name="x2"]').val(selection.x2);
+                                    $('input[name="y2"]').val(selection.y2);
+                                    $('.imgareaselect-selection').addClass('imgareaselect-selection2');
+                                }
+                            });
+                            $('.imgareaselect-selection').addClass('imgareaselect-selection2');
+                        }else{
+                            if (type == 'sign'){
+                                $('#img-pop-up-img div img').imgAreaSelect({
+//                                    aspectRatio: '5:1',
+//                                x1: 120, y1: 90, x2: 280, y2: 210,
+                                    handles: true,
+                                    onSelectEnd: function (img, selection) {
+                                        $('input[name="x1"]').val(selection.x1);
+                                        $('input[name="y1"]').val(selection.y1);
+                                        $('input[name="x2"]').val(selection.x2);
+                                        $('input[name="y2"]').val(selection.y2);
+                                    }
+                                });
+                            }else{
+                                $('#img-pop-up-img div img').imgAreaSelect({
+                                    x1: 120, y1: 90, x2: 280, y2: 210,
+                                    handles: true,
+                                    onSelectEnd: function (img, selection) {
+                                        $('input[name="x1"]').val(selection.x1);
+                                        $('input[name="y1"]').val(selection.y1);
+                                        $('input[name="x2"]').val(selection.x2);
+                                        $('input[name="y2"]').val(selection.y2);
+                                    }
+                                });
+                            }
+                        }
+
+                    }
+                });
+            });
+
+            $('#sendCoords').click(function(){
+                type = $('.img-pop-up').attr('type-doc');
+                x1 = $('input[name="x1"]').val();
+                y1 = $('input[name="y1"]').val();
+                x2 = $('input[name="x2"]').val()-x1;
+                y2 = $('input[name="y2"]').val()-y1;
+                $.ajax({
+                    type: "POST",
+                    url: Routing.generate('send_coordinates', {'type': type}),
+                    data: 'x='+x1+'&y='+y1+'&x2='+x2+'&y2='+y2+'&originalWidth='+$('#img-pop-up-img img').css('width'),
+                    success: function(msg){
+                        $(".imgareaselect-selection").parent().remove();
+                        $(".imgareaselect-outer").remove();
+                            $("#"+type+"Img").attr('src', msg);
+                            showloader();
+                            getImgData(type);
+                    }
+                });
+            });
+
+            $('.copyDocs img').click(function(){
+                showImgPopUp();
+                type = $(this).attr('id').substr(0,$(this).attr('id').length-3);
+                $('.img-pop-up').attr('type-doc', type);
+                $('#img-pop-up-img').html('<div style="display: inline-block"><img src="'+$(this).attr('src')+'" /></div>');
+                if ( type == 'photo'){
+                    $('#img-pop-up-img div img').imgAreaSelect({
+                        aspectRatio: '1:1.285',
+//                                x1: 120, y1: 90, x2: 280, y2: 210,
+                        handles: true,
+                        onSelectEnd: function (img, selection) {
+                            $('input[name="x1"]').val(selection.x1);
+                            $('input[name="y1"]').val(selection.y1);
+                            $('input[name="x2"]').val(selection.x2);
+                            $('input[name="y2"]').val(selection.y2);
+                            $('.imgareaselect-selection').addClass('imgareaselect-selection2');
+                        }
+                    });
+                    $('.imgareaselect-selection').addClass('imgareaselect-selection2');
+                }else{
+                    if (type == 'sign'){
+                        $('#img-pop-up-img div img').imgAreaSelect({
+//                            aspectRatio: '5:1',
+//                                x1: 120, y1: 90, x2: 280, y2: 210,
+                            handles: true,
+                            onSelectEnd: function (img, selection) {
+                                $('input[name="x1"]').val(selection.x1);
+                                $('input[name="y1"]').val(selection.y1);
+                                $('input[name="x2"]').val(selection.x2);
+                                $('input[name="y2"]').val(selection.y2);
+                            }
+                        });
+                    }else{
+                        $('#img-pop-up-img div img').imgAreaSelect({
+                            x1: 120, y1: 90, x2: 280, y2: 210,
+                            handles: true,
+                            onSelectEnd: function (img, selection) {
+                                $('input[name="x1"]').val(selection.x1);
+                                $('input[name="y1"]').val(selection.y1);
+                                $('input[name="x2"]').val(selection.x2);
+                                $('input[name="y2"]').val(selection.y2);
+                            }
+                        });
+                    }
+                }
+            });
+
+            function getImgData(type){
+                $.ajax({
+                    type: "POST",
+                    url: Routing.generate('get_img_data', {'type': type, 'rezident' : $('#rezident').val()}),
+                    success: function(msg){
+                            hideloader();
+                            hideImgPopUp();
+                    }
+                });
+            }
+
+            $('.close-pop-up').click(function(){
+                $('.bg-gray').fadeOut();
+                $('.help-pop-up').fadeOut();
+                $(".imgareaselect-selection").parent().remove();
+                $(".imgareaselect-outer").remove();
+                hideImgPopUp();
+            });
+
+            function showImgPopUp(){
+                $('.bg-gray').fadeIn();
+                $('.img-pop-up').fadeIn();
+            }
+
+            function hideImgPopUp(){
+                $('.bg-gray').fadeOut();
+                $('.img-pop-up').fadeOut();
+            }
+
+            function hideloader(){
+                $('.bg-gray').fadeOut();
+                $('#loader').fadeOut();
+            }
+
+            function showloader(){
+                $('.bg-gray').fadeIn();
+                $('#loader').fadeIn();
+            }
+
+            $('.back').click(function(){
+                showImgPopUp();
+            });
+
+            $('#submit').click(function(){
+                var error = '';
+                var errorI = 1 ;
+
+                if ( $('#email').val()=='' &&  $('#phone').val()=='' ){
+                    $('#email').css('borderColor', '#cc3333');
+                    $('#phone').css('borderColor', '#cc3333');
+                    error += errorI+'. Одно из полей (телефон или e-mail) обязательно должно быть заполнено<br />';
+                    errorI++;
+                }
+
+                if ( $('#driverNumber').val()==''){
+                    $('#driverNumber').css('borderColor', '#cc3333');
+                    error += errorI+'. Поле номер удостоверения водителя обязательно для заполнения<br />';
+                    errorI++;
+                }
+                if ( $('#driverDateStarts').val()==''){
+                    $('#driverDateStarts').css('borderColor', '#cc3333');
+                    error += errorI+'. Поле дата выдачи обязательно для заполнения<br />';
+                    errorI++;
+                }
+                if ( $('#driverDateEnds').val()==''){
+                    $('#driverDateEnds').css('borderColor', '#cc3333');
+                    error += errorI+'. Поле дата окончания обязательно для заполнения<br />';
+                    errorI++;
+                }else{
+                    tmpdateArray = $('#driverDateEnds').val().split(".");
+                    var tmpdate = new Date(tmpdateArray[2]+'-'+tmpdateArray[1]+'-'+tmpdateArray[0]);
+                    var tmpdate2 = new Date();
+                    tmpdate = ( tmpdate - tmpdate2) /(1000*60*60*24*30) ;
+                    console.log(tmpdate);
+                    if ( tmpdate < 1 ){
+                        error += errorI+'. Минимальный срок вод. прав должен быть больше 1 месяца<br />';
+                        errorI++;
+                    }
+                }
+                if ( $('#lastName').val()==''){
+                    $('#lastName').css('borderColor', '#cc3333');
+                    error += errorI+'. Поле фамилия обязательно для заполнения<br />';
+                    errorI++;
+                }
+                if ( $('#firstName').val()==''){
+                    $('#firstName').css('borderColor', '#cc3333');
+                    error += errorI+'. Поле имя обязательно для заполнения<br />';
+                    errorI++;
+                }
+                if ( $('#birthdate').val()==''){
+                    $('#birthdate').css('borderColor', '#cc3333');
+                    error += errorI+'. Поле дата рождения обязательно для заполнения<br />';
+                    errorI++;
+                }else{
+                    tmpdateArray = $('#birthdate').val().split(".");
+                    var tmpdate = new Date(tmpdateArray[2]+'-'+tmpdateArray[1]+'-'+tmpdateArray[0]);
+                    var tmpdate2 = new Date();
+                    tmpdate = ( tmpdate2 - tmpdate) /(1000*60*60*24*365) ;
+                    console.log(tmpdate);
+                    if ( tmpdate < 18 ){
+                        error += errorI+'. Возраст должен быть более 18 лет<br />';
+                        errorI++;
+                    }
+                }
+                if ( $('#passportNumber').val()==''){
+                    $('#passportNumber').css('borderColor', '#cc3333');
+                    error += errorI+'. Поле серия и номер обязательно для заполнения<br />';
+                    errorI++;
+                }
+                if ( $('#passportPlace').val()==''){
+                    $('#passportPlace').css('borderColor', '#cc3333');
+                    error += errorI+'. Поле кем выдан обязательно для заполнения<br />';
+                    errorI++;
+                }
+                if ( $('#passportDate').val()==''){
+                    $('#passportDate').css('borderColor', '#cc3333');
+                    error += errorI+'. Поле дата выдачи обязательно для заполнения<br />';
+                    errorI++;
+                }
+
+                if ( $('#snilsText').val()==''){
+                    $('#snilsText').css('borderColor', '#cc3333');
+                    error += errorI+'. Поле СНИЛС обязательно для заполнения<br />';
+                    errorI++;
+                }
+
+                if ($('#deliveryZipcode').val() == ''){
+                    error +=  errorI+'.Поле  индекс обязательно для заполнения <br />';
+                    errorI++;
+                    $('#deliveryZipcode').css('borderColor','#CC3333');
+                }
+                if ( $('#deliveryRegion').val()=='' || $('#deliveryRegion').val()=='Регион' || $('#deliveryRegion').val() == null ){
+                    $('#deliveryRegion-styler').css('border', '1px solid #CC3333');
+                    errorI++;
+                    error +=  errorI+'.Поле регион обязательно для заполнения<br />';
+                }
+                if ($('#deliveryCity').val() == ''){
+                    error +=  errorI+'.Поле город обязательно для заполнения <br />';
+                    errorI++;
+                    $('#deliveryCity').css('borderColor','#CC3333');
+                }
+                if ($('#deliveryHouse').val() == ''){
+                    error +=  errorI+'.Поле дом обязательно для заполнения <br />';
+                    errorI++;
+                    $('#deliveryHouse').css('borderColor','#CC3333');
+                }
+
+                console.log(error);
+                if (error == false ){
+                    $('#formSend').submit();
+                    return true;
+                }else{
+                    $('.error-msg-p').html(error);
+                    return false;
+                }
+
+            })
+
+        });
+
+
+
+
+    </script>
+{% endblock %}

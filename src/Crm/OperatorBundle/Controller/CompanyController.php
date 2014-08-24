@@ -62,12 +62,23 @@ class CompanyController extends Controller{
                 $company->setTypeRoom($data->get('companyTypeRoom'));
                 $company->setRoom($data->get('companyRoom'));
                 $company->setUrl($data->get('url'));
+
+                $company->setForma($data->get('forma'));
+                $company->setInn($data->get('inn'));
+                $company->setKpp($data->get('kpp'));
+                $company->setOgrn($data->get('ogrn'));
+                $company->setRchet($data->get('rchet'));
+                $company->setBank($data->get('bank'));
+                $company->setKorchet($data->get('korchet'));
+                $company->setBik($data->get('bik'));
+
+
                 $em->flush($company);
                 $em->refresh($company);
             }
         }
         if ($company->getUrl()){
-            $companyUrl = 'http://doroga01.ru/company/order-register/'.$company->getUrl();
+            $companyUrl = 'http://doroga01.ru/app.php/company/order/'.$company->getUrl();
         }else{
             $companyUrl = null;
         }
@@ -101,6 +112,16 @@ class CompanyController extends Controller{
             $company->setRoom($data->get('companyRoom'));
             $company->setOperator($this->getUser());
             $company->setUrl($data->get('url'));
+
+            $company->setForma($data->get('forma'));
+            $company->setInn($data->get('inn'));
+            $company->setKpp($data->get('kpp'));
+            $company->setOgrn($data->get('ogrn'));
+            $company->setRchet($data->get('rchet'));
+            $company->setBank($data->get('bank'));
+            $company->setKorchet($data->get('korchet'));
+            $company->setBik($data->get('bik'));
+
             $em->persist($company);
             $em->flush($company);
             $em->refresh($company);

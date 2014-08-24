@@ -14,6 +14,7 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
@@ -26,22 +27,60 @@ class UserController extends Controller{
 
     /**
      * Показывает водителей определенной компании
-     * @Route("/list/{companyId}", name="operator_user_list", defaults={"companyId=null"})
+     * @Route("/list/{companyId}/{new}/{petition}/{arhive}", name="operator_user_list", defaults={"companyId"=null, "new"=null, "petition"=null, "arhive"=null})
      * @Template()
      */
-    public function listAction($companyId = null){
-        if ($companyId == null && $this->get('security.context')->isGranted('ROLE_ADMIN')){
-            $company = null;
-            $users = $this->getDoctrine()->getRepository('CrmMainBundle:User')->findAll();
-        }else{
+    public function listAction($companyId = null, $new = null, $petition=null, $arhive=null){
+
+        $toDay =        null;
+        $toWeek =       null;
+        $toPetition =   null;
+        $toDeploy =     null;
+        $toArhive =     null;
+
+        if ( $arhive ){ $toArhive = true; }
+        if ( $new == 'day' ){ $toDay = true; }
+        if ( $new == 'week' ){ $toWeek = true; }
+        if ( $petition == 'true' ){ $toPetition = true; }
+        if ( $petition == 'deploy' ){ $toDeploy = true; }
+        if ( $companyId ){
             $company = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->findOneById($companyId);
-            if ($company->getOperator($this->getUser()) || $this->get('security.context')->isGranted('ROLE_ADMIN'))
-                $users = $company->getUsers();
-            else{
-                return $this->redirect($this->generateUrl('operator_main'));
-            }
+        }else{
+            $company = null;
         }
-        return array('company'=> $company,  'users' => $users);
+        if ( !$this->get('security.context')->isGranted('ROLE_ADMIN') ){
+            $operator = $this->getUser();
+        }else{
+            $operator = null;
+        }
+
+        $users = $this->getDoctrine()->getRepository('CrmMainBundle:User')->filter($operator,$company, $toDay, $toWeek, $toPetition, $toDeploy, $toArhive);
+
+//        if ($companyId == null && $this->get('security.context')->isGranted('ROLE_ADMIN')){
+//            $company = null;
+//            $users = $this->getDoctrine()->getRepository('CrmMainBundle:User')->findAll();
+//        }else{
+//            $company = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->findOneById($companyId);
+//            if ($company){
+//                if ($company->getOperator($this->getUser()) || $this->get('security.context')->isGranted('ROLE_ADMIN'))
+//                    $users = $company->getUsers();
+//                else{
+//                    return $this->redirect($this->generateUrl('operator_main'));
+//                }
+//            }else{
+//                $users = $this->getDoctrine()->getRepository('CrmMainBundle:User')->ofOperator($this->getUser());
+//            }
+//        }
+
+        return array(
+            'company'   => $company,
+            'users'     => $users,
+            'toDay'     => $toDay,
+            'toWeek'    => $toWeek,
+            'toPetition'=> $toPetition,
+            'toDeploy'  => $toDeploy,
+            'toArhive'  => $toArhive,
+        );
     }
 
     /**
@@ -235,12 +274,215 @@ class UserController extends Controller{
     }
 
     /**
+     * @Route("/show/{userId}", name="operator_show_user")
+     * @Template()
+     */
+    public function showAction(Request $request, $userId){
+        $session = $request->getSession();
+        $user = $this->getDoctrine()->getRepository('CrmMainBundle:User')->findOneById($userId);
+
+        if ($user && ( $user->getCompany()->getOperator() == $this->getUser() || $this->get('security.context')->isGranted('ROLE_ADMIN'))){
+            if ($request->getMethod() == 'POST'){
+                $data = $request->request;
+
+                $user->setEmail($data->get('email'));
+                $user->setPhone($data->get('phone'));
+
+                $user->setLastName($data->get('passportLastName'));
+                $user->setFirstName($data->get('passportFirstName'));
+                $user->setSurName($data->get('passportSurName'));
+                $user->setBirthDate($data->get('passportBirthdate'));
+                $user->setPassportNumber($data->get('passportNumber'));
+                $user->setPassportSerial($data->get('passportSeries'));
+                $user->setPassportIssuance($data->get('PassportPlace'));
+                $user->setPassportIssuanceDate($data->get('passportDate'));
+                $user->setPassportCode($data->get('passportCode'));
+
+                $user->setDriverDocNumber($data->get('driverNumber'));
+                $user->setDriverDocDateStarts($data->get('driverDateStarts'));
+                $user->setDriverDocDateEnds($data->get('driverDateEnds'));
+                $user->setDriverDocIssuance($data->get('driverDocIssuance'));
+                $user->setSnils($data->get('snils'));
+                $user->setLastNumberCard($data->get('oldNumber'));
+
+                $user->setDileveryZipcode($data->get('deliveryZipcode'));
+                $region = $this->getDoctrine()->getRepository('CrmMainBundle:Region')->findOneById($data->get('deliveryRegion'));
+                $user->setDileveryRegion($region);
+                $user->setDileveryCity($data->get('deliveryCity'));
+                $user->setDileveryStreet($data->get('deliveryStreet'));
+                $user->setDileveryHome($data->get('deliveryHouse'));
+                $user->setDileveryCorp($data->get('deliveryCorp'));
+                $user->setDileveryRoom($data->get('deliveryRoom'));
+                $user->setSalt(md5(time()));
+
+                if ($data->get('myPetition')){
+                    $user->setMyPetition(1);
+                }
+
+                $date = new \DateTime($user->getBirthDate());
+                $user->setBirthDate($date);
+
+                $date = new \DateTime($user->getPassportIssuanceDate());
+                $user->setPassportIssuanceDate($date);
+
+                $date = new \DateTime($user->getDriverDocDateStarts());
+                $user->setDriverDocDateStarts($date);
+
+                $date = new \DateTime($user->getDriverDocDateEnds());
+                $user->setDriverDocDateEnds($date);
+
+                if ($session->get('passport')){
+                    $fileName = $this->saveFile('passport');
+                    $user->setCopyPassport($fileName);
+                }
+                if ($session->get('driver')){
+                    $fileName = $this->saveFile('driver');
+                    $user->setCopyDriverPassport($fileName);
+                }
+                if ($session->get('photo')){
+                    $fileName = $this->saveFile('photo');
+                    $user->setPhoto($fileName);
+                }
+                if ($session->get('sign')){
+                    $fileName = $this->saveFile('sign');
+                    $user->setCopySignature($fileName);
+                }
+                if ($session->get('snils')){
+                    $fileName = $this->saveFile('snils');
+                    $user->setCopySnils($fileName);
+                }
+                if ($session->get('hod')){
+                    $fileName = $this->saveFile('hod');
+                    $user->setCopyPetition($fileName);
+                }
+                if ($session->get('work')){
+                    $fileName = $this->saveFile('work');
+                    $user->setCopyWork($fileName);
+                }
+
+                $user->setCopyPassport($this->getArrayToImg($user->getCopyPassport()));
+                $user->setCopyDriverPassport($this->getArrayToImg($user->getCopyDriverPassport()));
+                $user->setPhoto($this->getArrayToImg($user->getPhoto()));
+                $user->setCopySignature($this->getArrayToImg($user->getCopySignature()));
+                $user->setCopySnils($this->getArrayToImg($user->getCopySnils()));
+                $user->setCopyWork($this->getArrayToImg($user->getCopyWork()));
+                $user->setCopyPetition($this->getArrayToImg($user->getCopyPetition()));
+
+                $this->getDoctrine()->getManager()->flush($user);
+            }else{
+                #Помещаем все фалы-картинки в сессию, что бы потом можно было бы редактировать
+                # Пасспорт
+                $file = $user->getCopyPassport();
+                if (!empty($file)){
+                    list($width, $height) = getimagesize('/var/www/'.$file['path']);
+                    $session->set('passport', array(
+                            'content'=> $this->imgToBase('/var/www/'.$file['path']),
+                            'mimeType'=> 'image/jpeg',
+                            'width'=> $width,
+                            'height'=> $height,
+                        )
+                    );
+                }
+
+                # Права
+                $file = $user->getCopyDriverPassport();
+                if (!empty($file)){
+                    list($width, $height) = getimagesize('/var/www/'.$file['path']);
+                    $session->set('driver', array(
+                            'content'=> $this->imgToBase('/var/www/'.$file['path']),
+                            'mimeType'=> 'image/jpeg',
+                            'width'=> $width,
+                            'height'=> $height,
+                        )
+                    );
+                }
+
+                # СНИЛС
+                $file = $user->getCopySnils();
+                if (!empty($file)){
+                    list($width, $height) = getimagesize('/var/www/'.$file['path']);
+                    $session->set('snils', array(
+                            'content'=> $this->imgToBase('/var/www/'.$file['path']),
+                            'mimeType'=> 'image/jpeg',
+                            'width'=> $width,
+                            'height'=> $height,
+                        )
+                    );
+                }
+
+                # Фото
+                $file = $user->getPhoto();
+                if (!empty($file)){
+                    list($width, $height) = getimagesize('/var/www/'.$file['path']);
+                    $session->set('photo', array(
+                            'content'=> $this->imgToBase('/var/www/'.$file['path']),
+                            'mimeType'=> 'image/jpeg',
+                            'width'=> $width,
+                            'height'=> $height,
+                        )
+                    );
+                }
+
+                # Подпись
+                $file = $user->getCopySignature();
+                if (!empty($file)){
+                    list($width, $height) = getimagesize('/var/www/'.$file['path']);
+                    $session->set('sign', array(
+                            'content'=> $this->imgToBase('/var/www/'.$file['path']),
+                            'mimeType'=> 'image/jpeg',
+                            'width'=> $width,
+                            'height'=> $height,
+                        )
+                    );
+                }
+
+                # Ходатайство
+                $file = $user->getCopyPetition();
+                if (!empty($file)){
+                    list($width, $height) = getimagesize('/var/www/'.$file['path']);
+                    $session->set('hod', array(
+                            'content'=> $this->imgToBase('/var/www/'.$file['path']),
+                            'mimeType'=> 'image/jpeg',
+                            'width'=> $width,
+                            'height'=> $height,
+                        )
+                    );
+                }
+
+                # Ходатайство
+                $file = $user->getCopyWork();
+                if (!empty($file)){
+                    list($width, $height) = getimagesize('/var/www/'.$file['path']);
+                    $session->set('work', array(
+                            'content'=> $this->imgToBase('/var/www/'.$file['path']),
+                            'mimeType'=> 'image/jpeg',
+                            'width'=> $width,
+                            'height'=> $height,
+                        )
+                    );
+                }
+
+                $session->save();
+            }
+
+            $regions = $this->getDoctrine()->getRepository('CrmMainBundle:Region')->findAll();
+            return array('user' => $user, 'regions' => $regions);
+        }else{
+            return $this->redirect($request->headers->get('referer'));
+        }
+
+    }
+
+    /**
      * @Route("/remove/{userId}", name="operator_user_remove")
      * @Template()
      */
     public function removeAction(Request $request, $userId){
         $user = $this->getDoctrine()->getRepository('CrmMainBundle:User')->findOneById($userId);
-        $this->getDoctrine()->getManager()->remove($user);
+        if ($user && ( $user->getCompany()->getOperator() == $this->getUser() || $this->get('security.context')->isGranted('ROLE_ADMIN'))){
+            $user->setEnabled(false);
+            $this->getDoctrine()->getManager()->flush($user);
+        }
         return $this->redirect($request->headers->get('referer'));
     }
 
@@ -266,7 +508,6 @@ class UserController extends Controller{
      */
     public function generatePetitionAction(){}
 
-
     public function cropimage($img, $rect){
 
         #Получаем оригинальные размеры картинки
@@ -282,10 +523,32 @@ class UserController extends Controller{
         return $this->imgToBase($pathName);
     }
 
-    public function blackImage($img){
+    public function blackImage($img, $type = null){
         $pathName = $this->BaseToImg($img);
         $image = imagecreatefromjpeg($pathName);
         imagefilter($image, IMG_FILTER_GRAYSCALE );
+
+        if ($type == 'photo'){
+            $crop = imagecreatetruecolor(394,506);
+            imagecopyresized( $crop, $image, 0, 0,0, 0, 394, 506, imagesx($image), imagesy($image) );
+            $image = $crop;
+        }
+
+        if ($type == 'sign'){
+            #тут делаем ее определенного размера
+            $crop = imagecreatetruecolor(591,118);
+            $white = imagecolorallocate($crop, 255, 255, 255);
+            imagefill($crop, 0, 0, $white);
+
+            $ph = imagesy($image) / 118;
+            $width = imagesx($image) /$ph;
+            $margin = (591-$width)/2;
+            $height = 118;
+
+            imagecopyresized( $crop, $image, $margin, 0,0, 0, $width, $height, imagesx($image), imagesy($image) );
+            $image = $crop;
+        }
+
         $pathName = tempnam('/tmp','img-');
         imagejpeg($image, $pathName);
         return $this->imgToBase($pathName);

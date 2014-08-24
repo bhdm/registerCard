@@ -17,6 +17,27 @@
 
 {% block stylesheets %}
     {{ parent() }}
+    <style>
+        .filter-btn{
+            background: #EEEEEE;
+            color: #6c9e9f;
+            border: 1px solid #cccccc;
+            border-radius: 5px;
+            padding: 3px 10px;
+            cursor: pointer;
+            font-size: 12px;
+        }
+        .filter-btn-active{
+            background: #CCCCCC;
+            color: #6c9e9f;
+            border: 1px solid #EEEEEE;
+            border-radius: 5px;
+            padding: 3px 10px;
+            cursor: pointer;
+            font-size: 12px;
+        }
+
+    </style>
 {% endblock %}
 
 {% block javascripts %}
@@ -25,6 +46,19 @@
 {% endblock %}
 
 {% block content%}
+    <div class="filter">
+        {#<a href="#"><button>С ходатайством</button></a>#}
+        {#<a href="#"><button>В производстве</button></a>#}
+        {#<a href="#"><button>Архив</button></a>#}
+        <span class="filter-btn{{ toDay ? '-active' : '' }}">За сегодня</span>
+        <span class="filter-btn{{ toWeek ? '-active' : '' }}">За неделю</span>
+        <span class="filter-btn{{ toPetition ? '-active' : '' }}">С ходатайством</span>
+        <span class="filter-btn{{ toDeploy ? '-active' : '' }}">В производстве</span>
+        <span class="filter-btn{{ toArhive ? '-active' : '' }}">В архиве</span>
+        <br />
+        <br />
+    </div>
+
     {% if users is empty %}
         <h3 class="color-red">Пользователей не найдено</h3>
     {% else %}
@@ -34,10 +68,13 @@
             <table class="lists">
                 <tr>
                     <th style="width: 30px"></th>
+                    <th style="padding: 0; text-align: center;"> № </th>
+                    <th>Дата</th>
                     {% if company == null %}
                         <th>Компания</th>
                     {% endif %}
                     <th>ФИО</th>
+                    <th>Платежка</th>
                     <th class="empty"></th>
                     <th class="options">Действия</th>
                 </tr>
@@ -46,23 +83,56 @@
                         <td>
                             <input type="checkbox" name="check[{{ user.id }}]">
                         </td>
+                        <td style="text-align: center">
+                            {{ user.id }}
+                        </td>
+                        <td>{{ user.created | date("d.m.Y") }}</td>
                         {% if company == null %}
                             <td>
                                 <a href="{{ path('operator_user_list' , { 'companyId' : user.company.id}) }}">{{ user.company }}</a>
                             </td>
                         {% endif %}
                         <td>
-                            <a href="{{ path('operator_user_edit' , { 'companyId' : user.company.id, 'userId' : user.id}) }}">{{ user }}</a>
+                            <a href="{{ path('operator_show_user' , { 'userId' : user.id}) }}">{{ user }}</a>
+                        </td>
+                        <td>
+                            <a href="{{ path('xml_generator',{'userId' : user.id}) }}" target="_blank" class="no-underline">
+                                <img src="{{ asset('bundles/crmoperator/images/icon/image28_2.png') }}" class="icon" title="XML"/>
+                            </a>
+
+                            <a href="{{ path('generate_payment_pdf') }}?ord={{ user.id }}" target="_blank" class="no-underline">
+                                <img src="{{ asset('bundles/crmoperator/images/icon/image28_2.png') }}" class="icon" title="Платежный документ"/>
+                            </a>
+                            <a href="{{ path('generate_pdf_statement',{'id' : user.id}) }}" target="_blank" class="no-underline">
+                                <img src="{{ asset('bundles/crmoperator/images/icon/image28_2.png') }}" class="icon" title="Заявление"/>
+                            </a>
+                            {% if user.myPetition == 1 or user.copyPetition is not empty %}
+                                <a href="{{ path('generate_petition',{'userId' : user.id}) }}" target="_blank" class="no-underline">
+                                    <img src="{{ asset('bundles/crmoperator/images/icon/image28_2.png') }}" class="icon" title="Ходатайство"/>
+                                </a>
+                            {% endif %}
+
+
                         </td>
                         <td></td>
                         <td class="options">
                             {% if user.companyPetition != null %}
-                                <a class="no-underline" href="{{ path("operator_petition_edit",{ 'petitionId' : user.companyPetition.id }) }}">
-                                    <img src="{{ asset('bundles/crmoperator/images/icon/image26.png') }}" class="icon"/>
-                                </a>
+                                {% if user.companyPetition.status == 0 %}
+                                    <a class="no-underline" href="{{ path("operator_petition_edit",{ 'petitionId' : user.companyPetition.id }) }}">
+                                        <img src="{{ asset('bundles/crmoperator/images/icon/image26.png') }}" class="icon"/>
+                                    </a>
+                                {% else %}
+                                    <a class="no-underline" href="{{ path("operator_petition_edit",{ 'petitionId' : user.companyPetition.id }) }}">
+                                        <img src="{{ asset('bundles/crmoperator/images/icon/image26_green.png') }}" class="icon"/>
+                                    </a>
+                                {% endif %}
                             {% endif %}
-                            <a href="{{ path('operator_user_edit' , { 'companyId' : user.company.id, 'userId' : user.id}) }}">
+                            <a class="no-underline" href="{{ path('operator_user_edit' , { 'companyId' : user.company.id, 'userId' : user.id}) }}">
                                 <img src="{{ asset('bundles/crmoperator/images/icon/image22.png') }}" class="icon"/>
+                            </a>
+
+                            <a class="no-underline" href="{{ path('operator_user_remove' , { 'userId' : user.id}) }}">
+                                <img src="{{ asset('bundles/crmoperator/images/icon/image11.png') }}" class="icon"/>
                             </a>
                         </td>
                     </tr>

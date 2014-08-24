@@ -14,6 +14,7 @@ use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Crm\MainBundle\Entity\Operator;
 use Symfony\Component\Security\Core\Encoder\MessageDigestPasswordEncoder;
 
+
 /**
  * Class OperatorController
  * @package Crm\OperatorBundle\Controller
@@ -39,8 +40,8 @@ class OperatorController extends Controller{
      */
     public function removeAction(Request $request, $operatorId){
             $operator = $this->getDoctrine()->getRepository('CrmMainBundle:Operator')->findOneById($operatorId);
-            $this->getDoctrine()->getManager()->remove($operator);
-            $this->getDoctrine()->getManager()->flush();
+            $operator->setEnabled(false);
+            $this->getDoctrine()->getManager()->flush($operator);
             return $this->redirect($request->headers->get('referer'));
     }
 
@@ -64,7 +65,7 @@ class OperatorController extends Controller{
                     // шифрует и устанавливает пароль для пользователя,
                     // эти настройки совпадают с конфигурационными файлами
                     $encoder = new MessageDigestPasswordEncoder('sha512', true, 10);
-                    $password = $encoder->encodePassword('b', $operator->getSalt());
+                    $password = $encoder->encodePassword($request->request->get('password'), $operator->getSalt());
                     $operator->setPassword($password);
                 }else{
                     return array('operator' => $operator);
@@ -95,11 +96,12 @@ class OperatorController extends Controller{
                 // шифрует и устанавливает пароль для пользователя,
                 // эти настройки совпадают с конфигурационными файлами
                 $encoder = new MessageDigestPasswordEncoder('sha512', true, 10);
-                $password = $encoder->encodePassword('b', $operator->getSalt());
+                $password = $encoder->encodePassword($request->request->get('password'), $operator->getSalt());
                 $operator->setPassword($password);
             }else{
                 return array('operator' => $operator);
             }
+            $em->persist($operator);
             $em->flush($operator);
             return $this->redirect($this->generateUrl('operator_operator_list'));
         }

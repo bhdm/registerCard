@@ -258,3 +258,9 @@ input.little{
 .required{
     color: #CC0000;
 }
+.table-edit{
+    margin-left: 20px;
+}
+.table-edit tr td{
+    padding: 10px 0;
+}

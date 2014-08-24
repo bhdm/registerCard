@@ -3,11 +3,9 @@
 {% block content %}
     <table class="table-100" style="width: 98%;">
         <tr>
-            <td style="width: 570px; padding-right: 15px;">
+            <td style="width: 570px; padding-right: 15px; vertical-align: top;">
+                <div class="important" id="important3" style="width: auto; color: #CC3333">Важное разъяснение</div>
                 {{ indexPage_1.body | raw }}
-                <br />
-                <div class="important" id="important1">Важное разъяснение</div>
-                <div class="important" id="important2">Если вы предприятие</div>
             </td>
             <td  style="width: 410px; text-align: right" valign="top">
                 <img src="{{ asset('bundles/crmmain/images/img1.png') }}" />
@@ -21,19 +19,22 @@
                                     <b>Нам доверяют:</b>
                                 </td>
                                 <td>
+                                    {% for u in users %}
+                                        <div class="digital-{{ u }}"></div>
+                                    {% endfor %}
                                     {#<div class="digital--"></div>#}
                                     {#<div class="digital-0"></div>#}
-                                    <div class="digital-1"></div>
-                                    <div class="digital-8"></div>
+                                    {#<div class="digital-1"></div>#}
+                                    {#<div class="digital-8"></div>#}
                                     {#<div class="digital-2"></div>#}
                                     {#<div class="digital-3"></div>#}
-                                    <div class="digital-2"></div>
+                                    {#<div class="digital-2"></div>#}
                                     {#<div class="digital-5"></div>#}
                                     {#<div class="digital-6"></div>#}
                                     {#<div class="digital-7"></div>#}
-                                    <div class="digital-4"></div>
+                                    {#<div class="digital-8"></div>#}
                                     {#<div class="digital-9"></div>#}
-                                    <div class="digital-1"></div>
+                                    {#<div class="digital-5"></div>#}
                                 </td>
                                 <td style="vertical-align: middle;">
                                     <b> человек</b>
@@ -42,6 +43,9 @@
                         </table>
                     </div>
                 {% endspaceless %}
+                <br />
+                <div class="important" id="important1">Важное разъяснение</div>
+                <div class="important" id="important2">Если вы предприятие</div>
             </td>
         </tr>
     </table>
@@ -51,8 +55,8 @@
             <br/>
             <div class="advw">
                 Изготовление карт водителей для тахографов с <span class="price">СКЗИ</span><br />
-                Срок изготовления - <span class="price">от 20 до 30 дней</span><br />
-                Цена с доставкой в любую точку России - <span class="price">2306.00 руб.</span>
+                Срок изготовления - <span class="price">от 15 до 20 дней</span><br />
+                Цена с доставкой в любую точку России - <span class="price">2306.00 руб. в т.ч. НДС</span>
             </div>
                 {#<b>Получите карту водителя за 3 шага</b>#}
             <br/>
@@ -66,6 +70,10 @@
         <img src="{{ asset('bundles/crmmain/images/close_ico.png') }}" class="close-pop-up ico" />
         <div>
             Согласно приказу ФБУ "Росавтотранс" 125 от 20.11.2013 года предприятия  могут только оплачивать карты водителя, а получать ее может только тот на кого она выписана или его представитель (обязательно наличие лицензии ФСБ на распространение СКЗИ).
+            <br />
+            <br />
+            <a href="http://im-kard.ru/bundles/crmmain/prikaz.pdf" target="_blank">Читать текст закона</a>
+            <br />
         </div>
     </div>
     <div class="pop-up" id="pop-up-2">
@@ -79,6 +87,12 @@
                 <li>Оплатить производство карт;</li>
                 <li>Подписать акт выполненных работ после доставки каждому водителю.</li>
             </ul>
+        </div>
+    </div>
+    <div class="pop-up" id="pop-up-3" style="width: 640px; height: 360px; top: 160px; margin-left: -320px">
+        <img src="{{ asset('bundles/crmmain/images/close_ico.png') }}" class="close-pop-up ico" />
+        <div>
+            <iframe width="640" height="360" src="//www.youtube.com/embed/2WkicwKfhMc" frameborder="0" allowfullscreen></iframe>
         </div>
     </div>
 {% endblock %}
@@ -169,6 +183,10 @@
 
             $('#important2').click(function(){
                 $('#pop-up-2').css('display', 'block');
+                $('.bg-gray').css('display', 'block');
+            });
+            $('#important3').click(function(){
+                $('#pop-up-3').css('display', 'block');
                 $('.bg-gray').css('display', 'block');
             });
 

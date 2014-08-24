@@ -290,7 +290,7 @@
                         <input name="passport" id="passportFile" type="file" value="Выбирите файл">
                     </form>
                 </td>
-                <td class="passportStatus"><img src="{{ asset('bundles/crmmain/images/help.png') }}" class="ico help" id="helpPassport" title="Инструкция по заполнению"></td>
+                <td class="passportStatus"><span id="helpPassport" class="help">Инструкция по заполнению</span></td>
             </tr>
             <tr>
                 <td class="label">
@@ -301,7 +301,7 @@
                         <input name="driver" id="driverFile" type="file" value="Выбирите файл">
                     </form>
                 </td>
-                <td class="driverStatus"><img src="{{ asset('bundles/crmmain/images/help.png') }}" class="ico help" id="helpDriver" title="Инструкция по заполнению"></td>
+                <td class="driverStatus"><span id="helpDriver" class="help">Инструкция по заполнению</span></td>
             </tr>
             <tr >
                 <td class="label">
@@ -312,7 +312,7 @@
                         <input name="photo" id="photoFile" type="file" value="Выбирите файл">
                     </form>
                 </td>
-                <td class="photoStatus"><img src="{{ asset('bundles/crmmain/images/help.png') }}" class="ico help" id="helpPhoto" title="Инструкция по заполнению"></td>
+                <td class="photoStatus"><span id="helpPhoto" class="help">Инструкция по заполнению</span></td>
             </tr>
             <tr >
                 <td class="label">
@@ -323,7 +323,7 @@
                         <input name="sign" id="signFile" type="file" value="Выбирите файл">
                     </form>
                 </td>
-                <td class="signStatus"><img src="{{ asset('bundles/crmmain/images/help.png') }}" class="ico help" id="helpSign" title="Инструкция по заполнению"></td>
+                <td class="signStatus"><span id="helpSign" class="help">Инструкция по заполнению</span></td>
             </tr>
 
             <tr id="rus">
@@ -335,7 +335,7 @@
                         <input name="snils" id="snilsFile" type="file" value="Выбирите файл">
                     </form>
                 </td>
-                <td class="snilsStatus"><img src="{{ asset('bundles/crmmain/images/help.png') }}" class="ico help" id="helpSnils" title="Инструкция по заполнению"></td>
+                <td class="snilsStatus"><span id="helpSnils" class="help">Инструкция по заполнению</span></td>
             </tr>
             <tr id="notrus" style="display: none;">
                 <td class="label">
@@ -346,7 +346,7 @@
                         <input name="work" id="workFile" type="file" value="Выбирите файл">
                     </form>
                 </td>
-                <td class="workStatus"><img src="{{ asset('bundles/crmmain/images/help.png') }}" class="ico help" id="helpWork" title="Инструкция по заполнению"></td>
+                <td class="workStatus"><span id="helpWork" class="help">Инструкция по заполнению</span></td>
             </tr>
 
 
@@ -359,10 +359,15 @@
                         <input name="hod" id="hodFile" type="file" value="Выбирите файл">
                     </form>
                 </td>
-                <td class="hodStatus"><img src="{{ asset('bundles/crmmain/images/help.png') }}" class="ico help" id="helpHod" title="Инструкция по заполнению"></td>
+                <td class="hodStatus"><span id="helpHod" class="help">Инструкция по заполнению</span></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td colspan="2" style="font-size: 14px"><input type="checkbox" name="myPetition" id="myPetition"> Воспользоваться ходатайством НПО "ТЕХНОЛОГ"</td>
             </tr>
 
             <tr><td colspan="2">
+                    <br />
                     <i style="font-size: 14px; color: #CC3333">* Поля отмеченные звездочкой обязательны для заполнения</i>
                     <br />
                 </td></tr>
@@ -488,7 +493,7 @@
                             showImgPopUp();
                             if ( type == 'photo'){
                                 $('#img-pop-up-img div img').imgAreaSelect({
-                                    aspectRatio: '3:4',
+                                    aspectRatio: '1:1.285',
 //                                x1: 120, y1: 90, x2: 280, y2: 210,
                                     handles: true,
                                     onSelectEnd: function (img, selection) {
@@ -499,17 +504,32 @@
                                         $('.imgareaselect-selection').addClass('imgareaselect-selection2');
                                     }
                                 });
+                                $('.imgareaselect-selection').addClass('imgareaselect-selection2');
                             }else{
-                                $('#img-pop-up-img div img').imgAreaSelect({
-                                    x1: 120, y1: 90, x2: 280, y2: 210,
-                                    handles: true,
-                                    onSelectEnd: function (img, selection) {
-                                        $('input[name="x1"]').val(selection.x1);
-                                        $('input[name="y1"]').val(selection.y1);
-                                        $('input[name="x2"]').val(selection.x2);
-                                        $('input[name="y2"]').val(selection.y2);
-                                    }
-                                });
+                                if (type == 'sign'){
+                                    $('#img-pop-up-img div img').imgAreaSelect({
+//                                        aspectRatio: '5:1',
+//                                x1: 120, y1: 90, x2: 280, y2: 210,
+                                        handles: true,
+                                        onSelectEnd: function (img, selection) {
+                                            $('input[name="x1"]').val(selection.x1);
+                                            $('input[name="y1"]').val(selection.y1);
+                                            $('input[name="x2"]').val(selection.x2);
+                                            $('input[name="y2"]').val(selection.y2);
+                                        }
+                                    });
+                                }else{
+                                    $('#img-pop-up-img div img').imgAreaSelect({
+                                        x1: 120, y1: 90, x2: 280, y2: 210,
+                                        handles: true,
+                                        onSelectEnd: function (img, selection) {
+                                            $('input[name="x1"]').val(selection.x1);
+                                            $('input[name="y1"]').val(selection.y1);
+                                            $('input[name="x2"]').val(selection.x2);
+                                            $('input[name="y2"]').val(selection.y2);
+                                        }
+                                    });
+                                }
                             }
                         }
                     },
@@ -540,7 +560,7 @@
                     showImgPopUp();
                     if ( type == 'photo'){
                         $('#img-pop-up-img div img').imgAreaSelect({
-                            aspectRatio: '3:5',
+                            aspectRatio: '1:1.285',
 //                                x1: 120, y1: 90, x2: 280, y2: 210,
                             handles: true,
                             onSelectEnd: function (img, selection) {
@@ -548,20 +568,35 @@
                                 $('input[name="y1"]').val(selection.y1);
                                 $('input[name="x2"]').val(selection.x2);
                                 $('input[name="y2"]').val(selection.y2);
+                                $('.imgareaselect-selection').addClass('imgareaselect-selection2');
                             }
                         });
                         $('.imgareaselect-selection').addClass('imgareaselect-selection2');
                     }else{
-                        $('#img-pop-up-img div img').imgAreaSelect({
-                            x1: 120, y1: 90, x2: 280, y2: 210,
-                            handles: true,
-                            onSelectEnd: function (img, selection) {
-                                $('input[name="x1"]').val(selection.x1);
-                                $('input[name="y1"]').val(selection.y1);
-                                $('input[name="x2"]').val(selection.x2);
-                                $('input[name="y2"]').val(selection.y2);
-                            }
-                        });
+                        if (type == 'sign'){
+                            $('#img-pop-up-img div img').imgAreaSelect({
+//                                aspectRatio: '5:1',
+//                                x1: 120, y1: 90, x2: 280, y2: 210,
+                                handles: true,
+                                onSelectEnd: function (img, selection) {
+                                    $('input[name="x1"]').val(selection.x1);
+                                    $('input[name="y1"]').val(selection.y1);
+                                    $('input[name="x2"]').val(selection.x2);
+                                    $('input[name="y2"]').val(selection.y2);
+                                }
+                            });
+                        }else{
+                            $('#img-pop-up-img div img').imgAreaSelect({
+                                x1: 120, y1: 90, x2: 280, y2: 210,
+                                handles: true,
+                                onSelectEnd: function (img, selection) {
+                                    $('input[name="x1"]').val(selection.x1);
+                                    $('input[name="y1"]').val(selection.y1);
+                                    $('input[name="x2"]').val(selection.x2);
+                                    $('input[name="y2"]').val(selection.y2);
+                                }
+                            });
+                        }
                     }
 
                 }
@@ -603,7 +638,7 @@
                 errorI++;
             }
 
-            if ( $('#hodFile-styler .jq-file__name').html() == 'Файл не выбран'){
+            if ( $('#hodFile-styler .jq-file__name').html() == 'Файл не выбран' && $("#myPetition").prop("checked") == false ){
                 error += errorI+'. Поле ходатайство обязательно для заполнения<br />';
                 $('#hodFile-styler .jq-file__name').css('borderColor', '#cc3333');
                 errorI++;
@@ -617,15 +652,15 @@
 
             if (error === ''){
                 var form = new FormData();
-                form.append('PassportLastName',$('#lastName').val());
-                form.append('PassportFirstName',$('#firstName').val());
-                form.append('PassportSurName',$('#surName').val());
-                form.append('PassportBirthdate',$('#birthdate').val());
-                form.append('PassportNumber',$('#passportNumber').val());
-                form.append('PassportPlace',$('#passportPlace').val());
-                form.append('PassportDate',$('#passportDate').val());
-                form.append('PassportCode',$('#passportCode').val());
-                form.append('PassportCode',$('#passportCode').val());
+                form.append('passportLastName',$('#lastName').val());
+                form.append('passportFirstName',$('#firstName').val());
+                form.append('passportSurName',$('#surName').val());
+                form.append('passportBirthdate',$('#birthdate').val());
+                form.append('passportSeries',$('#passportSeries').val());
+                form.append('passportNumber',$('#passportNumber').val());
+                form.append('passportPlace',$('#passportPlace').val());
+                form.append('passportDate',$('#passportDate').val());
+                form.append('passportCode',$('#passportCode').val());
 
                 form.append('driverNumber',$('#driverNumber').val());
                 form.append('driverDateStarts',$('#driverDateStarts').val());
@@ -643,6 +678,8 @@
                 form.append('companyStructure',$('#companyStructure').val());
                 form.append('companyTypeRoom',$('#companyTypeRoom').val());
                 form.append('companyRoom',$('#companyRoom').val());
+
+                form.append('myPetition',$('#myPetition').val());
 
                 form.append('snils',$('#snils').val());
 
@@ -789,7 +826,8 @@
                     error += errorI+'. Поле дата окончания обязательно для заполнения<br />';
                     errorI++;
                 }else{
-                    var tmpdate = new Date($('#driverDateEnds').val());
+                    tmpdateArray = $('#driverDateEnds').val().split(".");
+                    var tmpdate = new Date(tmpdateArray[2]+'-'+tmpdateArray[1]+'-'+tmpdateArray[0]);
                     var tmpdate2 = new Date();
                     tmpdate = ( tmpdate - tmpdate2) /(1000*60*60*24*30) ;
                     console.log(tmpdate);
@@ -802,7 +840,7 @@
             if ( $(this).attr('id')=='saveSnils' ){
                 if ( $('#snils').val()==''){
                     $('#snils').css('borderColor', '#cc3333');
-                    error += errorI+'. Поле номер удостоверения водителя обязательно для заполнения<br />';
+                    error += errorI+'. Поле СНИЛС обязательно для заполнения<br />';
                     errorI++;
                 }
             }
@@ -983,6 +1021,11 @@
     <link href="{{ asset('bundles/crmmain/lib/odyniec/distfiles/css/imgareaselect-default.css') }}" rel="stylesheet" media="all">
     <link href="{{ asset('bundles/crmmain/lib/jquery-ui/jquery-ui.min.css') }}" rel="stylesheet" media="all">
     <style>
+        span.help{
+            cursor: pointer;
+            font-size: 12px;
+            color: #e8313e;
+        }
         progress{
             display: none;
         }
@@ -1094,10 +1137,9 @@
             position: absolute;
             right: -16px;
             top: -16px;
-        }
-        .close-pop-up{
             width: 32px;
         }
+
         .imgareaselect-selection2{
             background: url({{ asset('bundles/crmmain/images/nophoto.png') }}) no-repeat;
             -moz-background-size: 100%; /* Firefox 3.6+ */

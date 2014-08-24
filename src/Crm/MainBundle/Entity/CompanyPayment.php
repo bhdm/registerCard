@@ -26,25 +26,9 @@ class CompanyPayment extends BaseEntity{
     protected $summ;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Company", inversedBy="payments")
+     * @ORM\ManyToOne(targetEntity="Operator", inversedBy="payments")
      */
-    protected $company;
-
-    /**
-     * @param mixed $company
-     */
-    public function setCompany($company)
-    {
-        $this->company = $company;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getCompany()
-    {
-        return $this->company;
-    }
+    protected $operator;
 
     /**
      * @param mixed $count
@@ -77,5 +61,22 @@ class CompanyPayment extends BaseEntity{
     {
         return $this->summ;
     }
+
+    /**
+     * @param mixed $operator
+     */
+    public function setOperator($operator)
+    {
+        $this->operator = $operator;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getOperator()
+    {
+        return $this->operator;
+    }
+
 
 }

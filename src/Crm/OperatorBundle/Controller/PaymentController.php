@@ -23,18 +23,18 @@ use Symfony\Component\Security\Core\Encoder\MessageDigestPasswordEncoder;
 class PaymentController extends Controller
 {
     /**
-     * @Route("/list/{companyId}", name="operator_payment_list", defaults={"companyId" = null })
+     * @Route("/list/{operatorId}", name="operator_payment_list", defaults={"operatorId" = null })
      * @Template()
      */
-    public function listAction($companyId = null){
-        if ($companyId){
-            $company = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->findOneById($companyId);
-            $payments = $this->getDoctrine()->getRepository('CrmMainBundle:CompanyPayment')->findByCompany($company);
+    public function listAction($operatorId = null){
+        if ($operatorId){
+            $operator = $this->getDoctrine()->getRepository('CrmMainBundle:Operator')->findOneById($operatorId);
+            $payments = $this->getDoctrine()->getRepository('CrmMainBundle:CompanyPayment')->findByOperator($operator);
         }else{
             $payments = $this->getDoctrine()->getRepository('CrmMainBundle:CompanyPayment')->findAll();
-            $company = null;
+            $operator = null;
         }
-        return array('payments' => $payments, 'company' => $company );
+        return array('payments' => $payments, 'operator' => $operator );
     }
 
     /**
@@ -42,19 +42,19 @@ class PaymentController extends Controller
      * @Template()
      */
     public function addAction(Request $request){
-        $companies = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->findAll();
+        $perators = $this->getDoctrine()->getRepository('CrmMainBundle:Operator')->findAll();
         $em = $this->getDoctrine()->getManager();
         if ( $request->getMethod() == 'POST'){
             $payment = new CompanyPayment();
-            $company = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->findOneById($request->request->get('company'));
-            $payment->setCompany($company);
+            $operator = $this->getDoctrine()->getRepository('CrmMainBundle:Operator')->findOneById($request->request->get('operator'));
+            $payment->setOperator($operator);
             $payment->setCount($request->request->get('count'));
             $payment->setSumm($request->request->get('summ'));
             $em->persist($payment);
             $em->flush();
             return $this->redirect($this->generateUrl('operator_payment_list'));
         }
-        return array('companies' => $companies);
+        return array('operators' => $perators);
     }
 
     /**
@@ -62,20 +62,20 @@ class PaymentController extends Controller
      * @Template()
      */
     public function editAction(Request $request, $paymentId){
-        $companies = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->findAll();
+        $operators = $this->getDoctrine()->getRepository('CrmMainBundle:Operator')->findAll();
         $em = $this->getDoctrine()->getManager();
         $payment = $this->getDoctrine()->getRepository('CrmMainBundle:CompanyPayment')->findOneById($paymentId);
         if ($payment){
             if ( $request->getMethod() == 'POST'){
-                $company = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->findOneById($request->request->get('company'));
-                $payment->setCompany($company);
+                $operator = $this->getDoctrine()->getRepository('CrmMainBundle:Operator')->findOneById($request->request->get('operator'));
+                $payment->setOperator($operator);
                 $payment->setCount($request->request->get('count'));
                 $payment->setSumm($request->request->get('summ'));
                 $em->flush($payment);
                 return $this->redirect($this->generateUrl('operator_payment_list'));
             }
         }
-        return array('payment'=> $payment, 'companies' => $companies);
+        return array('payment'=> $payment, 'operators' => $operators);
     }
 
     /**

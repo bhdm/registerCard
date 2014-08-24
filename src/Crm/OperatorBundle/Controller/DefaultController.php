@@ -29,16 +29,16 @@ class DefaultController extends Controller
         // создание пользователя
 //        $user = new Operator();
 //        $user->setUsername('b');
-        $user->setSalt(md5(time()));
-        $user->setRoles('ROLE_OPERATOR');
-        // шифрует и устанавливает пароль для пользователя,
-        // эти настройки совпадают с конфигурационными файлами
-        $encoder = new MessageDigestPasswordEncoder('sha512', true, 10);
-        $password = $encoder->encodePassword('b', $user->getSalt());
-        $user->setPassword($password);
+//        $user->setSalt(md5(time()));
+//        $user->setRoles('ROLE_OPERATOR');
+//         шифрует и устанавливает пароль для пользователя,
+//         эти настройки совпадают с конфигурационными файлами
+//        $encoder = new MessageDigestPasswordEncoder('sha512', true, 10);
+//        $password = $encoder->encodePassword('b', $user->getSalt());
+//        $user->setPassword($password);
 
-        $manager->persist($user);
-        $manager->flush($user);
+//        $manager->persist($user);
+//        $manager->flush($user);
 
         return $this->redirect($this->generateUrl('operator_company_list'));
 
