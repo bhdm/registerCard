@@ -315,6 +315,7 @@ class OrderController extends Controller{
             $user->setSalt(md5(time()));
 
             $user->setLastNumberCard($data->get('oldNumber'));
+            $user->setTypeCard($data->get('typeCard'));
 
             $date = new \DateTime($user->getBirthDate());
             $user->setBirthDate($date);

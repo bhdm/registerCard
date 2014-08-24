@@ -268,6 +268,11 @@ class User extends BaseEntity implements UserInterface, EquatableInterface, \Ser
      */
     protected $roles;
 
+    /**
+     * @ORM\Column(type="integer")
+     */
+    protected $typeCard;
+
     public function getXmlId(){
         return str_pad($this->id, 8, "0", STR_PAD_LEFT);
     }
@@ -1054,6 +1059,22 @@ class User extends BaseEntity implements UserInterface, EquatableInterface, \Ser
     public function getMyPetition()
     {
         return $this->myPetition;
+    }
+
+    /**
+     * @param mixed $typeCard
+     */
+    public function setTypeCard($typeCard)
+    {
+        $this->typeCard = $typeCard;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getTypeCard()
+    {
+        return $this->typeCard;
     }
 
 
