@@ -55,6 +55,36 @@
                 text-decoration: underline;
                 cursor: pointer;
             }
+            .close-pop-up{
+                width: 32px;
+                position: absolute;
+                right: 0;
+                top: 0;
+            }
+            .bg-gray{
+                position: fixed;
+                left: 0;
+                right: 0;
+                top: 0;
+                bottom: 0;
+                background: #555555;
+                opacity: 0.5;
+                z-index: 900;
+                display: none;
+            }
+            .pop-up{
+                position: fixed;
+                width: 500px;
+                padding: 15px;
+                border: 1px solid #636363;
+                border-radius: 5px;
+                left: 50%;
+                margin-left: -250px;
+                top: 300px;
+                background: #e3e3e3;
+                z-index: 910;
+                display: none;
+            }
         </style>
     </head>
     <body>
@@ -76,7 +106,7 @@
                             </td>
                             <td>
                                 <br />
-                                <span class="a" id="setphone">Оставьте свой телефон и Вам перезвонят в течение 15 минут</span>
+                                <span class="a" id="setphone">Заказать обратный звонок</span>
                             </td>
                             <td style=" width: 250px; padding-top: 15px">
                                 <span class="phone">8 (812) 425 - 12 - 44</span>
