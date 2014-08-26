@@ -573,18 +573,44 @@ class User extends BaseEntity implements UserInterface, EquatableInterface, \Ser
 
     public function getStatusString(){
         $status = null;
+//        switch ($this->status){
+//            case null:
+//                $status = 'В ожидании модерации';
+//                break;
+//            case 0:
+//                $status = 'В ожидании модерации';
+//                break;
+//            case 1:
+//                $status = 'Передан на производство';
+//                break;
+//            case 2:
+//                $status = 'Отправлен клиенту';
+//                break;
+//        }
         switch ($this->status){
             case null:
-                $status = 'В ожидании модерации';
+                $status = 'Новая';
                 break;
             case 0:
-                $status = 'В ожидании модерации';
+                $status = 'Новая';
                 break;
             case 1:
-                $status = 'Передан на производство';
+                $status = 'Подтвержденная';
                 break;
             case 2:
-                $status = 'Отправлен клиенту';
+                $status = 'Оплаченная';
+                break;
+            case 3:
+                $status = 'В производстве';
+                break;
+            case 4:
+                $status = 'На почте';
+                break;
+            case 5:
+                $status = 'Получена';
+                break;
+            case 10:
+                $status = 'Отклонена';
                 break;
         }
         return $status;

@@ -315,6 +315,8 @@ class UserController extends Controller{
                 $user->setDileveryRoom($data->get('deliveryRoom'));
                 $user->setSalt(md5(time()));
 
+                $user->setStatus($data->get('status'));
+
                 if ($data->get('myPetition')){
                     $user->setMyPetition(1);
                 }
