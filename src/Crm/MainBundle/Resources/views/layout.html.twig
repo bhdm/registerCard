@@ -24,19 +24,38 @@
         {% endblock %}
         {% block stylesheets %}
             <link href="{{ asset('bundles/crmmain/stylesheets/common.css') }}" rel="stylesheet" media="all">
+            <link href="{{ asset('bundles/crmmain/lib/styler/jquery.formstyler.css') }}" rel="stylesheet" media="all">
         {% endblock %}
         {% block javascripts %}
             <script rel="script" src="{{ asset('bundles/crmmain/javascripts/jQuery.js') }}"></script>
             <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
+            <script src="{{ asset('bundles/crmmain/lib/styler/jquery.formstyler.min.js') }}" type="text/javascript"></script>
             <script src="{{ path('fos_js_routing_js', {"callback": "fos.Router.setData"}) }}"></script>
             <script>
                 $(document).ready(function(){
                     $('#popup-close').click(function(){
                         $('.popup').fadeOut();
                     });
+
+                    $('#setphone').click(function(){
+                        $('#pop-up-phone').css('display', 'block');
+                        $('.bg-gray').css('display', 'block');
+                        $('.styler').styler();
+                    });
+                    $('input, select').styler();
+                    $('.styler').styler();
                 })
             </script>
         {% endblock %}
+        <style>
+            .a{
+                color: #CC3333;
+            }
+            .a:hover{
+                text-decoration: underline;
+                cursor: pointer;
+            }
+        </style>
     </head>
     <body>
         <div class="body">
@@ -56,13 +75,16 @@
                                 <span class="gray" style="font-size: 14px;">Оформление&nbsp;карты&nbsp;водителя</span>
                             </td>
                             <td>
-
+                                <br />
+                                <span class="a" id="setphone">Оставьте свой телефон и Вам перезвонят в течение 15 минут</span>
                             </td>
                             <td style=" width: 250px; padding-top: 15px">
                                 <span class="phone">8 (812) 425 - 12 - 44</span>
                                 <br />
                                 <a href="{{ path('faq') }}" class="no-bootom-line"><img src="{{ asset('bundles/crmmain/images/msg.png') }}" class="msg"></a>
                                 &nbsp;<span style="padding: 0 18px"> </span>&nbsp;<a href="{{ path('faq') }}"><b>задать вопрос</b></a>
+                                <br />
+
                             </td>
                         </tr>
                     </table>
@@ -126,5 +148,27 @@
             ga('send', 'pageview');
 
         </script>
+        <div class="pop-up" id="pop-up-phone" style="width: 350px;margin-left: -175px;">
+            <img src="{{ asset('bundles/crmmain/images/close_ico.png') }}" class="close-pop-up ico" />
+            <div>
+                <form method="POST" action="{{ path('set-number') }}">
+                    <table>
+                        <tr>
+                            <td>Имя: </td>
+                            <td><input type="text" name="name"  style="width: 250px" class="styler" placeholder="Ваше имя" required="required"></td>
+                        </tr>
+                        <tr>
+                            <td>телефон: </td>
+                            <td><input type="tel" class="styler" style="width: 250px" name="phone" placeholder="Номер телефона" required="required"></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td><button type="submit" class="styler">Отправить</button></td>
+                        </tr>
+                    </table>
+                </form>
+            </div>
+        </div>
+        <div class="bg-gray"></div>
     </body>
 </html>

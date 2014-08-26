@@ -206,4 +206,28 @@ class IndexController extends Controller
         $response->setContent($this->renderView('CrmMainBundle:Index:sitemap.html.twig'));
         return $response;
     }
+
+    /**
+     * @ROute("/set-number", name="set-number")
+     */
+    public function setNumberAction(Request $request){
+        $data = $request->request;
+        $phone = $data->get('phone');
+        $name = $data->get('name');
+        $message = \Swift_Message::newInstance()
+            ->setSubject('Просьба перезвонить')
+            ->setFrom('info@im-kard.ru')
+            ->setTo('bipur@mail.ru')
+            ->setBody(
+                $this->renderView(
+                    'CrmMainBundle:Mail:setphone.html.twig',
+                    array('phone' => $phone, 'name' => $name)
+                ), 'text/html'
+            )
+        ;
+        $this->get('mailer')->send($message);
+
+        $referer = $request->headers->get('referer');
+        return $this->redirect($referer);
+    }
 }
