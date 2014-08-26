@@ -1,0 +1,25 @@
+{% extends 'CrmMainBundle::layout_mini.html.twig' %}
+
+{% block content %}
+    <div class="box">
+        <h2>Заявка отправлена в обработку</h2>
+        <br/>
+        <br/>
+        {#<B>документы для скачивания</B>#}
+        <br/>
+        <br/>
+        {#<a href="{{ path('generate_payment_pdf') }}?ord={{ user.id }}" target="_blank">Документ на оплату</a>#}
+        <br/>
+        {#<a href="{{ path('generate_pdf') }}?ord={{ user.id }}">Заявление</a>#}
+    </div>
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <style>
+        h3{
+            margin: 10px 0;
+        }
+    </style>
+
+{% endblock %}
