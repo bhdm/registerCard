@@ -271,7 +271,7 @@ class User extends BaseEntity implements UserInterface, EquatableInterface, \Ser
     /**
      * @ORM\Column(type="integer")
      */
-    protected $typeCard;
+    protected $typeCard = 0;
 
     public function getXmlId(){
         return str_pad($this->id, 8, "0", STR_PAD_LEFT);
@@ -1090,7 +1090,7 @@ class User extends BaseEntity implements UserInterface, EquatableInterface, \Ser
     /**
      * @param mixed $typeCard
      */
-    public function setTypeCard($typeCard)
+    public function setTypeCard($typeCard = 0)
     {
         $this->typeCard = $typeCard;
     }
