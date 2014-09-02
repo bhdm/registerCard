@@ -92,19 +92,21 @@
                             {{ user.id }}
                         </td>
                         <td>
-                            {% if user.status == null or user.status == 0  %}
-                                <span class="status" style="border: 1px solid #000">
-                            {% elseif user.status == 10 %}
-                                <span class="status" style="border: 1px solid #CC3333; color: #CC3333">
-                            {% elseif user.status >= 1 and user.status <= 3 %}
-                                <span class="status" style="border: 1px solid #CCCC33; color: #CCCC33">
-                            {% elseif user.status == 4 or user.status == 5 %}
-                                <span class="status" style="border: 1px solid #33CC33; color: #33CC33">
-                            {% else %}
-                                <span class="status" style="border: 1px solid #000">
-                            {% endif %}
-                            {{ user.statusString }}
-                                </span>
+                                <a href="{{ path('operator_change_status',{userId: user.id }) }}">
+                                {% if user.status == null or user.status == 0  %}
+                                    <span class="status" style="border: 1px solid #000">
+                                {% elseif user.status == 10 %}
+                                    <span class="status" style="border: 1px solid #CC3333; color: #CC3333">
+                                {% elseif user.status >= 1 and user.status <= 3 %}
+                                    <span class="status" style="border: 1px solid #CCCC33; color: #CCCC33">
+                                {% elseif user.status == 4 or user.status == 5 %}
+                                    <span class="status" style="border: 1px solid #33CC33; color: #33CC33">
+                                {% else %}
+                                    <span class="status" style="border: 1px solid #000">
+                                {% endif %}
+                                {{ user.statusString }}
+                                    </span>
+                            </a>
                         </td>
                         <td>{{ user.created | date("d.m.Y") }}</td>
                         {% if company == null %}
