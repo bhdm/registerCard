@@ -1,16 +1,23 @@
 {% spaceless %}
 <ns2:TacPackage xmlns:ns2="http://www.example.org/">
+    <MessageInfo>
+        <MessageId>FLGMN-{{ driver.xmlId }}</MessageId>
+        <MessageDate>2014-09-01+04:00</MessageDate>
+        <MessageOwn>FLGMN</MessageOwn>
+        <MessageRecipient>ATLAS</MessageRecipient>
+    </MessageInfo>
     <PackageInfo>
         <PackageNumber>FLGMN-{{ driver.xmlId }}</PackageNumber>
         <PackageDate> {{ "now" | date('Y-m-d')}}Z</PackageDate>
         <OvkId>FLGMN</OvkId>
         <CardManufacturerId>ATLAS</CardManufacturerId>
     </PackageInfo>
-    <Order>
+    <Order_v2>
         <OrderNumber>FLGMN-{{ driver.xmlId }}</OrderNumber>
         <OrderDate>{{ driver.created | date('Y-m-d')}}Z</OrderDate>
         <OrderCardType>D</OrderCardType>
         <OrderCardCount>1</OrderCardCount>
+        <OrderReason>create</OrderReason>
         <PersonOrder>
             <PersonInfo>
                 <NameFirst>{{ driver.firstName }}</NameFirst>
@@ -18,13 +25,14 @@
                 <NameLast>{{ driver.lastName }}</NameLast>
                 <BirthDate>{{ driver.birthDate | date('Y-m-d') }}Z</BirthDate>
                 <SNILS>{{ driver.snils }}</SNILS>
-                <Passport>
-                    <PassportSeries>{{ driver.passportSerial }}</PassportSeries>
-                    <PassportNumber>{{ driver.passportNumber }}</PassportNumber>
-                    <PassportIssuedBy>{{ driver.passportIssuance }}</PassportIssuedBy>
-                    <PassportDivision>{{ driver.passportCode }}</PassportDivision>
-                    <PassportIssuedDate>{{ driver.passportIssuanceDate | date('Y-m-d') }}Z</PassportIssuedDate>
-                </Passport>
+                <Credential>
+                    <Type>passport</Type>
+                    <Series>{{ driver.passportSerial }}</Series>
+                    <Number>{{ driver.passportNumber }}</Number>
+                    <IssuedBy>{{ driver.passportIssuance }}</IssuedBy>
+                    <Division>{{ driver.passportCode }}</Division>
+                    <IssuedDate>{{ driver.passportIssuanceDate | date('Y-m-d') }}Z</IssuedDate>
+                </Credential>
             </PersonInfo>
             <ContactInfo/>
             <DriverLicense>
@@ -132,6 +140,6 @@
                 <Body>{{ files[7].base }}</Body>
             </Attachment>
         {% endif %}
-    </Order>
+    </Order_v2>
 </ns2:TacPackage>
 {% endspaceless %}
