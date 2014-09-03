@@ -20,7 +20,7 @@ class Robokassa {
      *
      * @return none
      */
-    public function __construct($login, $pass1, $pass2, $test = false)
+    public function __construct($login, $pass1, $pass2, $test = true)
     {
         $this->login = $login;
         $this->password1 = $pass1;
