@@ -8,7 +8,7 @@
         <script src="{{ path('fos_js_routing_js', {"callback": "fos.Router.setData"}) }}"></script>
         <script>
             $(document).ready(function(){
-                $('input:text, select').styler();
+                $('input:text, input:file, select').styler();
             });
         </script>
     {% endblock %}

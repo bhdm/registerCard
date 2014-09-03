@@ -399,7 +399,7 @@
     <link href="{{ asset('bundles/crmmain/lib/odyniec/distfiles/css/imgareaselect-default.css') }}" rel="stylesheet" media="all">
     <script>
         $(document).ready(function(){
-            $('input:text, select').styler();
+            $('input:text, input:file, select').styler();
             $("#phone").mask("+7 (999) 999-9999");
             $("#passportCode").mask("999-999");
             $.mask.definitions['d'] = "[a-zA-Z0-9а-яА-Я ]";
