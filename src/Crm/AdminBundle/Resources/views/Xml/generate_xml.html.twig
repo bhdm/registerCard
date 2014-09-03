@@ -42,7 +42,6 @@
                 <DriverLicenseCountry>RUS</DriverLicenseCountry>
                 <DriverLicenseOrg>{{ driver.driverDocIssuance }}</DriverLicenseOrg>
                 <DriverLicenseIssuedDate>{{ driver.driverDocDateStarts | date('Y-m-dP') }}</DriverLicenseIssuedDate>
-                <DriverLicenseExpirationDate>{{ driver.driverDocDateEnds | date('Y-m-dP') }}</DriverLicenseExpirationDate>
             </DriverLicense>
             {% if driver.company.title  != '' %}
                 <OrgName>{{ driver.company.title }}</OrgName>
