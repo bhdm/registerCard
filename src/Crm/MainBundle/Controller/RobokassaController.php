@@ -28,9 +28,9 @@ class RobokassaController extends Controller
         if ($request->getMethod()=='GET'){
             $user = $this->getDoctrine()->getRepository('CrmMainBundle:User')->findOneById($userId);
             $id = $user->getId();
-            $robokassa = new Robokassa('Ooonpotehnolog', 'Uflzoaac1', 'Uflzoaac2');
+            $robokassa = new Robokassa('NPO_Tehnolog', 'Uflzoaac1', 'Uflzoaac2');
             $robokassa->OutSum = 5.00;
-            $robokassa->IncCurrLabel = 'WMR';
+//            $robokassa->IncCurrLabel = 'WMR';
             $robokassa->Desc = $id.': '.$user->getLastName().' '.$user->getFirstName().' '.$user->getSurName();
             $robokassa->addCustomValues(array(
                 'shp_order' => $user->getId(),
