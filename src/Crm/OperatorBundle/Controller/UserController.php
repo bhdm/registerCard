@@ -319,6 +319,8 @@ class UserController extends Controller{
 
                 if ($data->get('myPetition')){
                     $user->setMyPetition(1);
+                }else{
+                    $user->setMyPetition(0);
                 }
 
                 $date = new \DateTime($user->getBirthDate());
