@@ -2,19 +2,19 @@
 <ns2:TacPackage xmlns:ns2="http://www.example.org/">
     <MessageInfo>
         <MessageId>FLGMN-{{ driver.xmlId }}</MessageId>
-        <MessageDate>2014-09-01+04:00</MessageDate>
+        <MessageDate>{{ "now" | date('Y-m-dP')}}</MessageDate>
         <MessageOwn>FLGMN</MessageOwn>
         <MessageRecipient>ATLAS</MessageRecipient>
     </MessageInfo>
     <PackageInfo>
         <PackageNumber>FLGMN-{{ driver.xmlId }}</PackageNumber>
-        <PackageDate> {{ "now" | date('Y-m-d')}}Z</PackageDate>
+        <PackageDate> {{ "now" | date('Y-m-dP')}}</PackageDate>
         <OvkId>FLGMN</OvkId>
         <CardManufacturerId>ATLAS</CardManufacturerId>
     </PackageInfo>
     <Order_v2>
         <OrderNumber>FLGMN-{{ driver.xmlId }}</OrderNumber>
-        <OrderDate>{{ driver.created | date('Y-m-d')}}Z</OrderDate>
+        <OrderDate>{{ driver.created | date('Y-m-dP')}}</OrderDate>
         <OrderCardType>D</OrderCardType>
         <OrderCardCount>1</OrderCardCount>
         <OrderReason>create</OrderReason>
@@ -23,7 +23,7 @@
                 <NameFirst>{{ driver.firstName }}</NameFirst>
                 <NameMiddle>{{ driver.surName is not null ? driver.surName : '' }}</NameMiddle>
                 <NameLast>{{ driver.lastName }}</NameLast>
-                <BirthDate>{{ driver.birthDate | date('Y-m-d') }}Z</BirthDate>
+                <BirthDate>{{ driver.birthDate | date('Y-m-dP') }}</BirthDate>
                 <SNILS>{{ driver.snils }}</SNILS>
                 <Credential>
                     <Type>passport</Type>
@@ -31,7 +31,7 @@
                     <Number>{{ driver.passportNumber }}</Number>
                     <IssuedBy>{{ driver.passportIssuance }}</IssuedBy>
                     <Division>{{ driver.passportCode }}</Division>
-                    <IssuedDate>{{ driver.passportIssuanceDate | date('Y-m-d') }}Z</IssuedDate>
+                    <IssuedDate>{{ driver.passportIssuanceDate | date('Y-m-dP') }}</IssuedDate>
                 </Credential>
             </PersonInfo>
             <ContactInfo/>
@@ -40,8 +40,8 @@
                 <DriverLicenseCountryEstrCode>43</DriverLicenseCountryEstrCode>
                 <DriverLicenseCountry>RUS</DriverLicenseCountry>
                 <DriverLicenseOrg>{{ driver.driverDocIssuance }}</DriverLicenseOrg>
-                <DriverLicenseIssuedDate>{{ driver.driverDocDateStarts | date('Y-m-d') }}Z</DriverLicenseIssuedDate>
-                <DriverLicenseExpirationDate>{{ driver.driverDocDateEnds | date('Y-m-d') }}Z</DriverLicenseExpirationDate>
+                <DriverLicenseIssuedDate>{{ driver.driverDocDateStarts | date('Y-m-dP') }}</DriverLicenseIssuedDate>
+                <DriverLicenseExpirationDate>{{ driver.driverDocDateEnds | date('Y-m-dP') }}</DriverLicenseExpirationDate>
             </DriverLicense>
             {% if driver.company.title  != '' %}
                 <OrgName>{{ driver.company.title }}</OrgName>
