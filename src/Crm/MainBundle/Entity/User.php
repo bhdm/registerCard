@@ -273,6 +273,8 @@ class User extends BaseEntity implements UserInterface, EquatableInterface, \Ser
      */
     protected $typeCard = 0;
 
+    protected $price = 0;
+
     public function getXmlId(){
         return str_pad($this->id, 8, "0", STR_PAD_LEFT);
     }
@@ -1101,6 +1103,22 @@ class User extends BaseEntity implements UserInterface, EquatableInterface, \Ser
     public function getTypeCard()
     {
         return $this->typeCard;
+    }
+
+    /**
+     * @param int $price
+     */
+    public function setPrice($price)
+    {
+        $this->price = $price;
+    }
+
+    /**
+     * @return int
+     */
+    public function getPrice()
+    {
+        return $this->price;
     }
 
 
