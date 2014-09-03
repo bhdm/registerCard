@@ -23,6 +23,8 @@
                 <NameFirst>{{ driver.firstName }}</NameFirst>
                 <NameMiddle>{{ driver.surName is not null ? driver.surName : '' }}</NameMiddle>
                 <NameLast>{{ driver.lastName }}</NameLast>
+                <Resident>true</Resident>
+                <Nationality>РФ</Nationality>
                 <BirthDate>{{ driver.birthDate | date('Y-m-dP') }}</BirthDate>
                 <SNILS>{{ driver.snils }}</SNILS>
                 <Credential>
