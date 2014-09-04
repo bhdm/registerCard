@@ -65,7 +65,8 @@ class XmlController extends Controller
             $files[8]['base'] = $this->pdfToBase64($url);
             $files[8]['title'] = 'Petition';
         }else{
-            $files[8]['base'] = $this->ImageToPdf($user->getCopyPetition());
+            $file= $user->getCopyPetition();
+            $files[8]['base'] = $this->ImageToPdf($file['originalName']);
             $files[8]['title'] = 'Petition';
         }
 
@@ -92,7 +93,7 @@ class XmlController extends Controller
             'outputFilename' => null, //$filename argument for Output method
             'outputDest' => null, //$dest argument for Output method
         );
-        $mpdfService->generatePdfResponse($html, $arguments);
+        return $mpdfService->generatePdfResponse($html, $arguments);
     }
 
     public function imageToPdf($filename){
