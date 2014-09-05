@@ -3,12 +3,11 @@
 
 {% block crosh %}
     <a href="{{ path('operator_main') }}">Главная</a> &raquo;
-    <a href="{{ path('operator_company_list') }}">Пользователи</a> &raquo;
+    <a href="{{ path('operator_user_list') }}">Пользователи</a> &raquo;
     <a href="#">{{ user }}</a>
 {% endblock %}
 
 {% block content %}
-
     <div class="bg-gray"></div>
     <div class="img-pop-up ui-widget-content">
         <div class="img-pop-up-title">
@@ -32,6 +31,13 @@
             <tr>
                 <td colspan="3">
                     <div class="error-msg-p"></div>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="3">
+                    <div>
+                        <a href="{{ path('operator_company_edit',{'companyId' : user.company.id }) }}">{{ user.company }}</a>
+                    </div>
                 </td>
             </tr>
             <tr>
