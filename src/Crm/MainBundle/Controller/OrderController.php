@@ -73,7 +73,7 @@ class OrderController extends Controller{
         );
         $session->save();
         $response = new Response();
-        $response->headers->set('Content-Type','image/jpeg');
+        $response->headers->set('Content-Type',$file->getMimeType());
         $response->setContent($base);
 
         return $response;
@@ -85,8 +85,8 @@ class OrderController extends Controller{
     public function sendCoordinatesAction(Request $request, $type){
         $session = new Session();
 
-        $base = $session->get($type);
-        $base = $base['content'];
+        $base1 = $session->get($type);
+        $base = $base1['content'];
 
         $aspect = $session->get($type)['width'] / (int) $request->request->get('originalWidth');
 //        $aspect = 1;
@@ -113,7 +113,7 @@ class OrderController extends Controller{
                 'content'=> $base,
                 'width'=> $width,
                 'height'=> $height,
-                'mimeType'=> 'image/jpeg',
+                'mimeType'=> $base1['mimeType'],
             )
         );
 
@@ -123,7 +123,7 @@ class OrderController extends Controller{
 
 
         $response = new Response();
-        $response->headers->set('Content-Type','image/jpeg');
+        $response->headers->set('Content-Type',$base1['mimeType']);
         $response->setContent($base);
 
         return $response;
@@ -188,8 +188,10 @@ class OrderController extends Controller{
             $user->setDriverDocIssuance($data->get('driverDocIssuance'));
             $user->setSnils($data->get('snils'));
 
-            if ($data->get('myPetition')){
+            if ($data->get('myPetition')!=null){
                 $user->setMyPetition(1);
+            }else{
+                $user->setMyPetition(0);
             }
 
             #Теперь делаем компанию
@@ -479,11 +481,11 @@ class OrderController extends Controller{
         if ($mimeType != 'image/jpeg'){
             if ($mimeType == 'image/png' ){
                 $image = imagecreatefrompng($pathName);
-                imagejpeg($image, $pathName);
+                imagepng($image, $pathName);
                 imagedestroy($image);
             }elseif($mimeType == 'image/gif'){
                 $image = imagecreatefromgif($pathName);
-                imagejpeg($image, $pathName);
+                imagegif($image, $pathName);
                 imagedestroy($image);
             }elseif( strripos($mimeType, 'bmp') !== false ){
                 $image = $this->ImageCreateFromBMP($pathName);
@@ -497,7 +499,7 @@ class OrderController extends Controller{
         $path= $pathName;
         $type = pathinfo($path, PATHINFO_EXTENSION);
         $data = file_get_contents($path);
-        $base64 = 'data:image/' . $type . ';base64,' . base64_encode($data);
+        $base64 = 'data:'.$mimeType. $type . ';base64,' . base64_encode($data);
         return $base64;
     }
 
