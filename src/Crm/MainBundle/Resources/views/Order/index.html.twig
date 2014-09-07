@@ -7,8 +7,9 @@
 {% endblock %}
 
 {% block content %}
+    <div class="important" id="important3" style="width: 362px; color: #ae3538; margin: 0 auto;">Инструкция по заполнению Анкеты</div>
     <div class="box">
-        <h2>Оформление заявки - Шаг 1</h2>
+        {#<h2>Оформление заявки - Шаг 1</h2>#}
     </div>
     <div class="bg-gray"></div>
     <div class="help-pop-up">
@@ -384,6 +385,12 @@
                 </td>
             </tr>
         </table>
+    </div>
+    <div class="pop-up" id="pop-up-3" style="width: 640px; height: 360px; top: 160px; margin-left: -320px">
+        <img src="{{ asset('bundles/crmmain/images/close_ico.png') }}" class="close-pop-up ico" />
+        <div>
+            <iframe width="640" height="360" src="//www.youtube.com/embed/2WkicwKfhMc" frameborder="0" allowfullscreen></iframe>
+        </div>
     </div>
 {% endblock %}
 
@@ -1016,6 +1023,17 @@
             $("#passportDate").mask("99.99.9999");
         }
 
+        $('#important3').click(function(){
+            $('#pop-up-3').css('display', 'block');
+            $('.bg-gray').css('display', 'block');
+        });
+
+        $('.close-pop-up').click(function(){
+            $('.pop-up').css('display', 'none');
+            $('.bg-gray').css('display', 'none');
+        });
+
+
     });
     </script>
 {% endblock %}
@@ -1167,6 +1185,19 @@
         }
         .jq-selectbox{
             padding: 5px 0;
+        }
+        .important{
+            padding: 10px 20px;
+            margin-bottom: 10px;
+            border: 1px solid #636363;
+            background: #DDD;
+            border-radius: 5px;
+            width: 300px;
+            cursor: pointer;
+            text-align: center;
+            font-size: 24px;
+            color: #333333;
+
         }
     </style>
 {% endblock %}
