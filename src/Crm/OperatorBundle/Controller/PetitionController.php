@@ -110,9 +110,9 @@ class PetitionController extends Controller
         if ($user->getMyPetition() == 1 ){
             $html = $this->render('CrmOperatorBundle:Petition:filePetition.html.twig',array('user' => $user));
         }else{
-            $html = '<img src="/upload/docs/'.$user->getCopyPetition()['originamName'].'" />';
+            $html = '<img src="/upload/docs/'.$user->getCopyPetition()['originalName'].'" />';
         }
-        $mpdfService->generatePdfResponse($html->getContent(), $arguments);
+        $mpdfService->generatePdfResponse($html, $arguments);
     }
 
     /**
