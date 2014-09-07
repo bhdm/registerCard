@@ -97,12 +97,18 @@
                                     <span class="status" style="border: 1px solid #000">
                                 {% elseif user.status == 10 %}
                                     <span class="status" style="border: 1px solid #CC3333; color: #CC3333">
-                                {% elseif user.status >= 1 and user.status <= 3 %}
-                                    <span class="status" style="border: 1px solid #CCCC33; color: #CCCC33">
-                                {% elseif user.status == 4 or user.status == 5 %}
-                                    <span class="status" style="border: 1px solid #33CC33; color: #33CC33">
+                                {% elseif user.status == 1  %}
+                                        <span class="status" style="border: 1px solid #cc8140; color: #cc8140">
+                                {% elseif user.status == 2  %}
+                                        <span class="status" style="border: 1px solid #33CC33; color: #33CC33">
+                                {% elseif user.status == 3  %}
+                                        <span class="status" style="border: 1px solid #2135cc; color: #2135cc">
+                                {% elseif user.status == 4  %}
+                                        <span class="status" style="border: 1px solid #660000; color: #660000">
+                                {% elseif user.status == 5 %}
+                                        <span class="status" style="border: 1px solid #6c9e9f; color: #6c9e9f">
                                 {% else %}
-                                    <span class="status" style="border: 1px solid #000">
+                                    <span class="status" style="border: 1px solid #000000; color: #000000">
                                 {% endif %}
                                 {{ user.statusString }}
                                     </span>
