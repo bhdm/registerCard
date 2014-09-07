@@ -359,10 +359,10 @@ class UserController extends Controller{
                     $fileName = $this->saveFile('hod');
                     $user->setCopyPetition($fileName);
                 }
-                if ($session->get('work')){
-                    $fileName = $this->saveFile('work');
-                    $user->setCopyWork($fileName);
-                }
+//                if ($session->get('work')){
+//                    $fileName = $this->saveFile('work');
+//                    $user->setCopyWork($fileName);
+//                }
 
                 $user->setCopyPassport($this->getArrayToImg($user->getCopyPassport()));
                 $user->setCopyDriverPassport($this->getArrayToImg($user->getCopyDriverPassport()));

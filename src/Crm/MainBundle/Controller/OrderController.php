@@ -83,7 +83,7 @@ class OrderController extends Controller{
      * @Route("send-coordinates/{type}", name="send_coordinates", options={"expose"=true})
      */
     public function sendCoordinatesAction(Request $request, $type){
-        $session = new Session();
+        $session = $request->getSession();
 
         $base1 = $session->get($type);
         $base = $base1['content'];
