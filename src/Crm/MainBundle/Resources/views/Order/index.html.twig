@@ -490,12 +490,13 @@
                     //error: ,
                     success: function(msg){
 
-                        $('.bg-gray').fadeOut();
-                        $('#loader').fadeOut();
+
 
                         if ($('.img-pop-up').attr('type-doc') != 'work' ){
                             $('#img-pop-up-img').html('<div style="display: inline-block"><img  src="'+msg+'" /></div>');
                             showImgPopUp();
+                            $('.bg-gray').fadeOut();
+                            $('#loader').fadeOut();
                             if ( type == 'photo'){
                                 $('#img-pop-up-img div img').imgAreaSelect({
                                     aspectRatio: '1:1.285',
@@ -547,10 +548,10 @@
                     processData: false
                 });
             }
-            if ( $('#signFile-styler').children('.jq-file__name').html() == 'Файл не выбран'){
-                hideloader();
-                hideImgPopUp();
-            }
+//            if ( $('#signFile-styler').children('.jq-file__name').html() == 'Файл не выбран'){
+//                hideloader();
+//                hideImgPopUp();
+//            }
         });
 
         $('#rotate').click(function(){
