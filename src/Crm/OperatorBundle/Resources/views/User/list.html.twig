@@ -121,7 +121,7 @@
                             </td>
                         {% endif %}
                         <td>
-                            <a href="{{ path('operator_show_user' , { 'userId' : user.id}) }}">{{ user }}</a>
+                            <a title="{{ user.comment }}" href="{{ path('operator_show_user' , { 'userId' : user.id}) }}">{{ user }}</a>
                         </td>
                         <td>
                             <a href="{{ path('xml_generator',{'userId' : user.id}) }}" target="_blank" class="no-underline">

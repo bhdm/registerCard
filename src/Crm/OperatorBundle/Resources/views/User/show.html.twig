@@ -55,6 +55,13 @@
                 </td>
             </tr>
             <tr>
+                <td class="label">Комментарий:</td>
+                <td class="value">
+                    <textarea name="comment">{{ user.comment }}</textarea>
+                </td>
+
+            </tr>
+            <tr>
                 <td class="label">E-mail:</td>
                 <td class="value">
                     <input name="email" id="email" type="text" placeholder="Укажите email почту" required  value="{{ user.email }}">

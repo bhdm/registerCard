@@ -316,6 +316,8 @@ class UserController extends Controller{
                 $user->setSalt(md5(time()));
 
                 $user->setStatus($data->get('status'));
+                $user->setComment($data->get('comment'));
+
 
                 if ($data->get('myPetition')){
                     $user->setMyPetition(1);
