@@ -99,20 +99,23 @@ class PetitionController extends Controller
         $user = $this->getDoctrine()->getRepository('CrmMainBundle:User')->findOneById($userId);
         $mpdfService = $this->container->get('tfox.mpdfport');
         $arguments = array(
-//            'constructorArgs' => array('utf-8', 'A4-L', 5 ,5 ,5 ,5,5 ), //Constructor arguments. Numeric array. Don't forget about points 2 and 3 in Warning section!
+            'constructorArgs' => array('utf-8', 'A4', 5 ,5 ,5 ,5,5 ), //Constructor arguments. Numeric array. Don't forget about points 2 and 3 in Warning section!
             'writeHtmlMode' => null, //$mode argument for WriteHTML method
             'writeHtmlInitialise' => null, //$mode argument for WriteHTML method
             'writeHtmlClose' => null, //$close argument for WriteHTML method
             'outputFilename' => null, //$filename argument for Output method
             'outputDest' => null, //$dest argument for Output method
         );
-
+        $mpdfService->ignore_invalid_utf8 = true;
+        $mpdfService->allow_charset_conversion = false;
+        $mpdfService->debug = true;
         if ($user->getMyPetition() == 1 ){
             $html = $this->render('CrmOperatorBundle:Petition:filePetition.html.twig',array('user' => $user));
+            $html = iconv("UTF-8","UTF-8//IGNORE",$html);
         }else{
             $html = '<img src="/upload/docs/'.$user->getCopyPetition()['originalName'].'" />';
         }
-        $mpdfService->generatePdfResponse($html, $arguments);
+        return $mpdfService->generatePdfResponse($html, $arguments);
     }
 
     /**
