@@ -280,7 +280,6 @@ class OrderController extends Controller{
             $normalizers = array(new GetSetMethodNormalizer());
             $serializer = new Serializer($normalizers, $encoders);
 
-
             $user = $serializer->deserialize($data,'Crm\MainBundle\Entity\User','json');
             $company = $serializer->deserialize($company,'Crm\MainBundle\Entity\Company','json');
             $data = $request->request;
@@ -317,7 +316,11 @@ class OrderController extends Controller{
             $user->setSalt(md5(time()));
 
             $user->setLastNumberCard($data->get('oldNumber'));
-            $user->setTypeCard($data->get('typeCard'));
+            if ($data->get('typeCard')){
+                $user->setTypeCard($data->get('typeCard'));
+            }else{
+                $user->setTypeCard(0);
+            }
 
             $date = new \DateTime($user->getBirthDate());
             $user->setBirthDate($date);
@@ -339,23 +342,38 @@ class OrderController extends Controller{
             $user->setCopyWork($this->getArrayToImg($user->getCopyWork()));
             $user->setCopyPetition($this->getArrayToImg($user->getCopyPetition()));
 
-            $user->setTypeCard(0);
-
             $em->persist($user);
             $em->flush($user);
             $em->refresh($user);
-            $message = \Swift_Message::newInstance()
-                ->setSubject('Заявка отправлена')
-                ->setFrom('info@im-kard.ru')
-                ->setTo($user->getEmail())
-                ->setBody(
-                    $this->renderView(
-                        'CrmMainBundle:Mail:success.html.twig',
-                        array('order' => $user)
-                    ), 'text/html'
-                )
-            ;
-            $this->get('mailer')->send($message);
+
+            $session->set('user', null);
+            $session->set('company', null);
+
+            $session->set('passport', null);
+            $session->set('driver', null);
+            $session->set('photo', null);
+            $session->set('sign', null);
+            $session->set('snils', null);
+            $session->set('hod', null);
+            $session->set('work', null);
+            $session->save();
+
+
+            if ($user->getEmail()){
+                $message = \Swift_Message::newInstance()
+                    ->setSubject('Заявка отправлена')
+                    ->setFrom('info@im-kard.ru')
+                    ->setTo($user->getEmail())
+                    ->setBody(
+                        $this->renderView(
+                            'CrmMainBundle:Mail:success.html.twig',
+                            array('order' => $user)
+                        ), 'text/html'
+                    )
+                ;
+                $this->get('mailer')->send($message);
+            }
+
         }
 
         return new Response($this->renderView("CrmMainBundle:Order:success.html.twig", array('user' => $user)));
