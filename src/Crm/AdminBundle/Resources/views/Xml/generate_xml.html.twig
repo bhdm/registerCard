@@ -2,19 +2,19 @@
 <ns2:TacPackage xmlns:ns2="http://www.example.org/">
     <MessageInfo>
         <MessageId>FLGMN-{{ driver.xmlId }}</MessageId>
-        <MessageDate>{{ "now" | date('Y-m-dP')}}</MessageDate>
+        <MessageDate>{{ "now" | date('Y-m-d')}}Z</MessageDate>
         <MessageOwn>FLGMN</MessageOwn>
         <MessageRecipient>ATLAS</MessageRecipient>
     </MessageInfo>
     <PackageInfo>
         <PackageNumber>FLGMN-{{ driver.xmlId }}</PackageNumber>
-        <PackageDate> {{ "now" | date('Y-m-dP')}}</PackageDate>
+        <PackageDate> {{ "now" | date('Y-m-d')}}Z</PackageDate>
         <OvkId>FLGMN</OvkId>
         <CardManufacturerId>ATLAS</CardManufacturerId>
     </PackageInfo>
     <Order_v2>
         <OrderNumber>FLGMN-{{ driver.xmlId }}</OrderNumber>
-        <OrderDate>{{ driver.created | date('Y-m-dP')}}</OrderDate>
+        <OrderDate>{{ driver.created | date('Y-m-d')}}Z</OrderDate>
         <OrderCardType>D</OrderCardType>
         <OrderCardCount>1</OrderCardCount>
         <OrderReason>create</OrderReason>
@@ -25,7 +25,7 @@
                 <NameLast>{{ driver.lastName }}</NameLast>
                 <Resident>true</Resident>
                 <Nationality>РФ</Nationality>
-                <BirthDate>{{ driver.birthDate | date('Y-m-dP') }}</BirthDate>
+                <BirthDate>{{ driver.birthDate | date('Y-m-d')}}Z</BirthDate>
                 <SNILS>{{ driver.snils }}</SNILS>
                 <Credential>
                     <Type>passport</Type>
