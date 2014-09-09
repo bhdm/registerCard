@@ -33,7 +33,7 @@
                     <Number>{{ driver.passportNumber }}</Number>
                     <IssuedBy>{{ driver.passportIssuance }}</IssuedBy>
                     <Division>{{ driver.passportCode }}</Division>
-                    <IssuedDate>{{ driver.passportIssuanceDate | date('Y-m-dP') }}</IssuedDate>
+                    <IssuedDate>{{ driver.passportIssuanceDate | date('Y-m-d')Z}}</IssuedDate>
                 </Credential>
             </PersonInfo>
             <DriverLicense>
@@ -41,7 +41,7 @@
                 <DriverLicenseCountryEstrCode>43</DriverLicenseCountryEstrCode>
                 <DriverLicenseCountry>RUS</DriverLicenseCountry>
                 <DriverLicenseOrg>{{ driver.driverDocIssuance }}</DriverLicenseOrg>
-                <DriverLicenseIssuedDate>{{ driver.driverDocDateStarts | date('Y-m-dP') }}</DriverLicenseIssuedDate>
+                <DriverLicenseIssuedDate>{{ driver.driverDocDateStarts | date('Y-m-d')}}Z</DriverLicenseIssuedDate>
             </DriverLicense>
             {% if driver.company.title  != '' %}
                 <OrgName>{{ driver.company.title }}</OrgName>
