@@ -25,7 +25,7 @@ class IndexController extends Controller
         $indexPage_2 = $this->getDoctrine()->getRepository('CrmMainBundle:Page')->findOneByUrl('indexPage_2');
         $indexPage_3 = $this->getDoctrine()->getRepository('CrmMainBundle:Page')->findOneByUrl('indexPage_3');
         $indexPage_4 = $this->getDoctrine()->getRepository('CrmMainBundle:Page')->findOneByUrl('indexPage_4');
-        $users = $this->getDoctrine()->getRepository('CrmMainBundle:User')->findAll();
+        $users = $this->getDoctrine()->getRepository('CrmMainBundle:User')->findByDelivery(null);
         $users = str_split(count($users)+18285);
 
         return array(
