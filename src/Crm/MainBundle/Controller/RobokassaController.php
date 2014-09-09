@@ -21,7 +21,7 @@ class RobokassaController extends Controller
 //    public function showAssistAction(){ array}
 
     /**
-     * @Route("/payment/assist/{userId}", name="payment")
+     * @Route("/payment/assist/{userId}", name="payment_assist")
      * @Template("LearningMainBundle:Assist:redirect.html.twig")
      */
     public function PostAssistAction(Request $request, $userId){
@@ -29,7 +29,7 @@ class RobokassaController extends Controller
             $user = $this->getDoctrine()->getRepository('CrmMainBundle:User')->findOneById($userId);
             $id = $user->getId();
             $robokassa = new Robokassa('NPO_Tehnolog', 'Uflzoaac1', 'Uflzoaac2');
-            $robokassa->OutSum = 5.00;
+            $robokassa->OutSum = 2430.00;
 //            $robokassa->IncCurrLabel = 'WMR';
             $robokassa->Desc = $id.': '.$user->getLastName().' '.$user->getFirstName().' '.$user->getSurName();
             $robokassa->addCustomValues(array(
