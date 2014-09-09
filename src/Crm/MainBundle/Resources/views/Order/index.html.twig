@@ -692,7 +692,11 @@
                 form.append('companyTypeRoom',$('#companyTypeRoom').val());
                 form.append('companyRoom',$('#companyRoom').val());
 
-                form.append('myPetition',$('#myPetition').val());
+                if ($("#myPetition").prop("checked")){
+                    form.append('myPetition', 1);
+                }else{
+                    form.append('myPetition', null);
+                }
 
                 form.append('snils',$('#snils').val());
 

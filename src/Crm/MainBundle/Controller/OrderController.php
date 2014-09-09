@@ -188,7 +188,7 @@ class OrderController extends Controller{
             $user->setDriverDocIssuance($data->get('driverDocIssuance'));
             $user->setSnils($data->get('snils'));
 
-            if ($data->get('myPetition')!=null){
+            if ($data->get('myPetition')!='null'){
                 $user->setMyPetition(1);
             }else{
                 $user->setMyPetition(0);
@@ -312,6 +312,7 @@ class OrderController extends Controller{
             $user->setSalt(md5(time()));
 
             $user->setLastNumberCard($data->get('oldNumber'));
+
             if ($data->get('typeCard')){
                 $user->setTypeCard($data->get('typeCard'));
             }else{
