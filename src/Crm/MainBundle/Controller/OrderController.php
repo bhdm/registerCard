@@ -300,12 +300,8 @@ class OrderController extends Controller{
             $em->persist($company);
             $em->flush($company);
             $em->refresh($company);
-
-
-            $region = $this->getDoctrine()->getRepository('CrmMainBundle:Region')->findOneById($data->get('deliveryRegion'));
-
-
             $user->setCompany($company);
+            $region = $this->getDoctrine()->getRepository('CrmMainBundle:Region')->findOneById($data->get('deliveryRegion'));
             $user->setDileveryZipcode($data->get('deliveryZipcode'));
             $user->setDileveryRegion($region);
             $user->setDileveryCity($data->get('deliveryCity'));
