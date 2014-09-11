@@ -654,5 +654,16 @@ class OrderController extends Controller{
 
         return $res;
     }
+
+    /**
+     * @Route("/lazy-order", name="lazy_order")
+     * @Template()
+     */
+    public function lazyOrderAction(){
+        $country = $this->getDoctrine()->getRepository('CrmMainBundle:Country')->findOneById(3159);
+        $regions = $this->getDoctrine()->getRepository('CrmMainBundle:Region')->findByCountry($country);
+        return array('regions' => $regions);
+    }
+
 }
 

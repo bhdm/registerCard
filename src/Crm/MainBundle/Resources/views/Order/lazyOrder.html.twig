@@ -7,259 +7,12 @@
 {% endblock %}
 
 {% block content %}
-    <div class="important" id="important4" style="width: 362px; color: #ae3538; margin: 0 auto; float: left; height: 58px; line-height: 58px">Помощь оператора</div>
-
-    <div class="important" id="important3" style="width: 362px; color: #ae3538; margin: 0 auto; float: right">Инструкция по заполнению Анкеты</div>
-    <br style="clear: both">
-
     <div class="box">
-        {#<h2>Оформление заявки - Шаг 1</h2>#}
+        <h2>Быстрый заказ</h2>
     </div>
-    <div class="bg-gray"></div>
-    <div class="help-pop-up">
-        <img src="{{ asset('bundles/crmmain/images/close_ico.png') }}" class="close-pop-up ico" />
-        <div class="text"></div>
-    </div>
-
-    <div class="img-pop-up ui-widget-content">
-        <div class="img-pop-up-title">
-            выберите область с документом. При необходимости переверните фото.
-        </div>
-        <div id="img-pop-up-img"></div>
-        <img src="{{ asset('bundles/crmmain/images/close_ico.png') }}" class="close-pop-up ico" />
-        <div class="img-pop-up-nav">
-            <input type="hidden" name="x1" id="x1" value="0">
-            <input type="hidden" name="y1" id="y1" value="0">
-            <input type="hidden" name="x2" id="x2" value="0">
-            <input type="hidden" name="y2" id="y2" value="0">
-            <input type="button" value="Выбрать" id="sendCoords" class="btn">
-            <input type="button" value="Повернуть"  class="btn" id="rotate">
-            <input type="button" value="Вперед"  id="forward" class="btn" style="display: none;">
-        </div>
-    </div>
-    <div class="inp-pop-up">
-    <div class="inp-passport inp-box">
-        <table>
-            <tr>
-                <td colspan="3">
-                    <div class="error-msg-p"></div>
-                </td>
-            </tr>
-            <tr><td colspan="2" class="empty-row">Паспортные данные</td></tr>
-            <tr>
-                <td class="label">Фамилия<span class="required">*</span>:</td>
-                <td class="value">
-                    <input name="lastName" id="lastName" type="text" >
-                </td>
-                <td class="lastNameStatus"></td>
-            </tr>
-            <tr>
-                <td class="label">Имя<span class="required">*</span>:</td>
-                <td class="value">
-                    <input name="firstName" id="firstName" type="text" >
-                </td>
-                <td class="firstNameStatus"></td>
-            </tr>
-            <tr>
-                <td class="label">Отчество:</td>
-                <td class="value">
-                    <input name="surName" id="surName" type="text" >
-                </td>
-                <td class="surNameStatus"></td>
-            </tr>
-            <tr>
-                <td class="label">Дата рождения<span class="required">*</span>:</td>
-                <td class="value">
-                    <input name="birthdate" id="birthdate" type="text" >
-                </td>
-                <td class="dateBrithdateStatus"></td>
-            </tr>
-            <tr>
-                <td class="label">Серия паспорта:</td>
-                <td class="value">
-                    <input name="passportSeries" id="passportSeries" type="text"  data-placeholder="Для паспорта РФ">
-                </td>
-                <td class="passportSeriesStatus"></td>
-            </tr>
-            <tr>
-                <td class="label">Номер паспорта<span class="required">*</span>:</td>
-                <td class="value">
-                    <input name="passportNumber" id="passportNumber" type="text"  >
-                </td>
-                <td class="passportNumberStatus"></td>
-            </tr>
-            <tr>
-                <td class="label">Кем выдан<span class="required">*</span>:</td>
-                <td class="value">
-                    <input name="passportPlace" id="passportPlace" type="text"  >
-                </td>
-                <td class="passportPlaceStatus"></td>
-            </tr>
-            <tr>
-                <td class="label">Дата выдачи<span class="required">*</span>:</td>
-                <td class="value">
-                    <input name="passportDate" id="passportDate" type="text"  >
-                </td>
-                <td class="passportPlaceStatus"></td>
-            </tr>
-            <tr>
-                <td class="label">Код подразделения:</td>
-                <td class="value">
-                    <input name="passportCode" id="passportCode" type="text"  >
-                </td>
-                <td class="passportCodeStatus"></td>
-            </tr>
-            <tr>
-                <td>
-                    {#<input type="button" id="" value="Назад" class="btn back">#}
-                </td>
-                <td style="text-align: right">
-                    <input type="button" id="savePassport" value="Подтвердить данные" class="btn saveForm">
-                </td>
-            </tr>
-        </table>
-    </div>
-    <div class="inp-driver inp-box">
-        <table>
-            <tr>
-                <td colspan="3">
-                    <div class="error-msg-d"></div>
-                </td>
-            </tr>
-            <tr><td colspan="2" class="empty-row">Водительское удостоверение</td></tr>
-            <tr>
-                <td class="label">Кем выдан:</td>
-                <td class="value">
-                    <input name="driverDocIssuance" id="driverDocIssuance" type="text"  >
-                </td>
-                <td class="driverDocIssuanceStatus"></td>
-            </tr>
-            <tr>
-                <td class="label">Номер удостоверения водителя:</td>
-                <td class="value">
-                    <input name="driverNumber" id="driverNumber" type="text"  >
-                </td>
-                <td class="driverNumberStatus"></td>
-            </tr>
-            <tr>
-                <td class="label">Дата выдачи:</td>
-                <td class="value">
-                    <input name="driverDateStarts" id="driverDateStarts" type="text"  >
-                </td>
-                <td class="driverDateStartsStatus"></td>
-            </tr>
-            <tr>
-                <td class="label">Дата окончания:</td>
-                <td class="value">
-                    <input name="driverDateEnds" id="driverDateEnds" type="text"  >
-                </td>
-                <td class="driverDateEndsStatus"></td>
-            </tr>
-            <tr>
-                <td>
-                    {#<input type="button" id="" value="Назад" class="btn back">#}
-                </td>
-                <td style="text-align: right">
-                    <input type="button" id="saveDriver" value="Подтвердить данные" class="btn saveForm">
-                </td>
-            </tr>
-        </table>
-    </div>
-    <div class="inp-snils inp-box">
-        <table>
-            <tr>
-                <td colspan="3">
-                    <div class="error-msg-s"></div>
-                </td>
-            </tr>
-            <tr><td colspan="2" class="empty-row">Страховой номер индивидуального лицевого счёта (СНИЛС)</td></tr>
-            <tr>
-                <td class="label">Страховой номер лицевого счета</td>
-                <td class="value">
-                    <input name="snils" id="snils" type="text"  >
-                </td>
-                <td class="snilsStatus"></td>
-            </tr>
-            <tr>
-                <td>
-                    {#<input type="button" id="" value="Назад" class="btn back">#}
-                </td>
-                <td style="text-align: right">
-                    <input type="button" id="saveSnils" value="Подтвердить данные" class="btn saveForm">
-                </td>
-            </tr>
-        </table>
-    </div>
-    <div class="inp-hod inp-box">
-        <table style="width: 600px;">
-            <tr>
-                <td colspan="3">
-                    <div class="error-msg-h"></div>
-                </td>
-            </tr>
-            <tr><td colspan="2" class="empty-row">Информация о компании</td></tr>
-            <tr>
-                <td class="label">Название организации<span class="required">*</span>:</td>
-                <td class="value">
-                    <input id="companyName" name="companyName" type="text" placeholder="">
-                </td>
-            </tr>
-            <tr>
-                <td class="label">Адрес организации<span class="required">*</span>:</td>
-                <td class="value">
-                    <input name="companyZipcode" id="companyZipcode"  type="text" placeholder="Индекс"><br />
-                    <select name="companyRegion" id="companyRegion">
-                        {% for region in regions %}
-                            <option value="{{ region.id }}">{{ region.title }}</option>
-                        {% endfor %}
-                    </select><br />
-                    <input name="companyCity"    id="companyCity"     type="text" placeholder="Город"><br />
-
-                    <select name="companyTypeStreet" id="companyTypeStreet">
-                        <option value="ул."     >Улица</option>
-                        <option value="д."      >Дорога</option>
-                        <option value="пр-д."   >Проезд</option>
-                        <option value="туп."    >Тупик</option>
-                        <option value="ш."      >Шоссе</option>
-                        <option value="тр."     >Трасса</option>
-                        <option value="пер."    >Переулок</option>
-                        <option value="пл."     >Площадь</option>
-                        <option value="скв."    >Сквер</option>
-                        <option value="алл."    >Аллея</option>
-                        <option value="б."      >Бульвар</option>
-                        <option value="пр."     >Просека</option>
-                        <option value="пр-т"    >Проспект</option>
-                        <option value="наб."    >Набережная</option>
-                        <option value=""        >Другое</option>
-                    </select>
-                    <input name="companyStreet"  id="companyStreet"   type="text" placeholder="Название улицы"><br />
-
-                    <input name="companyHouse"   id="companyHouse"    type="text" placeholder="Дом" class="little">
-                    <input name="companyCorp"    id="companyCorp"     type="text" placeholder="Корп"  class="little">
-                    <input name="companyStructure"    id="companyStructure"     type="text" placeholder="Строение"  class="little"><br />
-
-                    <select name="companyTypeRoom" id="companyTypeRoom">
-                        <option value="кв.">Квартира</option>
-                        <option value="оф.">Офис</option>
-                    </select>
-                    <input name="companyRoom"    id="companyRoom"  type="text" placeholder="Номер"  class="little">
-                </td>
-            </tr>
-            <tr><td colspan="2">&nbsp;</td></tr>
-            <tr>
-                <td></td>
-                <td style="text-align: right">
-                    <input type="button" id="saveHod" value="Подтвердить данные" class="btn saveForm">
-                </td>
-            </tr>
-        </table>
-    </div>
-    </div>
-    <div id="loader"></div>
-
     <div class="box">
         <table>
-            <form method="POST" action="{{ path('order_register') }}" id="main-form">
+            <form method="POST" action="{{ path('lazy_order') }}" id="main-form">
                 <tr>
                     <td colspan="3">
                         <div class="error-msg"></div>
@@ -297,44 +50,32 @@
                     <div class="label-text">Паспорт<span class="required">*</span>:</div>
                 </td>
                 <td class="value">
-                    <form enctype="multipart/form-data" id="form-1">
-                        <input name="passport" id="passportFile" type="file" value="Выбирите файл">
-                    </form>
+                    <input name="passport" id="passportFile" type="file" value="Выбирите файл"><br/><br />
                 </td>
-                <td class="passportStatus"><span id="helpPassport" class="help">Инструкция по заполнению</span></td>
             </tr>
             <tr>
                 <td class="label">
                     <div class="label-text">Водительское удостоверение<span class="required">*</span>:</div>
                 </td>
                 <td class="value">
-                    <form enctype="multipart/form-data" id="form-2">
-                        <input name="driver" id="driverFile" type="file" value="Выбирите файл">
-                    </form>
+                    <input name="driver" id="driverFile" type="file" value="Выбирите файл"><br/><br />
                 </td>
-                <td class="driverStatus"><span id="helpDriver" class="help">Инструкция по заполнению</span></td>
             </tr>
             <tr >
                 <td class="label">
                     <div class="label-text">Фотография<span class="required">*</span>:</div>
                 </td>
                 <td class="value">
-                    <form enctype="multipart/form-data" id="form-5">
-                        <input name="photo" id="photoFile" type="file" value="Выбирите файл">
-                    </form>
+                    <input name="photo" id="photoFile" type="file" value="Выбирите файл"><br/><br />
                 </td>
-                <td class="photoStatus"><span id="helpPhoto" class="help">Инструкция по заполнению</span></td>
             </tr>
             <tr >
                 <td class="label">
                     <div class="label-text">Подпись<span class="required">*</span>:</div>
                 </td>
                 <td class="value">
-                    <form enctype="multipart/form-data" id="form-6">
-                        <input name="sign" id="signFile" type="file" value="Выбирите файл">
-                    </form>
+                    <input name="sign" id="signFile" type="file" value="Выбирите файл"><br/><br />
                 </td>
-                <td class="signStatus"><span id="helpSign" class="help">Инструкция по заполнению</span></td>
             </tr>
 
             <tr id="rus">
@@ -342,22 +83,16 @@
                     <div class="label-text">Страховой номер лицевого счета (СНИЛС)<span class="required">*</span>:</div>
                 </td>
                 <td class="value">
-                    <form enctype="multipart/form-data" id="form-3">
-                        <input name="snils" id="snilsFile" type="file" value="Выбирите файл">
-                    </form>
+                        <input name="snils" id="snilsFile" type="file" value="Выбирите файл"><br/><br />
                 </td>
-                <td class="snilsStatus"><span id="helpSnils" class="help">Инструкция по заполнению</span></td>
             </tr>
             <tr id="notrus" style="display: none;">
                 <td class="label">
                     <div class="label-text">Разрешение на работу<span class="required">*</span>:</div>
                 </td>
                 <td class="value">
-                    <form enctype="multipart/form-data" id="form-4">
-                        <input name="work" id="workFile" type="file" value="Выбирите файл">
-                    </form>
+                        <input name="work" id="workFile" type="file" value="Выбирите файл"><br/><br />
                 </td>
-                <td class="workStatus"><span id="helpWork" class="help">Инструкция по заполнению</span></td>
             </tr>
 
 
@@ -366,16 +101,58 @@
                     <div class="label-text">Ходатайство с места работы<span class="required">*</span>:</div>
                 </td>
                 <td class="value">
-                    <form enctype="multipart/form-data" id="form-7">
-                        <input name="hod" id="hodFile" type="file" value="Выбирите файл">
-                    </form>
+                    <input name="hod" id="hodFile" type="file" value="Выбирите файл"><br/><br />
                 </td>
-                <td class="hodStatus"><span id="helpHod" class="help">Инструкция по заполнению</span></td>
             </tr>
             <tr>
                 <td></td>
                 <td colspan="2" style="font-size: 14px"><input type="checkbox" name="myPetition" id="myPetition"> Воспользоваться ходатайством НПО "ТЕХНОЛОГ"</td>
             </tr>
+
+            <tr><td colspan="2" class="empty-row">Информация о доставке</td></tr>
+            <tr>
+                <td class="label">Адрес доставки<span class="required">*</span>:</td>
+                <td class="value">
+                    <input name="deliveryZipcode" id="deliveryZipcode" type="text" placeholder="Индекс"><br />
+                    <select name="deliveryRegion" id="deliveryRegion">
+                        {% for region in regions %}
+                            <option value="{{ region.id }}">{{ region.title }}</option>
+                        {% endfor %}
+                    </select><br />
+                    <input name="deliveryCity"    id="deliveryCity"    type="text" placeholder="Город"><br />
+                    <input name="deliveryStreet"  id="deliveryStreet"  type="text" placeholder="Улица"><br />
+                    <input name="deliveryHouse"   id="deliveryHouse"   type="text" placeholder="Дом" class="little">
+                    <input name="deliveryCorp"    id="deliveryCorp"    type="text" placeholder="Корп /Стр"  class="little">
+                    <input name="deliveryRoom"    id="deliveryRoom"    type="text" placeholder="Кв / оф"  class="little">
+                </td>
+            </tr>
+
+            <tr><td colspan="2" class="empty-row">Другая информация</td></tr>
+            <tr>
+                <td class="label">Номер прошлой карты:</td>
+                <td class="value">
+                    <input name="oldNumber" id="oldNumber" type="text"  >
+                </td>
+            </tr>
+            <tr>
+                <td>Выбор типа карты</td>
+                <td>
+                    <select name="typeCard">
+                        <option value="0">Выдача первой карты</option>
+                        <option value="1">Замена карты</option>
+                        <option value="2">Обновление карты</option>
+                    </select>
+                </td>
+            </tr>
+
+            <tr><td colspan="2"><br /></td></tr>
+            <tr>
+                <td style="text-align: right" colspan="2">
+                    <span id="eulaText">Я принимаю <a href="{{ path('page',{'url' : 'eula'}) }}">условия обслуживания сайта im-kard.ru</a>&nbsp;&nbsp;&nbsp;<input type="checkbox" name="eula" id="eula"></span>
+                </td>
+            </tr>
+
+
 
             <tr><td colspan="2">
                     <br />
@@ -385,7 +162,8 @@
             <tr>
                 <td></td>
                 <td style="text-align: right">
-                    <input type="button" value="Далее" class="btn" id="submit">
+                    <br/>
+                    <input type="button" value="Подтвердить данные и перейти к оплате" class="btn" id="submit">
                 </td>
             </tr>
         </table>
@@ -394,14 +172,6 @@
         <img src="{{ asset('bundles/crmmain/images/close_ico.png') }}" class="close-pop-up ico" />
         <div>
             <iframe width="640" height="360" src="//www.youtube.com/embed/2WkicwKfhMc" frameborder="0" allowfullscreen></iframe>
-        </div>
-    </div>
-    <div class="pop-up" id="pop-up-4" style="width: 640px; height: 150px; top: 160px; margin-left: -320; padding: 15px; font-size: 18px; background: #FFFFFF">
-        <img src="{{ asset('bundles/crmmain/images/close_ico.png') }}" class="close-pop-up ico" />
-        <div style="margin-top: 15px">
-            Уважаемый клиент Вы можете воспользоваться помощью оператора для заполнения заявления. Данная услуга платная. Цена карты включая услугу Оператора составит 2640 рублей.
-            <br />
-            Для заказа услуги оператора <a href="{{ path('lazy_order') }}"><span class="btn">нажмите сюда</span></a>
         </div>
     </div>
 {% endblock %}
@@ -1041,11 +811,6 @@
 
         $('#important3').click(function(){
             $('#pop-up-3').css('display', 'block');
-            $('.bg-gray').css('display', 'block');
-        });
-
-        $('#important4').click(function(){
-            $('#pop-up-4').css('display', 'block');
             $('.bg-gray').css('display', 'block');
         });
 
