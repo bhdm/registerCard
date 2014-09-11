@@ -301,7 +301,7 @@
                         <input name="passport" id="passportFile" type="file" value="Выбирите файл"><br/><br />
                     </form>
                 </td>
-                <td class="passportStatus"><span id="helpPassport" class="help">Инструкция по заполнению</span></td>
+                <td class="passportStatus"><span id="helpPassport" class="help"><br />Инструкция по заполнению</span></td>
             </tr>
             <tr>
                 <td class="label">
@@ -312,7 +312,7 @@
                         <input name="driver" id="driverFile" type="file" value="Выбирите файл"><br/><br />
                     </form>
                 </td>
-                <td class="driverStatus"><span id="helpDriver" class="help">Инструкция по заполнению</span></td>
+                <td class="driverStatus"><span id="helpDriver" class="help"><br />Инструкция по заполнению</span></td>
             </tr>
             <tr >
                 <td class="label">
@@ -323,7 +323,7 @@
                         <input name="photo" id="photoFile" type="file" value="Выбирите файл"><br/><br />
                     </form>
                 </td>
-                <td class="photoStatus"><span id="helpPhoto" class="help">Инструкция по заполнению</span></td>
+                <td class="photoStatus"><span id="helpPhoto" class="help"><br />Инструкция по заполнению</span></td>
             </tr>
             <tr >
                 <td class="label">
@@ -334,7 +334,7 @@
                         <input name="sign" id="signFile" type="file" value="Выбирите файл"><br/><br />
                     </form>
                 </td>
-                <td class="signStatus"><span id="helpSign" class="help">Инструкция по заполнению</span></td>
+                <td class="signStatus"><span id="helpSign" class="help"><br />Инструкция по заполнению</span></td>
             </tr>
 
             <tr id="rus">
@@ -346,7 +346,7 @@
                         <input name="snils" id="snilsFile" type="file" value="Выбирите файл"><br/><br />
                     </form>
                 </td>
-                <td class="snilsStatus"><span id="helpSnils" class="help">Инструкция по заполнению</span></td>
+                <td class="snilsStatus"><span id="helpSnils" class="help"><br />Инструкция по заполнению</span></td>
             </tr>
             <tr id="notrus" style="display: none;">
                 <td class="label">
@@ -357,7 +357,7 @@
                         <input name="work" id="workFile" type="file" value="Выбирите файл"><br/><br />
                     </form>
                 </td>
-                <td class="workStatus"><span id="helpWork" class="help">Инструкция по заполнению</span></td>
+                <td class="workStatus"><span id="helpWork" class="help"><br />Инструкция по заполнению</span></td>
             </tr>
 
 
@@ -367,10 +367,11 @@
                 </td>
                 <td class="value">
                     <form enctype="multipart/form-data" id="form-7">
-                        <input name="hod" id="hodFile" type="file" value="Выбирите файл"><br/><br />
+                        <input name="hod" id="hodFile" type="file" value="Выбирите файл"><br/>
+                        <span style="padding-left: 30px">ИЛИ</span>
                     </form>
                 </td>
-                <td class="hodStatus"><span id="helpHod" class="help">Инструкция по заполнению</span></td>
+                <td class="hodStatus"><span id="helpHod" class="help"><br />Инструкция по заполнению</span></td>
             </tr>
             <tr>
                 <td></td>
@@ -1142,7 +1143,7 @@
             max-width: 680px;
         }
         .label-text{
-            /*margin-top: -15px;*/
+            margin-top: -15px;
         }
         .label{
             width: 315px;
@@ -1235,6 +1236,10 @@
             box-shadow: 0 0 10px rgba(0,0,0,0.5);
             border-bottom: 0;
             color: #CC3333;
+        }
+        .help{
+            margin-top: -35px;
+            display: inline-block;
         }
     </style>
 {% endblock %}
