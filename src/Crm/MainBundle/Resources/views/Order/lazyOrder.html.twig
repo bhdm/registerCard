@@ -12,38 +12,20 @@
     </div>
     <div class="box">
         <table>
-            <form method="POST" action="{{ path('lazy_order') }}" id="main-form">
-                <tr>
-                    <td colspan="3">
-                        <div class="error-msg"></div>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="label">E-mail:</td>
-                    <td class="value">
-                        <input name="email" id="email" type="text" placeholder="Укажите вашу почту" required>
-                    </td>
-                    <td class="emailStatus" rowspan="2" style="padding-left: 10px; font-size: 12px">
-                        <i>Для создания заявки необходимо заполнить хотя бы одно из полей - Email или телефон</i>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="label">Телефон:</td>
-                    <td class="value">
-                        <input name="phone" id="phone" type="text" placeholder="Укажите ваш телефон">
-                    </td>
-                </tr>
-                <tr>
-                    <td class="label">Гражданство<span class="required">*</span>:</td>
-                    <td class="value">
-                        <select name="rezident" id="rezident">
-                            <option value="1">Россия</option>
-                            <option value="2">Другое</option>
-                        </select>
-                    </td>
-                    <td ></td>
-                </tr>
-            </form>
+            <tr>
+                <td colspan="3">
+                    <div class="error-msg"></div>
+                </td>
+            </tr>
+            <tr>
+                <td class="label">E-mail или телефон:</td>
+                <td class="value">
+                    <input name="email" id="email" type="text" placeholder="Укажите вашу почту или телефон" required>
+                </td>
+                <td class="emailStatus" style="padding-left: 10px; font-size: 12px">
+                    <i>Для создания заявки необходимо Email или телефон</i>
+                </td>
+            </tr>
             <tr><td colspan="2" class="empty-row">Документы</td></tr>
             <tr>
                 <td class="label">
@@ -101,37 +83,30 @@
                     <div class="label-text">Ходатайство с места работы<span class="required">*</span>:</div>
                 </td>
                 <td class="value">
-                    <input name="hod" id="hodFile" type="file" value="Выбирите файл"><br/><br />
+                    <input name="hod" id="hodFile" type="file" value="Выбирите файл"><br/>
+                    <input type="checkbox" name="myPetition" id="myPetition"><span style="font-size: 14px">Воспользоваться ходатайством НПО "ТЕХНОЛОГ"</span>
+                    <br/><br />
+
                 </td>
             </tr>
             <tr>
                 <td></td>
-                <td colspan="2" style="font-size: 14px"><input type="checkbox" name="myPetition" id="myPetition"> Воспользоваться ходатайством НПО "ТЕХНОЛОГ"</td>
+                <td colspan="2" style="font-size: 14px"></td>
             </tr>
 
             <tr><td colspan="2" class="empty-row">Информация о доставке</td></tr>
             <tr>
                 <td class="label">Адрес доставки<span class="required">*</span>:</td>
                 <td class="value">
-                    <input name="deliveryZipcode" id="deliveryZipcode" type="text" placeholder="Индекс"><br />
-                    <select name="deliveryRegion" id="deliveryRegion">
-                        {% for region in regions %}
-                            <option value="{{ region.id }}">{{ region.title }}</option>
-                        {% endfor %}
-                    </select><br />
-                    <input name="deliveryCity"    id="deliveryCity"    type="text" placeholder="Город"><br />
-                    <input name="deliveryStreet"  id="deliveryStreet"  type="text" placeholder="Улица"><br />
-                    <input name="deliveryHouse"   id="deliveryHouse"   type="text" placeholder="Дом" class="little">
-                    <input name="deliveryCorp"    id="deliveryCorp"    type="text" placeholder="Корп /Стр"  class="little">
-                    <input name="deliveryRoom"    id="deliveryRoom"    type="text" placeholder="Кв / оф"  class="little">
+                    <textarea placeholder="Индекс, регион, город, улицу, дом, квартира" style="height: 200px"></textarea>
                 </td>
             </tr>
 
             <tr><td colspan="2" class="empty-row">Другая информация</td></tr>
             <tr>
-                <td class="label">Номер прошлой карты:</td>
+                <td class="label">Номер прошлой карты, если есть:</td>
                 <td class="value">
-                    <input name="oldNumber" id="oldNumber" type="text"  >
+                    <input name="oldNumber" id="oldNumber" type="text"  placeholder="Номер прошлой карты">
                 </td>
             </tr>
             <tr>
@@ -151,8 +126,6 @@
                     <span id="eulaText">Я принимаю <a href="{{ path('page',{'url' : 'eula'}) }}">условия обслуживания сайта im-kard.ru</a>&nbsp;&nbsp;&nbsp;<input type="checkbox" name="eula" id="eula"></span>
                 </td>
             </tr>
-
-
 
             <tr><td colspan="2">
                     <br />

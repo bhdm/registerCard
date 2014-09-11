@@ -7,9 +7,9 @@
 {% endblock %}
 
 {% block content %}
-    <div class="important" id="important4" style="width: 362px; color: #ae3538; margin: 0 auto; float: left; height: 58px; line-height: 58px">Помощь оператора</div>
+    <div class="btn btn2" id="important4" style="width: 362px;  margin: 0 auto; float: left;">Помощь оператора</div>
 
-    <div class="important" id="important3" style="width: 362px; color: #ae3538; margin: 0 auto; float: right">Инструкция по заполнению Анкеты</div>
+    <div class="btn btn2" id="important3" style="width: 362px;  margin: 0 auto; float: right">Инструкция по заполнению Анкеты</div>
     <br style="clear: both">
 
     <div class="box">
@@ -298,7 +298,7 @@
                 </td>
                 <td class="value">
                     <form enctype="multipart/form-data" id="form-1">
-                        <input name="passport" id="passportFile" type="file" value="Выбирите файл">
+                        <input name="passport" id="passportFile" type="file" value="Выбирите файл"><br/><br />
                     </form>
                 </td>
                 <td class="passportStatus"><span id="helpPassport" class="help">Инструкция по заполнению</span></td>
@@ -309,7 +309,7 @@
                 </td>
                 <td class="value">
                     <form enctype="multipart/form-data" id="form-2">
-                        <input name="driver" id="driverFile" type="file" value="Выбирите файл">
+                        <input name="driver" id="driverFile" type="file" value="Выбирите файл"><br/><br />
                     </form>
                 </td>
                 <td class="driverStatus"><span id="helpDriver" class="help">Инструкция по заполнению</span></td>
@@ -320,7 +320,7 @@
                 </td>
                 <td class="value">
                     <form enctype="multipart/form-data" id="form-5">
-                        <input name="photo" id="photoFile" type="file" value="Выбирите файл">
+                        <input name="photo" id="photoFile" type="file" value="Выбирите файл"><br/><br />
                     </form>
                 </td>
                 <td class="photoStatus"><span id="helpPhoto" class="help">Инструкция по заполнению</span></td>
@@ -331,7 +331,7 @@
                 </td>
                 <td class="value">
                     <form enctype="multipart/form-data" id="form-6">
-                        <input name="sign" id="signFile" type="file" value="Выбирите файл">
+                        <input name="sign" id="signFile" type="file" value="Выбирите файл"><br/><br />
                     </form>
                 </td>
                 <td class="signStatus"><span id="helpSign" class="help">Инструкция по заполнению</span></td>
@@ -343,7 +343,7 @@
                 </td>
                 <td class="value">
                     <form enctype="multipart/form-data" id="form-3">
-                        <input name="snils" id="snilsFile" type="file" value="Выбирите файл">
+                        <input name="snils" id="snilsFile" type="file" value="Выбирите файл"><br/><br />
                     </form>
                 </td>
                 <td class="snilsStatus"><span id="helpSnils" class="help">Инструкция по заполнению</span></td>
@@ -354,7 +354,7 @@
                 </td>
                 <td class="value">
                     <form enctype="multipart/form-data" id="form-4">
-                        <input name="work" id="workFile" type="file" value="Выбирите файл">
+                        <input name="work" id="workFile" type="file" value="Выбирите файл"><br/><br />
                     </form>
                 </td>
                 <td class="workStatus"><span id="helpWork" class="help">Инструкция по заполнению</span></td>
@@ -367,7 +367,7 @@
                 </td>
                 <td class="value">
                     <form enctype="multipart/form-data" id="form-7">
-                        <input name="hod" id="hodFile" type="file" value="Выбирите файл">
+                        <input name="hod" id="hodFile" type="file" value="Выбирите файл"><br/><br />
                     </form>
                 </td>
                 <td class="hodStatus"><span id="helpHod" class="help">Инструкция по заполнению</span></td>
@@ -1219,6 +1219,22 @@
             font-size: 24px;
             color: #333333;
 
+        }
+
+        .btn2{
+            padding: 8px 10px;
+            display: inline-block;
+            border-radius: 5px;
+            background: #000;
+            color: #FFF;
+            margin-bottom: 10px;
+            border: 0;
+            text-align: center;
+        }
+        .btn2:hover{
+            box-shadow: 0 0 10px rgba(0,0,0,0.5);
+            border-bottom: 0;
+            color: #CC3333;
         }
     </style>
 {% endblock %}
