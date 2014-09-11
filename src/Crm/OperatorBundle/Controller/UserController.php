@@ -375,6 +375,9 @@ class UserController extends Controller{
                 $user->setCopyPetition($this->getArrayToImg($user->getCopyPetition()));
 
                 $this->getDoctrine()->getManager()->flush($user);
+
+                return $this->redirect($this->generateUrl('operator_user_list'));
+
             }else{
                 #Помещаем все фалы-картинки в сессию, что бы потом можно было бы редактировать
                 # Пасспорт
@@ -472,6 +475,7 @@ class UserController extends Controller{
             }
 
             $regions = $this->getDoctrine()->getRepository('CrmMainBundle:Region')->findAll();
+
             return array('user' => $user, 'regions' => $regions);
         }else{
             return $this->redirect($request->headers->get('referer'));
