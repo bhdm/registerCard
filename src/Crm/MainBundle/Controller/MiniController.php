@@ -28,11 +28,14 @@ class MiniController extends Controller{
     public function indexAction(Request $request, $compnayUrl){
         $country = $this->getDoctrine()->getRepository('CrmMainBundle:Country')->findOneById(3159);
         $regions = $this->getDoctrine()->getRepository('CrmMainBundle:Region')->findByCountry($country);
+        $company = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->findOneByUrl($compnayUrl);
         return array(
             'typeLayout' => 'mini',
             'compnayUrl' => $compnayUrl,
             'regions'   => $regions,
+            'company' => $company
         );
+
     }
 
     /**
@@ -49,7 +52,6 @@ class MiniController extends Controller{
      * @Template()
      */
     public function orderRegisterAction(Request $request, $compnayUrl){
-
         $em   = $this->getDoctrine()->getManager();
 
         $user = new User();

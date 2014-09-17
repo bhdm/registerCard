@@ -83,7 +83,11 @@
 </head>
 <body>
 <div class="body">
-    <div class="menu"></div>
+    <div class="menu" style="height: 50px;">
+        <div style="text-align: left; padding-top: 10px; color: #ffffff; height: 40px; width: 900px; margin: 0 auto">
+            {% block company %}{% endblock %}
+        </div>
+    </div>
     {#{% include ("CrmMainBundle::menu.html.twig")  %}#}
     <div class="content">
         <br />
