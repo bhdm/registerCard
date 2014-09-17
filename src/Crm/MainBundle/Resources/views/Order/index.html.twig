@@ -1,8 +1,19 @@
 {% extends 'CrmMainBundle::layout.html.twig' %}
 
+{% block title %}
+    <title>Заказать карту водителя для тахографа с СКЗИ Online</title>
+    <meta name="description" content="Заказать карту водителя для тахографа с СКЗИ Online">
+    <meta name="keywords" content="Заказать карту водителя для тахографа с СКЗИ Online">
+{% endblock %}
+
 {% block content %}
+    {#<div class="btn btn2" id="important4" style="width: 362px;  margin: 0 auto; float: left;">Помощь оператора</div>#}
+
+    <div class="btn btn2" id="important3" style="width: 362px;  margin: 0 auto; float: right">Инструкция по заполнению Анкеты</div>
+    <br style="clear: both">
+
     <div class="box">
-        <h2>Оформление заявки - Шаг 1</h2>
+        {#<h2>Оформление заявки - Шаг 1</h2>#}
     </div>
     <div class="bg-gray"></div>
     <div class="help-pop-up">
@@ -100,7 +111,7 @@
             </tr>
             <tr>
                 <td>
-                    <input type="button" id="" value="Назад" class="btn back">
+                    {#<input type="button" id="" value="Назад" class="btn back">#}
                 </td>
                 <td style="text-align: right">
                     <input type="button" id="savePassport" value="Подтвердить данные" class="btn saveForm">
@@ -146,7 +157,7 @@
             </tr>
             <tr>
                 <td>
-                    <input type="button" id="" value="Назад" class="btn back">
+                    {#<input type="button" id="" value="Назад" class="btn back">#}
                 </td>
                 <td style="text-align: right">
                     <input type="button" id="saveDriver" value="Подтвердить данные" class="btn saveForm">
@@ -171,7 +182,7 @@
             </tr>
             <tr>
                 <td>
-                    <input type="button" id="" value="Назад" class="btn back">
+                    {#<input type="button" id="" value="Назад" class="btn back">#}
                 </td>
                 <td style="text-align: right">
                     <input type="button" id="saveSnils" value="Подтвердить данные" class="btn saveForm">
@@ -287,10 +298,10 @@
                 </td>
                 <td class="value">
                     <form enctype="multipart/form-data" id="form-1">
-                        <input name="passport" id="passportFile" type="file" value="Выбирите файл">
+                        <input name="passport" id="passportFile" type="file" value="Выбирите файл"><br/><br />
                     </form>
                 </td>
-                <td class="passportStatus"><span id="helpPassport" class="help">Инструкция по заполнению</span></td>
+                <td class="passportStatus"><span id="helpPassport" class="help"><br />Инструкция по заполнению</span></td>
             </tr>
             <tr>
                 <td class="label">
@@ -298,10 +309,10 @@
                 </td>
                 <td class="value">
                     <form enctype="multipart/form-data" id="form-2">
-                        <input name="driver" id="driverFile" type="file" value="Выбирите файл">
+                        <input name="driver" id="driverFile" type="file" value="Выбирите файл"><br/><br />
                     </form>
                 </td>
-                <td class="driverStatus"><span id="helpDriver" class="help">Инструкция по заполнению</span></td>
+                <td class="driverStatus"><span id="helpDriver" class="help"><br />Инструкция по заполнению</span></td>
             </tr>
             <tr >
                 <td class="label">
@@ -309,10 +320,10 @@
                 </td>
                 <td class="value">
                     <form enctype="multipart/form-data" id="form-5">
-                        <input name="photo" id="photoFile" type="file" value="Выбирите файл">
+                        <input name="photo" id="photoFile" type="file" value="Выбирите файл"><br/><br />
                     </form>
                 </td>
-                <td class="photoStatus"><span id="helpPhoto" class="help">Инструкция по заполнению</span></td>
+                <td class="photoStatus"><span id="helpPhoto" class="help"><br />Инструкция по заполнению</span></td>
             </tr>
             <tr >
                 <td class="label">
@@ -320,10 +331,10 @@
                 </td>
                 <td class="value">
                     <form enctype="multipart/form-data" id="form-6">
-                        <input name="sign" id="signFile" type="file" value="Выбирите файл">
+                        <input name="sign" id="signFile" type="file" value="Выбирите файл"><br/><br />
                     </form>
                 </td>
-                <td class="signStatus"><span id="helpSign" class="help">Инструкция по заполнению</span></td>
+                <td class="signStatus"><span id="helpSign" class="help"><br />Инструкция по заполнению</span></td>
             </tr>
 
             <tr id="rus">
@@ -332,10 +343,10 @@
                 </td>
                 <td class="value">
                     <form enctype="multipart/form-data" id="form-3">
-                        <input name="snils" id="snilsFile" type="file" value="Выбирите файл">
+                        <input name="snils" id="snilsFile" type="file" value="Выбирите файл"><br/><br />
                     </form>
                 </td>
-                <td class="snilsStatus"><span id="helpSnils" class="help">Инструкция по заполнению</span></td>
+                <td class="snilsStatus"><span id="helpSnils" class="help"><br />Инструкция по заполнению</span></td>
             </tr>
             <tr id="notrus" style="display: none;">
                 <td class="label">
@@ -343,10 +354,10 @@
                 </td>
                 <td class="value">
                     <form enctype="multipart/form-data" id="form-4">
-                        <input name="work" id="workFile" type="file" value="Выбирите файл">
+                        <input name="work" id="workFile" type="file" value="Выбирите файл"><br/><br />
                     </form>
                 </td>
-                <td class="workStatus"><span id="helpWork" class="help">Инструкция по заполнению</span></td>
+                <td class="workStatus"><span id="helpWork" class="help"><br />Инструкция по заполнению</span></td>
             </tr>
 
 
@@ -356,10 +367,11 @@
                 </td>
                 <td class="value">
                     <form enctype="multipart/form-data" id="form-7">
-                        <input name="hod" id="hodFile" type="file" value="Выбирите файл">
+                        <input name="hod" id="hodFile" type="file" value="Выбирите файл"><br/>
+                        <span style="padding-left: 30px">ИЛИ</span>
                     </form>
                 </td>
-                <td class="hodStatus"><span id="helpHod" class="help">Инструкция по заполнению</span></td>
+                <td class="hodStatus"><span id="helpHod" class="help"><br />Инструкция по заполнению</span></td>
             </tr>
             <tr>
                 <td></td>
@@ -379,6 +391,12 @@
             </tr>
         </table>
     </div>
+    <div class="pop-up" id="pop-up-3" style="width: 640px; height: 360px; top: 160px; margin-left: -320px">
+        <img src="{{ asset('bundles/crmmain/images/close_ico.png') }}" class="close-pop-up ico" />
+        <div>
+            <iframe width="640" height="360" src="//www.youtube.com/embed/2WkicwKfhMc" frameborder="0" allowfullscreen></iframe>
+        </div>
+    </div>
 {% endblock %}
 
 {% block javascripts %}
@@ -394,7 +412,7 @@
 
     <script>
     $(document).ready(function(){
-        $('input, select').styler();
+        $('input:text, select').styler();
         $("#phone").mask("+7 (999) 999-9999");
         var files;
 
@@ -485,12 +503,13 @@
                     //error: ,
                     success: function(msg){
 
-                        $('.bg-gray').fadeOut();
-                        $('#loader').fadeOut();
+
 
                         if ($('.img-pop-up').attr('type-doc') != 'work' ){
                             $('#img-pop-up-img').html('<div style="display: inline-block"><img  src="'+msg+'" /></div>');
                             showImgPopUp();
+                            $('.bg-gray').fadeOut();
+                            $('#loader').fadeOut();
                             if ( type == 'photo'){
                                 $('#img-pop-up-img div img').imgAreaSelect({
                                     aspectRatio: '1:1.285',
@@ -542,10 +561,10 @@
                     processData: false
                 });
             }
-            if ( $('#signFile-styler').children('.jq-file__name').html() == 'Файл не выбран'){
-                hideloader();
-                hideImgPopUp();
-            }
+//            if ( $('#signFile-styler').children('.jq-file__name').html() == 'Файл не выбран'){
+//                hideloader();
+//                hideImgPopUp();
+//            }
         });
 
         $('#rotate').click(function(){
@@ -679,7 +698,11 @@
                 form.append('companyTypeRoom',$('#companyTypeRoom').val());
                 form.append('companyRoom',$('#companyRoom').val());
 
-                form.append('myPetition',$('#myPetition').val());
+                if ($("#myPetition").prop("checked")){
+                    form.append('myPetition', 1);
+                }else{
+                    form.append('myPetition', null);
+                }
 
                 form.append('snils',$('#snils').val());
 
@@ -836,6 +859,8 @@
                         errorI++;
                     }
                 }
+
+
             }
             if ( $(this).attr('id')=='saveSnils' ){
                 if ( $('#snils').val()==''){
@@ -1010,6 +1035,22 @@
             $("#passportDate").mask("99.99.9999");
         }
 
+        $('#important3').click(function(){
+            $('#pop-up-3').css('display', 'block');
+            $('.bg-gray').css('display', 'block');
+        });
+
+        $('#important4').click(function(){
+            $('#pop-up-4').css('display', 'block');
+            $('.bg-gray').css('display', 'block');
+        });
+
+        $('.close-pop-up').click(function(){
+            $('.pop-up').css('display', 'none');
+            $('.bg-gray').css('display', 'none');
+        });
+
+
     });
     </script>
 {% endblock %}
@@ -1017,7 +1058,7 @@
 {% block stylesheets %}
     {{ parent() }}
     <link href="{{ asset('bundles/crmmain/lib/chosen/chosen.css') }}" rel="stylesheet" media="all">
-    <link href="{{ asset('bundles/crmmain/lib/styler/jquery.formstyler.css') }}" rel="stylesheet" media="all">
+
     <link href="{{ asset('bundles/crmmain/lib/odyniec/distfiles/css/imgareaselect-default.css') }}" rel="stylesheet" media="all">
     <link href="{{ asset('bundles/crmmain/lib/jquery-ui/jquery-ui.min.css') }}" rel="stylesheet" media="all">
     <style>
@@ -1097,7 +1138,7 @@
             max-width: 680px;
         }
         .label-text{
-            /*margin-top: -15px;*/
+            margin-top: -15px;
         }
         .label{
             width: 315px;
@@ -1161,6 +1202,39 @@
         }
         .jq-selectbox{
             padding: 5px 0;
+        }
+        .important{
+            padding: 10px 20px;
+            margin-bottom: 10px;
+            border: 1px solid #636363;
+            background: #DDD;
+            border-radius: 5px;
+            width: 300px;
+            cursor: pointer;
+            text-align: center;
+            font-size: 24px;
+            color: #333333;
+
+        }
+
+        .btn2{
+            padding: 8px 10px;
+            display: inline-block;
+            border-radius: 5px;
+            background: #000;
+            color: #FFF;
+            margin-bottom: 10px;
+            border: 0;
+            text-align: center;
+        }
+        .btn2:hover{
+            box-shadow: 0 0 10px rgba(0,0,0,0.5);
+            border-bottom: 0;
+            color: #CC3333;
+        }
+        .help{
+            margin-top: -35px;
+            display: inline-block;
         }
     </style>
 {% endblock %}

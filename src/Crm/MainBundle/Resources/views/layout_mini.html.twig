@@ -24,6 +24,48 @@
     {% endblock %}
     {% block stylesheets %}
         <link href="{{ asset('bundles/crmmain/stylesheets/common.css') }}" rel="stylesheet" media="all">
+        <style>
+            *{
+                font-family: "Open Sans";
+            }
+            .a{
+                color: #CC3333;
+            }
+            .a:hover{
+                text-decoration: underline;
+                cursor: pointer;
+            }
+            .close-pop-up{
+                width: 32px;
+                position: absolute;
+                right: 0;
+                top: 0;
+            }
+            .bg-gray{
+                position: fixed;
+                left: 0;
+                right: 0;
+                top: 0;
+                bottom: 0;
+                background: #555555;
+                opacity: 0.5;
+                z-index: 900;
+                display: none;
+            }
+            .pop-up{
+                position: fixed;
+                width: 500px;
+                padding: 15px;
+                border: 1px solid #636363;
+                border-radius: 5px;
+                left: 50%;
+                margin-left: -250px;
+                top: 300px;
+                background: #e3e3e3;
+                z-index: 910;
+                display: none;
+            }
+        </style>
     {% endblock %}
     {% block javascripts %}
         <script rel="script" src="{{ asset('bundles/crmmain/javascripts/jQuery.js') }}"></script>

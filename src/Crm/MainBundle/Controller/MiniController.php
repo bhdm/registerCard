@@ -11,7 +11,6 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Crm\MainBundle\Entity\Page;
 use Crm\MainBundle\Entity\User;
-use Crm\MainBundle\Entity\Driver;
 use Crm\MainBundle\Entity\Company;
 use Crm\MainBundle\Form\Type\UserType;
 use Crm\MainBundle\Form\Type\DriverType;
@@ -78,6 +77,13 @@ class MiniController extends Controller{
         $user->setDriverDocIssuance($data->get('driverDocIssuance'));
 
         $user->setSnils($data->get('snils'));
+
+        if ($data->get('myPetition')!='null'){
+            $user->setMyPetition(1);
+        }else{
+            $user->setMyPetition(0);
+        }
+
 
         $company  = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->findOneByUrl($compnayUrl);
         $region = $this->getDoctrine()->getRepository('CrmMainBundle:Region')->findOneById($data->get('deliveryRegion'));
@@ -245,11 +251,11 @@ class MiniController extends Controller{
         if ($mimeType != 'image/jpeg'){
             if ($mimeType == 'image/png' ){
                 $image = imagecreatefrompng($pathName);
-                imagejpeg($image, $pathName);
+                imagepng($image, $pathName);
                 imagedestroy($image);
             }elseif($mimeType == 'image/gif'){
                 $image = imagecreatefromgif($pathName);
-                imagejpeg($image, $pathName);
+                imagegif($image, $pathName);
                 imagedestroy($image);
             }elseif( strripos($mimeType, 'bmp') !== false ){
                 $image = $this->ImageCreateFromBMP($pathName);
@@ -263,7 +269,7 @@ class MiniController extends Controller{
         $path= $pathName;
         $type = pathinfo($path, PATHINFO_EXTENSION);
         $data = file_get_contents($path);
-        $base64 = 'data:image/' . $type . ';base64,' . base64_encode($data);
+        $base64 = 'data:'.$mimeType. $type . ';base64,' . base64_encode($data);
         return $base64;
     }
 
@@ -311,6 +317,7 @@ class MiniController extends Controller{
                 'mimeType' =>$mimeType,
             );
         }
+//        return serialize($array);
         return $array;
 
     }

@@ -44,7 +44,7 @@ class OrderController extends Controller{
         $base = $this->imgToBase($file->getPathName());
         $session = $request->getSession();
         $session->set('passport', array(
-            'content'=> $base
+                'content'=> $base
             )
         );
         $session->save();
@@ -73,7 +73,7 @@ class OrderController extends Controller{
         );
         $session->save();
         $response = new Response();
-        $response->headers->set('Content-Type','image/jpeg');
+        $response->headers->set('Content-Type',$file->getMimeType());
         $response->setContent($base);
 
         return $response;
@@ -83,10 +83,10 @@ class OrderController extends Controller{
      * @Route("send-coordinates/{type}", name="send_coordinates", options={"expose"=true})
      */
     public function sendCoordinatesAction(Request $request, $type){
-        $session = new Session();
+        $session = $request->getSession();
 
-        $base = $session->get($type);
-        $base = $base['content'];
+        $base1 = $session->get($type);
+        $base = $base1['content'];
 
         $aspect = $session->get($type)['width'] / (int) $request->request->get('originalWidth');
 //        $aspect = 1;
@@ -106,14 +106,14 @@ class OrderController extends Controller{
         list($width, $height) = getimagesize($file);
 
 //        if ($type == 'photo' || $type == 'sign'){
-            $base = $this->blackImage($base, $type);
+        $base = $this->blackImage($base, $type);
 //        }
 
         $session->set($type, array(
                 'content'=> $base,
                 'width'=> $width,
                 'height'=> $height,
-                'mimeType'=> 'image/jpeg',
+                'mimeType'=> $base1['mimeType'],
             )
         );
 
@@ -123,7 +123,7 @@ class OrderController extends Controller{
 
 
         $response = new Response();
-        $response->headers->set('Content-Type','image/jpeg');
+        $response->headers->set('Content-Type',$base1['mimeType']);
         $response->setContent($base);
 
         return $response;
@@ -188,8 +188,10 @@ class OrderController extends Controller{
             $user->setDriverDocIssuance($data->get('driverDocIssuance'));
             $user->setSnils($data->get('snils'));
 
-            if ($data->get('myPetition')){
+            if ($data->get('myPetition')!='null'){
                 $user->setMyPetition(1);
+            }else{
+                $user->setMyPetition(0);
             }
 
             #Теперь делаем компанию
@@ -257,7 +259,7 @@ class OrderController extends Controller{
         return array(
 //            'formUser'      => $formUser->createView(),
 //            'formDriver'    => $formDriver->createView(),
-              'regions'       => $regions
+            'regions'       => $regions
         );
     }
 
@@ -340,18 +342,35 @@ class OrderController extends Controller{
             $em->persist($user);
             $em->flush($user);
             $em->refresh($user);
-            $message = \Swift_Message::newInstance()
-                ->setSubject('Заявка отправлена')
-                ->setFrom('info@im-kard.ru')
-                ->setTo($user->getEmail())
-                ->setBody(
-                    $this->renderView(
-                        'CrmMainBundle:Mail:success.html.twig',
-                        array('order' => $user)
-                    ), 'text/html'
-                )
-            ;
-            $this->get('mailer')->send($message);
+
+            $session->set('user', null);
+            $session->set('company', null);
+
+            $session->set('passport', null);
+            $session->set('driver', null);
+            $session->set('photo', null);
+            $session->set('sign', null);
+            $session->set('snils', null);
+            $session->set('hod', null);
+            $session->set('work', null);
+            $session->save();
+
+
+            if ($user->getEmail()){
+                $message = \Swift_Message::newInstance()
+                    ->setSubject('Заявка отправлена')
+                    ->setFrom('info@im-kard.ru')
+                    ->setTo($user->getEmail())
+                    ->setBody(
+                        $this->renderView(
+                            'CrmMainBundle:Mail:success.html.twig',
+                            array('order' => $user)
+                        ), 'text/html'
+                    )
+                ;
+                $this->get('mailer')->send($message);
+            }
+
         }
 
         return new Response($this->renderView("CrmMainBundle:Order:success.html.twig", array('user' => $user)));
@@ -477,11 +496,11 @@ class OrderController extends Controller{
         if ($mimeType != 'image/jpeg'){
             if ($mimeType == 'image/png' ){
                 $image = imagecreatefrompng($pathName);
-                imagejpeg($image, $pathName);
+                imagepng($image, $pathName);
                 imagedestroy($image);
             }elseif($mimeType == 'image/gif'){
                 $image = imagecreatefromgif($pathName);
-                imagejpeg($image, $pathName);
+                imagegif($image, $pathName);
                 imagedestroy($image);
             }elseif( strripos($mimeType, 'bmp') !== false ){
                 $image = $this->ImageCreateFromBMP($pathName);
@@ -495,7 +514,7 @@ class OrderController extends Controller{
         $path= $pathName;
         $type = pathinfo($path, PATHINFO_EXTENSION);
         $data = file_get_contents($path);
-        $base64 = 'data:image/' . $type . ';base64,' . base64_encode($data);
+        $base64 = 'data:'.$mimeType. $type . ';base64,' . base64_encode($data);
         return $base64;
     }
 
