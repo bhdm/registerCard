@@ -46,7 +46,15 @@
 
 {% block javascripts %}
     {{ parent() }}
-
+    <script>
+        $(document).ready(function(){
+           $('#xml').click(function(){
+                var url = Routing.generate('xml_generator_many');
+               $('#form-list').attr('action', url);
+               $('#form-list').submit();
+           });
+        });
+    </script>
 {% endblock %}
 
 {% block content%}
@@ -67,7 +75,9 @@
         <h3 class="color-red">Пользователей не найдено</h3>
     {% else %}
         {% if company != null %}
-            <form method="POST" action="{{ path('operator_petition_generate',{'companyId' : company.id}) }}">
+            <form method="POST" action="{{ path('operator_petition_generate',{'companyId' : company.id}) }}" id="form-list">
+        {% else %}
+            <form method="POST" action="#" id="form-list">
         {% endif %}
             <table class="lists">
                 <tr>
@@ -165,13 +175,14 @@
                         </td>
                     </tr>
                 {% endfor %}
+                <tr>
+                    <td colspan="4">
                 {% if company != null %}
-                    <tr>
-                        <td colspan="4">
                             <button type="submit">Сгенерировать ходатайство на выделенных пользователей</button>
-                        </td>
-                    </tr>
                 {% endif %}
+                            <button type="button" id="xml">Массовое XML</button>
+                    </td>
+                </tr>
             </table>
         </form>
     {% endif %}

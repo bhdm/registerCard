@@ -1,0 +1,143 @@
+{% spaceless %}
+    <ns2:TacPackage xmlns:ns2="http://www.example.org/">
+        <MessageInfo>
+            <MessageId>FLGMN-{{ driver.xmlId }}</MessageId>
+            <MessageDate>{{ "now" | date('Y-m-d')}}Z</MessageDate>
+            <MessageOwn>FLGMN</MessageOwn>
+            <MessageRecipient>ATLAS</MessageRecipient>
+        </MessageInfo>
+        <PackageInfo>
+            <PackageNumber>FLGMN-{{ driver.xmlId }}</PackageNumber>
+            <PackageDate> {{ "now" | date('Y-m-d')}}Z</PackageDate>
+            <OvkId>FLGMN</OvkId>
+            <CardManufacturerId>ATLAS</CardManufacturerId>
+        </PackageInfo>
+
+        {% for xml in xmls %}
+            {% set driver = xml.user %}
+            {% set files = xml.files %}
+            <Order_v2>
+            <OrderNumber>FLGMN-{{ driver.xmlId }}</OrderNumber>
+            <OrderDate>{{ driver.created | date('Y-m-d')}}Z</OrderDate>
+            <OrderCardType>D</OrderCardType>
+            <OrderCardCount>1</OrderCardCount>
+            <OrderReason>create</OrderReason>
+            <PersonOrder>
+                <PersonInfo>
+                    <NameFirst>{{ driver.firstName }}</NameFirst>
+                    <NameMiddle>{{ driver.surName is not null ? driver.surName : '' }}</NameMiddle>
+                    <NameLast>{{ driver.lastName }}</NameLast>
+                    <Resident>true</Resident>
+                    <Nationality>РФ</Nationality>
+                    <BirthDate>{{ driver.birthDate | date('Y-m-d')}}Z</BirthDate>
+                    <SNILS>{{ driver.snils }}</SNILS>
+                    <Credential>
+                        <Type>passport</Type>
+                        <Series>{{ driver.passportSerial }}</Series>
+                        <Number>{{ driver.passportNumber }}</Number>
+                        <IssuedBy>{{ driver.passportIssuance }}</IssuedBy>
+                        <Division>{{ driver.passportCode }}</Division>
+                        <IssuedDate>{{ driver.passportIssuanceDate | date('Y-m-d')}}Z</IssuedDate>
+                    </Credential>
+                </PersonInfo>
+                <DriverLicense>
+                    <DriverLicenseNumber>{{ driver.driverDocNumber }}</DriverLicenseNumber>
+                    <DriverLicenseCountryEstrCode>43</DriverLicenseCountryEstrCode>
+                    <DriverLicenseCountry>RUS</DriverLicenseCountry>
+                    <DriverLicenseOrg>{{ driver.driverDocIssuance }}</DriverLicenseOrg>
+                    <DriverLicenseIssuedDate>{{ driver.driverDocDateStarts | date('Y-m-d')}}Z</DriverLicenseIssuedDate>
+                </DriverLicense>
+                {% if driver.company.title  != '' %}
+                    <OrgName>{{ driver.company.title }}</OrgName>
+                    <OrgPostAddress>
+                        <FullAddress>{{ driver.company.zipcode }},
+                            {{ driver.company.region }},  {{ driver.company.city }},
+                            {{ driver.company.street }},д.{{ driver.company.home }} {{ driver.company.corp }}, {{ driver.company.room }}</FullAddress>
+                        <PostCode>{{ driver.company.zipcode }}</PostCode>
+                        <RegionCode>{{ driver.company.region.id }}</RegionCode>
+                        <Settlement>{{ driver.company.city }}</Settlement>
+                        <Street>{{ driver.company.street }}</Street>
+                        <House>{{ driver.company.home }}</House>
+                        <Building>{{ driver.company.corp }}</Building>
+                        <Office>{{ driver.company.room }}</Office>
+                    </OrgPostAddress>
+                {% else %}
+                    <OrgName>НПО "ТЕХНОЛОГ"</OrgName>
+                    <OrgPostAddress>
+                        <FullAddress>195196, Санкт-Петербург, ул.Громова, д.14/6, лит. А, пом. 3-Н</FullAddress>
+                        <PostCode>195196</PostCode>
+                        <RegionCode>78</RegionCode>
+                        <Settlement>Санкт-Петербург</Settlement>
+                        <Street>ул.Громова</Street>
+                        <House>д.14/6</House>
+                        <Building>лит. А</Building>
+                        <Office>пом. 3-Н</Office>
+                    </OrgPostAddress>
+                {% endif %}
+                <Photo>
+                    <AttachmentType>Photo</AttachmentType>
+                    <FileFormat>{% if files[2].file.mimeType == 'image/jpeg' %}JPG{% elseif files[2].file.mimeType == 'image/png' %}PNG{% elseif files[2].file.mimeType == 'image/gif' %}GIF{% else %}FILE{% endif %}</FileFormat>
+                    <Body>{{ files[2].base }}</Body>
+                </Photo>
+
+                <Sign>
+                    <AttachmentType>Signature</AttachmentType>
+                    <FileFormat>{% if files[3].file.mimeType == 'image/jpeg' %}JPG{% elseif files[3].file.mimeType == 'image/png' %}PNG{% elseif files[3].file.mimeType == 'image/gif' %}GIF{% else %}FILE{% endif %}</FileFormat>
+                    <Body>{{ files[3].base }}</Body>
+                </Sign>
+            </PersonOrder>
+
+            {# Паспорт #}
+            <Attachment>
+                <AttachmentType>Other</AttachmentType>
+                <FileFormat>PDF</FileFormat>
+                <Body>{{ files[0].base }}</Body>
+            </Attachment>
+
+            {# Водительское удостоверение #}
+            <Attachment>
+                <AttachmentType>Other</AttachmentType>
+                <FileFormat>PDF</FileFormat>
+                <Body>{{ files[1].base }}</Body>
+            </Attachment>
+
+            {# СНИЛС #}
+            {% if files[5] is defined %}
+                <Attachment>
+                    <AttachmentType>Other</AttachmentType>
+                    <FileFormat>PDF</FileFormat>
+                    <Body>{{ files[5].base }}</Body>
+                </Attachment>
+            {% endif %}
+
+            {# Разрешение на работу #}
+            {% if files[6] is defined %}
+                <Attachment>
+                    <AttachmentType>Other</AttachmentType>
+                    <FileFormat>PDF</FileFormat>
+                    <Body>{{ files[6].base }}</Body>
+                </Attachment>
+            {% endif %}
+
+            {# Ходатайство #}
+            <!-- Ходатайство -->
+            {% if files[8] is defined %}
+                <Attachment>
+                    <AttachmentType>Other</AttachmentType>
+                    <FileFormat>PDF</FileFormat>
+                    <Body>{{ files[8].base }}</Body>
+                </Attachment>
+            {% endif %}
+            <!-- Ходатайство конец -->
+            {# Заявление #}
+            {% if files[7] is defined %}
+                <Attachment>
+                    <AttachmentType>Other</AttachmentType>
+                    <FileFormat>PDF</FileFormat>
+                    <Body>{{ files[7].base }}</Body>
+                </Attachment>
+            {% endif %}
+        </Order_v2>
+        {% endfor %}
+    </ns2:TacPackage>
+{% endspaceless %}

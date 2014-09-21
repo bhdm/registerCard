@@ -43,7 +43,6 @@ class RobokassaController extends Controller
     /**
      * Сюда попадаем после оплаты если успешно
      * @Route("/payment/success", name="payment_success")
-     * @Template("LearningMainBundle:Assist:payment.html.twig")
      */
     public function successPaymentAction(Request $request){
         $orderId = $request->query->get('InvId');
@@ -66,6 +65,8 @@ class RobokassaController extends Controller
         return array(
             'success'   => $success,
         );
+
+
     }
 
     /**
