@@ -1,0 +1,35 @@
+{% extends 'CrmOperatorBundle::layout.html.twig' %}
+
+
+{% block crosh %}
+    <a href="{{ path('operator_main') }}">Главная</a> &raquo;
+    <a href="{{ path('operator_company_list') }}">
+        Настройки
+    </a>
+{% endblock %}
+
+{% block content%}
+    {% if setting is empty %}
+        <h3 class="color-red">настроек не найдено</h3>
+    {% else %}
+        <form method="POST">
+            <table class="lists">
+                <tr>
+                    <th>Заголовок</th>
+                    <th>Значение</th>
+                </tr>
+                {% for s in setting %}
+                    <tr>
+                        <td style="text-align: center">{{ s.title }}</td>
+                        <td><a href="#"><input type="text" value="{{ s.val }}" name="setting[{{ s.id }}]"></a></td>
+                    </tr>
+                {% endfor %}
+                <tr>
+                    <td></td>
+                    <td><button type="submit">Сохранить</button></td>
+                </tr>
+            </table>
+        </form>
+    {% endif %}
+
+{% endblock %}
