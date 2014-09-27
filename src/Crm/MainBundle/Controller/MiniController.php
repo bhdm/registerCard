@@ -80,11 +80,7 @@ class MiniController extends Controller{
 
         $user->setSnils($data->get('snils'));
 
-        if ($data->get('myPetition')!='null'){
-            $user->setMyPetition(1);
-        }else{
-            $user->setMyPetition(0);
-        }
+        $user->setMyPetition(0);
 
 
         $company  = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->findOneByUrl($compnayUrl);
