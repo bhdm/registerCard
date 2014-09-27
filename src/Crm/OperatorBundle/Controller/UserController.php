@@ -512,11 +512,7 @@ class UserController extends Controller{
         return $this->redirect($request->headers->get('referer'));
     }
 
-    /**
-     * @Route("/generate-petition", name="operator_generate_petition")
-     * @Template()
-     */
-    public function generatePetitionAction(){}
+
 
     public function cropimage($img, $rect){
 
