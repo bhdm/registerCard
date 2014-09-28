@@ -148,6 +148,10 @@
                                 <a href="{{ path('generate_petition',{'userId' : user.id}) }}" target="_blank" class="no-underline">
                                     <img src="{{ asset('bundles/crmoperator/images/icon/image28_2.png') }}" class="icon" title="Ходатайство"/>
                                 </a>
+                            {% elseif user.companyPetition is not null %}
+                                <a href="{{ path('operator_generate_petition', { 'petitionId' : user.companyPetition.id }) }}" target="_blank">
+                                    <img src="{{ asset('bundles/crmoperator/images/icon/image28_2.png') }}" class="icon" title="Ходатайство"/>
+                                </a>
                             {% endif %}
 
 

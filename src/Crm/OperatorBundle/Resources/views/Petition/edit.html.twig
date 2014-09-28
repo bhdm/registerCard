@@ -8,7 +8,7 @@
 {% endblock %}
 
 {% block content %}
-    <form method="POST" id="petitionForm">
+    <form method="POST" id="petitionForm" enctype="multipart/form-data">
         <table class="table-edit">
             <tr>
                 <td class="label">Дата ходатайства:</td>
@@ -34,6 +34,9 @@
             <tr>
                 <td class="label">Подписанное ходатайство:</td>
                 <td class="value">
+                    {% if petition.file is not empty %}
+                        <img src="/upload/petitions/{{ petition.file.fileName }}" style="width: 500px"><br /><br />
+                    {% endif %}
                     <input type="file" name="petitionFile">
                 </td>
             </tr>
@@ -42,7 +45,6 @@
             <tr>
                 <td></td>
                 <td style="text-align: right">
-                    <input type="submit" id="savePetition" value="Сохранить" class="btn saveForm">
                     <input type="submit" id="closePetition" value="Закрыть ходатайсво" class="btn saveForm">
                 </td>
             </tr>

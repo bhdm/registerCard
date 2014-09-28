@@ -169,9 +169,32 @@ class PetitionController extends Controller
      * @Route("/edit/{petitionId}", name="operator_petition_edit")
      * @Template()
      */
-    public function editAction($petitionId){
+    public function editAction(Request $request, $petitionId){
         $petition = $this->getDoctrine()->getRepository('CrmMainBundle:CompanyPetition')->findOneById($petitionId);
-        if ( $petition && $petition->getOperator() == $this->getUser() ){
+        if ( $petition && ($petition->getOperator() == $this->getUser() || $this->get('security.context')->isGranted('ROLE_ADMIN') )){
+            if ($request->getMethod() == 'POST'){
+                $em = $this->getDoctrine()->getManager();
+                $file = $request->files->get('petitionFile');
+                $name = $this->genRandomString();
+                move_uploaded_file($file, '/var/www/upload/petitions/'.$name);
+
+                $img = '/var/www/upload/petitions/'.$name;
+                $path = $img;
+                $size = filesize($img);
+                $fileName = basename($img);
+                $originalName = basename($img);
+                $mimeType = mime_content_type($img);
+                $array =  array(
+                    'path' =>$path,
+                    'size' =>$size,
+                    'fileName' =>$fileName,
+                    'originalName' =>$originalName,
+                    'mimeType' =>$mimeType,
+                );
+                $petition->setFile($array);
+                $petition->setStatus(1);
+                $em->flush();
+            }
             return array ('petition' => $petition);
         }else{
             return $this->redirect($this->generateUrl('operator_main'));
@@ -203,5 +226,20 @@ class PetitionController extends Controller
         $petition->setEnabled(false);
         $this->getDoctrine()->getManager()->flush($petition);
         return $this->redirect($request->headers->get('referer'));
+    }
+
+    public function genRandomString(){
+        $length = 16;
+        $characters = "0123456789ABCDEFGHIJKLMNOPQRSTUVWZYZ";
+
+        $real_string_length = strlen($characters) ;
+        $string="id";
+
+        for ($p = 0; $p < $length; $p++)
+        {
+            $string .= $characters[mt_rand(0, $real_string_length-1)];
+        }
+
+        return strtolower($string);
     }
 }
