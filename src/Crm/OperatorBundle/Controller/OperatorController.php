@@ -19,7 +19,7 @@ use Symfony\Component\Security\Core\Encoder\MessageDigestPasswordEncoder;
  * Class OperatorController
  * @package Crm\OperatorBundle\Controller
  * @Route("/operator/operator")
- * @Security("has_role('ROLE_ADMIN')")
+ * @Security("has_role('ROLE_MODERATOR')")
  */
 class OperatorController extends Controller{
 
@@ -28,7 +28,12 @@ class OperatorController extends Controller{
      * @Template()
      */
     public function listAction(){
-        $operators = $this->getDoctrine()->getRepository('CrmMainBundle:Operator')->findAll();
+        if ( $this->get('security.context')->isGranted('ROLE_ADMIN')){
+            $operators = $this->getDoctrine()->getRepository('CrmMainBundle:Operator')->findAll();
+        }else{
+            $moderator = $this->getDoctrine()->getRepository('CrmMainBundle:Operator')->findOneById($this->getUser()->getId());
+            $operators = $this->getDoctrine()->getRepository('CrmMainBundle:Operator')->findByModerator($moderator);
+        }
         return array('operators' => $operators );
     }
 
@@ -59,6 +64,16 @@ class OperatorController extends Controller{
         if ($request->getMethod() == 'POST'){
             $operator->setUsername($request->request->get('username'));
             $operator->setRoles($request->request->get('role'));
+
+            if ( $this->get('security.context')->isGranted('ROLE_ADMIN')){
+                if ($request->request->get('moderator') != null){
+                    $moderator = $this->getDoctrine()->getRepository('CrmMainBundle:Operator')->find($request->request->get('moderator'));
+                    $operator->setModerator($moderator);
+                }else{
+                    $operator->setModerator(null);
+                }
+            }
+
             if ($request->request->get('password') != ''){
                 if ($request->request->get('password') == $request->request->get('password2')){
                     $operator->setSalt(md5(time()));
@@ -74,7 +89,8 @@ class OperatorController extends Controller{
             $em->flush($operator);
             return $this->redirect($this->generateUrl('operator_operator_list'));
         }
-        return array('operator' => $operator);
+        $moderators = $this->getDoctrine()->getRepository('CrmMainBundle:Operator')->findAll();
+        return array('operator' => $operator, 'moderators' => $moderators);
     }
 
     /**
@@ -91,6 +107,13 @@ class OperatorController extends Controller{
         if ($request->getMethod() == 'POST'){
             $operator->setUsername($request->request->get('username'));
             $operator->setRoles($request->request->get('role'));
+
+            if ( $this->get('security.context')->isGranted('ROLE_MODERATOR')){
+                $moderator = $this->getDoctrine()->getRepository('CrmMainBundle:Operator')->findOneById($this->getUser()->getId());
+                $operator->setModerator($moderator);
+            }
+
+
             if ($request->request->get('password') == $request->request->get('password2')){
                 $operator->setSalt(md5(time()));
                 // шифрует и устанавливает пароль для пользователя,

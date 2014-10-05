@@ -31,6 +31,8 @@
                                 Администратор<br />
                             {% elseif role == 'ROLE_OPERATOR' %}
                                 Оператор<br />
+                            {% elseif role == 'ROLE_MODERATOR' %}
+                                Модератор<br />
                             {% endif %}
                         {% endfor %}
                     </td>

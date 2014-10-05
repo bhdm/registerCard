@@ -16,6 +16,17 @@ use Symfony\Component\Security\Core\Role\RoleInterface;
  */
 class Operator extends BaseEntity implements UserInterface
 {
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Operator", inversedBy="operators")
+     */
+    protected $moderator;
+
+    /**
+     * @ORM\OneToMany(targetEntity="Operator", mappedBy="moderator")
+     */
+    protected $operators;
+
     /**
      * @ORM\Column(type="string", length=100)
      */
@@ -56,6 +67,7 @@ class Operator extends BaseEntity implements UserInterface
         $this->companies = new ArrayCollection();
         $this->petitions = new ArrayCollection();
         $this->payments = new ArrayCollection();
+        $this->operators = new ArrayCollection();
     }
 
     public function getPaymentCount(){
@@ -274,4 +286,43 @@ class Operator extends BaseEntity implements UserInterface
         $this->payments->removeElement($payment);
     }
 
+    /**
+     * @param mixed $moderator
+     */
+    public function setModerator($moderator)
+    {
+        $this->moderator = $moderator;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getModerator()
+    {
+        return $this->moderator;
+    }
+
+    /**
+     * @param mixed $operators
+     */
+    public function setOperators($operators)
+    {
+        $this->operators = $operators;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getOperators()
+    {
+        return $this->operators;
+    }
+
+    public function addOperator($operator){
+        $this->operators[] = $operator;
+    }
+
+    public function removeOperator($operator){
+        $this->operators->removeElement($operator);
+    }
 }

@@ -22,9 +22,23 @@
                     <select name="role" id="role" style="width: 270px;">
                         <option value="ROLE_OPERATOR" {{ operator.roles[0] == 'ROLE_OPERATOR' ? 'selected'  : ''}}>Оператор</option>
                         <option value="ROLE_ADMIN"  {{ operator.roles[0] == 'ROLE_ADMIN' ? 'selected'  : ''}}>Администратор</option>
+                        <option value="ROLE_MODERATOR"  {{ operator.roles[0] == 'ROLE_MODERATOR' ? 'selected'  : ''}}>Модератор</option>
                     </select>
                 </td>
             </tr>
+            {% if is_granted('ROLE_ADMIN') %}
+                <tr>
+                    <td class="label">Модератор:</td>
+                    <td class="value">
+                        <select name="role" id="role" style="width: 270px;">
+                            {% for m in moderators %}
+                                <option value="{{ m.id }}"  {{ operator.moderator != null and operator.moderator.id == m.id ? 'selected'  : '' }}>{{ m.username }}</option>
+                            {% endfor %}
+                        </select>
+                    </td>
+                </tr>
+            {% endif %}
+
             <tr>
                 <td colspan="2"><div class="title"><b>Сменить пароль</b></div></td>
             </tr>
