@@ -26,8 +26,9 @@
 <div class="header">
     <div class="header-content">
         ПАНЕЛЬ <span class="color-red">[ ОПЕРАТОРА ]</span>
+        <span>{{ app.user }} ( Лимит заявок {{ app.user.paymentCount }} ) </span>
         <div class="right-top-menu">
-            {{ app.user }}
+
             <span class="nbsp-10">&nbsp;</span>
             <a href="{{ path('_security_logout') }}">Выйти</a>
         </div>
