@@ -17,7 +17,7 @@ use Crm\MainBundle\Entity\CompanyPetition;
 use Symfony\Component\Security\Core\Encoder\MessageDigestPasswordEncoder;
 
 /**
- * @Security("has_role('ROLE_ADMIN')")
+ * @Security("has_role('ROLE_MODERATOR')")
  * @Route("/operator/payment")
  */
 class PaymentController extends Controller
