@@ -108,9 +108,10 @@ class ActivateController extends Controller
      * @Template()
      */
     public function listAction(){
-        $transports = $this->getDoctrine()->getRepository('CrmMainBundle:ActTransport')->findByActUser($this->getUser());
+        return $this->redirect($this->render('operator_user_list'));
 
-        return array('transports' => $transports);
+//        $transports = $this->getDoctrine()->getRepository('CrmMainBundle:ActTransport')->findByActUser($this->getUser());
+//        return array('transports' => $transports);
     }
 
     /**
