@@ -325,4 +325,13 @@ class Operator extends BaseEntity implements UserInterface
     public function removeOperator($operator){
         $this->operators->removeElement($operator);
     }
+
+    public function isRoles($role){
+        foreach ( $this->getRoles() as $title ){
+            if ($title == $role){
+                return true;
+            }
+        }
+        return false;
+    }
 }

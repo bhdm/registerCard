@@ -9,9 +9,12 @@
             <li  class="menu-item"><a href="{{ path('operator_user_list') }}">Пользователи</a></li>
             <li  class="menu-item"><a href="{{ path('operator_petition_list') }}">Ходатайства</a></li>
 
-            {% if is_granted('ROLE_ADMIN') %}
+            {% if is_granted('ROLE_MODERATOR') %}
                 <li  class="menu-item"><a href="{{ path('operator_operator_list') }}">Операторы</a></li>
                 <li  class="menu-item"><a href="{{ path('operator_payment_list') }}">Платежи</a></li>
+            {% endif %}
+
+            {% if is_granted('ROLE_ADMIN') %}
                 <li  class="menu-item"><a href="{{ path('operator_setting_list') }}">Настройки</a></li>
             {% endif %}
         </ul>

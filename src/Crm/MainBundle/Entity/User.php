@@ -1142,14 +1142,7 @@ class User extends BaseEntity implements UserInterface, EquatableInterface, \Ser
         return $this->comment;
     }
 
-    public function isRoles($role){
-        foreach ( $this->roles as $title ){
-            if ($title == $role){
-                return true;
-            }
-        }
-        return false;
-    }
+
 
 
 }

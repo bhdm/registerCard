@@ -81,6 +81,14 @@
         {% endif %}
             <table class="lists">
                 <tr>
+                    <td colspan="9">
+                        {% if company != null %}
+                            <button type="submit">Сгенерировать ходатайство на выделенных пользователей</button>
+                        {% endif %}
+                        <button type="button" id="xml">Массовое XML</button>
+                    </td>
+                </tr>
+                <tr>
                     <th style="width: 30px"></th>
                     <th style="padding: 0; text-align: center;"> № </th>
                     <th>Статус</th>
@@ -179,14 +187,6 @@
                         </td>
                     </tr>
                 {% endfor %}
-                <tr>
-                    <td colspan="4">
-                {% if company != null %}
-                            <button type="submit">Сгенерировать ходатайство на выделенных пользователей</button>
-                {% endif %}
-                            <button type="button" id="xml">Массовое XML</button>
-                    </td>
-                </tr>
             </table>
         </form>
     {% endif %}

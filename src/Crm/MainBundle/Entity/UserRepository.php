@@ -66,11 +66,11 @@ class UserRepository extends EntityRepository
             $res->setParameter('companyId', $company->getId());
         }
 
-        if ($operator && $operator->isRoles('ROLEA_OPERATOR')){
+        if ($operator && $operator->isRoles('ROLE_OPERATOR')){
             $res->leftJoin('c.operator','o')
                 ->andWhere('o.id = :operatorId')
                 ->setParameter('operatorId', $operator->getId());
-        }elseif($operator && $operator->isRoles('ROLEA_MODERATOR')){
+        }elseif($operator && $operator->isRoles('ROLE_MODERATOR')){
             $res->leftJoin('c.operator','o')
 //                ->andWhere('o.id = :operatorId')
                 ->leftJoin('o.moderator', 'm')

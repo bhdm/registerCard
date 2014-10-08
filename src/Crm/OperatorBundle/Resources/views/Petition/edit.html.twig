@@ -37,7 +37,7 @@
                     {% if petition.file is not empty %}
                         <img src="/upload/petitions/{{ petition.file.fileName }}" style="width: 500px"><br /><br />
                     {% endif %}
-                    <input type="file" name="petitionFile">
+                    <input type="file" name="petitionFile" required="required">
                 </td>
             </tr>
 
