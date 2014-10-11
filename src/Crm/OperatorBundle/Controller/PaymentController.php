@@ -31,7 +31,12 @@ class PaymentController extends Controller
             $operator = $this->getDoctrine()->getRepository('CrmMainBundle:Operator')->findOneById($operatorId);
             $payments = $this->getDoctrine()->getRepository('CrmMainBundle:CompanyPayment')->findByOperator($operator);
         }else{
-            $payments = $this->getDoctrine()->getRepository('CrmMainBundle:CompanyPayment')->findAll();
+            if ( !$this->get('security.context')->isGranted('ROLE_ADMIN') ){
+                $payments = $this->getDoctrine()->getRepository('CrmMainBundle:CompanyPayment')->findAll();
+            }else{
+                $moderator = $this->getUser();
+                $payments = $this->getDoctrine()->getRepository('CrmMainBundle:CompanyPayment')->findByModerator($moderator);
+            }
             $operator = null;
         }
         return array('payments' => $payments, 'operator' => $operator );
