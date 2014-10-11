@@ -137,9 +137,17 @@ class XmlController extends Controller
                 $files[8]['base'] = $this->pdfToBase64($url);
                 $files[8]['title'] = 'Petition';
             }else{
-                $file= $user->getCopyPetition();
-                $files[8]['base'] = $this->ImageToPdf($file['originalName']);
-                $files[8]['title'] = 'Petition';
+                if ($user->getCompanyPetition() == null ){
+                    $file= $user->getCopyPetition();
+                    $files[8]['base'] = $this->ImageToPdf($file['originalName']);
+                    $files[8]['title'] = 'Petition';
+                }else{
+                    if ($user->getCompanyPetition()->getFile() != null ){
+                        $file= $user->getCompanyPetition()->getFile();
+                        $files[8]['base'] = $this->ImageToPdf($file['originalName']);
+                        $files[8]['title'] = 'Petition';
+                    }
+                }
             }
 
             $xmls[$user->getId()]['user'] = $user;
