@@ -281,7 +281,7 @@ class UserController extends Controller{
         $session = $request->getSession();
         $user = $this->getDoctrine()->getRepository('CrmMainBundle:User')->findOneById($userId);
 
-        if ($user && ( $user->getCompany()->getOperator() == $this->getUser() || $this->get('security.context')->isGranted('ROLE_ADMIN'))){
+        if ($user && ( $user->getCompany()->getOperator() == $this->getUser() || $this->get('security.context')->isGranted('ROLE_ADMIN')) || $user->getCompany()->getOpertor()->getModerator() == $this->getUser()){
             if ($request->getMethod() == 'POST'){
                 $data = $request->request;
 
