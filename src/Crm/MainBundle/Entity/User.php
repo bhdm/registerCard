@@ -610,6 +610,9 @@ class User extends BaseEntity implements UserInterface, EquatableInterface, \Ser
             case 3:
                 $status = 'В производстве';
                 break;
+            case 6:
+                $status = 'Изготовлено';
+                break;
             case 4:
                 $status = 'На почте';
                 break;
