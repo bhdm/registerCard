@@ -153,7 +153,7 @@
                             </td>
                         {% endif %}
                         <td>
-                            <a title="{{ user.comment }}" href="{{ path('operator_show_user' , { 'userId' : user.id}) }}">{{ user }}</a>
+                            <a title="{{ user.comment }}" href="{{ path('operator_show_user' , { 'userId' : user.id}) }}" {{ user.comment ? 'style="color: #920055"' : '' }}>{{ user }}</a>
                             <br />
                             <a href="?search={{ user.email }}" style="color: #333333; font-size: 12px">{{ user.email }}</a>
                         </td>
