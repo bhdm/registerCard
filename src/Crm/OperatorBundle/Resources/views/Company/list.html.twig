@@ -17,6 +17,7 @@
             <tr>
                 <th style="width: 300px">Название</th>
                 <th>Кол-во</th>
+                <th>URL</th>
                 <th class="empty"></th>
                 <th class="options">Действия</th>
             </tr>
@@ -26,6 +27,7 @@
                     <td>
                         <span  class="comment" title="Сделано (кол-во пользователей)">{{ company.users | length }}</span>
                     </td>
+                    <td>{{ company.url }}</td>
                     <td></td>
                     <td class="options">
                         <a class="no-underline" href="{{ path('operator_user_list',{ 'companyId' : company.id}) }}"><img src="{{ asset('bundles/crmoperator/images/icon/image20.png') }}" class="icon"/></a>
