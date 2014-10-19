@@ -46,7 +46,6 @@ class UserRepository extends EntityRepository
         if ($search){
             $res->andWhere("(u.email LIKE '%$search%'
                          OR u.id = '$search'
-                         OR u.username LIKE '%$search%'
                          OR u.lastName LIKE '%$search%'
                          OR u.firstName LIKE '%$search%'
                          OR u.surName LIKE '%$search%')");
