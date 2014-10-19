@@ -31,7 +31,7 @@ class UserRepository extends EntityRepository
      * @param $toDeploy
      * @param $toArhive
      */
-    public function filter($operator, $company, $toDay, $toWeek, $toPetition, $toDeploy, $toArhive){
+    public function filter($operator, $company, $toDay, $toWeek, $toPetition, $toDeploy, $toArhive, $search){
         $res = $this->getEntityManager()->createQueryBuilder()
             ->select('u')
             ->from('CrmMainBundle:User','u')
@@ -42,23 +42,37 @@ class UserRepository extends EntityRepository
         }else{
             $res->where('u.enabled = 1');
         }
+
+        if ($search){
+            $res->andWhere("(u.email LIKE '%$search%'
+                         OR u.id = '$search'
+                         OR u.username LIKE '%$search%'
+                         OR u.lastName LIKE '%$search%'
+                         OR u.firstName LIKE '%$search%'
+                         OR u.surName LIKE '%$search%')");
+        }
+
+        if ($toDeploy){
+            $res->andWhere("u.status = 3 ");
+        }
+
         if ($toDay){
-            $date = new DateTime("now");
+            $date = new \DateTime("now");
             $day1 = $date->format('Y-m-d').' 00:00:00';
-            $date = new DateTime("now");
+            $date = new \DateTime("now");
             $day2 = $date->format('Y-m-d').' 23:59:59';
 
-            $res->andWhere("u.created >= $day1 ");
-            $res->andWhere("u.created <= $day2 ");
+            $res->andWhere("u.created >= '$day1' ");
+            $res->andWhere("u.created <= '$day2' ");
         }
         if ($toWeek){
-            $date = new DateTime("now");
+            $date = new \DateTime("now");
             $day1 = $date->format('Y-m-d').' 00:00:00';
-            $date = new DateTime("-7 days");
+            $date = new \DateTime("-7 days");
             $day2 = $date->format('Y-m-d').' 23:59:59';
 
-            $res->andWhere("u.created >= $day1 ");
-            $res->andWhere("u.created <= $day2 ");
+            $res->andWhere("u.created >= '$day1' ");
+            $res->andWhere("u.created <= '$day2' ");
         }
 
         if ($company){

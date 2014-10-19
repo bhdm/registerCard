@@ -27,10 +27,10 @@ class UserController extends Controller{
 
     /**
      * Показывает водителей определенной компании
-     * @Route("/list/{companyId}/{new}/{petition}/{arhive}", name="operator_user_list", defaults={"companyId"=null, "new"=null, "petition"=null, "arhive"=null})
+     * @Route("/list/{companyId}/{type}", name="operator_user_list", defaults={"companyId"=null, "type"=null})
      * @Template()
      */
-    public function listAction($companyId = null, $new = null, $petition=null, $arhive=null){
+    public function listAction(Request $request, $companyId = null, $type = null){
 
         $toDay =        null;
         $toWeek =       null;
@@ -38,11 +38,11 @@ class UserController extends Controller{
         $toDeploy =     null;
         $toArhive =     null;
 
-        if ( $arhive ){ $toArhive = true; }
-        if ( $new == 'day' ){ $toDay = true; }
-        if ( $new == 'week' ){ $toWeek = true; }
-        if ( $petition == 'true' ){ $toPetition = true; }
-        if ( $petition == 'deploy' ){ $toDeploy = true; }
+        if ( $type == 'arhive' ){ $toArhive = true; }
+        if ( $type == 'day' ){ $toDay = true; }
+        if ( $type == 'week' ){ $toWeek = true; }
+        if ( $type == 'petition' ){ $toPetition = true; }
+        if ( $type == 'deploy' ){ $toDeploy = true; }
         if ( $companyId ){
             $company = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->findOneById($companyId);
         }else{
@@ -53,8 +53,8 @@ class UserController extends Controller{
         }else{
             $operator = null;
         }
-
-        $users = $this->getDoctrine()->getRepository('CrmMainBundle:User')->filter($operator,$company, $toDay, $toWeek, $toPetition, $toDeploy, $toArhive);
+        $search = $request->query->get('search');
+        $users = $this->getDoctrine()->getRepository('CrmMainBundle:User')->filter($operator,$company, $toDay, $toWeek, $toPetition, $toDeploy, $toArhive, $search);
 
 //        if ($companyId == null && $this->get('security.context')->isGranted('ROLE_ADMIN')){
 //            $company = null;
@@ -74,6 +74,7 @@ class UserController extends Controller{
 
         return array(
             'company'   => $company,
+            'companyId' => ($company != null ? $company->getId() : null),
             'users'     => $users,
             'toDay'     => $toDay,
             'toWeek'    => $toWeek,
