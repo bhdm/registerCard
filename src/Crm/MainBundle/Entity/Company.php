@@ -672,7 +672,7 @@ class Company extends BaseEntity
     public function usersCount(){
         $i = 0;
         foreach ( $this->users as $val ){
-            if ($val->getEnabled == true){
+            if ($val->getEnabled() == true){
                 $i ++;
             }
         }
