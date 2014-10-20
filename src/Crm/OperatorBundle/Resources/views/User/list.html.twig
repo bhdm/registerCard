@@ -6,7 +6,7 @@
     {% if company != null %}
         <a href="{{ path('operator_company_list') }}">Список компаний</a> &raquo;
         <a href="#">{{ company.title }}</a> &raquo;
-        <a href="{{ path('operator_user_list',{'companyId': company.id }) }}">Список пользователей</a>
+        <a href="{{ path('operator_user_list',{'companyId': company.id }) }} ">Список пользователей</a>
         <div class="right">
             <a href="{{ path('operator_user_add',{'companyId': company.id}) }}">Добавить</a>
         </div>

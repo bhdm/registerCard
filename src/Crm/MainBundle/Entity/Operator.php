@@ -365,5 +365,16 @@ class Operator extends BaseEntity implements UserInterface
         return $this->checks;
     }
 
-
+    public function getModeratorCompanies(){
+        $companies = array();
+        $operators = $this->getOperators();
+        foreach ( $operators as $operator){
+            foreach ( $operator->getCompanies as $company){
+                if ($company->getEnabled == true){
+                    $companies[] = $company;
+                }
+            }
+        }
+        return $companies;
+    }
 }

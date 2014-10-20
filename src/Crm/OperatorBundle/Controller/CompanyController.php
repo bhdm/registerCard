@@ -30,7 +30,14 @@ class CompanyController extends Controller{
      * @Template()
      */
     public function listAction(){
-        $companies = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->findBy(array('operator' => $this->getUser(), 'enabled' => true));
+        if ($this->get('security.context')->isGranted('ROLE_ADMIN')){
+            $companies = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->findBy(array('enabled' => true));
+        }elseif($this->get('security.context')->isGranted('ROLE_MODERATOR')){
+            $companies = $this->getUser()->getModeratorCompanies();
+        }else{
+            $companies = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->findBy(array('operator' => $this->getUser(), 'enabled' => true));
+        }
+
 //        if (!$companies){
 //            return $this->redirect($this->generateUrl('operator_main'));
 //        }
