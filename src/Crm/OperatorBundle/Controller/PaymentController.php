@@ -27,11 +27,16 @@ class PaymentController extends Controller
      * @Template()
      */
     public function listAction($operatorId = null){
+
         if ($operatorId){
             $operator = $this->getDoctrine()->getRepository('CrmMainBundle:Operator')->findOneById($operatorId);
-            $payments = $this->getDoctrine()->getRepository('CrmMainBundle:CompanyPayment')->findByOperator($operator);
+            if ( $this->get('security.context')->isGranted('ROLE_ADMIN') ){
+                $payments = $this->getDoctrine()->getRepository('CrmMainBundle:CompanyPayment')->findByOperator($operator);
+            }else{
+                $payments = $this->getDoctrine()->getRepository('CrmMainBundle:CompanyPayment')->findBy(array('operator' => $operator, 'moderator' =>$this->getUser()));
+            }
         }else{
-            if ( !$this->get('security.context')->isGranted('ROLE_ADMIN') ){
+            if ( $this->get('security.context')->isGranted('ROLE_ADMIN') ){
                 $payments = $this->getDoctrine()->getRepository('CrmMainBundle:CompanyPayment')->findAll();
             }else{
                 $moderator = $this->getUser();
@@ -39,6 +44,9 @@ class PaymentController extends Controller
             }
             $operator = null;
         }
+
+
+
         return array('payments' => $payments, 'operator' => $operator );
     }
 

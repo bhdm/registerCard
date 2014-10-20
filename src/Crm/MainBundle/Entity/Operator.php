@@ -60,13 +60,20 @@ class Operator extends BaseEntity implements UserInterface
     /**
      * @ORM\OneToMany(targetEntity="CompanyPayment", mappedBy="operator", cascade={"all"})
      */
+    protected $checks;
+
+    /**
+     * @ORM\OneToMany(targetEntity="CompanyPayment", mappedBy="moderator", cascade={"all"})
+     */
     protected $payments;
+
 
     public function __construct(){
         $this->roles    = 'ROLE_OPERATOR';
         $this->companies = new ArrayCollection();
         $this->petitions = new ArrayCollection();
         $this->payments = new ArrayCollection();
+        $this->checks = new ArrayCollection();
         $this->operators = new ArrayCollection();
     }
 
@@ -334,4 +341,22 @@ class Operator extends BaseEntity implements UserInterface
         }
         return false;
     }
+
+    /**
+     * @param mixed $checks
+     */
+    public function setChecks($checks)
+    {
+        $this->checks = $checks;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getChecks()
+    {
+        return $this->checks;
+    }
+
+
 }
