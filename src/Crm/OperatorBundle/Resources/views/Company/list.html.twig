@@ -24,7 +24,17 @@
             {% for company in companies %}
                 {% if company.url != null %}
                     <tr>
-                        <td><a href="{{ path('operator_user_list',{'companyId' : company.id}) }}">{{ company.title }}</a></td>
+                        <td>
+                            {% if company.operator != null and company.operator.moderator != null %}
+                                {{ company.operator.moderator }} /
+                            {% endif %}
+
+                            {% if company.operator != null %}
+                                {{ company.operator }} /
+                            {% endif %}
+
+                            <a href="{{ path('operator_user_list',{'companyId' : company.id}) }}">{{ company.title }}</a>
+                        </td>
                         <td>
                             <span  class="comment" title="Сделано (кол-во пользователей)">{{ company.usersCount}}</span>
                         </td>
