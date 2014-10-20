@@ -40,9 +40,9 @@
                         {% for role in operator.roles %}
                             {% if role == 'ROLE_ADMIN' %}
                             {% elseif role == 'ROLE_MODERATO1R' %}
-                                {{ app.user.moderatorPaymentCount }}
+                                {{ operator.moderatorPaymentCount }}
                             {% elseif role == 'ROLE_OPERATOR' %}
-                                {{ app.user.paymentCount }}
+                                {{ operator.paymentCount }}
                             {% endif %}
                         {% endfor %}
                     </td>
