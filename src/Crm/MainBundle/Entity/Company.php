@@ -406,7 +406,7 @@ class Company extends BaseEntity
     /**
      * @param mixed $enabled
      */
-    public function setEnabled($enabled = 0 )
+    public function setEnabled($enabled = 1 )
     {
         $this->enabled = $enabled;
     }
