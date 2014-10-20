@@ -527,7 +527,7 @@ class UserController extends Controller{
      * @Route("/production/{userId}/{type}", name="operator_user_production", defaults={"type"="true"})
      * @Template()
      */
-    public function productionAction(Request $request, $userId, $type = true){
+    public function productionAction(Request $request, $userId, $type = 'true'){
         $user = $this->getDoctrine()->getRepository('CrmMainBundle:User')->findOneById($userId);
 
         if ($user->getProduction() == 0 && $type == 'true'){
