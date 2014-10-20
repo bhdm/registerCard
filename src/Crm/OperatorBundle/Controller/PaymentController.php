@@ -40,7 +40,7 @@ class PaymentController extends Controller
                 $payments = $this->getDoctrine()->getRepository('CrmMainBundle:CompanyPayment')->findAll();
             }else{
                 $moderator = $this->getUser();
-                $payments = $this->getDoctrine()->getRepository('CrmMainBundle:CompanyPayment')->findByOperator($moderator);
+                $payments = $this->getDoctrine()->getRepository('CrmMainBundle:CompanyPayment')->findByModerator($moderator);
             }
             $operator = null;
         }
@@ -55,7 +55,12 @@ class PaymentController extends Controller
      * @Template()
      */
     public function addAction(Request $request){
-        $perators = $this->getDoctrine()->getRepository('CrmMainBundle:Operator')->findAll();
+        if ( $this->get('security.context')->isGranted('ROLE_ADMIN') ){
+            $perators = $this->getDoctrine()->getRepository('CrmMainBundle:Operator')->findAll();
+        }else{
+            $perators = $this->getDoctrine()->getRepository('CrmMainBundle:Operator')->findByModerator($this->getUser());
+        }
+
         $em = $this->getDoctrine()->getManager();
         if ( $request->getMethod() == 'POST'){
             $payment = new CompanyPayment();
@@ -63,6 +68,7 @@ class PaymentController extends Controller
             $payment->setOperator($operator);
             $payment->setCount($request->request->get('count'));
             $payment->setSumm($request->request->get('summ'));
+            $payment->setModerator($this->getUser());
             $em->persist($payment);
             $em->flush();
             return $this->redirect($this->generateUrl('operator_payment_list'));
@@ -84,6 +90,7 @@ class PaymentController extends Controller
                 $payment->setOperator($operator);
                 $payment->setCount($request->request->get('count'));
                 $payment->setSumm($request->request->get('summ'));
+                $payment->setModerator($this->getUser());
                 $em->flush($payment);
                 return $this->redirect($this->generateUrl('operator_payment_list'));
             }
