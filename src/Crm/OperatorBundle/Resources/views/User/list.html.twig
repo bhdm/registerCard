@@ -123,8 +123,11 @@
                         <td style="text-align: center">
                             {{ user.id }}
                         </td>
+
                         <td>
+                            {% if is_granted('ROLE_ADMIN') %}
                                 <a href="{{ path('operator_change_status',{userId: user.id }) }}">
+                            {% endif %}
                                 {% if user.status == null or user.status == 0  %}
                                     <span class="status" style="border: 1px solid #000">
                                 {% elseif user.status == 10 %}
@@ -146,8 +149,11 @@
                                 {% endif %}
                                 {{ user.statusString }}
                                     </span>
-                            </a>
+                            {% if is_granted('ROLE_ADMIN') %}
+                                </a>
+                            {% endif %}
                         </td>
+
                         <td>{{ user.created | date("d.m.Y") }}</td>
                         {% if company == null %}
                             <td>
