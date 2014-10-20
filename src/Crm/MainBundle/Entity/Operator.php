@@ -92,6 +92,14 @@ class Operator extends BaseEntity implements UserInterface
             }
         }
 
+        return $summ;
+    }
+
+    public function getModerationPaymentCount(){
+        $summ = 0;
+        foreach ($this->getChecks() as $val){
+            $summ += $val->getCount();
+        }
         foreach ($this->getOperators() as $operator){
             foreach ($operator->getCompanies() as $company){
                 foreach ($company->getUsers() as $user ){
@@ -101,8 +109,6 @@ class Operator extends BaseEntity implements UserInterface
                 }
             }
         }
-
-        return $summ;
     }
 
 
