@@ -109,6 +109,8 @@ class Operator extends BaseEntity implements UserInterface
                 }
             }
         }
+
+        return $summ;
     }
 
 
