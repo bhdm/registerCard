@@ -32,7 +32,7 @@
                 {% if is_granted('ROLE_OPERATOR') %}
                     {{ app.user.paymentCount }}
                 {% elseif is_granted('ROLE_MODERATOR') %}
-                    {{ app.user.ModerationPaymentCount }}
+                    {{ app.user.moderatorPaymentCount }}
                 {% endif %}
                 )
             {% endif %}

@@ -95,7 +95,7 @@ class Operator extends BaseEntity implements UserInterface
         return $summ;
     }
 
-    public function getModerationPaymentCount(){
+    public function getModeratorPaymentCount(){
         $summ = 0;
         foreach ($this->getChecks() as $val){
             $summ += $val->getCount();
@@ -103,7 +103,7 @@ class Operator extends BaseEntity implements UserInterface
         foreach ($this->getOperators() as $operator){
             foreach ($operator->getCompanies() as $company){
                 foreach ($company->getUsers() as $user ){
-                    if ($user->getProduction() > 0 ){
+                    if ($user->getProduction() > 1 ){
                         $summ --;
                     }
                 }
