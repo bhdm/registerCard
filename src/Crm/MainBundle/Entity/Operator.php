@@ -78,10 +78,17 @@ class Operator extends BaseEntity implements UserInterface
     }
 
     public function getPaymentCount(){
-        $payments = $this->getPayments();
         $summ = 0;
-        foreach ($payments as $val){
+        foreach ($this->getChecks() as $val){
             $summ += $val->getCount();
+        }
+
+        foreach ($this->companies as $company){
+            foreach ($company->getUsers() as $user ){
+                if ($user->getProduction > 0 ){
+                    $summ --;
+                }
+            }
         }
 
         return $summ;
