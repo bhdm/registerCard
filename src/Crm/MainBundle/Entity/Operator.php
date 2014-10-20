@@ -370,7 +370,7 @@ class Operator extends BaseEntity implements UserInterface
         $operators = $this->getOperators();
         foreach ( $operators as $operator){
             foreach ( $operator->getCompanies as $company){
-                if ($company->getEnabled == true){
+                if ($company->getEnabled == true && $company->gettitle != null){
                     $companies[] = $company;
                 }
             }
