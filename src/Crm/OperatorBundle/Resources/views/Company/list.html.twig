@@ -22,23 +22,25 @@
                 <th class="options">Действия</th>
             </tr>
             {% for company in companies %}
-                <tr>
-                    <td><a href="{{ path('operator_user_list',{'companyId' : company.id}) }}">{{ company.title }}</a></td>
-                    <td>
-                        <span  class="comment" title="Сделано (кол-во пользователей)">{{ company.usersCount}}</span>
-                    </td>
-                    <td>{{ company.url }}</td>
-                    <td></td>
-                    <td class="options">
-                        <a class="no-underline" href="{{ path('operator_user_list',{ 'companyId' : company.id}) }}"><img src="{{ asset('bundles/crmoperator/images/icon/image20.png') }}" class="icon"/></a>
-                        <a class="no-underline" href="{{ path('operator_petition_list',{ 'companyId' : company.id}) }}"><img src="{{ asset('bundles/crmoperator/images/icon/image26.png') }}" class="icon"/></a>
-                        <a class="no-underline" href="{{ path('operator_company_edit',{ 'companyId' : company.id}) }}"><img src="{{ asset('bundles/crmoperator/images/icon/image22.png') }}" class="icon"/></a>
+                {% if company.url != null %}
+                    <tr>
+                        <td><a href="{{ path('operator_user_list',{'companyId' : company.id}) }}">{{ company.title }}</a></td>
+                        <td>
+                            <span  class="comment" title="Сделано (кол-во пользователей)">{{ company.usersCount}}</span>
+                        </td>
+                        <td>{{ company.url }}</td>
+                        <td></td>
+                        <td class="options">
+                            <a class="no-underline" href="{{ path('operator_user_list',{ 'companyId' : company.id}) }}"><img src="{{ asset('bundles/crmoperator/images/icon/image20.png') }}" class="icon"/></a>
+                            <a class="no-underline" href="{{ path('operator_petition_list',{ 'companyId' : company.id}) }}"><img src="{{ asset('bundles/crmoperator/images/icon/image26.png') }}" class="icon"/></a>
+                            <a class="no-underline" href="{{ path('operator_company_edit',{ 'companyId' : company.id}) }}"><img src="{{ asset('bundles/crmoperator/images/icon/image22.png') }}" class="icon"/></a>
 
-                        <a class="no-underline" href="{{ path('operator_company_remove' , { 'companyId' : company.id}) }}">
-                            <img src="{{ asset('bundles/crmoperator/images/icon/image11.png') }}" class="icon"/>
-                        </a>
-                    </td>
-                </tr>
+                            <a class="no-underline" href="{{ path('operator_company_remove' , { 'companyId' : company.id}) }}">
+                                <img src="{{ asset('bundles/crmoperator/images/icon/image11.png') }}" class="icon"/>
+                            </a>
+                        </td>
+                    </tr>
+                {% endif %}
             {% endfor %}
         </table>
     {% endif %}
