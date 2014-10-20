@@ -83,5 +83,22 @@ class CompanyPayment extends BaseEntity{
         return $this->operator;
     }
 
+    /**
+     * @param mixed $moderator
+     */
+    public function setModerator($moderator)
+    {
+        $this->moderator = $moderator;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getModerator()
+    {
+        return $this->moderator;
+    }
+
+
 
 }
