@@ -31,7 +31,7 @@ class UserRepository extends EntityRepository
      * @param $toDeploy
      * @param $toArhive
      */
-    public function filter($operator, $company, $toDay, $toWeek, $toPetition, $toDeploy, $toArhive, $search){
+    public function filter($role,$operator, $company, $toDay, $toWeek, $toPetition, $toDeploy, $toArhive, $search){
         $res = $this->getEntityManager()->createQueryBuilder()
             ->select('u')
             ->from('CrmMainBundle:User','u')
@@ -42,7 +42,7 @@ class UserRepository extends EntityRepository
         }else{
             $res->where('u.enabled = 1');
         }
-
+        $res->andWhere('u.production >= '.$role);
         if ($search){
             $res->andWhere("(u.email LIKE '%$search%'
                          OR u.id = '$search'

@@ -54,7 +54,17 @@ class UserController extends Controller{
             $operator = null;
         }
         $search = $request->query->get('search');
-        $users = $this->getDoctrine()->getRepository('CrmMainBundle:User')->filter($operator,$company, $toDay, $toWeek, $toPetition, $toDeploy, $toArhive, $search);
+
+        if ( $this->get('security.context')->isGranted('ROLE_ADMIN') ){
+            $role= '2';
+        }elseif ( $this->get('security.context')->isGranted('ROLE_MODERATOR') ){
+            $role= '1';
+        }else{
+            $role= '0';
+        }
+
+
+        $users = $this->getDoctrine()->getRepository('CrmMainBundle:User')->filter($role,$operator,$company, $toDay, $toWeek, $toPetition, $toDeploy, $toArhive, $search);
 
 //        if ($companyId == null && $this->get('security.context')->isGranted('ROLE_ADMIN')){
 //            $company = null;
@@ -512,6 +522,29 @@ class UserController extends Controller{
 
         return $this->redirect($request->headers->get('referer'));
     }
+
+    /**
+     * @Route("/production/{userId}/{type}", name="operator_user_production", defaults={"type"="true"})
+     * @Template()
+     */
+    public function productionAction(Request $request, $userId, $type = true){
+        $user = $this->getDoctrine()->getRepository('CrmMainBundle:User')->findOneById($userId);
+
+        if ($user->getProduction() == 0 && $type == 'true'){
+            $user->setEnabled(1);
+        }elseif($user->getProduction() == 1 && $type == 'true'){
+            $user->setEnabled(2);
+        }elseif($user->getProduction() == 1 && $type == 'false'){
+            $user->setEnabled(0);
+        }elseif($user->getProduction() == 2 && $type == 'false'){
+            $user->setEnabled(1);
+        }
+
+        $this->getDoctrine()->getManager()->flush($user);
+
+        return $this->redirect($request->headers->get('referer'));
+    }
+
 
 
 

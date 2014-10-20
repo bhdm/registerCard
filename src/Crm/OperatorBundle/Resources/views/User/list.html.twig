@@ -92,14 +92,16 @@
             <form method="POST" action="#" id="form-list">
         {% endif %}
             <table class="lists">
-                <tr>
-                    <td colspan="9">
-                        {% if company != null %}
-                            <button type="submit">Сгенерировать ходатайство на выделенных пользователей</button>
-                        {% endif %}
-                        <button type="button" id="xml">Массовое XML</button>
-                    </td>
-                </tr>
+                    <tr>
+                        <td colspan="9">
+                            {% if company != null %}
+                                <button type="submit">Сгенерировать ходатайство на выделенных пользователей</button>
+                            {% endif %}
+                            {% if is_granted('ROLE_ADMIN') %}
+                                <button type="button" id="xml">Массовое XML</button>
+                            {% endif %}
+                        </td>
+                    </tr>
                 <tr>
                     <th style="width: 30px"></th>
                     <th style="padding: 0; text-align: center;"> № </th>
@@ -193,9 +195,20 @@
                                     </a>
                                 {% endif %}
                             {% endif %}
-                            <a class="no-underline" href="{{ path('operator_user_edit' , { 'companyId' : user.company.id, 'userId' : user.id}) }}">
-                                <img src="{{ asset('bundles/crmoperator/images/icon/image22.png') }}" class="icon"/>
+
+                            <a class="no-underline" href="{{ path('operator_user_remove' , { 'userId' : user.id}) }}">
+                                <img src="{{ asset('bundles/crmoperator/images/icon/image11.png') }}" class="icon"/>
                             </a>
+
+                            {#<a class="no-underline" href="{{ path('operator_user_edit' , { 'companyId' : user.company.id, 'userId' : user.id}) }}">#}
+                                {#<img src="{{ asset('bundles/crmoperator/images/icon/image22.png') }}" class="icon"/>#}
+                            {#</a>#}
+
+                            {% if not is_granted('ROLE_ADMIN') %}
+                                <a class="no-underline" href="{{ path('operator_user_production' , { 'userId' : user.id}) }}">
+                                    <img src="{{ asset('bundles/crmoperator/images/icon/image27.png') }}" class="icon"/>
+                                </a>
+                            {% endif %}
 
                             <a class="no-underline" href="{{ path('operator_user_remove' , { 'userId' : user.id}) }}">
                                 <img src="{{ asset('bundles/crmoperator/images/icon/image11.png') }}" class="icon"/>
