@@ -530,13 +530,13 @@ class UserController extends Controller{
     public function productionAction(Request $request, $userId, $type = 'true'){
         $user = $this->getDoctrine()->getRepository('CrmMainBundle:User')->findOneById($userId);
 
-        if ($user->getProduction() == 0 && $type == 'true'){
+        if ($user->getProduction() == 0 && $type == 'true' &&  $this->get('security.context')->isGranted('ROLE_OPERATOR')){
             $user->setProduction(1);
-        }elseif($user->getProduction() == 1 && $type == 'true'){
+        }elseif($user->getProduction() == 1 && $type == 'true' &&  $this->get('security.context')->isGranted('ROLE_MODERATOR')){
             $user->setProduction(2);
-        }elseif($user->getProduction() == 1 && $type == 'false'){
+        }elseif($user->getProduction() == 1 && $type == 'false' && $this->get('security.context')->isGranted('ROLE_MODERATOR')){
             $user->setProduction(0);
-        }elseif($user->getProduction() == 2 && $type == 'false'){
+        }elseif($user->getProduction() == 2 && $type == 'false' &&  $this->get('security.context')->isGranted('ROLE_ADMIN')){
             $user->setProduction(1);
         }
 
