@@ -531,13 +531,13 @@ class UserController extends Controller{
         $user = $this->getDoctrine()->getRepository('CrmMainBundle:User')->findOneById($userId);
 
         if ($user->getProduction() == 0 && $type == 'true'){
-            $user->setEnabled(1);
+            $user->setProduction(1);
         }elseif($user->getProduction() == 1 && $type == 'true'){
-            $user->setEnabled(2);
+            $user->setProduction(2);
         }elseif($user->getProduction() == 1 && $type == 'false'){
-            $user->setEnabled(0);
+            $user->setProduction(0);
         }elseif($user->getProduction() == 2 && $type == 'false'){
-            $user->setEnabled(1);
+            $user->setProduction(1);
         }
 
         $this->getDoctrine()->getManager()->flush($user);
