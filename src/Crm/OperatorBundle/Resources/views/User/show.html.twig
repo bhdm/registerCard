@@ -43,6 +43,7 @@
             <tr>
                 <td class="label">Статус заявки:</td>
                 <td class="value">
+                    {% if is_granted('ROLE_ADMIN') %}
                     <select name="status">
                         <option value="0"  {{ user.status == 0 or user.status == null ? 'selected="selected"' : '' }}>Новая</option>
                         <option value="1"  {{ user.status == 1 ? 'selected="selected"' : '' }}>Подтвержденная</option>
@@ -53,6 +54,9 @@
                         <option value="5"  {{ user.status == 5 ? 'selected="selected"' : '' }}>Получена</option>
                         <option value="10" {{ user.status == 10 ? 'selected="selected"' : '' }}>Отклонена</option>
                     </select>
+                    {% else %}
+                        {{ user.statusString }}
+                    {% endif %}
                 </td>
             </tr>
             <tr>
