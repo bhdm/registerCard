@@ -188,6 +188,8 @@ class OrderController extends Controller{
             $user->setDriverDocIssuance($data->get('driverDocIssuance'));
             $user->setSnils($data->get('snils'));
 
+            $user->setProduction(2);
+
             if ($data->get('myPetition')!='null'){
                 $user->setMyPetition(1);
             }else{
@@ -310,6 +312,7 @@ class OrderController extends Controller{
             $user->setDileveryCorp($data->get('deliveryCorp'));
             $user->setDileveryRoom($data->get('deliveryRoom'));
             $user->setSalt(md5(time()));
+            $user->setProduction(2);
 
             $user->setLastNumberCard($data->get('oldNumber'));
 
