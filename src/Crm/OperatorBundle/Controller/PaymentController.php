@@ -35,7 +35,7 @@ class PaymentController extends Controller
                 $payments = $this->getDoctrine()->getRepository('CrmMainBundle:CompanyPayment')->findAll();
             }else{
                 $moderator = $this->getUser();
-                $payments = $this->getDoctrine()->getRepository('CrmMainBundle:CompanyPayment')->findByModerator($moderator);
+                $payments = $this->getDoctrine()->getRepository('CrmMainBundle:CompanyPayment')->findByOperator($moderator);
             }
             $operator = null;
         }
