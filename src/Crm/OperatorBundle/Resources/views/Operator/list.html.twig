@@ -38,8 +38,7 @@
                     </td>
                     <td style="text-align: center">
                         {% for role in operator.roles %}
-                            {% if role == 'ROLE_ADMIN' %}
-                            {% elseif role == 'ROLE_MODERATO1R' %}
+                            {% if role == 'ROLE_MODERATOR' %}
                                 {{ operator.moderatorPaymentCount }}
                             {% elseif role == 'ROLE_OPERATOR' %}
                                 {{ operator.paymentCount }}
