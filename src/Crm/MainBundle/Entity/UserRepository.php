@@ -35,14 +35,21 @@ class UserRepository extends EntityRepository
         $res = $this->getEntityManager()->createQueryBuilder()
             ->select('u')
             ->from('CrmMainBundle:User','u')
-            ->leftJoin('u.company','c');
+            ->leftJoin('u.company','c')
+            ->leftJoin('c.operator','o');
 
         if ($toArhive){
             $res->where('u.enabled = 0');
         }else{
             $res->where('u.enabled = 1');
         }
-        $res->andWhere('u.production >= '.$role);
+
+
+
+        $res->andWhere('(u.production >= '.$role.' OR o.id ='.$operator->getId().')');
+
+
+
         if ($search){
             $res->andWhere("(u.email LIKE '%$search%'
                          OR u.id = '$search'
@@ -80,16 +87,20 @@ class UserRepository extends EntityRepository
         }
 
         if ($operator && $operator->isRoles('ROLE_OPERATOR')){
-            $res->leftJoin('c.operator','o')
+            $res
                 ->andWhere('o.id = :operatorId')
                 ->setParameter('operatorId', $operator->getId());
         }elseif($operator && $operator->isRoles('ROLE_MODERATOR')){
-            $res->leftJoin('c.operator','o')
+            $res
 //                ->andWhere('o.id = :operatorId')
                 ->leftJoin('o.moderator', 'm')
                 ->andWhere('m.id = :moderatorId')
                 ->setParameter('moderatorId', $operator->getId());
+        }else{
+                $res->andWhere('o.id = :adminId')
+                    ->setParameter('adminId', $operator->getId());
         }
+
 
         if ($toPetition){
             $res->andWhere("( u.companyPetition is not null  OR ( u.copyPetition is not null AND u.copyPetition != 'a:0:{}') OR u.myPetition != 0)");

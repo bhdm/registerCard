@@ -48,11 +48,11 @@ class UserController extends Controller{
         }else{
             $company = null;
         }
-        if ( !$this->get('security.context')->isGranted('ROLE_ADMIN') ){
+//        if ( !$this->get('security.context')->isGranted('ROLE_ADMIN') ){
             $operator = $this->getUser();
-        }else{
-            $operator = null;
-        }
+//        }else{
+//            $operator = null;
+//        }
         $search = $request->query->get('search');
 
         if ( $this->get('security.context')->isGranted('ROLE_ADMIN') ){
