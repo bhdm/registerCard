@@ -36,7 +36,15 @@
                             {% endif %}
                         {% endfor %}
                     </td>
-                    <td style="text-align: center">{{ operator.paymentCount }}</td>
+                    <td style="text-align: center">
+                        {% for role in operator.roles %}
+                            {% if role == 'ROLE_MODERATOR' %}
+                                {{ operator.moderatorPaymentCount }}
+                            {% elseif role == 'ROLE_OPERATOR' %}
+                                {{ operator.paymentCount }}
+                            {% endif %}
+                        {% endfor %}
+                    </td>
                     <td></td>
                     <td class="options">
                         <a class="no-underline" href="{{ path('operator_operator_edit',{ 'operatorId' : operator.id}) }}"><img src="{{ asset('bundles/crmoperator/images/icon/image22.png') }}" class="icon"/></a>

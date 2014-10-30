@@ -27,11 +27,16 @@ class PaymentController extends Controller
      * @Template()
      */
     public function listAction($operatorId = null){
+
         if ($operatorId){
             $operator = $this->getDoctrine()->getRepository('CrmMainBundle:Operator')->findOneById($operatorId);
-            $payments = $this->getDoctrine()->getRepository('CrmMainBundle:CompanyPayment')->findByOperator($operator);
+            if ( $this->get('security.context')->isGranted('ROLE_ADMIN') ){
+                $payments = $this->getDoctrine()->getRepository('CrmMainBundle:CompanyPayment')->findByOperator($operator);
+            }else{
+                $payments = $this->getDoctrine()->getRepository('CrmMainBundle:CompanyPayment')->findBy(array('operator' => $operator, 'moderator' =>$this->getUser()));
+            }
         }else{
-            if ( !$this->get('security.context')->isGranted('ROLE_ADMIN') ){
+            if ( $this->get('security.context')->isGranted('ROLE_ADMIN') ){
                 $payments = $this->getDoctrine()->getRepository('CrmMainBundle:CompanyPayment')->findAll();
             }else{
                 $moderator = $this->getUser();
@@ -39,6 +44,9 @@ class PaymentController extends Controller
             }
             $operator = null;
         }
+
+
+
         return array('payments' => $payments, 'operator' => $operator );
     }
 
@@ -47,7 +55,12 @@ class PaymentController extends Controller
      * @Template()
      */
     public function addAction(Request $request){
-        $perators = $this->getDoctrine()->getRepository('CrmMainBundle:Operator')->findAll();
+        if ( $this->get('security.context')->isGranted('ROLE_ADMIN') ){
+            $perators = $this->getDoctrine()->getRepository('CrmMainBundle:Operator')->findAll();
+        }else{
+            $perators = $this->getDoctrine()->getRepository('CrmMainBundle:Operator')->findByModerator($this->getUser());
+        }
+
         $em = $this->getDoctrine()->getManager();
         if ( $request->getMethod() == 'POST'){
             $payment = new CompanyPayment();
@@ -55,6 +68,7 @@ class PaymentController extends Controller
             $payment->setOperator($operator);
             $payment->setCount($request->request->get('count'));
             $payment->setSumm($request->request->get('summ'));
+            $payment->setModerator($this->getUser());
             $em->persist($payment);
             $em->flush();
             return $this->redirect($this->generateUrl('operator_payment_list'));
@@ -76,6 +90,7 @@ class PaymentController extends Controller
                 $payment->setOperator($operator);
                 $payment->setCount($request->request->get('count'));
                 $payment->setSumm($request->request->get('summ'));
+                $payment->setModerator($this->getUser());
                 $em->flush($payment);
                 return $this->redirect($this->generateUrl('operator_payment_list'));
             }

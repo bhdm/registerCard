@@ -26,7 +26,17 @@
 <div class="header">
     <div class="header-content">
         ПАНЕЛЬ <span class="color-red">[ ОПЕРАТОРА ]</span>
-        <span>{{ app.user }} ( Лимит заявок {{ app.user.paymentCount }} ) </span>
+        <span>{{ app.user }}
+            {% if not is_granted('ROLE_ADMIN') %}
+                ( Лимит заявок
+                {% if is_granted('ROLE_MODERATOR') %}
+                    {{ app.user.moderatorPaymentCount }}
+                {% elseif is_granted('ROLE_OPERATOR') %}
+                    {{ app.user.paymentCount }}
+                {% endif %}
+                )
+            {% endif %}
+        </span>
         <div class="right-top-menu">
 
             <span class="nbsp-10">&nbsp;</span>

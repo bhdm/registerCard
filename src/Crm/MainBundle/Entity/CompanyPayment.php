@@ -26,9 +26,14 @@ class CompanyPayment extends BaseEntity{
     protected $summ;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Operator", inversedBy="payments")
+     * @ORM\ManyToOne(targetEntity="Operator", inversedBy="checks")
      */
     protected $operator;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Operator", inversedBy="payments")
+     */
+    protected $moderator;
 
     /**
      * @param mixed $count
@@ -77,6 +82,23 @@ class CompanyPayment extends BaseEntity{
     {
         return $this->operator;
     }
+
+    /**
+     * @param mixed $moderator
+     */
+    public function setModerator($moderator)
+    {
+        $this->moderator = $moderator;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getModerator()
+    {
+        return $this->moderator;
+    }
+
 
 
 }

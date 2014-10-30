@@ -27,10 +27,10 @@ class UserController extends Controller{
 
     /**
      * Показывает водителей определенной компании
-     * @Route("/list/{companyId}/{new}/{petition}/{arhive}", name="operator_user_list", defaults={"companyId"=null, "new"=null, "petition"=null, "arhive"=null})
+     * @Route("/list/{companyId}/{type}", name="operator_user_list", defaults={"companyId"=null, "type"=null})
      * @Template()
      */
-    public function listAction($companyId = null, $new = null, $petition=null, $arhive=null){
+    public function listAction(Request $request, $companyId = null, $type = null){
 
         $toDay =        null;
         $toWeek =       null;
@@ -38,23 +38,33 @@ class UserController extends Controller{
         $toDeploy =     null;
         $toArhive =     null;
 
-        if ( $arhive ){ $toArhive = true; }
-        if ( $new == 'day' ){ $toDay = true; }
-        if ( $new == 'week' ){ $toWeek = true; }
-        if ( $petition == 'true' ){ $toPetition = true; }
-        if ( $petition == 'deploy' ){ $toDeploy = true; }
+        if ( $type == 'arhive' ){ $toArhive = true; }
+        if ( $type == 'day' ){ $toDay = true; }
+        if ( $type == 'week' ){ $toWeek = true; }
+        if ( $type == 'petition' ){ $toPetition = true; }
+        if ( $type == 'deploy' ){ $toDeploy = true; }
         if ( $companyId ){
             $company = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->findOneById($companyId);
         }else{
             $company = null;
         }
-        if ( !$this->get('security.context')->isGranted('ROLE_ADMIN') ){
+//        if ( !$this->get('security.context')->isGranted('ROLE_ADMIN') ){
             $operator = $this->getUser();
+//        }else{
+//            $operator = null;
+//        }
+        $search = $request->query->get('search');
+
+        if ( $this->get('security.context')->isGranted('ROLE_ADMIN') ){
+            $role= '2';
+        }elseif ( $this->get('security.context')->isGranted('ROLE_MODERATOR') ){
+            $role= '1';
         }else{
-            $operator = null;
+            $role= '0';
         }
 
-        $users = $this->getDoctrine()->getRepository('CrmMainBundle:User')->filter($operator,$company, $toDay, $toWeek, $toPetition, $toDeploy, $toArhive);
+
+        $users = $this->getDoctrine()->getRepository('CrmMainBundle:User')->filter($role,$operator,$company, $toDay, $toWeek, $toPetition, $toDeploy, $toArhive, $search);
 
 //        if ($companyId == null && $this->get('security.context')->isGranted('ROLE_ADMIN')){
 //            $company = null;
@@ -74,6 +84,7 @@ class UserController extends Controller{
 
         return array(
             'company'   => $company,
+            'companyId' => ($company != null ? $company->getId() : null),
             'users'     => $users,
             'toDay'     => $toDay,
             'toWeek'    => $toWeek,
@@ -511,6 +522,29 @@ class UserController extends Controller{
 
         return $this->redirect($request->headers->get('referer'));
     }
+
+    /**
+     * @Route("/production/{userId}/{type}", name="operator_user_production", defaults={"type"="true"})
+     * @Template()
+     */
+    public function productionAction(Request $request, $userId, $type = 'true'){
+        $user = $this->getDoctrine()->getRepository('CrmMainBundle:User')->findOneById($userId);
+
+        if ($user->getProduction() == 0 && $type == 'true' &&  $this->get('security.context')->isGranted('ROLE_OPERATOR')){
+            $user->setProduction(1);
+        }elseif($user->getProduction() == 1 && $type == 'true' &&  $this->get('security.context')->isGranted('ROLE_MODERATOR')){
+            $user->setProduction(2);
+        }elseif($user->getProduction() == 1 && $type == 'false' && $this->get('security.context')->isGranted('ROLE_MODERATOR')){
+            $user->setProduction(0);
+        }elseif($user->getProduction() == 2 && $type == 'false' &&  $this->get('security.context')->isGranted('ROLE_ADMIN')){
+            $user->setProduction(1);
+        }
+
+        $this->getDoctrine()->getManager()->flush($user);
+
+        return $this->redirect($request->headers->get('referer'));
+    }
+
 
 
 

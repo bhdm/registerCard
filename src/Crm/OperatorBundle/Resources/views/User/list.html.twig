@@ -6,7 +6,7 @@
     {% if company != null %}
         <a href="{{ path('operator_company_list') }}">Список компаний</a> &raquo;
         <a href="#">{{ company.title }}</a> &raquo;
-        <a href="{{ path('operator_user_list',{'companyId': company.id }) }}">Список пользователей</a>
+        <a href="{{ path('operator_user_list',{'companyId': company.id }) }} ">Список пользователей</a>
         <div class="right">
             <a href="{{ path('operator_user_add',{'companyId': company.id}) }}">Добавить</a>
         </div>
@@ -53,6 +53,11 @@
                $('#form-list').attr('action', url);
                $('#form-list').submit();
            });
+
+            $('#sbtn').click(function(){
+              var url = $('#search').val();
+                window.location.href = '?search='+url;
+            });
         });
     </script>
 {% endblock %}
@@ -62,12 +67,19 @@
         {#<a href="#"><button>С ходатайством</button></a>#}
         {#<a href="#"><button>В производстве</button></a>#}
         {#<a href="#"><button>Архив</button></a>#}
-        <span class="filter-btn{{ toDay ? '-active' : '' }}">За сегодня</span>
-        <span class="filter-btn{{ toWeek ? '-active' : '' }}">За неделю</span>
-        <span class="filter-btn{{ toPetition ? '-active' : '' }}">С ходатайством</span>
-        <span class="filter-btn{{ toDeploy ? '-active' : '' }}">В производстве</span>
-        <span class="filter-btn{{ toArhive ? '-active' : '' }}">В архиве</span>
+
+        <a href="{{ path('operator_user_list') }}"><span class="filter-btn">Все</span></a>
+        <a href="{{ path('operator_user_list',{'companyId' : 'null' ,'type' : 'day' }) }}"><span class="filter-btn{{ toDay ? '-active' : '' }}">За сегодня</span></a>
+        <a href="{{ path('operator_user_list',{'companyId' : 'null' ,'type' : 'week' }) }}"><span class="filter-btn{{ toWeek ? '-active' : '' }}">За неделю</span></a>
+        <a href="{{ path('operator_user_list',{'companyId' : 'null' ,'type' : 'petition' }) }}"><span class="filter-btn{{ toPetition ? '-active' : '' }}">С ходатайством</span></a>
+        <a href="{{ path('operator_user_list',{'companyId' : 'null' ,'type' : 'deploy' }) }}"><span class="filter-btn{{ toDeploy ? '-active' : '' }}">В производстве</span></a>
+        <a href="{{ path('operator_user_list',{'companyId' : 'null' ,'type' : 'arhive' }) }}"><span class="filter-btn{{ toArhive ? '-active' : '' }}">В архиве</span></a>
         <br />
+        <br />
+        <div>
+        <input type="text" name="search" style="vertical-align: top" id="search">
+        <button style="height: 30px; padding: 0px 30px; vertical-align: top" id="sbtn">Найти</button>
+        </div>
         <br />
     </div>
 
@@ -80,14 +92,16 @@
             <form method="POST" action="#" id="form-list">
         {% endif %}
             <table class="lists">
-                <tr>
-                    <td colspan="9">
-                        {% if company != null %}
-                            <button type="submit">Сгенерировать ходатайство на выделенных пользователей</button>
-                        {% endif %}
-                        <button type="button" id="xml">Массовое XML</button>
-                    </td>
-                </tr>
+                    <tr>
+                        <td colspan="9">
+                            {% if company != null %}
+                                <button type="submit">Сгенерировать ходатайство на выделенных пользователей</button>
+                            {% endif %}
+                            {% if is_granted('ROLE_ADMIN') %}
+                                <button type="button" id="xml">Массовое XML</button>
+                            {% endif %}
+                        </td>
+                    </tr>
                 <tr>
                     <th style="width: 30px"></th>
                     <th style="padding: 0; text-align: center;"> № </th>
@@ -96,7 +110,7 @@
                     {% if company == null %}
                         <th>Компания</th>
                     {% endif %}
-                    <th>ФИО</th>
+                    <th style="width: 170px">ФИО</th>
                     <th>Платежка</th>
                     <th class="empty"></th>
                     <th class="options">Действия</th>
@@ -109,8 +123,11 @@
                         <td style="text-align: center">
                             {{ user.id }}
                         </td>
+
                         <td>
+                            {% if is_granted('ROLE_ADMIN') %}
                                 <a href="{{ path('operator_change_status',{userId: user.id }) }}">
+                            {% endif %}
                                 {% if user.status == null or user.status == 0  %}
                                     <span class="status" style="border: 1px solid #000">
                                 {% elseif user.status == 10 %}
@@ -132,8 +149,11 @@
                                 {% endif %}
                                 {{ user.statusString }}
                                     </span>
-                            </a>
+                            {% if is_granted('ROLE_ADMIN') %}
+                                </a>
+                            {% endif %}
                         </td>
+
                         <td>{{ user.created | date("d.m.Y") }}</td>
                         {% if company == null %}
                             <td>
@@ -141,7 +161,9 @@
                             </td>
                         {% endif %}
                         <td>
-                            <a title="{{ user.comment }}" href="{{ path('operator_show_user' , { 'userId' : user.id}) }}">{{ user }}</a>
+                            <a title="{{ user.comment }}" href="{{ path('operator_show_user' , { 'userId' : user.id}) }}" {{ user.comment ? 'style="color: #920055"' : '' }}>{{ user }}</a>
+                            <br />
+                            <a href="?search={{ user.email }}" style="color: #333333; font-size: 12px">{{ user.email }}</a>
                         </td>
                         <td>
                             <a href="{{ path('xml_generator',{'userId' : user.id}) }}" target="_blank" class="no-underline">
@@ -179,13 +201,35 @@
                                     </a>
                                 {% endif %}
                             {% endif %}
-                            <a class="no-underline" href="{{ path('operator_user_edit' , { 'companyId' : user.company.id, 'userId' : user.id}) }}">
-                                <img src="{{ asset('bundles/crmoperator/images/icon/image22.png') }}" class="icon"/>
-                            </a>
+
+                            {#<a class="no-underline" href="{{ path('operator_user_edit' , { 'companyId' : user.company.id, 'userId' : user.id}) }}">#}
+                                {#<img src="{{ asset('bundles/crmoperator/images/icon/image22.png') }}" class="icon"/>#}
+                            {#</a>#}
+
+                            {% if not is_granted('ROLE_ADMIN') %}
+                                {% if is_granted('ROLE_MODERATOR') and user.production >= 2 %}
+                                    <a class="no-underline" href="{{ path('operator_user_production' , { 'userId' : user.id}) }}">
+                                        <img src="{{ asset('bundles/crmoperator/images/icon/image27_green.png') }}" class="icon"/>
+                                    </a>
+                                {% elseif is_granted('ROLE_OPERATOR') and user.production >= 1 %}
+                                    <a class="no-underline" href="{{ path('operator_user_production' , { 'userId' : user.id}) }}">
+                                        <img src="{{ asset('bundles/crmoperator/images/icon/image27_green.png') }}" class="icon"/>
+                                    </a>
+                                {% else %}
+                                    <a class="no-underline" href="{{ path('operator_user_production' , { 'userId' : user.id}) }}">
+                                        <img src="{{ asset('bundles/crmoperator/images/icon/image27.png') }}" class="icon"/>
+                                    </a>
+                                {% endif %}
+                            {% endif %}
+
 
                             <a class="no-underline" href="{{ path('operator_user_remove' , { 'userId' : user.id}) }}">
                                 <img src="{{ asset('bundles/crmoperator/images/icon/image11.png') }}" class="icon"/>
                             </a>
+
+                            {#<a class="no-underline" href="{{ path('operator_user_remove' , { 'userId' : user.id}) }}">#}
+                                {#<img src="{{ asset('bundles/crmoperator/images/icon/image11.png') }}" class="icon"/>#}
+                            {#</a>#}
                         </td>
                     </tr>
                 {% endfor %}

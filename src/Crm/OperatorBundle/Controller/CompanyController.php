@@ -30,7 +30,14 @@ class CompanyController extends Controller{
      * @Template()
      */
     public function listAction(){
-        $companies = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->findByOperator($this->getUser());
+        if ($this->get('security.context')->isGranted('ROLE_ADMIN')){
+            $companies = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->findBy(array('enabled' => true));
+        }elseif($this->get('security.context')->isGranted('ROLE_MODERATOR')){
+            $companies = $this->getUser()->getModeratorCompanies();
+        }else{
+            $companies = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->findBy(array('operator' => $this->getUser(), 'enabled' => true));
+        }
+
 //        if (!$companies){
 //            return $this->redirect($this->generateUrl('operator_main'));
 //        }
@@ -133,6 +140,23 @@ class CompanyController extends Controller{
         return array('company'=> $company, 'regions' => $regions);
     }
 
+
+    /**
+     * @Route("/remove/{companyId}", name="operator_company_remove")
+     * @Template()
+     */
+    public function removeAction(Request $request, $companyId){
+        $company = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->findOneById($companyId);
+        if ($this->get('security.context')->isGranted('ROLE_ADMIN')){
+            foreach ($company->getUsers() as $user){
+                $user->setEnabled(false);
+                $this->getDoctrine()->getManager()->flush($user);
+            }
+            $company->setEnabled(false);
+            $this->getDoctrine()->getManager()->flush($company);
+        }
+        return $this->redirect($request->headers->get('referer'));
+    }
 
 
 

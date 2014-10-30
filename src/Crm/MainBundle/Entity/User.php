@@ -278,7 +278,20 @@ class User extends BaseEntity implements UserInterface, EquatableInterface, \Ser
      */
     protected $typeCard = 0;
 
+    /**
+     * @ORM\Column(type="integer")
+     */
     protected $price = 0;
+
+    /**
+     * @ORM\Column(type="string", nullable=true)
+     */
+    protected $cardNumber = 0;
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    protected $production = 0;
 
     public function getXmlId(){
         return str_pad($this->id, 8, "0", STR_PAD_LEFT);
@@ -1143,6 +1156,38 @@ class User extends BaseEntity implements UserInterface, EquatableInterface, \Ser
     public function getComment()
     {
         return $this->comment;
+    }
+
+    /**
+     * @param mixed $cardNumber
+     */
+    public function setCardNumber($cardNumber)
+    {
+        $this->cardNumber = $cardNumber;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCardNumber()
+    {
+        return $this->cardNumber;
+    }
+
+    /**
+     * @param mixed $production
+     */
+    public function setProduction($production = 0)
+    {
+        $this->production = $production;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getProduction()
+    {
+        return $this->production;
     }
 
 

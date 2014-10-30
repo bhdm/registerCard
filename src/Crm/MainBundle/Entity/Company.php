@@ -406,7 +406,7 @@ class Company extends BaseEntity
     /**
      * @param mixed $enabled
      */
-    public function setEnabled($enabled = 0 )
+    public function setEnabled($enabled = 1 )
     {
         $this->enabled = $enabled;
     }
@@ -669,6 +669,15 @@ class Company extends BaseEntity
         return $this->logo;
     }
 
+    public function usersCount(){
+        $i = 0;
+        foreach ( $this->users as $val ){
+            if ($val->getEnabled() == true){
+                $i ++;
+            }
+        }
+        return $i;
+    }
 
 
 }

@@ -60,25 +60,60 @@ class Operator extends BaseEntity implements UserInterface
     /**
      * @ORM\OneToMany(targetEntity="CompanyPayment", mappedBy="operator", cascade={"all"})
      */
+    protected $checks;
+
+    /**
+     * @ORM\OneToMany(targetEntity="CompanyPayment", mappedBy="moderator", cascade={"all"})
+     */
     protected $payments;
+
 
     public function __construct(){
         $this->roles    = 'ROLE_OPERATOR';
         $this->companies = new ArrayCollection();
         $this->petitions = new ArrayCollection();
         $this->payments = new ArrayCollection();
+        $this->checks = new ArrayCollection();
         $this->operators = new ArrayCollection();
     }
 
+
     public function getPaymentCount(){
-        $payments = $this->getPayments();
         $summ = 0;
-        foreach ($payments as $val){
+        foreach ($this->getChecks() as $val){
             $summ += $val->getCount();
+        }
+
+        foreach ($this->companies as $company){
+            foreach ($company->getUsers() as $user ){
+                if ($user->getProduction() > 0 ){
+                    $summ --;
+                }
+            }
         }
 
         return $summ;
     }
+
+    public function getModeratorPaymentCount(){
+        $summ = 0;
+        foreach ($this->getChecks() as $val){
+            $summ += $val->getCount();
+        }
+        foreach ($this->getOperators() as $operator){
+            foreach ($operator->getCompanies() as $company){
+                foreach ($company->getUsers() as $user ){
+                    if ($user->getProduction() > 1 ){
+                        $summ --;
+                    }
+                }
+            }
+        }
+
+        return $summ;
+    }
+
+
 
     public function equals(UserInterface $user)
     {
@@ -333,5 +368,34 @@ class Operator extends BaseEntity implements UserInterface
             }
         }
         return false;
+    }
+
+    /**
+     * @param mixed $checks
+     */
+    public function setChecks($checks)
+    {
+        $this->checks = $checks;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getChecks()
+    {
+        return $this->checks;
+    }
+
+    public function getModeratorCompanies(){
+        $companies = array();
+        $operators = $this->getOperators();
+        foreach ( $operators as $operator){
+            foreach ( $operator->getCompanies as $company){
+                if ($company->getEnabled == true && $company->getUrl != null && $company->getUrl != ''){
+                    $companies[] = $company;
+                }
+            }
+        }
+        return $companies;
     }
 }
