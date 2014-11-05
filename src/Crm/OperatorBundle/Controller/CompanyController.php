@@ -129,6 +129,8 @@ class CompanyController extends Controller{
             $company->setKorchet($data->get('korchet'));
             $company->setBik($data->get('bik'));
 
+            $company->setEnabled(true);
+
             $em->persist($company);
             $em->flush($company);
             $em->refresh($company);
