@@ -97,8 +97,8 @@ class UserRepository extends EntityRepository
                 ->andWhere('m.id = :moderatorId')
                 ->setParameter('moderatorId', $operator->getId());
         }else{
-                $res->orWhere('o.id = :adminId')
-                ->setParameter('adminId', $operator->getId());
+//                $res->andWhere('o.id = :adminId')
+//                ->setParameter('adminId', $operator->getId());
         }
 
 
