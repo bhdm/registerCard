@@ -65,6 +65,14 @@
               var url = $('#search').val();
                 window.location.href = '?search='+url;
             });
+
+            $('#all').change(function(){
+                if ($("#all").prop("checked") == true){
+                    $("input:checkbox").attr("checked","checked");
+                }else{
+                    $("input:checkbox").removeAttr("checked");
+                }
+            });
         });
     </script>
 {% endblock %}
@@ -111,7 +119,7 @@
                         </td>
                     </tr>
                 <tr>
-                    <th style="width: 30px"></th>
+                    <th style="width: 30px"><input type="checkbox" id="all"></th>
                     <th style="padding: 0; text-align: center;"> № </th>
                     <th>Статус</th>
                     <th>Дата</th>
