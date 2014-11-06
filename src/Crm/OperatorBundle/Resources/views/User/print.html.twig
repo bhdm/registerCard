@@ -1,0 +1,11 @@
+<table style="width: 100%">
+{% for user in users %}
+    <tr>
+        <td>{{ user.id }}</td>
+        <td>{{ user.email }}</td>
+        <td>{{ user }}</td>
+        <td>{{ user.birthDate | date("d.m.Y")}}</td>
+        <td>{{ user.company }}</td>
+    </tr>
+{% endfor %}
+</table>

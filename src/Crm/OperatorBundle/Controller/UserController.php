@@ -803,4 +803,34 @@ class UserController extends Controller{
         return $this->redirect($referer);
     }
 
+
+    /**
+     * @Route("/operator/print_many", name="print_many", options={"expose"=true})
+     */
+    public function printAction(Request $request){
+        $data = $request->request->get('check');
+        $users = array();
+        foreach($data as $key => $val){
+            $user = $this->getDoctrine()->getRepository('CrmMainBundle:User')->find($key);
+            if ($user != null){
+                $users[] = $user;
+            }
+        }
+
+            $mpdfService = $this->container->get('tfox.mpdfport');
+
+            $html = $this->render('CrmOperatorBundle:User:print.html.twig',array('users' => $users));
+            $arguments = array(
+//                'constructorArgs' => array('utf-8', 'A4-L', 5 ,5 ,5 ,5,5 ), //Constructor arguments. Numeric array. Don't forget about points 2 and 3 in Warning section!
+                'writeHtmlMode' => null, //$mode argument for WriteHTML method
+                'writeHtmlInitialise' => null, //$mode argument for WriteHTML method
+                'writeHtmlClose' => null, //$close argument for WriteHTML method
+                'outputFilename' => null, //$filename argument for Output method
+                'outputDest' => null, //$dest argument for Output method
+            );
+            $mpdfService->generatePdfResponse($html->getContent(), $arguments);
+
+
+    }
+
 }

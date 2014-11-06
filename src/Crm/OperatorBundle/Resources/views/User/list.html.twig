@@ -54,6 +54,13 @@
                $('#form-list').submit();
            });
 
+            $('#print').click(function(){
+                var url = Routing.generate('print_many');
+                $('#form-list').attr('action', url);
+                $('#form-list').attr('target', '_blank');
+                $('#form-list').submit();
+            });
+
             $('#sbtn').click(function(){
               var url = $('#search').val();
                 window.location.href = '?search='+url;
@@ -99,6 +106,7 @@
                             {% endif %}
                             {% if is_granted('ROLE_ADMIN') %}
                                 <button type="button" id="xml">Массовое XML</button>
+                                <button type="button" id="print">Печать</button>
                             {% endif %}
                         </td>
                     </tr>
