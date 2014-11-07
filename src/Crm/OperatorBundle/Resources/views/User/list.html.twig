@@ -73,6 +73,13 @@
                     $("input:checkbox").removeAttr("checked");
                 }
             });
+
+
+            $('#filterStatus').change(function(){
+                var type = $(this).val();
+                var url = Routing.generate('operator_user_list', {'companyId':'null', 'type' :type });
+                window.location.href = url;
+            });
         });
     </script>
 {% endblock %}
@@ -87,8 +94,21 @@
         <a href="{{ path('operator_user_list',{'companyId' : 'null' ,'type' : 'day' }) }}"><span class="filter-btn{{ toDay ? '-active' : '' }}">За сегодня</span></a>
         <a href="{{ path('operator_user_list',{'companyId' : 'null' ,'type' : 'week' }) }}"><span class="filter-btn{{ toWeek ? '-active' : '' }}">За неделю</span></a>
         <a href="{{ path('operator_user_list',{'companyId' : 'null' ,'type' : 'petition' }) }}"><span class="filter-btn{{ toPetition ? '-active' : '' }}">С ходатайством</span></a>
+
         <a href="{{ path('operator_user_list',{'companyId' : 'null' ,'type' : 'deploy' }) }}"><span class="filter-btn{{ toDeploy ? '-active' : '' }}">В производстве</span></a>
-        <a href="{{ path('operator_user_list',{'companyId' : 'null' ,'type' : 'arhive' }) }}"><span class="filter-btn{{ toArhive ? '-active' : '' }}">В архиве</span></a>
+
+        <select id="filterStatus">
+            <option>Фильтр по статусу</option>
+            <option value="0">Новая</option>
+            <option value="1">Подтвержденная</option>
+            <option value="2">Оплаченная</option>
+            <option value="3">В производстве</option>
+            <option value="6">Изготовлено</option>
+            <option value="4">На почте</option>
+            <option value="5">Получена</option>
+            <option value="10">Отклонена</option>
+        </select>
+
         <br />
         <br />
         <div>

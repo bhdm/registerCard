@@ -27,7 +27,7 @@ class UserController extends Controller{
 
     /**
      * Показывает водителей определенной компании
-     * @Route("/list/{companyId}/{type}", name="operator_user_list", defaults={"companyId"=null, "type"=null})
+     * @Route("/list/{companyId}/{type}", name="operator_user_list", defaults={"companyId"=null, "type"=null}, options={"expose"=true})
      * @Template()
      */
     public function listAction(Request $request, $companyId = null, $type = null){
@@ -42,7 +42,6 @@ class UserController extends Controller{
         if ( $type == 'day' ){ $toDay = true; }
         if ( $type == 'week' ){ $toWeek = true; }
         if ( $type == 'petition' ){ $toPetition = true; }
-        if ( $type == 'deploy' ){ $toDeploy = true; }
         if ( $companyId ){
             $company = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->findOneById($companyId);
         }else{
@@ -64,7 +63,7 @@ class UserController extends Controller{
         }
 
 
-        $users = $this->getDoctrine()->getRepository('CrmMainBundle:User')->filter($role,$operator,$company, $toDay, $toWeek, $toPetition, $toDeploy, $toArhive, $search);
+        $users = $this->getDoctrine()->getRepository('CrmMainBundle:User')->filter($role,$operator,$company, $toDay, $toWeek, $toPetition, $type, $toArhive, $search);
 
 //        if ($companyId == null && $this->get('security.context')->isGranted('ROLE_ADMIN')){
 //            $company = null;
@@ -817,20 +816,38 @@ class UserController extends Controller{
             }
         }
 
-            $mpdfService = $this->container->get('tfox.mpdfport');
+        $phpExcelObject = $this->get('phpexcel')->createPHPExcelObject();
+        $phpExcelObject->getProperties()->setCreator("liuggio")
+            ->setLastModifiedBy("Giulio De Donato")
+            ->setTitle("Office 2005 XLSX Test Document")
+            ->setSubject("Office 2005 XLSX Test Document")
+            ->setDescription("Test document for Office 2005 XLSX, generated using PHP classes.")
+            ->setKeywords("office 2005 openxml php")
+            ->setCategory("Test result file");
+        $i = 0;
+        foreach ($users as $user){
+            $i++;
+            $phpExcelObject->setActiveSheetIndex(0)->setCellValue('A'.$i, $user->getId());
+            $phpExcelObject->setActiveSheetIndex(0)->setCellValue('B'.$i, $user->getEmail());
+            $phpExcelObject->setActiveSheetIndex(0)->setCellValue('C'.$i, $user->getLastName().' '.$user->getFirstName());
+            $phpExcelObject->setActiveSheetIndex(0)->setCellValue('D'.$i, $user->getCompany()->getTitle());
+        }
 
-            $html = $this->render('CrmOperatorBundle:User:print.html.twig',array('users' => $users));
-            $arguments = array(
-//                'constructorArgs' => array('utf-8', 'A4-L', 5 ,5 ,5 ,5,5 ), //Constructor arguments. Numeric array. Don't forget about points 2 and 3 in Warning section!
-                'writeHtmlMode' => null, //$mode argument for WriteHTML method
-                'writeHtmlInitialise' => null, //$mode argument for WriteHTML method
-                'writeHtmlClose' => null, //$close argument for WriteHTML method
-                'outputFilename' => null, //$filename argument for Output method
-                'outputDest' => null, //$dest argument for Output method
-            );
-            $mpdfService->generatePdfResponse($html->getContent(), $arguments);
+        $phpExcelObject->getActiveSheet()->setTitle('Simple');
+        // Set active sheet index to the first sheet, so Excel opens this as the first sheet
+        $phpExcelObject->setActiveSheetIndex(0);
 
+        // create the writer
+        $writer = $this->get('phpexcel')->createWriter($phpExcelObject, 'Excel5');
+        // create the response
+        $response = $this->get('phpexcel')->createStreamedResponse($writer);
+        // adding headers
+        $response->headers->set('Content-Type', 'text/vnd.ms-excel; charset=utf-8');
+        $response->headers->set('Content-Disposition', 'attachment;filename=stream-file.xls');
+        $response->headers->set('Pragma', 'public');
+        $response->headers->set('Cache-Control', 'maxage=1');
 
+        return $response;
     }
 
 }

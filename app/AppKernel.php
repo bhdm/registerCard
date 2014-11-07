@@ -24,6 +24,7 @@ class AppKernel extends Kernel
             new Crm\AdminBundle\CrmAdminBundle(),
             new Gregwar\CaptchaBundle\GregwarCaptchaBundle(),
             new Crm\OperatorBundle\CrmOperatorBundle(),
+            new Liuggio\ExcelBundle\LiuggioExcelBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

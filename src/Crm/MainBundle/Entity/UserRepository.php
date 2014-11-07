@@ -31,7 +31,7 @@ class UserRepository extends EntityRepository
      * @param $toDeploy
      * @param $toArhive
      */
-    public function filter($role,$operator, $company, $toDay, $toWeek, $toPetition, $toDeploy, $toArhive, $search){
+    public function filter($role,$operator, $company, $toDay, $toWeek, $toPetition, $type, $toArhive, $search){
         $res = $this->getEntityManager()->createQueryBuilder()
             ->select('u')
             ->from('CrmMainBundle:User','u')
@@ -58,8 +58,8 @@ class UserRepository extends EntityRepository
                          OR u.surName LIKE '%$search%')");
         }
 
-        if ($toDeploy){
-            $res->andWhere("u.status = 3 ");
+        if ($type){
+            $res->andWhere("u.status = ".$type);
         }
 
         if ($toDay){
@@ -111,6 +111,8 @@ class UserRepository extends EntityRepository
 //            $res->andWhere("( u.companyPetition is not null  OR ( u.copyPetition is not null AND u.copyPetition != 'a:0:{}') OR u.myPetition is != 0)");
 //        }
 
+//        echo $res->getQuery()->getDQL();
+//        exit;
         return $res->getQuery()->getResult();
 
     }
