@@ -38,6 +38,15 @@
             font-size: 15px;
             letter-spacing: 3px;
         }
+
+        .dateBirthDate{
+            position: absolute;
+            top: 579px;
+            left: 500px;
+            font-size: 15px;
+            letter-spacing: 3px;
+        }
+
         .passportNumber{
             position: absolute;
             top: 630px;
@@ -222,7 +231,20 @@
 <div class="line1{{ user.typeCard }}">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
 <div class="gal" style="font-size: 48px">&bull;</div>
 <div class="rud" style="">
-    {{ user.lastNumberCard }}
+    {{ user.lastNumberCard[3] }}
+    {{ user.lastNumberCard[4] }}
+    {{ user.lastNumberCard[5] }}
+    {{ user.lastNumberCard[6] }}
+    {{ user.lastNumberCard[7] }}
+    {{ user.lastNumberCard[8] }}
+    {{ user.lastNumberCard[9] }}
+    {{ user.lastNumberCard[10] }}
+    {{ user.lastNumberCard[11] }}
+    {{ user.lastNumberCard[12] }}
+    {{ user.lastNumberCard[13] }}
+    {{ user.lastNumberCard[14] }}
+    {{ user.lastNumberCard[15] }}
+    {{ user.lastNumberCard[16] }}
 </div>
 <div class="fio" style="">
     {{ user.lastName }} {{ user.firstName }} {{ user.surName }}
@@ -238,6 +260,7 @@
     {% endif %}
 </div>
 <div class="snils">{{ user.snils }}</div>
+<div class="dateBirthDate">{{ user.birthdate | date("d.m.Y") }}</div>
 
 <div class="passportNumber">{{ user.passportSerial }} {{ user.passportNumber }}</div>
 <div class="passportDate">{{ user.passportIssuanceDate | date("d") }}&nbsp;&nbsp;&nbsp;&nbsp;{{ user.passportIssuanceDate | date("m") }}&nbsp;&nbsp;&nbsp;&nbsp;{{ user.passportIssuanceDate |  date("Y") }}</div>
