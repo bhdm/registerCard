@@ -418,6 +418,7 @@
     <script src="{{ asset('bundles/crmmain/javascripts/spin.js') }}" type="text/javascript"></script>
     <script src="{{ asset('bundles/crmmain/lib/jquery-ui/jquery-ui.min.js') }}" type="text/javascript"></script>
     <script src="{{ asset('bundles/crmmain/kladrapi/jquery.kladr.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('bundles/crmmain/kladrapi/kladr/kladr_zip.js') }}" type="text/javascript"></script>
 
     <script>
     $(document).ready(function(){
@@ -1058,6 +1059,12 @@
             $('.bg-gray').css('display', 'none');
         });
 
+
+//        $( '#companyZipcode' ).kladrZip({
+//            token: '541ee4ac7c52392c7d8b457e',
+//            key: '181d5e2c44994c335e5e81e9ae46e79a67b6b495',
+//            parentType: '[name="companyStreet"]'
+//        });
 
 
         $( '#companyRegion' ).kladr({
