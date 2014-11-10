@@ -18,7 +18,8 @@
             <tr>
                 <th>Оператор</th>
                 <th>Права</th>
-                <th>Кол-во</th>
+                <th style="text-align: center">Кол-во</th>
+                <th style="text-align: center">Сделано</th>
                 <th class="empty"></th>
                 <th class="options">Действия</th>
             </tr>
@@ -44,6 +45,9 @@
                                 {{ operator.paymentCount }}
                             {% endif %}
                         {% endfor %}
+                    </td>
+                    <td>
+                        {{ operator.doneCount }}
                     </td>
                     <td></td>
                     <td class="options">

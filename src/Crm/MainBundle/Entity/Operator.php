@@ -398,4 +398,17 @@ class Operator extends BaseEntity implements UserInterface
         }
         return $companies;
     }
+
+    public function getDoneCount(){
+        $count = 0;
+        $companies = $this->getCompanies();
+        foreach ($companies as $company){
+            $users = $company->getUsers();
+            foreach ($users as $user){
+                if ($user->getProduction() > 0){
+                    $count++;
+                }
+            }
+        }
+    }
 }
