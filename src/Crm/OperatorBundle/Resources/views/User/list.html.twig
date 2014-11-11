@@ -226,6 +226,27 @@
                         </td>
                         <td></td>
                         <td class="options">
+
+                            {% if not is_granted('ROLE_ADMIN') %}
+                                {% if is_granted('ROLE_MODERATOR') and user.production >= 2 %}
+                                    {#<a class="no-underline" href="{{ path('operator_user_production' , { 'userId' : user.id}) }}">#}
+                                    {#<img src="{{ asset('bundles/crmoperator/images/icon/image27_green.png') }}" class="icon"/>#}
+                                    Отправлено
+                                    {#</a>#}
+                                {% elseif is_granted('ROLE_OPERATOR') and user.production >= 1 %}
+                                    {#<a class="no-underline" href="{{ path('operator_user_production' , { 'userId' : user.id}) }}">#}
+                                    {#<img src="{{ asset('bundles/crmoperator/images/icon/image27_green.png') }}" class="icon"/>#}
+                                    Отправлено
+                                    {#</a>#}
+                                {% else %}
+                                    <a class="no-underline" href="{{ path('operator_user_production' , { 'userId' : user.id}) }}">
+                                        {#<img src="{{ asset('bundles/crmoperator/images/icon/image27.png') }}" class="icon"/>#}
+                                        <span class="filter-btn">Отправить</span>
+                                    </a>
+                                {% endif %}
+                            {% endif %}
+
+
                             {% if user.companyPetition != null %}
                                 {% if user.companyPetition.status == 0 %}
                                     <a class="no-underline" href="{{ path("operator_petition_edit",{ 'petitionId' : user.companyPetition.id }) }}">
@@ -242,21 +263,7 @@
                                 {#<img src="{{ asset('bundles/crmoperator/images/icon/image22.png') }}" class="icon"/>#}
                             {#</a>#}
 
-                            {% if not is_granted('ROLE_ADMIN') %}
-                                {% if is_granted('ROLE_MODERATOR') and user.production >= 2 %}
-                                    <a class="no-underline" href="{{ path('operator_user_production' , { 'userId' : user.id}) }}">
-                                        <img src="{{ asset('bundles/crmoperator/images/icon/image27_green.png') }}" class="icon"/>
-                                    </a>
-                                {% elseif is_granted('ROLE_OPERATOR') and user.production >= 1 %}
-                                    <a class="no-underline" href="{{ path('operator_user_production' , { 'userId' : user.id}) }}">
-                                        <img src="{{ asset('bundles/crmoperator/images/icon/image27_green.png') }}" class="icon"/>
-                                    </a>
-                                {% else %}
-                                    <a class="no-underline" href="{{ path('operator_user_production' , { 'userId' : user.id}) }}">
-                                        <img src="{{ asset('bundles/crmoperator/images/icon/image27.png') }}" class="icon"/>
-                                    </a>
-                                {% endif %}
-                            {% endif %}
+
 
 
                             <a class="no-underline" href="{{ path('operator_user_remove' , { 'userId' : user.id}) }}">
