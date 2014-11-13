@@ -1,0 +1,141 @@
+{% extends 'CrmMainBundle::layout.html.twig' %}
+
+{% block content %}
+    <div class="address">
+        {% if adr is not empty %}
+            {{ adr.street }} {{ adr.streetType }},{{ adr.building }},{{ adr.cityType }} {{ adr.city }}
+        {% endif %}
+        <h1>Форма для теста адреса</h1>
+        <form class="js-form-address" method="POST" id="formdataestr">
+            <div class="field">
+                <label>Индекс</label>
+                <input type="text" name="zip">
+            </div>
+            <div class="field">
+                <label>Регион</label>
+                <input type="text" name="region">
+                <input type="hidden" name="regionType" id="regionType">
+            </div>
+            <div class="field">
+                <label>Район</label>
+                <input type="text" name="district">
+                <input type="hidden" name="districtType" id="districtType">
+            </div>
+            <div class="field">
+                <label>Город</label>
+                <input type="text" name="city">
+                <input type="hidden" name="cityType" id="cityType">
+            </div>
+            <div class="field">
+                <label>Улица</label>
+                <input type="text" name="street">
+                <input type="hidden" name="streetType" id="streetType">
+            </div>
+            <div class="field">
+                <label>Дом</label>
+                <input type="text" name="building">
+                <input type="hidden" name="buildingType" id="buildingType">
+            </div>
+            <div class="field">
+                <label></label>
+                <button type="submit" id="submit">Отправить </button>
+            </div>
+            <div class="tooltip" style="display: none;"><b></b><span></span></div>
+        </form>
+    </div>
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link href="{{ asset('bundles/crmmain/kladrapi/jquery.kladr.css') }}" rel="stylesheet" media="all">
+    <style>
+        .field{
+            margin-bottom: 5px;
+        }
+        label{
+            width: 150px;
+            display: inline-block;
+        }
+    </style>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset('bundles/crmmain/kladrapiv2/jquery.kladr.min.js') }}" type="text/javascript"></script>
+    <script>
+
+        $(document).ready(function(){
+            $('#submit').click(function(){
+//                $('#formdataestr').submit();
+                $('#regionType').val($('.field').eq(1).children('label').text());
+                $('#districtType').val($('.field').eq(2).children('label').text());
+                $('#cityType').val($('.field').eq(3).children('label').text());
+                $('#streetType').val($('.field').eq(4).children('label').text());
+                $('#buildingType').val($('.field').eq(5).children('label').text());
+//                return false;
+            });
+        });
+        $(function () {
+            var $zip = $('[name="zip"]'),
+                    $region = $('[name="region"]'),
+                    $district = $('[name="district"]'),
+                    $city = $('[name="city"]'),
+                    $street = $('[name="street"]'),
+                    $building = $('[name="building"]');
+
+            var $tooltip = $('.tooltip');
+
+            $.kladr.setDefault({
+                parentInput: '.js-form-address',
+                verify: true,
+                select: function (obj) {
+                    setLabel($(this), obj.type);
+                    $tooltip.hide();
+                },
+                check: function (obj) {
+                    if (obj) {
+                        setLabel($(this), obj.type);
+                        $tooltip.hide();
+                    }
+                    else {
+                        showError($(this), 'Введено неверно');
+                    }
+                }
+            });
+
+            $region.kladr('type', $.kladr.type.region);
+            $district.kladr('type', $.kladr.type.district);
+            $city.kladr('type', $.kladr.type.city);
+            $street.kladr('type', $.kladr.type.street);
+            $building.kladr('type', $.kladr.type.building);
+
+            // Отключаем проверку введённых данных для строений
+            $building.kladr('verify', false);
+
+            // Подключаем плагин для почтового индекса
+            $zip.kladrZip();
+
+            function setLabel ($input, text) {
+                text = text.charAt(0).toUpperCase() + text.substr(1).toLowerCase();
+                $input.parent().find('label').text(text);
+            }
+
+            function showError ($input, message) {
+                $tooltip.find('span').text(message);
+
+                var inputOffset = $input.offset(),
+                        inputWidth = $input.outerWidth(),
+                        inputHeight = $input.outerHeight();
+
+                var tooltipHeight = $tooltip.outerHeight();
+
+                $tooltip.css({
+                    left: (inputOffset.left + inputWidth + 10) + 'px',
+                    top: (inputOffset.top + (inputHeight - tooltipHeight) / 2 - 1) + 'px'
+                });
+
+                $tooltip.show();
+            }
+        });
+    </script>
+{% endblock %}
