@@ -42,22 +42,23 @@ class EstrController extends Controller
             $streetType = $request->request->get('streetType');
             $buildingType = $request->request->get('buildingType');
 
-            $adr['regionType'] = $converter->wordRusToEn($regionType);
-            $adr['region'] = $converter->wordRusToEn($region);
-            $adr['districtType'] = $converter->wordRusToEn($districtType);
-            $adr['district'] = $converter->wordRusToEn($district);
-            $adr['cityType'] = $converter->wordRusToEn($cityType);
-            $adr['city'] = $converter->wordRusToEn($city);
-            $adr['streetType'] = $converter->wordRusToEn($streetType);
-            $adr['street'] = $converter->wordRusToEn($street);
-            $adr['buildingType'] = $converter->wordRusToEn($buildingType);
-            $adr['building'] = $converter->wordRusToEn($building);
-
+            $adr['regionType'] =    $converter->wordRusToEn($regionType);
+            $adr['region'] =        $converter->wordRusToEn($region);
+            $adr['districtType'] =  $converter->wordRusToEn($districtType);
+            $adr['district'] =      $converter->wordRusToEn($district);
+            $adr['cityType'] =      $converter->wordRusToEn($cityType);
+            $adr['city'] =          $converter->wordRusToEn($city);
+            $adr['streetType'] =    $converter->wordRusToEn($streetType);
+            $adr['street'] =        $converter->wordRusToEn($street);
+            $adr['buildingType'] =  $converter->wordRusToEn($buildingType);
+            $adr['building'] =      $converter->wordRusToEn($building);
 
         }
         return array('adr' => $adr);
     }
 
+
+//    public function estrOrderAction()
 
 
 }
