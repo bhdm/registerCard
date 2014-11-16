@@ -167,7 +167,11 @@ class XmlController extends Controller
      */
     public function imageToPdfAction($filename){
         $mpdfService = $this->container->get('tfox.mpdfport');
+
         $html = '<img src="/upload/docs/'.$filename.'" />';
+        $width = rand(0,200);
+        $html.= '<br /><br /><br />';
+        $html.= '<img src="/bundles/crmmain/images/copy.png"  style="margin-left: '.$width.'px"/>';
         $arguments = array(
 //            'constructorArgs' => array('utf-8', 'A4-P', 5 ,5 ,5 ,5,5 ),
             'writeHtmlMode' => null, //$mode argument for WriteHTML method
