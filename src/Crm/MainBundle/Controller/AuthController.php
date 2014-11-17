@@ -279,10 +279,9 @@ class AuthController extends Controller
 //            $miniSign = '/upload/tmp/'.substr($miniSign, strrpos($miniSign, '/')+1);
 
 //            $html = $this->render('CrmMainBundle:Form:doc2.html.twig',array('user' => $user));
-            $html = $this->render('CrmMainBundle:Form:doc2.html.twig',array('user' => $user, 'bigSign' => $bigSign, 'miniSign' => $miniSign));
             $width = rand(0,200);
-            $html.= '<br /><br /><br />';
-            $html.= '<img src="/bundles/crmmain/images/copy.png"  style="margin-left: '.$width.'px"/>';
+            $html = $this->render('CrmMainBundle:Form:doc2.html.twig',array('user' => $user, 'bigSign' => $bigSign, 'miniSign' => $miniSign, 'width' => $width));
+
 
             $arguments = array(
                 'constructorArgs' => array('utf-8', 'A4', 0 ,0 ,0 ,0, 3), //Constructor arguments. Numeric array. Don't forget about points 2 and 3 in Warning section!
