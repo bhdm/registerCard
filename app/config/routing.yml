@@ -1,3 +1,8 @@
+crm_face:
+    resource: "@CrmFaceBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
 crm_admin:
     resource: "@CrmAdminBundle/Controller/"
     type:     annotation
