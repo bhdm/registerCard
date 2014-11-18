@@ -1,0 +1,65 @@
+{% extends 'CrmFaceBundle::layout.html.twig' %}
+
+
+{% block content %}
+    <h1>
+        Наши преимущества
+    </h1>
+    <ul class="list-numeric">
+        <li>Мы имеем все необзходимые лицензии</li>
+        <li>Заказать карту можно из любой точки России, Вам нужно только нажать кнопку <a href="#" class="redtext">Подать Заявку</a>;</li>
+        <li>Благодаря специальной программе, Ваши данные поступают на производство сразу после оплаты;</li>
+        <li>Доставка осуществляется Почтой России (3-7 дн.) - <span class="redtext">бесплатно</span>;</li>
+        <li>Наша компания на официальном сайт ФБУ "Росавтотранс" под № 16;</li>
+        <li>Нам доверяют <img src="{{ asset('bundles/crmface/images/nums.png') }}" style="margin-bottom: -17px;"> человек;</li>
+    </ul>
+    <br />
+    <br />
+    <table style="width: 100%">
+        <tr>
+            <td style="width: 50%; text-align: center;">
+                <img src="{{ asset('bundles/crmface/images/btn_img_1.png') }}">
+                <img src="{{ asset('bundles/crmface/images/btn_1.png') }}">
+            </td>
+            <td style="width: 50%; text-align: center;">
+                <img src="{{ asset('bundles/crmface/images/btn_img_2.png') }}">
+                <img src="{{ asset('bundles/crmface/images/btn_2.png') }}">
+            </td>
+        </tr>
+    </table>
+
+    <h2>
+        Работа с корпоративными клиентами:
+    </h2>
+    <table>
+        <tr>
+            <td>
+                <ul class="list-numeric">
+                    <li>Получить документы для заключения Договора - <a href="#">Скачать документы</a>;</li>
+                    <li>Заполнить Заявку на необходимые карты;</li>
+                    <li>Заключить Договор;</li>
+                    <li>Получить специальную ссылку для ввода данных;</li>
+                    <li>Ввести данные (бесплатная помощь менеджера online);</li>
+                    <li>Полная или частичная оплата по поданным Заявлениям;</li>
+                    <li>Через 20-30 джней получение карт;</li>
+                    <li>Подписание Акта выполненных работ.</li>
+                </ul>
+            </td>
+            <td>
+                <div style="text-align: right">
+                    <span style="padding-left: 20px">
+                        <img src="{{ asset('bundles/crmface/icons/vopros.png') }}" style="margin-bottom: -12px;">
+                        <a href="#" class="vopros">Задать вопрос</a>
+                    </span>
+                    <br/>
+                    <br/>
+                    <br/>
+                    <img src="{{ asset('bundles/crmface/images/call.png') }}">
+                </div>
+            </td>
+        </tr>
+    </table>
+    <br />
+    <br />
+    <div style="font-size: 24px; text-align: center">Цена карты СКЗИ - <span class="redtext">2306р.</span> , ЕСТР - <span class="redtext">6200р</span>.</div>
+{% endblock %}
