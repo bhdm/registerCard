@@ -203,13 +203,14 @@
                             <a href="?search={{ user.email }}" style="color: #333333; font-size: 12px">{{ user.email }}</a>
                         </td>
                         <td>
+                            {% if is_granted('ROLE_ADMIN') %}
                             <a href="{{ path('xml_generator',{'userId' : user.id}) }}" target="_blank" class="no-underline">
                                 <img src="{{ asset('bundles/crmoperator/images/icon/image28_2.png') }}" class="icon" title="XML"/>
                             </a>
-
                             <a href="{{ path('generate_payment_pdf') }}?ord={{ user.id }}" target="_blank" class="no-underline">
                                 <img src="{{ asset('bundles/crmoperator/images/icon/image28_2.png') }}" class="icon" title="Платежный документ"/>
                             </a>
+                            {% endif %}
                             <a href="{{ path('generate_pdf_statement',{'id' : user.id}) }}" target="_blank" class="no-underline">
                                 <img src="{{ asset('bundles/crmoperator/images/icon/image28_2.png') }}" class="icon" title="Заявление"/>
                             </a>
