@@ -293,6 +293,11 @@ class User extends BaseEntity implements UserInterface, EquatableInterface, \Ser
      */
     protected $production = 0;
 
+    /**
+     * @ORM\Column(type="string", nullable=true)
+     */
+    protected $managerKey;
+
     public function getXmlId(){
         return str_pad($this->id, 8, "0", STR_PAD_LEFT);
     }
@@ -1188,6 +1193,22 @@ class User extends BaseEntity implements UserInterface, EquatableInterface, \Ser
     public function getProduction()
     {
         return $this->production;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getManagerKey()
+    {
+        return $this->managerKey;
+    }
+
+    /**
+     * @param mixed $managerKey
+     */
+    public function setManagerKey($managerKey)
+    {
+        $this->managerKey = $managerKey;
     }
 
 
