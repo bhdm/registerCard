@@ -219,6 +219,7 @@ class UserController extends Controller{
             $user->setDriverDocDateEnds($data->get('driverDateEnds'));
             $user->setDriverDocIssuance($data->get('driverDocIssuance'));
             $user->setSnils($data->get('snils'));
+            $user->setManagerKey($data->get('managerKey'));
 
             $company = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->findOneById($companyId);
             $user->setCompany($company);

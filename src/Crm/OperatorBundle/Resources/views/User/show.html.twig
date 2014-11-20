@@ -40,6 +40,17 @@
                     </div>
                 </td>
             </tr>
+
+            <tr>
+                <td class="label">Менеджер:</td>
+                <td class="value">
+                    {% if is_granted('ROLE_ADMIN') %}
+                        <input type="text" value="{{ user.managerKey }}" name="managerKey" />
+                    {% else %}
+                        {{ user.managerKey }}
+                    {% endif %}
+                </td>
+            </tr>
             <tr>
                 <td class="label">Статус заявки:</td>
                 <td class="value">

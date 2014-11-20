@@ -225,7 +225,7 @@
 <body>
 <img src="{{ asset('bundles/crmmain/page1.png') }}" style="">
 
-<div class="company0">ООО "ЦЗИ"Флагман"</div>
+<div class="company0">ООО "ЦЗИ" Флагман"</div>
 <div class="fio0">{{ user.lastName }} {{ user.firstName }} {{ user.surName }}</div>
 <div class="line{{ user.typeCard }}">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
 <div class="line1{{ user.typeCard }}">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
@@ -236,7 +236,7 @@
 <div class="fio" style="">
     {{ user.lastName }} {{ user.firstName }} {{ user.surName }}
 </div>
-<div class="companyName">{{ user.myPetition == 1? '«НПО «ТЕХНОЛОГ»' : user.company.title }}</div>
+<div class="companyName">{{ user.myPetition == 1? 'ООО «НПО «ТЕХНОЛОГ»' : user.company.title }}</div>
 <div class="companyAdress">
     {% if user.myPetition == 1 %}
     195196, Санкт-Петербург, ул.Громова, д.14/6, лит. А, пом. 3-Н
@@ -275,7 +275,7 @@
 
         <br />
         <br />
-        <img src="/bundles/crmmain/images/copy.png"  style="margin-left: {{ width }}px"/>
+        {#<img src="/bundles/crmmain/images/copy.png"  style="margin-left: {{ width }}px"/>#}
 </body>
 </html>
 
