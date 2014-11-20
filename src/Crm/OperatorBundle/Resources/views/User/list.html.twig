@@ -86,6 +86,70 @@
             });
 
 
+            var id = "managers",
+                    $id = $('.' + id),
+                    choices = $id.find('option').map(function (n, e) {
+                        var $e = $(e);
+                        return {
+                            id: $e.val(),
+                            text: $e.text()
+                        };
+                    }),
+                    width = $id.width(),
+                    realClass = $id.get(0).className,
+                    realId = $id.get(0).id,
+
+
+                    $input = $('<input>',{width: width});
+            $id.after($input);
+            $id.hide();
+            $id.find('option').remove();
+            //превратили
+
+            $input.select2({
+                query: function (query) {
+                    var data = {}, i;
+                    data.results = [];
+
+                    // подтставим то что искали
+
+                    if (query.term !== "") {
+                        data.results.push({
+                            id: query.term,
+                            text: query.term
+                        });
+                    }
+
+                    // добавим остальное
+
+                    for (i = 0; i < choices.length; i++) {
+                        if (choices[i].text.match(query.term) || choices[i].id.match(query.term)) data.results.push(choices[i]);
+                    }
+
+                    query.callback(data);
+                }
+            }).on('change',function()
+                    {
+                        var value=$input.val();
+                        $id.empty();
+                        $id.append($('<option>').val(value))
+                        $id.val(value);
+                    }
+            );
+
+
+//            $(".managers").select2({
+//                minimumInputLength: 1
+////                query: function (query) {
+////                    var data = {results: []}, i, j, s;
+////                    for (i = 1; i < 5; i++) {
+////                        s = "";
+////                        for (j = 0; j < i; j++) {s = s + query.term;}
+////                        data.results.push({id: query.term + i, text: s});
+////                    }
+////                    query.callback(data);
+////                }
+//            });
 
 
         });
@@ -167,11 +231,11 @@
                             <input type="checkbox" name="check[{{ user.id }}]">
                         </td>
                         <td>
-                            <ul id="manager" class="selectinput managers" style="width: 100px">
+                            <select id="manager" class="managers" style="width: 100px">
                                 {% for manager in managers %}
-                                    <li value="{{ manager.managerKey }}" {{ manager.managerKey == user.managerKey ? 'attr="active"' : '' }}>{{ manager.managerKey }}</li>
+                                    <option value="{{ manager.managerKey }}" {{ manager.managerKey == user.managerKey ? 'selected="selected"' : '' }}>{{ manager.managerKey }}</option>
                                 {% endfor %}
-                            </ul>
+                            </select>
                         </td>
 
                         <td style="text-align: center">
