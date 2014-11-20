@@ -116,4 +116,13 @@ class UserRepository extends EntityRepository
         return $res->getQuery()->getResult();
 
     }
+
+    public function findAllManagers(){
+        $res = $this->getEntityManager()->createQueryBuilder()
+            ->select('u.managerKey')
+            ->from('CrmMainBundle:User','u')
+            ->where('u.managerKey is not null')
+            ->groupBy('u.managerKey');
+        return $res->getQuery()->getResult();
+    }
 }

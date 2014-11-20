@@ -81,6 +81,12 @@ class UserController extends Controller{
 //            }
 //        }
 
+        $managers = $this->getDoctrine()->getRepository('CrmMainBundle:User')->findAllManagers();
+
+        if ($managers == null){
+            $managers = array();
+        }
+
         return array(
             'company'   => $company,
             'companyId' => ($company != null ? $company->getId() : null),
@@ -90,6 +96,7 @@ class UserController extends Controller{
             'toPetition'=> $toPetition,
             'toDeploy'  => $toDeploy,
             'toArhive'  => $toArhive,
+            'managers'  => $managers
         );
     }
 

@@ -41,6 +41,10 @@
             border-radius: 3px;
             font-size: 10px;
         }
+        .select2-input{
+            width: 87px !important;
+        ;
+        }
     </style>
 {% endblock %}
 
@@ -80,6 +84,10 @@
                 var url = Routing.generate('operator_user_list', {'companyId':'null', 'type' :type });
                 window.location.href = url;
             });
+
+
+
+
         });
     </script>
 {% endblock %}
@@ -159,11 +167,11 @@
                             <input type="checkbox" name="check[{{ user.id }}]">
                         </td>
                         <td>
-                            <select id="manager">
+                            <ul id="manager" class="selectinput managers" style="width: 100px">
                                 {% for manager in managers %}
-                                    <option value="{{ manager }}" {{ manager == user. }}>manager</option>
+                                    <li value="{{ manager.managerKey }}" {{ manager.managerKey == user.managerKey ? 'attr="active"' : '' }}>{{ manager.managerKey }}</li>
                                 {% endfor %}
-                            </select>
+                            </ul>
                         </td>
 
                         <td style="text-align: center">
