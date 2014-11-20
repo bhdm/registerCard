@@ -85,57 +85,64 @@
                 window.location.href = url;
             });
 
-
-            var id = "managers",
-                    $id = $('.' + id),
-                    choices = $id.find('option').map(function (n, e) {
-                        var $e = $(e);
-                        return {
-                            id: $e.val(),
-                            text: $e.text()
-                        };
-                    }),
-                    width = $id.width(),
-                    realClass = $id.get(0).className,
-                    realId = $id.get(0).id,
+            $('#filterManager').change(function(){
+                var type = $(this).val();
+                var url = Routing.generate('operator_user_list', {'companyId':'null', 'type' :type });
+                window.location.href = url;
+            });
 
 
-                    $input = $('<input>',{width: width});
-            $id.after($input);
-            $id.hide();
-            $id.find('option').remove();
-            //превратили
 
-            $input.select2({
-                query: function (query) {
-                    var data = {}, i;
-                    data.results = [];
-
-                    // подтставим то что искали
-
-                    if (query.term !== "") {
-                        data.results.push({
-                            id: query.term,
-                            text: query.term
-                        });
-                    }
-
-                    // добавим остальное
-
-                    for (i = 0; i < choices.length; i++) {
-                        if (choices[i].text.match(query.term) || choices[i].id.match(query.term)) data.results.push(choices[i]);
-                    }
-
-                    query.callback(data);
-                }
-            }).on('change',function()
-                    {
-                        var value=$input.val();
-                        $id.empty();
-                        $id.append($('<option>').val(value))
-                        $id.val(value);
-                    }
-            );
+//            var id = "managers",
+//                    $id = $('.' + id),
+//                    choices = $id.find('option').map(function (n, e) {
+//                        var $e = $(e);
+//                        return {
+//                            id: $e.val(),
+//                            text: $e.text()
+//                        };
+//                    }),
+//                    width = $id.width(),
+//                    realClass = $id.get(0).className,
+//                    realId = $id.get(0).id,
+//
+//
+//                    $input = $('<input>',{width: width});
+//            $id.after($input);
+//            $id.hide();
+//            $id.find('option').remove();
+//            //превратили
+//
+//            $input.select2({
+//                query: function (query) {
+//                    var data = {}, i;
+//                    data.results = [];
+//
+//                    // подтставим то что искали
+//
+//                    if (query.term !== "") {
+//                        data.results.push({
+//                            id: query.term,
+//                            text: query.term
+//                        });
+//                    }
+//
+//                    // добавим остальное
+//
+//                    for (i = 0; i < choices.length; i++) {
+//                        if (choices[i].text.match(query.term) || choices[i].id.match(query.term)) data.results.push(choices[i]);
+//                    }
+//
+//                    query.callback(data);
+//                }
+//            }).on('change',function()
+//                    {
+//                        var value=$input.val();
+//                        $id.empty();
+//                        $id.append($('<option>').val(value))
+//                        $id.val(value);
+//                    }
+//            );
 
 
 //            $(".managers").select2({
@@ -151,6 +158,26 @@
 ////                }
 //            });
 
+
+            $('.managers').keypress(function(e){
+                var input = $(this);
+                $(input).css('color','rgb(0, 0, 0)');
+                if(e.which == 13) {
+                    $.ajax({
+                        type: "POST",
+                        url: Routing.generate('edit-manager-key'),
+                        data: 'id='+$(input).attr('id')+'&key='+$(input).val(),
+                        success: function (msg) {
+                            if (msg == 'ok'){
+                                $(input).css('color','rgb(46, 124, 55)');
+                            }else{
+                                alert('Ошибка сохраненния');
+                                $(input).css('color','rgb(124, 46, 55)');
+                            }
+                        }
+                    });
+                }
+            });
 
         });
     </script>
@@ -179,6 +206,14 @@
             <option value="4">На почте</option>
             <option value="5">Получена</option>
             <option value="10">Отклонена</option>
+        </select>
+
+        <select id="filterManager">
+            <option value="null">Фильтр по менеджеру</option>
+
+            {% for manager in managers %}
+            <option value="{{ manager.managerKey }}">{{ manager.managerKey }}</option>
+            {% endfor %}
         </select>
 
         Выбрано {{ users | length }} элемент(ов)
@@ -231,11 +266,12 @@
                             <input type="checkbox" name="check[{{ user.id }}]">
                         </td>
                         <td>
-                            <select id="manager" class="managers" style="width: 100px">
-                                {% for manager in managers %}
-                                    <option value="{{ manager.managerKey }}" {{ manager.managerKey == user.managerKey ? 'selected="selected"' : '' }}>{{ manager.managerKey }}</option>
-                                {% endfor %}
-                            </select>
+                            {#<select id="manager" class="managers" style="width: 100px">#}
+                                {#{% for manager in managers %}#}
+                                    {#<option value="{{ manager.managerKey }}" {{ manager.managerKey == user.managerKey ? 'selected="selected"' : '' }}>{{ manager.managerKey }}</option>#}
+                                {#{% endfor %}#}
+                            {#</select>#}
+                            <input type="text" style="width: 50px" value="{{ user.managerKey }}" class="managers" id="{{ user.id }}">
                         </td>
 
                         <td style="text-align: center">

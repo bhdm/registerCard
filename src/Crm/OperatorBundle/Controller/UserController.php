@@ -858,4 +858,24 @@ class UserController extends Controller{
         return $response;
     }
 
+    /**
+     * @Route("/edit-manager-key", name="edit-manager-key", options={"expose"=true})
+     */
+    public function editManagerKeyAction(Request $request){
+        if ($request->getMethod()== 'POST'){
+            $id = $request->request->get('id');
+            $key = $request->request->get('key');
+
+            $user = $this->getDoctrine()->getRepository('CrmMainBundle:User')->findOneById($id);
+            if ($user){
+                $user->setManagerKey($key);
+                $this->getDoctrine()->getManager()->flush($user);
+                echo 'ok';
+                exit;
+            }
+        }
+        echo 'error';
+        exit;
+    }
+
 }
