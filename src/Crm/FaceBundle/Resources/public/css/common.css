@@ -1,5 +1,4 @@
 *{
-    color: #005596;
     font-family: Arial, Helvetica, sans-serif;
 }
 html, body{
@@ -45,6 +44,21 @@ a{
     text-decoration: none;
     font-style: normal;
 }
+.menu ul li:hover{
+    background: rgba(72, 126, 187, 0.5);
+}
+
+.f-nav{
+    position: fixed;
+    z-index: 99999;
+    top: 0;
+    left: 0;
+    right: 0;
+}
+.f-nav ul{
+    margin: 0;
+    text-align: center;
+}
 
 .menu ul li:hover .submenu{
     display: block;
@@ -52,10 +66,11 @@ a{
 .submenu{
     display: none;
     position: absolute;
-    background: #023762;
-    width: 100px !important;
+    background: #245C91;
+    width: 131px !important;
     margin-top: 10px;
     padding: 5px;
+    margin-left: -10px;
 }
 
 .submenu li{
@@ -88,9 +103,12 @@ a{
 
 .content{
     padding: 10px;
+    color: #005596;
 }
+
 .list-numeric{
     list-style: decimal;
+    color: #005596;
 }
 .list-numeric li{
     padding: 5px 15px;
@@ -103,4 +121,39 @@ a{
     height: 70px;
     background: url('../images/footer_bg.png');
     padding: 15px;
+}
+
+
+.index-btn{
+    width: 370px;
+    height: 390px;
+    background: url('../images/index_btn.png');
+    margin: 0 auto;
+    cursor: pointer;
+    padding-top: 20px;
+}
+
+.btn-desc{
+    color: #EEEEEE;
+    font-size: 18px;
+}
+
+.index-btn:hover{
+    background: url('../images/index_btn_act.png');
+}
+
+.big-title{
+    color: #DD0000;
+    font-size: 58px;
+    font-weight: bold;
+    text-shadow: 2px -2px #FFFFFF;
+}
+.big-desc{
+    font-size: 22px;
+    font-weight: bold;
+}
+.red-txt{
+    color: #DD0000;
+    font-weight: bold;
+    text-shadow: 2px -2px #FFFFFF;
 }
