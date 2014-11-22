@@ -59,7 +59,11 @@ class UserRepository extends EntityRepository
         }
 
         if ($type){
-            $res->andWhere("( u.status = ".$type." OR u.managerKey = ".$type.")");
+            if (is_int($type)){
+                $res->andWhere("u.status = '".$type."'");
+            }else{
+                $res->andWhere("u.managerKey = '".$type."'");
+            }
         }
 
         if ($toDay){
