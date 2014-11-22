@@ -59,7 +59,7 @@ class UserRepository extends EntityRepository
         }
 
         if ($type){
-            if (is_int($type)){
+            if (is_numeric($type)){
                 $res->andWhere("u.status = '".$type."'");
             }else{
                 $res->andWhere("u.managerKey = '".$type."'");
