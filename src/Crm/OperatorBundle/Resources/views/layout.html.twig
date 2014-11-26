@@ -7,6 +7,11 @@
         <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
         <script src="{{ path('fos_js_routing_js', {"callback": "fos.Router.setData"}) }}"></script>
         <script rel="script" src="{{ asset('bundles/crmoperator/js/select2.js') }}"></script>
+
+        <script src="{{ asset('bundles/crmoperator/jquery-ui/jquery-ui.min.js') }}"></script>
+
+
+
         <script>
             $(document).ready(function(){
                 $('input:text, input:file, select:not([id*="manager"])').styler();
@@ -14,6 +19,9 @@
         </script>
     {% endblock %}
     {% block stylesheets %}
+        <link rel="stylesheet" href="{{ asset('bundles/crmoperator/jquery-ui/jquery-ui.theme.min.css') }}">
+        <link rel="stylesheet" href="{{ asset('bundles/crmoperator/jquery-ui/jquery-ui.min.css') }}">
+
         <link href="{{ asset('bundles/crmmain/lib/chosen/chosen.css') }}" rel="stylesheet" media="all">
         <link href="{{ asset('bundles/crmoperator/stylesheets/select2.css') }}" rel="stylesheet" media="all">
         <link href="{{ asset('bundles/crmmain/lib/styler/jquery.formstyler.css') }}" rel="stylesheet" media="all">
@@ -50,7 +58,7 @@
     {% include "CrmOperatorBundle::menu.html.twig" %}
     <div class="crosh">
         {% block crosh %}
-        <a href="#">Главная</a> &raquo; <a href="#">Пользователи</a> &raquo; <a href="#">Список</a>
+            <a href="#">Главная</a> &raquo; <a href="#">Пользователи</a> &raquo; <a href="#">Список</a>
         {% endblock %}
     </div>
     <div class="content">

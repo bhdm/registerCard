@@ -44,6 +44,13 @@
         .select2-input{
             width: 87px !important;
         ;
+
+        }
+        .fixed-dialog{
+            position: fixed;
+            top: 200px;
+            left: 50%;
+            margin-left: -154px;
         }
     </style>
 {% endblock %}
@@ -51,7 +58,48 @@
 {% block javascripts %}
     {{ parent() }}
     <script>
+        var dialog = $( "#dialog-confirm" ).dialog({
+//            autoOpen: false,
+            resizable: false,
+            height:200,
+            dialogClass: 'fixed-dialog',
+            modal: true,
+            buttons: {
+                "Подтвердить удаление": function() {
+                    $( this ).dialog( "close" );
+                },
+                Cancel: function() {
+                    $( this ).dialog( "close" );
+                }
+            }
+        });
+
         $(document).ready(function(){
+
+            $( ".btn-del" ).click(function(){
+                var urldel = $(this).attr('href');
+//                dialog.dialog( "open" );
+                $( "#dialog-confirm" ).dialog({
+//                  autoOpen: false,
+                    resizable: false,
+                    height:200,
+                    position: 'fixed',
+                    dialogClass: 'fixed-dialog',
+                    modal: true,
+                    buttons: {
+                        "Подтвердить удаление": function() {
+                            $( this ).dialog( "close" );
+                            window.location.href = urldel;
+                        },
+                        Cancel: function() {
+                            $( this ).dialog( "close" );
+                            return false;
+                        }
+                    }
+                });
+                return false;
+            });
+
            $('#xml').click(function(){
                 var url = Routing.generate('xml_generator_many');
                $('#form-list').attr('action', url);
@@ -372,7 +420,7 @@
                                         <img src="{{ asset('bundles/crmoperator/images/icon/image26.png') }}" class="icon"/>
                                     </a>
                                 {% else %}
-                                    <a class="no-underline" href="{{ path("operator_petition_edit",{ 'petitionId' : user.companyPetition.id }) }}">
+                                    <a class="no-underline " href="{{ path("operator_petition_edit",{ 'petitionId' : user.companyPetition.id }) }}">
                                         <img src="{{ asset('bundles/crmoperator/images/icon/image26_green.png') }}" class="icon"/>
                                     </a>
                                 {% endif %}
@@ -385,7 +433,7 @@
 
 
 
-                            <a class="no-underline" href="{{ path('operator_user_remove' , { 'userId' : user.id}) }}">
+                            <a class="no-underline btn-del" href="{{ path('operator_user_remove' , { 'userId' : user.id}) }}">
                                 <img src="{{ asset('bundles/crmoperator/images/icon/image11.png') }}" class="icon"/>
                             </a>
 
@@ -398,5 +446,7 @@
             </table>
         </form>
     {% endif %}
-
+    <div id="dialog-confirm" title="Подтверждение удаления">
+        <p><span class="ui-icon ui-icon-alert" style="float:left; margin:0 7px 20px 0;"></span>Вы точно хотите удалить запись?</p>
+    </div>
 {% endblock %}
