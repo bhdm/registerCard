@@ -375,8 +375,8 @@ class OrderController extends Controller{
             }
 
         }
-
-        return new Response($this->renderView("CrmMainBundle:Order:success.html.twig", array('user' => $user)));
+        $session->set('userId', $user->getId());
+        return $this->redirect($this->generateUrl('confirm_register'));
     }
 
     /**
@@ -387,6 +387,12 @@ class OrderController extends Controller{
         $response = new Response();
         $response->setContent($page->getBody());
         return $response;
+    }
+
+    public function succesAction(Request $request){
+        $session = $request->getSession();
+        $user = $this->getDoctrine()->getRepository('CrmMainBundle:User')->findOneById($session->get('userId'));
+        return new Response($this->renderView("CrmMainBundle:Order:success.html.twig", array('user' => $user)));
     }
 
     /**
@@ -676,9 +682,10 @@ class OrderController extends Controller{
      */
     public function showAction(Request $request){
         $session = $request->getSession();
+        $userId = $session->get('userId');
         $user = $this->getDoctrine()->getRepository('CrmMainBundle:User')->findOneById($userId);
 
-        if ($user && ( $user->getCompany()->getOperator() == $this->getUser() || $this->get('security.context')->isGranted('ROLE_ADMIN')) || $user->getCompany()->getOperator()->getModerator() == $this->getUser()){
+
             if ($request->getMethod() == 'POST'){
                 $data = $request->request;
 
@@ -772,8 +779,9 @@ class OrderController extends Controller{
                 $user->setCopyPetition($this->getArrayToImg($user->getCopyPetition()));
 
                 $this->getDoctrine()->getManager()->flush($user);
-
-                return $this->redirect($this->generateUrl('operator_user_list'));
+                $session->set('userId',null);
+                $session->save();
+                return new Response($this->renderView("CrmMainBundle:Order:success.html.twig", array('user' => $user)));
 
             }else{
                 #Помещаем все фалы-картинки в сессию, что бы потом можно было бы редактировать
@@ -874,9 +882,7 @@ class OrderController extends Controller{
             $regions = $this->getDoctrine()->getRepository('CrmMainBundle:Region')->findAll();
 
             return array('user' => $user, 'regions' => $regions);
-        }else{
-            return $this->redirect($request->headers->get('referer'));
-        }
+
 
     }
 }
