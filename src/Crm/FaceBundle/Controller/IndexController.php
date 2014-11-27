@@ -11,7 +11,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
  * @package Crm\FaceBundle\Controller
  * @Route("/newface")
  */
-class DefaultController extends Controller
+class IndexController extends Controller
 {
     /**
      * @Route("/")

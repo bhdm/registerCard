@@ -1,285 +1,127 @@
 <html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-        <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}?1" />
-        {% block title %}
-            {% if page is defined and page.title is defined  %}
-                <title>{{ page.title }}</title>
-            {% else %}
-                <title>Карта водителя для тахографа с СКЗИ</title>
-            {% endif%}
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}?1" />
+    {% block title %}
+        {% if page is defined and page.title is defined  %}
+            <title>{{ page.title }}</title>
+        {% else %}
+            <title>Карта водителя для тахографа с СКЗИ</title>
+        {% endif%}
+        {% if page is defined and page.metaDescription is defined  %}
+            <meta name="description" content="{{ page.metaDescription }}">
+        {% else %}
+            <meta name="description" content="Система подачи заявок">
+        {% endif%}
+        {% if page is defined and page.metaKeyword is defined  %}
+            <meta name="keywords" content="{{ page.metaKeyword }}">
+        {% else %}
+            <meta name="keywords" content="Система подачи заявок">
+        {% endif%}
+    {% endblock %}
 
+    {% block stylesheets %}
+        <link href="//fonts.googleapis.com/css?family=Open+Sans:300italic,300,400italic,400,600italic,600,700italic,700,800italic,800" rel="stylesheet" type="text/css">
+        <link href="{{ asset('bundles/crmface/css/common.css') }}" rel="stylesheet" media="all">
+        <link href="{{ asset('bundles/crmmain/lib/styler/jquery.formstyler.css') }}" rel="stylesheet" media="all">
+    {% endblock %}
 
-            {% if page is defined and page.metaDescription is defined  %}
-                <meta name="description" content="{{ page.metaDescription }}">
-            {% else %}
-                <meta name="description" content="Система подачи заявок">
-            {% endif%}
-
-
-            {% if page is defined and page.metaKeyword is defined  %}
-                <meta name="keywords" content="{{ page.metaKeyword }}">
-            {% else %}
-                <meta name="keywords" content="Система подачи заявок">
-            {% endif%}
-        {% endblock %}
-        {% block stylesheets %}
-            <link href="//fonts.googleapis.com/css?family=Open+Sans:300italic,300,400italic,400,600italic,600,700italic,700,800italic,800" rel="stylesheet" type="text/css">
-            <link href="{{ asset('bundles/crmmain/stylesheets/common.css') }}" rel="stylesheet" media="all">
-            <link href="{{ asset('bundles/crmmain/lib/styler/jquery.formstyler.css') }}" rel="stylesheet" media="all">
-        {% endblock %}
-        {% block javascripts %}
-            <script rel="script" src="{{ asset('bundles/crmmain/javascripts/jQuery.js') }}"></script>
-            <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
-            <script src="{{ asset('bundles/crmmain/lib/styler/jquery.formstyler.min.js') }}" type="text/javascript"></script>
-            <script src="{{ path('fos_js_routing_js', {"callback": "fos.Router.setData"}) }}"></script>
-            <script>
-                $(document).ready(function(){
-                    $('#popup-close').click(function(){
-                        $('.popup').fadeOut();
-                    });
-
-                    $('#setphone').click(function(){
-                        $('#pop-up-phone').css('display', 'block');
-                        $('.bg-gray').css('display', 'block');
-                    });
-
-                    $('input:text,input:file,input:radio,input:password').styler();
-                    $('.styler').styler();
-                })
-            </script>
-        {% endblock %}
-        <style>
-            *{
-                font-family: "Open Sans";
-            }
-            .a{
-                color: #CC3333;
-            }
-            .a:hover{
-                text-decoration: underline;
-                cursor: pointer;
-            }
-            .close-pop-up{
-                width: 32px;
-                position: absolute;
-                right: 0;
-                top: 0;
-            }
-            .bg-gray{
-                position: fixed;
-                left: 0;
-                right: 0;
-                top: 0;
-                bottom: 0;
-                background: #555555;
-                opacity: 0.5;
-                z-index: 900;
-                display: none;
-            }
-            .pop-up{
-                position: fixed;
-                width: 500px;
-                padding: 15px;
-                border: 1px solid #636363;
-                border-radius: 5px;
-                left: 50%;
-                margin-left: -250px;
-                top: 300px;
-                background: #e3e3e3;
-                z-index: 910;
-                display: none;
-            }
-        </style>
-    </head>
-    <body>
-        <div class="body">
-            <header>
-                <div class="center-block">
-                    <table cellpading="0" cellspacing="0">
-                        <tr>
-                            <td style="width: 130px;padding-right: 10px;">
-                                <a href="{{ path('main') }}" style="border-bottom: none;"><img src="{{ asset('bundles/crmmain/images/logo1.png') }}"></a>
-                            </td>
-                            <td style="width: 5px">
-                                <img src="{{ asset('bundles/crmmain/images/v-line-1.jpg') }}">
-                            </td>
-                            <td style="width: 260px; padding-left: 20px; padding-top: 15px">
-                                <a href="{{ path('main') }}" style="border-bottom: none;"><img src="{{ asset('bundles/crmmain/images/logo2.png') }}"></a>
-                                <br />
-                                <span class="gray" style="font-size: 14px;">Оформление&nbsp;карты&nbsp;водителя</span>
-                            </td>
-                            <td>
-                                <br />
-                                <span class="a" id="setphone">Заказать обратный звонок</span>
-                            </td>
-                            <td style=" width: 250px; padding-top: 15px">
-                                <span class="phone">8 (812) 425 - 12 - 44</span>
-                                <br />
-                                <a href="{{ path('faq') }}" class="no-bootom-line"><img src="{{ asset('bundles/crmmain/images/msg.png') }}" class="msg"></a>
-                                &nbsp;<span style="padding: 0 18px"> </span>&nbsp;<a href="{{ path('faq') }}"><b>задать вопрос</b></a>
-                                <br />
-
-                            </td>
-                        </tr>
-                    </table>
-                </div>
-            </header>
-            {% include ("CrmMainBundle::menu.html.twig")  %}
-            <div class="content">
-                <br />
-                {% block content %}{% endblock %}
-            </div>
-            {# @todo Перевести в плагин #}
-        </div>
-        <footer>
-            <div class="center-block">
-                <div style="float: left">
-                    ООО "НПО ТЕХНОЛОГ" 2014 год
-                </div>
-                <div style="float: left; padding-left: 20px;">
-                    <a href="https://money.yandex.ru" target="_blank" style="text-decoration: none; border-bottom: 0">
-                        <img src="https://money.yandex.ru/img/yamoney_logo88x31.gif"
-                             alt="Я принимаю Яндекс.Деньги"
-                             title="Я принимаю Яндекс.Деньги" border="0" height="35"/></a>
-                    &nbsp;
-                    &nbsp;
-                    &nbsp;
-                    &nbsp;
-                    &nbsp;
-                    <a href="http://robokassa.ru" target="_blank"  style="text-decoration: none; border-bottom: 0" ><img  style="height: 35px;" src="{{ asset('bundles/crmmain/images/rbks.png') }}"></a>
-                </div>
-                <div style="float: right">
-                    <a href="{{ path('page',{ 'url' : 'contact'}) }}">Контакты</a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="{{ path('page',{ 'url' : 'about'}) }}">О компании</a>
-                </div>
-            </div>
-        </footer>
-        <!-- Yandex.Metrika counter -->
-        <script type="text/javascript">
-            var yaParams = {/*Çäåñü ïàðàìåòðû âèçèòà*/};
-        </script>
-
-        <script type="text/javascript">
-            (function (d, w, c) {
-                (w[c] = w[c] || []).push(function() {
-                    try {
-                        w.yaCounter24911744 = new Ya.Metrika({id:24911744,
-                            webvisor:true,
-                            clickmap:true,
-                            trackLinks:true,
-                            accurateTrackBounce:true,params:window.yaParams||{ }});
-                    } catch(e) { }
-                });
-
-                var n = d.getElementsByTagName("script")[0],
-                        s = d.createElement("script"),
-                        f = function () { n.parentNode.insertBefore(s, n); };
-                s.type = "text/javascript";
-                s.async = true;
-                s.src = (d.location.protocol == "https:" ? "https:" : "http:") + "//mc.yandex.ru/metrika/watch.js";
-
-                if (w.opera == "[object Opera]") {
-                    d.addEventListener("DOMContentLoaded", f, false);
-                } else { f(); }
-            })(document, window, "yandex_metrika_callbacks");
-        </script>
-        <!-- /Yandex.Metrika counter -->
-
+    {% block javascripts %}
+        <script rel="script" src="{{ asset('bundles/crmmain/javascripts/jQuery.js') }}"></script>
+        <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
+        <script src="{{ asset('bundles/crmmain/lib/styler/jquery.formstyler.min.js') }}" type="text/javascript"></script>
+        <script src="{{ path('fos_js_routing_js', {"callback": "fos.Router.setData"}) }}"></script>
         <script>
-            (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-                (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-                    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-            })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+            jQuery("document").ready(function($){
 
-            ga('create', 'UA-51650904-1', 'im-kard.ru');
-            ga('send', 'pageview');
+                var nav = $('.menu');
 
+                $(window).scroll(function () {
+                    if ($(this).scrollTop() > 180) {
+                        nav.addClass("f-nav");
+                    } else {
+                        nav.removeClass("f-nav");
+                    }
+                });
+
+            });
         </script>
-        <div class="pop-up" id="pop-up-phone" style="width: 350px;margin-left: -175px;">
-            <img src="{{ asset('bundles/crmmain/images/close_ico.png') }}" class="close-pop-up ico" />
-            <div>
-                <form method="POST" action="{{ path('set-number') }}">
-                    <table>
-                        <tr>
-                            <td>Имя: </td>
-                            <td><input type="text" name="name"  style="width: 250px" class="styler" placeholder="Ваше имя" required="required"></td>
-                        </tr>
-                        <tr>
-                            <td>Телефон: </td>
-                            <td><input type="tel" class="styler" style="width: 250px" name="phone" placeholder="Номер телефона" required="required"></td>
-                        </tr>
-                        <tr>
-                            <td></td>
-                            <td><button type="submit" class="styler">Отправить</button></td>
-                        </tr>
-                    </table>
-                </form>
-            </div>
+    {% endblock %}
+</head>
+<body>
+    <div class="body">
+        <div class="logo">
+            <table cellpadding="0" cellspacing="0" style="width: 100%; padding: 0 10px">
+                <tr>
+                    <td>
+                        <img src="{{ asset('bundles/crmface/images/logo.png') }}" style="width: 320px">
+                    </td>
+                    <td style="vertical-align: top">
+                        <br />
+                        <span class="phone">8 (812) 425 - 12 - 44</span>
+                        <span class="workday">пн. - вс. , 8-00 : 22-00</span>
+                        <br />
+                        <br />
+                        <table style="width: 100%;">
+                            <tr>
+                                <td>
+                                    <span style="padding-left: 20px">
+                                        <img src="{{ asset('bundles/crmface/icons/vopros.png') }}" style="margin-bottom: -12px;">
+                                        <a href="#" class="vopros">Задать вопрос</a>
+                                    </span>
+                                    <br />
+                                    <br />
+                                    <br />
+                                </td>
+                                <td>
+                                    <img src="{{ asset('bundles/crmface/images/call.png') }}">
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+            </table>
         </div>
-        <div class="bg-gray"></div>
-
-        <!-- Yandex.Metrika counter -->
-        <script type="text/javascript">
-            var yaParams = {/*Здесь параметры визита*/};
-        </script>
-
-        <script type="text/javascript">
-            (function (d, w, c) {
-                (w[c] = w[c] || []).push(function() {
-                    try {
-                        w.yaCounter26984130 = new Ya.Metrika({id:26984130,
-                            webvisor:true,
-                            clickmap:true,
-                            trackLinks:true,
-                            accurateTrackBounce:true,params:window.yaParams||{ }});
-                    } catch(e) { }
-                });
-
-                var n = d.getElementsByTagName("script")[0],
-                        s = d.createElement("script"),
-                        f = function () { n.parentNode.insertBefore(s, n); };
-                s.type = "text/javascript";
-                s.async = true;
-                s.src = (d.location.protocol == "https:" ? "https:" : "http:") + "//mc.yandex.ru/metrika/watch.js";
-
-                if (w.opera == "[object Opera]") {
-                    d.addEventListener("DOMContentLoaded", f, false);
-                } else { f(); }
-            })(document, window, "yandex_metrika_callbacks");
-        </script>
-        <noscript><div><img src="//mc.yandex.ru/watch/26984130" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
-        <!-- /Yandex.Metrika counter -->
-
-        <!-- Yandex.Metrika counter -->
-        <script type="text/javascript">
-            var yaParams = {/*Здесь параметры визита*/};
-        </script>
-
-        <script type="text/javascript">
-            (function (d, w, c) {
-                (w[c] = w[c] || []).push(function() {
-                    try {
-                        w.yaCounter27037263 = new Ya.Metrika({id:27037263,
-                            webvisor:true,
-                            clickmap:true,
-                            trackLinks:true,
-                            accurateTrackBounce:true,params:window.yaParams||{ }});
-                    } catch(e) { }
-                });
-
-                var n = d.getElementsByTagName("script")[0],
-                        s = d.createElement("script"),
-                        f = function () { n.parentNode.insertBefore(s, n); };
-                s.type = "text/javascript";
-                s.async = true;
-                s.src = (d.location.protocol == "https:" ? "https:" : "http:") + "//mc.yandex.ru/metrika/watch.js";
-
-                if (w.opera == "[object Opera]") {
-                    d.addEventListener("DOMContentLoaded", f, false);
-                } else { f(); }
-            })(document, window, "yandex_metrika_callbacks");
-        </script>
-        <noscript><div><img src="//mc.yandex.ru/watch/27037263" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
-        <!-- /Yandex.Metrika counter -->
-    </body>
+        <div class="menu">
+            <ul>
+                <li><a href="{{ path('main') }}">Главная</a></li>
+                <li>
+                    Подать заявку
+                    <ul class="submenu">
+                        <li> <a href="{{ path('order') }}"> СКЗИ </a></li>
+                        <li> ЕСТР </li>
+                    </ul>
+                </li>
+                <li><a href="{{ path('documents') }}">Документы</a></li>
+                <li><a href="{{ path('faq') }}">Частые вопросы</a></li>
+                <li><a href="{{ path('status') }}">Статус</a></li>
+                <li><a href="{{ path('page',{ 'url' : 'about'}) }}">О компании</a></li>
+                <li><a href="{{ path('page',{ 'url' : 'contact'}) }}">Контакты</a></li>
+            </ul>
+        </div>
+        <div class="content">
+            {% block content %}{% endblock %}
+        </div>
+        <br/>
+        <div class="footer">
+            <table style="width: 100%">
+                <tr>
+                    <td style="color: #CC0000; text-align: center;">ООО "НПО "Технолог" <br /> 2014г.</td>
+                    <td style="font-weight: bold; color: #FFFFFF; text-align: center; font-size: 16px">
+                        <span style="font-size: 20px; color: #FFFFFF">ООО "ИнфоМакс"</span>
+                        <br />
+                        Санкт-Петербург, пр. Маршала Говорова, д.37
+                        <br />
+                        8(812)425-12-44
+                        <br />
+                        e-mail: imkardru@gmail.com
+                    </td>
+                    <td style="text-align: center;">
+                        <img src="{{ asset('bundles/crmface/images/robokassa.png') }}">
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</body>
 </html>
