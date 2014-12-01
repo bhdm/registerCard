@@ -8,6 +8,7 @@
 
 namespace Crm\OperatorBundle\Controller;
 
+use Crm\MainBundle\Entity\StatusLog;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Security\Core\SecurityContext;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -394,6 +395,13 @@ class UserController extends Controller{
 
                 $this->getDoctrine()->getManager()->flush($user);
 
+                $em = $this->getDoctrine()->getManager();
+                $statuslog = new StatusLog();
+                $statuslog->setUser($user);
+                $statuslog->setTitle($user->getStatusString());
+                $em->persist($statuslog);
+                $em->flush($statuslog);
+
                 return $this->redirect($this->generateUrl('operator_user_list'));
 
             }else{
@@ -491,6 +499,7 @@ class UserController extends Controller{
 
                 $session->save();
             }
+
 
             $regions = $this->getDoctrine()->getRepository('CrmMainBundle:Region')->findAll();
 
@@ -791,13 +800,25 @@ class UserController extends Controller{
 //        if ($request->getSession()->get('hash')!='7de92cefb8a07cede44f3ae9fa97fb3b' and $this->isCompany() != true) return $this->redirect($this->generateUrl('admin_main'));
         $em = $this->getDoctrine()->getManager();
         $user = $this->getDoctrine()->getRepository('CrmMainBundle:User')->findOneById($userId);
-        if ($user->getStatus() == 5){
-            $user->setStatus(10);
-        }elseif($user->getStatus() == 10){
-            $user->setStatus(0);
-        }else{
-            $user->setStatus($user->getStatus()+1);
+
+        switch ( $user->getStatus()){
+            case 0: $user->setStatus(1); break;
+            case 1: $user->setStatus(2); break;
+            case 2: $user->setStatus(3); break;
+            case 3: $user->setStatus(6); break;
+            case 6: $user->setStatus(4); break;
+            case 4: $user->setStatus(5); break;
+            case 5: $user->setStatus(10); break;
+            case 10: $user->setStatus(0); break;
         }
+        $em->flush($user);
+
+        $statuslog = new StatusLog();
+        $statuslog->setUser($user);
+        $statuslog->setTitle($user->getStatusString());
+        $em->persist($statuslog);
+        $em->flush($statuslog);
+
 //        $this->getDoctrine()->getManager()->flush($user);
 //        $phone = $user->getUsername();
 //        if( $phone ){
@@ -805,7 +826,6 @@ class UserController extends Controller{
 //            $sms = new smsru('a8f0f6b6-93d1-3144-a9a1-13415e3b9721');
 //            $sms->sms_send( $phone, 'Статус вашей карты: '.$user->getStatusString()  );
 //        }
-        $em->flush($user);
         $referer = $request->headers->get('referer');
         return $this->redirect($referer);
     }

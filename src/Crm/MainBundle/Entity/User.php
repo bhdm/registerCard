@@ -17,6 +17,12 @@ use Doctrine\Common\Collections\ArrayCollection;
  */
 class User extends BaseEntity implements UserInterface, EquatableInterface, \Serializable
 {
+
+    /**
+     * @ORM\OneToMany(targetEntity="StatusLog", mappedBy="user")
+     */
+    protected $statuslog;
+
     /**
      * Тут будет информация о компании
      * @ORM\ManyToOne(targetEntity="Company", inversedBy="users")
@@ -304,6 +310,7 @@ class User extends BaseEntity implements UserInterface, EquatableInterface, \Ser
 
     public function __construct(){
         $this->roles    = 'ROLE_UNCONFIRMED';
+        $this->statuslog = new ArrayCollection();
     }
 
     public function __toString()
@@ -1211,7 +1218,27 @@ class User extends BaseEntity implements UserInterface, EquatableInterface, \Ser
         $this->managerKey = $managerKey;
     }
 
+    /**
+     * @return mixed
+     */
+    public function getStatuslog()
+    {
+        return $this->statuslog;
+    }
 
+    /**
+     * @param mixed $statuslog
+     */
+    public function setStatuslog($statuslog)
+    {
+        $this->statuslog = $statuslog;
+    }
 
+    public function addStatusLog($statuslog){
+        $this->statuslog[] = $statuslog;
+    }
 
+    public function removeStatusLog($statuslog){
+        $this->statuslog->removeElement($statuslog);
+    }
 }

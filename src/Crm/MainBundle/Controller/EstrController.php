@@ -57,6 +57,31 @@ class EstrController extends Controller
         return array('adr' => $adr);
     }
 
+    /**
+     * @Route("/estr-order", name="estr-order")
+     * @Template()
+     */
+    public function estrOrderAction(Request $request){
+
+    }
+
+    /**
+     * @Route("/estr-confirm", name="estr-confirm")
+     * @Template()
+     */
+    public function estrConfirmAction(Request $request){
+
+    }
+
+    /**
+     * @Route("/estr-success", name="estr-success")
+     * @Template()
+     */
+    public function estrSuccessAction(Request $request){
+
+    }
+
+
 
 //    public function estrOrderAction()
 
