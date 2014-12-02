@@ -9,11 +9,11 @@
         <li>
             Мы имеем все необходимые лицензии
             &nbsp;&nbsp;&nbsp;
-            <img src="{{ asset('bundles/crmface/icons/sertificate.png') }}" style="margin-bottom: -15px;">
+            <a class="fancybox" href="{{ asset('bundles/crmmain/images/l1.jpg') }}"><img src="{{ asset('bundles/crmface/icons/sertificate.png') }}" style="margin-bottom: -15px;"></a>
             &nbsp;
-            <img src="{{ asset('bundles/crmface/icons/sertificate.png') }}" style="margin-bottom: -15px;">
+            <a class="fancybox" href="{{ asset('bundles/crmmain/images/l2.jpg') }}"><img src="{{ asset('bundles/crmface/icons/sertificate.png') }}" style="margin-bottom: -15px;"></a>
             &nbsp;
-            <img src="{{ asset('bundles/crmface/icons/sertificate.png') }}" style="margin-bottom: -15px;">
+            <a class="fancybox" href="{{ asset('bundles/crmmain/images/l3.jpg') }}"><img src="{{ asset('bundles/crmface/icons/sertificate.png') }}" style="margin-bottom: -15px;"></a>
             <br />
             <br />
         </li>
@@ -28,51 +28,22 @@
     <table style="width: 100%">
         <tr>
             <td style="width: 50%; text-align: center;">
-                <div class="index-btn">
-                    <div class="big-title">
-                        СКЗИ
-                    </div>
-                    <div class="btn-desc">
-                        <div>
-                            Карты используются во всех <br />
-                            тахографах установленных после <br />
-                            11.03.2014г.
-                        </div>
-                        <br />
-                        <br />
-                        <div>
-                            <span class="big-desc">Срок изготовления: <span class="red-txt">20-30 дн.</span></span>
-                            <br/>
-                            <span class="big-desc">Доставка: <span class="red-txt">БЕСПЛАТНО</span></span>
-                            <br/>
-                            <span class="big-desc">Цена: <span class="red-txt">2450,00р.</span></span>
-                        </div>
-                    </div>
-                </div>
+                {#<div class="index-btn">#}
+                    <a href="{{ path('order') }}"><img src="{{ asset('bundles/crmmain/images/card-1.png') }}" class="img-btn"></a>
+                {#</div>#}
             </td>
             <td style="width: 50%; text-align: center;">
-                <div class="index-btn">
-                    <div class="big-title">
-                        ЕСТР
-                    </div>
-                    <div class="btn-desc">
-                        <div>
-                            Карты используются в штатных <br />
-                            тахографах установленных после<br />
-                            на автомобили, выпущенные<br />
-                            до 11.03.2014г.
-                        </div>
-                        <br />
-                        <br />
-                        <div>
-                            <span class="big-desc">Срок изготовления: <span class="red-txt">20 дн.</span></span>
-                            <br/>
-                            <span class="big-desc">Доставка: <span class="red-txt">БЕСПЛАТНО</span></span>
-                            <br/>
-                            <span class="big-desc">Цена: <span class="red-txt">3200,00р.</span></span>
-                        </div>
-                    </div>
-                </div>
+                {#<div class="index-btn">#}
+                    <a href="{{ path('order') }}"><img src="{{ asset('bundles/crmmain/images/card-2.png') }}" class="img-btn"></a>
+                {#</div>#}
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2" style="text-align: center;">
+                {#<div class="index-btn">#}
+                <br />
+                <img src="{{ asset('bundles/crmmain/images/card-3.png') }}" class="img-btn">
+                {#</div>#}
             </td>
         </tr>
     </table>

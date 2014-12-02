@@ -79,9 +79,9 @@ a{
     text-align: left !important;
 }
 
-.submenu li:hover{
-    background: #FFFFFF !important;
-    color: #023762 !important;
+.submenu li:hover {
+    background: rgba(72, 126, 187, 0.5) !important;
+    /*color: #023762 !important;*/
 }
 
 .logo .phone{
@@ -385,4 +385,10 @@ input.little{
     background: #e3e3e3;
     z-index: 910;
     display: none;
+}
+.img-btn{
+    cursor: pointer;
+}
+.img-btn:hover{
+    box-shadow: 0 0 10px rgba(0,0,0,0.5);
 }
