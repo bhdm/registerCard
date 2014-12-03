@@ -497,7 +497,7 @@
 
             if ( $('#passport2File-styler .jq-file__name').html() == 'Файл не выбран'){
                 error += errorI+'. Поле пасспорт ( страница прописки ) обязательно для заполнения<br />';
-                $('#passportFile-styler .jq-file__name').css('borderColor', '#cc3333');
+                $('#passport2File-styler .jq-file__name').css('borderColor', '#cc3333');
                 errorI++;
             }
 
@@ -565,7 +565,7 @@
                 request.open("POST", "{{ path('estr-order-post') }}", false);
                 request.send(form);
                 if(request.status == 200) {
-                    window.location.href = '{{ path('estr-confirm') }}';
+                    window.location.href = '{{ path('estr-order-2') }}';
                 }
 
             }else{
@@ -711,41 +711,8 @@
                     }
                 }
             }
-            if ( $(this).attr('id')=='saveSnils' ){
-                if ( $('#snils').val()==''){
-                    $('#snils').css('borderColor', '#cc3333');
-                    error += errorI+'. Поле СНИЛС обязательно для заполнения<br />';
-                    errorI++;
-                }
-            }
 
-            if ($(this).attr('id') == 'saveHod'){
-                if ($('#companyName').val() == ''){
-                    error += errorI+'.Поле  название организации обязательно для заполнения <br />';
-                    $('#companyName').css('borderColor','#CC3333');
-                    errorI++;
-                }
-                if ($('#companyZipcode').val() == ''){
-                    error += errorI+'.Поле  индекс обязательно для заполнения <br />';
-                    $('#companyZipcode').css('borderColor','#CC3333');
-                    errorI++;
-                }
-                if ( $('#companyRegion').val()=='' || $('#companyRegion').val()=='Регион' || $('#companyRegion').val() == null ){
-                    $('#companyRegion-styler').css('border', '1px solid #CC3333');
-                    error += errorI+'.Поле регион обязательно для заполнения<br />';
-                    errorI++;
-                }
-                if ($('#companyCity').val() == ''){
-                    error += errorI+'.Поле город обязательно для заполнения <br />';
-                    $('#companyCity').css('borderColor','#CC3333');
-                    errorI++;
-                }
-                if ($('#companyHouse').val() == ''){
-                    error += errorI+'.Поле название номер дома обязательно для заполнения <br />';
-                    $('#companyHouse').css('borderColor','#CC3333');
-                    errorI++;
-                }
-            }
+
 
             if (error === ''){
                 hideInpPopUp();

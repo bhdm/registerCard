@@ -237,7 +237,17 @@ class User extends BaseEntity implements UserInterface, EquatableInterface, \Ser
     /**
      * @ORM\Column(type="array", nullable=true)
      */
+    protected $copyPassport2;
+
+    /**
+     * @ORM\Column(type="array", nullable=true)
+     */
     protected $copyDriverPassport;
+
+    /**
+     * @ORM\Column(type="array", nullable=true)
+     */
+    protected $copyDriverPassport2;
 
     /**
      * @ORM\Column(type="array", nullable=true)
@@ -304,6 +314,11 @@ class User extends BaseEntity implements UserInterface, EquatableInterface, \Ser
      */
     protected $managerKey;
 
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    protected $estr = 0;
+
     public function getXmlId(){
         return str_pad($this->id, 8, "0", STR_PAD_LEFT);
     }
@@ -311,6 +326,7 @@ class User extends BaseEntity implements UserInterface, EquatableInterface, \Ser
     public function __construct(){
         $this->roles    = 'ROLE_UNCONFIRMED';
         $this->statuslog = new ArrayCollection();
+        $this->estr = 0;
     }
 
     public function __toString()
@@ -1241,4 +1257,54 @@ class User extends BaseEntity implements UserInterface, EquatableInterface, \Ser
     public function removeStatusLog($statuslog){
         $this->statuslog->removeElement($statuslog);
     }
+
+    /**
+     * @return mixed
+     */
+    public function getCopyDriverPassport2()
+    {
+        return $this->copyDriverPassport2;
+    }
+
+    /**
+     * @param mixed $copyDriverPassport2
+     */
+    public function setCopyDriverPassport2($copyDriverPassport2)
+    {
+        $this->copyDriverPassport2 = $copyDriverPassport2;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCopyPassport2()
+    {
+        return $this->copyPassport2;
+    }
+
+    /**
+     * @param mixed $copyPassport2
+     */
+    public function setCopyPassport2($copyPassport2)
+    {
+        $this->copyPassport2 = $copyPassport2;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getEstr()
+    {
+        return $this->estr;
+    }
+
+    /**
+     * @param mixed $estr
+     */
+    public function setEstr($estr)
+    {
+        $this->estr = $estr;
+    }
+
+
 }
