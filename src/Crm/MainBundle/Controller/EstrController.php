@@ -84,6 +84,14 @@ class EstrController extends Controller
     }
 
 
+    /**
+     * @Route("/estr-order-post", name="estr-order-post")
+     * @Template()
+     */
+    public function orderPostAction(Request $request){
+        return array();
+    }
+
 
 //    public function estrOrderAction()
 
