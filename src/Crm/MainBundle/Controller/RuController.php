@@ -17,14 +17,14 @@ use Symfony\Component\HttpFoundation\Session\Session;
 
 
 
-class EstrController extends Controller
+class RuController extends Controller
 {
 
     /**
-     * @Route("/estr-converter", name="estr-converter")
+     * @Route("/ru-converter", name="ru-converter")
      * @Template()
      */
-    public function estrConverterAction(Request $request){
+    public function ruConverterAction(Request $request){
         $converter = new Converter();
         $adr = array();
         if ($request->getMethod() == 'POST'){
@@ -58,34 +58,32 @@ class EstrController extends Controller
     }
 
     /**
-     * @Route("/estr-order", name="estr-order")
+     * @Route("/ru-order", name="ru-order")
      * @Template()
      */
-    public function indexAction(Request $request){
-        $country = $this->getDoctrine()->getRepository('CrmMainBundle:Country')->findOneById(3159);
-        $regions = $this->getDoctrine()->getRepository('CrmMainBundle:Region')->findByCountry($country);
-        return array('regions' => $regions);
-    }
-
-    /**
-     * @Route("/estr-confirm", name="estr-confirm")
-     * @Template()
-     */
-    public function confirmAction(Request $request){
+    public function ruOrderAction(Request $request){
 
     }
 
     /**
-     * @Route("/estr-success", name="estr-success")
+     * @Route("/ru-confirm", name="ru-confirm")
      * @Template()
      */
-    public function successAction(Request $request){
+    public function ruConfirmAction(Request $request){
+
+    }
+
+    /**
+     * @Route("/ru-success", name="ru-success")
+     * @Template()
+     */
+    public function ruSuccessAction(Request $request){
 
     }
 
 
 
-//    public function estrOrderAction()
+//    public function ruOrderAction()
 
 
 }

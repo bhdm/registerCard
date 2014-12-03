@@ -2,6 +2,7 @@
 
 namespace Crm\MainBundle\Controller;
 
+use Crm\MainBundle\Entity\StatusLog;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
@@ -345,6 +346,13 @@ class OrderController extends Controller{
             $em->persist($user);
             $em->flush($user);
             $em->refresh($user);
+
+
+            $statuslog = new StatusLog();
+            $statuslog->setUser($user);
+            $statuslog->setTitle($user->getStatusString());
+            $em->persist($statuslog);
+            $em->flush($statuslog);
 
             $session->set('user', null);
             $session->set('company', null);

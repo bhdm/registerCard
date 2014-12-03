@@ -58,7 +58,7 @@
             <table cellpadding="0" cellspacing="0" style="width: 100%; padding: 0 10px">
                 <tr>
                     <td>
-                        <img src="{{ asset('bundles/crmface/images/logo.png') }}" style="width: 320px">
+                        <a href="{{ path('main') }}"><img src="{{ asset('bundles/crmface/images/logo.png') }}" style="width: 320px"></a>
                     </td>
                     <td style="vertical-align: top">
                         <br />
@@ -71,7 +71,7 @@
                                 <td>
                                     <span style="padding-left: 20px">
                                         <img src="{{ asset('bundles/crmface/icons/vopros.png') }}" style="margin-bottom: -12px;">
-                                        <a href="#" class="vopros">Задать вопрос</a>
+                                        <a href="{{ path('faq') }}" class="vopros">Задать вопрос</a>
                                     </span>
                                     <br />
                                     <br />
@@ -93,7 +93,7 @@
                     Подать заявку
                     <ul class="submenu">
                         <li> <a href="{{ path('order') }}"> СКЗИ </a></li>
-                        <li> ЕСТР </li>
+                        <li> <a href="{{ path('estr-order') }}"> ЕСТР </a></li>
                     </ul>
                 </li>
                 <li><a href="{{ path('documents') }}">Документы</a></li>
