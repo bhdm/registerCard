@@ -123,13 +123,13 @@ class EstrController extends Controller
             $user->setSalt(md5(time()));
             $user->setProduction(2);
             $user->setEstr(1);
-
+//
             if ($data->get('typeCard')){
                 $user->setTypeCard($data->get('typeCard'));
             }else{
                 $user->setTypeCard(0);
             }
-
+//
             $date = new \DateTime($user->getBirthDate());
             $user->setBirthDate($date);
 
@@ -145,6 +145,17 @@ class EstrController extends Controller
             $user->setCopyDriverPassport2($this->getArrayToImg($user->getCopyDriverPassport2()));
             $user->setPhoto($this->getArrayToImg($user->getPhoto()));
             $user->setCopySignature($this->getArrayToImg($user->getCopySignature()));
+
+
+            $user->setCopySnils($this->getArrayToImg(null));
+            $user->setCopyWork($this->getArrayToImg(null));
+            $user->setCopyPetition($this->getArrayToImg(null));
+            $user->setStatuslog(null);
+
+
+
+
+//            $user->setCompanyPetition(null);
 
             $em->persist($user);
             $em->flush($user);
@@ -179,8 +190,8 @@ class EstrController extends Controller
             }
 
         }
-        $session->set('userId', $user->getId());
-        return array();
+        $session->set('user', $user->getId());
+        return array('user' => $user);
     }
 
 

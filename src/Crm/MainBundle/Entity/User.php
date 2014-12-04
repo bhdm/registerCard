@@ -79,7 +79,7 @@ class User extends BaseEntity implements UserInterface, EquatableInterface, \Ser
 
 
     /**
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string", nullable=true)
      * @var string salt
      */
     protected $salt;
@@ -87,14 +87,14 @@ class User extends BaseEntity implements UserInterface, EquatableInterface, \Ser
     /**
      * @Assert\NotBlank( message = "Поле СНИЛС обязательно для заполнения" )
      * @Assert\Regex(pattern= "/^[0-9]{3}-[0-9]{3}-[0-9]{3}\ [0-9]{2}$/", message="Неверный формат ввода.")
-     * @ORM\Column(type="string", length=17)
+     * @ORM\Column(type="string", length=17, nullable=true)
      */
     protected $snils;
 
     /**
      * @Assert\NotBlank( message = "Поле почтоый индекс обязательно для заполнения" )
      * @Assert\Regex(pattern= "/^[0-9]{6}$/", message="Неверный формат ввода.")
-     * @ORM\Column(type="string", length=12)
+     * @ORM\Column(type="string", length=12, nullable=true)
      */
     protected  $dileveryZipcode;
 
@@ -107,7 +107,7 @@ class User extends BaseEntity implements UserInterface, EquatableInterface, \Ser
     /**
      * @Assert\Length( max = "64", maxMessage = "Максимум  64 символа")
      * @Assert\NotBlank( message = "Поле город обязательно для заполнения" )
-     * @ORM\Column(type="string", length=64)
+     * @ORM\Column(type="string", length=64, nullable=true)
      */
     protected $dileveryCity;
 
@@ -115,7 +115,7 @@ class User extends BaseEntity implements UserInterface, EquatableInterface, \Ser
     /**
      * @Assert\Length( max = "64", maxMessage = "Максимум  64 символа")
      * @Assert\NotBlank( message = "Поле улица обязательно для заполнения" )
-     * @ORM\Column(type="string", length=100)
+     * @ORM\Column(type="string", length=100, nullable=true)
      */
     protected $dileveryStreet;
 
@@ -123,7 +123,7 @@ class User extends BaseEntity implements UserInterface, EquatableInterface, \Ser
     /**
      * @Assert\Length( max = "10", maxMessage = "Максимум  10 символов")
      * @Assert\NotBlank( message = "Поле дом обязательно для заполнения" )
-     * @ORM\Column(type="string", length=100)
+     * @ORM\Column(type="string", length=100, nullable=true)
      */
     protected $dileveryHome;
 
@@ -165,7 +165,7 @@ class User extends BaseEntity implements UserInterface, EquatableInterface, \Ser
     /**
      * @Assert\Length( max = "32", maxMessage = "Максимум  32 символа")
      * @Assert\NotBlank( message = "Поле номер паспорта обязательно для заполнения" )
-     * @ORM\Column(type="string", length=32)
+     * @ORM\Column(type="string", length=32, nullable=true)
      */
     protected $passportNumber;
 
@@ -177,7 +177,7 @@ class User extends BaseEntity implements UserInterface, EquatableInterface, \Ser
 
     /**
      * @Assert\NotBlank( message = "Поле дата выдачи паспорта обязательно для заполнения" )
-     * @ORM\Column(type="datetime")
+     * @ORM\Column(type="datetime", nullable=true)
      */
     protected $passportIssuanceDate;
 
@@ -192,7 +192,7 @@ class User extends BaseEntity implements UserInterface, EquatableInterface, \Ser
     /**
      * @Assert\NotBlank( message = "Поле Номер водительского удостоверения обязательно для заполнения" )
      * @Assert\Regex(pattern= "/^[а-я|А-Я|a-z|A-Z|0-9]{4}[0-9]{6}$/", message="Неверный формат ввода.")
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string", nullable=true)
      */
     protected $driverDocNumber;
 

@@ -342,6 +342,7 @@ class OrderController extends Controller{
             $user->setCopySnils($this->getArrayToImg($user->getCopySnils()));
             $user->setCopyWork($this->getArrayToImg($user->getCopyWork()));
             $user->setCopyPetition($this->getArrayToImg($user->getCopyPetition()));
+            $user->setStatuslog(null);
 
             $em->persist($user);
             $em->flush($user);
