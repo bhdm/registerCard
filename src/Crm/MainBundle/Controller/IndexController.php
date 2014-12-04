@@ -208,7 +208,7 @@ class IndexController extends Controller
     }
 
     /**
-     * @ROute("/set-number", name="set-number")
+     * @Route("/set-number", name="set-number")
      */
     public function setNumberAction(Request $request){
         $data = $request->request;
@@ -230,4 +230,6 @@ class IndexController extends Controller
         $referer = $request->headers->get('referer');
         return $this->redirect($referer);
     }
+
 }
+

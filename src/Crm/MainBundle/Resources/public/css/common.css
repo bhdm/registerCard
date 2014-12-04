@@ -227,13 +227,14 @@ input[type=text]:focus, input[type=number]:focus, input[type=password]:focus, in
     margin-left: -200px;
     position: absolute;
     padding: 10px;
-    border: 2px solid #8f8f8f;
-    border-radius: 3px;
+    border: 2px solid #003A68;
+    border-radius: 5px;
     background: #E9E6E6;
     width: 400px;
     min-height: 200px;
     box-shadow: -5px 5px 20px #CCC;
     display: none;
+    color: #003A68;
 }
 .inpopup{
     position: relative;
@@ -391,4 +392,7 @@ input.little{
 }
 .img-btn:hover{
     box-shadow: 0 0 10px rgba(0,0,0,0.5);
+}
+.call{
+    cursor: pointer;
 }

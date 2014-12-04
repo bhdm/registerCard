@@ -35,6 +35,17 @@
         <script src="{{ path('fos_js_routing_js', {"callback": "fos.Router.setData"}) }}"></script>
         <script>
             $(document).ready(function(){
+                $('.call').click(function(){
+                    $('.callbox').fadeIn();
+                    $('input:text,input:file,input:radio,input:password').styler();
+                });
+
+                $('.callboxclose').click(function(){
+                    $('.callbox').fadeOut();
+
+                });
+
+
                 $('#popup-close').click(function(){
                     $('.popup').fadeOut();
                 });
@@ -78,7 +89,7 @@
                                     <br />
                                 </td>
                                 <td>
-                                    <img src="{{ asset('bundles/crmface/images/call.png') }}">
+                                    <img src="{{ asset('bundles/crmface/images/call.png') }}" class="call">
                                 </td>
                             </tr>
                         </table>
@@ -125,6 +136,18 @@
                     </td>
                 </tr>
             </table>
+        </div>
+    </div>
+
+    <div class="popup callbox" style="top: 300px; min-height: 150px">
+        <span title="Close" class="fancybox-item fancybox-close callboxclose"></span>
+        <h2>Заказать обраный звонок</h2>
+        <div style="text-align: right; margin-right: 75px">
+            <form method="POST" action="{{ path('set-number') }}">
+                <input type="text" placeholder="Телефон" name="phone"/><br /><br />
+                <input type="text" placeholder="Имя" name="name"/><br /><br />
+                <span class="btn">Заказать звонок</span>
+            </form>
         </div>
     </div>
 </body>
