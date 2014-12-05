@@ -59,6 +59,21 @@
                 $('.styler').styler();
 
                 $(".fancybox").fancybox();
+
+                $('.callbtn').click(function(){
+                    $('.callform').submit();
+
+                });
+
+                var nav = $('.menu');
+
+                $(window).scroll(function () {
+                    if ($(this).scrollTop() > 180) {
+                        nav.addClass("f-nav");
+                    } else {
+                        nav.removeClass("f-nav");
+                    }
+                });
             })
         </script>
     {% endblock %}
@@ -69,11 +84,15 @@
             <table cellpadding="0" cellspacing="0" style="width: 100%; padding: 0 10px">
                 <tr>
                     <td>
-                        <a href="{{ path('main') }}"><img src="{{ asset('bundles/crmface/images/logo.png') }}" style="width: 320px"></a>
+                        <a href="{{ path('main') }}"><img src="{{ asset('bundles/crmmain/images/logo.png') }}?1" style="width: 320px"></a>
                     </td>
                     <td style="vertical-align: top">
                         <br />
-                        <span class="phone">8 (812) 425 - 12 - 44</span>
+                        <span class="phone" style="font-size: 14px">
+                            8 (812) 425 - 12 - 44
+                            <br />
+                            +7 (967) 359-98-05
+                        </span>
                         <span class="workday">пн. - вс. , 8-00 : 22-00</span>
                         <br />
                         <br />
@@ -105,6 +124,7 @@
                     <ul class="submenu">
                         <li> <a href="{{ path('order') }}"> СКЗИ </a></li>
                         <li> <a href="{{ path('estr-order') }}"> ЕСТР </a></li>
+                        <li> <a href="{{ path('ru-order') }}"> РФ </a></li>
                     </ul>
                 </li>
                 <li><a href="{{ path('documents') }}">Документы</a></li>
@@ -127,7 +147,7 @@
                         <br />
                         Санкт-Петербург, пр. Маршала Говорова, д.37
                         <br />
-                        8(812)425-12-44
+                        8(812)425-12-44, +7(967)359-98-05
                         <br />
                         e-mail: imkardru@gmail.com
                     </td>
@@ -143,10 +163,10 @@
         <span title="Close" class="fancybox-item fancybox-close callboxclose"></span>
         <h2>Заказать обраный звонок</h2>
         <div style="text-align: right; margin-right: 75px">
-            <form method="POST" action="{{ path('set-number') }}">
+            <form method="POST" action="{{ path('set-number') }}" class="callform">
                 <input type="text" placeholder="Телефон" name="phone"/><br /><br />
                 <input type="text" placeholder="Имя" name="name"/><br /><br />
-                <span class="btn">Заказать звонок</span>
+                <span class="btn callbtn">Заказать звонок</span>
             </form>
         </div>
     </div>

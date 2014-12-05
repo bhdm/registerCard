@@ -319,6 +319,11 @@ class User extends BaseEntity implements UserInterface, EquatableInterface, \Ser
      */
     protected $estr = 0;
 
+    /**
+     * @ORM\Column(type="integer")
+     */
+    protected $ru = 0;
+
     public function getXmlId(){
         return str_pad($this->id, 8, "0", STR_PAD_LEFT);
     }
@@ -327,6 +332,7 @@ class User extends BaseEntity implements UserInterface, EquatableInterface, \Ser
         $this->roles    = 'ROLE_UNCONFIRMED';
         $this->statuslog = new ArrayCollection();
         $this->estr = 0;
+        $this->ru = 0;
     }
 
     public function __toString()
@@ -1304,6 +1310,22 @@ class User extends BaseEntity implements UserInterface, EquatableInterface, \Ser
     public function setEstr($estr)
     {
         $this->estr = $estr;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getRu()
+    {
+        return $this->ru;
+    }
+
+    /**
+     * @param mixed $ru
+     */
+    public function setRu($ru = 0)
+    {
+        $this->ru = $ru;
     }
 
 
