@@ -315,7 +315,7 @@ class User extends BaseEntity implements UserInterface, EquatableInterface, \Ser
     protected $managerKey;
 
     /**
-     * @ORM\Column(type="integer", nullable=true)
+     * @ORM\Column(type="integer")
      */
     protected $estr = 0;
 
