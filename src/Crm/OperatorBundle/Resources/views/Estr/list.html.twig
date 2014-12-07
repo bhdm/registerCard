@@ -300,9 +300,6 @@
                     <th style="padding: 0; text-align: center;"> № </th>
                     <th>Статус</th>
                     <th>Дата</th>
-                    {% if company == null %}
-                        <th>Компания</th>
-                    {% endif %}
                     <th style="width: 170px">ФИО</th>
                     <th>Платежка</th>
                     <th class="empty"></th>
@@ -357,11 +354,11 @@
                         </td>
 
                         <td>{{ user.created | date("d.m.Y") }}</td>
-                        {% if company == null %}
-                            <td>
-                                <a href="{{ path('operator_user_list' , { 'companyId' : user.company.id}) }}">{{ user.company }}</a>
-                            </td>
-                        {% endif %}
+                        {#{% if company == null %}#}
+                            {#<td>#}
+                                {#<a href="{{ path('operator_user_list' , { 'companyId' : user.company.id}) }}">{{ user.company }}</a>#}
+                            {#</td>#}
+                        {#{% endif %}#}
                         <td>
                             <a title="{{ user.comment }}" href="{{ path('operator_show_user' , { 'userId' : user.id}) }}" {{ user.comment ? 'style="color: #920055"' : '' }}>{{ user }}</a>
                             <br />
