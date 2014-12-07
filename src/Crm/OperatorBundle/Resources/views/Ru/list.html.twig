@@ -1,0 +1,452 @@
+{% extends 'CrmOperatorBundle::layout.html.twig' %}
+
+
+{% block crosh %}
+    <a href="{{ path('operator_main') }}">Главная</a> &raquo;
+    {% if company != null %}
+        <a href="{{ path('operator_company_list') }}">Список компаний</a> &raquo;
+        <a href="#">{{ company.title }}</a> &raquo;
+        <a href="{{ path('operator_user_list',{'companyId': company.id }) }} ">Список пользователей</a>
+        <div class="right">
+            <a href="{{ path('operator_user_add',{'companyId': company.id}) }}">Добавить</a>
+        </div>
+    {% else %}
+        <a href="{{ path('operator_user_list') }}">Список пользователей</a>
+    {% endif %}
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <style>
+        .filter-btn{
+            background: #EEEEEE;
+            color: #6c9e9f;
+            border: 1px solid #cccccc;
+            border-radius: 5px;
+            padding: 3px 10px;
+            cursor: pointer;
+            font-size: 12px;
+        }
+        .filter-btn-active{
+            background: #CCCCCC;
+            color: #6c9e9f;
+            border: 1px solid #EEEEEE;
+            border-radius: 5px;
+            padding: 3px 10px;
+            cursor: pointer;
+            font-size: 12px;
+        }
+        .status{
+            padding: 3px 5px;
+            border-radius: 3px;
+            font-size: 10px;
+        }
+        .select2-input{
+            width: 87px !important;
+        ;
+
+        }
+        .fixed-dialog{
+            position: fixed;
+            top: 200px;
+            left: 50%;
+            margin-left: -154px;
+        }
+    </style>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+        var dialog = $( "#dialog-confirm" ).dialog({
+//            autoOpen: false,
+            resizable: false,
+            height:200,
+            dialogClass: 'fixed-dialog',
+            modal: true,
+            buttons: {
+                "Подтвердить удаление": function() {
+                    $( this ).dialog( "close" );
+                },
+                Cancel: function() {
+                    $( this ).dialog( "close" );
+                }
+            }
+        });
+
+        $(document).ready(function(){
+
+            $( ".btn-del" ).click(function(){
+                var urldel = $(this).attr('href');
+//                dialog.dialog( "open" );
+                $( "#dialog-confirm" ).dialog({
+//                  autoOpen: false,
+                    resizable: false,
+                    height:200,
+                    position: 'fixed',
+                    dialogClass: 'fixed-dialog',
+                    modal: true,
+                    buttons: {
+                        "Подтвердить удаление": function() {
+                            $( this ).dialog( "close" );
+                            window.location.href = urldel;
+                        },
+                        Cancel: function() {
+                            $( this ).dialog( "close" );
+                            return false;
+                        }
+                    }
+                });
+                return false;
+            });
+
+           $('#xml').click(function(){
+                var url = Routing.generate('xml_generator_many');
+               $('#form-list').attr('action', url);
+               $('#form-list').submit();
+           });
+
+            $('#print').click(function(){
+                var url = Routing.generate('print_many');
+                $('#form-list').attr('action', url);
+                $('#form-list').attr('target', '_blank');
+                $('#form-list').submit();
+            });
+
+            $('#sbtn').click(function(){
+              var url = $('#search').val();
+                window.location.href = '?search='+url;
+            });
+
+            $('#all').change(function(){
+                if ($("#all").prop("checked") == true){
+                    $("input:checkbox").attr("checked","checked");
+                }else{
+                    $("input:checkbox").removeAttr("checked");
+                }
+            });
+
+
+            $('#filterStatus').change(function(){
+                var type = $(this).val();
+                var url = Routing.generate('operator_user_list', {'companyId':'null', 'type' :type });
+                window.location.href = url;
+            });
+
+            $('#filterManager').change(function(){
+                var type = $(this).val();
+                var url = Routing.generate('operator_user_list', {'companyId':'null', 'type' :type });
+                window.location.href = url;
+            });
+
+
+
+//            var id = "managers",
+//                    $id = $('.' + id),
+//                    choices = $id.find('option').map(function (n, e) {
+//                        var $e = $(e);
+//                        return {
+//                            id: $e.val(),
+//                            text: $e.text()
+//                        };
+//                    }),
+//                    width = $id.width(),
+//                    realClass = $id.get(0).className,
+//                    realId = $id.get(0).id,
+//
+//
+//                    $input = $('<input>',{width: width});
+//            $id.after($input);
+//            $id.hide();
+//            $id.find('option').remove();
+//            //превратили
+//
+//            $input.select2({
+//                query: function (query) {
+//                    var data = {}, i;
+//                    data.results = [];
+//
+//                    // подтставим то что искали
+//
+//                    if (query.term !== "") {
+//                        data.results.push({
+//                            id: query.term,
+//                            text: query.term
+//                        });
+//                    }
+//
+//                    // добавим остальное
+//
+//                    for (i = 0; i < choices.length; i++) {
+//                        if (choices[i].text.match(query.term) || choices[i].id.match(query.term)) data.results.push(choices[i]);
+//                    }
+//
+//                    query.callback(data);
+//                }
+//            }).on('change',function()
+//                    {
+//                        var value=$input.val();
+//                        $id.empty();
+//                        $id.append($('<option>').val(value))
+//                        $id.val(value);
+//                    }
+//            );
+
+
+//            $(".managers").select2({
+//                minimumInputLength: 1
+////                query: function (query) {
+////                    var data = {results: []}, i, j, s;
+////                    for (i = 1; i < 5; i++) {
+////                        s = "";
+////                        for (j = 0; j < i; j++) {s = s + query.term;}
+////                        data.results.push({id: query.term + i, text: s});
+////                    }
+////                    query.callback(data);
+////                }
+//            });
+
+
+            $('.managers').keypress(function(e){
+                var input = $(this);
+                $(input).css('color','rgb(0, 0, 0)');
+                if(e.which == 13) {
+                    $.ajax({
+                        type: "POST",
+                        url: Routing.generate('edit-manager-key'),
+                        data: 'id='+$(input).attr('id')+'&key='+$(input).val(),
+                        success: function (msg) {
+                            if (msg == 'ok'){
+                                $(input).css('color','rgb(46, 124, 55)');
+                            }else{
+                                alert('Ошибка сохраненния');
+                                $(input).css('color','rgb(124, 46, 55)');
+                            }
+                        }
+                    });
+                }
+            });
+
+        });
+    </script>
+{% endblock %}
+
+{% block content%}
+    <div class="filter">
+        {#<a href="#"><button>С ходатайством</button></a>#}
+        {#<a href="#"><button>В производстве</button></a>#}
+        {#<a href="#"><button>Архив</button></a>#}
+
+        <a href="{{ path('operator_user_list') }}"><span class="filter-btn">Все</span></a>
+        <a href="{{ path('operator_user_list',{'companyId' : 'null' ,'type' : 'day' }) }}"><span class="filter-btn{{ toDay ? '-active' : '' }}">За сегодня</span></a>
+        <a href="{{ path('operator_user_list',{'companyId' : 'null' ,'type' : 'week' }) }}"><span class="filter-btn{{ toWeek ? '-active' : '' }}">За неделю</span></a>
+        <a href="{{ path('operator_user_list',{'companyId' : 'null' ,'type' : 'petition' }) }}"><span class="filter-btn{{ toPetition ? '-active' : '' }}">С ходатайством</span></a>
+
+        <a href="{{ path('operator_user_list',{'companyId' : 'null' ,'type' : 'deploy' }) }}"><span class="filter-btn{{ toDeploy ? '-active' : '' }}">В производстве</span></a>
+
+        <select id="filterStatus">
+            <option>Фильтр по статусу</option>
+            <option value="0">Новая</option>
+            <option value="1">Подтвержденная</option>
+            <option value="2">Оплаченная</option>
+            <option value="3">В производстве</option>
+            <option value="6">Изготовлено</option>
+            <option value="4">На почте</option>
+            <option value="5">Получена</option>
+            <option value="10">Отклонена</option>
+        </select>
+
+        <select id="filterManager">
+            <option value="null">Фильтр по менеджеру</option>
+
+            {% for manager in managers %}
+            <option value="{{ manager.managerKey }}">{{ manager.managerKey }}</option>
+            {% endfor %}
+        </select>
+
+        Выбрано {{ users | length }} элемент(ов)
+        <br />
+        <br />
+        <div>
+        <input type="text" name="search" style="vertical-align: top" id="search">
+        <button style="height: 30px; padding: 0px 30px; vertical-align: top" id="sbtn">Найти</button>
+        </div>
+        <br />
+    </div>
+
+    {% if users is empty %}
+        <h3 class="color-red">Пользователей не найдено</h3>
+    {% else %}
+        {% if company != null %}
+            <form method="POST" action="{{ path('operator_petition_generate',{'companyId' : company.id}) }}" id="form-list">
+        {% else %}
+            <form method="POST" action="#" id="form-list">
+        {% endif %}
+            <table class="lists">
+                    <tr>
+                        <td colspan="9">
+                            {% if company != null %}
+                                <button type="submit">Сгенерировать ходатайство на выделенных пользователей</button>
+                            {% endif %}
+                            {% if is_granted('ROLE_ADMIN') %}
+                                <button type="button" id="xml">Массовое XML</button>
+                                <button type="button" id="print">Печать</button>
+                            {% endif %}
+                        </td>
+                    </tr>
+                <tr>
+                    <th style="width: 30px"><input type="checkbox" id="all"></th>
+                    <th style="padding: 0; text-align: center;"> M </th>
+                    <th style="padding: 0; text-align: center;"> № </th>
+                    <th>Статус</th>
+                    <th>Дата</th>
+                    {% if company == null %}
+                        <th>Компания</th>
+                    {% endif %}
+                    <th style="width: 170px">ФИО</th>
+                    <th>Платежка</th>
+                    <th class="empty"></th>
+                    <th class="options">Действия</th>
+                </tr>
+                {% for user in users %}
+                    <tr>
+                        <td>
+                            <input type="checkbox" name="check[{{ user.id }}]">
+                        </td>
+                        <td>
+                            {#<select id="manager" class="managers" style="width: 100px">#}
+                                {#{% for manager in managers %}#}
+                                    {#<option value="{{ manager.managerKey }}" {{ manager.managerKey == user.managerKey ? 'selected="selected"' : '' }}>{{ manager.managerKey }}</option>#}
+                                {#{% endfor %}#}
+                            {#</select>#}
+                            <input type="text" style="width: 50px" value="{{ user.managerKey }}" class="managers" id="{{ user.id }}">
+                        </td>
+
+                        <td style="text-align: center">
+                            {{ user.id }}
+                        </td>
+
+                        <td>
+                            {% if is_granted('ROLE_ADMIN') %}
+                                <a href="{{ path('operator_change_status',{userId: user.id }) }}">
+                            {% endif %}
+                                {% if user.status == null or user.status == 0  %}
+                                    <span class="status" style="border: 1px solid #000">
+                                {% elseif user.status == 10 %}
+                                    <span class="status" style="border: 1px solid #CC3333; color: #CC3333">
+                                {% elseif user.status == 1  %}
+                                        <span class="status" style="border: 1px solid #cc8140; color: #cc8140">
+                                {% elseif user.status == 2  %}
+                                        <span class="status" style="border: 1px solid #33CC33; color: #33CC33">
+                                {% elseif user.status == 3  %}
+                                        <span class="status" style="border: 1px solid #2135cc; color: #2135cc">
+                                {% elseif user.status == 4  %}
+                                        <span class="status" style="border: 1px solid #660000; color: #660000">
+                                {% elseif user.status == 5 %}
+                                        <span class="status" style="border: 1px solid #6c9e9f; color: #6c9e9f">
+                                {% elseif user.status == 6 %}
+                                        <span class="status" style="border: 1px solid #920055; color: #920055">
+                                {% else %}
+                                    <span class="status" style="border: 1px solid #000000; color: #000000">
+                                {% endif %}
+                                {{ user.statusString }}
+                                    </span>
+                            {% if is_granted('ROLE_ADMIN') %}
+                                </a>
+                            {% endif %}
+                        </td>
+
+                        <td>{{ user.created | date("d.m.Y") }}</td>
+                        {% if company == null %}
+                            <td>
+                                <a href="{{ path('operator_user_list' , { 'companyId' : user.company.id}) }}">{{ user.company }}</a>
+                            </td>
+                        {% endif %}
+                        <td>
+                            <a title="{{ user.comment }}" href="{{ path('operator_show_user' , { 'userId' : user.id}) }}" {{ user.comment ? 'style="color: #920055"' : '' }}>{{ user }}</a>
+                            <br />
+                            <a href="?search={{ user.email }}" style="color: #333333; font-size: 12px">{{ user.email }}</a>
+                        </td>
+                        <td>
+                            {% if is_granted('ROLE_ADMIN') %}
+                            <a href="{{ path('xml_generator',{'userId' : user.id}) }}" target="_blank" class="no-underline">
+                                <img src="{{ asset('bundles/crmoperator/images/icon/image28_2.png') }}" class="icon" title="XML"/>
+                            </a>
+                            <a href="{{ path('generate_payment_pdf') }}?ord={{ user.id }}" target="_blank" class="no-underline">
+                                <img src="{{ asset('bundles/crmoperator/images/icon/image28_2.png') }}" class="icon" title="Платежный документ"/>
+                            </a>
+                            {% endif %}
+                            <a href="{{ path('generate_pdf_statement',{'id' : user.id}) }}" target="_blank" class="no-underline">
+                                <img src="{{ asset('bundles/crmoperator/images/icon/image28_2.png') }}" class="icon" title="Заявление"/>
+                            </a>
+                            {% if user.myPetition == 1 or user.copyPetition is not empty %}
+                                <a href="{{ path('generate_petition',{'userId' : user.id}) }}" target="_blank" class="no-underline">
+                                    <img src="{{ asset('bundles/crmoperator/images/icon/image28_2.png') }}" class="icon" title="Ходатайство"/>
+                                </a>
+                            {% elseif user.companyPetition is not null %}
+                                <a href="{{ path('operator_generate_petition', { 'petitionId' : user.companyPetition.id }) }}" target="_blank">
+                                    <img src="{{ asset('bundles/crmoperator/images/icon/image28_2.png') }}" class="icon" title="Ходатайство"/>
+                                </a>
+                            {% endif %}
+
+
+                        </td>
+                        <td></td>
+                        <td class="options">
+
+                            {% if not is_granted('ROLE_ADMIN') %}
+                                {% if is_granted('ROLE_MODERATOR') and user.production >= 2 %}
+                                    {#<a class="no-underline" href="{{ path('operator_user_production' , { 'userId' : user.id}) }}">#}
+                                    {#<img src="{{ asset('bundles/crmoperator/images/icon/image27_green.png') }}" class="icon"/>#}
+                                    Отправлено
+                                    {#</a>#}
+                                {% elseif is_granted('ROLE_OPERATOR') and user.production >= 1 %}
+                                    {#<a class="no-underline" href="{{ path('operator_user_production' , { 'userId' : user.id}) }}">#}
+                                    {#<img src="{{ asset('bundles/crmoperator/images/icon/image27_green.png') }}" class="icon"/>#}
+                                    Отправлено
+                                    {#</a>#}
+                                {% else %}
+                                    <a class="no-underline" href="{{ path('operator_user_production' , { 'userId' : user.id}) }}">
+                                        {#<img src="{{ asset('bundles/crmoperator/images/icon/image27.png') }}" class="icon"/>#}
+                                        <span class="filter-btn">Отправить</span>
+                                    </a>
+                                {% endif %}
+                            {% endif %}
+
+
+                            {% if user.companyPetition != null %}
+                                {% if user.companyPetition.status == 0 %}
+                                    <a class="no-underline" href="{{ path("operator_petition_edit",{ 'petitionId' : user.companyPetition.id }) }}">
+                                        <img src="{{ asset('bundles/crmoperator/images/icon/image26.png') }}" class="icon"/>
+                                    </a>
+                                {% else %}
+                                    <a class="no-underline " href="{{ path("operator_petition_edit",{ 'petitionId' : user.companyPetition.id }) }}">
+                                        <img src="{{ asset('bundles/crmoperator/images/icon/image26_green.png') }}" class="icon"/>
+                                    </a>
+                                {% endif %}
+                            {% endif %}
+
+                            {#<a class="no-underline" href="{{ path('operator_user_edit' , { 'companyId' : user.company.id, 'userId' : user.id}) }}">#}
+                                {#<img src="{{ asset('bundles/crmoperator/images/icon/image22.png') }}" class="icon"/>#}
+                            {#</a>#}
+
+
+
+
+                            <a class="no-underline btn-del" href="{{ path('operator_user_remove' , { 'userId' : user.id}) }}">
+                                <img src="{{ asset('bundles/crmoperator/images/icon/image11.png') }}" class="icon"/>
+                            </a>
+
+                            {#<a class="no-underline" href="{{ path('operator_user_remove' , { 'userId' : user.id}) }}">#}
+                                {#<img src="{{ asset('bundles/crmoperator/images/icon/image11.png') }}" class="icon"/>#}
+                            {#</a>#}
+                        </td>
+                    </tr>
+                {% endfor %}
+            </table>
+        </form>
+    {% endif %}
+    <div id="dialog-confirm" title="Подтверждение удаления">
+        <p><span class="ui-icon ui-icon-alert" style="float:left; margin:0 7px 20px 0;"></span>Вы точно хотите удалить запись?</p>
+    </div>
+{% endblock %}

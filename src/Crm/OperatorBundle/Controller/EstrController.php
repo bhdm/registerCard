@@ -21,14 +21,14 @@ use Symfony\Component\HttpFoundation\Request;
 /**
  * Class UserController
  * @package Crm\OperatorBundle\Controller
- * @Route("/operator/user")
+ * @Route("/operator/estr")
  * @Security("has_role('ROLE_OPERATOR')")
  */
-class UserController extends Controller{
+class EstrController extends Controller{
 
     /**
      * Показывает водителей определенной компании
-     * @Route("/list/{companyId}/{type}", name="operator_user_list", defaults={"companyId"=null, "type"=null}, options={"expose"=true})
+     * @Route("/list/{companyId}/{type}", name="operator_estr_list", defaults={"companyId"=null, "type"=null}, options={"expose"=true})
      * @Template()
      */
     public function listAction(Request $request, $companyId = null, $type = null){
@@ -49,7 +49,7 @@ class UserController extends Controller{
             $company = null;
         }
 //        if ( !$this->get('security.context')->isGranted('ROLE_ADMIN') ){
-            $operator = $this->getUser();
+        $operator = $this->getUser();
 //        }else{
 //            $operator = null;
 //        }
@@ -64,7 +64,7 @@ class UserController extends Controller{
         }
 
 
-        $users = $this->getDoctrine()->getRepository('CrmMainBundle:User')->filter($role,$operator,$company, $toDay, $toWeek, $toPetition, $type, $toArhive, $search,0,0);
+        $users = $this->getDoctrine()->getRepository('CrmMainBundle:User')->filter($role,$operator,$company, $toDay, $toWeek, $toPetition, $type, $toArhive, $search,1,0);
 
 //        if ($companyId == null && $this->get('security.context')->isGranted('ROLE_ADMIN')){
 //            $company = null;
@@ -102,7 +102,7 @@ class UserController extends Controller{
     }
 
     /**
-     * @Route("/add/{companyId}", name="operator_user_add")
+     * @Route("/add/{companyId}", name="operator_estr_add")
      * @Template()
      */
     public function addAction(Request $request, $companyId){
@@ -198,7 +198,7 @@ class UserController extends Controller{
     }
 
     /**
-     * @Route("/edit/{companyId}/{userId}", name="operator_user_edit")
+     * @Route("/edit/{companyId}/{userId}", name="operator_estr_edit")
      * @Template()
      */
     public function editAction(Request $request, $companyId, $userId){
@@ -293,7 +293,7 @@ class UserController extends Controller{
     }
 
     /**
-     * @Route("/show/{userId}", name="operator_show_user")
+     * @Route("/show/{userId}", name="operator_show_estr")
      * @Template()
      */
     public function showAction(Request $request, $userId){
@@ -402,7 +402,7 @@ class UserController extends Controller{
                 $em->persist($statuslog);
                 $em->flush($statuslog);
 
-                return $this->redirect($this->generateUrl('operator_user_list'));
+                return $this->redirect($this->generateUrl('operator_estr_list'));
 
             }else{
                 #Помещаем все фалы-картинки в сессию, что бы потом можно было бы редактировать
@@ -511,7 +511,7 @@ class UserController extends Controller{
     }
 
     /**
-     * @Route("/remove/{userId}", name="operator_user_remove")
+     * @Route("/remove/{userId}", name="operator_estr_remove")
      * @Template()
      */
     public function removeAction(Request $request, $userId){
@@ -524,7 +524,7 @@ class UserController extends Controller{
     }
 
     /**
-     * @Route("/enabled/{userId}", name="operator_user_enabled")
+     * @Route("/enabled/{userId}", name="operator_estr_enabled")
      * @Template()
      */
     public function enabledAction(Request $request, $userId){
@@ -540,7 +540,7 @@ class UserController extends Controller{
     }
 
     /**
-     * @Route("/production/{userId}/{type}", name="operator_user_production", defaults={"type"="true"})
+     * @Route("/production/{userId}/{type}", name="operator_estr_production", defaults={"type"="true"})
      * @Template()
      */
     public function productionAction(Request $request, $userId, $type = 'true'){
@@ -791,111 +791,6 @@ class UserController extends Controller{
         fclose($f1);
 
         return $res;
-    }
-
-    /**
-     * @Route("/operator/change-status/{userId}", name="operator_change_status")
-     */
-    public function changeStatusAction(Request $request, $userId){
-//        if ($request->getSession()->get('hash')!='7de92cefb8a07cede44f3ae9fa97fb3b' and $this->isCompany() != true) return $this->redirect($this->generateUrl('admin_main'));
-        $em = $this->getDoctrine()->getManager();
-        $user = $this->getDoctrine()->getRepository('CrmMainBundle:User')->findOneById($userId);
-
-        switch ( $user->getStatus()){
-            case 0: $user->setStatus(1); break;
-            case 1: $user->setStatus(2); break;
-            case 2: $user->setStatus(3); break;
-            case 3: $user->setStatus(6); break;
-            case 6: $user->setStatus(4); break;
-            case 4: $user->setStatus(5); break;
-            case 5: $user->setStatus(10); break;
-            case 10: $user->setStatus(0); break;
-        }
-        $em->flush($user);
-
-        $statuslog = new StatusLog();
-        $statuslog->setUser($user);
-        $statuslog->setTitle($user->getStatusString());
-        $em->persist($statuslog);
-        $em->flush($statuslog);
-
-//        $this->getDoctrine()->getManager()->flush($user);
-//        $phone = $user->getUsername();
-//        if( $phone ){
-//            $phone = str_replace(array('(',')','-','','+'),array('','','','',' '), $phone);
-//            $sms = new smsru('a8f0f6b6-93d1-3144-a9a1-13415e3b9721');
-//            $sms->sms_send( $phone, 'Статус вашей карты: '.$user->getStatusString()  );
-//        }
-        $referer = $request->headers->get('referer');
-        return $this->redirect($referer);
-    }
-
-
-    /**
-     * @Route("/operator/print_many", name="print_many", options={"expose"=true})
-     */
-    public function printAction(Request $request){
-        $data = $request->request->get('check');
-        $users = array();
-        foreach($data as $key => $val){
-            $user = $this->getDoctrine()->getRepository('CrmMainBundle:User')->find($key);
-            if ($user != null){
-                $users[] = $user;
-            }
-        }
-
-        $phpExcelObject = $this->get('phpexcel')->createPHPExcelObject();
-        $phpExcelObject->getProperties()->setCreator("liuggio")
-            ->setLastModifiedBy("Giulio De Donato")
-            ->setTitle("Office 2005 XLSX Test Document")
-            ->setSubject("Office 2005 XLSX Test Document")
-            ->setDescription("Test document for Office 2005 XLSX, generated using PHP classes.")
-            ->setKeywords("office 2005 openxml php")
-            ->setCategory("Test result file");
-        $i = 0;
-        foreach ($users as $user){
-            $i++;
-            $phpExcelObject->setActiveSheetIndex(0)->setCellValue('A'.$i, $user->getId());
-            $phpExcelObject->setActiveSheetIndex(0)->setCellValue('B'.$i, $user->getEmail());
-            $phpExcelObject->setActiveSheetIndex(0)->setCellValue('C'.$i, $user->getLastName().' '.$user->getFirstName());
-            $phpExcelObject->setActiveSheetIndex(0)->setCellValue('D'.$i, $user->getCompany()->getTitle());
-        }
-
-        $phpExcelObject->getActiveSheet()->setTitle('Simple');
-        // Set active sheet index to the first sheet, so Excel opens this as the first sheet
-        $phpExcelObject->setActiveSheetIndex(0);
-
-        // create the writer
-        $writer = $this->get('phpexcel')->createWriter($phpExcelObject, 'Excel5');
-        // create the response
-        $response = $this->get('phpexcel')->createStreamedResponse($writer);
-        // adding headers
-        $response->headers->set('Content-Type', 'text/vnd.ms-excel; charset=utf-8');
-        $response->headers->set('Content-Disposition', 'attachment;filename=stream-file.xls');
-        $response->headers->set('Pragma', 'public');
-        $response->headers->set('Cache-Control', 'maxage=1');
-
-        return $response;
-    }
-
-    /**
-     * @Route("/edit-manager-key", name="edit-manager-key", options={"expose"=true})
-     */
-    public function editManagerKeyAction(Request $request){
-        if ($request->getMethod()== 'POST'){
-            $id = $request->request->get('id');
-            $key = $request->request->get('key');
-
-            $user = $this->getDoctrine()->getRepository('CrmMainBundle:User')->findOneById($id);
-            if ($user){
-                $user->setManagerKey($key);
-                $this->getDoctrine()->getManager()->flush($user);
-                echo 'ok';
-                exit;
-            }
-        }
-        echo 'error';
-        exit;
     }
 
 }

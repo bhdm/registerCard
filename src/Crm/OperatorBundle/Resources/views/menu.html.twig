@@ -6,7 +6,11 @@
         <br />
         <ul class="menu-items">
             <li  class="menu-item"><a href="{{ path('operator_company_list') }}">Компании</a></li>
-            <li  class="menu-item"><a href="{{ path('operator_user_list') }}">Пользователи</a></li>
+            <li  class="menu-item"></li>
+            <li  class="menu-item"><a href="{{ path('operator_user_list') }}">СКЗИ</a></li>
+            <li  class="menu-item"><a href="{{ path('operator_estr_list') }}">ЕСТР</a></li>
+            <li  class="menu-item"><a href="{{ path('operator_ru_list') }}">РФ</a></li>
+            <li  class="menu-item"></li>
             <li  class="menu-item"><a href="{{ path('operator_petition_list') }}">Ходатайства</a></li>
 
             {% if is_granted('ROLE_MODERATOR') %}
