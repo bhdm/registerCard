@@ -1,0 +1,32 @@
+{% extends 'CrmMainBundle::layout.html.twig' %}
+
+{% block content %}
+    <div class="box">
+        <h2>Скачать документы</h2>
+        <br />
+        <div>
+            <a href="{{ asset('bundles/crmmain/docs/Договор и приложения для карт СКЗИ.doc') }}">Договор и приложения для карт СКЗИ</a>
+            <br /><br />
+            <a href="{{ asset('bundles/crmmain/docs/Договор на карты  ЕСТР.doc') }}">Договор на карты  ЕСТР</a>
+            <br /><br />
+            <a href="{{ asset('bundles/crmmain/docs/Договор на карты  РФ.doc') }}">Договор на карты  РФ</a>
+            <br /><br />
+            <a href="{{ asset('bundles/crmmain/docs/Заявка на карты трех видов.doc') }}">Заявка на карты трех видов</a>
+            <br /><br />
+            <a href="{{ asset('bundles/crmmain/docs/Памятка карты водителя ЕСТР и РФ.doc') }}">Памятка карты водителя ЕСТР и РФ</a>
+            <br /><br />
+            <a href="{{ asset('bundles/crmmain/docs/Памятка карты предприятия ЕСТР и РФ.doc') }}">Памятка карты предприятия ЕСТР и РФ</a>
+            <br /><br />
+            <a href="{{ asset('bundles/crmmain/docs/Памятка карты предприятия СКЗИ.doc') }}">Памятка карты предприятия СКЗИ</a>
+            <br /><br />
+            <a href="{{ asset('bundles/crmmain/docs/Согласие на передачу перс.данных-коллективное.doc') }}">Согласие на передачу перс.данных-коллективное</a>
+        </div>
+    </div>
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <style>
+
+    </style>
+{% endblock %}
