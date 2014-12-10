@@ -18,7 +18,7 @@
             {% set files = xml.files %}
             <Order_v2>
             <OrderNumber>FLGMN-{{ driver.xmlId }}</OrderNumber>
-            <OrderDate>{{ driver.created | date('Y-m-d')}}Z</OrderDate>
+            <OrderDate>{{ "now" | date('Y-m-d')}}Z</OrderDate>
             <OrderCardType>D</OrderCardType>
             <OrderCardCount>1</OrderCardCount>
             <OrderReason>create</OrderReason>
