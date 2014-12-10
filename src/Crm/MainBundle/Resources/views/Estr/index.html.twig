@@ -138,16 +138,16 @@
                     </td>
                 </tr>
                 <tr>
-                    <td class="label">E-mail:</td>
+                    <td class="label">E-mail<span class="required">*</span>:</td>
                     <td class="value">
                         <input name="email" id="email" type="text" placeholder="Укажите вашу почту" required>
                     </td>
                     <td class="emailStatus" rowspan="2" style="padding-left: 10px; font-size: 12px">
-                        <i>Для создания заявки необходимо заполнить хотя бы одно из полей - Email или телефон</i>
+                        {#<i>Для создания заявки необходимо заполнить хотя бы одно из полей - Email или телефон</i>#}
                     </td>
                 </tr>
                 <tr>
-                    <td class="label">Телефон:</td>
+                    <td class="label">Телефон<span class="required">*</span>:</td>
                     <td class="value">
                         <input name="phone" id="phone" type="text" placeholder="Укажите ваш телефон">
                     </td>
@@ -482,10 +482,10 @@
             //Validation
             errorI = 1 ;
             error = '';
-            if ( $('#email').val()=='' &&  $('#phone').val()=='' ){
+            if ( $('#email').val()=='' ||  $('#phone').val()=='' ){
                 $('#email').css('borderColor', '#cc3333');
                 $('#phone').css('borderColor', '#cc3333');
-                error += errorI+'. Одно из полей (телефон или e-mail) обязательно должно быть заполнено<br />';
+                error += errorI+'. Телефон и e-mail обязательны для заполнения<br />';
                 errorI++;
             }
 
