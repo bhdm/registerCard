@@ -1,0 +1,86 @@
+<html>
+    <head>
+        <style>
+            *{
+                font-size: 12px;
+            }
+            body{
+                position: relative;
+                font-size: 12px;
+            }
+
+            .fio1{
+                position: absolute;
+                left: 350px;
+                top: 225px;
+            }
+            .adr1{
+                position: absolute;
+                left: 340px;
+                top: 243px;
+            }
+            .date1{
+                position: absolute;
+                top: 275px;
+                left: 490px;
+            }
+
+            .fio2{
+                position: absolute;
+                left: 350px;
+                top: 490px;
+            }
+            .adr2{
+                position: absolute;
+                left: 340px;
+                top: 510px;
+            }
+            .date2{
+                position: absolute;
+                top: 538px;
+                left: 490px;
+            }
+            .title{
+                position: absolute;
+                top: 190px;
+                left: 300px;
+            }
+            .title2{
+                position: absolute;
+                top: 458px;
+                left: 300px;
+            }
+
+        </style>
+    </head>
+    <body>
+            <img src="{{ asset('bundles/crmmain/images/doc-template2.png') }}" width="700px">
+            <div class="fio1">{{ user.lastName }} {{ user.firstName }} {{ user.surName is not null ? user.surName : ''}}</div>
+            <div class="adr1" >
+                {{ user.dileveryZipcode }},
+                {{ user.dileveryCity }},
+                {{ user.dileveryStreet }}, д.{{ user.dileveryHome }}
+                {{ user.dileveryCorp }} {{ user.dileveryRoom }}
+            </div>
+            <div class="date1">
+                &nbsp;{{ "now" | date ('d ') }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ "now" | date ('m ') }}<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ "now" | date ('y') }}</span>
+            </div>
+            <div class="title">
+                Оплата за заказ № {{ user.id }}. НДС не облагается.
+            </div>
+
+            <div class="fio2" >{{ user.lastName }} {{ user.firstName }} {{ user.surName is not null ? user.surName : ''}}</div>
+            <div class="adr2" >
+                {{ user.dileveryZipcode }},
+                {{ user.dileveryCity }},
+                {{ user.dileveryStreet }}, д.{{ user.dileveryHome }}
+                {{ user.dileveryCorp }} {{ user.dileveryRoom }}
+            </div>
+            <div class="date2">
+                &nbsp;{{ "now" | date ('d ') }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ "now" | date ('m ') }}<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ "now" | date ('y') }}</span>
+            </div>
+            <div class="title2">
+                Оплата за заказ № {{ user.id }}. НДС не облагается.
+            </div>
+    </body>
+</html>
