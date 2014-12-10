@@ -33,13 +33,6 @@
                     <div class="error-msg-p"></div>
                 </td>
             </tr>
-            <tr>
-                <td colspan="3">
-                    <div>
-                        <a href="{{ path('operator_company_edit',{'companyId' : user.company.id }) }}">{{ user.company }}</a>
-                    </div>
-                </td>
-            </tr>
 
             <tr>
                 <td class="label">Менеджер:</td>
@@ -115,6 +108,8 @@
                 </td>
                 <td rowspan="10" class="copyDocs">
                     <img id="passportImg" src="/{{ user.copyPassport.path }}">
+                    <br />
+                    <img id="passportImg" src="/{{ user.copyPassport2.path }}">
                 </td>
             </tr>
             <tr>
@@ -188,6 +183,8 @@
                 </td>
                 <td rowspan="5" class="copyDocs">
                     <img id="driverImg" src="/{{ user.copyDriverPassport.path }}">
+                    <br />
+                    <img id="driverImg" src="/{{ user.copyDriverPassport2.path }}">
                 </td>
             </tr>
             <tr>
@@ -219,15 +216,6 @@
             </tr>
 
 
-            <tr>
-                <td class="empty-row">С Н И Л С</td>
-                <td class="value">
-                    <input type="file" id="snils">
-                </td>
-                <td class="copyDocs" rowspan="2">
-                    <img id="snilsImg" src="/{{ user.copySnils.path }}">
-                </td>
-            </tr>
             <tr>
                 <td class="label">Страховой номер лицевого счета</td>
                 <td class="value">
@@ -271,31 +259,6 @@
                     <img id="signImg" src="/{{ user.copySignature.path }}">
                 </td>
             </tr>
-
-                <tr>
-                    <td class="label">Ходатайство</td>
-                    <td>
-                        <input type="file" id="hod">
-                        <br /><br />
-                        <input type="checkbox" name="myPetition" value="1" {{ user.myPetition == 1 ? 'checked="checked"' : '' }}> Использовать ходатайство НПО  "ТЕХНОЛОГ"
-                    </td>
-                    <td class="value copyDocs" colspan="2">
-                        {% if user.copyPetition.path is defined %}
-                        <img  id="hodImg" src="/{{ user.copyPetition.path }}">
-                        {% endif %}
-                    </td>
-                </tr>
-                <tr>
-                    <td class="label">Разрешение на работу</td>
-                    <td>
-                        <input type="file" id="work">
-                    </td>
-                    <td class="value copyDocs">
-                        {% if user.copyWork.path is defined %}
-                            <img src="/{{ user.copyWork.path }}">
-                        {% endif %}
-                    </td>
-                </tr>
             <tr>
                 <td colspan="2">
                     <i style="font-size: 14px; color: #CC3333">* Поля отмеченные звездочкой обязательны для заполнения</i>

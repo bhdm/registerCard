@@ -300,7 +300,7 @@ class EstrController extends Controller{
         $session = $request->getSession();
         $user = $this->getDoctrine()->getRepository('CrmMainBundle:User')->findOneById($userId);
 
-        if ($user && ( $user->getCompany()->getOperator() == $this->getUser() || $this->get('security.context')->isGranted('ROLE_ADMIN')) || $user->getCompany()->getOperator()->getModerator() == $this->getUser()){
+        if ($user && ($this->get('security.context')->isGranted('ROLE_ADMIN'))){
             if ($request->getMethod() == 'POST'){
                 $data = $request->request;
 
