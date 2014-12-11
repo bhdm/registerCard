@@ -142,7 +142,7 @@ class User extends BaseEntity implements UserInterface, EquatableInterface, \Ser
     protected $dileveryRoom;
 
     /**
-     * @ORM\Column(type="integer", nullable=true)
+     * @ORM\Column(type="integer")
      */
     protected $status = 0;
 
