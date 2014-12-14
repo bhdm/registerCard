@@ -516,7 +516,12 @@ class UserController extends Controller{
      */
     public function removeAction(Request $request, $userId){
         $user = $this->getDoctrine()->getRepository('CrmMainBundle:User')->findOneById($userId);
-        if ($user && ( $user->getCompany()->getOperator() == $this->getUser() || $this->get('security.context')->isGranted('ROLE_ADMIN'))){
+        if ($user->getEstr() == 0 && $user->getRu() == 0){
+            if ($user && ( $user->getCompany()->getOperator() == $this->getUser() || $this->get('security.context')->isGranted('ROLE_ADMIN'))){
+                $user->setEnabled(false);
+                $this->getDoctrine()->getManager()->flush($user);
+            }
+        }else{
             $user->setEnabled(false);
             $this->getDoctrine()->getManager()->flush($user);
         }
