@@ -20,8 +20,23 @@
         <li>Заказать карту можно из любой точки России, Вам нужно только нажать кнопку <a href="#" class="redtext"><b>Подать Заявку</b></a>;</li>
         <li>Благодаря специальной программе, Ваши данные поступают на производство сразу после оплаты;</li>
         <li>Доставка осуществляется Почтой России (3-7 дн.) - <span class="redtext"><b>бесплатно</b></span>;</li>
+        <li style="display: block"></li>
         {#<li>Наша компания на официальном сайт ФБУ "Росавтотранс" под № 16;</li>#}
-        <li>Нам доверяют <img src="{{ asset('bundles/crmface/images/nums.png') }}" style="margin-bottom: -16px;"> человек;</li>
+        <li>
+            <table style="margin-top: -30px; color: #005596">
+                <tr>
+                    <td>Нам доверяют</td>
+                    <td>
+                        <span style="display: inline-block;">
+                            {% for u in users %}
+                                <div class="digital-{{ u }}"></div>
+                            {% endfor %}
+                        </span>
+                    </td>
+                    <td>человек;</td>
+                </tr>
+            </table>
+        </li>
     </ul>
     <br />
     <br />

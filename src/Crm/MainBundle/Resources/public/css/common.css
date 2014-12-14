@@ -284,68 +284,68 @@ input[type=text]:focus, input[type=number]:focus, input[type=password]:focus, in
 .digital--{
     display: inline-block;
     background: url("../images/digital.png") no-repeat  0 0 ;
-    height: 60px;
-    width: 36px;
+    height: 30px;
+    width: 18px;
 }
 .digital-0{
     display: inline-block;
-    background: url("../images/digital.png") no-repeat  -36px 0 ;
-    height: 60px;
-    width: 36px;
+    background: url("../images/digital.png") no-repeat  -18px 0 ;
+    height: 30px;
+    width: 18px;
 }
 .digital-1{
     display: inline-block;
-    background: url("../images/digital.png") no-repeat  -72px 0 ;
-    height: 60px;
-    width: 36px;
+    background: url("../images/digital.png") no-repeat  -36px 0 ;
+    height: 30px;
+    width: 18px;
 }
 .digital-2{
     display: inline-block;
-    background: url("../images/digital.png") no-repeat  -108px 0 ;
-    height: 60px;
-    width: 36px;
+    background: url("../images/digital.png") no-repeat  -54px 0 ;
+    height: 30px;
+    width: 18px;
 }
 .digital-3{
     display: inline-block;
-    background: url("../images/digital.png") no-repeat  -144px 0;
-    height: 60px;
-    width: 36px;
+    background: url("../images/digital.png") no-repeat  -72px 0;
+    height: 30px;
+    width: 18px;
 }
 .digital-4{
     display: inline-block;
-    background: url("../images/digital.png") no-repeat  -180px 0 ;
-    height: 60px;
-    width: 36px;
+    background: url("../images/digital.png") no-repeat  -90px 0 ;
+    height: 30px;
+    width: 18px;
 }
 .digital-5{
     display: inline-block;
-    background: url("../images/digital.png") no-repeat  -216px 0 ;
-    height: 60px;
-    width: 36px;
+    background: url("../images/digital.png") no-repeat  -108px 0 ;
+    height: 30px;
+    width: 18px;
 }
 .digital-6{
     display: inline-block;
-    background: url("../images/digital.png") no-repeat  -252px 0 ;
-    height: 60px;
-    width: 36px;
+    background: url("../images/digital.png") no-repeat  -126px 0 ;
+    height: 30px;
+    width: 18px;
 }
 .digital-7{
     display: inline-block;
-    background: url("../images/digital.png") no-repeat  -288px 0 ;
-    height: 60px;
-    width: 36px;
+    background: url("../images/digital.png") no-repeat  -144px 0 ;
+    height: 30px;
+    width: 18px;
 }
 .digital-8{
     display: inline-block;
-    background: url("../images/digital.png") no-repeat  -324px 0 ;
-    height: 60px;
-    width: 36px;
+    background: url("../images/digital.png") no-repeat  -162px 0 ;
+    height: 30px;
+    width: 18px;
 }
 .digital-9{
     display: inline-block;
-    background: url("../images/digital.png") no-repeat  -360px 0 ;
-    height: 60px;
-    width: 36px;
+    background: url("../images/digital.png") no-repeat  -180px 0 ;
+    height: 30px;
+    width: 18px;
 }
 input.little{
     width: 87px;

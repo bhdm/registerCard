@@ -59,7 +59,7 @@ class UserRepository extends EntityRepository
                          OR u.surName LIKE '%$search%')");
         }
 
-        if ($type){
+        if (isset($type) && $type != null){
             if (is_numeric($type)){
                 $res->andWhere("u.status = '".$type."'");
             }else{
