@@ -6,6 +6,10 @@
     <br />
     <a href="http://im-kard.ru/app.php/generate-statement/{{ order.id }}">Заявление</a>
     <br />
-    <a href="http://im-kard.ru/app.php/generatePaymentPdf?ord={{ order.id }}&mail=12">Платежное поручение</a>
+    {% if order.ru == 0 and order.estr == 0 %}
+        <a href="http://im-kard.ru/app.php/generatePaymentPdf?ord={{ order.id }}&mail=12">Платежное поручение</a>
+    {% else %}
+        <a href="http://im-kard.ru/app.php/generatePaymentPdf?ord={{ order.id }}&mail=12">Платежное поручение</a>
+    {% endif %}
 </p>
 
