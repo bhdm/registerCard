@@ -396,3 +396,9 @@ input.little{
 .call{
     cursor: pointer;
 }
+.blueline{
+    background: #000088;
+    width: 800px;
+    height: 2px;
+    margin: 20px auto;
+}
