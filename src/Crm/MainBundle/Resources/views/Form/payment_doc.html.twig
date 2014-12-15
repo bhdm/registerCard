@@ -54,7 +54,12 @@
         </style>
     </head>
     <body>
-            <img src="{{ asset('bundles/crmmain/images/doc-template.png') }}" width="700px">
+            {% if user.estr == 0 and user.ru == 0 %}
+                <img src="{{ asset('bundles/crmmain/images/doc-template.png') }}" width="700px">
+            {% else %}
+                <img src="{{ asset('bundles/crmmain/images/doc-template2.png') }}" width="700px">
+            {% endif %}
+
             <div class="fio1">{{ user.lastName }} {{ user.firstName }} {{ user.surName is not null ? user.surName : ''}}</div>
             <div class="adr1" >
                 {{ user.dileveryZipcode }},
