@@ -275,7 +275,9 @@ class EstrController extends Controller{
             $user->setDriverDocDateEnds($date);
 
             $user->setCopyPassport($this->getArrayToImg($user->getCopyPassport()));
+            $user->setCopyPassport2($this->getArrayToImg($user->getCopyPassport2()));
             $user->setCopyDriverPassport($this->getArrayToImg($user->getCopyDriverPassport()));
+            $user->setCopyDriverPassport2($this->getArrayToImg($user->getCopyDriverPassport2()));
             $user->setPhoto($this->getArrayToImg($user->getPhoto()));
             $user->setCopySignature($this->getArrayToImg($user->getCopySignature()));
             $user->setCopySnils($this->getArrayToImg($user->getCopySnils()));
@@ -332,6 +334,16 @@ class EstrController extends Controller{
                 $user->setDileveryHome($data->get('deliveryHouse'));
                 $user->setDileveryCorp($data->get('deliveryCorp'));
                 $user->setDileveryRoom($data->get('deliveryRoom'));
+
+                $user->setRegisteredZipcode($data->get('registeredZipcode'));
+                $region = $this->getDoctrine()->getRepository('CrmMainBundle:Region')->findOneById($data->get('registeredRegion'));
+                $user->setRegisteredRegion($region);
+                $user->setRegisteredCity($data->get('registeredCity'));
+                $user->setRegisteredStreet($data->get('registeredStreet'));
+                $user->setRegisteredHome($data->get('registeredHouse'));
+                $user->setRegisteredCorp($data->get('registeredCorp'));
+                $user->setRegisteredRoom($data->get('registeredRoom'));
+
                 $user->setSalt(md5(time()));
 
                 $user->setStatus($data->get('status'));
@@ -360,9 +372,17 @@ class EstrController extends Controller{
                     $fileName = $this->saveFile('passport');
                     $user->setCopyPassport($fileName);
                 }
+                if ($session->get('passport2')){
+                    $fileName = $this->saveFile('passport2');
+                    $user->setCopyPassport2($fileName);
+                }
                 if ($session->get('driver')){
                     $fileName = $this->saveFile('driver');
                     $user->setCopyDriverPassport($fileName);
+                }
+                if ($session->get('driver2')){
+                    $fileName = $this->saveFile('driver2');
+                    $user->setCopyDriverPassport2($fileName);
                 }
                 if ($session->get('photo')){
                     $fileName = $this->saveFile('photo');
@@ -386,7 +406,9 @@ class EstrController extends Controller{
 //                }
 
                 $user->setCopyPassport($this->getArrayToImg($user->getCopyPassport()));
+                $user->setCopyPassport2($this->getArrayToImg($user->getCopyPassport2()));
                 $user->setCopyDriverPassport($this->getArrayToImg($user->getCopyDriverPassport()));
+                $user->setCopyDriverPassport2($this->getArrayToImg($user->getCopyDriverPassport2()));
                 $user->setPhoto($this->getArrayToImg($user->getPhoto()));
                 $user->setCopySignature($this->getArrayToImg($user->getCopySignature()));
                 $user->setCopySnils($this->getArrayToImg($user->getCopySnils()));
@@ -419,11 +441,34 @@ class EstrController extends Controller{
                     );
                 }
 
+                $file = $user->getCopyPassport2();
+                if (!empty($file)){
+                    list($width, $height) = getimagesize('/var/www/'.$file['path']);
+                    $session->set('passport2', array(
+                            'content'=> $this->imgToBase('/var/www/'.$file['path']),
+                            'mimeType'=> 'image/jpeg',
+                            'width'=> $width,
+                            'height'=> $height,
+                        )
+                    );
+                }
+
                 # Права
                 $file = $user->getCopyDriverPassport();
                 if (!empty($file)){
                     list($width, $height) = getimagesize('/var/www/'.$file['path']);
                     $session->set('driver', array(
+                            'content'=> $this->imgToBase('/var/www/'.$file['path']),
+                            'mimeType'=> 'image/jpeg',
+                            'width'=> $width,
+                            'height'=> $height,
+                        )
+                    );
+                }
+                $file = $user->getCopyDriverPassport2();
+                if (!empty($file)){
+                    list($width, $height) = getimagesize('/var/www/'.$file['path']);
+                    $session->set('driver2', array(
                             'content'=> $this->imgToBase('/var/www/'.$file['path']),
                             'mimeType'=> 'image/jpeg',
                             'width'=> $width,
