@@ -282,7 +282,6 @@
                         <input name="email" id="email" type="text" placeholder="Укажите вашу почту" required>
                     </td>
                     <td class="emailStatus" rowspan="2" style="padding-left: 10px; font-size: 12px">
-                        <i>Для создания заявки необходимо заполнить хотя бы одно из полей - Email или телефон</i>
                     </td>
                 </tr>
                 <tr>
@@ -646,10 +645,17 @@
             //Validation
             errorI = 1 ;
             error = '';
-            if ( $('#email').val()=='' &&  $('#phone').val()=='' ){
+
+
+            if ( $('#email').val() == ''){
+                error += errorI+'. Поле Email обязательно для заполнения<br />';
                 $('#email').css('borderColor', '#cc3333');
+                errorI++;
+            }
+
+            if ( $('#phone').val() == ''){
+                error += errorI+'. Поле Телефон обязательно для заполнения<br />';
                 $('#phone').css('borderColor', '#cc3333');
-                error += errorI+'. Одно из полей (телефон или e-mail) обязательно должно быть заполнено<br />';
                 errorI++;
             }
 
