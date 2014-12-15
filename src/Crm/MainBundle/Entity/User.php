@@ -141,6 +141,62 @@ class User extends BaseEntity implements UserInterface, EquatableInterface, \Ser
      */
     protected $dileveryRoom;
 
+
+
+
+    /**
+     * @Assert\NotBlank( message = "Поле почтоый индекс обязательно для заполнения" )
+     * @Assert\Regex(pattern= "/^[0-9]{6}$/", message="Неверный формат ввода.")
+     * @ORM\Column(type="string", length=12, nullable=true)
+     */
+    protected  $registeredZipcode;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Region", inversedBy="deliveries")
+     */
+    protected $registeredRegion;
+
+
+    /**
+     * @Assert\Length( max = "64", maxMessage = "Максимум  64 символа")
+     * @Assert\NotBlank( message = "Поле город обязательно для заполнения" )
+     * @ORM\Column(type="string", length=64, nullable=true)
+     */
+    protected $registeredCity;
+
+
+    /**
+     * @Assert\Length( max = "64", maxMessage = "Максимум  64 символа")
+     * @Assert\NotBlank( message = "Поле улица обязательно для заполнения" )
+     * @ORM\Column(type="string", length=100, nullable=true)
+     */
+    protected $registeredStreet;
+
+
+    /**
+     * @Assert\Length( max = "10", maxMessage = "Максимум  10 символов")
+     * @Assert\NotBlank( message = "Поле дом обязательно для заполнения" )
+     * @ORM\Column(type="string", length=100, nullable=true)
+     */
+    protected $registeredHome;
+
+
+    /**
+     * @Assert\Length( max = "10", maxMessage = "Максимум  10 символов")
+     * @ORM\Column(type="string", length=10, nullable=true)
+     */
+    protected $registeredCorp;
+
+    /**
+     * квартира
+     * @Assert\Length( max = "10", maxMessage = "Максимум  10 символов")
+     * @ORM\Column(type="string", length=10, nullable=true)
+     */
+    protected $registeredRoom;
+
+
+
+
     /**
      * @ORM\Column(type="integer")
      */
@@ -1326,6 +1382,118 @@ class User extends BaseEntity implements UserInterface, EquatableInterface, \Ser
     public function setRu($ru = 0)
     {
         $this->ru = $ru;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getRegisteredCity()
+    {
+        return $this->registeredCity;
+    }
+
+    /**
+     * @param mixed $registeredCity
+     */
+    public function setRegisteredCity($registeredCity)
+    {
+        $this->registeredCity = $registeredCity;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getRegisteredCorp()
+    {
+        return $this->registeredCorp;
+    }
+
+    /**
+     * @param mixed $registeredCorp
+     */
+    public function setRegisteredCorp($registeredCorp)
+    {
+        $this->registeredCorp = $registeredCorp;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getRegisteredHome()
+    {
+        return $this->registeredHome;
+    }
+
+    /**
+     * @param mixed $registeredHome
+     */
+    public function setRegisteredHome($registeredHome)
+    {
+        $this->registeredHome = $registeredHome;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getRegisteredRegion()
+    {
+        return $this->registeredRegion;
+    }
+
+    /**
+     * @param mixed $registeredRegion
+     */
+    public function setRegisteredRegion($registeredRegion)
+    {
+        $this->registeredRegion = $registeredRegion;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getRegisteredRoom()
+    {
+        return $this->registeredRoom;
+    }
+
+    /**
+     * @param mixed $registeredRoom
+     */
+    public function setRegisteredRoom($registeredRoom)
+    {
+        $this->registeredRoom = $registeredRoom;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getRegisteredStreet()
+    {
+        return $this->registeredStreet;
+    }
+
+    /**
+     * @param mixed $registeredStreet
+     */
+    public function setRegisteredStreet($registeredStreet)
+    {
+        $this->registeredStreet = $registeredStreet;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getRegisteredZipcode()
+    {
+        return $this->registeredZipcode;
+    }
+
+    /**
+     * @param mixed $registeredZipcode
+     */
+    public function setRegisteredZipcode($registeredZipcode)
+    {
+        $this->registeredZipcode = $registeredZipcode;
     }
 
 

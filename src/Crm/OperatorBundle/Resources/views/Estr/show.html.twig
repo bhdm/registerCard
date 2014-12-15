@@ -76,7 +76,7 @@
                     <input name="email" id="email" type="text" placeholder="Укажите email почту" required  value="{{ user.email }}">
                 </td>
                 <td class="emailStatus" rowspan="2" style="padding-left: 10px; font-size: 12px; vertical-align: middle">
-                    <i>Необходимо заполнить хотя бы одно из полей - Email или телефон</i>
+                    <i></i>
                 </td>
             </tr>
             <tr>
@@ -106,10 +106,11 @@
                 <td class="value">
                     <input type="file" id="passport">
                 </td>
-                <td rowspan="10" class="copyDocs">
+                <td rowspan="6" class="copyDocs">
                     <img id="passportImg" src="/{{ user.copyPassport.path }}">
                     <br />
-                    <img id="passportImg" src="/{{ user.copyPassport2.path }}">
+                    <br />
+                    <img id="passportImg2" src="/{{ user.copyPassport2.path }}">
                 </td>
             </tr>
             <tr>
@@ -140,40 +141,23 @@
 
             </tr>
             <tr>
-                <td class="label">Серия паспорта:</td>
+                <td class="label">Адрес регистрации<span class="required">*</span>:</td>
                 <td class="value">
-                    <input name="passportSeries" id="passportSeries" type="text"  value="{{ user.passportSerial }}" data-placeholder="Для паспорта РФ">
+                    <input name="registeredZipcode" id="registeredZipcode" type="text" placeholder="Индекс" value="{{ user.registeredZipcode }}"><br />
+                    <select name="registeredRegion" id="registeredRegion">
+                        {% for region in regions %}
+                            <option value="{{ region.id }}" {{ user.registeredRegion.id is defined and user.registeredRegion.id == region.id ? 'selected' : ''  }}>{{ region.title }}</option>
+                        {% endfor %}
+                    </select><br />
+                    <input name="registeredCity"    id="registeredCity"    type="text" placeholder="Город" value="{{ user.registeredCity }}"><br />
+                    <input name="registeredStreet"  id="registeredStreet"  type="text" placeholder="Улица" value="{{ user.registeredStreet }}"><br />
+                    <input name="registeredHouse"   id="registeredHouse"   type="text" placeholder="Дом" class="little" value="{{ user.registeredHome }}">
+                    <input name="registeredCorp"    id="registeredCorp"    type="text" placeholder="Корп /Стр"  class="little" value="{{ user.registeredCorp }}">
+                    <input name="registeredRoom"    id="registeredRoom"    type="text" placeholder="Кв / оф"  class="little" value="{{ user.registeredRoom }}">
                 </td>
-
+                {#<td class="registeredAdressStatus"></td>#}
             </tr>
-            <tr>
-                <td class="label">Номер паспорта<span class="required">*</span>:</td>
-                <td class="value">
-                    <input name="passportNumber" id="passportNumber" type="text"  value="{{ user.passportNumber }}">
-                </td>
 
-            </tr>
-            <tr>
-                <td class="label">Кем выдан<span class="required">*</span>:</td>
-                <td class="value">
-                    <input name="PassportPlace" id="passportPlace" type="text"  value="{{ user.passportIssuance }}">
-                </td>
-
-            </tr>
-            <tr>
-                <td class="label">Дата выдачи<span class="required">*</span>:</td>
-                <td class="value">
-                    <input name="passportDate" id="passportDate" type="text"  value="{{ user.passportIssuanceDate | date('d.m.Y') }}">
-                </td>
-
-            </tr>
-            <tr>
-                <td class="label">Код подразделения:</td>
-                <td class="value">
-                    <input name="passportCode" id="passportCode" type="text"  value="{{ user.passportCode }}">
-                </td>
-
-            </tr>
 
 
             <tr>
@@ -184,7 +168,8 @@
                 <td rowspan="5" class="copyDocs">
                     <img id="driverImg" src="/{{ user.copyDriverPassport.path }}">
                     <br />
-                    <img id="driverImg" src="/{{ user.copyDriverPassport2.path }}">
+                    <br />
+                    <img id="driverImg2" src="/{{ user.copyDriverPassport2.path }}">
                 </td>
             </tr>
             <tr>
@@ -339,6 +324,9 @@
         }
         #companyTypeRoom-styler .jq-selectbox__select{
             width: 122px !important;
+        }
+        #registeredRegion-styler .jq-selectbox__select{
+            width: 212px !important;
         }
         #companyTypeRoom-styler{
             margin-top: -1px;
