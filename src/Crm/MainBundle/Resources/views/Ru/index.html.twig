@@ -572,10 +572,10 @@
 
 
                 var request = new XMLHttpRequest();
-                request.open("POST", "{{ path('estr-order-post') }}", false);
+                request.open("POST", "{{ path('ru-order-post') }}", false);
                 request.send(form);
                 if(request.status == 200) {
-                    window.location.href = '{{ path('estr-order-2') }}';
+                    window.location.href = '{{ path('ru-order-2') }}';
                 }
 
             }else{
