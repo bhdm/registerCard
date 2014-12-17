@@ -220,6 +220,7 @@
                 </td>
                 <td class="value copyDocs">
                     <img id="photoImg" src="/{{ user.photo.path }}">
+                    <br /><a href="{{ path('bmp',{'type' : 'photo'}) }}" target="_blank" >Скачать</a>
                 </td>
             </tr>
             <tr>
@@ -229,6 +230,7 @@
                 </td>
                 <td class="value copyDocs">
                     <img id="signImg" src="/{{ user.copySignature.path }}">
+                    <br /><a href="{{ path('bmp',{'type' : 'sign'}) }}" target="_blank" >Скачать</a>
                 </td>
             </tr>
             <tr>
