@@ -64,7 +64,7 @@ class RuController extends Controller{
         }
 
 
-        $users = $this->getDoctrine()->getRepository('CrmMainBundle:User')->filter($role,$operator,$company, $toDay, $toWeek, $toPetition, $type, $toArhive, $search,1,0);
+        $users = $this->getDoctrine()->getRepository('CrmMainBundle:User')->filter($role,$operator,$company, $toDay, $toWeek, $toPetition, $type, $toArhive, $search,0,1);
 
 //        if ($companyId == null && $this->get('security.context')->isGranted('ROLE_ADMIN')){
 //            $company = null;
