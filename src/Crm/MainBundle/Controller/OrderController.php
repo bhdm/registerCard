@@ -907,6 +907,21 @@ class OrderController extends Controller{
 
         $image = imagecreatefromjpeg($imageFile);
 
+        if ($type == 'sign'){
+            $crop = imagecreatetruecolor(591,118);
+            $white = imagecolorallocate($crop, 255, 255, 255);
+            imagefill($crop, 0, 0, $white);
+
+            $ph = imagesy($image) / 118;
+            $width = imagesx($image) /$ph;
+            $margin = (591-$width)/2;
+            $height = 118;
+
+            imagecopyresized( $crop, $image, $margin, 0,0, 0, $width, $height, imagesx($image), imagesy($image) );
+            $image = $crop;
+        }
+
+
 //        imagejpeg($image);
 //        $image = $this->imagebmpconvert($image);
 
