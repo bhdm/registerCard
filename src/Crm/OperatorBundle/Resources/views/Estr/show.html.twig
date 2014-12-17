@@ -745,7 +745,12 @@
                     return false;
                 }
 
-            })
+            });
+
+            $(":text").focus(function(){    // получение фокуса текстовым полем
+                input_temp=this.value;
+                $(this).select();
+            });
 
         });
 
