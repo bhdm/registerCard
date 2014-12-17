@@ -105,6 +105,9 @@
                 <td class="empty-row">Паспортные данные</td>
                 <td class="value">
                     <input type="file" id="passport">
+                    <br />
+                    <br />
+                    <input type="file" id="passport2">
                 </td>
                 <td rowspan="6" class="copyDocs">
                     <img id="passportImg" src="/{{ user.copyPassport.path }}">
@@ -164,18 +167,15 @@
                 <td class="empty-row">Водительские права</td>
                 <td class="value">
                     <input type="file" id="driver">
+                    <br />
+                    <br />
+                    <input type="file" id="driver2">
                 </td>
                 <td rowspan="5" class="copyDocs">
                     <img id="driverImg" src="/{{ user.copyDriverPassport.path }}">
                     <br />
                     <br />
                     <img id="driver2Img" src="/{{ user.copyDriverPassport2.path }}">
-                </td>
-            </tr>
-            <tr>
-                <td class="label">Кем выдан:</td>
-                <td class="value">
-                    <input name="driverDocIssuance" id="driverDocIssuance" type="text"  value="{{ user.driverDocIssuance }}">
                 </td>
             </tr>
             <tr>
@@ -192,14 +192,6 @@
                 </td>
 
             </tr>
-            <tr>
-                <td class="label">Дата окончания:</td>
-                <td class="value">
-                    <input name="driverDateEnds" id="driverDateEnds" type="text"  value="{{ user.driverDocDateEnds | date('d.m.Y')}}" >
-                </td>
-
-            </tr>
-
             <tr><td colspan="2" class="empty-row">Информация о доставке</td></tr>
             <tr>
                 <td class="label">Адрес доставки<span class="required">*</span>:</td>
@@ -682,21 +674,7 @@
                     error += errorI+'. Поле дата выдачи обязательно для заполнения<br />';
                     errorI++;
                 }
-                if ( $('#driverDateEnds').val()==''){
-                    $('#driverDateEnds').css('borderColor', '#cc3333');
-                    error += errorI+'. Поле дата окончания обязательно для заполнения<br />';
-                    errorI++;
-                }else{
-                    tmpdateArray = $('#driverDateEnds').val().split(".");
-                    var tmpdate = new Date(tmpdateArray[2]+'-'+tmpdateArray[1]+'-'+tmpdateArray[0]);
-                    var tmpdate2 = new Date();
-                    tmpdate = ( tmpdate - tmpdate2) /(1000*60*60*24*30) ;
-                    console.log(tmpdate);
-                    if ( tmpdate < 1 ){
-                        error += errorI+'. Минимальный срок вод. прав должен быть больше 1 месяца<br />';
-                        errorI++;
-                    }
-                }
+
                 if ( $('#lastName').val()==''){
                     $('#lastName').css('borderColor', '#cc3333');
                     error += errorI+'. Поле фамилия обязательно для заполнения<br />';
@@ -727,22 +705,13 @@
                     error += errorI+'. Поле серия и номер обязательно для заполнения<br />';
                     errorI++;
                 }
-                if ( $('#passportPlace').val()==''){
-                    $('#passportPlace').css('borderColor', '#cc3333');
-                    error += errorI+'. Поле кем выдан обязательно для заполнения<br />';
-                    errorI++;
-                }
+
                 if ( $('#passportDate').val()==''){
                     $('#passportDate').css('borderColor', '#cc3333');
                     error += errorI+'. Поле дата выдачи обязательно для заполнения<br />';
                     errorI++;
                 }
 
-                if ( $('#snilsText').val()==''){
-                    $('#snilsText').css('borderColor', '#cc3333');
-                    error += errorI+'. Поле СНИЛС обязательно для заполнения<br />';
-                    errorI++;
-                }
 
                 if ($('#deliveryZipcode').val() == ''){
                     error +=  errorI+'.Поле  индекс обязательно для заполнения <br />';
