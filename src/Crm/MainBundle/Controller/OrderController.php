@@ -894,5 +894,24 @@ class OrderController extends Controller{
 
 
     }
+
+    /**
+     * @Route("/bmp/{type}", name="bmp")
+     */
+    public function bpmAction(Request $request, $type){
+        $session = $request->getSession();
+        $file = $session->get($type);
+        $file = $file['content'];
+        $imageFile = $this->BaseToImg($file);
+
+        $image = imagecreatefromjpeg($imageFile);
+//        header("Content-type: image/wbmp");
+//        imagejpeg($image);
+
+        header('Content-Type: ' . image_type_to_mime_type(IMAGETYPE_WBMP));
+        image2wbmp($image);
+//        imagedestroy($image);
+        exit;
+    }
 }
 
