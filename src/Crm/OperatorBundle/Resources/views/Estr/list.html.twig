@@ -6,9 +6,9 @@
     {% if company != null %}
         <a href="{{ path('operator_company_list') }}">Список компаний</a> &raquo;
         <a href="#">{{ company.title }}</a> &raquo;
-        <a href="{{ path('operator_user_list',{'companyId': company.id }) }} ">Список пользователей</a>
+        <a href="{{ path('operator_estr_list',{'companyId': company.id }) }} ">Список пользователей</a>
         <div class="right">
-            <a href="{{ path('operator_user_add',{'companyId': company.id}) }}">Добавить</a>
+            <a href="{{ path('operator_estr_add',{'companyId': company.id}) }}">Добавить</a>
         </div>
     {% else %}
         <a href="{{ path('operator_estr_list') }}">Список пользователей ЕСТР</a>
@@ -129,13 +129,13 @@
 
             $('#filterStatus').change(function(){
                 var type = $(this).val();
-                var url = Routing.generate('operator_user_list', {'companyId':'null', 'type' :type });
+                var url = Routing.generate('operator_estr_list', {'companyId':'null', 'type' :type });
                 window.location.href = url;
             });
 
             $('#filterManager').change(function(){
                 var type = $(this).val();
-                var url = Routing.generate('operator_user_list', {'companyId':'null', 'type' :type });
+                var url = Routing.generate('operator_estr_list', {'companyId':'null', 'type' :type });
                 window.location.href = url;
             });
 
@@ -237,12 +237,12 @@
         {#<a href="#"><button>В производстве</button></a>#}
         {#<a href="#"><button>Архив</button></a>#}
 
-        <a href="{{ path('operator_user_list') }}"><span class="filter-btn">Все</span></a>
-        <a href="{{ path('operator_user_list',{'companyId' : 'null' ,'type' : 'day' }) }}"><span class="filter-btn{{ toDay ? '-active' : '' }}">За сегодня</span></a>
-        <a href="{{ path('operator_user_list',{'companyId' : 'null' ,'type' : 'week' }) }}"><span class="filter-btn{{ toWeek ? '-active' : '' }}">За неделю</span></a>
-        <a href="{{ path('operator_user_list',{'companyId' : 'null' ,'type' : 'petition' }) }}"><span class="filter-btn{{ toPetition ? '-active' : '' }}">С ходатайством</span></a>
+        <a href="{{ path('operator_estr_list') }}"><span class="filter-btn">Все</span></a>
+        <a href="{{ path('operator_estr_list',{'companyId' : 'null' ,'type' : 'day' }) }}"><span class="filter-btn{{ toDay ? '-active' : '' }}">За сегодня</span></a>
+        <a href="{{ path('operator_estr_list',{'companyId' : 'null' ,'type' : 'week' }) }}"><span class="filter-btn{{ toWeek ? '-active' : '' }}">За неделю</span></a>
+        <a href="{{ path('operator_estr_list',{'companyId' : 'null' ,'type' : 'petition' }) }}"><span class="filter-btn{{ toPetition ? '-active' : '' }}">С ходатайством</span></a>
 
-        <a href="{{ path('operator_user_list',{'companyId' : 'null' ,'type' : 'deploy' }) }}"><span class="filter-btn{{ toDeploy ? '-active' : '' }}">В производстве</span></a>
+        <a href="{{ path('operator_estr_list',{'companyId' : 'null' ,'type' : 'deploy' }) }}"><span class="filter-btn{{ toDeploy ? '-active' : '' }}">В производстве</span></a>
 
         <select id="filterStatus">
             <option>Фильтр по статусу</option>

@@ -33,13 +33,6 @@
                     <div class="error-msg-p"></div>
                 </td>
             </tr>
-            <tr>
-                <td colspan="3">
-                    <div>
-                        <a href="{{ path('operator_company_edit',{'companyId' : user.company.id }) }}">{{ user.company }}</a>
-                    </div>
-                </td>
-            </tr>
 
             <tr>
                 <td class="label">Менеджер:</td>
@@ -55,16 +48,16 @@
                 <td class="label">Статус заявки:</td>
                 <td class="value">
                     {% if is_granted('ROLE_ADMIN') %}
-                    <select name="status">
-                        <option value="0"  {{ user.status == 0 or user.status == null ? 'selected="selected"' : '' }}>Новая</option>
-                        <option value="1"  {{ user.status == 1 ? 'selected="selected"' : '' }}>Подтвержденная</option>
-                        <option value="2"  {{ user.status == 2 ? 'selected="selected"' : '' }}>Оплаченная</option>
-                        <option value="3"  {{ user.status == 3 ? 'selected="selected"' : '' }}>В производстве</option>
-                        <option value="6"  {{ user.status == 6 ? 'selected="selected"' : '' }}>Изготовлено</option>
-                        <option value="4"  {{ user.status == 4 ? 'selected="selected"' : '' }}>На почте</option>
-                        <option value="5"  {{ user.status == 5 ? 'selected="selected"' : '' }}>Получена</option>
-                        <option value="10" {{ user.status == 10 ? 'selected="selected"' : '' }}>Отклонена</option>
-                    </select>
+                        <select name="status">
+                            <option value="0"  {{ user.status == 0 or user.status == null ? 'selected="selected"' : '' }}>Новая</option>
+                            <option value="1"  {{ user.status == 1 ? 'selected="selected"' : '' }}>Подтвержденная</option>
+                            <option value="2"  {{ user.status == 2 ? 'selected="selected"' : '' }}>Оплаченная</option>
+                            <option value="3"  {{ user.status == 3 ? 'selected="selected"' : '' }}>В производстве</option>
+                            <option value="6"  {{ user.status == 6 ? 'selected="selected"' : '' }}>Изготовлено</option>
+                            <option value="4"  {{ user.status == 4 ? 'selected="selected"' : '' }}>На почте</option>
+                            <option value="5"  {{ user.status == 5 ? 'selected="selected"' : '' }}>Получена</option>
+                            <option value="10" {{ user.status == 10 ? 'selected="selected"' : '' }}>Отклонена</option>
+                        </select>
                     {% else %}
                         {{ user.statusString }}
                     {% endif %}
@@ -83,7 +76,7 @@
                     <input name="email" id="email" type="text" placeholder="Укажите email почту" required  value="{{ user.email }}">
                 </td>
                 <td class="emailStatus" rowspan="2" style="padding-left: 10px; font-size: 12px; vertical-align: middle">
-                    <i>Необходимо заполнить хотя бы одно из полей - Email или телефон</i>
+                    <i></i>
                 </td>
             </tr>
             <tr>
@@ -113,8 +106,11 @@
                 <td class="value">
                     <input type="file" id="passport">
                 </td>
-                <td rowspan="10" class="copyDocs">
+                <td rowspan="6" class="copyDocs">
                     <img id="passportImg" src="/{{ user.copyPassport.path }}">
+                    <br />
+                    <br />
+                    <img id="passport2Img" src="/{{ user.copyPassport2.path }}">
                 </td>
             </tr>
             <tr>
@@ -145,40 +141,23 @@
 
             </tr>
             <tr>
-                <td class="label">Серия паспорта:</td>
+                <td class="label">Адрес регистрации<span class="required">*</span>:</td>
                 <td class="value">
-                    <input name="passportSeries" id="passportSeries" type="text"  value="{{ user.passportSerial }}" data-placeholder="Для паспорта РФ">
+                    <input name="registeredZipcode" id="registeredZipcode" type="text" placeholder="Индекс" value="{{ user.registeredZipcode }}"><br />
+                    <select name="registeredRegion" id="registeredRegion">
+                        {% for region in regions %}
+                            <option value="{{ region.id }}" {{ user.registeredRegion.id is defined and user.registeredRegion.id == region.id ? 'selected' : ''  }}>{{ region.title }}</option>
+                        {% endfor %}
+                    </select><br />
+                    <input name="registeredCity"    id="registeredCity"    type="text" placeholder="Город" value="{{ user.registeredCity }}"><br />
+                    <input name="registeredStreet"  id="registeredStreet"  type="text" placeholder="Улица" value="{{ user.registeredStreet }}"><br />
+                    <input name="registeredHouse"   id="registeredHouse"   type="text" placeholder="Дом" class="little" value="{{ user.registeredHome }}">
+                    <input name="registeredCorp"    id="registeredCorp"    type="text" placeholder="Корп /Стр"  class="little" value="{{ user.registeredCorp }}">
+                    <input name="registeredRoom"    id="registeredRoom"    type="text" placeholder="Кв / оф"  class="little" value="{{ user.registeredRoom }}">
                 </td>
-
+                {#<td class="registeredAdressStatus"></td>#}
             </tr>
-            <tr>
-                <td class="label">Номер паспорта<span class="required">*</span>:</td>
-                <td class="value">
-                    <input name="passportNumber" id="passportNumber" type="text"  value="{{ user.passportNumber }}">
-                </td>
 
-            </tr>
-            <tr>
-                <td class="label">Кем выдан<span class="required">*</span>:</td>
-                <td class="value">
-                    <input name="PassportPlace" id="passportPlace" type="text"  value="{{ user.passportIssuance }}">
-                </td>
-
-            </tr>
-            <tr>
-                <td class="label">Дата выдачи<span class="required">*</span>:</td>
-                <td class="value">
-                    <input name="passportDate" id="passportDate" type="text"  value="{{ user.passportIssuanceDate | date('d.m.Y') }}">
-                </td>
-
-            </tr>
-            <tr>
-                <td class="label">Код подразделения:</td>
-                <td class="value">
-                    <input name="passportCode" id="passportCode" type="text"  value="{{ user.passportCode }}">
-                </td>
-
-            </tr>
 
 
             <tr>
@@ -188,6 +167,9 @@
                 </td>
                 <td rowspan="5" class="copyDocs">
                     <img id="driverImg" src="/{{ user.copyDriverPassport.path }}">
+                    <br />
+                    <br />
+                    <img id="driver2Img" src="/{{ user.copyDriverPassport2.path }}">
                 </td>
             </tr>
             <tr>
@@ -218,22 +200,6 @@
 
             </tr>
 
-
-            <tr>
-                <td class="empty-row">С Н И Л С</td>
-                <td class="value">
-                    <input type="file" id="snils">
-                </td>
-                <td class="copyDocs" rowspan="2">
-                    <img id="snilsImg" src="/{{ user.copySnils.path }}">
-                </td>
-            </tr>
-            <tr>
-                <td class="label">Страховой номер лицевого счета</td>
-                <td class="value">
-                    <input name="snils" id="snilsText" type="text"  value="{{ user.snils }}">
-                </td>
-            </tr>
             <tr><td colspan="2" class="empty-row">Информация о доставке</td></tr>
             <tr>
                 <td class="label">Адрес доставки<span class="required">*</span>:</td>
@@ -271,31 +237,6 @@
                     <img id="signImg" src="/{{ user.copySignature.path }}">
                 </td>
             </tr>
-
-                <tr>
-                    <td class="label">Ходатайство</td>
-                    <td>
-                        <input type="file" id="hod">
-                        <br /><br />
-                        <input type="checkbox" name="myPetition" value="1" {{ user.myPetition == 1 ? 'checked="checked"' : '' }}> Использовать ходатайство НПО  "ТЕХНОЛОГ"
-                    </td>
-                    <td class="value copyDocs" colspan="2">
-                        {% if user.copyPetition.path is defined %}
-                        <img  id="hodImg" src="/{{ user.copyPetition.path }}">
-                        {% endif %}
-                    </td>
-                </tr>
-                <tr>
-                    <td class="label">Разрешение на работу</td>
-                    <td>
-                        <input type="file" id="work">
-                    </td>
-                    <td class="value copyDocs">
-                        {% if user.copyWork.path is defined %}
-                            <img src="/{{ user.copyWork.path }}">
-                        {% endif %}
-                    </td>
-                </tr>
             <tr>
                 <td colspan="2">
                     <i style="font-size: 14px; color: #CC3333">* Поля отмеченные звездочкой обязательны для заполнения</i>
@@ -376,6 +317,9 @@
         }
         #companyTypeRoom-styler .jq-selectbox__select{
             width: 122px !important;
+        }
+        #registeredRegion-styler .jq-selectbox__select{
+            width: 212px !important;
         }
         #companyTypeRoom-styler{
             margin-top: -1px;
@@ -620,9 +564,9 @@
                     success: function(msg){
                         $(".imgareaselect-selection").parent().remove();
                         $(".imgareaselect-outer").remove();
-                            $("#"+type+"Img").attr('src', msg);
-                            showloader();
-                            getImgData(type);
+                        $("#"+type+"Img").attr('src', msg);
+                        showloader();
+                        getImgData(type);
                     }
                 });
             });
@@ -679,8 +623,8 @@
                     type: "POST",
                     url: Routing.generate('get_img_data', {'type': type, 'rezident' : $('#rezident').val()}),
                     success: function(msg){
-                            hideloader();
-                            hideImgPopUp();
+                        hideloader();
+                        hideImgPopUp();
                     }
                 });
             }
@@ -833,9 +777,5 @@
             })
 
         });
-
-
-
-
     </script>
 {% endblock %}
