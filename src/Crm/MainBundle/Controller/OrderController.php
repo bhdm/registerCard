@@ -909,7 +909,10 @@ class OrderController extends Controller{
 
 //        imagejpeg($image);
 //        $image = $this->imagebmpconvert($image);
+
         header("Content-type: image/bmp");
+        header('Content-Type: application/octet-stream');
+        header('Content-Disposition: attachment; filename=' .$type.'.bmp');
 //        image $image;
         Bmp::imagebmp($image);
 
