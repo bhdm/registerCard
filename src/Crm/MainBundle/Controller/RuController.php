@@ -176,7 +176,7 @@ class RuController extends Controller
 
             if ($user->getEmail()){
                 $message = \Swift_Message::newInstance()
-                    ->setSubject('Заявка отправлена ESTR')
+                    ->setSubject('Заявка отправлена РФ')
                     ->setFrom('info@im-kard.ru')
                     ->setTo($user->getEmail())
                     ->setBody(
