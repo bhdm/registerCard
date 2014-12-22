@@ -47,11 +47,17 @@ class Region
      */
     protected $companies;
 
+    /**
+     * @ORM\OneToMany(targetEntity="User", mappedBy="registeredRegion")
+     */
+    protected $registered;
+
     public function __construct(){
         $this->cities = new ArrayCollection();
         $this->drivers = new ArrayCollection();
         $this->deliveries = new ArrayCollection();
         $this->companies = new ArrayCollection();
+        $this->registered = new ArrayCollection();
     }
 
     public function __toString(){
@@ -195,5 +201,23 @@ class Region
     public function removeCompany($company){
         $this->companies->removeElement($company);
     }
+
+    /**
+     * @return mixed
+     */
+    public function getRegistered()
+    {
+        return $this->registered;
+    }
+
+    /**
+     * @param mixed $registered
+     */
+    public function setRegistered($registered)
+    {
+        $this->registered = $registered;
+    }
+
+
 
 }

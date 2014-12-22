@@ -48,7 +48,42 @@
             <input type="button" value="Вперед"  id="forward" class="btn" style="display: none;">
         </div>
     </div>
+
+
     <div class="inp-pop-up">
+        <div class="inp-passport2 inp-box">
+            <table>
+                <tr>
+                    <td colspan="3">
+                        <div class="error-msg-p"></div>
+                    </td>
+                </tr>
+                <tr><td colspan="2" class="empty-row">Адрес регистрации</td></tr>
+                <tr>
+                    <td class="value" colspan="2" style="text-align: center">
+                        <select name="registeredRegion" id="registeredRegion">
+                            <option value="null">Не выбрано</option>
+                            {% for region in regions %}
+                                <option value="{{ region.id }}">{{ region.title }}</option>
+                            {% endfor %}
+                        </select><br /><br />
+                        <input name="registeredCity"    id="registeredCity"    type="text" placeholder="Город"><br /><br />
+                        <input name="registeredStreet"  id="registeredStreet"  type="text" placeholder="Улица"><br /><br />
+                        <input name="registeredHouse"   id="registeredHouse"   type="text" placeholder="Дом" class="little">
+                        <input name="registeredCorp"    id="registeredCorp"    type="text" placeholder="Корп /Стр"  class="little">
+                        <input name="registeredRoom"    id="registeredRoom"    type="text" placeholder="Кв / оф"  class="little"><br /><br />
+                        <input name="registeredZipcode" id="registeredZipcode" type="text" placeholder="Индекс">
+                    </td>
+                    <td class="registeredAdressStatus"></td>
+                </tr>
+                <tr>
+                    <td style="text-align: right">
+                        <br />
+                        <input type="button" id="savePassport2" value="Подтвердить данные" class="btn saveForm">
+                    </td>
+                </tr>
+            </table>
+        </div>
         <div class="inp-passport inp-box">
             <table>
                 <tr>
@@ -85,25 +120,6 @@
                     </td>
                     <td class="dateBrithdateStatus"></td>
                 </tr>
-                <tr><td colspan="3" class=""><hr /></td></tr>
-                <tr>
-                    <td class="label">Адрес регистрации<span class="required">*</span>:</td>
-                    <td class="value">
-                        <input name="registeredZipcode" id="registeredZipcode" type="text" placeholder="Индекс"><br />
-                        <select name="registeredRegion" id="registeredRegion">
-                                <option value="null">Не выбрано</option>
-                            {% for region in regions %}
-                                <option value="{{ region.id }}">{{ region.title }}</option>
-                            {% endfor %}
-                        </select><br />
-                        <input name="registeredCity"    id="registeredCity"    type="text" placeholder="Город"><br />
-                        <input name="registeredStreet"  id="registeredStreet"  type="text" placeholder="Улица"><br />
-                        <input name="registeredHouse"   id="registeredHouse"   type="text" placeholder="Дом" class="little">
-                        <input name="registeredCorp"    id="registeredCorp"    type="text" placeholder="Корп /Стр"  class="little">
-                        <input name="registeredRoom"    id="registeredRoom"    type="text" placeholder="Кв / оф"  class="little">
-                    </td>
-                    <td class="registeredAdressStatus"></td>
-                </tr>
                 <tr>
                     <td style="text-align: right">
                         <input type="button" id="savePassport" value="Подтвердить данные" class="btn saveForm">
@@ -111,6 +127,8 @@
                 </tr>
             </table>
         </div>
+
+
         <div class="inp-driver inp-box">
             <table>
                 <tr>
@@ -281,7 +299,7 @@
             <iframe width="640" height="360" src="//www.youtube.com/embed/2WkicwKfhMc" frameborder="0" allowfullscreen></iframe>
         </div>
     </div>
-    <div class="pop-up" id="pop-up-4" style="width: 640px; height: 150px; top: 160px; margin-left: -320; padding: 15px; font-size: 18px; background: #FFFFFF">
+    <div class="pop-up" id="pop-up-4" style="width: 640px; height: 150px; top: 160px; margin-left: -320px; padding: 15px; font-size: 18px; background: #FFFFFF">
         <img src="{{ asset('bundles/crmmain/images/close_ico.png') }}" class="close-pop-up ico" />
         <div style="margin-top: 15px">
             Уважаемый клиент Вы можете воспользоваться помощью оператора для заполнения заявления. Данная услуга платная. Цена карты включая услугу Оператора составит 2640 рублей.
@@ -347,6 +365,7 @@
             }
 
             if ($(this).attr('name')=='passport2' ){
+                $('.inp-passport2').css('display','block');
                 $('.img-pop-up').attr('type-doc','passport2');
             }
 
@@ -578,8 +597,8 @@
                 form.append('registeredHouse',$('#registeredHouse').val());
                 form.append('registeredCorp',$('#registeredCorp').val());
 //                form.append('registeredStructure',$('#registeredStructure').val());
-                form.append('registeredTypeRoom',$('#registeredTypeRoom').val());
-//                form.append('registeredRoom',$('#registeredRoom').val());
+//                form.append('registeredTypeRoom',$('#registeredTypeRoom').val());
+                form.append('registeredRoom',$('#registeredRoom').val());
 
 //                if ($("#myPetition").prop("checked")){
 //                    form.append('myPetition', 1);
@@ -643,7 +662,7 @@
                     $('#img-pop-up-img').html('<div style="display: inline-block"><img src="'+msg+'" /></div>');
                     $(".imgareaselect-selection").parent().remove();
                     $(".imgareaselect-outer").remove();
-                    if (type == 'snils' || type == 'driver' || type == 'passport' || type == 'hod'){
+                    if (type == 'snils' || type == 'driver' || type == 'passport' || type == 'passport2' || type == 'hod'){
                         $('#forward').fadeIn();
 //                            hideImgPopUp();
                         if ($( ".img-pop-up").length > 0){
@@ -812,7 +831,7 @@
                 type: "POST",
                 url: Routing.generate('get_img_data', {'type': type, 'rezident' : $('#rezident').val()}),
                 success: function(msg){
-                    if (type == 'snils' || type == 'driver' || type == 'passport' || type == 'hod'){
+                    if (type == 'snils' || type == 'driver' || type == 'passport' || type == 'passport2' || type == 'hod'){
                         hideloader(1);
                     }else{
 //                            hideloader(0);

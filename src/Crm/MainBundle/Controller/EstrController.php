@@ -113,6 +113,9 @@ class EstrController extends Controller
             $data = $request->request;
 
             $region = $this->getDoctrine()->getRepository('CrmMainBundle:Region')->findOneById($data->get('deliveryRegion'));
+            $registeredRegion = $this->getDoctrine()->getRepository('CrmMainBundle:Region')->findOneById($data->get('registeredRegion'));
+            $user->setRegisteredRegion($registeredRegion);
+
             $user->setDileveryZipcode($data->get('deliveryZipcode'));
             $user->setDileveryRegion($region);
             $user->setDileveryCity($data->get('deliveryCity'));
@@ -138,6 +141,7 @@ class EstrController extends Controller
 
             $date = new \DateTime($user->getDriverDocDateEnds());
             $user->setDriverDocDateEnds($date);
+
 
             $user->setCopyPassport($this->getArrayToImg($user->getCopyPassport()));
             $user->setCopyPassport2($this->getArrayToImg($user->getCopyPassport2()));
@@ -228,6 +232,18 @@ class EstrController extends Controller
             $user->setDriverDocIssuance($data->get('driverDocIssuance'));
             $user->setSnils($data->get('snils'));
 
+
+//            $region = $this->getDoctrine()->getRepository('CrmMainBundle:Region')->findOneById($data->get('registeredRegion'));
+            $user->setRegisteredZipcode($data->get('registeredZipcode'));
+            $user->setRegisteredRegion($data->get('registeredRegion'));
+            $user->setRegisteredCity($data->get('registeredCity'));
+            $user->setRegisteredStreet($data->get('registeredStreet'));
+            $user->setRegisteredHome($data->get('registeredHouse'));
+            $user->setRegisteredCorp($data->get('registeredCorp'));
+            $user->setRegisteredRoom($data->get('registeredRoom'));
+
+
+
             $user->setProduction(2);
 
             if ($data->get('myPetition')!='null'){
@@ -236,20 +252,20 @@ class EstrController extends Controller
                 $user->setMyPetition(0);
             }
 
-            #Теперь делаем компанию
-            $company = new Company();
-            $company->setTitle($data->get('companyName'));
-            $company->setZipcode($data->get('companyZipcode'));
-//            $region = $this->getDoctrine()->getRepository('CrmMainBundle:Region')->findOneById($data->get('companyRegion'));
-            $company->setRegion($data->get('companyRegion'));
-            $company->setCity($data->get('companyCity'));
-            $company->setTypeStreet($data->get('companyTypeStreet'));
-            $company->setStreet($data->get('companyStreet'));
-            $company->setHome($data->get('companyHouse'));
-            $company->setCorp($data->get('companyCorp'));
-            $company->setStructure($data->get('companyStructure'));
-            $company->setTypeRoom($data->get('companyTypeRoom'));
-            $company->setRoom($data->get('companyRoom'));
+//            #Теперь делаем компанию
+//            $company = new Company();
+//            $company->setTitle($data->get('companyName'));
+//            $company->setZipcode($data->get('companyZipcode'));
+////            $region = $this->getDoctrine()->getRepository('CrmMainBundle:Region')->findOneById($data->get('companyRegion'));
+//            $company->setRegion($data->get('companyRegion'));
+//            $company->setCity($data->get('companyCity'));
+//            $company->setTypeStreet($data->get('companyTypeStreet'));
+//            $company->setStreet($data->get('companyStreet'));
+//            $company->setHome($data->get('companyHouse'));
+//            $company->setCorp($data->get('companyCorp'));
+//            $company->setStructure($data->get('companyStructure'));
+//            $company->setTypeRoom($data->get('companyTypeRoom'));
+//            $company->setRoom($data->get('companyRoom'));
 
 
             # Теперь сохраняем файлы и присоединяем к сущности

@@ -47,6 +47,39 @@
         </div>
     </div>
     <div class="inp-pop-up">
+        <div class="inp-passport2 inp-box">
+            <table>
+                <tr>
+                    <td colspan="3">
+                        <div class="error-msg-p"></div>
+                    </td>
+                </tr>
+                <tr><td colspan="2" class="empty-row">Адрес регистрации</td></tr>
+                <tr>
+                    <td class="value" colspan="2" style="text-align: center">
+                        <select name="registeredRegion" id="registeredRegion">
+                            <option value="null">Не выбрано</option>
+                            {% for region in regions %}
+                                <option value="{{ region.id }}">{{ region.title }}</option>
+                            {% endfor %}
+                        </select><br /><br />
+                        <input name="registeredCity"    id="registeredCity"    type="text" placeholder="Город"><br /><br />
+                        <input name="registeredStreet"  id="registeredStreet"  type="text" placeholder="Улица"><br /><br />
+                        <input name="registeredHouse"   id="registeredHouse"   type="text" placeholder="Дом" class="little">
+                        <input name="registeredCorp"    id="registeredCorp"    type="text" placeholder="Корп /Стр"  class="little">
+                        <input name="registeredRoom"    id="registeredRoom"    type="text" placeholder="Кв / оф"  class="little"><br /><br />
+                        <input name="registeredZipcode" id="registeredZipcode" type="text" placeholder="Индекс">
+                    </td>
+                    <td class="registeredAdressStatus"></td>
+                </tr>
+                <tr>
+                    <td style="text-align: right">
+                        <br />
+                        <input type="button" id="savePassport2" value="Подтвердить данные" class="btn saveForm">
+                    </td>
+                </tr>
+            </table>
+        </div>
         <div class="inp-passport inp-box">
             <table>
                 <tr>

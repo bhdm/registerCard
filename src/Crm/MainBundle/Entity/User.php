@@ -152,7 +152,7 @@ class User extends BaseEntity implements UserInterface, EquatableInterface, \Ser
     protected  $registeredZipcode;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Region", inversedBy="deliveries")
+     * @ORM\ManyToOne(targetEntity="Region", inversedBy="registered")
      */
     protected $registeredRegion;
 
