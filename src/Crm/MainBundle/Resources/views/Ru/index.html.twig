@@ -8,8 +8,9 @@
 
 {% block content %}
 
+
     <div style="text-align: center">
-        <h1 style="color:#C33;text-transform: uppercase; font-size: 24px">Карта РФ</h1>
+        <h1 style="color:#C33;text-transform: uppercase; font-size: 24px">Карта ЕСТР</h1>
         <p style="font-size: 18px; font-weight: bold">
             Карты РФ используются в тахографах Российского<br />
             производства, уставновленных на автомобили,<br />
@@ -46,6 +47,8 @@
             <input type="button" value="Вперед"  id="forward" class="btn" style="display: none;">
         </div>
     </div>
+
+
     <div class="inp-pop-up">
         <div class="inp-passport2 inp-box">
             <table>
@@ -63,6 +66,7 @@
                                 <option value="{{ region.id }}">{{ region.title }}</option>
                             {% endfor %}
                         </select><br /><br />
+                        <input name="registeredArea"    id="registeredArea"    type="text" placeholder="Район"><br /><br />
                         <input name="registeredCity"    id="registeredCity"    type="text" placeholder="Город"><br /><br />
                         <input name="registeredStreet"  id="registeredStreet"  type="text" placeholder="Улица"><br /><br />
                         <input name="registeredHouse"   id="registeredHouse"   type="text" placeholder="Дом" class="little">
@@ -123,6 +127,8 @@
                 </tr>
             </table>
         </div>
+
+
         <div class="inp-driver inp-box">
             <table>
                 <tr>
@@ -181,16 +187,16 @@
                     </td>
                 </tr>
                 <tr>
-                    <td class="label">E-mail:</td>
+                    <td class="label">E-mail<span class="required">*</span>:</td>
                     <td class="value">
                         <input name="email" id="email" type="text" placeholder="Укажите вашу почту" required>
                     </td>
                     <td class="emailStatus" rowspan="2" style="padding-left: 10px; font-size: 12px">
-                        <i>Для создания заявки необходимо заполнить хотя бы одно из полей - Email или телефон</i>
+                        {#<i>Для создания заявки необходимо заполнить хотя бы одно из полей - Email или телефон</i>#}
                     </td>
                 </tr>
                 <tr>
-                    <td class="label">Телефон:</td>
+                    <td class="label">Телефон<span class="required">*</span>:</td>
                     <td class="value">
                         <input name="phone" id="phone" type="text" placeholder="Укажите ваш телефон">
                     </td>
@@ -359,6 +365,7 @@
             }
 
             if ($(this).attr('name')=='passport2' ){
+                $('.inp-passport2').css('display','block');
                 $('.img-pop-up').attr('type-doc','passport2');
             }
 
@@ -525,10 +532,10 @@
             //Validation
             errorI = 1 ;
             error = '';
-            if ( $('#email').val()=='' &&  $('#phone').val()=='' ){
+            if ( $('#email').val()=='' ||  $('#phone').val()=='' ){
                 $('#email').css('borderColor', '#cc3333');
                 $('#phone').css('borderColor', '#cc3333');
-                error += errorI+'. Одно из полей (телефон или e-mail) обязательно должно быть заполнено<br />';
+                error += errorI+'. Телефон и e-mail обязательны для заполнения<br />';
                 errorI++;
             }
 
@@ -592,6 +599,18 @@
 //                form.append('companyTypeRoom',$('#companyTypeRoom').val());
 //                form.append('companyRoom',$('#companyRoom').val());
 
+                form.append('registeredZipcode',$('#registeredZipcode').val());
+                form.append('registeredRegion',$('#registeredRegion').val());
+                form.append('registeredArea',$('#registeredArea').val());
+                form.append('registeredCity',$('#registeredCity').val());
+                form.append('registeredTypeStreet',$('#registeredTypeStreet').val());
+                form.append('registeredStreet',$('#registeredStreet').val());
+                form.append('registeredHouse',$('#registeredHouse').val());
+                form.append('registeredCorp',$('#registeredCorp').val());
+//                form.append('registeredStructure',$('#registeredStructure').val());
+//                form.append('registeredTypeRoom',$('#registeredTypeRoom').val());
+                form.append('registeredRoom',$('#registeredRoom').val());
+
 //                if ($("#myPetition").prop("checked")){
 //                    form.append('myPetition', 1);
 //                }else{
@@ -654,7 +673,7 @@
                     $('#img-pop-up-img').html('<div style="display: inline-block"><img src="'+msg+'" /></div>');
                     $(".imgareaselect-selection").parent().remove();
                     $(".imgareaselect-outer").remove();
-                    if (type == 'snils' || type == 'driver' || type == 'passport' || type == 'hod'){
+                    if (type == 'snils' || type == 'driver' || type == 'passport' || type == 'passport2' || type == 'hod'){
                         $('#forward').fadeIn();
 //                            hideImgPopUp();
                         if ($( ".img-pop-up").length > 0){
@@ -808,7 +827,7 @@
                 type: "POST",
                 url: Routing.generate('get_img_data', {'type': type, 'rezident' : $('#rezident').val()}),
                 success: function(msg){
-                    if (type == 'snils' || type == 'driver' || type == 'passport' || type == 'hod'){
+                    if (type == 'snils' || type == 'driver' || type == 'passport' || type == 'passport2' || type == 'hod'){
                         hideloader(1);
                     }else{
 //                            hideloader(0);
@@ -917,41 +936,51 @@
 //        });
 
 
-        $( '#companyRegion' ).kladr({
+//        $( '#registeredZipcode' ).kladrZip('formSubmit');
+
+
+//        $( '#registeredRegion' ).kladr({
+//            token: '541ee4ac7c52392c7d8b457e',
+//            key: '181d5e2c44994c335e5e81e9ae46e79a67b6b495',
+//            type: $.kladr.type.region
+//        });
+
+        $('#registeredArea' ).kladr({
             token: '541ee4ac7c52392c7d8b457e',
             key: '181d5e2c44994c335e5e81e9ae46e79a67b6b495',
-            type: $.kladr.type.region
+            parentInput: '[name="registeredRegion"]',
+            type: $.kladr.type.district
         });
 
-        $('#companyCity' ).kladr({
+        $('#registeredCity' ).kladr({
             token: '541ee4ac7c52392c7d8b457e',
             key: '181d5e2c44994c335e5e81e9ae46e79a67b6b495',
-            parentInput: '[name="companyRegion"]',
+            parentInput: '[name="registeredArea"]',
             type: $.kladr.type.city
         });
 
-        $('#companyStreet' ).kladr({
+        $('#registeredStreet' ).kladr({
             token: '541ee4ac7c52392c7d8b457e',
             key: '181d5e2c44994c335e5e81e9ae46e79a67b6b495',
-            parentInput: '[name="companyCity"]',
+            parentInput: '[name="registeredCity"]',
             type: $.kladr.type.street,
             select: function(obj){
-                $('#companyTypeStreet').val(obj.typeShort);
-                $('#companyTypeStreet').trigger('refresh');
+                $('#registeredTypeStreet').val(obj.typeShort);
+                $('#registeredTypeStreet').trigger('refresh');
             }
         });
 
-        $('#companyHouse' ).kladr({
+        $('#registeredHouse' ).kladr({
             token: '541ee4ac7c52392c7d8b457e',
             key: '181d5e2c44994c335e5e81e9ae46e79a67b6b495',
-            parentInput: '[name="companyStreet"]',
+            parentInput: '[name="registeredStreet"]',
             type: $.kladr.type.building,
             select: function(obj){
-                $('#companyZipcode').val(obj.zip);
+                $('#registeredZipcode').val(obj.zip);
                 var home = obj.name.split('к');
-                $('#companyHouse').val(home[0]);
+                $('#registeredHouse').val(home[0]);
                 if (home[1] != undefined){
-                    $('#companyCorp').val(home[1]);
+                    $('#registeredCorp').val(home[1]);
                 }
 
             }
@@ -1110,9 +1139,13 @@
         #companyTypeRoom-styler .jq-selectbox__dropdown{
             width: 180px !important;
         }
-        .jq-selectbox{
-            padding: 5px 0;
+
+        #registeredRegion-styler .jq-selectbox__dropdown{
+            width: 180px !important;
         }
+        /*#registeredRegion-styler{*/
+            /*width: 272px !important;*/
+        /*}*/
         .important{
             padding: 10px 20px;
             margin-bottom: 10px;
@@ -1147,5 +1180,9 @@
             margin-top: -35px;
             display: inline-block;
         }
+        /*.jq-selectbox__dropdown{*/
+            /*width: 248px !important;*/
+            /*top: 4px !important;*/
+        /*}*/
     </style>
 {% endblock %}

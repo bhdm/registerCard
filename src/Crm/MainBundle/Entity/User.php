@@ -103,6 +103,11 @@ class User extends BaseEntity implements UserInterface, EquatableInterface, \Ser
      */
     protected $dileveryRegion;
 
+    /**
+     * @Assert\Length( max = "64", maxMessage = "Максимум  64 символа")
+     * @ORM\Column(type="string", length=64, nullable=true)
+     */
+    protected $dileveryArea;
 
     /**
      * @Assert\Length( max = "64", maxMessage = "Максимум  64 символа")
@@ -150,6 +155,12 @@ class User extends BaseEntity implements UserInterface, EquatableInterface, \Ser
      * @ORM\Column(type="string", length=12, nullable=true)
      */
     protected  $registeredZipcode;
+
+    /**
+     * @Assert\Length( max = "64", maxMessage = "Максимум  64 символа")
+     * @ORM\Column(type="string", nullable=true)
+     */
+    protected $registeredArea;
 
     /**
      * @ORM\ManyToOne(targetEntity="Region", inversedBy="registered")
@@ -1494,6 +1505,38 @@ class User extends BaseEntity implements UserInterface, EquatableInterface, \Ser
     public function setRegisteredZipcode($registeredZipcode)
     {
         $this->registeredZipcode = $registeredZipcode;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getRegisteredArea()
+    {
+        return $this->registeredArea;
+    }
+
+    /**
+     * @param mixed $registeredArea
+     */
+    public function setRegisteredArea($registeredArea)
+    {
+        $this->registeredArea = $registeredArea;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getDileveryArea()
+    {
+        return $this->dileveryArea;
+    }
+
+    /**
+     * @param mixed $dileveryArea
+     */
+    public function setDileveryArea($dileveryArea)
+    {
+        $this->dileveryArea = $dileveryArea;
     }
 
 

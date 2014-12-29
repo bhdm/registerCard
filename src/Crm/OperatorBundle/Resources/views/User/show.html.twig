@@ -244,6 +244,7 @@
                             <option value="{{ region.id }}" {{ user.dileveryRegion.id is defined and user.dileveryRegion.id == region.id ? 'selected' : ''  }}>{{ region.title }}</option>
                         {% endfor %}
                     </select><br />
+                    <input name="deliveryArea"    id="deliveryArea"    type="text" placeholder="Район" value="{{ user.dileveryArea }}"><br />
                     <input name="deliveryCity"    id="deliveryCity"    type="text" placeholder="Город" value="{{ user.dileveryCity }}"><br />
                     <input name="deliveryStreet"  id="deliveryStreet"  type="text" placeholder="Улица" value="{{ user.dileveryStreet }}"><br />
                     <input name="deliveryHouse"   id="deliveryHouse"   type="text" placeholder="Дом" class="little" value="{{ user.dileveryHome }}">

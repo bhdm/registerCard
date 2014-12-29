@@ -307,6 +307,7 @@ class OrderController extends Controller{
             $user->setCompany($company);
             $region = $this->getDoctrine()->getRepository('CrmMainBundle:Region')->findOneById($data->get('deliveryRegion'));
             $user->setDileveryZipcode($data->get('deliveryZipcode'));
+            $user->setDileveryArea($data->get('deliveryArea'));
             $user->setDileveryRegion($region);
             $user->setDileveryCity($data->get('deliveryCity'));
             $user->setDileveryStreet($data->get('deliveryStreet'));

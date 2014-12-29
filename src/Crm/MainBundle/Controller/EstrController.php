@@ -118,6 +118,8 @@ class EstrController extends Controller
 
             $user->setDileveryZipcode($data->get('deliveryZipcode'));
             $user->setDileveryRegion($region);
+
+            $user->setDileveryArea($data->get('deliveryArea'));
             $user->setDileveryCity($data->get('deliveryCity'));
             $user->setDileveryStreet($data->get('deliveryStreet'));
             $user->setDileveryHome($data->get('deliveryHouse'));
@@ -236,6 +238,7 @@ class EstrController extends Controller
 //            $region = $this->getDoctrine()->getRepository('CrmMainBundle:Region')->findOneById($data->get('registeredRegion'));
             $user->setRegisteredZipcode($data->get('registeredZipcode'));
             $user->setRegisteredRegion($data->get('registeredRegion'));
+            $user->setRegisteredArea($data->get('registeredArea'));
             $user->setRegisteredCity($data->get('registeredCity'));
             $user->setRegisteredStreet($data->get('registeredStreet'));
             $user->setRegisteredHome($data->get('registeredHouse'));

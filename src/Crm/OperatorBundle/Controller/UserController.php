@@ -327,6 +327,7 @@ class UserController extends Controller{
                 $user->setDileveryZipcode($data->get('deliveryZipcode'));
                 $region = $this->getDoctrine()->getRepository('CrmMainBundle:Region')->findOneById($data->get('deliveryRegion'));
                 $user->setDileveryRegion($region);
+                $user->setDileveryArea($data->get('deliveryArea'));
                 $user->setDileveryCity($data->get('deliveryCity'));
                 $user->setDileveryStreet($data->get('deliveryStreet'));
                 $user->setDileveryHome($data->get('deliveryHouse'));
