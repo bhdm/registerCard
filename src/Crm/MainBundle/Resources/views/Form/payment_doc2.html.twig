@@ -66,7 +66,7 @@
                 &nbsp;{{ "now" | date ('d ') }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ "now" | date ('m ') }}<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ "now" | date ('y') }}</span>
             </div>
             <div class="title">
-                Оплата за заказ № {{ user.id }}. В т.ч. НДС.
+                Оплата за заказ № {{ user.id }}. Без НДС.
             </div>
 
             <div class="fio2" >{{ user.lastName }} {{ user.firstName }} {{ user.surName is not null ? user.surName : ''}}</div>
@@ -80,7 +80,7 @@
                 &nbsp;{{ "now" | date ('d ') }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ "now" | date ('m ') }}<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ "now" | date ('y') }}</span>
             </div>
             <div class="title2">
-                Оплата за заказ № {{ user.id }}. В т.ч. НДС.
+                Оплата за заказ № {{ user.id }}. Без НДС.
             </div>
     </body>
 </html>
