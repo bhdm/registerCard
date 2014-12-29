@@ -339,6 +339,7 @@ class RuController extends Controller{
                 $user->setRegisteredZipcode($data->get('registeredZipcode'));
                 $region = $this->getDoctrine()->getRepository('CrmMainBundle:Region')->findOneById($data->get('registeredRegion'));
                 $user->setRegisteredRegion($region);
+                $user->setRegisteredArea($data->get('registeredArea'));
                 $user->setRegisteredCity($data->get('registeredCity'));
                 $user->setRegisteredStreet($data->get('registeredStreet'));
                 $user->setRegisteredHome($data->get('registeredHouse'));

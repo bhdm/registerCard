@@ -340,6 +340,7 @@ class EstrController extends Controller{
                 $region = $this->getDoctrine()->getRepository('CrmMainBundle:Region')->findOneById($data->get('registeredRegion'));
                 $user->setRegisteredRegion($region);
                 $user->setRegisteredCity($data->get('registeredCity'));
+                $user->setRegisteredArea($data->get('registeredArea'));
                 $user->setRegisteredStreet($data->get('registeredStreet'));
                 $user->setRegisteredHome($data->get('registeredHouse'));
                 $user->setRegisteredCorp($data->get('registeredCorp'));
