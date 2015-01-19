@@ -47,6 +47,7 @@ class ApplicationController extends Controller
      * @Template()
      */
     public function step2Action(Request $request){
-
+        return array();
     }
+
 }
