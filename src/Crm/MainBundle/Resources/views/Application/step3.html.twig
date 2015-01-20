@@ -1,0 +1,337 @@
+{% extends 'CrmMainBundle::layout.html.twig' %}
+
+{% block title %}
+    <title>Заказать карту водителя для тахографа с СКЗИ Online</title>
+    <meta name="description" content="Заказать карту водителя для тахографа с СКЗИ Online">
+    <meta name="keywords" content="Заказать карту водителя для тахографа с СКЗИ Online">
+{% endblock %}
+
+{% block content %}
+    <div style="text-align: center">
+        <br style="clear: both"/>
+            <table style="margin: 0 auto">
+                <tr>
+                    <td style="color: #003A68; font-weight: bold">ОФОРМЛЕНИЕ ЗАЯВКИ - ШАГ</td>
+                    <td><span class="step">1</span></td>
+                    <td><span class="step">2</span></td>
+                    <td><span class="step-active">3 - Удостоверение водителя</span></td>
+                    <td><span class="step">4</span></td>
+                </tr>
+            </table>
+        <br style="clear: both"/>
+    </div>
+    <div class="box">
+        <table>
+            <form method="POST" action="{{ path('application-skzi-step1') }}" id="main-form" enctype="multipart/form-data">
+                <tr>
+                    <td colspan="3">
+                        <div class="error-msg"></div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="label">Кем выдано<span class="required">*</span>:</td>
+                    <td class="value">
+                        <input name="driverPlace" id="driverPlace" type="text" placeholder="Кем выдано" required>
+                    </td>
+                    <td rowspan="7" style="width: 400px; vertical-align: top; padding-left: 10px">
+                        {# Тут сама фото #}
+                        <input type="file" name="passportFile" id="passportFile">
+                        <div class="file-container">
+                            <progress id="progress" value="0" max="100" style="width: 270px"></progress>
+                            <br />
+                            <br />
+                            <div id="file">
+                                <img src="">
+                            </div>
+                            <div class="navigate">
+                                <img src="{{ asset('bundles/crmmain/icons/rotateLeft.png') }}" id="rotateLeft">
+                                <img src="{{ asset('bundles/crmmain/icons/rotateRight.png') }}" id="rotateRight">
+                                <img src="{{ asset('bundles/crmmain/icons/crop.png') }}" id="cropImage">
+                                <img src="{{ asset('bundles/crmmain/icons/remove.png') }}" id="removeFile">
+                            </div>
+                            <input type="hidden" id="x1" name="x1">
+                            <input type="hidden" id="y1" name="y1">
+                            <input type="hidden" id="x2" name="x2">
+                            <input type="hidden" id="y2" name="y2">
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="label">Номер удостоверения<span class="required">*</span>:</td>
+                    <td class="value">
+                        <input name="driverNumber" id="driverNumber" type="text" placeholder="Номер удостоверения">
+                    </td>
+                </tr>
+                <tr>
+                    <td class="label">Дата выдачи<span class="required">*</span>:</td>
+                    <td class="value">
+                        <input name="driverStarts" id="driverStarts" type="text" placeholder="Дата выдачи" class="date">
+                    </td>
+                </tr>
+                <tr>
+                    <td class="label">Дата окончания<span class="required">*</span>:</td>
+                    <td class="value">
+                        <input name="driverEnds" id="driverEnds" type="text" placeholder="Дата окончания" class="date">
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                </tr>
+            </form>
+            <tr><td colspan="2">
+                    <br />
+                    <i style="font-size: 14px; color: #CC3333">* Поля отмеченные звездочкой обязательны для заполнения</i>
+                    <br />
+                </td></tr>
+            <tr>
+                <td></td>
+                <td style="text-align: right">
+                    <input type="button" value="Далее" class="btn" id="submit">
+                </td>
+            </tr>
+        </table>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset("bundles/crmmain/lib/chosen/chosen.jquery.js") }}" type="text/javascript"></script>
+    <script src="{{ asset('bundles/crmmain/javascripts/jquery.maskedinput.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('bundles/crmmain/lib/jquery-ui/jquery-ui.min.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('bundles/crmmain/lib/odyniec/jquery.imgareaselect.min.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('bundles/crmmain/javascripts/spin.js') }}" type="text/javascript"></script>
+
+
+    <script>
+
+        function getImage(data){
+            if ( data.data.error != undefined ) {
+                $('.error-msg').fadeIn();
+                $('.error-msg').html(data.data.error);
+            }else{
+                $('.error-msg').fadeOut();
+                $(".imgareaselect-selection").parent().remove();
+                $(".imgareaselect-outer").remove();
+
+                $('#file').html('<img src="" />');
+                $('#file').children('img').attr('src',data.data.img);
+                $('#file img').imgAreaSelect({
+                    handles: true,
+                    onSelectEnd: function (img, selection) {
+                        $('input[name="x1"]').val(selection.x1);
+                        $('input[name="y1"]').val(selection.y1);
+                        $('input[name="x2"]').val(selection.x2);
+                        $('input[name="y2"]').val(selection.y2);
+                    }
+                });
+            }
+        }
+
+        $(document).ready(function(){
+
+            $('input:text, select').styler();
+            $(".date").mask("99.99.9999");
+            $(".code").mask("999-999");
+            var opts = {
+                lines: 13, // The number of lines to draw
+                length: 20, // The length of each line
+                width: 10, // The line thickness
+                radius: 30, // The radius of the inner circle
+                corners: 1, // Corner roundness (0..1)
+                rotate: 0, // The rotation offset
+                direction: 1, // 1: clockwise, -1: counterclockwise
+                color: '#000', // #rgb or #rrggbb or array of colors
+                speed: 1.3, // Rounds per second
+                trail: 60, // Afterglow percentage
+                shadow: false, // Whether to render a shadow
+                hwaccel: false, // Whether to use hardware acceleration
+                className: 'spinner', // The CSS class to assign to the spinner
+                zIndex: 2e9, // The z-index (defaults to 2000000000)
+                top: '50%', // Top position relative to parent
+                left: '50%' // Left position relative to parent
+            };
+            var target = document.getElementById('loader');
+            var spinner = new Spinner(opts).spin(target);
+
+
+            $('#submit').click(function(){
+                errorI = 1 ;
+                error = '';
+
+
+                if ( $('#driverPlace').val() == ''){
+                    error += errorI+'. Поле Кем выдано обязательно для заполнения<br />';
+                    $('#driverPlace').css('borderColor', '#cc3333');
+                    errorI++;
+                }
+                if ( $('#driverNumber').val() == ''){
+                    error += errorI+'. Поле номер удостоверения обязательно для заполнения<br />';
+                    $('#driverNumber').css('borderColor', '#cc3333');
+                    errorI++;
+                }
+                if ( $('#driverStarts').val() == ''){
+                    error += errorI+'. Поле дата выдачи обязательно для заполнения<br />';
+                    $('#driverStarts').css('borderColor', '#cc3333');
+                    errorI++;
+                }
+                if ( $('#driverEnds').val() == ''){
+                    error += errorI+'. Поле Дата окончиания обязательно для заполнения<br />';
+                    $('#driverEnds').css('borderColor', '#cc3333');
+                    errorI++;
+                }
+
+                if (error === ''){
+                    $('#main-form').submit();
+                }else{
+                    $('.error-msg').fadeIn();
+                    $('.error-msg').html(error);
+                }
+            });
+
+
+
+
+
+//          Загрузка файла
+            var file;
+            $('input[type=file]').on('change', function(event){
+                file = event.target.files[0];
+                var formData = new FormData();
+                formData.append('file', file);
+
+                $.ajax({
+                    url: Routing.generate('upload_document', {'type': 'passport'}),
+                    type: 'POST',
+                    xhr: function()
+                    {
+                        var xhr = new window.XMLHttpRequest();
+                        //Upload progress
+                        xhr.upload.addEventListener("progress", function(evt){
+                            if (evt.lengthComputable) {
+                                var percentComplete = evt.loaded / evt.total;
+                                //Do something with upload progress
+                                $('#progress').attr({value:evt.loaded,max:evt.total});
+                                console.log(percentComplete);
+                            }
+                        }, false);
+                        //Download progress
+                        xhr.addEventListener("progress", function(evt){
+                            if (evt.lengthComputable) {
+                                var percentComplete = evt.loaded / evt.total;
+                                //Do something with download progress
+                                $('#progress').attr({value:evt.loaded,max:evt.total});
+                                console.log(percentComplete);
+                            }
+                        }, false);
+                        return xhr;
+                    },
+                    success: function(msg){ getImage(msg); },
+                    error:function (error) {
+                        console.log(error);
+                    },
+                    data: formData,
+                    cache: false,
+                    contentType: false,
+                    processData: false
+                });
+            });
+
+
+
+            $('#rotateLeft').click(function(){
+                $.ajax({
+                    url: Routing.generate('rotate_image', {'type': 'left'}),
+                    type: 'POST',
+                    success: function(msg){ getImage(msg); },
+                    error:function (error) {
+                        console.log(error);
+                    }
+                });
+            });
+
+            $('#rotateRight').click(function(){
+                $.ajax({
+                    url: Routing.generate('rotate_image', {'type': 'right'}),
+                    type: 'POST',
+                    success: function(msg){ getImage(msg); },
+                    error:function (error) {
+                        console.log(error);
+                    }
+                });
+            });
+
+            $('#crop').click(function(){
+                var x1 = $('#x1').val();
+                var x2 = $('#x2').val();
+                var y1 = $('#y1').val();
+                var y2 = $('#y2').val();
+                $.ajax({
+                    url: Routing.generate('crop_image', { 'x1': x1, 'y1' : y1, 'x2': x2, 'y2': y2 }),
+                    type: 'POST',
+                    success: function(msg){ getImage(msg); },
+                    error:function (error) {
+                        console.log(error);
+                    }
+                });
+            });
+
+        });
+    </script>
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link href="{{ asset('bundles/crmmain/lib/chosen/chosen.css') }}" rel="stylesheet" media="all">
+    <link href="{{ asset('bundles/crmmain/lib/jquery-ui/jquery-ui.min.css') }}" rel="stylesheet" media="all">
+    <link href="{{ asset('bundles/crmmain/lib/odyniec/distfiles/css/imgareaselect-default.css') }}" rel="stylesheet" media="all">
+    <style>
+
+        .label-text{
+            margin-top: -15px;
+        }
+        .label{
+            width: 165px;
+            color: #003A68
+        }
+        form{
+            margin: 0;
+        }
+
+
+        /* *************** */
+
+        #passportSerial{
+            width: 75px;
+        }
+        #passportNumber{
+            width: 190px;
+        }
+        #file img{
+            width: 415px;
+            max-height: 500px;
+        }
+
+
+        .right{
+            text-align: right;
+        }
+        .step, .step-active{
+            padding: 10px 14px;
+            background: rgba(72, 126, 187, 0.5);
+            -moz-border-radius: 20px;
+            -webkit-border-radius: 20px;
+            border-radius: 20px;
+        }
+        .step-active{
+            background: rgb(72, 126, 187);
+            color: #ffffff;
+        }
+        .navigate{
+            text-align: center;
+        }
+        .navigate img{
+            width: 24px;
+            margin: 10px;
+        }
+    </style>
+{% endblock %}

@@ -402,3 +402,19 @@ input.little{
     height: 2px;
     margin: 20px auto;
 }
+.required{
+    color: #CC0000;
+}
+
+
+.navigateFile{
+    text-align: center;
+    display: none;
+}
+.navigateFile img{
+    width: 24px;
+    margin: 10px;
+}
+#progress{
+    display: none;
+}

@@ -27,9 +27,6 @@ class ApplicationController extends Controller
      */
     public function step1Action(Request $request)
     {
-        $country = $this->getDoctrine()->getRepository('CrmMainBundle:Country')->findOneById(3159);
-        $regions = $this->getDoctrine()->getRepository('CrmMainBundle:Region')->findByCountry($country);
-
         if ($request->getMethod() == 'POST'){
             $session = $request->getSession();
             $session->set('order',null);
@@ -39,7 +36,7 @@ class ApplicationController extends Controller
             $session->set('order',$order);
             return $this->redirect($this->generateUrl('application-skzi-step2'));
         }
-        return array('regions' => $regions);
+        return array();
     }
 
     /**
@@ -47,6 +44,38 @@ class ApplicationController extends Controller
      * @Template()
      */
     public function step2Action(Request $request){
+        if ($request->getMethod() == 'POST'){
+            $session = $request->getSession();
+            $order = $session->get('order');
+            $order['lastName'] = $request->request->get('lastName');
+            $order['firstName'] = $request->request->get('firstName');
+            $order['surName'] = $request->request->get('surName');
+            $order['birthDate'] = $request->request->get('birthDate');
+
+            $order['passportSerial'] = $request->request->get('passportSerial');
+            $order['passportNumber'] = $request->request->get('passportNumber');
+            $order['passportPlace'] = $request->request->get('passportPlace');
+            $order['passportDate'] = $request->request->get('passportDate');
+
+            $order['passportFilePath'] = $session->get('file');
+
+            $session->set('file', null);
+            $session->set('order',$order);
+
+            return $this->redirect($this->generateUrl('application-skzi-step3'));
+        }
+        return array();
+    }
+
+
+    /**
+     * @Route("/application/skzi/step3", name="application-skzi-step3")
+     * @Template()
+     */
+    public function step3Action(Request $request){
+        if ($request->getMethod() == 'POST'){
+
+        }
         return array();
     }
 
