@@ -74,9 +74,63 @@ class ApplicationController extends Controller
      */
     public function step3Action(Request $request){
         if ($request->getMethod() == 'POST'){
+            $session = $request->getSession();
+            $order = $session->get('order');
+            $order['driverPlace'] = $request->request->get('driverPlace');
+            $order['birthDate'] = $request->request->get('birthDate');
+            $order['driverStarts'] = $request->request->get('driverStarts');
+            $order['driverEnds'] = $request->request->get('driverEnds');
 
+            $order['driverFilePath'] = $session->get('file');
+
+            $session->set('file', null);
+            $session->set('order',$order);
+
+            return $this->redirect($this->generateUrl('application-skzi-step4'));
         }
         return array();
+    }
+
+
+    /**
+     * @Route("/application/skzi/step4", name="application-skzi-step4")
+     * @Template()
+     */
+    public function step4Action(Request $request){
+        $session = $request->getSession();
+        $order = $session->get('order');
+        if ($request->getMethod() == 'POST'){
+
+//            $order['driverFilePath'] = $session->get('file');
+
+            $session->set('file', null);
+            $session->set('order',$order);
+
+            return $this->redirect($this->generateUrl('application-skzi-step4'));
+        }
+        return array('citizenship' => $order['citizenship']);
+    }
+
+
+    /**
+     * @Route("/application/skzi/step5", name="application-skzi-step5")
+     * @Template()
+     */
+    public function step5Action(Request $request){
+        $country = $this->getDoctrine()->getRepository('CrmMainBundle:Country')->findOneById(3159);
+        $regions = $this->getDoctrine()->getRepository('CrmMainBundle:Region')->findByCountry($country);
+
+        $session = $request->getSession();
+        $order = $session->get('order');
+        if ($request->getMethod() == 'POST'){
+//            $order['driverFilePath'] = $session->get('file');
+
+//            $session->set('file', null);
+//            $session->set('order',$order);
+
+//            return $this->redirect($this->generateUrl('application-skzi-step4'));
+        }
+        return array('regions' => $regions);
     }
 
 }

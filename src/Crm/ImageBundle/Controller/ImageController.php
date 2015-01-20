@@ -27,7 +27,7 @@ class ImageController extends Controller
                 $error = array('error' => 'Файл должен быть формата JPG');
             }
             if ( $file->getSize() > 5242880 ){
-                $error = array('error' => 'Размер файла доджен быть меньше 5 Mb');
+                $error = array('error' => 'Размер файла должен быть меньше 5 Mb');
             }
             if ($error != ''){
                 $error = array('data' => $error);

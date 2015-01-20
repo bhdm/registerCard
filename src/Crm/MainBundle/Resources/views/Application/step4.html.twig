@@ -14,8 +14,8 @@
                     <td style="color: #003A68; font-weight: bold">ОФОРМЛЕНИЕ ЗАЯВКИ - ШАГ</td>
                     <td><span class="step">1</span></td>
                     <td><span class="step">2</span></td>
-                    <td><span class="step-active">3 - Удостоверение водителя</span></td>
-                    <td><span class="step">4</span></td>
+                    <td><span class="step">3</span></td>
+                    <td><span class="step-active">4 - Дополнительные файлы</span></td>
                     <td><span class="step">5</span></td>
                 </tr>
             </table>
@@ -24,19 +24,103 @@
     <div class="box">
         <table>
             <form method="POST" action="{{ path('application-skzi-step3') }}" id="main-form" enctype="multipart/form-data">
+                <input type="hidden" id="x1" name="x1">
+                <input type="hidden" id="y1" name="y1">
+                <input type="hidden" id="x2" name="x2">
+                <input type="hidden" id="y2" name="y2">
                 <tr>
                     <td colspan="3">
                         <div class="error-msg"></div>
                     </td>
                 </tr>
                 <tr>
-                    <td class="label">Кем выдано<span class="required">*</span>:</td>
-                    <td class="value">
-                        <input name="driverPlace" id="driverPlace" type="text" placeholder="Кем выдано" required>
+                    <td class="label">Фотография<span class="required">*</span>:</td>
+                    <td style="width: 400px;  padding-left: 10px">
+                        <input type="file" name="photo" id="photo" class="fileAjax">
                     </td>
-                    <td rowspan="7" style="width: 400px; vertical-align: top; padding-left: 10px">
-                        {# Тут сама фото #}
-                        <input type="file" name="passportFile" id="passportFile" class="fileAjax">
+                    <td>
+                        <div class="file-container">
+                            <progress id="progress" value="0" max="100" style="width: 270px"></progress>
+                            <div id="file">
+                                <img src="">
+                            </div>
+                            <div class="navigateFile">
+                                <img src="{{ asset('bundles/crmmain/icons/rotateLeft.png') }}" id="rotateLeft">
+                                <img src="{{ asset('bundles/crmmain/icons/rotateRight.png') }}" id="rotateRight">
+                                <img src="{{ asset('bundles/crmmain/icons/crop.png') }}" id="cropImage">
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="label">Подпись<span class="required">*</span>:</td>
+                    <td style="width: 400px; padding-left: 10px">
+                        <input type="file" name="sign" id="sign" class="fileAjax">
+                    </td>
+                    <td>
+                        <div class="file-container">
+                            <progress id="progress" value="0" max="100" style="width: 270px"></progress>
+                            <div id="file">
+                                <img src="">
+                            </div>
+                            <div class="navigateFile">
+                                <img src="{{ asset('bundles/crmmain/icons/rotateLeft.png') }}" id="rotateLeft">
+                                <img src="{{ asset('bundles/crmmain/icons/rotateRight.png') }}" id="rotateRight">
+                                <img src="{{ asset('bundles/crmmain/icons/crop.png') }}" id="cropImage">
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+
+                {% if citizenship == 1 %}
+                <tr>
+                    <td class="label">Страховой номер лицевого счета (СНИЛС)<span class="required">*</span>:</td>
+                    <td style="width: 400px; padding-left: 10px">
+                        <input type="file" name="snils" id="snils" class="fileAjax">
+                    </td>
+                    <td>
+                        <div class="file-container">
+                            <progress id="progress" value="0" max="100" style="width: 270px"></progress>
+                            <div id="file">
+                                <img src="">
+                            </div>
+                            <div class="navigateFile">
+                                <img src="{{ asset('bundles/crmmain/icons/rotateLeft.png') }}" id="rotateLeft">
+                                <img src="{{ asset('bundles/crmmain/icons/rotateRight.png') }}" id="rotateRight">
+                                <img src="{{ asset('bundles/crmmain/icons/crop.png') }}" id="cropImage">
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                {% else %}
+                <tr>
+                    <td class="label">Разрешение на работу<span class="required">*</span>:</td>
+                    <td style="width: 400px; padding-left: 10px">
+                        <input type="file" name="snils" id="snils" class="fileAjax">
+                    </td>
+                    <td>
+                        <div class="file-container">
+                            <progress id="progress" value="0" max="100" style="width: 270px"></progress>
+                            <div id="file">
+                                <img src="">
+                            </div>
+                            <div class="navigateFile">
+                                <img src="{{ asset('bundles/crmmain/icons/rotateLeft.png') }}" id="rotateLeft">
+                                <img src="{{ asset('bundles/crmmain/icons/rotateRight.png') }}" id="rotateRight">
+                                <img src="{{ asset('bundles/crmmain/icons/crop.png') }}" id="cropImage">
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                {% endif %}
+
+
+                <tr>
+                    <td class="label">Ходатайство с места работы<span class="required">*</span>:</td>
+                    <td style="width: 400px; vertical-align: top; padding-left: 10px">
+                        <input type="file" name="petition" id="petition" class="fileAjax">
+                    </td>
+                    <td>
                         <div class="file-container">
                             <progress id="progress" value="0" max="100" style="width: 270px"></progress>
                             <br />
@@ -48,31 +132,8 @@
                                 <img src="{{ asset('bundles/crmmain/icons/rotateLeft.png') }}" id="rotateLeft">
                                 <img src="{{ asset('bundles/crmmain/icons/rotateRight.png') }}" id="rotateRight">
                                 <img src="{{ asset('bundles/crmmain/icons/crop.png') }}" id="cropImage">
-                                {#<img src="{{ asset('bundles/crmmain/icons/remove.png') }}" id="removeFile">#}
                             </div>
-                            <input type="hidden" id="x1" name="x1">
-                            <input type="hidden" id="y1" name="y1">
-                            <input type="hidden" id="x2" name="x2">
-                            <input type="hidden" id="y2" name="y2">
                         </div>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="label">Номер удостоверения<span class="required">*</span>:</td>
-                    <td class="value">
-                        <input name="driverNumber" id="driverNumber" type="text" placeholder="Номер удостоверения">
-                    </td>
-                </tr>
-                <tr>
-                    <td class="label">Дата выдачи<span class="required">*</span>:</td>
-                    <td class="value">
-                        <input name="driverStarts" id="driverStarts" type="text" placeholder="Дата выдачи" class="date">
-                    </td>
-                </tr>
-                <tr>
-                    <td class="label">Дата окончания<span class="required">*</span>:</td>
-                    <td class="value">
-                        <input name="driverEnds" id="driverEnds" type="text" placeholder="Дата окончания" class="date">
                     </td>
                 </tr>
                 <tr>
@@ -196,6 +257,10 @@
         .step-active{
             background: rgb(72, 126, 187);
             color: #ffffff;
+        }
+
+        .file-container{
+            font-size: 0;
         }
     </style>
 {% endblock %}
