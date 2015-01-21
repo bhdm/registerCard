@@ -114,8 +114,10 @@
             });
 
             $('#sbtn').click(function(){
-                var url = $('#search').val();
-                window.location.href = '?search='+url;
+                var search = $('#search').val();
+                search = '?search='+search;
+                var url = Routing.generate('operator_user_search');
+                window.location.href = url+search;
             });
 
             $('#all').change(function(){
@@ -129,13 +131,13 @@
 
             $('#filterStatus').change(function(){
                 var type = $(this).val();
-                var url = Routing.generate('operator_ru_list', {'companyId':'null', 'type' :type });
+                var url = Routing.generate('operator_user_search', {'companyId':'null', 'type' :type });
                 window.location.href = url;
             });
 
             $('#filterManager').change(function(){
                 var type = $(this).val();
-                var url = Routing.generate('operator_ru_list', {'companyId':'null', 'type' :type });
+                var url = Routing.generate('operator_user_search', {'companyId':'null', 'type' :type });
                 window.location.href = url;
             });
 

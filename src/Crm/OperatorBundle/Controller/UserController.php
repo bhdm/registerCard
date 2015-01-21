@@ -66,21 +66,6 @@ class UserController extends Controller{
 
         $users = $this->getDoctrine()->getRepository('CrmMainBundle:User')->filter($role,$operator,$company, $toDay, $toWeek, $toPetition, $type, $toArhive, $search,0,0);
 
-//        if ($companyId == null && $this->get('security.context')->isGranted('ROLE_ADMIN')){
-//            $company = null;
-//            $users = $this->getDoctrine()->getRepository('CrmMainBundle:User')->findAll();
-//        }else{
-//            $company = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->findOneById($companyId);
-//            if ($company){
-//                if ($company->getOperator($this->getUser()) || $this->get('security.context')->isGranted('ROLE_ADMIN'))
-//                    $users = $company->getUsers();
-//                else{
-//                    return $this->redirect($this->generateUrl('operator_main'));
-//                }
-//            }else{
-//                $users = $this->getDoctrine()->getRepository('CrmMainBundle:User')->ofOperator($this->getUser());
-//            }
-//        }
 
         $managers = $this->getDoctrine()->getRepository('CrmMainBundle:User')->findAllManagers();
 
@@ -960,4 +945,64 @@ class UserController extends Controller{
         exit;
     }
 
+
+    /**
+     * Показывает водителей определенной компании
+     * @Route("/search/{companyId}/{type}", name="operator_user_search", defaults={"companyId"=null, "type"=null}, options={"expose"=true})
+     * @Template()
+     */
+    public function searchAction(Request $request, $companyId = null, $type = null){
+
+        $toDay =        null;
+        $toWeek =       null;
+        $toPetition =   null;
+        $toDeploy =     null;
+        $toArhive =     null;
+
+        if ( $type == 'arhive' ){ $toArhive = true; }
+        if ( $type == 'day' ){ $toDay = true; }
+        if ( $type == 'week' ){ $toWeek = true; }
+        if ( $type == 'petition' ){ $toPetition = true; }
+        if ( $companyId ){
+            $company = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->findOneById($companyId);
+        }else{
+            $company = null;
+        }
+        $operator = $this->getUser();
+        $search = $request->query->get('search');
+
+        if ( $this->get('security.context')->isGranted('ROLE_ADMIN') ){
+            $role= '2';
+        }elseif ( $this->get('security.context')->isGranted('ROLE_MODERATOR') ){
+            $role= '1';
+        }else{
+            $role= '0';
+        }
+
+
+        $users1 = $this->getDoctrine()->getRepository('CrmMainBundle:User')->filter($role,$operator,$company, $toDay, $toWeek, $toPetition, $type, $toArhive, $search,0,0);
+        $users2 = $this->getDoctrine()->getRepository('CrmMainBundle:User')->filter($role,$operator,$company, $toDay, $toWeek, $toPetition, $type, $toArhive, $search,1,0);
+        $users3 = $this->getDoctrine()->getRepository('CrmMainBundle:User')->filter($role,$operator,$company, $toDay, $toWeek, $toPetition, $type, $toArhive, $search,0,1);
+
+
+        $managers = $this->getDoctrine()->getRepository('CrmMainBundle:User')->findAllManagers();
+
+        if ($managers == null){
+            $managers = array();
+        }
+
+        return array(
+            'company'   => $company,
+            'companyId' => ($company != null ? $company->getId() : null),
+            'users1'     => $users1,
+            'users2'     => $users2,
+            'users3'     => $users3,
+            'toDay'     => $toDay,
+            'toWeek'    => $toWeek,
+            'toPetition'=> $toPetition,
+            'toDeploy'  => $toDeploy,
+            'toArhive'  => $toArhive,
+            'managers'  => $managers
+        );
+    }
 }
