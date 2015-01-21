@@ -97,7 +97,7 @@ $(document).ready(function(){
         });
     });
 
-    $('#cropImage').click(function(){
+    $('#cropImage').click(function(){3245897
         var x1 = $('#x1').val();
         var x2 = $('#x2').val();
         var y1 = $('#y1').val();
