@@ -863,8 +863,8 @@ class UserController extends Controller{
         $i ++;
         foreach ($users as $user){
             $i++;
-            $type = ($user->getRu() == 1 ? 'РФ' : ($user->getEstr() == 1 ? 'ЕСТР' : 'СКЗИ'));
-            $phpExcelObject->setActiveSheetIndex(0)->setCellValue('B'.$i, $type);
+            $type = ($user->getRu() == true ? 'РФ' : ($user->getEstr() == true ? 'ЕСТР' : 'СКЗИ'));
+            $phpExcelObject->setActiveSheetIndex(0)->setCellValue('A'.$i, $type);
             $phpExcelObject->setActiveSheetIndex(0)->setCellValue('B'.$i, $user->getId());
             $phpExcelObject->setActiveSheetIndex(0)->setCellValue('C'.$i, $user->getEmail());
             $phpExcelObject->setActiveSheetIndex(0)->setCellValue('D'.$i, $user->getLastName().' '.$user->getFirstName());
