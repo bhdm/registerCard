@@ -402,7 +402,7 @@
                                     {#<img src="{{ asset('bundles/crmoperator/images/icon/image27_green.png') }}" class="icon"/>#}
                                     Отправлено
                                     {#</a>#}
-                                {% elseif is_granted('ROLE_OPERATOR') and user.production >= 1 %}
+                                {% elseif is_granted('ROLE_OPERATOR') and not is_granted('ROLE_MODERATOR') and user.production >= 1 %}
                                     {#<a class="no-underline" href="{{ path('operator_user_production' , { 'userId' : user.id}) }}">#}
                                     {#<img src="{{ asset('bundles/crmoperator/images/icon/image27_green.png') }}" class="icon"/>#}
                                     Отправлено
