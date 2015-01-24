@@ -47,6 +47,7 @@ class DefaultController extends Controller
     /**
      * @Security("has_role('ROLE_OPERATOR')")
      * @Route("/", name="operator_main")
+     * @Route("/activate-list", name="activate_list")
      * @Template()
      */
     public function indexAction()

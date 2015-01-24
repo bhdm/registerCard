@@ -1,0 +1,300 @@
+{% extends 'CrmMainBundle::layout.html.twig' %}
+
+{% block title %}
+    <title>Заказать карту водителя для тахографа с СКЗИ Online</title>
+    <meta name="description" content="Заказать карту водителя для тахографа с СКЗИ Online">
+    <meta name="keywords" content="Заказать карту водителя для тахографа с СКЗИ Online">
+{% endblock %}
+
+{% block content %}
+    <div style="text-align: center">
+        <br style="clear: both"/>
+            <table style="margin: 0 auto">
+                <tr>
+                    <td style="color: #003A68; font-weight: bold">ОФОРМЛЕНИЕ ЗАЯВКИ - ШАГ</td>
+                    <td><span class="step">1</span></td>
+                    <td><span class="step">2</span></td>
+                    <td><span class="step">3</span></td>
+                    <td><span class="step">4</span></td>
+                    <td><span class="step-active">5 - Дополнительные файлы</span></td>
+                    <td><span class="step">6</span></td>
+                </tr>
+            </table>
+        <br style="clear: both"/>
+    </div>
+    <div class="box">
+        <table>
+            <form method="POST" action="{{ path('application-skzi-step3') }}" id="main-form" enctype="multipart/form-data">
+                <tr>
+                    <td colspan="3">
+                        <div class="error-msg"></div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="label">Фотография<span class="required">*</span>:</td>
+
+                    <td style="width: 400px;  padding-left: 10px">
+                    </td>
+                    <td>
+                        <div class="file-container">
+                            <input type="file" name="photo" id="photo" class="fileAjax">
+                            <input type="hidden" name="x1">
+                            <input type="hidden" name="y1">
+                            <input type="hidden" name="x2">
+                            <input type="hidden" name="y2">
+                            <progress class="progress" value="0" max="100" style="width: 270px"></progress>
+                            <div class="fileDoc">
+                                <img src="">
+                            </div>
+                            <div class="navigateFile">
+                                <img src="{{ asset('bundles/crmmain/icons/contrast-1.png') }}" data-contrast="minus" class="contrast">
+                                <img src="{{ asset('bundles/crmmain/icons/contrast-2.png') }}" data-contrast="plus" class="contrast">
+
+                                <img src="{{ asset('bundles/crmmain/icons/brightness-1.png') }}" data-brightness="minus" class="brightness">
+                                <img src="{{ asset('bundles/crmmain/icons/brightness-2.png') }}" data-brightness="plus" class="brightness">
+
+                                <img src="{{ asset('bundles/crmmain/icons/rotateLeft.png') }}" class="rotateLeft">
+                                <img src="{{ asset('bundles/crmmain/icons/rotateRight.png') }}" class="rotateRight">
+                                <img src="{{ asset('bundles/crmmain/icons/crop.png') }}" class="cropImage">
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="label">Подпись<span class="required">*</span>:</td>
+                    <td style="width: 400px; padding-left: 10px">
+                    </td>
+                    <td>
+                        <div class="file-container">
+                            <input type="file" name="sign" id="sign" class="fileAjax">
+                            <input type="hidden" name="x1">
+                            <input type="hidden" name="y1">
+                            <input type="hidden" name="x2">
+                            <input type="hidden" name="y2">
+                            <progress class="progress" value="0" max="100" style="width: 270px"></progress>
+                            <div class="fileDoc">
+                                <img src="">
+                            </div>
+                            <div class="navigateFile">
+                                <img src="{{ asset('bundles/crmmain/icons/contrast-1.png') }}" data-contrast="minus" class="contrast">
+                                <img src="{{ asset('bundles/crmmain/icons/contrast-2.png') }}" data-contrast="plus" class="contrast">
+
+                                <img src="{{ asset('bundles/crmmain/icons/brightness-1.png') }}" data-brightness="minus" class="brightness">
+                                <img src="{{ asset('bundles/crmmain/icons/brightness-2.png') }}" data-brightness="plus" class="brightness">
+
+                                <img src="{{ asset('bundles/crmmain/icons/rotateLeft.png') }}" class="rotateLeft">
+                                <img src="{{ asset('bundles/crmmain/icons/rotateRight.png') }}" class="rotateRight">
+                                <img src="{{ asset('bundles/crmmain/icons/crop.png') }}" class="cropImage">
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+
+
+                    <tr>
+                        <td class="label" title="Страховой номер лицевого счета">СНИЛС<span class="required">*</span>:</td>
+                        <td style="width: 400px; padding-left: 10px">
+                            <input name="snils" id="snils" type="text" placeholder="Номер снилс" class="snils">
+                        </td>
+                        <td>
+                            <div class="file-container">
+                                <input type="file" name="snils" id="snils" class="fileAjax">
+                                <input type="hidden" name="x1">
+                                <input type="hidden" name="y1">
+                                <input type="hidden" name="x2">
+                                <input type="hidden" name="y2">
+                                <progress class="progress" value="0" max="100" style="width: 270px"></progress>
+                                <div class="fileDoc">
+                                    <img src="">
+                                </div>
+                                <div class="navigateFile">
+                                    <img src="{{ asset('bundles/crmmain/icons/contrast-1.png') }}" data-contrast="minus" class="contrast">
+                                    <img src="{{ asset('bundles/crmmain/icons/contrast-2.png') }}" data-contrast="plus" class="contrast">
+
+                                    <img src="{{ asset('bundles/crmmain/icons/brightness-1.png') }}" data-brightness="minus" class="brightness">
+                                    <img src="{{ asset('bundles/crmmain/icons/brightness-2.png') }}" data-brightness="plus" class="brightness">
+
+                                    <img src="{{ asset('bundles/crmmain/icons/rotateLeft.png') }}" class="rotateLeft">
+                                    <img src="{{ asset('bundles/crmmain/icons/rotateRight.png') }}" class="rotateRight">
+                                    <img src="{{ asset('bundles/crmmain/icons/crop.png') }}" class="cropImage">
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                {% if citizenship == 2 %}
+                    <tr>
+                        <td class="label">Разрешение на работу<span class="required">*</span>:</td>
+                        <td style="width: 400px; padding-left: 10px">
+                        </td>
+                        <td>
+                            <div class="file-container">
+                                <input type="file" name="snils" id="work" class="fileAjax">
+                                <input type="hidden" name="x1">
+                                <input type="hidden" name="y1">
+                                <input type="hidden" name="x2">
+                                <input type="hidden" name="y2">
+                                <progress class="progress" value="0" max="100" style="width: 270px"></progress>
+                                <div class="fileDoc">
+                                    <img src="">
+                                </div>
+                                <div class="navigateFile">
+                                    <img src="{{ asset('bundles/crmmain/icons/contrast-1.png') }}" data-contrast="minus" class="contrast">
+                                    <img src="{{ asset('bundles/crmmain/icons/contrast-2.png') }}" data-contrast="plus" class="contrast">
+
+                                    <img src="{{ asset('bundles/crmmain/icons/brightness-1.png') }}" data-brightness="minus" class="brightness">
+                                    <img src="{{ asset('bundles/crmmain/icons/brightness-2.png') }}" data-brightness="plus" class="brightness">
+
+                                    <img src="{{ asset('bundles/crmmain/icons/rotateLeft.png') }}" class="rotateLeft">
+                                    <img src="{{ asset('bundles/crmmain/icons/rotateRight.png') }}" class="rotateRight">
+                                    <img src="{{ asset('bundles/crmmain/icons/crop.png') }}" class="cropImage">
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="label">Временная регистрация<span class="required">*</span>:</td>
+                        <td style="width: 400px; padding-left: 10px">
+                        </td>
+                        <td>
+                            <div class="file-container">
+                                <input type="file" name="register" id="register" class="fileAjax">
+                                <input type="hidden" name="x1">
+                                <input type="hidden" name="y1">
+                                <input type="hidden" name="x2">
+                                <input type="hidden" name="y2">
+                                <progress class="progress" value="0" max="100" style="width: 270px"></progress>
+                                <div class="fileDoc">
+                                    <img src="">
+                                </div>
+                                <div class="navigateFile">
+                                    <img src="{{ asset('bundles/crmmain/icons/contrast-1.png') }}" data-contrast="minus" class="contrast">
+                                    <img src="{{ asset('bundles/crmmain/icons/contrast-2.png') }}" data-contrast="plus" class="contrast">
+
+                                    <img src="{{ asset('bundles/crmmain/icons/brightness-1.png') }}" data-brightness="minus" class="brightness">
+                                    <img src="{{ asset('bundles/crmmain/icons/brightness-2.png') }}" data-brightness="plus" class="brightness">
+
+                                    <img src="{{ asset('bundles/crmmain/icons/rotateLeft.png') }}" class="rotateLeft">
+                                    <img src="{{ asset('bundles/crmmain/icons/rotateRight.png') }}" class="rotateRight">
+                                    <img src="{{ asset('bundles/crmmain/icons/crop.png') }}" class="cropImage">
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                {% endif %}
+                <tr>
+                    <td></td>
+                </tr>
+            </form>
+            <tr><td colspan="2">
+                    <br />
+                    <i style="font-size: 14px; color: #CC3333">* Поля отмеченные звездочкой обязательны для заполнения</i>
+                    <br />
+                </td></tr>
+            <tr>
+                <td></td>
+                <td style="text-align: right">
+                    <input type="button" value="Далее" class="btn" id="submit">
+                </td>
+            </tr>
+        </table>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset("bundles/crmmain/lib/chosen/chosen.jquery.js") }}" type="text/javascript"></script>
+    <script src="{{ asset('bundles/crmmain/javascripts/jquery.maskedinput.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('bundles/crmmain/lib/jquery-ui/jquery-ui.min.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('bundles/crmmain/lib/odyniec/jquery.imgareaselect.min.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('bundles/crmmain/javascripts/file.js') }}" type="text/javascript"></script>
+
+
+    <script>
+
+
+
+        $(document).ready(function(){
+
+            $('input:text, select').styler();
+            $(".snils").mask("999-999-999 99");
+
+
+
+            $('#tehnolog').change(function(){
+                if($('#tehnolog').prop("checked")){
+                    $('#tehnolog-filebox').css('display','none');
+                }else{
+                    $('#tehnolog-filebox').css('display','block');
+                }
+            });
+
+            $('#submit').click(function(){
+                errorI = 1 ;
+                error = '';
+
+
+                if ( $('#snils').val() == ''){
+                    error += errorI+'. Поле номер СНИЛС обязательно для заполнения<br />';
+                    $('#driverPlace').css('borderColor', '#cc3333');
+                    errorI++;
+                }
+
+                if (error === ''){
+                    $('#main-form').submit();
+                }else{
+                    $('.error-msg').fadeIn();
+                    $('.error-msg').html(error);
+                }
+            });
+        });
+    </script>
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link href="{{ asset('bundles/crmmain/lib/chosen/chosen.css') }}" rel="stylesheet" media="all">
+    <link href="{{ asset('bundles/crmmain/lib/jquery-ui/jquery-ui.min.css') }}" rel="stylesheet" media="all">
+    <link href="{{ asset('bundles/crmmain/lib/odyniec/distfiles/css/imgareaselect-default.css') }}" rel="stylesheet" media="all">
+    <style>
+
+        .label-text{
+            margin-top: -15px;
+        }
+        .label{
+            width: 165px;
+            color: #003A68
+        }
+        form{
+            margin: 0;
+        }
+
+
+        /* *************** */
+
+        #passportSerial{
+            width: 75px;
+        }
+        #passportNumber{
+            width: 190px;
+        }
+
+        .right{
+            text-align: right;
+        }
+        .step, .step-active{
+            padding: 10px 14px;
+            background: rgba(72, 126, 187, 0.5);
+            -moz-border-radius: 20px;
+            -webkit-border-radius: 20px;
+            border-radius: 20px;
+        }
+        .step-active{
+            background: rgb(72, 126, 187);
+            color: #ffffff;
+        }
+
+        /*.file-container{*/
+            /*font-size: 0;*/
+        /*}*/
+    </style>
+{% endblock %}

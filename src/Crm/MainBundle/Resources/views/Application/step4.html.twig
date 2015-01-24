@@ -1,0 +1,314 @@
+{% extends 'CrmMainBundle::layout.html.twig' %}
+
+{% block title %}
+    <title>Заказать карту водителя для тахографа с СКЗИ Online</title>
+    <meta name="description" content="Заказать карту водителя для тахографа с СКЗИ Online">
+    <meta name="keywords" content="Заказать карту водителя для тахографа с СКЗИ Online">
+{% endblock %}
+
+{% block content %}
+    <div style="text-align: center">
+        <br style="clear: both"/>
+            <table style="margin: 0 auto">
+                <tr>
+                    <td style="color: #003A68; font-weight: bold">ОФОРМЛЕНИЕ ЗАЯВКИ - ШАГ</td>
+                    <td><span class="step">1</span></td>
+                    <td><span class="step">2</span></td>
+                    <td><span class="step">3</span></td>
+                    <td><span class="step-active">4 - Ходотайство</span></td>
+                    <td><span class="step">5</span></td>
+                    <td><span class="step">6</span></td>
+                </tr>
+            </table>
+        <br style="clear: both"/>
+    </div>
+    <div class="box">
+        <table>
+            <form method="POST" action="{{ path('application-skzi-step5') }}" id="main-form">
+                <tr>
+                    <td class="label">Ходатайство с места работы<span class="required">*</span>:</td>
+                    <td style="width: 400px; vertical-align: middle; padding-left: 10px" >
+                        <input type="checkbox" name="tehnolog" id="tehnolog">
+                        <span style="font-size: 15px">
+                            Воспользоваться ходатайством <br /> НПО "ТЕХНОЛОГ"
+                        </span>
+                    </td>
+                    <td>
+                        <div class="file-container" id="tehnolog-filebox">
+                            <input type="file" name="petition" id="petition" class="fileAjax">
+                            <input type="hidden" name="x1">
+                            <input type="hidden" name="y1">
+                            <input type="hidden" name="x2">
+                            <input type="hidden" name="y2">
+                            <progress class="progress" value="0" max="100" style="width: 270px"></progress>
+                            <br />
+                            <br />
+                            <div class="fileDoc">
+                                <img src="">
+                            </div>
+                            <div class="navigateFile">
+                                <img src="{{ asset('bundles/crmmain/icons/contrast-1.png') }}" data-contrast="minus" class="contrast">
+                                <img src="{{ asset('bundles/crmmain/icons/contrast-2.png') }}" data-contrast="plus" class="contrast">
+
+                                <img src="{{ asset('bundles/crmmain/icons/brightness-1.png') }}" data-brightness="minus" class="brightness">
+                                <img src="{{ asset('bundles/crmmain/icons/brightness-2.png') }}" data-brightness="plus" class="brightness">
+
+                                <img src="{{ asset('bundles/crmmain/icons/rotateLeft.png') }}" class="rotateLeft">
+                                <img src="{{ asset('bundles/crmmain/icons/rotateRight.png') }}" class="rotateRight">
+                                <img src="{{ asset('bundles/crmmain/icons/crop.png') }}" class="cropImage">
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                <tr  class="tehnolog-n">
+                    <td colspan="3">
+                        <div class="label" style="width: 100%; text-align: center; font-weight: bold">Информация о компании</div>
+                    </td>
+                </tr>
+                <tr class="tehnolog-n">
+                    <td class="label">Район<span class="required">*</span>:</td>
+                    <td class="value">
+                        <input type="text" class="style" placeholder="Район" name="region" id="region">
+                    </td>
+                </tr>
+                <tr class="tehnolog-n">
+                    <td class="label">Город<span class="required">*</span>:</td>
+                    <td class="value">
+                        <input name="city"    id="city"     type="text" placeholder="Город"><br />
+                    </td>
+                </tr>
+                <tr class="tehnolog-n">
+                    <td class="label">Улица<span class="required">*</span>:</td>
+                    <td class="value">
+                        <select name="typeStreet" id="typeStreet">
+                            <option value="ул"     >Улица</option>
+                            <option value="д"      >Дорога</option>
+                            <option value="проезд"   >Проезд</option>
+                            <option value="туп"    >Тупик</option>
+                            <option value="ш"      >Шоссе</option>
+                            <option value="тр"     >Трасса</option>
+                            <option value="пер"    >Переулок</option>
+                            <option value="пл"     >Площадь</option>
+                            <option value="скв"    >Сквер</option>
+                            <option value="алл"    >Аллея</option>
+                            <option value="б-р"      >Бульвар</option>
+                            <option value="пр"     >Просека</option>
+                            <option value="пр-т"    >Проспект</option>
+                            <option value="наб"    >Набережная</option>
+                            <option value=""        >Другое</option>
+                        </select>
+                </tr>
+                <tr class="tehnolog-n">
+                    <td class="label"></td>
+                    <td class="value">
+                        <input name="street"  id="street"   type="text" placeholder="Название улицы"><br />
+                    </td>
+                </tr>
+                <tr class="tehnolog-n">
+                    <td class="label">Номер здания<span class="required">*</span>:</td>
+                    <td class="value">
+                        <input name="house"   id="house"    type="text" placeholder="Дом" class="little">
+                        <input name="corp"    id="corp"     type="text" placeholder="Корп"  class="little">
+                        <input name="dtructure"    id="structure"     type="text" placeholder="Строение"  class="little"><br />
+                    </td>
+                </tr>
+                <tr class="tehnolog-n">
+                    <td class="label">Квартира / офис:</td>
+                    <td class="value">
+                        <select name="typeRoom" id="typeRoom">
+                            <option value="кв.">Квартира</option>
+                            <option value="оф.">Офис</option>
+                        </select>
+                        <input name="room"    id="room"  type="text" placeholder="Номер"  class="little">
+                    </td>
+                </tr>
+                <tr class="tehnolog-n">
+                    <td class="label">Индекс<span class="required">*</span>:</td>
+                    <td class="value">
+                        <input name="zipcode" id="zipcode"  type="text" placeholder="Индекс"><br />
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        <br />
+                        <i style="font-size: 14px; color: #CC3333">* Поля отмеченные звездочкой обязательны для заполнения</i>
+                        <br />
+                    </td>
+                </tr>
+            </form>
+                <tr>
+                    <td></td>
+                    <td style="text-align: right">
+                        <input type="button" value="Далее" class="btn" id="submit">
+                    </td>
+                </tr>
+        </table>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset("bundles/crmmain/lib/chosen/chosen.jquery.js") }}" type="text/javascript"></script>
+    <script src="{{ asset('bundles/crmmain/javascripts/jquery.maskedinput.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('bundles/crmmain/lib/jquery-ui/jquery-ui.min.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('bundles/crmmain/lib/odyniec/jquery.imgareaselect.min.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('bundles/crmmain/javascripts/file.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('bundles/crmmain/kladrapi/jquery.kladr.min.js') }}" type="text/javascript"></script>
+
+    <script>
+
+
+
+        $(document).ready(function(){
+
+            $('input:text, select').styler();
+            $(".snils").mask("999-999-999 99");
+            $("#zipcode").mask("999999");
+            $.mask.definitions['h'] = "[DMP ]";
+            $.mask.definitions['d'] = "[a-zA-Z0-9а-яА-Я ]";
+
+
+            $('#tehnolog').change(function(){
+                if($('#tehnolog').prop("checked")){
+                    $('#tehnolog-filebox').css('display','none');
+                    $('.tehnolog-n').css('display','none');
+                }else{
+                    $('#tehnolog-filebox').css('display','block');
+                    $('.tehnolog-n').css('display','table-row');
+                    $('input:text, select').styler();
+                }
+            });
+
+            $('#submit').click(function(){
+//                alert('1');
+                var errorI = 1 ;
+                var error = '';
+
+                if ($('#tehnolog').prop("checked") == false){
+                    if ( $('#region').val() == ''){
+                        error += errorI+'. Поле Регион обязательно для заполнения<br />';
+                        $('#region').css('borderColor', '#cc3333');
+                        errorI++;
+                    }
+                    if ( $('#city').val() == ''){
+                        error += errorI+'. Поле Город обязательно для заполнения<br />';
+                        $('#city').css('borderColor', '#cc3333');
+                        errorI++;
+                    }
+                    if ( $('#house').val() == ''){
+                        error += errorI+'. Поле Дом обязательно для заполнения<br />';
+                        $('#house').css('borderColor', '#cc3333');
+                        errorI++;
+                    }
+                    if ( $('#zipcode').val() == ''){
+                        error += errorI+'. Поле Индекс обязательно для заполнения<br />';
+                        $('#zipcode').css('borderColor', '#cc3333');
+                        errorI++;
+                    }
+                }
+                console.log();
+                if (error === ''){
+                    $('#main-form').submit();
+                }else{
+                    $('.error-msg').fadeIn();
+                    $('.error-msg').html(error);
+                }
+            });
+
+
+            $( '#region' ).kladr({
+                token: '541ee4ac7c52392c7d8b457e',
+                key: '181d5e2c44994c335e5e81e9ae46e79a67b6b495',
+                type: $.kladr.type.region
+            });
+
+            $('#city' ).kladr({
+                token: '541ee4ac7c52392c7d8b457e',
+                key: '181d5e2c44994c335e5e81e9ae46e79a67b6b495',
+                parentInput: '[name="area"]',
+                type: $.kladr.type.city
+            });
+
+            $('#street' ).kladr({
+                token: '541ee4ac7c52392c7d8b457e',
+                key: '181d5e2c44994c335e5e81e9ae46e79a67b6b495',
+                parentInput: '[name="city"]',
+                type: $.kladr.type.street,
+                select: function(obj){
+                    $('#typeStreet').val(obj.typeShort);
+                    $('#typeStreet').trigger('refresh');
+                }
+            });
+            $('#house' ).kladr({
+                token: '541ee4ac7c52392c7d8b457e',
+                key: '181d5e2c44994c335e5e81e9ae46e79a67b6b495',
+                parentInput: '[name="street"]',
+                type: $.kladr.type.building,
+                select: function(obj){
+                    $('#zipcode').val(obj.zip);
+                    var home = obj.name.split('к');
+                    $('#house').val(home[0]);
+                    if (home[1] != undefined){
+                        $('#corp').val(home[1]);
+                    }
+
+                }
+            });
+        });
+    </script>
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link href="{{ asset('bundles/crmmain/lib/chosen/chosen.css') }}" rel="stylesheet" media="all">
+    <link href="{{ asset('bundles/crmmain/lib/jquery-ui/jquery-ui.min.css') }}" rel="stylesheet" media="all">
+    <link href="{{ asset('bundles/crmmain/lib/odyniec/distfiles/css/imgareaselect-default.css') }}" rel="stylesheet" media="all">
+    <link href="{{ asset('bundles/crmmain/kladrapi/jquery.kladr.css') }}" rel="stylesheet" media="all">
+    <style>
+
+        .label-text{
+            margin-top: -15px;
+        }
+        .label{
+            width: 165px;
+            color: #003A68
+        }
+        form{
+            margin: 0;
+        }
+
+
+        /* *************** */
+
+        #passportSerial{
+            width: 75px;
+        }
+        #passportNumber{
+            width: 190px;
+        }
+
+        .right{
+            text-align: right;
+        }
+        .step, .step-active{
+            padding: 10px 14px;
+            background: rgba(72, 126, 187, 0.5);
+            -moz-border-radius: 20px;
+            -webkit-border-radius: 20px;
+            border-radius: 20px;
+        }
+        .step-active{
+            background: rgb(72, 126, 187);
+            color: #ffffff;
+        }
+        #typeStreet-styler, #typeCard-styler{
+            width: 270px;
+        }
+        #typeRoom-styler{
+            width: 180px;
+            margin-top: -3px
+        }
+        /*.file-container{*/
+            /*font-size: 0;*/
+        /*}*/
+    </style>
+{% endblock %}

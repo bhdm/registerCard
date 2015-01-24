@@ -1,0 +1,250 @@
+{% extends 'CrmMainBundle::layout.html.twig' %}
+
+{% block title %}
+    <title>Заказать карту водителя для тахографа с СКЗИ Online</title>
+    <meta name="description" content="Заказать карту водителя для тахографа с СКЗИ Online">
+    <meta name="keywords" content="Заказать карту водителя для тахографа с СКЗИ Online">
+{% endblock %}
+
+{% block content %}
+    <div style="text-align: center">
+        <br style="clear: both"/>
+            <table style="margin: 0 auto">
+                <tr>
+                    <td style="color: #003A68; font-weight: bold">ОФОРМЛЕНИЕ ЗАЯВКИ - ШАГ</td>
+                    <td><span class="step">1</span></td>
+                    <td><span class="step-active">2 - паспорт</span></td>
+                    <td><span class="step">3</span></td>
+                    <td><span class="step">4</span></td>
+                    <td><span class="step">5</span></td>
+                    <td><span class="step">6</span></td>
+                </tr>
+            </table>
+        <br style="clear: both"/>
+    </div>
+    <div class="box">
+        <table>
+            <form method="POST" action="{{ path('application-skzi-step2') }}" id="main-form" enctype="multipart/form-data">
+                <tr>
+                    <td colspan="3">
+                        <div class="error-msg"></div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="label">Фамилия<span class="required">*</span>:</td>
+                    <td class="value">
+                        <input name="lastName" id="lastName" type="text" placeholder="Фамилия" required>
+                    </td>
+                    <td rowspan="8" style="width: 400px; vertical-align: top; padding-left: 10px">
+                        {# Тут сама фото #}
+                        <div class="file-container">
+                            <input type="file" name="passportFile" id="passportFile" class="fileAjax">
+                            <progress class="progress" value="0" max="100" style="width: 270px"></progress>
+                            <br />
+                            <br />
+                            <div class="fileDoc">
+                                <img src="" brightness="0">
+                            </div>
+                            <div class="navigateFile">
+                                <img src="{{ asset('bundles/crmmain/icons/contrast-1.png') }}" data-contrast="minus" class="contrast">
+                                <img src="{{ asset('bundles/crmmain/icons/contrast-2.png') }}" data-contrast="plus" class="contrast">
+
+                                <img src="{{ asset('bundles/crmmain/icons/brightness-1.png') }}" data-brightness="minus" class="brightness">
+                                <img src="{{ asset('bundles/crmmain/icons/brightness-2.png') }}" data-brightness="plus" class="brightness">
+
+                                <img src="{{ asset('bundles/crmmain/icons/rotateLeft.png') }}" class="rotateLeft">
+                                <img src="{{ asset('bundles/crmmain/icons/rotateRight.png') }}" class="rotateRight">
+                                <img src="{{ asset('bundles/crmmain/icons/crop.png') }}" class="cropImage">
+                            </div>
+                            <input type="hidden" id="x1" name="x1">
+                            <input type="hidden" id="y1" name="y1">
+                            <input type="hidden" id="x2" name="x2">
+                            <input type="hidden" id="y2" name="y2">
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="label">Имя<span class="required">*</span>:</td>
+                    <td class="value">
+                        <input name="firstName" id="firstName" type="text" placeholder="Имя">
+                    </td>
+                </tr>
+                <tr>
+                    <td class="label">Отчество:</td>
+                    <td class="value">
+                        <input name="surName" id="surName" type="text" placeholder="Отчество">
+                    </td>
+                </tr>
+                <tr>
+                    <td class="label">Дата рождения<span class="required">*</span>:</td>
+                    <td class="value">
+                        <input name="birthDate" id="birthDate" type="text" placeholder="Дата рождения" class="date">
+                    </td>
+                </tr>
+                <tr>
+                    <td class="label">Серия и номер пасспорта<span class="required">*</span>:</td>
+                    <td class="value">
+                        <input name="passportSerial" id="passportSerial" type="text" placeholder="Серия" class="number">
+                        <input name="passportNumber" id="passportNumber" type="text" placeholder="Номер">
+                    </td>
+                </tr>
+                <tr>
+                    <td class="label">Кем выдан<span class="required">*</span>:</td>
+                    <td class="value">
+                        <input name="passportPlace" id="passportPlace" type="text" placeholder="Кем выдан">
+                    </td>
+                </tr>
+                <tr>
+                    <td class="label">Дата выдачи<span class="required">*</span>:</td>
+                    <td class="value">
+                        <input name="passportDate" id="passportDate" type="text" placeholder="Дата выдачи" class="date">
+                    </td>
+                </tr>
+                <tr>
+                    <td class="label">Код подразделения:</td>
+                    <td class="value">
+                        <input name="passportCode" id="passportCode" type="text" placeholder="Код подразделения" class="code">
+                    </td>
+                </tr>
+
+            </form>
+            <tr><td colspan="2">
+                    <br />
+                    <i style="font-size: 14px; color: #CC3333">* Поля отмеченные звездочкой обязательны для заполнения</i>
+                    <br />
+                </td></tr>
+            <tr>
+                <td></td>
+                <td style="text-align: right">
+                    <input type="button" value="Далее" class="btn" id="submit">
+                </td>
+            </tr>
+        </table>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset("bundles/crmmain/lib/chosen/chosen.jquery.js") }}" type="text/javascript"></script>
+    <script src="{{ asset('bundles/crmmain/javascripts/jquery.maskedinput.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('bundles/crmmain/lib/jquery-ui/jquery-ui.min.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('bundles/crmmain/lib/odyniec/jquery.imgareaselect.min.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('bundles/crmmain/javascripts/file.js') }}" type="text/javascript"></script>
+
+
+    <script>
+
+
+
+        $(document).ready(function(){
+
+            $('input:text, select').styler();
+            $(".date").mask("99.99.9999");
+            $(".code").mask("999-999");
+
+            $('#submit').click(function(){
+                errorI = 1 ;
+                error = '';
+
+
+                if ( $('#lastName').val() == ''){
+                    error += errorI+'. Поле Фамилия обязательно для заполнения<br />';
+                    $('#lastName').css('borderColor', '#cc3333');
+                    errorI++;
+                }
+                if ( $('#firstName').val() == ''){
+                    error += errorI+'. Поле Имя обязательно для заполнения<br />';
+                    $('#firstName').css('borderColor', '#cc3333');
+                    errorI++;
+                }
+                if ( $('#surName').val() == ''){
+                    error += errorI+'. Поле Отчество обязательно для заполнения<br />';
+                    $('#surName').css('borderColor', '#cc3333');
+                    errorI++;
+                }
+                if ( $('#birthDate').val() == ''){
+                    error += errorI+'. Поле Дата рождения обязательно для заполнения<br />';
+                    $('#birthDate').css('borderColor', '#cc3333');
+                    errorI++;
+                }
+                if ( $('#passportNumber').val() == ''){
+                    error += errorI+'. Поле Номер паспорта обязательно для заполнения<br />';
+                    $('#passportNumber').css('borderColor', '#cc3333');
+                    errorI++;
+                }
+                if ( $('#passportPlace').val() == ''){
+                    error += errorI+'. Поле Кем выдан обязательно для заполнения<br />';
+                    $('#passportPlace').css('borderColor', '#cc3333');
+                    errorI++;
+                }
+                if ( $('#passportDate').val() == ''){
+                    error += errorI+'. Поле Дата выдачи обязательно для заполнения<br />';
+                    $('#passportDate').css('borderColor', '#cc3333');
+                    errorI++;
+                }
+                if ( $('#passportFile').val() == ''){
+                    error += errorI+'. Загрузите пожалуйста скан паспорта<br />';
+                    $('#passportDate').css('borderColor', '#cc3333');
+                    errorI++;
+                }
+
+                if (error === ''){
+                    $('#main-form').submit();
+                }else{
+                    $('.error-msg').fadeIn();
+                    $('.error-msg').html(error);
+                }
+            });
+        });
+    </script>
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link href="{{ asset('bundles/crmmain/lib/chosen/chosen.css') }}" rel="stylesheet" media="all">
+    <link href="{{ asset('bundles/crmmain/lib/jquery-ui/jquery-ui.min.css') }}" rel="stylesheet" media="all">
+    <link href="{{ asset('bundles/crmmain/lib/odyniec/distfiles/css/imgareaselect-default.css') }}" rel="stylesheet" media="all">
+    <style>
+
+        .label-text{
+            margin-top: -15px;
+        }
+        .label{
+            width: 165px;
+            color: #003A68
+        }
+        form{
+            margin: 0;
+        }
+
+
+        /* *************** */
+
+        #passportSerial{
+            width: 75px;
+        }
+        #passportNumber{
+            width: 190px;
+        }
+        #file img{
+            width: 415px;
+            max-height: 500px;
+        }
+
+
+        .right{
+            text-align: right;
+        }
+        .step, .step-active{
+            padding: 10px 14px;
+            background: rgba(72, 126, 187, 0.5);
+            -moz-border-radius: 20px;
+            -webkit-border-radius: 20px;
+            border-radius: 20px;
+        }
+        .step-active{
+            background: rgb(72, 126, 187);
+            color: #ffffff;
+        }
+    </style>
+{% endblock %}
