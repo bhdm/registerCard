@@ -14,10 +14,10 @@ class ImageController extends Controller
 {
 
     /**
-     * @Route("/upload-document", name="upload_document", options={"expose"=true})
+     * @Route("/upload-document/{type}", name="upload_document", options={"expose"=true})
      * @Template()
      */
-    public function indexAction(Request $request)
+    public function indexAction(Request $request, $type)
     {
         $session = $request->getSession();
         if ($request->getMethod() == 'POST'){
@@ -38,7 +38,7 @@ class ImageController extends Controller
                 $oldPath = $file->getPathName();
                 move_uploaded_file($oldPath,$path);
 
-                $session->set('file',$path);
+                $session->set($type,$path);
                 $data = $this->imageToArray($path);
                 $response = new JsonResponse($data);
                 return $response;
@@ -47,11 +47,11 @@ class ImageController extends Controller
     }
 
     /**
-     * @Route("/rotate-image/{type}", name="rotate_image", options={"expose"=true})
+     * @Route("/rotate-image/{type}/{rotate}", name="image_rotate", options={"expose"=true})
      */
-    public function rotateAction(Request $request, $type){
+    public function rotateAction(Request $request, $type, $rotate){
         $session = $request->getSession();
-        $path = $session->get('file');
+        $path = $session->get($type);
         if ($path == null){
             return array('data' => array('error' => 'Файл не загружен'));
         }
@@ -69,27 +69,75 @@ class ImageController extends Controller
     }
 
     /**
-     * @Route("/crop-image/{x1}/{y1}/{x2}/{y2}", name="crop_image", options={"expose"=true})
+     * @Route("/crop-image/{type}/{width}/{height}/{x1}/{y1}/{x2}/{y2}", name="crop_image", options={"expose"=true})
      */
-    public function cropAction(Request $request, $x1,$y1,$x2,$y2){
+    public function cropAction(Request $request, $type, $width, $height, $x1,$y1,$x2,$y2){
 
         $session = $request->getSession();
-        $path = $session->get('file');
-        #Получаем оригинальные размеры картинки
+        $path = $session->get($type);
 
+        #Получаем оригинальные размеры картинки
         $rect['width'] = getimagesize($path)[0];
         $rect['height'] = getimagesize($path)[1];
 
+        $aspect = $rect['width'] / (int) $width;
+
+        $x1 = $x1*$aspect;
+        $x2 = $x2*$aspect;
+        $y1 = $y1*$aspect;
+        $y2 = $y2*$aspect;
 
         $image = imagecreatefromjpeg($path);
-        $crop = imagecreatetruecolor($rect['width'],$rect['height']);
-        imagecopy ( $crop, $image, 0, 0, $x1, $y1, $x2-$x1, $y2-$x1 );
+        $crop = imagecreatetruecolor($x2-$x1,$y2-$y1);
+        imagecopy ( $crop, $image, 0, 0, $x1, $y1, $x2-$x1, $y2-$y1 );
 
         imagejpeg($crop, $path);
         $data = $this->imageToArray($path);
         $response = new JsonResponse($data);
         return $response;
     }
+
+    /**
+     * @Route("/brightness-image/{type}/{brightness}", name="brightness_image", options={"expose"=true})
+     */
+    public function brightnessAction(Request $request, $type, $brightness){
+        $session = $request->getSession();
+        $path = $session->get($type);
+        if ($path == null){
+            return array('data' => array('error' => 'Файл не загружен'));
+        }
+        $image = imagecreatefromjpeg($path);
+
+        imagefilter($image,IMG_FILTER_BRIGHTNESS,$brightness);
+
+        imagejpeg($image, $path);
+
+        $data = $this->imageToArray($path);
+        $response = new JsonResponse($data);
+        return $response;
+    }
+    /**
+     * @Route("/contrast-image/{type}/{contrast}", name="contrast_image", options={"expose"=true})
+     */
+    public function contrastAction(Request $request, $type, $contrast){
+        $session = $request->getSession();
+        $path = $session->get($type);
+        if ($path == null){
+            return array('data' => array('error' => 'Файл не загружен'));
+        }
+        $image = imagecreatefromjpeg($path);
+
+        imagefilter($image,IMG_FILTER_CONTRAST,$contrast);
+
+        imagejpeg($image, $path);
+
+        $data = $this->imageToArray($path);
+        $response = new JsonResponse($data);
+        return $response;
+    }
+
+
+
 
 
     public function imageToArray($path){

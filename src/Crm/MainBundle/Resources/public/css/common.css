@@ -411,10 +411,16 @@ input.little{
     text-align: center;
     display: none;
 }
-.navigateFile img{
+.navigateFile img {
     width: 24px;
     margin: 10px;
+    cursor: pointer;
 }
-#progress{
+.progress{
     display: none;
+}
+.fileDoc img{
+    max-width: 415px;
+    max-height: 500px;
+    min-width: 200px;
 }

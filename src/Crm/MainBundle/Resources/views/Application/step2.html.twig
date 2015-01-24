@@ -17,6 +17,7 @@
                     <td><span class="step">3</span></td>
                     <td><span class="step">4</span></td>
                     <td><span class="step">5</span></td>
+                    <td><span class="step">6</span></td>
                 </tr>
             </table>
         <br style="clear: both"/>
@@ -36,19 +37,24 @@
                     </td>
                     <td rowspan="8" style="width: 400px; vertical-align: top; padding-left: 10px">
                         {# Тут сама фото #}
-                        <input type="file" name="passportFile" id="passportFile" class="fileAjax">
                         <div class="file-container">
-                            <progress id="progress" value="0" max="100" style="width: 270px"></progress>
+                            <input type="file" name="passportFile" id="passportFile" class="fileAjax">
+                            <progress class="progress" value="0" max="100" style="width: 270px"></progress>
                             <br />
                             <br />
-                            <div id="file">
-                                <img src="">
+                            <div class="fileDoc">
+                                <img src="" brightness="0">
                             </div>
                             <div class="navigateFile">
-                                <img src="{{ asset('bundles/crmmain/icons/rotateLeft.png') }}" id="rotateLeft">
-                                <img src="{{ asset('bundles/crmmain/icons/rotateRight.png') }}" id="rotateRight">
-                                <img src="{{ asset('bundles/crmmain/icons/crop.png') }}" id="cropImage">
-                                {#<img src="{{ asset('bundles/crmmain/icons/remove.png') }}" id="removeImage">#}
+                                <img src="{{ asset('bundles/crmmain/icons/contrast-1.png') }}" data-contrast="minus" class="contrast">
+                                <img src="{{ asset('bundles/crmmain/icons/contrast-2.png') }}" data-contrast="plus" class="contrast">
+
+                                <img src="{{ asset('bundles/crmmain/icons/brightness-1.png') }}" data-brightness="minus" class="brightness">
+                                <img src="{{ asset('bundles/crmmain/icons/brightness-2.png') }}" data-brightness="plus" class="brightness">
+
+                                <img src="{{ asset('bundles/crmmain/icons/rotateLeft.png') }}" class="rotateLeft">
+                                <img src="{{ asset('bundles/crmmain/icons/rotateRight.png') }}" class="rotateRight">
+                                <img src="{{ asset('bundles/crmmain/icons/crop.png') }}" class="cropImage">
                             </div>
                             <input type="hidden" id="x1" name="x1">
                             <input type="hidden" id="y1" name="y1">

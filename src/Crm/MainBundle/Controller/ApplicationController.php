@@ -106,7 +106,7 @@ class ApplicationController extends Controller
             $session->set('file', null);
             $session->set('order',$order);
 
-            return $this->redirect($this->generateUrl('application-skzi-step4'));
+            return $this->redirect($this->generateUrl('application-skzi-step5'));
         }
         return array('citizenship' => $order['citizenship']);
     }
@@ -117,6 +117,26 @@ class ApplicationController extends Controller
      * @Template()
      */
     public function step5Action(Request $request){
+        $session = $request->getSession();
+        $order = $session->get('order');
+
+        if ($request->getMethod() == 'POST'){
+
+//            $order['driverFilePath'] = $session->get('file');
+
+            $session->set('file', null);
+            $session->set('order',$order);
+
+            return $this->redirect($this->generateUrl('application-skzi-step6'));
+        }
+        return array('citizenship' => $order['citizenship']);
+    }
+
+    /**
+     * @Route("/application/skzi/step6", name="application-skzi-step6")
+     * @Template()
+     */
+    public function step6Action(Request $request){
         $country = $this->getDoctrine()->getRepository('CrmMainBundle:Country')->findOneById(3159);
         $regions = $this->getDoctrine()->getRepository('CrmMainBundle:Region')->findByCountry($country);
 
@@ -128,7 +148,7 @@ class ApplicationController extends Controller
 //            $session->set('file', null);
 //            $session->set('order',$order);
 
-//            return $this->redirect($this->generateUrl('application-skzi-step4'));
+            return $this->redirect($this->generateUrl('application-skzi-step7'));
         }
         return array('regions' => $regions);
     }
