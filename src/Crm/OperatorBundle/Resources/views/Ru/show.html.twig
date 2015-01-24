@@ -193,12 +193,19 @@
                     <input name="driverDocIssuance" id="driverDocIssuance" type="text"  value="{{ user.driverDocIssuance }}">
                 </td>
             </tr>
+
+
+            <tr>
+                <td class="label">Дата выдачи:</td>
+                <td class="value">
+                    <input name="driverDateStarts" id="driverDateStarts" type="text"  value="{{ user.driverDateStarts | date('d.m.Y')}}" >
+                </td>
+            </tr>
             <tr>
                 <td class="label">Дата окончания:</td>
                 <td class="value">
                     <input name="driverDateEnds" id="driverDateEnds" type="text"  value="{{ user.driverDocDateEnds | date('d.m.Y')}}" >
                 </td>
-
             </tr>
 
             <tr><td colspan="2" class="empty-row">Информация о доставке</td></tr>

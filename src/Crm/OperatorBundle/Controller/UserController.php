@@ -867,7 +867,7 @@ class UserController extends Controller{
             $phpExcelObject->setActiveSheetIndex(0)->setCellValue('A'.$i, $type);
             $phpExcelObject->setActiveSheetIndex(0)->setCellValue('B'.$i, $user->getId());
             $phpExcelObject->setActiveSheetIndex(0)->setCellValue('C'.$i, $user->getEmail());
-            $phpExcelObject->setActiveSheetIndex(0)->setCellValue('D'.$i, $user->getLastName().' '.$user->getFirstName());
+            $phpExcelObject->setActiveSheetIndex(0)->setCellValue('D'.$i, $user);
             if ($user->getCompany()){
                 $phpExcelObject->setActiveSheetIndex(0)->setCellValue('E'.$i, $user->getCompany()->getTitle());
             }
@@ -887,7 +887,7 @@ class UserController extends Controller{
             }
             $userLog = array();
             foreach ($userLogArray as $key=>$date){
-                $userLog[$key] = $date->format('Y.m.d H:i:s');
+                $userLog[$key] = $date->format('Y.m.d');
             }
             $userLogArray = $userLog;
             # Новая
