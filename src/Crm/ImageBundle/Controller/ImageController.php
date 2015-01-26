@@ -59,7 +59,7 @@ class ImageController extends Controller
         if ($type == 'left'){
             $rotate = imagerotate($image, 90, 0);
         }else{
-            $rotate = imagerotate($image, 270, 0);
+            $rotate = imagerotate($image, -90, 0);
         }
         imagejpeg($rotate, $path);
 

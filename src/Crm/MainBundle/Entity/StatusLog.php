@@ -24,6 +24,10 @@ class StatusLog extends BaseEntity
      */
     protected $title;
 
+
+    public function __construct(){
+        return $this->created;
+    }
     /**
      * @return mixed
      */

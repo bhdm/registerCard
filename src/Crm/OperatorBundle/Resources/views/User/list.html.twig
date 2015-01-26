@@ -357,6 +357,9 @@
                                     </span>
                             {% if is_granted('ROLE_ADMIN') %}
                                 </a>
+                                {#{% if user.statuslog is defined and user.statuslog != null %}#}
+                                        {#<br />{{ user.statuslog|last|date('d.m.Y') }}#}
+                                {#{% endif %}#}
                             {% endif %}
                         </td>
 
