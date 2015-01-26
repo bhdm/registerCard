@@ -56,10 +56,10 @@ class ImageController extends Controller
             return array('data' => array('error' => 'Файл не загружен'));
         }
         $image = imagecreatefromjpeg($path);
-        if ($type == 'left'){
+        if ($rotate == 'left'){
             $rotate = imagerotate($image, 90, 0);
         }else{
-            $rotate = imagerotate($image, -90, 0);
+            $rotate = imagerotate($image, 270, 0);
         }
         imagejpeg($rotate, $path);
 
