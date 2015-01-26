@@ -413,7 +413,7 @@ input.little{
 }
 .navigateFile img {
     width: 24px;
-    margin: 10px;
+    margin: 7px;
     cursor: pointer;
 }
 .progress{
@@ -423,4 +423,7 @@ input.little{
     max-width: 415px;
     max-height: 500px;
     min-width: 200px;
+}
+.step{
+    cursor: pointer;
 }

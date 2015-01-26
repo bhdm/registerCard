@@ -22,31 +22,31 @@ class ApplicationController extends Controller
 {
 
     /**
-     * @Route("/application/skzi/step1", name="application-skzi-step1")
+     * @Route("/application/skzi/step1", name="application-skzi-step1", options={"expose"=true})
      * @Template()
      */
     public function step1Action(Request $request)
     {
+        $session = $request->getSession();
+        $order = $session->get('order');
         if ($request->getMethod() == 'POST'){
-            $session = $request->getSession();
-            $session->set('order',null);
             $order['email'] = $request->request->get('email');
             $order['phone'] = $request->request->get('phone');
             $order['citizenship'] = $request->request->get('rezident');
             $session->set('order',$order);
             return $this->redirect($this->generateUrl('application-skzi-step2'));
         }
-        return array();
+        return array('order' => $order);
     }
 
     /**
-     * @Route("/application/skzi/step2", name="application-skzi-step2")
+     * @Route("/application/skzi/step2", name="application-skzi-step2", options={"expose"=true})
      * @Template()
      */
     public function step2Action(Request $request){
+        $session = $request->getSession();
+        $order = $session->get('order');
         if ($request->getMethod() == 'POST'){
-            $session = $request->getSession();
-            $order = $session->get('order');
             $order['lastName'] = $request->request->get('lastName');
             $order['firstName'] = $request->request->get('firstName');
             $order['surName'] = $request->request->get('surName');
@@ -64,36 +64,34 @@ class ApplicationController extends Controller
 
             return $this->redirect($this->generateUrl('application-skzi-step3'));
         }
-        return array();
+        return array('order' => $order);
     }
 
 
     /**
-     * @Route("/application/skzi/step3", name="application-skzi-step3")
+     * @Route("/application/skzi/step3", name="application-skzi-step3", options={"expose"=true})
      * @Template()
      */
     public function step3Action(Request $request){
+        $session = $request->getSession();
+        $order = $session->get('order');
         if ($request->getMethod() == 'POST'){
-            $session = $request->getSession();
-            $order = $session->get('order');
             $order['driverPlace'] = $request->request->get('driverPlace');
             $order['birthDate'] = $request->request->get('birthDate');
             $order['driverStarts'] = $request->request->get('driverStarts');
             $order['driverEnds'] = $request->request->get('driverEnds');
-
             $order['driverFilePath'] = $session->get('file');
-
             $session->set('file', null);
             $session->set('order',$order);
 
             return $this->redirect($this->generateUrl('application-skzi-step4'));
         }
-        return array();
+        return array('order' => $order);
     }
 
 
     /**
-     * @Route("/application/skzi/step4", name="application-skzi-step4")
+     * @Route("/application/skzi/step4", name="application-skzi-step4", options={"expose"=true})
      * @Template()
      */
     public function step4Action(Request $request){
@@ -108,12 +106,12 @@ class ApplicationController extends Controller
 
             return $this->redirect($this->generateUrl('application-skzi-step5'));
         }
-        return array('citizenship' => $order['citizenship']);
+        return array('citizenship' => $order['citizenship'],'order' => $order);
     }
 
 
     /**
-     * @Route("/application/skzi/step5", name="application-skzi-step5")
+     * @Route("/application/skzi/step5", name="application-skzi-step5", options={"expose"=true})
      * @Template()
      */
     public function step5Action(Request $request){
@@ -129,11 +127,11 @@ class ApplicationController extends Controller
 
             return $this->redirect($this->generateUrl('application-skzi-step6'));
         }
-        return array('citizenship' => $order['citizenship']);
+        return array('citizenship' => $order['citizenship'],'order' => $order);
     }
 
     /**
-     * @Route("/application/skzi/step6", name="application-skzi-step6")
+     * @Route("/application/skzi/step6", name="application-skzi-step6", options={"expose"=true})
      * @Template()
      */
     public function step6Action(Request $request){
@@ -150,7 +148,7 @@ class ApplicationController extends Controller
 
             return $this->redirect($this->generateUrl('application-skzi-step7'));
         }
-        return array('regions' => $regions);
+        return array('regions' => $regions,'order' => $order);
     }
 
 }

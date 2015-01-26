@@ -12,6 +12,7 @@ function getImage(data,container){
         fileDoc.children('img').attr('src',data.data.img);
         var imgAreaSelect = fileDoc.children('img').imgAreaSelect({
             handles: true,
+            x1: 10, y1: 10, x2: 150, y2: 150,
             onSelectEnd: function (img, selection) {
                 container.children('input[name="x1"]').val(selection.x1);
                 container.children('input[name="y1"]').val(selection.y1);
@@ -155,28 +156,33 @@ $(document).ready(function(){
         });
     });
 
-    $('.contrast').click(function(){
-        var container = $(this).parent().parent();
+    //$('.contrast').click(function(){
+    //    var container = $(this).parent().parent();
+    //
+    //    var type = container.children('.jq-file').children('input[type=file]').attr('id');
+    //    var contrast = $(this).attr('data-contrast');
+    //    var contrastNow = container.children('.fileDoc').children('img').attr('contrast');
+    //    if (contrast == 'plus'){
+    //        contrastNow = contrastNow + 20;
+    //    }else{
+    //        contrastNow = contrastNow - 20;
+    //    }
+    //    container.children('.fileDoc').children('img').attr('contrast',contrastNow);
+    //    console.log(t=container);
+    //    $.ajax({
+    //        url: Routing.generate('contrast_image', {'type': type, 'contrast': contrastNow }),
+    //        type: 'POST',
+    //        success: function(msg){ getImage(msg, container); },
+    //        error:function (error) {
+    //            console.log(error);
+    //        }
+    //    });
+    //});
 
-        var type = container.children('.jq-file').children('input[type=file]').attr('id');
-        var contrast = $(this).attr('data-contrast');
-        var contrastNow = container.children('.fileDoc').children('img').attr('contrast');
-        if (contrast == 'plus'){
-            contrastNow = contrastNow + 20;
-        }else{
-            contrastNow = contrastNow - 20;
-        }
-        container.children('.fileDoc').children('img').attr('contrast',contrastNow);
-        console.log(t=container);
-        $.ajax({
-            url: Routing.generate('contrast_image', {'type': type, 'contrast': contrastNow }),
-            type: 'POST',
-            success: function(msg){ getImage(msg, container); },
-            error:function (error) {
-                console.log(error);
-            }
-        });
+
+    $('.step').click(function(){
+        var url = Routing.generate('application-skzi-step'+$(this).html());
+        window.location.href = url;
     });
-
 
 });

@@ -46,15 +46,20 @@
                                 <img src="" brightness="0">
                             </div>
                             <div class="navigateFile">
-                                <img src="{{ asset('bundles/crmmain/icons/contrast-1.png') }}" data-contrast="minus" class="contrast">
-                                <img src="{{ asset('bundles/crmmain/icons/contrast-2.png') }}" data-contrast="plus" class="contrast">
+                                {#<img src="{{ asset('bundles/crmmain/icons/contrast-1.png') }}" data-contrast="minus" class="contrast" title="Контрастность -">#}
+                                <div class="slider-box">
+                                    <div id="slider-vertical-1" class="slider-vertical"></div>
+                                    <img src="{{ asset('bundles/crmmain/icons/contrast-2.png') }}" data-contrast="plus" class="contrast"  title="Контрастность +">
+                                </div>
+                                {#<img src="{{ asset('bundles/crmmain/icons/brightness-1.png') }}" data-brightness="minus" class="brightness" title="Яркость -">#}
+                                <div class="slider-box">
+                                    <div id="slider-vertical-2" class="slider-vertical"></div>
+                                <img src="{{ asset('bundles/crmmain/icons/brightness-2.png') }}" data-brightness="plus" class="brightness" title="Яркость +">
+                                </div>
+                                <img src="{{ asset('bundles/crmmain/icons/rotateLeft.png') }}" class="rotateLeft" title="Повернуть налево">
+                                <img src="{{ asset('bundles/crmmain/icons/rotateRight.png') }}" class="rotateRight" title="Повернуть вправо">
+                                <img src="{{ asset('bundles/crmmain/icons/crop.png') }}" class="cropImage" title="Обрезать изображение">
 
-                                <img src="{{ asset('bundles/crmmain/icons/brightness-1.png') }}" data-brightness="minus" class="brightness">
-                                <img src="{{ asset('bundles/crmmain/icons/brightness-2.png') }}" data-brightness="plus" class="brightness">
-
-                                <img src="{{ asset('bundles/crmmain/icons/rotateLeft.png') }}" class="rotateLeft">
-                                <img src="{{ asset('bundles/crmmain/icons/rotateRight.png') }}" class="rotateRight">
-                                <img src="{{ asset('bundles/crmmain/icons/crop.png') }}" class="cropImage">
                             </div>
                             <input type="hidden" id="x1" name="x1">
                             <input type="hidden" id="y1" name="y1">
@@ -127,7 +132,7 @@
     {{ parent() }}
     <script src="{{ asset("bundles/crmmain/lib/chosen/chosen.jquery.js") }}" type="text/javascript"></script>
     <script src="{{ asset('bundles/crmmain/javascripts/jquery.maskedinput.js') }}" type="text/javascript"></script>
-    <script src="{{ asset('bundles/crmmain/lib/jquery-ui/jquery-ui.min.js') }}" type="text/javascript"></script>
+
     <script src="{{ asset('bundles/crmmain/lib/odyniec/jquery.imgareaselect.min.js') }}" type="text/javascript"></script>
     <script src="{{ asset('bundles/crmmain/javascripts/file.js') }}" type="text/javascript"></script>
 
@@ -245,6 +250,30 @@
         .step-active{
             background: rgb(72, 126, 187);
             color: #ffffff;
+        }
+
+
+        .ui-widget-header {
+            border: 1px solid #77a2e7;
+            background: #5988f6 url("images/ui-bg_gloss-wave_35_f6a828_500x100.png") 50% 50% repeat-x;
+            color: #fff;
+            font-weight: bold;
+        }
+
+        .slider-vertical{
+            display: none;
+            position: absolute;
+            height: 100px;
+            top: 30px;
+            left: 10px;
+
+        }
+        .slider-box{
+            position: relative;
+            display: inline-block;
+        }
+        .slider-box:hover .slider-vertical{
+            display: block;
         }
     </style>
 {% endblock %}
