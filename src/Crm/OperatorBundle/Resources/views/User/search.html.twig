@@ -131,14 +131,14 @@
 
             $('#filterStatus').change(function(){
                 var type = $(this).val();
-                var company = {{ company != null ? company.id : 'null' }}
+                var company = '{{ company != null ? company.id : 'null' }}';
                 var url = Routing.generate('operator_user_search', {'companyId': company, 'type' :type });
                 window.location.href = url;
             });
 
             $('#filterManager').change(function(){
                 var type = $(this).val();
-                var company = {{ company != null ? company.id : 'null' }}
+                var company = '{{ company != null ? company.id : 'null' }}';
                 var url = Routing.generate('operator_user_search', {'companyId': company, 'type' :type });
                 window.location.href = url;
             });

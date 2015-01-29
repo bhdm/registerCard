@@ -967,7 +967,7 @@ class UserController extends Controller{
         if ( $type == 'day' ){ $toDay = true; }
         if ( $type == 'week' ){ $toWeek = true; }
         if ( $type == 'petition' ){ $toPetition = true; }
-        if ( $companyId ){
+        if ( $companyId && $companyId != 'null'){
             $company = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->findOneById($companyId);
         }else{
             $company = null;
