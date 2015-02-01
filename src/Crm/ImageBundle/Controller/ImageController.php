@@ -97,6 +97,7 @@ class ImageController extends Controller
         return $response;
     }
 
+
     /**
      * @Route("/brightness-image/{type}/{brightness}", name="brightness_image", options={"expose"=true})
      */
@@ -136,8 +137,16 @@ class ImageController extends Controller
         return $response;
     }
 
-
-
+    /**
+     * @Route("/get-image/{type}", name="get_image", options={"expose"=true})
+     */
+    public function getImageAction($type){
+        $request = $this->getRequest();
+        $session = $request->getSession();
+        $order = $session->get('order');
+        $image = $order[$type.'FilePath'];
+        return new Response(readfile($image), 200, array('Content-Type' => 'image/png'));
+    }
 
 
     public function imageToArray($path){
@@ -146,5 +155,6 @@ class ImageController extends Controller
         $base64 = 'data:image/' . $type . ';base64,' . base64_encode($data);
         return array('data' => array('img' => $base64));
     }
+
 
 }

@@ -33,7 +33,7 @@
                 <tr>
                     <td class="label">E-mail<span class="required">*</span>:</td>
                     <td class="value">
-                        <input name="email" id="email" type="text" placeholder="Укажите вашу почту" required>
+                        <input name="email" id="email" type="text" placeholder="Укажите вашу почту" required value="{{ order.email is defined ? order.email : '' }}">
                     </td>
                     <td class="emailStatus" rowspan="2" style="padding-left: 10px; font-size: 12px">
                     </td>
@@ -41,18 +41,20 @@
                 <tr>
                     <td class="label">Телефон<span class="required">*</span>:</td>
                     <td class="value">
-                        <input name="phone" id="phone" type="text" placeholder="Укажите ваш телефон">
+                        <input name="phone" id="phone" type="text" placeholder="Укажите ваш телефон" required="" value="{{ order.phone is defined ? order.phone : '' }}">
                     </td>
                 </tr>
                 <tr>
                     <td class="label">Гражданство<span class="required">*</span>:</td>
                     <td class="value">
-                        <select name="rezident" id="rezident">
-                            <option value="1">Российская федерация</option>
-                            <option value="2">Иностранное гражданство</option>
+                        <select id="rezident" class="rezident">
+                            <option value="1" {{ order.citizenship is defined and  order.citizenship == 1  ? 'selected="selected"' : '' }} >Российская федерация</option>
+                            <option value="2" {{ order.citizenship is defined and  order.citizenship == 2  ? 'selected="selected"' : '' }} >Иностранное гражданство</option>
                         </select>
                     </td>
-                    <td ></td>
+                    <td >
+                        <input type="hidden" name="rezident" id="rezident-hidden" value="1">
+                    </td>
                 </tr>
             </form>
             <tr><td colspan="2">
@@ -79,10 +81,12 @@
     <script>
         $(document).ready(function(){
 
-            $('input:text').styler();
+            $('input:text, select').styler();
             $("#phone").mask("+7 (999) 999-9999");
 
             $('#submit').click(function(){
+
+                $('#rezident-hidden').val($('#rezident').val());
                 errorI = 1 ;
                 error = '';
                 if ( $('#email').val() == ''){

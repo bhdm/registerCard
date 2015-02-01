@@ -56,10 +56,11 @@ class ApplicationController extends Controller
             $order['passportNumber'] = $request->request->get('passportNumber');
             $order['passportPlace'] = $request->request->get('passportPlace');
             $order['passportDate'] = $request->request->get('passportDate');
+            $order['passportCode'] = $request->request->get('passportCode');
 
-            $order['passportFilePath'] = $session->get('file');
+            $order['passportFilePath'] = $session->get('passportFile');
 
-            $session->set('file', null);
+            $session->set('passportFile', null);
             $session->set('order',$order);
 
             return $this->redirect($this->generateUrl('application-skzi-step3'));

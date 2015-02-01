@@ -33,7 +33,7 @@
                 <tr>
                     <td class="label">Фамилия<span class="required">*</span>:</td>
                     <td class="value">
-                        <input name="lastName" id="lastName" type="text" placeholder="Фамилия" required>
+                        <input name="lastName" id="lastName" type="text" placeholder="Фамилия" required  value="{{ order.lastName is defined ? order.lastName : '' }}">
                     </td>
                     <td rowspan="8" style="width: 400px; vertical-align: top; padding-left: 10px">
                         {# Тут сама фото #}
@@ -43,7 +43,7 @@
                             <br />
                             <br />
                             <div class="fileDoc">
-                                <img src="" brightness="0">
+                                <img src="{{ path('get_image', {'type' : 'passport'}) }}" brightness="0">
                             </div>
                             <div class="navigateFile">
                                 {#<img src="{{ asset('bundles/crmmain/icons/contrast-1.png') }}" data-contrast="minus" class="contrast" title="Контрастность -">#}
@@ -71,44 +71,44 @@
                 <tr>
                     <td class="label">Имя<span class="required">*</span>:</td>
                     <td class="value">
-                        <input name="firstName" id="firstName" type="text" placeholder="Имя">
+                        <input name="firstName" id="firstName" type="text" placeholder="Имя" value="{{ order.firstName is defined ? order.firstName : '' }}">
                     </td>
                 </tr>
                 <tr>
                     <td class="label">Отчество:</td>
                     <td class="value">
-                        <input name="surName" id="surName" type="text" placeholder="Отчество">
+                        <input name="surName" id="surName" type="text" placeholder="Отчество" value="{{ order.surName is defined ? order.surName : '' }}">
                     </td>
                 </tr>
                 <tr>
                     <td class="label">Дата рождения<span class="required">*</span>:</td>
                     <td class="value">
-                        <input name="birthDate" id="birthDate" type="text" placeholder="Дата рождения" class="date">
+                        <input name="birthDate" id="birthDate" type="text" placeholder="Дата рождения" class="date" value="{{ order.birthDate is defined ? order.birthDate : '' }}">
                     </td>
                 </tr>
                 <tr>
                     <td class="label">Серия и номер пасспорта<span class="required">*</span>:</td>
                     <td class="value">
-                        <input name="passportSerial" id="passportSerial" type="text" placeholder="Серия" class="number">
-                        <input name="passportNumber" id="passportNumber" type="text" placeholder="Номер">
+                        <input name="passportSerial" id="passportSerial" type="text" placeholder="Серия" class="number" value="{{ order.passportSerial is defined ? order.passportSerial : '' }}">
+                        <input name="passportNumber" id="passportNumber" type="text" placeholder="Номер" value="{{ order.passportNumber is defined ? order.passportNumber : '' }}">
                     </td>
                 </tr>
                 <tr>
                     <td class="label">Кем выдан<span class="required">*</span>:</td>
                     <td class="value">
-                        <input name="passportPlace" id="passportPlace" type="text" placeholder="Кем выдан">
+                        <input name="passportPlace" id="passportPlace" type="text" placeholder="Кем выдан" value="{{ order.passportPlace is defined ? order.passportPlace : '' }}">
                     </td>
                 </tr>
                 <tr>
                     <td class="label">Дата выдачи<span class="required">*</span>:</td>
                     <td class="value">
-                        <input name="passportDate" id="passportDate" type="text" placeholder="Дата выдачи" class="date">
+                        <input name="passportDate" id="passportDate" type="text" placeholder="Дата выдачи" class="date" value="{{ order.passportDate is defined ? order.passportDate : '' }}">
                     </td>
                 </tr>
                 <tr>
                     <td class="label">Код подразделения:</td>
                     <td class="value">
-                        <input name="passportCode" id="passportCode" type="text" placeholder="Код подразделения" class="code">
+                        <input name="passportCode" id="passportCode" type="text" placeholder="Код подразделения" class="code" value="{{ order.passportCode is defined ? order.passportCode : '' }}">
                     </td>
                 </tr>
 
@@ -189,7 +189,7 @@
                 }
                 if ( $('#passportFile').val() == ''){
                     error += errorI+'. Загрузите пожалуйста скан паспорта<br />';
-                    $('#passportDate').css('borderColor', '#cc3333');
+                    $('#passportFile').css('borderColor', '#cc3333');
                     errorI++;
                 }
 
