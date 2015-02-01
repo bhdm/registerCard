@@ -24,7 +24,7 @@
     </div>
     <div class="box">
         <table>
-            <form method="POST" action="{{ path('application-skzi-step3') }}" id="main-form" enctype="multipart/form-data">
+            <form method="POST" action="{{ path('application-skzi-step5') }}" id="main-form" enctype="multipart/form-data">
                 <tr>
                     <td colspan="3">
                         <div class="error-msg"></div>
@@ -37,14 +37,14 @@
                     </td>
                     <td>
                         <div class="file-container">
-                            <input type="file" name="photo" id="photo" class="fileAjax">
+                            <input type="file" name="photoFile" id="photoFile" class="fileAjax">
                             <input type="hidden" name="x1">
                             <input type="hidden" name="y1">
                             <input type="hidden" name="x2">
                             <input type="hidden" name="y2">
                             <progress class="progress" value="0" max="100" style="width: 270px"></progress>
                             <div class="fileDoc">
-                                <img src="">
+                                <img src="{{ path('get_image', {'type' : 'photo'}) }}" brightness="0">
                             </div>
                             <div class="navigateFile">
                                 <img src="{{ asset('bundles/crmmain/icons/contrast-1.png') }}" data-contrast="minus" class="contrast">
@@ -66,14 +66,14 @@
                     </td>
                     <td>
                         <div class="file-container">
-                            <input type="file" name="sign" id="sign" class="fileAjax">
+                            <input type="file" name="signFile" id="signFile" class="fileAjax">
                             <input type="hidden" name="x1">
                             <input type="hidden" name="y1">
                             <input type="hidden" name="x2">
                             <input type="hidden" name="y2">
                             <progress class="progress" value="0" max="100" style="width: 270px"></progress>
                             <div class="fileDoc">
-                                <img src="">
+                                <img src="{{ path('get_image', {'type' : 'sign'}) }}" brightness="0">
                             </div>
                             <div class="navigateFile">
                                 <img src="{{ asset('bundles/crmmain/icons/contrast-1.png') }}" data-contrast="minus" class="contrast" title="Контрастность -">
@@ -92,18 +92,18 @@
                     <tr>
                         <td class="label" title="Страховой номер лицевого счета">СНИЛС<span class="required">*</span>:</td>
                         <td style="width: 400px; padding-left: 10px">
-                            <input name="snils" id="snils" type="text" placeholder="Номер снилс" class="snils">
+                            <input name="snils" id="snils" type="text" placeholder="Номер снилс" class="snils"  value="{{ order.snils is defined ? order.snils : '' }}">
                         </td>
                         <td>
                             <div class="file-container">
-                                <input type="file" name="snils" id="snils" class="fileAjax">
+                                <input type="file" name="snilsFile" id="snilsFile" class="fileAjax">
                                 <input type="hidden" name="x1">
                                 <input type="hidden" name="y1">
                                 <input type="hidden" name="x2">
                                 <input type="hidden" name="y2">
                                 <progress class="progress" value="0" max="100" style="width: 270px"></progress>
                                 <div class="fileDoc">
-                                    <img src="">
+                                    <img src="{{ path('get_image', {'type' : 'snils'}) }}" brightness="0">
                                 </div>
                                 <div class="navigateFile">
                                     <img src="{{ asset('bundles/crmmain/icons/contrast-1.png') }}" data-contrast="minus" class="contrast" title="Контрастность -">

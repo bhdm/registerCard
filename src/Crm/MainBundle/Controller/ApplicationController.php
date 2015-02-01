@@ -65,6 +65,7 @@ class ApplicationController extends Controller
 
             return $this->redirect($this->generateUrl('application-skzi-step3'));
         }
+        $session->set('passportFile',$order['passportFilePath']);
         return array('order' => $order);
     }
 
@@ -78,15 +79,17 @@ class ApplicationController extends Controller
         $order = $session->get('order');
         if ($request->getMethod() == 'POST'){
             $order['driverPlace'] = $request->request->get('driverPlace');
+            $order['driverNumber'] = $request->request->get('driverNumber');
             $order['birthDate'] = $request->request->get('birthDate');
             $order['driverStarts'] = $request->request->get('driverStarts');
             $order['driverEnds'] = $request->request->get('driverEnds');
-            $order['driverFilePath'] = $session->get('file');
+            $order['driverFilePath'] = $session->get('driverFile');
             $session->set('file', null);
             $session->set('order',$order);
 
             return $this->redirect($this->generateUrl('application-skzi-step4'));
         }
+        $session->set('driverFile',$order['driverFilePath']);
         return array('order' => $order);
     }
 
@@ -99,6 +102,23 @@ class ApplicationController extends Controller
         $session = $request->getSession();
         $order = $session->get('order');
         if ($request->getMethod() == 'POST'){
+            if ($request->request->get('tehnolog') == 'on'){
+                $order['myPetition']=true;
+            }else{
+                $order['myPetition']=false;
+                $order['p_region'] = $request->request->get('region');
+                $order['p_city'] = $request->request->get('city');
+                $order['p_typeStreet'] = $request->request->get('typeStreet');
+                $order['p_street'] = $request->request->get('street');
+                $order['p_house'] = $request->request->get('house');
+                $order['p_corp'] = $request->request->get('corp');
+                $order['p_structure'] = $request->request->get('structure');
+                $order['p_typeRoom'] = $request->request->get('typeRoom');
+                $order['p_room'] = $request->request->get('room');
+                $order['p_zipcode'] = $request->request->get('zipcode');
+
+                $order['petitionFilePath'] = $session->get('petitionFile');
+            }
 
 //            $order['driverFilePath'] = $session->get('file');
 
@@ -121,9 +141,10 @@ class ApplicationController extends Controller
 
         if ($request->getMethod() == 'POST'){
 
-//            $order['driverFilePath'] = $session->get('file');
-
-            $session->set('file', null);
+            $order['photoFilePath'] = $session->get('photoFile');
+            $order['signFilePath'] = $session->get('signFile');
+            $order['snilsFilePath'] = $session->get('snilsFile');
+            $order['snils'] = $request->request->get('snils');
             $session->set('order',$order);
 
             return $this->redirect($this->generateUrl('application-skzi-step6'));
@@ -142,14 +163,34 @@ class ApplicationController extends Controller
         $session = $request->getSession();
         $order = $session->get('order');
         if ($request->getMethod() == 'POST'){
-//            $order['driverFilePath'] = $session->get('file');
+            $order['d_region'] = $request->request->get('region');
+            $order['d_city'] = $request->request->get('city');
+            $order['d_typeStreet'] = $request->request->get('typeStreet');
+            $order['d_street'] = $request->request->get('street');
+            $order['d_house'] = $request->request->get('house');
+            $order['d_corp'] = $request->request->get('corp');
+            $order['d_structure'] = $request->request->get('structure');
+            $order['d_typeRoom'] = $request->request->get('typeRoom');
+            $order['d_room'] = $request->request->get('room');
+            $order['d_zipcode'] = $request->request->get('zipcode');
+            $order['success'] = true;
 
-//            $session->set('file', null);
-//            $session->set('order',$order);
+            $order['oldNumber'] = $request->request->get('oldNumber');
+            $order['typeCard'] = $request->request->get('typeCard');
 
-            return $this->redirect($this->generateUrl('application-skzi-step7'));
+            $session->set('order',$order);
+            return $this->redirect($this->generateUrl('application-skzi-success'));
         }
         return array('regions' => $regions,'order' => $order);
     }
 
+    /**
+     * @Route("/application/skzi/success", name="application-skzi-success", options={"expose"=true})
+     * @Template()
+     */
+    public function successAction(Request $request){
+
+
+        return array('user' => $user);
+    }
 }

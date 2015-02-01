@@ -33,17 +33,17 @@
                 <tr>
                     <td class="label">Кем выдано<span class="required">*</span>:</td>
                     <td class="value">
-                        <input name="driverPlace" id="driverPlace" type="text" placeholder="Кем выдано" required>
+                        <input name="driverPlace" id="driverPlace" type="text" placeholder="Кем выдано" required  value="{{ order.driverPlace is defined ? order.driverPlace : '' }}">
                     </td>
                     <td rowspan="7" style="width: 400px; vertical-align: top; padding-left: 10px">
                         {# Тут сама фото #}
                         <div class="file-container">
-                            <input type="file" name="passportFile" id="passportFile" class="fileAjax">
+                            <input type="file" name="driverFile" id="driverFile" class="fileAjax">
                             <progress class="progress" value="0" max="100" style="width: 270px"></progress>
                             <br />
                             <br />
                             <div class="fileDoc">
-                                <img src="">
+                                <img src="{{ path('get_image', {'type' : 'driver'}) }}" brightness="0">
                             </div>
                             <div class="navigateFile">
                                 <img src="{{ asset('bundles/crmmain/icons/contrast-1.png') }}" data-contrast="minus" class="contrast" title="Контрастность -">
@@ -64,19 +64,19 @@
                 <tr>
                     <td class="label">Номер удостоверения<span class="required">*</span>:</td>
                     <td class="value">
-                        <input name="driverNumber" id="driverNumber" type="text" placeholder="Номер удостоверения">
+                        <input name="driverNumber" id="driverNumber" type="text" placeholder="Номер удостоверения" value="{{ order.driverNumber is defined ? order.driverNumber : '' }}">
                     </td>
                 </tr>
                 <tr>
                     <td class="label">Дата выдачи<span class="required">*</span>:</td>
                     <td class="value">
-                        <input name="driverStarts" id="driverStarts" type="text" placeholder="Дата выдачи" class="date">
+                        <input name="driverStarts" id="driverStarts" type="text" placeholder="Дата выдачи" class="date" value="{{ order.driverStarts is defined ? order.driverStarts : '' }}">
                     </td>
                 </tr>
                 <tr>
                     <td class="label">Дата окончания<span class="required">*</span>:</td>
                     <td class="value">
-                        <input name="driverEnds" id="driverEnds" type="text" placeholder="Дата окончания" class="date">
+                        <input name="driverEnds" id="driverEnds" type="text" placeholder="Дата окончания" class="date" value="{{ order.driverEnds is defined ? order.driverEnds : '' }}">
                     </td>
                 </tr>
                 <tr>

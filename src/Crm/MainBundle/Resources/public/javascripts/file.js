@@ -20,7 +20,7 @@ function getImage(data,container){
                 container.children('input[name="y2"]').val(selection.y2);
             }
         });
-        console.log(w=imgAreaSelect);
+        //console.log(w=imgAreaSelect);
     }
 }
 
