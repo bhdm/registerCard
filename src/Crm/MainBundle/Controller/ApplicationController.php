@@ -109,8 +109,9 @@ class ApplicationController extends Controller
         if ($request->getMethod() == 'POST'){
             if ($request->request->get('tehnolog') == 'on'){
                 $order['myPetition']=true;
+
+            }else{
                 $order['petitionFilePath'] = $session->get('petitionFile');
-            }
                 $order['myPetition']    =false;
                 $order['p_title']      = $request->request->get('title');
                 $order['p_region']      = $request->request->get('region');
@@ -123,6 +124,7 @@ class ApplicationController extends Controller
                 $order['p_typeRoom']    = $request->request->get('typeRoom');
                 $order['p_room']        = $request->request->get('room');
                 $order['p_zipcode']     = $request->request->get('zipcode');
+            }
 
 //            $order['driverFilePath'] = $session->get('file');
 
@@ -271,9 +273,10 @@ class ApplicationController extends Controller
             $em->persist($company);
             $em->flush($company);
             $em->refresh($company);
-            $user->setCompany($company);
+        }else{
+            $company = null;
         }
-
+        $user->setCompany($company);
         $user->setProduction(2);
         $user->setStatuslog(null);
 
