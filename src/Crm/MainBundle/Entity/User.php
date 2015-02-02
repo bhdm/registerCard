@@ -146,8 +146,11 @@ class User extends BaseEntity implements UserInterface, EquatableInterface, \Ser
      */
     protected $dileveryRoom;
 
-
-
+    /**
+     * @Assert\Length( max = "10", maxMessage = "Максимум  10 символов")
+     * @ORM\Column(type="string", length=10, nullable=true)
+     */
+    protected $dileveryStructure;
 
     /**
      * @Assert\NotBlank( message = "Поле почтоый индекс обязательно для заполнения" )
@@ -390,6 +393,7 @@ class User extends BaseEntity implements UserInterface, EquatableInterface, \Ser
      * @ORM\Column(type="integer")
      */
     protected $ru = 0;
+
 
     public function getXmlId(){
         return str_pad($this->id, 8, "0", STR_PAD_LEFT);
@@ -1537,6 +1541,22 @@ class User extends BaseEntity implements UserInterface, EquatableInterface, \Ser
     public function setDileveryArea($dileveryArea)
     {
         $this->dileveryArea = $dileveryArea;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getDileveryStructure()
+    {
+        return $this->dileveryStructure;
+    }
+
+    /**
+     * @param mixed $dileveryStructure
+     */
+    public function setDileveryStructure($dileveryStructure)
+    {
+        $this->dileveryStructure = $dileveryStructure;
     }
 
 

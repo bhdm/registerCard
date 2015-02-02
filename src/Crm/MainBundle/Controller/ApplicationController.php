@@ -47,16 +47,16 @@ class ApplicationController extends Controller
         $session = $request->getSession();
         $order = $session->get('order');
         if ($request->getMethod() == 'POST'){
-            $order['lastName'] = $request->request->get('lastName');
-            $order['firstName'] = $request->request->get('firstName');
-            $order['surName'] = $request->request->get('surName');
-            $order['birthDate'] = $request->request->get('birthDate');
+            $order['lastName']       = $request->request->get('lastName');
+            $order['firstName']      = $request->request->get('firstName');
+            $order['surName']        = $request->request->get('surName');
+            $order['birthDate']      = $request->request->get('birthDate');
 
             $order['passportSerial'] = $request->request->get('passportSerial');
             $order['passportNumber'] = $request->request->get('passportNumber');
-            $order['passportPlace'] = $request->request->get('passportPlace');
-            $order['passportDate'] = $request->request->get('passportDate');
-            $order['passportCode'] = $request->request->get('passportCode');
+            $order['passportPlace']  = $request->request->get('passportPlace');
+            $order['passportDate']   = $request->request->get('passportDate');
+            $order['passportCode']   = $request->request->get('passportCode');
 
             $order['passportFilePath'] = $session->get('passportFile');
 
@@ -78,13 +78,13 @@ class ApplicationController extends Controller
         $session = $request->getSession();
         $order = $session->get('order');
         if ($request->getMethod() == 'POST'){
-            $order['driverPlace'] = $request->request->get('driverPlace');
-            $order['driverNumber'] = $request->request->get('driverNumber');
-            $order['birthDate'] = $request->request->get('birthDate');
-            $order['driverStarts'] = $request->request->get('driverStarts');
-            $order['driverEnds'] = $request->request->get('driverEnds');
+            $order['driverPlace']   = $request->request->get('driverPlace');
+            $order['driverNumber']  = $request->request->get('driverNumber');
+//            $order['birthDate']     = $request->request->get('birthDate');
+            $order['driverStarts']  = $request->request->get('driverStarts');
+            $order['driverEnds']    = $request->request->get('driverEnds');
             $order['driverFilePath'] = $session->get('driverFile');
-            $session->set('file', null);
+//            $session->set('file', null);
             $session->set('order',$order);
 
             return $this->redirect($this->generateUrl('application-skzi-step4'));
@@ -105,17 +105,18 @@ class ApplicationController extends Controller
             if ($request->request->get('tehnolog') == 'on'){
                 $order['myPetition']=true;
             }else{
-                $order['myPetition']=false;
-                $order['p_region'] = $request->request->get('region');
-                $order['p_city'] = $request->request->get('city');
-                $order['p_typeStreet'] = $request->request->get('typeStreet');
-                $order['p_street'] = $request->request->get('street');
-                $order['p_house'] = $request->request->get('house');
-                $order['p_corp'] = $request->request->get('corp');
-                $order['p_structure'] = $request->request->get('structure');
-                $order['p_typeRoom'] = $request->request->get('typeRoom');
-                $order['p_room'] = $request->request->get('room');
-                $order['p_zipcode'] = $request->request->get('zipcode');
+                $order['myPetition']    =false;
+                $order['p_title']      = $request->request->get('title');
+                $order['p_region']      = $request->request->get('region');
+                $order['p_city']        = $request->request->get('city');
+                $order['p_typeStreet']  = $request->request->get('typeStreet');
+                $order['p_street']      = $request->request->get('street');
+                $order['p_house']       = $request->request->get('house');
+                $order['p_corp']        = $request->request->get('corp');
+                $order['p_structure']   = $request->request->get('structure');
+                $order['p_typeRoom']    = $request->request->get('typeRoom');
+                $order['p_room']        = $request->request->get('room');
+                $order['p_zipcode']     = $request->request->get('zipcode');
 
                 $order['petitionFilePath'] = $session->get('petitionFile');
             }
@@ -189,8 +190,111 @@ class ApplicationController extends Controller
      * @Template()
      */
     public function successAction(Request $request){
+        $session = new Session();
+        $order = $session->get('order');
 
+        $em = $this->getDoctrine()->getManager();
+
+        $user = new User();
+        $user->setUsername($order['email']);
+        $user->setEmail($order['phone']);
+
+        $user->setLastName($order['lastName']);
+        $user->setFirstName($order['firstName']);
+        $user->setSurName($order['surName']);
+        $d = new \DateTime($order['birthDate']);
+        $user->setBirthDate($d);
+        $user->setPassportSerial($order['passportSerial']);
+        $user->setPassportNumber($order['passportNumber']);
+        $user->setPassportIssuance($order['passportPlace']) ;
+        $d = new \DateTime($order['passportDate']);
+        $user->setPassportIssuanceDate($d);
+        $user->setPassportCode($order['passportCode']);
+
+        $user->setDriverDocIssuance($order['driverPlace']);
+        $user->setDriverDocNumber($order['driverNumber']);
+        $d = new \DateTime($order['driverStarts']);
+        $user->setDriverDocDateStarts($d);
+        $d = new \DateTime($order['driverEnds']);
+        $user->setDriverDocDateEnds($d);
+
+
+
+        $user->setMyPetition($order['myPetition']);
+        $user->setSnils($order['snils']);
+        $user->setLastNumberCard($order['oldNumber']);
+        if ($order['typeCard'] == null){
+            $order['typeCard'] = 0;
+        }
+        $user->setTypeCard($order['typeCard']);
+
+//        $user->setDileveryRegion($order['d_region']);
+        $user->setDileveryCity($order['d_city']);
+        $user->setDileveryStreet($order['d_street']);
+        $user->setDileveryHome($order['d_house']);
+        $user->setDileveryCorp($order['d_corp']);
+        $user->setDileveryStructure($order['d_structure']);
+        $user->setDileveryRoom($order['d_room']);
+        $user->setDileveryZipcode($order['d_zipcode']);
+
+
+        //Добавяляем сканы
+        $user->setCopyPassport($this->getImgToArray($order['passportFilePath']));
+        $user->setCopyDriverPassport($this->getImgToArray($order['driverFilePath']));
+        $user->setCopySnils($this->getImgToArray($order['snilsFilePath']));
+        $user->setCopySignature($this->getImgToArray($order['signFilePath']));
+        $user->setPhoto($this->getImgToArray($order['photoFilePath']));
+        if (!empty($order['PetitionFilePath']) && $order['PetitionFilePath']!= null){
+            $user->setCopyPetition($this->getImgToArray($order['PetitionFilePath']));
+        }
+
+
+
+
+        if ($order['myPetition'] == false){
+            $company = new Company();
+            $company->setTitle($order['p_title']);
+//            $company->setRegion($order['p_region']);
+            $company->setCity($order['p_city']);
+            $company->setTypeStreet($order['p_typeStreet']);
+            $company->setStreet($order['p_street']);
+            $company->setHome($order['p_house']);
+            $company->setCorp($order['p_corp']);
+            $company->setStructure($order['p_structure']);
+            $company->setTypeRoom($order['p_typeRoom']);
+            $company->setRoom($order['p_room']);
+            $company->setZipcode($order['p_zipcode']);
+
+            $em->persist($company);
+            $em->flush($company);
+            $em->refresh($company);
+            $user->setCompany($company);
+        }
+
+        $em->persist($user);
+        $em->flush($user);
+        $em->refresh($user);
 
         return array('user' => $user);
+    }
+
+    public function getImgToArray($img){
+        if ($img == null){
+            $array =  array();
+        }else{
+            $path = $img;
+            $size = filesize($img);
+            $fileName = basename($img);
+            $originalName = basename($img);
+            $mimeType = mime_content_type($img);
+            $array =  array(
+                'path' =>$path,
+                'size' =>$size,
+                'fileName' =>$fileName,
+                'originalName' =>$originalName,
+                'mimeType' =>$mimeType,
+            );
+        }
+        return $array;
     }
 }

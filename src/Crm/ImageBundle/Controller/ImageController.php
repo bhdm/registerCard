@@ -39,6 +39,15 @@ class ImageController extends Controller
                 move_uploaded_file($oldPath,$path);
 
                 $session->set($type,$path);
+
+                if ($type == 'photoFile'){
+                    $this->toBlackandwhite($path);
+                }
+                if ($type == 'signFile'){
+                    $this->toBitmap($path);
+                }
+
+
                 $data = $this->imageToArray($path);
                 $response = new JsonResponse($data);
                 return $response;
@@ -156,5 +165,65 @@ class ImageController extends Controller
         return array('data' => array('img' => $base64));
     }
 
+    public function toBlackandwhite($path){
+        $image = imagecreatefromjpeg($path);
+        imagefilter($image,IMG_FILTER_GRAYSCALE);
+        imagejpeg($image, $path);
+        return true;
+    }
 
+    public function toBitmap($path){
+        $im = imagecreatefromjpeg($path);
+        for ($x = imagesx($im); $x--;) {
+            for ($y = imagesy($im); $y--;) {
+                $rgb = imagecolorat($im, $x, $y);
+                $r = ($rgb >> 16) & 0xFF;
+                $g = ($rgb >> 8 ) & 0xFF;
+                $b = $rgb & 0xFF;
+                $gray = ($r + $g + $b) / 3;
+                if ($gray < 0xD0) {
+
+                    imagesetpixel($im, $x, $y, 0xFFFFFF);
+                }else
+                    imagesetpixel($im, $x, $y, 0x000000);
+            }
+        }
+        imagefilter($im, IMG_FILTER_NEGATE);
+        imagejpeg($im, $path);
+        return true;
+    }
+
+    public function cropSign_591_117($path){
+
+        $image = imagecreatefromjpeg($path);
+        $crop = imagecreatetruecolor(591,118);
+        $white = imagecolorallocate($crop, 255, 255, 255);
+        imagefill($crop, 0, 0, $white);
+
+        $ph = imagesy($image) / 118;
+        $width = imagesx($image) /$ph;
+        $margin = (591-$width)/2;
+        $height = 118;
+        imagecopyresized( $crop, $image, $margin, 0,0, 0, $width, $height, imagesx($image), imagesy($image) );
+
+        imagejpeg($crop, $path);
+        return true;
+    }
+
+    public function cropSign_285_145($path){
+
+        $image = imagecreatefromjpeg($path);
+        $crop = imagecreatetruecolor(285,145);
+        $white = imagecolorallocate($crop, 255, 255, 255);
+        imagefill($crop, 0, 0, $white);
+
+        $ph = imagesy($image) / 145;
+        $width = imagesx($image) /$ph;
+        $margin = (285-$width)/2;
+        $height = 145;
+        imagecopyresized( $crop, $image, $margin, 0,0, 0, $width, $height, imagesx($image), imagesy($image) );
+
+        imagejpeg($crop, $path);
+        return true;
+    }
 }

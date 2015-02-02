@@ -33,7 +33,7 @@
                             Воспользоваться ходатайством <br /> НПО "ТЕХНОЛОГ"
                         </span>
                     </td>
-                    <td rowspan="9">
+                    <td rowspan="10">
                         <div class="file-container" id="tehnolog-filebox">
                             <input type="file" name="petitionFile" id="petitionFile" class="fileAjax">
                             <input type="hidden" name="x1">
@@ -61,6 +61,12 @@
                 <tr  class="tehnolog-n">
                     <td colspan="2">
                         <div class="label" style="width: 100%; text-align: center; font-weight: bold">Информация о компании</div>
+                    </td>
+                </tr>
+                <tr class="tehnolog-n">
+                    <td class="label">Название организации<span class="required">*</span>:</td>
+                    <td class="value">
+                        <input type="text" class="style" placeholder="Название организации" name="title" id="title" value="{{ order.p_title is defined ? order.p_title : '' }}">
                     </td>
                 </tr>
                 <tr class="tehnolog-n">
