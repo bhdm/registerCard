@@ -147,6 +147,28 @@ class ImageController extends Controller
     }
 
     /**
+     * @Route("/setting-image/{type}/{contrast}/{brightness}", name="setting_image", options={"expose"=true})
+     * Одновременное изменение яркости и контраста без сохранения
+     */
+    public function settingAction(Request $request, $type, $contrast, $brightness){
+        $session = $request->getSession();
+        $path = $session->get($type);
+        if ($path == null){
+            return array('data' => array('error' => 'Файл не загружен'));
+        }
+        $image = imagecreatefromjpeg($path);
+
+        imagefilter($image,IMG_FILTER_CONTRAST,$contrast);
+        imagefilter($image,IMG_FILTER_BRIGHTNESS,$brightness);
+
+//        imagejpeg($image, $path);
+
+        $data = $this->imageToArray($path);
+        $response = new JsonResponse($data);
+        return $response;
+    }
+
+    /**
      * @Route("/get-image/{type}", name="get_image", options={"expose"=true})
      */
     public function getImageAction($type){
@@ -159,10 +181,20 @@ class ImageController extends Controller
 
 
     public function imageToArray($path){
-        $type = pathinfo($path, PATHINFO_EXTENSION);
-        $data = file_get_contents($path);
-        $base64 = 'data:image/' . $type . ';base64,' . base64_encode($data);
-        return array('data' => array('img' => $base64));
+        if (is_resource($path)){
+            $image = $path;
+            ob_start(); //Start output buffer.
+            imagejpeg($image); //This will normally output the image, but because of ob_start(), it won't.
+            $contents = ob_get_contents(); //Instead, output above is saved to $contents
+            ob_end_clean(); //End the output buffer.
+            $dataUri = "data:image/jpeg;base64," . base64encode($contents);
+            return array('data' => array('img' => $dataUri));
+        }else{
+            $type = pathinfo($path, PATHINFO_EXTENSION);
+            $data = file_get_contents($path);
+            $base64 = 'data:image/' . $type . ';base64,' . base64_encode($data);
+            return array('data' => array('img' => $base64));
+        }
     }
 
     public function toBlackandwhite($path){
