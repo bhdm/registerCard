@@ -283,7 +283,7 @@ class ApplicationController extends Controller
         $em->flush($user);
         $em->refresh($user);
 
-//        $session->set('order',null);
+        $session->set('order',null);
 
 
 

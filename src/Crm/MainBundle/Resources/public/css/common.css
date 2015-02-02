@@ -408,7 +408,7 @@ input.little{
 
 
 .navigateFile{
-    text-align: center;
+    text-align: left;
     display: none;
 }
 .navigateFile img {
