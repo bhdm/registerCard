@@ -44,7 +44,11 @@
                             <input type="hidden" name="y2">
                             <progress class="progress" value="0" max="100" style="width: 270px"></progress>
                             <div class="fileDoc">
-                                <img src="{{ path('get_image', {'type' : 'photo'}) }}" brightness="0">
+                                {% if order.photoFilePath is defined %}
+                                    <img src="{{ path('get_image', {'type' : 'photo'}) }}" brightness="0">
+                                {% else %}
+                                    <img src="">
+                                {% endif %}
                             </div>
                             <div class="navigateFile">
                                 <img src="{{ asset('bundles/crmmain/icons/contrast-1.png') }}" data-contrast="minus" class="contrast">
@@ -73,7 +77,11 @@
                             <input type="hidden" name="y2">
                             <progress class="progress" value="0" max="100" style="width: 270px"></progress>
                             <div class="fileDoc">
-                                <img src="{{ path('get_image', {'type' : 'sign'}) }}" brightness="0">
+                                {% if order.signFilePath is defined %}
+                                    <img src="{{ path('get_image', {'type' : 'sign'}) }}" brightness="0">
+                                {% else %}
+                                    <img src="">
+                                {% endif %}
                             </div>
                             <div class="navigateFile">
                                 <img src="{{ asset('bundles/crmmain/icons/contrast-1.png') }}" data-contrast="minus" class="contrast" title="Контрастность -">
@@ -103,7 +111,11 @@
                                 <input type="hidden" name="y2">
                                 <progress class="progress" value="0" max="100" style="width: 270px"></progress>
                                 <div class="fileDoc">
-                                    <img src="{{ path('get_image', {'type' : 'snils'}) }}" brightness="0">
+                                    {% if order.snilsFilePath is defined %}
+                                        <img src="{{ path('get_image', {'type' : 'snils'}) }}" brightness="0">
+                                    {% else %}
+                                        <img src="">
+                                    {% endif %}
                                 </div>
                                 <div class="navigateFile">
                                     <img src="{{ asset('bundles/crmmain/icons/contrast-1.png') }}" data-contrast="minus" class="contrast" title="Контрастность -">
@@ -131,7 +143,11 @@
                                 <input type="hidden" name="y2">
                                 <progress class="progress" value="0" max="100" style="width: 270px"></progress>
                                 <div class="fileDoc">
-                                    <img src="">
+                                    {% if order.snilsFilePath is defined %}
+                                        <img src="{{ path('get_image', {'type' : 'snils'}) }}" brightness="0">
+                                    {% else %}
+                                        <img src="">
+                                    {% endif %}
                                 </div>
                                 <div class="navigateFile">
                                     <img src="{{ asset('bundles/crmmain/icons/contrast-1.png') }}" data-contrast="minus" class="contrast" title="Контрастность -">
@@ -158,7 +174,11 @@
                                 <input type="hidden" name="y2">
                                 <progress class="progress" value="0" max="100" style="width: 270px"></progress>
                                 <div class="fileDoc">
-                                    <img src="">
+                                    {% if order.registerFilePath is defined %}
+                                        <img src="{{ path('get_image', {'type' : 'register'}) }}" brightness="0">
+                                    {% else %}
+                                        <img src="">
+                                    {% endif %}
                                 </div>
                                 <div class="navigateFile">
                                     <img src="{{ asset('bundles/crmmain/icons/contrast-1.png') }}" data-contrast="minus" class="contrast" title="Контрастность -">

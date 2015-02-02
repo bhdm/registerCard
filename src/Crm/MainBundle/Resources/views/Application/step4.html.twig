@@ -44,7 +44,11 @@
                             <br />
                             <br />
                             <div class="fileDoc">
-                                <img src="{{ path('get_image', {'type' : 'petition'}) }}" brightness="0">
+                                {% if order.petitionFilePath is defined %}
+                                    <img src="{{ path('get_image', {'type' : 'petition'}) }}" brightness="0">
+                                {% else %}
+                                    <img src="">
+                                {% endif %}
                             </div>
                             <div class="navigateFile">
                                 <img src="{{ asset('bundles/crmmain/icons/contrast-1.png') }}" data-contrast="minus" class="contrast" title="Контрастность -">

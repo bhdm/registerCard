@@ -43,7 +43,11 @@
                             <br />
                             <br />
                             <div class="fileDoc">
-                                <img src="{{ path('get_image', {'type' : 'driver'}) }}" brightness="0">
+                                {% if order.driverFilePath is defined %}
+                                    <img src="{{ path('get_image', {'type' : 'driver'}) }}" brightness="0">
+                                {% else %}
+                                    <img src="">
+                                {% endif %}
                             </div>
                             <div class="navigateFile">
                                 <img src="{{ asset('bundles/crmmain/icons/contrast-1.png') }}" data-contrast="minus" class="contrast" title="Контрастность -">

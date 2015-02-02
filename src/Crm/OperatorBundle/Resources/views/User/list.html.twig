@@ -364,7 +364,7 @@
                         </td>
 
                         <td>{{ user.created | date("d.m.Y") }}</td>
-                        {% if company == null %}
+                        {% if company != null %}
                             <td>
                                 <a href="{{ path('operator_user_list' , { 'companyId' : user.company.id}) }}">{{ user.company }}</a>
                             </td>

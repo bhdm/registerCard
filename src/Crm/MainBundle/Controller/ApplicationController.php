@@ -65,7 +65,9 @@ class ApplicationController extends Controller
 
             return $this->redirect($this->generateUrl('application-skzi-step3'));
         }
-        $session->set('passportFile',$order['passportFilePath']);
+        if (isset($order['passportFilePath'])){
+            $session->set('passportFile',$order['passportFilePath']);
+        }
         return array('order' => $order);
     }
 
@@ -89,7 +91,10 @@ class ApplicationController extends Controller
 
             return $this->redirect($this->generateUrl('application-skzi-step4'));
         }
-        $session->set('driverFile',$order['driverFilePath']);
+
+        if (isset($order['driverFilePath'])){
+            $session->set('driverFile',$order['driverFilePath']);
+        }
         return array('order' => $order);
     }
 
@@ -228,7 +233,7 @@ class ApplicationController extends Controller
         }
         $user->setTypeCard($order['typeCard']);
 
-//        $user->setDileveryRegion($order['d_region']);
+        $user->setDileveryArea($order['d_region']);
         $user->setDileveryCity($order['d_city']);
         $user->setDileveryStreet($order['d_street']);
         $user->setDileveryHome($order['d_house']);
@@ -271,9 +276,16 @@ class ApplicationController extends Controller
             $user->setCompany($company);
         }
 
+        $user->setProduction(2);
+        $user->setStatuslog(null);
+
         $em->persist($user);
         $em->flush($user);
         $em->refresh($user);
+
+//        $session->set('order',null);
+
+
 
         return array('user' => $user);
     }
@@ -283,6 +295,7 @@ class ApplicationController extends Controller
             $array =  array();
         }else{
             $path = $img;
+            $path = str_replace('/var/www/','',$path);
             $size = filesize($img);
             $fileName = basename($img);
             $originalName = basename($img);
