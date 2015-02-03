@@ -242,6 +242,7 @@ class AuthController extends Controller
 
             $html = $this->render('CrmMainBundle:Form:doc.html.twig',array('user' => $user,'mail' => $mail));
             $width = rand(0,200);
+            $html = $html->getContent();
             $html.= '<br /><br /><br />';
             $html.= '<img src="/bundles/crmmain/images/copy.png"  style="margin-left: '.$width.'px"/>';
 
@@ -253,7 +254,7 @@ class AuthController extends Controller
                 'outputFilename' => null, //$filename argument for Output method
                 'outputDest' => null, //$dest argument for Output method
             );
-            $mpdfService->generatePdfResponse($html->getContent(), $arguments);
+            $mpdfService->generatePdfResponse($html, $arguments);
         }else{
             return $this->redirect($this->generateUrl('main'));
         }

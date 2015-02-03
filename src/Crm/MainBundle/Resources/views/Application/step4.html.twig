@@ -62,30 +62,24 @@
                         </div>
                     </td>
                 </tr>
-                <tr  class="tehnolog">
+                <tr  class="tehnolog-n">
                     <td colspan="2">
                         <div class="label" style="width: 100%; text-align: center; font-weight: bold">Информация о компании</div>
                     </td>
                 </tr>
-                <tr class="tehnolog">
-                    <td class="label">Название организации<span class="required">*</span>:</td>
-                    <td class="value">
-                        <input type="text" class="style" placeholder="Название организации" name="title" id="title" value="{{ order.p_title is defined ? order.p_title : '' }}">
-                    </td>
-                </tr>
-                <tr class="tehnolog">
+                <tr class="tehnolog-n">
                     <td class="label">Район<span class="required">*</span>:</td>
                     <td class="value">
                         <input type="text" class="style" placeholder="Район" name="region" id="region" value="{{ order.p_region is defined ? order.p_region : '' }}">
                     </td>
                 </tr>
-                <tr class="tehnolog">
+                <tr class="tehnolog-n">
                     <td class="label">Город<span class="required">*</span>:</td>
                     <td class="value">
                         <input name="city"    id="city"     type="text" placeholder="Город" value="{{ order.p_city is defined ? order.p_city : '' }}"><br />
                     </td>
                 </tr>
-                <tr class="tehnolog">
+                <tr class="tehnolog-n">
                     <td class="label">Улица<span class="required">*</span>:</td>
                     <td class="value">
                         <select name="typeStreet" id="typeStreet">
@@ -106,13 +100,13 @@
                             <option {{ order.p_typeStreet is defined and order.p_typeStreet == '' ? 'selected="selected"' : '' }}  value=""        >Другое</option>
                         </select>
                 </tr>
-                <tr class="tehnolog">
+                <tr class="tehnolog-n">
                     <td class="label"></td>
                     <td class="value">
                         <input name="street"  id="street"   type="text" placeholder="Название улицы" value="{{ order.p_street is defined ? order.p_street : '' }}"><br />
                     </td>
                 </tr>
-                <tr class="tehnolog">
+                <tr class="tehnolog-n">
                     <td class="label">Номер здания<span class="required">*</span>:</td>
                     <td class="value">
                         <input name="house"   id="house"    type="text" placeholder="Дом" class="little" value="{{ order.p_house is defined ? order.p_house : '' }}">
@@ -120,7 +114,7 @@
                         <input name="structure"    id="structure"     type="text" placeholder="Строение"  class="little" value="{{ order.p_structure is defined ? order.p_structure : '' }}"><br />
                     </td>
                 </tr>
-                <tr class="tehnolog">
+                <tr class="tehnolog-n">
                     <td class="label">Квартира / офис:</td>
                     <td class="value">
                         <select name="typeRoom" id="typeRoom">
@@ -130,7 +124,7 @@
                         <input name="room"    id="room"  type="text" placeholder="Номер"  class="little"  value="{{ order.p_room is defined ? order.p_room : '' }}">
                     </td>
                 </tr>
-                <tr class="tehnolog">
+                <tr class="tehnolog-n">
                     <td class="label">Индекс<span class="required">*</span>:</td>
                     <td class="value">
                         <input name="zipcode" id="zipcode"  type="text" placeholder="Индекс"  value="{{ order.p_zipcode is defined ? order.p_zipcode : '' }}"><br />
@@ -190,6 +184,7 @@
                 var errorI = 1 ;
                 var error = '';
 
+                if ($('#tehnolog').prop("checked") == false){
                     if ( $('#region').val() == ''){
                         error += errorI+'. Поле Регион обязательно для заполнения<br />';
                         $('#region').css('borderColor', '#cc3333');
@@ -210,6 +205,7 @@
                         $('#zipcode').css('borderColor', '#cc3333');
                         errorI++;
                     }
+                }
                 console.log();
                 if (error === ''){
                     $('#main-form').submit();

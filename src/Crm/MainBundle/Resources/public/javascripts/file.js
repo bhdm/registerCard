@@ -2,6 +2,10 @@ function getImage(data,container){
     if ( data.data.error != undefined ) {
         $('.error-msg').fadeIn();
         $('.error-msg').html(data.data.error);
+        var control = container.children('div').children('input[type=file]');
+        console.log(ttt = control);
+        control.replaceWith( control = control.clone( true ) );
+
     }else{
         $('.error-msg').fadeOut();
         $(".imgareaselect-selection").parent().remove();

@@ -33,6 +33,7 @@ class ApplicationController extends Controller
             $order['email'] = $request->request->get('email');
             $order['phone'] = $request->request->get('phone');
             $order['citizenship'] = $request->request->get('rezident');
+            $order['step1'] = true;
             $session->set('order',$order);
             return $this->redirect($this->generateUrl('application-skzi-step2'));
         }
@@ -46,7 +47,12 @@ class ApplicationController extends Controller
     public function step2Action(Request $request){
         $session = $request->getSession();
         $order = $session->get('order');
+        if ($order['step1'] != true){
+            return $this->redirect($this->generateUrl('application-skzi-step1'));
+        }
+
         if ($request->getMethod() == 'POST'){
+            $order['step2'] = true;
             $order['lastName']       = $request->request->get('lastName');
             $order['firstName']      = $request->request->get('firstName');
             $order['surName']        = $request->request->get('surName');
@@ -79,7 +85,11 @@ class ApplicationController extends Controller
     public function step3Action(Request $request){
         $session = $request->getSession();
         $order = $session->get('order');
+        if ($order['step2'] != true){
+            return $this->redirect($this->generateUrl('application-skzi-step2'));
+        }
         if ($request->getMethod() == 'POST'){
+            $order['step3'] = true;
             $order['driverPlace']   = $request->request->get('driverPlace');
             $order['driverNumber']  = $request->request->get('driverNumber');
 //            $order['birthDate']     = $request->request->get('birthDate');
@@ -106,7 +116,11 @@ class ApplicationController extends Controller
     public function step4Action(Request $request){
         $session = $request->getSession();
         $order = $session->get('order');
+        if ($order['step3'] != true){
+            return $this->redirect($this->generateUrl('application-skzi-step3'));
+        }
         if ($request->getMethod() == 'POST'){
+            $order['step4'] = true;
             if ($request->request->get('tehnolog') == 'on'){
                 $order['myPetition']=true;
 
@@ -144,9 +158,11 @@ class ApplicationController extends Controller
     public function step5Action(Request $request){
         $session = $request->getSession();
         $order = $session->get('order');
-
+        if ($order['step4'] != true){
+            return $this->redirect($this->generateUrl('application-skzi-step4'));
+        }
         if ($request->getMethod() == 'POST'){
-
+            $order['step5'] = true;
             $order['photoFilePath'] = $session->get('photoFile');
             $order['signFilePath'] = $session->get('signFile');
             $order['snilsFilePath'] = $session->get('snilsFile');
@@ -168,7 +184,11 @@ class ApplicationController extends Controller
 
         $session = $request->getSession();
         $order = $session->get('order');
+        if ($order['step5'] != true){
+            return $this->redirect($this->generateUrl('application-skzi-step5'));
+        }
         if ($request->getMethod() == 'POST'){
+            $order['step6'] = true;
             $order['d_region'] = $request->request->get('region');
             $order['d_city'] = $request->request->get('city');
             $order['d_typeStreet'] = $request->request->get('typeStreet');
@@ -197,12 +217,14 @@ class ApplicationController extends Controller
     public function successAction(Request $request){
         $session = new Session();
         $order = $session->get('order');
-
+        if ($order['step6'] != true){
+            return $this->redirect($this->generateUrl('application-skzi-step6'));
+        }
         $em = $this->getDoctrine()->getManager();
 
         $user = new User();
-        $user->setUsername($order['email']);
-        $user->setEmail($order['phone']);
+        $user->setUsername($order['phone']);
+        $user->setEmail($order['email']);
 
         $user->setLastName($order['lastName']);
         $user->setFirstName($order['firstName']);
@@ -274,7 +296,7 @@ class ApplicationController extends Controller
             $em->flush($company);
             $em->refresh($company);
         }else{
-            $company = null;
+            $company = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->find(188);
         }
         $user->setCompany($company);
         $user->setProduction(2);
