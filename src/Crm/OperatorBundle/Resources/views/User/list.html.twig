@@ -288,7 +288,7 @@
         {% endif %}
             <table class="lists">
                     <tr>
-                        <td colspan="9">
+                        <td colspan="10">
                             {% if company != null %}
                                 <button type="submit">Сгенерировать ходатайство на выделенных пользователей</button>
                             {% endif %}
@@ -364,7 +364,7 @@
                         </td>
 
                         <td>{{ user.created | date("d.m.Y") }}</td>
-                        {% if company != null %}
+                        {% if company == null %}
                             <td>
                                 <a href="{{ path('operator_user_list' , { 'companyId' : user.company.id}) }}">{{ user.company }}</a>
                             </td>
