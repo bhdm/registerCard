@@ -296,7 +296,10 @@ class ApplicationController extends Controller
             $em->flush($company);
             $em->refresh($company);
         }else{
-            $company = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->find(188);
+            $company = new Company();
+            $em->persist($company);
+            $em->flush($company);
+            $em->refresh($company);
         }
         $user->setCompany($company);
         $user->setProduction(2);
