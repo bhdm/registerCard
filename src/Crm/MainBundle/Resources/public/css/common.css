@@ -67,10 +67,10 @@ a{
     display: none;
     position: absolute;
     background: #245C91;
-    width: 131px !important;
-    margin-top: 10px;
+    width: 170px !important;
+    margin-top: 15px !important;
     padding: 5px;
-    margin-left: -10px;
+    margin-left: -10px !important;
 }
 
 .submenu li{
