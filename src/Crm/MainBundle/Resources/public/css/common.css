@@ -225,7 +225,7 @@ input[type=text]:focus, input[type=number]:focus, input[type=password]:focus, in
     top: 400px;
     left: 50%;
     margin-left: -200px;
-    position: absolute;
+    position: fixed;
     padding: 10px;
     border: 2px solid #003A68;
     border-radius: 5px;
