@@ -14,16 +14,33 @@ function getImage(data,container){
 
         fileDoc.html('<img src=""  brightness="0" contrast="0" />');
         fileDoc.children('img').attr('src',data.data.img);
-        var imgAreaSelect = fileDoc.children('img').imgAreaSelect({
-            handles: true,
-            x1: 10, y1: 10, x2: 150, y2: 150,
-            onSelectEnd: function (img, selection) {
-                container.children('input[name="x1"]').val(selection.x1);
-                container.children('input[name="y1"]').val(selection.y1);
-                container.children('input[name="x2"]').val(selection.x2);
-                container.children('input[name="y2"]').val(selection.y2);
-            }
-        });
+        var type = container.children('.jq-file').children('input[type=file]').attr('id');
+        if (type == 'photoFile'){
+            var imgAreaSelect = fileDoc.children('img').imgAreaSelect({
+                aspectRatio: '1:1.285',
+                x1: 10, y1: 10, x2: 135, y2: 171,
+                handles: true,
+                onSelectEnd: function (img, selection) {
+                    container.children('input[name="x1"]').val(selection.x1);
+                    container.children('input[name="y1"]').val(selection.y1);
+                    container.children('input[name="x2"]').val(selection.x2);
+                    container.children('input[name="y2"]').val(selection.y2);
+                    $('.imgareaselect-selection').addClass('imgareaselect-selection2');
+                }
+            });
+            $('.imgareaselect-selection').addClass('imgareaselect-selection2');
+        }else{
+            var imgAreaSelect = fileDoc.children('img').imgAreaSelect({
+                handles: true,
+                x1: 10, y1: 10, x2: 150, y2: 150,
+                onSelectEnd: function (img, selection) {
+                    container.children('input[name="x1"]').val(selection.x1);
+                    container.children('input[name="y1"]').val(selection.y1);
+                    container.children('input[name="x2"]').val(selection.x2);
+                    container.children('input[name="y2"]').val(selection.y2);
+                }
+            });
+        }
         //console.log(w=imgAreaSelect);
     }
 }

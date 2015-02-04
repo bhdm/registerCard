@@ -40,12 +40,12 @@ class ImageController extends Controller
 
                 $session->set($type,$path);
 
-                if ($type == 'photoFile'){
-                    $this->toBlackandwhite($path);
-                }
                 if ($type == 'signFile'){
                     $this->toBitmap($path);
+                }else{
+                    $this->toBlackandwhite($path);
                 }
+
 
 
                 $data = $this->imageToArray($path);

@@ -134,11 +134,6 @@
                     $('#driverStarts').css('borderColor', '#cc3333');
                     errorI++;
                 }
-                if ( $('#driverEnds').val() == ''){
-                    error += errorI+'. Поле Дата окончиания обязательно для заполнения<br />';
-                    $('#driverEnds').css('borderColor', '#cc3333');
-                    errorI++;
-                }
 
                 if (error === ''){
                     $('#main-form').submit();

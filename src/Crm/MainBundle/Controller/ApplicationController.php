@@ -85,7 +85,7 @@ class ApplicationController extends Controller
     public function step3Action(Request $request){
         $session = $request->getSession();
         $order = $session->get('order');
-        if ($order['step2'] != true){
+        if (!isset($order['step2']) || $order['step2'] != true){
             return $this->redirect($this->generateUrl('application-skzi-step2'));
         }
         if ($request->getMethod() == 'POST'){
@@ -116,7 +116,7 @@ class ApplicationController extends Controller
     public function step4Action(Request $request){
         $session = $request->getSession();
         $order = $session->get('order');
-        if ($order['step3'] != true){
+        if (!isset($order['step3']) || $order['step3'] != true){
             return $this->redirect($this->generateUrl('application-skzi-step3'));
         }
         if ($request->getMethod() == 'POST'){
@@ -158,7 +158,7 @@ class ApplicationController extends Controller
     public function step5Action(Request $request){
         $session = $request->getSession();
         $order = $session->get('order');
-        if ($order['step4'] != true){
+        if (!isset($order['step4']) || $order['step4'] != true){
             return $this->redirect($this->generateUrl('application-skzi-step4'));
         }
         if ($request->getMethod() == 'POST'){
@@ -184,7 +184,7 @@ class ApplicationController extends Controller
 
         $session = $request->getSession();
         $order = $session->get('order');
-        if ($order['step5'] != true){
+        if (!isset($order['step5']) || $order['step5'] != true){
             return $this->redirect($this->generateUrl('application-skzi-step5'));
         }
         if ($request->getMethod() == 'POST'){
@@ -217,7 +217,7 @@ class ApplicationController extends Controller
     public function successAction(Request $request){
         $session = new Session();
         $order = $session->get('order');
-        if ($order['step6'] != true){
+        if (!isset($order['step6']) || $order['step6'] != true){
             return $this->redirect($this->generateUrl('application-skzi-step6'));
         }
         $em = $this->getDoctrine()->getManager();
