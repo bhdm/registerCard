@@ -120,11 +120,25 @@
                 window.location.href = url+search;
             });
 
-            $('#all').change(function(){
-                if ($("#all").prop("checked") == true){
-                    $("input:checkbox").attr("checked","checked");
+            $('#all1').change(function(){
+                if ($("#all1").prop("checked") == true){
+                    $(".all1-1").attr("checked","checked");
                 }else{
-                    $("input:checkbox").removeAttr("checked");
+                    $(".all1-1").removeAttr("checked");
+                }
+            });
+            $('#all2').change(function(){
+                if ($("#all2").prop("checked") == true){
+                    $(".all2-1").attr("checked","checked");
+                }else{
+                    $(".all2-1").removeAttr("checked");
+                }
+            });
+            $('#all3').change(function(){
+                if ($("#all3").prop("checked") == true){
+                    $(".all3-1").attr("checked","checked");
+                }else{
+                    $(".all3-1").removeAttr("checked");
                 }
             });
 
@@ -297,7 +311,7 @@
                         </td>
                     </tr>
                 <tr>
-                    <th style="width: 30px"><input type="checkbox" id="all"></th>
+                    <th style="width: 30px"><input type="checkbox" id="all1"></th>
                     <th style="padding: 0; text-align: center;"> M </th>
                     <th style="padding: 0; text-align: center;"> № </th>
                     <th>Статус</th>
@@ -313,7 +327,7 @@
                 {% for user in users1 %}
                     <tr>
                         <td>
-                            <input type="checkbox" name="check[{{ user.id }}]">
+                            <input type="checkbox" class="all1-1" name="check[{{ user.id }}]">
                         </td>
                         <td>
                             <input type="text" style="width: 50px" value="{{ user.managerKey }}" class="managers" id="{{ user.id }}">
@@ -431,7 +445,7 @@
     <br /><br />
             <table class="lists">
                 <tr>
-                    <th style="width: 30px"><input type="checkbox" id="all"></th>
+                    <th style="width: 30px"><input type="checkbox" id="all2"></th>
                     <th style="padding: 0; text-align: center;"> M </th>
                     <th style="padding: 0; text-align: center;"> № </th>
                     <th>Статус</th>
@@ -443,7 +457,7 @@
                 {% for user in users2 %}
                     <tr>
                         <td>
-                            <input type="checkbox" name="check[{{ user.id }}]">
+                            <input type="checkbox" name="check[{{ user.id }}]" class="all2-1">
                         </td>
                         <td>
                             <input type="text" style="width: 50px" value="{{ user.managerKey }}" class="managers" id="{{ user.id }}">
@@ -529,7 +543,7 @@
     <br /><br />
     <table class="lists">
                 <tr>
-                    <th style="width: 30px"><input type="checkbox" id="all"></th>
+                    <th style="width: 30px"><input type="checkbox" id="all3"></th>
                     <th style="padding: 0; text-align: center;"> M </th>
                     <th style="padding: 0; text-align: center;"> № </th>
                     <th>Статус</th>
@@ -541,7 +555,7 @@
                 {% for user in users3 %}
                     <tr>
                         <td>
-                            <input type="checkbox" name="check[{{ user.id }}]">
+                            <input type="checkbox" name="check[{{ user.id }}]" class="all3-1">
                         </td>
                         <td>
                             <input type="text" style="width: 50px" value="{{ user.managerKey }}" class="managers" id="{{ user.id }}">
