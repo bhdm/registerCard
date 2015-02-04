@@ -68,6 +68,12 @@
                     </td>
                 </tr>
                 <tr class="tehnolog-n">
+                    <td class="label">Название организации<span class="required">*</span>:</td>
+                    <td class="value">
+                        <input type="text" class="style" placeholder="Название организации" name="title" id="title" value="{{ order.p_title is defined ? order.p_title : '' }}">
+                    </td>
+                </tr>
+                <tr class="tehnolog-n">
                     <td class="label">Район<span class="required">*</span>:</td>
                     <td class="value">
                         <input type="text" class="style" placeholder="Район" name="region" id="region" value="{{ order.p_region is defined ? order.p_region : '' }}">
