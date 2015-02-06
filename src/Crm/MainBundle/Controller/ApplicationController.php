@@ -278,29 +278,24 @@ class ApplicationController extends Controller
 
 
 
-        if ($order['myPetition'] == false){
-            $company = new Company();
-            $company->setTitle($order['p_title']);
+//        if ($order['myPetition'] == false){
+        $company = new Company();
+        $company->setTitle($order['p_title']);
 //            $company->setRegion($order['p_region']);
-            $company->setCity($order['p_city']);
-            $company->setTypeStreet($order['p_typeStreet']);
-            $company->setStreet($order['p_street']);
-            $company->setHome($order['p_house']);
-            $company->setCorp($order['p_corp']);
-            $company->setStructure($order['p_structure']);
-            $company->setTypeRoom($order['p_typeRoom']);
-            $company->setRoom($order['p_room']);
-            $company->setZipcode($order['p_zipcode']);
+        $company->setCity($order['p_city']);
+        $company->setTypeStreet($order['p_typeStreet']);
+        $company->setStreet($order['p_street']);
+        $company->setHome($order['p_house']);
+        $company->setCorp($order['p_corp']);
+        $company->setStructure($order['p_structure']);
+        $company->setTypeRoom($order['p_typeRoom']);
+        $company->setRoom($order['p_room']);
+        $company->setZipcode($order['p_zipcode']);
 
-            $em->persist($company);
-            $em->flush($company);
-            $em->refresh($company);
-        }else{
-            $company = new Company();
-            $em->persist($company);
-            $em->flush($company);
-            $em->refresh($company);
-        }
+        $em->persist($company);
+        $em->flush($company);
+        $em->refresh($company);
+
         $user->setCompany($company);
         $user->setProduction(2);
         $user->setStatuslog(null);
