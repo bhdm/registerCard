@@ -126,19 +126,19 @@ class ApplicationController extends Controller
 
             }else{
                 $order['petitionFilePath'] = $session->get('petitionFile');
-                $order['myPetition']    =false;
-                $order['p_title']      = $request->request->get('title');
-                $order['p_region']      = $request->request->get('region');
-                $order['p_city']        = $request->request->get('city');
-                $order['p_typeStreet']  = $request->request->get('typeStreet');
-                $order['p_street']      = $request->request->get('street');
-                $order['p_house']       = $request->request->get('house');
-                $order['p_corp']        = $request->request->get('corp');
-                $order['p_structure']   = $request->request->get('structure');
-                $order['p_typeRoom']    = $request->request->get('typeRoom');
-                $order['p_room']        = $request->request->get('room');
-                $order['p_zipcode']     = $request->request->get('zipcode');
             }
+            $order['myPetition']    =false;
+            $order['p_title']      = $request->request->get('title');
+            $order['p_region']      = $request->request->get('region');
+            $order['p_city']        = $request->request->get('city');
+            $order['p_typeStreet']  = $request->request->get('typeStreet');
+            $order['p_street']      = $request->request->get('street');
+            $order['p_house']       = $request->request->get('house');
+            $order['p_corp']        = $request->request->get('corp');
+            $order['p_structure']   = $request->request->get('structure');
+            $order['p_typeRoom']    = $request->request->get('typeRoom');
+            $order['p_room']        = $request->request->get('room');
+            $order['p_zipcode']     = $request->request->get('zipcode');
 
 //            $order['driverFilePath'] = $session->get('file');
 
@@ -278,24 +278,29 @@ class ApplicationController extends Controller
 
 
 
-//        if ($order['myPetition'] == false){
-        $company = new Company();
-        $company->setTitle($order['p_title']);
+        if ($order['myPetition'] == false){
+            $company = new Company();
+            $company->setTitle($order['p_title']);
 //            $company->setRegion($order['p_region']);
-        $company->setCity($order['p_city']);
-        $company->setTypeStreet($order['p_typeStreet']);
-        $company->setStreet($order['p_street']);
-        $company->setHome($order['p_house']);
-        $company->setCorp($order['p_corp']);
-        $company->setStructure($order['p_structure']);
-        $company->setTypeRoom($order['p_typeRoom']);
-        $company->setRoom($order['p_room']);
-        $company->setZipcode($order['p_zipcode']);
+            $company->setCity($order['p_city']);
+            $company->setTypeStreet($order['p_typeStreet']);
+            $company->setStreet($order['p_street']);
+            $company->setHome($order['p_house']);
+            $company->setCorp($order['p_corp']);
+            $company->setStructure($order['p_structure']);
+            $company->setTypeRoom($order['p_typeRoom']);
+            $company->setRoom($order['p_room']);
+            $company->setZipcode($order['p_zipcode']);
 
-        $em->persist($company);
-        $em->flush($company);
-        $em->refresh($company);
-
+            $em->persist($company);
+            $em->flush($company);
+            $em->refresh($company);
+        }else{
+            $company = new Company();
+            $em->persist($company);
+            $em->flush($company);
+            $em->refresh($company);
+        }
         $user->setCompany($company);
         $user->setProduction(2);
         $user->setStatuslog(null);
