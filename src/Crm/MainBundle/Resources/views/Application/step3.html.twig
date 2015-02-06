@@ -134,6 +134,12 @@
                     $('#driverStarts').css('borderColor', '#cc3333');
                     errorI++;
                 }
+                if ( $('#driverFile').val() == '' && $('.fileDoc').children('img').attr('src') == ''){
+                    error += errorI+'. Загрузите пожалуйста скан водительского удостоверения<br />';
+                    $('#driverFile').css('borderColor', '#cc3333');
+                    errorI++;
+                }
+
 
                 if (error === ''){
                     $('#main-form').submit();

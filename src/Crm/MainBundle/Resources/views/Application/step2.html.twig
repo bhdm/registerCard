@@ -191,7 +191,7 @@
                     $('#passportDate').css('borderColor', '#cc3333');
                     errorI++;
                 }
-                if ( $('#passportFile').val() == ''){
+                if ( $('#passportFile').val() == '' && $('.fileDoc').children('img').attr('src') == ''){
                     error += errorI+'. Загрузите пожалуйста скан паспорта<br />';
                     $('#passportFile').css('borderColor', '#cc3333');
                     errorI++;

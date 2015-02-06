@@ -250,6 +250,22 @@
                     errorI++;
                 }
 
+                if ( $('#photoFile').val() == '' && $('.fileDoc').children('img').eq(0).attr('src') == ''){
+                    error += errorI+'. Загрузите пожалуйста фотографию<br />';
+                    $('#photoFile').css('borderColor', '#cc3333');
+                    errorI++;
+                }
+                if ( $('#signFile').val() == '' && $('.fileDoc').children('img').eq(1).attr('src') == ''){
+                    error += errorI+'. Загрузите пожалуйста скан подписи<br />';
+                    $('#signFile').css('borderColor', '#cc3333');
+                    errorI++;
+                }
+                if ( $('#snilsFile').val() == '' && $('.fileDoc').children('img').eq(2).attr('src') == ''){
+                    error += errorI+'. Загрузите пожалуйста скан снилса<br />';
+                    $('#snilsFile').css('borderColor', '#cc3333');
+                    errorI++;
+                }
+
                 if (error === ''){
                     $('#main-form').submit();
                 }else{
