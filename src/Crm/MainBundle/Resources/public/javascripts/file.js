@@ -214,10 +214,4 @@ $(document).ready(function(){
     //    });
     //});
 
-
-    $('.step').click(function(){
-        var url = Routing.generate('application-skzi-step'+$(this).html());
-        window.location.href = url;
-    });
-
 });

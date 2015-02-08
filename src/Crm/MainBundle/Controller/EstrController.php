@@ -68,37 +68,56 @@ class EstrController extends Controller
 
     /**
      * @Route("/estr-order", name="estr-order")
+     * @Route("/{url}/estr-order", name="company-estr-order")
      * @Template()
      */
-    public function indexAction(Request $request){
+    public function indexAction(Request $request, $url = null){
         $country = $this->getDoctrine()->getRepository('CrmMainBundle:Country')->findOneById(3159);
         $regions = $this->getDoctrine()->getRepository('CrmMainBundle:Region')->findByCountry($country);
-        return array('regions' => $regions);
+        if ($url!= null){
+            $company = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->findOneByUrl($url);
+        }else{
+            $company = null;
+        }
+        return array('company' => $company, 'regions' => $regions);
     }
 
     /**
      * @Route("/estr-order/2", name="estr-order-2")
+     * @Route("/{url}/estr-order/2", name="company-estr-order-2")
      * @Template()
      */
-    public function index2Action(Request $request){
+    public function index2Action(Request $request, $url = null){
         $country = $this->getDoctrine()->getRepository('CrmMainBundle:Country')->findOneById(3159);
         $regions = $this->getDoctrine()->getRepository('CrmMainBundle:Region')->findByCountry($country);
-        return array('regions'=> $regions);
+        if ($url!= null){
+            $company = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->findOneByUrl($url);
+        }else{
+            $company = null;
+        }
+        return array('company' => $company, 'regions' => $regions);
     }
 
     /**
      * @Route("/estr-confirm", name="estr-confirm")
+     * @Route("/{url}/estr-confirm", name="company-estr-confirm")
      * @Template()
      */
-    public function confirmAction(Request $request){
-
+    public function confirmAction(Request $request, $url = null){
+        if ($url!= null){
+            $company = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->findOneByUrl($url);
+        }else{
+            $company = null;
+        }
+        return array('company' => $company);
     }
 
     /**
      * @Route("/estr-success", name="estr-success")
+     * @Route("/{url}/estr-success", name="company-estr-success")
      * @Template()
      */
-    public function successAction(Request $request){
+    public function successAction(Request $request, $url = null){
         $session = $request->getSession();
         $data = $session->get('user');
         $em = $this->getDoctrine()->getManager();
@@ -160,7 +179,6 @@ class EstrController extends Controller
 
 
 
-
 //            $user->setCompanyPetition(null);
 
             $em->persist($user);
@@ -197,15 +215,23 @@ class EstrController extends Controller
 
         }
         $session->set('user', $user->getId());
-        return array('user' => $user);
+
+        if ($url!= null){
+            $company = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->findOneByUrl($url);
+        }else{
+            $company = null;
+        }
+
+        return array('company' => $company , 'user' => $user);
     }
 
 
     /**
      * @Route("/estr-order-post", name="estr-order-post")
+     * @Route("/{url}/estr-order-post", name="company-estr-order-post")
      * @Template()
      */
-    public function orderPostAction(Request $request){
+    public function orderPostAction(Request $request, $url= null ){
 
         $em   = $this->getDoctrine()->getManager();
 
@@ -255,21 +281,6 @@ class EstrController extends Controller
                 $user->setMyPetition(0);
             }
 
-//            #Теперь делаем компанию
-//            $company = new Company();
-//            $company->setTitle($data->get('companyName'));
-//            $company->setZipcode($data->get('companyZipcode'));
-////            $region = $this->getDoctrine()->getRepository('CrmMainBundle:Region')->findOneById($data->get('companyRegion'));
-//            $company->setRegion($data->get('companyRegion'));
-//            $company->setCity($data->get('companyCity'));
-//            $company->setTypeStreet($data->get('companyTypeStreet'));
-//            $company->setStreet($data->get('companyStreet'));
-//            $company->setHome($data->get('companyHouse'));
-//            $company->setCorp($data->get('companyCorp'));
-//            $company->setStructure($data->get('companyStructure'));
-//            $company->setTypeRoom($data->get('companyTypeRoom'));
-//            $company->setRoom($data->get('companyRoom'));
-
 
             # Теперь сохраняем файлы и присоединяем к сущности
 
@@ -315,7 +326,7 @@ class EstrController extends Controller
     }
 
 
-//    public function estrOrderAction()
+
 
 
 
@@ -501,5 +512,6 @@ class EstrController extends Controller
 
         return $res;
     }
+
 
 }

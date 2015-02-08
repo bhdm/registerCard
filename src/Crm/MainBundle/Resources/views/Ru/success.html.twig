@@ -1,4 +1,6 @@
-{% extends 'CrmMainBundle::layout.html.twig' %}
+{% extends company == null
+? 'CrmMainBundle::layout.html.twig'
+: 'CrmMainBundle::layout_mini.html.twig' %}
 
 {% block content %}
     <div class="box">

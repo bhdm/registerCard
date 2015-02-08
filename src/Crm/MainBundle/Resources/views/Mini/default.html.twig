@@ -1,0 +1,38 @@
+{% extends 'CrmMainBundle::layout_mini.html.twig' %}
+
+
+{% block content %}
+
+    <h1>{{ company.title }}</h1>
+
+
+    <h2>Выберите карту для заказа:</h2>
+    <br />
+    <br />
+    <table style="width: 100%">
+        <tr>
+            <td style="width: 50%; text-align: center;">
+                {#<div class="index-btn">#}
+                <a href="{{ path('company-estr-order',{'url': company.url}) }}"><img src="{{ asset('bundles/crmmain/images/card-1.png') }}" class="img-btn"></a>
+                {#</div>#}
+            </td>
+            <td style="width: 50%; text-align: center;">
+                {#<div class="index-btn">#}
+                <a href="{{ path('company-ru-order',{'url': company.url}) }}"><img src="{{ asset('bundles/crmmain/images/card-2.png') }}" class="img-btn"></a>
+                {#</div>#}
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2" style="text-align: center;">
+                {#<div class="index-btn">#}
+                <br />
+                <a href="{{ path('company-application-skzi-step1',{'url': company.url}) }}"><img src="{{ asset('bundles/crmmain/images/card-3.png') }}" class="img-btn"></a>
+                {#</div>#}
+            </td>
+        </tr>
+    </table>
+
+    <br />
+    <br />
+    {#<div style="font-size: 24px; text-align: center">Цена карты СКЗИ - <span class="redtext">2306р.</span> , ЕСТР - <span class="redtext">6200р</span>.</div>#}
+{% endblock %}

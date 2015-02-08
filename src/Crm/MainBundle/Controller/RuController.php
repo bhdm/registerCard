@@ -68,37 +68,56 @@ class RuController extends Controller
 
     /**
      * @Route("/ru-order", name="ru-order")
+     * @Route("/{url}/ru-order", name="company-ru-order")
      * @Template()
      */
-    public function indexAction(Request $request){
+    public function indexAction(Request $request, $url = null){
         $country = $this->getDoctrine()->getRepository('CrmMainBundle:Country')->findOneById(3159);
         $regions = $this->getDoctrine()->getRepository('CrmMainBundle:Region')->findByCountry($country);
-        return array('regions' => $regions);
+        if ($url!= null){
+            $company = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->findOneByUrl($url);
+        }else{
+            $company = null;
+        }
+        return array('company' => $company, 'regions' => $regions);
     }
 
     /**
      * @Route("/ru-order/2", name="ru-order-2")
+     * * @Route("/{url}/ru-order/2", name="company-ru-order-2")
      * @Template()
      */
-    public function index2Action(Request $request){
+    public function index2Action(Request $request, $url = null){
         $country = $this->getDoctrine()->getRepository('CrmMainBundle:Country')->findOneById(3159);
         $regions = $this->getDoctrine()->getRepository('CrmMainBundle:Region')->findByCountry($country);
-        return array('regions'=> $regions);
+        if ($url!= null){
+            $company = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->findOneByUrl($url);
+        }else{
+            $company = null;
+        }
+        return array('company' => $company, 'regions' => $regions);
     }
 
     /**
      * @Route("/ru-confirm", name="ru-confirm")
+     * @Route("/{url}/ru-confirm", name="company-ru-confirm")
      * @Template()
      */
-    public function confirmAction(Request $request){
-
+    public function confirmAction(Request $request, $url = null){
+        if ($url!= null){
+            $company = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->findOneByUrl($url);
+        }else{
+            $company = null;
+        }
+        return array('company' => $company);
     }
 
     /**
      * @Route("/ru-success", name="ru-success")
+     * @Route("/{url}/ru-success", name="company-ru-success")
      * @Template()
      */
-    public function successAction(Request $request){
+    public function successAction(Request $request, $url = null){
         $session = $request->getSession();
         $data = $session->get('user');
         $em = $this->getDoctrine()->getManager();
@@ -194,15 +213,23 @@ class RuController extends Controller
 
         }
         $session->set('user', $user->getId());
-        return array('user' => $user);
+
+        if ($url!= null){
+            $company = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->findOneByUrl($url);
+        }else{
+            $company = null;
+        }
+
+        return array('company' => $company , 'user' => $user);
     }
 
 
     /**
      * @Route("/ru-order-post", name="ru-order-post")
+      * @Route("/{url}/ru-order-post", name="company-ru-order-post")
      * @Template()
      */
-    public function orderPostAction(Request $request){
+    public function orderPostAction(Request $request, $url= null){
 
         $em   = $this->getDoctrine()->getManager();
 

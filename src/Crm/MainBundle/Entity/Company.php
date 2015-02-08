@@ -187,6 +187,28 @@ class Company extends BaseEntity
      */
     protected $enabled = 0;
 
+    /**
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    protected $delivery = false;
+
+
+    /**
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    protected $skzi = false;
+
+    /**
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    protected $ru = false;
+
+    /**
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    protected $estr = false;
+
+
     public function __construct(){
         $this->petitions = new ArrayCollection();
     }
@@ -678,6 +700,71 @@ class Company extends BaseEntity
         }
         return $i;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getDelivery()
+    {
+        return $this->delivery;
+    }
+
+    /**
+     * @param mixed $delivery
+     */
+    public function setDelivery($delivery = false)
+    {
+        $this->delivery = $delivery;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getSkzi()
+    {
+        return $this->skzi;
+    }
+
+    /**
+     * @param mixed $skzi
+     */
+    public function setSkzi($skzi)
+    {
+        $this->skzi = $skzi;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getRu()
+    {
+        return $this->ru;
+    }
+
+    /**
+     * @param mixed $ru
+     */
+    public function setRu($ru)
+    {
+        $this->ru = $ru;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getEstr()
+    {
+        return $this->estr;
+    }
+
+    /**
+     * @param mixed $estr
+     */
+    public function setEstr($estr)
+    {
+        $this->estr = $estr;
+    }
+
 
 
 }

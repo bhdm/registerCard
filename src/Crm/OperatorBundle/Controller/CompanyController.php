@@ -69,6 +69,7 @@ class CompanyController extends Controller{
                 $company->setTypeRoom($data->get('companyTypeRoom'));
                 $company->setRoom($data->get('companyRoom'));
                 $company->setUrl($data->get('url'));
+                $company->setDelivery(($data->get('delivery') == 1 ? true : false));
 
                 $company->setForma($data->get('forma'));
                 $company->setInn($data->get('inn'));
@@ -78,7 +79,6 @@ class CompanyController extends Controller{
                 $company->setBank($data->get('bank'));
                 $company->setKorchet($data->get('korchet'));
                 $company->setBik($data->get('bik'));
-
 
                 $em->flush($company);
                 $em->refresh($company);
@@ -119,6 +119,7 @@ class CompanyController extends Controller{
             $company->setRoom($data->get('companyRoom'));
             $company->setOperator($this->getUser());
             $company->setUrl($data->get('url'));
+            $company->setDelivery(($data->get('delivery') == 1 ? true : false));
 
             $company->setForma($data->get('forma'));
             $company->setInn($data->get('inn'));
