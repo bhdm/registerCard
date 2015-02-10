@@ -1,44 +1,66 @@
+
+var jcrop_api;
+//$('#coords').on('change','input',function(e){
+//    var x1 = $('#x1').val(),
+//        x2 = $('#x2').val(),
+//        y1 = $('#y1').val(),
+//        y2 = $('#y2').val();
+//    jcrop_api.setSelect([x1,y1,x2,y2]);
+//});
+//
+function showCoords(selection, container)
+{
+    //console.log(tt = container);
+    //console.log(container.html());
+    container.children('input[name="x1"]').val(selection.x);
+    container.children('input[name="y1"]').val(selection.y);
+    container.children('input[name="x2"]').val(selection.x2);
+    container.children('input[name="y2"]').val(selection.y2);
+};
+
+//
+//function clearCoords()
+//{
+//    return true;
+//};
+
+
 function getImage(data,container){
     if ( data.data.error != undefined ) {
         $('.error-msg').fadeIn();
         $('.error-msg').html(data.data.error);
         var control = container.children('div').children('input[type=file]');
-        console.log(ttt = control);
+        //console.log(ttt = control);
         control.replaceWith( control = control.clone( true ) );
 
     }else{
         $('.error-msg').fadeOut();
-        $(".imgareaselect-selection").parent().remove();
-        $(".imgareaselect-outer").remove();
+
+        //$(".imgareaselect-selection").parent().remove();
+        //$(".imgareaselect-outer").remove();
+
         var fileDoc = container.children('.fileDoc');
 
         fileDoc.html('<img src=""  brightness="0" contrast="0" />');
         fileDoc.children('img').attr('src',data.data.img);
         var type = container.children('.jq-file').children('input[type=file]').attr('id');
+        var container = container;
         if (type == 'photoFile'){
-            var imgAreaSelect = fileDoc.children('img').imgAreaSelect({
-                aspectRatio: '1:1.285',
-                x1: 10, y1: 10, x2: 135, y2: 171,
-                handles: true,
-                onSelectEnd: function (img, selection) {
-                    container.children('input[name="x1"]').val(selection.x1);
-                    container.children('input[name="y1"]').val(selection.y1);
-                    container.children('input[name="x2"]').val(selection.x2);
-                    container.children('input[name="y2"]').val(selection.y2);
-                    $('.imgareaselect-selection').addClass('imgareaselect-selection2');
-                }
+            fileDoc.children('img').Jcrop({
+                onChange:   function(c){showCoords(c, container) },
+                onSelect:   function(c){showCoords(c, container) },
+                aspectRatio: 1 / 1.285
+            },function(){
+                jcrop_api = this;
             });
-            $('.imgareaselect-selection').addClass('imgareaselect-selection2');
+            //console.log(tt = fileDoc.children('.jcrop-holder').children('div').children('div').children('.jcrop-tracker'));
+            fileDoc.children('.jcrop-holder').children('div').children('div').children('.jcrop-tracker').addClass('imgareaselect-selection2');
         }else{
-            var imgAreaSelect = fileDoc.children('img').imgAreaSelect({
-                handles: true,
-                x1: 10, y1: 10, x2: 150, y2: 150,
-                onSelectEnd: function (img, selection) {
-                    container.children('input[name="x1"]').val(selection.x1);
-                    container.children('input[name="y1"]').val(selection.y1);
-                    container.children('input[name="x2"]').val(selection.x2);
-                    container.children('input[name="y2"]').val(selection.y2);
-                }
+            fileDoc.children('img').Jcrop({
+                onChange:   function(c){showCoords(c, container) },
+                onSelect:   function(c){showCoords(c, container) }
+            },function(){
+                jcrop_api = this;
             });
         }
         //console.log(w=imgAreaSelect);
@@ -79,7 +101,7 @@ $(document).ready(function(){
         progressbar.css('display','block');
         progressbar.attr({value:0, max:100});
         var type = container.children('.jq-file').children('input[type=file]').attr('id');
-        console.log(t=container);
+        //console.log(t=container);
         $.ajax({
             url: Routing.generate('upload_document', {'type': type}),
             type: 'POST',
@@ -180,7 +202,7 @@ $(document).ready(function(){
             brightnessNow = brightnessNow - 20;
         }
         container.children('.fileDoc').children('img').attr('brightness',brightnessNow);
-        console.log(t=container);
+        //console.log(t=container);
         $.ajax({
             url: Routing.generate('brightness_image', {'type': type, 'brightness': brightnessNow }),
             type: 'POST',
