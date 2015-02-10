@@ -9,17 +9,67 @@
 {% block content %}
     <div style="text-align: center">
         <br style="clear: both"/>
-            <table style="margin: 0 auto">
-                <tr>
-                    <td style="color: #003A68">Оформление заявки - Шаг</td>
-                    <td><span class="step">1</span></td>
-                    <td><span class="step">2</span></td>
-                    <td><span class="step">3</span></td>
-                    <td><span class="step">4</span></td>
-                    <td><span class="step">5</span></td>
-                    <td><span class="step-active">6 - Доставка</span></td>
-                </tr>
-            </table>
+        <table style="width:100%;" class="crosh-table">
+            <tr>
+                <td>
+                        <span class="step">
+                            <span class="stepn">1</span>
+                            <img src="{{ asset('bundles/crmmain/crosh/11.png') }}" style="width: 75px">
+                            <br />Данные для<br />связи
+                        </span>
+                </td>
+                <td>
+                    <img src="{{ asset('bundles/crmmain/crosh/right.png') }}" style="width: 15px">
+                </td>
+                <td>
+                        <span class="step">
+                            <span class="stepn">2</span>
+                            <img src="{{ asset('bundles/crmmain/crosh/21.png') }}" style="width: 75px">
+                            <br />Паспортные<br />данные
+                        </span>
+                </td>
+                <td>
+                    <img src="{{ asset('bundles/crmmain/crosh/right.png') }}" style="width: 15px">
+                </td>
+                <td>
+                        <span class="step">
+                            <span class="stepn">3</span>
+                            <img src="{{ asset('bundles/crmmain/crosh/31.png') }}" style="width: 75px">
+                            <br />Вод.<br />удостоверение
+                        </span>
+                </td>
+                <td>
+                    <img src="{{ asset('bundles/crmmain/crosh/right.png') }}" style="width: 15px">
+                </td>
+                <td>
+                        <span class="step" title="Можно использовать Ходатайство НПО Технолог">
+                            <span class="stepn">4</span>
+                            <img src="{{ asset('bundles/crmmain/crosh/41.png') }}" style="width: 75px">
+                            <br />Ходатайство
+                        </span>
+                </td>
+                <td>
+                    <img src="{{ asset('bundles/crmmain/crosh/right.png') }}" style="width: 15px">
+                </td>
+                <td>
+                        <span class="step">
+                            <span class="stepn">5</span>
+                            <img src="{{ asset('bundles/crmmain/crosh/51.png') }}" style="width: 75px">
+                            <br />Фото, Подпись,<br />Снилс
+                        </span>
+                </td>
+                <td>
+                    <img src="{{ asset('bundles/crmmain/crosh/right.png') }}" style="width: 15px">
+                </td>
+                <td>
+                        <span class="step">
+                            <span class="stepn">6</span>
+                            <img src="{{ asset('bundles/crmmain/crosh/61.png') }}" style="width: 75px">
+                            <br />Данные о<br />доставке
+                        </span>
+                </td>
+            </tr>
+        </table>
         <br style="clear: both"/>
     </div>
     <div class="box">
@@ -266,17 +316,6 @@
 
         .right{
             text-align: right;
-        }
-        .step, .step-active{
-            padding: 10px 14px;
-            background: rgba(72, 126, 187, 0.5);
-            -moz-border-radius: 20px;
-            -webkit-border-radius: 20px;
-            border-radius: 20px;
-        }
-        .step-active{
-            background: rgb(72, 126, 187);
-            color: #ffffff;
         }
 
         #typeStreet-styler, #typeCard-styler{

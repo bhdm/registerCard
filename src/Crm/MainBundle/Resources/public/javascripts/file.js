@@ -216,7 +216,7 @@ $(document).ready(function(){
 
 
     $('.step').click(function(){
-        var url = Routing.generate('application-skzi-step'+$(this).html());
+        var url = Routing.generate('application-skzi-step'+$(this).children('.stepn').html());
         window.location.href = url;
     });
 

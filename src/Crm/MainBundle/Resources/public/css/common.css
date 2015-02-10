@@ -427,3 +427,18 @@ input.little{
 .step{
     cursor: pointer;
 }
+.step, .step-active{
+    padding: 10px 14px;
+    -moz-border-radius: 20px;
+    -webkit-border-radius: 20px;
+    border-radius: 20px;
+    text-align: center;
+    display: block;
+}
+.step-active{
+    /*background: rgb(72, 126, 187);*/
+    /*color: #ffffff;*/
+}
+.stepn{
+    display: none;
+}
