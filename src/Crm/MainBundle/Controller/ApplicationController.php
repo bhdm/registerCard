@@ -126,19 +126,19 @@ class ApplicationController extends Controller
 
             }else{
                 $order['petitionFilePath'] = $session->get('petitionFile');
-                $order['myPetition']    =false;
-                $order['p_title']      = $request->request->get('title');
-                $order['p_region']      = $request->request->get('region');
-                $order['p_city']        = $request->request->get('city');
-                $order['p_typeStreet']  = $request->request->get('typeStreet');
-                $order['p_street']      = $request->request->get('street');
-                $order['p_house']       = $request->request->get('house');
-                $order['p_corp']        = $request->request->get('corp');
-                $order['p_structure']   = $request->request->get('structure');
-                $order['p_typeRoom']    = $request->request->get('typeRoom');
-                $order['p_room']        = $request->request->get('room');
-                $order['p_zipcode']     = $request->request->get('zipcode');
             }
+            $order['myPetition']    =false;
+            $order['p_title']      = $request->request->get('title');
+            $order['p_region']      = $request->request->get('region');
+            $order['p_city']        = $request->request->get('city');
+            $order['p_typeStreet']  = $request->request->get('typeStreet');
+            $order['p_street']      = $request->request->get('street');
+            $order['p_house']       = $request->request->get('house');
+            $order['p_corp']        = $request->request->get('corp');
+            $order['p_structure']   = $request->request->get('structure');
+            $order['p_typeRoom']    = $request->request->get('typeRoom');
+            $order['p_room']        = $request->request->get('room');
+            $order['p_zipcode']     = $request->request->get('zipcode');
 
 //            $order['driverFilePath'] = $session->get('file');
 

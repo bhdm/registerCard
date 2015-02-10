@@ -365,6 +365,16 @@
                             {% if is_granted('ROLE_ADMIN') %}
                                 </a>
                             {% endif %}
+                            {% if is_granted('ROLE_ADMIN') %}
+                                <div class="statusBox">
+                                    <span>Даты</span>
+                                    <div class="statusItems">
+                                        {% for status in user.statusArray %}
+                                            {{ status.title }}&nbsp;-&nbsp;{{ status.date | date('d.m.Y') }}<br />
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                            {% endif %}
                         </td>
 
                         <td>{{ user.created | date("d.m.Y") }}</td>
@@ -495,6 +505,16 @@
                                                                 {% if is_granted('ROLE_ADMIN') %}
                             </a>
                             {% endif %}
+                            {% if is_granted('ROLE_ADMIN') %}
+                                <div class="statusBox">
+                                    <span>Даты</span>
+                                    <div class="statusItems">
+                                        {% for status in user.statusArray %}
+                                            {{ status.title }}&nbsp;-&nbsp;{{ status.date | date('d.m.Y') }}<br />
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                            {% endif %}
                         </td>
 
                         <td>{{ user.created | date("d.m.Y") }}</td>
@@ -592,6 +612,16 @@
                                     </span>
                                                                 {% if is_granted('ROLE_ADMIN') %}
                             </a>
+                            {% endif %}
+                            {% if is_granted('ROLE_ADMIN') %}
+                                <div class="statusBox">
+                                    <span>Даты</span>
+                                    <div class="statusItems">
+                                        {% for status in user.statusArray %}
+                                            {{ status.title }}&nbsp;-&nbsp;{{ status.date | date('d.m.Y') }}<br />
+                                        {% endfor %}
+                                    </div>
+                                </div>
                             {% endif %}
                         </td>
 

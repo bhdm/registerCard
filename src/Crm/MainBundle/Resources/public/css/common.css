@@ -427,3 +427,22 @@ input.little{
 .step{
     cursor: pointer;
 }
+.step, .step-active{
+    padding: 10px 10px;
+    -moz-border-radius: 20px;
+    -webkit-border-radius: 20px;
+    border-radius: 20px;
+    text-align: center;
+    display: block;
+    font-size: 15px;
+}
+.step-active{
+    /*background: rgb(72, 126, 187);*/
+    /*color: #ffffff;*/
+}
+.stepn{
+    display: none;
+}
+.crosh-table{
+    margin-top: -20px;
+}

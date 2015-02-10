@@ -891,7 +891,7 @@ class UserController extends Controller{
             }
             $userLog = array();
             foreach ($userLogArray as $key=>$date){
-                $userLog[$key] = $date->format('Y.m.d');
+                $userLog[$key] = $date->format('d.m.Y');
             }
             $userLogArray = $userLog;
             # Новая

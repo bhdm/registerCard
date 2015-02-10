@@ -726,7 +726,7 @@ class User extends BaseEntity implements UserInterface, EquatableInterface, \Ser
                 $status = 'Оплаченная';
                 break;
             case 3:
-                $status = 'В производстве';
+                $status = 'Впроизводстве';
                 break;
             case 6:
                 $status = 'Изготовлено';
@@ -1559,5 +1559,21 @@ class User extends BaseEntity implements UserInterface, EquatableInterface, \Ser
         $this->dileveryStructure = $dileveryStructure;
     }
 
+    public function getStatusArray(){
+        $userLog = $this->statuslog;
+        $userLogArray = array();
+        foreach ($userLog as $status){
+            if (isset($userLogArray[$status->getTitle()])){
+                if ($userLogArray[$status->getTitle()] < $status->getCreated()){
+                    $userLogArray[$status->getTitle()]['title'] = $status->getTitle();
+                    $userLogArray[$status->getTitle()]['date'] = $status->getCreated();
+                }
+            }else{
+                $userLogArray[$status->getTitle()]['title'] = $status->getTitle();
+                $userLogArray[$status->getTitle()]['date'] = $status->getCreated();
+            }
+        }
+        return $userLogArray;
+    }
 
 }
