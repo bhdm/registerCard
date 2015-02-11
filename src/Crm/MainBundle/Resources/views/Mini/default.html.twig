@@ -8,31 +8,31 @@
 
     <h2>Выберите карту для заказа:</h2>
     <br />
+    <a href="{{ path('company-estr-order',{'url': company.url}) }}"><span class="btn">Карта ЕСТР</span></a>
     <br />
-    <table style="width: 100%">
-        <tr>
-            <td style="width: 50%; text-align: center;">
-                {#<div class="index-btn">#}
-                <a href="{{ path('company-estr-order',{'url': company.url}) }}"><img src="{{ asset('bundles/crmmain/images/card-1.png') }}" class="img-btn"></a>
-                {#</div>#}
-            </td>
-            <td style="width: 50%; text-align: center;">
-                {#<div class="index-btn">#}
-                <a href="{{ path('company-ru-order',{'url': company.url}) }}"><img src="{{ asset('bundles/crmmain/images/card-2.png') }}" class="img-btn"></a>
-                {#</div>#}
-            </td>
-        </tr>
-        <tr>
-            <td colspan="2" style="text-align: center;">
-                {#<div class="index-btn">#}
-                <br />
-                <a href="{{ path('company-application-skzi-step1',{'url': company.url}) }}"><img src="{{ asset('bundles/crmmain/images/card-3.png') }}" class="img-btn"></a>
-                {#</div>#}
-            </td>
-        </tr>
-    </table>
+    <br />
+    <a href="{{ path('company-ru-order',{'url': company.url}) }}"><span class="btn">Карта РФ</span></a>
+    <br />
+    <br />
+    <a href="{{ path('company-application-skzi-step1',{'url': company.url}) }}"><span class="btn">Карта СКЗИ</span></a>
 
     <br />
     <br />
-    {#<div style="font-size: 24px; text-align: center">Цена карты СКЗИ - <span class="redtext">2306р.</span> , ЕСТР - <span class="redtext">6200р</span>.</div>#}
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <style>
+        .btn{
+            display: inline-block;
+            width: 200px;
+            text-align: center;
+        }
+    </style>
 {% endblock %}

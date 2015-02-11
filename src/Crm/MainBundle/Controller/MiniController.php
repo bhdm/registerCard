@@ -38,6 +38,7 @@ class MiniController extends Controller{
      */
     public function step1Action(Request $request, $url)
     {
+        $company = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->findOneByUrl($url);
         $session = $request->getSession();
         $order = $session->get('order');
         if ($request->getMethod() == 'POST'){
@@ -48,7 +49,7 @@ class MiniController extends Controller{
             $session->set('order',$order);
             return $this->redirect($this->generateUrl('company-application-skzi-step2',array('url' => $url)));
         }
-        return array('order' => $order);
+        return array('order' => $order, 'company' => $company);
     }
 
     /**
@@ -56,6 +57,7 @@ class MiniController extends Controller{
      * @Template()
      */
     public function step2Action(Request $request, $url){
+        $company = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->findOneByUrl($url);
         $session = $request->getSession();
         $order = $session->get('order');
         if ($order['step1'] != true){
@@ -85,7 +87,7 @@ class MiniController extends Controller{
         if (isset($order['passportFilePath'])){
             $session->set('passportFile',$order['passportFilePath']);
         }
-        return array('order' => $order);
+        return array('order' => $order, 'company' => $company);
     }
 
 
@@ -94,6 +96,7 @@ class MiniController extends Controller{
      * @Template()
      */
     public function step3Action(Request $request, $url){
+        $company = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->findOneByUrl($url);
         $session = $request->getSession();
         $order = $session->get('order');
         if (!isset($order['step2']) || $order['step2'] != true){
@@ -116,7 +119,7 @@ class MiniController extends Controller{
         if (isset($order['driverFilePath'])){
             $session->set('driverFile',$order['driverFilePath']);
         }
-        return array('order' => $order);
+        return array('order' => $order, 'company' => $company);
     }
 
 
@@ -125,6 +128,7 @@ class MiniController extends Controller{
      * @Template()
      */
     public function step4Action(Request $request, $url){
+        $company = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->findOneByUrl($url);
         $session = $request->getSession();
         $order = $session->get('order');
         if (!isset($order['step3']) || $order['step3'] != true){
@@ -158,7 +162,7 @@ class MiniController extends Controller{
 
             return $this->redirect($this->generateUrl('company-application-skzi-step5',array('url' => $url)));
         }
-        return array('citizenship' => $order['citizenship'],'order' => $order);
+        return array('citizenship' => $order['citizenship'],'order' => $order, 'company' => $company);
     }
 
 
@@ -167,6 +171,7 @@ class MiniController extends Controller{
      * @Template()
      */
     public function step5Action(Request $request, $url){
+        $company = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->findOneByUrl($url);
         $session = $request->getSession();
         $order = $session->get('order');
         if (!isset($order['step4']) || $order['step4'] != true){
@@ -182,7 +187,7 @@ class MiniController extends Controller{
 
             return $this->redirect($this->generateUrl('company-application-skzi-step6',array('url' => $url)));
         }
-        return array('citizenship' => $order['citizenship'],'order' => $order);
+        return array('citizenship' => $order['citizenship'],'order' => $order, 'company' => $company);
     }
 
     /**
@@ -190,6 +195,7 @@ class MiniController extends Controller{
      * @Template()
      */
     public function step6Action(Request $request,$url){
+        $company = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->findOneByUrl($url);
         $country = $this->getDoctrine()->getRepository('CrmMainBundle:Country')->findOneById(3159);
         $regions = $this->getDoctrine()->getRepository('CrmMainBundle:Region')->findByCountry($country);
 
@@ -216,9 +222,9 @@ class MiniController extends Controller{
             $order['typeCard'] = $request->request->get('typeCard');
 
             $session->set('order',$order);
-            return $this->redirect($this->generateUrl('application-skzi-success',array('url' => $url)));
+            return $this->redirect($this->generateUrl('company-application-skzi-success',array('url' => $url)));
         }
-        return array('regions' => $regions,'order' => $order);
+        return array('regions' => $regions,'order' => $order, 'company' => $company);
     }
 
     /**
@@ -226,6 +232,7 @@ class MiniController extends Controller{
      * @Template()
      */
     public function successAction(Request $request, $url){
+        $company = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->findOneByUrl($url);
         $session = new Session();
         $order = $session->get('order');
         if (!isset($order['step6']) || $order['step6'] != true){
@@ -302,7 +309,7 @@ class MiniController extends Controller{
 
 
 
-        return array('user' => $user);
+        return array('user' => $user, 'company' => $company);
     }
 
     public function getImgToArray($img){
