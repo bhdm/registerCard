@@ -23,6 +23,13 @@ use Zelenin\smsru;
 class MiniController extends Controller{
 
     /**
+     * @Route("/company/order/{url}")
+     */
+    public function aldAction($url){
+        return $this->redirect($this->generateUrl('company',array('url' => $url)));
+    }
+
+    /**
      * @Route("/company/{url}", name="company")
      * @Template()
      */
