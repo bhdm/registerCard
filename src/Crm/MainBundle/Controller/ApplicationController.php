@@ -96,7 +96,28 @@ class ApplicationController extends Controller
             $order['driverStarts']  = $request->request->get('driverStarts');
             $order['driverEnds']    = $request->request->get('driverEnds');
             $order['driverFilePath'] = $session->get('driverFile');
-//            $session->set('file', null);
+
+
+            if ($request->request->get('tehnolog') == 'on'){
+                $order['myPetition']=true;
+
+            }else{
+                $order['petitionFilePath'] = $session->get('petitionFile');
+            }
+            $order['myPetition']    =false;
+            $order['p_title']      = $request->request->get('title');
+            $order['p_region']      = $request->request->get('region');
+            $order['p_city']        = $request->request->get('city');
+            $order['p_typeStreet']  = $request->request->get('typeStreet');
+            $order['p_street']      = $request->request->get('street');
+            $order['p_house']       = $request->request->get('house');
+            $order['p_corp']        = $request->request->get('corp');
+            $order['p_structure']   = $request->request->get('structure');
+            $order['p_typeRoom']    = $request->request->get('typeRoom');
+            $order['p_room']        = $request->request->get('room');
+            $order['p_zipcode']     = $request->request->get('zipcode');
+
+
             $session->set('order',$order);
 
             return $this->redirect($this->generateUrl('application-skzi-step4'));
@@ -110,10 +131,10 @@ class ApplicationController extends Controller
 
 
     /**
-     * @Route("/application/skzi/step4", name="application-skzi-step4", options={"expose"=true})
+     * @Route("/application/skzi/step100", name="application-skzi-step100", options={"expose"=true})
      * @Template()
      */
-    public function step4Action(Request $request){
+    public function step100Action(Request $request){
         $session = $request->getSession();
         $order = $session->get('order');
         if (!isset($order['step3']) || $order['step3'] != true){
@@ -152,10 +173,36 @@ class ApplicationController extends Controller
 
 
     /**
+     * @Route("/application/skzi/step4", name="application-skzi-step4", options={"expose"=true})
+     * @Template()
+     */
+    public function step4Action(Request $request){
+        $session = $request->getSession();
+        $order = $session->get('order');
+        if (!isset($order['step3']) || $order['step3'] != true){
+            return $this->redirect($this->generateUrl('application-skzi-step3'));
+        }
+        if ($request->getMethod() == 'POST'){
+            $order['step4'] = true;
+            $order['photoFilePath'] = $session->get('photoFile');
+            $order['signFilePath'] = $session->get('signFile');
+            $order['snilsFilePath'] = $session->get('snilsFile');
+            $order['snils'] = $request->request->get('snils');
+            $session->set('order',$order);
+
+            return $this->redirect($this->generateUrl('application-skzi-step5'));
+        }
+        return array('citizenship' => $order['citizenship'],'order' => $order);
+    }
+
+    /**
      * @Route("/application/skzi/step5", name="application-skzi-step5", options={"expose"=true})
      * @Template()
      */
     public function step5Action(Request $request){
+        $country = $this->getDoctrine()->getRepository('CrmMainBundle:Country')->findOneById(3159);
+        $regions = $this->getDoctrine()->getRepository('CrmMainBundle:Region')->findByCountry($country);
+
         $session = $request->getSession();
         $order = $session->get('order');
         if (!isset($order['step4']) || $order['step4'] != true){
@@ -163,32 +210,6 @@ class ApplicationController extends Controller
         }
         if ($request->getMethod() == 'POST'){
             $order['step5'] = true;
-            $order['photoFilePath'] = $session->get('photoFile');
-            $order['signFilePath'] = $session->get('signFile');
-            $order['snilsFilePath'] = $session->get('snilsFile');
-            $order['snils'] = $request->request->get('snils');
-            $session->set('order',$order);
-
-            return $this->redirect($this->generateUrl('application-skzi-step6'));
-        }
-        return array('citizenship' => $order['citizenship'],'order' => $order);
-    }
-
-    /**
-     * @Route("/application/skzi/step6", name="application-skzi-step6", options={"expose"=true})
-     * @Template()
-     */
-    public function step6Action(Request $request){
-        $country = $this->getDoctrine()->getRepository('CrmMainBundle:Country')->findOneById(3159);
-        $regions = $this->getDoctrine()->getRepository('CrmMainBundle:Region')->findByCountry($country);
-
-        $session = $request->getSession();
-        $order = $session->get('order');
-        if (!isset($order['step5']) || $order['step5'] != true){
-            return $this->redirect($this->generateUrl('application-skzi-step5'));
-        }
-        if ($request->getMethod() == 'POST'){
-            $order['step6'] = true;
             $order['d_region'] = $request->request->get('region');
             $order['d_city'] = $request->request->get('city');
             $order['d_typeStreet'] = $request->request->get('typeStreet');
@@ -217,8 +238,8 @@ class ApplicationController extends Controller
     public function successAction(Request $request){
         $session = new Session();
         $order = $session->get('order');
-        if (!isset($order['step6']) || $order['step6'] != true){
-            return $this->redirect($this->generateUrl('application-skzi-step6'));
+        if (!isset($order['step5']) || $order['step5'] != true){
+            return $this->redirect($this->generateUrl('application-skzi-step5'));
         }
         $em = $this->getDoctrine()->getManager();
 
