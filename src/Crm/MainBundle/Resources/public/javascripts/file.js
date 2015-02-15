@@ -164,6 +164,12 @@ $(document).ready(function(){
                         var percentComplete = evt.loaded / evt.total;
                         //Do something with upload progress
                         progressbar.attr({value:evt.loaded,max:evt.total});
+
+                        if ( evt.loaded == evt.total ){
+                            var loader = 'bundles/crmmain/images/ajax_loader.gif';
+                            //alert(container.children('.fileDoc').children('img').attr('src'));
+                            container.children('.fileDoc').children('img').attr('src',loader);
+                        }
                     }
                 }, false);
                 //Download progress
@@ -172,6 +178,12 @@ $(document).ready(function(){
                         var percentComplete = evt.loaded / evt.total;
                         //Do something with download progress
                         progressbar.attr({value:evt.loaded,max:evt.total});
+
+                        if ( evt.loaded == evt.total ){
+                            var loader = 'bundles/crmmain/images/ajax_loader.gif';
+                            //alert(container.children('.fileDoc').children('img').attr('src'));
+                            container.children('.fileDoc').children('img').attr('src',loader);
+                        }
                     }
                 }, false);
                 return xhr;

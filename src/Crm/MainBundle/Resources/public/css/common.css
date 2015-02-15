@@ -457,6 +457,9 @@ input.little{
     cursor: pointer;
     margin-bottom: -12px;
 }
+.minibtn:hover{
+    background: #DDD;
+}
 .ui-widget-header {
     border: 1px solid #77a2e7 !important;
     background: #5988f6 !important;
