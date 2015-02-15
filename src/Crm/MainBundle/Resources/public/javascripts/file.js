@@ -1,5 +1,5 @@
 
-var jcrop_api;
+var jcrop_api = null;
 //$('#coords').on('change','input',function(e){
 //    var x1 = $('#x1').val(),
 //        x2 = $('#x2').val(),
@@ -46,6 +46,10 @@ function getImage(data,container){
         fileDoc.children('.jcrop-holder').children('img').attr('src',data.data.img);
         var type = container.children('.jq-file').children('input[type=file]').attr('id');
         var container = container;
+        if (jcrop_api != null){
+            jcrop_api.destroy();
+        }
+
         if (type == 'photoFile'){
             fileDoc.children('img').Jcrop({
                 onChange:   function(c){showCoords(c, container) },
