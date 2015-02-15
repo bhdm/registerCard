@@ -294,7 +294,7 @@ class MiniController extends Controller{
         }
 
 
-        $company = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->findOneById($url);
+        $company = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->findOneByUrl($url);
 
 
         $user->setCompany($company);
