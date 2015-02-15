@@ -116,19 +116,27 @@
                             <br />
                             <div class="fileDoc">
                                 {% if order.petitionFilePath is defined %}
-                                    <img src="{{ path('get_image', {'type' : 'petition'}) }}" brightness="0">
+                                    <img src="{{ path('get_image', {'type' : 'petition'}) }}"  brightness="0" contrast="0">
                                 {% else %}
-                                    <img src="">
+                                    <img src=""  brightness="0" contrast="0">
                                 {% endif %}
                             </div>
                             <div class="navigateFile">
-                                <img src="{{ asset('bundles/crmmain/icons/contrast-1.png') }}" data-contrast="minus" class="contrast" title="Контрастность -">
-                                <img src="{{ asset('bundles/crmmain/icons/contrast-2.png') }}" data-contrast="plus" class="contrast"  title="Контрастность +">
-                                <img src="{{ asset('bundles/crmmain/icons/brightness-1.png') }}" data-brightness="minus" class="brightness" title="Яркость -">
-                                <img src="{{ asset('bundles/crmmain/icons/brightness-2.png') }}" data-brightness="plus" class="brightness" title="Яркость +">
+                                <div class="slider-box">
+                                    <div id="slider-vertical-1" class="slider-vertical-contrast"></div>
+                                    <img src="{{ asset('bundles/crmmain/icons/contrast-2.png') }}"  title="Контрастность">
+                                </div>
+                                <div class="slider-box">
+                                    <div id="slider-vertical-2" class="slider-vertical-brightness"></div>
+                                    <img src="{{ asset('bundles/crmmain/icons/brightness-2.png') }}" title="Яркость">
+                                </div>
                                 <img src="{{ asset('bundles/crmmain/icons/rotateLeft.png') }}" class="rotateLeft" title="Повернуть налево">
                                 <img src="{{ asset('bundles/crmmain/icons/rotateRight.png') }}" class="rotateRight" title="Повернуть вправо">
-                                <img src="{{ asset('bundles/crmmain/icons/crop.png') }}" class="cropImage" title="Обрезать изображение">
+                                <div style="display: inline-block">
+                                    <span class="cropImage minibtn" title="Обрезать изображение">Обрезать</span>
+                                    <br />
+                                    <br />
+                                </div>
                             </div>
                         </div>
                     </td>

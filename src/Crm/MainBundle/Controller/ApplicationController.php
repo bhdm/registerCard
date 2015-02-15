@@ -316,6 +316,7 @@ class ApplicationController extends Controller
         return array('user' => $user);
     }
 
+
     public function getImgToArray($img){
         if ($img == null){
             $array =  array();
@@ -336,4 +337,5 @@ class ApplicationController extends Controller
         }
         return $array;
     }
+
 }

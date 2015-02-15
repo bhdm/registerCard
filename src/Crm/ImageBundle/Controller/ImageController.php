@@ -35,15 +35,20 @@ class ImageController extends Controller
                 return $response;
             }else{
                 $path='/var/www/upload/tmp/'.time().'.jpg';
+                $path2='/var/www/upload/tmp/origin-'.time().'.jpg';
                 $oldPath = $file->getPathName();
                 move_uploaded_file($oldPath,$path);
+                copy($path,$path2);
 
                 $session->set($type,$path);
+                $session->set('origin-'.$type,$path2);
 
                 if ($type == 'signFile'){
                     $this->toBitmap($path);
+                    $this->toBitmap($path2);
                 }else{
                     $this->toBlackandwhite($path);
+                    $this->toBlackandwhite($path2);
                 }
 
 
@@ -61,6 +66,7 @@ class ImageController extends Controller
     public function rotateAction(Request $request, $type, $rotate){
         $session = $request->getSession();
         $path = $session->get($type);
+        $path2 = $session->get('origin-'.$type);
         if ($path == null){
             return array('data' => array('error' => 'Файл не загружен'));
         }
@@ -71,6 +77,7 @@ class ImageController extends Controller
             $rotate = imagerotate($image, 270, 0);
         }
         imagejpeg($rotate, $path);
+        imagejpeg($rotate, $path2);
 
         $data = $this->imageToArray($path);
         $response = new JsonResponse($data);
@@ -84,6 +91,7 @@ class ImageController extends Controller
 
         $session = $request->getSession();
         $path = $session->get($type);
+        $path2 = $session->get('origin-'.$type);
 
         #Получаем оригинальные размеры картинки
         $rect['width'] = getimagesize($path)[0];
@@ -101,6 +109,8 @@ class ImageController extends Controller
         imagecopy ( $crop, $image, 0, 0, $x1, $y1, $x2-$x1, $y2-$y1 );
 
         imagejpeg($crop, $path);
+        imagejpeg($crop, $path2);
+
         $data = $this->imageToArray($path);
         $response = new JsonResponse($data);
         return $response;
@@ -146,22 +156,26 @@ class ImageController extends Controller
         return $response;
     }
 
+
+
     /**
-     * @Route("/setting-image/{type}/{contrast}/{brightness}", name="setting_image", options={"expose"=true})
      * Одновременное изменение яркости и контраста без сохранения
+     * @Route("/setting-image/{type}/{contrast}/{brightness}", name="setting_image", options={"expose"=true})
      */
     public function settingAction(Request $request, $type, $contrast, $brightness){
         $session = $request->getSession();
         $path = $session->get($type);
-        if ($path == null){
+        $path2 = $session->get('origin-'.$type);
+
+        if ($path2 == null){
             return array('data' => array('error' => 'Файл не загружен'));
         }
-        $image = imagecreatefromjpeg($path);
+        $image = imagecreatefromjpeg($path2);
 
         imagefilter($image,IMG_FILTER_CONTRAST,$contrast);
         imagefilter($image,IMG_FILTER_BRIGHTNESS,$brightness);
 
-//        imagejpeg($image, $path);
+        imagejpeg($image, $path);
 
         $data = $this->imageToArray($path);
         $response = new JsonResponse($data);

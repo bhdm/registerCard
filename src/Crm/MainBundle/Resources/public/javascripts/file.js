@@ -41,8 +41,9 @@ function getImage(data,container){
 
         var fileDoc = container.children('.fileDoc');
 
-        fileDoc.html('<img src=""  brightness="0" contrast="0" />');
+        //fileDoc.html('<img src=""  brightness="0" contrast="0" />');
         fileDoc.children('img').attr('src',data.data.img);
+        fileDoc.children('.jcrop-holder').children('img').attr('src',data.data.img);
         var type = container.children('.jq-file').children('input[type=file]').attr('id');
         var container = container;
         if (type == 'photoFile'){
@@ -71,17 +72,66 @@ function getImage(data,container){
 
 $(document).ready(function(){
 
-    $( ".slider-vertical" ).slider({
+    $( ".slider-vertical-contrast" ).slider({
         orientation: "vertical",
         range: "min",
         min: 0,
-        max: 100,
-        value: 60,
-        slide: function( event, ui ) {
-            $( "#amount" ).val( ui.value );
-        }
+        max: 255,
+        value: 128
     });
 
+    $( ".slider-vertical-contrast" ).on( "slidestop", function( event, ui ) {
+            var container = $(this).parent().parent().parent();
+            //console.log(container);
+            var type = container.children('.jq-file').children('input[type=file]').attr('id');
+            var contrast = ui.value;
+            var brightness = container.children('.fileDoc').children('img').attr('brightness');
+            //var contrastNow = container.children('.fileDoc').children('img').attr('contrast');
+
+            container.children('.fileDoc').children('img').attr('contrast',contrast);
+            $.ajax({
+                url: Routing.generate('setting_image', {'type': type, 'contrast': contrast, 'brightness' : brightness }),
+                type: 'POST',
+                success: function(msg){ getImage(msg, container); },
+                error:function (error) {
+                    console.log(error);
+                }
+            });
+            return false;
+        }
+    );
+
+
+    $( ".slider-vertical-brightness" ).slider({
+        orientation: "vertical",
+        range: "min",
+        min: 0,
+        max: 255,
+        value: 128
+    });
+
+    $( ".slider-vertical-brightness" ).on( "slidestop", function( event, ui ) {
+            var container = $(this).parent().parent().parent();
+            //console.log(container);
+            var type = container.children('.jq-file').children('input[type=file]').attr('id');
+
+            var brightness = ui.value;
+
+            var contrast = container.children('.fileDoc').children('img').attr('contrast');
+            //var contrastNow = container.children('.fileDoc').children('img').attr('contrast');
+
+            container.children('.fileDoc').children('img').attr('brightness',brightness);
+            $.ajax({
+                url: Routing.generate('setting_image', {'type': type, 'contrast': contrast, 'brightness' : brightness }),
+                type: 'POST',
+                success: function(msg){ getImage(msg, container); },
+                error:function (error) {
+                    console.log(error);
+                }
+            });
+            return false;
+        }
+    );
 
 
     //          Загрузка файла
@@ -171,7 +221,7 @@ $(document).ready(function(){
     });
 
     $('.cropImage').click(function(){
-        var container = $(this).parent().parent();
+        var container = $(this).parent().parent().parent();
         var x1 = container.children('input[name="x1"]').val();
         var x2 = container.children('input[name="x2"]').val();
         var y1 = container.children('input[name="y1"]').val();
@@ -190,28 +240,28 @@ $(document).ready(function(){
         });
     });
 
-    $('.brightness').click(function(){
-        var container = $(this).parent().parent();
-
-        var type = container.children('.jq-file').children('input[type=file]').attr('id');
-        var brightness = $(this).attr('data-brightness');
-        var brightnessNow = container.children('.fileDoc').children('img').attr('brightness');
-        if (brightness == 'plus'){
-            brightnessNow = brightnessNow + 20;
-        }else{
-            brightnessNow = brightnessNow - 20;
-        }
-        container.children('.fileDoc').children('img').attr('brightness',brightnessNow);
-        //console.log(t=container);
-        $.ajax({
-            url: Routing.generate('brightness_image', {'type': type, 'brightness': brightnessNow }),
-            type: 'POST',
-            success: function(msg){ getImage(msg, container); },
-            error:function (error) {
-                console.log(error);
-            }
-        });
-    });
+    //$('.brightness').click(function(){
+    //    var container = $(this).parent().parent();
+    //
+    //    var type = container.children('.jq-file').children('input[type=file]').attr('id');
+    //    var brightness = $(this).attr('data-brightness');
+    //    var brightnessNow = container.children('.fileDoc').children('img').attr('brightness');
+    //    if (brightness == 'plus'){
+    //        brightnessNow = brightnessNow + 20;
+    //    }else{
+    //        brightnessNow = brightnessNow - 20;
+    //    }
+    //    container.children('.fileDoc').children('img').attr('brightness',brightnessNow);
+    //    //console.log(t=container);
+    //    $.ajax({
+    //        url: Routing.generate('brightness_image', {'type': type, 'brightness': brightnessNow }),
+    //        type: 'POST',
+    //        success: function(msg){ getImage(msg, container); },
+    //        error:function (error) {
+    //            console.log(error);
+    //        }
+    //    });
+    //});
 
     //$('.contrast').click(function(){
     //    var container = $(this).parent().parent();

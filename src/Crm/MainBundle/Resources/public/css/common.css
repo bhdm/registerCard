@@ -446,3 +446,41 @@ input.little{
 .crosh-table{
     margin-top: -20px;
 }
+
+.minibtn{
+    border: 1px solid #cccccc;
+    border-radius: 3px;
+    padding: 3px 5px;
+    font-size: 12px;
+    color: #444444;
+    display: inline-block;
+    cursor: pointer;
+    margin-bottom: -12px;
+}
+.ui-widget-header {
+    border: 1px solid #77a2e7 !important;
+    background: #5988f6 !important;
+    color: #fff !important;
+    font-weight: bold !important;
+}
+
+.slider-vertical-brightness,.slider-vertical-contrast{
+    display: none !important;
+    position: absolute !important;
+    height: 100px !important;
+    top: 30px !important;
+    left: 10px !important;
+    z-index: 9999;
+}
+
+.slider-box{
+    position: relative !important;
+    display: inline-block !important;
+}
+
+.slider-box:hover .slider-vertical-contrast{
+    display: block !important;
+}
+.slider-box:hover .slider-vertical-brightness{
+    display: block !important;
+}

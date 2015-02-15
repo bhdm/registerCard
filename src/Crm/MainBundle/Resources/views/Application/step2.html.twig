@@ -104,25 +104,28 @@
                             <br />
                             <div class="fileDoc">
                                 {% if order.passportFilePath is defined %}
-                                    <img src="{{ path('get_image', {'type' : 'passport'}) }}" brightness="0">
+                                    <img src="{{ path('get_image', {'type' : 'passport'}) }}" brightness="0" contrast="0">
                                 {% else %}
-                                    <img src="">
+                                    <img src="" brightness="0" contrast="0">
                                 {% endif %}
                             </div>
                             <div class="navigateFile">
-                                {#<img src="{{ asset('bundles/crmmain/icons/contrast-1.png') }}" data-contrast="minus" class="contrast" title="Контрастность -">#}
                                 <div class="slider-box">
-                                    <div id="slider-vertical-1" class="slider-vertical"></div>
-                                    <img src="{{ asset('bundles/crmmain/icons/contrast-2.png') }}" data-contrast="plus" class="contrast"  title="Контрастность +">
+                                    <div id="slider-vertical-1" class="slider-vertical-contrast"></div>
+                                    <img src="{{ asset('bundles/crmmain/icons/contrast-2.png') }}"  title="Контрастность">
                                 </div>
-                                {#<img src="{{ asset('bundles/crmmain/icons/brightness-1.png') }}" data-brightness="minus" class="brightness" title="Яркость -">#}
                                 <div class="slider-box">
-                                    <div id="slider-vertical-2" class="slider-vertical"></div>
-                                    <img src="{{ asset('bundles/crmmain/icons/brightness-2.png') }}" data-brightness="plus" class="brightness" title="Яркость +">
+                                    <div id="slider-vertical-2" class="slider-vertical-brightness"></div>
+                                    <img src="{{ asset('bundles/crmmain/icons/brightness-2.png') }}" title="Яркость">
                                 </div>
                                 <img src="{{ asset('bundles/crmmain/icons/rotateLeft.png') }}" class="rotateLeft" title="Повернуть налево">
                                 <img src="{{ asset('bundles/crmmain/icons/rotateRight.png') }}" class="rotateRight" title="Повернуть вправо">
-                                <img src="{{ asset('bundles/crmmain/icons/crop.png') }}" class="cropImage" title="Обрезать изображение">
+                                {#<img src="{{ asset('bundles/crmmain/icons/crop.png') }}" class="cropImage" title="Обрезать изображение">#}
+                                <div style="display: inline-block">
+                                <span class="cropImage minibtn" title="Обрезать изображение">Обрезать</span>
+                                    <br />
+                                    <br />
+                                </div>
 
                             </div>
                             <input type="hidden" id="x1" name="x1">
@@ -297,28 +300,6 @@
             text-align: right;
         }
 
-        .ui-widget-header {
-            border: 1px solid #77a2e7;
-            background: #5988f6 url("images/ui-bg_gloss-wave_35_f6a828_500x100.png") 50% 50% repeat-x;
-            color: #fff;
-            font-weight: bold;
-        }
 
-        .slider-vertical{
-            display: none;
-            position: absolute;
-            height: 100px;
-            top: 30px;
-            left: 10px;
-        }
-
-        .slider-box{
-            position: relative;
-            display: inline-block;
-        }
-
-        .slider-box:hover .slider-vertical{
-            display: block;
-        }
     </style>
 {% endblock %}

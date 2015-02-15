@@ -105,21 +105,28 @@
                             <progress class="progress" value="0" max="100" style="width: 270px"></progress>
                             <div class="fileDoc">
                                 {% if order.photoFilePath is defined %}
-                                    <img src="{{ path('get_image', {'type' : 'photo'}) }}" brightness="0">
+                                    <img src="{{ path('get_image', {'type' : 'photo'}) }}"  brightness="0" contrast="0">
                                 {% else %}
-                                    <img src="">
+                                    <img src="" brightness="0" contrast="0">
                                 {% endif %}
                             </div>
                             <div class="navigateFile">
-                                <img src="{{ asset('bundles/crmmain/icons/contrast-1.png') }}" data-contrast="minus" class="contrast">
-                                <img src="{{ asset('bundles/crmmain/icons/contrast-2.png') }}" data-contrast="plus" class="contrast">
-
-                                <img src="{{ asset('bundles/crmmain/icons/brightness-1.png') }}" data-brightness="minus" class="brightness">
-                                <img src="{{ asset('bundles/crmmain/icons/brightness-2.png') }}" data-brightness="plus" class="brightness">
+                                <div class="slider-box">
+                                    <div class="slider-vertical-contrast"></div>
+                                    <img src="{{ asset('bundles/crmmain/icons/contrast-2.png') }}"  title="Контрастность">
+                                </div>
+                                <div class="slider-box">
+                                    <div class="slider-vertical-brightness"></div>
+                                    <img src="{{ asset('bundles/crmmain/icons/brightness-2.png') }}" title="Яркость">
+                                </div>
 
                                 <img src="{{ asset('bundles/crmmain/icons/rotateLeft.png') }}" class="rotateLeft">
                                 <img src="{{ asset('bundles/crmmain/icons/rotateRight.png') }}" class="rotateRight">
-                                <img src="{{ asset('bundles/crmmain/icons/crop.png') }}" class="cropImage">
+                                <div style="display: inline-block">
+                                    <span class="cropImage minibtn" title="Обрезать изображение">Обрезать</span>
+                                    <br />
+                                    <br />
+                                </div>
                             </div>
                         </div>
                     </td>
@@ -138,19 +145,27 @@
                             <progress class="progress" value="0" max="100" style="width: 270px"></progress>
                             <div class="fileDoc">
                                 {% if order.signFilePath is defined %}
-                                    <img src="{{ path('get_image', {'type' : 'sign'}) }}" brightness="0">
+                                    <img src="{{ path('get_image', {'type' : 'sign'}) }}"  brightness="0" contrast="0">
                                 {% else %}
-                                    <img src="">
+                                    <img src="" brightness="0" contrast="0">
                                 {% endif %}
                             </div>
                             <div class="navigateFile">
-                                <img src="{{ asset('bundles/crmmain/icons/contrast-1.png') }}" data-contrast="minus" class="contrast" title="Контрастность -">
-                                <img src="{{ asset('bundles/crmmain/icons/contrast-2.png') }}" data-contrast="plus" class="contrast"  title="Контрастность +">
-                                <img src="{{ asset('bundles/crmmain/icons/brightness-1.png') }}" data-brightness="minus" class="brightness" title="Яркость -">
-                                <img src="{{ asset('bundles/crmmain/icons/brightness-2.png') }}" data-brightness="plus" class="brightness" title="Яркость +">
+                                <div class="slider-box">
+                                    <div class="slider-vertical-contrast"></div>
+                                    <img src="{{ asset('bundles/crmmain/icons/contrast-2.png') }}"  title="Контрастность">
+                                </div>
+                                <div class="slider-box">
+                                    <div class="slider-vertical-brightness"></div>
+                                    <img src="{{ asset('bundles/crmmain/icons/brightness-2.png') }}" title="Яркость">
+                                </div>
                                 <img src="{{ asset('bundles/crmmain/icons/rotateLeft.png') }}" class="rotateLeft" title="Повернуть налево">
                                 <img src="{{ asset('bundles/crmmain/icons/rotateRight.png') }}" class="rotateRight" title="Повернуть вправо">
-                                <img src="{{ asset('bundles/crmmain/icons/crop.png') }}" class="cropImage" title="Обрезать изображение">
+                                <div style="display: inline-block">
+                                    <span class="cropImage minibtn" title="Обрезать изображение">Обрезать</span>
+                                    <br />
+                                    <br />
+                                </div>
                             </div>
                         </div>
                     </td>
@@ -172,19 +187,27 @@
                                 <progress class="progress" value="0" max="100" style="width: 270px"></progress>
                                 <div class="fileDoc">
                                     {% if order.snilsFilePath is defined %}
-                                        <img src="{{ path('get_image', {'type' : 'snils'}) }}" brightness="0">
+                                        <img src="{{ path('get_image', {'type' : 'snils'}) }}"  brightness="0" contrast="0">
                                     {% else %}
-                                        <img src="">
+                                        <img src="" brightness="0" contrast="0">
                                     {% endif %}
                                 </div>
                                 <div class="navigateFile">
-                                    <img src="{{ asset('bundles/crmmain/icons/contrast-1.png') }}" data-contrast="minus" class="contrast" title="Контрастность -">
-                                    <img src="{{ asset('bundles/crmmain/icons/contrast-2.png') }}" data-contrast="plus" class="contrast"  title="Контрастность +">
-                                    <img src="{{ asset('bundles/crmmain/icons/brightness-1.png') }}" data-brightness="minus" class="brightness" title="Яркость -">
-                                    <img src="{{ asset('bundles/crmmain/icons/brightness-2.png') }}" data-brightness="plus" class="brightness" title="Яркость +">
+                                    <div class="slider-box">
+                                        <div class="slider-vertical-contrast"></div>
+                                        <img src="{{ asset('bundles/crmmain/icons/contrast-2.png') }}"  title="Контрастность">
+                                    </div>
+                                    <div class="slider-box">
+                                        <div class="slider-vertical-brightness"></div>
+                                        <img src="{{ asset('bundles/crmmain/icons/brightness-2.png') }}" title="Яркость">
+                                    </div>
                                     <img src="{{ asset('bundles/crmmain/icons/rotateLeft.png') }}" class="rotateLeft" title="Повернуть налево">
                                     <img src="{{ asset('bundles/crmmain/icons/rotateRight.png') }}" class="rotateRight" title="Повернуть вправо">
-                                    <img src="{{ asset('bundles/crmmain/icons/crop.png') }}" class="cropImage" title="Обрезать изображение">
+                                    <div style="display: inline-block">
+                                        <span class="cropImage minibtn" title="Обрезать изображение">Обрезать</span>
+                                        <br />
+                                        <br />
+                                    </div>
                                 </div>
                             </div>
                         </td>
@@ -204,19 +227,27 @@
                                 <progress class="progress" value="0" max="100" style="width: 270px"></progress>
                                 <div class="fileDoc">
                                     {% if order.snilsFilePath is defined %}
-                                        <img src="{{ path('get_image', {'type' : 'snils'}) }}" brightness="0">
+                                        <img src="{{ path('get_image', {'type' : 'snils'}) }}"  brightness="0" contrast="0">
                                     {% else %}
-                                        <img src="">
+                                        <img src="" brightness="0" contrast="0">
                                     {% endif %}
                                 </div>
                                 <div class="navigateFile">
-                                    <img src="{{ asset('bundles/crmmain/icons/contrast-1.png') }}" data-contrast="minus" class="contrast" title="Контрастность -">
-                                    <img src="{{ asset('bundles/crmmain/icons/contrast-2.png') }}" data-contrast="plus" class="contrast"  title="Контрастность +">
-                                    <img src="{{ asset('bundles/crmmain/icons/brightness-1.png') }}" data-brightness="minus" class="brightness" title="Яркость -">
-                                    <img src="{{ asset('bundles/crmmain/icons/brightness-2.png') }}" data-brightness="plus" class="brightness" title="Яркость +">
+                                    <div class="slider-box">
+                                        <div class="slider-vertical-contrast"></div>
+                                        <img src="{{ asset('bundles/crmmain/icons/contrast-2.png') }}"  title="Контрастность">
+                                    </div>
+                                    <div class="slider-box">
+                                        <div class="slider-vertical-brightness"></div>
+                                        <img src="{{ asset('bundles/crmmain/icons/brightness-2.png') }}" title="Яркость">
+                                    </div>
                                     <img src="{{ asset('bundles/crmmain/icons/rotateLeft.png') }}" class="rotateLeft" title="Повернуть налево">
                                     <img src="{{ asset('bundles/crmmain/icons/rotateRight.png') }}" class="rotateRight" title="Повернуть вправо">
-                                    <img src="{{ asset('bundles/crmmain/icons/crop.png') }}" class="cropImage" title="Обрезать изображение">
+                                    <div style="display: inline-block">
+                                        <span class="cropImage minibtn" title="Обрезать изображение">Обрезать</span>
+                                        <br />
+                                        <br />
+                                    </div>
                                 </div>
                             </div>
                         </td>
@@ -235,19 +266,27 @@
                                 <progress class="progress" value="0" max="100" style="width: 270px"></progress>
                                 <div class="fileDoc">
                                     {% if order.registerFilePath is defined %}
-                                        <img src="{{ path('get_image', {'type' : 'register'}) }}" brightness="0">
+                                        <img src="{{ path('get_image', {'type' : 'register'}) }}"  brightness="0" contrast="0">
                                     {% else %}
-                                        <img src="">
+                                        <img src="" brightness="0" contrast="0">
                                     {% endif %}
                                 </div>
                                 <div class="navigateFile">
-                                    <img src="{{ asset('bundles/crmmain/icons/contrast-1.png') }}" data-contrast="minus" class="contrast" title="Контрастность -">
-                                    <img src="{{ asset('bundles/crmmain/icons/contrast-2.png') }}" data-contrast="plus" class="contrast"  title="Контрастность +">
-                                    <img src="{{ asset('bundles/crmmain/icons/brightness-1.png') }}" data-brightness="minus" class="brightness" title="Яркость -">
-                                    <img src="{{ asset('bundles/crmmain/icons/brightness-2.png') }}" data-brightness="plus" class="brightness" title="Яркость +">
+                                    <div class="slider-box">
+                                        <div class="slider-vertical-contrast"></div>
+                                        <img src="{{ asset('bundles/crmmain/icons/contrast-2.png') }}"  title="Контрастность">
+                                    </div>
+                                    <div class="slider-box">
+                                        <div class="slider-vertical-brightness"></div>
+                                        <img src="{{ asset('bundles/crmmain/icons/brightness-2.png') }}" title="Яркость">
+                                    </div>
                                     <img src="{{ asset('bundles/crmmain/icons/rotateLeft.png') }}" class="rotateLeft" title="Повернуть налево">
                                     <img src="{{ asset('bundles/crmmain/icons/rotateRight.png') }}" class="rotateRight" title="Повернуть вправо">
-                                    <img src="{{ asset('bundles/crmmain/icons/crop.png') }}" class="cropImage" title="Обрезать изображение">
+                                    <div style="display: inline-block">
+                                        <span class="cropImage minibtn" title="Обрезать изображение">Обрезать</span>
+                                        <br />
+                                        <br />
+                                    </div>
                                 </div>
                             </div>
                         </td>
