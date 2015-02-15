@@ -138,12 +138,17 @@ $(document).ready(function(){
     var file;
 
     $('.fileAjax').on('change', function(event){
+
         var container = $(this).parent();
         if (container.hasClass('fileAjax')){
             container = container.parent();
         }
         var progressbar = container.children('.progress');
         var navigateFile = container.children('.navigateFile');
+
+        var loader = '/bundles/crmmain/images/ajax_loader.gif';
+        container.children('.fileDoc').children('img').attr('src',loader);
+        //return false;
 
         file = event.target.files[0];
         var formData = new FormData();
