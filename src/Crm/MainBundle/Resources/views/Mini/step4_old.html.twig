@@ -14,8 +14,8 @@
                 <td>
                         <span class="step">
                             <span class="stepn">1</span>
-                            <img src="{{ asset('bundles/crmmain/crosh/11.png') }}" style="width: 75px">
-                            <br />Данные для<br />связи
+                            <img src="{{ asset('bundles/crmmain/crosh/11.png') }}" style="width: 50px">
+                            <br />Данные<br />для&nbsp;связи
                         </span>
                 </td>
                 <td>
@@ -24,7 +24,7 @@
                 <td>
                         <span class="step">
                             <span class="stepn">2</span>
-                            <img src="{{ asset('bundles/crmmain/crosh/21.png') }}" style="width: 75px">
+                            <img src="{{ asset('bundles/crmmain/crosh/21.png') }}" style="width: 50px">
                             <br />Паспортные<br />данные
                         </span>
                 </td>
@@ -34,7 +34,7 @@
                 <td>
                         <span class="step">
                             <span class="stepn">3</span>
-                            <img src="{{ asset('bundles/crmmain/crosh/31.png') }}" style="width: 75px">
+                            <img src="{{ asset('bundles/crmmain/crosh/31.png') }}" style="width: 50px">
                             <br />Вод.<br />удостоверение
                         </span>
                 </td>
@@ -42,21 +42,41 @@
                     <img src="{{ asset('bundles/crmmain/crosh/right.png') }}" style="width: 15px">
                 </td>
                 <td>
-                        <span class="step">
-                            <span class="stepn">4</span>
-                            <img src="{{ asset('bundles/crmmain/crosh/5.png') }}" style="width: 75px">
-                            <br />Фото, Подпись,<br />Снилс
-                        </span>
+                    <span class="step" title="Можно использовать Ходатайство НПО Технолог">
+                        <span class="stepn">4</span>
+                        <img src="{{ asset('bundles/crmmain/crosh/41.png') }}" style="width: 50px">
+                        <br />Ходатайство<br /><i>(По&nbsp;желанию)</i>
+                    </span>
                 </td>
                 <td>
                     <img src="{{ asset('bundles/crmmain/crosh/right.png') }}" style="width: 15px">
                 </td>
                 <td>
-                        <span class="step">
-                            <span class="stepn">5</span>
-                            <img src="{{ asset('bundles/crmmain/crosh/6.png') }}" style="width: 75px">
-                            <br />Данные о<br />доставке
-                        </span>
+                    <span class="step">
+                        <span class="stepn">5</span>
+                        <img src="{{ asset('bundles/crmmain/crosh/5.png') }}" style="width: 50px">
+                        <br />Фото, Подпись,<br />Снилс
+                    </span>
+                </td>
+                <td>
+                    <img src="{{ asset('bundles/crmmain/crosh/right.png') }}" style="width: 15px">
+                </td>
+                <td>
+                    <span class="step">
+                        <span class="stepn">6</span>
+                        <img src="{{ asset('bundles/crmmain/crosh/6.png') }}" style="width: 50px">
+                        <br />Информация<br />о&nbsp;доставке
+                    </span>
+                </td>
+                <td>
+                    <img src="{{ asset('bundles/crmmain/crosh/right.png') }}" style="width: 15px">
+                </td>
+                <td>
+                    <span class="step">
+                        <span class="stepn">6</span>
+                        <img src="{{ asset('bundles/crmmain/crosh/7.png') }}" style="width: 50px">
+                        <br /><br />Оплата
+                    </span>
                 </td>
                 </tr>
             </table>
@@ -64,68 +84,7 @@
     </div>
     <div class="box">
         <table>
-            <form method="POST" action="{{ path('company-application-skzi-step3',{url : company.url}) }}" id="main-form" enctype="multipart/form-data">
-                <tr>
-                    <td colspan="3">
-                        <div class="error-msg"></div>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="label">Кем выдано<span class="required">*</span>:</td>
-                    <td class="value">
-                        <input name="driverPlace" id="driverPlace" type="text" placeholder="Кем выдано" required  value="{{ order.driverPlace is defined ? order.driverPlace : '' }}">
-                    </td>
-                    <td rowspan="7" style="width: 400px; vertical-align: top; padding-left: 10px">
-                        {# Тут сама фото #}
-                        <div class="file-container">
-                            <input type="file" name="driverFile" id="driverFile" class="fileAjax" required="required" accept="image/jpeg">
-                            <progress class="progress" value="0" max="100" style="width: 270px"></progress>
-                            <br />
-                            <br />
-                            <div class="fileDoc">
-                                {% if order.driverFilePath is defined %}
-                                    <img src="{{ path('get_image', {'type' : 'driver'}) }}" brightness="0" contrast="0">
-                                {% else %}
-                                    <img src="" brightness="0" contrast="0">
-                                {% endif %}
-                            </div>
-                            <div class="navigateFile">
-                                <div class="slider-box">
-                                    <div id="slider-vertical-1" class="slider-vertical-contrast"></div>
-                                    <img src="{{ asset('bundles/crmmain/icons/contrast-2.png') }}"  title="Контрастность">
-                                </div>
-                                <div class="slider-box">
-                                    <div id="slider-vertical-2" class="slider-vertical-brightness"></div>
-                                    <img src="{{ asset('bundles/crmmain/icons/brightness-2.png') }}" title="Яркость">
-                                </div>
-                                <img src="{{ asset('bundles/crmmain/icons/rotateLeft.png') }}" class="rotateLeft" title="Повернуть налево">
-                                <img src="{{ asset('bundles/crmmain/icons/rotateRight.png') }}" class="rotateRight" title="Повернуть вправо">
-                                <div style="display: inline-block">
-                                    <span class="cropImage minibtn" title="Обрезать изображение">Обрезать</span>
-                                    <br />
-                                    <br />
-                                </div>
-                            </div>
-                            <input type="hidden"  name="x1">
-                            <input type="hidden"  name="y1">
-                            <input type="hidden"  name="x2">
-                            <input type="hidden"  name="y2">
-                        </div>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="label">Номер удостоверения<span class="required">*</span>:</td>
-                    <td class="value">
-                        <input name="driverNumber" id="driverNumber" type="text" placeholder="Номер удостоверения" value="{{ order.driverNumber is defined ? order.driverNumber : '' }}">
-                    </td>
-                </tr>
-                <tr>
-                    <td class="label">Дата выдачи<span class="required">*</span>:</td>
-                    <td class="value">
-                        <input name="driverStarts" id="driverStarts" type="text" placeholder="Дата выдачи" class="date" value="{{ order.driverStarts is defined ? order.driverStarts : '' }}">
-                    </td>
-                </tr>
-                <tr><td><br /><br /></td></tr>
+            <form method="POST" action="{{ path('company-application-skzi-step4',{url : company.url}) }}" id="main-form" enctype="multipart/form-data">
                 <tr>
                     <td class="label">Ходатайство с места работы<span class="required">*</span>:</td>
                     <td style="width: 400px; vertical-align: middle; padding-left: 10px">
@@ -157,24 +116,19 @@
                             <br />
                             <div class="fileDoc">
                                 {% if order.petitionFilePath is defined %}
-                                    <img src="{{ path('get_image', {'type' : 'petition'}) }}"  brightness="0" contrast="0">
+                                    <img src="{{ path('get_image', {'type' : 'petition'}) }}" brightness="0">
                                 {% else %}
-                                    <img src=""  brightness="0" contrast="0">
+                                    <img src="">
                                 {% endif %}
                             </div>
                             <div class="navigateFile">
-                                <div class="slider-box">
-                                    <div id="slider-vertical-1" class="slider-vertical-contrast"></div>
-                                    <img src="{{ asset('bundles/crmmain/icons/contrast-2.png') }}"  title="Контрастность">
-                                </div>
-                                <div class="slider-box">
-                                    <div id="slider-vertical-2" class="slider-vertical-brightness"></div>
-                                    <img src="{{ asset('bundles/crmmain/icons/brightness-2.png') }}" title="Яркость">
-                                </div>
+                                <img src="{{ asset('bundles/crmmain/icons/contrast-1.png') }}" data-contrast="minus" class="contrast" title="Контрастность -">
+                                <img src="{{ asset('bundles/crmmain/icons/contrast-2.png') }}" data-contrast="plus" class="contrast"  title="Контрастность +">
+                                <img src="{{ asset('bundles/crmmain/icons/brightness-1.png') }}" data-brightness="minus" class="brightness" title="Яркость -">
+                                <img src="{{ asset('bundles/crmmain/icons/brightness-2.png') }}" data-brightness="plus" class="brightness" title="Яркость +">
                                 <img src="{{ asset('bundles/crmmain/icons/rotateLeft.png') }}" class="rotateLeft" title="Повернуть налево">
                                 <img src="{{ asset('bundles/crmmain/icons/rotateRight.png') }}" class="rotateRight" title="Повернуть вправо">
-                                <div style="display: inline-block">
-                                    <span class="cropImage minibtn" title="Обрезать изображение">Обрезать</span>
+                                <span class="cropImage minibtn" title="Обрезать изображение">Обрезать</span>
                                     <br />
                                     <br />
                                 </div>
@@ -215,7 +169,6 @@
                             <option {{ order.p_typeStreet is defined and order.p_typeStreet == '' ? 'selected="selected"' : '' }}  value=""        >Другое</option>
                         </select>
                 </tr>
-
                 <tr class="tehnolog-n">
                     <td class="label"></td>
                     <td class="value">
@@ -245,22 +198,20 @@
                     <td class="value">
                         <input name="zipcode" id="zipcode"  type="text" placeholder="Индекс"  value="{{ order.p_zipcode is defined ? order.p_zipcode : '' }}"><br />
                 </tr>
-
                 <tr>
-                    <td></td>
+                    <td colspan="2">
+                        <br />
+                        <i style="font-size: 14px; color: #CC3333">* Поля отмеченные звездочкой обязательны для заполнения</i>
+                        <br />
+                    </td>
                 </tr>
             </form>
-            <tr><td colspan="2">
-                    <br />
-                    <i style="font-size: 14px; color: #CC3333">* Поля отмеченные звездочкой обязательны для заполнения</i>
-                    <br />
-                </td></tr>
-            <tr>
-                <td></td>
-                <td style="text-align: right">
-                    <input type="button" value="Далее" class="btn" id="submit">
-                </td>
-            </tr>
+                <tr>
+                    <td></td>
+                    <td style="text-align: right">
+                        <input type="button" value="Далее" class="btn" id="submit">
+                    </td>
+                </tr>
         </table>
     </div>
 {% endblock %}
@@ -272,7 +223,7 @@
     {#<script src="{{ asset('bundles/crmmain/lib/odyniec/jquery.imgareaselect.min.js') }}" type="text/javascript"></script>#}
     <script src="{{ asset('bundles/crmmain/tapmodo-Jcrop/js/jquery.Jcrop.min.js') }}" type="text/javascript"></script>
     <script src="{{ asset('bundles/crmmain/javascripts/file.js') }}" type="text/javascript"></script>
-
+    <script src="{{ asset('bundles/crmmain/kladrapi/jquery.kladr.min.js') }}" type="text/javascript"></script>
 
     <script>
 
@@ -281,34 +232,28 @@
         $(document).ready(function(){
 
             $('input:text, select').styler();
-            $(".date").mask("99.99.9999");
-            $(".code").mask("999-999");
+            $(".snils").mask("999-999-999 99");
+            $("#zipcode").mask("999999");
+            $.mask.definitions['h'] = "[DMP ]";
+            $.mask.definitions['d'] = "[a-zA-Z0-9а-яА-Я ]";
+
+
+            $('#tehnolog').change(function(){
+                if($('#tehnolog').prop("checked")){
+                    $('#tehnolog-filebox').css('display','none');
+                    $('.tehnolog-n').css('display','none');
+                }else{
+                    $('#tehnolog-filebox').css('display','block');
+                    $('.tehnolog-n').css('display','table-row');
+                    $('input:text, select').styler();
+                }
+            });
 
             $('#submit').click(function(){
-                errorI = 1 ;
-                error = '';
+//                alert('1');
+                var errorI = 1 ;
+                var error = '';
 
-
-                if ( $('#driverPlace').val() == ''){
-                    error += errorI+'. Поле Кем выдано обязательно для заполнения<br />';
-                    $('#driverPlace').css('borderColor', '#cc3333');
-                    errorI++;
-                }
-                if ( $('#driverNumber').val() == ''){
-                    error += errorI+'. Поле номер удостоверения обязательно для заполнения<br />';
-                    $('#driverNumber').css('borderColor', '#cc3333');
-                    errorI++;
-                }
-                if ( $('#driverStarts').val() == ''){
-                    error += errorI+'. Поле дата выдачи обязательно для заполнения<br />';
-                    $('#driverStarts').css('borderColor', '#cc3333');
-                    errorI++;
-                }
-                if ( $('#driverFile').val() == '' && $('.fileDoc').children('img').attr('src') == ''){
-                    error += errorI+'. Загрузите пожалуйста скан водительского удостоверения<br />';
-                    $('#driverFile').css('borderColor', '#cc3333');
-                    errorI++;
-                }
                 if ($('#tehnolog').prop("checked") == false){
                     if ( $('#region').val() == ''){
                         error += errorI+'. Поле Регион обязательно для заполнения<br />';
@@ -336,8 +281,7 @@
                         errorI++;
                     }
                 }
-
-
+                console.log();
                 if (error === ''){
                     $('#main-form').submit();
                 }else{
@@ -345,6 +289,7 @@
                     $('.error-msg').html(error);
                 }
             });
+
 
             $( '#region' ).kladr({
                 token: '541ee4ac7c52392c7d8b457e',
@@ -394,6 +339,7 @@
     <link href="{{ asset('bundles/crmmain/lib/jquery-ui/jquery-ui.min.css') }}" rel="stylesheet" media="all">
     {#<link href="{{ asset('bundles/crmmain/lib/odyniec/distfiles/css/imgareaselect-default.css') }}" rel="stylesheet" media="all">#}
     <link href="{{ asset('bundles/crmmain/tapmodo-Jcrop/css/jquery.Jcrop.min.css') }}" rel="stylesheet" media="all">
+    <link href="{{ asset('bundles/crmmain/kladrapi/jquery.kladr.css') }}" rel="stylesheet" media="all">
     <style>
 
         .label-text{
@@ -407,7 +353,9 @@
             margin: 0;
         }
 
-
+        .tehnolog-n{
+            display: none;
+        }
         /* *************** */
 
         #passportSerial{
@@ -416,18 +364,19 @@
         #passportNumber{
             width: 190px;
         }
-        #file img{
-            width: 415px;
-            max-height: 500px;
-        }
-
 
         .right{
             text-align: right;
         }
-
-        .tehnolog-n{
-            display: none;
+        #typeStreet-styler, #typeCard-styler{
+            width: 270px;
         }
+        #typeRoom-styler{
+            width: 180px;
+            margin-top: -3px
+        }
+        /*.file-container{*/
+            /*font-size: 0;*/
+        /*}*/
     </style>
 {% endblock %}

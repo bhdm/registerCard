@@ -42,18 +42,8 @@
                     <img src="{{ asset('bundles/crmmain/crosh/right.png') }}" style="width: 15px">
                 </td>
                 <td>
-                        <span class="step" title="Можно использовать Ходатайство НПО Технолог">
-                            <span class="stepn">4</span>
-                            <img src="{{ asset('bundles/crmmain/crosh/4.png') }}" style="width: 75px">
-                            <br />Ходатайство
-                        </span>
-                </td>
-                <td>
-                    <img src="{{ asset('bundles/crmmain/crosh/right.png') }}" style="width: 15px">
-                </td>
-                <td>
                         <span class="step">
-                            <span class="stepn">5</span>
+                            <span class="stepn">4</span>
                             <img src="{{ asset('bundles/crmmain/crosh/5.png') }}" style="width: 75px">
                             <br />Фото, Подпись,<br />Снилс
                         </span>
@@ -63,7 +53,7 @@
                 </td>
                 <td>
                         <span class="step">
-                            <span class="stepn">6</span>
+                            <span class="stepn">5</span>
                             <img src="{{ asset('bundles/crmmain/crosh/6.png') }}" style="width: 75px">
                             <br />Данные о<br />доставке
                         </span>
@@ -94,25 +84,25 @@
                             <br />
                             <div class="fileDoc">
                                 {% if order.passportFilePath is defined %}
-                                    <img src="{{ path('get_image', {'type' : 'passport'}) }}" brightness="0">
+                                    <img src="{{ path('get_image', {'type' : 'passport'}) }}" brightness="0" contrast="0">
                                 {% else %}
-                                    <img src="">
+                                    <img src="" brightness="0" contrast="0">
                                 {% endif %}
                             </div>
                             <div class="navigateFile">
-                                {#<img src="{{ asset('bundles/crmmain/icons/contrast-1.png') }}" data-contrast="minus" class="contrast" title="Контрастность -">#}
                                 <div class="slider-box">
-                                    <div id="slider-vertical-1" class="slider-vertical"></div>
-                                    <img src="{{ asset('bundles/crmmain/icons/contrast-2.png') }}" data-contrast="plus" class="contrast"  title="Контрастность +">
+                                    <div id="slider-vertical-1" class="slider-vertical-contrast"></div>
+                                    <img src="{{ asset('bundles/crmmain/icons/contrast-2.png') }}"  title="Контрастность">
                                 </div>
-                                {#<img src="{{ asset('bundles/crmmain/icons/brightness-1.png') }}" data-brightness="minus" class="brightness" title="Яркость -">#}
                                 <div class="slider-box">
-                                    <div id="slider-vertical-2" class="slider-vertical"></div>
-                                    <img src="{{ asset('bundles/crmmain/icons/brightness-2.png') }}" data-brightness="plus" class="brightness" title="Яркость +">
+                                    <div id="slider-vertical-2" class="slider-vertical-brightness"></div>
+                                    <img src="{{ asset('bundles/crmmain/icons/brightness-2.png') }}" title="Яркость">
                                 </div>
                                 <img src="{{ asset('bundles/crmmain/icons/rotateLeft.png') }}" class="rotateLeft" title="Повернуть налево">
                                 <img src="{{ asset('bundles/crmmain/icons/rotateRight.png') }}" class="rotateRight" title="Повернуть вправо">
-                                <span class="cropImage minibtn" title="Обрезать изображение">Обрезать</span>
+                                {#<img src="{{ asset('bundles/crmmain/icons/crop.png') }}" class="cropImage" title="Обрезать изображение">#}
+                                <div style="display: inline-block">
+                                    <span class="cropImage minibtn" title="Обрезать изображение">Обрезать</span>
                                     <br />
                                     <br />
                                 </div>

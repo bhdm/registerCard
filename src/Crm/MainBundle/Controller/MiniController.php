@@ -117,35 +117,9 @@ class MiniController extends Controller{
             $order['driverStarts']  = $request->request->get('driverStarts');
             $order['driverEnds']    = $request->request->get('driverEnds');
             $order['driverFilePath'] = $session->get('driverFile');
-//            $session->set('file', null);
-            $session->set('order',$order);
 
-            return $this->redirect($this->generateUrl('company-application-skzi-step4',array('url' => $url)));
-        }
-
-        if (isset($order['driverFilePath'])){
-            $session->set('driverFile',$order['driverFilePath']);
-        }
-        return array('order' => $order, 'company' => $company);
-    }
-
-
-    /**
-     * @Route("company/{url}/application-skzi-step4", name="company-application-skzi-step4", options={"expose"=true})
-     * @Template()
-     */
-    public function step4Action(Request $request, $url){
-        $company = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->findOneByUrl($url);
-        $session = $request->getSession();
-        $order = $session->get('order');
-        if (!isset($order['step3']) || $order['step3'] != true){
-            return $this->redirect($this->generateUrl('company-application-skzi-step3',array('url' => $url)));
-        }
-        if ($request->getMethod() == 'POST'){
-            $order['step4'] = true;
             if ($request->request->get('tehnolog') == 'on'){
                 $order['myPetition']=true;
-
             }else{
                 $order['petitionFilePath'] = $session->get('petitionFile');
                 $order['myPetition']    =false;
@@ -162,9 +136,36 @@ class MiniController extends Controller{
                 $order['p_zipcode']     = $request->request->get('zipcode');
             }
 
-//            $order['driverFilePath'] = $session->get('file');
+            $session->set('order',$order);
 
-            $session->set('file', null);
+            return $this->redirect($this->generateUrl('company-application-skzi-step4',array('url' => $url)));
+        }
+
+        if (isset($order['driverFilePath'])){
+            $session->set('driverFile',$order['driverFilePath']);
+        }
+        return array('order' => $order, 'company' => $company);
+    }
+
+
+
+    /**
+     * @Route("company/{url}/application-skzi-step4", name="company-application-skzi-step4", options={"expose"=true})
+     * @Template()
+     */
+    public function step4Action(Request $request, $url){
+        $company = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->findOneByUrl($url);
+        $session = $request->getSession();
+        $order = $session->get('order');
+        if (!isset($order['step3']) || $order['step3'] != true){
+            return $this->redirect($this->generateUrl('company-application-skzi-step3',array('url' => $url)));
+        }
+        if ($request->getMethod() == 'POST'){
+            $order['step4'] = true;
+            $order['photoFilePath'] = $session->get('photoFile');
+            $order['signFilePath'] = $session->get('signFile');
+            $order['snilsFilePath'] = $session->get('snilsFile');
+            $order['snils'] = $request->request->get('snils');
             $session->set('order',$order);
 
             return $this->redirect($this->generateUrl('company-application-skzi-step5',array('url' => $url)));
@@ -172,13 +173,15 @@ class MiniController extends Controller{
         return array('citizenship' => $order['citizenship'],'order' => $order, 'company' => $company);
     }
 
-
     /**
      * @Route("company/{url}/application-skzi-step5", name="company-application-skzi-step5", options={"expose"=true})
      * @Template()
      */
-    public function step5Action(Request $request, $url){
+    public function step5Action(Request $request,$url){
         $company = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->findOneByUrl($url);
+        $country = $this->getDoctrine()->getRepository('CrmMainBundle:Country')->findOneById(3159);
+        $regions = $this->getDoctrine()->getRepository('CrmMainBundle:Region')->findByCountry($country);
+
         $session = $request->getSession();
         $order = $session->get('order');
         if (!isset($order['step4']) || $order['step4'] != true){
@@ -186,33 +189,6 @@ class MiniController extends Controller{
         }
         if ($request->getMethod() == 'POST'){
             $order['step5'] = true;
-            $order['photoFilePath'] = $session->get('photoFile');
-            $order['signFilePath'] = $session->get('signFile');
-            $order['snilsFilePath'] = $session->get('snilsFile');
-            $order['snils'] = $request->request->get('snils');
-            $session->set('order',$order);
-
-            return $this->redirect($this->generateUrl('company-application-skzi-step6',array('url' => $url)));
-        }
-        return array('citizenship' => $order['citizenship'],'order' => $order, 'company' => $company);
-    }
-
-    /**
-     * @Route("company/{url}/application-skzi-step6", name="company-application-skzi-step6", options={"expose"=true})
-     * @Template()
-     */
-    public function step6Action(Request $request,$url){
-        $company = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->findOneByUrl($url);
-        $country = $this->getDoctrine()->getRepository('CrmMainBundle:Country')->findOneById(3159);
-        $regions = $this->getDoctrine()->getRepository('CrmMainBundle:Region')->findByCountry($country);
-
-        $session = $request->getSession();
-        $order = $session->get('order');
-        if (!isset($order['step5']) || $order['step5'] != true){
-            return $this->redirect($this->generateUrl('company-application-skzi-step5',array('url' => $url)));
-        }
-        if ($request->getMethod() == 'POST'){
-            $order['step6'] = true;
             $order['d_region'] = $request->request->get('region');
             $order['d_city'] = $request->request->get('city');
             $order['d_typeStreet'] = $request->request->get('typeStreet');
@@ -242,8 +218,8 @@ class MiniController extends Controller{
         $company = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->findOneByUrl($url);
         $session = new Session();
         $order = $session->get('order');
-        if (!isset($order['step6']) || $order['step6'] != true){
-            return $this->redirect($this->generateUrl('company-application-skzi-step6',array('url' => $url)));
+        if (!isset($order['step5']) || $order['step5'] != true){
+            return $this->redirect($this->generateUrl('company-application-skzi-step5',array('url' => $url)));
         }
         $em = $this->getDoctrine()->getManager();
 
