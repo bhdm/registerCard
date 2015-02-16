@@ -279,17 +279,17 @@ class ImageController extends Controller
     public function resize($path){
         $image = imagecreatefromjpeg($path);
         $size = getimagesize($path);
-        if ($size[0] > 400 && $size[0] > $size[1] ){
-            $o = $size[0] / 400;
-            $sizeo[0] = 400;
+        if ($size[0] > 1000 && $size[0] > $size[1] ){
+            $o = $size[0] / 1000;
+            $sizeo[0] = 1000;
             $sizeo[1] = $size[1]/$o;
             $crop = imagecreatetruecolor($sizeo[0],$sizeo[1]);
             imagecopyresized( $crop, $image, 0, 0, 0, 0, $sizeo[0], $sizeo[1], imagesx($image), imagesy($image));
             imagejpeg($crop, $path);
             return true;
-        }elseif ($size[1] > 400 && $size[1] >= $size[0]){
-            $o = $size[1] / 400;
-            $sizeo[1] = 400;
+        }elseif ($size[1] > 1000 && $size[1] >= $size[0]){
+            $o = $size[1] / 1000;
+            $sizeo[1] = 1000;
             $sizeo[0] = $size[0]/$o;
             $crop = imagecreatetruecolor($sizeo[0],$sizeo[1]);
             imagecopyresized( $crop, $image, 0, 0, 0, 0, $sizeo[0], $sizeo[1], imagesx($image), imagesy($image));
