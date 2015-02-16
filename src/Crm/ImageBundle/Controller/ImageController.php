@@ -37,7 +37,10 @@ class ImageController extends Controller
                 $path='/var/www/upload/tmp/'.time().'.jpg';
                 $path2='/var/www/upload/tmp/origin-'.time().'.jpg';
                 $oldPath = $file->getPathName();
+
+
                 move_uploaded_file($oldPath,$path);
+                $this->resize($path);
                 copy($path,$path2);
 
                 $session->set($type,$path);
@@ -272,4 +275,30 @@ class ImageController extends Controller
         imagejpeg($crop, $path);
         return true;
     }
+
+    public function resize($path){
+        $image = imagecreatefromjpeg($path);
+        $size = getimagesize($path);
+        if ($size[0] > 400 && $size[0] > $size[1] ){
+            $o = $size[0] / 400;
+            $sizeo[0] = 400;
+            $sizeo[1] = $size[1]/$o;
+            $crop = imagecreatetruecolor($sizeo[0],$sizeo[1]);
+            imagecopyresized( $crop, $image, 0, 0, 0, 0, $sizeo[0], $sizeo[1], imagesx($image), imagesy($image));
+            imagejpeg($crop, $path);
+            return true;
+        }elseif ($size[1] > 400 && $size[1] >= $size[0]){
+            $o = $size[1] / 400;
+            $sizeo[1] = 400;
+            $sizeo[0] = $size[0]/$o;
+            $crop = imagecreatetruecolor($sizeo[0],$sizeo[1]);
+            imagecopyresized( $crop, $image, 0, 0, 0, 0, $sizeo[0], $sizeo[1], imagesx($image), imagesy($image));
+            imagejpeg($crop, $path);
+            return true;
+        }else{
+            return true;
+        }
+    }
+
+
 }
