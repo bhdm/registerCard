@@ -42,13 +42,15 @@ function getImage(data,container){
         var fileDoc = container.children('.fileDoc');
 
         //fileDoc.html('<img src=""  brightness="0" contrast="0" />');
-        fileDoc.children('img').attr('src',data.data.img);
-        fileDoc.children('.jcrop-holder').children('img').attr('src',data.data.img);
-        var type = container.children('.jq-file').children('input[type=file]').attr('id');
         var container = container;
         if (jcrop_api != null){
             jcrop_api.destroy();
+            fileDoc.children('img').removeAttr('style');
+            //jcrop_api.setImage(data.data.img);
         }
+        fileDoc.children('img').attr('src',data.data.img);
+        fileDoc.children('.jcrop-holder').children('img').attr('src',data.data.img);
+        var type = container.children('.jq-file').children('input[type=file]').attr('id');
 
         if (type == 'photoFile'){
             fileDoc.children('img').Jcrop({
