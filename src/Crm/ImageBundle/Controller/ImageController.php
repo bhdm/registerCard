@@ -101,11 +101,12 @@ class ImageController extends Controller
         $rect['height'] = getimagesize($path)[1];
 
         $aspect = $rect['width'] / (int) $width;
+        $aspect2 = $rect['height'] / (int) $height;
 
         $x1 = $x1*$aspect;
         $x2 = $x2*$aspect;
-        $y1 = $y1*$aspect;
-        $y2 = $y2*$aspect;
+        $y1 = $y1*$aspect2;
+        $y2 = $y2*$aspect2;
 
         $image = imagecreatefromjpeg($path);
         $crop = imagecreatetruecolor($x2-$x1,$y2-$y1);
