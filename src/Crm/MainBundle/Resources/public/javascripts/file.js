@@ -152,7 +152,7 @@ $(document).ready(function(){
         var progressbar = container.children('.progress');
         var navigateFile = container.children('.navigateFile');
 
-        var loader = 'bundles/crmmain/images/ajax_loader.gif';
+        var loader = 'http://im-kard.ru/bundles/crmmain/images/ajax_loader.gif';
         container.children('.fileDoc').children('img').attr('src',loader);
         //return false;
 
@@ -177,7 +177,7 @@ $(document).ready(function(){
                         progressbar.attr({value:evt.loaded,max:evt.total});
 
                         if ( evt.loaded == evt.total ){
-                            var loader = 'bundles/crmmain/images/ajax_loader.gif';
+                            var loader = 'http://im-kard.ru/bundles/crmmain/images/ajax_loader.gif';
                             //alert(container.children('.fileDoc').children('img').attr('src'));
                             container.children('.fileDoc').children('img').attr('src',loader);
                         }
