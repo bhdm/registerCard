@@ -40,7 +40,7 @@ class ImageController extends Controller
 
 
                 move_uploaded_file($oldPath,$path);
-                $this->resize($path);
+//                $this->resize($path);
                 copy($path,$path2);
 
                 $session->set($type,$path);
