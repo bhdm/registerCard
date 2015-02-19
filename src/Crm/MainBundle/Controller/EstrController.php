@@ -121,7 +121,11 @@ class EstrController extends Controller
         $session = $request->getSession();
         $data = $session->get('user');
         $em = $this->getDoctrine()->getManager();
-
+        if ($url!= null){
+            $company = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->findOneByUrl($url);
+        }else{
+            $company = null;
+        }
         if ($request->getMethod() == 'POST'){
             $encoders = array(new XmlEncoder(), new JsonEncoder());
             $normalizers = array(new GetSetMethodNormalizer());
@@ -145,8 +149,9 @@ class EstrController extends Controller
             $user->setDileveryCorp($data->get('deliveryCorp'));
             $user->setDileveryRoom($data->get('deliveryRoom'));
             $user->setSalt(md5(time()));
-            $user->setProduction(2);
+
             $user->setEstr(1);
+
 //
             if ($data->get('typeCard')){
                 $user->setTypeCard($data->get('typeCard'));
@@ -180,13 +185,21 @@ class EstrController extends Controller
 
 
 //            $user->setCompanyPetition(null);
+            $user->setProduction(2);
+            if ($company != null){
+                $session->set('company', $company);
+            }else{
+                $session->set('company', null);
+            }
+
+
 
             $em->persist($user);
             $em->flush($user);
             $em->refresh($user);
 
             $session->set('user', null);
-            $session->set('company', null);
+
 
             $session->set('passport', null);
             $session->set('driver', null);
@@ -216,11 +229,7 @@ class EstrController extends Controller
         }
         $session->set('user', $user->getId());
 
-        if ($url!= null){
-            $company = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->findOneByUrl($url);
-        }else{
-            $company = null;
-        }
+
 
         if ($company == null){
             return array('company' => $company , 'user' => $user);

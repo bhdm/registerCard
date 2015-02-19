@@ -121,7 +121,11 @@ class RuController extends Controller
         $session = $request->getSession();
         $data = $session->get('user');
         $em = $this->getDoctrine()->getManager();
-
+        if ($url!= null){
+            $company = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->findOneByUrl($url);
+        }else{
+            $company = null;
+        }
         if ($request->getMethod() == 'POST'){
             $encoders = array(new XmlEncoder(), new JsonEncoder());
             $normalizers = array(new GetSetMethodNormalizer());
@@ -175,7 +179,11 @@ class RuController extends Controller
             $user->setStatuslog(null);
 
 
-
+            if ($company != null){
+                $session->set('company', $company);
+            }else{
+                $session->set('company', null);
+            }
 
 //            $user->setCompanyPetition(null);
 
@@ -214,11 +222,7 @@ class RuController extends Controller
         }
         $session->set('user', $user->getId());
 
-        if ($url!= null){
-            $company = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->findOneByUrl($url);
-        }else{
-            $company = null;
-        }
+
 
         if ($company == null){
             return array('company' => $company , 'user' => $user);
