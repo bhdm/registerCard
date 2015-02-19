@@ -152,7 +152,7 @@ $(document).ready(function(){
         var progressbar = container.children('.progress');
         var navigateFile = container.children('.navigateFile');
 
-        var loader = '/bundles/crmmain/images/ajax_loader.gif';
+        var loader = 'bundles/crmmain/images/ajax_loader.gif';
         container.children('.fileDoc').children('img').attr('src',loader);
         //return false;
 
