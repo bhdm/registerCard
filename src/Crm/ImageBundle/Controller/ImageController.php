@@ -285,7 +285,7 @@ class ImageController extends Controller
             $sizeo[0] = 1000;
             $sizeo[1] = $size[1]/$o;
             $crop = imagecreatetruecolor($sizeo[0],$sizeo[1]);
-            imagecopyresized( $crop, $image, 0, 0, 0, 0, $sizeo[0], $sizeo[1], imagesx($image), imagesy($image));
+            imagecopyresampled( $crop, $image, 0, 0, 0, 0, $sizeo[0], $sizeo[1], imagesx($image), imagesy($image));
             imagejpeg($crop, $path);
             return true;
         }elseif ($size[1] > 1000 && $size[1] >= $size[0]){
@@ -293,7 +293,7 @@ class ImageController extends Controller
             $sizeo[1] = 1000;
             $sizeo[0] = $size[0]/$o;
             $crop = imagecreatetruecolor($sizeo[0],$sizeo[1]);
-            imagecopyresized( $crop, $image, 0, 0, 0, 0, $sizeo[0], $sizeo[1], imagesx($image), imagesy($image));
+            imagecopyresampled( $crop, $image, 0, 0, 0, 0, $sizeo[0], $sizeo[1], imagesx($image), imagesy($image));
             imagejpeg($crop, $path);
             return true;
         }else{
