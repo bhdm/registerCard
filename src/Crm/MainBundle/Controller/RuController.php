@@ -220,7 +220,11 @@ class RuController extends Controller
             $company = null;
         }
 
-        return array('company' => $company , 'user' => $user);
+        if ($company == null){
+            return array('company' => $company , 'user' => $user);
+        }else{
+            return $this->render('CrmMainBundle:Mini:estrrfsuccess.html.twig',array('company' => $company , 'user' => $user));
+        }
     }
 
 
