@@ -28,7 +28,8 @@ class RobokassaController extends Controller
         if ($request->getMethod()=='GET'){
             $user = $this->getDoctrine()->getRepository('CrmMainBundle:User')->findOneById($userId);
             $id = $user->getId();
-            $robokassa = new Robokassa('NPO_Tehnolog', 'Uflzoaac1', 'Uflzoaac2');
+            $robokassa = new Robokassa('infomax', 'Uflzoaac1', 'Uflzoaac2');
+//            $robokassa = new Robokassa('NPO_Tehnolog', 'Uflzoaac1', 'Uflzoaac2');
             $robokassa->OutSum = 2574.00;
 //            $robokassa->IncCurrLabel = 'WMR';
             $robokassa->Desc = $id.': '.$user->getLastName().' '.$user->getFirstName().' '.$user->getSurName();
@@ -48,7 +49,8 @@ class RobokassaController extends Controller
         if ($request->getMethod()=='GET'){
             $user = $this->getDoctrine()->getRepository('CrmMainBundle:User')->findOneById($userId);
             $id = $user->getId();
-            $robokassa = new Robokassa('NPO_Tehnolog', 'Uflzoaac1', 'Uflzoaac2');
+//            $robokassa = new Robokassa('NPO_Tehnolog', 'Uflzoaac1', 'Uflzoaac2');
+            $robokassa = new Robokassa('infomax', 'Uflzoaac1', 'Uflzoaac2');
             $robokassa->OutSum = 3374.00;
 //            $robokassa->IncCurrLabel = 'WMR';
             $robokassa->Desc = $id.': '.$user->getLastName().' '.$user->getFirstName().' '.$user->getSurName();
