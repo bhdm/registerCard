@@ -20,13 +20,24 @@ class ImageController extends Controller
     public function indexAction(Request $request, $type)
     {
         $session = $request->getSession();
+
+        /**
+         * Imagick
+         */
         if ($request->getMethod() == 'POST'){
             $error = '';
+            $time = time();
+            $path='/var/www/upload/tmp/'.$time.'.jpg';
+            $path2='/var/www/upload/tmp/origin-'.$time.'.jpg';
             $file = $request->files->get('file');
-            if ( $file->getMimeType() != 'image/jpeg'){
-                $error = array('error' => 'Файл должен быть формата JPG');
-            }
-            if ( $file->getSize() > 5242880 ){
+            $tmpPath = $file->getPathName();
+            move_uploaded_file($tmpPath,$path);
+            $image = new \Imagick();
+
+
+            $image->readImage($path);
+            $image->stripImage();
+            if ($image->getSize() > 5242880){
                 $error = array('error' => 'Размер файла должен быть меньше 5 Mb');
             }
             if ($error != ''){
@@ -34,33 +45,75 @@ class ImageController extends Controller
                 $response = new JsonResponse($error);
                 return $response;
             }else{
-                $path='/var/www/upload/tmp/'.time().'.jpg';
-                $path2='/var/www/upload/tmp/origin-'.time().'.jpg';
-                $oldPath = $file->getPathName();
+                if ($type == 'signFile'){
+//                    $this->toBitmap($path);
+//                    $this->toBitmap($path2);
+                    $image->blackThresholdImage('#D0D0D0');
+                    $image->whiteThresholdImage('#D0D0D0');
+                }else{
+//                    $this->toBlackandwhite($path);
+//                    $this->toBlackandwhite($path2);
+                    $image->setImageColorSpace(\Imagick::COLORSPACE_GRAY);
+                }
 
-
-                move_uploaded_file($oldPath,$path);
-//                $this->resize($path);
-                copy($path,$path2);
+                $image->writeImage($path);
+                $image->writeImage($path2);
 
                 $session->set($type,$path);
                 $session->set('origin-'.$type,$path2);
 
-                if ($type == 'signFile'){
-                    $this->toBitmap($path);
-                    $this->toBitmap($path2);
-                }else{
-                    $this->toBlackandwhite($path);
-                    $this->toBlackandwhite($path2);
-                }
-
-
+                $image->destroy();
 
                 $data = $this->imageToArray($path);
                 $response = new JsonResponse($data);
                 return $response;
             }
         }
+
+
+
+
+//        if ($request->getMethod() == 'POST'){
+//            $error = '';
+//            $file = $request->files->get('file');
+//            if ( $file->getMimeType() != 'image/jpeg'){
+//                $error = array('error' => 'Файл должен быть формата JPG');
+//            }
+//            if ( $file->getSize() > 5242880 ){
+//                $error = array('error' => 'Размер файла должен быть меньше 5 Mb');
+//            }
+//            if ($error != ''){
+//                $error = array('data' => $error);
+//                $response = new JsonResponse($error);
+//                return $response;
+//            }else{
+//                $path='/var/www/upload/tmp/'.time().'.jpg';
+//                $path2='/var/www/upload/tmp/origin-'.time().'.jpg';
+//                $oldPath = $file->getPathName();
+//
+//
+//                move_uploaded_file($oldPath,$path);
+////                $this->resize($path);
+//                copy($path,$path2);
+//
+//                $session->set($type,$path);
+//                $session->set('origin-'.$type,$path2);
+//
+//                if ($type == 'signFile'){
+//                    $this->toBitmap($path);
+//                    $this->toBitmap($path2);
+//                }else{
+//                    $this->toBlackandwhite($path);
+//                    $this->toBlackandwhite($path2);
+//                }
+//
+//
+//
+//                $data = $this->imageToArray($path);
+//                $response = new JsonResponse($data);
+//                return $response;
+//            }
+//        }
     }
 
     /**
