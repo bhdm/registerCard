@@ -30,14 +30,7 @@ class ImageController extends Controller
             $path='/var/www/upload/tmp/'.$time.'.jpg';
             $path2='/var/www/upload/tmp/origin-'.$time.'.jpg';
             $file = $request->files->get('file');
-            $tmpPath = $file->getPathName();
-            move_uploaded_file($tmpPath,$path);
-            $image = new \Imagick();
-
-
-            $image->readImage($path);
-            $image->stripImage();
-            if ($image->getSize() > 5242880){
+            if ($file->getSize() > 5242880){
                 $error = array('error' => 'Размер файла должен быть меньше 5 Mb');
             }
             if ($error != ''){
@@ -45,14 +38,14 @@ class ImageController extends Controller
                 $response = new JsonResponse($error);
                 return $response;
             }else{
+                $tmpPath = $file->getPathName();
+                move_uploaded_file($tmpPath,$path);
+                $image = new \Imagick($path);
+                $image->stripImage();
                 if ($type == 'signFile'){
-//                    $this->toBitmap($path);
-//                    $this->toBitmap($path2);
                     $image->blackThresholdImage('#D0D0D0');
                     $image->whiteThresholdImage('#D0D0D0');
                 }else{
-//                    $this->toBlackandwhite($path);
-//                    $this->toBlackandwhite($path2);
                     $image->setImageColorSpace(\Imagick::COLORSPACE_GRAY);
                 }
 
