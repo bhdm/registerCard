@@ -41,6 +41,7 @@ class ImageController extends Controller
                 $tmpPath = $file->getPathName();
                 move_uploaded_file($tmpPath,$path);
                 $image = new \Imagick($path);
+                $image->setImageFormat('jpg');
                 $image->stripImage();
                 if ($type == 'signFile'){
                     $image->blackThresholdImage('#D0D0D0');

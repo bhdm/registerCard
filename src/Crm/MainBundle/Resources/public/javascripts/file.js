@@ -25,7 +25,8 @@ function showCoords(selection, container)
 //};
 
 
-function getImage(data,container){
+function getImage(data,container, first){
+    first = first || 0;
     if ( data.data.error != undefined ) {
         $('.error-msg').fadeIn();
         $('.error-msg').html(data.data.error);
@@ -52,8 +53,19 @@ function getImage(data,container){
         fileDoc.children('.jcrop-holder').children('img').attr('src',data.data.img);
         var type = container.children('.jq-file').children('input[type=file]').attr('id');
 
+        if ( first == 0 ){
+            var maxHeight = 200;
+            var maxWidth = 200;
+        }else{
+            var maxHeight = 400;
+            var maxWidth = 400;
+        }
+
+
         if (type == 'photoFile'){
             fileDoc.children('img').Jcrop({
+                boxHeight: maxHeight,
+                boxWidth:  maxWidth,
                 onChange:   function(c){showCoords(c, container) },
                 onSelect:   function(c){showCoords(c, container) },
                 aspectRatio: 1 / 1.285
@@ -64,6 +76,8 @@ function getImage(data,container){
             fileDoc.children('.jcrop-holder').children('div').children('div').children('.jcrop-tracker').addClass('imgareaselect-selection2');
         }else{
             fileDoc.children('img').Jcrop({
+                boxHeight:  maxHeight,
+                boxWidth:  maxWidth,
                 onChange:   function(c){showCoords(c, container) },
                 onSelect:   function(c){showCoords(c, container) }
             },function(){
@@ -152,58 +166,75 @@ $(document).ready(function(){
         var progressbar = container.children('.progress');
         var navigateFile = container.children('.navigateFile');
 
-        var loader = 'http://im-kard.ru/bundles/crmmain/images/ajax_loader.gif';
-        container.children('.fileDoc').children('img').attr('src',loader);
         //return false;
 
         file = event.target.files[0];
         var formData = new FormData();
         formData.append('file', file);
-        progressbar.css('display','block');
-        progressbar.attr({value:0, max:100});
+        //progressbar.css('display','block');
+        //progressbar.attr({value:0, max:100});
+
         var type = container.children('.jq-file').children('input[type=file]').attr('id');
         //console.log(t=container);
+
+        //var loader = 'http://im-kard.ru/bundles/crmmain/images/ajax_loader.gif';
+        //container.children('.fileDoc').children('img').attr('src', loader);
+        $('body').loader('show',
+            {
+                className: 'loader',
+
+                tpl: '<div class="{className} hide"><div class="{className}-load"></div><div class="{className}-overlay"></div></div>',
+
+                delay: 200,
+                loader: true,       // if true, you can hide the loader by clicking on it
+                overlay: true      // display or not the overlay
+
+            }
+        );
+        //alert('1');
+
         $.ajax({
             url: Routing.generate('upload_document', {'type': type}),
             type: 'POST',
-            xhr: function()
-            {
-                var xhr = new window.XMLHttpRequest();
-                //Upload progress
-                xhr.upload.addEventListener("progress", function(evt){
-                    if (evt.lengthComputable) {
-                        var percentComplete = evt.loaded / evt.total;
-                        //Do something with upload progress
-                        progressbar.attr({value:evt.loaded,max:evt.total});
-
-                        if ( evt.loaded == evt.total ){
-                            var loader = 'http://im-kard.ru/bundles/crmmain/images/ajax_loader.gif';
-                            //alert(container.children('.fileDoc').children('img').attr('src'));
-                            container.children('.fileDoc').children('img').attr('src',loader);
-                        }
-                    }
-                }, false);
-                //Download progress
-                xhr.addEventListener("progress", function(evt){
-                    if (evt.lengthComputable) {
-                        var percentComplete = evt.loaded / evt.total;
-                        //Do something with download progress
-                        progressbar.attr({value:evt.loaded,max:evt.total});
-
-                        if ( evt.loaded == evt.total ){
-                            var loader = 'bundles/crmmain/images/ajax_loader.gif';
-                            //alert(container.children('.fileDoc').children('img').attr('src'));
-                            container.children('.fileDoc').children('img').attr('src',loader);
-                        }
-                    }
-                }, false);
-                return xhr;
-            },
+            //xhr: function()
+            //{
+            //    var xhr = new window.XMLHttpRequest();
+            //    //Upload progress
+            //    xhr.upload.addEventListener("progress", function(evt){
+            //        if (evt.lengthComputable) {
+            //            var percentComplete = evt.loaded / evt.total;
+            //            //Do something with upload progress
+            //            progressbar.attr({value:evt.loaded,max:evt.total});
+            //
+            //            if ( evt.loaded == evt.total ){
+            //                var loader = 'http://im-kard.ru/bundles/crmmain/images/ajax_loader.gif';
+            //                //alert(container.children('.fileDoc').children('img').attr('src'));
+            //                container.children('.fileDoc').children('img').attr('src',loader);
+            //            }
+            //        }
+            //    }, false);
+            //    //Download progress
+            //    xhr.addEventListener("progress", function(evt){
+            //        if (evt.lengthComputable) {
+            //            var percentComplete = evt.loaded / evt.total;
+            //            //Do something with download progress
+            //            progressbar.attr({value:evt.loaded,max:evt.total});
+            //
+            //            if ( evt.loaded == evt.total ){
+            //                var loader = 'bundles/crmmain/images/ajax_loader.gif';
+            //                //alert(container.children('.fileDoc').children('img').attr('src'));
+            //                container.children('.fileDoc').children('img').attr('src',loader);
+            //            }
+            //        }
+            //    }, false);
+            //    return xhr;
+            //},
             success: function(msg){
-                progressbar.css('display','none');
-                getImage(msg, container);
+                //progressbar.css('display','none');
+                getImage(msg, container, 1);
                 $('.navigateFile').css('display','mome');
                 navigateFile.css('display','block');
+                $('body').loader('hide');
             },
             error:function (error) {
                 console.log(error);
