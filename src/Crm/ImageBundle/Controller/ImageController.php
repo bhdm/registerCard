@@ -30,8 +30,8 @@ class ImageController extends Controller
             $path='/var/www/upload/tmp/'.$time.'.jpg';
             $path2='/var/www/upload/tmp/origin-'.$time.'.jpg';
             $file = $request->files->get('file');
-            if ($file->getSize() > 2097152){
-                $error = array('error' => 'Размер файла должен быть меньше 2 Mb');
+            if ($file->getSize() > 4194304 ){
+                $error = array('error' => 'Размер файла должен быть меньше 4 Mb');
             }
             if ($error != ''){
                 $error = array('data' => $error);
