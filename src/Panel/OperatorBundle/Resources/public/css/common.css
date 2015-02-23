@@ -21,3 +21,15 @@
 .navbar-brand{
     color: #FFFFFF !important;
 }
+
+.status{
+    padding: 3px 7px;
+    border-radius: 3px;
+    font-size: 10px;
+}
+
+.subtitles{
+    font-size: 12px;
+    color: #343434;
+    font-style: italic;
+}

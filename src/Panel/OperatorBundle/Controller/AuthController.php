@@ -7,9 +7,9 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 
 /**
- * @Route("/panel")
+ * @Route("/panel/operator")
  */
-class DefaultController extends Controller
+class AuthController extends Controller
 {
     /**
      * @Route("/")

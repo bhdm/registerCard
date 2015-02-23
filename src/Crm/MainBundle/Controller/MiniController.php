@@ -25,7 +25,7 @@ class MiniController extends Controller{
     /**
      * @Route("/company/order/{url}")
      */
-    public function aldAction($url){
+    public function oldAction($url){
         return $this->redirect($this->generateUrl('company',array('url' => $url)));
     }
 

@@ -8,17 +8,19 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 
 /**
- * @Route("/panel/user")
+ * @Route("/panel/operator/user")
  */
 class UserController extends Controller
 {
     /**
-     * @Route("/list/{type}/{company}/{status}", defaults={"type" = null , "company" = null , "status" = null })
+     * @Route("/list/{type}/{company}/{status}", defaults={"type" = null , "company" = null , "status" = null }, name="panel_user_list")
      * @Template()
      */
     public function listAction(Request $request, $type = null, $company = null, $status = null)
     {
-        $this->getDoctrine()->getRepository('CrmMainBundle:User')->operatorFilter($type,$status,$company->getId().$this->getUser()->getId());
-        return array();
+        $searchtxt = $request->query->get('search');
+        $userId = $this->getUser()->getId();
+        $users = $this->getDoctrine()->getRepository('CrmMainBundle:User')->operatorFilter($type, $status, $company, $userId, $searchtxt);
+        return array('users' => $users);
     }
 }

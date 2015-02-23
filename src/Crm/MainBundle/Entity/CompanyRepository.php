@@ -11,6 +11,14 @@ use Doctrine\ORM\NoResultException;
 
 class CompanyRepository extends EntityRepository
 {
+    public function userConfirmation(){
+        $res = $this->getEntityManager()->createQueryBuilder()
+            ->select('c')
+            ->from('CrmMainBundle:Company', 'c')
+            ->leftJoin('c.users','u')
+            ->where('u.production > 0');
+        return $res->getQuery()->getResult();
 
+    }
 }
 

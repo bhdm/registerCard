@@ -134,4 +134,59 @@ class UserRepository extends EntityRepository
             ->groupBy('u.managerKey');
         return $res->getQuery()->getResult();
     }
+
+    public function operatorFilter($type, $status, $companyId, $userId, $searchtxt = null ){
+        $res = $this->getEntityManager()->createQueryBuilder()
+            ->select('u')
+            ->from('CrmMainBundle:User','u')
+            ->leftJoin('u.company ','co')
+            ->leftJoin('co.operator ','op');
+
+        $res->where('op.id = '.$userId);
+        if ($type === 0){
+            $res->andWhere('u.estr = 0 AND u.ru = 0');
+        }elseif ($type === 1){
+            $res->andWhere('u.estr = 1 AND u.ru = 0');
+        }elseif ($type === 2){
+            $res->andWhere('u.estr = 0 AND u.ru = 1');
+        }
+        if ($companyId != null){
+            $res->andWhere('co.id = '.$companyId);
+        }
+        if ($status != null){
+            $res->andWhere('u.status = '.$status);
+        }
+        if ($searchtxt != null){
+            $res->andWhere('
+                u.username LIKE "%'.$searchtxt.'%"'.
+                ' OR u.email LIKE "%'.$searchtxt.'%"'.
+                ' OR u.firstName LIKE "%'.$searchtxt.'%"'.
+                ' OR u.lastName LIKE "%'.$searchtxt.'%"'.
+                ' OR u.surName LIKE "%'.$searchtxt.'%"'
+            );
+        }
+
+        /** ***************** */
+
+        $result = $res->getQuery()->getResult();
+        $users =
+            array(
+                0 => null,
+                1 => null,
+                2 => null,
+                3 => null
+            );
+        foreach ($result as $val){
+            if ( $val->getEstr() == 0 AND $val->getRu() == 0 ){
+                $users[0][] = $val;
+            }elseif( $val->getEstr() == 1 AND $val->getRu() == 0 ) {
+                $users[1][] = $val;
+            }elseif( $val->getEstr() == 0 AND $val->getRu() == 1 ) {
+                $users[2][] = $val;
+            }else{
+                $users[3][] = $val;
+            }
+        }
+        return $users;
+    }
 }

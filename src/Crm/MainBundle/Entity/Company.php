@@ -765,6 +765,15 @@ class Company extends BaseEntity
         $this->estr = $estr;
     }
 
-
+    public function getUserConfirmation(){
+        $items = $this->getUsers();
+        $users = array();
+        foreach ($items as $val){
+            if ($val->getProduction() > 0){
+                $users[] = $val;
+            }
+        }
+        return $users;
+    }
 
 }

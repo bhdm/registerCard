@@ -184,18 +184,21 @@ $(document).ready(function(){
 
         //var loader = 'http://im-kard.ru/bundles/crmmain/images/ajax_loader.gif';
         //container.children('.fileDoc').children('img').attr('src', loader);
-        $('body').loader('show',
-            {
-                className: 'loader',
+        if(file.value.length){
+            $('body').loader('show',
+                {
+                    className: 'loader',
 
-                tpl: '<div class="{className} hide"><div class="{className}-load"></div><div class="{className}-overlay"></div></div>',
+                    tpl: '<div class="{className} hide"><div class="{className}-load"></div><div class="{className}-overlay"></div></div>',
 
-                delay: 200,
-                loader: true,       // if true, you can hide the loader by clicking on it
-                overlay: true      // display or not the overlay
+                    delay: 200,
+                    loader: true,       // if true, you can hide the loader by clicking on it
+                    overlay: true      // display or not the overlay
 
-            }
-        );
+                }
+            );
+        }
+
         //alert('1');
 
         $.ajax({
