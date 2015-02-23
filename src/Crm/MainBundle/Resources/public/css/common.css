@@ -488,3 +488,6 @@ input.little{
 .slider-box:hover .slider-vertical-brightness{
     display: block !important;
 }
+.file-container .jq-file{
+    margin-bottom: 10px;
+}

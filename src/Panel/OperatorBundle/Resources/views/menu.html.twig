@@ -1,0 +1,71 @@
+<div class="well">
+    <h2 class="modal-title">Навигация</h2>
+
+{% if is_granted("ROLE_OPERATOR") %}
+    <ul class="nav list-group">
+        <li class="">
+            <a href="{{ path('order_list') }}">
+                <i class="glyphicon glyphicon-align-justify"></i>
+                Заявки
+            </a>
+        </li>
+        {#<li class="">#}
+            {#<a href="{{ path('contract_list') }}">#}
+                {#<i class="glyphicon glyphicon-align-justify"></i>#}
+                {#Договора#}
+            {#</a>#}
+        {#</li>#}
+        <li class="">
+            <a href="{{ path('client_list') }}">
+                <i class="glyphicon glyphicon-align-justify"></i>
+                Объекты жилищного права
+            </a>
+        </li>
+        <li class="">
+            <a href="{{ path('company_list') }}">
+                <i class="glyphicon glyphicon-align-justify"></i>
+                Подрядчики
+            </a>
+        </li>
+        <li class="">
+            <a href="{{ path('supplier_list') }}">
+                <i class="glyphicon glyphicon-align-justify"></i>
+                Поставщики ЖКУ
+            </a>
+        </li>
+        <li class="">
+            <a href="{{ path('work_list') }}">
+                <i class="glyphicon glyphicon-align-justify"></i>
+                Работы
+            </a>
+        </li>
+        <li class="">
+            <a href="{{ path('user_list') }}">
+                <i class="glyphicon glyphicon-align-justify"></i>
+                Сотрудники ТСЖ
+            </a>
+        </li>
+        <li class="">
+            <a href="{{ path('page_list') }}">
+                <i class="glyphicon glyphicon-align-justify"></i>
+                Страницы сайта
+            </a>
+        </li>
+    </ul>
+{% elseif is_granted("ROLE_CLIENT") %}
+    <ul class="nav list-group">
+        <li class="">
+            <a href="{{ path('my_order_add') }}">
+                <i class="glyphicon glyphicon-align-justify"></i>
+                Подать заявку
+            </a>
+        </li>
+        <li class="">
+            <a href="{{ path('my_order_list') }}">
+                <i class="glyphicon glyphicon-align-justify"></i>
+                Мои заявки
+            </a>
+        </li>
+    </ul>
+{% endif %}
+</div>

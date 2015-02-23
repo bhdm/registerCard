@@ -1,0 +1,23 @@
+.bootstrap-date select:nth-child(1){
+    width: 30%;
+    display: inline-block;
+}
+.bootstrap-date select:nth-child(2){
+    width: 50%;
+    display: inline-block;
+}
+.bootstrap-date select:nth-child(3){
+    width: 20%;
+    display: inline-block;
+}
+.breadcrumb li{
+    font-weight: bold;
+}
+.right-btn{
+    float: right;
+    margin-top: 12px;
+    margin-right: 18px;
+}
+.navbar-brand{
+    color: #FFFFFF !important;
+}

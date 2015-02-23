@@ -1,0 +1,68 @@
+<html>
+    <head>
+        {% block javascripts %}
+            <script src="{{ asset('bundles/app/js/jquery-1.11.1.min.js') }}"></script>
+            <script src="{{ asset('bundles/app/js/bootstrap.min.js') }}"></script>
+            <script src="{{ asset('bundles/app/js/bootstrap-modal-popover.js') }}"></script>
+            <script src="{{ asset('bundles/app/bootstrap-table-master/src/bootstrap-table.js') }}"></script>
+
+        {% endblock %}
+
+        {% block stylesheets %}
+            <link href="{{ asset('bundles/app/css/bootstrap.min.css') }}" rel="stylesheet">
+            <link href="{{ asset('bundles/app/css/common.css') }}" rel="stylesheet">
+            <link href="{{ asset('bundles/app/bootstrap-table-master/src/bootstrap-table.css') }}" rel="stylesheet">
+            <style>
+                .setting{
+                    text-align: right;
+                }
+            </style>
+        {% endblock %}
+    </head>
+    <body>
+        <header>
+            <nav class="navbar navbar-inverse" role="navigation">
+                <div class="container-fluid">
+                    <div class="navbar-header">
+                        <a class="navbar-brand" href="{{ path('order_list') }}">АРМ <span class="">[ Председателя ТСЖ ]</span></a>
+                    </div>
+                    <div class="navbar-right">
+                        <div class="collapse navbar-collapse">
+                            {#{% if is_granted('ROLE_ADMIN') %}#}
+                                <ul class="nav navbar-nav">
+                                    {#<li><a href="{{ path('order_list') }}" target="_blank">На сайт</a></li>#}
+                                    <li><a href="{{ path('_security_logout') }}">Выйти</a></li>
+                                </ul>
+                            {#{% endif %}#}
+                        </div>
+                    </div>
+                </div>
+            </nav>
+        </header>
+        <div class="container">
+            {% block alert %}{% endblock %}
+            {#<div class="alert alert-success" role="alert"></div>#}
+            {#<div class="alert alert-info" role="alert"></div>#}
+            {#<div class="alert alert-warning" role="alert"></div>#}
+            {#<div class="alert alert-danger" role="alert"></div>#}
+            <div class="row">
+                {% if is_granted('ROLE_OPERATOR') or is_granted('ROLE_CLIENT') %}
+                    <div class="col-md-3">
+                        {% block menu %}
+                            {% include 'AppBundle::menu.html.twig' %}
+                        {% endblock %}
+                    </div>
+                    <div class="col-md-9">
+                {% else %}
+                    <div class="col-md-12s">
+                {% endif %}
+                    {% block breadcrumb %}
+
+                    {% endblock %}
+                    {% block content %}{% endblock %}
+                </div>
+            </div>
+        </div>
+        {% block body %}{% endblock %}
+    </body>
+</html>

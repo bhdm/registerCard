@@ -157,8 +157,13 @@ $(document).ready(function(){
     //          Загрузка файла
     var file;
 
-    $('.fileAjax').on('change', function(event){
 
+    $('.fileAjax').on('click', function(event){
+        $(this).attr("value", "");
+        $(this).val("");
+    });
+
+    $('.fileAjax').on('change', function(event){
         var container = $(this).parent();
         if (container.hasClass('fileAjax')){
             container = container.parent();

@@ -27,6 +27,7 @@ class AppKernel extends Kernel
             new Liuggio\ExcelBundle\LiuggioExcelBundle(),
             new Crm\FaceBundle\CrmFaceBundle(),
             new Crm\ImageBundle\CrmImageBundle(),
+            new Panel\OperatorBundle\PanelOperatorBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

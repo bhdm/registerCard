@@ -1,3 +1,8 @@
+panel_operator:
+    resource: "@PanelOperatorBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
 crm_image:
     resource: "@CrmImageBundle/Controller/"
     type:     annotation
