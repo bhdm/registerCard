@@ -6,6 +6,8 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+use Symfony\Component\Security\Core\SecurityContext;
 
 /**
  * @Route("/panel/operator/user")
@@ -13,6 +15,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 class UserController extends Controller
 {
     /**
+     * @Security("has_role('ROLE_OPERATOR')")
      * @Route("/list/{type}/{company}/{status}", defaults={"type" = null , "company" = null , "status" = null }, name="panel_user_list")
      * @Template()
      */

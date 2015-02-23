@@ -35,6 +35,12 @@ fos_js_routing:
 
 _security_check:
     pattern:  /operator/login_check
-
 _security_logout:
     pattern:  /operator/logout
+
+panel_security_login:
+    pattern:  /panel/login
+panel_security_check:
+    pattern:  /panel/login_check
+panel_security_logout:
+    pattern:  /panel/logout
