@@ -44,6 +44,7 @@ class ImageController extends Controller
                 $image->setImageFormat('jpg');
                 $image->stripImage();
                 if ($type == 'signFile'){
+                    $image->setImageColorSpace(\Imagick::COLORSPACE_GRAY);
                     $image->blackThresholdImage('#808080');
                     $image->whiteThresholdImage('#808080');
                     $image->setImageColorSpace(\Imagick::COLORSPACE_GRAY);
