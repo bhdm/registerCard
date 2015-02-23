@@ -4,11 +4,19 @@
             <script src="{{ asset('bundles/paneloperator/js/jquery-1.11.1.min.js') }}"></script>
             <script src="{{ asset('bundles/paneloperator/js/bootstrap.min.js') }}"></script>
             <script src="{{ asset('bundles/paneloperator/js/bootstrap-modal-popover.js') }}"></script>
+            <script src="{{ asset('bundles/crmmain/javascripts/jquery.maskedinput.js') }}" type="text/javascript"></script>
+            <script src="{{ asset('bundles/crmmain/lib/styler/jquery.formstyler.min.js') }}" type="text/javascript"></script>
+            <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
+            <script src="{{ path('fos_js_routing_js', {"callback": "fos.Router.setData"}) }}"></script>
+            <script rel="script" src="{{ asset('bundles/crmoperator/js/select2.js') }}"></script>
             {#<script src="{{ asset('bundles/paneloperator/bootstrap-table-master/src/bootstrap-table.js') }}"></script>#}
 
         {% endblock %}
 
         {% block stylesheets %}
+            <link href="{{ asset('bundles/crmmain/lib/chosen/chosen.css') }}" rel="stylesheet" media="all">
+            <link href="{{ asset('bundles/crmoperator/stylesheets/select2.css') }}" rel="stylesheet" media="all">
+            <link href="{{ asset('bundles/crmmain/lib/styler/jquery.formstyler.css') }}" rel="stylesheet" media="all">
             <link href="{{ asset('bundles/paneloperator/css/bootstrap.min.css') }}" rel="stylesheet">
             <link href="{{ asset('bundles/paneloperator/css/common.css') }}" rel="stylesheet">
             {#<link href="{{ asset('bundles/paneloperator/bootstrap-table-master/src/bootstrap-table.css') }}" rel="stylesheet">#}

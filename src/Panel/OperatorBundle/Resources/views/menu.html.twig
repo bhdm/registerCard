@@ -5,14 +5,26 @@
     <ul class="nav list-group">
         <li class="">
             <a href="{{ path('panel_user_list') }}">
-                <i class="glyphicon glyphicon-align-justify"></i>
+                <i class="glyphicon glyphicon-user"></i>
                 Заявки
             </a>
         </li>
         <li class="">
             <a href="{{ path('panel_company_list') }}">
-                <i class="glyphicon glyphicon-align-justify"></i>
+                <i class="glyphicon glyphicon-link"></i>
                 Ссылки
+            </a>
+        </li>
+        <li class="">
+            <a href="{{ path('panel_quota') }}">
+                <i class="glyphicon glyphicon-ruble"></i>
+                Квота
+            </a>
+        </li>
+        <li class="">
+            <a href="{{ path('panel_security_logout') }}" class="text-danger">
+                <i class="glyphicon glyphicon-collapse-down"></i>
+                Выйти
             </a>
         </li>
         {#<li class="">#}

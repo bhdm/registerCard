@@ -29,7 +29,7 @@
                     </td>
                 </tr>
                 {% for user in users[0] %}
-                    <tr>
+                    <tr {{ user.production == 0 ? 'class="new-item"' : '' }}>
 
                         <td>{{ user.statusStringTwig | raw }}</td>
                         <td class="subtitles">{{ user.created | date('d.m.Y') }}</td>
@@ -42,19 +42,19 @@
                         <td class="setting">
                             {% spaceless %}
                                 {#<a href="{{ path('user_edit',{'id' : item.id}) }}">#}
-                                <a href="#">
+                                <a href="{{ path('panel_user_edit',{'userId' : user.id }) }}">
                                     <button type="button" class="btn btn-default btn-bg">
                                         <span class="glyphicon glyphicon-pencil"></span>
                                     </button>
                                 </a>
                                 &nbsp;&nbsp;
-                                <a href="#">
+                                <a href="{{ path('panel_user_production',{'userId' : user.id }) }}">
                                     <button type="button" class="btn btn-default btn-success">
                                         <span class="glyphicon glyphicon-ok"></span>
                                     </button>
                                 </a>
                                 &nbsp;&nbsp;
-                                <a href="#">
+                                <a href="{{ path('panel_user_remove',{'userId' : user.id }) }}">
                                     <button type="button" class="btn btn-default btn-danger">
                                         <span class="glyphicon glyphicon-remove"></span>
                                     </button>
@@ -72,7 +72,7 @@
                     </td>
                 </tr>
                 {% for user in users[1] %}
-                    <tr>
+                    <tr {{ user.production == 0 ? 'class="new-item"' : '' }}>
 
                         <td>{{ user.statusStringTwig | raw }}</td>
                         <td class="subtitles">{{ user.created | date('d.m.Y') }}</td>
@@ -84,20 +84,19 @@
                         </td>
                         <td class="setting">
                             {% spaceless %}
-                                {#<a href="{{ path('user_edit',{'id' : item.id}) }}">#}
-                                <a href="#">
+                                <a href="{{ path('panel_user_edit',{'userId' : user.id }) }}">
                                     <button type="button" class="btn btn-default btn-bg">
                                         <span class="glyphicon glyphicon-pencil"></span>
                                     </button>
                                 </a>
                                 &nbsp;&nbsp;
-                                <a href="#">
+                                <a href="{{ path('panel_user_production',{'userId' : user.id }) }}">
                                     <button type="button" class="btn btn-default btn-success">
                                         <span class="glyphicon glyphicon-ok"></span>
                                     </button>
                                 </a>
                                 &nbsp;&nbsp;
-                                <a href="#">
+                                <a href="{{ path('panel_user_remove',{'userId' : user.id }) }}">
                                     <button type="button" class="btn btn-default btn-danger">
                                         <span class="glyphicon glyphicon-remove"></span>
                                     </button>
@@ -115,7 +114,7 @@
                     </td>
                 </tr>
                 {% for user in users[2] %}
-                    <tr>
+                    <tr {{ user.production == 0 ? 'class="new-item"' : '' }}>
 
                         <td>{{ user.statusStringTwig | raw }}</td>
                         <td class="subtitles">{{ user.created | date('d.m.Y') }}</td>
@@ -127,20 +126,19 @@
                         </td>
                         <td class="setting">
                             {% spaceless %}
-                                {#<a href="{{ path('user_edit',{'id' : item.id}) }}">#}
-                                <a href="#">
+                                <a href="{{ path('panel_user_edit',{'userId' : user.id }) }}">
                                     <button type="button" class="btn btn-default btn-bg">
                                         <span class="glyphicon glyphicon-pencil"></span>
                                     </button>
                                 </a>
                                 &nbsp;&nbsp;
-                                <a href="#">
+                                <a href="{{ path('panel_user_production',{'userId' : user.id }) }}">
                                     <button type="button" class="btn btn-default btn-success">
                                         <span class="glyphicon glyphicon-ok"></span>
                                     </button>
                                 </a>
                                 &nbsp;&nbsp;
-                                <a href="#">
+                                <a href="{{ path('panel_user_remove',{'userId' : user.id }) }}">
                                     <button type="button" class="btn btn-default btn-danger">
                                         <span class="glyphicon glyphicon-remove"></span>
                                     </button>

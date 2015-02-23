@@ -33,3 +33,14 @@
     color: #343434;
     font-style: italic;
 }
+.new-item{
+    background: #FEFFE1;
+}
+td.label{
+    color: #333333;
+    text-align: right;
+    padding-top: 10px;
+}
+td.value input{
+    margin-bottom: 10px;
+}

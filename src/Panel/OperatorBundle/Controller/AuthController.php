@@ -37,14 +37,4 @@ class AuthController extends Controller
             'error' => $error,
         );
     }
-
-    /**
-     * @Security("has_role('ROLE_OPERATOR')")
-     * @Route("/quota", name="panel_operator_quota")
-     * @Template()
-     */
-    public function quotaAction(){
-        return array();
-    }
-
 }

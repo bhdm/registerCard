@@ -165,7 +165,8 @@ class UserRepository extends EntityRepository
                 ' OR u.surName LIKE "%'.$searchtxt.'%"'
             );
         }
-
+        $res->andWhere('u.production = 0');
+        $res->orderBy('u.created', 'DESC');
         /** ***************** */
 
         $result = $res->getQuery()->getResult();

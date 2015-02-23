@@ -38,6 +38,8 @@ _security_check:
 _security_logout:
     pattern:  /operator/logout
 
+
+
 panel_security_login:
     pattern:  /panel/login
 panel_security_check:
