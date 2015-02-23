@@ -184,7 +184,7 @@ $(document).ready(function(){
 
         //var loader = 'http://im-kard.ru/bundles/crmmain/images/ajax_loader.gif';
         //container.children('.fileDoc').children('img').attr('src', loader);
-        if(file.value.length){
+        //if(file.value.length){
             $('body').loader('show',
                 {
                     className: 'loader',
@@ -197,7 +197,7 @@ $(document).ready(function(){
 
                 }
             );
-        }
+        //}
 
         //alert('1');
 
