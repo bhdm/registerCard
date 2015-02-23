@@ -54,11 +54,11 @@ function getImage(data,container, first){
         var type = container.children('.jq-file').children('input[type=file]').attr('id');
 
         if ( first == 0 ){
-            var maxHeight = 200;
-            var maxWidth = 200;
-        }else{
             var maxHeight = 400;
             var maxWidth = 400;
+        }else{
+            var maxHeight = 600;
+            var maxWidth = 600;
         }
 
 
