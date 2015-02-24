@@ -10,7 +10,11 @@
             <script src="{{ path('fos_js_routing_js', {"callback": "fos.Router.setData"}) }}"></script>
             <script rel="script" src="{{ asset('bundles/crmoperator/js/select2.js') }}"></script>
             {#<script src="{{ asset('bundles/paneloperator/bootstrap-table-master/src/bootstrap-table.js') }}"></script>#}
-
+            <script>
+                $(document).ready(function(){
+                    $('input:text, input:file, select:not([id*="manager"])').styler();
+                });
+            </script>
         {% endblock %}
 
         {% block stylesheets %}

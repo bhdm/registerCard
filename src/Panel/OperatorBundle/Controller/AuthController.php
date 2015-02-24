@@ -7,6 +7,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Component\Security\Core\SecurityContext;
+use Symfony\Component\Security\Core\Encoder\MessageDigestPasswordEncoder;
 
 /**
  * @Route("/panel")
@@ -33,6 +34,11 @@ class AuthController extends Controller
         } else {
             $error = $this->get('request')->getSession()->get(SecurityContext::AUTHENTICATION_ERROR);
         }
+//        $user = $this->getDoctrine()->getRepository('CrmMainBundle:Operator')->findOneByUsername('operator');
+//        $encoder = new MessageDigestPasswordEncoder('sha512', true, 10);
+//        $password = $encoder->encodePassword('o', $user->getSalt());
+//        $user->setPassword($password);
+//        $this->getDoctrine()->getManager()->flush($user);
         return array(
             'error' => $error,
         );

@@ -33,19 +33,19 @@
                     <td class="setting">
                         {% spaceless %}
                             {#<a href="{{ path('user_edit',{'id' : item.id}) }}">#}
-                            <a href="#">
+                            <a href="{{ path('panel_company_edit',{'id' : company.id}) }}">
                                 <button type="button" class="btn btn-default btn-bg" title="Редактировать">
                                     <span class="glyphicon glyphicon-pencil"></span>
                                 </button>
                             </a>
+                            {#&nbsp;&nbsp;#}
+                            {#<a href="{{ path('panel_company_edit',{'id' : company.id}) }}">#}
+                                {#<button type="button" class="btn btn-default btn-warning" title="Остановить">#}
+                                    {#<span class="glyphicon glyphicon-pause"></span>#}
+                                {#</button>#}
+                            {#</a>#}
                             &nbsp;&nbsp;
-                            <a href="#">
-                                <button type="button" class="btn btn-default btn-warning" title="Остановить">
-                                    <span class="glyphicon glyphicon-pause"></span>
-                                </button>
-                            </a>
-                            &nbsp;&nbsp;
-                            <a href="#">
+                            <a href="{{ path('panel_company_remove',{'id' : company.id}) }}">
                                 <button type="button" class="btn btn-default btn-danger" title="Удалить">
                                     <span class="glyphicon glyphicon-remove"></span>
                                 </button>

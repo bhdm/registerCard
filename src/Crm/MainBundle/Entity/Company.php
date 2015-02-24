@@ -39,7 +39,10 @@ class Company extends BaseEntity
 
     # Адрес предприятия
 
-
+    /**
+     * @ORM\Column(type="string", nullable=true)
+     */
+    protected $area;
     /**
      * @ORM\ManyToOne(targetEntity="Region", inversedBy="companies")
      */
@@ -185,7 +188,7 @@ class Company extends BaseEntity
     /**
      * @ORM\Column(type="boolean", nullable=true)
      */
-    protected $enabled = 0;
+    protected $enabled = false;
 
     /**
      * @ORM\Column(type="boolean", nullable=true)
@@ -428,7 +431,7 @@ class Company extends BaseEntity
     /**
      * @param mixed $enabled
      */
-    public function setEnabled($enabled = 1 )
+    public function setEnabled($enabled = false )
     {
         $this->enabled = $enabled;
     }
@@ -775,5 +778,22 @@ class Company extends BaseEntity
         }
         return $users;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getArea()
+    {
+        return $this->area;
+    }
+
+    /**
+     * @param mixed $area
+     */
+    public function setArea($area)
+    {
+        $this->area = $area;
+    }
+
 
 }
