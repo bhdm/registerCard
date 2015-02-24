@@ -158,12 +158,12 @@ $(document).ready(function(){
     var file;
 
 
-    $('.fileAjax').on('click', function(event){
+    $('input.fileAjax').on('click', function(event){
         $(this).attr("value", "");
         $(this).val("");
     });
 
-    $('.fileAjax').on('change', function(event){
+    $('input.fileAjax').on('change', function(event){
         var container = $(this).parent();
         if (container.hasClass('fileAjax')){
             container = container.parent();
