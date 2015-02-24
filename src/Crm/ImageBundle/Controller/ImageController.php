@@ -42,7 +42,7 @@ class ImageController extends Controller
                 move_uploaded_file($tmpPath,$path);
                 $image = new \Imagick($path);
                 $image->setImageFormat('jpg');
-                $image->stripImage();
+//                $image->stripImage();
                 if ($type == 'signFile'){
                     $image->setImageColorSpace(\Imagick::COLORSPACE_GRAY);
                     $image->blackThresholdImage('#808080');
