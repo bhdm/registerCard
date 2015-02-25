@@ -67,6 +67,26 @@ class Operator extends BaseEntity implements UserInterface
      */
     protected $payments;
 
+    /**
+     * @ORM\Column(type="integer")
+     */
+    protected $quota = 0;
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    protected $priceSkzi = 0;
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    protected $priceEstr = 0;
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    protected $priceRu = 0;
+
 
     public function __construct(){
         $this->roles    = 'ROLE_OPERATOR';
@@ -412,4 +432,109 @@ class Operator extends BaseEntity implements UserInterface
         }
         return $count;
     }
+
+    public function getNewOrderCount(){
+        $count = 0;
+        $companies = $this->getCompanies();
+        foreach ($companies as $company){
+            $users = $company->getUsers();
+            foreach ($users as $user){
+                if ($user->getProduction() == 0){
+                    $count++;
+                }
+            }
+        }
+        return $count;
+    }
+
+    public function getCompletedCount(){
+        $count = array(
+            'skzi' => 0,
+            'estr' => 0,
+            'ru' => 0
+        );
+        $companies = $this->getCompanies();
+        foreach ($companies as $company){
+            $users = $company->getUsers();
+            foreach ($users as $user){
+                if ($user->getProduction() > 0){
+                    if ($user->getRu() == 0 && $user->getEstr() == 0){
+                        $count['skzi'] ++;
+                    }elseif($user->getRu() == 1 && $user->getEstr() == 0){
+                        $count['ru'] ++;
+                    }elseif($user->getRu() == 0 && $user->getEstr() == 1){
+                        $count['estr'] ++;
+                    }
+                }
+            }
+        }
+        return $count;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getQuota()
+    {
+        return $this->quota;
+    }
+
+    /**
+     * @param mixed $quota
+     */
+    public function setQuota($quota)
+    {
+        $this->quota = $quota;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getPriceSkzi()
+    {
+        return $this->priceSkzi;
+    }
+
+    /**
+     * @param mixed $priceSkzi
+     */
+    public function setPriceSkzi($priceSkzi)
+    {
+        $this->priceSkzi = $priceSkzi;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getPriceEstr()
+    {
+        return $this->priceEstr;
+    }
+
+    /**
+     * @param mixed $priceEstr
+     */
+    public function setPriceEstr($priceEstr)
+    {
+        $this->priceEstr = $priceEstr;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getPriceRu()
+    {
+        return $this->priceRu;
+    }
+
+    /**
+     * @param mixed $priceRu
+     */
+    public function setPriceRu($priceRu)
+    {
+        $this->priceRu = $priceRu;
+    }
+
+
+
 }

@@ -1,13 +1,18 @@
 <div class="well">
     <h3 class="modal-title">Квоты</h3>
     <h4>Осталось баллов:</h4>
-    <h3>1200</h3>
+    <h3>{{ app.user.quota }}</h3>
     <br/>
     <h4>Неподтвержденных заявок:</h4>
-    <h3>93 шт.</h3>
+    <h3>{{ app.user.NewOrderCount }} шт.</h3>
     <br />
     <h4>Использовано:</h4>
-    <div style="display: inline-block; width: 70px;">СКЗИ: </div><h4 style="display: inline;">100</h4> шт. ( 1000 б. ) <br />
-    <div style="display: inline-block; width: 70px;">ЕСТР: </div><h4 style="display: inline;">18</h4> шт. (180 б. )<br />
-    <div style="display: inline-block; width: 70px;">РФ: </div><h4 style="display: inline;">36</h4> шт. (360 б. )<br />
+    <div style="display: inline-block; width: 70px;">СКЗИ: </div><h4 style="display: inline;">{{ app.user.completedCount.skzi | length }}</h4> шт. ( {{ app.user.completedCount.skzi | length * app.user.priceSkzi }} б. ) <br />
+    <div style="display: inline-block; width: 70px;">ЕСТР: </div><h4 style="display: inline;">{{ app.user.completedCount.estr | length }}</h4> шт. ({{ app.user.completedCount.estr | length * app.user.priceEstr }} б. )<br />
+    <div style="display: inline-block; width: 70px;">РФ: </div><h4 style="display: inline;">{{ app.user.completedCount.ru | length }}</h4> шт. ({{ app.user.completedCount.ru | length * app.user.priceRu }} б. )<br />
+    <br />
+    <h4>Стоимость заявки:</h4>
+    <div style="display: inline-block; width: 70px;">СКЗИ: </div><h4 style="display: inline;">{{  app.user.priceSkzi }}</h4><br />
+    <div style="display: inline-block; width: 70px;">ЕСТР: </div><h4 style="display: inline;">{{ app.user.priceEstr }}</h4><br />
+    <div style="display: inline-block; width: 70px;">РФ: </div><h4 style="display: inline;">{{ app.user.priceRu }}</h4>
 </div>

@@ -297,6 +297,24 @@ class UserController extends Controller
 
         if ($user->getProduction() == 0 && $type == 'true' &&  $this->get('security.context')->isGranted('ROLE_OPERATOR')){
             $user->setProduction(1);
+
+            $operator = $this->getUser();
+            $quota = $operator->getQuota();
+            if ($user->getRu() == 0 && $user->getEstr() == 0){
+                $quota -= $operator->getPriceSkzi();
+            }elseif($user->getRu() == 1 && $user->getEstr() == 0){
+                $quota -= $operator->getPriceRu();
+            }elseif($user->getRu() == 0 && $user->getEstr() == 1){
+                $quota -= $operator->getPriceEstr();
+            }
+            $operator->setQuota($quota);
+            $this->getDoctrine()->getManager()->flush($operator);
+            $statusLog = new StatusLog();
+            $statusLog->setTitle('Отправлен модератору');
+            $statusLog->setUser($user);
+            $this->getDoctrine()->getManager()->persist($statusLog);
+
+
         }elseif($user->getProduction() == 1 && $type == 'true' &&  $this->get('security.context')->isGranted('ROLE_MODERATOR')){
             $user->setProduction(2);
         }elseif($user->getProduction() == 1 && $type == 'false' && $this->get('security.context')->isGranted('ROLE_MODERATOR')){
@@ -306,6 +324,7 @@ class UserController extends Controller
         }
 
         $this->getDoctrine()->getManager()->flush($user);
+        $this->getDoctrine()->getManager()->flush();
 
         return $this->redirect($request->headers->get('referer'));
     }
