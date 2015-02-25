@@ -285,7 +285,7 @@ class AuthController extends Controller
 
 
             $arguments = array(
-                'constructorArgs' => array('utf-8', 'A4', 0 ,0 ,0 ,0, 3), //Constructor arguments. Numeric array. Don't forget about points 2 and 3 in Warning section!
+                'constructorArgs' => array(null, 'A4', 0 ,10 ,3 ,0, 3), //Constructor arguments. Numeric array. Don't forget about points 2 and 3 in Warning section!
                 'writeHtmlMode' => null, //$mode argument for WriteHTML method
                 'writeHtmlInitialise' => null, //$mode argument for WriteHTML method
                 'writeHtmlClose' => null, //$close argument for WriteHTML method
@@ -294,7 +294,8 @@ class AuthController extends Controller
             );
              $response = $mpdfService->generatePdf($html->getContent(), $arguments);
 
-            return $response;
+//                return new Response($html);
+//            return $response;
 //            return $this->render('CrmMainBundle:Form:doc2.html.twig', array('user' => $user, 'bigSign' => $bigSign, 'miniSign' => $miniSign));
     }
 
