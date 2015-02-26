@@ -19,12 +19,12 @@ use Symfony\Component\Validator\Constraints\DateTime;
 class MoneyController extends Controller
 {
     /**
-     * @Route("/money", name="panel_company_money")
+     * @Route("/stats", name="panel_company_stats")
      * @Template()
      */
     public function indexAction(Request $request)
     {
-        $users = $this->getDoctrine()->getRepository('CrmMainBundle:User')->calendar();
+        $users = $this->getDoctrine()->getRepository('CrmMainBundle:User')->calendar(array('isOperator'=> false));
         $usersOperator = $this->getDoctrine()->getRepository('CrmMainBundle:User')->calendar(array('isOperator'=> true));
         $usersCompleted = $this->getDoctrine()->getRepository('CrmMainBundle:User')->calendar(array('isCompleted' => true));
 

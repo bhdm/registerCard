@@ -10,7 +10,7 @@
 
 {% block content %}
     <div class="well">
-        <div id="stats" style="width: 900px; height: 500px;"></div>
+        <div id="stats" style="width: 750px; height: 300px;"></div>
         {#{{ dump(allUsers) }}#}
     </div>
 {% endblock %}
@@ -19,11 +19,11 @@
     {{ parent() }}
     <script type="text/javascript"  src="https://www.google.com/jsapi"></script>
     <script>
-        google.load('visualization', '1.1', {packages: ['corechart']});
+        google.load('visualization', '1.1', {packages: ['line']});
         google.setOnLoadCallback(drawChart);
         function drawChart() {
             var data = google.visualization.arrayToDataTable([
-                ['Месяц',  'ALL', 'DOROGA', 'COMPLETED'],
+                ['Месяц',  'imkard', 'doroga', 'Оплачено'],
                 {#[{{ date }}, {{ c }},   {{ usersOperator[date] is defined ? usersOperator[date] : '0' }},  {{ usersComplated[date] is defined ? usersComplated[date] : '0' }} ],#}
                 {% for date, c in allUsers %}
                 ['{{ date }}', {{ c }}, {{ usersOperator[date] is defined ? usersOperator[date] : 0  }}, {{ usersComplated[date] is defined  ? usersComplated[date] : 0 }} ],
@@ -35,7 +35,7 @@
                 curveType: 'function',
                 legend: { position: 'bottom' },
                 pointSize: 20,
-                pointShape: 'circle',
+                pointShape: 'circle'
             };
 
             var chart = new google.charts.Line(document.getElementById('stats'));

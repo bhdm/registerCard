@@ -28,6 +28,17 @@
                 &nbsp;&nbsp;Квота
             </a>
         </li>
+
+        {% if is_granted('ROLE_ADMIN') %}
+        <li>&nbsp;</li>
+        <li class="">
+            <a href="{{ path('panel_company_stats') }}">
+                <i class="glyphicon glyphicon-signal"></i>
+                &nbsp;&nbsp;Статистика
+            </a>
+        </li>
+        {% endif %}
+        <li>&nbsp;</li>
         <li class="">
             <a href="{{ path('panel_security_logout') }}" class="text-danger">
                 <i class="glyphicon glyphicon-collapse-down"></i>

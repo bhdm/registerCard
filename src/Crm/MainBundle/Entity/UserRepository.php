@@ -228,7 +228,11 @@ class UserRepository extends EntityRepository
 
         $andWhere = '' ;
         if (isset($params['isOperator'])){
-            $andWhere .= ' AND op.id is null ';
+            if ( $params['isOperator'] == true ){
+                $andWhere .= ' AND op.id is not null ';
+            }else{
+                $andWhere .= ' AND op.id is null ';
+            }
         }
         if (isset($params['isCompleted'])){
             $andWhere .= ' AND u.status >= 2 AND u.status != 10 ';
