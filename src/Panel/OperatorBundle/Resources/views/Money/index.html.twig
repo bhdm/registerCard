@@ -1,0 +1,46 @@
+{#https://developers.google.com/chart/interactive/docs/points#fullhtml#}
+{% extends 'PanelOperatorBundle::layout.html.twig' %}
+
+
+{% block breadcrumb %}
+    <ul class="breadcrumb well">
+        <li>Статистика</li>
+    </ul>
+{% endblock %}
+
+{% block content %}
+    <div class="well">
+        <div id="stats" style="width: 900px; height: 500px;"></div>
+        {#{{ dump(allUsers) }}#}
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript"  src="https://www.google.com/jsapi"></script>
+    <script>
+        google.load('visualization', '1.1', {packages: ['corechart']});
+        google.setOnLoadCallback(drawChart);
+        function drawChart() {
+            var data = google.visualization.arrayToDataTable([
+                ['Месяц',  'ALL', 'DOROGA', 'COMPLETED'],
+                {#[{{ date }}, {{ c }},   {{ usersOperator[date] is defined ? usersOperator[date] : '0' }},  {{ usersComplated[date] is defined ? usersComplated[date] : '0' }} ],#}
+                {% for date, c in allUsers %}
+                ['{{ date }}', {{ c }}, {{ usersOperator[date] is defined ? usersOperator[date] : 0  }}, {{ usersComplated[date] is defined  ? usersComplated[date] : 0 }} ],
+                {% endfor %}
+            ]);
+
+            var options = {
+                title: 'Cnатистика заявок',
+                curveType: 'function',
+                legend: { position: 'bottom' },
+                pointSize: 20,
+                pointShape: 'circle',
+            };
+
+            var chart = new google.charts.Line(document.getElementById('stats'));
+
+            chart.draw(data, options);
+        }
+    </script>
+{% endblock %}

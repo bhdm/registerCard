@@ -64,12 +64,19 @@ doctrine:
         auto_generate_proxy_classes: "%kernel.debug%"
         auto_mapping: true
         mappings:
-                translatable:
-                    type: annotation
-                    alias: Gedmo
-                    prefix: Gedmo\Translatable\Entity
-                    # make sure vendor library location is correct
-                    dir: "%kernel.root_dir%/../vendor/gedmo/doctrine-extensions/lib/Gedmo/Translatable/Entity"
+            translatable:
+                type: annotation
+                alias: Gedmo
+                prefix: Gedmo\Translatable\Entity
+                # make sure vendor library location is correct
+                dir: "%kernel.root_dir%/../vendor/gedmo/doctrine-extensions/lib/Gedmo/Translatable/Entity"
+        dql:
+            datetime_functions:
+                month: Crm\MainBundle\Dql\Month
+                week: Crm\MainBundle\Dql\Week
+                year: Crm\MainBundle\Dql\Year
+                day: Crm\MainBundle\Dql\Day
+                DATE_FORMAT: CRM\MainBundle\Dql\DateFormat
 
 
 # Swiftmailer Configuration

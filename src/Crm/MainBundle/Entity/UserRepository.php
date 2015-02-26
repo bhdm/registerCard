@@ -4,6 +4,7 @@ namespace Crm\MainBundle\Entity;
 
 use Doctrine\ORM\EntityRepository;
 use Symfony\Component\Validator\Constraints\DateTime;
+use Doctrine\ORM\Query\ResultSetMapping;
 
 class UserRepository extends EntityRepository
 {
@@ -189,5 +190,62 @@ class UserRepository extends EntityRepository
             }
         }
         return $users;
+    }
+
+    public function calendar($params = array()){
+//        $d = new \DateTime();
+//        $dateStringStart = $d->format('Y').'-'.$params['month'].'-01 00:00:00';
+//        $d = $d->modify('+1 month');
+//        $dateStringEnd   = $d->format('Y').'-'.$params['month'].'-01 00:00:00';
+
+//        $res = $this->getEntityManager()->createNativeQuery()->get
+//            ->select('COUNT(DISTINCT(u.created)) users, MONTH(u.created) m, YEAR(u.created) y')
+//            ->from('CrmMainBundle:User','u');
+////            ->leftJoin('u.company ','co')
+////            ->leftJoin('co.operator ','op');
+//        $res->where(' u.enabled is true ');
+//        if (isset($params['isOperator'])){
+//            $res->andWhere('co.operator is not NULL');
+//        }
+//        if (isset($params['isCompleted'])){
+//            $res->andWhere('u.status >= 2 and u.status != 10');
+//        }
+//
+//        $res->groupBy('y, m');
+//        $res->orderBy('y','DESC');
+//        $res->orderBy('m','DESC');
+//        $res->setMaxResults(12);
+
+        $andWhere = '' ;
+        if (isset($params['isOperator'])){
+            $andWhere .= ' AND op.id is null ';
+        }
+        if (isset($params['isCompleted'])){
+            $andWhere .= ' AND u.status >= 2 AND u.status != 10 ';
+        }
+
+        $sql = '
+        SELECT COUNT( DISTINCT ( u.created ) ) u , MONTH( u.created ) m, YEAR( u.created ) y
+        FROM user u
+        LEFT JOIN Company co ON co.id = u.company_id
+        LEFT JOIN Operator op ON op.id = co.operator_id
+        WHERE u.enabled = 1
+        '.$andWhere.'
+        GROUP BY y, m
+        ORDER BY y DESC, m DESC
+        LIMIT 12
+';
+        $pdo = $this->getEntityManager()->getConnection();
+        $st = $pdo->prepare($sql);
+        $st->execute();
+
+        $re = $st->fetchAll();
+
+        $result = array();
+        foreach ( $re as $val ){
+            $result[$val['y'].'-'.$val['m']] = $val['u'];
+        }
+
+        return $result;
     }
 }
