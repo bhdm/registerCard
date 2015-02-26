@@ -136,19 +136,19 @@ class UserRepository extends EntityRepository
         return $res->getQuery()->getResult();
     }
 
-    public function operatorFilter($type, $status, $companyId, $userId, $searchtxt = null ){
+    public function operatorFilter($type, $status, $production, $companyId, $userId, $searchtxt = null, $dateStart = null, $dateEnd = null ){
         $res = $this->getEntityManager()->createQueryBuilder()
             ->select('u')
             ->from('CrmMainBundle:User','u')
             ->leftJoin('u.company ','co')
             ->leftJoin('co.operator ','op');
 
-        $res->where('op.id = '.$userId);
-        if ($type === 0){
+        $res->where('op.id = '.$userId.' AND u.enabled = true');
+        if ($type == 0){
             $res->andWhere('u.estr = 0 AND u.ru = 0');
-        }elseif ($type === 1){
+        }elseif ($type == 1){
             $res->andWhere('u.estr = 1 AND u.ru = 0');
-        }elseif ($type === 2){
+        }elseif ($type == 2){
             $res->andWhere('u.estr = 0 AND u.ru = 1');
         }
         if ($companyId != null){
@@ -158,38 +158,48 @@ class UserRepository extends EntityRepository
             $res->andWhere('u.status = '.$status);
         }
         if ($searchtxt != null){
-            $res->andWhere('
-                u.username LIKE "%'.$searchtxt.'%"'.
-                ' OR u.email LIKE "%'.$searchtxt.'%"'.
-                ' OR u.firstName LIKE "%'.$searchtxt.'%"'.
-                ' OR u.lastName LIKE "%'.$searchtxt.'%"'.
-                ' OR u.surName LIKE "%'.$searchtxt.'%"'
+            $res->andWhere("
+                u.username LIKE '%".$searchtxt."%'".
+                " OR u.email LIKE '%".$searchtxt."%'".
+                " OR u.firstName LIKE '%".$searchtxt."%'".
+                " OR u.lastName LIKE '%".$searchtxt."%'".
+                " OR u.surName LIKE '%".$searchtxt."%'"
             );
         }
-        $res->andWhere('u.production = 0');
+        if ($dateStart != null){
+            $res->andWhere("u.created >='".$dateStart."'");
+        }
+        if ($dateEnd != null){
+            $res->andWhere("u.created <='".$dateEnd."'");
+        }
+        if ($production == 0){
+            $res->andWhere('u.production = 0');
+        }else{
+            $res->andWhere('u.production > 0');
+        }
         $res->orderBy('u.created', 'DESC');
         /** ***************** */
 
         $result = $res->getQuery()->getResult();
-        $users =
-            array(
-                0 => null,
-                1 => null,
-                2 => null,
-                3 => null
-            );
-        foreach ($result as $val){
-            if ( $val->getEstr() == 0 AND $val->getRu() == 0 ){
-                $users[0][] = $val;
-            }elseif( $val->getEstr() == 1 AND $val->getRu() == 0 ) {
-                $users[1][] = $val;
-            }elseif( $val->getEstr() == 0 AND $val->getRu() == 1 ) {
-                $users[2][] = $val;
-            }else{
-                $users[3][] = $val;
-            }
-        }
-        return $users;
+//        $users =
+//            array(
+//                0 => null,
+//                1 => null,
+//                2 => null,
+//                3 => null
+//            );
+//        foreach ($result as $val){
+//            if ( $val->getEstr() == 0 AND $val->getRu() == 0 ){
+//                $users[0][] = $val;
+//            }elseif( $val->getEstr() == 1 AND $val->getRu() == 0 ) {
+//                $users[1][] = $val;
+//            }elseif( $val->getEstr() == 0 AND $val->getRu() == 1 ) {
+//                $users[2][] = $val;
+//            }else{
+//                $users[3][] = $val;
+//            }
+//        }
+        return $result;
     }
 
     public function calendar($params = array()){

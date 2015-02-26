@@ -18,15 +18,46 @@ class UserController extends Controller
 {
     /**
      * @Security("has_role('ROLE_OPERATOR')")
-     * @Route("/list/{type}/{company}/{status}", defaults={"type" = null , "company" = null , "status" = null }, name="panel_user_list")
+     * @Route("/list/{type}/{company}/{status}", defaults={"type" = null , "company" = null , "status" = null }, name="panel_user_list", options={"expose" = true})
      * @Template()
      */
     public function listAction(Request $request, $type = null, $company = null, $status = null)
     {
         $searchtxt = $request->query->get('search');
+        $dateStart = ( $request->query->get('dateStart') == '' ? null : $request->query->get('dateStart'));
+        $dateEnd = ( $request->query->get('dateEnd') == '' ? null : $request->query->get('dateEnd'));
         $userId = $this->getUser()->getId();
-        $users = $this->getDoctrine()->getRepository('CrmMainBundle:User')->operatorFilter($type, $status, $company, $userId, $searchtxt);
-        return array('users' => $users);
+        $production = 0;
+        $users = $this->getDoctrine()->getRepository('CrmMainBundle:User')->operatorFilter($type, $status, $production, $company, $userId, $searchtxt, $dateStart, $dateEnd);
+        $paginator  = $this->get('knp_paginator');
+        $pagination = $paginator->paginate(
+            $users,
+            $this->get('request')->query->get('page', 1),
+            50
+        );
+        return array('pagination' => $pagination);
+    }
+
+    /**
+     * @Security("has_role('ROLE_OPERATOR')")
+     * @Route("/arhive/{type}/{company}/{status}", defaults={"type" = null , "company" = null , "status" = null }, name="panel_user_arhive", options={"expose" = true})
+     * @Template()
+     */
+    public function arhiveAction(Request $request, $type = null, $company = null, $status = null)
+    {
+        $searchtxt = $request->query->get('search');
+        $dateStart = ( $request->query->get('dateStart') == '' ? null : $request->query->get('dateStart'));
+        $dateEnd = ( $request->query->get('dateEnd') == '' ? null : $request->query->get('dateEnd'));
+        $userId = $this->getUser()->getId();
+        $production = 1;
+        $users = $this->getDoctrine()->getRepository('CrmMainBundle:User')->operatorFilter($type, $status, $production, $company, $userId, $searchtxt, $dateStart, $dateEnd);
+        $paginator  = $this->get('knp_paginator');
+        $pagination = $paginator->paginate(
+            $users,
+            $this->get('request')->query->get('page', 1),
+            50
+        );
+        return array('pagination' => $pagination);
     }
 
 

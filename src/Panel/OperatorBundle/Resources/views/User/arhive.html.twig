@@ -3,7 +3,7 @@
 
 {% block breadcrumb %}
     <ul class="breadcrumb well">
-        <li>Список заявок</li>
+        <li>Архив заявок</li>
         {#<li><a href="{{ path('user_add') }}"><span class="btn btn-primary">Добавить</span></a></li>#}
     </ul>
 {% endblock %}
@@ -48,16 +48,18 @@
             <thead>
             <tr>
                 <th>№</th>
+                <th>Статус</th>
                 <th>Тип</th>
                 <th>Дата</th>
                 <th >Компания</th>
                 <th >ФИО / Email</th>
-                <th class="setting">Инструменты</th>
+                {#<th class="setting">Инструменты</th>#}
             </tr>
             </thead>
                 {% for user in pagination %}
                     <tr>
                         <td>{{ user.created | date('d') }}{{ user.id }}</td>
+                        <td>{{ user.statusStringTwig | raw }}</td>
                         <td>
                             {% if user.ru == false and user.estr == false %}
                                 СКЗИ
@@ -69,7 +71,6 @@
                                 ДРУГОЕ
                             {% endif %}
                         </td>
-                        {#<td>{{ user.statusStringTwig | raw }}</td>#}
                         <td class="subtitles">{{ user.created | date('d.m.Y') }}</td>
                         <td>{{ user.company }}</td>
                         <td>
@@ -77,28 +78,28 @@
                             <br />
                             <span class="subtitles">{{ user.email }}</span>
                         </td>
-                        <td class="setting">
-                            {% spaceless %}
-                                {#<a href="{{ path('user_edit',{'id' : item.id}) }}">#}
-                                <a href="{{ path('panel_user_edit',{'userId' : user.id }) }}">
-                                    <button type="button" class="btn btn-default btn-bg">
-                                        <span class="glyphicon glyphicon-pencil"></span>
-                                    </button>
-                                </a>
-                                &nbsp;&nbsp;
-                                <a href="{{ path('panel_user_production',{'userId' : user.id }) }}">
-                                    <button type="button" class="btn btn-default btn-success">
-                                        <span class="glyphicon glyphicon-ok"></span>
-                                    </button>
-                                </a>
-                                &nbsp;&nbsp;
-                                <a href="{{ path('panel_user_remove',{'userId' : user.id }) }}">
-                                    <button type="button" class="btn btn-default btn-danger">
-                                        <span class="glyphicon glyphicon-remove"></span>
-                                    </button>
-                                </a>
-                            {% endspaceless %}
-                        </td>
+                        {#<td class="setting">#}
+                            {#{% spaceless %}#}
+                                {#&#123;&#35;<a href="{{ path('user_edit',{'id' : item.id}) }}">&#35;&#125;#}
+                                {#<a href="{{ path('panel_user_edit',{'userId' : user.id }) }}">#}
+                                    {#<button type="button" class="btn btn-default btn-bg">#}
+                                        {#<span class="glyphicon glyphicon-pencil"></span>#}
+                                    {#</button>#}
+                                {#</a>#}
+                                {#&nbsp;&nbsp;#}
+                                {#<a href="{{ path('panel_user_production',{'userId' : user.id }) }}">#}
+                                    {#<button type="button" class="btn btn-default btn-success">#}
+                                        {#<span class="glyphicon glyphicon-ok"></span>#}
+                                    {#</button>#}
+                                {#</a>#}
+                                {#&nbsp;&nbsp;#}
+                                {#<a href="{{ path('panel_user_remove',{'userId' : user.id }) }}">#}
+                                    {#<button type="button" class="btn btn-default btn-danger">#}
+                                        {#<span class="glyphicon glyphicon-remove"></span>#}
+                                    {#</button>#}
+                                {#</a>#}
+                            {#{% endspaceless %}#}
+                        {#</td>#}
                     </tr>
                 {% endfor%}
         </table>
@@ -122,7 +123,7 @@
     <script>
         $(document).ready(function(){
             $('#filter-send').click(function () {
-                var url = Routing.generate('panel_user_list', {'type': $('#filter-type').val(), 'dateStart' : $('#filter-dateStart').val(), 'dateEnd' : $('#filter-dateEnd').val(),'search' : $('#filter-search').val() });
+                var url = Routing.generate('panel_user_arhive', {'type': $('#filter-type').val(), 'dateStart' : $('#filter-dateStart').val(), 'dateEnd' : $('#filter-dateEnd').val(),'search' : $('#filter-search').val() });
                 window.location.href = url;
             });
         });

@@ -44,3 +44,18 @@ td.label{
 td.value input{
     margin-bottom: 10px;
 }
+
+.pagination span{
+    padding: 5px 10px;
+    border: 1px solid #CCC;
+    display: inline-block;
+    margin: 0 5px;
+    border-radius: 3px;
+}
+.pagination .current{
+    background: #23527c;
+    color: #fefefe;
+}
+.form-control{
+    height: 32px;
+}
