@@ -11,7 +11,34 @@
 {% block content %}
     <div class="well">
         <div id="stats" style="width: 750px; height: 300px;"></div>
-        {#{{ dump(allUsers) }}#}
+        <br/>
+        <br/>
+        <table class="table">
+            <tr>
+                <td></td>
+                {% for date, c in allUsers %}
+                    <td><b>{{ date }}</b></td>
+                {% endfor %}
+            </tr>
+            <tr>
+                <td><b>IMKARD</b></td>
+                {% for date, c in allUsers %}
+                    <td style="text-align: center">{{ c }}</td>
+                {% endfor %}
+            </tr>
+            <tr>
+                <td><b>DOROGA</b></td>
+                {% for date, c in allUsers %}
+                    <td style="text-align: center">{{ usersOperator[date] is defined ? usersOperator[date] : 0  }}</td>
+                {% endfor %}
+            </tr>
+            <tr>
+                <td><b>Оплачено</b></td>
+                {% for date, c in allUsers %}
+                    <td style="text-align: center">{{ usersComplated[date] is defined  ? usersComplated[date] : 0 }}</td>
+                {% endfor %}
+            </tr>
+        </table>
     </div>
 {% endblock %}
 
