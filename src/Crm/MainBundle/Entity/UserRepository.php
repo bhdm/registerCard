@@ -167,9 +167,11 @@ class UserRepository extends EntityRepository
             );
         }
         if ($dateStart != null){
+            $dateStart = $dateStart.' 00:00:00';
             $res->andWhere("u.created >='".$dateStart."'");
         }
         if ($dateEnd != null){
+            $dateEnd = $dateEnd.' 23:59:59';
             $res->andWhere("u.created <='".$dateEnd."'");
         }
         if ($production == 0){

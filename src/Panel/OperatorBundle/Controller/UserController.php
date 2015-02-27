@@ -35,7 +35,7 @@ class UserController extends Controller
             $this->get('request')->query->get('page', 1),
             50
         );
-        return array('pagination' => $pagination);
+        return array('pagination' => $pagination, 'companyId' => $company);
     }
 
     /**
