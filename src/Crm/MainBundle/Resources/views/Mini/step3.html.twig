@@ -183,9 +183,15 @@
                     </td>
                 </tr>
                 <tr class="tehnolog-n">
-                    <td class="label">Район<span class="required">*</span>:</td>
+                    <td class="label">Регион<span class="required">*</span>:</td>
                     <td class="value">
-                        <input type="text" class="style" placeholder="Район" name="region" id="region" value="{{ order.p_region is defined ? order.p_region : '' }}">
+                        <input type="text" class="style" placeholder="Регион" autocomplete="off" data-kladr-type="region" name="region" id="region" value="{{ order.p_region is defined ? order.p_region : '' }}" required="required">
+                    </td>
+                </tr>
+                <tr class="tehnolog-n">
+                    <td class="label">Район:</td>
+                    <td class="value">
+                        <input type="text" class="style" placeholder="Район" name="area" id="area" value="{{ order.p_area is defined ? order.p_area : '' }}">
                     </td>
                 </tr>
                 <tr class="tehnolog-n">
@@ -350,6 +356,12 @@
                 token: '541ee4ac7c52392c7d8b457e',
                 key: '181d5e2c44994c335e5e81e9ae46e79a67b6b495',
                 type: $.kladr.type.region
+            });
+            $( '#area' ).kladr({
+                token: '541ee4ac7c52392c7d8b457e',
+                key: '181d5e2c44994c335e5e81e9ae46e79a67b6b495',
+                parentInput: '[name="region"]',
+                type: $.kladr.type.area
             });
 
             $('#city' ).kladr({
