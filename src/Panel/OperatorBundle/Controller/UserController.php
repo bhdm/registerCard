@@ -36,7 +36,13 @@ class UserController extends Controller
             50
         );
         $companyId = $company;
-        $company = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->find($companyId);
+        if ($companyId == null){
+            $company = null;
+        }else{
+            $company = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->find($companyId);
+        }
+
+
         return array('pagination' => $pagination, 'companyId' => $companyId, 'company' => $company );
     }
 
