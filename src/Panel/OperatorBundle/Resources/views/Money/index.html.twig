@@ -32,13 +32,11 @@
                     <td style="text-align: center">{{ usersOperator[date] is defined ? usersOperator[date] : 0  }}</td>
                 {% endfor %}
             </tr>
-            <tr>
-                <td><b>Оплачено</b></td>
-                {% for date, c in allUsers %}
-                    <td style="text-align: center">{{ usersComplated[date] is defined  ? usersComplated[date] : 0 }}</td>
-                {% endfor %}
-            </tr>
         </table>
+        <br/>
+        <br/>
+        <div id="stats2" style="width: 750px; height: 300px;"></div>
+
     </div>
 {% endblock %}
 
@@ -48,6 +46,8 @@
     <script>
         google.load('visualization', '1.1', {packages: ['line']});
         google.setOnLoadCallback(drawChart);
+        google.setOnLoadCallback(drawChart2);
+
         function drawChart() {
             var data = google.visualization.arrayToDataTable([
                 ['Месяц',  'imkard', 'doroga'],
@@ -65,6 +65,27 @@
             };
 
             var chart = new google.charts.Line(document.getElementById('stats'));
+
+            chart.draw(data, options);
+        }
+
+        function drawChart2() {
+            var data = google.visualization.arrayToDataTable([
+                ['Месяц',  'ESTR', 'SKZI', 'RU'],
+                {% for date, c in skzi %}
+                ['{{ date }}', {{ c }}, {{ estr[date] is defined ? estr[date] : 0  }}, {{ ru[date] is defined ? ru[date] : 0  }} ],
+                {% endfor %}
+            ]);
+
+            var options = {
+                title: 'Cnатистика заявок по типам',
+                curveType: 'function',
+                legend: { position: 'bottom' },
+                pointSize: 20,
+                pointShape: 'circle'
+            };
+
+            var chart = new google.charts.Line(document.getElementById('stats2'));
 
             chart.draw(data, options);
         }

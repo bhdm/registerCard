@@ -26,20 +26,19 @@ class MoneyController extends Controller
     {
         $users = $this->getDoctrine()->getRepository('CrmMainBundle:User')->calendar(array('isOperator'=> false));
         $usersOperator = $this->getDoctrine()->getRepository('CrmMainBundle:User')->calendar(array('isOperator'=> true));
-//        $usersCompleted = $this->getDoctrine()->getRepository('CrmMainBundle:User')->calendar(array('isCompleted' => true));
 
-//        $d = new \DateTime();
-//        $array = array();
-//        for ($i = 11 ; $i > 0 ; $i --){
-//            $tar = array(
-//                '0' => (isset($users))
-//            );
-//            $array[($d->format('m')-$i)] = $tar;
-//        }
+
+        $skzi   = $this->getDoctrine()->getRepository('CrmMainBundle:User')->calendar(array('type'=> 'skzi'));
+        $estr   = $this->getDoctrine()->getRepository('CrmMainBundle:User')->calendar(array('type'=> 'estr'));
+        $ru     = $this->getDoctrine()->getRepository('CrmMainBundle:User')->calendar(array('type'=> 'ru'));
+
 
         return array(
             'allUsers' => $users,
             'usersOperator' => $usersOperator,
+            'skzi' => $skzi,
+            'estr' => $estr,
+            'ru' => $ru,
         );
     }
 }
