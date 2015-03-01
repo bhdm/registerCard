@@ -99,8 +99,8 @@ class UserController extends Controller
                 $user->setLastNumberCard($data->get('oldNumber'));
 
                 $user->setDileveryZipcode($data->get('deliveryZipcode'));
-                $region = $this->getDoctrine()->getRepository('CrmMainBundle:Region')->findOneById($data->get('deliveryRegion'));
-                $user->setDileveryRegion($region);
+//                $region = $this->getDoctrine()->getRepository('CrmMainBundle:Region')->findOneById();
+                $user->setDileveryRegion($data->get('deliveryRegion'));
                 $user->setDileveryArea($data->get('deliveryArea'));
                 $user->setDileveryCity($data->get('deliveryCity'));
                 $user->setDileveryStreet($data->get('deliveryStreet'));

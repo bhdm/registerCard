@@ -84,7 +84,8 @@
                 });
 
                 $('.step').click(function(){
-                    var url = Routing.generate('application-skzi-step'+$(this).children('.stepn').html());
+                    type = $('.step').attr('data-type');
+                    var url = Routing.generate('application-'+type+'-step'+$(this).children('.stepn').html());
                     window.location.href = url;
                 });
             })
