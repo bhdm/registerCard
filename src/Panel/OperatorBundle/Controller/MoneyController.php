@@ -27,6 +27,11 @@ class MoneyController extends Controller
         $users = $this->getDoctrine()->getRepository('CrmMainBundle:User')->calendar(array('isOperator'=> false));
         $usersOperator = $this->getDoctrine()->getRepository('CrmMainBundle:User')->calendar(array('isOperator'=> true));
 
+//        $all = array();
+//        foreach ($users as $u ){
+//            $all['']
+//        }
+
 
         $skzi   = $this->getDoctrine()->getRepository('CrmMainBundle:User')->calendar(array('type'=> 'skzi'));
         $estr   = $this->getDoctrine()->getRepository('CrmMainBundle:User')->calendar(array('type'=> 'estr'));
