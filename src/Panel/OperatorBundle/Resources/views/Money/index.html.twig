@@ -23,10 +23,9 @@
         google.setOnLoadCallback(drawChart);
         function drawChart() {
             var data = google.visualization.arrayToDataTable([
-                ['Месяц',  'imkard', 'doroga', 'Оплачено'],
-                {#[{{ date }}, {{ c }},   {{ usersOperator[date] is defined ? usersOperator[date] : '0' }},  {{ usersComplated[date] is defined ? usersComplated[date] : '0' }} ],#}
+                ['Месяц',  'imkard', 'doroga'],
                 {% for date, c in allUsers %}
-                ['{{ date }}', {{ c }}, {{ usersOperator[date] is defined ? usersOperator[date] : 0  }}, {{ usersComplated[date] is defined  ? usersComplated[date] : 0 }} ],
+                ['{{ date }}', {{ c }}, {{ usersOperator[date] is defined ? usersOperator[date] : 0  }} ],
                 {% endfor %}
             ]);
 

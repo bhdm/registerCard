@@ -26,7 +26,7 @@ class MoneyController extends Controller
     {
         $users = $this->getDoctrine()->getRepository('CrmMainBundle:User')->calendar(array('isOperator'=> false));
         $usersOperator = $this->getDoctrine()->getRepository('CrmMainBundle:User')->calendar(array('isOperator'=> true));
-        $usersCompleted = $this->getDoctrine()->getRepository('CrmMainBundle:User')->calendar(array('isCompleted' => true));
+//        $usersCompleted = $this->getDoctrine()->getRepository('CrmMainBundle:User')->calendar(array('isCompleted' => true));
 
 //        $d = new \DateTime();
 //        $array = array();
@@ -40,7 +40,6 @@ class MoneyController extends Controller
         return array(
             'allUsers' => $users,
             'usersOperator' => $usersOperator,
-            'usersComplated' => $usersCompleted,
         );
     }
 }

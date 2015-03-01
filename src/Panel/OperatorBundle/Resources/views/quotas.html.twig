@@ -1,18 +1,18 @@
 <div class="well">
     <h3 class="modal-title">Квоты</h3>
-    <h4>Осталось баллов:</h4>
+    <h4>Осталось рублей:</h4>
     <h3>{{ app.user.quota }}</h3>
     <br/>
     <h4>Неподтвержденных заявок:</h4>
     <h3>{{ app.user.NewOrderCount }} шт.</h3>
     <br />
     <h4>Использовано:</h4>
-    <div style="display: inline-block; width: 70px;">СКЗИ: </div><h4 style="display: inline;">{{ app.user.completedCount.skzi  }}</h4> шт. ( {{ app.user.completedCount.skzi  * app.user.priceSkzi }} б. ) <br />
-    <div style="display: inline-block; width: 70px;">ЕСТР: </div><h4 style="display: inline;">{{ app.user.completedCount.estr  }}</h4> шт. ({{ app.user.completedCount.estr  * app.user.priceEstr }} б. )<br />
-    <div style="display: inline-block; width: 70px;">РФ: </div><h4 style="display: inline;">{{ app.user.completedCount.ru  }}</h4> шт. ({{ app.user.completedCount.ru  * app.user.priceRu }} б. )<br />
+    <div style="display: inline-block; width: 70px;">СКЗИ: </div><h4 style="display: inline;">{{ app.user.completedCount.skzi  }}</h4> шт. ( {{ app.user.completedCount.skzi  * app.user.priceSkzi }} р. ) <br />
+    <div style="display: inline-block; width: 70px;">ЕСТР: </div><h4 style="display: inline;">{{ app.user.completedCount.estr  }}</h4> шт. ({{ app.user.completedCount.estr  * app.user.priceEstr }} р. )<br />
+    <div style="display: inline-block; width: 70px;">РФ: </div><h4 style="display: inline;">{{ app.user.completedCount.ru  }}</h4> шт. ({{ app.user.completedCount.ru  * app.user.priceRu }} р. )<br />
     <br />
     <h4>Стоимость заявки:</h4>
-    <div style="display: inline-block; width: 70px;">СКЗИ: </div><h4 style="display: inline;">{{  app.user.priceSkzi }}</h4><br />
-    <div style="display: inline-block; width: 70px;">ЕСТР: </div><h4 style="display: inline;">{{ app.user.priceEstr }}</h4><br />
-    <div style="display: inline-block; width: 70px;">РФ: </div><h4 style="display: inline;">{{ app.user.priceRu }}</h4>
+    <div style="display: inline-block; width: 70px;">СКЗИ: </div><h4 style="display: inline;">{{  app.user.priceSkzi }} р.</h4><br />
+    <div style="display: inline-block; width: 70px;">ЕСТР: </div><h4 style="display: inline;">{{ app.user.priceEstr }} р.</h4><br />
+    <div style="display: inline-block; width: 70px;">РФ: </div><h4 style="display: inline;">{{ app.user.priceRu }} р.</h4>
 </div>
