@@ -4,6 +4,9 @@
 {% block breadcrumb %}
     <ul class="breadcrumb well">
         <li>Список заявок</li>
+        {% if company is defined %}
+            <li>{{ company.title }}</li>
+        {% endif %}
         {#<li><a href="{{ path('user_add') }}"><span class="btn btn-primary">Добавить</span></a></li>#}
     </ul>
 {% endblock %}

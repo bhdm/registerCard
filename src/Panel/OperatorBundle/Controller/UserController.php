@@ -35,7 +35,9 @@ class UserController extends Controller
             $this->get('request')->query->get('page', 1),
             50
         );
-        return array('pagination' => $pagination, 'companyId' => $company);
+        $companyId = $company;
+        $company = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->find($companyId);
+        return array('pagination' => $pagination, 'companyId' => $companyId, 'company' => $company );
     }
 
     /**

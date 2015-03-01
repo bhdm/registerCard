@@ -71,7 +71,7 @@
 
         function drawChart2() {
             var data = google.visualization.arrayToDataTable([
-                ['Месяц',  'ESTR', 'SKZI', 'RU'],
+                ['Месяц',  'SKZI', 'ESTR', 'RU'],
                 {% for date, c in skzi %}
                 ['{{ date }}', {{ c }}, {{ estr[date] is defined ? estr[date] : 0  }}, {{ ru[date] is defined ? ru[date] : 0  }} ],
                 {% endfor %}
