@@ -107,6 +107,7 @@ class ApplicationController extends Controller
             $order['myPetition']    =false;
             $order['p_title']      = $request->request->get('title');
             $order['p_region']      = $request->request->get('region');
+            $order['p_area']      = $request->request->get('area');
             $order['p_city']        = $request->request->get('city');
             $order['p_typeStreet']  = $request->request->get('typeStreet');
             $order['p_street']      = $request->request->get('street');

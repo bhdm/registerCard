@@ -4,7 +4,7 @@
 {% block breadcrumb %}
     <ul class="breadcrumb well">
         <li>Список компаний</li>
-        <li><a href="{{ path('panel_company_add') }}"><span class="btn btn-primary">Добавить</span></a></li>
+        <li><a href="#"><span class="btn btn-primary">Добавить</span></a></li>
     </ul>
 {% endblock %}
 
@@ -15,25 +15,21 @@
                data-sort-order="asc">
             <thead>
             <tr>
-                <th >Компания</th>
-                <th >Ссылка</th>
-                <th >Кол-во заявок</th>
+                <th>Оператор</th>
+                <th>Кол-во заявок</th>
+                <th>Квота</th>
                 <th class="setting">Инструменты</th>
             </tr>
             </thead>
-            {% for company in companies %}
+            {% for o in operators %}
                 <tr>
-                    <td><a href="{{ path('panel_user_list', {'type' : 'null' , 'company' : company.id }) }}">{{ company.title }}</a></td>
-                    <td>
-                        {% if company.url != null and company.url != '' %}
-                            <a href="{{ path('company',{'url' : company.url }) }}" target="_blank">{{ company.url }}</a>
-                        {% endif %}
-                    </td>
-                    <td> {{ company.userConfirmation | length}} / {{ company.users | length }}</td>
+                    <td>{{ o }}</td>
+                    <td> </td>
+                    <td>{{ o.quota }}</td>
                     <td class="setting">
                         {% spaceless %}
                             {#<a href="{{ path('user_edit',{'id' : item.id}) }}">#}
-                            <a href="{{ path('panel_company_edit',{'id' : company.id}) }}">
+                            <a href="#">
                                 <button type="button" class="btn btn-default btn-bg" title="Редактировать">
                                     <span class="glyphicon glyphicon-pencil"></span>
                                 </button>
@@ -45,7 +41,7 @@
                                 {#</button>#}
                             {#</a>#}
                             &nbsp;&nbsp;
-                            <a href="{{ path('panel_company_remove',{'id' : company.id}) }}">
+                            <a href="#">
                                 <button type="button" class="btn btn-default btn-danger" title="Удалить">
                                     <span class="glyphicon glyphicon-remove"></span>
                                 </button>

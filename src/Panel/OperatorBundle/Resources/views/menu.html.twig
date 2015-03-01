@@ -22,12 +22,23 @@
                 &nbsp;&nbsp;Ссылки
             </a>
         </li>
+
+        {% if is_granted('ROLE_MODERATORR') %}
+        <li>&nbsp;</li>
+        <li class="">
+            <a href="{{ path('panel_operator_list') }}">
+                <i class="glyphicon glyphicon-ruble"></i>
+                &nbsp;&nbsp;Операторы
+            </a>
+        </li>
+        <li>&nbsp;</li>
         <li class="">
             <a href="{{ path('panel_quota') }}">
                 <i class="glyphicon glyphicon-ruble"></i>
                 &nbsp;&nbsp;Квота
             </a>
         </li>
+        {% endif %}
 
         {% if is_granted('ROLE_ADMIN') %}
         <li>&nbsp;</li>
