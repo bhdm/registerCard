@@ -201,13 +201,13 @@
                 <tr class="tehnolog-n">
                     <td class="label">Район:</td>
                     <td class="value">
-                        <input type="text" class="style" placeholder="Район" name="area" id="area" value="{{ order.p_area is defined ? order.p_area : '' }}">
+                        <input type="text" class="style" placeholder="Район" autocomplete="off" name="area" id="area" value="{{ order.p_area is defined ? order.p_area : '' }}">
                     </td>
                 </tr>
                 <tr class="tehnolog-n">
                     <td class="label">Город:</td>
                     <td class="value">
-                        <input name="city"    id="city"     type="text" placeholder="Город" value="{{ order.p_city is defined ? order.p_city : '' }}"><br />
+                        <input name="city"    id="city"     type="text" autocomplete="off" placeholder="Город" value="{{ order.p_city is defined ? order.p_city : '' }}"><br />
                     </td>
                 </tr>
                 <tr class="tehnolog-n">
@@ -235,15 +235,15 @@
                 <tr class="tehnolog-n">
                     <td class="label"></td>
                     <td class="value">
-                        <input name="street"  id="street"   type="text" placeholder="Название улицы" value="{{ order.p_street is defined ? order.p_street : '' }}"><br />
+                        <input name="street"  id="street" autocomplete="off"  type="text" placeholder="Название улицы" value="{{ order.p_street is defined ? order.p_street : '' }}"><br />
                     </td>
                 </tr>
                 <tr class="tehnolog-n">
                     <td class="label">Номер здания<span class="required">*</span>:</td>
                     <td class="value">
-                        <input name="house"   id="house"    type="text" placeholder="Дом" class="little" value="{{ order.p_house is defined ? order.p_house : '' }}">
-                        <input name="corp"    id="corp"     type="text" placeholder="Корп"  class="little" value="{{ order.p_corp is defined ? order.p_corp : '' }}">
-                        <input name="structure"    id="structure"     type="text" placeholder="Строение"  class="little" value="{{ order.p_structure is defined ? order.p_structure : '' }}"><br />
+                        <input name="house"   id="house"  autocomplete="off"  type="text" placeholder="Дом" class="little" value="{{ order.p_house is defined ? order.p_house : '' }}">
+                        <input name="corp"    id="corp"   autocomplete="off"  type="text" placeholder="Корп"  class="little" value="{{ order.p_corp is defined ? order.p_corp : '' }}">
+                        <input name="structure"   autocomplete="off" id="structure"     type="text" placeholder="Строение"  class="little" value="{{ order.p_structure is defined ? order.p_structure : '' }}"><br />
                     </td>
                 </tr>
                 <tr class="tehnolog-n">
@@ -253,13 +253,13 @@
                             <option value="кв.">Квартира</option>
                             <option value="оф.">Офис</option>
                         </select>
-                        <input name="room"    id="room"  type="text" placeholder="Номер"  class="little"  value="{{ order.p_room is defined ? order.p_room : '' }}">
+                        <input name="room"  autocomplete="off"  id="room"  type="text" placeholder="Номер"  class="little"  value="{{ order.p_room is defined ? order.p_room : '' }}">
                     </td>
                 </tr>
                 <tr class="tehnolog-n">
                     <td class="label">Индекс<span class="required">*</span>:</td>
                     <td class="value">
-                        <input name="zipcode" id="zipcode"  type="text" placeholder="Индекс"  value="{{ order.p_zipcode is defined ? order.p_zipcode : '' }}"><br />
+                        <input name="zipcode" autocomplete="off" id="zipcode"  type="text" placeholder="Индекс"  value="{{ order.p_zipcode is defined ? order.p_zipcode : '' }}"><br />
                 </tr>
 
                 <tr>

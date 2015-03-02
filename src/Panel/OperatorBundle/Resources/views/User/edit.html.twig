@@ -239,12 +239,12 @@
                         {#{% endfor %}#}
                     {#</select>#}
                     <br />
-                    <input name="deliveryArea"    id="deliveryArea"     class="form-control" type="text" placeholder="Район" value="{{ user.dileveryArea }}"><br />
-                    <input name="deliveryCity"    id="deliveryCity"     class="form-control" type="text" placeholder="Город" value="{{ user.dileveryCity }}"><br />
-                    <input name="deliveryStreet"  id="deliveryStreet"   class="form-control" type="text" placeholder="Улица" value="{{ user.dileveryStreet }}"><br />
-                    <input name="deliveryHouse"   id="deliveryHouse"    class="form-control" type="text" placeholder="Дом" class="little" value="{{ user.dileveryHome }}">
-                    <input name="deliveryCorp"    id="deliveryCorp"     class="form-control" type="text" placeholder="Корп /Стр"  class="little" value="{{ user.dileveryCorp }}">
-                    <input name="deliveryRoom"    id="deliveryRoom"     class="form-control" type="text" placeholder="Кв / оф"  class="little" value="{{ user.dileveryRoom }}">
+                    <input name="deliveryArea"   autocomplete="off" id="deliveryArea"     class="form-control" type="text" placeholder="Район" value="{{ user.dileveryArea }}"><br />
+                    <input name="deliveryCity"   autocomplete="off" id="deliveryCity"     class="form-control" type="text" placeholder="Город" value="{{ user.dileveryCity }}"><br />
+                    <input name="deliveryStreet" autocomplete="off" id="deliveryStreet"   class="form-control" type="text" placeholder="Улица" value="{{ user.dileveryStreet }}"><br />
+                    <input name="deliveryHouse"  autocomplete="off" id="deliveryHouse"    class="form-control" type="text" placeholder="Дом" class="little" value="{{ user.dileveryHome }}">
+                    <input name="deliveryCorp"   autocomplete="off" id="deliveryCorp"     class="form-control" type="text" placeholder="Корп /Стр"  class="little" value="{{ user.dileveryCorp }}">
+                    <input name="deliveryRoom"   autocomplete="off" id="deliveryRoom"     class="form-control" type="text" placeholder="Кв / оф"  class="little" value="{{ user.dileveryRoom }}">
                 </td>
                 <td class="deliveryAdressStatus"></td>
             </tr>
@@ -437,40 +437,40 @@
         $(document).ready(function(){
 
 
-            $( '#region' ).kladr({
+            $( '#deliveryRegion' ).kladr({
                 token: '541ee4ac7c52392c7d8b457e',
                 key: '181d5e2c44994c335e5e81e9ae46e79a67b6b495',
                 type: $.kladr.type.region
             });
 
-            $( '#area' ).kladr({
+            $( '#deliveryArea' ).kladr({
                 token: '541ee4ac7c52392c7d8b457e',
                 key: '181d5e2c44994c335e5e81e9ae46e79a67b6b495',
-                parentInput: '[name="region"]',
+                parentInput: '[name="deliveryRegion"]',
                 type: $.kladr.type.area
             });
 
-            $('#city' ).kladr({
+            $('#deliveryCity' ).kladr({
                 token: '541ee4ac7c52392c7d8b457e',
                 key: '181d5e2c44994c335e5e81e9ae46e79a67b6b495',
-                parentInput: '[name="area"]',
+                parentInput: '[name="deliveryArea"]',
                 type: $.kladr.type.city
             });
 
-            $('#street' ).kladr({
+            $('#deliveryStreet' ).kladr({
                 token: '541ee4ac7c52392c7d8b457e',
                 key: '181d5e2c44994c335e5e81e9ae46e79a67b6b495',
-                parentInput: '[name="city"]',
+                parentInput: '[name="deliveryCity"]',
                 type: $.kladr.type.street,
                 select: function(obj){
                     $('#typeStreet').val(obj.typeShort);
                     $('#typeStreet').trigger('refresh');
                 }
             });
-            $('#house' ).kladr({
+            $('#deliveryHouse' ).kladr({
                 token: '541ee4ac7c52392c7d8b457e',
                 key: '181d5e2c44994c335e5e81e9ae46e79a67b6b495',
-                parentInput: '[name="street"]',
+                parentInput: '[name="deliveryStreet"]',
                 type: $.kladr.type.building,
                 select: function(obj){
                     $('#zipcode').val(obj.zip);
