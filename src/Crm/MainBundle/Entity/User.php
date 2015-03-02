@@ -99,7 +99,7 @@ class User extends BaseEntity implements UserInterface, EquatableInterface, \Ser
     protected  $dileveryZipcode;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Region", inversedBy="deliveries")
+     * @ORM\Column(type="string", nullable=true)
      */
     protected $dileveryRegion;
 
@@ -166,7 +166,7 @@ class User extends BaseEntity implements UserInterface, EquatableInterface, \Ser
     protected $registeredArea;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Region", inversedBy="registered")
+     * @ORM\Column(type="string", nullable=true)
      */
     protected $registeredRegion;
 

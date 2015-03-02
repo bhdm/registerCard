@@ -112,9 +112,10 @@
                 <td class="empty-row">Паспортные данные</td>
                 <td class="value">
                     <input type="file" id="passport">
+                    <div style="font-size: 10px">&nbsp;</div>
                 </td>
                 <td rowspan="10" class="copyDocs">
-                    <img id="passportImg" src="/{{ user.copyPassport.path }}">
+                    <img id="passportImg" src="{{ '/'~user.copyPassport.path }}">
                 </td>
             </tr>
             <tr>
@@ -185,9 +186,10 @@
                 <td class="empty-row">Водительские права</td>
                 <td class="value">
                     <input type="file" id="driver" >
+                    <div style="font-size: 10px">&nbsp;</div>
                 </td>
                 <td rowspan="4" class="copyDocs">
-                    <img id="driverImg" src="/{{ user.copyDriverPassport.path }}">
+                    <img id="driverImg" src="{{ '/'~user.copyDriverPassport.path }}">
                 </td>
             </tr>
             <tr>
@@ -214,9 +216,10 @@
                 <td class="empty-row">С Н И Л С</td>
                 <td class="value">
                     <input type="file" id="snils" >
+                    <div style="font-size: 10px">&nbsp;</div>
                 </td>
                 <td class="copyDocs" rowspan="2">
-                    <img id="snilsImg" src="/{{ user.copySnils.path }}">
+                    <img id="snilsImg" src="{{ '/'~user.copySnils.path }}">
                 </td>
             </tr>
             <tr>
@@ -250,18 +253,20 @@
                 <td class="label">Фотография</td>
                 <td>
                     <input type="file" id="photo" >
+                    <div style="font-size: 10px">&nbsp;</div>
                 </td>
                 <td class="value copyDocs">
-                    <img id="photoImg" src="/{{ user.photo.path }}">
+                    <img id="photoImg" src="{{ '/'~user.photo.path }}">
                 </td>
             </tr>
             <tr>
                 <td class="label">Подпись</td>
                 <td>
                     <input type="file" id="sign" >
+                    <div style="font-size: 10px">&nbsp;</div>
                 </td>
                 <td class="value copyDocs">
-                    <img id="signImg" src="/{{ user.copySignature.path }}">
+                    <img id="signImg" src="{{ '/'~user.copySignature.path }}">
                 </td>
             </tr>
 
@@ -269,12 +274,13 @@
                 <td class="label">Ходатайство</td>
                 <td>
                     <input type="file" id="hod" >
+                    <div style="font-size: 10px">&nbsp;</div>
                     <br /><br />
                     <input type="checkbox" name="myPetition" value="1" {{ user.myPetition == 1 ? 'checked="checked"' : '' }} /> Использовать ходатайство НПО  "ТЕХНОЛОГ"
                 </td>
                 <td class="value copyDocs" colspan="2">
                     {% if user.copyPetition.path is defined %}
-                        <img  id="hodImg" src="/{{ user.copyPetition.path }}">
+                        <img  id="hodImg" src="{{ '/'~user.copyPetition.path }}">
                     {% endif %}
                 </td>
             </tr>
@@ -282,6 +288,7 @@
                 <td class="label">Разрешение на работу</td>
                 <td>
                     <input type="file" id="work" >
+                    <div style="font-size: 10px">&nbsp;</div>
                 </td>
                 <td class="value copyDocs">
                     {% if user.copyWork.path is defined %}
@@ -412,6 +419,9 @@
             width: 270px;
         }
 
+        textarea{
+            margin-bottom: 10px;
+        }
     </style>
 {% endblock %}
 
