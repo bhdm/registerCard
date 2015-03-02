@@ -12,7 +12,7 @@
         <table style="width:100%;" class="crosh-table">
             <tr>
                 <td>
-                        <span class="step">
+                        <span class="step" data-type="ru">
                             <span class="stepn">1</span>
                             <img src="{{ asset('bundles/crmmain/crosh/11.png') }}" style="width: 75px">
                             <br />Данные для<br />связи
@@ -22,7 +22,7 @@
                     <img src="{{ asset('bundles/crmmain/crosh/right.png') }}" style="width: 15px">
                 </td>
                 <td>
-                        <span class="step">
+                        <span class="step" data-type="ru">
                             <span class="stepn">2</span>
                             <img src="{{ asset('bundles/crmmain/crosh/21.png') }}" style="width: 75px">
                             <br />Паспортные<br />данные
@@ -32,7 +32,7 @@
                     <img src="{{ asset('bundles/crmmain/crosh/right.png') }}" style="width: 15px">
                 </td>
                 <td>
-                        <span class="step">
+                        <span class="step" data-type="ru">
                             <span class="stepn">3</span>
                             <img src="{{ asset('bundles/crmmain/crosh/31.png') }}" style="width: 75px">
                             <br />Вод.<br />удостоверение
@@ -42,17 +42,17 @@
                     <img src="{{ asset('bundles/crmmain/crosh/right.png') }}" style="width: 15px">
                 </td>
                 <td>
-                        <span class="step">
+                        <span class="step" data-type="ru">
                             <span class="stepn">4</span>
                             <img src="{{ asset('bundles/crmmain/crosh/5.png') }}" style="width: 75px">
-                            <br />Фото, Подпись,<br />Снилс
+                            <br />Фото, Подпись
                         </span>
                 </td>
                 <td>
                     <img src="{{ asset('bundles/crmmain/crosh/right.png') }}" style="width: 15px">
                 </td>
                 <td>
-                        <span class="step">
+                        <span class="step" data-type="ru">
                             <span class="stepn">5</span>
                             <img src="{{ asset('bundles/crmmain/crosh/6.png') }}" style="width: 75px">
                             <br />Информация о<br />доставке
@@ -62,7 +62,7 @@
                     <img src="{{ asset('bundles/crmmain/crosh/right.png') }}" style="width: 15px">
                 </td>
                 <td>
-                    <span class="step">
+                    <span class="step" data-type="ru">
                         <span class="stepn">6</span>
                         <img src="{{ asset('bundles/crmmain/crosh/7.png') }}" style="width: 50px">
                         <br /><br />Оплата
@@ -74,7 +74,7 @@
     </div>
     <div class="box">
         <table>
-            <form method="POST" action="{{ path('application-skzi-step3') }}" id="main-form" enctype="multipart/form-data">
+            <form method="POST" action="{{ path('application-ru-step3') }}" id="main-form" enctype="multipart/form-data">
                 <tr>
                     <td colspan="3">
                         <div class="error-msg"></div>
@@ -135,41 +135,21 @@
                         <input name="driverStarts" id="driverStarts" type="text" placeholder="Дата выдачи" class="date" value="{{ order.driverStarts is defined ? order.driverStarts : '' }}">
                     </td>
                 </tr>
-                <tr><td><br /><br /></td></tr>
                 <tr>
-                    <td class="label">Ходатайство с места работы<span class="required">*</span>:</td>
-                    <td style="width: 400px; vertical-align: middle; padding-left: 10px">
-                        <input type="checkbox" name="tehnolog" id="tehnolog" {{ order.myPetition is defined ? order.myPetition == false ? 'checked="checked"' : '' : 'checked="checked"' }} >
-                        <span style="font-size: 18px; color: #CC0000;">
-                            Воспользоваться ходатайством <br /> НПО "ТЕХНОЛОГ"
-                        </span>
-                    </td>
-                </tr>
-                <tr  class="tehnolog-n">
-                    <td colspan="2">
-                        <div class="label" style="width: 100%; text-align: center; font-weight: bold"><br /><br />Информация о компании</div>
-                    </td>
-                </tr>
-                <tr class="tehnolog-n">
-                    <td class="label">Название организации<span class="required">*</span>:</td>
-                    <td class="value">
-                        <input type="text" class="style" placeholder="Название организации" name="title" id="title" value="{{ order.p_title is defined ? order.p_title : '' }}">
-                    </td>
-                    <td rowspan="8" style="vertical-align: top">
-                        <div class="file-container" id="tehnolog-filebox">
-                            <input type="file" name="petitionFile" id="petitionFile" class="fileAjax" >
-                            <input type="hidden" name="x1">
-                            <input type="hidden" name="y1">
-                            <input type="hidden" name="x2">
-                            <input type="hidden" name="y2">
+                    <td></td>
+                    <td></td>
+                    <td  style="width: 400px; vertical-align: top; padding-left: 10px">
+                        {# Тут сама фото #}
+                        <div class="file-container">
+                            <input type="file" name="driver2File" id="driver2File" class="fileAjax" required="required" >
                             <progress class="progress" value="0" max="100" style="width: 270px"></progress>
                             <br />
                             <br />
                             <div class="fileDoc">
-                                {% if order.petitionFilePath is defined %}
-                                    <img src="{{ path('get_image', {'type' : 'petition'}) }}"  brightness="0" contrast="0">
+                                {% if order.driver2FilePath is defined %}
+                                    <img src="{{ path('get_image', {'type' : 'driver2'}) }}" brightness="0" contrast="0">
                                 {% else %}
-                                    <img src=""  brightness="0" contrast="0">
+                                    <img src="" brightness="0" contrast="0">
                                 {% endif %}
                             </div>
                             <div class="navigateFile">
@@ -189,79 +169,14 @@
                                     <br />
                                 </div>
                             </div>
+                            <input type="hidden"  name="x1">
+                            <input type="hidden"  name="y1">
+                            <input type="hidden"  name="x2">
+                            <input type="hidden"  name="y2">
                         </div>
                     </td>
                 </tr>
-                <tr class="tehnolog-n">
-                    <td class="label">Регион<span class="required">*</span>:</td>
-                    <td class="value">
-                        <input type="text" class="style" placeholder="Регион" autocomplete="off" data-kladr-type="region" name="region" id="region" value="{{ order.p_region is defined ? order.p_region : '' }}" required="required">
-                    </td>
-                </tr>
-                <tr class="tehnolog-n">
-                    <td class="label">Район:</td>
-                    <td class="value">
-                        <input type="text" class="style" placeholder="Район" name="area" id="area" value="{{ order.p_area is defined ? order.p_area : '' }}">
-                    </td>
-                </tr>
-                <tr class="tehnolog-n">
-                    <td class="label">Город:</td>
-                    <td class="value">
-                        <input name="city"    id="city"     type="text" placeholder="Город" value="{{ order.p_city is defined ? order.p_city : '' }}"><br />
-                    </td>
-                </tr>
-                <tr class="tehnolog-n">
-                    <td class="label">Улица<span class="required">*</span>:</td>
-                    <td class="value">
-                        <select name="typeStreet" id="typeStreet">
-                            <option {{ order.p_typeStreet is defined and order.p_typeStreet == 'ул' ? 'selected="selected"' : '' }} value="ул"     >Улица</option>
-                            <option {{ order.p_typeStreet is defined and order.p_typeStreet == 'д' ? 'selected="selected"' : '' }}  value="д"      >Дорога</option>
-                            <option {{ order.p_typeStreet is defined and order.p_typeStreet == 'проезд' ? 'selected="selected"' : '' }}  value="проезд"   >Проезд</option>
-                            <option {{ order.p_typeStreet is defined and order.p_typeStreet == 'туп' ? 'selected="selected"' : '' }}  value="туп"    >Тупик</option>
-                            <option {{ order.p_typeStreet is defined and order.p_typeStreet == 'ш' ? 'selected="selected"' : '' }}  value="ш"      >Шоссе</option>
-                            <option {{ order.p_typeStreet is defined and order.p_typeStreet == 'тр' ? 'selected="selected"' : '' }}  value="тр"     >Трасса</option>
-                            <option {{ order.p_typeStreet is defined and order.p_typeStreet == 'пер' ? 'selected="selected"' : '' }}  value="пер"    >Переулок</option>
-                            <option {{ order.p_typeStreet is defined and order.p_typeStreet == 'пл' ? 'selected="selected"' : '' }}  value="пл"     >Площадь</option>
-                            <option {{ order.p_typeStreet is defined and order.p_typeStreet == 'скв' ? 'selected="selected"' : '' }}  value="скв"    >Сквер</option>
-                            <option {{ order.p_typeStreet is defined and order.p_typeStreet == 'алл' ? 'selected="selected"' : '' }}  value="алл"    >Аллея</option>
-                            <option {{ order.p_typeStreet is defined and order.p_typeStreet == 'б-р' ? 'selected="selected"' : '' }}  value="б-р"      >Бульвар</option>
-                            <option {{ order.p_typeStreet is defined and order.p_typeStreet == 'пр' ? 'selected="selected"' : '' }}  value="пр"     >Просека</option>
-                            <option {{ order.p_typeStreet is defined and order.p_typeStreet == 'пр-т' ? 'selected="selected"' : '' }}  value="пр-т"    >Проспект</option>
-                            <option {{ order.p_typeStreet is defined and order.p_typeStreet == 'наб' ? 'selected="selected"' : '' }}  value="наб"    >Набережная</option>
-                            <option {{ order.p_typeStreet is defined and order.p_typeStreet == '' ? 'selected="selected"' : '' }}  value=""        >Другое</option>
-                        </select>
-                </tr>
-
-                <tr class="tehnolog-n">
-                    <td class="label"></td>
-                    <td class="value">
-                        <input name="street"  id="street"   type="text" placeholder="Название улицы" value="{{ order.p_street is defined ? order.p_street : '' }}"><br />
-                    </td>
-                </tr>
-                <tr class="tehnolog-n">
-                    <td class="label">Номер здания<span class="required">*</span>:</td>
-                    <td class="value">
-                        <input name="house"   id="house"    type="text" placeholder="Дом" class="little" value="{{ order.p_house is defined ? order.p_house : '' }}">
-                        <input name="corp"    id="corp"     type="text" placeholder="Корп"  class="little" value="{{ order.p_corp is defined ? order.p_corp : '' }}">
-                        <input name="structure"    id="structure"     type="text" placeholder="Строение"  class="little" value="{{ order.p_structure is defined ? order.p_structure : '' }}"><br />
-                    </td>
-                </tr>
-                <tr class="tehnolog-n">
-                    <td class="label">Квартира / офис:</td>
-                    <td class="value">
-                        <select name="typeRoom" id="typeRoom">
-                            <option value="кв.">Квартира</option>
-                            <option value="оф.">Офис</option>
-                        </select>
-                        <input name="room"    id="room"  type="text" placeholder="Номер"  class="little"  value="{{ order.p_room is defined ? order.p_room : '' }}">
-                    </td>
-                </tr>
-                <tr class="tehnolog-n">
-                    <td class="label">Индекс<span class="required">*</span>:</td>
-                    <td class="value">
-                        <input name="zipcode" id="zipcode"  type="text" placeholder="Индекс"  value="{{ order.p_zipcode is defined ? order.p_zipcode : '' }}"><br />
-                </tr>
-
+                <tr><td><br /></td></tr>
                 <tr>
                     <td></td>
                 </tr>

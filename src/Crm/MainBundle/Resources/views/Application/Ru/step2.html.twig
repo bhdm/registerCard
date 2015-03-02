@@ -12,7 +12,7 @@
         <table style="width:100%;" class="crosh-table">
             <tr>
                 <td>
-                        <span class="step">
+                        <span class="step" data-type="ru">
                             <span class="stepn">1</span>
                             <img src="{{ asset('bundles/crmmain/crosh/11.png') }}" style="width: 75px">
                             <br />Данные для<br />связи
@@ -22,7 +22,7 @@
                     <img src="{{ asset('bundles/crmmain/crosh/right.png') }}" style="width: 15px">
                 </td>
                 <td>
-                        <span class="step">
+                        <span class="step" data-type="ru">
                             <span class="stepn">2</span>
                             <img src="{{ asset('bundles/crmmain/crosh/21.png') }}" style="width: 75px">
                             <br />Паспортные<br />данные
@@ -32,7 +32,7 @@
                     <img src="{{ asset('bundles/crmmain/crosh/right.png') }}" style="width: 15px">
                 </td>
                 <td>
-                        <span class="step">
+                        <span class="step" data-type="ru">
                             <span class="stepn">3</span>
                             <img src="{{ asset('bundles/crmmain/crosh/3.png') }}" style="width: 75px">
                             <br />Вод.<br />удостоверение
@@ -42,17 +42,17 @@
                     <img src="{{ asset('bundles/crmmain/crosh/right.png') }}" style="width: 15px">
                 </td>
                 <td>
-                        <span class="step">
+                        <span class="step" data-type="ru">
                             <span class="stepn">4</span>
                             <img src="{{ asset('bundles/crmmain/crosh/5.png') }}" style="width: 75px">
-                            <br />Фото, Подпись,<br />Снилс
+                            <br />Фото, Подпись
                         </span>
                 </td>
                 <td>
                     <img src="{{ asset('bundles/crmmain/crosh/right.png') }}" style="width: 15px">
                 </td>
                 <td>
-                        <span class="step">
+                        <span class="step" data-type="ru">
                             <span class="stepn">5</span>
                             <img src="{{ asset('bundles/crmmain/crosh/6.png') }}" style="width: 75px">
                             <br />Информация о<br />доставке
@@ -62,7 +62,7 @@
                     <img src="{{ asset('bundles/crmmain/crosh/right.png') }}" style="width: 15px">
                 </td>
                 <td>
-                    <span class="step">
+                    <span class="step" data-type="ru">
                         <span class="stepn">6</span>
                         <img src="{{ asset('bundles/crmmain/crosh/7.png') }}" style="width: 50px">
                         <br /><br />Оплата
@@ -74,7 +74,7 @@
     </div>
     <div class="box">
         <table>
-            <form method="POST" action="{{ path('application-skzi-step2') }}" id="main-form" enctype="multipart/form-data">
+            <form method="POST" action="{{ path('application-ru-step2') }}" id="main-form" enctype="multipart/form-data">
                 <tr>
                     <td colspan="3">
                         <div class="error-msg"></div>
@@ -85,7 +85,7 @@
                     <td class="value">
                         <input name="lastName" id="lastName" type="text" placeholder="Фамилия" required  value="{{ order.lastName is defined ? order.lastName : '' }}">
                     </td>
-                    <td rowspan="8" style="width: 400px; vertical-align: top; padding-left: 10px">
+                    <td rowspan="4" style="width: 400px; vertical-align: top; padding-left: 10px">
                         {# Тут сама фото #}
                         <div class="file-container">
                             <input type="file" name="passportFile" id="passportFile" class="fileAjax"  >
@@ -144,30 +144,111 @@
                     </td>
                 </tr>
                 <tr>
-                    <td class="label">Серия и номер пасспорта<span class="required">*</span>:</td>
+                    <td>&nbsp;</td>
+                </tr>
+                <tr class="tehnolog-n">
+                    <td class="label">Регион<span class="required">*</span>:</td>
                     <td class="value">
-                        <input name="passportSerial" id="passportSerial" type="text" placeholder="Серия" class="number" value="{{ order.passportSerial is defined ? order.passportSerial : '' }}" maxlength="4">
-                        <input name="passportNumber" id="passportNumber" type="text" placeholder="Номер" value="{{ order.passportNumber is defined ? order.passportNumber : '' }}">
+                        <input type="text" class="style" placeholder="Регион" autocomplete="off" data-kladr-type="region" name="region" id="region" value="{{ order.r_region is defined ? order.r_region : '' }}" required="required">
+                    </td>
+                    <td rowspan="4" style="vertical-align: top">
+                        <div class="file-container" id="tehnolog-filebox">
+                            <input type="file" name="passport2File" id="passport2File" class="fileAjax" >
+                            <input type="hidden" name="x1">
+                            <input type="hidden" name="y1">
+                            <input type="hidden" name="x2">
+                            <input type="hidden" name="y2">
+                            <progress class="progress" value="0" max="100" style="width: 270px"></progress>
+                            <br />
+                            <br />
+                            <div class="fileDoc">
+                                {% if order.passport2FilePath is defined %}
+                                    <img src="{{ path('get_image', {'type' : 'passport2'}) }}"  brightness="0" contrast="0">
+                                {% else %}
+                                    <img src=""  brightness="0" contrast="0">
+                                {% endif %}
+                            </div>
+                            <div class="navigateFile">
+                                <div class="slider-box">
+                                    <div id="slider-vertical-1" class="slider-vertical-contrast"></div>
+                                    <img src="{{ asset('bundles/crmmain/icons/contrast-2.png') }}"  title="Контрастность">
+                                </div>
+                                <div class="slider-box">
+                                    <div id="slider-vertical-2" class="slider-vertical-brightness"></div>
+                                    <img src="{{ asset('bundles/crmmain/icons/brightness-2.png') }}" title="Яркость">
+                                </div>
+                                <img src="{{ asset('bundles/crmmain/icons/rotateLeft.png') }}" class="rotateLeft" title="Повернуть налево">
+                                <img src="{{ asset('bundles/crmmain/icons/rotateRight.png') }}" class="rotateRight" title="Повернуть вправо">
+                                <div style="display: inline-block">
+                                    <span class="cropImage minibtn" title="Обрезать изображение">Обрезать</span>
+                                    <br />
+                                    <br />
+                                </div>
+                            </div>
+                        </div>
                     </td>
                 </tr>
-                <tr>
-                    <td class="label">Кем выдан<span class="required">*</span>:</td>
+                <tr class="tehnolog-n">
+                    <td class="label">Район:</td>
                     <td class="value">
-                        <input name="passportPlace" id="passportPlace" type="text" placeholder="Кем выдан" value="{{ order.passportPlace is defined ? order.passportPlace : '' }}" maxlength="62">
+                        <input type="text" class="style" placeholder="Район" name="area" id="area" value="{{ order.r_area is defined ? order.r_area : '' }}">
                     </td>
                 </tr>
-                <tr>
-                    <td class="label">Дата выдачи<span class="required">*</span>:</td>
+                <tr class="tehnolog-n">
+                    <td class="label">Город:</td>
                     <td class="value">
-                        <input name="passportDate" id="passportDate" type="text" placeholder="Дата выдачи" class="date" value="{{ order.passportDate is defined ? order.passportDate : '' }}">
+                        <input name="city"    id="city"     type="text" placeholder="Город" value="{{ order.r_city is defined ? order.r_city : '' }}"><br />
                     </td>
                 </tr>
-                <tr>
-                    <td class="label">Код подразделения:</td>
+                <tr class="tehnolog-n">
+                    <td class="label">Улица<span class="required">*</span>:</td>
                     <td class="value">
-                        <input name="passportCode" id="passportCode" type="text" placeholder="Код подразделения" class="code" value="{{ order.passportCode is defined ? order.passportCode : '' }}">
+                        <select name="typeStreet" id="typeStreet">
+                            <option {{ order.r_typeStreet is defined and order.r_typeStreet == 'ул' ? 'selected="selected"' : '' }} value="ул"     >Улица</option>
+                            <option {{ order.r_typeStreet is defined and order.r_typeStreet == 'д' ? 'selected="selected"' : '' }}  value="д"      >Дорога</option>
+                            <option {{ order.r_typeStreet is defined and order.r_typeStreet == 'проезд' ? 'selected="selected"' : '' }}  value="проезд"   >Проезд</option>
+                            <option {{ order.r_typeStreet is defined and order.r_typeStreet == 'туп' ? 'selected="selected"' : '' }}  value="туп"    >Тупик</option>
+                            <option {{ order.r_typeStreet is defined and order.r_typeStreet == 'ш' ? 'selected="selected"' : '' }}  value="ш"      >Шоссе</option>
+                            <option {{ order.r_typeStreet is defined and order.r_typeStreet == 'тр' ? 'selected="selected"' : '' }}  value="тр"     >Трасса</option>
+                            <option {{ order.r_typeStreet is defined and order.r_typeStreet == 'пер' ? 'selected="selected"' : '' }}  value="пер"    >Переулок</option>
+                            <option {{ order.r_typeStreet is defined and order.r_typeStreet == 'пл' ? 'selected="selected"' : '' }}  value="пл"     >Площадь</option>
+                            <option {{ order.r_typeStreet is defined and order.r_typeStreet == 'скв' ? 'selected="selected"' : '' }}  value="скв"    >Сквер</option>
+                            <option {{ order.r_typeStreet is defined and order.r_typeStreet == 'алл' ? 'selected="selected"' : '' }}  value="алл"    >Аллея</option>
+                            <option {{ order.r_typeStreet is defined and order.r_typeStreet == 'б-р' ? 'selected="selected"' : '' }}  value="б-р"      >Бульвар</option>
+                            <option {{ order.r_typeStreet is defined and order.r_typeStreet == 'пр' ? 'selected="selected"' : '' }}  value="пр"     >Просека</option>
+                            <option {{ order.r_typeStreet is defined and order.r_typeStreet == 'пр-т' ? 'selected="selected"' : '' }}  value="пр-т"    >Проспект</option>
+                            <option {{ order.r_typeStreet is defined and order.r_typeStreet == 'наб' ? 'selected="selected"' : '' }}  value="наб"    >Набережная</option>
+                            <option {{ order.r_typeStreet is defined and order.r_typeStreet == '' ? 'selected="selected"' : '' }}  value=""        >Другое</option>
+                        </select>
+                </tr>
+
+                <tr class="tehnolog-n">
+                    <td class="label"></td>
+                    <td class="value">
+                        <input name="street"  id="street"   type="text" placeholder="Название улицы" value="{{ order.r_street is defined ? order.r_street : '' }}"><br />
                     </td>
                 </tr>
+                <tr class="tehnolog-n">
+                    <td class="label">Номер здания<span class="required">*</span>:</td>
+                    <td class="value">
+                        <input name="house"   id="house"    type="text" placeholder="Дом" class="little" value="{{ order.r_house is defined ? order.r_house : '' }}">
+                        <input name="corp"    id="corp"     type="text" placeholder="Корп"  class="little" value="{{ order.r_corp is defined ? order.r_corp : '' }}">
+                        <input name="structure"    id="structure"     type="text" placeholder="Строение"  class="little" value="{{ order.r_structure is defined ? order.r_structure : '' }}"><br />
+                    </td>
+                </tr>
+                <tr class="tehnolog-n">
+                    <td class="label">Квартира</td>
+                    <td class="value">
+                        <input type="hidden" name="typeRoom" id="typeRoom" value="кв.">
+                        <input name="room"    id="room"  type="text" placeholder="Номер"  class="little"  value="{{ order.r_room is defined ? order.r_room : '' }}">
+                    </td>
+                </tr>
+                <tr class="tehnolog-n">
+                    <td class="label">Индекс<span class="required">*</span>:</td>
+                    <td class="value">
+                        <input name="zipcode" id="zipcode"  type="text" placeholder="Индекс"  value="{{ order.r_zipcode is defined ? order.r_zipcode : '' }}"><br />
+                </tr>
+
 
             </form>
             <tr><td colspan="2">
@@ -190,10 +271,57 @@
     <script src="{{ asset("bundles/crmmain/lib/chosen/chosen.jquery.js") }}" type="text/javascript"></script>
     <script src="{{ asset('bundles/crmmain/javascripts/jquery.maskedinput.js') }}" type="text/javascript"></script>
     <script src="{{ asset('bundles/crmmain/tapmodo-Jcrop/js/jquery.Jcrop.min.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('bundles/crmmain/kladrapi/jquery.kladr.min.js') }}" type="text/javascript"></script>
     <script src="{{ asset('bundles/crmmain/javascripts/file.js') }}" type="text/javascript"></script>
     <script>
 
         $(document).ready(function(){
+
+            $( '#region' ).kladr({
+                token: '541ee4ac7c52392c7d8b457e',
+                key: '181d5e2c44994c335e5e81e9ae46e79a67b6b495',
+                type: $.kladr.type.region
+            });
+
+            $( '#area' ).kladr({
+                token: '541ee4ac7c52392c7d8b457e',
+                key: '181d5e2c44994c335e5e81e9ae46e79a67b6b495',
+                parentInput: '[name="region"]',
+                type: $.kladr.type.area
+            });
+
+            $('#city' ).kladr({
+                token: '541ee4ac7c52392c7d8b457e',
+                key: '181d5e2c44994c335e5e81e9ae46e79a67b6b495',
+                parentInput: '[name="area"]',
+                type: $.kladr.type.city
+            });
+
+            $('#street' ).kladr({
+                token: '541ee4ac7c52392c7d8b457e',
+                key: '181d5e2c44994c335e5e81e9ae46e79a67b6b495',
+                parentInput: '[name="city"]',
+                type: $.kladr.type.street,
+                select: function(obj){
+                    $('#typeStreet').val(obj.typeShort);
+                    $('#typeStreet').trigger('refresh');
+                }
+            });
+            $('#house' ).kladr({
+                token: '541ee4ac7c52392c7d8b457e',
+                key: '181d5e2c44994c335e5e81e9ae46e79a67b6b495',
+                parentInput: '[name="street"]',
+                type: $.kladr.type.building,
+                select: function(obj){
+                    $('#zipcode').val(obj.zip);
+                    var home = obj.name.split('к');
+                    $('#house').val(home[0]);
+                    if (home[1] != undefined){
+                        $('#corp').val(home[1]);
+                    }
+
+                }
+            });
 
             $('input:text, select').styler();
 //            $(".date").mask("99.99.9999");
@@ -259,6 +387,7 @@
     <link href="{{ asset('bundles/crmmain/lib/chosen/chosen.css') }}" rel="stylesheet" media="all">
     <link href="{{ asset('bundles/crmmain/lib/jquery-ui/jquery-ui.min.css') }}" rel="stylesheet" media="all">
     <link href="{{ asset('bundles/crmmain/tapmodo-Jcrop/css/jquery.Jcrop.min.css') }}" rel="stylesheet" media="all">
+    <link href="{{ asset('bundles/crmmain/kladrapi/jquery.kladr.css') }}" rel="stylesheet" media="all">
     {#<link href="{{ asset('bundles/crmmain/lib/odyniec/distfiles/css/imgareaselect-default.css') }}" rel="stylesheet" media="all">#}
     <style>
 

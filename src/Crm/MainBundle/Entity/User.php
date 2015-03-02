@@ -202,6 +202,12 @@ class User extends BaseEntity implements UserInterface, EquatableInterface, \Ser
     protected $registeredCorp;
 
     /**
+     * @Assert\Length( max = "10", maxMessage = "Максимум  10 символов")
+     * @ORM\Column(type="string", length=10, nullable=true)
+     */
+    protected $registeredStructure;
+
+    /**
      * квартира
      * @Assert\Length( max = "10", maxMessage = "Максимум  10 символов")
      * @ORM\Column(type="string", length=10, nullable=true)
@@ -1627,5 +1633,22 @@ class User extends BaseEntity implements UserInterface, EquatableInterface, \Ser
         }
         return $userLogArray;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getRegisteredStructure()
+    {
+        return $this->registeredStructure;
+    }
+
+    /**
+     * @param mixed $registeredStructure
+     */
+    public function setRegisteredStructure($registeredStructure)
+    {
+        $this->registeredStructure = $registeredStructure;
+    }
+
 
 }

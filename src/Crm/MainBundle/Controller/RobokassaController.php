@@ -63,6 +63,27 @@ class RobokassaController extends Controller
     }
 
     /**
+     * @Route("/payment/assist/ru/{userId}", name="payment_assist_ru")
+     * @Template("LearningMainBundle:Assist:redirect.html.twig")
+     */
+    public function PostAssistRuAction(Request $request, $userId){
+        if ($request->getMethod()=='GET'){
+            $user = $this->getDoctrine()->getRepository('CrmMainBundle:User')->findOneById($userId);
+            $id = $user->getId();
+//            $robokassa = new Robokassa('NPO_Tehnolog', 'Uflzoaac1', 'Uflzoaac2');
+            $robokassa = new Robokassa('infomax', 'Uflzoaac1', 'Uflzoaac2');
+            $robokassa->OutSum = 3374.00;
+//            $robokassa->IncCurrLabel = 'WMR';
+            $robokassa->Desc = $id.': '.$user->getLastName().' '.$user->getFirstName().' '.$user->getSurName();
+            $robokassa->addCustomValues(array(
+                'shp_order' => $user->getId(),
+            ));
+            return $this->redirect($robokassa->getRedirectURL());
+        }
+        return $this->redirect($this->generateUrl('main'));
+    }
+
+    /**
      * Сюда попадаем после оплаты если успешно
      * @Route("/payment/success", name="payment_success")
      */

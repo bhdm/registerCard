@@ -12,7 +12,7 @@
         <table style="width:100%;" class="crosh-table">
             <tr>
                 <td>
-                        <span class="step">
+                        <span class="step" data-type="estr">
                             <span class="stepn">1</span>
                             <img src="{{ asset('bundles/crmmain/crosh/11.png') }}" style="width: 75px">
                             <br />Данные для<br />связи
@@ -22,7 +22,7 @@
                     <img src="{{ asset('bundles/crmmain/crosh/right.png') }}" style="width: 15px">
                 </td>
                 <td>
-                        <span class="step">
+                        <span class="step" data-type="estr">
                             <span class="stepn">2</span>
                             <img src="{{ asset('bundles/crmmain/crosh/2.png') }}" style="width: 75px">
                             <br />Паспортные<br />данные
@@ -32,7 +32,7 @@
                     <img src="{{ asset('bundles/crmmain/crosh/right.png') }}" style="width: 15px">
                 </td>
                 <td>
-                        <span class="step">
+                        <span class="step" data-type="estr">
                             <span class="stepn">3</span>
                             <img src="{{ asset('bundles/crmmain/crosh/3.png') }}" style="width: 75px">
                             <br />Вод.<br />удостоверение
@@ -42,17 +42,17 @@
                     <img src="{{ asset('bundles/crmmain/crosh/right.png') }}" style="width: 15px">
                 </td>
                 <td>
-                        <span class="step">
+                        <span class="step" data-type="estr">
                             <span class="stepn">4</span>
                             <img src="{{ asset('bundles/crmmain/crosh/5.png') }}" style="width: 75px">
-                            <br />Фото, Подпись,<br />Снилс
+                            <br />Фото, Подпись
                         </span>
                 </td>
                 <td>
                     <img src="{{ asset('bundles/crmmain/crosh/right.png') }}" style="width: 15px">
                 </td>
                 <td>
-                        <span class="step">
+                        <span class="step" data-type="estr">
                             <span class="stepn">5</span>
                             <img src="{{ asset('bundles/crmmain/crosh/6.png') }}" style="width: 75px">
                             <br />Информация о<br />доставке
@@ -62,7 +62,7 @@
                     <img src="{{ asset('bundles/crmmain/crosh/right.png') }}" style="width: 15px">
                 </td>
                 <td>
-                    <span class="step">
+                    <span class="step" data-type="estr">
                         <span class="stepn">6</span>
                         <img src="{{ asset('bundles/crmmain/crosh/7.png') }}" style="width: 50px">
                         <br /><br />Оплата
@@ -74,18 +74,18 @@
         {#<tr>#}
         {#<td style="color: #003A68">Оформление заявки - Шаг</td>#}
         {#<td></td>#}
-        {#<td><span class="step">2</span></td>#}
-        {#<td><span class="step">3</span></td>#}
-        {#<td><span class="step">4</span></td>#}
-        {#<td><span class="step">5</span></td>#}
-        {#<td><span class="step">6</span></td>#}
+        {#<td><span class="step" data-type="estr">2</span></td>#}
+        {#<td><span class="step" data-type="estr">3</span></td>#}
+        {#<td><span class="step" data-type="estr">4</span></td>#}
+        {#<td><span class="step" data-type="estr">5</span></td>#}
+        {#<td><span class="step" data-type="estr">6</span></td>#}
         {#</tr>#}
         {#</table>#}
         <br style="clear: both"/>
     </div>
     <div class="box">
         <table>
-            <form method="POST" action="{{ path('application-skzi-step1') }}" id="main-form">
+            <form method="POST" action="{{ path('application-estr-step1') }}" id="main-form">
                 <tr>
                     <td colspan="3">
                         <div class="error-msg"></div>

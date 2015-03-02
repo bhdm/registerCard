@@ -35,7 +35,15 @@ class UserController extends Controller
             $this->get('request')->query->get('page', 1),
             50
         );
-        return array('pagination' => $pagination, 'companyId' => $company);
+        $companyId = $company;
+        if ($companyId == null){
+            $company = null;
+        }else{
+            $company = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->find($companyId);
+        }
+
+
+        return array('pagination' => $pagination, 'companyId' => $companyId, 'company' => $company );
     }
 
     /**
@@ -99,8 +107,8 @@ class UserController extends Controller
                 $user->setLastNumberCard($data->get('oldNumber'));
 
                 $user->setDileveryZipcode($data->get('deliveryZipcode'));
-                $region = $this->getDoctrine()->getRepository('CrmMainBundle:Region')->findOneById($data->get('deliveryRegion'));
-                $user->setDileveryRegion($region);
+//                $region = $this->getDoctrine()->getRepository('CrmMainBundle:Region')->findOneById();
+                $user->setDileveryRegion($data->get('deliveryRegion'));
                 $user->setDileveryArea($data->get('deliveryArea'));
                 $user->setDileveryCity($data->get('deliveryCity'));
                 $user->setDileveryStreet($data->get('deliveryStreet'));

@@ -236,9 +236,22 @@ class UserRepository extends EntityRepository
                 $andWhere .= ' AND op.id is null ';
             }
         }
-        if (isset($params['isCompleted'])){
-            $andWhere .= ' AND u.status >= 2 AND u.status != 10 ';
+
+        if (isset($params['type'])){
+            if ( $params['type'] == 'skzi' ){
+                $andWhere .= ' AND u.ru=0 AND u.estr=0 ';
+            }elseif( $params['type'] == 'estr' ){
+                $andWhere .= ' AND u.ru=0 AND u.estr=1 ';
+            }elseif( $params['type'] == 'ru' ){
+                $andWhere .= ' AND u.ru=1 AND u.estr=0 ';
+            }
         }
+
+        //if (isset($params['isCompleted'])){
+          //  $andWhere .= ' AND u.status >= 2 AND u.status != 10 ';
+        //}
+
+        //LEFT JOIN StatusLog sl ON sl.user_id = u._id AND sl.title != "Подтвержденная" AND sl.title != "Отклонена"
 
         $sql = '
         SELECT COUNT( DISTINCT ( u.created ) ) u , MONTH( u.created ) m, YEAR( u.created ) y

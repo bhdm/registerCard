@@ -18,12 +18,12 @@ use Symfony\Component\Serializer\Encoder\XmlEncoder;
 use Symfony\Component\Serializer\Encoder\JsonEncoder;
 use Symfony\Component\Serializer\Normalizer\GetSetMethodNormalizer;
 
-class ApplicationController extends Controller
+class ApplicationEstrController extends Controller
 {
 
     /**
-     * @Route("/application/skzi/step1", name="application-skzi-step1", options={"expose"=true})
-     * @Template()
+     * @Route("/application/estr/step1", name="application-estr-step1", options={"expose"=true})
+     * @Template("CrmMainBundle:Application/Estr:step1.html.twig")
      */
     public function step1Action(Request $request)
     {
@@ -35,20 +35,20 @@ class ApplicationController extends Controller
             $order['citizenship'] = $request->request->get('rezident');
             $order['step1'] = true;
             $session->set('order',$order);
-            return $this->redirect($this->generateUrl('application-skzi-step2'));
+            return $this->redirect($this->generateUrl('application-estr-step2'));
         }
         return array('order' => $order);
     }
 
     /**
-     * @Route("/application/skzi/step2", name="application-skzi-step2", options={"expose"=true})
-     * @Template()
+     * @Route("/application/estr/step2", name="application-estr-step2", options={"expose"=true})
+     * @Template("CrmMainBundle:Application/Estr:step2.html.twig")
      */
     public function step2Action(Request $request){
         $session = $request->getSession();
         $order = $session->get('order');
         if ($order['step1'] != true){
-            return $this->redirect($this->generateUrl('application-skzi-step1'));
+            return $this->redirect($this->generateUrl('application-estr-step1'));
         }
 
         if ($request->getMethod() == 'POST'){
@@ -58,35 +58,47 @@ class ApplicationController extends Controller
             $order['surName']        = $request->request->get('surName');
             $order['birthDate']      = $request->request->get('birthDate');
 
-            $order['passportSerial'] = $request->request->get('passportSerial');
-            $order['passportNumber'] = $request->request->get('passportNumber');
-            $order['passportPlace']  = $request->request->get('passportPlace');
-            $order['passportDate']   = $request->request->get('passportDate');
-            $order['passportCode']   = $request->request->get('passportCode');
+
+            $order['r_region']      = $request->request->get('region');
+            $order['r_area']        = $request->request->get('area');
+            $order['r_city']        = $request->request->get('city');
+            $order['r_typeStreet']  = $request->request->get('typeStreet');
+            $order['r_street']      = $request->request->get('street');
+            $order['r_house']       = $request->request->get('house');
+            $order['r_corp']        = $request->request->get('corp');
+            $order['r_structure']   = $request->request->get('structure');
+            $order['r_typeRoom']    = $request->request->get('typeRoom');
+            $order['r_room']        = $request->request->get('room');
+            $order['r_zipcode']     = $request->request->get('zipcode');
 
             $order['passportFilePath'] = $session->get('passportFile');
+            $order['passport2FilePath'] = $session->get('passport2File');
 
             $session->set('passportFile', null);
-            $session->set('order',$order);
+            $session->set('passport2File', null);
+            $session->set('order', $order);
 
-            return $this->redirect($this->generateUrl('application-skzi-step3'));
+            return $this->redirect($this->generateUrl('application-estr-step3'));
         }
         if (isset($order['passportFilePath'])){
             $session->set('passportFile',$order['passportFilePath']);
+        }
+        if (isset($order['passport2FilePath'])){
+            $session->set('passport2File',$order['passport2FilePath']);
         }
         return array('order' => $order);
     }
 
 
     /**
-     * @Route("/application/skzi/step3", name="application-skzi-step3", options={"expose"=true})
-     * @Template()
+     * @Route("/application/estr/step3", name="application-estr-step3", options={"expose"=true})
+     * @Template("CrmMainBundle:Application/Estr:step3.html.twig")
      */
     public function step3Action(Request $request){
         $session = $request->getSession();
         $order = $session->get('order');
         if (!isset($order['step2']) || $order['step2'] != true){
-            return $this->redirect($this->generateUrl('application-skzi-step2'));
+            return $this->redirect($this->generateUrl('application-estr-step2'));
         }
         if ($request->getMethod() == 'POST'){
             $order['step3'] = true;
@@ -96,109 +108,49 @@ class ApplicationController extends Controller
             $order['driverStarts']  = $request->request->get('driverStarts');
             $order['driverEnds']    = $request->request->get('driverEnds');
             $order['driverFilePath'] = $session->get('driverFile');
-
-
-            if ($request->request->get('tehnolog') == 'on'){
-                $order['myPetition']=true;
-
-            }else{
-                $order['petitionFilePath'] = $session->get('petitionFile');
-            }
-            $order['myPetition']    =false;
-            $order['p_title']      = $request->request->get('title');
-            $order['p_region']      = $request->request->get('region');
-            $order['p_area']      = $request->request->get('area');
-            $order['p_city']        = $request->request->get('city');
-            $order['p_typeStreet']  = $request->request->get('typeStreet');
-            $order['p_street']      = $request->request->get('street');
-            $order['p_house']       = $request->request->get('house');
-            $order['p_corp']        = $request->request->get('corp');
-            $order['p_structure']   = $request->request->get('structure');
-            $order['p_typeRoom']    = $request->request->get('typeRoom');
-            $order['p_room']        = $request->request->get('room');
-            $order['p_zipcode']     = $request->request->get('zipcode');
-
+            $order['driver2FilePath'] = $session->get('driver2File');
+            $order['myPetition']=true;
 
             $session->set('order',$order);
 
-            return $this->redirect($this->generateUrl('application-skzi-step4'));
+            return $this->redirect($this->generateUrl('application-estr-step4'));
         }
 
         if (isset($order['driverFilePath'])){
             $session->set('driverFile',$order['driverFilePath']);
         }
+        if (isset($order['driver2FilePath'])){
+            $session->set('driver2File',$order['driver2FilePath']);
+        }
         return array('order' => $order);
     }
 
 
-    /**
-     * @Route("/application/skzi/step100", name="application-skzi-step100", options={"expose"=true})
-     * @Template()
-     */
-    public function step100Action(Request $request){
-        $session = $request->getSession();
-        $order = $session->get('order');
-        if (!isset($order['step3']) || $order['step3'] != true){
-            return $this->redirect($this->generateUrl('application-skzi-step3'));
-        }
-        if ($request->getMethod() == 'POST'){
-            $order['step4'] = true;
-            if ($request->request->get('tehnolog') == 'on'){
-                $order['myPetition']=true;
-
-            }else{
-                $order['petitionFilePath'] = $session->get('petitionFile');
-            }
-            $order['myPetition']    =false;
-            $order['p_title']      = $request->request->get('title');
-            $order['p_region']      = $request->request->get('region');
-            $order['p_city']        = $request->request->get('city');
-            $order['p_typeStreet']  = $request->request->get('typeStreet');
-            $order['p_street']      = $request->request->get('street');
-            $order['p_house']       = $request->request->get('house');
-            $order['p_corp']        = $request->request->get('corp');
-            $order['p_structure']   = $request->request->get('structure');
-            $order['p_typeRoom']    = $request->request->get('typeRoom');
-            $order['p_room']        = $request->request->get('room');
-            $order['p_zipcode']     = $request->request->get('zipcode');
-
-//            $order['driverFilePath'] = $session->get('file');
-
-            $session->set('file', null);
-            $session->set('order',$order);
-
-            return $this->redirect($this->generateUrl('application-skzi-step5'));
-        }
-        return array('citizenship' => $order['citizenship'],'order' => $order);
-    }
-
 
     /**
-     * @Route("/application/skzi/step4", name="application-skzi-step4", options={"expose"=true})
-     * @Template()
+     * @Route("/application/estr/step4", name="application-estr-step4", options={"expose"=true})
+     * @Template("CrmMainBundle:Application/Estr:step4.html.twig")
      */
     public function step4Action(Request $request){
         $session = $request->getSession();
         $order = $session->get('order');
         if (!isset($order['step3']) || $order['step3'] != true){
-            return $this->redirect($this->generateUrl('application-skzi-step3'));
+            return $this->redirect($this->generateUrl('application-estr-step3'));
         }
         if ($request->getMethod() == 'POST'){
             $order['step4'] = true;
             $order['photoFilePath'] = $session->get('photoFile');
             $order['signFilePath'] = $session->get('signFile');
-            $order['snilsFilePath'] = $session->get('snilsFile');
-            $order['snils'] = $request->request->get('snils');
             $session->set('order',$order);
 
-            return $this->redirect($this->generateUrl('application-skzi-step5'));
+            return $this->redirect($this->generateUrl('application-estr-step5'));
         }
         return array('citizenship' => $order['citizenship'],'order' => $order);
     }
 
     /**
-     * @Route("/application/skzi/step5", name="application-skzi-step5", options={"expose"=true})
-     * @Template()
+     * @Route("/application/estr/step5", name="application-estr-step5", options={"expose"=true})
+     * @Template("CrmMainBundle:Application/Estr:step5.html.twig")
      */
     public function step5Action(Request $request){
         $country = $this->getDoctrine()->getRepository('CrmMainBundle:Country')->findOneById(3159);
@@ -207,11 +159,12 @@ class ApplicationController extends Controller
         $session = $request->getSession();
         $order = $session->get('order');
         if (!isset($order['step4']) || $order['step4'] != true){
-            return $this->redirect($this->generateUrl('application-skzi-step4'));
+            return $this->redirect($this->generateUrl('application-estr-step4'));
         }
         if ($request->getMethod() == 'POST'){
             $order['step5'] = true;
             $order['d_region'] = $request->request->get('region');
+            $order['d_area'] = $request->request->get('area');
             $order['d_city'] = $request->request->get('city');
             $order['d_typeStreet'] = $request->request->get('typeStreet');
             $order['d_street'] = $request->request->get('street');
@@ -227,20 +180,20 @@ class ApplicationController extends Controller
             $order['typeCard'] = $request->request->get('typeCard');
 
             $session->set('order',$order);
-            return $this->redirect($this->generateUrl('application-skzi-success'));
+            return $this->redirect($this->generateUrl('application-estr-success'));
         }
         return array('regions' => $regions,'order' => $order);
     }
 
     /**
-     * @Route("/application/skzi/success", name="application-skzi-success", options={"expose"=true})
-     * @Template()
+     * @Route("/application/estr/success", name="application-estr-success", options={"expose"=true})
+     * @Template("CrmMainBundle:Application/Estr:success.html.twig")
      */
     public function successAction(Request $request){
         $session = new Session();
         $order = $session->get('order');
         if (!isset($order['step5']) || $order['step5'] != true){
-            return $this->redirect($this->generateUrl('application-skzi-step5'));
+            return $this->redirect($this->generateUrl('application-estr-step5'));
         }
         $em = $this->getDoctrine()->getManager();
 
@@ -253,12 +206,8 @@ class ApplicationController extends Controller
         $user->setSurName($order['surName']);
         $d = new \DateTime($order['birthDate']);
         $user->setBirthDate($d);
-        $user->setPassportSerial($order['passportSerial']);
-        $user->setPassportNumber($order['passportNumber']);
-        $user->setPassportIssuance($order['passportPlace']) ;
-        $d = new \DateTime($order['passportDate']);
-        $user->setPassportIssuanceDate($d);
-        $user->setPassportCode($order['passportCode']);
+
+
 
         $user->setDriverDocIssuance($order['driverPlace']);
         $user->setDriverDocNumber($order['driverNumber']);
@@ -269,8 +218,7 @@ class ApplicationController extends Controller
 
 
 
-        $user->setMyPetition($order['myPetition']);
-        $user->setSnils($order['snils']);
+        $user->setMyPetition(true);
         $user->setLastNumberCard($order['oldNumber']);
         if ($order['typeCard'] == null){
             $order['typeCard'] = 0;
@@ -287,43 +235,31 @@ class ApplicationController extends Controller
         $user->setDileveryZipcode($order['d_zipcode']);
 
 
+        $user->setTypeCard($order['typeCard']);
+        $user->setRegisteredArea($order['r_region']);
+        $user->setRegisteredCity($order['r_city']);
+        $user->setRegisteredStreet($order['r_street']);
+        $user->setRegisteredHome($order['r_house']);
+        $user->setRegisteredCorp($order['r_corp']);
+        $user->setRegisteredStructure($order['r_structure']);
+        $user->setRegisteredRoom($order['r_room']);
+        $user->setRegisteredZipcode($order['r_zipcode']);
+
+
         //Добавяляем сканы
         $user->setCopyPassport($this->getImgToArray($order['passportFilePath']));
+        $user->setCopyPassport2($this->getImgToArray($order['passport2FilePath']));
         $user->setCopyDriverPassport($this->getImgToArray($order['driverFilePath']));
-        $user->setCopySnils($this->getImgToArray($order['snilsFilePath']));
+        $user->setCopyDriverPassport2($this->getImgToArray($order['driver2FilePath']));
         $user->setCopySignature($this->getImgToArray($order['signFilePath']));
         $user->setPhoto($this->getImgToArray($order['photoFilePath']));
-        if (!empty($order['PetitionFilePath']) && $order['PetitionFilePath']!= null){
-            $user->setCopyPetition($this->getImgToArray($order['PetitionFilePath']));
-        }
 
+        $user->setEstr(true);
 
+        $company = null;
 
-
-        if ($order['myPetition'] == false){
-            $company = new Company();
-            $company->setTitle($order['p_title']);
-//            $company->setRegion($order['p_region']);
-            $company->setCity($order['p_city']);
-            $company->setTypeStreet($order['p_typeStreet']);
-            $company->setStreet($order['p_street']);
-            $company->setHome($order['p_house']);
-            $company->setCorp($order['p_corp']);
-            $company->setStructure($order['p_structure']);
-            $company->setTypeRoom($order['p_typeRoom']);
-            $company->setRoom($order['p_room']);
-            $company->setZipcode($order['p_zipcode']);
-
-            $em->persist($company);
-            $em->flush($company);
-            $em->refresh($company);
-        }else{
-            $company = new Company();
-            $em->persist($company);
-            $em->flush($company);
-            $em->refresh($company);
-        }
         $user->setCompany($company);
+
         $user->setProduction(2);
         $user->setStatuslog(null);
 
