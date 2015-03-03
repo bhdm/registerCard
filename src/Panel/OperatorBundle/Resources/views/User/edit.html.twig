@@ -112,9 +112,10 @@
                 <td class="empty-row">Паспортные данные</td>
                 <td class="value">
                     <input type="file" id="passport">
+                    <div style="font-size: 10px">&nbsp;</div>
                 </td>
                 <td rowspan="10" class="copyDocs">
-                    <img id="passportImg" src="/{{ user.copyPassport.path }}">
+                    <img id="passportImg" src="{{ '/'~user.copyPassport.path }}">
                 </td>
             </tr>
             <tr>
@@ -185,9 +186,10 @@
                 <td class="empty-row">Водительские права</td>
                 <td class="value">
                     <input type="file" id="driver" >
+                    <div style="font-size: 10px">&nbsp;</div>
                 </td>
                 <td rowspan="4" class="copyDocs">
-                    <img id="driverImg" src="/{{ user.copyDriverPassport.path }}">
+                    <img id="driverImg" src="{{ '/'~user.copyDriverPassport.path }}">
                 </td>
             </tr>
             <tr>
@@ -214,9 +216,10 @@
                 <td class="empty-row">С Н И Л С</td>
                 <td class="value">
                     <input type="file" id="snils" >
+                    <div style="font-size: 10px">&nbsp;</div>
                 </td>
                 <td class="copyDocs" rowspan="2">
-                    <img id="snilsImg" src="/{{ user.copySnils.path }}">
+                    <img id="snilsImg" src="{{ '/'~user.copySnils.path }}">
                 </td>
             </tr>
             <tr>
@@ -236,12 +239,12 @@
                         {#{% endfor %}#}
                     {#</select>#}
                     <br />
-                    <input name="deliveryArea"    id="deliveryArea"     class="form-control" type="text" placeholder="Район" value="{{ user.dileveryArea }}"><br />
-                    <input name="deliveryCity"    id="deliveryCity"     class="form-control" type="text" placeholder="Город" value="{{ user.dileveryCity }}"><br />
-                    <input name="deliveryStreet"  id="deliveryStreet"   class="form-control" type="text" placeholder="Улица" value="{{ user.dileveryStreet }}"><br />
-                    <input name="deliveryHouse"   id="deliveryHouse"    class="form-control" type="text" placeholder="Дом" class="little" value="{{ user.dileveryHome }}">
-                    <input name="deliveryCorp"    id="deliveryCorp"     class="form-control" type="text" placeholder="Корп /Стр"  class="little" value="{{ user.dileveryCorp }}">
-                    <input name="deliveryRoom"    id="deliveryRoom"     class="form-control" type="text" placeholder="Кв / оф"  class="little" value="{{ user.dileveryRoom }}">
+                    <input name="deliveryArea"   autocomplete="off" id="deliveryArea"     class="form-control" type="text" placeholder="Район" value="{{ user.dileveryArea }}"><br />
+                    <input name="deliveryCity"   autocomplete="off" id="deliveryCity"     class="form-control" type="text" placeholder="Город" value="{{ user.dileveryCity }}"><br />
+                    <input name="deliveryStreet" autocomplete="off" id="deliveryStreet"   class="form-control" type="text" placeholder="Улица" value="{{ user.dileveryStreet }}"><br />
+                    <input name="deliveryHouse"  autocomplete="off" id="deliveryHouse"    class="form-control" type="text" placeholder="Дом" class="little" value="{{ user.dileveryHome }}">
+                    <input name="deliveryCorp"   autocomplete="off" id="deliveryCorp"     class="form-control" type="text" placeholder="Корп /Стр"  class="little" value="{{ user.dileveryCorp }}">
+                    <input name="deliveryRoom"   autocomplete="off" id="deliveryRoom"     class="form-control" type="text" placeholder="Кв / оф"  class="little" value="{{ user.dileveryRoom }}">
                 </td>
                 <td class="deliveryAdressStatus"></td>
             </tr>
@@ -250,18 +253,20 @@
                 <td class="label">Фотография</td>
                 <td>
                     <input type="file" id="photo" >
+                    <div style="font-size: 10px">&nbsp;</div>
                 </td>
                 <td class="value copyDocs">
-                    <img id="photoImg" src="/{{ user.photo.path }}">
+                    <img id="photoImg" src="{{ '/'~user.photo.path }}">
                 </td>
             </tr>
             <tr>
                 <td class="label">Подпись</td>
                 <td>
                     <input type="file" id="sign" >
+                    <div style="font-size: 10px">&nbsp;</div>
                 </td>
                 <td class="value copyDocs">
-                    <img id="signImg" src="/{{ user.copySignature.path }}">
+                    <img id="signImg" src="{{ '/'~user.copySignature.path }}">
                 </td>
             </tr>
 
@@ -269,12 +274,13 @@
                 <td class="label">Ходатайство</td>
                 <td>
                     <input type="file" id="hod" >
+                    <div style="font-size: 10px">&nbsp;</div>
                     <br /><br />
                     <input type="checkbox" name="myPetition" value="1" {{ user.myPetition == 1 ? 'checked="checked"' : '' }} /> Использовать ходатайство НПО  "ТЕХНОЛОГ"
                 </td>
                 <td class="value copyDocs" colspan="2">
                     {% if user.copyPetition.path is defined %}
-                        <img  id="hodImg" src="/{{ user.copyPetition.path }}">
+                        <img  id="hodImg" src="{{ '/'~user.copyPetition.path }}">
                     {% endif %}
                 </td>
             </tr>
@@ -282,6 +288,7 @@
                 <td class="label">Разрешение на работу</td>
                 <td>
                     <input type="file" id="work" >
+                    <div style="font-size: 10px">&nbsp;</div>
                 </td>
                 <td class="value copyDocs">
                     {% if user.copyWork.path is defined %}
@@ -412,6 +419,9 @@
             width: 270px;
         }
 
+        textarea{
+            margin-bottom: 10px;
+        }
     </style>
 {% endblock %}
 
@@ -427,40 +437,40 @@
         $(document).ready(function(){
 
 
-            $( '#region' ).kladr({
+            $( '#deliveryRegion' ).kladr({
                 token: '541ee4ac7c52392c7d8b457e',
                 key: '181d5e2c44994c335e5e81e9ae46e79a67b6b495',
                 type: $.kladr.type.region
             });
 
-            $( '#area' ).kladr({
+            $( '#deliveryArea' ).kladr({
                 token: '541ee4ac7c52392c7d8b457e',
                 key: '181d5e2c44994c335e5e81e9ae46e79a67b6b495',
-                parentInput: '[name="region"]',
+                parentInput: '[name="deliveryRegion"]',
                 type: $.kladr.type.area
             });
 
-            $('#city' ).kladr({
+            $('#deliveryCity' ).kladr({
                 token: '541ee4ac7c52392c7d8b457e',
                 key: '181d5e2c44994c335e5e81e9ae46e79a67b6b495',
-                parentInput: '[name="area"]',
+                parentInput: '[name="deliveryArea"]',
                 type: $.kladr.type.city
             });
 
-            $('#street' ).kladr({
+            $('#deliveryStreet' ).kladr({
                 token: '541ee4ac7c52392c7d8b457e',
                 key: '181d5e2c44994c335e5e81e9ae46e79a67b6b495',
-                parentInput: '[name="city"]',
+                parentInput: '[name="deliveryCity"]',
                 type: $.kladr.type.street,
                 select: function(obj){
                     $('#typeStreet').val(obj.typeShort);
                     $('#typeStreet').trigger('refresh');
                 }
             });
-            $('#house' ).kladr({
+            $('#deliveryHouse' ).kladr({
                 token: '541ee4ac7c52392c7d8b457e',
                 key: '181d5e2c44994c335e5e81e9ae46e79a67b6b495',
-                parentInput: '[name="street"]',
+                parentInput: '[name="deliveryStreet"]',
                 type: $.kladr.type.building,
                 select: function(obj){
                     $('#zipcode').val(obj.zip);

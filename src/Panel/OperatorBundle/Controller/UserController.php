@@ -191,7 +191,7 @@ class UserController extends Controller
                 #Помещаем все фалы-картинки в сессию, что бы потом можно было бы редактировать
                 # Пасспорт
                 $file = $user->getCopyPassport();
-                if (!empty($file)){
+                if (!empty($file) && file_exists('/var/www/'.$file['path'])){
                     list($width, $height) = getimagesize('/var/www/'.$file['path']);
                     $session->set('passport', array(
                             'content'=> $this->imgToBase('/var/www/'.$file['path']),
@@ -204,7 +204,7 @@ class UserController extends Controller
 
                 # Права
                 $file = $user->getCopyDriverPassport();
-                if (!empty($file)){
+                if (!empty($file) && file_exists('/var/www/'.$file['path'])){
                     list($width, $height) = getimagesize('/var/www/'.$file['path']);
                     $session->set('driver', array(
                             'content'=> $this->imgToBase('/var/www/'.$file['path']),
@@ -217,7 +217,7 @@ class UserController extends Controller
 
                 # СНИЛС
                 $file = $user->getCopySnils();
-                if (!empty($file)){
+                if (!empty($file) && file_exists('/var/www/'.$file['path'])){
                     list($width, $height) = getimagesize('/var/www/'.$file['path']);
                     $session->set('snils', array(
                             'content'=> $this->imgToBase('/var/www/'.$file['path']),
@@ -230,7 +230,7 @@ class UserController extends Controller
 
                 # Фото
                 $file = $user->getPhoto();
-                if (!empty($file)){
+                if (!empty($file) && file_exists('/var/www/'.$file['path'])){
                     list($width, $height) = getimagesize('/var/www/'.$file['path']);
                     $session->set('photo', array(
                             'content'=> $this->imgToBase('/var/www/'.$file['path']),
@@ -243,7 +243,7 @@ class UserController extends Controller
 
                 # Подпись
                 $file = $user->getCopySignature();
-                if (!empty($file)){
+                if (!empty($file) && file_exists('/var/www/'.$file['path'])){
                     list($width, $height) = getimagesize('/var/www/'.$file['path']);
                     $session->set('sign', array(
                             'content'=> $this->imgToBase('/var/www/'.$file['path']),
@@ -256,7 +256,7 @@ class UserController extends Controller
 
                 # Ходатайство
                 $file = $user->getCopyPetition();
-                if (!empty($file)){
+                if (!empty($file) && file_exists('/var/www/'.$file['path'])){
                     list($width, $height) = getimagesize('/var/www/'.$file['path']);
                     $session->set('hod', array(
                             'content'=> $this->imgToBase('/var/www/'.$file['path']),
@@ -269,7 +269,7 @@ class UserController extends Controller
 
                 # Ходатайство
                 $file = $user->getCopyWork();
-                if (!empty($file)){
+                if (!empty($file) && file_exists('/var/www/'.$file['path'])){
                     list($width, $height) = getimagesize('/var/www/'.$file['path']);
                     $session->set('work', array(
                             'content'=> $this->imgToBase('/var/www/'.$file['path']),

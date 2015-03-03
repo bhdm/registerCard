@@ -94,13 +94,13 @@
                 <tr class="tehnolog-n">
                     <td class="label">Район:</td>
                     <td class="value">
-                        <input type="text" class="style" placeholder="Район" name="area" id="area" value="{{ order.d_area is defined ? order.d_area : '' }}">
+                        <input type="text" class="style" placeholder="Район" autocomplete="off"  name="area" id="area" value="{{ order.d_area is defined ? order.d_area : '' }}">
                     </td>
                 </tr>
                 <tr class="tehnolog-n">
                     <td class="label">Город<span class="required">*</span>:</td>
                     <td class="value">
-                        <input name="city"    id="city"     type="text" placeholder="Город" value="{{ order.d_city is defined ? order.d_city : '' }}"><br />
+                        <input name="city"    id="city"  autocomplete="off"   type="text" placeholder="Город" value="{{ order.d_city is defined ? order.d_city : '' }}"><br />
                     </td>
                 </tr>
                 <tr class="tehnolog-n">
@@ -127,15 +127,15 @@
                 <tr class="tehnolog-n">
                     <td class="label"></td>
                     <td class="value">
-                        <input name="street"  id="street"   type="text" placeholder="Название улицы" value="{{ order.d_street is defined ? order.d_street : '' }}"><br />
+                        <input name="street"  id="street" autocomplete="off"  type="text" placeholder="Название улицы" value="{{ order.d_street is defined ? order.d_street : '' }}"><br />
                     </td>
                 </tr>
                 <tr class="tehnolog-n">
                     <td class="label">Номер здания<span class="required">*</span>:</td>
                     <td class="value">
-                        <input name="house"   id="house"    type="text" placeholder="Дом" class="little" value="{{ order.d_house is defined ? order.d_house : '' }}">
-                        <input name="corp"    id="corp"     type="text" placeholder="Корп"  class="little" value="{{ order.d_corp is defined ? order.d_corp : '' }}">
-                        <input name="structure"    id="structure"     type="text" placeholder="Строение"  class="little" value="{{ order.d_structure is defined ? order.d_structure : '' }}"><br />
+                        <input name="house"   id="house" autocomplete="off"   type="text" placeholder="Дом" class="little" value="{{ order.d_house is defined ? order.d_house : '' }}">
+                        <input name="corp"    id="corp"  autocomplete="off"   type="text" placeholder="Корп"  class="little" value="{{ order.d_corp is defined ? order.d_corp : '' }}">
+                        <input name="structure"    id="structure"  autocomplete="off"   type="text" placeholder="Строение"  class="little" value="{{ order.d_structure is defined ? order.d_structure : '' }}"><br />
                     </td>
                 </tr>
                 <tr class="tehnolog-n">
@@ -145,13 +145,13 @@
                             <option value="кв.">Квартира</option>
                             <option value="оф.">Офис</option>
                         </select>
-                        <input name="room"    id="room"  type="text" placeholder="Номер"  class="little"  value="{{ order.d_room is defined ? order.d_room : '' }}">
+                        <input name="room"  autocomplete="off"  id="room"  type="text" placeholder="Номер"  class="little"  value="{{ order.d_room is defined ? order.d_room : '' }}">
                     </td>
                 </tr>
                 <tr class="tehnolog-n">
                     <td class="label">Индекс<span class="required">*</span>:</td>
                     <td class="value">
-                        <input name="zipcode" id="zipcode"  type="text" placeholder="Индекс"  value="{{ order.d_zipcode is defined ? order.d_zipcode : '' }}"><br />
+                        <input name="zipcode" id="zipcode" autocomplete="off" type="text" placeholder="Индекс"  value="{{ order.d_zipcode is defined ? order.d_zipcode : '' }}"><br />
                 </tr>
                 <tr>
                     <td></td>
