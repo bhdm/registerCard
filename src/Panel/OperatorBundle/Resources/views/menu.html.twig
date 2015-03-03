@@ -6,22 +6,29 @@
         <li class="">
             <a href="{{ path('panel_user_list') }}">
                 <i class="glyphicon glyphicon-user"></i>
-                &nbsp;&nbsp;Заявки
+                &nbsp;&nbsp;Новые заявки
             </a>
         </li>
         <li class="">
-            <a href="{{ path('panel_user_arhive') }}">
-                <i class="glyphicon glyphicon-tags"></i>
+            <a href="{{ path('panel_user_list') }}">
+                <i class="glyphicon glyphicon-inbox"></i>
                 &nbsp;&nbsp;Производство
             </a>
         </li>
-
         <li class="">
             <a href="{{ path('panel_company_list') }}">
                 <i class="glyphicon glyphicon-link"></i>
                 &nbsp;&nbsp;Компании
             </a>
         </li>
+        <li class="">
+            <a href="{{ path('panel_user_arhive') }}">
+                <i class="glyphicon glyphicon-tags"></i>
+                &nbsp;&nbsp;Архив
+            </a>
+        </li>
+
+
 
         {% if is_granted('ROLE_MODERATORR') %}
         <li>&nbsp;</li>
