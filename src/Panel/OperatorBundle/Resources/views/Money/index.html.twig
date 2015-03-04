@@ -16,21 +16,37 @@
         <table class="table">
             <tr>
                 <td></td>
+
                 {% for date, c in allUsers %}
                     <td><b>{{ date }}</b></td>
                 {% endfor %}
             </tr>
             <tr>
                 <td><b>IMKARD</b></td>
+                {% set sum = 0 %}
                 {% for date, c in allUsers %}
+                    {% set sum = sum + c %}
                     <td style="text-align: center">{{ c }}</td>
                 {% endfor %}
+                    <td>{{ sum }}</td>
             </tr>
             <tr>
                 <td><b>DOROGA</b></td>
+                {% set sum1 = 0 %}
                 {% for date, c in allUsers %}
+                    {% set sum1 = sum1 + (usersOperator[date] is defined ? usersOperator[date] : 0) %}
                     <td style="text-align: center">{{ usersOperator[date] is defined ? usersOperator[date] : 0  }}</td>
                 {% endfor %}
+                <td>{{ sum1 }}</td>
+            </tr>
+            <tr>
+                <td><b>ИТОГО</b></td>
+                {% set sum2 = 0 %}
+                {% for date, c in allUsers %}
+                    {% set sum2 = sum2 + c + (usersOperator[date] is defined ? usersOperator[date] : 0) %}
+                    <td style="text-align: center">{{ c + ( usersOperator[date] is defined ? usersOperator[date] : 0 )  }}</td>
+                {% endfor %}
+                <td>{{ sum2 }}</td>
             </tr>
         </table>
         <br/>
@@ -52,7 +68,7 @@
             var data = google.visualization.arrayToDataTable([
                 ['Месяц',  'imkard', 'doroga'],
                 {% for date, c in allUsers %}
-                ['{{ date }}', {{ c }}, {{ usersOperator[date] is defined ? usersOperator[date] : 0  }} ],
+                    ['{{ date }}', {{ c }}, {{ usersOperator[date] is defined ? usersOperator[date] : 0  }} ],
                 {% endfor %}
             ]);
 
