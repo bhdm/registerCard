@@ -15,6 +15,9 @@ use Doctrine\Common\Collections\ArrayCollection;
  */
 class Company extends BaseEntity
 {
+
+
+
     /**
      * @ORM\OneToMany(targetEntity="User", mappedBy="company")
      */
@@ -27,7 +30,10 @@ class Company extends BaseEntity
      */
     protected $title;
 
-    # Адрес
+    /**
+     * @ORM\Column(type="integer")
+     */
+    protected $quota = 0;
 
     /**
      * @Assert\NotBlank( message = "Поле почтоый индекс обязательно для заполнения" )
@@ -211,9 +217,14 @@ class Company extends BaseEntity
      */
     protected $estr = false;
 
+    /**
+     * @ORM\OneToMany(targetEntity="CompanyQuotaLog", mappedBy="company")
+     */
+    protected $quotaLog;
 
     public function __construct(){
         $this->petitions = new ArrayCollection();
+        $this->quotaLog = new ArrayCollection();
     }
 
     public function __toString(){
@@ -251,6 +262,7 @@ class Company extends BaseEntity
     {
         return $this->corp;
     }
+
 
 //    /**
 //     * @param mixed $country
@@ -795,5 +807,44 @@ class Company extends BaseEntity
         $this->area = $area;
     }
 
+    /**
+     * @return mixed
+     */
+    public function getQuota()
+    {
+        return $this->quota;
+    }
+
+    /**
+     * @param mixed $quota
+     */
+    public function setQuota($quota = 0)
+    {
+        $this->quota = $quota;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getQuotaLog()
+    {
+        return $this->quotaLog;
+    }
+
+    /**
+     * @param mixed $quotaLog
+     */
+    public function setQuotaLog($quotaLog)
+    {
+        $this->quotaLog = $quotaLog;
+    }
+
+    public function addQuotaLog($quotaLog){
+        $this->quotaLog[] = $quotaLog;
+    }
+
+    public function removeQuotaLog($quotaLog){
+        $this->quotaLog->removeElement($quotaLog);
+    }
 
 }

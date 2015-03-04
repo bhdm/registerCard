@@ -136,7 +136,7 @@ class UserRepository extends EntityRepository
         return $res->getQuery()->getResult();
     }
 
-    public function operatorFilter($type, $status, $production, $companyId, $userId, $searchtxt = null, $dateStart = null, $dateEnd = null ){
+    public function operatorFilter($type, $status, $production, $choose, $companyId, $userId, $searchtxt = null, $dateStart = null, $dateEnd = null ){
         $res = $this->getEntityManager()->createQueryBuilder()
             ->select('u')
             ->from('CrmMainBundle:User','u')
@@ -179,9 +179,16 @@ class UserRepository extends EntityRepository
         }else{
             $res->andWhere('u.production > 0');
         }
+        if ($choose == 1){
+            $res->andWhere('u.choose = true');
+        }else{
+            $res->andWhere('u.choose != true');
+        }
+
+
         $res->orderBy('u.created', 'DESC');
         /** ***************** */
-
+//        echo $res->getQuery()->getSQL();
         $result = $res->getQuery()->getResult();
 //        $users =
 //            array(

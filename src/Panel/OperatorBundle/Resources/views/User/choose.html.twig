@@ -92,22 +92,15 @@
                         </td>
                         <td class="setting">
                             {% spaceless %}
-                                {#<a href="{{ path('user_edit',{'id' : item.id}) }}">#}
-                                <a href="{{ path('panel_user_edit',{'userId' : user.id }) }}">
-                                    <button type="button" class="btn btn-default btn-bg">
-                                        <span class="glyphicon glyphicon-pencil"></span>
-                                    </button>
-                                </a>
-                                &nbsp;&nbsp;
-                                <a href="{{ path('panel_user_set_choose',{'userId' : user.id }) }}">
+                                <a href="{{ path('panel_user_production',{'userId' : user.id }) }}">
                                     <button type="button" class="btn btn-default btn-success">
-                                        <span class="glyphicon glyphicon-star"></span>
+                                        <span class="glyphicon glyphicon-ok"></span>
                                     </button>
                                 </a>
                                 &nbsp;&nbsp;
-                                <a href="{{ path('panel_user_remove',{'userId' : user.id }) }}" class="remove">
+                                <a href="{{ path('panel_user_set_choose',{'userId' : user.id, 'type': 'false' }) }}" class="remove" title="Убрать из подтвержденных">
                                     <button type="button" class="btn btn-default btn-danger">
-                                        <span class="glyphicon glyphicon-remove"></span>
+                                        <span class="glyphicon glyphicon-ban-circle"></span>
                                     </button>
                                 </a>
                             {% endspaceless %}

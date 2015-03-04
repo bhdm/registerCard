@@ -18,6 +18,7 @@
                 <th >Компания</th>
                 <th >Ссылка</th>
                 <th >Кол-во заявок</th>
+                <th >Квота</th>
                 <th class="setting">Инструменты</th>
             </tr>
             </thead>
@@ -30,9 +31,16 @@
                         {% endif %}
                     </td>
                     <td> {{ company.userConfirmation | length}} / {{ company.users | length }}</td>
+                    <td style="text-align: center"> {{ company.quota }}</td>
                     <td class="setting">
                         {% spaceless %}
                             {#<a href="{{ path('user_edit',{'id' : item.id}) }}">#}
+                            <a href="{{ path('panel_company_quota',{'companyId' : company.id}) }}">
+                                <button type="button" class="btn btn-default btn-warning" title="Квота">
+                                    <span class="glyphicon glyphicon-ruble"></span>
+                                </button>
+                            </a>
+                            &nbsp;&nbsp;
                             <a href="{{ path('panel_company_edit',{'id' : company.id}) }}">
                                 <button type="button" class="btn btn-default btn-bg" title="Редактировать">
                                     <span class="glyphicon glyphicon-pencil"></span>

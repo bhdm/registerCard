@@ -87,6 +87,10 @@ class Operator extends BaseEntity implements UserInterface
      */
     protected $priceRu = 0;
 
+    /**
+     * @ORM\OneToMany(targetEntity="CompanyQuotaLog", mappedBy="operator")
+     */
+    protected $companyQuotaLog;
 
     public function __construct(){
         $this->roles    = 'ROLE_OPERATOR';
@@ -95,6 +99,7 @@ class Operator extends BaseEntity implements UserInterface
         $this->payments = new ArrayCollection();
         $this->checks = new ArrayCollection();
         $this->operators = new ArrayCollection();
+        $this->companyQuotaLog = new ArrayCollection();
     }
 
 
@@ -535,6 +540,29 @@ class Operator extends BaseEntity implements UserInterface
         $this->priceRu = $priceRu;
     }
 
+    /**
+     * @return mixed
+     */
+    public function getCompanyQuotaLog()
+    {
+        return $this->companyQuotaLog;
+    }
 
+    /**
+     * @param mixed $companyQuotaLog
+     */
+    public function setCompanyQuotaLog($companyQuotaLog)
+    {
+        $this->companyQuotaLog = $companyQuotaLog;
+    }
 
+    public function addCompanyQuotaLog($companyQuotaLog)
+    {
+        $this->companyQuotaLog[] = $companyQuotaLog;
+    }
+
+    public function removeCompanyQuotaLog($companyQuotaLog)
+    {
+        $this->companyQuotaLog->removeElement($companyQuotaLog);
+    }
 }

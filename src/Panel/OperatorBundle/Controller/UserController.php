@@ -28,7 +28,39 @@ class UserController extends Controller
         $dateEnd = ( $request->query->get('dateEnd') == '' ? null : $request->query->get('dateEnd'));
         $userId = $this->getUser()->getId();
         $production = 0;
-        $users = $this->getDoctrine()->getRepository('CrmMainBundle:User')->operatorFilter($type, $status, $production, $company, $userId, $searchtxt, $dateStart, $dateEnd);
+        $choose = 0;
+        $users = $this->getDoctrine()->getRepository('CrmMainBundle:User')->operatorFilter($type, $status, $production,$choose, $company, $userId, $searchtxt, $dateStart, $dateEnd);
+        $paginator  = $this->get('knp_paginator');
+        $pagination = $paginator->paginate(
+            $users,
+            $this->get('request')->query->get('page', 1),
+            50
+        );
+        $companyId = $company;
+        if ($companyId == null){
+            $company = null;
+        }else{
+            $company = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->find($companyId);
+        }
+
+
+        return array('pagination' => $pagination, 'companyId' => $companyId, 'company' => $company );
+    }
+
+    /**
+     * @Security("has_role('ROLE_OPERATOR')")
+     * @Route("/choose/{type}/{company}/{status}", defaults={"type" = null , "company" = null , "status" = null }, name="panel_user_choose", options={"expose" = true})
+     * @Template()
+     */
+    public function chooseAction(Request $request, $type = null, $company = null, $status = null)
+    {
+        $searchtxt = $request->query->get('search');
+        $dateStart = ( $request->query->get('dateStart') == '' ? null : $request->query->get('dateStart'));
+        $dateEnd = ( $request->query->get('dateEnd') == '' ? null : $request->query->get('dateEnd'));
+        $userId = $this->getUser()->getId();
+        $production = 0;
+        $choose = 1;
+        $users = $this->getDoctrine()->getRepository('CrmMainBundle:User')->operatorFilter($type, $status, $production,$choose, $company, $userId, $searchtxt, $dateStart, $dateEnd);
         $paginator  = $this->get('knp_paginator');
         $pagination = $paginator->paginate(
             $users,
@@ -58,7 +90,8 @@ class UserController extends Controller
         $dateEnd = ( $request->query->get('dateEnd') == '' ? null : $request->query->get('dateEnd'));
         $userId = $this->getUser()->getId();
         $production = 1;
-        $users = $this->getDoctrine()->getRepository('CrmMainBundle:User')->operatorFilter($type, $status, $production, $company, $userId, $searchtxt, $dateStart, $dateEnd);
+        $choose = 1;
+        $users = $this->getDoctrine()->getRepository('CrmMainBundle:User')->operatorFilter($type, $status, $production,$choose, $company, $userId, $searchtxt, $dateStart, $dateEnd);
         $paginator  = $this->get('knp_paginator');
         $pagination = $paginator->paginate(
             $users,
@@ -328,10 +361,58 @@ class UserController extends Controller
     }
 
     /**
+     * @Route("/set-choose/{userId}/{type}", name="panel_user_set_choose", defaults={"type"="true"})
+     * @Template()
+     */
+    public function setChooseAction(Request $request, $userId, $type = 'true'){
+        $user = $this->getDoctrine()->getRepository('CrmMainBundle:User')->find($userId);
+        $session = new Session();
+        if ($user){
+
+            $company = $user->getCompany();
+
+            $price = 0;
+            if ($user->getEstr() == 0 && $user->getRu() == 0){
+                $price = $this->getUser()->getPriceSkzi();
+            }elseif ($user->getEstr() == 1 && $user->getRu() == 0){
+                $price = $this->getUser()->getPriceEstr();
+            }elseif ($user->getEstr() == 0 && $user->getRu() == 1){
+                $price = $this->getUser()->getPriceRu();
+            }
+
+            if ($type == 'true'){
+                if ($company->getQuota() > $price){
+                    $user->setChoose(true);
+                    $company->setQuota($company->getQuota() - $price);
+                    $this->getDoctrine()->getManager()->flush($company);
+                    $this->getDoctrine()->getManager()->flush($user);
+                    $this->getDoctrine()->getManager()->refresh($user);
+                    $session->getFlashBag()->add('notice', 'Пользователь '.$user->getLastName().' переведен в подтвержденные');
+                }else{
+                    $session->getFlashBag()->add('error', 'не хватает денег у компании ( '.$company->getQuota().' из '.$price.' )');
+                }
+
+            }else{
+                $user->setChoose(false);
+                $company->setQuota($company->getQuota() + $price);
+                $this->getDoctrine()->getManager()->flush($company);
+                $this->getDoctrine()->getManager()->flush($user);
+                $this->getDoctrine()->getManager()->refresh($user);
+                $session->getFlashBag()->add('notice', 'Пользователь '.$user->getLastName().' переведен в неопределенные');
+            }
+        }
+
+        return $this->redirect($request->headers->get('referer'));
+    }
+
+
+        /**
      * @Route("/production/{userId}/{type}", name="panel_user_production", defaults={"type"="true"})
      * @Template()
      */
     public function productionAction(Request $request, $userId, $type = 'true'){
+
+
         $user = $this->getDoctrine()->getRepository('CrmMainBundle:User')->findOneById($userId);
 
         if ($user->getProduction() == 0 && $type == 'true' &&  $this->get('security.context')->isGranted('ROLE_OPERATOR')){

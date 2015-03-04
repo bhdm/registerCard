@@ -386,6 +386,11 @@ class User extends BaseEntity implements UserInterface, EquatableInterface, \Ser
     protected $production = 0;
 
     /**
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    protected $choose = false;
+
+    /**
      * @ORM\Column(type="string", nullable=true)
      */
     protected $managerKey;
@@ -399,6 +404,7 @@ class User extends BaseEntity implements UserInterface, EquatableInterface, \Ser
      * @ORM\Column(type="integer")
      */
     protected $ru = 0;
+
 
 
     public function getXmlId(){
@@ -1648,6 +1654,22 @@ class User extends BaseEntity implements UserInterface, EquatableInterface, \Ser
     public function setRegisteredStructure($registeredStructure)
     {
         $this->registeredStructure = $registeredStructure;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getChoose()
+    {
+        return $this->choose;
+    }
+
+    /**
+     * @param mixed $choose
+     */
+    public function setChoose($choose = false)
+    {
+        $this->choose = $choose;
     }
 
 

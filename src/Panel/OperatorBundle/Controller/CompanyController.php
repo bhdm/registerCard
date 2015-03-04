@@ -3,6 +3,7 @@
 namespace Panel\OperatorBundle\Controller;
 
 use Crm\MainBundle\Entity\Company;
+use Crm\MainBundle\Entity\CompanyQuotaLog;
 use Crm\MainBundle\Form\CompanyType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -103,6 +104,8 @@ class CompanyController extends Controller
                 $company->setUrl($data->get('url'));
                 $company->setDelivery(($data->get('delivery') == 1 ? true : false));
 
+
+
                 $company->setForma($data->get('forma'));
                 $company->setInn($data->get('inn'));
                 $company->setKpp($data->get('kpp'));
@@ -140,4 +143,40 @@ class CompanyController extends Controller
         return $this->redirect($request->headers->get('referer'));
     }
 
+    /**
+     * @Security("has_role('ROLE_OPERATOR')")
+     * @Route("/quota/{companyId}", name="panel_company_quota")
+     * @Template()
+     */
+    public function quotaAction(Request $request, $companyId){
+        $company = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->findOneById($companyId);
+
+
+        if ($request->getMethod() == 'POST'){
+            $oldQuota = $company->getQuota();
+            $quota = $request->request->get('quota');
+            $comment = $request->request->get('comment');
+
+            $quotaLog = new CompanyQuotaLog();
+            $quotaLog->setQuota($quota);
+            $quotaLog->setComment($comment);
+            $quotaLog->setCompany($company);
+            $quotaLog->setOperator($this->getUser());
+            $this->getDoctrine()->getManager()->persist($quotaLog);
+            $this->getDoctrine()->getManager()->flush($quotaLog);
+            $company->setQuota($oldQuota+$quota);
+            $this->getDoctrine()->getManager()->flush($company);
+            $this->getDoctrine()->getManager()->refresh($company);
+        }
+
+        $quotes = $company->getQuotaLog();
+        $paginator  = $this->get('knp_paginator');
+        $pagination = $paginator->paginate(
+            $quotes,
+            $this->get('request')->query->get('page', 1),
+            50
+        );
+
+        return array('company'=> $company, 'quotes' => $pagination);
+    }
 }
