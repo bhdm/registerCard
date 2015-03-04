@@ -28,7 +28,7 @@
                     {% set sum = sum + c %}
                     <td style="text-align: center">{{ c }}</td>
                 {% endfor %}
-                    <td>{{ sum }}</td>
+                    <td><b>{{ sum }}</b></td>
             </tr>
             <tr>
                 <td><b>DOROGA</b></td>
@@ -37,16 +37,16 @@
                     {% set sum1 = sum1 + (usersOperator[date] is defined ? usersOperator[date] : 0) %}
                     <td style="text-align: center">{{ usersOperator[date] is defined ? usersOperator[date] : 0  }}</td>
                 {% endfor %}
-                <td>{{ sum1 }}</td>
+                <td><b>{{ sum1 }}</b></td>
             </tr>
             <tr>
                 <td><b>ИТОГО</b></td>
                 {% set sum2 = 0 %}
                 {% for date, c in allUsers %}
                     {% set sum2 = sum2 + c + (usersOperator[date] is defined ? usersOperator[date] : 0) %}
-                    <td style="text-align: center">{{ c + ( usersOperator[date] is defined ? usersOperator[date] : 0 )  }}</td>
+                    <td style="text-align: center"><b>{{ c + ( usersOperator[date] is defined ? usersOperator[date] : 0 )  }}</b></td>
                 {% endfor %}
-                <td>{{ sum2 }}</td>
+                <td><b>{{ sum2 }}</b></td>
             </tr>
         </table>
         <br/>
