@@ -66,9 +66,9 @@
 
         function drawChart() {
             var data = google.visualization.arrayToDataTable([
-                ['Месяц',  'imkard', 'doroga'],
+                ['Месяц',  'imkard', 'doroga', 'итого'],
                 {% for date, c in allUsers %}
-                    ['{{ date }}', {{ c }}, {{ usersOperator[date] is defined ? usersOperator[date] : 0  }} ],
+                    ['{{ date }}', {{ c }}, {{ usersOperator[date] is defined ? usersOperator[date] : 0  }}, {{ c + ( usersOperator[date] is defined ? usersOperator[date] : 0 )  }} ],
                 {% endfor %}
             ]);
 
