@@ -54,6 +54,47 @@ class UserController extends Controller
      */
     public function chooseAction(Request $request, $type = null, $company = null, $status = null)
     {
+        $session = new Session();
+        if ($request->getMethod() == 'POST'){
+            $type = 'true';
+            $i = 0;
+            foreach ( $request->request->get('user') as $userId){
+                $user = $this->getDoctrine()->getRepository('CrmMainBundle:User')->findOneById($userId);
+
+                if ($user->getProduction() == 0 && $type == 'true' &&  $this->get('security.context')->isGranted('ROLE_OPERATOR')){
+                    $user->setProduction(1);
+
+                    $operator = $this->getUser();
+                    $quota = $operator->getQuota();
+
+                    if ($user->getRu() == 0 && $user->getEstr() == 0){
+                        $quota -= $operator->getPriceSkzi();
+                    }elseif($user->getRu() == 1 && $user->getEstr() == 0){
+                        $quota -= $operator->getPriceRu();
+                    }elseif($user->getRu() == 0 && $user->getEstr() == 1){
+                        $quota -= $operator->getPriceEstr();
+                    }
+                    if ($quota < 0){
+                        $session->getFlashBag()->add('error', 'не хватает денег у оператора ');
+                        break;
+                    }
+                    $i ++ ;
+                    $operator->setQuota($quota);
+                    $this->getDoctrine()->getManager()->flush($operator);
+                    $statusLog = new StatusLog();
+                    $statusLog->setTitle('Отправлен модератору');
+                    $statusLog->setUser($user);
+                    $this->getDoctrine()->getManager()->persist($statusLog);
+
+                }elseif($user->getProduction() == 1 && $type == 'true' &&  $this->get('security.context')->isGranted('ROLE_MODERATOR')){
+                    $user->setProduction(2);
+                }
+
+                $this->getDoctrine()->getManager()->flush($user);
+                $this->getDoctrine()->getManager()->flush();
+            }
+            $session->getFlashBag()->add('notice', 'Отправлено в производство '.$i.' заявок');
+        }
         $searchtxt = $request->query->get('search');
         $dateStart = ( $request->query->get('dateStart') == '' ? null : $request->query->get('dateStart'));
         $dateEnd = ( $request->query->get('dateEnd') == '' ? null : $request->query->get('dateEnd'));
@@ -381,7 +422,7 @@ class UserController extends Controller
             }
 
             if ($type == 'true'){
-                if ($company->getQuota() > $price){
+                if ($company->getQuota() >= $price){
                     $user->setChoose(true);
                     $company->setQuota($company->getQuota() - $price);
                     $this->getDoctrine()->getManager()->flush($company);
