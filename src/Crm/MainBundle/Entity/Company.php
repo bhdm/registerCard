@@ -15,9 +15,6 @@ use Doctrine\Common\Collections\ArrayCollection;
  */
 class Company extends BaseEntity
 {
-
-
-
     /**
      * @ORM\OneToMany(targetEntity="User", mappedBy="company")
      */
@@ -34,6 +31,21 @@ class Company extends BaseEntity
      * @ORM\Column(type="integer")
      */
     protected $quota = 0;
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    protected $priceSkzi = 0;
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    protected $priceEstr = 0;
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    protected $priceRu = 0;
 
     /**
      * @Assert\NotBlank( message = "Поле почтоый индекс обязательно для заполнения" )
@@ -221,6 +233,8 @@ class Company extends BaseEntity
      * @ORM\OneToMany(targetEntity="CompanyQuotaLog", mappedBy="company")
      */
     protected $quotaLog;
+
+
 
     public function __construct(){
         $this->petitions = new ArrayCollection();
@@ -845,6 +859,54 @@ class Company extends BaseEntity
 
     public function removeQuotaLog($quotaLog){
         $this->quotaLog->removeElement($quotaLog);
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getPriceSkzi()
+    {
+        return $this->priceSkzi;
+    }
+
+    /**
+     * @param mixed $priceSkzi
+     */
+    public function setPriceSkzi($priceSkzi)
+    {
+        $this->priceSkzi = $priceSkzi;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getPriceEstr()
+    {
+        return $this->priceEstr;
+    }
+
+    /**
+     * @param mixed $priceEstr
+     */
+    public function setPriceEstr($priceEstr)
+    {
+        $this->priceEstr = $priceEstr;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getPriceRu()
+    {
+        return $this->priceRu;
+    }
+
+    /**
+     * @param mixed $priceRu
+     */
+    public function setPriceRu($priceRu)
+    {
+        $this->priceRu = $priceRu;
     }
 
 }

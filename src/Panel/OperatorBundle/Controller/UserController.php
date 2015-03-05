@@ -414,11 +414,11 @@ class UserController extends Controller
 
             $price = 0;
             if ($user->getEstr() == 0 && $user->getRu() == 0){
-                $price = $this->getUser()->getPriceSkzi();
+                $price = $company->getPriceSkzi();
             }elseif ($user->getEstr() == 1 && $user->getRu() == 0){
-                $price = $this->getUser()->getPriceEstr();
+                $price = $company->getPriceEstr();
             }elseif ($user->getEstr() == 0 && $user->getRu() == 1){
-                $price = $this->getUser()->getPriceRu();
+                $price = $company->getPriceRu();
             }
 
             if ($type == 'true'){

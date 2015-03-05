@@ -64,6 +64,12 @@ class CompanyController extends Controller
             $company->setKorchet($data->get('korchet'));
             $company->setBik($data->get('bik'));
 
+
+            $company->setPriceEstr($data->get('priceEstr'));
+            $company->setPriceSkzi($data->get('priceSkzi'));
+            $company->setPriceRu($data->get('priceRu'));
+
+
             $company->setEnabled(true);
 
             $em->persist($company);
@@ -114,6 +120,10 @@ class CompanyController extends Controller
                 $company->setBank($data->get('bank'));
                 $company->setKorchet($data->get('korchet'));
                 $company->setBik($data->get('bik'));
+
+                $company->setPriceEstr($data->get('priceEstr'));
+                $company->setPriceSkzi($data->get('priceSkzi'));
+                $company->setPriceRu($data->get('priceRu'));
 
                 $em->flush($company);
                 $em->refresh($company);

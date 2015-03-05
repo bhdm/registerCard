@@ -16,6 +16,7 @@
             <thead>
             <tr>
                 <th >Компания</th>
+                <th ></th>
                 <th >Ссылка</th>
                 <th >Кол-во заявок</th>
                 <th >Квота</th>
@@ -29,6 +30,21 @@
                         {% if company.url != null and company.url != '' %}
                             <a href="{{ path('company',{'url' : company.url }) }}" target="_blank">{{ company.url }}</a>
                         {% endif %}
+                    </td>
+                    <td>
+                        {% spaceless %}
+                            <a href="{{ path('panel_user_choose',{'type' : 'null', 'company' : company.id}) }}">
+                                <button type="button" class="btn btn-default btn-primary" title="Производство">
+                                    <span class="glyphicon glyphicon-inbox"></span>
+                                </button>
+                            </a>
+                            &nbsp;&nbsp;
+                            <a href="{{ path('panel_user_arhive',{'type' : 'null', 'company' : company.id}) }}">
+                                <button type="button" class="btn btn-default btn-primary" title="Квота">
+                                    <span class="glyphicon glyphicon-tags"></span>
+                                </button>
+                            </a>
+                        {% endspaceless %}
                     </td>
                     <td> {{ company.userConfirmation | length}} / {{ company.users | length }}</td>
                     <td style="text-align: center"> {{ company.quota }}</td>
