@@ -180,9 +180,9 @@ class UserRepository extends EntityRepository
             $res->andWhere('u.production > 0');
         }
         if ($choose == 1){
-            $res->andWhere('u.choose = true');
+            $res->andWhere('u.choose = 1');
         }else{
-            $res->andWhere('u.choose != true');
+            $res->andWhere('u.choose != 1');
         }
 
 
