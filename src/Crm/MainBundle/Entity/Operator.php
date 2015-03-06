@@ -92,6 +92,16 @@ class Operator extends BaseEntity implements UserInterface
      */
     protected $companyQuotaLog;
 
+    /**
+     * @ORM\OneToMany(targetEntity="OperatorQuotaLog", mappedBy="operator")
+     */
+    protected $quotaLog;
+
+    /**
+     * @ORM\OneToMany(targetEntity="OperatorQuotaLog", mappedBy="moderator")
+     */
+    protected $moderatorQuotaLog;
+
     public function __construct(){
         $this->roles    = 'ROLE_OPERATOR';
         $this->companies = new ArrayCollection();
@@ -100,6 +110,8 @@ class Operator extends BaseEntity implements UserInterface
         $this->checks = new ArrayCollection();
         $this->operators = new ArrayCollection();
         $this->companyQuotaLog = new ArrayCollection();
+        $this->quotaLog = new ArrayCollection();
+        $this->moderatorQuotaLog = new ArrayCollection();
     }
 
 
@@ -564,5 +576,57 @@ class Operator extends BaseEntity implements UserInterface
     public function removeCompanyQuotaLog($companyQuotaLog)
     {
         $this->companyQuotaLog->removeElement($companyQuotaLog);
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getQuotaLog()
+    {
+        return $this->quotaLog;
+    }
+
+    /**
+     * @param mixed $QuotaLog
+     */
+    public function setQuotaLog($QuotaLog)
+    {
+        $this->quotaLog = $QuotaLog;
+    }
+
+    public function addQuotaLog($QuotaLog)
+    {
+        $this->quotaLog[] = $QuotaLog;
+    }
+
+    public function removeQuotaLog($QuotaLog)
+    {
+        $this->quotaLog->removeElement($QuotaLog);
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getModeratorQuotaLog()
+    {
+        return $this->moderatorQuotaLog;
+    }
+
+    /**
+     * @param mixed $moderatorQuotaLog
+     */
+    public function setModeratorQuotaLog($moderatorQuotaLog)
+    {
+        $this->moderatorQuotaLog = $moderatorQuotaLog;
+    }
+
+    public function addModeratorQuotaLog($moderatorQuotaLog)
+    {
+        $this->moderatorQuotaLog[] = $moderatorQuotaLog;
+    }
+
+    public function removeModeratorQuotaLog($moderatorQuotaLog)
+    {
+        $this->moderatorQuotaLog->removeElement($moderatorQuotaLog);
     }
 }

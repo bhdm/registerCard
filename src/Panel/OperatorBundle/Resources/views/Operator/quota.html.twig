@@ -1,0 +1,102 @@
+{% extends 'PanelOperatorBundle::layout.html.twig' %}
+
+
+{% block breadcrumb %}
+    <ul class="breadcrumb well">
+        <li>Квоты ператора {{ operator.username }} </li>
+        <li><span class="btn btn-primary" id="quotaAdd">Добавить квоту</span></li>
+    </ul>
+{% endblock %}
+
+{% block content %}
+    <div class="well">
+        <table class="table" data-toggle="table"
+               data-sort-name="login"
+               data-sort-order="asc">
+            <thead>
+            <tr>
+                <th >Дата</th>
+                <th >Квота</th>
+                <th >Примечание</th>
+                <th class="setting">Инструменты</th>
+            </tr>
+            </thead>
+            {% for q in quotes %}
+                <tr>
+                    <td>{{ q.created | date('d.m.Y H:i') }}</td>
+                    <td>{{ q.quota }}</td>
+                    <td>{{ q.comment }}</td>
+                    <td class="setting">
+                        {% spaceless %}
+                            <a href="#">
+                                <button type="button" class="btn btn-default btn-danger" title="Удалить">
+                                    <span class="glyphicon glyphicon-remove"></span>
+                                </button>
+                            </a>
+                        {% endspaceless %}
+                    </td>
+                </tr>
+            {% endfor%}
+        </table>
+        <div class="navigation">
+        {{ knp_pagination_render(quotes) }}
+        </div>
+
+        <div class="modal fade" id="addQuotaForm">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                        <h4 class="modal-title">Добавить квоту</h4>
+                    </div>
+                    <div class="modal-body">
+                        <p>
+                        <form class="form-horizontal" method="POST">
+                            <fieldset >
+                                <div class="form-group">
+                                    <label for="inputQuota" class="control-label col-xs-2">Кол-во рублей</label>
+                                    <div class="col-xs-10">
+                                        <input type="number" name="quota" class="form-control" id="inputQuota" placeholder="Количество рублей">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="inputPassword" class="control-label col-xs-2">Комментарий</label>
+                                    <div class="col-xs-10">
+                                        <input type="text" name="comment" class="form-control" id="inputComment" placeholder="Комментарий">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-xs-offset-2 col-xs-10">
+                                        <div class="checkbox">
+                                            <label><input type="checkbox" required="required" > Подтвердить ввод данных</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-xs-offset-2 col-xs-10">
+                                        <button type="submit" class="btn btn-primary">Добавить</button>
+                                    </div>
+                                </div>
+                            </fieldset>
+                        </form>
+                        </p>
+                    </div>
+                    {#<div class="modal-footer">#}
+                        {#<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>#}
+                        {#<button type="button" class="btn btn-primary">Save changes</button>#}
+                    {#</div>#}
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        $(document).ready(function(){
+            $('#quotaAdd').click(function(){
+                $('#addQuotaForm').modal('show');
+            });
+
+        })
+    </script>
+{% endblock %}

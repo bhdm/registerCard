@@ -30,21 +30,21 @@
 
 
 
-        {% if is_granted('ROLE_MODERATORR') %}
+        {% if is_granted('ROLE_MODERATOR') %}
         <li>&nbsp;</li>
         <li class="">
             <a href="{{ path('panel_operator_list') }}">
-                <i class="glyphicon glyphicon-ruble"></i>
+                <i class="glyphicon glyphicon-user"></i>
                 &nbsp;&nbsp;Операторы
             </a>
         </li>
-        <li>&nbsp;</li>
-        <li class="">
-            <a href="{{ path('panel_quota') }}">
-                <i class="glyphicon glyphicon-ruble"></i>
-                &nbsp;&nbsp;Квота
-            </a>
-        </li>
+        {#<li>&nbsp;</li>#}
+        {#<li class="">#}
+            {#<a href="{{ path('panel_quota') }}">#}
+                {#<i class="glyphicon glyphicon-ruble"></i>#}
+                {#&nbsp;&nbsp;Квота#}
+            {#</a>#}
+        {#</li>#}
         {% endif %}
 
         {% if is_granted('ROLE_ADMIN') %}

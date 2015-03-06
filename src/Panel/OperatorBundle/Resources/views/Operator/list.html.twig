@@ -3,8 +3,8 @@
 
 {% block breadcrumb %}
     <ul class="breadcrumb well">
-        <li>Список компаний</li>
-        <li><a href="#"><span class="btn btn-primary">Добавить</span></a></li>
+        <li>Список операторов</li>
+        <li><a href="{{ path('panel_operator_add') }}"><span class="btn btn-primary">Добавить</span></a></li>
     </ul>
 {% endblock %}
 
@@ -28,8 +28,13 @@
                     <td>{{ o.quota }}</td>
                     <td class="setting">
                         {% spaceless %}
-                            {#<a href="{{ path('user_edit',{'id' : item.id}) }}">#}
-                            <a href="#">
+                            <a href="{{ path('panel_operator_quota',{'operatorId' : o.id}) }}">
+                                <button type="button" class="btn btn-default btn-warning" title="Квота">
+                                    <span class="glyphicon glyphicon-ruble"></span>
+                                </button>
+                            </a>
+                            &nbsp;&nbsp;
+                            <a href="{{ path('panel_operator_edit',{'operatorId' : o.id}) }}">
                                 <button type="button" class="btn btn-default btn-bg" title="Редактировать">
                                     <span class="glyphicon glyphicon-pencil"></span>
                                 </button>
@@ -41,7 +46,7 @@
                                 {#</button>#}
                             {#</a>#}
                             &nbsp;&nbsp;
-                            <a href="#">
+                            <a href="{{ path('panel_operator_remove',{'operatorId' : o.id}) }}">
                                 <button type="button" class="btn btn-default btn-danger" title="Удалить">
                                     <span class="glyphicon glyphicon-remove"></span>
                                 </button>
