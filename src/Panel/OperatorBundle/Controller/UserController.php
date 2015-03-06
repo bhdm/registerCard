@@ -29,6 +29,9 @@ class UserController extends Controller
         $userId = $this->getUser()->getId();
         $production = 0;
         $choose = 0;
+        if ($type == null || $type == 'null'){
+            $type = 3;
+        }
         $users = $this->getDoctrine()->getRepository('CrmMainBundle:User')->operatorFilter($type, $status, $production,$choose, $company, $userId, $searchtxt, $dateStart, $dateEnd);
         $paginator  = $this->get('knp_paginator');
         $pagination = $paginator->paginate(
@@ -101,6 +104,9 @@ class UserController extends Controller
         $userId = $this->getUser()->getId();
         $production = 0;
         $choose = 1;
+        if ($type == null || $type == 'null'){
+            $type = 3;
+        }
         $users = $this->getDoctrine()->getRepository('CrmMainBundle:User')->operatorFilter($type, $status, $production,$choose, $company, $userId, $searchtxt, $dateStart, $dateEnd);
         $paginator  = $this->get('knp_paginator');
         $pagination = $paginator->paginate(
@@ -132,6 +138,9 @@ class UserController extends Controller
         $userId = $this->getUser()->getId();
         $production = 1;
         $choose = 1;
+        if ($type == null || $type == 'null'){
+            $type = 3;
+        }
         $users = $this->getDoctrine()->getRepository('CrmMainBundle:User')->operatorFilter($type, $status, $production,$choose, $company, $userId, $searchtxt, $dateStart, $dateEnd);
         $paginator  = $this->get('knp_paginator');
         $pagination = $paginator->paginate(
