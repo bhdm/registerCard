@@ -188,7 +188,7 @@ class UserRepository extends EntityRepository
 
         $res->orderBy('u.created', 'DESC');
         /** ***************** */
-//        echo $res->getQuery()->getSQL();
+        echo $res->getQuery()->getSQL();
         $result = $res->getQuery()->getResult();
 //        $users =
 //            array(
