@@ -53,7 +53,7 @@ class UserController extends Controller
         }
 
 
-        return array('pagination' => $pagination, 'companyId' => $companyId, 'company' => $company );
+        return array('count' => count($users), 'pagination' => $pagination, 'companyId' => $companyId, 'company' => $company );
     }
 
     /**
@@ -141,7 +141,7 @@ class UserController extends Controller
         }
 
 
-        return array('pagination' => $pagination, 'companyId' => $companyId, 'company' => $company );
+        return array('count' => count($users), 'pagination' => $pagination, 'companyId' => $companyId, 'company' => $company );
     }
 
     /**
@@ -171,7 +171,14 @@ class UserController extends Controller
             $this->get('request')->query->get('page', 1),
             50
         );
-        return array('pagination' => $pagination);
+        $companyId = $company;
+        if ($companyId == null){
+            $company = null;
+        }else{
+            $company = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->find($companyId);
+        }
+
+        return array('count' => count($users), 'pagination' => $pagination, 'companyId' => $companyId, 'company' => $company);
     }
 
 
