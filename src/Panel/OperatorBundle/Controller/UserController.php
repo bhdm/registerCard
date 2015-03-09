@@ -99,7 +99,16 @@ class UserController extends Controller
                     $user->setProduction(2);
                 }
 
+                $user->setStatus(2);
                 $this->getDoctrine()->getManager()->flush($user);
+                $this->getDoctrine()->getManager()->refresh($user);
+
+                $statusLog = new StatusLog();
+                $statusLog->setTitle($user->getStatusString());
+                $statusLog->setUser($user);
+                $this->getDoctrine()->getManager()->persist($statusLog);
+
+
                 $this->getDoctrine()->getManager()->flush();
             }
             $session->getFlashBag()->add('notice', 'Отправлено в производство '.$i.' заявок');
@@ -448,6 +457,17 @@ class UserController extends Controller
                 if ($company->getQuota() >= $price){
                     $user->setChoose(true);
                     $company->setQuota($company->getQuota() - $price);
+
+                    $user->setStatus(1);
+                    $this->getDoctrine()->getManager()->flush($user);
+                    $this->getDoctrine()->getManager()->refresh($user);
+
+                    $statusLog = new StatusLog();
+                    $statusLog->setTitle($user->getStatusString());
+                    $statusLog->setUser($user);
+                    $this->getDoctrine()->getManager()->persist($statusLog);
+
+
                     $this->getDoctrine()->getManager()->flush($company);
                     $this->getDoctrine()->getManager()->flush($user);
                     $this->getDoctrine()->getManager()->refresh($user);
@@ -463,6 +483,14 @@ class UserController extends Controller
                 $this->getDoctrine()->getManager()->flush($user);
                 $this->getDoctrine()->getManager()->refresh($user);
                 $session->getFlashBag()->add('notice', 'Пользователь '.$user->getLastName().' переведен в неопределенные');
+                $user->setStatus(0);
+                $this->getDoctrine()->getManager()->flush($user);
+                $this->getDoctrine()->getManager()->refresh($user);
+
+                $statusLog = new StatusLog();
+                $statusLog->setTitle($user->getStatusString());
+                $statusLog->setUser($user);
+                $this->getDoctrine()->getManager()->persist($statusLog);
             }
         }
 
