@@ -1627,15 +1627,18 @@ class User extends BaseEntity implements UserInterface, EquatableInterface, \Ser
         $userLog = $this->statuslog;
         $userLogArray = array();
         foreach ($userLog as $status){
-            if (isset($userLogArray[$status->getTitle()])){
-                if ($userLogArray[$status->getTitle()] < $status->getCreated()){
-                    $userLogArray[$status->getTitle()]['title'] = $status->getTitle();
-                    $userLogArray[$status->getTitle()]['date'] = $status->getCreated();
-                }
-            }else{
-                $userLogArray[$status->getTitle()]['title'] = $status->getTitle();
-                $userLogArray[$status->getTitle()]['date'] = $status->getCreated();
-            }
+            $userLogArray[] = array(
+                'title' => $status->getTitle(),
+                'date' => $status->getCreated(),
+            );
+//            if (isset($userLogArray[$status->getTitle()])){
+//                if ($userLogArray[$status->getTitle()] < $status->getCreated()){
+//                    $userLogArray[$status->getTitle()]['title'] = $status->getTitle();
+//                    $userLogArray[$status->getTitle()]['date'] = $status->getCreated();
+//                }
+//            }else{
+//
+//            }
         }
         return $userLogArray;
     }
