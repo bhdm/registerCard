@@ -909,4 +909,25 @@ class Company extends BaseEntity
         $this->priceRu = $priceRu;
     }
 
+    public function getCompletedCount(){
+        $count = array(
+            'skzi' => 0,
+            'estr' => 0,
+            'ru' => 0
+        );
+            $users = $this->getUsers();
+            foreach ($users as $user){
+                if ($user->getProduction() > 0){
+                    if ($user->getRu() == 0 && $user->getEstr() == 0){
+                        $count['skzi'] ++;
+                    }elseif($user->getRu() == 1 && $user->getEstr() == 0){
+                        $count['ru'] ++;
+                    }elseif($user->getRu() == 0 && $user->getEstr() == 1){
+                        $count['estr'] ++;
+                    }
+                }
+            }
+
+        return $count;
+    }
 }

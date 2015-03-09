@@ -189,4 +189,15 @@ class CompanyController extends Controller
 
         return array('company'=> $company, 'quotes' => $pagination);
     }
+
+    /**
+     * @Security("has_role('ROLE_OPERATOR')")
+     * @Route("/get-quota/{companyId}", name="panel_company_get_quota", options={"expose" = true})
+     * @Template()
+     */
+    public function getQuotaAction($companyId){
+        $company = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->findOneById($companyId);
+
+        return array('company' => $company);
+    }
 }
