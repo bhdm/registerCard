@@ -82,7 +82,7 @@
                     {% for user in pagination %}
                         <tr>
                             <td><input type="checkbox" name="user[{{ user.id }}]" value="{{ user.id }}"></td>
-                            <td>{{ user.created | date('d') }}{{ user.id }}</td>
+                            <td>{{ user.id }}</td>
                             <td>
                                 {% if user.ru == false and user.estr == false %}
                                     СКЗИ
