@@ -65,3 +65,7 @@ td.value input{
         width: calc(100% - 50px);
     }
 }
+
+.dropdown-menu li a:active, .dropdown-menu li:active{
+    outline: none !important;
+}

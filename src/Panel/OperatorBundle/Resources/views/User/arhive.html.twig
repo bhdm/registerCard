@@ -59,7 +59,25 @@
                 {% for user in pagination %}
                     <tr>
                         <td>{{ user.created | date('d') }}{{ user.id }}</td>
-                        <td>{{ user.statusStringTwig | raw }}</td>
+                        <td>
+
+                            <div class="dropdown">
+                                <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true">
+                                    {{ user.statusStringTwig | raw }}
+                                    <span class="caret"></span>
+                                </button>
+                                <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1" id="changeStatus">
+                                    <li role="presentation"><a role="menuitem" tabindex="-1" href="#" data-userId="{{ user.id }}" data-status="0">Новая</a></li>
+                                    <li role="presentation"><a role="menuitem" tabindex="-1" href="#" data-userId="{{ user.id }}" data-status="1">Подтвержденная</a></li>
+                                    <li role="presentation"><a role="menuitem" tabindex="-1" href="#" data-userId="{{ user.id }}" data-status="2">Оплаченная</a></li>
+                                    <li role="presentation"><a role="menuitem" tabindex="-1" href="#" data-userId="{{ user.id }}" data-status="3">В&nbsp;производстве</a></li>
+                                    <li role="presentation"><a role="menuitem" tabindex="-1" href="#" data-userId="{{ user.id }}" data-status="6">Изготовлена</a></li>
+                                    <li role="presentation"><a role="menuitem" tabindex="-1" href="#" data-userId="{{ user.id }}" data-status="4">На&nbsp;почте</a></li>
+                                    <li role="presentation"><a role="menuitem" tabindex="-1" href="#" data-userId="{{ user.id }}" data-status="5">Получена</a></li>
+                                    <li role="presentation"><a role="menuitem" tabindex="-1" href="#" data-userId="{{ user.id }}" data-status="10">Отклонена</a></li>
+                                </ul>
+                            </div>
+                        </td>
                         <td>
                             {% if user.ru == false and user.estr == false %}
                                 СКЗИ
@@ -107,6 +125,17 @@
             {{ knp_pagination_render(pagination) }}
         </div>
     </div>
+    <div class="modal fade" id="alert">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    <h4 class="modal-title">Ошибка изменеия статуса</h4>
+                </div>
+                <div id="errorText" class="modal-body"></div>
+            </div>
+        </div>
+    </div>
 {% endblock %}
 
 {% block stylesheets %}
@@ -125,6 +154,25 @@
             $('#filter-send').click(function () {
                 var url = Routing.generate('panel_user_arhive', {'type': $('#filter-type').val(), 'dateStart' : $('#filter-dateStart').val(), 'dateEnd' : $('#filter-dateEnd').val(),'search' : $('#filter-search').val() });
                 window.location.href = url;
+            });
+
+            $('#changeStatus li a').click(function(){
+                {#{{ path('panel_user_change_status',{userId: user.id }) }}#}
+                var status = $(this).attr('data-status');
+                var userId = $(this).attr('data-userId');
+                $.ajax({
+                    type: "POST",
+                    url: Routing.generate('panel_user_change_status', {'userId': userId, 'status': status }),
+                    success: function(msg){
+                        if (msg == 'Ok'){
+                            window.location.reload();
+                        }else{
+                            $('#errorText').html(msg);
+                            $('#alert').modal('show');
+                        }
+                    }
+                });
+                return false;
             });
         });
     </script>

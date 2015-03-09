@@ -738,7 +738,7 @@ class User extends BaseEntity implements UserInterface, EquatableInterface, \Ser
                 $status = 'Оплаченная';
                 break;
             case 3:
-                $status = 'Впроизводстве';
+                $status = 'В&nbsp;производстве';
                 break;
             case 6:
                 $status = 'Изготовлено';
@@ -790,7 +790,7 @@ class User extends BaseEntity implements UserInterface, EquatableInterface, \Ser
                 $status = '<span class="status" style="border: 1px solid #33CC33; color: #33CC33">Оплаченная</span>';
                 break;
             case 3:
-                $status = '<span class="status" style="border: 1px solid #2135cc; color: #2135cc">Впроизводстве</span>';
+                $status = '<span class="status" style="border: 1px solid #2135cc; color: #2135cc">В&nbsp;производстве</span>';
                 break;
             case 6:
                 $status = '<span class="status" style="border: 1px solid #920055; color: #920055">Изготовлено</span>';

@@ -8,6 +8,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\Security\Core\SecurityContext;
 
@@ -744,42 +745,32 @@ class UserController extends Controller
         return $res;
     }
 
-    /**
-     * @Route("/change-status/{userId}", name="operator_change_status")
-     */
-    public function changeStatusAction(Request $request, $userId){
-//        if ($request->getSession()->get('hash')!='7de92cefb8a07cede44f3ae9fa97fb3b' and $this->isCompany() != true) return $this->redirect($this->generateUrl('admin_main'));
-        $em = $this->getDoctrine()->getManager();
-        $user = $this->getDoctrine()->getRepository('CrmMainBundle:User')->findOneById($userId);
 
-        switch ( $user->getStatus()){
-            case 0: $user->setStatus(1); break;
-            case 1: $user->setStatus(2); break;
-            case 2: $user->setStatus(3); break;
-            case 3: $user->setStatus(6); break;
-            case 6: $user->setStatus(4); break;
-            case 4: $user->setStatus(5); break;
-            case 5: $user->setStatus(10); break;
-            case 10: $user->setStatus(0); break;
-        }
-        $em->flush($user);
-
-        $statuslog = new StatusLog();
-        $statuslog->setUser($user);
-        $statuslog->setTitle($user->getStatusString());
-        $em->persist($statuslog);
-        $em->flush($statuslog);
-
-//        $this->getDoctrine()->getManager()->flush($user);
-//        $phone = $user->getUsername();
-//        if( $phone ){
-//            $phone = str_replace(array('(',')','-','','+'),array('','','','',' '), $phone);
-//            $sms = new smsru('a8f0f6b6-93d1-3144-a9a1-13415e3b9721');
-//            $sms->sms_send( $phone, 'Статус вашей карты: '.$user->getStatusString()  );
+//    public function changeStatusAction(Request $request, $userId){
+//        $em = $this->getDoctrine()->getManager();
+//        $user = $this->getDoctrine()->getRepository('CrmMainBundle:User')->findOneById($userId);
+//
+//        switch ( $user->getStatus()){
+//            case 0: $user->setStatus(1); break;
+//            case 1: $user->setStatus(2); break;
+//            case 2: $user->setStatus(3); break;
+//            case 3: $user->setStatus(6); break;
+//            case 6: $user->setStatus(4); break;
+//            case 4: $user->setStatus(5); break;
+//            case 5: $user->setStatus(10); break;
+//            case 10: $user->setStatus(0); break;
 //        }
-        $referer = $request->headers->get('referer');
-        return $this->redirect($referer);
-    }
+//        $em->flush($user);
+//
+//        $statuslog = new StatusLog();
+//        $statuslog->setUser($user);
+//        $statuslog->setTitle($user->getStatusString());
+//        $em->persist($statuslog);
+//        $em->flush($statuslog);
+//
+//        $referer = $request->headers->get('referer');
+//        return $this->redirect($referer);
+//    }
 
 
     /**
@@ -912,6 +903,7 @@ class UserController extends Controller
 
     /**
      * Показывает водителей определенной компании
+     * @Security("has_role('ROLE_OPERATOR')")
      * @Route("/search/{companyId}/{type}", name="operator_user_search", defaults={"companyId"=null, "type"=null}, options={"expose"=true})
      * @Template()
      */
@@ -968,5 +960,26 @@ class UserController extends Controller
             'toArhive'  => $toArhive,
             'managers'  => $managers
         );
+    }
+
+    /**
+     * Показывает водителей определенной компании
+     * @Security("has_role('ROLE_ADMIN')")
+     * @Route("/change-status/{userId}/{status}", name="panel_user_change_status", options={"expose"=true})
+     * @Template()
+     */
+    public function changeStatusAction($userId, $status){
+        $em = $this->getDoctrine()->getManager();
+        $user = $this->getDoctrine()->getRepository('CrmMainBundle:User')->find($userId);
+        $user->setStatus($status);
+        $em->flush($user);
+
+        $statuslog = new StatusLog();
+        $statuslog->setUser($user);
+        $statuslog->setTitle($user->getStatusString());
+        $em->persist($statuslog);
+        $em->flush($statuslog);
+
+        return new Response('Ok');
     }
 }
