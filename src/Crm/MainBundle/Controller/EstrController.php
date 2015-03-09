@@ -184,12 +184,15 @@ class EstrController extends Controller
 
 
 
+
 //            $user->setCompanyPetition(null);
+
             $user->setProduction(2);
             if ($company != null){
                 $session->set('company', $company);
             }else{
-                $session->set('company', null);
+                $company = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->findOneByTitle('NO_COMPANY');
+                $user->setCompany($company);
             }
 
 
