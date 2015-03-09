@@ -16,6 +16,7 @@
             <thead>
             <tr>
                 <th>Оператор</th>
+                <th>Заявки</th>
                 <th>Кол-во заявок</th>
                 <th>Квота</th>
                 <th class="setting">Инструменты</th>
@@ -24,7 +25,35 @@
             {% for o in operators %}
                 <tr>
                     <td>{{ o }}</td>
-                    <td> </td>
+                    <td>
+                        {% spaceless %}
+                            <a href="{{ path('panel_user_list',{'type': 'null', 'company' : 'null', 'operator' : o.id}) }}">
+                                <button type="button" class="btn btn-default btn-primary" title="Новые заявки">
+                                    <span class="glyphicon glyphicon-user"></span>
+                                </button>
+                            </a>
+                            &nbsp;&nbsp;
+                            <a href="{{ path('panel_user_choose',{'type': 'null', 'company' : 'null', 'operator' : o.id}) }}">
+                                <button type="button" class="btn btn-default btn-primary" title="Подтвержденные">
+                                    <span class="glyphicon glyphicon-inbox"></span>
+                                </button>
+                            </a>
+                            &nbsp;&nbsp;
+                            <a href="{{ path('panel_user_arhive',{'type': 'null', 'company' : 'null', 'operator' : o.id}) }}">
+                                <button type="button" class="btn btn-default btn-primary" title="Архив">
+                                    <span class="glyphicon glyphicon-tags"></span>
+                                </button>
+                            </a>
+                        {% endspaceless %}
+                    </td>
+                    <td>
+                        {% if is_granted('ROLE_ADMIN') %}
+                            <span title="Новые">{{ o.countUsers.new }}</span> /
+                        {% endif %}
+                            <span title="Подтвержденные">{{ o.countUsers.choose }}</span> /
+                            <span title="На производство">{{ o.countUsers.production }}</span>
+
+                    </td>
                     <td>{{ o.quota }}</td>
                     <td class="setting">
                         {% spaceless %}

@@ -18,15 +18,20 @@ class UserController extends Controller
 {
     /**
      * @Security("has_role('ROLE_OPERATOR')")
-     * @Route("/list/{type}/{company}/{status}", defaults={"type" = null , "company" = null , "status" = null }, name="panel_user_list", options={"expose" = true})
+     * @Route("/list/{type}/{company}/{operator}/{status}", defaults={"type" = null , "company" = null , "operator" = null , "status" = null }, name="panel_user_list", options={"expose" = true})
      * @Template()
      */
-    public function listAction(Request $request, $type = null, $company = null, $status = null)
+    public function listAction(Request $request, $type = null, $company = null, $operator = null, $status = null)
     {
         $searchtxt = $request->query->get('search');
         $dateStart = ( $request->query->get('dateStart') == '' ? null : $request->query->get('dateStart'));
         $dateEnd = ( $request->query->get('dateEnd') == '' ? null : $request->query->get('dateEnd'));
-        $userId = $this->getUser()->getId();
+        if ($operator == null){
+            $userId = $this->getUser()->getId();
+        }else{
+            $userId = $operator;
+        }
+
         $production = 0;
         $choose = 0;
         if ($type == null || $type == 'null'){
@@ -52,10 +57,10 @@ class UserController extends Controller
 
     /**
      * @Security("has_role('ROLE_OPERATOR')")
-     * @Route("/choose/{type}/{company}/{status}", defaults={"type" = null , "company" = null , "status" = null }, name="panel_user_choose", options={"expose" = true})
+     * @Route("/choose/{type}/{company}/{operator}/{status}", defaults={"type" = null , "company" = null , "operator" = null , "status" = null }, name="panel_user_choose", options={"expose" = true})
      * @Template()
      */
-    public function chooseAction(Request $request, $type = null, $company = null, $status = null)
+    public function chooseAction(Request $request, $type = null, $company = null, $operator = null, $status = null)
     {
         $session = new Session();
         if ($request->getMethod() == 'POST'){
@@ -101,7 +106,11 @@ class UserController extends Controller
         $searchtxt = $request->query->get('search');
         $dateStart = ( $request->query->get('dateStart') == '' ? null : $request->query->get('dateStart'));
         $dateEnd = ( $request->query->get('dateEnd') == '' ? null : $request->query->get('dateEnd'));
-        $userId = $this->getUser()->getId();
+        if ($operator == null){
+            $userId = $this->getUser()->getId();
+        }else{
+            $userId = $operator;
+        }
         $production = 0;
         $choose = 1;
         if ($type == null || $type == 'null'){
@@ -127,15 +136,19 @@ class UserController extends Controller
 
     /**
      * @Security("has_role('ROLE_OPERATOR')")
-     * @Route("/arhive/{type}/{company}/{status}", defaults={"type" = null , "company" = null , "status" = null }, name="panel_user_arhive", options={"expose" = true})
+     * @Route("/arhive/{type}/{company}/{operator}/{status}", defaults={"type" = null , "company" = null , "operator" = null , "status" = null }, name="panel_user_arhive", options={"expose" = true})
      * @Template()
      */
-    public function arhiveAction(Request $request, $type = null, $company = null, $status = null)
+    public function arhiveAction(Request $request, $type = null, $company = null, $operator = null, $status = null)
     {
         $searchtxt = $request->query->get('search');
         $dateStart = ( $request->query->get('dateStart') == '' ? null : $request->query->get('dateStart'));
         $dateEnd = ( $request->query->get('dateEnd') == '' ? null : $request->query->get('dateEnd'));
-        $userId = $this->getUser()->getId();
+        if ($operator == null){
+            $userId = $this->getUser()->getId();
+        }else{
+            $userId = $operator;
+        }
         $production = 1;
         $choose = 1;
         if ($type == null || $type == 'null'){

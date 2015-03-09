@@ -174,4 +174,15 @@ class OperatorController extends Controller
 
         return array('operator'=> $operator, 'quotes' => $pagination);
     }
+
+    /**
+     * @Security("has_role('ROLE_MODERATOR')")
+     * @Route("/get-quota/{operatorId}", name="panel_operator_get_quota", options={"expose" = true})
+     * @Template()
+     */
+    public function getQuotaAction($operatorId){
+        $operator = $this->getDoctrine()->getRepository('CrmMainBundle:Operator')->findOneById($operatorId);
+
+        return array('operator' => $operator);
+    }
 }

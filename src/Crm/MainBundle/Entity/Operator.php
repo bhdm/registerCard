@@ -629,4 +629,27 @@ class Operator extends BaseEntity implements UserInterface
     {
         $this->moderatorQuotaLog->removeElement($moderatorQuotaLog);
     }
+
+    public function getCountUsers(){
+        $companies = $this->getCompanies();
+        $users = array(
+            'new' => 0,
+            'choose' => 0,
+            'production' => 0,
+        );
+        foreach ( $companies as $company ){
+            foreach ( $company->getUsers() as $user ){
+                if ( $user->getChoose() == 0 ){
+                    $users['new'] ++ ;
+                }else{
+                    if (  $user->getProduction == 0 ){
+                        $users['choose'] ++;
+                    }else{
+                        $users['production'] ++;
+                    }
+                }
+            }
+        }
+        return $users;
+    }
 }

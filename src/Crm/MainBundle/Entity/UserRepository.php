@@ -151,10 +151,10 @@ class UserRepository extends EntityRepository
         }elseif ($type == 2){
             $res->andWhere('u.estr = 0 AND u.ru = 1');
         }
-        if ($companyId != null){
+        if ($companyId != null && $companyId != 'null' ){
             $res->andWhere('co.id = '.$companyId);
         }
-        if ($status != null){
+        if ($status != null && $status != 'null'){
             $res->andWhere('u.status = '.$status);
         }
         if ($searchtxt != null){
