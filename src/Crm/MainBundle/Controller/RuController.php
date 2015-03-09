@@ -277,7 +277,7 @@ class RuController extends Controller
             $user->setRegisteredCorp($data->get('registeredCorp'));
             $user->setRegisteredRoom($data->get('registeredRoom'));
 
-            $user->setProduction(2);
+            $user->setProduction(0);
 
             if ($data->get('myPetition')!='null'){
                 $user->setMyPetition(1);

@@ -324,7 +324,7 @@ class ApplicationSkziController extends Controller
             $em->refresh($company);
         }
         $user->setCompany($company);
-        $user->setProduction(2);
+        $user->setProduction(0);
         $user->setStatuslog(null);
 
         $em->persist($user);

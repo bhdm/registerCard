@@ -190,7 +190,7 @@ class OrderController extends Controller{
             $user->setDriverDocIssuance($data->get('driverDocIssuance'));
             $user->setSnils($data->get('snils'));
 
-            $user->setProduction(2);
+            $user->setProduction(0);
 
             if ($data->get('myPetition')!='null'){
                 $user->setMyPetition(1);

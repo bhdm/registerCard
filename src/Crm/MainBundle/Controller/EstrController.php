@@ -187,7 +187,7 @@ class EstrController extends Controller
 
 //            $user->setCompanyPetition(null);
 
-            $user->setProduction(2);
+            $user->setProduction(0);
             if ($company != null){
                 $session->set('company', $company);
             }else{
