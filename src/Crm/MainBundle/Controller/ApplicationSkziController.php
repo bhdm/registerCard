@@ -313,15 +313,12 @@ class ApplicationSkziController extends Controller
             $company->setTypeRoom($order['p_typeRoom']);
             $company->setRoom($order['p_room']);
             $company->setZipcode($order['p_zipcode']);
-
+            $company->setEnabled(false);
             $em->persist($company);
             $em->flush($company);
             $em->refresh($company);
         }else{
-            $company = new Company();
-            $em->persist($company);
-            $em->flush($company);
-            $em->refresh($company);
+            $company = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->findOneByTitle('NO_COMPANY');
         }
         $user->setCompany($company);
         $user->setProduction(0);
