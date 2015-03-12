@@ -60,7 +60,7 @@
                     <tr>
                         <td>{{ user.id }}</td>
                         <td>
-
+                            {% if is_granted('ROLE_ADMIN') %}
                             <div class="dropdown">
                                 <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true">
                                     {{ user.statusStringTwig | raw }}
@@ -77,6 +77,9 @@
                                     <li role="presentation"><a role="menuitem" tabindex="-1" href="#" data-userId="{{ user.id }}" data-status="10">Отклонена</a></li>
                                 </ul>
                             </div>
+                            {% else %}
+                                {{ user.statusStringTwig | raw }}
+                            {% endif %}
                         </td>
                         <td>
                             {% if user.ru == false and user.estr == false %}

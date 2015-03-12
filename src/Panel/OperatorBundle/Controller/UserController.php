@@ -526,11 +526,11 @@ class UserController extends Controller
             $quota = $operator->getQuota();
             $price = 0;
             if ($user->getRu() == 0 && $user->getEstr() == 0){
-                $price = $user->getCompany()->getPriceSkzi();
+                $price = $operator->getPriceSkzi();
             }elseif($user->getRu() == 1 && $user->getEstr() == 0){
-                $price =  $user->getCompany()->getPriceRu();
+                $price =  $operator->getPriceRu();
             }elseif($user->getRu() == 0 && $user->getEstr() == 1){
-                $price =  $user->getCompany()->getPriceEstr();
+                $price =  $operator->getPriceEstr();
             }
             $quota -= $price;
 
@@ -542,11 +542,11 @@ class UserController extends Controller
                     $quotaModerator = $moderator->getQuota();
                     $priceModerator = 0;
                     if ($user->getRu() == 0 && $user->getEstr() == 0){
-                        $priceModerator = $operator->getPriceSkzi();
+                        $priceModerator = $moderator->getPriceSkzi();
                     }elseif($user->getRu() == 1 && $user->getEstr() == 0){
-                        $priceModerator =  $operator->getPriceRu();
+                        $priceModerator =  $moderator->getPriceRu();
                     }elseif($user->getRu() == 0 && $user->getEstr() == 1){
-                        $priceModerator =  $operator->getPriceEstr();
+                        $priceModerator =  $moderator->getPriceEstr();
                     }
                     $quotaModerator -= $priceModerator;
                     if ($quotaModerator > 0){
@@ -560,7 +560,7 @@ class UserController extends Controller
                         $this->getDoctrine()->getManager()->flush($user);
                         $this->getDoctrine()->getManager()->flush();
                     }else{
-                        $session->getFlashBag()->add('error', 'не хватает денег у Вашего модератора ( '.$user->getQuota().' из '.$priceModerator.' )');
+                        $session->getFlashBag()->add('error', 'не хватает денег у Вашего модератора ( '.$moderator->getQuota().' из '.$priceModerator.' )');
                         return $this->redirect($request->headers->get('referer'));
                     }
                 }
@@ -576,7 +576,7 @@ class UserController extends Controller
                 $this->getDoctrine()->getManager()->flush();
 
             }else{
-                $session->getFlashBag()->add('error', 'не хватает денег у оператора ( '.$user->getQuota().' из '.$price.' )');
+                $session->getFlashBag()->add('error', 'не хватает денег у оператора ( '.$operator->getQuota().' из '.$price.' )');
             }
 
             return $this->redirect($request->headers->get('referer'));
