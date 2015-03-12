@@ -11,11 +11,11 @@
         </li>
         <li class="{{ app.request.attributes.get('_route') == 'panel_user_choose' ? 'active' : '' }}">
             {% if app.request.attributes.get('_route_params').company is defined and app.request.attributes.get('_route_params').company != null %}
-                <a href="{{ path('panel_user_choose', {'type' : 'null' , 'company' : app.request.attributes.get('_route_params').company }) }}" class="active">Ожидающие</a>
+                <a href="{{ path('panel_user_choose', {'type' : 'null' , 'company' : app.request.attributes.get('_route_params').company }) }}" class="active">Подтвержденные</a>
             {% elseif app.request.attributes.get('_route_params').operator is defined and app.request.attributes.get('_route_params').operator != null %}
-                <a href="{{ path('panel_user_choose', {'type' : 'null' , 'company' : 'null', 'operator' : app.request.attributes.get('_route_params').operator }) }}" class="active">Ожидающие</a>
+                <a href="{{ path('panel_user_choose', {'type' : 'null' , 'company' : 'null', 'operator' : app.request.attributes.get('_route_params').operator }) }}" class="active">Подтвержденные</a>
             {% else %}
-                <a href="{{ path('panel_user_choose') }}" class="active">Ожидающие</a>
+                <a href="{{ path('panel_user_choose') }}" class="active">Подтвержденные</a>
             {% endif %}
         </li>
         <li class="{{ app.request.attributes.get('_route') == 'panel_user_arhive' ? 'active' : '' }}">
