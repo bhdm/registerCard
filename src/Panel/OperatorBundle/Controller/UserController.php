@@ -183,6 +183,7 @@ class UserController extends Controller
 
 
     /**
+     * @Security("has_role('ROLE_OPERATOR')")
      * @Route("/edit/{userId}", name="panel_user_edit")
      * @Template()
      */
@@ -407,6 +408,7 @@ class UserController extends Controller
     }
 
     /**
+     * @Security("has_role('ROLE_OPERATOR')")
      * @Route("/remove/{userId}", name="panel_user_remove")
      * @Template()
      */
@@ -441,6 +443,7 @@ class UserController extends Controller
     }
 
     /**
+     * @Security("has_role('ROLE_OPERATOR')")
      * @Route("/set-choose/{userId}/{type}", name="panel_user_set_choose", defaults={"type"="true"})
      * @Template()
      */
@@ -505,47 +508,88 @@ class UserController extends Controller
     }
 
 
-        /**
+    /**
+     * @Security("has_role('ROLE_OPERATOR')")
      * @Route("/production/{userId}/{type}", name="panel_user_production", defaults={"type"="true"})
      * @Template()
      */
     public function productionAction(Request $request, $userId, $type = 'true'){
 
-
+        $session = new Session();
         $user = $this->getDoctrine()->getRepository('CrmMainBundle:User')->findOneById($userId);
 
         if ($user->getProduction() == 0 && $type == 'true' &&  $this->get('security.context')->isGranted('ROLE_OPERATOR')){
-            $user->setProduction(1);
+            $user->setProduction(2);
+            $user->setStatus(2);
 
             $operator = $this->getUser();
             $quota = $operator->getQuota();
+            $price = 0;
             if ($user->getRu() == 0 && $user->getEstr() == 0){
-                $quota -= $operator->getPriceSkzi();
+                $price = $user->getCompany()->getPriceSkzi();
             }elseif($user->getRu() == 1 && $user->getEstr() == 0){
-                $quota -= $operator->getPriceRu();
+                $price =  $user->getCompany()->getPriceRu();
             }elseif($user->getRu() == 0 && $user->getEstr() == 1){
-                $quota -= $operator->getPriceEstr();
+                $price =  $user->getCompany()->getPriceEstr();
             }
-            $operator->setQuota($quota);
-            $this->getDoctrine()->getManager()->flush($operator);
-            $statusLog = new StatusLog();
-            $statusLog->setTitle('Отправлен модератору');
-            $statusLog->setUser($user);
-            $this->getDoctrine()->getManager()->persist($statusLog);
+            $quota -= $price;
+
+            if ($quota > 0){
+                $operator->setQuota($quota);
+
+                $moderator = $operator->getModerator();
+                if ($moderator->getRoles()[0] == 'ROLE_MODERATOR'){
+                    $quotaModerator = $moderator->getQuota();
+                    $priceModerator = 0;
+                    if ($user->getRu() == 0 && $user->getEstr() == 0){
+                        $priceModerator = $operator->getPriceSkzi();
+                    }elseif($user->getRu() == 1 && $user->getEstr() == 0){
+                        $priceModerator =  $operator->getPriceRu();
+                    }elseif($user->getRu() == 0 && $user->getEstr() == 1){
+                        $priceModerator =  $operator->getPriceEstr();
+                    }
+                    $quotaModerator -= $priceModerator;
+                    if ($quotaModerator > 0){
+                        $moderator->setQuota($quotaModerator);
+                        $this->getDoctrine()->getManager()->flush($moderator);
+                        $statusLog = new StatusLog();
+                        $statusLog->setTitle('Отправлен администратору');
+                        $statusLog->setUser($user);
+                        $this->getDoctrine()->getManager()->persist($statusLog);
+                        $session->getFlashBag()->add('notice', 'Пользователь '.$user->getLastName().' переведен в производство ( архив )');
+                        $this->getDoctrine()->getManager()->flush($user);
+                        $this->getDoctrine()->getManager()->flush();
+                    }else{
+                        $session->getFlashBag()->add('error', 'не хватает денег у Вашего модератора ( '.$user->getQuota().' из '.$priceModerator.' )');
+                        return $this->redirect($request->headers->get('referer'));
+                    }
+                }
 
 
-        }elseif($user->getProduction() == 1 && $type == 'true' &&  $this->get('security.context')->isGranted('ROLE_MODERATOR')){
-            $user->setProduction(2);
-        }elseif($user->getProduction() == 1 && $type == 'false' && $this->get('security.context')->isGranted('ROLE_MODERATOR')){
-            $user->setProduction(0);
-        }elseif($user->getProduction() == 2 && $type == 'false' &&  $this->get('security.context')->isGranted('ROLE_ADMIN')){
-            $user->setProduction(1);
+                $this->getDoctrine()->getManager()->flush($operator);
+                $statusLog = new StatusLog();
+                $statusLog->setTitle('Отправлен модератору');
+                $statusLog->setUser($user);
+                $this->getDoctrine()->getManager()->persist($statusLog);
+//                $session->getFlashBag()->add('notice', 'Пользователь '.$user->getLastName().' переведен в производство ( архив )');
+                $this->getDoctrine()->getManager()->flush($user);
+                $this->getDoctrine()->getManager()->flush();
+
+            }else{
+                $session->getFlashBag()->add('error', 'не хватает денег у оператора ( '.$user->getQuota().' из '.$price.' )');
+            }
+
+            return $this->redirect($request->headers->get('referer'));
+
+//        }elseif($user->getProduction() == 1 && $type == 'true' &&  $this->get('security.context')->isGranted('ROLE_MODERATOR')){
+//            $user->setProduction(2);
+//        }elseif($user->getProduction() == 1 && $type == 'false' && $this->get('security.context')->isGranted('ROLE_MODERATOR')){
+//            $user->setProduction(0);
+//        }elseif($user->getProduction() == 2 && $type == 'false' &&  $this->get('security.context')->isGranted('ROLE_ADMIN')){
+//            $user->setProduction(1);
         }
 
-        $this->getDoctrine()->getManager()->flush($user);
-        $this->getDoctrine()->getManager()->flush();
 
-        return $this->redirect($request->headers->get('referer'));
     }
 
 

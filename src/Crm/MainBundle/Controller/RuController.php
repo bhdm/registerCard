@@ -183,8 +183,8 @@ class RuController extends Controller
                 $session->set('company', $company);
             }else{
                 $company = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->findOneByTitle('NO_COMPANY');
-                $user->setCompany($company);
             }
+            $user->setCompany($company);
 
 
 //            $user->setCompanyPetition(null);

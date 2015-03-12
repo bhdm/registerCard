@@ -24,7 +24,6 @@
 {% endif %}
 
 
-
 {% if app.request.attributes.get('_route_params').company is defined and app.request.attributes.get('_route_params').company != 'null' and app.request.attributes.get('_route_params').company != null %}
     {{ render_hinclude(path('panel_company_get_quota', {'companyId' : app.request.attributes.get('_route_params').company})) }}
 {% endif %}
