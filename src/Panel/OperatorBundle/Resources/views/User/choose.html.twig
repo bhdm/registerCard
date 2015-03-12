@@ -12,6 +12,7 @@
 {% endblock %}
 
 {% block content %}
+    {% include 'PanelOperatorBundle::top.html.twig' %}
     <div class="well">
         <table>
             <tr>
@@ -38,6 +39,7 @@
                     <input type="text" placeholder="Текст поиска" class="form-control" style="width: 250px; margin: 0 10px" id="filter-search">
                 </td>
                 <td style="">
+                    <button class="form-control" id="filter-send">Поиск</button>
                     <button class="form-control" id="filter-send">Поиск</button>
                 </td>
             </tr>

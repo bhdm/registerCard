@@ -2,62 +2,74 @@
     <h2 class="modal-title">Навигация</h2>
     {#{{ app.request.attributes.get('_route') }}#}
     <ul class="nav nav-pills nav-stacked">
-        {% if is_granted("ROLE_ADMIN") %}
-            <li class="{{ app.request.attributes.get('_route') == 'panel_user_list' ? 'active' : '' }}">
-                <a href="{{ path('panel_user_list') }}">
-                    <i class="glyphicon glyphicon-user"></i>
-                    &nbsp;&nbsp;Новые заявки
-                </a>
-            </li>
-            <li class="{{ app.request.attributes.get('_route') == 'panel_user_choose' ? 'active' : '' }}">
-                <a href="{{ path('panel_user_choose') }}">
-                    <i class="glyphicon glyphicon-inbox"></i>
-                    &nbsp;&nbsp;Ожидающие
-                </a>
-            </li>
-            <li class="{{ app.request.attributes.get('_route') == 'panel_user_arhive' ? 'active' : '' }}">
-                <a href="{{ path('panel_user_arhive') }}">
-                    <i class="glyphicon glyphicon-tags"></i>
-                    &nbsp;&nbsp;Производство
-                </a>
-            </li>
-            <li class="{{ app.request.attributes.get('_route') == 'panel_company_list' ? 'active' : '' }}">
-                <a href="{{ path('panel_company_list') }}">
-                    <i class="glyphicon glyphicon-link"></i>
-                    &nbsp;&nbsp;Компании
-                </a>
-            </li>
+        {#{% if is_granted("ROLE_ADMIN") %}#}
+            {#<li class="{{ app.request.attributes.get('_route') == 'panel_user_list' ? 'active' : '' }}">#}
+                {#<a href="{{ path('panel_user_list') }}">#}
+                    {#<i class="glyphicon glyphicon-user"></i>#}
+                    {#&nbsp;&nbsp;Новые заявки#}
+                {#</a>#}
+            {#</li>#}
+            {#<li class="{{ app.request.attributes.get('_route') == 'panel_user_choose' ? 'active' : '' }}">#}
+                {#<a href="{{ path('panel_user_choose') }}">#}
+                    {#<i class="glyphicon glyphicon-inbox"></i>#}
+                    {#&nbsp;&nbsp;Ожидающие#}
+                {#</a>#}
+            {#</li>#}
+            {#<li class="{{ app.request.attributes.get('_route') == 'panel_user_arhive' ? 'active' : '' }}">#}
+                {#<a href="{{ path('panel_user_arhive') }}">#}
+                    {#<i class="glyphicon glyphicon-tags"></i>#}
+                    {#&nbsp;&nbsp;Производство#}
+                {#</a>#}
+            {#</li>#}
+            {#<li class="{{ app.request.attributes.get('_route') == 'panel_company_list' ? 'active' : '' }}">#}
+                {#<a href="{{ path('panel_company_list') }}">#}
+                    {#<i class="glyphicon glyphicon-link"></i>#}
+                    {#&nbsp;&nbsp;Компании#}
+                {#</a>#}
+            {#</li>#}
 
-        {% elseif is_granted("ROLE_OPERATOR") %}
-            <li class="{{ app.request.attributes.get('_route') == 'panel_user_list' ? 'active' : '' }}">
-                <a href="{{ path('panel_user_list') }}">
-                    <i class="glyphicon glyphicon-user"></i>
-                    &nbsp;&nbsp;Новые заявки
-                </a>
-            </li>
-            <li class="{{ app.request.attributes.get('_route') == 'panel_user_choose' ? 'active' : '' }}">
-                <a href="{{ path('panel_user_choose') }}">
-                    <i class="glyphicon glyphicon-inbox"></i>
-                    &nbsp;&nbsp;Производство
-                </a>
-            </li>
-            <li class="{{ app.request.attributes.get('_route') == 'panel_company_list' ? 'active' : '' }}">
-                <a href="{{ path('panel_company_list') }}">
-                    <i class="glyphicon glyphicon-link"></i>
-                    &nbsp;&nbsp;Компании
-                </a>
-            </li>
-            <li class="{{ app.request.attributes.get('_route') == 'panel_user_arhive' ? 'active' : '' }}">
-                <a href="{{ path('panel_user_arhive') }}">
-                    <i class="glyphicon glyphicon-tags"></i>
-                    &nbsp;&nbsp;Архив
-                </a>
-            </li>
-        {% endif %}
+        {#{% elseif is_granted("ROLE_OPERATOR") %}#}
+            {#<li class="{{ app.request.attributes.get('_route') == 'panel_user_list' ? 'active' : '' }}">#}
+                {#<a href="{{ path('panel_user_list') }}">#}
+                    {#<i class="glyphicon glyphicon-user"></i>#}
+                    {#&nbsp;&nbsp;Новые заявки#}
+                {#</a>#}
+            {#</li>#}
+            {#<li class="{{ app.request.attributes.get('_route') == 'panel_user_choose' ? 'active' : '' }}">#}
+                {#<a href="{{ path('panel_user_choose') }}">#}
+                    {#<i class="glyphicon glyphicon-inbox"></i>#}
+                    {#&nbsp;&nbsp;Производство#}
+                {#</a>#}
+            {#</li>#}
+            {#<li class="{{ app.request.attributes.get('_route') == 'panel_company_list' ? 'active' : '' }}">#}
+                {#<a href="{{ path('panel_company_list') }}">#}
+                    {#<i class="glyphicon glyphicon-link"></i>#}
+                    {#&nbsp;&nbsp;Компании#}
+                {#</a>#}
+            {#</li>#}
+            {#<li class="{{ app.request.attributes.get('_route') == 'panel_user_arhive' ? 'active' : '' }}">#}
+                {#<a href="{{ path('panel_user_arhive') }}">#}
+                    {#<i class="glyphicon glyphicon-tags"></i>#}
+                    {#&nbsp;&nbsp;Архив#}
+                {#</a>#}
+            {#</li>#}
+        {#{% endif %}#}
 
+        <li class="{{ app.request.attributes.get('_route') == 'panel_main' ? 'active' : '' }}">
+            <a href="{{ path('panel_main') }}">
+                <i class="glyphicon glyphicon-index"></i>
+                &nbsp;&nbsp;Главная
+            </a>
+        </li>
+
+        <li class="{{ app.request.attributes.get('_route') == 'panel_company_list' ? 'active' : '' }}">
+            <a href="{{ path('panel_company_list') }}">
+                <i class="glyphicon glyphicon-link"></i>
+                &nbsp;&nbsp;Компании
+            </a>
+        </li>
 
         {% if is_granted('ROLE_MODERATOR') %}
-            <li>&nbsp;</li>
             <li class="{{ app.request.attributes.get('_route') == 'panel_operator_list' ? 'active' : '' }}">
                 <a href="{{ path('panel_operator_list') }}">
                     <i class="glyphicon glyphicon-user"></i>
@@ -74,7 +86,6 @@
         {% endif %}
 
         {% if is_granted('ROLE_ADMIN') %}
-            <li>&nbsp;</li>
             <li class="{{ app.request.attributes.get('_route') == 'panel_company_stats' ? 'active' : '' }}">
                 <a href="{{ path('panel_company_stats') }}">
                     <i class="glyphicon glyphicon-signal"></i>
@@ -82,7 +93,6 @@
                 </a>
             </li>
         {% endif %}
-        <li>&nbsp;</li>
         <li class="{{ app.request.attributes.get('_route') == 'panel_security_logout' ? 'active' : '' }}">
             <a href="{{ path('panel_security_logout') }}" class="text-danger">
                 <i class="glyphicon glyphicon-collapse-down"></i>

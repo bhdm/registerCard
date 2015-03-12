@@ -1,0 +1,40 @@
+<div class="well">
+    <ul class="nav nav-tabs">
+        <li class="{{ app.request.attributes.get('_route') == 'panel_user_list' ? 'active' : '' }}">
+            {% if app.request.attributes.get('_route_params').company is defined and app.request.attributes.get('_route_params').company != null %}
+                <a href="{{ path('panel_user_list', {'type' : 'null' , 'company' : app.request.attributes.get('_route_params').company }) }}" class="active">Новые заявки <span class="badge">4</span></a>
+            {% elseif app.request.attributes.get('_route_params').operator is defined and app.request.attributes.get('_route_params').operator != null %}
+                <a href="{{ path('panel_user_list', {'type' : 'null' , 'company' : 'null', 'operator' : app.request.attributes.get('_route_params').operator }) }}" class="active">Новые заявки <span class="badge">4</span></a>
+            {% else %}
+                <a href="{{ path('panel_user_list') }}" class="active">Новые заявки <span class="badge">4</span></a>
+            {% endif %}
+        </li>
+        <li class="{{ app.request.attributes.get('_route') == 'panel_user_choose' ? 'active' : '' }}">
+            {% if app.request.attributes.get('_route_params').company is defined and app.request.attributes.get('_route_params').company != null %}
+                <a href="{{ path('panel_user_choose', {'type' : 'null' , 'company' : app.request.attributes.get('_route_params').company }) }}" class="active">Ожидающие</a>
+            {% elseif app.request.attributes.get('_route_params').operator is defined and app.request.attributes.get('_route_params').operator != null %}
+                <a href="{{ path('panel_user_choose', {'type' : 'null' , 'company' : 'null', 'operator' : app.request.attributes.get('_route_params').operator }) }}" class="active">Ожидающие</a>
+            {% else %}
+                <a href="{{ path('panel_user_choose') }}" class="active">Ожидающие</a>
+            {% endif %}
+        </li>
+        <li class="{{ app.request.attributes.get('_route') == 'panel_user_arhive' ? 'active' : '' }}">
+            {% if app.request.attributes.get('_route_params').company is defined and app.request.attributes.get('_route_params').company != null %}
+                <a href="{{ path('panel_user_arhive', {'type' : 'null' , 'company' : app.request.attributes.get('_route_params').company }) }}" class="active">В производстве</a>
+            {% elseif app.request.attributes.get('_route_params').operator is defined and app.request.attributes.get('_route_params').operator != null %}
+                <a href="{{ path('panel_user_arhive', {'type' : 'null' , 'company' : 'null', 'operator' : app.request.attributes.get('_route_params').operator }) }}" class="active">В производстве</a>
+            {% else %}
+                <a href="{{ path('panel_user_arhive') }}" class="active">В производстве</a>
+            {% endif %}
+        </li>
+        <li class="">
+            {% if app.request.attributes.get('_route_params').company is defined and app.request.attributes.get('_route_params').company != null %}
+                <a href="{{ path('panel_user_arhive', {'type' : 'null' , 'company' : app.request.attributes.get('_route_params').company }) }}" class="active">Архив</a>
+            {% elseif app.request.attributes.get('_route_params').operator is defined and app.request.attributes.get('_route_params').operator != null %}
+                <a href="{{ path('panel_user_arhive', {'type' : 'null' , 'company' : 'null', 'operator' : app.request.attributes.get('_route_params').operator }) }}" class="active">Архив</a>
+            {% else %}
+                <a href="{{ path('panel_user_arhive') }}" class="active">Архив</a>
+            {% endif %}
+        </li>
+    </ul>
+</div>
