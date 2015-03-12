@@ -313,6 +313,9 @@ class ApplicationSkziController extends Controller
             $company->setTypeRoom($order['p_typeRoom']);
             $company->setRoom($order['p_room']);
             $company->setZipcode($order['p_zipcode']);
+            $operator = $this->getDoctrine()->getRepository('CrmMainBundle:Operator')->find(1);
+            $company->setOperator($operator);
+
             $company->setEnabled(false);
             $em->persist($company);
             $em->flush($company);

@@ -256,7 +256,7 @@ class ApplicationRuController extends Controller
 
         $user->setRu(true);
 
-        $company = null;
+        $company = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->findOneByUrl('NO_COMPANY');
 
         $user->setCompany($company);
 
