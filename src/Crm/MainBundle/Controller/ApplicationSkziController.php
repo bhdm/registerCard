@@ -148,8 +148,9 @@ class ApplicationSkziController extends Controller
 
             }else{
                 $order['petitionFilePath'] = $session->get('petitionFile');
+                $order['myPetition']    =false;
             }
-            $order['myPetition']    =false;
+
             $order['p_title']      = $request->request->get('title');
             $order['p_region']      = $request->request->get('region');
             $order['p_city']        = $request->request->get('city');
