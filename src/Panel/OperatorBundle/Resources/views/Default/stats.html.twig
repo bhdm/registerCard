@@ -12,64 +12,6 @@
         <div id="stats" style="width: 750px; height: 300px;"></div>
         <br/>
         <br/>
-        <div style="width: 100%; overflow-x: scroll">
-            <table class="table">
-                <caption>Cтатистика заявок по дням за текущий месяц</caption>
-                <tr>
-                    <th>Тип карт / дни</th>
-                    {% for j in range(1, countDay) %}
-                        <th>{{ j }}</th>
-                    {% endfor %}
-                </tr>
-                <tr>
-                    <td>СКЗИ</td>
-                    {% for j in range(1, countDay) %}
-                        <td>
-                            {% if statsByMonth['1'][year~'-'~month~'-'~j] is defined %}
-                                {{ statsByMonth['1'][year~'-'~month~'-'~j] }}
-                            {% else %}
-                                0
-                            {% endif %}
-                        </td>
-                    {% endfor %}
-                </tr>
-                <tr>
-                    <td>ЕСТР</td>
-                    {% for j in range(1, countDay) %}
-                        <td>
-                            {% if statsByMonth['2'][year~'-'~month~'-'~j] is defined %}
-                                {{ statsByMonth['2'][year~'-'~month~'-'~j] }}
-                            {% else %}
-                                0
-                            {% endif %}
-                        </td>
-                    {% endfor %}
-                </tr>
-                <tr>
-                    <td>РФ</td>
-                    {% for j in range(1, countDay) %}
-                        <td>
-                            {% if statsByMonth['3'][year~'-'~month~'-'~j] is defined %}
-                                {{ statsByMonth['3'][year~'-'~month~'-'~j] }}
-                            {% else %}
-                                0
-                            {% endif %}
-                        </td>
-                    {% endfor %}
-                </tr>
-                <tr>
-                    <td><b>ИТОГО</b></td>
-                    {% for j in range(1, 31) %}
-                        <td>
-                            {%  set x1  = (statsByMonth['1'][year~'-'~month~'-'~j] is defined ? statsByMonth['1'][year~'-'~month~'-'~j] : 0) %}
-                            {%  set x2  = (statsByMonth['2'][year~'-'~month~'-'~j] is defined ? statsByMonth['2'][year~'-'~month~'-'~j] : 0) %}
-                            {%  set x3  = (statsByMonth['3'][year~'-'~month~'-'~j] is defined ? statsByMonth['3'][year~'-'~month~'-'~j] : 0) %}
-                            <b>{{ x1+x2+x3 }}</b>
-                        </td>
-                    {% endfor %}
-                </tr>
-            </table>
-        </div>
         <table class="table">
             <caption>Cтатистика заявок по месяцам</caption>
             <tr>
@@ -129,7 +71,64 @@
                 {% endfor %}
             </tr>
         </table>
-
+        <div style="width: 100%; overflow-x: scroll">
+            <table class="table">
+                <caption>Cтатистика заявок по дням за текущий месяц</caption>
+                <tr>
+                    <th>Тип карт / дни</th>
+                    {% for j in range(1, countDay) %}
+                        <th>{{ j }}</th>
+                    {% endfor %}
+                </tr>
+                <tr>
+                    <td>СКЗИ</td>
+                    {% for j in range(1, countDay) %}
+                        <td>
+                            {% if statsByMonth['1'][year~'-'~month~'-'~j] is defined %}
+                                {{ statsByMonth['1'][year~'-'~month~'-'~j] }}
+                            {% else %}
+                                0
+                            {% endif %}
+                        </td>
+                    {% endfor %}
+                </tr>
+                <tr>
+                    <td>ЕСТР</td>
+                    {% for j in range(1, countDay) %}
+                        <td>
+                            {% if statsByMonth['2'][year~'-'~month~'-'~j] is defined %}
+                                {{ statsByMonth['2'][year~'-'~month~'-'~j] }}
+                            {% else %}
+                                0
+                            {% endif %}
+                        </td>
+                    {% endfor %}
+                </tr>
+                <tr>
+                    <td>РФ</td>
+                    {% for j in range(1, countDay) %}
+                        <td>
+                            {% if statsByMonth['3'][year~'-'~month~'-'~j] is defined %}
+                                {{ statsByMonth['3'][year~'-'~month~'-'~j] }}
+                            {% else %}
+                                0
+                            {% endif %}
+                        </td>
+                    {% endfor %}
+                </tr>
+                <tr>
+                    <td><b>ИТОГО</b></td>
+                    {% for j in range(1, 31) %}
+                        <td>
+                            {%  set x1  = (statsByMonth['1'][year~'-'~month~'-'~j] is defined ? statsByMonth['1'][year~'-'~month~'-'~j] : 0) %}
+                            {%  set x2  = (statsByMonth['2'][year~'-'~month~'-'~j] is defined ? statsByMonth['2'][year~'-'~month~'-'~j] : 0) %}
+                            {%  set x3  = (statsByMonth['3'][year~'-'~month~'-'~j] is defined ? statsByMonth['3'][year~'-'~month~'-'~j] : 0) %}
+                            <b>{{ x1+x2+x3 }}</b>
+                        </td>
+                    {% endfor %}
+                </tr>
+            </table>
+        </div>
         <table class="table">
             <caption>Cтатистика заявок по компаниям по месяцам</caption>
             <tr>
