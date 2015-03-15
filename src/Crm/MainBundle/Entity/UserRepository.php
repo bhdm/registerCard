@@ -284,4 +284,204 @@ class UserRepository extends EntityRepository
 
         return $result;
     }
+
+    public function findNewUser($user){
+        if ( $user->isRole('ROLE_OPERATOR')){
+            $res = $this->getEntityManager()->createQueryBuilder()
+                ->select('u')
+                ->from('CrmMainBundle:User','u')
+                ->leftJoin('u.company','c')
+                ->leftJoin('c.operator','o')
+                ->where('o.id = :operatorId')
+                ->andWhere('u.status = 0')
+                ->orderBy('u.id','DESC')
+                ->setParameter(':operatorId',$user->getId());
+
+        }elseif( $user->isRole('ROLE_ADMIN')){
+            $res = $this->getEntityManager()->createQueryBuilder()
+                ->select('u')
+                ->from('CrmMainBundle:User','u')
+                ->leftJoin('u.company','c')
+                ->where('u.status = 2')
+                ->orderBy('u.id','DESC');
+        }else{
+            return null;
+        }
+
+        return $res->getQuery()->getResult();
+    }
+
+    /**
+     * Вывод статистики за год по месяцам
+     */
+    public function statsByYear($user,$year){
+        if ( $user->isRole('ROLE_OPERATOR') ){
+           $sql  =
+           "SELECT COUNT(user.id) uid, MONTH(StatusLog.created) m, YEAR(StatusLog.created) y,
+            IF (user.ru = 0 AND user.estr = 0, '1', IF (user.ru = 0 AND user.estr = 1, '2', '3')) type
+            FROM user
+            LEFT JOIN StatusLog ON StatusLog.id = (SELECT id FROM StatusLog sl WHERE sl.user_id = user.id AND sl.title != 'Новая' AND sl.title != 'Подтвержденная' AND sl.title != 'Отклонена' AND sl.title != 'Отправлен модератору' ORDER BY sl.id ASC LIMIT 1 )
+            LEFT JOIN Company ON user.Company_id = Company.id
+            LEFT JOIN Operator ON Company.operator_id = Operator.id
+            WHERE
+                user.status >=2 AND Operator.id = ".$user->getId()."
+            GROUP BY
+                y, m, `type`
+            HAVING y = $year
+            ORDER BY
+                y DESC, m DESC";
+        }elseif ( $user->isRole('ROLE_MODERATOR') ){
+            $sql  =
+                "SELECT COUNT(user.id) uid, MONTH(StatusLog.created) m, YEAR(StatusLog.created) y,
+            IF (user.ru = 0 AND user.estr = 0, '1', IF (user.ru = 0 AND user.estr = 1, '2', '3')) type
+            FROM user
+            LEFT JOIN StatusLog ON StatusLog.id = (SELECT id FROM StatusLog sl WHERE sl.user_id = user.id AND sl.title != 'Новая' AND sl.title != 'Подтвержденная' AND sl.title != 'Отклонена' AND sl.title != 'Отправлен модератору' ORDER BY sl.id ASC LIMIT 1 )
+            LEFT JOIN Company ON user.Company_id = Company.id
+            LEFT JOIN Operator ON Company.Operator_id = Operator.id
+            WHERE
+                user.status >=2 AND ( Operator.moderator_id = ".$user->getId()." OR Company.operator_id = ".$user->getId().")
+            GROUP BY
+                y, m, `type`
+            HAVING y = $year
+            ORDER BY
+                y DESC, m DESC";
+        }elseif ( $user->isRole('ROLE_ADMIN') ){
+            $sql  =
+                "SELECT COUNT(user.id) uid, MONTH(StatusLog.created) m, YEAR(StatusLog.created) y,
+            IF (user.ru = 0 AND user.estr = 0, '1', IF (user.ru = 0 AND user.estr = 1, '2', '3')) type
+            FROM user
+            LEFT JOIN StatusLog ON StatusLog.id = (SELECT id FROM StatusLog sl WHERE sl.user_id = user.id AND sl.title != 'Новая' AND sl.title != 'Подтвержденная' AND sl.title != 'Отклонена' AND sl.title != 'Отправлен модератору' ORDER BY sl.id ASC LIMIT 1 )
+            LEFT JOIN Company ON user.Company_id = Company.id
+            LEFT JOIN Operator ON Company.Operator_id = Operator.id
+            WHERE
+                user.status >=2
+            GROUP BY
+                y, m, `type`
+            HAVING y = $year
+            ORDER BY
+                y DESC, m DESC";
+        }else{
+            return null;
+        }
+
+        $pdo = $this->getEntityManager()->getConnection();
+        $st = $pdo->prepare($sql);
+        $st->execute();
+
+        $re = $st->fetchAll();
+
+        $result = array();
+        foreach ( $re as $val ){
+            $result[$val['type']][$val['y'].'-'.$val['m']] = $val['uid'];
+        }
+
+        return $result;
+    }
+
+
+    public function statsByMonth($user,$year,$month){
+        if ( $user->isRole('ROLE_OPERATOR') ){
+            $sql  =
+                "SELECT COUNT(user.id) uid, MONTH(StatusLog.created) m, YEAR(StatusLog.created) y, DAY(StatusLog.created) d,
+            IF (user.ru = 0 AND user.estr = 0, '1', IF (user.ru = 0 AND user.estr = 1, '2', '3')) type
+            FROM user
+            LEFT JOIN StatusLog ON StatusLog.id = (SELECT id FROM StatusLog sl WHERE sl.user_id = user.id AND sl.title != 'Новая' AND sl.title != 'Подтвержденная' AND sl.title != 'Отклонена' AND sl.title != 'Отправлен модератору' ORDER BY sl.id ASC LIMIT 1 )
+            LEFT JOIN Company ON user.Company_id = Company.id
+            LEFT JOIN Operator ON Company.Operator_id = Operator.id
+            WHERE
+                user.status >=2 AND Operator.id = ".$user->getId()."
+            GROUP BY
+                y, m, d, `type`
+            HAVING y = $year AND m = $month
+            ORDER BY
+                y DESC, m DESC, d DESC";
+        }elseif ( $user->isRole('ROLE_MODERATOR') ){
+            $sql  =
+                "SELECT COUNT(user.id) uid, MONTH(StatusLog.created) m, YEAR(StatusLog.created) y, DAY(StatusLog.created) d,
+            IF (user.ru = 0 AND user.estr = 0, '1', IF (user.ru = 0 AND user.estr = 1, '2', '3')) type
+            FROM user
+            LEFT JOIN StatusLog ON StatusLog.id = (SELECT id FROM StatusLog sl WHERE sl.user_id = user.id AND sl.title != 'Новая' AND sl.title != 'Подтвержденная' AND sl.title != 'Отклонена' AND sl.title != 'Отправлен модератору' ORDER BY sl.id ASC LIMIT 1 )
+            LEFT JOIN Company ON user.Company_id = Company.id
+            LEFT JOIN Operator ON Company.Operator_id = Operator.id
+            WHERE
+                user.status >=2 AND ( Operator.moderator_id = ".$user->getId()." OR Company.operator_id = ".$user->getId().")
+            GROUP BY
+                y, m, d, `type`
+            HAVING y = $year AND m = $month
+            ORDER BY
+                y DESC, m DESC, d DESC";
+        }elseif ( $user->isRole('ROLE_ADMIN') ){
+            $sql  =
+                "SELECT COUNT(user.id) uid, MONTH(StatusLog.created) m, YEAR(StatusLog.created) y, DAY(StatusLog.created) d,
+            IF (user.ru = 0 AND user.estr = 0, '1', IF (user.ru = 0 AND user.estr = 1, '2', '3')) type
+            FROM user
+            LEFT JOIN StatusLog ON StatusLog.id = (SELECT id FROM StatusLog sl WHERE sl.user_id = user.id AND sl.title != 'Новая' AND sl.title != 'Подтвержденная' AND sl.title != 'Отклонена' AND sl.title != 'Отправлен модератору' ORDER BY sl.id ASC LIMIT 1 )
+            LEFT JOIN Company ON user.Company_id = Company.id
+            LEFT JOIN Operator ON Company.Operator_id = Operator.id
+            WHERE
+                user.status >=2
+            GROUP BY
+                y, m, d, `type`
+            HAVING y = $year AND m = $month
+            ORDER BY
+                y DESC, m DESC, d DESC";
+        }else{
+            return null;
+        }
+
+        $pdo = $this->getEntityManager()->getConnection();
+        $st = $pdo->prepare($sql);
+        $st->execute();
+
+        $re = $st->fetchAll();
+
+        $result = array();
+        foreach ( $re as $val ){
+            $result[$val['type']][$val['y'].'-'.$val['m'].'-'.$val['d']] = $val['uid'];
+        }
+
+        return $result;
+    }
+
+
+    /**
+     * Вывод статистики по компаниям
+     */
+    public function statsOfCompany($user,$year){
+        $sql  =
+           "SELECT Company.id cid, Company.title ctitle, COUNT(user.id) uid, MONTH(StatusLog.created) m, YEAR(StatusLog.created) y ,
+            IF (user.ru = 0 AND user.estr = 0, '1', IF (user.ru = 0 AND user.estr = 1, '2', '3')) `type`
+            FROM user
+            LEFT JOIN StatusLog ON StatusLog.id = (SELECT id FROM StatusLog sl WHERE sl.user_id = user.id AND sl.title != 'Новая' AND sl.title != 'Подтвержденная' AND sl.title != 'Отклонена' AND sl.title != 'Отправлен модератору' ORDER BY sl.id ASC LIMIT 1 )
+            LEFT JOIN Company ON user.Company_id = Company.id
+            LEFT JOIN Operator ON Company.Operator_id = Operator.id
+
+            WHERE
+                user.status >=2 AND Company.url != '' AND Company.url is not null AND Company.operator_id = ".$user->getId()."
+
+
+            GROUP BY
+                y, m, `type`, Company.id
+
+            HAVING y = $year
+
+            ORDER BY
+                y DESC, m DESC, Company.title DESC";
+
+        $pdo = $this->getEntityManager()->getConnection();
+        $st = $pdo->prepare($sql);
+        $st->execute();
+
+        $re = $st->fetchAll();
+
+        $result = array();
+        foreach ( $re as $val ){
+            $result[$val['cid']]['count'][$val['type']][$val['y'].'-'.$val['m']] = $val['uid'];
+            $result[$val['cid']]['title'] = $val['ctitle'];
+        }
+
+        return $result;
+    }
+
 }
+

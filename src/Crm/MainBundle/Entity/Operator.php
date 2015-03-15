@@ -202,6 +202,15 @@ class Operator extends BaseEntity implements UserInterface
         return in_array($role, $roles);
     }
 
+    public function isRole($role){
+        $roles = explode(';', $this->roles);
+        $key   = array_search($role, $roles);
+        if ($key !== false) {
+            return true;
+        }
+        return false;
+    }
+
     /**
      * @return mixed
      */
@@ -642,7 +651,7 @@ class Operator extends BaseEntity implements UserInterface
                 if ( $user->getChoose() == 0 ){
                     $users['new'] ++ ;
                 }else{
-                    if (  $user->getProduction == 0 ){
+                    if (  $user->getProduction() == 0 ){
                         $users['choose'] ++;
                     }else{
                         $users['production'] ++;

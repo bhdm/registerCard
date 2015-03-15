@@ -2,11 +2,11 @@
     <ul class="nav nav-tabs">
         <li class="{{ app.request.attributes.get('_route') == 'panel_user_list' ? 'active' : '' }}">
             {% if app.request.attributes.get('_route_params').company is defined and app.request.attributes.get('_route_params').company != null %}
-                <a href="{{ path('panel_user_list', {'type' : 'null' , 'company' : app.request.attributes.get('_route_params').company }) }}" class="active">Новые заявки <span class="badge">4</span></a>
+                <a href="{{ path('panel_user_list', {'type' : 'null' , 'company' : app.request.attributes.get('_route_params').company }) }}" class="active">Новые заявки {{ render_hinclude(path('panel_user_get_new')) }}</a>
             {% elseif app.request.attributes.get('_route_params').operator is defined and app.request.attributes.get('_route_params').operator != null %}
-                <a href="{{ path('panel_user_list', {'type' : 'null' , 'company' : 'null', 'operator' : app.request.attributes.get('_route_params').operator }) }}" class="active">Новые заявки <span class="badge">4</span></a>
+                <a href="{{ path('panel_user_list', {'type' : 'null' , 'company' : 'null', 'operator' : app.request.attributes.get('_route_params').operator }) }}" class="active">Новые заявки {{ render_hinclude(path('panel_user_get_new')) }}</a>
             {% else %}
-                <a href="{{ path('panel_user_list') }}" class="active">Новые заявки <span class="badge">4</span></a>
+                <a href="{{ path('panel_user_list') }}" class="active">Новые заявки {{ render_hinclude(path('panel_user_get_new')) }}</a>
             {% endif %}
         </li>
         <li class="{{ app.request.attributes.get('_route') == 'panel_user_choose' ? 'active' : '' }}">

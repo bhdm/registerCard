@@ -17,9 +17,10 @@ class AuthController extends Controller
 
     /**
      * @Security("has_role('ROLE_OPERATOR')")
-     * @Route("/", name="panel_main")
+     * @Route("/no", name="panel_main_no")
      */
     public function indexAction(){
+//        $newsUsers = $this->getDoctrine()->getRepository('CrmMainBundle:User')->findNewUser($this->getUser());
         return $this->redirect($this->generateUrl('panel_user_list'));
     }
 

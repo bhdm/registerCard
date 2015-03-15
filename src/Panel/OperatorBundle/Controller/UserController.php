@@ -1061,4 +1061,27 @@ class UserController extends Controller
 
         return new Response('Ok');
     }
+
+    /**
+     * Показывает циферку в меню
+     * @Security("has_role('ROLE_OPERATOR')")
+     * @Route("/user/get-new", name="panel_user_get_new", options={"expose"=true})
+     * @Template()
+     */
+    public function getNewAction(){
+        $dateStart = null;
+        $dateEnd =  null;
+        $userId = $this->getUser()->getId();
+        $production = 0;
+        $choose = 0;
+        $type = 3;
+        $company = null;
+        $status = 0;
+        $searchtxt = null;
+
+        $users = $this->getDoctrine()->getRepository('CrmMainBundle:User')->operatorFilter($type, $status, $production,$choose, $company, $userId, $searchtxt, $dateStart, $dateEnd);
+
+        return array('count' => count($users));
+    }
 }
+

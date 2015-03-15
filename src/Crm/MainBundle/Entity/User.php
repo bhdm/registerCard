@@ -557,6 +557,15 @@ class User extends BaseEntity implements UserInterface, EquatableInterface, \Ser
         return $this->roles;
     }
 
+    public function isRole($role){
+        $roles = explode(';', $this->roles);
+        $key   = array_search($role, $roles);
+        if ($key !== false) {
+            return true;
+        }
+        return false;
+    }
+
     /**
      * @param mixed $roles
      */

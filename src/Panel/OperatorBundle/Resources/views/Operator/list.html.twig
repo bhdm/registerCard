@@ -50,9 +50,8 @@
                         {% if is_granted('ROLE_ADMIN') %}
                             <span title="Новые">{{ o.countUsers.new }}</span> /
                         {% endif %}
-                            <span title="Подтвержденные">{{ o.countUsers.choose }}</span> /
-                            <span title="На производство">{{ o.countUsers.production }}</span>
-
+                            <span title="Подтвержденные">{{ o.countUsers != null and o.countUsers is not empty and o.countUsers.choose is defined ? o.countUsers.choose : 0 }}</span> /
+                            <span title="На производство">{{ o.countUsers != null and o.countUsers is not empty and o.countUsers.production is defined ? o.countUsers.production : 0 }}</span>
                     </td>
                     <td>{{ o.quota }}</td>
                     <td class="setting">
