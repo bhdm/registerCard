@@ -534,7 +534,7 @@ class UserController extends Controller
             }
             $quota -= $price;
 
-            if ($quota > 0){
+            if ($quota >= 0){
                 $operator->setQuota($quota);
 
                 $moderator = $operator->getModerator();
