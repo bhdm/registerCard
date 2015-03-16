@@ -70,7 +70,7 @@
             </thead>
                 {% for user in pagination %}
                     <tr>
-                        <td><a href="{{ path('panel_user_edit',{'userId' : user.id }) }}">{{ user.id }}</a></td>
+                        <td>{{ user.id }}</td>
                         <td>
                             {% if user.ru == false and user.estr == false %}
                                 СКЗИ
@@ -88,9 +88,9 @@
                             <td>{{ user.company }}</td>
                         {% endif %}
                         <td>
-                            {{ user }}
+                            <a href="{{ path('panel_user_edit',{'userId' : user.id }) }}">{{ user }}</a>
                             <br />
-                            <span class="subtitles">{{ user.email }}</span>
+                            <a href="?search={{ user.email }}"><span class="subtitles">{{ user.email }}</span></a>
                         </td>
                         <td>
                             {% spaceless %}
