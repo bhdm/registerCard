@@ -51,7 +51,9 @@
                 <th>Статус</th>
                 <th>Тип</th>
                 <th>Дата</th>
-                <th >Компания</th>
+                {% if company is not defined or company == null %}
+                    <th >Компания</th>
+                {% endif %}
                 <th >ФИО / Email</th>
                 {#<th class="setting">Инструменты</th>#}
             </tr>
@@ -74,7 +76,9 @@
                             {% endif %}
                         </td>
                         <td class="subtitles">{{ user.created | date('d.m.Y') }}</td>
-                        <td>{{ user.company }}</td>
+                        {% if company is not defined or company == null %}
+                            <td><a href="{{ path('panel_user_arhive',{'type' : 'null', 'company' : user.company.id }) }}">{{ user.company }}</a></td>
+                        {% endif %}
                         <td>
                             {{ user }}
                             <br />
