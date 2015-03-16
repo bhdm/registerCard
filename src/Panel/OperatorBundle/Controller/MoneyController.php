@@ -24,26 +24,25 @@ class MoneyController extends Controller
      */
     public function indexAction(Request $request)
     {
-        $users = $this->getDoctrine()->getRepository('CrmMainBundle:User')->calendar(array('isOperator'=> false));
-        $usersOperator = $this->getDoctrine()->getRepository('CrmMainBundle:User')->calendar(array('isOperator'=> true));
+        $year = 2015;
+        $month = 3;
 
-//        $all = array();
-//        foreach ($users as $u ){
-//            $all['']
-//        }
+        /** Новые заявки */
+        $newsUsers = $this->getDoctrine()->getRepository('CrmMainBundle:User')->findNewUser($this->getUser());
 
-
-        $skzi   = $this->getDoctrine()->getRepository('CrmMainBundle:User')->calendar(array('type'=> 'skzi'));
-        $estr   = $this->getDoctrine()->getRepository('CrmMainBundle:User')->calendar(array('type'=> 'estr'));
-        $ru     = $this->getDoctrine()->getRepository('CrmMainBundle:User')->calendar(array('type'=> 'ru'));
-
-
+        /** Статистика */
+        $statsOfCompany = $this->getDoctrine()->getRepository('CrmMainBundle:User')->statsOfCompany($this->getUser(), $year);
+        $statsByYear = $this->getDoctrine()->getRepository('CrmMainBundle:User')->statsByYear($this->getUser(), $year);
+        $statsByMonth = $this->getDoctrine()->getRepository('CrmMainBundle:User')->statsByMonth($this->getUser(), $year, $month);
+        $countDay = cal_days_in_month(CAL_GREGORIAN, $month, $year);
         return array(
-            'allUsers' => $users,
-            'usersOperator' => $usersOperator,
-            'skzi' => $skzi,
-            'estr' => $estr,
-            'ru' => $ru,
+            'statsOfCompany' => $statsOfCompany,
+            'statsByYear' => $statsByYear,
+            'statsByMonth' => $statsByMonth,
+            'newusers' => $newsUsers,
+            'countDay' => $countDay,
+            'year' =>$year,
+            'month' => $month
         );
     }
 }

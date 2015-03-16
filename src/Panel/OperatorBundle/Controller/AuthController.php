@@ -17,11 +17,17 @@ class AuthController extends Controller
 
     /**
      * @Security("has_role('ROLE_OPERATOR')")
-     * @Route("/no", name="panel_main_no")
+     * @Route("/", name="panel_main")
      */
     public function indexAction(){
 //        $newsUsers = $this->getDoctrine()->getRepository('CrmMainBundle:User')->findNewUser($this->getUser());
-        return $this->redirect($this->generateUrl('panel_user_list'));
+        if ($this->get('security.context')->isGranted('ROLE_ADMIN')){
+            return $this->redirect($this->generateUrl('panel_user_list'));
+        }elseif($this->get('security.context')->isGranted('ROLE_MODERATOR')){
+            return $this->redirect($this->generateUrl('panel_company_stats'));
+        }else{
+            return $this->redirect($this->generateUrl('panel_user_list'));
+        }
     }
 
     /**

@@ -16,7 +16,7 @@ class IndexController extends Controller
 {
     /**
      * @Security("has_role('ROLE_OPERATOR')")
-     * @Route("/", name="panel_main")
+     * @Route("/no", name="panel_main_no")
      * @Template("PanelOperatorBundle:Default:stats.html.twig")
      */
     public function indexAction()

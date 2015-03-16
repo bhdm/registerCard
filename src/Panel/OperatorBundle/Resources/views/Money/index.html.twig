@@ -1,4 +1,3 @@
-{#https://developers.google.com/chart/interactive/docs/points#fullhtml#}
 {% extends 'PanelOperatorBundle::layout.html.twig' %}
 
 
@@ -14,45 +13,176 @@
         <br/>
         <br/>
         <table class="table">
+            <caption>Cтатистика заявок по месяцам</caption>
             <tr>
-                <td></td>
-
-                {% for date, c in allUsers %}
-                    <td><b>{{ date }}</b></td>
+                <th>Тип заявки</th>
+                <th>Янв</th>
+                <th>Фев</th>
+                <th>Мар</th>
+                <th>Апр</th>
+                <th>Май</th>
+                <th>Июн</th>
+            </tr>
+            <tr>
+                <td>СКЗИ</td>
+                {% for j in range(1, 6) %}
+                    <td>
+                        {% if statsByYear['1'][year~'-'~j] is defined %}
+                            {{ statsByYear['1'][year~'-'~j] }}
+                        {% else %}
+                            0
+                        {% endif %}
+                    </td>
                 {% endfor %}
             </tr>
             <tr>
-                <td><b>IMKARD</b></td>
-                {% set sum = 0 %}
-                {% for date, c in allUsers %}
-                    {% set sum = sum + c %}
-                    <td style="text-align: center">{{ c }}</td>
+                <td>ЕСТР</td>
+                {% for j in range(1, 6) %}
+                    <td>
+                        {% if statsByYear['2'][year~'-'~j] is defined %}
+                            {{ statsByYear['2'][year~'-'~j] }}
+                        {% else %}
+                            0
+                        {% endif %}
+                    </td>
                 {% endfor %}
-                    <td><b>{{ sum }}</b></td>
             </tr>
             <tr>
-                <td><b>DOROGA</b></td>
-                {% set sum1 = 0 %}
-                {% for date, c in allUsers %}
-                    {% set sum1 = sum1 + (usersOperator[date] is defined ? usersOperator[date] : 0) %}
-                    <td style="text-align: center">{{ usersOperator[date] is defined ? usersOperator[date] : 0  }}</td>
+                <td>РФ</td>
+                {% for j in range(1, 6) %}
+                    <td>
+                        {% if statsByYear['3'][year~'-'~j] is defined %}
+                            {{ statsByYear['3'][year~'-'~j] }}
+                        {% else %}
+                            0
+                        {% endif %}
+                    </td>
                 {% endfor %}
-                <td><b>{{ sum1 }}</b></td>
             </tr>
             <tr>
                 <td><b>ИТОГО</b></td>
-                {% set sum2 = 0 %}
-                {% for date, c in allUsers %}
-                    {% set sum2 = sum2 + c + (usersOperator[date] is defined ? usersOperator[date] : 0) %}
-                    <td style="text-align: center"><b>{{ c + ( usersOperator[date] is defined ? usersOperator[date] : 0 )  }}</b></td>
+                {% for j in range(1, 6) %}
+                    <td>
+                        {%  set x1  = (statsByYear['1'][year~'-'~j] is defined ? statsByYear['1'][year~'-'~j] : 0) %}
+                        {%  set x2  = (statsByYear['2'][year~'-'~j] is defined ? statsByYear['2'][year~'-'~j] : 0) %}
+                        {%  set x3  = (statsByYear['3'][year~'-'~j] is defined ? statsByYear['3'][year~'-'~j] : 0) %}
+                        <b>{{ x1+x2+x3 }}</b>
+                    </td>
                 {% endfor %}
-                <td><b>{{ sum2 }}</b></td>
             </tr>
         </table>
-        <br/>
-        <br/>
-        <div id="stats2" style="width: 750px; height: 300px;"></div>
-
+        <div style="width: 100%; overflow-x: scroll">
+            <table class="table">
+                <caption>Cтатистика заявок по дням за текущий месяц</caption>
+                <tr>
+                    <th>Тип карт / дни</th>
+                    {% for j in range(1, countDay) %}
+                        <th>{{ j }}</th>
+                    {% endfor %}
+                </tr>
+                <tr>
+                    <td>СКЗИ</td>
+                    {% for j in range(1, countDay) %}
+                        <td>
+                            {% if statsByMonth['1'][year~'-'~month~'-'~j] is defined %}
+                                {{ statsByMonth['1'][year~'-'~month~'-'~j] }}
+                            {% else %}
+                                0
+                            {% endif %}
+                        </td>
+                    {% endfor %}
+                </tr>
+                <tr>
+                    <td>ЕСТР</td>
+                    {% for j in range(1, countDay) %}
+                        <td>
+                            {% if statsByMonth['2'][year~'-'~month~'-'~j] is defined %}
+                                {{ statsByMonth['2'][year~'-'~month~'-'~j] }}
+                            {% else %}
+                                0
+                            {% endif %}
+                        </td>
+                    {% endfor %}
+                </tr>
+                <tr>
+                    <td>РФ</td>
+                    {% for j in range(1, countDay) %}
+                        <td>
+                            {% if statsByMonth['3'][year~'-'~month~'-'~j] is defined %}
+                                {{ statsByMonth['3'][year~'-'~month~'-'~j] }}
+                            {% else %}
+                                0
+                            {% endif %}
+                        </td>
+                    {% endfor %}
+                </tr>
+                <tr>
+                    <td><b>ИТОГО</b></td>
+                    {% for j in range(1, 31) %}
+                        <td>
+                            {%  set x1  = (statsByMonth['1'][year~'-'~month~'-'~j] is defined ? statsByMonth['1'][year~'-'~month~'-'~j] : 0) %}
+                            {%  set x2  = (statsByMonth['2'][year~'-'~month~'-'~j] is defined ? statsByMonth['2'][year~'-'~month~'-'~j] : 0) %}
+                            {%  set x3  = (statsByMonth['3'][year~'-'~month~'-'~j] is defined ? statsByMonth['3'][year~'-'~month~'-'~j] : 0) %}
+                            <b>{{ x1+x2+x3 }}</b>
+                        </td>
+                    {% endfor %}
+                </tr>
+            </table>
+        </div>
+        <table class="table">
+            <caption>Cтатистика заявок по компаниям по месяцам</caption>
+            <tr>
+                <th>Название компании</th>
+                <th>Янв</th>
+                <th>Фев</th>
+                <th>Мар</th>
+                <th>Апр</th>
+                <th>Май</th>
+                <th>Июн</th>
+            </tr>
+            {% for comps in statsOfCompany  %}
+                <tr>
+                    <td>{{ comps.title }}</td>
+                    {% for j in range(1, 6) %}
+                        <td>
+                            {% if comps.count['1'][year~'-'~j] is defined %}
+                                {{ comps.count['1'][year~'-'~j] }}
+                            {% else %}
+                                0
+                            {% endif %}
+                            /
+                            {% if comps.count['2'][year~'-'~j] is defined %}
+                                {{ comps.count['2'][year~'-'~j] }}
+                            {% else %}
+                                0
+                            {% endif %}
+                            /
+                            {% if comps.count['3'][year~'-'~j] is defined %}
+                                {{ comps.count['3'][year~'-'~j] }}
+                            {% else %}
+                                0
+                            {% endif %}
+                        </td>
+                    {% endfor %}
+                </tr>
+            {% endfor %}
+            <tr>
+                <td><b>ИТОГО</b></td>
+                {% for j in range(1, 6) %}
+                    <td>
+                        {% set x1 = 0 %}
+                        {% set x2 = 0 %}
+                        {% set x3 = 0 %}
+                        {% for comps in statsOfCompany  %}
+                            {%  set x1  = x1 + (comps.count['1'][year~'-'~j] is defined ? comps.count['1'][year~'-'~j] : 0) %}
+                            {%  set x2  = x2 + (comps.count['2'][year~'-'~j] is defined ? comps.count['2'][year~'-'~j] : 0) %}
+                            {%  set x3  = x3 + (comps.count['3'][year~'-'~j] is defined ? comps.count['3'][year~'-'~j] : 0) %}
+                        {% endfor %}
+                        <b>{{ x1+x2+x3 }}</b>
+                    </td>
+                {% endfor %}
+            </tr>
+        </table>
     </div>
 {% endblock %}
 
@@ -62,18 +192,17 @@
     <script>
         google.load('visualization', '1.1', {packages: ['line']});
         google.setOnLoadCallback(drawChart);
-        google.setOnLoadCallback(drawChart2);
 
         function drawChart() {
             var data = google.visualization.arrayToDataTable([
-                ['Месяц',  'imkard', 'doroga', 'итого'],
-                {% for date, c in allUsers %}
-                    ['{{ date }}', {{ c }}, {{ usersOperator[date] is defined ? usersOperator[date] : 0  }}, {{ c + ( usersOperator[date] is defined ? usersOperator[date] : 0 )  }} ],
+                ['Месяц',  'СКЗИ', 'ЕСТР', 'РФ'],
+                {% for j in range(1, 12) %}
+                ['{{ j }}.{{ year }}', {{ (statsByYear['1'][year~'-'~j] is defined ? statsByYear['1'][year~'-'~j] : 0) }}, {{ (statsByYear['2'][year~'-'~j] is defined ? statsByYear['2'][year~'-'~j] : 0) }}, {{ (statsByYear['3'][year~'-'~j] is defined ? statsByYear['3'][year~'-'~j] : 0) }} ],
                 {% endfor %}
             ]);
 
             var options = {
-                title: 'Cnатистика заявок',
+                title: 'Cтатистика заявок за год',
                 curveType: 'function',
                 legend: { position: 'bottom' },
                 pointSize: 20,
@@ -81,27 +210,6 @@
             };
 
             var chart = new google.charts.Line(document.getElementById('stats'));
-
-            chart.draw(data, options);
-        }
-
-        function drawChart2() {
-            var data = google.visualization.arrayToDataTable([
-                ['Месяц',  'SKZI', 'ESTR', 'RU'],
-                {% for date, c in skzi %}
-                ['{{ date }}', {{ c }}, {{ estr[date] is defined ? estr[date] : 0  }}, {{ ru[date] is defined ? ru[date] : 0  }} ],
-                {% endfor %}
-            ]);
-
-            var options = {
-                title: 'Cnатистика заявок по типам',
-                curveType: 'function',
-                legend: { position: 'bottom' },
-                pointSize: 20,
-                pointShape: 'circle'
-            };
-
-            var chart = new google.charts.Line(document.getElementById('stats2'));
 
             chart.draw(data, options);
         }
