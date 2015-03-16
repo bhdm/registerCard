@@ -72,7 +72,6 @@
                     <th><input type="checkbox" id="allcheck"></th>
                     <th>№</th>
                     <th>Тип</th>
-                    <th>Дата</th>
                     {% if company is not defined or company == null %}
                         <th >Компания</th>
                     {% endif %}
@@ -95,8 +94,6 @@
                                     ДРУГОЕ
                                 {% endif %}
                             </td>
-                            {#<td>{{ user.statusStringTwig | raw }}</td>#}
-                            <td class="subtitles">{{ user.created | date('d.m.Y') }}</td>
                             {% if company is not defined or company == null %}
                                 <td>{{ user.company }}</td>
                             {% endif %}
@@ -107,7 +104,7 @@
                             </td>
                             <td class="setting">
                                 {% spaceless %}
-                                    <a href="{{ path('panel_user_production',{'userId' : user.id }) }}">
+                                    <a href="{{ path('panel_user_set_production',{'userId' : user.id }) }}">
                                         <button type="button" class="btn btn-default btn-success">
                                             <span class="glyphicon glyphicon-ok"></span>
                                         </button>

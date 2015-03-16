@@ -60,26 +60,7 @@
                     <tr>
                         <td>{{ user.id }}</td>
                         <td>
-                            {% if is_granted('ROLE_ADMIN') %}
-                            <div class="dropdown">
-                                <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true">
-                                    {{ user.statusStringTwig | raw }}
-                                    <span class="caret"></span>
-                                </button>
-                                <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1" id="changeStatus">
-                                    <li role="presentation"><a role="menuitem" tabindex="-1" href="#" data-userId="{{ user.id }}" data-status="0">Новая</a></li>
-                                    <li role="presentation"><a role="menuitem" tabindex="-1" href="#" data-userId="{{ user.id }}" data-status="1">Подтвержденная</a></li>
-                                    <li role="presentation"><a role="menuitem" tabindex="-1" href="#" data-userId="{{ user.id }}" data-status="2">Оплаченная</a></li>
-                                    <li role="presentation"><a role="menuitem" tabindex="-1" href="#" data-userId="{{ user.id }}" data-status="3">В&nbsp;производстве</a></li>
-                                    <li role="presentation"><a role="menuitem" tabindex="-1" href="#" data-userId="{{ user.id }}" data-status="6">Изготовлена</a></li>
-                                    <li role="presentation"><a role="menuitem" tabindex="-1" href="#" data-userId="{{ user.id }}" data-status="4">На&nbsp;почте</a></li>
-                                    <li role="presentation"><a role="menuitem" tabindex="-1" href="#" data-userId="{{ user.id }}" data-status="5">Получена</a></li>
-                                    <li role="presentation"><a role="menuitem" tabindex="-1" href="#" data-userId="{{ user.id }}" data-status="10">Отклонена</a></li>
-                                </ul>
-                            </div>
-                            {% else %}
-                                {{ user.statusStringTwig | raw }}
-                            {% endif %}
+                            {{ user.statusStringTwig | raw }}
                         </td>
                         <td>
                             {% if user.ru == false and user.estr == false %}
@@ -108,7 +89,7 @@
                                     {#</button>#}
                                 {#</a>#}
                                 {#&nbsp;&nbsp;#}
-                                {#<a href="{{ path('panel_user_production',{'userId' : user.id }) }}">#}
+                                {#<a href="{{ path('panel_user_set_production',{'userId' : user.id }) }}">#}
                                     {#<button type="button" class="btn btn-default btn-success">#}
                                         {#<span class="glyphicon glyphicon-ok"></span>#}
                                     {#</button>#}
@@ -155,7 +136,7 @@
     <script>
         $(document).ready(function(){
             $('#filter-send').click(function () {
-                var url = Routing.generate('panel_user_arhive', {'type': $('#filter-type').val(), 'dateStart' : $('#filter-dateStart').val(), 'dateEnd' : $('#filter-dateEnd').val(),'search' : $('#filter-search').val() });
+                var url = Routing.generate('panel_user_production', {'type': $('#filter-type').val(), 'dateStart' : $('#filter-dateStart').val(), 'dateEnd' : $('#filter-dateEnd').val(),'search' : $('#filter-search').val() });
                 window.location.href = url;
             });
 

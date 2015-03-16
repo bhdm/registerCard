@@ -18,13 +18,13 @@
                 <a href="{{ path('panel_user_choose') }}" class="active">Подтвержденные</a>
             {% endif %}
         </li>
-        <li class="{{ app.request.attributes.get('_route') == 'panel_user_arhive' ? 'active' : '' }}">
+        <li class="{{ app.request.attributes.get('_route') == 'panel_user_production' ? 'active' : '' }}">
             {% if app.request.attributes.get('_route_params').company is defined and app.request.attributes.get('_route_params').company != null %}
-                <a href="{{ path('panel_user_arhive', {'type' : 'null' , 'company' : app.request.attributes.get('_route_params').company }) }}" class="active">В производстве</a>
+                <a href="{{ path('panel_user_production', {'type' : 'null' , 'company' : app.request.attributes.get('_route_params').company }) }}" class="active">В производстве</a>
             {% elseif app.request.attributes.get('_route_params').operator is defined and app.request.attributes.get('_route_params').operator != null %}
-                <a href="{{ path('panel_user_arhive', {'type' : 'null' , 'company' : 'null', 'operator' : app.request.attributes.get('_route_params').operator }) }}" class="active">В производстве</a>
+                <a href="{{ path('panel_user_production', {'type' : 'null' , 'company' : 'null', 'operator' : app.request.attributes.get('_route_params').operator }) }}" class="active">В производстве</a>
             {% else %}
-                <a href="{{ path('panel_user_arhive') }}" class="active">В производстве</a>
+                <a href="{{ path('panel_user_production') }}" class="active">В производстве</a>
             {% endif %}
         </li>
         <li class="">

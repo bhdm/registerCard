@@ -146,10 +146,10 @@ class UserController extends Controller
 
     /**
      * @Security("has_role('ROLE_OPERATOR')")
-     * @Route("/arhive/{type}/{company}/{operator}/{status}", defaults={"type" = null , "company" = null , "operator" = null , "status" = null }, name="panel_user_arhive", options={"expose" = true})
+     * @Route("/production/{type}/{company}/{operator}/{status}", defaults={"type" = null , "company" = null , "operator" = null , "status" = null }, name="panel_user_production", options={"expose" = true})
      * @Template()
      */
-    public function arhiveAction(Request $request, $type = null, $company = null, $operator = null, $status = null)
+    public function productionAction(Request $request, $type = null, $company = null, $operator = null, $status = null)
     {
         $searchtxt = $request->query->get('search');
         $dateStart = ( $request->query->get('dateStart') == '' ? null : $request->query->get('dateStart'));
@@ -164,6 +164,45 @@ class UserController extends Controller
         if ($type == null || $type == 'null'){
             $type = 3;
         }
+        $users = $this->getDoctrine()->getRepository('CrmMainBundle:User')->operatorFilter($type, $status, $production,$choose, $company, $userId, $searchtxt, $dateStart, $dateEnd);
+        $paginator  = $this->get('knp_paginator');
+        $pagination = $paginator->paginate(
+            $users,
+            $this->get('request')->query->get('page', 1),
+            50
+        );
+        $companyId = $company;
+        if ($companyId == null){
+            $company = null;
+        }else{
+            $company = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->find($companyId);
+        }
+
+        return array('count' => count($users), 'pagination' => $pagination, 'companyId' => $companyId, 'company' => $company);
+    }
+
+
+    /**
+     * @Security("has_role('ROLE_OPERATOR')")
+     * @Route("/arhive/{type}/{company}/{operator}", defaults={"type" = null , "company" = null , "operator" = null }, name="panel_user_arhive", options={"expose" = true})
+     * @Template()
+     */
+    public function arhiveAction(Request $request, $type = null, $company = null, $operator = null)
+    {
+        $searchtxt = $request->query->get('search');
+        $dateStart = ( $request->query->get('dateStart') == '' ? null : $request->query->get('dateStart'));
+        $dateEnd = ( $request->query->get('dateEnd') == '' ? null : $request->query->get('dateEnd'));
+        if ($operator == null){
+            $userId = $this->getUser()->getId();
+        }else{
+            $userId = $operator;
+        }
+        $production = 1;
+        $choose = 1;
+        if ($type == null || $type == 'null'){
+            $type = 3;
+        }
+        $status = 5;
         $users = $this->getDoctrine()->getRepository('CrmMainBundle:User')->operatorFilter($type, $status, $production,$choose, $company, $userId, $searchtxt, $dateStart, $dateEnd);
         $paginator  = $this->get('knp_paginator');
         $pagination = $paginator->paginate(
@@ -510,10 +549,10 @@ class UserController extends Controller
 
     /**
      * @Security("has_role('ROLE_OPERATOR')")
-     * @Route("/production/{userId}/{type}", name="panel_user_production", defaults={"type"="true"})
+     * @Route("/production/set/{userId}/{type}", name="panel_user_set_production", defaults={"type"="true"})
      * @Template()
      */
-    public function productionAction(Request $request, $userId, $type = 'true'){
+    public function setProductionAction(Request $request, $userId, $type = 'true'){
 
         $session = new Session();
         $user = $this->getDoctrine()->getRepository('CrmMainBundle:User')->findOneById($userId);
@@ -1083,5 +1122,26 @@ class UserController extends Controller
 
         return array('count' => count($users));
     }
+
+
+    /**
+     * Показывает циферку в меню
+     * @Security("has_role('ROLE_OPERATOR')")
+     * @Route("/user/set/comment", name="panel_user_set_comment", options={"expose"=true})
+     * @Template()
+     */
+    public function setCommentAction(Request $request){
+        if ($request->getMethod() == 'POST'){
+            $request = $request->request;
+            $user = $this->getDoctrine()->getRepository('CrmMainBundle:User')->find($request->get('id'));
+            if ($user){
+                $user->setComment($request->get('comment'));
+                $this->getDoctrine()->getManager()->flush($user);
+                return new Response('ok');
+            }
+            return new Response('no');
+        }
+    }
+
 }
 

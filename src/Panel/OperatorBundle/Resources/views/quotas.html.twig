@@ -1,5 +1,5 @@
 {%
-    if  ( app.request.attributes.get('_route') == 'panel_user_choose' or app.request.attributes.get('_route') == 'panel_user_arhive' ) and
+    if  ( app.request.attributes.get('_route') == 'panel_user_choose' or app.request.attributes.get('_route') == 'panel_user_production' ) and
         ( app.request.attributes.get('_route_params').company is not defined or app.request.attributes.get('_route_params').company == null) and
         ( app.request.attributes.get('_route_params').operator is not defined or app.request.attributes.get('_route_params').operator == null)
 %}

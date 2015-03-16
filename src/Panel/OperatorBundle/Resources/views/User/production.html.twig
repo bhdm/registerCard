@@ -1,0 +1,217 @@
+{% extends 'PanelOperatorBundle::layout.html.twig' %}
+
+
+{% block breadcrumb %}
+    <ul class="breadcrumb well">
+        <li>Производство</li>
+        {#<li><a href="{{ path('user_add') }}"><span class="btn btn-primary">Добавить</span></a></li>#}
+    </ul>
+{% endblock %}
+{% block content %}
+    {% include 'PanelOperatorBundle::top.html.twig' %}
+    <div class="well">
+        <table>
+            <tr>
+                <td colspan="4">
+                    <h4>ФИЛЬТР</h4>
+                </td>
+            </tr>
+            <tr>
+                <td style="">
+                    <select style="width: 250px" name="type" id="filter-type">
+                        <option value="null">ВСЕ</option>
+                        <option value="0">СКЗИ</option>
+                        <option value="1">ЕСТР</option>
+                        <option value="2">РФ</option>
+                    </select>
+                </td>
+                <td>
+                   <input type="date" class="form-control" style="width: 150px;margin: 0 10px" id="filter-dateStart" placeholder="начало">
+                </td>
+                <td>
+                   <input type="date" class="form-control" style="width: 150px;margin: 0 0px" id="filter-dateEnd" placeholder="Конец">
+                </td>
+                <td style="">
+                    <input type="text" placeholder="Текст поиска" class="form-control" style="width: 250px; margin: 0 10px" id="filter-search">
+                </td>
+                <td style="">
+                    <button class="form-control" id="filter-send">Поиск</button>
+                </td>
+            </tr>
+        </table>
+        <br/>
+        <br/>
+        <h4>ТАБЛИЦА ЗАЯВОК ( {{ count }} )</h4>
+        <table class="table" data-toggle="table"
+               data-sort-name="login"
+               data-sort-order="asc">
+            <thead>
+            <tr>
+                <th>№</th>
+                <th>Тип</th>
+                <th>Статус</th>
+                {% if company is not defined or company == null %}
+                    <th >Компания</th>
+                {% endif %}
+                <th >ФИО / Email</th>
+                <th>Комментарий</th>
+                {#<th class="setting">Инструменты</th>#}
+            </tr>
+            </thead>
+                {% for user in pagination %}
+                    <tr>
+                        <td>{{ user.id }}</td>
+                        <td>
+                            {% if user.ru == false and user.estr == false %}
+                                СКЗИ
+                            {% elseif user.ru == false and user.estr == true %}
+                                ЕСТР
+                            {% elseif user.ru == true and user.estr == false %}
+                                РФ
+                            {% else %}
+                                ДРУГОЕ
+                            {% endif %}
+                        </td>
+                        <td>
+                            {% if is_granted('ROLE_ADMIN') %}
+                            <div class="dropdown">
+                                <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true">
+                                    {{ user.statusStringTwig | raw }}
+                                    <span class="caret"></span>
+                                </button>
+                                <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1" id="changeStatus">
+                                    <li role="presentation"><a role="menuitem" tabindex="-1" href="#" data-userId="{{ user.id }}" data-status="0">Новая</a></li>
+                                    <li role="presentation"><a role="menuitem" tabindex="-1" href="#" data-userId="{{ user.id }}" data-status="1">Подтвержденная</a></li>
+                                    <li role="presentation"><a role="menuitem" tabindex="-1" href="#" data-userId="{{ user.id }}" data-status="2">Оплаченная</a></li>
+                                    <li role="presentation"><a role="menuitem" tabindex="-1" href="#" data-userId="{{ user.id }}" data-status="3">В&nbsp;производстве</a></li>
+                                    <li role="presentation"><a role="menuitem" tabindex="-1" href="#" data-userId="{{ user.id }}" data-status="6">Изготовлена</a></li>
+                                    <li role="presentation"><a role="menuitem" tabindex="-1" href="#" data-userId="{{ user.id }}" data-status="4">На&nbsp;почте</a></li>
+                                    <li role="presentation"><a role="menuitem" tabindex="-1" href="#" data-userId="{{ user.id }}" data-status="5">Получена</a></li>
+                                    <li role="presentation"><a role="menuitem" tabindex="-1" href="#" data-userId="{{ user.id }}" data-status="10">Отклонена</a></li>
+                                </ul>
+                            </div>
+                            {% else %}
+                                {{ user.statusStringTwig | raw }}
+                            {% endif %}
+                        </td>
+                        {% if company is not defined or company == null %}
+                            <td>{{ user.company }}</td>
+                        {% endif %}
+                        <td>
+                            {{ user }}
+                            <br />
+                            <span class="subtitles">{{ user.email }}</span>
+                        </td>
+                        <td><div class="comment-box disabled-click" data-id="{{ user.id }}">{{ user.comment }}</div></td>
+                    </tr>
+                {% endfor%}
+        </table>
+        <div class="navigation">
+            {{ knp_pagination_render(pagination) }}
+        </div>
+    </div>
+    <div class="modal fade" id="alert">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    <h4 class="modal-title">Ошибка изменеия статуса</h4>
+                </div>
+                <div id="errorText" class="modal-body"></div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <style>
+        #filter-type{
+            width: 100px;
+        }
+        .comment-box{
+            width: 200px;
+            min-height: 50px;
+            cursor: pointer;
+        }
+    </style>
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+        $(document).ready(function(){
+
+            //Обработка комментариев
+            $('body').on('click', '.disabled-click' , function(){
+                var form =  $('<form method="post">' +
+                '<textarea class="form-control" style="margin-bottom: 5px">'+$(this).text()+'</textarea>' +
+                '<input type="hidden" class="old" value="'+$(this).text()+'" />' +
+                '<button type="button" class="btn btn-default btn-success ok-textarea"> <span class="glyphicon glyphicon-ok"></span></button>' +
+                '&nbsp;&nbsp;'+
+                '<button type="button" class="btn btn-default btn-danger cancel-textarea"> <span class="glyphicon glyphicon-remove"></span></button>' +
+                '</form>');
+                $(this).html(form);
+                $(this).removeClass('disabled-click');
+            });
+
+            $('.comment-box').on('click', '.cancel-textarea', function(){
+                var txt = $(this).parent().children('.old').val();
+                var div = $(this).parent().parent();
+                div.text(txt);
+                $(this).addClass('disabled-click');
+                return false;
+            });
+
+            $('.comment-box').on('click', '.ok-textarea', function(){
+                var txt = $(this).parent().children('.old').val();
+                var txt2 = $(this).parent().children('textarea').val();
+                var id = $(this).parent().parent().attr('data-id');
+                var div = $(this).parent().parent();
+                $.ajax({
+                    type: "POST",
+                    url: "{{ path('panel_user_set_comment') }}",
+                    data: "id="+id+'&comment='+txt2,
+                    success: function(msg){
+                        if (msg == 'ok'){
+                            div.text(txt2);
+                        }else{
+                            div.text(txt);
+                            alert('Ошибка сохранения:'+msg);
+                        }
+                    },
+                    error: function(msg){
+                        div.text(txt);
+                        alert('Ошибка сохранения:'+msg);
+                    }
+
+                });
+                $(this).addClass('disabled-click');
+                return false;
+            });
+
+            $('#filter-send').click(function () {
+                var url = Routing.generate('panel_user_production', {'type': $('#filter-type').val(), 'dateStart' : $('#filter-dateStart').val(), 'dateEnd' : $('#filter-dateEnd').val(),'search' : $('#filter-search').val() });
+                window.location.href = url;
+            });
+
+            $('#changeStatus li a').click(function(){
+                {#{{ path('panel_user_change_status',{userId: user.id }) }}#}
+                var status = $(this).attr('data-status');
+                var userId = $(this).attr('data-userId');
+                $.ajax({
+                    type: "POST",
+                    url: Routing.generate('panel_user_change_status', {'userId': userId, 'status': status }),
+                    success: function(msg){
+                        if (msg == 'Ok'){
+                            window.location.reload();
+                        }else{
+                            $('#errorText').html(msg);
+                            $('#alert').modal('show');
+                        }
+                    }
+                });
+                return false;
+            });
+        });
+    </script>
+{% endblock %}
