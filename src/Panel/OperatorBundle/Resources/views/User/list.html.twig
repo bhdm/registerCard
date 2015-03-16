@@ -61,7 +61,13 @@
                 <th>Тип</th>
                 <th>Дата</th>
                 {% if company is not defined or company == null %}
-                    <th >Компания</th>
+                    <th >
+                        <select class="chosen" data-placeholder="Компания">
+                            {% for c in companies %}
+                                <option value="{{ c.id }}">{{ c }}</option>
+                            {% endfor %}
+                        </select>
+                    </th>
                 {% endif %}
                 <th >ФИО / Email</th>
                 <th class="setting">Документы</th>
@@ -170,6 +176,13 @@
     {{ parent() }}
     <script>
         $(document).ready(function(){
+
+            $(".chosen").chosen({no_results_text: "Компаний по вашему запросу не найдено"});
+
+            $('.chosen').change(function(){
+                window.location.href = Routing.generate('panel_user_list', {'type': 'null', 'company': $(this).val() })
+            });
+
             $('#filter-send').click(function () {
                 var url = Routing.generate('panel_user_list', { 'company': '{{ companyId }}' ,'type': $('#filter-type').val(), 'dateStart' : $('#filter-dateStart').val(), 'dateEnd' : $('#filter-dateEnd').val(),'search' : $('#filter-search').val() });
                 window.location.href = url;
