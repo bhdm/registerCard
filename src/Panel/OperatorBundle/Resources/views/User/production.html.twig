@@ -48,7 +48,7 @@
                     {#{% set queryParams = app.request.query.all %}#}
                     {#{% set queryParams = queryParams|merge({queryKey: newQueryValue}) %}#}
                     {#{{ dump(queryParams) }}#}
-                   <input type="date" class="form-control" style="width: 150px;margin: 0 10px" id="filter-dateStart" placeholder="начало" value="{{ f_dateStart }}">
+                   <input type="date" class="form-control" style="width: 150px;margin: 0 10px" id="filter-dateStart" placeholder="начало" value="">
                 </td>
                 <td>
                    <input type="date" class="form-control" style="width: 150px;margin: 0 0px" id="filter-dateEnd" placeholder="Конец">
@@ -180,7 +180,7 @@
                 var txt = $(this).parent().children('.old').val();
                 var div = $(this).parent().parent();
                 div.text(txt);
-                $(this).addClass('disabled-click');
+                div.addClass('disabled-click');
                 return false;
             });
 
@@ -207,7 +207,7 @@
                     }
 
                 });
-                $(this).addClass('disabled-click');
+                div.addClass('disabled-click');
                 return false;
             });
 
