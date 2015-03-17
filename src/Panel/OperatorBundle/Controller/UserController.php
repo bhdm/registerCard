@@ -549,7 +549,7 @@ class UserController extends Controller
 
     /**
      * @Security("has_role('ROLE_OPERATOR')")
-     * @Route("/production/set/{userId}/{type}", name="panel_user_set_production", defaults={"type"="true"})
+     * @Route("/production-set/{userId}/{type}", name="panel_user_set_production", defaults={"type"="true"})
      * @Template()
      */
     public function setProductionAction(Request $request, $userId, $type = 'true'){
