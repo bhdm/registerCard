@@ -103,52 +103,51 @@ class CompanyController extends Controller
         $em = $this->getDoctrine()->getManager();
         $company = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->findOneById($id);
 
-        if ($request->getMethod() == 'POST'){
+        if ($request->getMethod() == 'POST') {
             $data = $request->request;
 
-            if ($company){
+            if ($company) {
 
                 $url = $data->get('url');
-                $c = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->findOneByUrl($url);
-                if ($c != null && $c != $company){
+                $c = $em->getRepository('CrmMainBundle:Company')->findByUrl($url);
+                if ($c == null || $c[0]->getId() == $company->getId()) {
+
+
+                    $company->setTitle($data->get('companyName'));
+                    $company->setZipcode($data->get('companyZipcode'));
+                    $region = $this->getDoctrine()->getRepository('CrmMainBundle:Region')->findOneById($data->get('companyRegion'));
+                    $company->setRegion($region);
+                    $company->setCity($data->get('companyCity'));
+                    $company->setTypeStreet($data->get('companyTypeStreet'));
+                    $company->setStreet($data->get('companyStreet'));
+                    $company->setHome($data->get('companyHouse'));
+                    $company->setCorp($data->get('companyCorp'));
+                    $company->setStructure($data->get('companyStructure'));
+                    $company->setTypeRoom($data->get('companyTypeRoom'));
+                    $company->setRoom($data->get('companyRoom'));
+                    $company->setUrl($data->get('url'));
+                    $company->setDelivery(($data->get('delivery') == 1 ? true : false));
+
+
+                    $company->setForma($data->get('forma'));
+                    $company->setInn($data->get('inn'));
+                    $company->setKpp($data->get('kpp'));
+                    $company->setOgrn($data->get('ogrn'));
+                    $company->setRchet($data->get('rchet'));
+                    $company->setBank($data->get('bank'));
+                    $company->setKorchet($data->get('korchet'));
+                    $company->setBik($data->get('bik'));
+
+                    $company->setPriceEstr($data->get('priceEstr'));
+                    $company->setPriceSkzi($data->get('priceSkzi'));
+                    $company->setPriceRu($data->get('priceRu'));
+
+                    $em->flush($company);
+                    $em->refresh($company);
+                }else{
                     $session = new Session();
                     $session->getFlashBag()->add('error', 'Такой URL уже существует. Выберите пожалуйста другой');
-                    $referer = $request->headers->get('referer');
-                    return $this->redirect($referer);
                 }
-
-                $company->setTitle($data->get('companyName'));
-                $company->setZipcode($data->get('companyZipcode'));
-                $region = $this->getDoctrine()->getRepository('CrmMainBundle:Region')->findOneById($data->get('companyRegion'));
-                $company->setRegion($region);
-                $company->setCity($data->get('companyCity'));
-                $company->setTypeStreet($data->get('companyTypeStreet'));
-                $company->setStreet($data->get('companyStreet'));
-                $company->setHome($data->get('companyHouse'));
-                $company->setCorp($data->get('companyCorp'));
-                $company->setStructure($data->get('companyStructure'));
-                $company->setTypeRoom($data->get('companyTypeRoom'));
-                $company->setRoom($data->get('companyRoom'));
-                $company->setUrl($data->get('url'));
-                $company->setDelivery(($data->get('delivery') == 1 ? true : false));
-
-
-
-                $company->setForma($data->get('forma'));
-                $company->setInn($data->get('inn'));
-                $company->setKpp($data->get('kpp'));
-                $company->setOgrn($data->get('ogrn'));
-                $company->setRchet($data->get('rchet'));
-                $company->setBank($data->get('bank'));
-                $company->setKorchet($data->get('korchet'));
-                $company->setBik($data->get('bik'));
-
-                $company->setPriceEstr($data->get('priceEstr'));
-                $company->setPriceSkzi($data->get('priceSkzi'));
-                $company->setPriceRu($data->get('priceRu'));
-
-                $em->flush($company);
-                $em->refresh($company);
             }
         }
         if ($company->getUrl()){
