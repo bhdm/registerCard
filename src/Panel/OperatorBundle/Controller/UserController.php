@@ -52,7 +52,7 @@ class UserController extends Controller
             $company = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->find($companyId);
         }
 
-        $companies = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->findByEnabled(true);
+        $companies = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->findBy(array('operator' => $this->getUser(), 'enabled' => true));
         return array('count' => count($users), 'pagination' => $pagination, 'companyId' => $companyId, 'company' => $company, 'companies' => $companies );
     }
 
