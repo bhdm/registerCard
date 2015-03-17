@@ -9,6 +9,9 @@
 {% endblock %}
 
 {% block content %}
+    {% for flashMessage in app.session.flashbag.get('error') %}
+        <div class="alert alert-danger" role="alert">{{ flashMessage }}</div>
+    {% endfor %}
     <form method="POST">
         <table>
             <tr>

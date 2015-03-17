@@ -48,11 +48,6 @@
                     {#{% set queryParams = app.request.query.all %}#}
                     {#{% set queryParams = queryParams|merge({queryKey: newQueryValue}) %}#}
                     {#{{ dump(queryParams) }}#}
-                    {% if app.request.attributes.get('_route_params').dateStart is defined %}
-                        {% set f_dateStart = app.request.attributes.get('_route_params').dateStart %}
-                    {% else %}
-                        {% set f_dateStart = '' %}
-                    {% endif %}
                    <input type="date" class="form-control" style="width: 150px;margin: 0 10px" id="filter-dateStart" placeholder="начало" value="{{ f_dateStart }}">
                 </td>
                 <td>

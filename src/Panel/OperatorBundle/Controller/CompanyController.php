@@ -11,6 +11,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Component\Security\Core\SecurityContext;
+use Symfony\Component\HttpFoundation\Session\Session;
 
 /**
  * @Security("has_role('ROLE_OPERATOR')")
@@ -39,6 +40,16 @@ class CompanyController extends Controller
 
         if ($request->getMethod() == 'POST'){
             $data = $request->request;
+
+            $url = $data->get('url');
+            $c = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->findOneByUrl($url);
+            if ($c != null){
+                $session = new Session();
+                $session->getFlashBag()->add('error', 'Такой URL уже существует. Выберите пожалуйста другой');
+                $referer = $request->headers->get('referer');
+                return $this->redirect($referer);
+            }
+
             $company->setTitle($data->get('companyName'));
             $company->setZipcode($data->get('companyZipcode'));
             $region = $this->getDoctrine()->getRepository('CrmMainBundle:Region')->findOneById($data->get('companyRegion'));
@@ -94,7 +105,18 @@ class CompanyController extends Controller
 
         if ($request->getMethod() == 'POST'){
             $data = $request->request;
+
             if ($company){
+
+                $url = $data->get('url');
+                $c = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->findOneByUrl($url);
+                if ($c != null && $c != $company){
+                    $session = new Session();
+                    $session->getFlashBag()->add('error', 'Такой URL уже существует. Выберите пожалуйста другой');
+                    $referer = $request->headers->get('referer');
+                    return $this->redirect($referer);
+                }
+
                 $company->setTitle($data->get('companyName'));
                 $company->setZipcode($data->get('companyZipcode'));
                 $region = $this->getDoctrine()->getRepository('CrmMainBundle:Region')->findOneById($data->get('companyRegion'));
