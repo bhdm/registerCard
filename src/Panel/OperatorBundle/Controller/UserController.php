@@ -27,7 +27,7 @@ class UserController extends Controller
         $searchtxt = $request->query->get('search');
         $dateStart = ( $request->query->get('dateStart') == '' ? null : $request->query->get('dateStart'));
         $dateEnd = ( $request->query->get('dateEnd') == '' ? null : $request->query->get('dateEnd'));
-        if ($operator == null){
+        if ($operator == null || $operator == 'null'){
             $userId = $this->getUser()->getId();
         }else{
             $userId = $operator;
@@ -116,7 +116,7 @@ class UserController extends Controller
         $searchtxt = $request->query->get('search');
         $dateStart = ( $request->query->get('dateStart') == '' ? null : $request->query->get('dateStart'));
         $dateEnd = ( $request->query->get('dateEnd') == '' ? null : $request->query->get('dateEnd'));
-        if ($operator == null){
+        if ($operator == null || $operator == 'null'){
             $userId = $this->getUser()->getId();
         }else{
             $userId = $operator;
@@ -154,7 +154,7 @@ class UserController extends Controller
         $searchtxt = $request->query->get('search');
         $dateStart = ( $request->query->get('dateStart') == '' ? null : $request->query->get('dateStart'));
         $dateEnd = ( $request->query->get('dateEnd') == '' ? null : $request->query->get('dateEnd'));
-        if ($operator == null){
+        if ($operator == null || $operator == 'null'){
             $userId = $this->getUser()->getId();
         }else{
             $userId = $operator;
@@ -192,7 +192,7 @@ class UserController extends Controller
         $searchtxt = $request->query->get('search');
         $dateStart = ( $request->query->get('dateStart') == '' ? null : $request->query->get('dateStart'));
         $dateEnd = ( $request->query->get('dateEnd') == '' ? null : $request->query->get('dateEnd'));
-        if ($operator == null){
+        if ($operator == null || $operator == 'null'){
             $userId = $this->getUser()->getId();
         }else{
             $userId = $operator;

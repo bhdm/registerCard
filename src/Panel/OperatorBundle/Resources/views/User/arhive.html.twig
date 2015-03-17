@@ -140,7 +140,7 @@
     <script>
         $(document).ready(function(){
             $('#filter-send').click(function () {
-                var url = Routing.generate('panel_user_production', {'type': $('#filter-type').val(), 'dateStart' : $('#filter-dateStart').val(), 'dateEnd' : $('#filter-dateEnd').val(),'search' : $('#filter-search').val() });
+                var url = Routing.generate('panel_user_arhive', {'type': $('#filter-type').val(), 'dateStart' : $('#filter-dateStart').val(), 'dateEnd' : $('#filter-dateEnd').val(),'search' : $('#filter-search').val() });
                 window.location.href = url;
             });
 

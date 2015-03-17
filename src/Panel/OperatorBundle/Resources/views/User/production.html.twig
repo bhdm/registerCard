@@ -1,6 +1,5 @@
 {% extends 'PanelOperatorBundle::layout.html.twig' %}
 
-
 {% block breadcrumb %}
     <ul class="breadcrumb well">
         <li>Производство</li>
@@ -18,15 +17,43 @@
             </tr>
             <tr>
                 <td style="">
+                    {% if app.request.attributes.get('_route_params').type is defined %}
+                        {% set f_type = app.request.attributes.get('_route_params').type %}
+                    {% else %}
+                        {% set f_type = 'null' %}
+                    {% endif %}
                     <select style="width: 250px" name="type" id="filter-type">
-                        <option value="null">ВСЕ</option>
-                        <option value="0">СКЗИ</option>
-                        <option value="1">ЕСТР</option>
-                        <option value="2">РФ</option>
+                        <option value="null" {{ f_type == 'null' ? 'selected="selected"' : '' }}>Все типы</option>
+                        <option value="0" {{ f_type == '0' ? 'selected="selected"' : '' }}>СКЗИ</option>
+                        <option value="1" {{ f_type == '1' ? 'selected="selected"' : '' }}>ЕСТР</option>
+                        <option value="2" {{ f_type == '2' ? 'selected="selected"' : '' }}>РФ</option>
                     </select>
                 </td>
                 <td>
-                   <input type="date" class="form-control" style="width: 150px;margin: 0 10px" id="filter-dateStart" placeholder="начало">
+                    &nbsp;&nbsp;
+                    {% if app.request.attributes.get('_route_params').status is defined %}
+                        {% set f_status = app.request.attributes.get('_route_params').status %}
+                    {% else %}
+                        {% set f_status = 'null' %}
+                    {% endif %}
+                    <select style="width: 250px" name="status" id="filter-status">
+                        <option value="null" {{ f_status == 'null' ? 'selected="selected"' : '' }}>Все статусы</option>
+                        <option value="2" {{ f_status == '2' ? 'selected="selected"' : '' }}>Оплаченные</option>
+                        <option value="3" {{ f_status == '3' ? 'selected="selected"' : '' }}>В производстве</option>
+                        <option value="6" {{ f_status == '6' ? 'selected="selected"' : '' }}>Изготовлено</option>
+                        <option value="4" {{ f_status == '4' ? 'selected="selected"' : '' }}>На почте</option>
+                    </select>
+                </td>
+                <td>
+                    {#{% set queryParams = app.request.query.all %}#}
+                    {#{% set queryParams = queryParams|merge({queryKey: newQueryValue}) %}#}
+                    {#{{ dump(queryParams) }}#}
+                    {% if app.request.attributes.get('_route_params').dateStart is defined %}
+                        {% set f_dateStart = app.request.attributes.get('_route_params').dateStart %}
+                    {% else %}
+                        {% set f_dateStart = '' %}
+                    {% endif %}
+                   <input type="date" class="form-control" style="width: 150px;margin: 0 10px" id="filter-dateStart" placeholder="начало" value="{{ f_dateStart }}">
                 </td>
                 <td>
                    <input type="date" class="form-control" style="width: 150px;margin: 0 0px" id="filter-dateEnd" placeholder="Конец">
@@ -190,7 +217,15 @@
             });
 
             $('#filter-send').click(function () {
-                var url = Routing.generate('panel_user_production', {'type': $('#filter-type').val(), 'dateStart' : $('#filter-dateStart').val(), 'dateEnd' : $('#filter-dateEnd').val(),'search' : $('#filter-search').val() });
+                var url = Routing.generate('panel_user_production', {
+                    'type': $('#filter-type').val(),
+                    'company': '{{ companyId == null or companyId == '' ? 'null' : companyId }}',
+                    'operator': 'null',
+                    'status' : $('#filter-status').val() ,
+                    'dateStart' : $('#filter-dateStart').val(),
+                    'dateEnd' : $('#filter-dateEnd').val(),
+                    'search' : $('#filter-search').val()
+                });
                 window.location.href = url;
             });
 
