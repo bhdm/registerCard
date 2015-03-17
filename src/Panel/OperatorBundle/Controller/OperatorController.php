@@ -85,7 +85,7 @@ class OperatorController extends Controller
             $em->flush($operator);
             return $this->redirect($this->generateUrl('panel_operator_list'));
         }
-        $moderators = $this->getDoctrine()->getRepository('CrmMainBundle:Operator')->findAll();
+        $moderators = $this->getDoctrine()->getRepository('CrmMainBundle:Operator')->findByRoles('ROLE_MODERATOR');
         return array('operator' => $operator, 'moderators' => $moderators);
     }
 
