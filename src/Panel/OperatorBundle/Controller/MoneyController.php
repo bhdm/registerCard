@@ -13,7 +13,7 @@ use Symfony\Component\Security\Core\SecurityContext;
 use Symfony\Component\Validator\Constraints\DateTime;
 
 /**
- * @Security("has_role('ROLE_ADMIN')")
+ * @Security("has_role('ROLE_OPERATOR')")
  * @Route("/panel/admin")
  */
 class MoneyController extends Controller
