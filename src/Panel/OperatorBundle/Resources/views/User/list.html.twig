@@ -22,24 +22,39 @@
             </tr>
             <tr>
                 <td style="">
+                    {% if app.request.attributes.get('_route_params').type is defined %}
+                        {% set f_type = app.request.attributes.get('_route_params').type %}
+                    {% else %}
+                        {% set f_type = 'null' %}
+                    {% endif %}
                     <select style="width: 250px" name="type" id="filter-type">
-                        <option value="null">ВСЕ</option>
-                        <option value="0">СКЗИ</option>
-                        <option value="1">ЕСТР</option>
-                        <option value="2">РФ</option>
+                        <option value="null" {{ f_type == 'null' ? 'selected="selected"' : '' }}>Все типы</option>
+                        <option value="0" {{ f_type == '0' ? 'selected="selected"' : '' }}>СКЗИ</option>
+                        <option value="1" {{ f_type == '1' ? 'selected="selected"' : '' }}>ЕСТР</option>
+                        <option value="2" {{ f_type == '2' ? 'selected="selected"' : '' }}>РФ</option>
                     </select>
                 </td>
                 <td>
-                   <input type="date" class="form-control" style="width: 150px;margin: 0 10px" id="filter-dateStart" placeholder="начало">
+                   <input type="date" class="form-control" style="width: 150px;margin: 0 10px" id="filter-dateStart" placeholder="начало"
+                          value="{{ app.request.query.all.dateStart is defined ? app.request.query.all.dateStart : '' }}">
                 </td>
                 <td>
-                   <input type="date" class="form-control" style="width: 150px;margin: 0 0px" id="filter-dateEnd" placeholder="Конец">
+                   <input type="date" class="form-control" style="width: 150px;margin: 0 0px" id="filter-dateEnd" placeholder="Конец"
+                          value="{{ app.request.query.all.dateEnd is defined ? app.request.query.all.dateEnd : '' }}">
                 </td>
                 <td style="">
-                    <input type="text" placeholder="Текст поиска" class="form-control" style="width: 250px; margin: 0 10px" id="filter-search">
+                    <input type="text" placeholder="Текст поиска" class="form-control" style="width: 250px; margin: 0 10px" id="filter-search"
+                           value="{{ app.request.query.all.search is defined ? app.request.query.all.search : '' }}">
                 </td>
                 <td style="">
                     <button class="form-control" id="filter-send">Поиск</button>
+                </td>
+                <td style="">
+                    <a href="?">
+                        <button type="button" class="btn btn-default btn-sm btn-bg" title="Снять фильтр" style="margin-left: 10px">
+                            <span class="glyphicon glyphicon-remove"></span>
+                        </button>
+                    </a>
                 </td>
             </tr>
         </table>
