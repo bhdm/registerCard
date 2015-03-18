@@ -183,6 +183,62 @@
                 {% endfor %}
             </tr>
         </table>
+        <table class="table">
+            <caption>Cтатистика заявок по операторам и модераторамs по месяцам</caption>
+            <tr>
+                <th>Название опер / модератора</th>
+                <th>Янв</th>
+                <th>Фев</th>
+                <th>Мар</th>
+                <th>Апр</th>
+                <th>Май</th>
+                <th>Июн</th>
+            </tr>
+            {% for comps in statsOfOperator  %}
+                <tr>
+                    <td>{{ comps.title }}</td>
+                    {% for j in range(1, 6) %}
+                        <td>
+                            {% if comps.count['1'][year~'-'~j] is defined %}
+                                {{ comps.count['1'][year~'-'~j] }}
+                            {% else %}
+                                0
+                            {% endif %}
+                            /
+                            {% if comps.count['2'][year~'-'~j] is defined %}
+                                {{ comps.count['2'][year~'-'~j] }}
+                            {% else %}
+                                0
+                            {% endif %}
+                            /
+                            {% if comps.count['3'][year~'-'~j] is defined %}
+                                {{ comps.count['3'][year~'-'~j] }}
+                            {% else %}
+                                0
+                            {% endif %}
+                        </td>
+                    {% endfor %}
+                </tr>
+            {% endfor %}
+            <tr>
+                <td><b>ИТОГО</b></td>
+                {% for j in range(1, 6) %}
+                    <td>
+                        {% set x1 = 0 %}
+                        {% set x2 = 0 %}
+                        {% set x3 = 0 %}
+                        {% for comps in statsOfCompany  %}
+                            {%  set x1  = x1 + (comps.count['1'][year~'-'~j] is defined ? comps.count['1'][year~'-'~j] : 0) %}
+                            {%  set x2  = x2 + (comps.count['2'][year~'-'~j] is defined ? comps.count['2'][year~'-'~j] : 0) %}
+                            {%  set x3  = x3 + (comps.count['3'][year~'-'~j] is defined ? comps.count['3'][year~'-'~j] : 0) %}
+                        {% endfor %}
+                        <b>{{ x1+x2+x3 }}</b>
+                    </td>
+                {% endfor %}
+            </tr>
+        </table>
+
+
     </div>
 {% endblock %}
 

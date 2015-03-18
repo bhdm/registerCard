@@ -32,10 +32,14 @@ class MoneyController extends Controller
 
         /** Статистика */
         $statsOfCompany = $this->getDoctrine()->getRepository('CrmMainBundle:User')->statsOfCompany($this->getUser(), $year);
+        $statsOfOperator = $this->getDoctrine()->getRepository('CrmMainBundle:User')->statsOfOperator($this->getUser(), $year);
+        $statsOfModerator = $this->getDoctrine()->getRepository('CrmMainBundle:User')->statsOfOperator($this->getUser(), $year);
+
         $statsByYear = $this->getDoctrine()->getRepository('CrmMainBundle:User')->statsByYear($this->getUser(), $year);
         $statsByMonth = $this->getDoctrine()->getRepository('CrmMainBundle:User')->statsByMonth($this->getUser(), $year, $month);
         $countDay = cal_days_in_month(CAL_GREGORIAN, $month, $year);
         return array(
+            'statsOfOperator' => $statsOfOperator,
             'statsOfCompany' => $statsOfCompany,
             'statsByYear' => $statsByYear,
             'statsByMonth' => $statsByMonth,

@@ -485,5 +485,65 @@ class UserRepository extends EntityRepository
         return $result;
     }
 
+
+    /**
+     * Вывод статистики по операторам
+     */
+    public function statsOfOperator($user,$year){
+        $sql  =
+            "SELECT Operator.id cid, Operator.username ctitle, COUNT(user.id) uid, MONTH(StatusLog.created) m, YEAR(StatusLog.created) y ,
+            IF (user.ru = 0 AND user.estr = 0, '1', IF (user.ru = 0 AND user.estr = 1, '2', '3')) `type`
+            FROM user
+            LEFT JOIN StatusLog ON StatusLog.id = (SELECT id FROM StatusLog sl WHERE sl.user_id = user.id AND sl.title != 'Новая' AND sl.title != 'Подтвержденная' AND sl.title != 'Отклонена' AND sl.title != 'Отправлен модератору' ORDER BY sl.id ASC LIMIT 1 )
+            LEFT JOIN Company ON user.Company_id = Company.id
+            LEFT JOIN Operator ON Company.Operator_id = Operator.id
+			LEFT JOIN Operator m ON m.id = Operator.moderator_id
+
+            WHERE
+                user.enabled = 1 AND user.status >=2
+				AND Operator.moderator_id = ".$user->getId()."
+			GROUP BY
+                y, m, `type`, cid
+
+            HAVING y = $year
+
+            UNION ALL
+
+            SELECT m.id cid, m.username ctitle, COUNT(user.id) uid, MONTH(StatusLog.created) m, YEAR(StatusLog.created) y ,
+            IF (user.ru = 0 AND user.estr = 0, '1', IF (user.ru = 0 AND user.estr = 1, '2', '3')) `type`
+            FROM user
+            LEFT JOIN StatusLog ON StatusLog.id = (SELECT id FROM StatusLog sl WHERE sl.user_id = user.id AND sl.title != 'Новая' AND sl.title != 'Подтвержденная' AND sl.title != 'Отклонена' AND sl.title != 'Отправлен модератору' ORDER BY sl.id ASC LIMIT 1 )
+            LEFT JOIN Company ON user.Company_id = Company.id
+            LEFT JOIN Operator ON Company.Operator_id = Operator.id
+			LEFT JOIN Operator m ON m.id = Operator.moderator_id
+
+            WHERE
+                user.enabled = 1 AND user.status >=2
+				AND m.moderator_id = ".$user->getId()."
+
+            GROUP BY
+                y, m, `type`, cid
+
+            HAVING y = $year
+
+            ORDER BY
+                y DESC, m DESC, ctitle DESC";
+
+
+        $pdo = $this->getEntityManager()->getConnection();
+        $st = $pdo->prepare($sql);
+        $st->execute();
+
+        $re = $st->fetchAll();
+
+        $result = array();
+        foreach ( $re as $val ){
+            $result[$val['cid']]['count'][$val['type']][$val['y'].'-'.$val['m']] = $val['uid'];
+            $result[$val['cid']]['title'] = $val['ctitle'];
+        }
+
+        return $result;
+    }
+
 }
 
