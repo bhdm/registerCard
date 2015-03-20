@@ -136,7 +136,7 @@ class UserRepository extends EntityRepository
         return $res->getQuery()->getResult();
     }
 
-    public function operatorFilter($type, $status, $production, $choose, $companyId, $userId, $searchtxt = null, $dateStart = null, $dateEnd = null ){
+    public function operatorFilter($type, $status, $production, $choose, $companyId, $userId, $searchtxt = null, $dateStart = null, $dateEnd = null, $comment = 0 ){
         $res = $this->getEntityManager()->createQueryBuilder()
             ->select('u')
             ->from('CrmMainBundle:User','u')
@@ -144,6 +144,11 @@ class UserRepository extends EntityRepository
             ->leftJoin('co.operator ','op');
 
         $res->where('op.id = '.$userId.' AND u.enabled = true AND co.enabled = true');
+
+        if ($comment == 1){
+            $res->andWhere(" ( u.comment is not null AND u.comment != '' ) ");
+        }
+
         if ($type == 0){
             $res->andWhere('u.estr = 0 AND u.ru = 0');
         }elseif ($type == 1){

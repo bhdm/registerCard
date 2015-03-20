@@ -62,6 +62,7 @@
             <thead>
             <tr>
                 <th>№</th>
+                <th></th>
                 <th>Статус</th>
                 <th>Тип</th>
                 <th>Дата</th>
@@ -75,6 +76,16 @@
                 {% for user in pagination %}
                     <tr>
                         <td>{{ user.id }}</td>
+                        <td>
+                            <div class="statusBox">
+                                <span class="glyphicon glyphicon-info-sign " aria-hidden="true"></span>
+                                <div class="statusItems">
+                                    {% for status in user.statusArray %}
+                                        {{ status.title }}&nbsp;-&nbsp;{{ status.date | date('d.m.Y') }}<br />
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </td>
                         <td>
                             {{ user.statusStringTwig | raw }}
                         </td>

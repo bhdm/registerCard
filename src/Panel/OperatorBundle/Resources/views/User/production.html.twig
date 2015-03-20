@@ -67,6 +67,12 @@
                     </a>
                 </td>
             </tr>
+            <tr>
+                <td style="" colspan="4">
+                    <div style="display: table-cell"><input type="checkbox" name="filter-comment" id="filter-comment" value="1"></div>
+                    <div style="display: table-cell; vertical-align: inherit">&nbsp;&nbsp;&nbsp;Только с комментариями</div>
+                </td>
+            </tr>
         </table>
         <br/>
         <br/>
@@ -78,6 +84,7 @@
             <tr>
                 <th>№</th>
                 <th>Тип</th>
+                <th></th>
                 <th>Статус</th>
                 {% if company is not defined or company == null %}
                     <th >Компания</th>
@@ -100,6 +107,16 @@
                             {% else %}
                                 ДРУГОЕ
                             {% endif %}
+                        </td>
+                        <td>
+                            <div class="statusBox">
+                                <span class="glyphicon glyphicon-info-sign " aria-hidden="true"></span>
+                                <div class="statusItems">
+                                    {% for status in user.statusArray %}
+                                        {{ status.title }}&nbsp;-&nbsp;{{ status.date | date('d.m.Y') }}<br />
+                                    {% endfor %}
+                                </div>
+                            </div>
                         </td>
                         <td>
                             {% if is_granted('ROLE_ADMIN') %}
@@ -219,6 +236,11 @@
             });
 
             $('#filter-send').click(function () {
+                if ($('#filter-comment').prop('checked')==true){
+                    var comment = 1;
+                }else{
+                    var comment = 0;
+                }
                 var url = Routing.generate('panel_user_production', {
                     'type': $('#filter-type').val(),
                     'company': '{{ companyId == null or companyId == '' ? 'null' : companyId }}',
@@ -226,7 +248,8 @@
                     'status' : $('#filter-status').val() ,
                     'dateStart' : $('#filter-dateStart').val(),
                     'dateEnd' : $('#filter-dateEnd').val(),
-                    'search' : $('#filter-search').val()
+                    'search' : $('#filter-search').val(),
+                    'comment' : comment
                 });
                 window.location.href = url;
             });

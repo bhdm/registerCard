@@ -57,6 +57,12 @@
                     </a>
                 </td>
             </tr>
+            <tr>
+                <td style="" colspan="4">
+                    <div style="display: table-cell"><input type="checkbox" name="filter-comment" id="filter-comment" value="1"></div>
+                    <div style="display: table-cell; vertical-align: inherit">&nbsp;&nbsp;&nbsp;Только с комментариями</div>
+                </td>
+            </tr>
         </table>
         <br/>
         <br/>
@@ -91,6 +97,7 @@
                         <th >Компания</th>
                     {% endif %}
                     <th >ФИО / Email</th>
+                    <th>Комментарий</th>
                     <th class="setting">Инструменты</th>
                 </tr>
                 </thead>
@@ -117,6 +124,7 @@
                                 <br />
                                 <span class="subtitles">{{ user.email }}</span>
                             </td>
+                            <td><div class="comment-box disabled-click" data-id="{{ user.id }}">{{ user.comment }}</div></td>
                             <td class="setting">
                                 {% spaceless %}
                                     <a href="{{ path('panel_user_set_production',{'userId' : user.id }) }}">
@@ -148,6 +156,17 @@
         #filter-type{
             width: 100px;
         }
+        .comment-box{
+            width: 200px;
+            min-height: 50px;
+            cursor: pointer;
+        }
+        input[type="checkbox"]{
+            height: 20px;
+            line-height: 20px;
+            width: 20px;
+        }
+
     </style>
 {% endblock %}
 
@@ -155,8 +174,72 @@
     {{ parent() }}
     <script>
         $(document).ready(function(){
+
+            //Обработка комментариев
+            $('body').on('click', '.disabled-click' , function(){
+                var form =  $('<form method="post">' +
+                '<textarea class="form-control" style="margin-bottom: 5px">'+$(this).text()+'</textarea>' +
+                '<input type="hidden" class="old" value="'+$(this).text()+'" />' +
+                '<button type="button" class="btn btn-default btn-success ok-textarea"> <span class="glyphicon glyphicon-ok"></span></button>' +
+                '&nbsp;&nbsp;'+
+                '<button type="button" class="btn btn-default btn-danger cancel-textarea"> <span class="glyphicon glyphicon-remove"></span></button>' +
+                '</form>');
+                $(this).html(form);
+                $(this).removeClass('disabled-click');
+            });
+
+            $('.comment-box').on('click', '.cancel-textarea', function(){
+                var txt = $(this).parent().children('.old').val();
+                var div = $(this).parent().parent();
+                div.text(txt);
+                div.addClass('disabled-click');
+                return false;
+            });
+
+            $('.comment-box').on('click', '.ok-textarea', function(){
+                var txt = $(this).parent().children('.old').val();
+                var txt2 = $(this).parent().children('textarea').val();
+                var id = $(this).parent().parent().attr('data-id');
+                var div = $(this).parent().parent();
+                $.ajax({
+                    type: "POST",
+                    url: "{{ path('panel_user_set_comment') }}",
+                    data: "id="+id+'&comment='+txt2,
+                    success: function(msg){
+                        if (msg == 'ok'){
+                            div.text(txt2);
+                        }else{
+                            div.text(txt);
+                            alert('Ошибка сохранения:'+msg);
+                        }
+                    },
+                    error: function(msg){
+                        div.text(txt);
+                        alert('Ошибка сохранения:'+msg);
+                    }
+
+                });
+                div.addClass('disabled-click');
+                return false;
+            });
+
+
             $('#filter-send').click(function () {
-                var url = Routing.generate('panel_user_choose', { 'company': '{{ companyId }}' ,'type': $('#filter-type').val(), 'dateStart' : $('#filter-dateStart').val(), 'dateEnd' : $('#filter-dateEnd').val(),'search' : $('#filter-search').val() });
+                if ($('#filter-comment').prop('checked')==true){
+                    var comment = 1;
+                }else{
+                    var comment = 0;
+                }
+                var url = Routing.generate('panel_user_choose', {
+                    'type': $('#filter-type').val(),
+                    'company': '{{ companyId == null or companyId == '' ? 'null' : companyId }}',
+                    'operator': 'null',
+                    'status' : $('#filter-status').val() ,
+                    'dateStart' : $('#filter-dateStart').val(),
+                    'dateEnd' : $('#filter-dateEnd').val(),
+                    'search' : $('#filter-search').val(),
+                    'comment' : comment
+                });
                 window.location.href = url;
             });
 
@@ -171,7 +254,7 @@
                 });
                 return false;
             });
-            
+
             $('#allcheck').click(function () {
                 if($("#allcheck").prop('checked') == true){
                     $("input[type=checkbox]" ).prop( "checked", true );

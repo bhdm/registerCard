@@ -116,6 +116,7 @@ class UserController extends Controller
         $searchtxt = $request->query->get('search');
         $dateStart = ( $request->query->get('dateStart') == '' ? null : $request->query->get('dateStart'));
         $dateEnd = ( $request->query->get('dateEnd') == '' ? null : $request->query->get('dateEnd'));
+        $comment = ( $request->query->get('comment') == '' ? 0 : $request->query->get('comment'));
         if ($operator == null || $operator == 'null'){
             $userId = $this->getUser()->getId();
         }else{
@@ -126,7 +127,7 @@ class UserController extends Controller
         if ($type == null || $type == 'null'){
             $type = 3;
         }
-        $users = $this->getDoctrine()->getRepository('CrmMainBundle:User')->operatorFilter($type, $status, $production,$choose, $company, $userId, $searchtxt, $dateStart, $dateEnd);
+        $users = $this->getDoctrine()->getRepository('CrmMainBundle:User')->operatorFilter($type, $status, $production,$choose, $company, $userId, $searchtxt, $dateStart, $dateEnd,$comment);
         $paginator  = $this->get('knp_paginator');
         $pagination = $paginator->paginate(
             $users,
@@ -154,6 +155,7 @@ class UserController extends Controller
         $searchtxt = $request->query->get('search');
         $dateStart = ( $request->query->get('dateStart') == '' ? null : $request->query->get('dateStart'));
         $dateEnd = ( $request->query->get('dateEnd') == '' ? null : $request->query->get('dateEnd'));
+        $comment = ( $request->query->get('comment') == '' ? 0 : $request->query->get('comment'));
         if ($operator == null || $operator == 'null'){
             $userId = $this->getUser()->getId();
         }else{
@@ -164,7 +166,8 @@ class UserController extends Controller
         if ($type == null || $type == 'null'){
             $type = 3;
         }
-        $users = $this->getDoctrine()->getRepository('CrmMainBundle:User')->operatorFilter($type, $status, $production,$choose, $company, $userId, $searchtxt, $dateStart, $dateEnd);
+
+        $users = $this->getDoctrine()->getRepository('CrmMainBundle:User')->operatorFilter($type, $status, $production,$choose, $company, $userId, $searchtxt, $dateStart, $dateEnd,$comment);
         $paginator  = $this->get('knp_paginator');
         $pagination = $paginator->paginate(
             $users,
