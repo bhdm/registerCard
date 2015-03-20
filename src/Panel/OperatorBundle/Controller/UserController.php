@@ -580,42 +580,53 @@ class UserController extends Controller
                 $operator->setQuota($quota);
 
                 $moderator = $operator->getModerator();
-                if ($moderator->getRoles()[0] == 'ROLE_MODERATOR'){
-                    $quotaModerator = $moderator->getQuota();
-                    $priceModerator = 0;
-                    if ($user->getRu() == 0 && $user->getEstr() == 0){
-                        $priceModerator = $moderator->getPriceSkzi();
-                    }elseif($user->getRu() == 1 && $user->getEstr() == 0){
-                        $priceModerator =  $moderator->getPriceRu();
-                    }elseif($user->getRu() == 0 && $user->getEstr() == 1){
-                        $priceModerator =  $moderator->getPriceEstr();
+                if ($moderator != null){
+                    if ($moderator->getRoles()[0] == 'ROLE_MODERATOR'){
+                        $quotaModerator = $moderator->getQuota();
+                        $priceModerator = 0;
+                        if ($user->getRu() == 0 && $user->getEstr() == 0){
+                            $priceModerator = $moderator->getPriceSkzi();
+                        }elseif($user->getRu() == 1 && $user->getEstr() == 0){
+                            $priceModerator =  $moderator->getPriceRu();
+                        }elseif($user->getRu() == 0 && $user->getEstr() == 1){
+                            $priceModerator =  $moderator->getPriceEstr();
+                        }
+                        $quotaModerator -= $priceModerator;
+                        if ($quotaModerator > 0){
+                            $moderator->setQuota($quotaModerator);
+                            $this->getDoctrine()->getManager()->flush($moderator);
+                            $statusLog = new StatusLog();
+                            $statusLog->setTitle('Отправлен администратору');
+                            $statusLog->setUser($user);
+                            $this->getDoctrine()->getManager()->persist($statusLog);
+                            $session->getFlashBag()->add('notice', 'Пользователь '.$user->getLastName().' переведен в производство ( архив )');
+                            $this->getDoctrine()->getManager()->flush($user);
+                            $this->getDoctrine()->getManager()->flush();
+                        }else{
+                            $session->getFlashBag()->add('error', 'не хватает денег у Вашего модератора ( '.$moderator->getQuota().' из '.$priceModerator.' )');
+                            return $this->redirect($request->headers->get('referer'));
+                        }
                     }
-                    $quotaModerator -= $priceModerator;
-                    if ($quotaModerator > 0){
-                        $moderator->setQuota($quotaModerator);
-                        $this->getDoctrine()->getManager()->flush($moderator);
-                        $statusLog = new StatusLog();
-                        $statusLog->setTitle('Отправлен администратору');
-                        $statusLog->setUser($user);
-                        $this->getDoctrine()->getManager()->persist($statusLog);
-                        $session->getFlashBag()->add('notice', 'Пользователь '.$user->getLastName().' переведен в производство ( архив )');
-                        $this->getDoctrine()->getManager()->flush($user);
-                        $this->getDoctrine()->getManager()->flush();
-                    }else{
-                        $session->getFlashBag()->add('error', 'не хватает денег у Вашего модератора ( '.$moderator->getQuota().' из '.$priceModerator.' )');
-                        return $this->redirect($request->headers->get('referer'));
-                    }
+
+                    $this->getDoctrine()->getManager()->flush($operator);
+                    $statusLog = new StatusLog();
+                    $statusLog->setTitle('Отправлен модератору');
+                    $statusLog->setUser($user);
+                    $this->getDoctrine()->getManager()->persist($statusLog);
+//                $session->getFlashBag()->add('notice', 'Пользователь '.$user->getLastName().' переведен в производство ( архив )');
+                    $this->getDoctrine()->getManager()->flush($user);
+                    $this->getDoctrine()->getManager()->flush();
+                }else{
+                    $this->getDoctrine()->getManager()->flush($operator);
+                    $statusLog = new StatusLog();
+                    $statusLog->setTitle('Отправлен администратору');
+                    $statusLog->setUser($user);
+                    $this->getDoctrine()->getManager()->persist($statusLog);
+//                $session->getFlashBag()->add('notice', 'Пользователь '.$user->getLastName().' переведен в производство ( архив )');
+                    $this->getDoctrine()->getManager()->flush($user);
+                    $this->getDoctrine()->getManager()->flush();
                 }
 
-
-                $this->getDoctrine()->getManager()->flush($operator);
-                $statusLog = new StatusLog();
-                $statusLog->setTitle('Отправлен модератору');
-                $statusLog->setUser($user);
-                $this->getDoctrine()->getManager()->persist($statusLog);
-//                $session->getFlashBag()->add('notice', 'Пользователь '.$user->getLastName().' переведен в производство ( архив )');
-                $this->getDoctrine()->getManager()->flush($user);
-                $this->getDoctrine()->getManager()->flush();
 
             }else{
                 $session->getFlashBag()->add('error', 'не хватает денег у оператора ( '.$operator->getQuota().' из '.$price.' )');
