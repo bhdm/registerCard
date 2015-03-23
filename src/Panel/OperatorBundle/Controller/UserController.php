@@ -19,10 +19,10 @@ class UserController extends Controller
 {
     /**
      * @Security("has_role('ROLE_OPERATOR')")
-     * @Route("/list/{type}/{company}/{operator}/{status}", defaults={"type" = null , "company" = null , "operator" = null , "status" = null }, name="panel_user_list", options={"expose" = true})
+     * @Route("/list/{status}/{type}/{company}/{operator}", defaults={"status" = 0, "type" = null , "company" = null , "operator" = null}, name="panel_user_list", options={"expose" = true})
      * @Template()
      */
-    public function listAction(Request $request, $type = null, $company = null, $operator = null, $status = null)
+    public function listAction(Request $request, $status = 0, $type = null, $company = null, $operator = null)
     {
         $searchtxt = $request->query->get('search');
         $dateStart = ( $request->query->get('dateStart') == '' ? null : $request->query->get('dateStart'));
@@ -55,6 +55,10 @@ class UserController extends Controller
         $companies = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->findBy(array('operator' => $this->getUser(), 'enabled' => true));
         return array('count' => count($users), 'pagination' => $pagination, 'companyId' => $companyId, 'company' => $company, 'companies' => $companies );
     }
+
+
+
+
 
     /**
      * @Security("has_role('ROLE_OPERATOR')")
@@ -1137,6 +1141,26 @@ class UserController extends Controller
         return array('count' => count($users));
     }
 
+    /**
+     * Показывает циферку в меню
+     * @Security("has_role('ROLE_OPERATOR')")
+     * @Route("/user/get-new-count", name="panel_user_get_count", options={"expose"=true})
+     * @Template("PanelOperatorBundle:User:getNew.html.twig")
+     */
+    public function getUserCountAction($status = 0){
+        $dateStart = null;
+        $dateEnd =  null;
+        $userId = $this->getUser()->getId();
+        $production = 0;
+        $choose = 0;
+        $type = 3;
+        $company = null;
+        $searchtxt = null;
+
+        $users = $this->getDoctrine()->getRepository('CrmMainBundle:User')->operatorFilter($type, $status, $production,$choose, $company, $userId, $searchtxt, $dateStart, $dateEnd);
+
+        return array('count' => count($users));
+    }
 
     /**
      * Показывает циферку в меню

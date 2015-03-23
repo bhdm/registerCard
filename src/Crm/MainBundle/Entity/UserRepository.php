@@ -164,6 +164,7 @@ class UserRepository extends EntityRepository
         }else{
             $res->andWhere('u.status != 5');
         }
+
         if ($searchtxt != null){
             $res->andWhere("
                 u.username LIKE '%".$searchtxt."%'".
