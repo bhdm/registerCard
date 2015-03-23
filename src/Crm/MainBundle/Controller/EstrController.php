@@ -114,7 +114,6 @@ class EstrController extends Controller
 
     /**
      * @Route("/estr-success", name="estr-success")
-     * @Route("/{url}/estr-success", name="company-estr-success")
      * @Template()
      */
     public function successAction(Request $request, $url = null){

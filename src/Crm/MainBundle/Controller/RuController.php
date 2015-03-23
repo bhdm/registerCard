@@ -114,7 +114,6 @@ class RuController extends Controller
 
     /**
      * @Route("/ru-success", name="ru-success")
-     * @Route("/{url}/ru-success", name="company-ru-success")
      * @Template()
      */
     public function successAction(Request $request, $url = null){

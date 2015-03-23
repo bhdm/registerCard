@@ -1,4 +1,4 @@
-{% extends 'CrmMainBundle::layout.html.twig' %}
+{% extends url == null ? 'CrmMainBundle::layout.html.twig' : 'CrmMainBundle::layout_mini.html.twig' %}
 
 {% block title %}
     <title>Заказать карту водителя для тахографа с СКЗИ Online</title>
@@ -48,6 +48,7 @@
                             <br />Фото, Подпись
                         </span>
                 </td>
+                {% if url == null %}
                 <td>
                     <img src="{{ asset('bundles/crmmain/crosh/right.png') }}" style="width: 15px">
                 </td>
@@ -68,6 +69,7 @@
                         <br /><br />Оплата
                     </span>
                 </td>
+                {% endif %}
             </tr>
         </table>
         {#<table style="margin: 0 auto">#}
@@ -85,7 +87,7 @@
     </div>
     <div class="box">
         <table>
-            <form method="POST" action="{{ path('application-ru-step1') }}" id="main-form">
+            <form method="POST" action="{{ url == null ? path('application-ru-step1') : path('company-ru-step1',{'url':url})}}" id="main-form">
                 <tr>
                     <td colspan="3">
                         <div class="error-msg"></div>

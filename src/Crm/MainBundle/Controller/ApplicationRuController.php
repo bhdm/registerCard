@@ -23,9 +23,10 @@ class ApplicationRuController extends Controller
 
     /**
      * @Route("/application/ru/step1", name="application-ru-step1", options={"expose"=true})
+     * @Route("/company/{url}/ru/step1", name="company-ru-step1", options={"expose"=true})
      * @Template("CrmMainBundle:Application/Ru:step1.html.twig")
      */
-    public function step1Action(Request $request)
+    public function step1Action(Request $request, $url= null)
     {
         $session = $request->getSession();
         $order = $session->get('order');
@@ -35,20 +36,29 @@ class ApplicationRuController extends Controller
             $order['citizenship'] = $request->request->get('rezident');
             $order['step1'] = true;
             $session->set('order',$order);
-            return $this->redirect($this->generateUrl('application-ru-step2'));
+            if ($url == null){
+                return $this->redirect($this->generateUrl('application-ru-step2'));
+            }else{
+                return $this->redirect($this->generateUrl('company-ru-step2', array('url' => $url)));
+            }
         }
-        return array('order' => $order);
+        return array('order' => $order, 'url' => $url);
     }
 
     /**
      * @Route("/application/ru/step2", name="application-ru-step2", options={"expose"=true})
+     * @Route("/company/{url}/ru/step2", name="company-ru-step2", options={"expose"=true})
      * @Template("CrmMainBundle:Application/Ru:step2.html.twig")
      */
-    public function step2Action(Request $request){
+    public function step2Action(Request $request, $url = 'null'){
         $session = $request->getSession();
         $order = $session->get('order');
         if ($order['step1'] != true){
-            return $this->redirect($this->generateUrl('application-ru-step1'));
+            if ($url == null){
+                return $this->redirect($this->generateUrl('application-ru-step1'));
+            }else{
+                return $this->redirect($this->generateUrl('company-ru-step1', array('url' => $url)));
+            }
         }
 
         if ($request->getMethod() == 'POST'){
@@ -78,7 +88,11 @@ class ApplicationRuController extends Controller
             $session->set('passport2File', null);
             $session->set('order', $order);
 
-            return $this->redirect($this->generateUrl('application-ru-step3'));
+            if ($url == null){
+                return $this->redirect($this->generateUrl('application-ru-step3'));
+            }else{
+                return $this->redirect($this->generateUrl('company-ru-step3', array('url' => $url)));
+            }
         }
         if (isset($order['passportFilePath'])){
             $session->set('passportFile',$order['passportFilePath']);
@@ -86,19 +100,24 @@ class ApplicationRuController extends Controller
         if (isset($order['passport2FilePath'])){
             $session->set('passport2File',$order['passport2FilePath']);
         }
-        return array('order' => $order);
+        return array('order' => $order, 'url' => $url);
     }
 
 
     /**
      * @Route("/application/ru/step3", name="application-ru-step3", options={"expose"=true})
+     * @Route("/company/{url}/ru/step3", name="company-ru-step3", options={"expose"=true})
      * @Template("CrmMainBundle:Application/Ru:step3.html.twig")
      */
-    public function step3Action(Request $request){
+    public function step3Action(Request $request, $url = null){
         $session = $request->getSession();
         $order = $session->get('order');
         if (!isset($order['step2']) || $order['step2'] != true){
-            return $this->redirect($this->generateUrl('application-ru-step2'));
+            if ($url == null){
+                return $this->redirect($this->generateUrl('application-ru-step2'));
+            }else{
+                return $this->redirect($this->generateUrl('company-ru-step2', array('url' => $url)));
+            }
         }
         if ($request->getMethod() == 'POST'){
             $order['step3'] = true;
@@ -113,7 +132,11 @@ class ApplicationRuController extends Controller
 
             $session->set('order',$order);
 
-            return $this->redirect($this->generateUrl('application-ru-step4'));
+            if ($url == null){
+                return $this->redirect($this->generateUrl('application-ru-step4'));
+            }else{
+                return $this->redirect($this->generateUrl('company-ru-step4', array('url' => $url)));
+            }
         }
 
         if (isset($order['driverFilePath'])){
@@ -122,20 +145,25 @@ class ApplicationRuController extends Controller
         if (isset($order['driver2FilePath'])){
             $session->set('driver2File',$order['driver2FilePath']);
         }
-        return array('order' => $order);
+        return array('order' => $order, 'url' => $url);
     }
 
 
 
     /**
      * @Route("/application/ru/step4", name="application-ru-step4", options={"expose"=true})
+     * @Route("/company/{url}/ru/step4", name="company-ru-step4", options={"expose"=true})
      * @Template("CrmMainBundle:Application/Ru:step4.html.twig")
      */
-    public function step4Action(Request $request){
+    public function step4Action(Request $request, $url = null){
         $session = $request->getSession();
         $order = $session->get('order');
         if (!isset($order['step3']) || $order['step3'] != true){
-            return $this->redirect($this->generateUrl('application-ru-step3'));
+            if ($url == null){
+                return $this->redirect($this->generateUrl('application-ru-step3'));
+            }else{
+                return $this->redirect($this->generateUrl('company-ru-step3', array('url' => $url)));
+            }
         }
         if ($request->getMethod() == 'POST'){
             $order['step4'] = true;
@@ -143,23 +171,32 @@ class ApplicationRuController extends Controller
             $order['signFilePath'] = $session->get('signFile');
             $session->set('order',$order);
 
-            return $this->redirect($this->generateUrl('application-ru-step5'));
+            if ($url == null){
+                return $this->redirect($this->generateUrl('application-ru-step5'));
+            }else{
+                return $this->redirect($this->generateUrl('company-ru-success', array('url' => $url)));
+            }
         }
-        return array('citizenship' => $order['citizenship'],'order' => $order);
+        return array('citizenship' => $order['citizenship'],'order' => $order, 'url' => $url);
     }
 
     /**
      * @Route("/application/ru/step5", name="application-ru-step5", options={"expose"=true})
+     * @Route("/company/{url}/ru/step5", name="company-ru-step5", options={"expose"=true})
      * @Template("CrmMainBundle:Application/Ru:step5.html.twig")
      */
-    public function step5Action(Request $request){
+    public function step5Action(Request $request, $url = null ){
         $country = $this->getDoctrine()->getRepository('CrmMainBundle:Country')->findOneById(3159);
         $regions = $this->getDoctrine()->getRepository('CrmMainBundle:Region')->findByCountry($country);
 
         $session = $request->getSession();
         $order = $session->get('order');
         if (!isset($order['step4']) || $order['step4'] != true){
-            return $this->redirect($this->generateUrl('application-ru-step4'));
+            if ($url == null){
+                return $this->redirect($this->generateUrl('application-ru-step4'));
+            }else{
+                return $this->redirect($this->generateUrl('company-ru-step4', array('url' => $url)));
+            }
         }
         if ($request->getMethod() == 'POST'){
             $order['step5'] = true;
@@ -180,20 +217,27 @@ class ApplicationRuController extends Controller
             $order['typeCard'] = $request->request->get('typeCard');
 
             $session->set('order',$order);
-            return $this->redirect($this->generateUrl('application-ru-success'));
+            if ($url == null){
+                return $this->redirect($this->generateUrl('application-ru-success'));
+            }else{
+                return $this->redirect($this->generateUrl('company-ru-success', array('url' => $url)));
+            }
         }
-        return array('regions' => $regions,'order' => $order);
+        return array('regions' => $regions,'order' => $order, 'url' => $url);
     }
 
     /**
      * @Route("/application/ru/success", name="application-ru-success", options={"expose"=true})
+     * @Route("/company/{url}/ru/success", name="company-ru-success", options={"expose"=true})
      * @Template("CrmMainBundle:Application/Ru:success.html.twig")
      */
-    public function successAction(Request $request){
+    public function successAction(Request $request, $url = 'null'){
         $session = new Session();
         $order = $session->get('order');
-        if (!isset($order['step5']) || $order['step5'] != true){
+        if ((!isset($order['step5']) || $order['step5'] != true) && $url == null){
             return $this->redirect($this->generateUrl('application-ru-step5'));
+        }elseif((!isset($order['step4']) || $order['step4'] != true) && $url != null){
+            return $this->redirect($this->generateUrl('company-ru-step4', array('url' => $url)));
         }
         $em = $this->getDoctrine()->getManager();
 
@@ -219,21 +263,23 @@ class ApplicationRuController extends Controller
 
 
         $user->setMyPetition(true);
-        $user->setLastNumberCard($order['oldNumber']);
-        if ($order['typeCard'] == null){
+
+        if (!isset($order['typeCard']) || $order['typeCard'] == null){
             $order['typeCard'] = 0;
         }
         $user->setTypeCard($order['typeCard']);
 
-        $user->setDileveryArea($order['d_region']);
-        $user->setDileveryCity($order['d_city']);
-        $user->setDileveryStreet($order['d_street']);
-        $user->setDileveryHome($order['d_house']);
-        $user->setDileveryCorp($order['d_corp']);
-        $user->setDileveryStructure($order['d_structure']);
-        $user->setDileveryRoom($order['d_room']);
-        $user->setDileveryZipcode($order['d_zipcode']);
-
+        if ($url == null) {
+            $user->setLastNumberCard($order['oldNumber']);
+            $user->setDileveryArea($order['d_region']);
+            $user->setDileveryCity($order['d_city']);
+            $user->setDileveryStreet($order['d_street']);
+            $user->setDileveryHome($order['d_house']);
+            $user->setDileveryCorp($order['d_corp']);
+            $user->setDileveryStructure($order['d_structure']);
+            $user->setDileveryRoom($order['d_room']);
+            $user->setDileveryZipcode($order['d_zipcode']);
+        }
 
         $user->setTypeCard($order['typeCard']);
         $user->setRegisteredArea($order['r_region']);
@@ -256,7 +302,11 @@ class ApplicationRuController extends Controller
 
         $user->setRu(true);
 
-        $company = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->findOneByUrl('NO_COMPANY');
+        if ( $url == null ){
+            $company = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->findOneByUrl('NO_COMPANY');
+        }else{
+            $company = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->findOneByUrl($url);
+        }
 
         $user->setCompany($company);
 
@@ -271,7 +321,7 @@ class ApplicationRuController extends Controller
 
 
 
-        return array('user' => $user);
+        return array('user' => $user, 'url' => $url, 'company' => $company);
     }
 
 

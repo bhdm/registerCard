@@ -48,6 +48,7 @@
                             <br />Фото, Подпись
                         </span>
                 </td>
+                {% if url == null %}
                 <td>
                     <img src="{{ asset('bundles/crmmain/crosh/right.png') }}" style="width: 15px">
                 </td>
@@ -68,6 +69,7 @@
                         <br /><br />Оплата
                     </span>
                 </td>
+                {% endif %}
             </tr>
         </table>
         <br style="clear: both"/>
