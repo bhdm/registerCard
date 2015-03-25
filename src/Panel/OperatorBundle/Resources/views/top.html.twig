@@ -38,7 +38,7 @@
 
 {% set searchLine = '?dateStart='~f_dateStart~'&dateEnd='~f_dateEnd~'&search='~f_search %}
 <div class="well">
-    <ul class="nav nav-tabs">git
+    <ul class="nav nav-tabs">
         <li class="{{ app.request.attributes.get('_route_params').status == '0' ? 'active' : '' }}">
             <a href="{{ path('panel_user_list', { 'status' : '0', 'type' :  f_type , 'company' : f_company }) }}{{ searchLine }}" class="active">
                 Новые

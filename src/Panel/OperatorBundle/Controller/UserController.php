@@ -64,11 +64,10 @@ class UserController extends Controller
 
         switch ($status){
             case 0: $response = $this->render('PanelOperatorBundle:User:list_0.html.twig',$vars); break;
-            case 2: $response = $this->render('PanelOperatorBundle:User:list_1.html.twig',$vars); break;
-            case 3: $response = $this->render('PanelOperatorBundle:User:list_2.html.twig',$vars); break;
+            case 1: $response = $this->render('PanelOperatorBundle:User:list_1.html.twig',$vars); break;
+            case 2: $response = $this->render('PanelOperatorBundle:User:list_2.html.twig',$vars); break;
             default: $response = $this->render('PanelOperatorBundle:User:list_0.html.twig',$vars); break;
         }
-
         return $response;
     }
 
