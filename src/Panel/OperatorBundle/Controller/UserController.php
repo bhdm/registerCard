@@ -516,79 +516,38 @@ class UserController extends Controller
      * @Template()
      */
     public function setChooseAction(Request $request, $userId, $type = 'true'){
-        $user = $this->getDoctrine()->getRepository('CrmMainBundle:User')->find($userId);
         $session = new Session();
+        $user = $this->getDoctrine()->getRepository('CrmMainBundle:User')->find($userId);
         if ($user){
-
-            $company = $user->getCompany();
-
-            $price = 0;
-            if ($user->getEstr() == 0 && $user->getRu() == 0){
-                $price = $company->getPriceSkzi();
-            }elseif ($user->getEstr() == 1 && $user->getRu() == 0){
-                $price = $company->getPriceEstr();
-            }elseif ($user->getEstr() == 0 && $user->getRu() == 1){
-                $price = $company->getPriceRu();
-            }
-
             if ($type == 'true'){
-                if ($company->getQuota() >= $price){
-                    $user->setChoose(true);
-                    $company->setQuota($company->getQuota() - $price);
-
-                    $user->setStatus(1);
-                    $this->getDoctrine()->getManager()->flush($user);
-                    $this->getDoctrine()->getManager()->refresh($user);
-
-                    $statusLog = new StatusLog();
-                    $statusLog->setTitle($user->getStatusString());
-                    $statusLog->setUser($user);
-                    $this->getDoctrine()->getManager()->persist($statusLog);
-
-
-                    $this->getDoctrine()->getManager()->flush($company);
-                    $this->getDoctrine()->getManager()->flush($user);
-                    $this->getDoctrine()->getManager()->refresh($user);
-                    $session->getFlashBag()->add('notice', 'Пользователь '.$user->getLastName().' переведен в подтвержденные');
-                }else{
-                    $session->getFlashBag()->add('error', 'не хватает денег у компании ( '.$company->getQuota().' из '.$price.' )');
-                }
-
+                $user->setStatus(1);
             }else{
-                $user->setChoose(false);
-                $company->setQuota($company->getQuota() + $price);
-                $this->getDoctrine()->getManager()->flush($company);
-                $this->getDoctrine()->getManager()->flush($user);
-                $this->getDoctrine()->getManager()->refresh($user);
-                $session->getFlashBag()->add('notice', 'Пользователь '.$user->getLastName().' переведен в неопределенные');
                 $user->setStatus(0);
-                $this->getDoctrine()->getManager()->flush($user);
-                $this->getDoctrine()->getManager()->refresh($user);
-
-                $statusLog = new StatusLog();
-                $statusLog->setTitle($user->getStatusString());
-                $statusLog->setUser($user);
-                $this->getDoctrine()->getManager()->persist($statusLog);
             }
+            $this->getDoctrine()->getManager()->flush($user);
+            $this->getDoctrine()->getManager()->refresh($user);
+            $statusLog = new StatusLog();
+            $statusLog->setTitle($user->getStatusString());
+            $statusLog->setUser($user);
+            $this->getDoctrine()->getManager()->persist($statusLog);
+            $session->getFlashBag()->add('notice', 'Пользователь '.$user->getLastName().' переведен в подтвержденные');
         }
-
         return $this->redirect($request->headers->get('referer'));
     }
 
 
     /**
      * @Security("has_role('ROLE_OPERATOR')")
-     * @Route("/production-set/{userId}/{type}", name="panel_user_set_production", defaults={"type"="true"})
+     * @Route("/set-production/{userId}/{type}", name="panel_user_set_production", defaults={"type"="true"})
      * @Template()
      */
     public function setProductionAction(Request $request, $userId, $type = 'true'){
-
         $session = new Session();
         $user = $this->getDoctrine()->getRepository('CrmMainBundle:User')->findOneById($userId);
 
         if ($user->getProduction() == 0 && $type == 'true' &&  $this->get('security.context')->isGranted('ROLE_OPERATOR')){
             $user->setProduction(2);
-            $user->setStatus(2);
+            $user->setStatus(3);
 
             $operator = $this->getUser();
             $quota = $operator->getQuota();
@@ -660,18 +619,68 @@ class UserController extends Controller
 
             return $this->redirect($request->headers->get('referer'));
 
-//        }elseif($user->getProduction() == 1 && $type == 'true' &&  $this->get('security.context')->isGranted('ROLE_MODERATOR')){
-//            $user->setProduction(2);
-//        }elseif($user->getProduction() == 1 && $type == 'false' && $this->get('security.context')->isGranted('ROLE_MODERATOR')){
-//            $user->setProduction(0);
-//        }elseif($user->getProduction() == 2 && $type == 'false' &&  $this->get('security.context')->isGranted('ROLE_ADMIN')){
-//            $user->setProduction(1);
         }
-
-
     }
 
+    /**
+     * @Security("has_role('ROLE_OPERATOR')")
+     * @Route("/set-payment/{userId}/{type}", name="panel_user_set_payment", defaults={"type"="true"})
+     * @Template()
+     */
+    public function setPaymentAction(Request $request, $userId, $type = 'true'){
+        $user = $this->getDoctrine()->getRepository('CrmMainBundle:User')->find($userId);
+        $session = new Session();
+        if ($user){
+            $company = $user->getCompany();
+            $price = 0;
+            if ($user->getEstr() == 0 && $user->getRu() == 0){
+                $price = $company->getPriceSkzi();
+            }elseif ($user->getEstr() == 1 && $user->getRu() == 0){
+                $price = $company->getPriceEstr();
+            }elseif ($user->getEstr() == 0 && $user->getRu() == 1){
+                $price = $company->getPriceRu();
+            }
 
+            if ($type == 'true'){
+                if ($company->getQuota() >= $price){
+                    $user->setChoose(true);
+                    $company->setQuota($company->getQuota() - $price);
+                    $user->setStatus(2);
+                    $this->getDoctrine()->getManager()->flush($user);
+                    $this->getDoctrine()->getManager()->refresh($user);
+                    $statusLog = new StatusLog();
+                    $statusLog->setTitle($user->getStatusString());
+                    $statusLog->setUser($user);
+                    $this->getDoctrine()->getManager()->persist($statusLog);
+
+
+                    $this->getDoctrine()->getManager()->flush($company);
+                    $this->getDoctrine()->getManager()->flush($user);
+                    $this->getDoctrine()->getManager()->refresh($user);
+                    $session->getFlashBag()->add('notice', 'Пользователь '.$user->getLastName().' переведен в оплаченные');
+                }else{
+                    $session->getFlashBag()->add('error', 'не хватает денег у компании ( '.$company->getQuota().' из '.$price.' )');
+                }
+
+            }else{
+                $user->setChoose(false);
+                $company->setQuota($company->getQuota() + $price);
+                $this->getDoctrine()->getManager()->flush($company);
+                $this->getDoctrine()->getManager()->flush($user);
+                $this->getDoctrine()->getManager()->refresh($user);
+                $session->getFlashBag()->add('notice', 'Пользователь '.$user->getLastName().' переведен в подтвержденные');
+                $user->setStatus(1);
+                $this->getDoctrine()->getManager()->flush($user);
+                $this->getDoctrine()->getManager()->refresh($user);
+
+                $statusLog = new StatusLog();
+                $statusLog->setTitle($user->getStatusString());
+                $statusLog->setUser($user);
+                $this->getDoctrine()->getManager()->persist($statusLog);
+            }
+        }
+        return $this->redirect($request->headers->get('referer'));
+    }
 
 
     public function cropimage($img, $rect){
