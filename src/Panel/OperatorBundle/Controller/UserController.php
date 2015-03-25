@@ -27,6 +27,10 @@ class UserController extends Controller
         if ($company == "null"){
             $company = null;
         }
+        if ($status == "null" || $status == null){
+            $status = 0;
+        }
+
         $searchtxt = $request->query->get('search');
         $dateStart = ( $request->query->get('dateStart') == '' ? null : $request->query->get('dateStart'));
         $dateEnd = ( $request->query->get('dateEnd') == '' ? null : $request->query->get('dateEnd'));
@@ -56,7 +60,16 @@ class UserController extends Controller
         }
 
         $companies = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->findBy(array('operator' => $this->getUser(), 'enabled' => true));
-        return array('count' => count($users), 'pagination' => $pagination, 'companyId' => $companyId, 'company' => $company, 'companies' => $companies );
+        $vars = array('count' => count($users), 'pagination' => $pagination, 'companyId' => $companyId, 'company' => $company, 'companies' => $companies );
+
+        switch ($status){
+            case 0: $response = $this->render('PanelOperatorBundle:User:list_0.html.twig',$vars); break;
+            case 2: $response = $this->render('PanelOperatorBundle:User:list_1.html.twig',$vars); break;
+            case 3: $response = $this->render('PanelOperatorBundle:User:list_2.html.twig',$vars); break;
+            default: $response = $this->render('PanelOperatorBundle:User:list_0.html.twig',$vars); break;
+        }
+
+        return $response;
     }
 
 
