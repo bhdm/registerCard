@@ -1,14 +1,21 @@
 {% if app.request.attributes.get('_route_params').type is defined %}
     {% set f_type = app.request.attributes.get('_route_params').type %}
 {% else %}
-    {% set f_type = 'null' %}
+    {% set f_type = null %}
 {% endif %}
 
 {% if app.request.attributes.get('_route_params').status is defined %}
     {% set f_status = app.request.attributes.get('_route_params').status %}
 {% else %}
-    {% set f_status = 'null' %}
+    {% set f_status = null %}
 {% endif %}
+
+{% if app.request.attributes.get('_route_params').company is defined %}
+    {% set f_company = app.request.attributes.get('_route_params').company %}
+{% else %}
+    {% set f_company = null %}
+{% endif %}
+
 
 {% if app.request.query.all.dateStart is defined %}
     {% set f_dateStart = app.request.query.all.dateStart %}
@@ -28,69 +35,36 @@
     {% set f_search = '' %}
 {% endif %}
 
-{% set searchLine = '?dateStart='~f_dateStart~'&dateEnd='~f_dateEnd~'&search='~f_search %}
 
+{% set searchLine = '?dateStart='~f_dateStart~'&dateEnd='~f_dateEnd~'&search='~f_search %}
 <div class="well">
-    <ul class="nav nav-tabs">
-        {#<li class="{{ app.request.attributes.get('_route') == 'panel_user_list' ? 'active' : '' }}">#}
-            {#{% if app.request.attributes.get('_route_params').company is defined and app.request.attributes.get('_route_params').company != null %}#}
-                {#<a href="{{ path('panel_user_list', {'type' :  f_type , 'company' : app.request.attributes.get('_route_params').company }) }}{{ searchLine }}" class="active">Новые заявки {{ render_hinclude(path('panel_user_get_new')) }}</a>#}
-            {#{% elseif app.request.attributes.get('_route_params').operator is defined and app.request.attributes.get('_route_params').operator != null %}#}
-                {#<a href="{{ path('panel_user_list', {'type' :  f_type , 'company' : 'null', 'operator' : app.request.attributes.get('_route_params').operator }) }}{{ searchLine }}" class="active">Новые заявки {{ render_hinclude(path('panel_user_get_new')) }}</a>#}
-            {#{% else %}#}
-                {#<a href="{{ path('panel_user_list') }}{{ searchLine }}" class="active">Новые заявки {{ render_hinclude(path('panel_user_get_new')) }}</a>#}
-            {#{% endif %}#}
-        {#</li>#}
-        {#<li class="{{ app.request.attributes.get('_route') == 'panel_user_choose' ? 'active' : '' }}">#}
-            {#{% if app.request.attributes.get('_route_params').company is defined and app.request.attributes.get('_route_params').company != null %}#}
-                {#<a href="{{ path('panel_user_choose', {'type' :  f_type , 'company' : app.request.attributes.get('_route_params').company }) }}{{ searchLine }}" class="active">Подтвержденные</a>#}
-            {#{% elseif app.request.attributes.get('_route_params').operator is defined and app.request.attributes.get('_route_params').operator != null %}#}
-                {#<a href="{{ path('panel_user_choose', {'type' :  f_type , 'company' : 'null', 'operator' : app.request.attributes.get('_route_params').operator }) }}{{ searchLine }}" class="active">Подтвержденные</a>#}
-            {#{% else %}#}
-                {#<a href="{{ path('panel_user_choose') }}{{ searchLine }}" class="active">Подтвержденные</a>#}
-            {#{% endif %}#}
-        {#</li>#}
-        {#<li class="{{ app.request.attributes.get('_route') == 'panel_user_production' ? 'active' : '' }}">#}
-            {#{% if app.request.attributes.get('_route_params').company is defined and app.request.attributes.get('_route_params').company != null %}#}
-                {#<a href="{{ path('panel_user_production', {'type' :  f_type , 'company' : app.request.attributes.get('_route_params').company }) }}{{ searchLine }}" class="active">В производстве</a>#}
-            {#{% elseif app.request.attributes.get('_route_params').operator is defined and app.request.attributes.get('_route_params').operator != null %}#}
-                {#<a href="{{ path('panel_user_production', {'type' :  f_type , 'company' : 'null', 'operator' : app.request.attributes.get('_route_params').operator }) }}{{ searchLine }}" class="active">В производстве</a>#}
-            {#{% else %}#}
-                {#<a href="{{ path('panel_user_production') }}{{ searchLine }}" class="active">В производстве</a>#}
-            {#{% endif %}#}
-        {#</li>#}
-        {#<li class="">#}
-            {#{% if app.request.attributes.get('_route_params').company is defined and app.request.attributes.get('_route_params').company != null %}#}
-                {#<a href="{{ path('panel_user_arhive', {'type' :  f_type , 'company' : app.request.attributes.get('_route_params').company }) }}{{ searchLine }}" class="active">Архив</a>#}
-            {#{% elseif app.request.attributes.get('_route_params').operator is defined and app.request.attributes.get('_route_params').operator != null %}#}
-                {#<a href="{{ path('panel_user_arhive', {'type' :  f_type , 'company' : 'null', 'operator' : app.request.attributes.get('_route_params').operator }) }}{{ searchLine }}" class="active">Архив</a>#}
-            {#{% else %}#}
-                {#<a href="{{ path('panel_user_arhive') }}{{ searchLine }}" class="active">Архив</a>#}
-            {#{% endif %}#}
-        {#</li>#}
+    <ul class="nav nav-tabs">git
         <li class="{{ app.request.attributes.get('_route_params').status == '0' ? 'active' : '' }}">
-            <a href="{{ path('panel_user_list', { 'status' : 0, 'type' :  f_type , 'company' : app.request.attributes.get('_route_params').company }) }}{{ searchLine }}" class="active">Новые {{ render_hinclude(path('panel_user_get_count',{'status' : 0 })) }}</a>
+            <a href="{{ path('panel_user_list', { 'status' : '0', 'type' :  f_type , 'company' : f_company }) }}{{ searchLine }}" class="active">
+                Новые
+                {{ render(path('panel_user_get_count',{'status' : '0', 'company' : f_company  })) }}
+            </a>
         </li>
         <li class="{{ app.request.attributes.get('_route_params').status == '1' ? 'active' : '' }}">
-            <a href="{{ path('panel_user_list', { 'status' : 1, 'type' :  f_type , 'company' : app.request.attributes.get('_route_params').company }) }}{{ searchLine }}" class="active">Подтвержденные {{ render_hinclude(path('panel_user_get_count',{'status' : 1 })) }}</a>
+            <a href="{{ path('panel_user_list', { 'status' : 1, 'type' :  f_type , 'company' : f_company }) }}{{ searchLine }}" class="active">Подтвержденные {{ render(path('panel_user_get_count',{'status' : 1, 'company' : f_company })) }}</a>
         </li>
         <li class="{{ app.request.attributes.get('_route_params').status == '2' ? 'active' : '' }}">
-            <a href="{{ path('panel_user_list', { 'status' : 2, 'type' :  f_type , 'company' : app.request.attributes.get('_route_params').company }) }}{{ searchLine }}" class="active">Оплаченные {{ render_hinclude(path('panel_user_get_count',{'status' : 2 })) }}</a>
+            <a href="{{ path('panel_user_list', { 'status' : 2, 'type' :  f_type , 'company' : f_company }) }}{{ searchLine }}" class="active">Оплаченные {{ render(path('panel_user_get_count',{'status' : 2, 'company' : f_company })) }}</a>
         </li>
         <li class="{{ app.request.attributes.get('_route_params').status == '3' ? 'active' : '' }}">
-            <a href="{{ path('panel_user_list', { 'status' : 3, 'type' :  f_type , 'company' : app.request.attributes.get('_route_params').company }) }}{{ searchLine }}" class="active">В&nbsp;производстве {{ render_hinclude(path('panel_user_get_count',{'status' : 3 })) }}</a>
+            <a href="{{ path('panel_user_list', { 'status' : 3, 'type' :  f_type , 'company' : f_company }) }}{{ searchLine }}" class="active">В&nbsp;производстве {{ render(path('panel_user_get_count',{'status' : 3, 'company' : f_company })) }}</a>
         </li>
         <li class="{{ app.request.attributes.get('_route_params').status == '6' ? 'active' : '' }}">
-            <a href="{{ path('panel_user_list', { 'status' : 6, 'type' :  f_type , 'company' : app.request.attributes.get('_route_params').company }) }}{{ searchLine }}" class="active">Изготовленые {{ render_hinclude(path('panel_user_get_count',{'status' : 6 })) }}</a>
+            <a href="{{ path('panel_user_list', { 'status' : 6, 'type' :  f_type , 'company' : f_company }) }}{{ searchLine }}" class="active">Изготовленые {{ render(path('panel_user_get_count',{'status' : 6, 'company' : f_company })) }}</a>
         </li>
         <li class="{{ app.request.attributes.get('_route_params').status == '4' ? 'active' : '' }}">
-            <a href="{{ path('panel_user_list', { 'status' : 4, 'type' :  f_type , 'company' : app.request.attributes.get('_route_params').company }) }}{{ searchLine }}" class="active">На почте {{ render_hinclude(path('panel_user_get_count',{'status' : 4 })) }}</a>
+            <a href="{{ path('panel_user_list', { 'status' : 4, 'type' :  f_type , 'company' : f_company }) }}{{ searchLine }}" class="active">На почте {{ render(path('panel_user_get_count',{'status' : 4, 'company' : f_company })) }}</a>
         </li>
         <li class="{{ app.request.attributes.get('_route_params').status == '5' ? 'active' : '' }}">
-            <a href="{{ path('panel_user_list', { 'status' : 5, 'type' :  f_type , 'company' : app.request.attributes.get('_route_params').company }) }}{{ searchLine }}" class="active">Полученные {{ render_hinclude(path('panel_user_get_count',{'status' : 5 })) }}</a>
+            <a href="{{ path('panel_user_list', { 'status' : 5, 'type' :  f_type , 'company' : f_company }) }}{{ searchLine }}" class="active">Полученные {{ render_hinclude(path('panel_user_get_count',{'status' : 5, 'company' : f_company })) }}</a>
         </li>
         <li class="{{ app.request.attributes.get('_route_params').status == '10' ? 'active' : '' }}">
-            <a href="{{ path('panel_user_list', { 'status' : 10, 'type' :  f_type , 'company' : app.request.attributes.get('_route_params').company }) }}{{ searchLine }}" class="active">Отклоненные {{ render_hinclude(path('panel_user_get_count',{'status' : 10 })) }}</a>
+            <a href="{{ path('panel_user_list', { 'status' : 10, 'type' :  f_type , 'company' : f_company }) }}{{ searchLine }}" class="active">Отклоненные {{ render_hinclude(path('panel_user_get_count',{'status' : 10, 'company' : f_company })) }}</a>
         </li>
     </ul>
 </div>

@@ -405,7 +405,17 @@ class User extends BaseEntity implements UserInterface, EquatableInterface, \Ser
      */
     protected $ru = 0;
 
+    /**
+     * Карта предприятия
+     * @ORM\Column(type="integer")
+     */
+    protected $enterprise = 0;
 
+    /**
+     * Карта мастерской
+     * @ORM\Column(type="integer")
+     */
+    protected $workshop = 0;
 
     public function getXmlId(){
         return str_pad($this->id, 8, "0", STR_PAD_LEFT);
@@ -1682,6 +1692,38 @@ class User extends BaseEntity implements UserInterface, EquatableInterface, \Ser
     public function setChoose($choose = false)
     {
         $this->choose = $choose;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getEnterprise()
+    {
+        return $this->enterprise;
+    }
+
+    /**
+     * @param mixed $enterprise
+     */
+    public function setEnterprise($enterprise = 0)
+    {
+        $this->enterprise = $enterprise;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getWorkshop()
+    {
+        return $this->workshop;
+    }
+
+    /**
+     * @param mixed $workshop
+     */
+    public function setWorkshop($workshop = 0)
+    {
+        $this->workshop = $workshop;
     }
 
 

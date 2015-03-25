@@ -136,6 +136,27 @@ class UserRepository extends EntityRepository
         return $res->getQuery()->getResult();
     }
 
+    public function getCountMenu($userId, $status, $companyId = null ){
+        $res = $this->getEntityManager()->createQueryBuilder()
+            ->select('u.id')
+            ->from('CrmMainBundle:User','u')
+            ->leftJoin('u.company ','co')
+            ->leftJoin('co.operator ','op')
+            ->where('u.enabled = true')
+            ->andWhere('u.status = '.$status);
+        if ($companyId != null){
+            $res->andWhere('co.id = '.$companyId);
+        }else{
+            $res->andWhere('op.id = '.$userId);
+        }
+
+//        echo '<br />';
+//        echo $res->getQuery()->getSQL();
+//        echo '<br />';
+        $result = $res->getQuery()->getResult();
+        return $result;
+    }
+
     public function operatorFilter($type, $status, $production, $choose, $companyId, $userId, $searchtxt = null, $dateStart = null, $dateEnd = null, $comment = 0 ){
         $res = $this->getEntityManager()->createQueryBuilder()
             ->select('u')
@@ -159,7 +180,7 @@ class UserRepository extends EntityRepository
         if ($companyId != null && $companyId != 'null' ){
             $res->andWhere('co.id = '.$companyId);
         }
-        if ($status != null && $status != 'null'){
+        if ($status !== null && $status != 'null'){
             $res->andWhere('u.status = '.$status);
         }else{
             $res->andWhere('u.status != 5');
@@ -182,21 +203,24 @@ class UserRepository extends EntityRepository
             $dateEnd = $dateEnd.' 23:59:59';
             $res->andWhere("u.created <='".$dateEnd."'");
         }
-        if ($production == 0){
-            $res->andWhere('u.production = 0');
-        }else{
-            $res->andWhere('u.production > 0');
-        }
-        if ($choose == 1){
-            $res->andWhere('u.choose = 1');
-        }else{
-            $res->andWhere('u.choose != 1');
-        }
+//        if ($production == 0){
+//            $res->andWhere('u.production = 0');
+//        }else{
+//            $res->andWhere('u.production > 0');
+//        }
+//        if ($choose == 1){
+//            $res->andWhere('u.choose = 1');
+//        }else{
+//            $res->andWhere('u.choose != 1');
+//        }
 
 
         $res->orderBy('u.created', 'DESC');
         /** ***************** */
 //        echo $res->getQuery()->getSQL();
+//        echo '<br />';
+//        echo '<br />';
+//        exit;
         $result = $res->getQuery()->getResult();
 //        $users =
 //            array(

@@ -34,6 +34,19 @@
                         <option value="2" {{ f_type == '2' ? 'selected="selected"' : '' }}>РФ</option>
                     </select>
                 </td>
+                <td style="padding-left: 10px">
+                    {% if app.request.attributes.get('_route_params').view is defined %}
+                        {% set f_view = app.request.attributes.get('_route_params').view %}
+                    {% else %}
+                        {% set f_view = 'null' %}
+                    {% endif %}
+                    <select style="width: 250px" name="type" id="filter-view">
+                        <option value="null" {{ f_view == 'null' ? 'selected="selected"' : '' }}>Все виды</option>
+                        <option value="0" {{ f_view == '0' ? 'selected="selected"' : '' }}>КВ</option>
+                        <option value="1" {{ f_view == '1' ? 'selected="selected"' : '' }}>КП</option>
+                        <option value="2" {{ f_view == '2' ? 'selected="selected"' : '' }}>КМ</option>
+                    </select>
+                </td>
                 <td>
                    <input type="date" class="form-control" style="width: 150px;margin: 0 10px" id="filter-dateStart" placeholder="начало"
                           value="{{ app.request.query.all.dateStart is defined ? app.request.query.all.dateStart : '' }}">
@@ -72,8 +85,10 @@
                data-sort-order="asc">
             <thead>
             <tr>
+                <th><input type="checkbox" id="allcheck"></th>
                 <th>№</th>
                 <th>Тип</th>
+                <th>Вид</th>
                 <th>Дата</th>
                 {% if company is not defined or company == null %}
                     <th >
@@ -85,12 +100,14 @@
                     </th>
                 {% endif %}
                 <th >ФИО / Email</th>
-                <th class="setting">Документы</th>
+                {#<th class="setting">Документы</th>#}
+                <th>Комментарий</th>
                 <th class="setting">Инструменты</th>
             </tr>
             </thead>
                 {% for user in pagination %}
                     <tr>
+                        <td><input type="checkbox" name="user[{{ user.id }}]" value="{{ user.id }}"></td>
                         <td>{{ user.id }}</td>
                         <td>
                             {% if user.ru == false and user.estr == false %}
@@ -99,6 +116,17 @@
                                 ЕСТР
                             {% elseif user.ru == true and user.estr == false %}
                                 РФ
+                            {% else %}
+                                ДРУГОЕ
+                            {% endif %}
+                        </td>
+                        <td>
+                            {% if user.enterprise == false and user.workshop == false %}
+                                КВ
+                            {% elseif user.enterprise == true and user.workshop == false %}
+                                КП
+                            {% elseif user.enterprise == false and user.workshop == true %}
+                                КМ
                             {% else %}
                                 ДРУГОЕ
                             {% endif %}
@@ -113,49 +141,43 @@
                             <br />
                             <a href="?search={{ user.email }}"><span class="subtitles">{{ user.email }}</span></a>
                         </td>
-                        <td>
-                            {% spaceless %}
-                            {% if is_granted('ROLE_ADMIN') %}
-                                <a href="{{ path('xml_generator',{'userId' : user.id}) }}" target="_blank" class="no-underline">
-                                    <button type="button" class="btn btn-default btn-bg" title="XML">
-                                        <span class="glyphicon glyphicon-file"></span>
-                                    </button>
-                                </a>&nbsp;&nbsp;
-                                <a href="{{ path('generate_payment_pdf') }}?ord={{ user.id }}" target="_blank" class="no-underline">
-                                    <button type="button" class="btn btn-default btn-bg" title="Платежное поручение">
-                                        <span class="glyphicon glyphicon-file"></span>
-                                    </button>
-                                </a>&nbsp;&nbsp;
-                            {% endif %}
-                            <a href="{{ path('generate_pdf_statement',{'id' : user.id}) }}" target="_blank" class="no-underline">
-                                <button type="button" class="btn btn-default btn-bg" title="Заявление">
-                                    <span class="glyphicon glyphicon-file"></span>
-                                </button>
-                            </a>&nbsp;&nbsp;
-                            {% if user.myPetition == 1 or user.copyPetition is not empty %}
-                                <a href="{{ path('generate_petition',{'userId' : user.id}) }}" target="_blank" class="no-underline">
-                                    <button type="button" class="btn btn-default btn-bg" title="Ходатайство">
-                                        <span class="glyphicon glyphicon-file"></span>
-                                    </button>
-                                </a>&nbsp;&nbsp;
-                            {% elseif user.companyPetition is not null %}
-                                <a href="{{ path('operator_generate_petition', { 'petitionId' : user.companyPetition.id }) }}" target="_blank">
-                                    <button type="button" class="btn btn-default btn-bg" title="Ходатайство">
-                                        <span class="glyphicon glyphicon-file"></span>
-                                    </button>
-                                </a>&nbsp;&nbsp;
-                            {% endif %}
-                        {% endspaceless %}
-                        </td>
+                        <td><div class="comment-box disabled-click" data-id="{{ user.id }}">{{ user.comment }}</div></td>
+                        {#<td>#}
+                            {#{% spaceless %}#}
+                            {#{% if is_granted('ROLE_ADMIN') %}#}
+                                {#<a href="{{ path('xml_generator',{'userId' : user.id}) }}" target="_blank" class="no-underline">#}
+                                    {#<button type="button" class="btn btn-default btn-bg" title="XML">#}
+                                        {#<span class="glyphicon glyphicon-file"></span>#}
+                                    {#</button>#}
+                                {#</a>&nbsp;&nbsp;#}
+                                {#<a href="{{ path('generate_payment_pdf') }}?ord={{ user.id }}" target="_blank" class="no-underline">#}
+                                    {#<button type="button" class="btn btn-default btn-bg" title="Платежное поручение">#}
+                                        {#<span class="glyphicon glyphicon-file"></span>#}
+                                    {#</button>#}
+                                {#</a>&nbsp;&nbsp;#}
+                            {#{% endif %}#}
+                            {#<a href="{{ path('generate_pdf_statement',{'id' : user.id}) }}" target="_blank" class="no-underline">#}
+                                {#<button type="button" class="btn btn-default btn-bg" title="Заявление">#}
+                                    {#<span class="glyphicon glyphicon-file"></span>#}
+                                {#</button>#}
+                            {#</a>&nbsp;&nbsp;#}
+                            {#{% if user.myPetition == 1 or user.copyPetition is not empty %}#}
+                                {#<a href="{{ path('generate_petition',{'userId' : user.id}) }}" target="_blank" class="no-underline">#}
+                                    {#<button type="button" class="btn btn-default btn-bg" title="Ходатайство">#}
+                                        {#<span class="glyphicon glyphicon-file"></span>#}
+                                    {#</button>#}
+                                {#</a>&nbsp;&nbsp;#}
+                            {#{% elseif user.companyPetition is not null %}#}
+                                {#<a href="{{ path('operator_generate_petition', { 'petitionId' : user.companyPetition.id }) }}" target="_blank">#}
+                                    {#<button type="button" class="btn btn-default btn-bg" title="Ходатайство">#}
+                                        {#<span class="glyphicon glyphicon-file"></span>#}
+                                    {#</button>#}
+                                {#</a>&nbsp;&nbsp;#}
+                            {#{% endif %}#}
+                        {#{% endspaceless %}#}
+                        {#</td>#}
                         <td class="setting">
                             {% spaceless %}
-                                {#<a href="{{ path('user_edit',{'id' : item.id}) }}">#}
-                                <a href="{{ path('panel_user_edit',{'userId' : user.id }) }}">
-                                    <button type="button" class="btn btn-default btn-bg">
-                                        <span class="glyphicon glyphicon-pencil"></span>
-                                    </button>
-                                </a>
-                                &nbsp;&nbsp;
                                 <a href="{{ path('panel_user_set_choose',{'userId' : user.id }) }}">
                                     <button type="button" class="btn btn-default btn-success">
                                         <span class="glyphicon glyphicon-star"></span>
@@ -184,6 +206,11 @@
         #filter-type{
             width: 100px;
         }
+        .comment-box{
+            width: 200px;
+            min-height: 50px;
+            cursor: pointer;
+        }
     </style>
 {% endblock %}
 
@@ -192,7 +219,7 @@
     <script>
         $(document).ready(function(){
 
-            $(".chosen").chosen({no_results_text: "Компаний по вашему запросу не найдено"});
+            $(".chosen").chosen({no_results_text: "Компаний по вашему запросу не найдено", width: 200});
 
             $('.chosen').change(function(){
                 window.location.href = Routing.generate('panel_user_list', {'type': 'null', 'company': $(this).val() })
@@ -204,14 +231,87 @@
             });
 
             $('.remove').click(function () {
+                BootstrapDialog.DEFAULT_TEXTS[BootstrapDialog.TYPE_DEFAULT] = 'Information';
+                BootstrapDialog.DEFAULT_TEXTS[BootstrapDialog.TYPE_INFO] = 'Information';
+                BootstrapDialog.DEFAULT_TEXTS[BootstrapDialog.TYPE_PRIMARY] = 'Information';
+                BootstrapDialog.DEFAULT_TEXTS[BootstrapDialog.TYPE_SUCCESS] = 'Success';
+                BootstrapDialog.DEFAULT_TEXTS[BootstrapDialog.TYPE_WARNING] = 'Warning';
+                BootstrapDialog.DEFAULT_TEXTS[BootstrapDialog.TYPE_DANGER] = 'Danger';
+                BootstrapDialog.DEFAULT_TEXTS['OK'] = 'Да';
+                BootstrapDialog.DEFAULT_TEXTS['CANCEL'] = 'Отмена';
+                BootstrapDialog.DEFAULT_TEXTS['CONFIRM'] = 'Согласен';
+
                 var url = $(this).attr('href');
-                BootstrapDialog.confirm('Вы точно хотите удалить выбраную заявку?', function (result) {
-                    if (result) {
-                        window.location.href = url;
-                    } else {
-                        return false;
+                BootstrapDialog.confirm({
+                        title: 'БЕЗВОЗРАТНОЕ УДАЛЕНИЕ?',
+                        message: 'Вы точно хотите удалить выбраную заявку?',
+                        type: BootstrapDialog.TYPE_DANGER
+
+                        },
+                        function (result) {
+                            if (result) {
+                                window.location.href = url;
+                            } else {
+                                return false;
+                            }
+                        });
+                BootstrapDialog.setType(BootstrapDialog.TYPE_DANGER);
+
+                return false;
+            });
+
+            $('#allcheck').click(function () {
+                if($("#allcheck").prop('checked') == true){
+                    $("input[type=checkbox]" ).prop( "checked", true );
+                }else{
+                    $( "input[type=checkbox]" ).prop( "checked", false );
+                }
+            });
+
+            $('body').on('click', '.disabled-click' , function(){
+                var form =  $('<form method="post">' +
+                '<textarea class="form-control" style="margin-bottom: 5px">'+$(this).text()+'</textarea>' +
+                '<input type="hidden" class="old" value="'+$(this).text()+'" />' +
+                '<button type="button" class="btn btn-default btn-success ok-textarea"> <span class="glyphicon glyphicon-ok"></span></button>' +
+                '&nbsp;&nbsp;'+
+                '<button type="button" class="btn btn-default btn-danger cancel-textarea"> <span class="glyphicon glyphicon-remove"></span></button>' +
+                '</form>');
+                $(this).html(form);
+                $(this).removeClass('disabled-click');
+            });
+
+            $('.comment-box').on('click', '.cancel-textarea', function(){
+                var txt = $(this).parent().children('.old').val();
+                var div = $(this).parent().parent();
+                div.text(txt);
+                div.addClass('disabled-click');
+                return false;
+            });
+
+            $('.comment-box').on('click', '.ok-textarea', function(){
+                var txt = $(this).parent().children('.old').val();
+                var txt2 = $(this).parent().children('textarea').val();
+                var id = $(this).parent().parent().attr('data-id');
+                var div = $(this).parent().parent();
+                $.ajax({
+                    type: "POST",
+                    url: "{{ path('panel_user_set_comment') }}",
+                    data: "id="+id+'&comment='+txt2,
+                    success: function(msg){
+                        if (msg == 'ok'){
+                            div.text(txt2);
+                        }else{
+                            div.text(txt);
+                            alert('Ошибка сохранения:'+msg);
+                        }
+                    },
+                    error: function(msg){
+                        div.text(txt);
+                        alert('Ошибка сохранения:'+msg);
                     }
+
                 });
+                div.addClass('disabled-click');
                 return false;
             });
         });

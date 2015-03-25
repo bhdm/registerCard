@@ -24,6 +24,9 @@ class UserController extends Controller
      */
     public function listAction(Request $request, $status = 0, $type = null, $company = null, $operator = null)
     {
+        if ($company == "null"){
+            $company = null;
+        }
         $searchtxt = $request->query->get('search');
         $dateStart = ( $request->query->get('dateStart') == '' ? null : $request->query->get('dateStart'));
         $dateEnd = ( $request->query->get('dateEnd') == '' ? null : $request->query->get('dateEnd'));
@@ -55,6 +58,13 @@ class UserController extends Controller
         $companies = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->findBy(array('operator' => $this->getUser(), 'enabled' => true));
         return array('count' => count($users), 'pagination' => $pagination, 'companyId' => $companyId, 'company' => $company, 'companies' => $companies );
     }
+
+
+
+
+
+
+
 
 
 
@@ -882,32 +892,6 @@ class UserController extends Controller
     }
 
 
-//    public function changeStatusAction(Request $request, $userId){
-//        $em = $this->getDoctrine()->getManager();
-//        $user = $this->getDoctrine()->getRepository('CrmMainBundle:User')->findOneById($userId);
-//
-//        switch ( $user->getStatus()){
-//            case 0: $user->setStatus(1); break;
-//            case 1: $user->setStatus(2); break;
-//            case 2: $user->setStatus(3); break;
-//            case 3: $user->setStatus(6); break;
-//            case 6: $user->setStatus(4); break;
-//            case 4: $user->setStatus(5); break;
-//            case 5: $user->setStatus(10); break;
-//            case 10: $user->setStatus(0); break;
-//        }
-//        $em->flush($user);
-//
-//        $statuslog = new StatusLog();
-//        $statuslog->setUser($user);
-//        $statuslog->setTitle($user->getStatusString());
-//        $em->persist($statuslog);
-//        $em->flush($statuslog);
-//
-//        $referer = $request->headers->get('referer');
-//        return $this->redirect($referer);
-//    }
-
 
     /**
      * @Route("/print_many", name="print_many", options={"expose"=true})
@@ -1144,22 +1128,18 @@ class UserController extends Controller
     /**
      * Показывает циферку в меню
      * @Security("has_role('ROLE_OPERATOR')")
-     * @Route("/user/get-new-count", name="panel_user_get_count", options={"expose"=true})
+     * @Route("/user/get-new-count/{status}/{company}", name="panel_user_get_count", options={"expose"=true}, defaults={"status" = 0, "company" = null })
      * @Template("PanelOperatorBundle:User:getNew.html.twig")
      */
-    public function getUserCountAction($status = 0){
-        $dateStart = null;
-        $dateEnd =  null;
+    public function getUserCountAction($status = 0, $company = null){
         $userId = $this->getUser()->getId();
-        $production = 0;
-        $choose = 0;
-        $type = 3;
-        $company = null;
-        $searchtxt = null;
-
-        $users = $this->getDoctrine()->getRepository('CrmMainBundle:User')->operatorFilter($type, $status, $production,$choose, $company, $userId, $searchtxt, $dateStart, $dateEnd);
-
+        if ($company == 'null'){
+            $company = null;
+        }
+        $companyId = $company;
+        $users = $this->getDoctrine()->getRepository('CrmMainBundle:User')->getCountMenu($userId,$status,$companyId);
         return array('count' => count($users));
+//          return array('count' => 0);
     }
 
     /**
