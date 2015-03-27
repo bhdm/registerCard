@@ -322,7 +322,7 @@ class ApplicationEstrController extends Controller
 
         $session->set('order',null);
 
-        return array('user' => $user, 'url'=> 'url', 'company' => $company);
+        return array('user' => $user, 'url'=> $url, 'company' => $company);
     }
 
 
