@@ -545,13 +545,12 @@ class UserController extends Controller
     /**
      * @Security("has_role('ROLE_OPERATOR')")
      * @Route("/set-production/{userId}/{type}", name="panel_user_set_production", defaults={"type"="true"})
-     * @Template()
      */
     public function setProductionAction(Request $request, $userId, $type = 'true'){
         $session = new Session();
         $user = $this->getDoctrine()->getRepository('CrmMainBundle:User')->findOneById($userId);
 
-        if ($user->getProduction() == 0 && $type == 'true' &&  $this->get('security.context')->isGranted('ROLE_OPERATOR')){
+        if ( $type == 'true' &&  $this->get('security.context')->isGranted('ROLE_OPERATOR')){
             $user->setProduction(2);
             $user->setStatus(3);
 
@@ -626,6 +625,8 @@ class UserController extends Controller
             return $this->redirect($request->headers->get('referer'));
 
         }
+        $session->getFlashBag()->add('error', 'не хватает прав доступа');
+        return $this->redirect($request->headers->get('referer'));
     }
 
     /**
