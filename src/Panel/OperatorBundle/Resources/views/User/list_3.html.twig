@@ -2,7 +2,7 @@
 
 {% block breadcrumb %}
     <ul class="breadcrumb well">
-        <li>Список подтвержденных заявок</li>
+        <li>Список заявок в производстве</li>
         {% if company is defined and company != null %}
             <li>{{ company.title }}</li>
         {% endif %}
@@ -102,7 +102,7 @@
                     </th>
                 {% endif %}
                 <th >ФИО / Email</th>
-                <th>Комментарий</th>
+                <th>Документы</th>
                 <th class="setting">Инструменты</th>
             </tr>
             </thead>
@@ -158,16 +158,50 @@
                         <br />
                         <a href="?search={{ user.email }}"><span class="subtitles">{{ user.email }}</span></a>
                     </td>
-                    <td><div class="comment-box disabled-click" data-id="{{ user.id }}">{{ user.comment }}</div></td>
+                    {#<td><div class="comment-box disabled-click" data-id="{{ user.id }}">{{ user.comment }}</div></td>#}
+                    <td>
+                        {% spaceless %}
+                            {% if is_granted('ROLE_ADMIN') %}
+                                <a href="{{ path('xml_generator',{'userId' : user.id}) }}" target="_blank" class="no-underline">
+                                    <button type="button" class="btn btn-default btn-bg" title="XML">
+                                        <span class="glyphicon glyphicon-file"></span>
+                                    </button>
+                                </a>&nbsp;&nbsp;
+                                <a href="{{ path('generate_payment_pdf') }}?ord={{ user.id }}" target="_blank" class="no-underline">
+                                    <button type="button" class="btn btn-default btn-bg" title="Платежное поручение">
+                                        <span class="glyphicon glyphicon-file"></span>
+                                    </button>
+                                </a>&nbsp;&nbsp;
+                            {% endif %}
+                            <a href="{{ path('generate_pdf_statement',{'id' : user.id}) }}" target="_blank" class="no-underline">
+                                <button type="button" class="btn btn-default btn-bg" title="Заявление">
+                                    <span class="glyphicon glyphicon-file"></span>
+                                </button>
+                            </a>&nbsp;&nbsp;
+                            {% if user.myPetition == 1 or user.copyPetition is not empty %}
+                                <a href="{{ path('generate_petition',{'userId' : user.id}) }}" target="_blank" class="no-underline">
+                                    <button type="button" class="btn btn-default btn-bg" title="Ходатайство">
+                                        <span class="glyphicon glyphicon-file"></span>
+                                    </button>
+                                </a>&nbsp;&nbsp;
+                            {% elseif user.companyPetition is not null %}
+                                <a href="{{ path('operator_generate_petition', { 'petitionId' : user.companyPetition.id }) }}" target="_blank">
+                                    <button type="button" class="btn btn-default btn-bg" title="Ходатайство">
+                                        <span class="glyphicon glyphicon-file"></span>
+                                    </button>
+                                </a>&nbsp;&nbsp;
+                            {% endif %}
+                        {% endspaceless %}
+                    </td>
                     <td class="setting">
                         {% spaceless %}
-                            <a href="{{ path('panel_user_set_payment',{'userId' : user.id }) }}">
+                            <a href="{{ path('panel_user_set_production',{'userId' : user.id }) }}" title="В производство">
                                 <button type="button" class="btn btn-default btn-success">
                                     <span class="glyphicon glyphicon-ok"></span>
                                 </button>
                             </a>
                             &nbsp;&nbsp;
-                            <a href="{{ path('panel_user_set_choose',{'userId' : user.id, 'type': 'false' }) }}" class="remove" title="Убрать из подтвержденных">
+                            <a href="{{ path('panel_user_set_payment',{'userId' : user.id, 'type': 'false' }) }}" class="remove" title="В подтвержденные">
                                 <button type="button" class="btn btn-default btn-danger">
                                     <span class="glyphicon glyphicon-ban-circle"></span>
                                 </button>
