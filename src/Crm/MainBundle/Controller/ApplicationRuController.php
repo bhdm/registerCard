@@ -50,7 +50,7 @@ class ApplicationRuController extends Controller
      * @Route("/company/{url}/ru/step2", name="company-ru-step2", options={"expose"=true})
      * @Template("CrmMainBundle:Application/Ru:step2.html.twig")
      */
-    public function step2Action(Request $request, $url = 'null'){
+    public function step2Action(Request $request, $url = null){
         $session = $request->getSession();
         $order = $session->get('order');
         if ($order['step1'] != true){
@@ -231,7 +231,7 @@ class ApplicationRuController extends Controller
      * @Route("/company/{url}/ru/success", name="company-ru-success", options={"expose"=true})
      * @Template("CrmMainBundle:Application/Ru:success.html.twig")
      */
-    public function successAction(Request $request, $url = 'null'){
+    public function successAction(Request $request, $url = null){
         $session = new Session();
         $order = $session->get('order');
         if ((!isset($order['step5']) || $order['step5'] != true) && $url == null){

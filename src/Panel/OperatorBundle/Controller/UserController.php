@@ -1160,7 +1160,6 @@ class UserController extends Controller
         $companyId = $company;
         $users = $this->getDoctrine()->getRepository('CrmMainBundle:User')->getCountMenu($userId,$status,$companyId);
         return array('count' => count($users));
-//          return array('count' => 0);
     }
 
     /**
