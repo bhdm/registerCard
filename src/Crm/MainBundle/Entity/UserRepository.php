@@ -157,7 +157,14 @@ class UserRepository extends EntityRepository
         return $result;
     }
 
-    public function operatorFilter($type, $status, $production, $choose, $companyId, $userId, $searchtxt = null, $dateStart = null, $dateEnd = null, $comment = 0 ){
+    public function operatorFilter($type, $status,  $companyId, $user, $searchtxt = null, $dateStart = null, $dateEnd = null, $comment = 0 ){
+        if ($user){
+            $userId = $user->getId();
+        }else{
+            $userId = null;
+        }
+
+
         $res = $this->getEntityManager()->createQueryBuilder()
             ->select('u')
             ->from('CrmMainBundle:User','u')
@@ -180,11 +187,23 @@ class UserRepository extends EntityRepository
         if ($companyId != null && $companyId != 'null' ){
             $res->andWhere('co.id = '.$companyId);
         }
-        if ($status !== null && $status != 'null'){
-            $res->andWhere('u.status = '.$status);
+
+        if (!$user->isRole('ROLE_ADMIN')) {
+            if ($status !== null && $status != 'null'){
+                $res->andWhere('u.status = '.$status);
+            }else{
+                $res->andWhere('u.status != 5');
+            }
         }else{
-            $res->andWhere('u.status != 5');
+            if ($status == 3 || $status == 4 || $status == 6 ){
+                $res->andWhere('u.status = 3 OR u.status = 4 OR u.status = 6');
+            }else{
+                $res->andWhere('u.status = '.$status);
+            }
         }
+
+
+
 
         if ($searchtxt != null){
             $res->andWhere("
@@ -287,7 +306,7 @@ class UserRepository extends EntityRepository
         }
 
         //if (isset($params['isCompleted'])){
-          //  $andWhere .= ' AND u.status >= 2 AND u.status != 10 ';
+        //  $andWhere .= ' AND u.status >= 2 AND u.status != 10 ';
         //}
 
         //LEFT JOIN StatusLog sl ON sl.user_id = u._id AND sl.title != "Подтвержденная" AND sl.title != "Отклонена"
@@ -348,8 +367,8 @@ class UserRepository extends EntityRepository
      */
     public function statsByYear($user,$year){
         if ( $user->isRole('ROLE_OPERATOR') ){
-           $sql  =
-           "SELECT COUNT(user.id) uid, MONTH(StatusLog.created) m, YEAR(StatusLog.created) y,
+            $sql  =
+                "SELECT COUNT(user.id) uid, MONTH(StatusLog.created) m, YEAR(StatusLog.created) y,
             IF (user.ru = 0 AND user.estr = 0, '1', IF (user.ru = 0 AND user.estr = 1, '2', '3')) type
             FROM user
             LEFT JOIN StatusLog ON StatusLog.id = (SELECT id FROM StatusLog sl WHERE sl.user_id = user.id AND sl.title != 'Новая' AND sl.title != 'Подтвержденная' AND sl.title != 'Отклонена' AND sl.title != 'Отправлен модератору' ORDER BY sl.id ASC LIMIT 1 )
@@ -481,7 +500,7 @@ class UserRepository extends EntityRepository
      */
     public function statsOfCompany($user,$year){
         $sql  =
-           "SELECT Company.id cid, Company.title ctitle, COUNT(user.id) uid, MONTH(StatusLog.created) m, YEAR(StatusLog.created) y ,
+            "SELECT Company.id cid, Company.title ctitle, COUNT(user.id) uid, MONTH(StatusLog.created) m, YEAR(StatusLog.created) y ,
             IF (user.ru = 0 AND user.estr = 0, '1', IF (user.ru = 0 AND user.estr = 1, '2', '3')) `type`
             FROM user
             LEFT JOIN StatusLog ON StatusLog.id = (SELECT id FROM StatusLog sl WHERE sl.user_id = user.id AND sl.title != 'Новая' AND sl.title != 'Подтвержденная' AND sl.title != 'Отклонена' AND sl.title != 'Отправлен модератору' ORDER BY sl.id ASC LIMIT 1 )

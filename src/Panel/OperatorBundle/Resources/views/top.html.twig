@@ -54,12 +54,16 @@
         <li class="{{ app.request.attributes.get('_route_params').status == '3' ? 'active' : '' }}">
             <a href="{{ path('panel_user_list', { 'status' : 3, 'type' :  f_type , 'company' : f_company }) }}{{ searchLine }}" class="active">В&nbsp;производстве {{ render(path('panel_user_get_count',{'status' : 3, 'company' : f_company })) }}</a>
         </li>
+
+        {% if is_granted('ROLE_ADMIN') %}
         <li class="{{ app.request.attributes.get('_route_params').status == '6' ? 'active' : '' }}">
             <a href="{{ path('panel_user_list', { 'status' : 6, 'type' :  f_type , 'company' : f_company }) }}{{ searchLine }}" class="active">Изготовленые {{ render(path('panel_user_get_count',{'status' : 6, 'company' : f_company })) }}</a>
         </li>
         <li class="{{ app.request.attributes.get('_route_params').status == '4' ? 'active' : '' }}">
             <a href="{{ path('panel_user_list', { 'status' : 4, 'type' :  f_type , 'company' : f_company }) }}{{ searchLine }}" class="active">На почте {{ render(path('panel_user_get_count',{'status' : 4, 'company' : f_company })) }}</a>
         </li>
+        {% endif %}
+
         <li class="{{ app.request.attributes.get('_route_params').status == '5' ? 'active' : '' }}">
             <a href="{{ path('panel_user_list', { 'status' : 5, 'type' :  f_type , 'company' : f_company }) }}{{ searchLine }}" class="active">Полученные {{ render_hinclude(path('panel_user_get_count',{'status' : 5, 'company' : f_company })) }}</a>
         </li>

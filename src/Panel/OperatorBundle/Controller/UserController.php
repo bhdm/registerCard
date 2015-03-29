@@ -35,17 +35,19 @@ class UserController extends Controller
         $dateStart = ( $request->query->get('dateStart') == '' ? null : $request->query->get('dateStart'));
         $dateEnd = ( $request->query->get('dateEnd') == '' ? null : $request->query->get('dateEnd'));
         if ($operator == null || $operator == 'null'){
-            $userId = $this->getUser()->getId();
+            $user = $this->getUser();
         }else{
-            $userId = $operator;
+            $user = $this->getDoctrine()->getRepository('CrmMainBundle:User')->findOneBy($operator);
         }
+
+
 
         $production = 0;
         $choose = 0;
         if ($type == null || $type == 'null'){
             $type = 3;
         }
-        $users = $this->getDoctrine()->getRepository('CrmMainBundle:User')->operatorFilter($type, $status, $production,$choose, $company, $userId, $searchtxt, $dateStart, $dateEnd);
+        $users = $this->getDoctrine()->getRepository('CrmMainBundle:User')->operatorFilter($type, $status, $company, $user, $searchtxt, $dateStart, $dateEnd);
         $paginator  = $this->get('knp_paginator');
         $pagination = $paginator->paginate(
             $users,
@@ -62,197 +64,33 @@ class UserController extends Controller
         $companies = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->findBy(array('operator' => $this->getUser(), 'enabled' => true));
         $vars = array('count' => count($users), 'pagination' => $pagination, 'companyId' => $companyId, 'company' => $company, 'companies' => $companies );
 
-        switch ($status){
-            case 0: $response = $this->render('PanelOperatorBundle:User:list_0.html.twig',$vars); break;
-            case 1: $response = $this->render('PanelOperatorBundle:User:list_1.html.twig',$vars); break;
-            case 2: $response = $this->render('PanelOperatorBundle:User:list_2.html.twig',$vars); break;
-            case 3: $response = $this->render('PanelOperatorBundle:User:list_3.html.twig',$vars); break;
-            case 6: $response = $this->render('PanelOperatorBundle:User:list_6.html.twig',$vars); break;
-            case 4: $response = $this->render('PanelOperatorBundle:User:list_4.html.twig',$vars); break;
-            case 5: $response = $this->render('PanelOperatorBundle:User:list_5.html.twig',$vars); break;
-            case 10: $response = $this->render('PanelOperatorBundle:User:list_10.html.twig',$vars); break;
-
-            default: $response = $this->render('PanelOperatorBundle:User:list_0.html.twig',$vars); break;
-        }
-        return $response;
-    }
-
-
-
-
-
-
-
-
-
-
-
-
-    /**
-     * @Security("has_role('ROLE_OPERATOR')")
-     * @Route("/choose/{type}/{company}/{operator}/{status}", defaults={"type" = null , "company" = null , "operator" = null , "status" = null }, name="panel_user_choose", options={"expose" = true})
-     * @Template()
-     */
-    public function chooseAction(Request $request, $type = null, $company = null, $operator = null, $status = null)
-    {
-        $session = new Session();
-        if ($request->getMethod() == 'POST'){
-            $type = 'true';
-            $i = 0;
-            foreach ( $request->request->get('user') as $userId){
-                $user = $this->getDoctrine()->getRepository('CrmMainBundle:User')->findOneById($userId);
-
-                if ($user->getProduction() == 0 && $type == 'true' &&  $this->get('security.context')->isGranted('ROLE_OPERATOR')){
-                    $user->setProduction(1);
-
-                    $operator = $this->getUser();
-                    $quota = $operator->getQuota();
-
-                    if ($user->getRu() == 0 && $user->getEstr() == 0){
-                        $quota -= $operator->getPriceSkzi();
-                    }elseif($user->getRu() == 1 && $user->getEstr() == 0){
-                        $quota -= $operator->getPriceRu();
-                    }elseif($user->getRu() == 0 && $user->getEstr() == 1){
-                        $quota -= $operator->getPriceEstr();
-                    }
-                    if ($quota < 0){
-                        $session->getFlashBag()->add('error', 'не хватает денег у оператора ');
-                        break;
-                    }
-                    $i ++ ;
-                    $operator->setQuota($quota);
-                    $this->getDoctrine()->getManager()->flush($operator);
-                    $statusLog = new StatusLog();
-                    $statusLog->setTitle('Отправлен модератору');
-                    $statusLog->setUser($user);
-                    $this->getDoctrine()->getManager()->persist($statusLog);
-
-                }elseif($user->getProduction() == 1 && $type == 'true' &&  $this->get('security.context')->isGranted('ROLE_MODERATOR')){
-                    $user->setProduction(2);
-                }
-
-                $user->setStatus(2);
-                $this->getDoctrine()->getManager()->flush($user);
-                $this->getDoctrine()->getManager()->refresh($user);
-
-                $statusLog = new StatusLog();
-                $statusLog->setTitle($user->getStatusString());
-                $statusLog->setUser($user);
-                $this->getDoctrine()->getManager()->persist($statusLog);
-
-
-                $this->getDoctrine()->getManager()->flush();
+        if ( $this->get('security.context')->isGranted('ROLE_ADMIN')){
+            switch ($status){
+                case 0: $response = $this->render('PanelOperatorBundle:User:list_0.html.twig',$vars); break;
+                case 1: $response = $this->render('PanelOperatorBundle:User:list_1.html.twig',$vars); break;
+                case 2: $response = $this->render('PanelOperatorBundle:User:list_2.html.twig',$vars); break;
+                case 3: $response = $this->render('PanelOperatorBundle:User:list_3.html.twig',$vars); break;
+                case 6: $response = $this->render('PanelOperatorBundle:User:list_6.html.twig',$vars); break;
+                case 4: $response = $this->render('PanelOperatorBundle:User:list_4.html.twig',$vars); break;
+                case 5: $response = $this->render('PanelOperatorBundle:User:list_5.html.twig',$vars); break;
+                case 10: $response = $this->render('PanelOperatorBundle:User:list_10.html.twig',$vars); break;
+                default: $response = $this->render('PanelOperatorBundle:User:list_0.html.twig',$vars); break;
             }
-            $session->getFlashBag()->add('notice', 'Отправлено в производство '.$i.' заявок');
-        }
-        $searchtxt = $request->query->get('search');
-        $dateStart = ( $request->query->get('dateStart') == '' ? null : $request->query->get('dateStart'));
-        $dateEnd = ( $request->query->get('dateEnd') == '' ? null : $request->query->get('dateEnd'));
-        $comment = ( $request->query->get('comment') == '' ? 0 : $request->query->get('comment'));
-        if ($operator == null || $operator == 'null'){
-            $userId = $this->getUser()->getId();
         }else{
-            $userId = $operator;
-        }
-        $production = 0;
-        $choose = 1;
-        if ($type == null || $type == 'null'){
-            $type = 3;
-        }
-        $users = $this->getDoctrine()->getRepository('CrmMainBundle:User')->operatorFilter($type, $status, $production,$choose, $company, $userId, $searchtxt, $dateStart, $dateEnd,$comment);
-        $paginator  = $this->get('knp_paginator');
-        $pagination = $paginator->paginate(
-            $users,
-            $this->get('request')->query->get('page', 1),
-            50
-        );
-        $companyId = $company;
-        if ($companyId == null){
-            $company = null;
-        }else{
-            $company = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->find($companyId);
+            switch ($status){
+                case 0: $response = $this->render('PanelOperatorBundle:User:list_0.html.twig',$vars); break;
+                case 1: $response = $this->render('PanelOperatorBundle:User:list_1.html.twig',$vars); break;
+                case 2: $response = $this->render('PanelOperatorBundle:User:list_2.html.twig',$vars); break;
+                case 3: $response = $this->render('PanelOperatorBundle:User:list_3_u.html.twig',$vars); break;
+                case 6: $response = $this->render('PanelOperatorBundle:User:list_3_u.html.twig',$vars); break;
+                case 4: $response = $this->render('PanelOperatorBundle:User:list_3_u.html.twig',$vars); break;
+                case 5: $response = $this->render('PanelOperatorBundle:User:list_5.html.twig',$vars); break;
+                case 10: $response = $this->render('PanelOperatorBundle:User:list_10.html.twig',$vars); break;
+                default: $response = $this->render('PanelOperatorBundle:User:list_0.html.twig',$vars); break;
+            }
         }
 
-
-        return array('count' => count($users), 'pagination' => $pagination, 'companyId' => $companyId, 'company' => $company );
-    }
-
-    /**
-     * @Security("has_role('ROLE_OPERATOR')")
-     * @Route("/production/{type}/{company}/{operator}/{status}", defaults={"type" = null , "company" = null , "operator" = null , "status" = null }, name="panel_user_production", options={"expose" = true})
-     * @Template()
-     */
-    public function productionAction(Request $request, $type = null, $company = null, $operator = null, $status = null)
-    {
-        $searchtxt = $request->query->get('search');
-        $dateStart = ( $request->query->get('dateStart') == '' ? null : $request->query->get('dateStart'));
-        $dateEnd = ( $request->query->get('dateEnd') == '' ? null : $request->query->get('dateEnd'));
-        $comment = ( $request->query->get('comment') == '' ? 0 : $request->query->get('comment'));
-        if ($operator == null || $operator == 'null'){
-            $userId = $this->getUser()->getId();
-        }else{
-            $userId = $operator;
-        }
-        $production = 1;
-        $choose = 1;
-        if ($type == null || $type == 'null'){
-            $type = 3;
-        }
-
-        $users = $this->getDoctrine()->getRepository('CrmMainBundle:User')->operatorFilter($type, $status, $production,$choose, $company, $userId, $searchtxt, $dateStart, $dateEnd,$comment);
-        $paginator  = $this->get('knp_paginator');
-        $pagination = $paginator->paginate(
-            $users,
-            $this->get('request')->query->get('page', 1),
-            50
-        );
-        $companyId = $company;
-        if ($companyId == null){
-            $company = null;
-        }else{
-            $company = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->find($companyId);
-        }
-
-        return array('count' => count($users), 'pagination' => $pagination, 'companyId' => $companyId, 'company' => $company);
-    }
-
-
-    /**
-     * @Security("has_role('ROLE_OPERATOR')")
-     * @Route("/arhive/{type}/{company}/{operator}", defaults={"type" = null , "company" = null , "operator" = null }, name="panel_user_arhive", options={"expose" = true})
-     * @Template()
-     */
-    public function arhiveAction(Request $request, $type = null, $company = null, $operator = null)
-    {
-        $searchtxt = $request->query->get('search');
-        $dateStart = ( $request->query->get('dateStart') == '' ? null : $request->query->get('dateStart'));
-        $dateEnd = ( $request->query->get('dateEnd') == '' ? null : $request->query->get('dateEnd'));
-        if ($operator == null || $operator == 'null'){
-            $userId = $this->getUser()->getId();
-        }else{
-            $userId = $operator;
-        }
-        $production = 1;
-        $choose = 1;
-        if ($type == null || $type == 'null'){
-            $type = 3;
-        }
-        $status = 5;
-        $users = $this->getDoctrine()->getRepository('CrmMainBundle:User')->operatorFilter($type, $status, $production,$choose, $company, $userId, $searchtxt, $dateStart, $dateEnd);
-        $paginator  = $this->get('knp_paginator');
-        $pagination = $paginator->paginate(
-            $users,
-            $this->get('request')->query->get('page', 1),
-            50
-        );
-        $companyId = $company;
-        if ($companyId == null){
-            $company = null;
-        }else{
-            $company = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->find($companyId);
-        }
-
-        return array('count' => count($users), 'pagination' => $pagination, 'companyId' => $companyId, 'company' => $company);
+        return $response;
     }
 
 
@@ -540,6 +378,59 @@ class UserController extends Controller
         }
         return $this->redirect($request->headers->get('referer'));
     }
+
+
+    /**
+     * @Security("has_role('ROLE_ADMIN')")
+     * @Route("/set-stend/{userId}/{type}", name="panel_user_set_stend", defaults={"type"="true"})
+     */
+    public function setStendAction(Request $request, $userId, $type = 'true'){
+        $session = $request->getSession();
+        $user = $this->getDoctrine()->getRepository('CrmMainBundle:User')->findOneById($userId);
+        $user->setStatus(6);
+        $statusLog = new StatusLog();
+        $statusLog->setTitle('Изготовлено');
+        $statusLog->setUser($user);
+        $this->getDoctrine()->getManager()->persist($statusLog);
+        $session->getFlashBag()->add('notice', 'Пользователь '.$user->getLastName().' переведен в Изготовлено');
+        $this->getDoctrine()->getManager()->flush($user);
+        $this->getDoctrine()->getManager()->flush();
+    }
+
+    /**
+     * @Security("has_role('ROLE_ADMIN')")
+     * @Route("/set-email/{userId}/{type}", name="panel_user_set_email", defaults={"type"="true"})
+     */
+    public function setEmailAction(Request $request, $userId, $type = 'true'){
+        $session = $request->getSession();
+        $user = $this->getDoctrine()->getRepository('CrmMainBundle:User')->findOneById($userId);
+        $user->setStatus(4);
+        $statusLog = new StatusLog();
+        $statusLog->setTitle('На почте');
+        $statusLog->setUser($user);
+        $this->getDoctrine()->getManager()->persist($statusLog);
+        $session->getFlashBag()->add('notice', 'Пользователь '.$user->getLastName().' переведен на почту');
+        $this->getDoctrine()->getManager()->flush($user);
+        $this->getDoctrine()->getManager()->flush();
+    }
+
+    /**
+     * @Security("has_role('ROLE_ADMIN')")
+     * @Route("/set-received/{userId}/{type}", name="panel_user_set_received", defaults={"type"="true"})
+     */
+    public function setReceivedAction(Request $request, $userId, $type = 'true'){
+        $session = $request->getSession();
+        $user = $this->getDoctrine()->getRepository('CrmMainBundle:User')->findOneById($userId);
+        $user->setStatus(5);
+        $statusLog = new StatusLog();
+        $statusLog->setTitle('Получена');
+        $statusLog->setUser($user);
+        $this->getDoctrine()->getManager()->persist($statusLog);
+        $session->getFlashBag()->add('notice', 'Пользователь '.$user->getLastName().' переведен получено');
+        $this->getDoctrine()->getManager()->flush($user);
+        $this->getDoctrine()->getManager()->flush();
+    }
+
 
 
     /**
@@ -1140,15 +1031,13 @@ class UserController extends Controller
     public function getNewAction(){
         $dateStart = null;
         $dateEnd =  null;
-        $userId = $this->getUser()->getId();
-        $production = 0;
-        $choose = 0;
+        $userId = $this->getUser();
         $type = 3;
         $company = null;
         $status = 0;
         $searchtxt = null;
 
-        $users = $this->getDoctrine()->getRepository('CrmMainBundle:User')->operatorFilter($type, $status, $production,$choose, $company, $userId, $searchtxt, $dateStart, $dateEnd);
+        $users = $this->getDoctrine()->getRepository('CrmMainBundle:User')->operatorFilter($type, $status, $company, $userId, $searchtxt, $dateStart, $dateEnd);
 
         return array('count' => count($users));
     }

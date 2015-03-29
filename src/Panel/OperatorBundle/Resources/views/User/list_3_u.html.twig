@@ -2,7 +2,7 @@
 
 {% block breadcrumb %}
     <ul class="breadcrumb well">
-        <li>Список полученных заявок</li>
+        <li>Список заявок в производстве</li>
         {% if company is defined and company != null %}
             <li>{{ company.title }}</li>
         {% endif %}
@@ -89,9 +89,8 @@
                 <th>Тип</th>
                 <th>Вид</th>
                 <th>Дата</th>
-                {% if not is_granted('ROLE_ADMIN') %}
-                    <th>Квота</th>
-                {% endif %}
+                <th>Квота</th>
+                <th>Статус</th>
                 {% if company is not defined or company == null %}
                     <th >
                         <select class="chosen" data-placeholder="Компания">
@@ -102,7 +101,6 @@
                     </th>
                 {% endif %}
                 <th >ФИО / Email</th>
-                <th>Комментарий</th>
             </tr>
             </thead>
             {% for user in pagination %}
@@ -133,22 +131,27 @@
                     </td>
                     <td class="subtitles">{{ user.created | date('d.m.Y') }}</td>
                     {% if not is_granted('ROLE_ADMIN') %}
-                    <td>
-                        {% if user.company.operator is defined %}
-                            {% if user.ru == false and user.estr == false %}
-                                {{ user.company.operator.priceSkzi }}
-                            {% elseif user.ru == false and user.estr == true %}
-                                {{ user.company.operator.priceEstr }}
-                            {% elseif user.ru == true and user.estr == false %}
-                                {{ user.company.operator.priceRu }}
+                        <td>
+                            {% if user.company.operator is defined %}
+                                {% if user.ru == false and user.estr == false %}
+                                    {{ user.company.operator.priceSkzi }}
+                                {% elseif user.ru == false and user.estr == true %}
+                                    {{ user.company.operator.priceEstr }}
+                                {% elseif user.ru == true and user.estr == false %}
+                                    {{ user.company.operator.priceRu }}
+                                {% else %}
+                                    0
+                                {% endif %}
                             {% else %}
                                 0
                             {% endif %}
-                        {% else %}
-                            0
-                        {% endif %}
-                    </td>
+                        </td>
+                    {% else %}
+                        <td>
+                            {{ user.price }}
+                        </td>
                     {% endif %}
+                    <td>{{ user.statusStringTwig | raw }}</td>
                     {% if company is not defined or company == null %}
                         <td><a href="{{ path('panel_user_list',{'type' : 'null', 'company' : user.company.id }) }}">{{ user.company }}</a></td>
                     {% endif %}
@@ -157,7 +160,6 @@
                         <br />
                         <a href="?search={{ user.email }}"><span class="subtitles">{{ user.email }}</span></a>
                     </td>
-                    <td><div class="comment-box disabled-click" data-id="{{ user.id }}">{{ user.comment }}</div></td>
                 </tr>
             {% endfor%}
         </table>

@@ -161,13 +161,13 @@
                     <td><div class="comment-box disabled-click" data-id="{{ user.id }}">{{ user.comment }}</div></td>
                     <td class="setting">
                         {% spaceless %}
-                            <a href="{{ path('panel_user_set_production',{'userId' : user.id }) }}" title="В производство">
+                            <a href="{{ path('panel_user_set_email',{'userId' : user.id }) }}" title="На почту">
                                 <button type="button" class="btn btn-default btn-success">
                                     <span class="glyphicon glyphicon-ok"></span>
                                 </button>
                             </a>
                             &nbsp;&nbsp;
-                            <a href="{{ path('panel_user_set_payment',{'userId' : user.id, 'type': 'false' }) }}" class="remove" title="В подтвержденные">
+                            <a href="{{ path('panel_user_set_stend',{'userId' : user.id, 'type': 'false' }) }}" class="remove" title="В изготовленные">
                                 <button type="button" class="btn btn-default btn-danger">
                                     <span class="glyphicon glyphicon-ban-circle"></span>
                                 </button>
