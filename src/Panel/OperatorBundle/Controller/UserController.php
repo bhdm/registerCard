@@ -37,7 +37,7 @@ class UserController extends Controller
         if ($operator == null || $operator == 'null'){
             $user = $this->getUser();
         }else{
-            $user = $this->getDoctrine()->getRepository('CrmMainBundle:User')->findOneBy($operator);
+            $user = $this->getDoctrine()->getRepository('CrmMainBundle:User')->findOneById($operator);
         }
 
 

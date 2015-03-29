@@ -27,20 +27,8 @@
                     <td>{{ o }}</td>
                     <td>
                         {% spaceless %}
-                            <a href="{{ path('panel_user_list',{'type': 'null', 'company' : 'null', 'operator' : o.id}) }}">
-                                <button type="button" class="btn btn-default btn-primary" title="Новые заявки">
-                                    <span class="glyphicon glyphicon-user"></span>
-                                </button>
-                            </a>
-                            &nbsp;&nbsp;
-                            <a href="{{ path('panel_user_choose',{'type': 'null', 'company' : 'null', 'operator' : o.id}) }}">
-                                <button type="button" class="btn btn-default btn-primary" title="Подтвержденные">
-                                    <span class="glyphicon glyphicon-inbox"></span>
-                                </button>
-                            </a>
-                            &nbsp;&nbsp;
-                            <a href="{{ path('panel_user_production',{'type': 'null', 'company' : 'null', 'operator' : o.id}) }}">
-                                <button type="button" class="btn btn-default btn-primary" title="Архив">
+                            <a href="{{ path('panel_user_list',{'status' : 'null', 'type': 'null', 'company' : 'null', 'operator' : o.id}) }}">
+                                <button type="button" class="btn btn-default btn-primary" title="Заявки">
                                     <span class="glyphicon glyphicon-tags"></span>
                                 </button>
                             </a>
