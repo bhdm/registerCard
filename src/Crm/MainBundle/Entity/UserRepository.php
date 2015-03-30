@@ -136,7 +136,7 @@ class UserRepository extends EntityRepository
         return $res->getQuery()->getResult();
     }
 
-    public function getCountMenu($userId, $status, $companyId = null ){
+    public function getCountMenu($userId, $status, $companyId = null, $operatorId = null ){
         $res = $this->getEntityManager()->createQueryBuilder()
             ->select('u.id')
             ->from('CrmMainBundle:User','u')
@@ -146,6 +146,8 @@ class UserRepository extends EntityRepository
             ->andWhere('u.status = '.$status);
         if ($companyId != null){
             $res->andWhere('co.id = '.$companyId);
+        }elseif($operatorId != null){
+            $res->andWhere('op.id = '.$operatorId);
         }else{
             $res->andWhere('op.id = '.$userId);
         }

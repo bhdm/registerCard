@@ -17,6 +17,13 @@
 {% endif %}
 
 
+
+{% if app.request.attributes.get('_route_params').operator is defined %}
+    {% set f_operator = app.request.attributes.get('_route_params').operator %}
+{% else %}
+    {% set f_operator = null %}
+{% endif %}
+
 {% if app.request.query.all.dateStart is defined %}
     {% set f_dateStart = app.request.query.all.dateStart %}
 {% else %}
@@ -40,35 +47,35 @@
 <div class="well">
     <ul class="nav nav-tabs">
         <li class="{{ app.request.attributes.get('_route_params').status == '0' ? 'active' : '' }}">
-            <a href="{{ path('panel_user_list', { 'status' : '0', 'type' :  f_type , 'company' : f_company }) }}{{ searchLine }}" class="active">
+            <a href="{{ path('panel_user_list', { 'status' : '0', 'type' :  f_type , 'company' : f_company, 'operator' : f_operator }) }}{{ searchLine }}" class="active">
                 Новые
-                {{ render(path('panel_user_get_count',{'status' : '0', 'company' : f_company  })) }}
+                {{ render(path('panel_user_get_count',{'status' : '0', 'company' : f_company, 'operator' : f_operator  })) }}
             </a>
         </li>
         <li class="{{ app.request.attributes.get('_route_params').status == '1' ? 'active' : '' }}">
-            <a href="{{ path('panel_user_list', { 'status' : 1, 'type' :  f_type , 'company' : f_company }) }}{{ searchLine }}" class="active">Подтвержденные {{ render(path('panel_user_get_count',{'status' : 1, 'company' : f_company })) }}</a>
+            <a href="{{ path('panel_user_list', { 'status' : 1, 'type' :  f_type , 'company' : f_company, 'operator' : f_operator }) }}{{ searchLine }}" class="active">Подтвержденные {{ render(path('panel_user_get_count',{'status' : 1, 'company' : f_company, 'operator' : f_operator })) }}</a>
         </li>
         <li class="{{ app.request.attributes.get('_route_params').status == '2' ? 'active' : '' }}">
-            <a href="{{ path('panel_user_list', { 'status' : 2, 'type' :  f_type , 'company' : f_company }) }}{{ searchLine }}" class="active">Оплаченные {{ render(path('panel_user_get_count',{'status' : 2, 'company' : f_company })) }}</a>
+            <a href="{{ path('panel_user_list', { 'status' : 2, 'type' :  f_type , 'company' : f_company, 'operator' : f_operator }) }}{{ searchLine }}" class="active">Оплаченные {{ render(path('panel_user_get_count',{'status' : 2, 'company' : f_company, 'operator' : f_operator })) }}</a>
         </li>
         <li class="{{ app.request.attributes.get('_route_params').status == '3' ? 'active' : '' }}">
-            <a href="{{ path('panel_user_list', { 'status' : 3, 'type' :  f_type , 'company' : f_company }) }}{{ searchLine }}" class="active">В&nbsp;производстве {{ render(path('panel_user_get_count',{'status' : 3, 'company' : f_company })) }}</a>
+            <a href="{{ path('panel_user_list', { 'status' : 3, 'type' :  f_type , 'company' : f_company, 'operator' : f_operator }) }}{{ searchLine }}" class="active">В&nbsp;производстве {{ render(path('panel_user_get_count',{'status' : 3, 'company' : f_company , 'operator' : f_operator })) }}</a>
         </li>
 
         {% if is_granted('ROLE_ADMIN') %}
         <li class="{{ app.request.attributes.get('_route_params').status == '6' ? 'active' : '' }}">
-            <a href="{{ path('panel_user_list', { 'status' : 6, 'type' :  f_type , 'company' : f_company }) }}{{ searchLine }}" class="active">Изготовленые {{ render(path('panel_user_get_count',{'status' : 6, 'company' : f_company })) }}</a>
+            <a href="{{ path('panel_user_list', { 'status' : 6, 'type' :  f_type , 'company' : f_company, 'operator' : f_operator }) }}{{ searchLine }}" class="active">Изготовленые {{ render(path('panel_user_get_count',{'status' : 6, 'company' : f_company, 'operator' : f_operator })) }}</a>
         </li>
         <li class="{{ app.request.attributes.get('_route_params').status == '4' ? 'active' : '' }}">
-            <a href="{{ path('panel_user_list', { 'status' : 4, 'type' :  f_type , 'company' : f_company }) }}{{ searchLine }}" class="active">На почте {{ render(path('panel_user_get_count',{'status' : 4, 'company' : f_company })) }}</a>
+            <a href="{{ path('panel_user_list', { 'status' : 4, 'type' :  f_type , 'company' : f_company, 'operator' : f_operator }) }}{{ searchLine }}" class="active">На почте {{ render(path('panel_user_get_count',{'status' : 4, 'company' : f_company, 'operator' : f_operator })) }}</a>
         </li>
         {% endif %}
 
         <li class="{{ app.request.attributes.get('_route_params').status == '5' ? 'active' : '' }}">
-            <a href="{{ path('panel_user_list', { 'status' : 5, 'type' :  f_type , 'company' : f_company }) }}{{ searchLine }}" class="active">Полученные {{ render_hinclude(path('panel_user_get_count',{'status' : 5, 'company' : f_company })) }}</a>
+            <a href="{{ path('panel_user_list', { 'status' : 5, 'type' :  f_type , 'company' : f_company, 'operator' : f_operator }) }}{{ searchLine }}" class="active">Полученные {{ render(path('panel_user_get_count',{'status' : 5, 'company' : f_company , 'operator' : f_operator})) }}</a>
         </li>
         <li class="{{ app.request.attributes.get('_route_params').status == '10' ? 'active' : '' }}">
-            <a href="{{ path('panel_user_list', { 'status' : 10, 'type' :  f_type , 'company' : f_company }) }}{{ searchLine }}" class="active">Отклоненные {{ render_hinclude(path('panel_user_get_count',{'status' : 10, 'company' : f_company })) }}</a>
+            <a href="{{ path('panel_user_list', { 'status' : 10, 'type' :  f_type , 'company' : f_company, 'operator' : f_operator }) }}{{ searchLine }}" class="active">Отклоненные {{ render(path('panel_user_get_count',{'status' : 10, 'company' : f_company, 'operator' : f_operator })) }}</a>
         </li>
     </ul>
 </div>

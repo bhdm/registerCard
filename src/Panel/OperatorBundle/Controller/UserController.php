@@ -1045,16 +1045,20 @@ class UserController extends Controller
     /**
      * Показывает циферку в меню
      * @Security("has_role('ROLE_OPERATOR')")
-     * @Route("/user/get-new-count/{status}/{company}", name="panel_user_get_count", options={"expose"=true}, defaults={"status" = 0, "company" = null })
+     * @Route("/user/get-new-count/{status}/{company}/{operator}", name="panel_user_get_count", options={"expose"=true}, defaults={"status" = 0, "company" = null })
      * @Template("PanelOperatorBundle:User:getNew.html.twig")
      */
-    public function getUserCountAction($status = 0, $company = null){
+    public function getUserCountAction($status = 0, $company = null, $operator = null){
         $userId = $this->getUser()->getId();
         if ($company == 'null'){
             $company = null;
         }
+        if ($operator == 'null'){
+            $operator = null;
+        }
         $companyId = $company;
-        $users = $this->getDoctrine()->getRepository('CrmMainBundle:User')->getCountMenu($userId,$status,$companyId);
+        $operatorId = $operator;
+        $users = $this->getDoctrine()->getRepository('CrmMainBundle:User')->getCountMenu($userId,$status,$companyId, $operatorId);
         return array('count' => count($users));
     }
 

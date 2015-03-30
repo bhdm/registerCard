@@ -16,7 +16,6 @@
             <thead>
             <tr>
                 <th>Оператор</th>
-                <th>Заявки</th>
                 <th>Кол-во заявок</th>
                 <th>Квота</th>
                 <th class="setting">Инструменты</th>
@@ -24,20 +23,13 @@
             </thead>
             {% for o in operators %}
                 <tr>
-                    <td>{{ o }}</td>
                     <td>
-                        {% spaceless %}
-                            <a href="{{ path('panel_user_list',{'status' : 'null', 'type': 'null', 'company' : 'null', 'operator' : o.id}) }}">
-                                <button type="button" class="btn btn-default btn-primary" title="Заявки">
-                                    <span class="glyphicon glyphicon-tags"></span>
-                                </button>
-                            </a>
-                        {% endspaceless %}
+                        <a href="{{ path('panel_user_list',{'status' : '0', 'type': 'null', 'company' : 'null', 'operator' : o.id}) }}">
+                            {{ o }}
+                        </a>
                     </td>
                     <td>
-                        {% if is_granted('ROLE_ADMIN') %}
                             <span title="Новые">{{ o.countUsers.new }}</span> /
-                        {% endif %}
                             <span title="Подтвержденные">{{ o.countUsers != null and o.countUsers is not empty and o.countUsers.choose is defined ? o.countUsers.choose : 0 }}</span> /
                             <span title="На производство">{{ o.countUsers != null and o.countUsers is not empty and o.countUsers.production is defined ? o.countUsers.production : 0 }}</span>
                     </td>
