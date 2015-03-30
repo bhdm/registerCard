@@ -146,6 +146,16 @@ class UserController extends Controller
                 $user->setStatus($data->get('status'));
                 $user->setComment($data->get('comment'));
 
+                $user->setPrice($data->get('price'));
+
+                $view = $data->get('viewCard');
+                if ($view == 1){
+                    $user->setWorkshop(1);
+                }elseif($view == 2){
+                    $user->setEnterprise(1);
+                }
+
+
 
                 if ($data->get('myPetition')){
                     $user->setMyPetition(1);

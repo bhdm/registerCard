@@ -40,7 +40,22 @@
                     </div>
                 </td>
             </tr>
-
+            <tr>
+                <td class="label">Стоимость:</td>
+                <td class="value">
+                    <input name="price" id="price" type="text" class="form-control" placeholder="Стоимость" value="{{ user.price }}">
+                </td>
+            </tr>
+            <tr>
+                <td class="label">Вид карты:</td>
+                <td class="value">
+                    <select name="viewCard" id="viewCard">
+                        <option value="0" {{ user.enterprise == 0 and user.workshop == 0 ? 'selected="selected"' : ''}}>КВ</option>
+                        <option value="1" {{ user.enterprise == 0 and user.workshop == 1 ? 'selected="selected"' : ''}}>КМ</option>
+                        <option value="2" {{ user.enterprise == 1 and user.workshop == 0 ? 'selected="selected"' : ''}}>КП</option>
+                    </select>
+                </td>
+            </tr>
             <tr>
                 <td class="label">Менеджер:</td>
                 <td class="value">
