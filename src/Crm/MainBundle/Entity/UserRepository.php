@@ -196,7 +196,7 @@ class UserRepository extends EntityRepository
             if ($status !== null && $status != 'null'){
                 $res->andWhere('u.status = '.$status);
             }else{
-                $res->andWhere('u.status != 5');
+                $res->andWhere('u.status = 0');
             }
         }else{
             if ($status == 3 || $status == 4 || $status == 6 ){
