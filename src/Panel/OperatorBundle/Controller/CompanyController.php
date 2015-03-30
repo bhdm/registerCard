@@ -149,6 +149,7 @@ class CompanyController extends Controller
                     $session->getFlashBag()->add('error', 'Такой URL уже существует. Выберите пожалуйста другой');
                 }
             }
+            return $this->redirect($this->generateUrl('panel_company_list'));
         }
         if ($company->getUrl()){
             $companyUrl = 'http://doroga01.ru/app.php/company/order/'.$company->getUrl();

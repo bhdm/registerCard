@@ -87,6 +87,7 @@ class OperatorController extends Controller
         }
         $moderators = $this->getDoctrine()->getRepository('CrmMainBundle:Operator')->findByRoles('ROLE_MODERATOR');
         return array('operator' => $operator, 'moderators' => $moderators);
+
     }
 
     /**
