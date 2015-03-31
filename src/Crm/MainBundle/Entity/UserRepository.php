@@ -204,6 +204,7 @@ class UserRepository extends EntityRepository
                 $res->leftJoin('op.moderator','mo');
                 $res->leftJoin('mo.moderator','mo2');
                 $res->andWhere('op.id = '.$userId.' OR mo.id ='.$userId .' OR mo2.id = '.$userId);
+
             }else{
                 $res->andWhere('u.status = '.$status);
                 $res->andWhere('op.id = '.$userId);
