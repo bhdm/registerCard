@@ -75,7 +75,7 @@
                     <td class="value">
                         <input name="driverPlace" id="driverPlace" type="text" placeholder="Кем выдано" required  value="{{ order.driverPlace is defined ? order.driverPlace : '' }}">
                     </td>
-                    <td rowspan="7" style="width: 400px; vertical-align: top; padding-left: 10px">
+                    <td rowspan="4" style="width: 400px; vertical-align: top; padding-left: 10px">
                         {# Тут сама фото #}
                         <div class="file-container">
                             <input type="file" name="driverFile" id="driverFile" class="fileAjax" required="required" >
@@ -350,6 +350,17 @@
                 }else{
                     $('.error-msg').fadeIn();
                     $('.error-msg').html(error);
+                }
+            });
+
+            $('#tehnolog').change(function(){
+                if($('#tehnolog').prop("checked")){
+                    $('#tehnolog-filebox').css('display','none');
+                    $('.tehnolog-n').css('display','none');
+                }else{
+                    $('#tehnolog-filebox').css('display','block');
+                    $('.tehnolog-n').css('display','table-row');
+                    $('input:text, select').styler();
                 }
             });
 
