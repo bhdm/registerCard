@@ -248,10 +248,10 @@ class UserRepository extends EntityRepository
 
         $res->orderBy('u.created', 'DESC');
         /** ***************** */
-//        echo $res->getQuery()->getSQL();
-//        echo '<br />';
-//        echo '<br />';
-//        exit;
+        echo $res->getQuery()->getSQL();
+        echo '<br />';
+        echo '<br />';
+        exit;
         $result = $res->getQuery()->getResult();
 //        $users =
 //            array(
