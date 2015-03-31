@@ -40,6 +40,7 @@
                     </div>
                 </td>
             </tr>
+            {% if is_granted('ROLE_ADMIN') %}
             <tr>
                 <td class="label">Стоимость:</td>
                 <td class="value">
@@ -56,6 +57,7 @@
                     </select>
                 </td>
             </tr>
+            {% endif %}
             <tr>
                 <td class="label">Менеджер:</td>
                 <td class="value">
@@ -331,7 +333,8 @@
 
 {% block stylesheets %}
     {{ parent() }}
-    <link href="{{ asset('bundles/crmmain/kladrapi/jquery.kladr.css') }}" rel="stylesheet" media="all">
+    {#<link href="{{ asset('bundles/crmmain/kladrapi/jquery.kladr.css') }}" rel="stylesheet" media="all">#}
+
     <style>
         .empty-row{
             font-weight: bold;
@@ -436,6 +439,12 @@
 
         textarea{
             margin-bottom: 10px;
+        }
+        .imgareaselect-outer{
+            display: none !important;
+        }
+        .imgareaselect-border4{
+            border: solid 1px #000 !important;
         }
     </style>
 {% endblock %}
@@ -702,7 +711,10 @@
                 showImgPopUp();
                 type = $(this).attr('id').substr(0,$(this).attr('id').length-3);
                 $('.img-pop-up').attr('type-doc', type);
-                $('#img-pop-up-img').html('<div style="display: inline-block"><img src="'+$(this).attr('src')+'" /></div>');
+
+                $(".imgareaselect-selection").parent().remove();
+                $(".imgareaselect-outer").remove();
+                $('#img-pop-up-img').html('<div style="display: block"><img src="'+$(this).attr('src')+'" /></div>');
                 if ( type == 'photo'){
                     $('#img-pop-up-img div img').imgAreaSelect({
                         aspectRatio: '1:1.285',
