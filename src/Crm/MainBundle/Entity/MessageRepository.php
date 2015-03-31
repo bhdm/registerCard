@@ -9,13 +9,22 @@ use Doctrine\ORM\Query\ResultSetMapping;
 class MessageRepository extends EntityRepository
 {
 
-    public function findMessage($operator)
+    public function findMessage($operatorId)
     {
-        $operatorId = $operator->getId();
         $res = $this->getEntityManager()->createQueryBuilder()
             ->select('m')
             ->from('CrmMainBundle:Message','m')
-            ->where( 'm.sender = '.$operatorId.' AND '.'m.receiver= '.$operatorId )
+            ->where( 'm.sender = '.$operatorId.' OR '.'m.receiver= '.$operatorId )
+            ->orderBy('m.created','DESC');
+        return $res->getQuery()->getResult();
+    }
+
+    public function findUser(){
+        $res = $this->getEntityManager()->createQueryBuilder()
+            ->select('m')
+            ->from('CrmMainBundle:Message','m')
+//            ->leftJoin('m.sender', 'u')
+            ->groupBy('m.sender')
             ->orderBy('m.created','DESC');
         return $res->getQuery()->getResult();
     }

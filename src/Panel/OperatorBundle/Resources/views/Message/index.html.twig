@@ -8,23 +8,42 @@
 
 {% block content %}
     <div class="well">
-        <div>
-            <div class="form-group" style="width: 300px">
-                <label>Сообщение</label>
-                <textarea class="form-control"></textarea>
-            </div>
-            <div class="form-group" style="width: 300px">
-                <button type="button" class="btn btn-default btn-info">
-                    Отправить
-                </button>
+        <div class="row">
+            {% if senders %}
+                <div class="col-md-3">
+                    {% for u in senders %}
+                        <ul class="menu">
+                            <li><a href="{{ path('panel_message',{'operatorId' : u.sender.id }) }}">{{ u.sender.username }}</a></li>
+                        </ul>
+                    {% endfor %}
+                </div>
+            {% endif %}
+            <div class="col-md-3">
+                {% if operatorId %}
+                    <form method="post">
+                        <div>
+                            <div class="form-group" style="width: 300px">
+                                <label>Сообщение</label>
+                                <textarea name="body" class="form-control"></textarea>
+                                <input type="hidden" name="operatorId" value="{{ operatorId }}">
+                            </div>
+                            <div class="form-group" style="width: 300px">
+                                <button type="submit" class="btn btn-default btn-info">
+                                    Отправить
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                {% endif %}
+                <hr />
+                {% for m in messages %}
+                    <div class="bs-callout bs-callout-{{ app.user == m.sender ? 'info' : 'success' }}" id="callout-inputgroup-container-body">
+                        <h4>{{ m.created | date('d.m.Y H:i') }}</h4>
+                        <p>{{ m.body }}</p>
+                    </div>
+                {% endfor %}
+
             </div>
         </div>
-        <hr />
-        {% for m in messages %}
-        <div class="bs-callout bs-callout-{{ app.user == m.sender ? 'info' : 'success' }}" id="callout-inputgroup-container-body">
-            <h4>{{ m.created | date('d.m.Y H:i') }}</h4>
-            <p>{{ m.body }}</p>
-        </div>
-        {% endfor %}
     </div>
 {% endblock %}
