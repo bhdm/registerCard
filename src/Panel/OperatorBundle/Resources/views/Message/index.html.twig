@@ -1,0 +1,30 @@
+{% extends 'PanelOperatorBundle::layout.html.twig' %}
+
+
+{% block crosh %}
+    <a href="{{ path('operator_main') }}">Главная</a> &raquo;
+    <a href="{{ path('panel_message') }}">Связь с администратором</a> &raquo;
+{% endblock %}
+
+{% block content %}
+    <div class="well">
+        <div>
+            <div class="form-group" style="width: 300px">
+                <label>Сообщение</label>
+                <textarea class="form-control"></textarea>
+            </div>
+            <div class="form-group" style="width: 300px">
+                <button type="button" class="btn btn-default btn-info">
+                    Отправить
+                </button>
+            </div>
+        </div>
+        <hr />
+        {% for m in messages %}
+        <div class="bs-callout bs-callout-{{ app.user == m.sender ? 'info' : 'success' }}" id="callout-inputgroup-container-body">
+            <h4>{{ m.created | date('d.m.Y H:i') }}</h4>
+            <p>{{ m.body }}</p>
+        </div>
+        {% endfor %}
+    </div>
+{% endblock %}

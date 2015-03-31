@@ -93,6 +93,14 @@
                 </a>
             </li>
         {% endif %}
+
+        <li class="{{ app.request.attributes.get('_route') == 'panel_message' ? 'active' : '' }}">
+            <a href="{{ path('panel_message') }}">
+                <i class="glyphicon glyphicon-user"></i>
+                &nbsp;&nbsp;Обратная связь
+            </a>
+        </li>
+
         <li class="{{ app.request.attributes.get('_route') == 'panel_security_logout' ? 'active' : '' }}">
             <a href="{{ path('panel_security_logout') }}" class="text-danger">
                 <i class="glyphicon glyphicon-collapse-down"></i>

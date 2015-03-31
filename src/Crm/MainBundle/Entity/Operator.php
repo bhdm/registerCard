@@ -102,6 +102,17 @@ class Operator extends BaseEntity implements UserInterface
      */
     protected $moderatorQuotaLog;
 
+    /**
+     * @ORM\OneToMany(targetEntity="Message", mappedBy="sender")
+     */
+    protected $sent;
+
+    /**
+     * @ORM\OneToMany(targetEntity="Message", mappedBy="receiver")
+     */
+    protected $received;
+
+
     public function __construct(){
         $this->roles    = 'ROLE_OPERATOR';
         $this->companies = new ArrayCollection();
@@ -112,6 +123,9 @@ class Operator extends BaseEntity implements UserInterface
         $this->companyQuotaLog = new ArrayCollection();
         $this->quotaLog = new ArrayCollection();
         $this->moderatorQuotaLog = new ArrayCollection();
+
+        $this->sent = new ArrayCollection();
+        $this->received = new ArrayCollection();
     }
 
 
@@ -661,4 +675,54 @@ class Operator extends BaseEntity implements UserInterface
         }
         return $users;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getSent()
+    {
+        return $this->sent;
+    }
+
+    /**
+     * @param mixed $sent
+     */
+    public function setSent($sent)
+    {
+        $this->sent = $sent;
+    }
+
+    public function addSent($sent){
+        $this->sent[] = $sent;
+    }
+
+    public function removeSent($sent){
+        $this->sent->removeElement($sent);
+    }
+
+
+    /**
+     * @return mixed
+     */
+    public function getReceived()
+    {
+        return $this->received;
+    }
+
+    /**
+     * @param mixed $received
+     */
+    public function setReceived($received)
+    {
+        $this->received = $received;
+    }
+
+    public function addReceived($received){
+        $this->received[] = $received;
+    }
+
+    public function removeReceived($received){
+        $this->received->removeElement($received);
+    }
+
 }
