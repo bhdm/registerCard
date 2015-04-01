@@ -35,9 +35,9 @@ class UserController extends Controller
         $dateStart = ( $request->query->get('dateStart') == '' ? null : $request->query->get('dateStart'));
         $dateEnd = ( $request->query->get('dateEnd') == '' ? null : $request->query->get('dateEnd'));
         if ($operator == null || $operator == 'null'){
-            $user = $this->getUser();
+            $operator = $this->getUser();
         }else{
-            $user = $this->getDoctrine()->getRepository('CrmMainBundle:Operator')->findOneById($operator);
+            $operator = $this->getDoctrine()->getRepository('CrmMainBundle:Operator')->findOneById($operator);
         }
 
 
@@ -47,7 +47,7 @@ class UserController extends Controller
         if ($type == null || $type == 'null'){
             $type = 3;
         }
-        $users = $this->getDoctrine()->getRepository('CrmMainBundle:User')->operatorFilter($type, $status, $company, $user, $searchtxt, $dateStart, $dateEnd);
+        $users = $this->getDoctrine()->getRepository('CrmMainBundle:User')->operatorFilter($type, $status, $company, $operator, $searchtxt, $dateStart, $dateEnd);
         $paginator  = $this->get('knp_paginator');
         $pagination = $paginator->paginate(
             $users,
@@ -62,7 +62,16 @@ class UserController extends Controller
         }
 
         $companies = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->findBy(array('operator' => $this->getUser(), 'enabled' => true));
-        $vars = array('count' => count($users), 'pagination' => $pagination, 'companyId' => $companyId, 'company' => $company, 'companies' => $companies );
+
+
+        $vars = array(
+            'count' => count($users),
+            'pagination' => $pagination,
+            'companyId' => $companyId,
+            'company' => $company,
+            'companies' => $companies,
+            'operator' => $operator
+        );
 
         if ( $this->get('security.context')->isGranted('ROLE_ADMIN')){
             switch ($status){

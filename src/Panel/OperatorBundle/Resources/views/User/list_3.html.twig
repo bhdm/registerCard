@@ -2,7 +2,9 @@
 
 {% block breadcrumb %}
     <ul class="breadcrumb well">
-        <li>Список заявок в производстве</li>
+        {% if operator is defined and operator != null %}
+            <li>{{ operator.username }}</li>
+        {% endif %}
         {% if company is defined and company != null %}
             <li>{{ company.title }}</li>
         {% endif %}
