@@ -60,8 +60,8 @@ class IndexController extends Controller
             foreach (glob("/var/www/upload/tmp/".$time.'*.jpg') as $picture){
                 $name = explode('/',$picture);
                 $name = end($name);
-                $file[filemtime($picture)] = 'http://imkard.loc/upload/tmp/'.$name ;
-//            $file[filemtime($picture)] = 'http://im-kard.ru/upload/tmp/'.$picture ;
+//                $file[filemtime($picture)] = 'http://imkard.loc/upload/tmp/'.$name ;
+            $file[filemtime($picture)] = 'http://im-kard.ru/upload/tmp/'.$name ;
             }
         }
         return array('files' => $file);
