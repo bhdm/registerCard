@@ -46,13 +46,12 @@ class IndexController extends Controller
     }
 
     /**
-     * @Security("has_role('ROLE_OPERATOR')")
+     * @Security("has_role('ROLE_ADMIN')")
      * @Route("/admin/image", name="panel_admin_image")
      * @Template("PanelOperatorBundle:Default:image.html.twig")
      */
     public function imageAction(Request $request){
 
-//        $time = new \DateTime();
         $time = strtotime($request->request->get('date'));
         $time= substr($time,0,5);
         $file = null;
