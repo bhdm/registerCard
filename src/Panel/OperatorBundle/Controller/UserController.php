@@ -121,7 +121,7 @@ class UserController extends Controller
         if (
             $user &&
             $user->getCompany() != null &&
-            $user->getCompany()->getOperator() == $this->getUser()
+            ( $user->getCompany()->getOperator() == $this->getUser() || $this->get('security.context')->isGranted('ROLE_ADMIN') )
             ){
 
             if ($request->getMethod() == 'POST'){
