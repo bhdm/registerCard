@@ -2,6 +2,8 @@
 
 namespace Panel\OperatorBundle\Controller;
 
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
@@ -41,5 +43,28 @@ class IndexController extends Controller
             'year' =>$year,
             'month' => $month
         );
+    }
+
+    /**
+     * @Security("has_role('ROLE_OPERATOR')")
+     * @Route("/admin/image", name="panel_admin_image")
+     * @Template("PanelOperatorBundle:Default:image.html.twig")
+     */
+    public function imageAction(Request $request){
+
+//        $time = new \DateTime();
+        $time = strtotime($request->request->get('date'));
+        $time= substr($time,0,5);
+        $file = null;
+        if ($request->getMethod() == 'POST'){
+            foreach (glob("/var/www/upload/tmp/".$time.'*.jpg') as $picture){
+                $name = explode('/',$picture);
+                $name = end($name);
+                $file[filemtime($picture)] = 'http://imkard.loc/upload/tmp/'.$name ;
+//            $file[filemtime($picture)] = 'http://im-kard.ru/upload/tmp/'.$picture ;
+            }
+        }
+        return array('files' => $file);
+
     }
 }
