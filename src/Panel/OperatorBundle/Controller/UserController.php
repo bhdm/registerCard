@@ -27,6 +27,7 @@ class UserController extends Controller
         if ($company == "null"){
             $company = null;
         }
+
         if ($status == "null" || $status == null){
             $status = 0;
         }
@@ -34,9 +35,12 @@ class UserController extends Controller
         $searchtxt = $request->query->get('search');
         $dateStart = ( $request->query->get('dateStart') == '' ? null : $request->query->get('dateStart'));
         $dateEnd = ( $request->query->get('dateEnd') == '' ? null : $request->query->get('dateEnd'));
+
         if ($operator == null || $operator == 'null'){
             $operator = $this->getUser();
+            $operatorId = "null";
         }else{
+            $operatorId = $operator;
             $operator = $this->getDoctrine()->getRepository('CrmMainBundle:Operator')->findOneById($operator);
         }
 
@@ -57,6 +61,7 @@ class UserController extends Controller
         $companyId = $company;
         if ($companyId == null){
             $company = null;
+            $companyId = "null";
         }else{
             $company = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->find($companyId);
         }
@@ -70,7 +75,8 @@ class UserController extends Controller
             'companyId' => $companyId,
             'company' => $company,
             'companies' => $companies,
-            'operator' => $operator
+            'operator' => $operator,
+            'operatorId' => $operatorId
         );
 
         if ( $this->get('security.context')->isGranted('ROLE_ADMIN')){
