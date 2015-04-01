@@ -176,7 +176,7 @@ class UserRepository extends EntityRepository
             ->leftJoin('co.operator ','op');
 
         $res->where('u.enabled = true AND co.enabled = true');
-        $res->andWhere('op.id = '.$userId);
+//        $res->andWhere('op.id = '.$userId);
         if ($comment == 1){
             $res->andWhere(" ( u.comment is not null AND u.comment != '' ) ");
         }
@@ -192,25 +192,27 @@ class UserRepository extends EntityRepository
             $res->andWhere('co.id = '.$companyId);
         }
 
-        if (!$user->isRole('ROLE_ADMIN')) {
+        if ($user->isRole('ROLE_ADMIN')) {
             if ($status !== null && $status != 'null'){
                 $res->andWhere('u.status = '.$status);
+                if ($status == 3 || $status == 4 || $status == 6 ){
+                    $res->leftJoin('op.moderator','mo');
+                    $res->leftJoin('mo.moderator','mo2');
+                    $res->andWhere('op.id = '.$userId.' OR mo.id ='.$userId .' OR mo2.id = '.$userId);
+                }else{
+                    $res->andWhere('op.id = '.$userId);
+                }
             }else{
                 $res->andWhere('u.status = 0');
+                $res->andWhere('op.id = '.$userId);
             }
         }else{
             if ($status == 3 || $status == 4 || $status == 6 ){
                 $res->andWhere('u.status = 3 OR u.status = 4 OR u.status = 6');
-//                $res->leftJoin('op.moderator','mo');
-//                $res->leftJoin('mo.moderator','mo2');
-//                if ( $user == null){
-//                    $res->andWhere('op.id = '.$userId.' OR mo.id ='.$userId .' OR mo2.id = '.$userId);
-//                }else{
-//                    $res->andWhere('op.id = '.$userId);
-//                }
+                $res->andWhere('op.id = '.$userId);
             }else{
                 $res->andWhere('u.status = '.$status);
-//                $res->andWhere('op.id = '.$userId);
+                $res->andWhere('op.id = '.$userId);
             }
         }
 
