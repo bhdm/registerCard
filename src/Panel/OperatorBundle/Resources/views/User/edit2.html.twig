@@ -1,0 +1,496 @@
+{% extends 'PanelOperatorBundle::layout.html.twig' %}
+
+
+{% block crosh %}
+    <a href="{{ path('operator_main') }}">Главная</a> &raquo;
+    <a href="{{ path('operator_user_list') }}">Пользователи</a> &raquo;
+    <a href="#">{{ user }}</a>
+{% endblock %}
+
+{% block content %}
+    <div class="well">
+        <table class="table">
+            <tr>
+                <td>
+                    <div class="form-group">
+                        <label class="control-label col-sm-3" for="status">Статус</label>
+                        <div class="col-sm-9">
+                            <select id="status" name="status" class="miniselect">
+                                <option value="0"  {{ user.status == 0 or user.status == null ? 'selected="selected"' : '' }}>Новая</option>
+                                <option value="1"  {{ user.status == 1 ? 'selected="selected"' : '' }}>Подтвержденная</option>
+                                <option value="2"  {{ user.status == 2 ? 'selected="selected"' : '' }}>Оплаченная</option>
+                                <option value="3"  {{ user.status == 3 ? 'selected="selected"' : '' }}>В производстве</option>
+                                {% if is_granted('ROLE_ADMIN') %}
+                                    <option value="6"  {{ user.status == 6 ? 'selected="selected"' : '' }}>Изготовлено</option>
+                                    <option value="4"  {{ user.status == 4 ? 'selected="selected"' : '' }}>На почте</option>
+                                    <option value="5"  {{ user.status == 5 ? 'selected="selected"' : '' }}>Получена</option>
+                                    <option value="10" {{ user.status == 10 ? 'selected="selected"' : '' }}>Отклонена</option>
+                                {% endif %}
+                            </select>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <textarea class="form-control" placeholder="Комментарий"></textarea>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="form-group">
+                        <label class="control-label col-sm-3" for="type">Тип карты</label>
+                        <div class="col-sm-9">
+                            <select id="type" name="type" class="miniselect">
+                                <option value="0" {{ user.ru == 0 and user.estr == 0 ? 'selected="selected"' : ''}}>СКЗИ</option>
+                                <option value="1" {{ user.ru == 0 and user.estr == 1 ? 'selected="selected"' : ''}}>ЕСТР</option>
+                                <option value="2" {{ user.ru == 1 and user.estr == 0 ? 'selected="selected"' : ''}}>РФ</option>
+                            </select>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="form-group">
+                        <label class="control-label col-sm-3" for="view">Вид карты</label>
+                        <div class="col-sm-9">
+                            <select id="view" name="view" class="miniselect">
+                                <option value="0" {{ user.enterprise == 0 and user.workshop == 0 ? 'selected="selected"' : ''}}>КВ</option>
+                                <option value="1" {{ user.enterprise == 0 and user.workshop == 1 ? 'selected="selected"' : ''}}>КМ</option>
+                                <option value="2" {{ user.enterprise == 1 and user.workshop == 0 ? 'selected="selected"' : ''}}>КП</option>
+                            </select>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="h2">
+                        Данные для связи
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="form-group">
+                        <label class="control-label col-sm-3" for="username">Телефон:</label>
+                        <div class="col-sm-9">
+                            <input type="text"  name="username" id="username" class="form-control" value="{{ user.username }}">
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="form-group">
+                        <label class="control-label col-sm-3" for="email">E-mail:</label>
+                        <div class="col-sm-9">
+                            <input type="text"  name="email" id="email" class="form-control" value="{{ user.email }}">
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="h2">
+                        Паспортные данные
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="form-group">
+                        <label class="control-label col-sm-3" for="lastName">Сканы пасспорта:</label>
+                        <div class="col-sm-4">
+                            <input type="file" name="passport" id="passport">
+                        </div>
+                        <div class="col-sm-1"></div>
+                        <div class="col-sm-4">
+                            <input type="file" name="passport2" id="passport2">
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="form-group">
+                        <label class="control-label col-sm-3" for="lastName">Фамилия:</label>
+                        <div class="col-sm-9">
+                            <input type="text"  name="lastName" id="lastName" class="form-control" value="{{ user.lastName }}">
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="form-group">
+                        <label class="control-label col-sm-3" for="firstName">Имя:</label>
+                        <div class="col-sm-9">
+                            <input type="text"  name="firstName" id="firstName" class="form-control" value="{{ user.firstName }}">
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="form-group">
+                        <label class="control-label col-sm-3" for="surName">Отчество:</label>
+                        <div class="col-sm-9">
+                            <input type="text"  name="surName" id="surName" class="form-control" value="{{ user.surName }}">
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="form-group">
+                        <label class="control-label col-sm-3" for="birthDate">Дата рождения:</label>
+                        <div class="col-sm-9">
+                            <input type="text"  name="birthDate" id="birthDate" class="form-control date" value="{{ user.birthDate|date('d.m.Y') }}">
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            {#<tr>#}
+            {#<td>#}
+            {#<div class="form-group">#}
+            {#<label class="control-label col-sm-3" for="passport">Серия и номер:</label>#}
+            {#<div class="col-sm-3">#}
+            {#<input type="text"  name="passportSerial" id="passportSerial" class="form-control" placeholder="Серия">#}
+            {#</div>#}
+            {#<div class="col-sm-6">#}
+            {#<input type="text"  name="passportNumber" id="passportNumber" class="form-control" placeholder="Номер">#}
+            {#</div>#}
+            {#</div>#}
+            {#</td>#}
+            {#</tr>#}
+            <tr>
+                <td>
+                    <div class="form-group">
+                        <label class="control-label col-sm-3" for="region">Регион:</label>
+                        <div class="col-sm-9">
+                            <input type="text"  name="region" id="region" class="form-control" value="{{ user.registeredRegion }}">
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="form-group">
+                        <label class="control-label col-sm-3" for="area">Район:</label>
+                        <div class="col-sm-9">
+                            <input type="text"  name="area" id="area" class="form-control" value="{{ user.registeredArea }}">
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="form-group">
+                        <label class="control-label col-sm-3" for="city">Город:</label>
+                        <div class="col-sm-9">
+                            <input type="text"  name="city" id="city" class="form-control" value="{{ user.registeredCity }}">
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="form-group">
+                        <label class="control-label col-sm-3" for="street">Улица:</label>
+                        <div class="col-sm-9">
+                            <input type="text"  name="street" id="street" class="form-control"  value="{{ user.registeredStreet }}">
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="form-group">
+                        <label class="control-label col-sm-3" for="house">Здание:</label>
+                        <div class="col-sm-2">
+                            <input type="text"  name="house" id="house" class="form-control" placeholder="Дом"  value="{{ user.registeredHome }}">
+                        </div>
+                        <div class="col-sm-2">
+                            <input type="text"  name="corp" id="corp" class="form-control" placeholder="Корп"  value="{{ user.registeredCorp }}">
+                        </div>
+                        <div class="col-sm-2">
+                            <input type="text"  name="structure" id="structure" class="form-control" placeholder="Стр" value="{{ user.registeredStructure }}">
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="form-group">
+                        <label class="control-label col-sm-3" for="room">Квартира:</label>
+                        <div class="col-sm-3">
+                            <input type="text"  name="room" id="room" class="form-control" value="{{ user.registeredRoom }}">
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="form-group">
+                        <label class="control-label col-sm-3" for="zipcode">Индекс:</label>
+                        <div class="col-sm-3">
+                            <input type="text"  name="zipcode" id="zipcode" class="form-control" value="{{ user.registeredZipcode }}">
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="h2">
+                        Водительское удостоверение
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="form-group">
+                        <label class="control-label col-sm-3" for="driverPlace">Кем выдано:</label>
+                        <div class="col-sm-9">
+                            <input type="text"  name="driverPlace" id="driverPlace" class="form-control" value="{{ user.driverDocIssuance }}">
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="form-group">
+                        <label class="control-label col-sm-3" for="driverNumber">Номер удоств.:</label>
+                        <div class="col-sm-9">
+                            <input type="text"  name="driverNumber" id="driverNumber" class="form-control" value="{{ user.driverDocNumber }}">
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="form-group">
+                        <label class="control-label col-sm-3" for="driverStarts">Дата выдачи:</label>
+                        <div class="col-sm-9">
+                            <input type="text"  name="driverStarts" id="driverStarts" class="form-control" value="{{ user.driverDocDateStarts|date('d.m.Y') }}">
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="h2">
+                        Фотография и подпись
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="h2">
+                        Информация о доставке
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="form-group">
+                        <label class="control-label col-sm-3" for="deliveryRegion">Регион:</label>
+                        <div class="col-sm-9">
+                            <input type="text"  name="deliveryRegion" id="deliveryRegion" class="form-control" value="{{ user.dileveryRegion }}">
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="form-group">
+                        <label class="control-label col-sm-3" for="deliveryArea">Район:</label>
+                        <div class="col-sm-9">
+                            <input type="text"  name="deliveryArea" id="deliveryArea" class="form-control" value="{{ user.dileveryArea }}">
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="form-group">
+                        <label class="control-label col-sm-3" for="deliveryCity">Город:</label>
+                        <div class="col-sm-9">
+                            <input type="text"  name="deliveryCity" id="deliveryCity" class="form-control" value="{{ user.dileveryCity }}">
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="form-group">
+                        <label class="control-label col-sm-3" for="deliveryStreet">Улица:</label>
+                        <div class="col-sm-9">
+                            <input type="text"  name="deliveryStreet" id="deliveryStreet" class="form-control" value="{{ user.dileveryStreet }}">
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="form-group">
+                        <label class="control-label col-sm-3" for="deliveryHouse">Здание:</label>
+                        <div class="col-sm-2">
+                            <input type="text"  name="deliveryHouse" id="deliveryHouse" class="form-control" placeholder="Дом" value="{{ user.dileveryHome }}">
+                        </div>
+                        <div class="col-sm-2">
+                            <input type="text"  name="deliveryCorp" id="deliveryCorp" class="form-control" placeholder="Корп" value="{{ user.dileveryCorp }}">
+                        </div>
+                        <div class="col-sm-2">
+                            <input type="text"  name="deliveryStructure" id="deliveryStructure" class="form-control" placeholder="Стр" value="{{ user.dileveryStructure }}">
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="form-group">
+                        <label class="control-label col-sm-3" for="deliveryRoom">Квартира:</label>
+                        <div class="col-sm-3">
+                            <input type="text"  name="deliveryRoom" id="deliveryRoom" class="form-control" value="{{ user.dileveryRoom }}">
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="form-group">
+                        <label class="control-label col-sm-3" for="deliveryZipcode">Индекс:</label>
+                        <div class="col-sm-3">
+                            <input type="text"  name="deliveryZipcode" id="deliveryZipcode" class="form-control" value="{{ user.dileveryZipcode }}">
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </div>
+{% endblock %}
+
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link href="{{ asset('bundles/crmmain/kladrapi/jquery.kladr.css') }}" rel="stylesheet" media="all">
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    {#<script src="{{ asset('bundles/crmmain/javascripts/jquery.maskedinput.js') }}" type="text/javascript"></script>#}
+    <script src="{{ asset('bundles/crmmain/kladrapi/jquery.kladr.min.js') }}" type="text/javascript"></script>
+    {#<script src="{{ asset('bundles/crmmain/javascripts/file.js') }}" type="text/javascript"></script>#}
+    <script>
+        $(document).ready(function(){
+            $("#phone").mask("+7 (999) 999-9999");
+            $(".date").mask("99.99.9999");
+            $(".code").mask("999-999");
+
+
+            $( 'input[name=region]' ).kladr({
+                token: '541ee4ac7c52392c7d8b457e',
+                key: '181d5e2c44994c335e5e81e9ae46e79a67b6b495',
+                type: $.kladr.type.region,
+                select: function(obj){
+                    $('#deliveryRegion').val(obj.type+' '+obj.name);
+                    $('#deliveryRegion').trigger('refresh');
+                }
+
+            });
+
+            $( 'input[name=area]' ).kladr({
+                token: '541ee4ac7c52392c7d8b457e',
+                key: '181d5e2c44994c335e5e81e9ae46e79a67b6b495',
+                parentInput: '[name="region"]',
+                type: $.kladr.type.area
+            });
+
+            $('input[name=city]' ).kladr({
+                token: '541ee4ac7c52392c7d8b457e',
+                key: '181d5e2c44994c335e5e81e9ae46e79a67b6b495',
+                parentInput: '[name="area"]',
+                type: $.kladr.type.city
+            });
+
+            $('input[name=street]' ).kladr({
+                token: '541ee4ac7c52392c7d8b457e',
+                key: '181d5e2c44994c335e5e81e9ae46e79a67b6b495',
+                parentInput: '[name="city"]',
+                type: $.kladr.type.street,
+                select: function(obj){
+                    $('#deliveryStreet').val(obj.typeShort+' '+obj.name);
+                    $('#deliveryStreet').trigger('refresh');
+                }
+            });
+            $('#house' ).kladr({
+                token: '541ee4ac7c52392c7d8b457e',
+                key: '181d5e2c44994c335e5e81e9ae46e79a67b6b495',
+                parentInput: '[name="street"]',
+                type: $.kladr.type.building,
+                select: function(obj){
+                    $('#zipcode').val(obj.zip);
+                    var home = obj.name.split('к');
+                    $('#house').val(home[0]);
+                    if (home[1] != undefined){
+                        $('#corp').val(home[1]);
+                    }
+
+                }
+            });
+
+            $( 'input[name=deliveryRegion]' ).kladr({
+                token: '541ee4ac7c52392c7d8b457e',
+                key: '181d5e2c44994c335e5e81e9ae46e79a67b6b495',
+                type: $.kladr.type.region,
+                select: function(obj){
+                    $('#deliveryRegion').val(obj.type+' '+obj.name);
+                    $('#deliveryRegion').trigger('refresh');
+                }
+            });
+
+            $( 'input[name=deliveryArea]' ).kladr({
+                token: '541ee4ac7c52392c7d8b457e',
+                key: '181d5e2c44994c335e5e81e9ae46e79a67b6b495',
+                parentInput: '[name="deliveryRegion"]',
+                type: $.kladr.type.area
+            });
+
+            $('input[name=deliveryCity]' ).kladr({
+                token: '541ee4ac7c52392c7d8b457e',
+                key: '181d5e2c44994c335e5e81e9ae46e79a67b6b495',
+                parentInput: '[name="deliveryArea"]',
+                type: $.kladr.type.city
+            });
+
+            $('input[name=deliveryStreet]' ).kladr({
+                token: '541ee4ac7c52392c7d8b457e',
+                key: '181d5e2c44994c335e5e81e9ae46e79a67b6b495',
+                parentInput: '[name="deliveryCity"]',
+                type: $.kladr.type.street,
+                select: function(obj){
+                    $('#deliveryStreet').val(obj.type+' '+obj.name);
+                    $('#deliveryStreet').trigger('refresh');
+                }
+            });
+            $('#deliveryHouse' ).kladr({
+                token: '541ee4ac7c52392c7d8b457e',
+                key: '181d5e2c44994c335e5e81e9ae46e79a67b6b495',
+                parentInput: '[name="deliveryStreet"]',
+                type: $.kladr.type.building,
+                select: function(obj){
+                    $('#deliveryZipcode').val(obj.zip);
+                    var home = obj.name.split('к');
+                    $('#deliveryHouse').val(home[0]);
+                    if (home[1] != undefined){
+                        $('#deliveryCorp').val(home[1]);
+                    }
+
+                }
+            });
+
+        });
+    </script>
+{% endblock %}

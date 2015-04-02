@@ -109,7 +109,7 @@
             </tr>
             </thead>
             {% for user in pagination %}
-                <tr>
+                <tr class="{{ user.production == 0 ? 'tr-select' : '' }}" >
                     <td><input type="checkbox" name="user[{{ user.id }}]" value="{{ user.id }}"></td>
                     <td>{{ user.id }}</td>
                     <td>

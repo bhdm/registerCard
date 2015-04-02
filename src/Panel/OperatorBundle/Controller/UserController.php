@@ -114,7 +114,7 @@ class UserController extends Controller
      * @Route("/edit/{userId}", name="panel_user_edit")
      * @Template()
      */
-    public function editAction(Request $request, $userId){
+    public function edit2Action(Request $request, $userId){
         $session = $request->getSession();
         $user = $this->getDoctrine()->getRepository('CrmMainBundle:User')->findOneById($userId);
 
@@ -467,7 +467,7 @@ class UserController extends Controller
         $user = $this->getDoctrine()->getRepository('CrmMainBundle:User')->findOneById($userId);
 
         if ( $type == 'true' &&  $this->get('security.context')->isGranted('ROLE_OPERATOR')){
-            $user->setProduction(2);
+//            $user->setProduction(2);
             $user->setStatus(3);
 
             $operator = $this->getUser();

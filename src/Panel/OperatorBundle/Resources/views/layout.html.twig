@@ -61,6 +61,11 @@
             <link href="{{ asset('bundles/paneloperator/css/bootstrap.min.css') }}" rel="stylesheet">
             <link href="{{ asset('bundles/paneloperator/css/common.css') }}" rel="stylesheet">
             {#<link href="{{ asset('bundles/paneloperator/bootstrap-table-master/src/bootstrap-table.css') }}" rel="stylesheet">#}
+
+            {% stylesheets filter='less'  '@PanelOperatorBundle/Resources/public/less/*' %}
+            <link href="{{ asset_url }}" type="text/css" rel="stylesheet" media="all" />
+            {% endstylesheets %}
+
             <style>
                 .setting{
                     text-align: right;
