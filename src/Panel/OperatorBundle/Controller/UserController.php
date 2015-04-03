@@ -114,7 +114,7 @@ class UserController extends Controller
      * @Route("/edit/{userId}", name="panel_user_edit")
      * @Template()
      */
-    public function edit2Action(Request $request, $userId){
+    public function editAction(Request $request, $userId){
         $session = $request->getSession();
         $user = $this->getDoctrine()->getRepository('CrmMainBundle:User')->findOneById($userId);
 

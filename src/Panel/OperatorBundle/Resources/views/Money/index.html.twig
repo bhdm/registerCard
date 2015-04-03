@@ -71,7 +71,8 @@
                 {% endfor %}
             </tr>
         </table>
-        <div style="width: 100%; overflow-x: scroll">
+        <button id="statsOfDay">Показать статистику по дням</button>
+        <div style="width: 100%; overflow-x: scroll; display: none" id="statsOfDayBox">
             <table class="table">
                 <caption>Cтатистика заявок по дням за текущий месяц</caption>
                 <tr>
@@ -269,5 +270,10 @@
 
             chart.draw(data, options);
         }
+        $(document).ready(function(){
+            $('#statsOfDay').click(function(){
+                $('#statsOfDayBox').css('display', 'block');
+            });
+        });
     </script>
 {% endblock %}
