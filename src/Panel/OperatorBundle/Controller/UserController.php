@@ -112,9 +112,9 @@ class UserController extends Controller
     /**
      * @Security("has_role('ROLE_OPERATOR')")
      * @Route("/edit/{userId}", name="panel_user_edit")
-     * @Template()
+     * @Template("PanelOperatorBundle:User:edit2.html.twig")
      */
-    public function editAction(Request $request, $userId){
+    public function edit2Action(Request $request, $userId){
         $session = $request->getSession();
         $user = $this->getDoctrine()->getRepository('CrmMainBundle:User')->findOneById($userId);
 

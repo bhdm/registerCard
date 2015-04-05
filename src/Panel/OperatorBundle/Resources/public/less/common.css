@@ -10,3 +10,80 @@
 .jq-file {
   width: 230px;
 }
+progress {
+  display: none;
+}
+.navigateFile {
+  margin-top: 10px;
+}
+.navigateFile div img {
+  width: 24px;
+}
+.navigateFile img {
+  width: 24px;
+}
+.minibtn {
+  border: 1px solid #cccccc;
+  border-radius: 3px;
+  padding: 3px 5px;
+  font-size: 12px;
+  color: #444444;
+  display: inline-block;
+  cursor: pointer;
+  margin-bottom: -12px;
+}
+.minibtn:hover {
+  background: #DDD;
+}
+.ui-widget-header {
+  border: 1px solid #77a2e7 !important;
+  background: #5988f6 !important;
+  color: #fff !important;
+  font-weight: bold !important;
+}
+.slider-vertical-brightness,
+.slider-vertical-contrast {
+  display: none !important;
+  position: absolute !important;
+  height: 100px !important;
+  top: 30px !important;
+  left: 10px !important;
+  z-index: 9999;
+}
+.slider-box {
+  position: relative !important;
+  display: inline-block !important;
+}
+.slider-box:hover .slider-vertical-contrast {
+  display: block !important;
+}
+.slider-box:hover .slider-vertical-brightness {
+  display: block !important;
+}
+.file-container .jq-file {
+  margin-bottom: 10px;
+}
+#slider-vertical-2,
+#slider-vertical-1 {
+  margin-left: 25px;
+}
+.fileBox {
+  display: none;
+  position: fixed;
+  top: 150px;
+  left: 50%;
+  margin-left: -360px;
+  width: 700px;
+  background: #F0F0F0;
+  border: 1px solid #000088;
+  border-radius: 10px;
+  z-index: 9999;
+  padding: 10px;
+}
+.fileBox .fileDoc {
+  max-height: 500px;
+  min-height: 300px;
+}
+.jcrop-holder {
+  margin: 0 auto;
+}
