@@ -41,7 +41,7 @@ function getImage(data, container){
 
         fileDoc.children('img').attr('src',data.data.img);
         fileDoc.children('.jcrop-holder').children('img').attr('src',data.data.img);
-        var type = $(this).attr('data-type');
+        var type = $('.fileBox').attr('data-type');
 
         var maxHeight = 400;
         var maxWidth = 400;
@@ -85,7 +85,7 @@ $(document).ready(function(){
     $( ".slider-vertical-contrast" ).on( "slidestop", function( event, ui ) {
             var container = $('.file-container');
             //console.log(container);
-            var type = $(this).attr('data-type');
+            var type = $('.fileBox').attr('data-type');
             var contrast = ui.value;
             var brightness = container.children('.fileDoc').children('img').attr('brightness');
             //var contrastNow = container.children('.fileDoc').children('img').attr('contrast');
@@ -115,7 +115,7 @@ $(document).ready(function(){
     $( ".slider-vertical-brightness" ).on( "slidestop", function( event, ui ) {
             var container = $('.file-container');
             //console.log(container);
-            var type = $(this).attr('data-type');
+            var type = $('.fileBox').attr('data-type');
 
             var brightness = ui.value;
 

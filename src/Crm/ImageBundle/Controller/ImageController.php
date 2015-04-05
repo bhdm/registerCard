@@ -221,8 +221,14 @@ class ImageController extends Controller
         $path = $session->get($type);
         $path2 = $session->get('origin-'.$type);
 
-        if ($path2 == null){
+        if ($path2 == null && $path == null){
             return array('data' => array('error' => 'Файл не загружен'));
+        }elseif ($path2 == null && $path != null){
+            $path2 = 'origin-'.$path;
+            $image = new \Imagick($path);
+            $image->setImageFormat('jpg');
+            $image->writeImage($path2);
+            $image->destroy();
         }
         $image = imagecreatefromjpeg($path2);
 

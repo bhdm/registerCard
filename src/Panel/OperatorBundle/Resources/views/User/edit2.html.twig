@@ -8,169 +8,126 @@
 {#{% endblock %}#}
 
 {% block content %}
-    <div class="well">
-        <table class="table">
-            <tr>
-                <td>
-                    <div class="form-group">
-                        <label class="control-label col-sm-3" for="status">Статус</label>
-                        <div class="col-sm-9">
-                            <select id="status" name="status" class="miniselect">
-                                <option value="0"  {{ user.status == 0 or user.status == null ? 'selected="selected"' : '' }}>Новая</option>
-                                <option value="1"  {{ user.status == 1 ? 'selected="selected"' : '' }}>Подтвержденная</option>
-                                <option value="2"  {{ user.status == 2 ? 'selected="selected"' : '' }}>Оплаченная</option>
-                                <option value="3"  {{ user.status == 3 ? 'selected="selected"' : '' }}>В производстве</option>
-                                {% if is_granted('ROLE_ADMIN') %}
-                                    <option value="6"  {{ user.status == 6 ? 'selected="selected"' : '' }}>Изготовлено</option>
-                                    <option value="4"  {{ user.status == 4 ? 'selected="selected"' : '' }}>На почте</option>
-                                    <option value="5"  {{ user.status == 5 ? 'selected="selected"' : '' }}>Получена</option>
-                                    <option value="10" {{ user.status == 10 ? 'selected="selected"' : '' }}>Отклонена</option>
-                                {% endif %}
-                            </select>
-                        </div>
-                    </div>
-                </td>
-            </tr>
-            <tr>
-                <td colspan="2">
-                    <textarea class="form-control" placeholder="Комментарий"></textarea>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <div class="form-group">
-                        <label class="control-label col-sm-3" for="type">Тип карты</label>
-                        <div class="col-sm-9">
-                            <select id="type" name="type" class="miniselect">
-                                <option value="0" {{ user.ru == 0 and user.estr == 0 ? 'selected="selected"' : ''}}>СКЗИ</option>
-                                <option value="1" {{ user.ru == 0 and user.estr == 1 ? 'selected="selected"' : ''}}>ЕСТР</option>
-                                <option value="2" {{ user.ru == 1 and user.estr == 0 ? 'selected="selected"' : ''}}>РФ</option>
-                            </select>
-                        </div>
-                    </div>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <div class="form-group">
-                        <label class="control-label col-sm-3" for="view">Вид карты</label>
-                        <div class="col-sm-9">
-                            <select id="view" name="view" class="miniselect">
-                                <option value="0" {{ user.enterprise == 0 and user.workshop == 0 ? 'selected="selected"' : ''}}>КВ</option>
-                                <option value="1" {{ user.enterprise == 0 and user.workshop == 1 ? 'selected="selected"' : ''}}>КМ</option>
-                                <option value="2" {{ user.enterprise == 1 and user.workshop == 0 ? 'selected="selected"' : ''}}>КП</option>
-                            </select>
-                        </div>
-                    </div>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <div class="h2">
-                        Данные для связи
-                    </div>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <div class="form-group">
-                        <label class="control-label col-sm-3" for="username">Телефон:</label>
-                        <div class="col-sm-9">
-                            <input type="text"  name="username" id="username" class="form-control" value="{{ user.username }}">
-                        </div>
-                    </div>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <div class="form-group">
-                        <label class="control-label col-sm-3" for="email">E-mail:</label>
-                        <div class="col-sm-9">
-                            <input type="text"  name="email" id="email" class="form-control" value="{{ user.email }}">
-                        </div>
-                    </div>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <div class="h2">
-                        Паспортные данные
-                    </div>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <div class="form-group">
-                        <label class="control-label col-sm-3" for="lastName">Сканы паспорта:</label>
-                        <div class="col-sm-4">
-                            <input type="file" name="passportFile" id="passportFile"  data-type="passportFile" class="fileAjax">
-                            {% if user.copyPassport.path is defined %}
-                                <img src="/{{ user.copyPassport.path }}" brightness="0" contrast="0" data-type="passportFile" class="document" id="passportFileImg">
-                            {% endif %}
-                        </div>
-                        {% if user.ru == 1 or user.estr == 1 %}
-                        <div class="col-sm-1"></div>
-                        <div class="col-sm-4">
-                            <input type="file" name="passport2File" id="passport2File" data-type="passport2File" class="fileAjax">
-                            {% if user.copyPassport2.path is defined %}
-                                <img src="/{{ user.copyPassport2.path }}" brightness="0" contrast="0" data-type="passport2File" class="document" id="passport2FileImg">
-                            {% endif %}
-                        </div>
-                        {% endif %}
-                    </div>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <div class="form-group">
-                        <label class="control-label col-sm-3" for="lastName">Фамилия:</label>
-                        <div class="col-sm-9">
-                            <input type="text"  name="lastName" id="lastName" class="form-control" value="{{ user.lastName }}">
-                        </div>
-                    </div>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <div class="form-group">
-                        <label class="control-label col-sm-3" for="firstName">Имя:</label>
-                        <div class="col-sm-9">
-                            <input type="text"  name="firstName" id="firstName" class="form-control" value="{{ user.firstName }}">
-                        </div>
-                    </div>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <div class="form-group">
-                        <label class="control-label col-sm-3" for="surName">Отчество:</label>
-                        <div class="col-sm-9">
-                            <input type="text"  name="surName" id="surName" class="form-control" value="{{ user.surName }}">
-                        </div>
-                    </div>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <div class="form-group">
-                        <label class="control-label col-sm-3" for="birthDate">Дата рождения:</label>
-                        <div class="col-sm-9">
-                            <input type="text"  name="birthDate" id="birthDate" class="form-control date" value="{{ user.birthDate|date('d.m.Y') }}">
-                        </div>
-                    </div>
-                </td>
-            </tr>
-
-            {% if user.ru == 0 and user.estr == 0 %}
+    <div class="well" style="max-width: 940px;">
+        <form method="post">
+            <input type="hidden" name="referer" {{ referer }}>
+            <table class="table">
                 <tr>
                     <td>
                         <div class="form-group">
-                            <label class="control-label col-sm-3" for="surName">Серия и номер:</label>
+                            <label class="control-label col-sm-3" for="status">Статус</label>
+                            <div class="col-sm-9">
+                                <select id="status" name="status" class="miniselect">
+                                    <option value="0"  {{ user.status == 0 or user.status == null ? 'selected="selected"' : '' }}>Новая</option>
+                                    <option value="1"  {{ user.status == 1 ? 'selected="selected"' : '' }}>Подтвержденная</option>
+                                    <option value="2"  {{ user.status == 2 ? 'selected="selected"' : '' }}>Оплаченная</option>
+                                    <option value="3"  {{ user.status == 3 ? 'selected="selected"' : '' }}>В производстве</option>
+                                    {% if is_granted('ROLE_ADMIN') %}
+                                        <option value="6"  {{ user.status == 6 ? 'selected="selected"' : '' }}>Изготовлено</option>
+                                        <option value="4"  {{ user.status == 4 ? 'selected="selected"' : '' }}>На почте</option>
+                                        <option value="5"  {{ user.status == 5 ? 'selected="selected"' : '' }}>Получена</option>
+                                        <option value="10" {{ user.status == 10 ? 'selected="selected"' : '' }}>Отклонена</option>
+                                    {% endif %}
+                                </select>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        <textarea class="form-control" placeholder="Комментарий"></textarea>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="form-group">
+                            <label class="control-label col-sm-3" for="type">Тип карты</label>
+                            <div class="col-sm-9">
+                                <select id="type" name="type" class="miniselect">
+                                    <option value="0" {{ user.ru == 0 and user.estr == 0 ? 'selected="selected"' : ''}}>СКЗИ</option>
+                                    <option value="1" {{ user.ru == 0 and user.estr == 1 ? 'selected="selected"' : ''}}>ЕСТР</option>
+                                    <option value="2" {{ user.ru == 1 and user.estr == 0 ? 'selected="selected"' : ''}}>РФ</option>
+                                </select>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="form-group">
+                            <label class="control-label col-sm-3" for="view">Вид карты</label>
+                            <div class="col-sm-9">
+                                <select id="view" name="view" class="miniselect">
+                                    <option value="0" {{ user.enterprise == 0 and user.workshop == 0 ? 'selected="selected"' : ''}}>КВ</option>
+                                    <option value="1" {{ user.enterprise == 0 and user.workshop == 1 ? 'selected="selected"' : ''}}>КМ</option>
+                                    <option value="2" {{ user.enterprise == 1 and user.workshop == 0 ? 'selected="selected"' : ''}}>КП</option>
+                                </select>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="h2">
+                            Данные для связи
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="form-group">
+                            <label class="control-label col-sm-3" for="username">Телефон:</label>
+                            <div class="col-sm-9">
+                                <input type="text"  name="username" id="username" class="form-control" value="{{ user.username }}">
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="form-group">
+                            <label class="control-label col-sm-3" for="email">E-mail:</label>
+                            <div class="col-sm-9">
+                                <input type="text"  name="email" id="email" class="form-control" value="{{ user.email }}">
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="h2">
+                            Паспортные данные
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="form-group">
+                            <label class="control-label col-sm-3" for="lastName">Сканы паспорта:</label>
                             <div class="col-sm-4">
-                                <input type="text"  name="passportSerial" id="passportSerial" class="form-control" value="{{ user.passportSerial }}">
+                                <input type="file" name="passportFile" id="passportFile"  data-type="passportFile" class="fileAjax">
+                                {% if user.copyPassport.path is defined %}
+                                    <img src="/{{ user.copyPassport.path }}" brightness="0" contrast="0" data-type="passportFile" class="document" id="passportFileImg">
+                                {% endif %}
                             </div>
-                            <div class="col-sm-5">
-                                <input type="text"  name="passportNumber" id="passportNumber" class="form-control" value="{{ user.passportNumber }}">
+                            {% if user.ru == 1 or user.estr == 1 %}
+                                <div class="col-sm-1"></div>
+                                <div class="col-sm-4">
+                                    <input type="file" name="passport2File" id="passport2File" data-type="passport2File" class="fileAjax">
+                                    {% if user.copyPassport2.path is defined %}
+                                        <img src="/{{ user.copyPassport2.path }}" brightness="0" contrast="0" data-type="passport2File" class="document" id="passport2FileImg">
+                                    {% endif %}
+                                </div>
+                            {% endif %}
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="form-group">
+                            <label class="control-label col-sm-3" for="lastName">Фамилия:</label>
+                            <div class="col-sm-9">
+                                <input type="text"  name="lastName" id="lastName" class="form-control" value="{{ user.lastName }}">
                             </div>
                         </div>
                     </td>
@@ -178,9 +135,9 @@
                 <tr>
                     <td>
                         <div class="form-group">
-                            <label class="control-label col-sm-3" for="surName">Кем выдан:</label>
+                            <label class="control-label col-sm-3" for="firstName">Имя:</label>
                             <div class="col-sm-9">
-                                <input type="text"  name="PassportIssuance" id="PassportIssuance" class="form-control" value="{{ user.PassportIssuance }}">
+                                <input type="text"  name="firstName" id="firstName" class="form-control" value="{{ user.firstName }}">
                             </div>
                         </div>
                     </td>
@@ -188,9 +145,9 @@
                 <tr>
                     <td>
                         <div class="form-group">
-                            <label class="control-label col-sm-3" for="surName">Дата выдачи:</label>
+                            <label class="control-label col-sm-3" for="surName">Отчество:</label>
                             <div class="col-sm-9">
-                                <input type="text"  name="PassportIssuanceDate" id="PassportIssuanceDate" class="form-control date" value="{{ user.PassportIssuanceDate|date("d.m.Y") }}">
+                                <input type="text"  name="surName" id="surName" class="form-control" value="{{ user.surName }}">
                             </div>
                         </div>
                     </td>
@@ -198,263 +155,395 @@
                 <tr>
                     <td>
                         <div class="form-group">
-                            <label class="control-label col-sm-3" for="surName">Код подразделения:</label>
+                            <label class="control-label col-sm-3" for="birthDate">Дата рождения:</label>
                             <div class="col-sm-9">
-                                <input type="text"  name="passportCode" id="passportCode" class="form-control code" value="{{ user.passportCode }}">
+                                <input type="text"  name="birthDate" id="birthDate" class="form-control date" value="{{ user.birthDate|date('d.m.Y') }}">
                             </div>
                         </div>
                     </td>
                 </tr>
 
-            {% endif %}
+                {% if user.ru == 0 and user.estr == 0 %}
+                    <tr>
+                        <td>
+                            <div class="form-group">
+                                <label class="control-label col-sm-3" for="surName">Серия и номер:</label>
+                                <div class="col-sm-4">
+                                    <input type="text"  name="passportSerial" id="passportSerial" class="form-control" value="{{ user.passportSerial }}">
+                                </div>
+                                <div class="col-sm-5">
+                                    <input type="text"  name="passportNumber" id="passportNumber" class="form-control" value="{{ user.passportNumber }}">
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="form-group">
+                                <label class="control-label col-sm-3" for="surName">Кем выдан:</label>
+                                <div class="col-sm-9">
+                                    <input type="text"  name="PassportIssuance" id="PassportIssuance" class="form-control" value="{{ user.PassportIssuance }}">
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="form-group">
+                                <label class="control-label col-sm-3" for="surName">Дата выдачи:</label>
+                                <div class="col-sm-9">
+                                    <input type="text"  name="PassportIssuanceDate" id="PassportIssuanceDate" class="form-control date" value="{{ user.PassportIssuanceDate|date("d.m.Y") }}">
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="form-group">
+                                <label class="control-label col-sm-3" for="surName">Код подразделения:</label>
+                                <div class="col-sm-9">
+                                    <input type="text"  name="passportCode" id="passportCode" class="form-control code" value="{{ user.passportCode }}">
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
 
-            <tr>
-                <td>
-                    <div class="form-group">
-                        <label class="control-label col-sm-3" for="region">Регион:</label>
-                        <div class="col-sm-9">
-                            <input type="text"  name="region" id="region" class="form-control" value="{{ user.registeredRegion }}">
+                {% endif %}
+
+                <tr>
+                    <td>
+                        <div class="form-group">
+                            <label class="control-label col-sm-3" for="region">Регион:</label>
+                            <div class="col-sm-9">
+                                <input type="text"  name="region" id="region" class="form-control" value="{{ user.registeredRegion }}">
+                            </div>
                         </div>
-                    </div>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <div class="form-group">
-                        <label class="control-label col-sm-3" for="area">Район:</label>
-                        <div class="col-sm-9">
-                            <input type="text"  name="area" id="area" class="form-control" value="{{ user.registeredArea }}">
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="form-group">
+                            <label class="control-label col-sm-3" for="area">Район:</label>
+                            <div class="col-sm-9">
+                                <input type="text"  name="area" id="area" class="form-control" value="{{ user.registeredArea }}">
+                            </div>
                         </div>
-                    </div>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <div class="form-group">
-                        <label class="control-label col-sm-3" for="city">Город:</label>
-                        <div class="col-sm-9">
-                            <input type="text"  name="city" id="city" class="form-control" value="{{ user.registeredCity }}">
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="form-group">
+                            <label class="control-label col-sm-3" for="city">Город:</label>
+                            <div class="col-sm-9">
+                                <input type="text"  name="city" id="city" class="form-control" value="{{ user.registeredCity }}">
+                            </div>
                         </div>
-                    </div>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <div class="form-group">
-                        <label class="control-label col-sm-3" for="street">Улица:</label>
-                        <div class="col-sm-9">
-                            <input type="text"  name="street" id="street" class="form-control"  value="{{ user.registeredStreet }}">
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="form-group">
+                            <label class="control-label col-sm-3" for="street">Улица:</label>
+                            <div class="col-sm-9">
+                                <input type="text"  name="street" id="street" class="form-control"  value="{{ user.registeredStreet }}">
+                            </div>
                         </div>
-                    </div>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <div class="form-group">
-                        <label class="control-label col-sm-3" for="house">Здание:</label>
-                        <div class="col-sm-2">
-                            <input type="text"  name="house" id="house" class="form-control" placeholder="Дом"  value="{{ user.registeredHome }}">
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="form-group">
+                            <label class="control-label col-sm-3" for="house">Здание:</label>
+                            <div class="col-sm-2">
+                                <input type="text"  name="house" id="house" class="form-control" placeholder="Дом"  value="{{ user.registeredHome }}">
+                            </div>
+                            <div class="col-sm-2">
+                                <input type="text"  name="corp" id="corp" class="form-control" placeholder="Корп"  value="{{ user.registeredCorp }}">
+                            </div>
+                            <div class="col-sm-2">
+                                <input type="text"  name="structure" id="structure" class="form-control" placeholder="Стр" value="{{ user.registeredStructure }}">
+                            </div>
                         </div>
-                        <div class="col-sm-2">
-                            <input type="text"  name="corp" id="corp" class="form-control" placeholder="Корп"  value="{{ user.registeredCorp }}">
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="form-group">
+                            <label class="control-label col-sm-3" for="room">Квартира:</label>
+                            <div class="col-sm-3">
+                                <input type="text"  name="room" id="room" class="form-control" value="{{ user.registeredRoom }}">
+                            </div>
                         </div>
-                        <div class="col-sm-2">
-                            <input type="text"  name="structure" id="structure" class="form-control" placeholder="Стр" value="{{ user.registeredStructure }}">
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="form-group">
+                            <label class="control-label col-sm-3" for="zipcode">Индекс:</label>
+                            <div class="col-sm-3">
+                                <input type="text"  name="zipcode" id="zipcode" class="form-control" value="{{ user.registeredZipcode }}">
+                            </div>
                         </div>
-                    </div>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <div class="form-group">
-                        <label class="control-label col-sm-3" for="room">Квартира:</label>
-                        <div class="col-sm-3">
-                            <input type="text"  name="room" id="room" class="form-control" value="{{ user.registeredRoom }}">
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="h2">
+                            Водительское удостоверение
                         </div>
-                    </div>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <div class="form-group">
-                        <label class="control-label col-sm-3" for="zipcode">Индекс:</label>
-                        <div class="col-sm-3">
-                            <input type="text"  name="zipcode" id="zipcode" class="form-control" value="{{ user.registeredZipcode }}">
-                        </div>
-                    </div>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <div class="h2">
-                        Водительское удостоверение
-                    </div>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <div class="form-group">
-                        <label class="control-label col-sm-3" for="lastName">Сканы документа:</label>
-                        <div class="col-sm-4">
-                            <input type="file" name="driverFile" id="driverFile"  data-type="driverFile" class="fileAjax">
-                            {% if user.copyDriverPassport.path is defined %}
-                                <img src="/{{ user.copyDriverPassport.path }}" brightness="0" contrast="0" data-type="driverFile" class="document" id="driverFileImg">
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="form-group">
+                            <label class="control-label col-sm-3" for="lastName">Сканы документа:</label>
+                            <div class="col-sm-4">
+                                <input type="file" name="driverFile" id="driverFile"  data-type="driverFile" class="fileAjax">
+                                {% if user.copyDriverPassport.path is defined %}
+                                    <img src="/{{ user.copyDriverPassport.path }}" brightness="0" contrast="0" data-type="driverFile" class="document" id="driverFileImg">
+                                {% endif %}
+                            </div>
+                            <div class="col-sm-1"></div>
+                            {% if user.ru == 1 or user.estr == 1 %}
+                                <div class="col-sm-4">
+                                    <input type="file" name="driver2File" id="driver2File"  data-type="driver2File" class="fileAjax">
+                                    {% if user.copyDriverPassport2.path is defined %}
+                                        <img src="/{{ user.copyDriverPassport2.path }}" brightness="0" contrast="0" data-type="driver2File" class="document" id="driver2FileImg">
+                                    {% endif %}
+                                </div>
                             {% endif %}
                         </div>
-                        <div class="col-sm-1"></div>
-                        {% if user.ru == 1 or user.estr == 1 %}
-                        <div class="col-sm-4">
-                            <input type="file" name="driver2File" id="driver2File"  data-type="driver2File" class="fileAjax">
-                            {% if user.copyDriverPassport2.path is defined %}
-                                <img src="/{{ user.copyDriverPassport2.path }}" brightness="0" contrast="0" data-type="driver2File" class="document" id="driver2FileImg">
-                            {% endif %}
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="form-group">
+                            <label class="control-label col-sm-3" for="driverPlace">Кем выдано:</label>
+                            <div class="col-sm-9">
+                                <input type="text"  name="driverPlace" id="driverPlace" class="form-control" value="{{ user.driverDocIssuance }}">
+                            </div>
                         </div>
-                        {% endif %}
-                    </div>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <div class="form-group">
-                        <label class="control-label col-sm-3" for="driverPlace">Кем выдано:</label>
-                        <div class="col-sm-9">
-                            <input type="text"  name="driverPlace" id="driverPlace" class="form-control" value="{{ user.driverDocIssuance }}">
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="form-group">
+                            <label class="control-label col-sm-3" for="driverNumber">Номер удоств.:</label>
+                            <div class="col-sm-9">
+                                <input type="text"  name="driverNumber" id="driverNumber" class="form-control" value="{{ user.driverDocNumber }}">
+                            </div>
                         </div>
-                    </div>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <div class="form-group">
-                        <label class="control-label col-sm-3" for="driverNumber">Номер удоств.:</label>
-                        <div class="col-sm-9">
-                            <input type="text"  name="driverNumber" id="driverNumber" class="form-control" value="{{ user.driverDocNumber }}">
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="form-group">
+                            <label class="control-label col-sm-3" for="driverStarts">Дата выдачи:</label>
+                            <div class="col-sm-9">
+                                <input type="text"  name="driverStarts" id="driverStarts" class="form-control date" value="{{ user.driverDocDateStarts|date('d.m.Y') }}">
+                            </div>
                         </div>
-                    </div>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <div class="form-group">
-                        <label class="control-label col-sm-3" for="driverStarts">Дата выдачи:</label>
-                        <div class="col-sm-9">
-                            <input type="text"  name="driverStarts" id="driverStarts" class="form-control date" value="{{ user.driverDocDateStarts|date('d.m.Y') }}">
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="h2">
+                            Фотография и подпись
                         </div>
-                    </div>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <div class="h2">
-                        Фотография и подпись
-                    </div>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <div class="form-group">
-                        <label class="control-label col-sm-3" for="lastName">Фото и подпись:</label>
-                        <div class="col-sm-4">
-                            <input type="file" name="photoFile" id="photoFile"  data-type="photoFile" class="fileAjax">
-                            {% if user.photo.path is defined %}
-                                <img src="/{{ user.photo.path }}" brightness="0" contrast="0" data-type="photoFile" class="document" id="photoFileImg">
-                            {% endif %}
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="form-group">
+                            <label class="control-label col-sm-3" for="lastName">Фото и подпись:</label>
+                            <div class="col-sm-4">
+                                <input type="file" name="photoFile" id="photoFile"  data-type="photoFile" class="fileAjax">
+                                {% if user.photo.path is defined %}
+                                    <img src="/{{ user.photo.path }}" brightness="0" contrast="0" data-type="photoFile" class="document" id="photoFileImg">
+                                {% endif %}
+                            </div>
+                            <div class="col-sm-1"></div>
+                            <div class="col-sm-4">
+                                <input type="file" name="signFile" id="signFile"  data-type="signFile" class="fileAjax">
+                                {% if user.copySignature.path is defined %}
+                                    <img src="/{{ user.copySignature.path }}" brightness="0" contrast="0" data-type="signFile" class="document" id="signFileImg">
+                                {% endif %}
+                            </div>
                         </div>
-                        <div class="col-sm-1"></div>
-                        <div class="col-sm-4">
-                            <input type="file" name="signFile" id="signFile"  data-type="signFile" class="fileAjax">
-                            {% if user.copySignature.path is defined %}
-                                <img src="/{{ user.copySignature.path }}" brightness="0" contrast="0" data-type="signFile" class="document" id="signFileImg">
-                            {% endif %}
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="form-group">
+                            <label class="control-label col-sm-3" for="snils">Снилс:</label>
+                            <div class="col-sm-4">
+                                <input type="text"  name="snils" id="snils" class="form-control" value="{{ user.snils }}">
+                            </div>
+                            <div class="col-sm-1"></div>
+                            <div class="col-sm-4">
+                                <input type="file" name="snilsFile" id="snilsFile"  data-type="snilsFile" class="fileAjax">
+                                {% if user.copySnils.path is defined %}
+                                    <img src="/{{ user.copySnils.path }}" brightness="0" contrast="0" data-type="snilsFile" class="document" id="snilsFileImg">
+                                {% else %}
+                                    <img src="" brightness="0" contrast="0" data-type="snilsFile" class="document" id="snilsFileImg">
+                                {% endif %}
+                            </div>
                         </div>
-                    </div>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <div class="h2">
-                        Информация о доставке
-                    </div>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <div class="form-group">
-                        <label class="control-label col-sm-3" for="deliveryRegion">Регион:</label>
-                        <div class="col-sm-9">
-                            <input type="text"  name="deliveryRegion" id="deliveryRegion" class="form-control" value="{{ user.dileveryRegion }}">
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="h2">
+                            Информация о доставке
                         </div>
-                    </div>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <div class="form-group">
-                        <label class="control-label col-sm-3" for="deliveryArea">Район:</label>
-                        <div class="col-sm-9">
-                            <input type="text"  name="deliveryArea" id="deliveryArea" class="form-control" value="{{ user.dileveryArea }}">
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="form-group">
+                            <label class="control-label col-sm-3" for="deliveryRegion">Регион:</label>
+                            <div class="col-sm-9">
+                                <input type="text"  name="deliveryRegion" id="deliveryRegion" class="form-control" value="{{ user.dileveryRegion }}">
+                            </div>
                         </div>
-                    </div>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <div class="form-group">
-                        <label class="control-label col-sm-3" for="deliveryCity">Город:</label>
-                        <div class="col-sm-9">
-                            <input type="text"  name="deliveryCity" id="deliveryCity" class="form-control" value="{{ user.dileveryCity }}">
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="form-group">
+                            <label class="control-label col-sm-3" for="deliveryArea">Район:</label>
+                            <div class="col-sm-9">
+                                <input type="text"  name="deliveryArea" id="deliveryArea" class="form-control" value="{{ user.dileveryArea }}">
+                            </div>
                         </div>
-                    </div>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <div class="form-group">
-                        <label class="control-label col-sm-3" for="deliveryStreet">Улица:</label>
-                        <div class="col-sm-9">
-                            <input type="text"  name="deliveryStreet" id="deliveryStreet" class="form-control" value="{{ user.dileveryStreet }}">
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="form-group">
+                            <label class="control-label col-sm-3" for="deliveryCity">Город:</label>
+                            <div class="col-sm-9">
+                                <input type="text"  name="deliveryCity" id="deliveryCity" class="form-control" value="{{ user.dileveryCity }}">
+                            </div>
                         </div>
-                    </div>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <div class="form-group">
-                        <label class="control-label col-sm-3" for="deliveryHouse">Здание:</label>
-                        <div class="col-sm-2">
-                            <input type="text"  name="deliveryHouse" id="deliveryHouse" class="form-control" placeholder="Дом" value="{{ user.dileveryHome }}">
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="form-group">
+                            <label class="control-label col-sm-3" for="deliveryStreet">Улица:</label>
+                            <div class="col-sm-9">
+                                <input type="text"  name="deliveryStreet" id="deliveryStreet" class="form-control" value="{{ user.dileveryStreet }}">
+                            </div>
                         </div>
-                        <div class="col-sm-2">
-                            <input type="text"  name="deliveryCorp" id="deliveryCorp" class="form-control" placeholder="Корп" value="{{ user.dileveryCorp }}">
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="form-group">
+                            <label class="control-label col-sm-3" for="deliveryHouse">Здание:</label>
+                            <div class="col-sm-2">
+                                <input type="text"  name="deliveryHouse" id="deliveryHouse" class="form-control" placeholder="Дом" value="{{ user.dileveryHome }}">
+                            </div>
+                            <div class="col-sm-2">
+                                <input type="text"  name="deliveryCorp" id="deliveryCorp" class="form-control" placeholder="Корп" value="{{ user.dileveryCorp }}">
+                            </div>
+                            <div class="col-sm-2">
+                                <input type="text"  name="deliveryStructure" id="deliveryStructure" class="form-control" placeholder="Стр" value="{{ user.dileveryStructure }}">
+                            </div>
                         </div>
-                        <div class="col-sm-2">
-                            <input type="text"  name="deliveryStructure" id="deliveryStructure" class="form-control" placeholder="Стр" value="{{ user.dileveryStructure }}">
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="form-group">
+                            <label class="control-label col-sm-3" for="deliveryRoom">Квартира:</label>
+                            <div class="col-sm-3">
+                                <input type="text"  name="deliveryRoom" id="deliveryRoom" class="form-control" value="{{ user.dileveryRoom }}">
+                            </div>
                         </div>
-                    </div>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <div class="form-group">
-                        <label class="control-label col-sm-3" for="deliveryRoom">Квартира:</label>
-                        <div class="col-sm-3">
-                            <input type="text"  name="deliveryRoom" id="deliveryRoom" class="form-control" value="{{ user.dileveryRoom }}">
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="form-group">
+                            <label class="control-label col-sm-3" for="deliveryZipcode">Индекс:</label>
+                            <div class="col-sm-3">
+                                <input type="text"  name="deliveryZipcode" id="deliveryZipcode" class="form-control" value="{{ user.dileveryZipcode }}">
+                            </div>
                         </div>
-                    </div>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <div class="form-group">
-                        <label class="control-label col-sm-3" for="deliveryZipcode">Индекс:</label>
-                        <div class="col-sm-3">
-                            <input type="text"  name="deliveryZipcode" id="deliveryZipcode" class="form-control" value="{{ user.dileveryZipcode }}">
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="h2">
+                            Дополнительная информация
                         </div>
-                    </div>
-                </td>
-            </tr>
-        </table>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="form-group">
+                            <label class="control-label col-sm-3" for="oldNumber">Старая карта:</label>
+                            <div class="col-sm-9">
+                                <input type="text"  name="oldNumber" id="oldNumber" class="form-control" value="{{ user.lastNumberCard }}">
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="form-group">
+                            <label class="control-label col-sm-3" for="typeCard">Тип выдачи:</label>
+                            <div class="col-sm-3">
+                                <select id="typeCard" name="typeCard" class="miniselect">
+                                    <option value="0" {{ user.typeCard == 0 ? 'selected="selected"' : '' }}>Новая карта</option>
+                                    <option value="1" {{ user.typeCard == 1 ? 'selected="selected"' : '' }}>Замена</option>
+                                    <option value="2" {{ user.typeCard == 2 ? 'selected="selected"' : '' }}>Обновление</option>
+                                </select>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="form-group">
+                            <label class="control-label col-sm-3" for="myPetition">Использвоть Ходатайство "НПО Технолог":</label>
+                            <div class="col-sm-9">
+                                <select id="myPetition" name="myPetition" class="miniselect">
+                                    <option value="0" {{ user.myPetition == 0 ? 'selected="selected"' : '' }}>Не использовать</option>
+                                    <option value="1" {{ user.myPetition == 1 ? 'selected="selected"' : '' }}>Использовать</option>
+                                </select>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="form-group">
+                            <label class="control-label col-sm-3"></label>
+                            <div class="col-sm-6">
+
+                            </div>
+                            <div class="col-sm-3">
+                                <button type="submit" class="btn btn-default btn-primary"   title="Сохранить">
+                                    Сохранить
+                                </button>
+                                <a href="{{ referer }}">
+                                    <button type="button" class="btn btn-default btn-danger"   title="Отмена">
+                                    Отмена
+                                    </button>
+                                </a>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </form>
     </div>
+
+
+
 
     <div class="fileBox" data-user="{{ user.id }}">
         <div class="file-container">

@@ -116,6 +116,8 @@ class UserController extends Controller
      */
     public function edit2Action(Request $request, $userId){
         $session = $request->getSession();
+        $referer = $request->headers->get('referer');
+
 
         $session->set('passportFile', null );
         $session->set('passport2File', null );
@@ -130,152 +132,154 @@ class UserController extends Controller
 
         $user = $this->getDoctrine()->getRepository('CrmMainBundle:User')->findOneById($userId);
 
-        if (
-            $user &&
-            $user->getCompany() != null &&
-            ( $user->getCompany()->getOperator() == $this->getUser() || $this->get('security.context')->isGranted('ROLE_ADMIN') )
-            ){
 
-            if ($request->getMethod() == 'POST'){
-                $data = $request->request;
+        if ($request->getMethod() == 'POST'){
+            $data = $request->request;
 
-                $user->setEmail($data->get('email'));
-                $user->setPhone($data->get('phone'));
+            $user->setEmail($data->get('email'));
+            $user->setPhone($data->get('phone'));
 
-                $user->setLastName($data->get('lastName'));
-                $user->setFirstName($data->get('firstName'));
-                $user->setSurName($data->get('surName'));
-                $date = new \DateTime($data->get('birthDate'));
-                $user->setBirthDate($date);
+            $user->setLastName($data->get('lastName'));
+            $user->setFirstName($data->get('firstName'));
+            $user->setSurName($data->get('surName'));
+            $date = new \DateTime($data->get('birthDate'));
+            $user->setBirthDate($date);
 
-                $user->setPassportNumber($data->get('passportNumber'));
-                $user->setPassportSerial($data->get('passportSerial'));
-                $user->setPassportIssuance($data->get('PassportIssuance'));
-                $user->setPassportIssuanceDate($data->get('PassportIssuanceDate'));
-                $user->setPassportCode($data->get('passportCode'));
+            $user->setPassportNumber($data->get('passportNumber'));
+            $user->setPassportSerial($data->get('passportSerial'));
+            $user->setPassportIssuance($data->get('PassportIssuance'));
+            $user->setPassportIssuanceDate($data->get('PassportIssuanceDate'));
+            $user->setPassportCode($data->get('passportCode'));
 
 
-                $user->setRegisteredRegion($data->get('region'));
-                $user->setRegisteredArea($data->get('area'));
-                $user->setRegisteredCity($data->get('city'));
-                $user->setRegisteredStreet($data->get('street'));
-                $user->setRegisteredHome($data->get('house'));
-                $user->setRegisteredCorp($data->get('corp'));
-                $user->setRegisteredStructure($data->get('structure'));
-                $user->setRegisteredRoom($data->get('room'));
-                $user->setRegisteredZipcode($data->get('zipcode'));
+            $user->setRegisteredRegion($data->get('region'));
+            $user->setRegisteredArea($data->get('area'));
+            $user->setRegisteredCity($data->get('city'));
+            $user->setRegisteredStreet($data->get('street'));
+            $user->setRegisteredHome($data->get('house'));
+            $user->setRegisteredCorp($data->get('corp'));
+            $user->setRegisteredStructure($data->get('structure'));
+            $user->setRegisteredRoom($data->get('room'));
+            $user->setRegisteredZipcode($data->get('zipcode'));
 
 
-                $user->setDriverDocNumber($data->get('driverNumber'));
-                $date = new \DateTime($data->get('driverStarts'));
-                $user->setDriverDocDateStarts($date);
-                $user->setDriverDocIssuance($data->get('driverPlace'));
+            $user->setDriverDocNumber($data->get('driverNumber'));
+            $date = new \DateTime($data->get('driverStarts'));
+            $user->setDriverDocDateStarts($date);
+            $user->setDriverDocIssuance($data->get('driverPlace'));
 
 
-                $user->setSnils($data->get('snils'));
-                $user->setLastNumberCard($data->get('oldNumber'));
+            $user->setSnils($data->get('snils'));
+            $user->setLastNumberCard($data->get('oldNumber'));
+            $user->setTypeCard($data->get('typeCard'));
 
 
 
-                $user->setDileveryZipcode($data->get('deliveryZipcode'));
-                $user->setDileveryRegion($data->get('deliveryRegion'));
-                $user->setDileveryArea($data->get('deliveryArea'));
-                $user->setDileveryCity($data->get('deliveryCity'));
-                $user->setDileveryStreet($data->get('deliveryStreet'));
-                $user->setDileveryHome($data->get('deliveryHouse'));
-                $user->setDileveryCorp($data->get('deliveryCorp'));
-                $user->setDileveryCorp($data->get('deliveryStructure'));
-                $user->setDileveryRoom($data->get('deliveryRoom'));
-                $user->setSalt(md5(time()));
+            $user->setDileveryZipcode($data->get('deliveryZipcode'));
+            $user->setDileveryRegion($data->get('deliveryRegion'));
+            $user->setDileveryArea($data->get('deliveryArea'));
+            $user->setDileveryCity($data->get('deliveryCity'));
+            $user->setDileveryStreet($data->get('deliveryStreet'));
+            $user->setDileveryHome($data->get('deliveryHouse'));
+            $user->setDileveryCorp($data->get('deliveryCorp'));
+            $user->setDileveryCorp($data->get('deliveryStructure'));
+            $user->setDileveryRoom($data->get('deliveryRoom'));
+            $user->setSalt(md5(time()));
 
-                $user->setStatus($data->get('status'));
-                $user->setComment($data->get('comment'));
+            $user->setStatus($data->get('status'));
+            $user->setComment($data->get('comment'));
 
-                $user->setPrice($data->get('price'));
+//            $user->setPrice($data->get('price'));
 
-                $view = $data->get('viewCard');
-                if ($view == 1){
-                    $user->setWorkshop(1);
-                }elseif($view == 2){
-                    $user->setEnterprise(1);
-                }
-
-
-                if ($data->get('myPetition')){
-                    $user->setMyPetition(1);
-                }else{
-                    $user->setMyPetition(0);
-                }
-
-
-                $user->setCopyPassport($this->getArrayToImg($user->getCopyPassport()));
-                $user->setCopyDriverPassport($this->getArrayToImg($user->getCopyDriverPassport()));
-                $user->setPhoto($this->getArrayToImg($user->getPhoto()));
-                $user->setCopySignature($this->getArrayToImg($user->getCopySignature()));
-                $user->setCopySnils($this->getArrayToImg($user->getCopySnils()));
-                $user->setCopyWork($this->getArrayToImg($user->getCopyWork()));
-                $user->setCopyPetition($this->getArrayToImg($user->getCopyPetition()));
-
-                $this->getDoctrine()->getManager()->flush($user);
-
-                $em = $this->getDoctrine()->getManager();
-                $statuslog = new StatusLog();
-                $statuslog->setUser($user);
-                $statuslog->setTitle($user->getStatusString());
-                $em->persist($statuslog);
-                $em->flush($statuslog);
-
-                return $this->redirect($this->generateUrl('panel_user_list'));
-
+            $view = $data->get('view');
+            if ($view == 1){
+                $user->setWorkshop(1);
+                $user->setEnterprise(0);
+            }elseif($view == 2){
+                $user->setEnterprise(1);
+                $user->setWorkshop(0);
             }else{
+                $user->setEnterprise(0);
+                $user->setWorkshop(0);
+            }
 
-                #Помещаем все фалы-картинки в сессию, что бы потом можно было бы редактировать
-                $file = $user->getCopyPassport();
-                if (!empty($file) && file_exists('/var/www/'.$file['path'])){
-                    $session->set('passportFile', '/var/www/'.$file['path'] );
-                }
-                $file = $user->getCopyPassport2();
-                if (!empty($file) && file_exists('/var/www/'.$file['path'])){
-                    $session->set('passportFile2', '/var/www/'.$file['path'] );
-                }
-                $file = $user->getCopyDriverPassport();
-                if (!empty($file) && file_exists('/var/www/'.$file['path'])){
-                    $session->set('driverFile', '/var/www/'.$file['path'] );
-                }
-                $file = $user->getCopyDriverPassport2();
-                if (!empty($file) && file_exists('/var/www/'.$file['path'])){
-                    $session->set('driver2File', '/var/www/'.$file['path'] );
-                }
-                $file = $user->getCopySnils();
-                if (!empty($file) && file_exists('/var/www/'.$file['path'])){
-                    $session->set('snilsFile', '/var/www/'.$file['path'] );
-                }
-                $file = $user->getPhoto();
-                if (!empty($file) && file_exists('/var/www/'.$file['path'])){
-                    $session->set('photoFile', '/var/www/'.$file['path'] );
-                }
-                $file = $user->getCopySignature();
-                if (!empty($file) && file_exists('/var/www/'.$file['path'])){
-                    $session->set('signFile', '/var/www/'.$file['path'] );
-                }
-                $file = $user->getCopyPetition();
-                if (!empty($file) && file_exists('/var/www/'.$file['path'])){
-                    $session->set('petitionFile', '/var/www/'.$file['path'] );
-                }
-                $file = $user->getCopyWork();
-                if (!empty($file) && file_exists('/var/www/'.$file['path'])){
-                    $session->set('workFile', '/var/www/'.$file['path'] );
-                }
-                $session->save();
+            if ($data->get('type') == 1){
+                $user->setEstr(1);
+                $user->setRu(0);
+            }elseif($data->get('type') == 2){
+                $user->setEstr(0);
+                $user->setRu(1);
+            }else{
+                $user->setEstr(0);
+                $user->setRu(0);
             }
 
 
-            $regions = $this->getDoctrine()->getRepository('CrmMainBundle:Region')->findAll();
 
-            return array('user' => $user, 'regions' => $regions);
+            if ($data->get('myPetition')){
+                $user->setMyPetition($data->get('myPetition'));
+            }else{
+                $user->setMyPetition(0);
+            }
+
+
+            $this->getDoctrine()->getManager()->flush($user);
+
+            $em = $this->getDoctrine()->getManager();
+            $statuslog = new StatusLog();
+            $statuslog->setUser($user);
+            $statuslog->setTitle($user->getStatusString());
+            $em->persist($statuslog);
+            $em->flush($statuslog);
+
+            return $this->redirect($referer);
+
         }else{
-//            return $this->redirect($request->headers->get('referer'));
+
+            #Помещаем все фалы-картинки в сессию, что бы потом можно было бы редактировать
+            $file = $user->getCopyPassport();
+            if (!empty($file) && file_exists('/var/www/'.$file['path'])){
+                $session->set('passportFile', '/var/www/'.$file['path'] );
+            }
+            $file = $user->getCopyPassport2();
+            if (!empty($file) && file_exists('/var/www/'.$file['path'])){
+                $session->set('passport2File', '/var/www/'.$file['path'] );
+            }
+            $file = $user->getCopyDriverPassport();
+            if (!empty($file) && file_exists('/var/www/'.$file['path'])){
+                $session->set('driverFile', '/var/www/'.$file['path'] );
+            }
+            $file = $user->getCopyDriverPassport2();
+            if (!empty($file) && file_exists('/var/www/'.$file['path'])){
+                $session->set('driver2File', '/var/www/'.$file['path'] );
+            }
+            $file = $user->getCopySnils();
+            if (!empty($file) && file_exists('/var/www/'.$file['path'])){
+                $session->set('snilsFile', '/var/www/'.$file['path'] );
+            }
+            $file = $user->getPhoto();
+            if (!empty($file) && file_exists('/var/www/'.$file['path'])){
+                $session->set('photoFile', '/var/www/'.$file['path'] );
+            }
+            $file = $user->getCopySignature();
+            if (!empty($file) && file_exists('/var/www/'.$file['path'])){
+                $session->set('signFile', '/var/www/'.$file['path'] );
+            }
+            $file = $user->getCopyPetition();
+            if (!empty($file) && file_exists('/var/www/'.$file['path'])){
+                $session->set('petitionFile', '/var/www/'.$file['path'] );
+            }
+            $file = $user->getCopyWork();
+            if (!empty($file) && file_exists('/var/www/'.$file['path'])){
+                $session->set('workFile', '/var/www/'.$file['path'] );
+            }
+            $session->save();
         }
+
+
+        $regions = $this->getDoctrine()->getRepository('CrmMainBundle:Region')->findAll();
+
+        return array('user' => $user, 'regions' => $regions, 'referer' => $referer);
 
     }
 
@@ -1067,7 +1071,7 @@ class UserController extends Controller
             case 'petitionFile' : $user->serCopyPetition($img); break;
         }
         $this->getDoctrine()->getManager()->flush($user);
-        return new Response($img['path']);
+        return new Response($img['path'].'?time'.time());
 
     }
 
