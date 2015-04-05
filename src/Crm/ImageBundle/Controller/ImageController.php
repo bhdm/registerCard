@@ -146,6 +146,15 @@ class ImageController extends Controller
         $path = $session->get($type);
         $path2 = $session->get('origin-'.$type);
 
+        if ($path2 == null && $path == null){
+            return array('data' => array('error' => 'Файл не загружен'));
+        }elseif ($path2 == null && $path != null){
+            $image = new \Imagick();
+            $image->readImage($path);
+            $image->writeImage('/var/www/upload/tmp/origin-'.$image->getFilename());
+            $image->destroy();
+        }
+
         #Получаем оригинальные размеры картинки
         $rect['width'] = getimagesize($path)[0];
         $rect['height'] = getimagesize($path)[1];
@@ -163,7 +172,7 @@ class ImageController extends Controller
         imagecopy ( $crop, $image, 0, 0, $x1, $y1, $x2-$x1, $y2-$y1 );
 
         imagejpeg($crop, $path);
-        imagejpeg($crop, $path2);
+//        imagejpeg($crop, $path2);
 
         $data = $this->imageToArray($path);
         $response = new JsonResponse($data);
@@ -224,10 +233,9 @@ class ImageController extends Controller
         if ($path2 == null && $path == null){
             return array('data' => array('error' => 'Файл не загружен'));
         }elseif ($path2 == null && $path != null){
-            $path2 = 'origin-'.$path;
-            $image = new \Imagick($path);
-            $image->setImageFormat('jpg');
-            $image->writeImage($path2);
+            $image = new \Imagick();
+            $image->readImage($path);
+            $image->writeImage('/var/www/upload/tmp/origin-'.$image->getFilename());
             $image->destroy();
         }
         $image = imagecreatefromjpeg($path2);

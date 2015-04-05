@@ -377,7 +377,7 @@
                         <div class="form-group">
                             <label class="control-label col-sm-3" for="snils">Снилс:</label>
                             <div class="col-sm-4">
-                                <input type="text"  name="snils" id="snils" class="form-control" value="{{ user.snils }}">
+                                <input type="text"  name="snils" id="snils" class="form-control snils" value="{{ user.snils }}">
                             </div>
                             <div class="col-sm-1"></div>
                             <div class="col-sm-4">
@@ -628,7 +628,7 @@
             $("#phone").mask("+7 (999) 999-9999");
             $(".date").mask("99.99.9999");
             $(".code").mask("999-999");
-
+            $(".snils").mask("999-999-999 99");
 
             $( 'input[name=region]' ).kladr({
                 token: '541ee4ac7c52392c7d8b457e',
