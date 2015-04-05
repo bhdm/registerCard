@@ -116,6 +116,18 @@ class UserController extends Controller
      */
     public function edit2Action(Request $request, $userId){
         $session = $request->getSession();
+
+        $session->set('passportFile', null );
+        $session->set('passport2File', null );
+        $session->set('driverFile', null );
+        $session->set('driver2File', null );
+        $session->set('snilsFile', null );
+        $session->set('signFile', null );
+        $session->set('photoFile', null );
+        $session->set('petitionFile', null );
+        $session->set('workFile', null );
+
+
         $user = $this->getDoctrine()->getRepository('CrmMainBundle:User')->findOneById($userId);
 
         if (
@@ -130,31 +142,49 @@ class UserController extends Controller
                 $user->setEmail($data->get('email'));
                 $user->setPhone($data->get('phone'));
 
-                $user->setLastName($data->get('passportLastName'));
-                $user->setFirstName($data->get('passportFirstName'));
-                $user->setSurName($data->get('passportSurName'));
-                $user->setBirthDate($data->get('passportBirthdate'));
+                $user->setLastName($data->get('lastName'));
+                $user->setFirstName($data->get('firstName'));
+                $user->setSurName($data->get('surName'));
+                $date = new \DateTime($data->get('birthDate'));
+                $user->setBirthDate($date);
+
                 $user->setPassportNumber($data->get('passportNumber'));
-                $user->setPassportSerial($data->get('passportSeries'));
-                $user->setPassportIssuance($data->get('PassportPlace'));
-                $user->setPassportIssuanceDate($data->get('passportDate'));
+                $user->setPassportSerial($data->get('passportSerial'));
+                $user->setPassportIssuance($data->get('PassportIssuance'));
+                $user->setPassportIssuanceDate($data->get('PassportIssuanceDate'));
                 $user->setPassportCode($data->get('passportCode'));
 
+
+                $user->setRegisteredRegion($data->get('region'));
+                $user->setRegisteredArea($data->get('area'));
+                $user->setRegisteredCity($data->get('city'));
+                $user->setRegisteredStreet($data->get('street'));
+                $user->setRegisteredHome($data->get('house'));
+                $user->setRegisteredCorp($data->get('corp'));
+                $user->setRegisteredStructure($data->get('structure'));
+                $user->setRegisteredRoom($data->get('room'));
+                $user->setRegisteredZipcode($data->get('zipcode'));
+
+
                 $user->setDriverDocNumber($data->get('driverNumber'));
-                $user->setDriverDocDateStarts($data->get('driverDateStarts'));
-                $user->setDriverDocDateEnds($data->get('driverDateEnds'));
-                $user->setDriverDocIssuance($data->get('driverDocIssuance'));
+                $date = new \DateTime($data->get('driverStarts'));
+                $user->setDriverDocDateStarts($date);
+                $user->setDriverDocIssuance($data->get('driverPlace'));
+
+
                 $user->setSnils($data->get('snils'));
                 $user->setLastNumberCard($data->get('oldNumber'));
 
+
+
                 $user->setDileveryZipcode($data->get('deliveryZipcode'));
-//                $region = $this->getDoctrine()->getRepository('CrmMainBundle:Region')->findOneById();
                 $user->setDileveryRegion($data->get('deliveryRegion'));
                 $user->setDileveryArea($data->get('deliveryArea'));
                 $user->setDileveryCity($data->get('deliveryCity'));
                 $user->setDileveryStreet($data->get('deliveryStreet'));
                 $user->setDileveryHome($data->get('deliveryHouse'));
                 $user->setDileveryCorp($data->get('deliveryCorp'));
+                $user->setDileveryCorp($data->get('deliveryStructure'));
                 $user->setDileveryRoom($data->get('deliveryRoom'));
                 $user->setSalt(md5(time()));
 
@@ -171,53 +201,12 @@ class UserController extends Controller
                 }
 
 
-
                 if ($data->get('myPetition')){
                     $user->setMyPetition(1);
                 }else{
                     $user->setMyPetition(0);
                 }
 
-                $date = new \DateTime($user->getBirthDate());
-                $user->setBirthDate($date);
-
-                $date = new \DateTime($user->getPassportIssuanceDate());
-                $user->setPassportIssuanceDate($date);
-
-                $date = new \DateTime($user->getDriverDocDateStarts());
-                $user->setDriverDocDateStarts($date);
-
-                $date = new \DateTime($user->getDriverDocDateEnds());
-                $user->setDriverDocDateEnds($date);
-
-                if ($session->get('passport')){
-                    $fileName = $this->saveFile('passport');
-                    $user->setCopyPassport($fileName);
-                }
-                if ($session->get('driver')){
-                    $fileName = $this->saveFile('driver');
-                    $user->setCopyDriverPassport($fileName);
-                }
-                if ($session->get('photo')){
-                    $fileName = $this->saveFile('photo');
-                    $user->setPhoto($fileName);
-                }
-                if ($session->get('sign')){
-                    $fileName = $this->saveFile('sign');
-                    $user->setCopySignature($fileName);
-                }
-                if ($session->get('snils')){
-                    $fileName = $this->saveFile('snils');
-                    $user->setCopySnils($fileName);
-                }
-                if ($session->get('hod')){
-                    $fileName = $this->saveFile('hod');
-                    $user->setCopyPetition($fileName);
-                }
-//                if ($session->get('work')){
-//                    $fileName = $this->saveFile('work');
-//                    $user->setCopyWork($fileName);
-//                }
 
                 $user->setCopyPassport($this->getArrayToImg($user->getCopyPassport()));
                 $user->setCopyDriverPassport($this->getArrayToImg($user->getCopyDriverPassport()));
@@ -239,98 +228,44 @@ class UserController extends Controller
                 return $this->redirect($this->generateUrl('panel_user_list'));
 
             }else{
+
                 #Помещаем все фалы-картинки в сессию, что бы потом можно было бы редактировать
-                # Пасспорт
                 $file = $user->getCopyPassport();
                 if (!empty($file) && file_exists('/var/www/'.$file['path'])){
-                    list($width, $height) = getimagesize('/var/www/'.$file['path']);
-                    $session->set('passport', array(
-                            'content'=> $this->imgToBase('/var/www/'.$file['path']),
-                            'mimeType'=> 'image/jpeg',
-                            'width'=> $width,
-                            'height'=> $height,
-                        )
-                    );
+                    $session->set('passportFile', '/var/www/'.$file['path'] );
                 }
-
-                # Права
+                $file = $user->getCopyPassport2();
+                if (!empty($file) && file_exists('/var/www/'.$file['path'])){
+                    $session->set('passportFile2', '/var/www/'.$file['path'] );
+                }
                 $file = $user->getCopyDriverPassport();
                 if (!empty($file) && file_exists('/var/www/'.$file['path'])){
-                    list($width, $height) = getimagesize('/var/www/'.$file['path']);
-                    $session->set('driver', array(
-                            'content'=> $this->imgToBase('/var/www/'.$file['path']),
-                            'mimeType'=> 'image/jpeg',
-                            'width'=> $width,
-                            'height'=> $height,
-                        )
-                    );
+                    $session->set('driverFile', '/var/www/'.$file['path'] );
                 }
-
-                # СНИЛС
+                $file = $user->getCopyDriverPassport2();
+                if (!empty($file) && file_exists('/var/www/'.$file['path'])){
+                    $session->set('driver2File', '/var/www/'.$file['path'] );
+                }
                 $file = $user->getCopySnils();
                 if (!empty($file) && file_exists('/var/www/'.$file['path'])){
-                    list($width, $height) = getimagesize('/var/www/'.$file['path']);
-                    $session->set('snils', array(
-                            'content'=> $this->imgToBase('/var/www/'.$file['path']),
-                            'mimeType'=> 'image/jpeg',
-                            'width'=> $width,
-                            'height'=> $height,
-                        )
-                    );
+                    $session->set('snilsFile', '/var/www/'.$file['path'] );
                 }
-
-                # Фото
                 $file = $user->getPhoto();
                 if (!empty($file) && file_exists('/var/www/'.$file['path'])){
-                    list($width, $height) = getimagesize('/var/www/'.$file['path']);
-                    $session->set('photo', array(
-                            'content'=> $this->imgToBase('/var/www/'.$file['path']),
-                            'mimeType'=> 'image/jpeg',
-                            'width'=> $width,
-                            'height'=> $height,
-                        )
-                    );
+                    $session->set('photoFile', '/var/www/'.$file['path'] );
                 }
-
-                # Подпись
                 $file = $user->getCopySignature();
                 if (!empty($file) && file_exists('/var/www/'.$file['path'])){
-                    list($width, $height) = getimagesize('/var/www/'.$file['path']);
-                    $session->set('sign', array(
-                            'content'=> $this->imgToBase('/var/www/'.$file['path']),
-                            'mimeType'=> 'image/jpeg',
-                            'width'=> $width,
-                            'height'=> $height,
-                        )
-                    );
+                    $session->set('signFile', '/var/www/'.$file['path'] );
                 }
-
-                # Ходатайство
                 $file = $user->getCopyPetition();
                 if (!empty($file) && file_exists('/var/www/'.$file['path'])){
-                    list($width, $height) = getimagesize('/var/www/'.$file['path']);
-                    $session->set('hod', array(
-                            'content'=> $this->imgToBase('/var/www/'.$file['path']),
-                            'mimeType'=> 'image/jpeg',
-                            'width'=> $width,
-                            'height'=> $height,
-                        )
-                    );
+                    $session->set('petitionFile', '/var/www/'.$file['path'] );
                 }
-
-                # Ходатайство
                 $file = $user->getCopyWork();
                 if (!empty($file) && file_exists('/var/www/'.$file['path'])){
-                    list($width, $height) = getimagesize('/var/www/'.$file['path']);
-                    $session->set('work', array(
-                            'content'=> $this->imgToBase('/var/www/'.$file['path']),
-                            'mimeType'=> 'image/jpeg',
-                            'width'=> $width,
-                            'height'=> $height,
-                        )
-                    );
+                    $session->set('workFile', '/var/www/'.$file['path'] );
                 }
-
                 $session->save();
             }
 
@@ -1104,6 +1039,57 @@ class UserController extends Controller
             }
             return new Response('no');
         }
+    }
+
+
+    /**
+     * Показывает циферку в меню
+     * @Security("has_role('ROLE_OPERATOR')")
+     * @Route("/user/save-image/{userId}/{type}", name="panel_user_save_image", options={"expose"=true})
+     * @Template()
+     */
+    public function saveImageAction(Request $request, $userId, $type){
+        $user = $this->getDoctrine()->getRepository('CrmMainBundle:User')->find($userId);
+
+        $session = new Session();
+        $image = $session->get($type);
+
+        $img = $this->getImgToArray($image);
+        switch ($type){
+            case 'passportFile' : $user->setCopyPassport($img); break;
+            case 'passport2File' : $user->setCopyPassport2($img); break;
+            case 'driverFile' : $user->setCopyDriverPassport($img); break;
+            case 'driver2File' : $user->setCopyDriverPassport2($img); break;
+            case 'snilsFile' : $user->setCopySnils($img); break;
+            case 'photoFile' : $user->setPhoto($img); break;
+            case 'signFile' : $user->setCopySignature($img); break;
+            case 'workFile' : $user->setCopyWork($img); break;
+            case 'petitionFile' : $user->serCopyPetition($img); break;
+        }
+        $this->getDoctrine()->getManager()->flush($user);
+        return new Response($img['path']);
+
+    }
+
+    public function getImgToArray($img){
+        if ($img == null){
+            $array =  array();
+        }else{
+            $path = $img;
+            $path = str_replace('/var/www/','',$path);
+            $size = filesize($img);
+            $fileName = basename($img);
+            $originalName = basename($img);
+            $mimeType = mime_content_type($img);
+            $array =  array(
+                'path' =>$path,
+                'size' =>$size,
+                'fileName' =>$fileName,
+                'originalName' =>$originalName,
+                'mimeType' =>$mimeType,
+            );
+        }
+        return $array;
     }
 
 }

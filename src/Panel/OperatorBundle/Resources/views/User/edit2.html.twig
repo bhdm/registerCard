@@ -1,11 +1,11 @@
 {% extends 'PanelOperatorBundle::layout.html.twig' %}
 
 
-{% block crosh %}
-    <a href="{{ path('operator_main') }}">Главная</a> &raquo;
-    <a href="{{ path('operator_user_list') }}">Пользователи</a> &raquo;
-    <a href="#">{{ user }}</a>
-{% endblock %}
+{#{% block crosh %}#}
+    {#<a href="{{ path('operator_main') }}">Главная</a> &raquo;#}
+    {#<a href="{{ path('operator_user_list') }}">Пользователи</a> &raquo;#}
+    {#<a href="#">{{ user }}</a>#}
+{#{% endblock %}#}
 
 {% block content %}
     <div class="well">
@@ -103,15 +103,20 @@
                     <div class="form-group">
                         <label class="control-label col-sm-3" for="lastName">Сканы паспорта:</label>
                         <div class="col-sm-4">
-                            <input type="file" name="passportFile" id="passportFile" class="fileAjax">
-                        </div>
-                        <div class="col-sm-1"></div>
-                        <div class="col-sm-4">
-                            <input type="file" name="passport2" id="passport2">
-                            {% if user.passport2FilePath is defined %}
-                                <img src="{{ path('get_image', {'type' : 'passport'}) }}" brightness="0" contrast="0">
+                            <input type="file" name="passportFile" id="passportFile"  data-type="passportFile" class="fileAjax">
+                            {% if user.copyPassport.path is defined %}
+                                <img src="/{{ user.copyPassport.path }}" brightness="0" contrast="0" data-type="passportFile" class="document" id="passportFileImg">
                             {% endif %}
                         </div>
+                        {% if user.ru == 1 or user.estr == 1 %}
+                        <div class="col-sm-1"></div>
+                        <div class="col-sm-4">
+                            <input type="file" name="passport2File" id="passport2File" data-type="passport2File" class="fileAjax">
+                            {% if user.copyPassport2.path is defined %}
+                                <img src="/{{ user.copyPassport2.path }}" brightness="0" contrast="0" data-type="passport2File" class="document" id="passport2FileImg">
+                            {% endif %}
+                        </div>
+                        {% endif %}
                     </div>
                 </td>
             </tr>
@@ -155,6 +160,54 @@
                     </div>
                 </td>
             </tr>
+
+            {% if user.ru == 0 and user.estr == 0 %}
+                <tr>
+                    <td>
+                        <div class="form-group">
+                            <label class="control-label col-sm-3" for="surName">Серия и номер:</label>
+                            <div class="col-sm-4">
+                                <input type="text"  name="passportSerial" id="passportSerial" class="form-control" value="{{ user.passportSerial }}">
+                            </div>
+                            <div class="col-sm-5">
+                                <input type="text"  name="passportNumber" id="passportNumber" class="form-control" value="{{ user.passportNumber }}">
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="form-group">
+                            <label class="control-label col-sm-3" for="surName">Кем выдан:</label>
+                            <div class="col-sm-9">
+                                <input type="text"  name="PassportIssuance" id="PassportIssuance" class="form-control" value="{{ user.PassportIssuance }}">
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="form-group">
+                            <label class="control-label col-sm-3" for="surName">Дата выдачи:</label>
+                            <div class="col-sm-9">
+                                <input type="text"  name="PassportIssuanceDate" id="PassportIssuanceDate" class="form-control date" value="{{ user.PassportIssuanceDate|date("d.m.Y") }}">
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="form-group">
+                            <label class="control-label col-sm-3" for="surName">Код подразделения:</label>
+                            <div class="col-sm-9">
+                                <input type="text"  name="passportCode" id="passportCode" class="form-control code" value="{{ user.passportCode }}">
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+
+            {% endif %}
+
             <tr>
                 <td>
                     <div class="form-group">
@@ -241,6 +294,28 @@
             <tr>
                 <td>
                     <div class="form-group">
+                        <label class="control-label col-sm-3" for="lastName">Сканы документа:</label>
+                        <div class="col-sm-4">
+                            <input type="file" name="driverFile" id="driverFile"  data-type="driverFile" class="fileAjax">
+                            {% if user.copyDriverPassport.path is defined %}
+                                <img src="/{{ user.copyDriverPassport.path }}" brightness="0" contrast="0" data-type="driverFile" class="document" id="driverFileImg">
+                            {% endif %}
+                        </div>
+                        <div class="col-sm-1"></div>
+                        {% if user.ru == 1 or user.estr == 1 %}
+                        <div class="col-sm-4">
+                            <input type="file" name="driver2File" id="driver2File"  data-type="driver2File" class="fileAjax">
+                            {% if user.copyDriverPassport2.path is defined %}
+                                <img src="/{{ user.copyDriverPassport2.path }}" brightness="0" contrast="0" data-type="driver2File" class="document" id="driver2FileImg">
+                            {% endif %}
+                        </div>
+                        {% endif %}
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="form-group">
                         <label class="control-label col-sm-3" for="driverPlace">Кем выдано:</label>
                         <div class="col-sm-9">
                             <input type="text"  name="driverPlace" id="driverPlace" class="form-control" value="{{ user.driverDocIssuance }}">
@@ -263,7 +338,7 @@
                     <div class="form-group">
                         <label class="control-label col-sm-3" for="driverStarts">Дата выдачи:</label>
                         <div class="col-sm-9">
-                            <input type="text"  name="driverStarts" id="driverStarts" class="form-control" value="{{ user.driverDocDateStarts|date('d.m.Y') }}">
+                            <input type="text"  name="driverStarts" id="driverStarts" class="form-control date" value="{{ user.driverDocDateStarts|date('d.m.Y') }}">
                         </div>
                     </div>
                 </td>
@@ -272,6 +347,26 @@
                 <td>
                     <div class="h2">
                         Фотография и подпись
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="form-group">
+                        <label class="control-label col-sm-3" for="lastName">Фото и подпись:</label>
+                        <div class="col-sm-4">
+                            <input type="file" name="photoFile" id="photoFile"  data-type="photoFile" class="fileAjax">
+                            {% if user.photo.path is defined %}
+                                <img src="/{{ user.photo.path }}" brightness="0" contrast="0" data-type="photoFile" class="document" id="photoFileImg">
+                            {% endif %}
+                        </div>
+                        <div class="col-sm-1"></div>
+                        <div class="col-sm-4">
+                            <input type="file" name="signFile" id="signFile"  data-type="signFile" class="fileAjax">
+                            {% if user.copySignature.path is defined %}
+                                <img src="/{{ user.copySignature.path }}" brightness="0" contrast="0" data-type="signFile" class="document" id="signFileImg">
+                            {% endif %}
+                        </div>
                     </div>
                 </td>
             </tr>
@@ -361,7 +456,7 @@
         </table>
     </div>
 
-    <div class="fileBox">
+    <div class="fileBox" data-user="{{ user.id }}">
         <div class="file-container">
             <div class="fileDoc">
                 <img src="" brightness="0" contrast="0">

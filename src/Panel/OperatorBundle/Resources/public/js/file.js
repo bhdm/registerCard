@@ -38,10 +38,10 @@ function getImage(data, container){
             jcrop_api.destroy();
             fileDoc.children('img').removeAttr('style');
         }
+
         fileDoc.children('img').attr('src',data.data.img);
         fileDoc.children('.jcrop-holder').children('img').attr('src',data.data.img);
-        var type = container.children('.jq-file').children('input[type=file]').attr('id');
-
+        var type = $(this).attr('data-type');
 
         var maxHeight = 400;
         var maxWidth = 400;
@@ -85,7 +85,7 @@ $(document).ready(function(){
     $( ".slider-vertical-contrast" ).on( "slidestop", function( event, ui ) {
             var container = $('.file-container');
             //console.log(container);
-            var type = container.children('.jq-file').children('input[type=file]').attr('id');
+            var type = $(this).attr('data-type');
             var contrast = ui.value;
             var brightness = container.children('.fileDoc').children('img').attr('brightness');
             //var contrastNow = container.children('.fileDoc').children('img').attr('contrast');
@@ -115,7 +115,7 @@ $(document).ready(function(){
     $( ".slider-vertical-brightness" ).on( "slidestop", function( event, ui ) {
             var container = $('.file-container');
             //console.log(container);
-            var type = container.children('.jq-file').children('input[type=file]').attr('id');
+            var type = $(this).attr('data-type');
 
             var brightness = ui.value;
 
@@ -150,47 +150,30 @@ $(document).ready(function(){
         if (container.hasClass('fileAjax')){
             container = container.parent();
         }
-        var progressbar = container.children('.progress');
-        var navigateFile = container.children('.navigateFile');
-
-        //return false;
 
         file = event.target.files[0];
         var formData = new FormData();
         formData.append('file', file);
-        //progressbar.css('display','block');
-        //progressbar.attr({value:0, max:100});
 
-        var type = container.children('.jq-file').children('input[type=file]').attr('id');
-        //console.log(t=container);
+        var type = $(this).attr('data-type');
+        $('.fileBox').attr('data-type', type);
 
-        //var loader = 'http://im-kard.ru/bundles/crmmain/images/ajax_loader.gif';
-        //container.children('.fileDoc').children('img').attr('src', loader);
-        //if(file.value.length){
         $('body').loader('show',
             {
                 className: 'loader',
-
                 tpl: '<div class="{className} hide"><div class="{className}-load"></div><div class="{className}-overlay"></div></div>',
-
                 delay: 200,
-                loader: true,       // if true, you can hide the loader by clicking on it
-                overlay: true      // display or not the overlay
-
+                loader: true,
+                overlay: true
             }
         );
-        //}
-
-        //alert('1');
 
         $.ajax({
             url: Routing.generate('upload_document', {'type': type}),
             type: 'POST',
             success: function(msg){
-                //progressbar.css('display','none');
                 getImage(msg, container);
                 $('.navigateFile').css('display','mome');
-                navigateFile.css('display','block');
                 $('body').loader('hide');
             },
             error:function (error) {
@@ -207,7 +190,7 @@ $(document).ready(function(){
 
     $('.rotateLeft').click(function(){
         var container = $('.file-container');
-        var type = container.children('.jq-file').children('input[type=file]').attr('id');
+        var type = $('.fileBox').attr('data-type');
         $.ajax({
             url: Routing.generate('image_rotate', {'type': type, 'rotate': 'left'}),
             type: 'POST',
@@ -220,7 +203,7 @@ $(document).ready(function(){
 
     $('.rotateRight').click(function(){
         var container = $('.file-container');
-        var type = container.children('.jq-file').children('input[type=file]').attr('id');
+        var type = $('.fileBox').attr('data-type');
         $.ajax({
             url: Routing.generate('image_rotate', {'type': type, 'rotate': 'right'}),
             type: 'POST',
@@ -240,7 +223,7 @@ $(document).ready(function(){
 
         var width = container.children('.fileDoc').children('img').css('width');
         var height = container.children('.fileDoc').children('img').css('height');
-        var type = container.children('.jq-file').children('input[type=file]').attr('id');
+        var type = $('.fileBox').attr('data-type');
         $.ajax({
             url: Routing.generate('crop_image', {'type': type,  'width' : width, 'height' : height, 'x1': x1, 'y1' : y1, 'x2' : x2, 'y2' : y2 }),
             type: 'POST',
@@ -252,12 +235,15 @@ $(document).ready(function(){
     });
 
     $('.saveImage').click(function(){
-        var type = 'passportFile';
+        var type = $('.fileBox').attr('data-type');
         $.ajax({
-            url: Routing.generate('save_image', {'type': type }),
+            url: Routing.generate('panel_user_save_image', {'userId': $('.fileBox').attr('data-user'),'type': type }),
             type: 'POST',
             success: function(msg){
-                $('#'+type+'img').attr('src',msg);
+                console.log('#'+type+'Img');
+                console.log(msg);
+
+                $('#'+type+'Img').attr('src','/'+msg);
                 $('.fileBox').fadeOut();
             },
             error:function (error) {
@@ -268,5 +254,44 @@ $(document).ready(function(){
 
     $('.cancelImage').click(function(){
         $('.fileBox').fadeOut();
+    });
+
+
+    $('.document').click(function(){
+        $('.fileBox').attr('data-type', $(this).attr('data-type'));
+        $('.fileBox').fadeIn();
+        var fileDoc = $('.fileDoc');
+        var container = $('.file-container');
+
+        fileDoc.children('img').removeAttr("src").attr("src", $(this).attr('src'));
+        if (jcrop_api != null){
+            jcrop_api.destroy();
+            fileDoc.children('img').removeAttr('style');
+        }
+
+        var maxHeight = 400;
+        var maxWidth = 400;
+        if (type == 'photoFile'){
+            fileDoc.children('img').Jcrop({
+                boxHeight: maxHeight,
+                boxWidth:  maxWidth,
+                onChange:   function(c){showCoords(c, container) },
+                onSelect:   function(c){showCoords(c, container) },
+                aspectRatio: 1 / 1.285
+            },function(){
+                jcrop_api = this;
+            });
+            //console.log(tt = fileDoc.children('.jcrop-holder').children('div').children('div').children('.jcrop-tracker'));
+            fileDoc.children('.jcrop-holder').children('div').children('div').children('.jcrop-tracker').addClass('imgareaselect-selection2');
+        }else{
+            fileDoc.children('img').Jcrop({
+                boxHeight:  maxHeight,
+                boxWidth:  maxWidth,
+                onChange:   function(c){showCoords(c, container) },
+                onSelect:   function(c){showCoords(c, container) }
+            },function(){
+                jcrop_api = this;
+            });
+        }
     });
 });
