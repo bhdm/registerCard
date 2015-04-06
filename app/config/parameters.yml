@@ -13,4 +13,4 @@ parameters:
     locale: ru
     secret: ThisTokenIsNotSoSecretChangeIt
     upload_dir: upload
-
+    rootPath: /var/www/imkard/
