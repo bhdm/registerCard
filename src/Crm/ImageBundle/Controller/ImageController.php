@@ -123,6 +123,9 @@ class ImageController extends Controller
         if ($path == null){
             return array('data' => array('error' => 'Файл не загружен'));
         }
+        if (!$path2){
+            $path2 = '/var/www/upload/tmp/origin-'.basename($path);
+        }
         $image = imagecreatefromjpeg($path);
         if ($rotate == 'left'){
             $rotate = imagerotate($image, 90, 0);
@@ -151,7 +154,9 @@ class ImageController extends Controller
         }elseif ($path2 == null && $path != null){
             $image = new \Imagick();
             $image->readImage($path);
-            $image->writeImage('/var/www/upload/tmp/origin-'.$image->getFilename());
+            $path2 = '/var/www/upload/tmp/origin-'.$image->getFilename();
+            $session->set('origin-'.$type,$path2);
+            $image->writeImage($path2);
             $image->destroy();
         }
 
@@ -233,10 +238,18 @@ class ImageController extends Controller
         if ($path2 == null && $path == null){
             return array('data' => array('error' => 'Файл не загружен'));
         }elseif ($path2 == null && $path != null){
-            $image = new \Imagick();
-            $image->readImage($path);
-            $image->writeImage('/var/www/upload/tmp/origin-'.$image->getFilename());
-            $image->destroy();
+            try {
+                $image = new \Imagick();
+                $image->readImage($path);
+                $path2 = '/var/www/upload/tmp/origin-'.basename($path);
+                $session->set('origin-'.$type,$path2);
+                $image->writeImage($path2);
+                $image->destroy();
+            }
+            catch(Exception $e) {
+                die('Error when creating a thumbnail: ' . $e->getMessage());
+            }
+
         }
         $image = imagecreatefromjpeg($path2);
 
@@ -261,6 +274,21 @@ class ImageController extends Controller
         return new Response(readfile($image), 200, array('Content-Type' => 'image/png'));
     }
 
+    /**
+     * @Route("/cancel-image/{type}", name="cancel_image", options={"expose"=true})
+     */
+    public function cancelAction(Request $request, $type){
+        $session = $request->getSession();
+        $path2 = $session->get('origin-'.$type);
+        $path = $session->get($type);
+        if ($path2){
+            $image = imagecreatefromjpeg($path2);
+            imagejpeg($image, $path);
+            $data = $this->imageToArray($path);
+            $response = new JsonResponse($data);
+            return $response;
+        }
+    }
 
     public function imageToArray($path){
         if (is_resource($path)){

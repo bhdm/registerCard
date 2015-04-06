@@ -254,6 +254,22 @@ $(document).ready(function(){
 
     $('.cancelImage').click(function(){
         $('.fileBox').fadeOut();
+        var type = $('.fileBox').attr('data-type');
+        $.ajax({
+            url: Routing.generate('cancel_image', {'type': type }),
+            type: 'POST',
+            success: function(msg){
+                console.log('#'+type+'Img');
+                console.log(msg);
+
+                $('#'+type+'Img').attr('src',+msg);
+                $('.fileBox').fadeOut();
+            },
+            error:function (error) {
+                alert('Ошибка сохранения')
+            }
+        });
+
     });
 
 
