@@ -24,45 +24,44 @@ class UserController extends Controller
      */
     public function listAction(Request $request, $status = 0, $type = null, $company = null, $operator = null)
     {
-        if ($company == "null"){
+        if ($company == "null") {
             $company = null;
         }
 
-        if ($status == "null" || $status == null){
+        if ($status == "null" || $status == null) {
             $status = 0;
         }
 
         $searchtxt = $request->query->get('search');
-        $dateStart = ( $request->query->get('dateStart') == '' ? null : $request->query->get('dateStart'));
-        $dateEnd = ( $request->query->get('dateEnd') == '' ? null : $request->query->get('dateEnd'));
+        $dateStart = ($request->query->get('dateStart') == '' ? null : $request->query->get('dateStart'));
+        $dateEnd = ($request->query->get('dateEnd') == '' ? null : $request->query->get('dateEnd'));
 
-        if ($operator == null || $operator == 'null'){
+        if ($operator == null || $operator == 'null') {
             $operator = $this->getUser();
             $operatorId = "null";
-        }else{
+        } else {
             $operatorId = $operator;
             $operator = $this->getDoctrine()->getRepository('CrmMainBundle:Operator')->findOneById($operator);
         }
 
 
-
         $production = 0;
         $choose = 0;
-        if ($type == null || $type == 'null'){
+        if ($type == null || $type == 'null') {
             $type = 3;
         }
         $users = $this->getDoctrine()->getRepository('CrmMainBundle:User')->operatorFilter($type, $status, $company, $operator, $searchtxt, $dateStart, $dateEnd);
-        $paginator  = $this->get('knp_paginator');
+        $paginator = $this->get('knp_paginator');
         $pagination = $paginator->paginate(
             $users,
             $this->get('request')->query->get('page', 1),
             50
         );
         $companyId = $company;
-        if ($companyId == null){
+        if ($companyId == null) {
             $company = null;
             $companyId = "null";
-        }else{
+        } else {
             $company = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->find($companyId);
         }
 
@@ -79,29 +78,65 @@ class UserController extends Controller
             'operatorId' => $operatorId
         );
 
-        if ( $this->get('security.context')->isGranted('ROLE_ADMIN')){
-            switch ($status){
-                case 0: $response = $this->render('PanelOperatorBundle:User:list_0.html.twig',$vars); break;
-                case 1: $response = $this->render('PanelOperatorBundle:User:list_1.html.twig',$vars); break;
-                case 2: $response = $this->render('PanelOperatorBundle:User:list_2.html.twig',$vars); break;
-                case 3: $response = $this->render('PanelOperatorBundle:User:list_3.html.twig',$vars); break;
-                case 6: $response = $this->render('PanelOperatorBundle:User:list_6.html.twig',$vars); break;
-                case 4: $response = $this->render('PanelOperatorBundle:User:list_4.html.twig',$vars); break;
-                case 5: $response = $this->render('PanelOperatorBundle:User:list_5.html.twig',$vars); break;
-                case 10: $response = $this->render('PanelOperatorBundle:User:list_10.html.twig',$vars); break;
-                default: $response = $this->render('PanelOperatorBundle:User:list_0.html.twig',$vars); break;
+        if ($this->get('security.context')->isGranted('ROLE_ADMIN')) {
+            switch ($status) {
+                case 0:
+                    $response = $this->render('PanelOperatorBundle:User:list_0.html.twig', $vars);
+                    break;
+                case 1:
+                    $response = $this->render('PanelOperatorBundle:User:list_1.html.twig', $vars);
+                    break;
+                case 2:
+                    $response = $this->render('PanelOperatorBundle:User:list_2.html.twig', $vars);
+                    break;
+                case 3:
+                    $response = $this->render('PanelOperatorBundle:User:list_3.html.twig', $vars);
+                    break;
+                case 6:
+                    $response = $this->render('PanelOperatorBundle:User:list_6.html.twig', $vars);
+                    break;
+                case 4:
+                    $response = $this->render('PanelOperatorBundle:User:list_4.html.twig', $vars);
+                    break;
+                case 5:
+                    $response = $this->render('PanelOperatorBundle:User:list_5.html.twig', $vars);
+                    break;
+                case 10:
+                    $response = $this->render('PanelOperatorBundle:User:list_10.html.twig', $vars);
+                    break;
+                default:
+                    $response = $this->render('PanelOperatorBundle:User:list_0.html.twig', $vars);
+                    break;
             }
-        }else{
-            switch ($status){
-                case 0: $response = $this->render('PanelOperatorBundle:User:list_0.html.twig',$vars); break;
-                case 1: $response = $this->render('PanelOperatorBundle:User:list_1.html.twig',$vars); break;
-                case 2: $response = $this->render('PanelOperatorBundle:User:list_2.html.twig',$vars); break;
-                case 3: $response = $this->render('PanelOperatorBundle:User:list_3_u.html.twig',$vars); break;
-                case 6: $response = $this->render('PanelOperatorBundle:User:list_3_u.html.twig',$vars); break;
-                case 4: $response = $this->render('PanelOperatorBundle:User:list_3_u.html.twig',$vars); break;
-                case 5: $response = $this->render('PanelOperatorBundle:User:list_5.html.twig',$vars); break;
-                case 10: $response = $this->render('PanelOperatorBundle:User:list_10.html.twig',$vars); break;
-                default: $response = $this->render('PanelOperatorBundle:User:list_0.html.twig',$vars); break;
+        } else {
+            switch ($status) {
+                case 0:
+                    $response = $this->render('PanelOperatorBundle:User:list_0.html.twig', $vars);
+                    break;
+                case 1:
+                    $response = $this->render('PanelOperatorBundle:User:list_1.html.twig', $vars);
+                    break;
+                case 2:
+                    $response = $this->render('PanelOperatorBundle:User:list_2.html.twig', $vars);
+                    break;
+                case 3:
+                    $response = $this->render('PanelOperatorBundle:User:list_3_u.html.twig', $vars);
+                    break;
+                case 6:
+                    $response = $this->render('PanelOperatorBundle:User:list_3_u.html.twig', $vars);
+                    break;
+                case 4:
+                    $response = $this->render('PanelOperatorBundle:User:list_3_u.html.twig', $vars);
+                    break;
+                case 5:
+                    $response = $this->render('PanelOperatorBundle:User:list_5.html.twig', $vars);
+                    break;
+                case 10:
+                    $response = $this->render('PanelOperatorBundle:User:list_10.html.twig', $vars);
+                    break;
+                default:
+                    $response = $this->render('PanelOperatorBundle:User:list_0.html.twig', $vars);
+                    break;
             }
         }
 
@@ -114,26 +149,27 @@ class UserController extends Controller
      * @Route("/edit/{userId}", name="panel_user_edit")
      * @Template("PanelOperatorBundle:User:edit2.html.twig")
      */
-    public function editAction(Request $request, $userId){
+    public function editAction(Request $request, $userId)
+    {
         $session = $request->getSession();
         $referer = $request->headers->get('referer');
 
 
-        $session->set('passportFile', null );
-        $session->set('passport2File', null );
-        $session->set('driverFile', null );
-        $session->set('driver2File', null );
-        $session->set('snilsFile', null );
-        $session->set('signFile', null );
-        $session->set('photoFile', null );
-        $session->set('petitionFile', null );
-        $session->set('workFile', null );
+        $session->set('passportFile', null);
+        $session->set('passport2File', null);
+        $session->set('driverFile', null);
+        $session->set('driver2File', null);
+        $session->set('snilsFile', null);
+        $session->set('signFile', null);
+        $session->set('photoFile', null);
+        $session->set('petitionFile', null);
+        $session->set('workFile', null);
 
 
         $user = $this->getDoctrine()->getRepository('CrmMainBundle:User')->findOneById($userId);
 
 
-        if ($request->getMethod() == 'POST'){
+        if ($request->getMethod() == 'POST') {
             $data = $request->request;
 
             $user->setEmail($data->get('email'));
@@ -174,7 +210,6 @@ class UserController extends Controller
             $user->setTypeCard($data->get('typeCard'));
 
 
-
             $user->setDileveryZipcode($data->get('deliveryZipcode'));
             $user->setDileveryRegion($data->get('deliveryRegion'));
             $user->setDileveryArea($data->get('deliveryArea'));
@@ -186,44 +221,48 @@ class UserController extends Controller
             $user->setDileveryRoom($data->get('deliveryRoom'));
             $user->setSalt(md5(time()));
 
-            $user->setStatus($data->get('status'));
             $user->setComment($data->get('comment'));
 
 //            $user->setPrice($data->get('price'));
 
             $view = $data->get('view');
-            if ($view == 1){
+            if ($view == 1) {
                 $user->setWorkshop(1);
                 $user->setEnterprise(0);
-            }elseif($view == 2){
+            } elseif ($view == 2) {
                 $user->setEnterprise(1);
                 $user->setWorkshop(0);
-            }else{
+            } else {
                 $user->setEnterprise(0);
                 $user->setWorkshop(0);
             }
 
-            if ($data->get('type') == 1){
+            if ($data->get('type') == 1) {
                 $user->setEstr(1);
                 $user->setRu(0);
-            }elseif($data->get('type') == 2){
+            } elseif ($data->get('type') == 2) {
                 $user->setEstr(0);
                 $user->setRu(1);
-            }else{
+            } else {
                 $user->setEstr(0);
                 $user->setRu(0);
             }
 
 
-
-            if ($data->get('myPetition')){
+            if ($data->get('myPetition')) {
                 $user->setMyPetition($data->get('myPetition'));
-            }else{
+            } else {
                 $user->setMyPetition(0);
             }
 
-
             $this->getDoctrine()->getManager()->flush($user);
+            $this->getDoctrine()->getManager()->refresh($user);
+
+
+            if ($this->changeStatus($user, $data->get('status'))) {
+                $this->getDoctrine()->getManager()->flush($user);
+                $this->getDoctrine()->getManager()->refresh($user);
+            }
 
             $em = $this->getDoctrine()->getManager();
             $statuslog = new StatusLog();
@@ -234,44 +273,44 @@ class UserController extends Controller
 
             return $this->redirect($referer);
 
-        }else{
+        } else {
 
             #Помещаем все фалы-картинки в сессию, что бы потом можно было бы редактировать
             $file = $user->getCopyPassport();
-            if (!empty($file) && file_exists('/var/www/'.$file['path'])){
-                $session->set('passportFile', '/var/www/'.$file['path'] );
+            if (!empty($file) && file_exists('/var/www/' . $file['path'])) {
+                $session->set('passportFile', '/var/www/' . $file['path']);
             }
             $file = $user->getCopyPassport2();
-            if (!empty($file) && file_exists('/var/www/'.$file['path'])){
-                $session->set('passport2File', '/var/www/'.$file['path'] );
+            if (!empty($file) && file_exists('/var/www/' . $file['path'])) {
+                $session->set('passport2File', '/var/www/' . $file['path']);
             }
             $file = $user->getCopyDriverPassport();
-            if (!empty($file) && file_exists('/var/www/'.$file['path'])){
-                $session->set('driverFile', '/var/www/'.$file['path'] );
+            if (!empty($file) && file_exists('/var/www/' . $file['path'])) {
+                $session->set('driverFile', '/var/www/' . $file['path']);
             }
             $file = $user->getCopyDriverPassport2();
-            if (!empty($file) && file_exists('/var/www/'.$file['path'])){
-                $session->set('driver2File', '/var/www/'.$file['path'] );
+            if (!empty($file) && file_exists('/var/www/' . $file['path'])) {
+                $session->set('driver2File', '/var/www/' . $file['path']);
             }
             $file = $user->getCopySnils();
-            if (!empty($file) && file_exists('/var/www/'.$file['path'])){
-                $session->set('snilsFile', '/var/www/'.$file['path'] );
+            if (!empty($file) && file_exists('/var/www/' . $file['path'])) {
+                $session->set('snilsFile', '/var/www/' . $file['path']);
             }
             $file = $user->getPhoto();
-            if (!empty($file) && file_exists('/var/www/'.$file['path'])){
-                $session->set('photoFile', '/var/www/'.$file['path'] );
+            if (!empty($file) && file_exists('/var/www/' . $file['path'])) {
+                $session->set('photoFile', '/var/www/' . $file['path']);
             }
             $file = $user->getCopySignature();
-            if (!empty($file) && file_exists('/var/www/'.$file['path'])){
-                $session->set('signFile', '/var/www/'.$file['path'] );
+            if (!empty($file) && file_exists('/var/www/' . $file['path'])) {
+                $session->set('signFile', '/var/www/' . $file['path']);
             }
             $file = $user->getCopyPetition();
-            if (!empty($file) && file_exists('/var/www/'.$file['path'])){
-                $session->set('petitionFile', '/var/www/'.$file['path'] );
+            if (!empty($file) && file_exists('/var/www/' . $file['path'])) {
+                $session->set('petitionFile', '/var/www/' . $file['path']);
             }
             $file = $user->getCopyWork();
-            if (!empty($file) && file_exists('/var/www/'.$file['path'])){
-                $session->set('workFile', '/var/www/'.$file['path'] );
+            if (!empty($file) && file_exists('/var/www/' . $file['path'])) {
+                $session->set('workFile', '/var/www/' . $file['path']);
             }
             $session->save();
         }
@@ -288,14 +327,15 @@ class UserController extends Controller
      * @Route("/remove/{userId}", name="panel_user_remove")
      * @Template()
      */
-    public function removeAction(Request $request, $userId){
+    public function removeAction(Request $request, $userId)
+    {
         $user = $this->getDoctrine()->getRepository('CrmMainBundle:User')->findOneById($userId);
-        if ($user->getEstr() == 0 && $user->getRu() == 0){
-            if ($user && $user->getCompany()!= null && ( $user->getCompany()->getOperator() == $this->getUser() || $this->get('security.context')->isGranted('ROLE_ADMIN'))){
+        if ($user->getEstr() == 0 && $user->getRu() == 0) {
+            if ($user && $user->getCompany() != null && ($user->getCompany()->getOperator() == $this->getUser() || $this->get('security.context')->isGranted('ROLE_ADMIN'))) {
                 $user->setEnabled(false);
                 $this->getDoctrine()->getManager()->flush($user);
             }
-        }else{
+        } else {
             $user->setEnabled(false);
             $this->getDoctrine()->getManager()->flush($user);
         }
@@ -306,11 +346,12 @@ class UserController extends Controller
      * @Route("/enabled/{userId}", name="panel_user_enabled")
      * @Template()
      */
-    public function enabledAction(Request $request, $userId){
+    public function enabledAction(Request $request, $userId)
+    {
         $user = $this->getDoctrine()->getRepository('CrmMainBundle:User')->findOneById($userId);
-        if ($user->getEnabled() == true){
+        if ($user->getEnabled() == true) {
             $user->setEnabled(false);
-        }else{
+        } else {
             $user->setEnabled(true);
         }
         $this->getDoctrine()->getManager()->flush($user);
@@ -323,13 +364,14 @@ class UserController extends Controller
      * @Route("/set-choose/{userId}/{type}", name="panel_user_set_choose", defaults={"type"="true"})
      * @Template()
      */
-    public function setChooseAction(Request $request, $userId, $type = 'true'){
+    public function setChooseAction(Request $request, $userId, $type = 'true')
+    {
         $session = new Session();
         $user = $this->getDoctrine()->getRepository('CrmMainBundle:User')->find($userId);
-        if ($user){
-            if ($type == 'true'){
+        if ($user) {
+            if ($type == 'true') {
                 $user->setStatus(1);
-            }else{
+            } else {
                 $user->setStatus(0);
             }
             $this->getDoctrine()->getManager()->flush($user);
@@ -338,7 +380,7 @@ class UserController extends Controller
             $statusLog->setTitle($user->getStatusString());
             $statusLog->setUser($user);
             $this->getDoctrine()->getManager()->persist($statusLog);
-            $session->getFlashBag()->add('notice', 'Пользователь '.$user->getLastName().' переведен в подтвержденные');
+            $session->getFlashBag()->add('notice', 'Пользователь ' . $user->getLastName() . ' переведен в подтвержденные');
         }
         return $this->redirect($request->headers->get('referer'));
     }
@@ -348,7 +390,8 @@ class UserController extends Controller
      * @Security("has_role('ROLE_ADMIN')")
      * @Route("/set-stend/{userId}/{type}", name="panel_user_set_stend", defaults={"type"="true"})
      */
-    public function setStendAction(Request $request, $userId, $type = 'true'){
+    public function setStendAction(Request $request, $userId, $type = 'true')
+    {
         $session = $request->getSession();
         $user = $this->getDoctrine()->getRepository('CrmMainBundle:User')->findOneById($userId);
         $user->setStatus(6);
@@ -356,7 +399,7 @@ class UserController extends Controller
         $statusLog->setTitle('Изготовлено');
         $statusLog->setUser($user);
         $this->getDoctrine()->getManager()->persist($statusLog);
-        $session->getFlashBag()->add('notice', 'Пользователь '.$user->getLastName().' переведен в Изготовлено');
+        $session->getFlashBag()->add('notice', 'Пользователь ' . $user->getLastName() . ' переведен в Изготовлено');
         $this->getDoctrine()->getManager()->flush($user);
         $this->getDoctrine()->getManager()->flush();
     }
@@ -365,7 +408,8 @@ class UserController extends Controller
      * @Security("has_role('ROLE_ADMIN')")
      * @Route("/set-email/{userId}/{type}", name="panel_user_set_email", defaults={"type"="true"})
      */
-    public function setEmailAction(Request $request, $userId, $type = 'true'){
+    public function setEmailAction(Request $request, $userId, $type = 'true')
+    {
         $session = $request->getSession();
         $user = $this->getDoctrine()->getRepository('CrmMainBundle:User')->findOneById($userId);
         $user->setStatus(4);
@@ -373,7 +417,7 @@ class UserController extends Controller
         $statusLog->setTitle('На почте');
         $statusLog->setUser($user);
         $this->getDoctrine()->getManager()->persist($statusLog);
-        $session->getFlashBag()->add('notice', 'Пользователь '.$user->getLastName().' переведен на почту');
+        $session->getFlashBag()->add('notice', 'Пользователь ' . $user->getLastName() . ' переведен на почту');
         $this->getDoctrine()->getManager()->flush($user);
         $this->getDoctrine()->getManager()->flush();
     }
@@ -382,7 +426,8 @@ class UserController extends Controller
      * @Security("has_role('ROLE_ADMIN')")
      * @Route("/set-received/{userId}/{type}", name="panel_user_set_received", defaults={"type"="true"})
      */
-    public function setReceivedAction(Request $request, $userId, $type = 'true'){
+    public function setReceivedAction(Request $request, $userId, $type = 'true')
+    {
         $session = $request->getSession();
         $user = $this->getDoctrine()->getRepository('CrmMainBundle:User')->findOneById($userId);
         $user->setStatus(5);
@@ -390,65 +435,65 @@ class UserController extends Controller
         $statusLog->setTitle('Получена');
         $statusLog->setUser($user);
         $this->getDoctrine()->getManager()->persist($statusLog);
-        $session->getFlashBag()->add('notice', 'Пользователь '.$user->getLastName().' переведен получено');
+        $session->getFlashBag()->add('notice', 'Пользователь ' . $user->getLastName() . ' переведен получено');
         $this->getDoctrine()->getManager()->flush($user);
         $this->getDoctrine()->getManager()->flush();
     }
-
 
 
     /**
      * @Security("has_role('ROLE_OPERATOR')")
      * @Route("/set-production/{userId}/{type}", name="panel_user_set_production", defaults={"type"="true"})
      */
-    public function setProductionAction(Request $request, $userId, $type = 'true'){
+    public function setProductionAction(Request $request, $userId, $type = 'true')
+    {
         $session = new Session();
         $user = $this->getDoctrine()->getRepository('CrmMainBundle:User')->findOneById($userId);
 
-        if ( $type == 'true' &&  $this->get('security.context')->isGranted('ROLE_OPERATOR')){
+        if ($type == 'true' && $this->get('security.context')->isGranted('ROLE_OPERATOR')) {
 //            $user->setProduction(2);
             $user->setStatus(3);
 
             $operator = $this->getUser();
             $quota = $operator->getQuota();
             $price = 0;
-            if ($user->getRu() == 0 && $user->getEstr() == 0){
+            if ($user->getRu() == 0 && $user->getEstr() == 0) {
                 $price = $operator->getPriceSkzi();
-            }elseif($user->getRu() == 1 && $user->getEstr() == 0){
-                $price =  $operator->getPriceRu();
-            }elseif($user->getRu() == 0 && $user->getEstr() == 1){
-                $price =  $operator->getPriceEstr();
+            } elseif ($user->getRu() == 1 && $user->getEstr() == 0) {
+                $price = $operator->getPriceRu();
+            } elseif ($user->getRu() == 0 && $user->getEstr() == 1) {
+                $price = $operator->getPriceEstr();
             }
             $quota -= $price;
 
-            if ($quota >= 0){
+            if ($quota >= 0) {
                 $operator->setQuota($quota);
 
                 $moderator = $operator->getModerator();
-                if ($moderator != null){
-                    if ($moderator->getRoles()[0] == 'ROLE_MODERATOR'){
+                if ($moderator != null) {
+                    if ($moderator->getRoles()[0] == 'ROLE_MODERATOR') {
                         $quotaModerator = $moderator->getQuota();
                         $priceModerator = 0;
-                        if ($user->getRu() == 0 && $user->getEstr() == 0){
+                        if ($user->getRu() == 0 && $user->getEstr() == 0) {
                             $priceModerator = $moderator->getPriceSkzi();
-                        }elseif($user->getRu() == 1 && $user->getEstr() == 0){
-                            $priceModerator =  $moderator->getPriceRu();
-                        }elseif($user->getRu() == 0 && $user->getEstr() == 1){
-                            $priceModerator =  $moderator->getPriceEstr();
+                        } elseif ($user->getRu() == 1 && $user->getEstr() == 0) {
+                            $priceModerator = $moderator->getPriceRu();
+                        } elseif ($user->getRu() == 0 && $user->getEstr() == 1) {
+                            $priceModerator = $moderator->getPriceEstr();
                         }
                         $quotaModerator -= $priceModerator;
-                        if ($quotaModerator > 0){
+                        if ($quotaModerator > 0) {
                             $moderator->setQuota($quotaModerator);
                             $this->getDoctrine()->getManager()->flush($moderator);
                             $statusLog = new StatusLog();
                             $statusLog->setTitle('Отправлен администратору');
                             $statusLog->setUser($user);
                             $this->getDoctrine()->getManager()->persist($statusLog);
-                            $session->getFlashBag()->add('notice', 'Пользователь '.$user->getLastName().' переведен в производство ( архив )');
+                            $session->getFlashBag()->add('notice', 'Пользователь ' . $user->getLastName() . ' переведен в производство ( архив )');
                             $this->getDoctrine()->getManager()->flush($user);
                             $this->getDoctrine()->getManager()->flush();
-                        }else{
-                            $session->getFlashBag()->add('error', 'не хватает денег у Вашего модератора ( '.$moderator->getQuota().' из '.$priceModerator.' )');
+                        } else {
+                            $session->getFlashBag()->add('error', 'не хватает денег у Вашего модератора ( ' . $moderator->getQuota() . ' из ' . $priceModerator . ' )');
                             return $this->redirect($request->headers->get('referer'));
                         }
                     }
@@ -461,7 +506,7 @@ class UserController extends Controller
 //                $session->getFlashBag()->add('notice', 'Пользователь '.$user->getLastName().' переведен в производство ( архив )');
                     $this->getDoctrine()->getManager()->flush($user);
                     $this->getDoctrine()->getManager()->flush();
-                }else{
+                } else {
                     $this->getDoctrine()->getManager()->flush($operator);
                     $statusLog = new StatusLog();
                     $statusLog->setTitle('Отправлен администратору');
@@ -473,8 +518,8 @@ class UserController extends Controller
                 }
 
 
-            }else{
-                $session->getFlashBag()->add('error', 'не хватает денег у оператора ( '.$operator->getQuota().' из '.$price.' )');
+            } else {
+                $session->getFlashBag()->add('error', 'не хватает денег у оператора ( ' . $operator->getQuota() . ' из ' . $price . ' )');
             }
 
             return $this->redirect($request->headers->get('referer'));
@@ -489,22 +534,23 @@ class UserController extends Controller
      * @Route("/set-payment/{userId}/{type}", name="panel_user_set_payment", defaults={"type"="true"})
      * @Template()
      */
-    public function setPaymentAction(Request $request, $userId, $type = 'true'){
+    public function setPaymentAction(Request $request, $userId, $type = 'true')
+    {
         $user = $this->getDoctrine()->getRepository('CrmMainBundle:User')->find($userId);
         $session = new Session();
-        if ($user){
+        if ($user) {
             $company = $user->getCompany();
             $price = 0;
-            if ($user->getEstr() == 0 && $user->getRu() == 0){
+            if ($user->getEstr() == 0 && $user->getRu() == 0) {
                 $price = $company->getPriceSkzi();
-            }elseif ($user->getEstr() == 1 && $user->getRu() == 0){
+            } elseif ($user->getEstr() == 1 && $user->getRu() == 0) {
                 $price = $company->getPriceEstr();
-            }elseif ($user->getEstr() == 0 && $user->getRu() == 1){
+            } elseif ($user->getEstr() == 0 && $user->getRu() == 1) {
                 $price = $company->getPriceRu();
             }
 
-            if ($type == 'true'){
-                if ($company->getQuota() >= $price){
+            if ($type == 'true') {
+                if ($company->getQuota() >= $price) {
                     $user->setChoose(true);
                     $company->setQuota($company->getQuota() - $price);
                     $user->setStatus(2);
@@ -519,18 +565,18 @@ class UserController extends Controller
                     $this->getDoctrine()->getManager()->flush($company);
                     $this->getDoctrine()->getManager()->flush($user);
                     $this->getDoctrine()->getManager()->refresh($user);
-                    $session->getFlashBag()->add('notice', 'Пользователь '.$user->getLastName().' переведен в оплаченные');
-                }else{
-                    $session->getFlashBag()->add('error', 'не хватает денег у компании ( '.$company->getQuota().' из '.$price.' )');
+                    $session->getFlashBag()->add('notice', 'Пользователь ' . $user->getLastName() . ' переведен в оплаченные');
+                } else {
+                    $session->getFlashBag()->add('error', 'не хватает денег у компании ( ' . $company->getQuota() . ' из ' . $price . ' )');
                 }
 
-            }else{
+            } else {
                 $user->setChoose(false);
                 $company->setQuota($company->getQuota() + $price);
                 $this->getDoctrine()->getManager()->flush($company);
                 $this->getDoctrine()->getManager()->flush($user);
                 $this->getDoctrine()->getManager()->refresh($user);
-                $session->getFlashBag()->add('notice', 'Пользователь '.$user->getLastName().' переведен в подтвержденные');
+                $session->getFlashBag()->add('notice', 'Пользователь ' . $user->getLastName() . ' переведен в подтвержденные');
                 $user->setStatus(1);
                 $this->getDoctrine()->getManager()->flush($user);
                 $this->getDoctrine()->getManager()->refresh($user);
@@ -545,64 +591,68 @@ class UserController extends Controller
     }
 
 
-    public function cropimage($img, $rect){
+    public function cropimage($img, $rect)
+    {
 
         #Получаем оригинальные размеры картинки
-        if ($rect['width'] == 0 or $rect['height'] == 0){
+        if ($rect['width'] == 0 or $rect['height'] == 0) {
             return $img;
         }
         $pathName = $this->BaseToImg($img);
         $image = imagecreatefromjpeg($pathName);
-        $crop = imagecreatetruecolor($rect['width'],$rect['height']);
-        imagecopy ( $crop, $image, 0, 0, $rect['x'], $rect['y'], $rect['width'], $rect['height'] );
-        $pathName = tempnam('/tmp','img-');
+        $crop = imagecreatetruecolor($rect['width'], $rect['height']);
+        imagecopy($crop, $image, 0, 0, $rect['x'], $rect['y'], $rect['width'], $rect['height']);
+        $pathName = tempnam('/tmp', 'img-');
         imagejpeg($crop, $pathName);
         return $this->imgToBase($pathName);
     }
 
-    public function blackImage($img, $type = null){
+    public function blackImage($img, $type = null)
+    {
         $pathName = $this->BaseToImg($img);
         $image = imagecreatefromjpeg($pathName);
-        imagefilter($image, IMG_FILTER_GRAYSCALE );
+        imagefilter($image, IMG_FILTER_GRAYSCALE);
 
-        if ($type == 'photo'){
-            $crop = imagecreatetruecolor(394,506);
-            imagecopyresized( $crop, $image, 0, 0,0, 0, 394, 506, imagesx($image), imagesy($image) );
+        if ($type == 'photo') {
+            $crop = imagecreatetruecolor(394, 506);
+            imagecopyresized($crop, $image, 0, 0, 0, 0, 394, 506, imagesx($image), imagesy($image));
             $image = $crop;
         }
 
-        if ($type == 'sign'){
+        if ($type == 'sign') {
             #тут делаем ее определенного размера
-            $crop = imagecreatetruecolor(591,118);
+            $crop = imagecreatetruecolor(591, 118);
             $white = imagecolorallocate($crop, 255, 255, 255);
             imagefill($crop, 0, 0, $white);
 
             $ph = imagesy($image) / 118;
-            $width = imagesx($image) /$ph;
-            $margin = (591-$width)/2;
+            $width = imagesx($image) / $ph;
+            $margin = (591 - $width) / 2;
             $height = 118;
 
-            imagecopyresized( $crop, $image, $margin, 0,0, 0, $width, $height, imagesx($image), imagesy($image) );
+            imagecopyresized($crop, $image, $margin, 0, 0, 0, $width, $height, imagesx($image), imagesy($image));
             $image = $crop;
         }
 
-        $pathName = tempnam('/tmp','img-');
+        $pathName = tempnam('/tmp', 'img-');
         imagejpeg($image, $pathName);
         return $this->imgToBase($pathName);
     }
 
-    public function rotateImage($img,$degree = 90){
+    public function rotateImage($img, $degree = 90)
+    {
         $pathName = $this->BaseToImg($img);
         $image = imagecreatefromjpeg($pathName);
         $rotate = imagerotate($image, $degree, 0);
-        $pathName = tempnam('/tmp','img-');
+        $pathName = tempnam('/tmp', 'img-');
         imagejpeg($rotate, $pathName);
 //        imagejpeg($rotate, $pathName);
         return $this->imgToBase($pathName);
     }
 
-    public function BaseToImg($base){
-        $filePathName  = tempnam('/tmp','img-');
+    public function BaseToImg($base)
+    {
+        $filePathName = tempnam('/tmp', 'img-');
         $ifp = fopen($filePathName, "wb");
         $data = explode(',', $base);
         fwrite($ifp, base64_decode($data[1]));
@@ -610,18 +660,19 @@ class UserController extends Controller
         return $filePathName;
     }
 
-    public function imgToBase($pathName, $mimeType = 'image/jpeg'){
+    public function imgToBase($pathName, $mimeType = 'image/jpeg')
+    {
 
-        if ($mimeType != 'image/jpeg'){
-            if ($mimeType == 'image/png' ){
+        if ($mimeType != 'image/jpeg') {
+            if ($mimeType == 'image/png') {
                 $image = imagecreatefrompng($pathName);
                 imagejpeg($image, $pathName);
                 imagedestroy($image);
-            }elseif($mimeType == 'image/gif'){
+            } elseif ($mimeType == 'image/gif') {
                 $image = imagecreatefromgif($pathName);
                 imagejpeg($image, $pathName);
                 imagedestroy($image);
-            }elseif( strripos($mimeType, 'bmp') !== false ){
+            } elseif (strripos($mimeType, 'bmp') !== false) {
                 $image = $this->ImageCreateFromBMP($pathName);
                 imagejpeg($image, $pathName);
                 imagedestroy($image);
@@ -630,55 +681,57 @@ class UserController extends Controller
         }
 
 
-        $path= $pathName;
+        $path = $pathName;
         $type = pathinfo($path, PATHINFO_EXTENSION);
         $data = file_get_contents($path);
         $base64 = 'data:image/' . $type . ';base64,' . base64_encode($data);
         return $base64;
     }
 
-    public function saveFile($type){
+    public function saveFile($type)
+    {
         $session = new Session();
         $file = $session->get($type);
         $file = $file['content'];
         $pathName = $this->BaseToImg($file);
         $image = imagecreatefromjpeg($pathName);
         $fileName = $this->genRandomString();
-        $pathName = 'upload/docs/'.$fileName;
+        $pathName = 'upload/docs/' . $fileName;
         imagejpeg($image, $pathName);
         return $pathName;
     }
 
-    public function genRandomString(){
+    public function genRandomString()
+    {
         $length = 16;
         $characters = "0123456789ABCDEFGHIJKLMNOPQRSTUVWZYZ";
 
-        $real_string_length = strlen($characters) ;
-        $string="id";
+        $real_string_length = strlen($characters);
+        $string = "id";
 
-        for ($p = 0; $p < $length; $p++)
-        {
-            $string .= $characters[mt_rand(0, $real_string_length-1)];
+        for ($p = 0; $p < $length; $p++) {
+            $string .= $characters[mt_rand(0, $real_string_length - 1)];
         }
 
         return strtolower($string);
     }
 
-    public function getArrayToImg($img){
-        if ($img == null){
-            $array =  array();
-        }else{
+    public function getArrayToImg($img)
+    {
+        if ($img == null) {
+            $array = array();
+        } else {
             $path = $img;
             $size = filesize($img);
             $fileName = basename($img);
             $originalName = basename($img);
             $mimeType = mime_content_type($img);
-            $array =  array(
-                'path' =>$path,
-                'size' =>$size,
-                'fileName' =>$fileName,
-                'originalName' =>$originalName,
-                'mimeType' =>$mimeType,
+            $array = array(
+                'path' => $path,
+                'size' => $size,
+                'fileName' => $fileName,
+                'originalName' => $originalName,
+                'mimeType' => $mimeType,
             );
         }
 //        return serialize($array);
@@ -687,85 +740,75 @@ class UserController extends Controller
     }
 
 
-    public function ImageCreateFromBMP($filename){
+    public function ImageCreateFromBMP($filename)
+    {
 //Ouverture du fichier en mode binaire
-        if (! $f1 = fopen($filename,"rb")) return FALSE;
+        if (!$f1 = fopen($filename, "rb")) return FALSE;
 
 //1 : Chargement des ent�tes FICHIER
-        $FILE = unpack("vfile_type/Vfile_size/Vreserved/Vbitmap_offset", fread($f1,14));
+        $FILE = unpack("vfile_type/Vfile_size/Vreserved/Vbitmap_offset", fread($f1, 14));
         if ($FILE['file_type'] != 19778) return FALSE;
 
 //2 : Chargement des ent�tes BMP
-        $BMP = unpack('Vheader_size/Vwidth/Vheight/vplanes/vbits_per_pixel'.
-            '/Vcompression/Vsize_bitmap/Vhoriz_resolution'.
-            '/Vvert_resolution/Vcolors_used/Vcolors_important', fread($f1,40));
-        $BMP['colors'] = pow(2,$BMP['bits_per_pixel']);
+        $BMP = unpack('Vheader_size/Vwidth/Vheight/vplanes/vbits_per_pixel' .
+            '/Vcompression/Vsize_bitmap/Vhoriz_resolution' .
+            '/Vvert_resolution/Vcolors_used/Vcolors_important', fread($f1, 40));
+        $BMP['colors'] = pow(2, $BMP['bits_per_pixel']);
         if ($BMP['size_bitmap'] == 0) $BMP['size_bitmap'] = $FILE['file_size'] - $FILE['bitmap_offset'];
-        $BMP['bytes_per_pixel'] = $BMP['bits_per_pixel']/8;
+        $BMP['bytes_per_pixel'] = $BMP['bits_per_pixel'] / 8;
         $BMP['bytes_per_pixel2'] = ceil($BMP['bytes_per_pixel']);
-        $BMP['decal'] = ($BMP['width']*$BMP['bytes_per_pixel']/4);
-        $BMP['decal'] -= floor($BMP['width']*$BMP['bytes_per_pixel']/4);
-        $BMP['decal'] = 4-(4*$BMP['decal']);
+        $BMP['decal'] = ($BMP['width'] * $BMP['bytes_per_pixel'] / 4);
+        $BMP['decal'] -= floor($BMP['width'] * $BMP['bytes_per_pixel'] / 4);
+        $BMP['decal'] = 4 - (4 * $BMP['decal']);
         if ($BMP['decal'] == 4) $BMP['decal'] = 0;
 
 //3 : Chargement des couleurs de la palette
         $PALETTE = array();
-        if ($BMP['colors'] < 16777216)
-        {
-            $PALETTE = unpack('V'.$BMP['colors'], fread($f1,$BMP['colors']*4));
+        if ($BMP['colors'] < 16777216) {
+            $PALETTE = unpack('V' . $BMP['colors'], fread($f1, $BMP['colors'] * 4));
         }
 
 //4 : Cr�ation de l'image
-        $IMG = fread($f1,$BMP['size_bitmap']);
+        $IMG = fread($f1, $BMP['size_bitmap']);
         $VIDE = chr(0);
 
-        $res = imagecreatetruecolor($BMP['width'],$BMP['height']);
+        $res = imagecreatetruecolor($BMP['width'], $BMP['height']);
         $P = 0;
-        $Y = $BMP['height']-1;
-        while ($Y >= 0)
-        {
-            $X=0;
-            while ($X < $BMP['width'])
-            {
+        $Y = $BMP['height'] - 1;
+        while ($Y >= 0) {
+            $X = 0;
+            while ($X < $BMP['width']) {
                 if ($BMP['bits_per_pixel'] == 24)
-                    $COLOR = unpack("V",substr($IMG,$P,3).$VIDE);
-                elseif ($BMP['bits_per_pixel'] == 16)
-                {
-                    $COLOR = unpack("n",substr($IMG,$P,2));
-                    $COLOR[1] = $PALETTE[$COLOR[1]+1];
-                }
-                elseif ($BMP['bits_per_pixel'] == 8)
-                {
-                    $COLOR = unpack("n",$VIDE.substr($IMG,$P,1));
-                    $COLOR[1] = $PALETTE[$COLOR[1]+1];
-                }
-                elseif ($BMP['bits_per_pixel'] == 4)
-                {
-                    $COLOR = unpack("n",$VIDE.substr($IMG,floor($P),1));
-                    if (($P*2)%2 == 0) $COLOR[1] = ($COLOR[1] >> 4) ; else $COLOR[1] = ($COLOR[1] & 0x0F);
-                    $COLOR[1] = $PALETTE[$COLOR[1]+1];
-                }
-                elseif ($BMP['bits_per_pixel'] == 1)
-                {
-                    $COLOR = unpack("n",$VIDE.substr($IMG,floor($P),1));
-                    if     (($P*8)%8 == 0) $COLOR[1] =  $COLOR[1]        >>7;
-                    elseif (($P*8)%8 == 1) $COLOR[1] = ($COLOR[1] & 0x40)>>6;
-                    elseif (($P*8)%8 == 2) $COLOR[1] = ($COLOR[1] & 0x20)>>5;
-                    elseif (($P*8)%8 == 3) $COLOR[1] = ($COLOR[1] & 0x10)>>4;
-                    elseif (($P*8)%8 == 4) $COLOR[1] = ($COLOR[1] & 0x8)>>3;
-                    elseif (($P*8)%8 == 5) $COLOR[1] = ($COLOR[1] & 0x4)>>2;
-                    elseif (($P*8)%8 == 6) $COLOR[1] = ($COLOR[1] & 0x2)>>1;
-                    elseif (($P*8)%8 == 7) $COLOR[1] = ($COLOR[1] & 0x1);
-                    $COLOR[1] = $PALETTE[$COLOR[1]+1];
-                }
-                else
+                    $COLOR = unpack("V", substr($IMG, $P, 3) . $VIDE);
+                elseif ($BMP['bits_per_pixel'] == 16) {
+                    $COLOR = unpack("n", substr($IMG, $P, 2));
+                    $COLOR[1] = $PALETTE[$COLOR[1] + 1];
+                } elseif ($BMP['bits_per_pixel'] == 8) {
+                    $COLOR = unpack("n", $VIDE . substr($IMG, $P, 1));
+                    $COLOR[1] = $PALETTE[$COLOR[1] + 1];
+                } elseif ($BMP['bits_per_pixel'] == 4) {
+                    $COLOR = unpack("n", $VIDE . substr($IMG, floor($P), 1));
+                    if (($P * 2) % 2 == 0) $COLOR[1] = ($COLOR[1] >> 4); else $COLOR[1] = ($COLOR[1] & 0x0F);
+                    $COLOR[1] = $PALETTE[$COLOR[1] + 1];
+                } elseif ($BMP['bits_per_pixel'] == 1) {
+                    $COLOR = unpack("n", $VIDE . substr($IMG, floor($P), 1));
+                    if (($P * 8) % 8 == 0) $COLOR[1] = $COLOR[1] >> 7;
+                    elseif (($P * 8) % 8 == 1) $COLOR[1] = ($COLOR[1] & 0x40) >> 6;
+                    elseif (($P * 8) % 8 == 2) $COLOR[1] = ($COLOR[1] & 0x20) >> 5;
+                    elseif (($P * 8) % 8 == 3) $COLOR[1] = ($COLOR[1] & 0x10) >> 4;
+                    elseif (($P * 8) % 8 == 4) $COLOR[1] = ($COLOR[1] & 0x8) >> 3;
+                    elseif (($P * 8) % 8 == 5) $COLOR[1] = ($COLOR[1] & 0x4) >> 2;
+                    elseif (($P * 8) % 8 == 6) $COLOR[1] = ($COLOR[1] & 0x2) >> 1;
+                    elseif (($P * 8) % 8 == 7) $COLOR[1] = ($COLOR[1] & 0x1);
+                    $COLOR[1] = $PALETTE[$COLOR[1] + 1];
+                } else
                     return FALSE;
-                imagesetpixel($res,$X,$Y,$COLOR[1]);
+                imagesetpixel($res, $X, $Y, $COLOR[1]);
                 $X++;
                 $P += $BMP['bytes_per_pixel'];
             }
             $Y--;
-            $P+=$BMP['decal'];
+            $P += $BMP['decal'];
         }
 
 //Fermeture du fichier
@@ -775,16 +818,16 @@ class UserController extends Controller
     }
 
 
-
     /**
      * @Route("/print_many", name="print_many", options={"expose"=true})
      */
-    public function printAction(Request $request){
+    public function printAction(Request $request)
+    {
         $data = $request->request->get('check');
         $users = array();
-        foreach($data as $key => $val){
+        foreach ($data as $key => $val) {
             $user = $this->getDoctrine()->getRepository('CrmMainBundle:User')->find($key);
-            if ($user != null){
+            if ($user != null) {
                 $users[] = $user;
             }
         }
@@ -798,72 +841,72 @@ class UserController extends Controller
             ->setKeywords("office 2005 openxml php")
             ->setCategory("Test result file");
         $i = 1;
-        $phpExcelObject->setActiveSheetIndex(0)->setCellValue('F'.$i, 'Новая');
+        $phpExcelObject->setActiveSheetIndex(0)->setCellValue('F' . $i, 'Новая');
         # Подтвержденная
-        $phpExcelObject->setActiveSheetIndex(0)->setCellValue('G'.$i, 'Подтвержденная');
+        $phpExcelObject->setActiveSheetIndex(0)->setCellValue('G' . $i, 'Подтвержденная');
         # Оплаченная
-        $phpExcelObject->setActiveSheetIndex(0)->setCellValue('H'.$i, 'Оплаченная');
+        $phpExcelObject->setActiveSheetIndex(0)->setCellValue('H' . $i, 'Оплаченная');
         # В производстве
-        $phpExcelObject->setActiveSheetIndex(0)->setCellValue('I'.$i, 'В производстве');
+        $phpExcelObject->setActiveSheetIndex(0)->setCellValue('I' . $i, 'В производстве');
         # Изготовлено
-        $phpExcelObject->setActiveSheetIndex(0)->setCellValue('J'.$i, 'Изготовлена');
+        $phpExcelObject->setActiveSheetIndex(0)->setCellValue('J' . $i, 'Изготовлена');
         # На почте
-        $phpExcelObject->setActiveSheetIndex(0)->setCellValue('K'.$i, 'На почте');
+        $phpExcelObject->setActiveSheetIndex(0)->setCellValue('K' . $i, 'На почте');
         # Получена
-        $phpExcelObject->setActiveSheetIndex(0)->setCellValue('L'.$i, 'Получена');
+        $phpExcelObject->setActiveSheetIndex(0)->setCellValue('L' . $i, 'Получена');
         # Отклонена
-        $phpExcelObject->setActiveSheetIndex(0)->setCellValue('M'.$i, 'Отклонена');
+        $phpExcelObject->setActiveSheetIndex(0)->setCellValue('M' . $i, 'Отклонена');
 
-        $i ++;
-        foreach ($users as $user){
+        $i++;
+        foreach ($users as $user) {
             $i++;
             $type = ($user->getRu() == true ? 'РФ' : ($user->getEstr() == true ? 'ЕСТР' : 'СКЗИ'));
-            $phpExcelObject->setActiveSheetIndex(0)->setCellValue('A'.$i, $type);
-            $phpExcelObject->setActiveSheetIndex(0)->setCellValue('B'.$i, $user->getId());
-            $phpExcelObject->setActiveSheetIndex(0)->setCellValue('C'.$i, $user->getEmail());
+            $phpExcelObject->setActiveSheetIndex(0)->setCellValue('A' . $i, $type);
+            $phpExcelObject->setActiveSheetIndex(0)->setCellValue('B' . $i, $user->getId());
+            $phpExcelObject->setActiveSheetIndex(0)->setCellValue('C' . $i, $user->getEmail());
             $fio = $user->getLastName() . ' '
                 . mb_substr($user->getFirstName(), 0, 1, 'utf-8') . '.'
                 . ($user->getSurName() ? ' ' . mb_substr($user->getSurName(), 0, 1, 'utf-8') . '.' : '');
 
-            $phpExcelObject->setActiveSheetIndex(0)->setCellValue('D'.$i, $fio);
-            if ($user->getCompany()){
-                $phpExcelObject->setActiveSheetIndex(0)->setCellValue('E'.$i, $user->getCompany()->getTitle());
+            $phpExcelObject->setActiveSheetIndex(0)->setCellValue('D' . $i, $fio);
+            if ($user->getCompany()) {
+                $phpExcelObject->setActiveSheetIndex(0)->setCellValue('E' . $i, $user->getCompany()->getTitle());
             }
 
             $userLog = $this->getDoctrine()->getRepository('CrmMainBundle:StatusLog')->findByUser($user);
 
             $userLogArray = array();
 
-            foreach ($userLog as $status){
-                if (isset($userLogArray[$status->getTitle()])){
-                    if ($userLogArray[$status->getTitle()] < $status->getCreated()){
+            foreach ($userLog as $status) {
+                if (isset($userLogArray[$status->getTitle()])) {
+                    if ($userLogArray[$status->getTitle()] < $status->getCreated()) {
                         $userLogArray[$status->getTitle()] = $status->getCreated();
                     }
-                }else{
+                } else {
                     $userLogArray[$status->getTitle()] = $status->getCreated();
                 }
             }
             $userLog = array();
-            foreach ($userLogArray as $key=>$date){
+            foreach ($userLogArray as $key => $date) {
                 $userLog[$key] = $date->format('d.m.Y');
             }
             $userLogArray = $userLog;
             # Новая
-            $phpExcelObject->setActiveSheetIndex(0)->setCellValue('F'.$i, (isset($userLogArray['Новая']) ? $userLogArray['Новая'] : 'Нет' ));
+            $phpExcelObject->setActiveSheetIndex(0)->setCellValue('F' . $i, (isset($userLogArray['Новая']) ? $userLogArray['Новая'] : 'Нет'));
             # Подтвержденная
-            $phpExcelObject->setActiveSheetIndex(0)->setCellValue('G'.$i, (isset($userLogArray['Подтвержденная']) ? $userLogArray['Подтвержденная'] : 'Нет' ));
+            $phpExcelObject->setActiveSheetIndex(0)->setCellValue('G' . $i, (isset($userLogArray['Подтвержденная']) ? $userLogArray['Подтвержденная'] : 'Нет'));
             # Оплаченная
-            $phpExcelObject->setActiveSheetIndex(0)->setCellValue('H'.$i, (isset($userLogArray['Оплаченная']) ? $userLogArray['Оплаченная'] : 'Нет' ));
+            $phpExcelObject->setActiveSheetIndex(0)->setCellValue('H' . $i, (isset($userLogArray['Оплаченная']) ? $userLogArray['Оплаченная'] : 'Нет'));
             # В производстве
-            $phpExcelObject->setActiveSheetIndex(0)->setCellValue('I'.$i, (isset($userLogArray['В производстве']) ? $userLogArray['В производстве'] : 'Нет' ));
+            $phpExcelObject->setActiveSheetIndex(0)->setCellValue('I' . $i, (isset($userLogArray['В производстве']) ? $userLogArray['В производстве'] : 'Нет'));
             # Изготовлено
-            $phpExcelObject->setActiveSheetIndex(0)->setCellValue('J'.$i, (isset($userLogArray['Изготовлено']) ? $userLogArray['Изготовлено'] : 'Нет' ));
+            $phpExcelObject->setActiveSheetIndex(0)->setCellValue('J' . $i, (isset($userLogArray['Изготовлено']) ? $userLogArray['Изготовлено'] : 'Нет'));
             # На почте
-            $phpExcelObject->setActiveSheetIndex(0)->setCellValue('K'.$i, (isset($userLogArray['На почте']) ? $userLogArray['На почте'] : 'Нет' ));
+            $phpExcelObject->setActiveSheetIndex(0)->setCellValue('K' . $i, (isset($userLogArray['На почте']) ? $userLogArray['На почте'] : 'Нет'));
             # Получена
-            $phpExcelObject->setActiveSheetIndex(0)->setCellValue('L'.$i, (isset($userLogArray['Получена']) ? $userLogArray['Получена'] : 'Нет' ));
+            $phpExcelObject->setActiveSheetIndex(0)->setCellValue('L' . $i, (isset($userLogArray['Получена']) ? $userLogArray['Получена'] : 'Нет'));
             # Отклонена
-            $phpExcelObject->setActiveSheetIndex(0)->setCellValue('M'.$i, (isset($userLogArray['Отклонена']) ? $userLogArray['Отклонена'] : 'Нет' ));
+            $phpExcelObject->setActiveSheetIndex(0)->setCellValue('M' . $i, (isset($userLogArray['Отклонена']) ? $userLogArray['Отклонена'] : 'Нет'));
         }
 
         $phpExcelObject->getActiveSheet()->setTitle('Simple');
@@ -886,13 +929,14 @@ class UserController extends Controller
     /**
      * @Route("/edit-manager-key", name="edit-manager-key", options={"expose"=true})
      */
-    public function editManagerKeyAction(Request $request){
-        if ($request->getMethod()== 'POST'){
+    public function editManagerKeyAction(Request $request)
+    {
+        if ($request->getMethod() == 'POST') {
             $id = $request->request->get('id');
             $key = $request->request->get('key');
 
             $user = $this->getDoctrine()->getRepository('CrmMainBundle:User')->findOneById($id);
-            if ($user){
+            if ($user) {
                 $user->setManagerKey($key);
                 $this->getDoctrine()->getManager()->flush($user);
                 echo 'ok';
@@ -910,58 +954,67 @@ class UserController extends Controller
      * @Route("/search/{companyId}/{type}", name="operator_user_search", defaults={"companyId"=null, "type"=null}, options={"expose"=true})
      * @Template()
      */
-    public function searchAction(Request $request, $companyId = null, $type = null){
+    public function searchAction(Request $request, $companyId = null, $type = null)
+    {
 
-        $toDay =        null;
-        $toWeek =       null;
-        $toPetition =   null;
-        $toDeploy =     null;
-        $toArhive =     null;
+        $toDay = null;
+        $toWeek = null;
+        $toPetition = null;
+        $toDeploy = null;
+        $toArhive = null;
 
-        if ( $type == 'arhive' ){ $toArhive = true; }
-        if ( $type == 'day' ){ $toDay = true; }
-        if ( $type == 'week' ){ $toWeek = true; }
-        if ( $type == 'petition' ){ $toPetition = true; }
-        if ( $companyId && $companyId != 'null'){
+        if ($type == 'arhive') {
+            $toArhive = true;
+        }
+        if ($type == 'day') {
+            $toDay = true;
+        }
+        if ($type == 'week') {
+            $toWeek = true;
+        }
+        if ($type == 'petition') {
+            $toPetition = true;
+        }
+        if ($companyId && $companyId != 'null') {
             $company = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->findOneById($companyId);
-        }else{
+        } else {
             $company = null;
         }
         $operator = $this->getUser();
         $search = $request->query->get('search');
 
-        if ( $this->get('security.context')->isGranted('ROLE_ADMIN') ){
-            $role= '2';
-        }elseif ( $this->get('security.context')->isGranted('ROLE_MODERATOR') ){
-            $role= '1';
-        }else{
-            $role= '0';
+        if ($this->get('security.context')->isGranted('ROLE_ADMIN')) {
+            $role = '2';
+        } elseif ($this->get('security.context')->isGranted('ROLE_MODERATOR')) {
+            $role = '1';
+        } else {
+            $role = '0';
         }
 
 
-        $users1 = $this->getDoctrine()->getRepository('CrmMainBundle:User')->filter($role,$operator,$company, $toDay, $toWeek, $toPetition, $type, $toArhive, $search,0,0);
-        $users2 = $this->getDoctrine()->getRepository('CrmMainBundle:User')->filter($role,$operator,$company, $toDay, $toWeek, $toPetition, $type, $toArhive, $search,1,0);
-        $users3 = $this->getDoctrine()->getRepository('CrmMainBundle:User')->filter($role,$operator,$company, $toDay, $toWeek, $toPetition, $type, $toArhive, $search,0,1);
+        $users1 = $this->getDoctrine()->getRepository('CrmMainBundle:User')->filter($role, $operator, $company, $toDay, $toWeek, $toPetition, $type, $toArhive, $search, 0, 0);
+        $users2 = $this->getDoctrine()->getRepository('CrmMainBundle:User')->filter($role, $operator, $company, $toDay, $toWeek, $toPetition, $type, $toArhive, $search, 1, 0);
+        $users3 = $this->getDoctrine()->getRepository('CrmMainBundle:User')->filter($role, $operator, $company, $toDay, $toWeek, $toPetition, $type, $toArhive, $search, 0, 1);
 
 
         $managers = $this->getDoctrine()->getRepository('CrmMainBundle:User')->findAllManagers();
 
-        if ($managers == null){
+        if ($managers == null) {
             $managers = array();
         }
 
         return array(
-            'company'   => $company,
+            'company' => $company,
             'companyId' => ($company != null ? $company->getId() : null),
-            'users1'     => $users1,
-            'users2'     => $users2,
-            'users3'     => $users3,
-            'toDay'     => $toDay,
-            'toWeek'    => $toWeek,
-            'toPetition'=> $toPetition,
-            'toDeploy'  => $toDeploy,
-            'toArhive'  => $toArhive,
-            'managers'  => $managers
+            'users1' => $users1,
+            'users2' => $users2,
+            'users3' => $users3,
+            'toDay' => $toDay,
+            'toWeek' => $toWeek,
+            'toPetition' => $toPetition,
+            'toDeploy' => $toDeploy,
+            'toArhive' => $toArhive,
+            'managers' => $managers
         );
     }
 
@@ -971,7 +1024,8 @@ class UserController extends Controller
      * @Route("/change-status/{userId}/{status}", name="panel_user_change_status", options={"expose"=true})
      * @Template()
      */
-    public function changeStatusAction($userId, $status){
+    public function changeStatusAction($userId, $status)
+    {
         $em = $this->getDoctrine()->getManager();
         $user = $this->getDoctrine()->getRepository('CrmMainBundle:User')->find($userId);
         $user->setStatus($status);
@@ -992,9 +1046,10 @@ class UserController extends Controller
      * @Route("/user/get-new", name="panel_user_get_new", options={"expose"=true})
      * @Template()
      */
-    public function getNewAction(){
+    public function getNewAction()
+    {
         $dateStart = null;
-        $dateEnd =  null;
+        $dateEnd = null;
         $userId = $this->getUser();
         $type = 3;
         $company = null;
@@ -1012,17 +1067,18 @@ class UserController extends Controller
      * @Route("/user/get-new-count/{status}/{company}/{operator}", name="panel_user_get_count", options={"expose"=true}, defaults={"status" = 0, "company" = null })
      * @Template("PanelOperatorBundle:User:getNew.html.twig")
      */
-    public function getUserCountAction($status = 0, $company = null, $operator = null){
+    public function getUserCountAction($status = 0, $company = null, $operator = null)
+    {
         $userId = $this->getUser()->getId();
-        if ($company == 'null'){
+        if ($company == 'null') {
             $company = null;
         }
-        if ($operator == 'null'){
+        if ($operator == 'null') {
             $operator = null;
         }
         $companyId = $company;
         $operatorId = $operator;
-        $users = $this->getDoctrine()->getRepository('CrmMainBundle:User')->getCountMenu($userId,$status,$companyId, $operatorId);
+        $users = $this->getDoctrine()->getRepository('CrmMainBundle:User')->getCountMenu($userId, $status, $companyId, $operatorId);
         return array('count' => count($users));
     }
 
@@ -1032,11 +1088,12 @@ class UserController extends Controller
      * @Route("/user/set/comment", name="panel_user_set_comment", options={"expose"=true})
      * @Template()
      */
-    public function setCommentAction(Request $request){
-        if ($request->getMethod() == 'POST'){
+    public function setCommentAction(Request $request)
+    {
+        if ($request->getMethod() == 'POST') {
             $request = $request->request;
             $user = $this->getDoctrine()->getRepository('CrmMainBundle:User')->find($request->get('id'));
-            if ($user){
+            if ($user) {
                 $user->setComment($request->get('comment'));
                 $this->getDoctrine()->getManager()->flush($user);
                 return new Response('ok');
@@ -1052,49 +1109,230 @@ class UserController extends Controller
      * @Route("/user/save-image/{userId}/{type}", name="panel_user_save_image", options={"expose"=true})
      * @Template()
      */
-    public function saveImageAction(Request $request, $userId, $type){
+    public function saveImageAction(Request $request, $userId, $type)
+    {
         $user = $this->getDoctrine()->getRepository('CrmMainBundle:User')->find($userId);
 
         $session = new Session();
         $image = $session->get($type);
 
         $img = $this->getImgToArray($image);
-        switch ($type){
-            case 'passportFile' : $user->setCopyPassport($img); break;
-            case 'passport2File' : $user->setCopyPassport2($img); break;
-            case 'driverFile' : $user->setCopyDriverPassport($img); break;
-            case 'driver2File' : $user->setCopyDriverPassport2($img); break;
-            case 'snilsFile' : $user->setCopySnils($img); break;
-            case 'photoFile' : $user->setPhoto($img); break;
-            case 'signFile' : $user->setCopySignature($img); break;
-            case 'workFile' : $user->setCopyWork($img); break;
-            case 'petitionFile' : $user->serCopyPetition($img); break;
+        switch ($type) {
+            case 'passportFile' :
+                $user->setCopyPassport($img);
+                break;
+            case 'passport2File' :
+                $user->setCopyPassport2($img);
+                break;
+            case 'driverFile' :
+                $user->setCopyDriverPassport($img);
+                break;
+            case 'driver2File' :
+                $user->setCopyDriverPassport2($img);
+                break;
+            case 'snilsFile' :
+                $user->setCopySnils($img);
+                break;
+            case 'photoFile' :
+                $user->setPhoto($img);
+                break;
+            case 'signFile' :
+                $user->setCopySignature($img);
+                break;
+            case 'workFile' :
+                $user->setCopyWork($img);
+                break;
+            case 'petitionFile' :
+                $user->serCopyPetition($img);
+                break;
         }
         $this->getDoctrine()->getManager()->flush($user);
-        return new Response($img['path'].'?time'.time());
+        return new Response($img['path'] . '?time' . time());
 
     }
 
-    public function getImgToArray($img){
-        if ($img == null){
-            $array =  array();
-        }else{
+    public function getImgToArray($img)
+    {
+        if ($img == null) {
+            $array = array();
+        } else {
             $path = $img;
-            $path = str_replace('/var/www/','',$path);
+            $path = str_replace('/var/www/', '', $path);
             $size = filesize($img);
             $fileName = basename($img);
             $originalName = basename($img);
             $mimeType = mime_content_type($img);
-            $array =  array(
-                'path' =>$path,
-                'size' =>$size,
-                'fileName' =>$fileName,
-                'originalName' =>$originalName,
-                'mimeType' =>$mimeType,
+            $array = array(
+                'path' => $path,
+                'size' => $size,
+                'fileName' => $fileName,
+                'originalName' => $originalName,
+                'mimeType' => $mimeType,
             );
         }
         return $array;
     }
 
+    public function changeStatus($user, $status)
+    {
+        $session = new Session();
+        $oldStatus = $user->getStatus();
+        $em = $this->getDoctrine()->getManager();
+        /**
+         * Переход до оплачено
+         */
+        if ($oldStatus <= 1 && $status == 2) {
+            $company = $user->getCompany();
+            $price = 0;
+
+            if ($user->getEstr() == 0 && $user->getRu() == 0) {
+                $price = $company->getPriceSkzi();
+            } elseif ($user->getEstr() == 1 && $user->getRu() == 0) {
+                $price = $company->getPriceEstr();
+            } elseif ($user->getEstr() == 0 && $user->getRu() == 1) {
+                $price = $company->getPriceRu();
+            }
+
+            if ($company->getQuota() >= $price) {
+                $user->setChoose(true);
+                $company->setQuota($company->getQuota() - $price);
+                $user->setStatus(2);
+                $this->getDoctrine()->getManager()->flush($user);
+                $this->getDoctrine()->getManager()->refresh($user);
+                $statusLog = new StatusLog();
+                $statusLog->setTitle($user->getStatusString());
+                $statusLog->setUser($user);
+                $this->getDoctrine()->getManager()->persist($statusLog);
+
+                $em->flush($company);
+                $em->flush($user);
+                $em->refresh($user);
+                $session->getFlashBag()->add('notice', 'Пользователь ' . $user->getLastName() . ' переведен в оплаченные');
+            } else {
+                $session->getFlashBag()->add('error', 'не хватает денег у компании ( ' . $company->getQuota() . ' из ' . $price . ' )');
+            }
+
+        }
+
+        /**
+         * Переход до производства
+         */
+        if ($oldStatus <=2 && $status >= 3){
+            $user->setStatus($status);
+            $operator = $user->getCompany()->getOperator();
+            $quota = $operator->getQuota();
+            $price = 0;
+            if ($user->getRu() == 0 && $user->getEstr() == 0) {
+                $price = $operator->getPriceSkzi();
+            } elseif ($user->getRu() == 1 && $user->getEstr() == 0) {
+                $price = $operator->getPriceRu();
+            } elseif ($user->getRu() == 0 && $user->getEstr() == 1) {
+                $price = $operator->getPriceEstr();
+            }
+            $quota -= $price;
+
+            if ($quota >= 0) {
+                $operator->setQuota($quota);
+                $moderator = $operator->getModerator();
+
+                if ($moderator != null) {
+                    if ($moderator->getRoles()[0] == 'ROLE_MODERATOR') {
+                        $quotaModerator = $moderator->getQuota();
+                        $priceModerator = 0;
+                        if ($user->getRu() == 0 && $user->getEstr() == 0) {
+                            $priceModerator = $moderator->getPriceSkzi();
+                        } elseif ($user->getRu() == 1 && $user->getEstr() == 0) {
+                            $priceModerator = $moderator->getPriceRu();
+                        } elseif ($user->getRu() == 0 && $user->getEstr() == 1) {
+                            $priceModerator = $moderator->getPriceEstr();
+                        }
+                        $quotaModerator -= $priceModerator;
+                        if ($quotaModerator > 0) {
+                            $moderator->setQuota($quotaModerator);
+                            $em->flush($moderator);
+                            $statusLog = new StatusLog();
+                            $statusLog->setTitle('Отправлен администратору');
+                            $statusLog->setUser($user);
+                            $this->getDoctrine()->getManager()->persist($statusLog);
+                            $session->getFlashBag()->add('notice', 'Пользователь ' . $user->getLastName() . ' переведен в производство');
+                            $em->flush($user);
+                            $em->flush();
+                        } else {
+                            $session->getFlashBag()->add('error', 'не хватает денег у Вашего модератора ( ' . $moderator->getQuota() . ' из ' . $priceModerator . ' )');
+                        }
+                    }
+
+                    $em->flush($operator);
+                    $statusLog = new StatusLog();
+                    $statusLog->setTitle('Отправлен модератору');
+                    $statusLog->setUser($user);
+                    $em->persist($statusLog);
+//                    $session->getFlashBag()->add('notice', 'Пользователь '.$user->getLastName().' переведен в производство');
+                    $em->flush($user);
+                    $em->flush();
+                } else {
+                    $this->getDoctrine()->getManager()->flush($operator);
+                    $statusLog = new StatusLog();
+                    $statusLog->setTitle('Отправлен администратору');
+                    $statusLog->setUser($user);
+                    $this->getDoctrine()->getManager()->persist($statusLog);
+                    $session->getFlashBag()->add('notice', 'Пользователь '.$user->getLastName().' переведен в производство');
+                    $this->getDoctrine()->getManager()->flush($user);
+                    $this->getDoctrine()->getManager()->flush();
+                }
+            } else {
+                $session->getFlashBag()->add('error', 'не хватает денег у оператора ( ' . $operator->getQuota() . ' из ' . $price . ' )');
+            }
+        }
+
+        if ($oldStatus >=3 && $status <= 2 ){
+            $user->setStatus($status);
+            $operator = $user->getCompany()->getOperator();
+            $moderator = $operator->getModerator();
+            if ($moderator->getRoles()[0] == 'ROLE_MODERATOR') {
+                $quotaModerator = $moderator->getQuota();
+                $priceModerator = 0;
+                if ($user->getRu() == 0 && $user->getEstr() == 0) {
+                    $priceModerator = $moderator->getPriceSkzi();
+                } elseif ($user->getRu() == 1 && $user->getEstr() == 0) {
+                    $priceModerator = $moderator->getPriceRu();
+                } elseif ($user->getRu() == 0 && $user->getEstr() == 1) {
+                    $priceModerator = $moderator->getPriceEstr();
+                }
+                $quotaModerator += $priceModerator;
+                $moderator->setQuota($quotaModerator);
+                $em->flush($moderator);
+            }
+
+            $quota = $operator->getQuota();
+            if ($user->getPrice() == 0){
+                if ($user->getRu() == 0 && $user->getEstr() == 0) {
+                    $price = $operator->getPriceSkzi();
+                } elseif ($user->getRu() == 1 && $user->getEstr() == 0) {
+                    $price = $operator->getPriceRu();
+                } elseif ($user->getRu() == 0 && $user->getEstr() == 1) {
+                    $price = $operator->getPriceEstr();
+                }
+            }else{
+                $price = $user->getPrice();
+            }
+            $quota += $price;
+            $operator->setQuota($quota);
+            $em->flush($operator);
+        }
+
+        if ($oldStatus >=2 && $status <=1 ){
+            $price = 0;
+
+            if ($user->getEstr() == 0 && $user->getRu() == 0) {
+                $price = $company->getPriceSkzi();
+            } elseif ($user->getEstr() == 1 && $user->getRu() == 0) {
+                $price = $company->getPriceEstr();
+            } elseif ($user->getEstr() == 0 && $user->getRu() == 1) {
+                $price = $company->getPriceRu();
+            }
+        }
+
+    }
 }
 
