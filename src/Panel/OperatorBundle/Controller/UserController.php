@@ -264,13 +264,6 @@ class UserController extends Controller
                 $this->getDoctrine()->getManager()->refresh($user);
             }
 
-            $em = $this->getDoctrine()->getManager();
-            $statuslog = new StatusLog();
-            $statuslog->setUser($user);
-            $statuslog->setTitle($user->getStatusString());
-            $em->persist($statuslog);
-            $em->flush($statuslog);
-
             return $this->redirect($referer);
 
         } else {
@@ -1178,13 +1171,14 @@ class UserController extends Controller
         $session = new Session();
         $oldStatus = $user->getStatus();
         $em = $this->getDoctrine()->getManager();
+
+
         /**
          * Переход до оплачено
          */
         if ($oldStatus <= 1 && $status == 2) {
             $company = $user->getCompany();
             $price = 0;
-
             if ($user->getEstr() == 0 && $user->getRu() == 0) {
                 $price = $company->getPriceSkzi();
             } elseif ($user->getEstr() == 1 && $user->getRu() == 0) {
@@ -1192,26 +1186,16 @@ class UserController extends Controller
             } elseif ($user->getEstr() == 0 && $user->getRu() == 1) {
                 $price = $company->getPriceRu();
             }
-
             if ($company->getQuota() >= $price) {
-                $user->setChoose(true);
                 $company->setQuota($company->getQuota() - $price);
-                $user->setStatus(2);
                 $this->getDoctrine()->getManager()->flush($user);
                 $this->getDoctrine()->getManager()->refresh($user);
-                $statusLog = new StatusLog();
-                $statusLog->setTitle($user->getStatusString());
-                $statusLog->setUser($user);
-                $this->getDoctrine()->getManager()->persist($statusLog);
-
                 $em->flush($company);
-                $em->flush($user);
-                $em->refresh($user);
                 $session->getFlashBag()->add('notice', 'Пользователь ' . $user->getLastName() . ' переведен в оплаченные');
             } else {
                 $session->getFlashBag()->add('error', 'не хватает денег у компании ( ' . $company->getQuota() . ' из ' . $price . ' )');
+                return false;
             }
-
         }
 
         /**
@@ -1230,7 +1214,6 @@ class UserController extends Controller
                 $price = $operator->getPriceEstr();
             }
             $quota -= $price;
-
             if ($quota >= 0) {
                 $operator->setQuota($quota);
                 $moderator = $operator->getModerator();
@@ -1250,26 +1233,14 @@ class UserController extends Controller
                         if ($quotaModerator > 0) {
                             $moderator->setQuota($quotaModerator);
                             $em->flush($moderator);
-                            $statusLog = new StatusLog();
-                            $statusLog->setTitle('Отправлен администратору');
-                            $statusLog->setUser($user);
-                            $this->getDoctrine()->getManager()->persist($statusLog);
                             $session->getFlashBag()->add('notice', 'Пользователь ' . $user->getLastName() . ' переведен в производство');
-                            $em->flush($user);
-                            $em->flush();
                         } else {
                             $session->getFlashBag()->add('error', 'не хватает денег у Вашего модератора ( ' . $moderator->getQuota() . ' из ' . $priceModerator . ' )');
+                            return false;
                         }
                     }
 
                     $em->flush($operator);
-                    $statusLog = new StatusLog();
-                    $statusLog->setTitle('Отправлен модератору');
-                    $statusLog->setUser($user);
-                    $em->persist($statusLog);
-//                    $session->getFlashBag()->add('notice', 'Пользователь '.$user->getLastName().' переведен в производство');
-                    $em->flush($user);
-                    $em->flush();
                 } else {
                     $this->getDoctrine()->getManager()->flush($operator);
                     $statusLog = new StatusLog();
@@ -1282,14 +1253,17 @@ class UserController extends Controller
                 }
             } else {
                 $session->getFlashBag()->add('error', 'не хватает денег у оператора ( ' . $operator->getQuota() . ' из ' . $price . ' )');
+                return false;
             }
         }
 
+        /**
+         * Переход с производства в оплаты
+         */
         if ($oldStatus >=3 && $status <= 2 ){
-            $user->setStatus($status);
             $operator = $user->getCompany()->getOperator();
             $moderator = $operator->getModerator();
-            if ($moderator->getRoles()[0] == 'ROLE_MODERATOR') {
+            if ($moderator != null && $moderator->getRoles()[0] == 'ROLE_MODERATOR') {
                 $quotaModerator = $moderator->getQuota();
                 $priceModerator = 0;
                 if ($user->getRu() == 0 && $user->getEstr() == 0) {
@@ -1299,6 +1273,7 @@ class UserController extends Controller
                 } elseif ($user->getRu() == 0 && $user->getEstr() == 1) {
                     $priceModerator = $moderator->getPriceEstr();
                 }
+                $session->getFlashBag()->add('notice', 'Пользователь ' . $user->getLastName() . ' переведен в оплаченные компанией');
                 $quotaModerator += $priceModerator;
                 $moderator->setQuota($quotaModerator);
                 $em->flush($moderator);
@@ -1312,6 +1287,8 @@ class UserController extends Controller
                     $price = $operator->getPriceRu();
                 } elseif ($user->getRu() == 0 && $user->getEstr() == 1) {
                     $price = $operator->getPriceEstr();
+                }else{
+                    $price = 0;
                 }
             }else{
                 $price = $user->getPrice();
@@ -1320,10 +1297,12 @@ class UserController extends Controller
             $operator->setQuota($quota);
             $em->flush($operator);
         }
-
+        /**
+         * Переход с оплаты ниже
+         */
         if ($oldStatus >=2 && $status <=1 ){
+            $company = $user->getCompany();
             $price = 0;
-
             if ($user->getEstr() == 0 && $user->getRu() == 0) {
                 $price = $company->getPriceSkzi();
             } elseif ($user->getEstr() == 1 && $user->getRu() == 0) {
@@ -1331,8 +1310,22 @@ class UserController extends Controller
             } elseif ($user->getEstr() == 0 && $user->getRu() == 1) {
                 $price = $company->getPriceRu();
             }
+            $session->getFlashBag()->add('notice', 'Пользователь ' . $user->getLastName() . ' переведен в неоплаченные компанией');
+            $quota = $company->getQuota();
+            $quota+=$price;
+            $company->setQuota($quota);
+            $em->flush($company);
         }
 
+        $user->setStatus($status);
+        $em->flush($user);
+        $em->flush();
+        $em->refresh($user);
+        $statusLog = new StatusLog();
+        $statusLog->setTitle($user->getStatusString());
+        $statusLog->setUser($user);
+        $em->persist($statusLog);
+        return true;
     }
 }
 

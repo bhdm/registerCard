@@ -43,21 +43,31 @@
             .title{
                 position: absolute;
                 top: 190px;
-                left: 300px;
+                left: 260px;
             }
             .title2{
                 position: absolute;
                 top: 458px;
-                left: 300px;
+                left: 260px;
             }
 
         </style>
     </head>
     <body>
+
+
             {% if user.estr == 0 and user.ru == 0 %}
                 <img src="{{ asset('bundles/crmmain/images/doc-template.png') }}" width="700px">
+                {% set type = '( СКЗИ )' %}
             {% else %}
                 <img src="{{ asset('bundles/crmmain/images/doc-template2.png') }}" width="700px">
+                {% if user.estr == 1 %}
+                    {% set type = '( ЕСТР )' %}
+                {% elseif user.ru == 1 %}
+                    {% set type = '( РФ )' %}
+                {% else %}
+                    {% set type = '' %}
+                {% endif %}
             {% endif %}
 
             <div class="fio1">{{ user.lastName }} {{ user.firstName }} {{ user.surName is not null ? user.surName : ''}}</div>
@@ -71,7 +81,7 @@
                 &nbsp;{{ "now" | date ('d ') }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ "now" | date ('m ') }}<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ "now" | date ('y') }}</span>
             </div>
             <div class="title">
-                Оплата за заказ № {{ user.id }}. Без НДС.
+                Оплата за заказ № {{ user.id }} {{ type }}. Без НДС.
             </div>
 
             <div class="fio2" >{{ user.lastName }} {{ user.firstName }} {{ user.surName is not null ? user.surName : ''}}</div>
@@ -85,7 +95,7 @@
                 &nbsp;{{ "now" | date ('d ') }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ "now" | date ('m ') }}<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ "now" | date ('y') }}</span>
             </div>
             <div class="title2">
-                Оплата за заказ № {{ user.id }}. Без НДС.
+                Оплата за заказ № {{ user.id }} {{ type }}. Без НДС.
             </div>
     </body>
 </html>
