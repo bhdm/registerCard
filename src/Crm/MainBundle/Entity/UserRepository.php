@@ -155,8 +155,10 @@ class UserRepository extends EntityRepository
             ->leftJoin('co.operator ','op')
             ->where('u.enabled = true')
             ->andWhere('co.enabled = true')
-            ->andWhere('op.enabled = true')
-            ->andWhere('u.status = '.$status);
+            ->andWhere('op.enabled = true');
+        if ($status !== 'all'){
+            $res->andWhere('u.status = '.$status);
+        }
         if ($companyId != null){
             $res->andWhere('co.id = '.$companyId);
         }elseif($operatorId != null){
