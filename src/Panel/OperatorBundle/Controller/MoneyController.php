@@ -37,6 +37,11 @@ class MoneyController extends Controller
 
         $statsByYear = $this->getDoctrine()->getRepository('CrmMainBundle:User')->statsByYear($this->getUser(), $year);
         $statsByMonth = $this->getDoctrine()->getRepository('CrmMainBundle:User')->statsByMonth($this->getUser(), $year, $month);
+
+        $fullSummaSkzi = $this->getDoctrine()->getRepository('CrmMainBundle:User')->fullSumma(0,0);
+        $fullSummaEstr = $this->getDoctrine()->getRepository('CrmMainBundle:User')->fullSumma(1,0);
+        $fullSummaRu   = $this->getDoctrine()->getRepository('CrmMainBundle:User')->fullSumma(0,1);
+
         $countDay = cal_days_in_month(CAL_GREGORIAN, $month, $year);
         return array(
             'statsOfOperator' => $statsOfOperator,
@@ -46,7 +51,10 @@ class MoneyController extends Controller
             'newusers' => $newsUsers,
             'countDay' => $countDay,
             'year' =>$year,
-            'month' => $month
+            'month' => $month,
+            'fullSummaSkzi' => $fullSummaSkzi,
+            'fullSummaEstr' => $fullSummaEstr,
+            'fullSummaRu' => $fullSummaRu,
         );
     }
 }

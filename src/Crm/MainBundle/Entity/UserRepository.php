@@ -13,6 +13,17 @@ class UserRepository extends EntityRepository
         return $this->findBy(array('enabled'=> 1 ), array('created' => 'DESC'));
     }
 
+    public function fullSumma($estr,$ru){
+        $users = $this->getEntityManager()->createQuery('
+		 	SELECT COUNT(u) as fullSumma
+		 	FROM CrmMainBundle:User u
+		 	WHERE u.status >= 2 AND u.estr = :estr AND u.ru = :ru
+		')->setParameter('estr', $estr)
+            ->setParameter('ru', $ru)
+            ->getResult();
+        return $users[0]['fullSumma'];
+    }
+
     public function ofOperator($operator){
         $users = $this->getEntityManager()->createQuery('
 		 	SELECT u
