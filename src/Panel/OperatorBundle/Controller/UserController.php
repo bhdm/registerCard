@@ -152,7 +152,8 @@ class UserController extends Controller
     public function editAction(Request $request, $userId)
     {
         $session = $request->getSession();
-        $referer = $request->headers->get('referer');
+
+
 
 
         $session->set('passportFile', null);
@@ -168,9 +169,13 @@ class UserController extends Controller
 
         $user = $this->getDoctrine()->getRepository('CrmMainBundle:User')->findOneById($userId);
 
+        $referer = $request->headers->get('referer');
+
 
         if ($request->getMethod() == 'POST') {
             $data = $request->request;
+
+            $referer = $request->get('referer');
 
             $user->setEmail($data->get('email'));
             $user->setPhone($data->get('phone'));
@@ -184,7 +189,8 @@ class UserController extends Controller
             $user->setPassportNumber($data->get('passportNumber'));
             $user->setPassportSerial($data->get('passportSerial'));
             $user->setPassportIssuance($data->get('PassportIssuance'));
-            $user->setPassportIssuanceDate($data->get('PassportIssuanceDate'));
+            $date = new \DateTime($data->get('PassportIssuanceDate'));
+            $user->setPassportIssuanceDate($date);
             $user->setPassportCode($data->get('passportCode'));
 
 
@@ -264,7 +270,11 @@ class UserController extends Controller
                 $this->getDoctrine()->getManager()->refresh($user);
             }
 
-            return $this->redirect($referer);
+            if ( $referer != null )
+                return $this->redirect($referer);
+            else{
+                return array('user' => $user);
+            }
 
         } else {
 
