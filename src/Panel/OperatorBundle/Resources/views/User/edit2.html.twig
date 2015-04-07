@@ -704,7 +704,7 @@
                 parentInput: '[name="deliveryArea"]',
                 type: $.kladr.type.city,
                 select: function(obj){
-                    $('#deliveryCity').val(obj.type+' '+obj.name);
+                    $('#deliveryCity').val(obj.typeShort+' '+obj.name);
                     $('#deliveryCity').trigger('refresh');
                 }
             });
