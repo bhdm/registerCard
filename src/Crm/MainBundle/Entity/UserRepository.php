@@ -207,7 +207,9 @@ class UserRepository extends EntityRepository
 
         if ($user->isRole('ROLE_ADMIN')) {
             if ($status !== null && $status != 'null'){
-                $res->andWhere('u.status = '.$status);
+                if ($status !== 'all'){
+                    $res->andWhere('u.status = '.$status);
+                }
                 if ($status == 3 || $status == 4 || $status == 6 ){
                     $res->leftJoin('op.moderator','mo');
                     $res->leftJoin('mo.moderator','mo2');
@@ -220,13 +222,15 @@ class UserRepository extends EntityRepository
                 $res->andWhere('op.id = '.$userId);
             }
         }else{
-            if ($status == 3 || $status == 4 || $status == 6 ){
-                $res->andWhere('u.status = 3 OR u.status = 4 OR u.status = 6');
-                $res->andWhere('op.id = '.$userId);
-            }else{
-                $res->andWhere('u.status = '.$status);
-                $res->andWhere('op.id = '.$userId);
+            if ( $status !== 'all' ){
+                if ($status == 3 || $status == 4 || $status == 6 ){
+                    $res->andWhere('u.status = 3 OR u.status = 4 OR u.status = 6');
+                }else{
+                    $res->andWhere('u.status = '.$status);
+                }
             }
+            $res->andWhere('op.id = '.$userId);
+
         }
 
 

@@ -1,0 +1,213 @@
+{% extends 'PanelOperatorBundle::layout.html.twig' %}
+
+{% block breadcrumb %}
+    <ul class="breadcrumb well">
+        {% if operator is defined and operator != null %}
+            <li>{{ operator.username }}</li>
+        {% endif %}
+        {% if company is defined and company != null %}
+            <li>{{ company.title }}</li>
+        {% endif %}
+        {#<li><a href="{{ path('user_add') }}"><span class="btn btn-primary">Добавить</span></a></li>#}
+
+        {% if app.request.attributes.get('_route_params').company is defined %}
+            {% set f_company = app.request.attributes.get('_route_params').company %}
+        {% else %}
+            {% set f_company = null %}
+        {% endif %}
+
+        {% if app.request.attributes.get('_route_params').operator is defined %}
+            {% set f_operator = app.request.attributes.get('_route_params').operator %}
+        {% else %}
+            {% set f_operator = null %}
+        {% endif %}
+
+        {{ render(path('panel_user_get_count',{'status' : 'all', 'company' : f_company , 'operator' : f_operator })) }}
+    </ul>
+{% endblock %}
+
+{% block content %}
+    {% include 'PanelOperatorBundle::top.html.twig' %}
+    <div class="well">
+        <h4>ТАБЛИЦА ЗАЯВОК ( {{ count }} )</h4>
+        {% for flashMessage in app.session.flashbag.get('error') %}
+            <div class="alert alert-danger" role="alert">{{ flashMessage }}</div>
+        {% endfor %}
+        {% for flashMessage in app.session.flashbag.get('notice') %}
+            <div class="alert alert-success" role="alert">{{ flashMessage }}</div>
+        {% endfor %}
+        <table class="table" data-toggle="table"
+               data-sort-name="login"
+               data-sort-order="asc">
+            <thead>
+            <tr>
+                <th><input type="checkbox" id="allcheck"></th>
+                <th>№</th>
+                <th>Статус</th>
+                <th>Тип</th>
+                <th>Вид</th>
+                <th>Дата</th>
+                {% if company is not defined or company == null %}
+                    <th >
+                        <select class="chosen" data-placeholder="Компания">
+                            {% for c in companies %}
+                                <option value="{{ c.id }}">{{ c }}</option>
+                            {% endfor %}
+                        </select>
+                    </th>
+                {% endif %}
+                <th >ФИО / Email</th>
+                <th>Комментарий</th>
+            </tr>
+            </thead>
+            {% for user in pagination %}
+                <tr>
+                    <td><input type="checkbox" name="user[{{ user.id }}]" value="{{ user.id }}"></td>
+                    <td>{{ user.id }}</td>
+                    <td>{{ user.statusStringTwig | raw }}</td>
+                    <td>
+                        {% if user.ru == false and user.estr == false %}
+                            СКЗИ
+                        {% elseif user.ru == false and user.estr == true %}
+                            ЕСТР
+                        {% elseif user.ru == true and user.estr == false %}
+                            РФ
+                        {% else %}
+                            ДРУГОЕ
+                        {% endif %}
+                    </td>
+                    <td>
+                        {% if user.enterprise == false and user.workshop == false %}
+                            КВ
+                        {% elseif user.enterprise == true and user.workshop == false %}
+                            КП
+                        {% elseif user.enterprise == false and user.workshop == true %}
+                            КМ
+                        {% else %}
+                            ДРУГОЕ
+                        {% endif %}
+                    </td>
+                    <td class="subtitles">{{ user.created | date('d.m.Y') }}</td>
+                    {% if not is_granted('ROLE_ADMIN') %}
+                    <td>
+                        {% if user.company.operator is defined %}
+                            {% if user.ru == false and user.estr == false %}
+                                {{ user.company.operator.priceSkzi }}
+                            {% elseif user.ru == false and user.estr == true %}
+                                {{ user.company.operator.priceEstr }}
+                            {% elseif user.ru == true and user.estr == false %}
+                                {{ user.company.operator.priceRu }}
+                            {% else %}
+                                0
+                            {% endif %}
+                        {% else %}
+                            0
+                        {% endif %}
+                    </td>
+                    {% endif %}
+                    {% if company is not defined or company == null %}
+                        <td><a href="{{ path('panel_user_list',{'type' : 'null', 'company' : user.company.id }) }}">{{ user.company }}</a></td>
+                    {% endif %}
+                    <td>
+                        <a href="{{ path('panel_user_edit',{'userId' : user.id }) }}">{{ user }}</a>
+                        <br />
+                        <a href="?search={{ user.email }}"><span class="subtitles">{{ user.email }}</span></a>
+                    </td>
+                    <td><div class="comment-box disabled-click" data-id="{{ user.id }}">{{ user.comment }}</div></td>
+                </tr>
+            {% endfor%}
+        </table>
+        <div class="navigation">
+            {{ knp_pagination_render(pagination) }}
+        </div>
+    </div>
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <style>
+        #filter-type{
+            width: 100px;
+        }
+        .comment-box{
+            width: 200px;
+            min-height: 50px;
+            cursor: pointer;
+        }
+    </style>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+        $(document).ready(function(){
+
+            $(".chosen").chosen({no_results_text: "Компаний по вашему запросу не найдено", width: 200});
+
+            $('.chosen').change(function(){
+                window.location.href = Routing.generate('panel_user_list', {'type': 'null', 'company': $(this).val() })
+            });
+
+            $('#filter-send').click(function () {
+                var url = Routing.generate('panel_user_list', { 'status' : {{ app.request.attributes.get('_route_params').status }}, 'company': '{{ companyId }}', 'operator': '{{ operatorId }}' ,'type': $('#filter-type').val(), 'dateStart' : $('#filter-dateStart').val(), 'dateEnd' : $('#filter-dateEnd').val(),'search' : $('#filter-search').val() });
+                window.location.href = url;
+            });
+
+
+            $('#allcheck').click(function () {
+                if($("#allcheck").prop('checked') == true){
+                    $("input[type=checkbox]" ).prop( "checked", true );
+                }else{
+                    $( "input[type=checkbox]" ).prop( "checked", false );
+                }
+            });
+
+            $('body').on('click', '.disabled-click' , function(){
+                var form =  $('<form method="post">' +
+                '<textarea class="form-control" style="margin-bottom: 5px">'+$(this).text()+'</textarea>' +
+                '<input type="hidden" class="old" value="'+$(this).text()+'" />' +
+                '<button type="button" class="btn btn-default btn-success ok-textarea"> <span class="glyphicon glyphicon-ok"></span></button>' +
+                '&nbsp;&nbsp;'+
+                '<button type="button" class="btn btn-default btn-danger cancel-textarea"> <span class="glyphicon glyphicon-remove"></span></button>' +
+                '</form>');
+                $(this).html(form);
+                $(this).removeClass('disabled-click');
+            });
+
+            $('.comment-box').on('click', '.cancel-textarea', function(){
+                var txt = $(this).parent().children('.old').val();
+                var div = $(this).parent().parent();
+                div.text(txt);
+                div.addClass('disabled-click');
+                return false;
+            });
+
+            $('.comment-box').on('click', '.ok-textarea', function(){
+                var txt = $(this).parent().children('.old').val();
+                var txt2 = $(this).parent().children('textarea').val();
+                var id = $(this).parent().parent().attr('data-id');
+                var div = $(this).parent().parent();
+                $.ajax({
+                    type: "POST",
+                    url: "{{ path('panel_user_set_comment') }}",
+                    data: "id="+id+'&comment='+txt2,
+                    success: function(msg){
+                        if (msg == 'ok'){
+                            div.text(txt2);
+                        }else{
+                            div.text(txt);
+                            alert('Ошибка сохранения:'+msg);
+                        }
+                    },
+                    error: function(msg){
+                        div.text(txt);
+                        alert('Ошибка сохранения:'+msg);
+                    }
+
+                });
+                div.addClass('disabled-click');
+                return false;
+            });
+        });
+    </script>
+{% endblock %}

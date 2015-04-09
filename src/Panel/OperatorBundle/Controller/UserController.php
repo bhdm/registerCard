@@ -80,29 +80,32 @@ class UserController extends Controller
 
         if ($this->get('security.context')->isGranted('ROLE_ADMIN')) {
             switch ($status) {
-                case 0:
+                case '0':
                     $response = $this->render('PanelOperatorBundle:User:list_0.html.twig', $vars);
                     break;
-                case 1:
+                case '1':
                     $response = $this->render('PanelOperatorBundle:User:list_1.html.twig', $vars);
                     break;
-                case 2:
+                case '2':
                     $response = $this->render('PanelOperatorBundle:User:list_2.html.twig', $vars);
                     break;
-                case 3:
+                case '3':
                     $response = $this->render('PanelOperatorBundle:User:list_3.html.twig', $vars);
                     break;
-                case 6:
+                case '6':
                     $response = $this->render('PanelOperatorBundle:User:list_6.html.twig', $vars);
                     break;
-                case 4:
+                case '4':
                     $response = $this->render('PanelOperatorBundle:User:list_4.html.twig', $vars);
                     break;
-                case 5:
+                case '5':
                     $response = $this->render('PanelOperatorBundle:User:list_5.html.twig', $vars);
                     break;
-                case 10:
+                case '10':
                     $response = $this->render('PanelOperatorBundle:User:list_10.html.twig', $vars);
+                    break;
+                case 'all':
+                    $response = $this->render('PanelOperatorBundle:User:list_100.html.twig', $vars);
                     break;
                 default:
                     $response = $this->render('PanelOperatorBundle:User:list_0.html.twig', $vars);
@@ -110,28 +113,28 @@ class UserController extends Controller
             }
         } else {
             switch ($status) {
-                case 0:
+                case '0':
                     $response = $this->render('PanelOperatorBundle:User:list_0.html.twig', $vars);
                     break;
-                case 1:
+                case '1':
                     $response = $this->render('PanelOperatorBundle:User:list_1.html.twig', $vars);
                     break;
-                case 2:
+                case '2':
                     $response = $this->render('PanelOperatorBundle:User:list_2.html.twig', $vars);
                     break;
-                case 3:
+                case '3':
                     $response = $this->render('PanelOperatorBundle:User:list_3_u.html.twig', $vars);
                     break;
-                case 6:
+                case '6':
                     $response = $this->render('PanelOperatorBundle:User:list_3_u.html.twig', $vars);
                     break;
-                case 4:
+                case '4':
                     $response = $this->render('PanelOperatorBundle:User:list_3_u.html.twig', $vars);
                     break;
-                case 5:
+                case '5':
                     $response = $this->render('PanelOperatorBundle:User:list_5.html.twig', $vars);
                     break;
-                case 10:
+                case '10':
                     $response = $this->render('PanelOperatorBundle:User:list_10.html.twig', $vars);
                     break;
                 default:
