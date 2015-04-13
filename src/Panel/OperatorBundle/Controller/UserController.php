@@ -44,18 +44,17 @@ class UserController extends Controller
             $operator = $this->getDoctrine()->getRepository('CrmMainBundle:Operator')->findOneById($operator);
         }
 
-
-        $production = 0;
-        $choose = 0;
         if ($type == null || $type == 'null') {
             $type = 3;
         }
+
         $users = $this->getDoctrine()->getRepository('CrmMainBundle:User')->operatorFilter($type, $status, $company, $operator, $searchtxt, $dateStart, $dateEnd);
+
         $paginator = $this->get('knp_paginator');
         $pagination = $paginator->paginate(
             $users,
             $this->get('request')->query->get('page', 1),
-            50
+            100
         );
         $companyId = $company;
         if ($companyId == null) {
@@ -71,10 +70,10 @@ class UserController extends Controller
         $vars = array(
             'count' => count($users),
             'pagination' => $pagination,
-            'companyId' => $companyId,
-            'company' => $company,
-            'companies' => $companies,
-            'operator' => $operator,
+            'companyId'  => $companyId,
+            'company'    => $company,
+            'companies'  => $companies,
+            'operator'   => $operator,
             'operatorId' => $operatorId
         );
 
@@ -136,6 +135,9 @@ class UserController extends Controller
                     break;
                 case '10':
                     $response = $this->render('PanelOperatorBundle:User:list_10.html.twig', $vars);
+                    break;
+                case 'all':
+                    $response = $this->render('PanelOperatorBundle:User:list_100.html.twig', $vars);
                     break;
                 default:
                     $response = $this->render('PanelOperatorBundle:User:list_0.html.twig', $vars);

@@ -1,0 +1,43 @@
+{% if app.request.attributes.get('_route_params').type is defined %}
+    {% set f_type = app.request.attributes.get('_route_params').type %}
+{% else %}
+    {% set f_type = null %}
+{% endif %}
+
+{% if app.request.attributes.get('_route_params').status is defined %}
+    {% set f_status = app.request.attributes.get('_route_params').status %}
+{% else %}
+    {% set f_status = null %}
+{% endif %}
+
+{% if app.request.attributes.get('_route_params').company is defined %}
+    {% set f_company = app.request.attributes.get('_route_params').company %}
+{% else %}
+    {% set f_company = null %}
+{% endif %}
+
+{% if app.request.attributes.get('_route_params').operator is defined %}
+    {% set f_operator = app.request.attributes.get('_route_params').operator %}
+{% else %}
+    {% set f_operator = null %}
+{% endif %}
+
+{% if app.request.query.all.dateStart is defined %}
+    {% set f_dateStart = app.request.query.all.dateStart %}
+{% else %}
+    {% set f_dateStart = '' %}
+{% endif %}
+
+{% if app.request.query.all.dateEnd is defined %}
+    {% set f_dateEnd = app.request.query.all.dateEnd %}
+{% else %}
+    {% set f_dateEnd = '' %}
+{% endif %}
+
+{% if app.request.query.all.search is defined %}
+    {% set f_search = app.request.query.all.search %}
+{% else %}
+    {% set f_search = '' %}
+{% endif %}
+
+{% set searchLine = '?dateStart='~f_dateStart~'&dateEnd='~f_dateEnd~'&search='~f_search %}

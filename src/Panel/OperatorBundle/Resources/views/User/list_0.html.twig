@@ -2,30 +2,7 @@
 
 
 {% block breadcrumb %}
-    <ul class="breadcrumb well">
-        {#<li>Список новых заявок</li>#}
-        {% if operator is defined and operator != null %}
-            <li>{{ operator.username }}</li>
-        {% endif %}
-        {% if company is defined and company != null %}
-            <li>{{ company.title }}</li>
-        {% endif %}
-
-        {% if app.request.attributes.get('_route_params').company is defined %}
-            {% set f_company = app.request.attributes.get('_route_params').company %}
-        {% else %}
-            {% set f_company = null %}
-        {% endif %}
-
-        {% if app.request.attributes.get('_route_params').operator is defined %}
-            {% set f_operator = app.request.attributes.get('_route_params').operator %}
-        {% else %}
-            {% set f_operator = null %}
-        {% endif %}
-
-        {{ render(path('panel_user_get_count',{'status' : 'all', 'company' : f_company , 'operator' : f_operator })) }}
-        {#<li><a href="{{ path('user_add') }}"><span class="btn btn-primary">Добавить</span></a></li>#}
-    </ul>
+    {% include 'PanelOperatorBundle:User:breadcrumb.html.twig' %}
 {% endblock %}
 
 {% block content %}

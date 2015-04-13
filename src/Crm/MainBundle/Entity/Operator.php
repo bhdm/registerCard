@@ -137,7 +137,7 @@ class Operator extends BaseEntity implements UserInterface
 
         foreach ($this->companies as $company){
             foreach ($company->getUsers() as $user ){
-                if ($user->getProduction() > 0 ){
+                if ($user->getStatus() > 3 ){
                     $summ --;
                 }
             }

@@ -184,6 +184,8 @@ class UserRepository extends EntityRepository
 
         $res = $this->getEntityManager()->createQueryBuilder()
             ->select('u')
+            ->addSelect('co')
+            ->addSelect('op')
             ->from('CrmMainBundle:User','u')
             ->leftJoin('u.company ','co')
             ->leftJoin('co.operator ','op');
@@ -271,25 +273,9 @@ class UserRepository extends EntityRepository
 //        echo '<br />';
 //        echo '<br />';
 //        exit;
-        $result = $res->getQuery()->getResult();
-//        $users =
-//            array(
-//                0 => null,
-//                1 => null,
-//                2 => null,
-//                3 => null
-//            );
-//        foreach ($result as $val){
-//            if ( $val->getEstr() == 0 AND $val->getRu() == 0 ){
-//                $users[0][] = $val;
-//            }elseif( $val->getEstr() == 1 AND $val->getRu() == 0 ) {
-//                $users[1][] = $val;
-//            }elseif( $val->getEstr() == 0 AND $val->getRu() == 1 ) {
-//                $users[2][] = $val;
-//            }else{
-//                $users[3][] = $val;
-//            }
-//        }
+//        $result = $res->getQuery()->getResult();
+        $result = $res->getQuery();
+
         return $result;
     }
 
