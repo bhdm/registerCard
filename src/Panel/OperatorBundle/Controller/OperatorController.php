@@ -27,7 +27,7 @@ class OperatorController extends Controller
      */
     public function listAction(Request $request)
     {
-        $operators = $this->getDoctrine()->getRepository('CrmMainBundle:Operator')->findByModerator($this->getUser());
+        $operators = $this->getDoctrine()->getRepository('CrmMainBundle:Operator')->findBy(array('moderator' => $this->getUser(), 'enabled' => true));
         return array('operators' => $operators);
     }
 
