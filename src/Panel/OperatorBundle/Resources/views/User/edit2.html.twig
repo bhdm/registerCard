@@ -12,6 +12,22 @@
         <form method="post">
             <input type="hidden" name="referer" value="{{ referer }}" >
             <table class="table">
+                {% if is_granted('ROLE_ADMIN') and user.company.title != '' %}
+                <tr>
+                    <td>
+                        <div class="form-group">
+                            <label class="control-label col-sm-3" for="status">Компания</label>
+                            <div class="col-sm-9">
+                                <select id="company" name="company" class="miniselect">
+                                    {% for c in companies %}
+                                    <option value="{{ c.id }}"  {{ user.company.id == c.id ?  'selected="selected"' : '' }}>{{ c.id }} {{ c.title }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                {% endif %}
                 <tr>
                     <td>
                         <div class="form-group">

@@ -233,6 +233,12 @@ class UserController extends Controller
             $user->setSalt(md5(time()));
 
             $user->setComment($data->get('comment'));
+            if ($data->get('company') && $data->get('company') != null){
+                $c = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->find($data->get('company'));
+                if ($c){
+                    $user->setCompany($c);
+                }
+            }
 
 //            $user->setPrice($data->get('price'));
 
@@ -325,8 +331,9 @@ class UserController extends Controller
 
 
         $regions = $this->getDoctrine()->getRepository('CrmMainBundle:Region')->findAll();
+        $companies = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->getCompanies();
 
-        return array('user' => $user, 'regions' => $regions, 'referer' => $referer);
+        return array('user' => $user, 'regions' => $regions, 'referer' => $referer,'companies' => $companies);
 
     }
 
