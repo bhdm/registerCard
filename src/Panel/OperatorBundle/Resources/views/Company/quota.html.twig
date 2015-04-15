@@ -3,7 +3,7 @@
 
 {% block breadcrumb %}
     <ul class="breadcrumb well">
-        <li>Квоты компании {{ company.title }} ( {{ company.url }} )</li>
+        <li>Квоты компании <a href="{{ path('panel_user_list', {'status' : 'all', 'type' : 'null', 'company' : company.id }) }}">{{ company.title }} ( {{ company.url }} )</a></li>
         <li><span class="btn btn-primary" id="quotaAdd">Добавить квоту</span></li>
     </ul>
 {% endblock %}
