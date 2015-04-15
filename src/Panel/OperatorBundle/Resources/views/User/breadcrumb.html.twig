@@ -3,7 +3,7 @@
         <li><a href="{{ path('panel_operator_quota',{'operatorId' : operator.id }) }}">{{ operator.username }}</a></li>
     {% endif %}
     {% if company is defined and company != null %}
-        <li><a href="{{ path('panel_company_quota',{'companyId' : company.id }) }}">{{ company.title }}</li>
+        <li><a href="{{ path('panel_company_quota',{'companyId' : company.id }) }}">{{ company.title }}</a></li>
     {% endif %}
 
     {% if app.request.attributes.get('_route_params').company is defined %}
