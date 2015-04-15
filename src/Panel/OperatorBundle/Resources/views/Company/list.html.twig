@@ -15,14 +15,20 @@
                data-sort-order="asc">
             <thead>
             <tr>
-                <th >Компания</th>
+                <th >
+                    <select class="chosen" data-placeholder="Компания">
+                        {% for c in companies %}
+                            <option value="{{ c.id }}">{{ c }}</option>
+                        {% endfor %}
+                    </select>
+                </th>
                 <th >Ссылка</th>
                 <th >Кол-во заявок</th>
                 <th >Квота</th>
                 <th class="setting">Инструменты</th>
             </tr>
             </thead>
-            {% for company in companies %}
+            {% for company in companies2 %}
                 <tr>
                     <td><a href="{{ path('panel_user_list', {'type' : 'null' , 'company' : company.id }) }}">{{ company.title }}</a></td>
                     <td>
@@ -70,4 +76,17 @@
             {#{{ knp_pagination_render(pagination) }}#}
         {#</div>#}
     </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+        $(document).ready(function(){
+            $(".chosen").chosen({no_results_text: "Компаний по вашему запросу не найдено", width: 300});
+
+            $('.chosen').change(function(){
+                window.location.href = Routing.generate('panel_company_list', {'companyId': $(this).val() })
+            });
+        });
+    </script>
 {% endblock %}

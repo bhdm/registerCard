@@ -20,13 +20,19 @@ use Symfony\Component\HttpFoundation\Session\Session;
 class CompanyController extends Controller
 {
     /**
-     * @Route("/list", name="panel_company_list")
+     * @Route("/list/{companyId}", name="panel_company_list", defaults={"companyId" = null}, options={"expose" = true})
      * @Template()
      */
-    public function listAction(Request $request)
+    public function listAction(Request $request, $companyId = null)
     {
         $companies = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->findBy(array('operator' => $this->getUser(), 'enabled' => true));
-        return array('companies' => $companies);
+        if ($companyId != null){
+            $companies2 = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->findById($companyId);
+        }else{
+            $companies2 = $companies;
+        }
+
+        return array('companies2'=> $companies2, 'companies' => $companies);
     }
 
     /**
