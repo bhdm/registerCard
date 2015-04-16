@@ -234,6 +234,11 @@ class Company extends BaseEntity
      */
     protected $quotaLog;
 
+    /**
+     * Если показатель true то можно уйти в минус
+     * @ORM\Column(type="boolean", nullable=false)
+     */
+    protected $confirmed;
 
 
     public function __construct(){
@@ -930,4 +935,22 @@ class Company extends BaseEntity
 
         return $count;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getConfirmed()
+    {
+        return $this->confirmed;
+    }
+
+    /**
+     * @param mixed $confirmed
+     */
+    public function setConfirmed($confirmed = falses)
+    {
+        $this->confirmed = $confirmed;
+    }
+
+
 }

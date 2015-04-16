@@ -72,6 +72,12 @@ class CompanyController extends Controller
             $company->setUrl($data->get('url'));
             $company->setDelivery(($data->get('delivery') == 1 ? true : false));
 
+            if ($data->get('confirmed') != null){
+                $company->setConfirmed(true);
+            }else{
+                $company->setConfirmed(false);
+            }
+
             $company->setForma($data->get('forma'));
             $company->setInn($data->get('inn'));
             $company->setKpp($data->get('kpp'));
@@ -134,6 +140,11 @@ class CompanyController extends Controller
                     $company->setUrl($data->get('url'));
                     $company->setDelivery(($data->get('delivery') == 1 ? true : false));
 
+                    if ($data->get('confirmed') != null){
+                        $company->setConfirmed(true);
+                    }else{
+                        $company->setConfirmed(false);
+                    }
 
                     $company->setForma($data->get('forma'));
                     $company->setInn($data->get('inn'));

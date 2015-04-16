@@ -33,6 +33,14 @@
                     <input name="companyName" id="companyName" type="text" class="form-control"  value="{{ company.title }}" placeholder="Название">
                 </td>
             </tr>
+            {% if is_granted('ROLE_ADMIN') %}
+            <tr>
+                <td class="label">Доверенная компания:</td>
+                <td class="value" style="  padding-top: 5px;">
+                    <input name="confirmed" id="confirmed" type="checkbox" {{ company.confirmed == true ? 'checked="checked"' }} />
+                </td>
+            </tr>
+            {% endif %}
             <tr>
                 <td class="label">Адрес организации<span class="required">*</span>:</td>
                 <td class="value">
