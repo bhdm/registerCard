@@ -1198,7 +1198,7 @@ class UserController extends Controller
         /**
          * Переход до оплачено
          */
-        if ($oldStatus <= 1 && $status == 2) {
+        if ($oldStatus <= 1 && $status >= 2) {
             $company = $user->getCompany();
             $price = 0;
             if ($user->getEstr() == 0 && $user->getRu() == 0) {
@@ -1208,7 +1208,7 @@ class UserController extends Controller
             } elseif ($user->getEstr() == 0 && $user->getRu() == 1) {
                 $price = $company->getPriceRu();
             }
-            if ($company->getQuota() >= $price) {
+            if ($company->getQuota() >= $price || $company->getConfirmed() == true ) {
                 $company->setQuota($company->getQuota() - $price);
                 $this->getDoctrine()->getManager()->flush($user);
                 $this->getDoctrine()->getManager()->refresh($user);
@@ -1236,7 +1236,7 @@ class UserController extends Controller
                 $price = $operator->getPriceEstr();
             }
             $quota -= $price;
-            if ($quota >= 0) {
+            if ($quota >= 0 ) {
                 $operator->setQuota($quota);
                 $moderator = $operator->getModerator();
 

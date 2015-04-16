@@ -947,7 +947,7 @@ class Company extends BaseEntity
     /**
      * @param mixed $confirmed
      */
-    public function setConfirmed($confirmed = falses)
+    public function setConfirmed($confirmed = false)
     {
         $this->confirmed = $confirmed;
     }
