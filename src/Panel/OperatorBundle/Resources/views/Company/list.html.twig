@@ -15,6 +15,8 @@
                data-sort-order="asc">
             <thead>
             <tr>
+                <th>
+                </th>
                 <th >
                     <select class="chosen" data-placeholder="Компания">
                         {% for c in companies %}
@@ -23,13 +25,19 @@
                     </select>
                 </th>
                 <th >Ссылка</th>
-                <th >Кол-во заявок</th>
+                <th ></th>
+                {#<th >Кол-во заявок</th>#}
                 <th >Квота</th>
                 <th class="setting">Инструменты</th>
             </tr>
             </thead>
             {% for company in companies2 %}
                 <tr>
+                    <td>
+                        {% if company.confirmed == true %}
+                            <img src="{{ asset('bundles/crmmain/images/like.png') }}" style="width: 24px;">
+                        {% endif %}
+                    </td>
                     <td><a href="{{ path('panel_user_list', {'type' : 'null' , 'company' : company.id }) }}">{{ company.title }}</a></td>
                     <td>
                         {% if company.url != null and company.url != '' %}

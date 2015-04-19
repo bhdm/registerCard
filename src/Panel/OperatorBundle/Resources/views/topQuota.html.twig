@@ -1,6 +1,3 @@
-{#{%#}
-    {#if  ( app.request.attributes.get('_route') == 'panel_user_choose' or app.request.attributes.get('_route') == 'panel_user_production' )#}
-{#%}#}
 {#<div class="well">#}
     {#<h3 class="modal-title">Квоты</h3>#}
     {#<h4>Осталось рублей:</h4>#}
@@ -19,16 +16,3 @@
     {#<div style="display: inline-block; width: 70px;">ЕСТР: </div><h4 style="display: inline;">{{ app.user.priceEstr }} р.</h4><br />#}
     {#<div style="display: inline-block; width: 70px;">РФ: </div><h4 style="display: inline;">{{ app.user.priceRu }} р.</h4>#}
 {#</div>#}
-{#{% endif %}#}
-
-{#{% if  ( app.request.attributes.get('_route') != 'panel_user_choose' and app.request.attributes.get('_route') != 'panel_user_production' )  %}#}
-{#{% endif %}#}
-
-
-    {% if app.request.attributes.get('_route_params').company is defined and app.request.attributes.get('_route_params').company != 'null' and app.request.attributes.get('_route_params').company != null %}
-        {{ render_hinclude(path('panel_company_get_quota', {'companyId' : app.request.attributes.get('_route_params').company})) }}
-    {% endif %}
-
-    {% if app.request.attributes.get('_route_params').operator is defined and app.request.attributes.get('_route_params').operator != 'null' and app.request.attributes.get('_route_params').operator != null %}
-        {{ render_hinclude(path('panel_operator_get_quota', {'operatorId' : app.request.attributes.get('_route_params').operator})) }}
-    {% endif %}
