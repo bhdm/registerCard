@@ -19,10 +19,10 @@ class UserController extends Controller
 {
     /**
      * @Security("has_role('ROLE_OPERATOR')")
-     * @Route("/list/{status}/{type}/{company}/{operator}", defaults={"status" = 0, "type" = null , "company" = null , "operator" = null}, name="panel_user_list", options={"expose" = true})
+     * @Route("/list/{status}/{type}/{company}/{operator}", defaults={"status" = "all", "type" = null , "company" = null , "operator" = null}, name="panel_user_list", options={"expose" = true})
      * @Template()
      */
-    public function listAction(Request $request, $status = 0, $type = null, $company = null, $operator = null)
+    public function listAction(Request $request, $status = "all", $type = null, $company = null, $operator = null)
     {
         if ($company == "null") {
             $company = null;
