@@ -236,9 +236,9 @@ class Company extends BaseEntity
 
     /**
      * Если показатель true то можно уйти в минус
-     * @ORM\Column(type="boolean", nullable=false)
+     * @ORM\Column(type="boolean", nullable=true)
      */
-    protected $confirmed;
+    protected $confirmed = false;
 
 
     public function __construct(){
