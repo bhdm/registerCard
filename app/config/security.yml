@@ -30,7 +30,7 @@ security:
                 default_target_path: /panel
             logout:
                 path:   /panel/logout
-                target: /
+                target: /panel/login
 
         operator_secured_area:
             provider: operator
