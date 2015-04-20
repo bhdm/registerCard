@@ -257,6 +257,7 @@ class IndexController extends Controller
             if ($formReview->isValid()) {
                 $msg = true;
                 $review = $formReview->getData();
+                $review->setEnabled(false);
                 $em->persist($review);
                 $em->flush();
                 $message = \Swift_Message::newInstance()
