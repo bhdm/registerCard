@@ -276,8 +276,8 @@ class UserRepository extends EntityRepository
 //        echo '<br />';
 //        echo '<br />';
 //        exit;
-//        $result = $res->getQuery()->getResult();
-        $result = $res->getQuery();
+        $result = $res->getQuery()->getResult();
+//        $result = $res->getQuery();
 
         return $result;
     }
