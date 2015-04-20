@@ -18,7 +18,7 @@
                         <div class="form-group">
                             <label class="control-label col-sm-3" for="status">Компания</label>
                             <div class="col-sm-9">
-                                <select id="company" name="company" class="miniselect">
+                                <select id="company" name="company" class="chosen">
                                     {% for c in companies %}
                                     <option value="{{ c.id }}"  {{ user.company.id == c.id ?  'selected="selected"' : '' }}>{{ c.id }} {{ c.title }}</option>
                                     {% endfor %}
@@ -645,6 +645,8 @@
             $(".date").mask("99.99.9999");
             $(".code").mask("999-999");
             $(".snils").mask("999-999-999 99");
+
+            $(".chosen").chosen({no_results_text: "Компаний по вашему запросу не найдено", width: 300});
 
             $( 'input[name=region]' ).kladr({
                 token: '541ee4ac7c52392c7d8b457e',
