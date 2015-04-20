@@ -2,7 +2,9 @@
 
 namespace Crm\MainBundle\Controller;
 
+use Crm\MainBundle\Entity\Review;
 use Crm\MainBundle\Form\Type\FeedbackType;
+use Crm\MainBundle\Form\Type\ReviewType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
@@ -239,5 +241,43 @@ class IndexController extends Controller
         return array();
     }
 
+
+    /**
+     * @Route("/reviews", name="reviews")
+     * @Template()
+     */
+    public function reviewAction(Request $request){
+
+        $review = new Review();
+        $em = $this->getDoctrine()->getManager();
+        $formReview = $this->createForm(new ReviewType($em), $review);
+        $msg = false;
+        $formReview->handleRequest($request);
+        if ($request->isMethod('POST')) {
+            if ($formReview->isValid()) {
+                $msg = true;
+                $review = $formReview->getData();
+                $em->persist($review);
+                $em->flush();
+                $message = \Swift_Message::newInstance()
+                    ->setSubject('Форма для отзывов и предложений')
+                    ->setFrom('info@im-kard.ru')
+                    ->setTo('bipur@mail.ru')
+                    ->setBody(
+                        $this->renderView(
+                            'CrmMainBundle:Mail:review.html.twig',
+                            array('review' => $review)
+                        ), 'text/html'
+                    )
+                ;
+                $this->get('mailer')->send($message);
+            }
+        }
+
+        $reviews = $this->getDoctrine()->getRepository('CrmMainBundle:Review')->findByEnabled(true);
+
+        return array ('reviews' => $reviews, 'msg'=>$msg, 'formFeedback' => $formReview->createView());
+
+    }
 }
 

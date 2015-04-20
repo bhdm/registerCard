@@ -1,0 +1,38 @@
+{% extends 'CrmMainBundle::layout.html.twig' %}
+
+{% block title %}
+    <title>Отзывы и предлоежения im-kard.ru</title>
+    <meta name="description" content="Отзывы, тахографы, скзи, естр, карты для тахографа">
+    <meta name="keywords" content="Отзывы, тахографы, скзи, естр, карты для тахографа">
+{% endblock %}
+
+{% block content %}
+    <div class="box">
+        <h2>Отзывы и предложения</h2>
+        {% if msg == false %}
+            <form method="POST">
+                {{ form_widget(formFeedback) }}
+            </form>
+        {% else %}
+            <div class="msg">Ваше сообщение отправлено</div>
+        {% endif %}
+
+        {% for r in reviews %}
+            <div class="review-item">
+                <div class="name">{{ r.name }}</div>
+                <div class="date">{{ r.created | date("d.m.Y") }}</div>
+                <div class="body">{{ r.body }}</div>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <style>
+        .msg{
+            color: #006600;
+            font-size: 18pt;
+        }
+    </style>
+{% endblock %}
