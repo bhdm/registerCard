@@ -32,6 +32,11 @@ class UserController extends Controller
             $status = 0;
         }
 
+        $filterManager = $request->query->get('filterManager');
+        if ($filterManager == 'null'){
+            $filterManager = null;
+        }
+
         $searchtxt = $request->query->get('search');
         $dateStart = ($request->query->get('dateStart') == '' ? null : $request->query->get('dateStart'));
         $dateEnd = ($request->query->get('dateEnd') == '' ? null : $request->query->get('dateEnd'));
@@ -48,7 +53,7 @@ class UserController extends Controller
             $type = 3;
         }
 
-        $users = $this->getDoctrine()->getRepository('CrmMainBundle:User')->operatorFilter($type, $status, $company, $operator, $searchtxt, $dateStart, $dateEnd);
+        $users = $this->getDoctrine()->getRepository('CrmMainBundle:User')->operatorFilter($type, $status, $company, $operator, $searchtxt, $dateStart, $dateEnd, 0, $filterManager);
 
         $paginator = $this->get('knp_paginator');
         $pagination = $paginator->paginate(
@@ -66,6 +71,11 @@ class UserController extends Controller
 
         $companies = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->findBy(array('operator' => $this->getUser(), 'enabled' => true));
 
+        $managers = $this->getDoctrine()->getRepository('CrmMainBundle:User')->findAllManagers();
+
+        if ($managers == null){
+            $managers = array();
+        }
 
         $vars = array(
             'count' => count($users),
@@ -74,7 +84,8 @@ class UserController extends Controller
             'company'    => $company,
             'companies'  => $companies,
             'operator'   => $operator,
-            'operatorId' => $operatorId
+            'operatorId' => $operatorId,
+            'managers' => $managers
         );
 
         if ($this->get('security.context')->isGranted('ROLE_ADMIN')) {
@@ -1348,6 +1359,26 @@ class UserController extends Controller
         $statusLog->setUser($user);
         $em->persist($statusLog);
         return true;
+    }
+
+    /**
+     * @Route("/panel/edit/manager", name="panel_edit_manager", options={"expose"=true})
+     */
+    public function panelEditManagerAction(Request $request){
+        if ($request->getMethod()== 'POST'){
+            $id = $request->request->get('id');
+            $key = $request->request->get('key');
+
+            $user = $this->getDoctrine()->getRepository('CrmMainBundle:User')->findOneById($id);
+            if ($user){
+                $user->setManagerKey($key);
+                $this->getDoctrine()->getManager()->flush($user);
+                echo 'ok';
+                exit;
+            }
+        }
+        echo 'error';
+        exit;
     }
 }
 

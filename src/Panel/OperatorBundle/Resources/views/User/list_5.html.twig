@@ -20,6 +20,9 @@
             <thead>
             <tr>
                 <th><input type="checkbox" id="allcheck"></th>
+                {% if is_granted('ROLE_ADMIN') %}
+                    <th>M</th>
+                {% endif %}
                 <th>№</th>
                 <th>Тип</th>
                 <th>Вид</th>
@@ -43,6 +46,11 @@
             {% for user in pagination %}
                 <tr>
                     <td><input type="checkbox" name="user[{{ user.id }}]" value="{{ user.id }}"></td>
+                    {% if is_granted('ROLE_ADMIN') %}
+                        <td>
+                            <input type="text" style="width: 50px" value="{{ user.managerKey }}" class="managers" id="{{ user.id }}">
+                        </td>
+                    {% endif %}
                     <td>{{ user.id }}</td>
                     <td>
                         {% if user.ru == false and user.estr == false %}
@@ -128,7 +136,7 @@
             });
 
             $('#filter-send').click(function () {
-                var url = Routing.generate('panel_user_list', { 'status' : {{ app.request.attributes.get('_route_params').status }}, 'company': '{{ companyId }}', 'operator': '{{ operatorId }}' ,'type': $('#filter-type').val(), 'dateStart' : $('#filter-dateStart').val(), 'dateEnd' : $('#filter-dateEnd').val(),'search' : $('#filter-search').val() });
+                var url = Routing.generate('panel_user_list', { 'status' : {{ app.request.attributes.get('_route_params').status }}, 'company': '{{ companyId }}', 'operator': '{{ operatorId }}' ,'type': $('#filter-type').val(), 'dateStart' : $('#filter-dateStart').val(), 'dateEnd' : $('#filter-dateEnd').val(),'search' : $('#filter-search').val(), 'filterManager' : $('#filter-manager').val() });
                 window.location.href = url;
             });
 

@@ -31,7 +31,27 @@
                         });
                     {% endif %}
 
+                    $('.managers').keypress(function(e){
+                        var input = $(this);
+                        $(input).css('color','rgb(0, 0, 0)');
+                        if(e.which == 13) {
+                            $.ajax({
+                                type: "POST",
+                                url: Routing.generate('panel_edit_manager'),
+                                data: 'id='+$(input).attr('id')+'&key='+$(input).val(),
+                                success: function (msg) {
+                                    if (msg == 'ok'){
+                                        $(input).css('color','rgb(46, 124, 55)');
+                                    }else{
+                                        alert('Ошибка сохраненния');
+                                        $(input).css('color','rgb(124, 46, 55)');
+                                    }
+                                }
+                            });
+                        }
+                    });
 
+                    $(".choosenselect").chosen({no_results_text: "По вашему запросу не найдено", width: 300});
                 });
             </script>
         {% endblock %}

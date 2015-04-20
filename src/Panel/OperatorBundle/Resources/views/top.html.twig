@@ -100,7 +100,20 @@
                 </a>
             </td>
         </tr>
+        {% if is_granted('ROLE_ADMIN') %}
+        <tr>
+            <td colspan="3">
+                <select id="filter-manager" class="choosenselect">
+                    <option value="null">Фильтр по менеджеру</option>
+                    {% for manager in managers %}
+                        <option value="{{ manager.managerKey }}" {{ app.request.query.all.filterManager is defined and app.request.query.all.filterManager == manager.managerKey ? 'selected="selected"' : ''}}>{{ manager.managerKey }}</option>
+                    {% endfor %}
+                </select>
+            </td>
+        </tr>
+        {% endif %}
     </table>
+
 </div>
 
 <div class="well">
