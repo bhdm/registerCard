@@ -96,3 +96,6 @@ progress {
 .managers {
   text-align: center;
 }
+.document {
+  max-width: 300px;
+}
