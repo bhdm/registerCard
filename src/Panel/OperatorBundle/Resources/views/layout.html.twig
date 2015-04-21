@@ -111,6 +111,7 @@
                         {% block menu %}
                             {% include 'PanelOperatorBundle::menu.html.twig' %}
                             {% include 'PanelOperatorBundle::quotas.html.twig' %}
+                            {{ render(path('calc')) }}
                         {% endblock %}
                     </div>
                     <div class="col-md-9">

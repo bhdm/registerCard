@@ -1,0 +1,120 @@
+{% if user.priceSkzi == 0 %}
+    {% set priceSkzi = 500 %}
+{% else %}
+    {% set priceSkzi  = ( user.quota / user.priceSkzi ) |number_format(0, '.', ',') %}
+{% endif %}
+
+{% if user.priceEstr == 0 %}
+    {% set priceEstr = 500 %}
+{% else %}
+    {% set priceEstr  = ( user.quota / user.priceEstr )|number_format(0, '.', ',') %}
+{% endif %}
+
+{% if user.priceRu == 0 %}
+    {% set priceRu = 500 %}
+{% else %}
+    {% set priceRu  = (user.quota / user.priceRu)|number_format(0, '.', ',') %}
+{% endif %}
+
+<div class="modal fade" id="calc" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Калькулятор</h4>
+            </div>
+            <div class="modal-body">
+                {#<div>Осталось <span id="sum">1500</span></div>#}
+                <div class="form-group row">
+                    <div class="col-sm-2"><label>СКЗИ</label></div>
+                    <div class="col-sm-2" id="calc1">0</div>
+                    <div class="col-sm-8"><input id="range1" type="range" min="0" max="{{  priceSkzi }}" data-price="{{ user.priceSkzi }}" value="1" class="form-control"/></div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-sm-2"><label>ЕСТР</label></div>
+                    <div class="col-sm-2" id="calc2">0</div>
+                    <div class="col-sm-8"><input id="range2" type="range" min="0" max="{{  priceEstr }}" data-price="{{ user.priceEstr }}" value="1" class="form-control"/></div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-sm-2"><label>РФ</label></div>
+                    <div class="col-sm-2" id="calc3">0</div>
+                    <div class="col-sm-8"><input id="range3" type="range" min="0" max="{{ priceRu }}" data-price="{{ user.priceRu }}" value="1" class="form-control"/></div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Закрыть</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function(){
+        var elements = document.querySelectorAll('input[type=range]');
+        var length = elements.length;
+        var sliders = Array.prototype.slice.call(elements); // Copy of `elements` but as a real array
+        var max = {{ user.quota }};
+
+        function change(current) {
+            "use strict";
+            set(current);
+
+            var input = +current.value;
+            var quota = (current.value*$(input).attr('data-price'));
+            var delta = max - quota;
+            var sum = 0;
+            var siblings = [];
+
+            // Sum of all siblings
+            sliders.forEach(function (slider) {
+                if (current != slider) {
+                    siblings.push(slider); // Register as sibling
+                    sum += +slider.value*$(slider).attr('data-price');
+                }
+            });
+
+            // Update all the siblings
+            var partial = 0;
+            siblings.forEach(function (slider, i) {
+                var val = + slider.value;
+                var fraction = 0;
+
+                // Calculate fraction
+                if (sum <= 0) {
+                    fraction = 1 / (length - 1)
+                } else {
+                    fraction = val / sum;
+                }
+
+                // The last element will correct rounding errors
+                if (i >= length - 1) {
+                    val = max - partial;
+                } else {
+                    val = Math.round(delta * fraction);
+                    partial += val;
+                }
+
+                set(slider, val);
+            });
+            $('#calc1').html($('#range1').val());
+            $('#calc2').html($('#range2').val());
+            $('#calc3').html($('#range3').val());
+        }
+
+// Set value on a slider
+        function set(elm, val) {
+            if (val) {
+                elm.value = val;
+            }
+            // Hack to trigger CSS ::after content to be updated
+            elm.setAttribute('value', elm.value);
+        }
+
+// Add event listeners to the DOM elements
+        for (var i = 0, l = elements.length; i < l; i++)  {
+            elements[i].addEventListener('change', function (e) {
+                change(this);
+            }, false);
+        }
+    });
+</script>

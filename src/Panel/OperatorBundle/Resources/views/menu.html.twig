@@ -100,6 +100,14 @@
                 &nbsp;&nbsp;Обратная связь
             </a>
         </li>
+        {% if is_granted('ROLE_ADMIN') %}
+        <li>
+            <a data-toggle="modal" data-target="#calc" href="#">
+                <i class="glyphicon glyphicon glyphicon-th"></i>
+                &nbsp;&nbsp;Калькулятор
+            </a>
+        </li>
+        {% endif %}
 
         <li class="{{ app.request.attributes.get('_route') == 'panel_security_logout' ? 'active' : '' }}">
             <a href="{{ path('panel_security_logout') }}" class="text-danger">

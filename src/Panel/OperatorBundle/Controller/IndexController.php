@@ -66,4 +66,12 @@ class IndexController extends Controller
         return array('files' => $file);
 
     }
+
+    /**
+     * @Route("/calc", name="calc")
+     * @Template("PanelOperatorBundle:Default:calc.html.twig")
+     */
+    public function calcAction(){
+        return array('user'=> $this->getUser());
+    }
 }
