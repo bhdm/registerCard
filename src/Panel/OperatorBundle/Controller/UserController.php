@@ -182,6 +182,17 @@ class UserController extends Controller
         $session->set('petitionFile', null);
         $session->set('workFile', null);
 
+        $session->set('origin-passportFile', null);
+        $session->set('origin-passport2File', null);
+        $session->set('origin-driverFile', null);
+        $session->set('origin-driver2File', null);
+        $session->set('origin-snilsFile', null);
+        $session->set('origin-signFile', null);
+        $session->set('origin-photoFile', null);
+        $session->set('origin-petitionFile', null);
+        $session->set('origin-workFile', null);
+
+        $session->save();
 
         $user = $this->getDoctrine()->getRepository('CrmMainBundle:User')->findOneById($userId);
 

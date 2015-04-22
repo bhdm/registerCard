@@ -75,7 +75,6 @@ function getImage(data, container){
 $(document).ready(function(){
 
     $( ".slider-vertical-contrast" ).slider({
-        orientation: "vertical",
         range: "min",
         min: 0,
         max: 255,
@@ -105,7 +104,6 @@ $(document).ready(function(){
 
 
     $( ".slider-vertical-brightness" ).slider({
-        orientation: "vertical",
         range: "min",
         min: 0,
         max: 255,
@@ -118,7 +116,6 @@ $(document).ready(function(){
             var type = $('.fileBox').attr('data-type');
 
             var brightness = ui.value;
-
             var contrast = container.children('.fileDoc').children('img').attr('contrast');
             //var contrastNow = container.children('.fileDoc').children('img').attr('contrast');
 
@@ -259,16 +256,16 @@ $(document).ready(function(){
             url: Routing.generate('cancel_image', {'type': type }),
             type: 'POST',
             success: function(msg){
-                console.log('#'+type+'Img');
-                console.log(msg);
-
-                $('#'+type+'Img').attr('src',+msg);
+                $('#'+type+'Img').attr('src',msg.img);
                 $('.fileBox').fadeOut();
+                return false;
             },
             error:function (error) {
-                alert('Ошибка сохранения')
+                alert('Ошибка сохранения');
+                return false;
             }
         });
+        return false;
 
     });
 

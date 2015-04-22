@@ -545,11 +545,11 @@
                                 <button type="submit" class="btn btn-default btn-primary"   title="Сохранить">
                                     Сохранить
                                 </button>
-                                <a href="{{ referer }}">
+                                {#<a href="{{ referer }}">#}
                                     <button type="button" class="btn btn-default btn-danger"   title="Отмена">
                                     Отмена
                                     </button>
-                                </a>
+                                {#</a>#}
                             </div>
                         </div>
                     </td>
@@ -569,20 +569,14 @@
             <div class="navigateFile">
                 <table style="width: 100%">
                     <tr>
-                        <td>
+                        <td style="width: 220px">
                             <div class="slider-box">
-                                <div id="slider-vertical-1" class="slider-vertical-contrast"></div>
-                                <button type="button" class="btn btn-default btn-success"   title="Контрастность">
-                                    Контраст
-                                </button>
+                                Контрастность
+                                <div id="slider-vertical-1" class="slider-vertical-contrast" title="Контрастность"></div>
                             </div>
-                        </td>
-                        <td>
                             <div class="slider-box">
+                                Яркость
                                 <div id="slider-vertical-2" class="slider-vertical-brightness"></div>
-                                <button type="button" class="btn btn-default btn-success"   title="Яркость">
-                                    Яркость
-                                </button>
                             </div>
                         </td>
                         <td>
@@ -607,7 +601,7 @@
                         </td>
                         <td>
                             <button type="button" class="btn btn-default btn-danger cancelImage "   title="Отмена">
-                                Отмена
+                                Закрыть
                             </button>
                         </td>
                     </tr>

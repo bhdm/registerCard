@@ -43,11 +43,7 @@ progress {
 }
 .slider-vertical-brightness,
 .slider-vertical-contrast {
-  display: none !important;
-  position: absolute !important;
-  height: 100px !important;
-  top: 30px !important;
-  left: 10px !important;
+  width: 200px !important;
   z-index: 9999;
 }
 .slider-box {

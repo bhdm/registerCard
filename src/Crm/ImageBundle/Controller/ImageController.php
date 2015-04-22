@@ -284,10 +284,10 @@ class ImageController extends Controller
         if ($path2){
             $image = imagecreatefromjpeg($path2);
             imagejpeg($image, $path);
-            $data = $this->imageToArray($path);
-            $response = new JsonResponse($data);
-            return $response;
         }
+        $data = $this->imageToArray($path);
+        $response = new JsonResponse($data);
+        return $response;
     }
 
     public function imageToArray($path){
