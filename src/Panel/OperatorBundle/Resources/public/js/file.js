@@ -78,7 +78,7 @@ $(document).ready(function(){
         range: "min",
         min: 0,
         max: 255,
-        value: 128
+        value: 0
     });
 
     $( ".slider-vertical-contrast" ).on( "slidestop", function( event, ui ) {
@@ -107,7 +107,7 @@ $(document).ready(function(){
         range: "min",
         min: 0,
         max: 255,
-        value: 128
+        value: 0
     });
 
     $( ".slider-vertical-brightness" ).on( "slidestop", function( event, ui ) {
