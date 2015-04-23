@@ -219,6 +219,10 @@ class CompanyController extends Controller
         }
 
         $quotes = $company->getQuotaLog();
+        $summa = 0;
+        foreach ($quotes as $val){
+            $summa += $val->getQuota();
+        }
         $paginator  = $this->get('knp_paginator');
         $pagination = $paginator->paginate(
             $quotes,
@@ -226,7 +230,7 @@ class CompanyController extends Controller
             50
         );
 
-        return array('company'=> $company, 'quotes' => $pagination);
+        return array('company'=> $company, 'quotes' => $pagination,'summa' => $summa);
     }
 
     /**
