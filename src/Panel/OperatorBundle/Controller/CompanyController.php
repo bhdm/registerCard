@@ -236,7 +236,9 @@ class CompanyController extends Controller
      */
     public function getQuotaAction($companyId){
         $company = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->findOneById($companyId);
+        $users = $this->getDoctrine()->getRepository('CrmMainBundle:User')->findAllPrice($companyId,'all');
+        $users2 = $this->getDoctrine()->getRepository('CrmMainBundle:User')->findAllPrice($companyId,'new');
 
-        return array('company' => $company);
+        return array('company' => $company, 'allUsers' => $users, 'newUsers' => $users2 );
     }
 }

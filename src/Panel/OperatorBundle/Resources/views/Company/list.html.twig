@@ -32,7 +32,7 @@
             </tr>
             </thead>
             {% for company in companies2 %}
-                <tr>
+                <tr style="{{ company.quota < 0 ? 'background: #FFCACA' : 0 }}" >
                     <td>
                         {% if company.confirmed == true %}
                             <img src="{{ asset('bundles/crmmain/images/like.png') }}" style="width: 24px;">
