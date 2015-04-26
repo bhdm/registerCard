@@ -32,12 +32,12 @@ class CompanyPetitionController extends Controller
     }
 
     /**
-     * @Route("/list/add", name="panel_petition_add")
+     * @Route("/add", name="panel_petition_add")
      * @Template()
      */
     public function addAction(Request $request){
-        $petition = new CompanyPetition();
         $em = $this->getDoctrine()->getManager();
+        $petition = new CompanyPetition();
         $petitionForm = $this->createForm(new CompanyPetitionType($em), $petition);
         $petitionForm->handleRequest($request);
         if ($request->isMethod('POST')) {
@@ -53,12 +53,12 @@ class CompanyPetitionController extends Controller
     }
 
     /**
-     * @Route("/list/edit/{id}", name="panel_petition_edit")
+     * @Route("/edit/{id}", name="panel_petition_edit")
      * @Template()
      */
     public function editAction(Request $request, $id){
         $em = $this->getDoctrine()->getManager();
-        $petition = $em->getRepository('CrmMainBundle:CompanyPetition')->findOneBy($id);
+        $petition = $em->getRepository('CrmMainBundle:CompanyPetition')->findOneById($id);
         if (($petition->getOperator() == $this->getUser() || $this->get('security.context')->isGranted('ROLE_ADMIN')) && $petition->getEnabled() == true ){
             $petitionForm = $this->createForm(new CompanyPetitionType($em), $petition);
             $petitionForm->handleRequest($request);
@@ -77,12 +77,12 @@ class CompanyPetitionController extends Controller
     }
 
     /**
-     * @Route("/list/remove/{id}", name="panel_petition_remove")
+     * @Route("/remove/{id}", name="panel_petition_remove")
      * @Template()
      */
     public function removeAction(Request $request, $id){
         $em = $this->getDoctrine()->getManager();
-        $petition = $em->getRepository('CrmMainBundle:CompanyPetition')->findOneBy($id);
+        $petition = $em->getRepository('CrmMainBundle:CompanyPetition')->findOneById($id);
         if ($petition && $petition->getEnabled() == true){
             if ($petition->getOperator() == $this->getUser() || $this->get('security.context')->isGranted('ROLE_ADMIN') ){
                 $petition->setEnabled(false);

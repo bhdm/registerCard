@@ -1,0 +1,78 @@
+{% extends 'PanelOperatorBundle::layout.html.twig' %}
+
+
+{% block breadcrumb %}
+    <ul class="breadcrumb well">
+        <li>Изменить ходатайство</li>
+    </ul>
+{% endblock %}
+
+{% block content %}
+    <div class="well">
+        {% form_theme formPetition 'PanelOperatorBundle::bootstrap_3_layout.html.twig' %}
+        <form method="POST" enctype="multipart/form-data">
+            {{ form_widget(formPetition) }}
+        </form>
+    </div>
+{% endblock %}
+
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset('bundles/crmmain/kladrapi/jquery.kladr.min.js') }}" type="text/javascript"></script>
+    <script>
+        $(document).ready(function(){
+            $( '#crm_mainbundle_companypetition_region' ).kladr({
+                token: '541ee4ac7c52392c7d8b457e',
+                key: '181d5e2c44994c335e5e81e9ae46e79a67b6b495',
+                type: $.kladr.type.region
+            });
+
+            $( '#crm_mainbundle_companypetition_area' ).kladr({
+                token: '541ee4ac7c52392c7d8b457e',
+                key: '181d5e2c44994c335e5e81e9ae46e79a67b6b495',
+                parentInput: '[name="crm_mainbundle_companypetition[region]"]',
+                type: $.kladr.type.area
+            });
+
+            $('#crm_mainbundle_companypetition_city' ).kladr({
+                token: '541ee4ac7c52392c7d8b457e',
+                key: '181d5e2c44994c335e5e81e9ae46e79a67b6b495',
+                parentInput: '[name="crm_mainbundle_companypetition[area]"]',
+                type: $.kladr.type.city
+            });
+
+            $('#crm_mainbundle_companypetition_street' ).kladr({
+                token: '541ee4ac7c52392c7d8b457e',
+                key: '181d5e2c44994c335e5e81e9ae46e79a67b6b495',
+                parentInput: '[name="crm_mainbundle_companypetition[city]"]',
+                type: $.kladr.type.street,
+                select: function(obj){
+                    $('#crm_mainbundle_companypetition_street').val(obj.typeShort+' '+obj.name);
+//                    $('#crm_mainbundle_companypetition_typeStreet').val(obj.typeShort);
+//                    $('#crm_mainbundle_companypetition_street').trigger('refresh');
+                }
+            });
+            $('#crm_mainbundle_companypetition_home' ).kladr({
+                token: '541ee4ac7c52392c7d8b457e',
+                key: '181d5e2c44994c335e5e81e9ae46e79a67b6b495',
+                parentInput: '[name="crm_mainbundle_companypetition[street]"]',
+                type: $.kladr.type.building,
+                select: function(obj){
+                    $('#crm_mainbundle_companypetition_zipcode').val(obj.zip);
+                    var home = obj.name.split('к');
+                    $('#crm_mainbundle_companypetition_home').val(home[0]);
+                    if (home[1] != undefined){
+                        $('#crm_mainbundle_companypetition_corp').val(home[1]);
+                    }
+
+                }
+            });
+        })
+    </script>
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link href="{{ asset('bundles/crmmain/kladrapi/jquery.kladr.css') }}" rel="stylesheet" media="all">
+{% endblock %}

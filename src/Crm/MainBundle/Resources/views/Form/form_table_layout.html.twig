@@ -44,7 +44,7 @@
                     <div class="form_error">{{ form_errors(form) }}</div>
                 </td>
             </tr>
-            {% if comment is not null %}
+            {% if comment is defined and comment is not null %}
                 <tr>
                     <td class="row_comment" colspan="2">
                         {{ comment }}

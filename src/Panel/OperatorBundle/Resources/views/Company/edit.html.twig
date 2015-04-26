@@ -33,6 +33,13 @@
                     <input name="companyName" id="companyName" type="text" class="form-control"  value="{{ company.title }}" placeholder="Название">
                 </td>
             </tr>
+            <tr>
+                <td class="label">Ходатайство:</td>
+                <td class="value">
+                    <select></select>
+                </td>
+            </tr>
+
             {% if is_granted('ROLE_ADMIN') %}
             <tr>
                 <td class="label">Доверенная компания:</td>
@@ -107,34 +114,6 @@
                 </td>
             </tr>
 
-            <tr>
-                <td class="label">Форма собственности:</td>
-                <td class="value"><input style="width: 358px;" value="{{ company.forma }}" type="text" class="form-control"  name="forma" placeholder="Например: Общество с ограниченной ответственностью"></td>
-            </tr>
-            <tr>
-                <td class="label">ИНН:</td>
-                <td class="value"><input style="width: 358px;" type="text" class="form-control"  value="{{ company.inn }}" name="inn" placeholder="Индивидуальный номер налогоплатильщика"></td>
-            </tr>
-            <tr>
-                <td class="label">ОГРН:</td>
-                <td class="value"><input style="width: 358px;" type="text" class="form-control"  name="ogrn" value="{{ company.ogrn }}" ></td>
-            </tr>
-            <tr>
-                <td class="label">Р. счет:</td>
-                <td class="value"><input style="width: 358px;" type="text" class="form-control"  name="rchet" value="{{ company.rchet }}" placeholder="расчетный счет"></td>
-            </tr>
-            <tr>
-                <td class="label">Банк:</td>
-                <td class="value"><input style="width: 358px;" type="text" class="form-control"  name="bank" value="{{ company.bank }}"placeholder="Полное название банка"></td>
-            </tr>
-            <tr>
-                <td class="label">Кор. счет:</td>
-                <td class="value"><input style="width: 358px;" type="text" class="form-control"  name="korchet" value="{{ company.korchet }}"></td>
-            </tr>
-            <tr>
-                <td class="label">БИК:</td>
-                <td class="value"><input style="width: 358px;" type="text" class="form-control"  name="bik" value="{{ company.bik }}"></td>
-            </tr>
             <tr>
                 <td class="label">Стоимости карт</td>
             </tr>

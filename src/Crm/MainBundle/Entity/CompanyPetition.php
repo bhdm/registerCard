@@ -41,12 +41,13 @@ class CompanyPetition extends BaseEntity{
     protected $file;
 
     /**
-     * @ORM\Column(type="string", nullable=true)
+     * @ORM\Column(type="string")
      */
     protected $title;
 
     /**
-     * @ORM\Column(type="array", nullable=true)
+     * @Assert\File( maxSize="20M")
+     * @FileStore\UploadableField(mapping="companyLogo")
      */
     protected $logo;
 
@@ -174,7 +175,7 @@ class CompanyPetition extends BaseEntity{
 
     public function __construct(){
         $this->users = new ArrayCollection();
-        $this->$companies = new ArrayCollection();
+        $this->companies = new ArrayCollection();
     }
 
     /**

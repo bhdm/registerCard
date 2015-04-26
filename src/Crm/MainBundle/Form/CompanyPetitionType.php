@@ -16,19 +16,18 @@ class CompanyPetitionType extends AbstractType
     {
         $builder
             ->add('title', null, array('label' => 'Название компании'))
-            ->add('zipcode', null, array('label' => 'Индекс'))
+//            ->add('logo', 'file', array('label' => 'Логотип'))
             ->add('region', null, array('label' => 'Регион'))
             ->add('area', null, array('label' => 'Область'))
             ->add('city', null, array('label' => 'Город'))
-            ->add('typeStreet', null, array('label' => 'Тип ул.'))
             ->add('street', null, array('label' => 'Улица'))
             ->add('home', null, array('label' => 'Дом'))
             ->add('corp', null, array('label' => 'Корпус'))
             ->add('structure', null, array('label' => 'Строение'))
-            ->add('typeRoom', null, array('label' => 'квартира / офис'))
             ->add('room', null, array('label' => 'Номер кв.'))
-            ->add('logo', 'file', array('label' => 'Логотип'))
-            ->add('forma', null, array('label' => 'Строение'))
+            ->add('zipcode', null, array('label' => 'Индекс'))
+
+            ->add('forma', null, array('label' => 'Форма'))
             ->add('inn', null, array('label' => 'ИНН'))
             ->add('kpp', null, array('label' => 'КПП'))
             ->add('ogrn', null, array('label' => 'ОГРН'))
