@@ -36,7 +36,14 @@
             <tr>
                 <td class="label">Ходатайство:</td>
                 <td class="value">
-                    <select></select>
+                    <select name="petition">
+                        <option value="null">Не использовать</option>
+                        {% for p in petitions %}
+                            <option value="{{ p.id }}" {{ company.petition != null and p.id == company.petition.id ? 'selected="selected"' : '' }}>{{ p.title }}</option>
+                        {% else %}
+                            <option value="" selected="selected" disabled>Вам необходимо создать ходатайство</option>
+                        {% endfor %}
+                    </select>
                 </td>
             </tr>
 

@@ -43,7 +43,7 @@ class CompanyController extends Controller
     public function addAction(Request $request){
         $em = $this->getDoctrine()->getManager();
         $company = new Company();
-
+        $petitions = $this->getDoctrine()->getRepository('CrmMainBundle:CompanyPetition')->findBy(array('operator'=> $this->getUser(), 'enabled' => true));
         if ($request->getMethod() == 'POST'){
             $data = $request->request;
 
@@ -57,6 +57,12 @@ class CompanyController extends Controller
             }
 
             $company->setTitle($data->get('companyName'));
+            if ($request->request->get('petition') && $request->request->get('petition')!= '' && $request->request->get('petition') != 'null'){
+                $petition = $this->getDoctrine()->getRepository('CrmMainBundle:CompanyPetition')->findOneById($request->request->get('petition'));
+                $company->setPetition($petition);
+            }else{
+                $company->setPetition(null);
+            }
             $company->setZipcode($data->get('companyZipcode'));
             $region = $this->getDoctrine()->getRepository('CrmMainBundle:Region')->findOneById($data->get('companyRegion'));
             $company->setRegion($region);
@@ -103,7 +109,7 @@ class CompanyController extends Controller
 
         $country = $this->getDoctrine()->getRepository('CrmMainBundle:Country')->findOneById(3159);
         $regions = $this->getDoctrine()->getRepository('CrmMainBundle:Region')->findByCountry($country);
-        return array('company'=> $company, 'regions' => $regions);
+        return array('company'=> $company, 'regions' => $regions,'petitions' => $petitions);
     }
 
     /**
@@ -114,7 +120,7 @@ class CompanyController extends Controller
     public function editAction(Request $request, $id){
         $em = $this->getDoctrine()->getManager();
         $company = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->findOneById($id);
-
+        $petitions = $this->getDoctrine()->getRepository('CrmMainBundle:CompanyPetition')->findBy(array('operator'=> $this->getUser(), 'enabled' => true));
         if ($request->getMethod() == 'POST') {
             $data = $request->request;
 
@@ -126,6 +132,17 @@ class CompanyController extends Controller
 
 
                     $company->setTitle($data->get('companyName'));
+
+                    if ($request->request->get('petition') && $request->request->get('petition')!= '' && $request->request->get('petition') != 'null'){
+                        $petition = $this->getDoctrine()->getRepository('CrmMainBundle:CompanyPetition')->findOneById($request->request->get('petition'));
+                        $company->setPetition($petition);
+                    }else{
+                        $company->setPetition(null);
+                    }
+
+                    $company->setTitle($data->get('companyName'));
+
+
                     $company->setZipcode($data->get('companyZipcode'));
                     $region = $this->getDoctrine()->getRepository('CrmMainBundle:Region')->findOneById($data->get('companyRegion'));
                     $company->setRegion($region);
@@ -175,7 +192,7 @@ class CompanyController extends Controller
         }
         $country = $this->getDoctrine()->getRepository('CrmMainBundle:Country')->findOneById(3159);
         $regions = $this->getDoctrine()->getRepository('CrmMainBundle:Region')->findByCountry($country);
-        return array('company'=> $company, 'regions' => $regions,'companyUrl' => $companyUrl);
+        return array('company'=> $company, 'regions' => $regions,'companyUrl' => $companyUrl,'petitions' => $petitions);
     }
 
     /**

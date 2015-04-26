@@ -15,7 +15,9 @@ class CompanyType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
+//            ->add('logo', 'file', array('label' => ''))
             ->add('title', null, array('label' => 'Название компании'))
+            ->add('url', null, array('label' => 'URL'))
             ->add('zipcode', null, array('label' => 'Индекс'))
             ->add('region', null, array('label' => 'Регион'))
             ->add('area', null, array('label' => 'Область'))
@@ -28,20 +30,10 @@ class CompanyType extends AbstractType
             ->add('typeRoom', null, array('label' => 'квартира / офис'))
             ->add('room', null, array('label' => 'Номер кв.'))
             ->add('url', null, array('label' => 'URL'))
-            ->add('logo', 'file', array('label' => ''))
-//            ->add('forma', null, array('label' => 'Форма'))
-//            ->add('inn', null, array('label' => ''))
-//            ->add('kpp', null, array('label' => ''))
-//            ->add('ogrn', null, array('label' => ''))
-//            ->add('rchet', null, array('label' => ''))
-//            ->add('bank', null, array('label' => ''))
-//            ->add('korchet', null, array('label' => ''))
-//            ->add('bik', null, array('label' => ''))
-//            ->add('enabled', null, array('label' => ''))
             ->add('delivery', null, array('label' => ''))
-//            ->add('skzi', null, array('label' => ''))
-//            ->add('ru', null, array('label' => ''))
-//            ->add('estr', null, array('label' => ''))
+            ->add('skzi', null, array('label' => ''))
+            ->add('ru', null, array('label' => ''))
+            ->add('estr', null, array('label' => ''))
             ->add('submit', 'submit', array('label' => 'Сохранить'))
         ;
     }

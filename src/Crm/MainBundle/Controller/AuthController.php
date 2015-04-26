@@ -166,9 +166,9 @@ class AuthController extends Controller
 
     /**
      * @Route("/auth/register-form-company", name="get_register_form_company" , options={"expose"=true})
-     * @Template("CrmMainBundle:Form:register_company_form.html.twig")
      */
     public function companyFormAction(){
+        #* @Template("CrmMainBundle:Form:register_company_form.html.twig")
         $em   = $this->getDoctrine()->getManager();
         $company = new Company();
         $formCompany    = $this->createForm(new CompanyType($em), $company);
