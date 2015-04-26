@@ -61,11 +61,13 @@ class Company extends BaseEntity
      * @ORM\Column(type="string", nullable=true)
      */
     protected $area;
+
+
+
     /**
-     * @ORM\ManyToOne(targetEntity="Region", inversedBy="companies")
+     * @ORM\Column(type="string", length=128)
      */
     protected $region;
-
 
     /**
      * @Assert\Length( max = "64", maxMessage = "Максимум  64 символа")
@@ -149,9 +151,9 @@ class Company extends BaseEntity
     protected $operator;
 
     /**
-     * @ORM\OneToMany(targetEntity="CompanyPetition", mappedBy="company")
+     * @ORM\ManyToOne(targetEntity="CompanyPetition", inversedBy="companies")
      */
-    protected $petitions;
+    protected $petition;
 
     /**
      * Для Ходатайства
@@ -242,7 +244,6 @@ class Company extends BaseEntity
 
 
     public function __construct(){
-        $this->petitions = new ArrayCollection();
         $this->quotaLog = new ArrayCollection();
     }
 
@@ -555,30 +556,24 @@ class Company extends BaseEntity
         $this->operator = $operator;
     }
 
-
-    /**
-     * @param mixed $petitions
-     */
-    public function setPetitions($petitions)
-    {
-        $this->petitions = $petitions;
-    }
-
     /**
      * @return mixed
      */
-    public function getPetitions()
+    public function getPetition()
     {
-        return $this->petitions;
+        return $this->petition;
     }
 
-    public function addPetititon($petition){
-        $this->petitions[] = $petition;
+    /**
+     * @param mixed $petition
+     */
+    public function setPetition($petition)
+    {
+        $this->petition = $petition;
     }
 
-    public function removePetititon($petition){
-        $this->petitions->removeElement($petition);
-    }
+
+
 
 
     /**
