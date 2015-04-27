@@ -7,13 +7,14 @@
 {% block content %}
     {% include 'PanelOperatorBundle::top.html.twig' %}
     <div class="well">
-        <h4>ТАБЛИЦА ЗАЯВОК ( {{ count }} )</h4>
+        <h4>ТАБЛИЦА ЗАЯВОК ( {{ count }} )</h4><button id="xml">Массовый XML</button>
         {% for flashMessage in app.session.flashbag.get('error') %}
             <div class="alert alert-danger" role="alert">{{ flashMessage }}</div>
         {% endfor %}
         {% for flashMessage in app.session.flashbag.get('notice') %}
             <div class="alert alert-success" role="alert">{{ flashMessage }}</div>
         {% endfor %}
+
         <table class="table" data-toggle="table"
                data-sort-name="login"
                data-sort-order="asc">
@@ -44,115 +45,117 @@
                 <th class="setting">Инструменты</th>
             </tr>
             </thead>
-            {% for user in pagination %}
-                <tr class="{{ user.production == 0 ? 'tr-select' : '' }}" >
-                    <td><input type="checkbox" name="user[{{ user.id }}]" value="{{ user.id }}"></td>
-                    {% if is_granted('ROLE_ADMIN') %}
+            <form id="form-list" method="POST" action="#">
+                {% for user in pagination %}
+                    <tr class="{{ user.production == 0 ? 'tr-select' : '' }}" >
+                        <td><input type="checkbox" name="user[{{ user.id }}]" value="{{ user.id }}"></td>
+                        {% if is_granted('ROLE_ADMIN') %}
+                            <td>
+                                <input type="text" style="width: 50px" value="{{ user.managerKey }}" class="managers" id="{{ user.id }}">
+                            </td>
+                        {% endif %}
+                        <td>{{ user.id }}</td>
                         <td>
-                            <input type="text" style="width: 50px" value="{{ user.managerKey }}" class="managers" id="{{ user.id }}">
-                        </td>
-                    {% endif %}
-                    <td>{{ user.id }}</td>
-                    <td>
-                        {% if user.ru == false and user.estr == false %}
-                            СКЗИ
-                        {% elseif user.ru == false and user.estr == true %}
-                            ЕСТР
-                        {% elseif user.ru == true and user.estr == false %}
-                            РФ
-                        {% else %}
-                            ДРУГОЕ
-                        {% endif %}
-                    </td>
-                    <td>
-                        {% if user.enterprise == false and user.workshop == false %}
-                            КВ
-                        {% elseif user.enterprise == true and user.workshop == false %}
-                            КП
-                        {% elseif user.enterprise == false and user.workshop == true %}
-                            КМ
-                        {% else %}
-                            ДРУГОЕ
-                        {% endif %}
-                    </td>
-                    <td class="subtitles">{{ user.created | date('d.m.Y') }}</td>
-                    {% if not is_granted('ROLE_ADMIN') %}
-                    <td>
-                        {% if user.company.operator is defined %}
                             {% if user.ru == false and user.estr == false %}
-                                {{ user.company.operator.priceSkzi }}
+                                СКЗИ
                             {% elseif user.ru == false and user.estr == true %}
-                                {{ user.company.operator.priceEstr }}
+                                ЕСТР
                             {% elseif user.ru == true and user.estr == false %}
-                                {{ user.company.operator.priceRu }}
+                                РФ
                             {% else %}
-                                0
+                                ДРУГОЕ
                             {% endif %}
-                        {% else %}
-                            0
+                        </td>
+                        <td>
+                            {% if user.enterprise == false and user.workshop == false %}
+                                КВ
+                            {% elseif user.enterprise == true and user.workshop == false %}
+                                КП
+                            {% elseif user.enterprise == false and user.workshop == true %}
+                                КМ
+                            {% else %}
+                                ДРУГОЕ
+                            {% endif %}
+                        </td>
+                        <td class="subtitles">{{ user.created | date('d.m.Y') }}</td>
+                        {% if not is_granted('ROLE_ADMIN') %}
+                            <td>
+                                {% if user.company.operator is defined %}
+                                    {% if user.ru == false and user.estr == false %}
+                                        {{ user.company.operator.priceSkzi }}
+                                    {% elseif user.ru == false and user.estr == true %}
+                                        {{ user.company.operator.priceEstr }}
+                                    {% elseif user.ru == true and user.estr == false %}
+                                        {{ user.company.operator.priceRu }}
+                                    {% else %}
+                                        0
+                                    {% endif %}
+                                {% else %}
+                                    0
+                                {% endif %}
+                            </td>
                         {% endif %}
-                    </td>
-                    {% endif %}
-                    {% if company is not defined or company == null %}
-                        <td><a href="{{ path('panel_user_list',{'type' : 'null', 'company' : user.company.id }) }}">{{ user.company }}</a></td>
-                    {% endif %}
-                    <td>
-                        <a href="{{ path('panel_user_edit',{'userId' : user.id }) }}">{{ user }}</a>
-                        <br />
-                        <a href="?search={{ user.email }}"><span class="subtitles">{{ user.email }}</span></a>
-                    </td>
-                    {#<td><div class="comment-box disabled-click" data-id="{{ user.id }}">{{ user.comment }}</div></td>#}
-                    <td>
-                        {% spaceless %}
-                            {% if is_granted('ROLE_ADMIN') %}
-                                <a href="{{ path('xml_generator',{'userId' : user.id}) }}" target="_blank" class="no-underline">
-                                    <button type="button" class="btn btn-default btn-bg" title="XML">
+                        {% if company is not defined or company == null %}
+                            <td><a href="{{ path('panel_user_list',{'type' : 'null', 'company' : user.company.id }) }}">{{ user.company }}</a></td>
+                        {% endif %}
+                        <td>
+                            <a href="{{ path('panel_user_edit',{'userId' : user.id }) }}">{{ user }}</a>
+                            <br />
+                            <a href="?search={{ user.email }}"><span class="subtitles">{{ user.email }}</span></a>
+                        </td>
+                        {#<td><div class="comment-box disabled-click" data-id="{{ user.id }}">{{ user.comment }}</div></td>#}
+                        <td>
+                            {% spaceless %}
+                                {% if is_granted('ROLE_ADMIN') %}
+                                    <a href="{{ path('xml_generator',{'userId' : user.id}) }}" target="_blank" class="no-underline">
+                                        <button type="button" class="btn btn-default btn-bg" title="XML">
+                                            <span class="glyphicon glyphicon-file"></span>
+                                        </button>
+                                    </a>&nbsp;&nbsp;
+                                    <a href="{{ path('generate_payment_pdf') }}?ord={{ user.id }}" target="_blank" class="no-underline">
+                                        <button type="button" class="btn btn-default btn-bg" title="Платежное поручение">
+                                            <span class="glyphicon glyphicon-file"></span>
+                                        </button>
+                                    </a>&nbsp;&nbsp;
+                                {% endif %}
+                                <a href="{{ path('generate_pdf_statement',{'id' : user.id}) }}" target="_blank" class="no-underline">
+                                    <button type="button" class="btn btn-default btn-bg" title="Заявление">
                                         <span class="glyphicon glyphicon-file"></span>
                                     </button>
                                 </a>&nbsp;&nbsp;
-                                <a href="{{ path('generate_payment_pdf') }}?ord={{ user.id }}" target="_blank" class="no-underline">
-                                    <button type="button" class="btn btn-default btn-bg" title="Платежное поручение">
-                                        <span class="glyphicon glyphicon-file"></span>
+                                {% if user.myPetition == 1 or user.copyPetition is not empty %}
+                                    <a href="{{ path('generate_petition',{'userId' : user.id}) }}" target="_blank" class="no-underline">
+                                        <button type="button" class="btn btn-default btn-bg" title="Ходатайство">
+                                            <span class="glyphicon glyphicon-file"></span>
+                                        </button>
+                                    </a>&nbsp;&nbsp;
+                                {% elseif user.companyPetition is not null %}
+                                    <a href="{{ path('operator_generate_petition', { 'petitionId' : user.companyPetition.id }) }}" target="_blank">
+                                        <button type="button" class="btn btn-default btn-bg" title="Ходатайство">
+                                            <span class="glyphicon glyphicon-file"></span>
+                                        </button>
+                                    </a>&nbsp;&nbsp;
+                                {% endif %}
+                            {% endspaceless %}
+                        </td>
+                        <td class="setting">
+                            {% spaceless %}
+                                <a href="{{ path('panel_user_set_stend',{'userId' : user.id }) }}" title="В изготовлено">
+                                    <button type="button" class="btn btn-default btn-success">
+                                        <span class="glyphicon glyphicon-ok"></span>
                                     </button>
-                                </a>&nbsp;&nbsp;
-                            {% endif %}
-                            <a href="{{ path('generate_pdf_statement',{'id' : user.id}) }}" target="_blank" class="no-underline">
-                                <button type="button" class="btn btn-default btn-bg" title="Заявление">
-                                    <span class="glyphicon glyphicon-file"></span>
-                                </button>
-                            </a>&nbsp;&nbsp;
-                            {% if user.myPetition == 1 or user.copyPetition is not empty %}
-                                <a href="{{ path('generate_petition',{'userId' : user.id}) }}" target="_blank" class="no-underline">
-                                    <button type="button" class="btn btn-default btn-bg" title="Ходатайство">
-                                        <span class="glyphicon glyphicon-file"></span>
+                                </a>
+                                &nbsp;&nbsp;
+                                <a href="{{ path('panel_user_set_production',{'userId' : user.id, 'type': 'false' }) }}" class="remove" title="В производство">
+                                    <button type="button" class="btn btn-default btn-danger">
+                                        <span class="glyphicon glyphicon-ban-circle"></span>
                                     </button>
-                                </a>&nbsp;&nbsp;
-                            {% elseif user.companyPetition is not null %}
-                                <a href="{{ path('operator_generate_petition', { 'petitionId' : user.companyPetition.id }) }}" target="_blank">
-                                    <button type="button" class="btn btn-default btn-bg" title="Ходатайство">
-                                        <span class="glyphicon glyphicon-file"></span>
-                                    </button>
-                                </a>&nbsp;&nbsp;
-                            {% endif %}
-                        {% endspaceless %}
-                    </td>
-                    <td class="setting">
-                        {% spaceless %}
-                            <a href="{{ path('panel_user_set_stend',{'userId' : user.id }) }}" title="В изготовлено">
-                                <button type="button" class="btn btn-default btn-success">
-                                    <span class="glyphicon glyphicon-ok"></span>
-                                </button>
-                            </a>
-                            &nbsp;&nbsp;
-                            <a href="{{ path('panel_user_set_production',{'userId' : user.id, 'type': 'false' }) }}" class="remove" title="В производство">
-                                <button type="button" class="btn btn-default btn-danger">
-                                    <span class="glyphicon glyphicon-ban-circle"></span>
-                                </button>
-                            </a>
-                        {% endspaceless %}
-                    </td>
-                </tr>
-            {% endfor%}
+                                </a>
+                            {% endspaceless %}
+                        </td>
+                    </tr>
+                {% endfor%}
+            </form>
         </table>
         <div class="navigation">
             {{ knp_pagination_render(pagination) }}
@@ -271,6 +274,12 @@
                 });
                 div.addClass('disabled-click');
                 return false;
+            });
+
+            $('#xml').click(function(){
+                var url = Routing.generate('panel_xml_generator_many');
+                $('#form-list').attr('action', url);
+                $('#form-list').submit();
             });
         });
     </script>
