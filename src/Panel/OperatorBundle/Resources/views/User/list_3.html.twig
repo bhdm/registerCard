@@ -48,7 +48,7 @@
             <form id="form-list" method="POST" action="#">
                 {% for user in pagination %}
                     <tr class="{{ user.production == 0 ? 'tr-select' : '' }}" >
-                        <td><input type="checkbox" name="user[{{ user.id }}]" value="{{ user.id }}"></td>
+                        <td><input type="checkbox" class="checkxml" name="user[{{ user.id }}]" value="{{ user.id }}"></td>
                         {% if is_granted('ROLE_ADMIN') %}
                             <td>
                                 <input type="text" style="width: 50px" value="{{ user.managerKey }}" class="managers" id="{{ user.id }}">
@@ -179,6 +179,7 @@
 
 {% block javascripts %}
     {{ parent() }}
+    <script src="{{ asset('bundles/paneloperator/js/notify.min.js') }}"></script>
     <script>
         $(document).ready(function(){
 
@@ -274,6 +275,11 @@
                 });
                 div.addClass('disabled-click');
                 return false;
+            });
+
+            $('.checkxml').click(function(){
+                var count = $('.checkxml:checked').length;
+                $.notify("Выбрано "+count, "info");
             });
 
             $('#xml').click(function(){
