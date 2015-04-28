@@ -18,7 +18,7 @@
                data-sort-name="login"
                data-sort-order="asc">
             <thead>
-            <tr>
+            <tr style="{{ user.comment != null and user.comment != '' ? 'background: #FFCFCF;' : '' }}">
                 <th><input type="checkbox" id="allcheck"></th>
                 {% if is_granted('ROLE_ADMIN') %}
                     <th>M</th>
