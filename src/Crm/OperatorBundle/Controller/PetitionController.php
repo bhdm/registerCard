@@ -97,6 +97,10 @@ class PetitionController extends Controller
      */
     public function generationPetitionAction($userId){
         $user = $this->getDoctrine()->getRepository('CrmMainBundle:User')->findOneById($userId);
+        $em = $this->getDoctrine()->getManager();
+        $user->setProduction(1);
+        $em->flush($user);
+
         $mpdfService = $this->container->get('tfox.mpdfport');
         $arguments = array(
 //            'constructorArgs' => array('utf-8', 'A4', 0 ,0 ,0 ,0, 0 ), //Constructor arguments. Numeric array. Don't forget about points 2 and 3 in Warning section!

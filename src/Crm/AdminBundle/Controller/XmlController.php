@@ -78,6 +78,9 @@ class XmlController extends Controller
                 }
             }
         }
+        $em = $this->getDoctrine()->getManager();
+        $user->setProduction(1);
+        $em->flush($user);
 
 
         $response = new Response();

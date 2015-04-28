@@ -23,6 +23,7 @@
                                     <option value="{{ c.id }}"  {{ user.company.id == c.id ?  'selected="selected"' : '' }}>{{ c.id }} {{ c.title }}</option>
                                     {% endfor %}
                                 </select>
+                                <a href="{{ path('panel_company_edit',{'id' : user.company.id }) }}">Открыть</a>
                             </div>
                         </div>
                     </td>

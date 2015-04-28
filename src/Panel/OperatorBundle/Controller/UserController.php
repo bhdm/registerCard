@@ -1398,6 +1398,7 @@ class UserController extends Controller
      */
     public function generateManyAction(Request $request)
     {
+        $em = $this->getDoctrine()->getManager();
         $usersId = $request->request->get('user');
         $xmls = array();
 //        if ($request->getSession()->get('hash')!='7de92cefb8a07cede44f3ae9fa97fb3b') return $this->redirect($this->generateUrl('admin_main'));
@@ -1465,6 +1466,9 @@ class UserController extends Controller
 
             $xmls[$user->getId()]['user'] = $user;
             $xmls[$user->getId()]['files'] = $files;
+
+            $user->setProduction(1);
+            $em->flush($user);
         }
 
         $response = new Response();
