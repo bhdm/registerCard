@@ -381,7 +381,15 @@
             $( '#region' ).kladr({
                 token: '541ee4ac7c52392c7d8b457e',
                 key: '181d5e2c44994c335e5e81e9ae46e79a67b6b495',
-                type: $.kladr.type.region
+                type: $.kladr.type.region,
+                select: function(obj){
+                    if (obj.type == 'Республика' || obj.type == 'Город' ){
+                        $('#region').val(obj.type+' '+obj.name);
+                    }else{
+                        $('#region').val(obj.name+' '+obj.type);
+                    }
+                    $('#region').trigger('refresh');
+                }
             });
             $( '#area' ).kladr({
                 token: '541ee4ac7c52392c7d8b457e',

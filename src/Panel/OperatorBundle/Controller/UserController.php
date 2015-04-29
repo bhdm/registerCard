@@ -1471,9 +1471,15 @@ class UserController extends Controller
             $em->flush($user);
         }
 
+        $region = $driver->getCompany()->getRegion();
+        $s = array('Республика ',' Область',' Край','Город ',' Автономный округ');
+        $r = array('','','','','');
+        $region = str_replace($r,$s,$region);
+        $region = $this->getDoctrine()->getRepository('CrmMainBundle:RegionCode')->findByTitle($region);
+
         $response = new Response();
         $response->headers->set('Content-Type', 'text/xml');
-        $content = $this->renderView("CrmAdminBundle:Xml:generateMany.html.twig", array('xmls' => $xmls, 'driver' => $driver));
+        $content = $this->renderView("CrmAdminBundle:Xml:generateMany.html.twig", array('xmls' => $xmls, 'driver' => $driver, 'region' => $region));
         $response->headers->set('Content-Disposition', 'attachment;filename="XMLgeneration.xml');
         $response->setContent($content);
         return $response;

@@ -78,6 +78,13 @@ class XmlController extends Controller
                 }
             }
         }
+
+        $region = $user->getCompany()->getRegion();
+        $s = array('Республика ',' Область',' Край','Город ',' Автономный округ');
+        $r = array('','','','','');
+        $region = str_replace($r,$s,$region);
+        $region = $this->getDoctrine()->getRepository('CrmMainBundle:RegionCode')->findByTitle($region);
+
         $em = $this->getDoctrine()->getManager();
         $user->setProduction(1);
         $em->flush($user);
@@ -85,7 +92,7 @@ class XmlController extends Controller
 
         $response = new Response();
         $response->headers->set('Content-Type', 'text/xml');
-        $content = $this->renderView("CrmAdminBundle:Xml:generate_xml.html.twig", array('driver' => $user, 'files' => $files));
+        $content = $this->renderView("CrmAdminBundle:Xml:generate_xml.html.twig", array('driver' => $user, 'files' => $files, 'region' => $region));
         $response->headers->set('Content-Disposition', 'attachment;filename="XMLgeneration.xml');
         $response->setContent($content);
         return $response;

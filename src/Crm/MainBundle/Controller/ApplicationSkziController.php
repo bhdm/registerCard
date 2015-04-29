@@ -304,7 +304,7 @@ class ApplicationSkziController extends Controller
         if ($order['myPetition'] == false){
             $company = new Company();
             $company->setTitle($order['p_title']);
-//            $company->setRegion($order['p_region']);
+            $company->setRegion($order['p_region']);
             $company->setCity($order['p_city']);
             $company->setTypeStreet($order['p_typeStreet']);
             $company->setStreet($order['p_street']);
