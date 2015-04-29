@@ -80,9 +80,11 @@ class XmlController extends Controller
         }
 
         $region = $user->getCompany()->getRegion();
-        $s = array('Республика ',' Область',' Край','Город ',' Автономный округ');
-        $r = array('','','','','');
-        $region = str_replace($r,$s,$region);
+        if (!is_numeric($region)){
+            $s = array('Республика ',' Область',' Край','Город ',' Автономный округ');
+            $r = array('','','','','');
+            $region = str_replace($r,$s,$region);
+        }
         $region = $this->getDoctrine()->getRepository('CrmMainBundle:RegionCode')->findByTitle($region);
 
         $em = $this->getDoctrine()->getManager();
