@@ -190,7 +190,7 @@ class UserRepository extends EntityRepository
             ->leftJoin('u.company ','co')
             ->leftJoin('co.operator ','op');
 
-        $res->where('u.enabled = true AND co.enabled = true');
+        $res->where('u.enabled = true');
 //        $res->andWhere('op.id = '.$userId);
         if ($comment == 1){
             $res->andWhere(" ( u.comment is not null AND u.comment != '' ) ");
@@ -243,7 +243,8 @@ class UserRepository extends EntityRepository
 
         if ($searchtxt != null){
             $res->andWhere("
-                u.username LIKE '%".$searchtxt."%'".
+                u.id = ".$searchtxt.
+                " OR u.username LIKE '%".$searchtxt."%'".
                 " OR u.email LIKE '%".$searchtxt."%'".
                 " OR u.firstName LIKE '%".$searchtxt."%'".
                 " OR u.lastName LIKE '%".$searchtxt."%'".
