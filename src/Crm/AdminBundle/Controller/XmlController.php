@@ -68,7 +68,7 @@ class XmlController extends Controller
         }else{
             if ($user->getCompanyPetition() == null ){
                 $file= $user->getCopyPetition();
-                $files[8]['base'] = $this->ImageToPdf($file['originalName']);
+                $files[8]['base'] = $this->ImageToPdf((isset($file['originalName']) ? $file['originalName'] : null ));
                 $files[8]['title'] = 'Petition';
             }else{
                 if ($user->getCompanyPetition()->getFile() != null ){
