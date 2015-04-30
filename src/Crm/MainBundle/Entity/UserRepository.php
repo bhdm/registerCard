@@ -243,7 +243,7 @@ class UserRepository extends EntityRepository
 
         if ($searchtxt != null){
             $res->andWhere("
-                u.id = ".$searchtxt.
+                u.id = '".$searchtxt."'".
                 " OR u.username LIKE '%".$searchtxt."%'".
                 " OR u.email LIKE '%".$searchtxt."%'".
                 " OR u.firstName LIKE '%".$searchtxt."%'".
