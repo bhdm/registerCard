@@ -112,6 +112,11 @@ class Operator extends BaseEntity implements UserInterface
      */
     protected $received;
 
+    /**
+     * Если показатель true то можно уйти в минус
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    protected $confirmed = false;
 
     public function __construct(){
         $this->roles    = 'ROLE_OPERATOR';
@@ -724,5 +729,23 @@ class Operator extends BaseEntity implements UserInterface
     public function removeReceived($received){
         $this->received->removeElement($received);
     }
+
+    /**
+     * @return mixed
+     */
+    public function getConfirmed()
+    {
+        return $this->confirmed;
+    }
+
+    /**
+     * @param mixed $confirmed
+     */
+    public function setConfirmed($confirmed = false)
+    {
+        $this->confirmed = $confirmed;
+    }
+
+
 
 }

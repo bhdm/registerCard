@@ -43,6 +43,12 @@
             </tr>
             {% endif %}
             <tr>
+                <td class="label">Доверенный оператор:</td>
+                <td class="value" style="  padding-top: 5px;">
+                    <input name="confirmed" id="confirmed" type="checkbox" {{ operator.confirmed == true ? 'checked="checked"' }} />
+                </td>
+            </tr>
+            <tr>
                 <td colspan="2"><div class="title"><b>Стоимости карт</b></div></td>
             </tr>
             <tr>

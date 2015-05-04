@@ -60,6 +60,12 @@ class OperatorController extends Controller
             $operator->setPriceEstr($request->request->get('priceEstr'));
             $operator->setPriceRu($request->request->get('priceRu'));
 
+            if ($request->request->get('confirmed') != null){
+                $operator->setConfirmed(true);
+            }else{
+                $operator->setConfirmed(false);
+            }
+
             if ( $this->get('security.context')->isGranted('ROLE_ADMIN')){
                 if ($request->request->get('moderator') != null){
                     $moderator = $this->getDoctrine()->getRepository('CrmMainBundle:Operator')->find($request->request->get('moderator'));
@@ -108,6 +114,12 @@ class OperatorController extends Controller
             $operator->setPriceSkzi($request->request->get('priceSkzi'));
             $operator->setPriceEstr($request->request->get('priceEstr'));
             $operator->setPriceRu($request->request->get('priceRu'));
+
+            if ($request->request->get('confirmed') != null){
+                $operator->setConfirmed(true);
+            }else{
+                $operator->setConfirmed(false);
+            }
 
             if ( $this->get('security.context')->isGranted('ROLE_MODERATOR')){
                 $moderator = $this->getDoctrine()->getRepository('CrmMainBundle:Operator')->findOneById($this->getUser()->getId());
