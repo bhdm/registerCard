@@ -146,11 +146,11 @@
                                     </button>
                                 </a>
                                 &nbsp;&nbsp;
-                                <a href="{{ path('panel_user_set_production',{'userId' : user.id, 'type': 'false' }) }}" class="remove" title="В производство">
-                                    <button type="button" class="btn btn-default btn-danger">
+
+                                    <button type="button" class="btn btn-default btn-danger remove" title="В оплаченные" data-href="{{ path('panel_user_set_production',{'userId' : user.id, 'type': 'false' }) }}">
                                         <span class="glyphicon glyphicon-ban-circle"></span>
                                     </button>
-                                </a>
+
                             {% endspaceless %}
                         </td>
                     </tr>
@@ -195,31 +195,26 @@
             });
 
             $('.remove').click(function () {
-                BootstrapDialog.DEFAULT_TEXTS[BootstrapDialog.TYPE_DEFAULT] = 'Information';
-                BootstrapDialog.DEFAULT_TEXTS[BootstrapDialog.TYPE_INFO] = 'Information';
-                BootstrapDialog.DEFAULT_TEXTS[BootstrapDialog.TYPE_PRIMARY] = 'Information';
-                BootstrapDialog.DEFAULT_TEXTS[BootstrapDialog.TYPE_SUCCESS] = 'Success';
-                BootstrapDialog.DEFAULT_TEXTS[BootstrapDialog.TYPE_WARNING] = 'Warning';
-                BootstrapDialog.DEFAULT_TEXTS[BootstrapDialog.TYPE_DANGER] = 'Danger';
-                BootstrapDialog.DEFAULT_TEXTS['OK'] = 'Да';
-                BootstrapDialog.DEFAULT_TEXTS['CANCEL'] = 'Отмена';
-                BootstrapDialog.DEFAULT_TEXTS['CONFIRM'] = 'Согласен';
-
-                var url = $(this).attr('href');
-                BootstrapDialog.confirm({
-                            title: 'БЕЗВОЗРАТНОЕ УДАЛЕНИЕ?',
-                            message: 'Вы точно хотите удалить выбраную заявку?',
-                            type: BootstrapDialog.TYPE_DANGER
-
-                        },
-                        function (result) {
-                            if (result) {
-                                window.location.href = url;
-                            } else {
-                                return false;
-                            }
-                        });
-                return false;
+                var url = $(this).attr('data-href');
+                BootstrapDialog.show({
+                    title: 'УДАЛЕНИЕ',
+                    size: BootstrapDialog.SIZE_SMALL,
+                    type: BootstrapDialog.TYPE_DANGER,
+                    message: 'Вы точно хотите перенести в оплаченные',
+                    buttons: [{
+                        label: 'Удалить',
+                        cssClass: 'btn-danger',
+                        autospin: true,
+                        action: function (dialogRef) {
+                            window.locationnger.href = url;
+                        }
+                    }, {
+                        label: 'Отмена',
+                        action: function (dialogRef) {
+                            dialogRef.close();
+                        }
+                    }]
+                });
             });
 
             $('#allcheck').click(function () {
