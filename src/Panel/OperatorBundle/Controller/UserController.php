@@ -857,11 +857,11 @@ class UserController extends Controller
 
 
     /**
-     * @Route("/print_many", name="print_many", options={"expose"=true})
+     * @Route("/panel_user_print_many", name="panel_user_print_many", options={"expose"=true})
      */
     public function printAction(Request $request)
     {
-        $data = $request->request->get('check');
+        $data = $request->request->get('user');
         $users = array();
         foreach ($data as $key => $val) {
             $user = $this->getDoctrine()->getRepository('CrmMainBundle:User')->find($key);
@@ -1523,5 +1523,7 @@ class UserController extends Controller
         $base64 = base64_encode($pdfdata);
         return $base64;
     }
+
+
 }
 

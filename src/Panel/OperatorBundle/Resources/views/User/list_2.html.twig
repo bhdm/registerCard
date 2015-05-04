@@ -44,6 +44,7 @@
                 <th class="setting">Инструменты</th>
             </tr>
             </thead>
+            <form id="form-list" method="POST">
             {% for user in pagination %}
                 <tr>
                     <td><input type="checkbox" name="user[{{ user.id }}]" value="{{ user.id }}"></td>
@@ -119,6 +120,7 @@
                     </td>
                 </tr>
             {% endfor%}
+            </form>
         </table>
         <div class="navigation">
             {{ knp_pagination_render(pagination) }}

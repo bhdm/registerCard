@@ -156,3 +156,27 @@
         </li>
     </ul>
 </div>
+
+{% if is_granted('ROLE_ADMIN') %}
+    <div class="well well-small">
+        <button id="xml" class="btn btn-primary">Массовый XML</button>
+        <button id="print" class="btn btn-primary">Выгрузка в Excel</button>
+    </div>
+{% endif %}
+
+<script>
+    $(document).ready(function(){
+        $('#xml').click(function(){
+            var url = Routing.generate('panel_xml_generator_many');
+            $('#form-list').attr('action', url);
+            $('#form-list').submit();
+        });
+        $('#print').click(function(){
+            var url = Routing.generate('panel_user_print_many');
+            $('#form-list').attr('action', url);
+            $('#form-list').attr('target', '_blank');
+            $('#form-list').submit();
+        });
+
+    });
+</script>

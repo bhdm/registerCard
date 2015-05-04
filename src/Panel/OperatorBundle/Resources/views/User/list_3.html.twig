@@ -281,12 +281,6 @@
                 var count = $('.checkxml:checked').length;
                 $.notify("Выбрано "+count, "info");
             });
-
-            $('#xml').click(function(){
-                var url = Routing.generate('panel_xml_generator_many');
-                $('#form-list').attr('action', url);
-                $('#form-list').submit();
-            });
         });
     </script>
 {% endblock %}
