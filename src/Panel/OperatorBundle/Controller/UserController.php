@@ -1524,6 +1524,97 @@ class UserController extends Controller
         return $base64;
     }
 
+    /**
+     * @Route("/panel_user_delivery_many", name="panel_user_delivery_many", options={"expose"=true})
+     */
+    public function deliveryAction(Request $request)
+    {
+        $data = $request->request->get('user');
+        $users = array();
+        foreach ($data as $key => $val) {
+            $user = $this->getDoctrine()->getRepository('CrmMainBundle:User')->find($key);
+            if ($user != null) {
+                $users[] = $user;
+            }
+        }
+
+        $phpExcelObject = $this->get('phpexcel')->createPHPExcelObject();
+        $phpExcelObject->getProperties()->setCreator("liuggio")
+            ->setLastModifiedBy("Giulio De Donato")
+            ->setTitle("Office 2005 XLSX Test Document")
+            ->setSubject("Office 2005 XLSX Test Document")
+            ->setDescription("Test document for Office 2005 XLSX, generated using PHP classes.")
+            ->setKeywords("office 2005 openxml php")
+            ->setCategory("Test result file");
+        $i = 1;
+
+        foreach ($users as $user) {
+            $i++;
+            $type = ($user->getRu() == true ? 'РФ' : ($user->getEstr() == true ? 'ЕСТР' : 'СКЗИ'));
+            $phpExcelObject->setActiveSheetIndex(0)->setCellValue('A' . $i, $type);
+            $phpExcelObject->setActiveSheetIndex(0)->setCellValue('B' . $i, $user->getId());
+            $phpExcelObject->setActiveSheetIndex(0)->setCellValue('C' . $i, $user->getEmail());
+            $fio = $user->getLastName() . ' '
+                . mb_substr($user->getFirstName(), 0, 1, 'utf-8') . '.'
+                . ($user->getSurName() ? ' ' . mb_substr($user->getSurName(), 0, 1, 'utf-8') . '.' : '');
+
+            $phpExcelObject->setActiveSheetIndex(0)->setCellValue('D' . $i, $fio);
+            if ($user->getCompany()) {
+                $phpExcelObject->setActiveSheetIndex(0)->setCellValue('E' . $i, $user->getCompany()->getTitle());
+            }
+
+            $adrs = '';
+            if ($user->getDileveryZipcode() != null ){
+                $adrs .= $user->getDileveryZipcode();
+            }
+            if ($user->getDileveryRegion() != null){
+                $adrs .= ', '.$user->getDileveryRegion();
+            }
+            if ($user->getDileveryArea() != null){
+                $adrs .= ', '.$user->getDileveryArea();
+            }
+            if ($user->getDileveryCity() != null){
+                $adrs .= ', '.$user->getDileveryCity();
+            }
+            if ($user->getDileveryStreet() != null){
+                $adrs .= ', '.$user->getDileveryStreet();
+            }
+            if ($user->getDileveryHome() != null){
+                $adrs .= ', д.'.$user->getDileveryHome();
+            }
+            if ($user->getDileveryCorp() != null){
+                $adrs .= ', к.'.$user->getDileveryCorp();
+            }
+            if ($user->getDileveryStructure() != null){
+                $adrs .= ', стр.'.$user->getDileveryStructure();
+            }
+            if ($user->getDileveryRoom() != null){
+                $adrs .= ', кв'.$user->getDileveryRoom();
+            }
+
+
+
+            # Адрес
+            $phpExcelObject->setActiveSheetIndex(0)->setCellValue('F' . $i, $adrs);
+
+        }
+
+        $phpExcelObject->getActiveSheet()->setTitle('Simple');
+        // Set active sheet index to the first sheet, so Excel opens this as the first sheet
+        $phpExcelObject->setActiveSheetIndex(0);
+
+        // create the writer
+        $writer = $this->get('phpexcel')->createWriter($phpExcelObject, 'Excel5');
+        // create the response
+        $response = $this->get('phpexcel')->createStreamedResponse($writer);
+        // adding headers
+        $response->headers->set('Content-Type', 'text/vnd.ms-excel; charset=utf-8');
+        $response->headers->set('Content-Disposition', 'attachment;filename=delivery.xls');
+        $response->headers->set('Pragma', 'public');
+        $response->headers->set('Cache-Control', 'maxage=1');
+
+        return $response;
+    }
 
 }
 

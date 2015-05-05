@@ -161,6 +161,7 @@
     <div class="well well-small">
         <button id="xml" class="btn btn-primary">Массовый XML</button>
         <button id="print" class="btn btn-primary">Выгрузка в Excel</button>
+        <button id="delivery" class="btn btn-primary">доставка</button>
     </div>
 {% endif %}
 
@@ -173,6 +174,12 @@
         });
         $('#print').click(function(){
             var url = Routing.generate('panel_user_print_many');
+            $('#form-list').attr('action', url);
+            $('#form-list').attr('target', '_blank');
+            $('#form-list').submit();
+        });
+        $('#delivery').click(function(){
+            var url = Routing.generate('panel_user_delivery_many');
             $('#form-list').attr('action', url);
             $('#form-list').attr('target', '_blank');
             $('#form-list').submit();
