@@ -1554,14 +1554,13 @@ class UserController extends Controller
             $phpExcelObject->setActiveSheetIndex(0)->setCellValue('A' . $i, $type);
             $phpExcelObject->setActiveSheetIndex(0)->setCellValue('B' . $i, $user->getId());
             $phpExcelObject->setActiveSheetIndex(0)->setCellValue('C' . $i, $user->getEmail());
-            $fio = $user->getLastName() . ' '
-                . mb_substr($user->getFirstName(), 0, 1, 'utf-8') . '.'
-                . ($user->getSurName() ? ' ' . mb_substr($user->getSurName(), 0, 1, 'utf-8') . '.' : '');
+            $fio = $user->getLastName() . ' ' . $user->getFirstName() . ' ' . $user->getSurName();
 
-            $phpExcelObject->setActiveSheetIndex(0)->setCellValue('D' . $i, $fio);
             if ($user->getCompany()) {
-                $phpExcelObject->setActiveSheetIndex(0)->setCellValue('E' . $i, $user->getCompany()->getTitle());
+                $phpExcelObject->setActiveSheetIndex(0)->setCellValue('D' . $i, $user->getCompany()->getTitle());
             }
+            $phpExcelObject->setActiveSheetIndex(0)->setCellValue('E' . $i, $fio);
+
 
             $adrs = '';
             if ($user->getDileveryZipcode() != null ){
