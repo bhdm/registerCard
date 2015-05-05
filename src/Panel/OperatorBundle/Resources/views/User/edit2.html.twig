@@ -125,6 +125,8 @@
                                 <input type="file" name="passportFile" id="passportFile"  data-type="passportFile" class="fileAjax">
                                 {% if user.copyPassport.path is defined %}
                                     <img src="/{{ user.copyPassport.path }}" brightness="0" contrast="0" data-type="passportFile" class="document" id="passportFileImg">
+                                    <br>
+                                    <a href="{{ path('panel_download_png',{'filename' : user.copyPassport.fileName }) }}">Скачать</a>
                                 {% endif %}
                             </div>
                             {% if user.ru == 1 or user.estr == 1 %}
@@ -133,6 +135,8 @@
                                     <input type="file" name="passport2File" id="passport2File" data-type="passport2File" class="fileAjax">
                                     {% if user.copyPassport2.path is defined %}
                                         <img src="/{{ user.copyPassport2.path }}" brightness="0" contrast="0" data-type="passport2File" class="document" id="passport2FileImg">
+                                        <br>
+                                        <a href="{{ path('panel_download_png',{'filename' : user.copyPassport2.fileName }) }}">Скачать</a>
                                     {% endif %}
                                 </div>
                             {% endif %}
@@ -318,6 +322,8 @@
                                 <input type="file" name="driverFile" id="driverFile"  data-type="driverFile" class="fileAjax">
                                 {% if user.copyDriverPassport.path is defined %}
                                     <img src="/{{ user.copyDriverPassport.path }}" brightness="0" contrast="0" data-type="driverFile" class="document" id="driverFileImg">
+                                    <br>
+                                    <a href="{{ path('panel_download_png',{'filename' : user.copyDriverPassport.fileName }) }}">Скачать</a>
                                 {% endif %}
                             </div>
                             <div class="col-sm-1"></div>
@@ -326,6 +332,8 @@
                                     <input type="file" name="driver2File" id="driver2File"  data-type="driver2File" class="fileAjax">
                                     {% if user.copyDriverPassport2.path is defined %}
                                         <img src="/{{ user.copyDriverPassport2.path }}" brightness="0" contrast="0" data-type="driver2File" class="document" id="driver2FileImg">
+                                        <br>
+                                        <a href="{{ path('panel_download_png',{'filename' : user.copyDriverPassport2.fileName }) }}">Скачать</a>
                                     {% endif %}
                                 </div>
                             {% endif %}
@@ -377,6 +385,8 @@
                                 <input type="file" name="photoFile" id="photoFile"  data-type="photoFile" class="fileAjax">
                                 {% if user.photo.path is defined %}
                                     <img src="/{{ user.photo.path }}" brightness="0" contrast="0" data-type="photoFile" class="document" id="photoFileImg">
+                                    <br>
+                                    <a href="{{ path('panel_download_png',{'filename' : user.photo.fileName }) }}">Скачать</a>
                                 {% endif %}
                             </div>
                             <div class="col-sm-1"></div>
@@ -384,6 +394,8 @@
                                 <input type="file" name="signFile" id="signFile"  data-type="signFile" class="fileAjax">
                                 {% if user.copySignature.path is defined %}
                                     <img src="/{{ user.copySignature.path }}" brightness="0" contrast="0" data-type="signFile" class="document" id="signFileImg">
+                                    <br>
+                                    <a href="{{ path('panel_download_png',{'filename' : user.copySignature.fileName }) }}">Скачать</a>
                                 {% endif %}
                             </div>
                         </div>
@@ -401,6 +413,8 @@
                                 <input type="file" name="snilsFile" id="snilsFile"  data-type="snilsFile" class="fileAjax">
                                 {% if user.copySnils.path is defined %}
                                     <img src="/{{ user.copySnils.path }}" brightness="0" contrast="0" data-type="snilsFile" class="document" id="snilsFileImg">
+                                    <br>
+                                    <a href="{{ path('panel_download_png',{'filename' : user.copySnils.fileName }) }}">Скачать</a>
                                 {% else %}
                                     <img src="" brightness="0" contrast="0" data-type="snilsFile" class="document" id="snilsFileImg">
                                 {% endif %}
