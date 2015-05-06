@@ -25,7 +25,7 @@ class MoneyController extends Controller
     public function indexAction(Request $request)
     {
         $year = 2015;
-        $month = 4;
+        $month = 5;
 
         /** Новые заявки */
         $newsUsers = $this->getDoctrine()->getRepository('CrmMainBundle:User')->findNewUser($this->getUser());
