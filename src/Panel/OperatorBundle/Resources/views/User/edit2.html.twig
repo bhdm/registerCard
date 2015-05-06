@@ -12,7 +12,7 @@
         <form method="post">
             <input type="hidden" name="referer" value="{{ referer }}" >
             <table class="table">
-                {% if is_granted('ROLE_ADMIN') and user.company.title != '' %}
+                {% if is_granted('ROLE_ADMIN')  %}
                 <tr>
                     <td>
                         <div class="form-group">
@@ -760,6 +760,11 @@
                     }
 
                 }
+            });
+
+            $(":text").focus(function(){    // получение фокуса текстовым полем
+                input_temp=this.value;
+                $(this).select();
             });
         });
     </script>
