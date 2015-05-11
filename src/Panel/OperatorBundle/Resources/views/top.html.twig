@@ -52,18 +52,6 @@
         </tr>
         <tr>
             <td style="">
-                <button class="form-control btn btn-primary" id="filter-send">Поиск</button>
-            </td>
-            <td style="padding-top: 8px;">
-                <a href="?">
-                    <button type="button" class="btn btn-danger" title="Снять фильтр" style="margin-left: 10px; margin-bottom: 10px">
-                        <span class="glyphicon glyphicon-remove"></span>
-                    </button>
-                </a>
-            </td>
-        </tr>
-        <tr>
-            <td style="">
                 {% if app.request.attributes.get('_route_params').type is defined %}
                     {% set f_type = app.request.attributes.get('_route_params').type %}
                 {% else %}
@@ -114,6 +102,18 @@
             </td>
         </tr>
         {% endif %}
+        <tr>
+            <td style="">
+                <button class="form-control btn btn-primary" id="filter-send">Поиск</button>
+            </td>
+            <td style="padding-top: 8px;">
+                <a href="?">
+                    <button type="button" class="btn btn-danger" title="Снять фильтр" style="margin-left: 10px; margin-bottom: 10px">
+                        <span class="glyphicon glyphicon-remove"></span>
+                    </button>
+                </a>
+            </td>
+        </tr>
     </table>
 
 </div>
