@@ -53,8 +53,13 @@ class UserController extends Controller
         if ($type == null || $type == 'null') {
             $type = 3;
         }
+        if ($request->query->get('confirmed')){
+            $confirmed = 1;
+        }else{
+            $confirmed = 0;
+        }
 
-        $users = $this->getDoctrine()->getRepository('CrmMainBundle:User')->operatorFilter($type, $status, $company, $operator, $searchtxt, $dateStart, $dateEnd, 0, $filterManager);
+        $users = $this->getDoctrine()->getRepository('CrmMainBundle:User')->operatorFilter($type, $status, $company, $operator, $searchtxt, $dateStart, $dateEnd, 0, $filterManager, $confirmed);
 
         $paginator = $this->get('knp_paginator');
         $pagination = $paginator->paginate(
@@ -1094,7 +1099,8 @@ class UserController extends Controller
         $status = 0;
         $searchtxt = null;
 
-        $users = $this->getDoctrine()->getRepository('CrmMainBundle:User')->operatorFilter($type, $status, $company, $userId, $searchtxt, $dateStart, $dateEnd);
+
+        $users = $this->getDoctrine()->getRepository('CrmMainBundle:User')->operatorFilter($type, $status, $company, $userId, $searchtxt, $dateStart, $dateEnd, 0);
 
         return array('count' => count($users));
     }

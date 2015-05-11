@@ -174,7 +174,7 @@ class UserRepository extends EntityRepository
         return $result;
     }
 
-    public function operatorFilter($type, $status,  $companyId, $user, $searchtxt = null, $dateStart = null, $dateEnd = null, $comment = 0 , $filterManager = null){
+    public function operatorFilter($type, $status,  $companyId, $user, $searchtxt = null, $dateStart = null, $dateEnd = null, $comment = 0 , $filterManager = null, $confirmed = 0){
         if ($user){
             $userId = $user->getId();
         }else{
@@ -192,6 +192,12 @@ class UserRepository extends EntityRepository
 
         $res->where('u.enabled = true');
 //        $res->andWhere('op.id = '.$userId);
+
+
+        if ($confirmed == 1){
+            $res->andWhere(" co.confirmed = 1  ");
+        }
+
         if ($comment == 1){
             $res->andWhere(" ( u.comment is not null AND u.comment != '' ) ");
         }
