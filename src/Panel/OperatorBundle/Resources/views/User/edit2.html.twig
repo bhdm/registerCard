@@ -124,7 +124,7 @@
                             <div class="col-sm-4">
                                 <input type="file" name="passportFile" id="passportFile"  data-type="passportFile" class="fileAjax">
                                 {% if user.copyPassport.path is defined %}
-                                    <img src="/{{ user.copyPassport.path }}" brightness="0" contrast="0" data-type="passportFile" class="document" id="passportFileImg">
+                                    <img src="/{{ user.copyPassport.path }}" brightness="128" contrast="128" data-type="passportFile" class="document" id="passportFileImg">
                                     <br>
                                     <a href="{{ path('panel_download_png',{'filename' : user.copyPassport.fileName }) }}">Скачать</a>
                                 {% endif %}
@@ -134,7 +134,7 @@
                                 <div class="col-sm-4">
                                     <input type="file" name="passport2File" id="passport2File" data-type="passport2File" class="fileAjax">
                                     {% if user.copyPassport2.path is defined %}
-                                        <img src="/{{ user.copyPassport2.path }}" brightness="0" contrast="0" data-type="passport2File" class="document" id="passport2FileImg">
+                                        <img src="/{{ user.copyPassport2.path }}" brightness="128" contrast="128" data-type="passport2File" class="document" id="passport2FileImg">
                                         <br>
                                         <a href="{{ path('panel_download_png',{'filename' : user.copyPassport2.fileName }) }}">Скачать</a>
                                     {% endif %}
@@ -579,7 +579,7 @@
     <div class="fileBox" data-user="{{ user.id }}">
         <div class="file-container">
             <div class="fileDoc">
-                <img src="" brightness="0" contrast="0">
+                <img src="" brightness="128" contrast="128">
             </div>
             <div class="navigateFile">
                 <table style="width: 100%">
@@ -637,6 +637,15 @@
     <link href="{{ asset('bundles/crmmain/kladrapi/jquery.kladr.css') }}" rel="stylesheet" media="all">
     <link href="{{ asset('bundles/crmmain/tapmodo-Jcrop/css/jquery.Jcrop.min.css') }}" rel="stylesheet" media="all">
     <link href="{{ asset('bundles/crmmain/lib/jquery-ui/jquery-ui.min.css') }}" rel="stylesheet" media="all">
+    <style>
+        .imgareaselect-selection2{
+            background: url({{ asset('bundles/crmmain/images/nophoto.png') }}) no-repeat;
+            -moz-background-size: 100%; /* Firefox 3.6+ */
+            -webkit-background-size: 100%; /* Safari 3.1+ и Chrome 4.0+ */
+            -o-background-size: 100%; /* Opera 9.6+ */
+            background-size: 100%;
+        }
+    </style>
 {% endblock %}
 
 {% block javascripts %}

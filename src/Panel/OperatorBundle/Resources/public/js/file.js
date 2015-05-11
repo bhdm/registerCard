@@ -78,7 +78,7 @@ $(document).ready(function(){
         range: "min",
         min: 0,
         max: 255,
-        value: 0
+        value: 128
     });
 
     $( ".slider-vertical-contrast" ).on( "slidestop", function( event, ui ) {
@@ -107,7 +107,7 @@ $(document).ready(function(){
         range: "min",
         min: 0,
         max: 255,
-        value: 0
+        value: 128
     });
 
     $( ".slider-vertical-brightness" ).on( "slidestop", function( event, ui ) {
@@ -284,6 +284,8 @@ $(document).ready(function(){
 
         var maxHeight = 400;
         var maxWidth = 400;
+        var type = $(this).attr('data-type');
+        console.log(type);
         if (type == 'photoFile'){
             fileDoc.children('img').Jcrop({
                 boxHeight: maxHeight,
