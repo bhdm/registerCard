@@ -31,59 +31,87 @@
                 {% if file.PersonOrder.Photo.FileFormat != 'PDF' %}
                     <img src="data:image/png;base64,{{ file.PersonOrder.Photo.Body }}" title="{{ file.PersonOrder.Photo.AttachmentType }}"/>
                 {% else %}
-                    <a href="{{ file.PersonOrder.Photo.Body }}">PDF</a>
+                    <a class="pdf" href="{{ file.PersonOrder.Photo.Body }}">PDF</a>
                 {% endif %}
             {% endif %}
             {% if file.PersonOrder.Sign is defined  %}
                 {% if file.PersonOrder.Sign.FileFormat != 'PDF' %}
                     <img src="data:image/png;base64,{{ file.PersonOrder.Sign.Body }}" title="{{ file.PersonOrder.Sign.AttachmentType }}"/>
                 {% else %}
-                    <a href="{{ file.PersonOrder.Sign.Body }}">PDF</a>
+                    <a class="pdf" href="{{ file.PersonOrder.Sign.Body }}">PDF</a>
                 {% endif %}
             {% endif %}
-            {% if file.Attachment[0] is defined  %}
-                {% if file.Attachment[0].FileFormat != 'PDF' %}
-                    <img src="data:image/png;base64,{{ file.Attachment[0].Body }}" title="{{ file.Attachment[0].AttachmentType }}"/>
+            <br />
+            <br />
+            {% if file.Attachment.0 is defined  %}
+                {% if file.Attachment.0.FileFormat != 'PDF' %}
+                    <img src="data:image/png;base64,{{ file.Attachment.0.Body }}" title="{{ file.Attachment.0.AttachmentType }}"/>
                 {% else %}
-                    <a href="{{ file.Attachment[0].Body }}">PDF</a>
+                    <button class="pdf" data-text="{{ file.Attachment.0.Body }}">Файл 1</button>
                 {% endif %}
             {% endif %}
-            {% if file.Attachment[1] is defined  %}
-                {% if file.Attachment[1].FileFormat != 'PDF' %}
-                    <img src="data:image/png;base64,{{ file.Attachment[1].Body }}" title="{{ file.Attachment[1].AttachmentType }}"/>
+            {% if file.Attachment.1 is defined  %}
+                {% if file.Attachment.1.FileFormat != 'PDF' %}
+                    <img src="data:image/png;base64,{{ file.Attachment.1.Body }}" title="{{ file.Attachment.1.AttachmentType }}"/>
                 {% else %}
-                    <a href="{{ file.Attachment[1].Body }}">PDF</a>
+                    <button class="pdf" data-text="{{ file.Attachment.1.Body }}">Файл 2</button>
                 {% endif %}
             {% endif %}
-            {% if file.Attachment[2] is defined  %}
-                {% if file.Attachment[2].FileFormat != 'PDF' %}
-                    <img src="data:image/png;base64,{{ file.Attachment[2].Body }}" title="{{ file.Attachment[2].AttachmentType }}"/>
+            {% if file.Attachment.2 is defined  %}
+                {% if file.Attachment.2.FileFormat != 'PDF' %}
+                    <img src="data:image/png;base64,{{ file.Attachment.2.Body }}" title="{{ file.Attachment.2.AttachmentType }}"/>
                 {% else %}
-                    <a href="{{ file.Attachment[2].Body }}">PDF</a>
+                    <button class="pdf" data-text="{{ file.Attachment.2.Body }}">Файл 3</button>
                 {% endif %}
             {% endif %}
-            {% if file.Attachment[3] is defined  %}
-                {% if file.Attachment[3].FileFormat != 'PDF' %}
-                    <img src="data:image/png;base64,{{ file.Attachment[3].Body }}" title="{{ file.Attachment[3].AttachmentType }}"/>
+            {% if file.Attachment.3 is defined  %}
+                {% if file.Attachment.3.FileFormat != 'PDF' %}
+                    <img src="data:image/png;base64,{{ file.Attachment.3.Body }}" title="{{ file.Attachment.3.AttachmentType }}"/>
                 {% else %}
-                    <a href="{{ file.Attachment[3].Body }}">PDF</a>
+                    <button class="pdf" data-text="{{ file.Attachment.3.Body }}">Файл 4</button>
                 {% endif %}
             {% endif %}
-            {% if file.Attachment[4] is defined  %}
-                {% if file.Attachment[4].FileFormat != 'PDF' %}
-                    <img src="data:image/png;base64,{{ file.Attachment[4].Body }}" title="{{ file.Attachment[4].AttachmentType }}"/>
+            {% if file.Attachment.4 is defined  %}
+                {% if file.Attachment.4.FileFormat != 'PDF' %}
+                    <img src="data:image/png;base64,{{ file.Attachment.4.Body }}" title="{{ file.Attachment.4.AttachmentType }}"/>
                 {% else %}
-                    <a href="{{ file.Attachment[4].Body }}">PDF</a>
+                    <button class="pdf" data-text="{{ file.Attachment.4.Body }}">Файл 5</button>
                 {% endif %}
             {% endif %}
-            {% if file.Attachment[5] is defined  %}
-                {% if file.Attachment[5].FileFormat != 'PDF' %}
-                    <img src="data:image/png;base64,{{ file.Attachment[5].Body }}" title="{{ file.Attachment[5].AttachmentType }}"/>
+            {% if file.Attachment.5 is defined  %}
+                {% if file.Attachment.5.FileFormat != 'PDF' %}
+                    <img src="data:image/png;base64,{{ file.Attachment.5.Body }}" title="{{ file.Attachment.5.AttachmentType }}"/>
                 {% else %}
-                    <a href="{{ file.Attachment[5].Body }}">PDF</a>
+                    <button class="pdf" data-text="{{ file.Attachment.5.Body }}">Файл 6</button>
                 {% endif %}
             {% endif %}
         {% endif %}
     </div>
+    <div id="form">
+        <form method="POST" id="pdf-form" action="{{ path('panel_operator_xml_pdf') }}" target="_blank">
+            <input type="hidden" id="pdf-data" value="" name="pdf-data">
+        </form>
+    </div>
 {% endblock %}
 {# https://ru.wikipedia.org/wiki/Data:_URL #}
+{% block stylesheets %}
+    {{ parent() }}
+    <style>
+        .pdf{
+            margin: 10px;
+        }
+    </style>
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+        $(document).ready(function(){
+            $('.pdf').click(function(){
+                $('#pdf-data').val($(this).attr('data-text'));
+                $('#pdf-form').submit();
+                $('#pdf-data').val('');
+                return false;
+            });
+        });
+    </script>
+{% endblock %}
