@@ -1,0 +1,88 @@
+{% extends 'PanelOperatorBundle::layout.html.twig' %}
+
+
+{% block breadcrumb %}
+    <ul class="breadcrumb well">
+        <li>Проверка XML</li>
+    </ul>
+{% endblock %}
+
+{% block content %}
+    <form method="POST" enctype="multipart/form-data">
+        <div class="form-group" style="max-width: 600px">
+            <div class="form-group">
+                <div class="col-xs-3">Файл</div>
+                <div class="col-xs-5">
+                    <input type="file" name="file">
+                </div>
+                <div class="col-xs-4">
+                    <button type="submit" class="btn btn-primary">Проверить</button>
+                </div>
+            </div>
+        </div>
+    </form>
+    <br />
+    <br />
+    <div class="row">
+        {% if file != null %}
+            {% set file = file.Order_v2 %}
+
+            {% if file.PersonOrder.Photo is defined  %}
+                {% if file.PersonOrder.Photo.FileFormat != 'PDF' %}
+                    <img src="data:image/png;base64,{{ file.PersonOrder.Photo.Body }}" title="{{ file.PersonOrder.Photo.AttachmentType }}"/>
+                {% else %}
+                    <a href="{{ file.PersonOrder.Photo.Body }}">PDF</a>
+                {% endif %}
+            {% endif %}
+            {% if file.PersonOrder.Sign is defined  %}
+                {% if file.PersonOrder.Sign.FileFormat != 'PDF' %}
+                    <img src="data:image/png;base64,{{ file.PersonOrder.Sign.Body }}" title="{{ file.PersonOrder.Sign.AttachmentType }}"/>
+                {% else %}
+                    <a href="{{ file.PersonOrder.Sign.Body }}">PDF</a>
+                {% endif %}
+            {% endif %}
+            {% if file.Attachment[0] is defined  %}
+                {% if file.Attachment[0].FileFormat != 'PDF' %}
+                    <img src="data:image/png;base64,{{ file.Attachment[0].Body }}" title="{{ file.Attachment[0].AttachmentType }}"/>
+                {% else %}
+                    <a href="{{ file.Attachment[0].Body }}">PDF</a>
+                {% endif %}
+            {% endif %}
+            {% if file.Attachment[1] is defined  %}
+                {% if file.Attachment[1].FileFormat != 'PDF' %}
+                    <img src="data:image/png;base64,{{ file.Attachment[1].Body }}" title="{{ file.Attachment[1].AttachmentType }}"/>
+                {% else %}
+                    <a href="{{ file.Attachment[1].Body }}">PDF</a>
+                {% endif %}
+            {% endif %}
+            {% if file.Attachment[2] is defined  %}
+                {% if file.Attachment[2].FileFormat != 'PDF' %}
+                    <img src="data:image/png;base64,{{ file.Attachment[2].Body }}" title="{{ file.Attachment[2].AttachmentType }}"/>
+                {% else %}
+                    <a href="{{ file.Attachment[2].Body }}">PDF</a>
+                {% endif %}
+            {% endif %}
+            {% if file.Attachment[3] is defined  %}
+                {% if file.Attachment[3].FileFormat != 'PDF' %}
+                    <img src="data:image/png;base64,{{ file.Attachment[3].Body }}" title="{{ file.Attachment[3].AttachmentType }}"/>
+                {% else %}
+                    <a href="{{ file.Attachment[3].Body }}">PDF</a>
+                {% endif %}
+            {% endif %}
+            {% if file.Attachment[4] is defined  %}
+                {% if file.Attachment[4].FileFormat != 'PDF' %}
+                    <img src="data:image/png;base64,{{ file.Attachment[4].Body }}" title="{{ file.Attachment[4].AttachmentType }}"/>
+                {% else %}
+                    <a href="{{ file.Attachment[4].Body }}">PDF</a>
+                {% endif %}
+            {% endif %}
+            {% if file.Attachment[5] is defined  %}
+                {% if file.Attachment[5].FileFormat != 'PDF' %}
+                    <img src="data:image/png;base64,{{ file.Attachment[5].Body }}" title="{{ file.Attachment[5].AttachmentType }}"/>
+                {% else %}
+                    <a href="{{ file.Attachment[5].Body }}">PDF</a>
+                {% endif %}
+            {% endif %}
+        {% endif %}
+    </div>
+{% endblock %}
