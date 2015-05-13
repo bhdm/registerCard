@@ -1,5 +1,6 @@
 <ul class="breadcrumb well">
     {% if operator is defined and operator != null %}
+        <li><a href="{{ path('panel_company_list') }}">Компании</a></li>
         <li><a href="{{ path('panel_operator_quota',{'operatorId' : operator.id }) }}">{{ operator.username }}</a></li>
     {% endif %}
     {% if company is defined and company != null %}

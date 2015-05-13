@@ -52,6 +52,11 @@
                     });
 
                     $(".choosenselect").chosen({no_results_text: "По вашему запросу не найдено", width: 300});
+
+                    $('#a-search-btn').click(function(){
+                        var url = Routing.generate('panel_user_list', { 'status' : 'all', 'company': null, 'operator': null ,'type': null, 'search' : $('#a-search').val() });
+                        window.location.href = url;
+                    });
                 });
             </script>
         {% endblock %}
@@ -97,6 +102,13 @@
                             {#{% endif %}#}
                         </div>
                     </div>
+                    <div style="float: right;  padding-top: 10px;">
+                        <div class="row">
+                            <div class="col-sm-8"><input type="text" class="form-control" id="a-search"></div>
+                            <div class="col-sm-4"><button class="btn btn-primary" id="a-search-btn">Найти</button></div>
+                        </div>
+                    </div>
+
                 </div>
             </nav>
         </header>

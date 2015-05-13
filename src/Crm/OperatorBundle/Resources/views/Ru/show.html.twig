@@ -732,27 +732,6 @@
                 }
 
 
-                if ($('#deliveryZipcode').val() == ''){
-                    error +=  errorI+'.Поле  индекс обязательно для заполнения <br />';
-                    errorI++;
-                    $('#deliveryZipcode').css('borderColor','#CC3333');
-                }
-                if ( $('#deliveryRegion').val()=='' || $('#deliveryRegion').val()=='Регион' || $('#deliveryRegion').val() == null ){
-                    $('#deliveryRegion-styler').css('border', '1px solid #CC3333');
-                    errorI++;
-                    error +=  errorI+'.Поле регион обязательно для заполнения<br />';
-                }
-                if ($('#deliveryCity').val() == ''){
-                    error +=  errorI+'.Поле город обязательно для заполнения <br />';
-                    errorI++;
-                    $('#deliveryCity').css('borderColor','#CC3333');
-                }
-                if ($('#deliveryHouse').val() == ''){
-                    error +=  errorI+'.Поле дом обязательно для заполнения <br />';
-                    errorI++;
-                    $('#deliveryHouse').css('borderColor','#CC3333');
-                }
-
                 console.log(error);
                 if (error == false ){
                     $('#formSend').submit();

@@ -8,7 +8,7 @@
 {% block content %}
     {% include 'PanelOperatorBundle::top.html.twig' %}
     <div class="well">
-        <h4>ТАБЛИЦА ЗАЯВОК ( {{ count }} )</h4>
+        <h4>ТАБЛИЦА ЗАЯВОК ( {{ count }} ) (<a href="?confirmed=1">Довереные</a>)</h4>
         {% for flashMessage in app.session.flashbag.get('error') %}
             <div class="alert alert-danger" role="alert">{{ flashMessage }}</div>
         {% endfor %}
