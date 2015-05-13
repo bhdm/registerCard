@@ -187,8 +187,12 @@ class XmlController extends Controller
      */
     public function imageToPdfAction($filename){
         $mpdfService = $this->container->get('tfox.mpdfport');
+        if (is_file('/var/www/upload/tmp/'.$filename)){
+            $html = '<img src="/upload/tmp/'.$filename.'" style="max-height: 500px"/>';
+        }else{
+            $html = '<img src="/upload/docs/'.$filename.'" style="max-height: 500px"/>';
+        }
 
-        $html = '<img src="/upload/docs/'.$filename.'" style="max-height: 500px"/>';
         $width = rand(0,200);
         $html.= '<br /><br /><br />';
         $html.= '<img src="/bundles/crmmain/images/copy.png"  style="margin-left: '.$width.'px"/>';
