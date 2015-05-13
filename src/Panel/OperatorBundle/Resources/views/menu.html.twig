@@ -99,6 +99,13 @@
                     &nbsp;&nbsp;Статистика
                 </a>
             </li>
+            <li class="{{ app.request.attributes.get('_route') == 'panel_operator_test_xml' ? 'active' : '' }}">
+                <a href="{{ path('panel_operator_test_xml') }}">
+                    <i class="glyphicon glyphicon-signal"></i>
+                    &nbsp;&nbsp;Проверка XML
+                </a>
+            </li>
+
         {% endif %}
 
         <li class="{{ app.request.attributes.get('_route') == 'panel_message' ? 'active' : '' }}">
