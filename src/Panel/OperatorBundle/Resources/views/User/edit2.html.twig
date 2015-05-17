@@ -83,6 +83,28 @@
                         </div>
                     </td>
                 </tr>
+                {% if is_granted('ROLE_ADMIN') %}
+                <tr>
+                    <td>
+                        <div class="form-group">
+                            <label class="control-label col-sm-3" for="manager">Менеджер:</label>
+                            <div class="col-sm-9">
+                                <input type="text"  name="manager" id="manager" class="form-control" value="{{ user.managerKey }}" style="width: 200px">
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="form-group">
+                            <label class="control-label col-sm-3" for="price">Стоимость:</label>
+                            <div class="col-sm-9">
+                                <input type="text"  name="price" id="price" class="form-control" value="{{ user.price }}" style="width: 200px">
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                {% endif %}
                 <tr>
                     <td>
                         <div class="h2">

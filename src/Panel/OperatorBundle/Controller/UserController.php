@@ -213,6 +213,13 @@ class UserController extends Controller
             $user->setEmail($data->get('email'));
             $user->setPhone($data->get('phone'));
 
+            if ( $data->get('manager') ){
+                $user->setManagerKey($data->get('manager'));
+            }
+            if ( $data->get('price') ){
+                $user->setPrice($data->get('price'));
+            }
+
             $user->setLastName($data->get('lastName'));
             $user->setFirstName($data->get('firstName'));
             $user->setSurName($data->get('surName'));
