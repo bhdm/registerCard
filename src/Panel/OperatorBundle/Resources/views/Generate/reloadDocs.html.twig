@@ -1,0 +1,69 @@
+<html>
+<head>
+    <style>
+        .block1{
+            position: fixed;
+            top: 248px;
+            left: 100px;
+        }
+        .block2{
+            position: fixed;
+            top: 278px;
+            left: 500px;
+        }
+        .block3{
+            position: fixed;
+            top: 300px;
+            left: 350px;
+        }
+        .block4{
+            position: fixed;
+            top: 330px;
+            left: 200px;
+        }
+        .block5{
+            position: fixed;
+            top: 365px;
+            left: 100px;
+        }
+        .block6{
+            position: fixed;
+            top: 365px;
+            left: 200px;
+        }
+        .block7{
+            position: fixed;
+            top: 385px;
+            left: 130px;
+        }
+        .block8{
+            position: fixed;
+            top: 425px;
+            left: 500px;
+        }
+    </style>
+</head>
+<body>
+{#<div style="position: relative">#}
+    <img src="{{ asset('bundles/paneloperator/images/reloadDocTemplate.png') }}">
+    <div class="block0">ООО "ЦЗИ "ФЛАГМАН"</div>
+    <div class="block1">{{ user.lastName }} {{ user.firstName }} {{ user.surName }}</div>
+    <div class="block2">{{ user.lastNumberCard }}</div>
+    <div class="block3">
+        {% if user.typeCard == 2 %}
+            истечением срока действия карты
+        {% elseif user.typeCard == 3 %}
+            дефектом, утерей или утратой карты
+        {% elseif user.typeCard == 4 %}
+            изменением персональных данных
+        {% endif %}
+    </div>
+    <div class="block4">Паспорт гражданина РФ</div>
+    <div class="block5">{{ user.passportSerial }}</div>
+    <div class="block6">{{ user.passportNumber }}</div>
+    <div class="block7">{{ user.passportIssuance }}</div>
+    <div class="block8">{{ user.snils }}</div>
+
+{#</div>#}
+</body>
+</html>
