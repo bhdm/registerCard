@@ -85,7 +85,7 @@
                 <tr>
                     <td class="label">Кем выдано<span class="required">*</span>:</td>
                     <td class="value">
-                        <input name="driverPlace" id="driverPlace" type="text" placeholder="Кем выдано" required  value="{{ order.driverPlace is defined ? order.driverPlace : '' }}">
+                        <input name="driverPlace" id="driverPlace" type="text" placeholder="Кем выдано" required  value="{{ order.driverPlace is defined ? order.driverPlace : '' }}"  maxlength="33">
                     </td>
                     <td rowspan="3" style="width: 400px; vertical-align: top; padding-left: 10px">
                         {# Тут сама фото #}
