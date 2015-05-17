@@ -51,7 +51,19 @@
                         </td>
                     {% endif %}
                     <td>{{ user.id }}</td>
-                    <td>{{ user.statusStringTwig | raw }}</td>
+                    <td>
+                        {% if is_granted('ROLE_ADMIN') %}
+                            <div class="statusBox">
+                                {{ user.statusStringTwig | raw }}
+                                <div class="statusItems">
+                                    {% for status in user.statusArray %}
+                                        {{ status.title }}&nbsp;-&nbsp;{{ status.date | date('d.m.Y') }}<br />
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        {% endif %}
+
+                    </td>
                     <td>
                         {% if user.ru == false and user.estr == false %}
                             СКЗИ
@@ -121,6 +133,21 @@
             width: 200px;
             min-height: 50px;
             cursor: pointer;
+        }
+        .statusItems{
+            display: none;
+        }
+        .statusBox{
+            font-size: 12px;
+            cursor: pointer;
+            margin-top: 6px;
+        }
+        .statusBox:hover .statusItems{
+            display: block;
+            position: absolute;
+            background: #FFFFFF;
+            border: 1px solid #C2C2C2;
+            padding: 5px;
         }
     </style>
 {% endblock %}
