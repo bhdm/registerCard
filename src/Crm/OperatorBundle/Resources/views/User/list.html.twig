@@ -231,6 +231,15 @@
                 }
             });
 
+            $('.change-status').click(function(){
+                var st = $(this).children('span').text();
+                if (confirm("Вы точно хотите изменить статус с "+st+"?")){
+                    return true;
+                }else{
+                    return false;
+                }
+            });
+
         });
     </script>
 {% endblock %}
@@ -332,36 +341,12 @@
 
                         <td>
                             {% if is_granted('ROLE_ADMIN') %}
-                                <a href="{{ path('operator_change_status',{userId: user.id }) }}">
-                            {% endif %}
-                                {% if user.status == null or user.status == 0  %}
-                                    <span class="status" style="border: 1px solid #000">
-                                {% elseif user.status == 10 %}
-                                    <span class="status" style="border: 1px solid #CC3333; color: #CC3333">
-                                {% elseif user.status == 1  %}
-                                        <span class="status" style="border: 1px solid #cc8140; color: #cc8140">
-                                {% elseif user.status == 2  %}
-                                        <span class="status" style="border: 1px solid #33CC33; color: #33CC33">
-                                {% elseif user.status == 3  %}
-                                        <span class="status" style="border: 1px solid #2135cc; color: #2135cc">
-                                {% elseif user.status == 4  %}
-                                        <span class="status" style="border: 1px solid #660000; color: #660000">
-                                {% elseif user.status == 5 %}
-                                        <span class="status" style="border: 1px solid #6c9e9f; color: #6c9e9f">
-                                {% elseif user.status == 6 %}
-                                        <span class="status" style="border: 1px solid #920055; color: #920055">
-                                {% else %}
-                                    <span class="status" style="border: 1px solid #000000; color: #000000">
+                            <a href="{{ path('operator_change_status',{userId: user.id }) }}" class="change-status">
                                 {% endif %}
-                                {{ user.statusString }}
-                                    </span>
-                            {% if is_granted('ROLE_ADMIN') %}
-                                </a>
-                                {#{% if user.statuslog is defined and user.statuslog != null %}#}
-                                        {#<br />{{ user.statuslog|last|date('d.m.Y') }}#}
-                                {#{% endif %}#}
+                                {{ user.statusStringTwig | raw }}
+                                {% if is_granted('ROLE_ADMIN') %}
+                            </a>
                             {% endif %}
-
                             {% if is_granted('ROLE_ADMIN') %}
                                 <div class="statusBox">
                                     <span>Даты</span>
