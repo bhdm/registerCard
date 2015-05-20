@@ -38,6 +38,9 @@
                     </th>
                 {% endif %}
                 <th >ФИО / Email</th>
+                {% if is_granted('ROLE_ADMIN') %}
+                    <th></th>
+                {% endif %}
                 {#<th class="setting">Документы</th>#}
                 <th>Комментарий</th>
                 <th class="setting">Инструменты</th>
@@ -85,6 +88,17 @@
                             <br />
                             <a href="?search={{ user.email }}"><span class="subtitles">{{ user.email }}</span></a>
                         </td>
+                        {% if is_granted('ROLE_ADMIN') %}
+                            <td>
+                                {% spaceless %}
+                                    <a href="{{ path('generate_payment_pdf') }}?ord={{ user.id }}" target="_blank" class="no-underline">
+                                        <button type="button" class="btn btn-default btn-bg" title="Платежное поручение">
+                                            <span class="glyphicon glyphicon-file"></span>
+                                        </button>
+                                    </a>&nbsp;&nbsp;
+                                {% endspaceless %}
+                            </td>
+                        {% endif %}
                         <td><div class="comment-box disabled-click" data-id="{{ user.id }}">{{ user.comment }}</div></td>
                         {#<td>#}
                         {#{% spaceless %}#}
