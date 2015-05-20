@@ -255,7 +255,7 @@ class UserRepository extends EntityRepository
                 " OR u.firstName LIKE '%".$searchtxt."%'".
                 " OR u.lastName LIKE '%".$searchtxt."%'".
                 " OR u.surName LIKE '%".$searchtxt."%'".
-                " OR c.title LIKE '%".$searchtxt."%'"
+                " OR co.title LIKE '%".$searchtxt."%'"
             );
         }
         if ($dateStart != null){
