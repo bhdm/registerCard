@@ -78,7 +78,7 @@
                         {#<td>{{ user.statusStringTwig | raw }}</td>#}
                         <td class="subtitles">{{ user.created | date('d.m.Y') }}</td>
                         {% if company is not defined or company == null %}
-                            <td><a href="{{ path('panel_user_list',{'type' : 'null', 'company' : user.company.id }) }}">{{ user.company }}</a></td>
+                            <td><a href="{{ path('panel_user_list',{'type' : 'null', 'company' : user.company.id }) }}" title="{{ user.company.quota }} р.">{{ user.company }}</a></td>
                         {% endif %}
                         <td>
                             <a href="{{ path('panel_user_edit',{'userId' : user.id }) }}">{{ user }}</a>
