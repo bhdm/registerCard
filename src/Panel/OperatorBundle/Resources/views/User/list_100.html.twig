@@ -38,6 +38,9 @@
                     </th>
                 {% endif %}
                 <th >ФИО / Email</th>
+                {% if is_granted('ROLE_ADMIN') %}
+                    <td></td>
+                {% endif %}
                 <th>Комментарий</th>
             </tr>
             </thead>
@@ -112,6 +115,42 @@
                         <br />
                         <a href="?search={{ user.email }}"><span class="subtitles">{{ user.email }}</span></a>
                     </td>
+                    {% if is_granted('ROLE_ADMIN') %}
+                        <td>
+                            {% spaceless %}
+                                {% if is_granted('ROLE_ADMIN') %}
+                                    <a href="{{ path('xml_generator',{'userId' : user.id}) }}" target="_blank" class="no-underline">
+                                        <button type="button" class="btn btn-default btn-bg" title="XML">
+                                            <span class="glyphicon glyphicon-file"></span>
+                                        </button>
+                                    </a>&nbsp;&nbsp;
+                                    <a href="{{ path('generate_payment_pdf') }}?ord={{ user.id }}" target="_blank" class="no-underline">
+                                        <button type="button" class="btn btn-default btn-bg" title="Платежное поручение">
+                                            <span class="glyphicon glyphicon-file"></span>
+                                        </button>
+                                    </a>&nbsp;&nbsp;
+                                {% endif %}
+                                <a href="{{ path('generate_pdf_statement',{'id' : user.id}) }}" target="_blank" class="no-underline">
+                                    <button type="button" class="btn btn-default btn-bg" title="Заявление">
+                                        <span class="glyphicon glyphicon-file"></span>
+                                    </button>
+                                </a>&nbsp;&nbsp;
+                                {% if user.myPetition == 1 or user.copyPetition is not empty %}
+                                    <a href="{{ path('generate_petition',{'userId' : user.id}) }}" target="_blank" class="no-underline">
+                                        <button type="button" class="btn btn-default btn-bg" title="Ходатайство">
+                                            <span class="glyphicon glyphicon-file"></span>
+                                        </button>
+                                    </a>&nbsp;&nbsp;
+                                {% elseif user.companyPetition is not null %}
+                                    <a href="{{ path('operator_generate_petition', { 'petitionId' : user.companyPetition.id }) }}" target="_blank">
+                                        <button type="button" class="btn btn-default btn-bg" title="Ходатайство">
+                                            <span class="glyphicon glyphicon-file"></span>
+                                        </button>
+                                    </a>&nbsp;&nbsp;
+                                {% endif %}
+                            {% endspaceless %}
+                        </td>
+                    {% endif %}
                     <td><div class="comment-box disabled-click" data-id="{{ user.id }}">{{ user.comment }}</div></td>
                 </tr>
             {% endfor%}
