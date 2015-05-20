@@ -9,7 +9,7 @@ parameters:
     mailer_transport: smtp
     mailer_host: 127.0.0.1
     mailer_user: imkardru
-    mailer_password: Uflzoaacv1
+    mailer_password: A3245897a
     locale: ru
     secret: ThisTokenIsNotSoSecretChangeIt
     upload_dir: upload

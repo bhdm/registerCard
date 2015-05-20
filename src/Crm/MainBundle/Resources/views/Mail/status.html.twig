@@ -1,2 +1,21 @@
-<p>Здравствуйте. Статус вашей заявки: <b>{{ user.statusString }}</b>.</p>
+Здравствуйте. Вы отправили запрос на получение статусов о Ваших заявках на сайте <a href="http://im-kard.ru">im-kard.ru</a>.
+
+<br />
+<br />
+<table>
+    <tr>
+        <th>Номер заявки</th>
+        <th>Ф.И.О.</th>
+        <th>Статус</th>
+    </tr>
+    {% for u in users %}
+        {% if (u.status != 10 and u.status != 5) %}
+            <tr>
+                <td>{{ u.id }}</td>
+                <td>{{ u }}</td>
+                <td>{{ u.statusString }}</td>
+            </tr>
+        {% endif %}
+    {% endfor %}
+</table>
 

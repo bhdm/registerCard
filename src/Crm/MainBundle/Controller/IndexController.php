@@ -118,7 +118,6 @@ class IndexController extends Controller
         $builder = $this->createFormBuilder();
         $builder
             ->add('email', null, array('label' => 'Email:','required'       => false))
-            ->add('phone', null, array('label' => 'Телефон:','required'       => false))
             ->add('submit', 'submit', array('label' => 'проверить статус', 'attr' => array('class'=>'btn')));
 
         $form    = $builder->getForm();
@@ -128,32 +127,21 @@ class IndexController extends Controller
             $data = $form->getData();
 
             if( $data['email'] ){
-                $user = $this->getDoctrine()->getRepository('CrmMainBundle:User')->findOneByEmail($data['email']);
-                if ( $user ){
+                $users = $this->getDoctrine()->getRepository('CrmMainBundle:User')->findByEmail($data['email']);
+                if ( $users ){
                     $send = true;
                     $message = \Swift_Message::newInstance()
                         ->setSubject('Статус карты')
                         ->setFrom('info@im-kard.ru')
-                        ->setTo($user->getEmail())
+                        ->setTo($data['email'])
                         ->setBody(
                             $this->renderView(
                                 'CrmMainBundle:Mail:status.html.twig',
-                                array('user' => $user)
+                                array('users' => $users)
                             ), 'text/html'
                         )
                     ;
                     $this->get('mailer')->send($message);
-                }else{
-                    $send = false;
-                }
-            }
-            if( $data['phone'] ){
-                $phone = str_replace(array('(',')','-','','+'),array('','','','',' '), $data['phone']);
-                $user = $this->getDoctrine()->getRepository('CrmMainBundle:User')->findOneByUsername($phone);
-                if ( $user ){
-                    $send = true;
-                    $sms = new smsru('a8f0f6b6-93d1-3144-a9a1-13415e3b9721');
-                    $sms->sms_send( $phone, 'Статус вашей карты: '.$user->getStatusString()  );
                 }else{
                     $send = false;
                 }
