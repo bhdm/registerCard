@@ -186,6 +186,10 @@
             $('#form-list').attr('target', '_blank');
             $('#form-list').submit();
         });
+        $('.checkxml').click(function(){
+            var count = $('.checkxml:checked').length;
+            $.notify("Выбрано "+count, "info");
+        });
 
     });
 </script>
