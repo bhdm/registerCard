@@ -1634,14 +1634,14 @@ class UserController extends Controller
     public function downloadPngAction($filename){
         $path='/var/www/upload/tmp/';
         $image = new \Imagick($path.$filename);
-        $image->setImageFormat('png');
+        $image->setImageFormat('bmp');
         $info = pathinfo($filename);
         $file_name =  basename($filename,'.'.$info['extension']);
-        $image->setImageFilename($filename.'.png');
+        $image->setImageFilename($filename.'.bmp');
         $response = new Response();
 //        $response->headers->set('Cache-Control', 'private');
-        $response->headers->set('Content-type', 'image/png');
-        $response->headers->set('Content-Disposition', 'attachment; filename="' . $file_name . '.png";');
+        $response->headers->set('Content-type', 'image/bmp');
+        $response->headers->set('Content-Disposition', 'attachment; filename="' . $file_name . '.bmp";');
 //        $response->headers->set('Content-length', filesize($path.$filename));
         $response->setContent($image);
 
