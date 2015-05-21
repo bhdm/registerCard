@@ -279,3 +279,8 @@ input.little{
     border: 1px solid #C2C2C2;
     padding: 5px;
 }
+
+td.label, .control-label {
+    color: #000 !important;
+    font-size: 15px !important;
+}
