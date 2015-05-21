@@ -98,13 +98,14 @@ class ApplicationSkziController extends Controller
             $order['driverFilePath'] = $session->get('driverFile');
 
 
+            $order['myPetition']    =false;
             if ($request->request->get('tehnolog') == 'on'){
                 $order['myPetition']=true;
 
             }else{
                 $order['petitionFilePath'] = $session->get('petitionFile');
             }
-            $order['myPetition']    =false;
+
             $order['p_title']      = $request->request->get('title');
             $order['p_region']      = $request->request->get('region');
             $order['p_area']      = $request->request->get('area');
