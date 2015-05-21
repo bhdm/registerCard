@@ -301,8 +301,10 @@
 //            $(".date").mask("99.99.9999");
             $(".code").mask("999-999");
             $("#zipcode").mask("999999");
-            $.mask.definitions['d'] = "[a-zA-Z0-9а-яА-Я ]";
-            $('#driverNumber').mask("dddd999999");
+            {% if citizenship == 1 %}
+                $.mask.definitions['d'] = "[a-zA-Z0-9а-яА-Я ]";
+                $('#driverNumber').mask("dddd999999");
+            {% endif %}
 
             $('#tehnolog').change(function(){
                 if($('#tehnolog').prop("checked")){

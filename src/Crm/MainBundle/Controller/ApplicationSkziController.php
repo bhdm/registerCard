@@ -127,7 +127,7 @@ class ApplicationSkziController extends Controller
         if (isset($order['driverFilePath'])){
             $session->set('driverFile',$order['driverFilePath']);
         }
-        return array('order' => $order);
+        return array('order' => $order, 'citizenship' => $order['citizenship']);
     }
 
 

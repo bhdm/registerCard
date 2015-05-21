@@ -146,7 +146,7 @@ class ApplicationEstrController extends Controller
         if (isset($order['driver2FilePath'])){
             $session->set('driver2File',$order['driver2FilePath']);
         }
-        return array('order' => $order, 'url' => $url);
+        return array('order' => $order, 'url' => $url,'citizenship' => $order['citizenship']);
     }
 
 
