@@ -233,6 +233,7 @@ class Company extends BaseEntity
 
     /**
      * @ORM\OneToMany(targetEntity="CompanyQuotaLog", mappedBy="company")
+     * @ORM\OrderBy({"id" = "DESC"})
      */
     protected $quotaLog;
 

@@ -244,7 +244,7 @@ class CompanyController extends Controller
         $pagination = $paginator->paginate(
             $quotes,
             $this->get('request')->query->get('page', 1),
-            50
+            10
         );
 
         return array('company'=> $company, 'quotes' => $pagination,'summa' => $summa);
