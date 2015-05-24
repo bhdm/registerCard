@@ -235,7 +235,7 @@ class CompanyController extends Controller
             $this->getDoctrine()->getManager()->refresh($company);
         }
 
-        $quotes = $company->getQuotaLog();
+        $quotes = $this->getDoctrine()->getRepository('CrmMainBundle:CompanyQuotaLog')->findByCompany($company);
         $summa = 0;
         foreach ($quotes as $val){
             $summa += $val->getQuota();
@@ -261,5 +261,28 @@ class CompanyController extends Controller
         $users2 = $this->getDoctrine()->getRepository('CrmMainBundle:User')->findAllPrice($companyId,'new');
 
         return array('company' => $company, 'allUsers' => $users, 'newUsers' => $users2 );
+    }
+
+    /**
+     * @Security("has_role('ROLE_OPERATOR')")
+     * @Route("/quota/remove/{companyId}/{id}", name="panel_company_quota_remove", options={"expose" = true})
+     */
+    public function removeQuotaAction(Request $request, $companyId, $id){
+        $em = $this->getDoctrine()->getManager();
+        $company = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->findOneById($companyId);
+        $quotaLog = $this->getDoctrine()->getRepository('CrmMainBundle:CompanyQuotaLog')->findOneById($id);
+
+        $quota = $quotaLog->getQuota();
+        $companyQuota = $company->getQuota();
+        $company->setQuota($companyQuota-$quota);
+
+        $em->flush($company);
+
+        $quotaLog->setEnabled(false);
+        $em->flush($quotaLog);
+
+        $referer = $request->headers->get('referer');
+        return $this->redirect($referer);
+
     }
 }

@@ -34,7 +34,7 @@
                     <td>{{ q.comment }}</td>
                     <td class="setting">
                         {% spaceless %}
-                            <a href="#">
+                            <a href="{{ path('panel_company_quota_remove',{ 'companyId' : company.id, 'id' : q.id} ) }}">
                                 <button type="button" class="btn btn-default btn-danger" title="Удалить">
                                     <span class="glyphicon glyphicon-remove"></span>
                                 </button>
