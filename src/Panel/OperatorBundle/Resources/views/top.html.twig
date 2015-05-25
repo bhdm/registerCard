@@ -164,6 +164,7 @@
         <button id="xml" class="btn btn-primary">Массовый XML</button>
         <button id="print" class="btn btn-primary">Выгрузка в Excel</button>
         <button id="delivery" class="btn btn-primary">доставка</button>
+        <button id="clearManager" class="btn btn-primary">Очистить Тег</button>
     </div>
 {% endif %}
 
@@ -186,6 +187,13 @@
             $('#form-list').attr('target', '_blank');
             $('#form-list').submit();
         });
+        $('#clearManager').click(function(){
+            var url = Routing.generate('panel_user_clear_manager');
+            $('#form-list').attr('action', url);
+            $('#form-list').attr('target', '_self');
+            $('#form-list').submit();
+        });
+
         $('.checkxml').click(function(){
             var count = $('.checkxml:checked').length;
             $.notify("Выбрано "+count, "info");

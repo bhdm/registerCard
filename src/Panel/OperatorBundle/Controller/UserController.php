@@ -1648,5 +1648,21 @@ class UserController extends Controller
         return $response;
     }
 
+    /**
+     * @Route("/clear-manager", name="panel_user_clear_manager", options={"expose"=true})
+     */
+    public function clearManagerAction(Request $request){
+        $data = $request->request->get('user');
+        $em = $this->getDoctrine()->getManager();
+        foreach ($data as $key => $val) {
+            $user = $this->getDoctrine()->getRepository('CrmMainBundle:User')->find($key);
+            if ($user != null) {
+                $user->setManagerKey(null);
+                $em->flush($user);
+            }
+        }
+        $referer = $request->headers->get('referer');
+        return $this->redirect($referer);
+    }
 }
 
