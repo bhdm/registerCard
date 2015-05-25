@@ -309,6 +309,7 @@ class ApplicationRuController extends Controller
         }
 
         $user->setCompany($company);
+        $user->setManagerKey($company->getManager());
         $user->setPrice($company->getPriceRu());
         $user->setProduction(0);
         $user->setStatuslog(null);

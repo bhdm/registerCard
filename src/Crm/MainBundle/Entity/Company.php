@@ -243,6 +243,10 @@ class Company extends BaseEntity
      */
     protected $confirmed = false;
 
+    /**
+     * @ORM\Column(type="string", nullable=true)
+     */
+    protected $manager;
 
     public function __construct(){
         $this->quotaLog = new ArrayCollection();
@@ -947,6 +951,23 @@ class Company extends BaseEntity
     {
         $this->confirmed = $confirmed;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getManager()
+    {
+        return $this->manager;
+    }
+
+    /**
+     * @param mixed $manager
+     */
+    public function setManager($manager)
+    {
+        $this->manager = $manager;
+    }
+
 
 
 }

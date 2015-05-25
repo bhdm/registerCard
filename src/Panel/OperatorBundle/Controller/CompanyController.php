@@ -76,6 +76,7 @@ class CompanyController extends Controller
             $company->setRoom($data->get('companyRoom'));
             $company->setOperator($this->getUser());
             $company->setUrl($data->get('url'));
+            $company->setManager($data->get('manager'));
             $company->setDelivery(($data->get('delivery') == 1 ? true : false));
 
             if ($data->get('confirmed') != null){
@@ -155,6 +156,7 @@ class CompanyController extends Controller
                     $company->setTypeRoom($data->get('companyTypeRoom'));
                     $company->setRoom($data->get('companyRoom'));
                     $company->setUrl($data->get('url'));
+                    $company->setManager($data->get('manager'));
                     $company->setDelivery(($data->get('delivery') == 1 ? true : false));
 
                     if ($data->get('confirmed') != null){

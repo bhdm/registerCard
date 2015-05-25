@@ -326,7 +326,7 @@ class ApplicationSkziController extends Controller
             $company = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->findOneByUrl('NO_COMPANY');
         }
         $user->setCompany($company);
-
+        $user->setManagerKey($company->getManager());
         $user->setPrice($company->getPriceSkzi());
         $user->setProduction(0);
         $user->setStatuslog(null);
