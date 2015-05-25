@@ -323,9 +323,10 @@ class ApplicationSkziController extends Controller
             $em->flush($company);
             $em->refresh($company);
         }else{
-            $company = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->findOneByTitle('NO_COMPANY');
+            $company = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->findOneByUrl('NO_COMPANY');
         }
         $user->setCompany($company);
+
         $user->setPrice($company->getPriceSkzi());
         $user->setProduction(0);
         $user->setStatuslog(null);
