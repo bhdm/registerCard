@@ -1,0 +1,64 @@
+{% extends 'PanelOperatorBundle::layout.html.twig' %}
+
+
+{% block breadcrumb %}
+    <ul class="breadcrumb well">
+        <li>Список отзывов</li>
+        <li><a href="{{ path('panel_review_add') }}"><span class="btn btn-primary">Добавить</span></a></li>
+    </ul>
+{% endblock %}
+
+{% block content %}
+    <div class="well">
+        <table class="table" data-toggle="table"
+               data-sort-name="login"
+               data-sort-order="asc">
+            <thead>
+            <tr>
+                <th>Имя</th>
+                <th>Дата</th>
+                <th class="setting">Инструменты</th>
+            </tr>
+            </thead>
+            {% for r in reviews %}
+                <tr >
+                    <td>{{ r.name }} ( {{ r.email }} )</td>
+                    <td>{{ r.created | date('d.m.Y') }}</td>
+
+                    <td class="setting">
+                        {% spaceless %}
+                            &nbsp;&nbsp;
+                            <a href="{{ path('panel_review_edit',{'id' : r.id}) }}">
+                                <button type="button" class="btn btn-default btn-bg" title="Редактировать">
+                                    <span class="glyphicon glyphicon-pencil"></span>
+                                </button>
+                            </a>
+                            &nbsp;&nbsp;
+                            <a href="{{ path('panel_review_remove',{'id' : r.id}) }}">
+                                <button type="button" class="btn btn-default btn-danger" title="Удалить">
+                                    <span class="glyphicon glyphicon-remove"></span>
+                                </button>
+                            </a>
+                        {% endspaceless %}
+                    </td>
+                </tr>
+            {% endfor%}
+        </table>
+        {#<div class="navigation">#}
+        {#{{ knp_pagination_render(pagination) }}#}
+        {#</div>#}
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+        $(document).ready(function(){
+            $(".chosen").chosen({no_results_text: "Компаний по вашему запросу не найдено", width: 300});
+
+            $('.chosen').change(function(){
+                window.location.href = Routing.generate('panel_company_list', {'companyId': $(this).val() })
+            });
+        });
+    </script>
+{% endblock %}

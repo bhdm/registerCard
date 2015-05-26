@@ -1,0 +1,46 @@
+{% extends 'PanelOperatorBundle::layout.html.twig' %}
+
+
+{% block breadcrumb %}
+    <ul class="breadcrumb well">
+        <li>Добавление отзыва</li>
+        <li><a href="{{ path('panel_review_list') }}"><span class="btn btn-primary">В список</span></a></li>
+    </ul>
+{% endblock %}
+
+{% block content %}
+    <div class="well">
+        {% for flashMessage in app.session.flashbag.get('error') %}
+            <div class="alert alert-danger" role="alert">{{ flashMessage }}</div>
+        {% endfor %}
+        <form method="POST">
+            <table class="table-edit">
+                <tr>
+                    <td class="label">Имя:</td>
+                    <td class="value">
+                        <input name="name" id="name" type="text" class="form-control"  value="" placeholder="Имя">
+                    </td>
+                </tr>
+                <tr>
+                    <td class="label">Email:</td>
+                    <td class="value">
+                        <input name="email" id="email" type="text" class="form-control"  value="" placeholder="Email">
+                    </td>
+                </tr>
+                <tr>
+                    <td class="value" colspan="2">
+                        <textarea id="body" name="body" class="form-control" style="width: 300px; height: 150px"></textarea>
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td style="text-align: right"><br /><button type="submit" class="btn btn-primary">Сохранить</button></td>
+                </tr>
+            </table>
+        </form>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+{% endblock %}
