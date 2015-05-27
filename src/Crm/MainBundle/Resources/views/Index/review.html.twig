@@ -8,20 +8,28 @@
 
 {% block content %}
     <div class="box">
-        <h2>Отзывы и предложения</h2>
-        {% if msg == false %}
-            <form method="POST">
-                {{ form_widget(formFeedback) }}
-            </form>
-        {% else %}
-            <div class="msg">Ваше сообщение отправлено</div>
-        {% endif %}
+        <h2>Отзывы клиентов</h2>
+        {#{% if msg == false %}#}
+            {#<form method="POST">#}
+                {#{{ form_widget(formFeedback) }}#}
+            {#</form>#}
+        {#{% else %}#}
+            {#<div class="msg">Ваше сообщение отправлено</div>#}
+        {#{% endif %}#}
 
         {% for r in reviews %}
             <div class="review-item">
                 <div class="name">{{ r.name }}</div>
-                <div class="date">{{ r.created | date("d.m.Y") }}</div>
-                <div class="body">{{ r.body }}</div>
+                <span class="date">{{ r.created | date("d.m.Y") }}</span>
+                <div class="body">
+                    {{ r.body }}
+                    {% if r.file %}
+                        <br />
+                        <img src="{{ r.file }}" style="max-width: 600px">
+                    {% endif %}
+                    <br />
+                    <br />
+                </div>
             </div>
         {% endfor %}
     </div>
@@ -33,6 +41,20 @@
         .msg{
             color: #006600;
             font-size: 18pt;
+        }
+        .review-item{
+            margin-left: 30px;
+            margin-top: 20px;
+        }
+        .date{
+            font-size: 15px;
+            color: #000;
+        }
+        .review-item .body{
+            width: 600px;
+            text-align: justify;
+            margin: 5px 0 !important;
+            border-bottom: 1px solid #004B84;
         }
     </style>
 {% endblock %}
