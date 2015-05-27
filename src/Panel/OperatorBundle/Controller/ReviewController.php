@@ -40,6 +40,13 @@ class ReviewController extends Controller
             $review->setName($request->request->get('name'));
             $review->setEmail($request->request->get('email'));
             $review->setBody($request->request->get('body'));
+            $file = $request->files->get('file');
+            if ($file){
+                $time = time();
+                move_uploaded_file($file->getPathName(),'../web/upload/'.$time);
+                $file = '/upload/'.$time;
+            }
+            $review->setFile($file);
             $em->persist($review);
             $em->flush($review);
             return $this->redirect($this->generateUrl('panel_review_list'));
@@ -59,6 +66,13 @@ class ReviewController extends Controller
             $review->setName($request->request->get('name'));
             $review->setEmail($request->request->get('email'));
             $review->setBody($request->request->get('body'));
+            $file = $request->files->get('file');
+            if ($file){
+                $time = time();
+                move_uploaded_file($file->getPathName(),'../web/upload/'.$time);
+                $file = '/upload/'.$time;
+            }
+            $review->setFile($file);
             $em->flush($review);
             return $this->redirect($this->generateUrl('panel_review_list'));
         }

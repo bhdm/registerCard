@@ -13,7 +13,7 @@
         {% for flashMessage in app.session.flashbag.get('error') %}
             <div class="alert alert-danger" role="alert">{{ flashMessage }}</div>
         {% endfor %}
-        <form method="POST">
+        <form method="POST" enctype="multipart/form-data">
             <table class="table-edit">
                 <tr>
                     <td class="label">Имя:</td>
@@ -27,6 +27,13 @@
                         <input name="email" id="email" type="text" class="form-control"  value="" placeholder="Email">
                     </td>
                 </tr>
+                <tr>
+                    <td class="label">Фото / Скан:</td>
+                    <td class="value">
+                        <input name="file" id="file" type="file" >
+                    </td>
+                </tr>
+                <tr><td>&nbsp;</td></tr>
                 <tr>
                     <td class="value" colspan="2">
                         <textarea id="body" name="body" class="form-control" style="width: 300px; height: 150px"></textarea>

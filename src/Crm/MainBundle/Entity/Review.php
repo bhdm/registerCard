@@ -32,6 +32,11 @@ class Review extends BaseEntity
     protected $body;
 
     /**
+     * @ORM\Column(type="string", nullable=true)
+     */
+    protected $file;
+
+    /**
      * @return mixed
      */
     public function getEmail()
@@ -78,6 +83,23 @@ class Review extends BaseEntity
     {
         $this->name = $name;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getFile()
+    {
+        return $this->file;
+    }
+
+    /**
+     * @param mixed $file
+     */
+    public function setFile($file)
+    {
+        $this->file = $file;
+    }
+
 
 
 }
