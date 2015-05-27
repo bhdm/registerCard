@@ -46,7 +46,7 @@
             </thead>
             <form id="form-list" method="POST">
             {% for user in pagination %}
-                <tr style="{{ user.comment != null and user.comment != '' ? 'background: #FFCFCF;' : '' }}">
+                <tr style="{{ user.comment != null and user.comment != '' ? 'background: #FFCFCF;' : '' }}" id="userr{{ user.id }}">
                     <td><input type="checkbox" name="user[{{ user.id }}]" value="{{ user.id }}"></td>
                     {% if is_granted('ROLE_ADMIN') %}
                         <td>

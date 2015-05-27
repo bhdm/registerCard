@@ -47,7 +47,7 @@
             </thead>
             <form id="form-list" method="POST" action="#">
                 {% for user in pagination %}
-                    <tr class="{{ user.production == 0 ? 'tr-select' : '' }}" >
+                    <tr class="{{ user.production == 0 ? 'tr-select' : '' }}"  id="userr{{ user.id }}">
                         <td><input type="checkbox" class="checkxml" name="user[{{ user.id }}]" value="{{ user.id }}"></td>
                         {% if is_granted('ROLE_ADMIN') %}
                             <td>

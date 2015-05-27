@@ -202,7 +202,7 @@ class UserController extends Controller
 
         $user = $this->getDoctrine()->getRepository('CrmMainBundle:User')->findOneById($userId);
 
-        $referer = $request->headers->get('referer');
+        $referer = $request->headers->get('referer').'#userr'.$userId;
 
 
         if ($request->getMethod() == 'POST') {
