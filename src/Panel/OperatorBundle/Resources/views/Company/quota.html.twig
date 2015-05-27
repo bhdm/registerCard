@@ -21,14 +21,12 @@
                 <th class="setting">Инструменты</th>
             </tr>
             </thead>
-            {% set summa2 = 0 %}
             {% for q in quotes %}
                 <tr>
                     <td>{{ q.created | date('d.m.Y H:i') }}</td>
                     <td>
                         {{ q.quota }}
                         {% if ( q.quota > 0 ) %}
-                            {% set summa2 = summa2 + q.quota %}
                         {% endif %}
                     </td>
                     <td>{{ q.comment }}</td>

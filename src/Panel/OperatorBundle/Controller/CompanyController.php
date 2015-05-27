@@ -239,6 +239,7 @@ class CompanyController extends Controller
 
         $quotes = $this->getDoctrine()->getRepository('CrmMainBundle:CompanyQuotaLog')->findByCompany($company);
         $summa = 0;
+        $summa2 = $company->getQuota();
         foreach ($quotes as $val){
             $summa += $val->getQuota();
         }
@@ -246,10 +247,10 @@ class CompanyController extends Controller
         $pagination = $paginator->paginate(
             $quotes,
             $this->get('request')->query->get('page', 1),
-            10
+            2
         );
 
-        return array('company'=> $company, 'quotes' => $pagination,'summa' => $summa);
+        return array('company'=> $company, 'quotes' => $pagination,'summa' => $summa,'summa2' => $summa2);
     }
 
     /**
