@@ -25,7 +25,6 @@ use Symfony\Component\HttpFoundation\Request;
  * @Security("has_role('ROLE_OPERATOR')")
  */
 class RuController extends Controller{
-
     /**
      * Показывает водителей определенной компании
      * @Route("/list/{companyId}/{type}", name="operator_ru_list", defaults={"companyId"=null, "type"=null}, options={"expose"=true})

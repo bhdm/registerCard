@@ -34,7 +34,6 @@
         "friendsofsymfony/jsrouting-bundle": "@stable",
         "gregwar/captcha-bundle": "dev-master",
         "friendsofsymfony/http-cache-bundle": "~1.0"
-
     },
     "scripts": {
         "post-install-cmd": [
