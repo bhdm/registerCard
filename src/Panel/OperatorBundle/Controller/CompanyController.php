@@ -224,11 +224,17 @@ class CompanyController extends Controller
             $oldQuota = $company->getQuota();
             $quota = $request->request->get('quota');
             $comment = $request->request->get('comment');
-
+            $date = $request->request->get('created');
+            if (!$date){
+                $date = new \DateTime();
+            }else{
+                $date = new \DateTime($date.' 00:00:00');
+            }
             $quotaLog = new CompanyQuotaLog();
             $quotaLog->setQuota($quota);
             $quotaLog->setComment($comment);
             $quotaLog->setCompany($company);
+            $quotaLog->setCreated($date);
             $quotaLog->setOperator($this->getUser());
             $this->getDoctrine()->getManager()->persist($quotaLog);
             $this->getDoctrine()->getManager()->flush($quotaLog);
@@ -247,7 +253,7 @@ class CompanyController extends Controller
         $pagination = $paginator->paginate(
             $quotes,
             $this->get('request')->query->get('page', 1),
-            2
+            10
         );
 
         return array('company'=> $company, 'quotes' => $pagination,'summa' => $summa,'summa2' => $summa2);
