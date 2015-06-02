@@ -27,5 +27,18 @@ class CompanyRepository extends EntityRepository
             ->where("c.enabled = 1 AND c.title != '' ");
         return $res->getQuery()->getResult();
     }
+
+    public function amountRub($companyId,$estr,$ru){
+        $res = $this->getEntityManager()->createQueryBuilder()
+            ->select('SUM(u.price) sumPrice')
+            ->from('CrmMainBundle:Company', 'c')
+            ->leftJoin('c.users','u')
+            ->where("c.enabled = 1 AND c.id = ".$companyId)
+            ->andWhere('u.estr = '.$estr)
+            ->andWhere('u.ru = '.$ru);
+//        echo $res->getQuery()->getSQL();
+//        exit;
+        return $res->getQuery()->getOneOrNullResult();
+    }
 }
 

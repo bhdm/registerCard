@@ -1,5 +1,64 @@
 <div class="well">
     <h3 class="modal-title">Квоты компании {{ company.title }}</h3>
+    <table class="table">
+        <tr>
+            <td><b>Поступило:</b></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td><b>Использовано:</b></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td><b>КВ СКЗИ:</b></td>
+            <td>{{ company.completedCount.skzi  }}шт({{ amountRubSkzi }}р.)</td>
+        </tr>
+        <tr>
+            <td><b>КВ ЕСТР:</b></td>
+            <td>{{ company.completedCount.estr  }}шт({{ amountRubEstr }}р.)</td></td>
+        </tr>
+        <tr>
+            <td><b>КВ РФ:</b></td>
+            <td>{{ company.completedCount.ru  }}шт({{ amountRubRu }}р.)</td></td>
+        </tr>
+        <tr>
+            <td><b>КП СКЗИ:</b></td>
+            <td>0шт.(0р.)</td>
+        </tr>
+        <tr>
+            <td><b>КП ЕСТР:</b></td>
+            <td>0шт.(0р.)</td>
+        </tr>
+        <tr>
+            <td><b>КП РФ:</b></td>
+            <td>0шт.(0р.)</td>
+        </tr>
+        <tr>
+            <td><b>КМ СКЗИ:</b></td>
+            <td>0шт.(0р.)</td>
+        </tr>
+        <tr>
+            <td><b>КМ ЕСТР:</b></td>
+            <td>0шт.(0р.)</td>
+        </tr>
+        <tr>
+            <td><b>КМ РФ:</b></td>
+            <td>0шт.(0р.)</td>
+        </tr>
+        <tr>
+            <td><b>Осталось:</b></td>
+            <td>{{ company.quota }}</td>
+        </tr>
+        <tr>
+            <td><b>Необходимо:</b></td>
+            <td>{{ allUsers }}</td>
+        </tr>
+    </table>
+</div>
+
+
+<div class="well">
+    <h3 class="modal-title">Квоты компании {{ company.title }}</h3>
     <h4>Осталось рублей:</h4>
     <h3>{{ company.quota }} р.</h3>
     <br/>

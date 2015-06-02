@@ -269,7 +269,11 @@ class CompanyController extends Controller
         $users = $this->getDoctrine()->getRepository('CrmMainBundle:User')->findAllPrice($companyId,'all');
         $users2 = $this->getDoctrine()->getRepository('CrmMainBundle:User')->findAllPrice($companyId,'new');
 
-        return array('company' => $company, 'allUsers' => $users, 'newUsers' => $users2 );
+        $amountRubSkzi = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->amountRub($companyId,0,0)['sumPrice'];
+        $amountRubEstr = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->amountRub($companyId,1,0)['sumPrice'];
+        $amountRubRu = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->amountRub($companyId,0,1)['sumPrice'];
+
+        return array('company' => $company, 'allUsers' => $users, 'newUsers' => $users2,'amountRubSkzi' =>$amountRubSkzi, 'amountRubEstr' => $amountRubEstr , 'amountRubRu'=> $amountRubRu );
     }
 
     /**
