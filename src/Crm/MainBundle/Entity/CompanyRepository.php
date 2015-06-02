@@ -40,5 +40,17 @@ class CompanyRepository extends EntityRepository
 //        exit;
         return $res->getQuery()->getOneOrNullResult();
     }
+
+    public function amountPlusQuota($companyId){
+        $res = $this->getEntityManager()->createQueryBuilder()
+            ->select('SUM(c.quota) sumQuota')
+            ->from('CrmMainBundle:Company', 'c')
+            ->leftJoin('c.quotaLog','q', 'WITH','q.enabled = 1')
+            ->where("c.enabled = 1 AND c.id = ".$companyId);
+//        echo $res->getQuery()->getSQL();
+//        exit;
+        return $res->getQuery()->getOneOrNullResult();
+    }
+
 }
 
