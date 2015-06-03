@@ -48,6 +48,36 @@ class Company extends BaseEntity
     protected $priceRu = 0;
 
     /**
+     * @ORM\Column(type="integer")
+     */
+    protected $priceMasterSkzi = 0;
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    protected $priceMasterEstr = 0;
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    protected $priceMasterRu = 0;
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    protected $priceEnterpriseSkzi = 0;
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    protected $priceEnterpriseEstr = 0;
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    protected $priceEnterpriseRu = 0;
+
+    /**
      * @Assert\NotBlank( message = "Поле почтоый индекс обязательно для заполнения" )
      * @Assert\Regex(pattern= "/^[0-9]{6}$/", message="Неверный формат ввода.")
      * @ORM\Column(type="string", length=12)
@@ -247,6 +277,7 @@ class Company extends BaseEntity
      * @ORM\Column(type="string", nullable=true)
      */
     protected $manager;
+
 
     public function __construct(){
         $this->quotaLog = new ArrayCollection();
@@ -966,6 +997,102 @@ class Company extends BaseEntity
     public function setManager($manager)
     {
         $this->manager = $manager;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getPriceMasterSkzi()
+    {
+        return $this->priceMasterSkzi;
+    }
+
+    /**
+     * @param mixed $priceMasterSkzi
+     */
+    public function setPriceMasterSkzi($priceMasterSkzi)
+    {
+        $this->priceMasterSkzi = $priceMasterSkzi;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getPriceMasterEstr()
+    {
+        return $this->priceMasterEstr;
+    }
+
+    /**
+     * @param mixed $priceMasterEstr
+     */
+    public function setPriceMasterEstr($priceMasterEstr)
+    {
+        $this->priceMasterEstr = $priceMasterEstr;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getPriceMasterRu()
+    {
+        return $this->priceMasterRu;
+    }
+
+    /**
+     * @param mixed $priceMasterRu
+     */
+    public function setPriceMasterRu($priceMasterRu)
+    {
+        $this->priceMasterRu = $priceMasterRu;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getPriceEnterpriseSkzi()
+    {
+        return $this->priceEnterpriseSkzi;
+    }
+
+    /**
+     * @param mixed $priceEnterpriseSkzi
+     */
+    public function setPriceEnterpriseSkzi($priceEnterpriseSkzi)
+    {
+        $this->priceEnterpriseSkzi = $priceEnterpriseSkzi;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getPriceEnterpriseEstr()
+    {
+        return $this->priceEnterpriseEstr;
+    }
+
+    /**
+     * @param mixed $priceEnterpriseEstr
+     */
+    public function setPriceEnterpriseEstr($priceEnterpriseEstr)
+    {
+        $this->priceEnterpriseEstr = $priceEnterpriseEstr;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getPriceEnterpriseRu()
+    {
+        return $this->priceEnterpriseRu;
+    }
+
+    /**
+     * @param mixed $priceEnterpriseRu
+     */
+    public function setPriceEnterpriseRu($priceEnterpriseRu)
+    {
+        $this->priceEnterpriseRu = $priceEnterpriseRu;
     }
 
 

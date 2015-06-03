@@ -99,6 +99,14 @@ class CompanyController extends Controller
             $company->setPriceSkzi($data->get('priceSkzi'));
             $company->setPriceRu($data->get('priceRu'));
 
+            $company->setPriceMasterEstr($data->get('priceMasterEstr'));
+            $company->setPriceMasterSkzi($data->get('priceMasterSkzi'));
+            $company->setPriceMasterRu($data->get('priceMasterRu'));
+
+            $company->setPriceEnterpriseEstr($data->get('priceEnterpriseEstr'));
+            $company->setPriceEnterpriseSkzi($data->get('priceEnterpriseSkzi'));
+            $company->setPriceEnterpriseRu(  $data->get('priceEnterpriseRu'));
+
 
             $company->setEnabled(true);
 
@@ -177,6 +185,14 @@ class CompanyController extends Controller
                     $company->setPriceEstr($data->get('priceEstr'));
                     $company->setPriceSkzi($data->get('priceSkzi'));
                     $company->setPriceRu($data->get('priceRu'));
+
+                    $company->setPriceMasterEstr($data->get('priceMasterEstr'));
+                    $company->setPriceMasterSkzi($data->get('priceMasterSkzi'));
+                    $company->setPriceMasterRu($data->get('priceMasterRu'));
+
+                    $company->setPriceEnterpriseEstr($data->get('priceEnterpriseEstr'));
+                    $company->setPriceEnterpriseSkzi($data->get('priceEnterpriseSkzi'));
+                    $company->setPriceEnterpriseRu(  $data->get('priceEnterpriseRu'));
 
                     $em->flush($company);
                     $em->refresh($company);
