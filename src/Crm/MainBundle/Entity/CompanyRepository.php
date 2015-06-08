@@ -36,7 +36,7 @@ class CompanyRepository extends EntityRepository
             ->where("c.enabled = 1 AND c.id = ".$companyId)
             ->andWhere('u.estr = '.$estr)
             ->andWhere('u.ru = '.$ru)
-            ->andWhere('u.status != 0 or u.status != 1');
+            ->andWhere('u.status != 0 AND u.status != 1');
 //        echo $res->getQuery()->getSQL();
 //        exit;
         return $res->getQuery()->getOneOrNullResult();
