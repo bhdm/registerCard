@@ -55,7 +55,7 @@
                 {% if (company.quota - (amountRubSkziNew+amountRubEstrNew+amountRubRuNew)) > 0 %}
                     0
                 {% else %}
-                    {{ (company.quota - (amountRubSkziNew+amountRubEstrNew+amountRubRuNew))*-1 }}
+                    {{ (company.quota - (amountRubSkziNew+amountRubEstrNew+amountRubRuNew))* -1 }}
                 {% endif %}
                 {#{% else %}#}
                     {#{{ amountPlusQuota - (amountRubSkzi+amountRubEstr+amountRubRu) }}#}
