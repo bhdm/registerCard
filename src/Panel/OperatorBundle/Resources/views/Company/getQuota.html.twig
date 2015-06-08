@@ -53,8 +53,8 @@
             <td><b>Необходимо:</b></td>
             <td>
                 {#{% if (amountRubSkziNew+amountRubEstrNew+amountRubRuNew) > 0  %}#}
-                {{ amountRubSkziNew+amountRubEstrNew+amountRubRuNew }} <br />
-                {{ company.quota < 0 ? (company.quota * -1) : 0 }}
+                {#{{ amountRubSkziNew+amountRubEstrNew+amountRubRuNew }} <br />#}
+                {#{{ company.quota < 0 ? (company.quota * -1) : 0 }}#}
                 {{ amountRubSkziNew+amountRubEstrNew+amountRubRuNew + ( company.quota < 0 ? (company.quota * -1) : 0 ) }}
 
                 {#{% else %}#}
