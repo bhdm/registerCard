@@ -54,7 +54,7 @@
             <td>
                 {#{% if (amountRubSkziNew+amountRubEstrNew+amountRubRuNew) > 0  %}#}
 
-                {{ amountRubSkziNew+amountRubEstrNew+amountRubRuNew + ( company.quota < 0 ? company.quota * -1 : 0 ) }}
+                {{ amountRubSkziNew+amountRubEstrNew+amountRubRuNew + ( company.quota < 0 ? (company.quota * -1) : 0 ) }}
 
                 {#{% else %}#}
                     {#{{ (company.quota - (amountRubSkziNew+amountRubEstrNew+amountRubRuNew))* -1 }}#}
