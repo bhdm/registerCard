@@ -51,7 +51,16 @@
         </tr>
         <tr>
             <td><b>Необходимо:</b></td>
-            <td>{{ amountPlusQuota - (amountRubSkzi+amountRubEstr+amountRubRu) }}</td>
+            <td>
+                {% if (company.quota - (amountRubSkziNew+amountRubEstrNew+amountRubRuNew)) > 0 %}
+                    0
+                {% else %}
+                    {{ (company.quota - (amountRubSkziNew+amountRubEstrNew+amountRubRuNew))*-1 }}
+                {% endif %}
+                {#{% else %}#}
+                    {#{{ amountPlusQuota - (amountRubSkzi+amountRubEstr+amountRubRu) }}#}
+                {#{% endif %}#}
+            </td>
         </tr>
     </table>
 </div>

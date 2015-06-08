@@ -41,6 +41,20 @@ class CompanyRepository extends EntityRepository
         return $res->getQuery()->getOneOrNullResult();
     }
 
+    public function amountRubNew($companyId,$estr,$ru){
+        $res = $this->getEntityManager()->createQueryBuilder()
+            ->select('SUM(u.price) sumPrice')
+            ->from('CrmMainBundle:Company', 'c')
+            ->leftJoin('c.users','u')
+            ->where("c.enabled = 1 AND c.id = ".$companyId)
+            ->andWhere('u.estr = '.$estr)
+            ->andWhere('u.ru = '.$ru)
+            ->andWhere('u.status = 0 or u.status = 1');
+//        echo $res->getQuery()->getSQL();
+//        exit;
+        return $res->getQuery()->getOneOrNullResult();
+    }
+
     public function amountPlusQuota($companyId){
         $res = $this->getEntityManager()->createQueryBuilder()
             ->select('SUM(q.quota) sumQuota')
