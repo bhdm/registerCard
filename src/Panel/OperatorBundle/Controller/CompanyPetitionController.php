@@ -22,12 +22,16 @@ use Symfony\Component\HttpFoundation\Session\Session;
 class CompanyPetitionController extends Controller
 {
     /**
-     * @Route("/list", name="panel_petition_list")
+     * @Route("/list/{companyId}", name="panel_petition_list", defaults={"companyId" = null})
      * @Template()
      */
-    public function listAction()
+    public function listAction($companyId = null)
     {
-        $petitions = $this->getDoctrine()->getRepository('CrmMainBundle:CompanyPetition')->findBy(array('enabled' => true, 'operator' => $this->getUser()));
+        if (!$companyId){
+            $petitions = $this->getDoctrine()->getRepository('CrmMainBundle:CompanyPetition')->findBy(array('enabled' => true, 'operator' => $this->getUser()));
+        }else{
+//            $petitions = $this->getDoctrine()->getRepository('CrmMainBundle:CompanyPetition')->findBy(array('enabled' => true, 'operator' => $this->getUser()));
+        }
         return array('petitions' => $petitions);
     }
 
