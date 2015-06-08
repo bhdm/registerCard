@@ -47,7 +47,7 @@
         </tr>
         <tr>
             <td><b>Осталось:</b></td>
-            <td>{{ company.quota }}</td>
+            <td>{{ company.quota }}р.</td>
         </tr>
         <tr>
             <td><b>Необходимо:</b></td>
@@ -55,7 +55,7 @@
                 {#{% if (amountRubSkziNew+amountRubEstrNew+amountRubRuNew) > 0  %}#}
                 {#{{ amountRubSkziNew+amountRubEstrNew+amountRubRuNew }} <br />#}
                 {#{{ company.quota < 0 ? (company.quota * -1) : 0 }}#}
-                {{ amountRubSkziNew+amountRubEstrNew+amountRubRuNew + ( company.quota < 0 ? (company.quota * -1) : 0 ) }}
+                {{ amountRubSkziNew+amountRubEstrNew+amountRubRuNew + ( company.quota < 0 ? (company.quota * -1) : 0 ) }}р.
 
                 {#{% else %}#}
                     {#{{ (company.quota - (amountRubSkziNew+amountRubEstrNew+amountRubRuNew))* -1 }}#}

@@ -61,7 +61,7 @@ class CompanyRepository extends EntityRepository
             ->select('SUM(q.quota) sumQuota')
             ->from('CrmMainBundle:Company', 'c')
             ->leftJoin('c.quotaLog','q', 'WITH','q.enabled = 1')
-            ->where("c.enabled = 1 AND c.id = ".$companyId);
+            ->where("c.enabled = 1 AND c.id = ".$companyId.' AND q.quota > 0');
 //        echo $res->getQuery()->getSQL();
 //        exit;
         return $res->getQuery()->getOneOrNullResult();
