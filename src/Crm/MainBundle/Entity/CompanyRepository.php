@@ -33,7 +33,7 @@ class CompanyRepository extends EntityRepository
             ->select('SUM(u.price) sumPrice')
             ->from('CrmMainBundle:Company', 'c')
             ->leftJoin('c.users','u')
-            ->where("c.enabled = 1 AND c.id = ".$companyId)
+            ->where("u.enabled = 1 AND c.enabled = 1 AND c.id = ".$companyId)
             ->andWhere('u.estr = '.$estr)
             ->andWhere('u.ru = '.$ru)
             ->andWhere('u.status != 0 AND u.status != 1');
@@ -47,7 +47,7 @@ class CompanyRepository extends EntityRepository
             ->select('SUM(u.price) sumPrice')
             ->from('CrmMainBundle:Company', 'c')
             ->leftJoin('c.users','u')
-            ->where("c.enabled = 1 AND c.id = ".$companyId)
+            ->where("u.enabled = 1 AND c.enabled = 1 AND c.id = ".$companyId)
             ->andWhere('u.estr = '.$estr)
             ->andWhere('u.ru = '.$ru)
             ->andWhere('u.status = 0 or u.status = 1');
