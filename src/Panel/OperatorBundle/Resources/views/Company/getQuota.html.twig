@@ -52,11 +52,15 @@
         <tr>
             <td><b>Необходимо:</b></td>
             <td>
-                {% if (company.quota - (amountRubSkziNew+amountRubEstrNew+amountRubRuNew)) > 0 %}
-                    0
-                {% else %}
-                    {{ (company.quota - (amountRubSkziNew+amountRubEstrNew+amountRubRuNew))* -1 }}
-                {% endif %}
+                {#{% if (amountRubSkziNew+amountRubEstrNew+amountRubRuNew) > 0  %}#}
+
+                {{ amountRubSkziNew+amountRubEstrNew+amountRubRuNew + ( company.quota < 0 ? company.quota * -1 : 0 ) }}
+
+                {#{% else %}#}
+                    {#{{ (company.quota - (amountRubSkziNew+amountRubEstrNew+amountRubRuNew))* -1 }}#}
+                {#{% endif %}#}
+
+                {#{% if (company.quota - (amountRubSkziNew+amountRubEstrNew+amountRubRuNew)) > 0 %}#}
                 {#{% else %}#}
                     {#{{ amountPlusQuota - (amountRubSkzi+amountRubEstr+amountRubRu) }}#}
                 {#{% endif %}#}
