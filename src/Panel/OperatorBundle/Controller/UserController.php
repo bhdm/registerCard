@@ -265,6 +265,10 @@ class UserController extends Controller
             $user->setDileveryCorp($data->get('deliveryCorp'));
             $user->setDileveryCorp($data->get('deliveryStructure'));
             $user->setDileveryRoom($data->get('deliveryRoom'));
+
+            $petition = $this->getDoctrine()->getRepository('CrmMainBundle:CompanyPetition')->findOneById($data->get('petition'));
+            $user->setCompanyPetition($petition);
+
             $user->setSalt(md5(time()));
 
             $user->setComment($data->get('comment'));
@@ -367,8 +371,8 @@ class UserController extends Controller
 
         $regions = $this->getDoctrine()->getRepository('CrmMainBundle:Region')->findAll();
         $companies = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->getCompanies();
-
-        return array('user' => $user, 'regions' => $regions, 'referer' => $referer,'companies' => $companies);
+        $petitions = $this->getUser()->getPetitions();
+        return array('user' => $user, 'regions' => $regions, 'referer' => $referer,'companies' => $companies,'petitions' => $petitions);
 
     }
 

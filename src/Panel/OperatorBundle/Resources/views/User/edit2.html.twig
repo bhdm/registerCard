@@ -561,6 +561,21 @@
                 <tr>
                     <td>
                         <div class="form-group">
+                            <label class="control-label col-sm-3" for="myPetition">Доп. ходатайство":</label>
+                            <div class="col-sm-9">
+                                <select id="petition" name="petition" class="petition">
+                                    <option value="0">Не использовать</option>
+                                    {% for p in petitions %}
+                                        <option value="{{ p.id }}" {{ user.companyPetition != null and user.companyPetition.id == p.id ? 'selected="selected"' : '' }}>{{ p.title }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="form-group">
                             <label class="control-label col-sm-3" for="myPetition">Использвоть Ходатайство "НПО Технолог":</label>
                             <div class="col-sm-9">
                                 <select id="myPetition" name="myPetition" class="miniselect">
