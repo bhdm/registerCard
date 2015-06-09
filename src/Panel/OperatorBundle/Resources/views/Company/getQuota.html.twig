@@ -7,7 +7,7 @@
         </tr>
         <tr>
             <td><b>Использовано:</b></td>
-            <td>{{ amountRubSkzi+amountRubEstr+amountRubRu }}р.</td>
+            <td>{{ amountRubSkzi+amountRubEstr+amountRubRu+(amountMinusQuota*-1) }}р.</td>
         </tr>
         <tr>
             <td><b>КВ СКЗИ:</b></td>
@@ -47,24 +47,18 @@
         </tr>
         <tr>
             <td><b>Осталось:</b></td>
-            <td>{{ company.quota }}р.</td>
+            <td>{{ amountPlusQuota - amountRubSkzi+amountRubEstr+amountRubRu }}р.</td>
         </tr>
         <tr>
-            <td><b>Необходимо:</b></td>
+            <td><b>новые Заявки:</b></td>
             <td>
-                {#{% if (amountRubSkziNew+amountRubEstrNew+amountRubRuNew) > 0  %}#}
-                {#{{ amountRubSkziNew+amountRubEstrNew+amountRubRuNew }} <br />#}
-                {#{{ company.quota < 0 ? (company.quota * -1) : 0 }}#}
-                {{ amountRubSkziNew+amountRubEstrNew+amountRubRuNew + ( company.quota < 0 ? (company.quota * -1) : 0 ) }}р.
-
-                {#{% else %}#}
-                    {#{{ (company.quota - (amountRubSkziNew+amountRubEstrNew+amountRubRuNew))* -1 }}#}
-                {#{% endif %}#}
-
-                {#{% if (company.quota - (amountRubSkziNew+amountRubEstrNew+amountRubRuNew)) > 0 %}#}
-                {#{% else %}#}
-                    {#{{ amountPlusQuota - (amountRubSkzi+amountRubEstr+amountRubRu) }}#}
-                {#{% endif %}#}
+                {{ amountRubSkziNew+amountRubEstrNew+amountRubRuNew  }}р.
+            </td>
+        </tr>
+        <tr>
+            <td><b>Общий итог:</b></td>
+            <td>
+                {{ amountPlusQuota - amountRubSkzi+amountRubEstr+amountRubRu - amountRubSkziNew+amountRubEstrNew+amountRubRuNew }}р.
             </td>
         </tr>
     </table>
