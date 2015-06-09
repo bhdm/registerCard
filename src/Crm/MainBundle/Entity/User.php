@@ -59,8 +59,8 @@ class User extends BaseEntity implements UserInterface, EquatableInterface, \Ser
     protected  $birthDate;
 
     /**
-     * @Assert\Regex(pattern= "/^[0-9\(\)\-\+\ ]+$/", message="Неверный формат ввода.")
-     * @ORM\Column(type="string", length=70, nullable=true)
+     * @Assert\NotBlank( message = "Поле телефон обязательно для заполнения" )
+     * @ORM\Column(type="string", length=70)
      */
     protected  $username;
 
