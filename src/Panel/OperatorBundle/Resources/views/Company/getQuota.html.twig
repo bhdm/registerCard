@@ -47,7 +47,7 @@
         </tr>
         <tr>
             <td><b>Осталось:</b></td>
-            <td>{{ amountPlusQuota - amountRubSkzi+amountRubEstr+amountRubRu }}р.</td>
+            <td>{{ amountPlusQuota - (amountRubSkzi+amountRubEstr+amountRubRu) }}р.</td>
         </tr>
         <tr>
             <td><b>новые Заявки:</b></td>
@@ -58,7 +58,7 @@
         <tr>
             <td><b>Общий итог:</b></td>
             <td>
-                {{ amountPlusQuota - amountRubSkzi+amountRubEstr+amountRubRu - amountRubSkziNew+amountRubEstrNew+amountRubRuNew }}р.
+                {{ amountPlusQuota - (amountRubSkzi+amountRubEstr+amountRubRu) - (amountRubSkziNew+amountRubEstrNew+amountRubRuNew) }}р.
             </td>
         </tr>
     </table>
