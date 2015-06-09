@@ -35,6 +35,12 @@ class CompanyPetitionType extends AbstractType
             ->add('bank', null, array('label' => 'Название банка'))
             ->add('rchet', null, array('label' => 'Р. счет'))
             ->add('korchet', null, array('label' => 'Кор. счет'))
+
+            ->add('default',  null, array(
+                'required' => true,
+                'label' => 'По умолчанию',
+                'attr'=> array('data-placeholder'=>'По умолчанию')))
+
             ->add('submit', 'submit', array('label' => 'Сохранить'));
     }
     

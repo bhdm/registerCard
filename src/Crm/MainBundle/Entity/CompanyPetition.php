@@ -172,6 +172,10 @@ class CompanyPetition extends BaseEntity{
      */
     protected $room;
 
+    /**
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    protected $default = false;
 
     public function __construct(){
         $this->users = new ArrayCollection();
@@ -624,6 +628,22 @@ class CompanyPetition extends BaseEntity{
     public function setZipcode($zipcode)
     {
         $this->zipcode = $zipcode;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getDefault()
+    {
+        return $this->default;
+    }
+
+    /**
+     * @param mixed $default
+     */
+    public function setDefault($default = false)
+    {
+        $this->default = $default;
     }
 
 
