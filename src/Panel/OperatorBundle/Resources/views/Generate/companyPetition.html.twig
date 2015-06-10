@@ -1,0 +1,16 @@
+<html>
+<head>
+    <style>
+        .fio{
+            position: absolute;
+            left: 120px;
+            top: 430px;
+        }
+    </style>
+</head>
+    <body style="position:relative;">
+    <div style="position: relative;"></div>
+        <img src="http://imkard.loc/upload/template/{{ user.companyPetition.template.fileName }}" style="width: 100%"/>
+        <div class="fio">{{ user.lastName }} {{ user.firstName }} {{ user.surName }}</div>
+    </body>
+</html>
