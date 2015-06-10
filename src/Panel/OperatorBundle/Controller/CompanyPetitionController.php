@@ -48,6 +48,26 @@ class CompanyPetitionController extends Controller
             if ($petitionForm->isValid()) {
                 $petition = $petitionForm->getData();
                 $petition->setOperator($this->getUser());
+                $name = time().'.jpg';
+                $file = $petitionForm['template']->getData();
+                if ($file){
+                    move_uploaded_file($file->getPathName(), '/var/www/upload/template/'.$name);
+
+                    $img = '/var/www/upload/template/'.$name;
+                    $path = $img;
+                    $size = filesize($img);
+                    $fileName = basename($img);
+                    $originalName = basename($img);
+                    $mimeType = mime_content_type($img);
+                    $array =  array(
+                        'path' =>$path,
+                        'size' =>$size,
+                        'fileName' =>$name,
+                        'originalName' =>$originalName,
+                        'mimeType' =>$mimeType,
+                    );
+                    $petition->setTemplate($array);
+                }
                 $em->persist($petition);
                 $em->flush();
                 $em->refresh($petition);
@@ -67,14 +87,35 @@ class CompanyPetitionController extends Controller
             $petitionForm = $this->createForm(new CompanyPetitionType($em), $petition);
             $petitionForm->handleRequest($request);
             if ($request->isMethod('POST')) {
+
                 if ($petitionForm->isValid()) {
                     $petition = $petitionForm->getData();
-                    $em->persist($petition);
+                    $name = time().'.jpg';
+                    $file = $petitionForm['template']->getData();
+                    if ($file){
+                        move_uploaded_file($file->getPathName(), '/var/www/upload/template/'.$name);
+
+                        $img = '/var/www/upload/template/'.$name;
+                        $path = $img;
+                        $size = filesize($img);
+                        $fileName = basename($img);
+                        $originalName = basename($img);
+                        $mimeType = mime_content_type($img);
+                        $array =  array(
+                            'path' =>$path,
+                            'size' =>$size,
+                            'fileName' =>$name,
+                            'originalName' =>$originalName,
+                            'mimeType' =>$mimeType,
+                        );
+                        $petition->setTemplate($array);
+                    }
+
                     $em->flush();
                     $em->refresh($petition);
                 }
             }
-            return array( 'formPetition' => $petitionForm->createView());
+            return array( 'formPetition' => $petitionForm->createView(),'petition' => $petition);
         }else{
             throw $this->createNotFoundException('Недостаточно прав доступа для редактирования данного ходатайства');
         }

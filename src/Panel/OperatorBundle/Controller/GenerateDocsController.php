@@ -41,4 +41,27 @@ class GenerateDocsController extends Controller
         return $mpdfService->generatePdfResponse($html, $arguments);
     }
 
+    /**
+     * @Security("has_role('ROLE_ADMIN')")
+     * @Route("/company-petition/{userId}", name="panel_company_petition")
+     */
+    public function companyPetitionAction($userId){
+        $user = $this->getDoctrine()->getRepository('CrmMainBundle:User')->findOneById($userId);
+
+        $mpdfService = $this->container->get('tfox.mpdfport');
+
+        $width = rand(0,200);
+        $html = $this->renderView('PanelOperatorBundle:Generate:companyPetition.html.twig', array('user' => $user));
+//        $html= '<img src="/bundles/crmmain/images/copy.png"  style="margin-left: '.$width.'px"/>';
+        $arguments = array(
+//            'constructorArgs' => array('utf-8', 'A4-P', 5 ,5 ,5 ,5,5 ),
+            'writeHtmlMode' => null, //$mode argument for WriteHTML method
+            'writeHtmlInitialise' => null, //$mode argument for WriteHTML method
+            'writeHtmlClose' => null, //$close argument for WriteHTML method
+            'outputFilename' => null, //$filename argument for Output method
+            'outputDest' => null, //$dest argument for Output method
+        );
+        return $mpdfService->generatePdfResponse($html, $arguments);
+    }
+
 }

@@ -16,7 +16,11 @@ class CompanyPetitionType extends AbstractType
     {
         $builder
             ->add('title', null, array('label' => 'Название компании'))
-//            ->add('logo', 'file', array('label' => 'Логотип'))
+//            ->add('', 'file', array()
+            ->add('template', 'file', array(
+                'label' => 'Файл шаблон',
+                'data_class' => null
+            ))
             ->add('region', null, array('label' => 'Регион'))
             ->add('area', null, array('label' => 'Область'))
             ->add('city', null, array('label' => 'Город'))
@@ -36,10 +40,10 @@ class CompanyPetitionType extends AbstractType
             ->add('rchet', null, array('label' => 'Р. счет'))
             ->add('korchet', null, array('label' => 'Кор. счет'))
 
-            ->add('default',  null, array(
-                'required' => true,
-                'label' => 'По умолчанию',
-                'attr'=> array('data-placeholder'=>'По умолчанию')))
+//            ->add('default',  null, array(
+//                'required' => true,
+//                'label' => 'По умолчанию',
+//                'attr'=> array('data-placeholder'=>'По умолчанию')))
 
             ->add('submit', 'submit', array('label' => 'Сохранить'));
     }

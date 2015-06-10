@@ -72,8 +72,12 @@ class XmlController extends Controller
                 $files[8]['title'] = 'Petition';
             }else{
                 if ($user->getCompanyPetition()->getFile() != null ){
-                    $file= $user->getCompanyPetition()->getFile();
-                    $files[8]['base'] = $this->ImageToPdf($file['originalName']);
+                    /** @todo Здесь  должна быть генерация ходатайства от компании */
+//                    $files[8]['base'] = $this->ImageToPdf($file['originalName']);
+                    $url = $this->generateUrl('company-petition', array('userId' => $user->getId()));
+                    $files[8]['base'] = $this->pdfToBase64($url);
+
+
                     $files[8]['title'] = 'Petition';
                 }
             }

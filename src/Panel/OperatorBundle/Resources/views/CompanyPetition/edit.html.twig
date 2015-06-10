@@ -11,6 +11,9 @@
     <div class="well">
         {% form_theme formPetition 'PanelOperatorBundle::bootstrap_3_layout.html.twig' %}
         <form method="POST" enctype="multipart/form-data">
+            {% if petition.template.fileName is defined  %}
+                <img src="/upload/template/{{ petition.template.fileName }}" style="max-width: 150px">
+            {% endif %}
             {{ form_widget(formPetition) }}
         </form>
     </div>
