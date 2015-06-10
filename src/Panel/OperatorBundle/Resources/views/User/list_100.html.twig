@@ -108,7 +108,7 @@
                             </td>
                         {% endif %}
                         {% if company is not defined or company == null %}
-                            <td><a href="{{ path('panel_user_list',{'type' : 'null', 'company' : user.company.id }) }}" title="{{ user.company.get }} р.">{{ user.company }}</a></td>
+                            <td><a href="{{ path('panel_user_list',{'type' : 'null', 'company' : user.company.id }) }}" title="{{ user.company.quota }} р.">{{ user.company }}</a></td>
                         {% endif %}
                         <td>
                             <a href="{{ path('panel_user_edit',{'userId' : user.id }) }}">{{ user }}</a>
