@@ -344,7 +344,7 @@ class UserRepository extends EntityRepository
         FROM user u
         LEFT JOIN Company co ON co.id = u.company_id
         LEFT JOIN Operator op ON op.id = co.operator_id
-        WHERE u.enabled = 1
+        WHERE u.enabled = 1 AND u.status != 10
         '.$andWhere.'
         GROUP BY y, m
         ORDER BY y DESC, m DESC
@@ -403,7 +403,7 @@ class UserRepository extends EntityRepository
             LEFT JOIN Company ON user.Company_id = Company.id
             LEFT JOIN Operator ON Company.operator_id = Operator.id
             WHERE
-                user.enabled = 1 AND user.status >=2 AND Operator.id = ".$user->getId()."
+                user.enabled = 1 AND user.status >=2 AND user.status != 10 AND Operator.id = ".$user->getId()."
             GROUP BY
                 y, m, `type`
             HAVING y = $year
@@ -418,7 +418,7 @@ class UserRepository extends EntityRepository
             LEFT JOIN Company ON user.Company_id = Company.id
             LEFT JOIN Operator ON Company.Operator_id = Operator.id
             WHERE
-                user.enabled = 1 AND user.status >=2 AND ( Operator.moderator_id = ".$user->getId()." OR Company.operator_id = ".$user->getId().")
+                user.enabled = 1 AND user.status >=2 AND user.status != 10 AND ( Operator.moderator_id = ".$user->getId()." OR Company.operator_id = ".$user->getId().")
             GROUP BY
                 y, m, `type`
             HAVING y = $year
@@ -433,7 +433,7 @@ class UserRepository extends EntityRepository
             LEFT JOIN Company ON user.Company_id = Company.id
             LEFT JOIN Operator ON Company.Operator_id = Operator.id
             WHERE
-                user.enabled = 1 AND user.status >=2
+                user.enabled = 1 AND user.status >=2 AND user.status != 10
             GROUP BY
                 y, m, `type`
             HAVING y = $year
@@ -468,7 +468,7 @@ class UserRepository extends EntityRepository
             LEFT JOIN Company ON user.Company_id = Company.id
             LEFT JOIN Operator ON Company.Operator_id = Operator.id
             WHERE
-                user.enabled = 1 AND user.status >=2 AND Operator.id = ".$user->getId()."
+                user.enabled = 1 AND user.status >=2 AND user.status != 10 AND Operator.id = ".$user->getId()."
             GROUP BY
                 y, m, d, `type`
             HAVING y = $year AND m = $month
@@ -483,7 +483,7 @@ class UserRepository extends EntityRepository
             LEFT JOIN Company ON user.Company_id = Company.id
             LEFT JOIN Operator ON Company.Operator_id = Operator.id
             WHERE
-                user.enabled = 1 AND user.status >=2 AND ( Operator.moderator_id = ".$user->getId()." OR Company.operator_id = ".$user->getId().")
+                user.enabled = 1 AND user.status >=2 AND user.status != 10 AND ( Operator.moderator_id = ".$user->getId()." OR Company.operator_id = ".$user->getId().")
             GROUP BY
                 y, m, d, `type`
             HAVING y = $year AND m = $month
@@ -498,7 +498,7 @@ class UserRepository extends EntityRepository
             LEFT JOIN Company ON user.Company_id = Company.id
             LEFT JOIN Operator ON Company.Operator_id = Operator.id
             WHERE
-                user.enabled = 1 AND user.status >=2
+                user.enabled = 1 AND user.status >=2 AND user.status != 10
             GROUP BY
                 y, m, d, `type`
             HAVING y = $year AND m = $month
@@ -536,7 +536,7 @@ class UserRepository extends EntityRepository
             LEFT JOIN Operator ON Company.Operator_id = Operator.id
 
             WHERE
-                user.enabled = 1 AND user.status >=2 AND Company.url != '' AND Company.url is not null AND Company.operator_id = ".$user->getId()."
+                user.enabled = 1 AND user.status >=2 AND user.status != 10 AND Company.url != '' AND Company.url is not null AND Company.operator_id = ".$user->getId()."
 
 
             GROUP BY
@@ -577,7 +577,7 @@ class UserRepository extends EntityRepository
 			LEFT JOIN Operator m ON m.id = Operator.moderator_id
 
             WHERE
-                user.enabled = 1 AND user.status >=2
+                user.enabled = 1 AND user.status >=2 AND user.status != 10
 				AND Operator.moderator_id = ".$user->getId()."
 			GROUP BY
                 y, m, `type`, cid
@@ -595,7 +595,7 @@ class UserRepository extends EntityRepository
 			LEFT JOIN Operator m ON m.id = Operator.moderator_id
 
             WHERE
-                user.enabled = 1 AND user.status >=2
+                user.enabled = 1 AND user.status >=2 AND user.status != 10
 				AND m.moderator_id = ".$user->getId()."
 
             GROUP BY
@@ -628,7 +628,7 @@ class UserRepository extends EntityRepository
             SUM(IF( u.ru = 1 , c.priceRu , IF (u.estr = 1 , c.priceEstr, c.priceSkzi) )) x
             FROM user u
             LEFT JOIN Company c ON c.id = u.company_id
-            WHERE company_id=$companyId AND u.enabled =1";
+            WHERE company_id=$companyId AND u.enabled =1 AND u.status != 10";
         if ($type == 'new'){
             $query .=' AND ( u.status=0 OR u.status=1 )';
         }
