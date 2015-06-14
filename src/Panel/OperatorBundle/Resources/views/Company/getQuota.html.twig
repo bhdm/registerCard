@@ -63,33 +63,47 @@
         </tr>
         <tr>
             <td colspan="2">
-                СКЗИ {{  company.priceSkzi }} р<br />
-                ЕСТР {{ company.priceEstr }} р.<br />
-                РФ {{ company.priceRu }} р.
+                <table style="width: 100%">
+                    <tr>
+                        <td style="width: 30%">СКЗИ </td>
+                        <td>{{  company.priceSkzi }} р<br /></td>
+                    </tr>
+                    <tr>
+                        <td>ЕСТР </td>
+                        <td>{{ company.priceEstr }} р.<br /></td>
+                    </tr>
+                    <tr>
+                        <td>РФ </td>
+                        <td>{{ company.priceRu }} р.</td>
+                    </tr>
+                </table>
+
+
+
             </td>
         </tr>
     </table>
 </div>
 
 
-<div class="well">
-    <h3 class="modal-title">Квоты компании {{ company.title }}</h3>
-    <h4>Осталось рублей:</h4>
-    <h3>{{ company.quota }} р.</h3>
-    <br/>
-    <h4>Всего необходимо {{ allUsers }} р.</h4>
-    <h4>В т.ч. на новых {{ newUsers }} р.</h4>
-    <br/>
-    {#<h4>Неподтвержденных заявок:</h4>#}
-    {#<h3>{{ app.user.NewOrderCount }} шт.</h3>#}
+{#<div class="well">#}
+    {#<h3 class="modal-title">Квоты компании {{ company.title }}</h3>#}
+    {#<h4>Осталось рублей:</h4>#}
+    {#<h3>{{ company.quota }} р.</h3>#}
+    {#<br/>#}
+    {#<h4>Всего необходимо {{ allUsers }} р.</h4>#}
+    {#<h4>В т.ч. на новых {{ newUsers }} р.</h4>#}
+    {#<br/>#}
+    {#&#123;&#35;<h4>Неподтвержденных заявок:</h4>&#35;&#125;#}
+    {#&#123;&#35;<h3>{{ app.user.NewOrderCount }} шт.</h3>&#35;&#125;#}
+    {#&#123;&#35;<br />&#35;&#125;#}
+    {#<h4>Использовано:</h4>#}
+    {#<div style="display: inline-block; width: 70px;">СКЗИ: </div><h4 style="display: inline;">{{ company.completedCount.skzi  }}</h4> шт. ( {{ company.completedCount.skzi  * company.priceSkzi }} р. ) <br />#}
+    {#<div style="display: inline-block; width: 70px;">ЕСТР: </div><h4 style="display: inline;">{{ company.completedCount.estr  }}</h4> шт. ({{ company.completedCount.estr  * company.priceEstr }} р. )<br />#}
+    {#<div style="display: inline-block; width: 70px;">РФ: </div><h4 style="display: inline;">{{ company.completedCount.ru  }}</h4> шт. ({{ company.completedCount.ru  * company.priceRu }} р. )<br />#}
     {#<br />#}
-    <h4>Использовано:</h4>
-    <div style="display: inline-block; width: 70px;">СКЗИ: </div><h4 style="display: inline;">{{ company.completedCount.skzi  }}</h4> шт. ( {{ company.completedCount.skzi  * company.priceSkzi }} р. ) <br />
-    <div style="display: inline-block; width: 70px;">ЕСТР: </div><h4 style="display: inline;">{{ company.completedCount.estr  }}</h4> шт. ({{ company.completedCount.estr  * company.priceEstr }} р. )<br />
-    <div style="display: inline-block; width: 70px;">РФ: </div><h4 style="display: inline;">{{ company.completedCount.ru  }}</h4> шт. ({{ company.completedCount.ru  * company.priceRu }} р. )<br />
-    <br />
-    <h4>Стоимость заявки:</h4>
-    <div style="display: inline-block; width: 70px;">СКЗИ: </div><h4 style="display: inline;">{{  company.priceSkzi }} р.</h4><br />
-    <div style="display: inline-block; width: 70px;">ЕСТР: </div><h4 style="display: inline;">{{ company.priceEstr }} р.</h4><br />
-    <div style="display: inline-block; width: 70px;">РФ: </div><h4 style="display: inline;">{{ company.priceRu }} р.</h4>
-</div>
+    {#<h4>Стоимость заявки:</h4>#}
+    {#<div style="display: inline-block; width: 70px;">СКЗИ: </div><h4 style="display: inline;">{{  company.priceSkzi }} р.</h4><br />#}
+    {#<div style="display: inline-block; width: 70px;">ЕСТР: </div><h4 style="display: inline;">{{ company.priceEstr }} р.</h4><br />#}
+    {#<div style="display: inline-block; width: 70px;">РФ: </div><h4 style="display: inline;">{{ company.priceRu }} р.</h4>#}
+{#</div>#}
