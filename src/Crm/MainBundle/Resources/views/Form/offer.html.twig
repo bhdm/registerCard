@@ -54,14 +54,22 @@
         </style>
     </head>
     <body>
-        <div class="orderCard">ЕСТР</div>
+        <div class="orderCard">
+            {% if user.estr == 0 and user.ru == 0 %}
+                СКЗИ
+            {% elseif user.estr == 1 and user.ru == 0 %}
+                ЕСТР
+            {% elseif user.estr == 0 and user.ru == 1 %}
+                РФ
+            {% endif %}
+        </div>
         <div class="orderCount">1</div>
         <div class="orderCount2">1 шт.</div>
-        <div class="orderId">2000</div>
-        <div class="orderCreated">20.03.2015</div>
-        <div class="orderPrice">5000р.</div>
-        <div class="orderPrice2">5000р.</div>
-        <div class="orderPrice3">5000р.</div>
+        <div class="orderId">{{ user.id }}</div>
+        <div class="orderCreated">{{ user.created | date('d.m.Y') }}</div>
+        <div class="orderPrice">{{ user.price }}р.</div>
+        <div class="orderPrice2">{{ user.price }}р.</div>
+        <div class="orderPrice3">{{ user.price }}р.</div>
         <div class="body">
             <img src="{{ asset('bundles/crmmain/docs/offer.png') }}" style="width: 100%">
         </div>

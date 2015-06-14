@@ -989,8 +989,9 @@ class OrderController extends Controller{
      * @Route("/offer/{userId}", name="offer")
      */
     public function offerAction($userId){
+        $user = $this->getDoctrine()->getRepository('CrmMainBundle:User')->findOneById($userId);
         $mpdfService = $this->container->get('tfox.mpdfport');
-        $html = $this->renderView('CrmMainBundle:Form:offer.html.twig');
+        $html = $this->renderView('CrmMainBundle:Form:offer.html.twig', array('user' => $user));
         $arguments = array(
 //            'constructorArgs' => array('utf-8', 'A4-P', 5 ,5 ,5 ,5,5 ),
             'writeHtmlMode' => null, //$mode argument for WriteHTML method
