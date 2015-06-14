@@ -61,6 +61,13 @@
                 {{ (amountPlusQuota - (amountRubSkzi+amountRubEstr+amountRubRu+(amountMinusQuota*-1))) - (amountRubSkziNew+amountRubEstrNew+amountRubRuNew) }}р.
             </td>
         </tr>
+        <tr>
+            <td colspan="2">
+                <div style="display: inline-block; width: 70px;">СКЗИ: </div><h3 style="display: inline;">{{  company.priceSkzi }} р.</h3><br />
+                <div style="display: inline-block; width: 70px;">ЕСТР: </div><h3 style="display: inline;">{{ company.priceEstr }} р.</h3><br />
+                <div style="display: inline-block; width: 70px;">РФ: </div><h3 style="display: inline;">{{ company.priceRu }} р.</h3>
+            </td>
+        </tr>
     </table>
 </div>
 
