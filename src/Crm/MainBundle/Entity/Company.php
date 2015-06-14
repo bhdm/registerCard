@@ -834,7 +834,7 @@ class Company extends BaseEntity
         $items = $this->getUsers();
         $users = array();
         foreach ($items as $val){
-            if ($val->getStatus() >= 3){
+            if ($val->getStatus() >= 3 && $val->getStatus() != 10){
                 $users[] = $val;
             }
         }
@@ -953,7 +953,7 @@ class Company extends BaseEntity
         );
             $users = $this->getUsers();
             foreach ($users as $user){
-                if ($user->getStatus() > 2 && $user->getEnabled() == true ){
+                if ($user->getStatus() > 2 && $user->getEnabled() == true && $user->getStatus() != 10 ){
                     if ($user->getRu() == 0 && $user->getEstr() == 0){
                         $count['skzi'] ++;
                     }elseif($user->getRu() == 1 && $user->getEstr() == 0){
