@@ -456,6 +456,7 @@ class UserController extends Controller
         $session->getFlashBag()->add('notice', 'Пользователь ' . $user->getLastName() . ' переведен в Изготовлено');
         $this->getDoctrine()->getManager()->flush($user);
         $this->getDoctrine()->getManager()->flush();
+        return $this->redirect($request->headers->get('referer'));
     }
 
     /**
@@ -474,6 +475,7 @@ class UserController extends Controller
         $session->getFlashBag()->add('notice', 'Пользователь ' . $user->getLastName() . ' переведен на почту');
         $this->getDoctrine()->getManager()->flush($user);
         $this->getDoctrine()->getManager()->flush();
+        return $this->redirect($request->headers->get('referer'));
     }
 
     /**
@@ -492,6 +494,7 @@ class UserController extends Controller
         $session->getFlashBag()->add('notice', 'Пользователь ' . $user->getLastName() . ' переведен получено');
         $this->getDoctrine()->getManager()->flush($user);
         $this->getDoctrine()->getManager()->flush();
+        return $this->redirect($request->headers->get('referer'));
     }
 
 
