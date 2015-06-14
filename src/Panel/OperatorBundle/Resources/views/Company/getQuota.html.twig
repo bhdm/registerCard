@@ -58,7 +58,7 @@
         <tr>
             <td><b>Общий итог:</b></td>
             <td>
-                {{ amountPlusQuota - (amountRubSkzi+amountRubEstr+amountRubRu) - (amountRubSkziNew+amountRubEstrNew+amountRubRuNew) }}р.
+                {{ (amountPlusQuota - (amountRubSkzi+amountRubEstr+amountRubRu+(amountMinusQuota*-1))) - (amountRubSkziNew+amountRubEstrNew+amountRubRuNew) }}р.
             </td>
         </tr>
     </table>
