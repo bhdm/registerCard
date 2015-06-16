@@ -42,6 +42,14 @@ class MoneyController extends Controller
         $fullSummaEstr = $this->getDoctrine()->getRepository('CrmMainBundle:User')->fullSumma(1,0);
         $fullSummaRu   = $this->getDoctrine()->getRepository('CrmMainBundle:User')->fullSumma(0,1);
 
+        $moneyOfCompany = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->getMoney();
+        $moneyOfCompany1 = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->getMoney('2015-01-01 00:00:00');
+        $moneyOfCompany2 = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->getMoney('2015-02-01 00:00:00');
+        $moneyOfCompany3 = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->getMoney('2015-03-01 00:00:00');
+        $moneyOfCompany4 = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->getMoney('2015-04-01 00:00:00');
+        $moneyOfCompany5 = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->getMoney('2015-05-01 00:00:00');
+        $moneyOfCompany6 = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->getMoney('2015-06-01 00:00:00');
+
         $countDay = cal_days_in_month(CAL_GREGORIAN, $month, $year);
         return array(
             'statsOfOperator' => $statsOfOperator,
@@ -55,6 +63,13 @@ class MoneyController extends Controller
             'fullSummaSkzi' => $fullSummaSkzi,
             'fullSummaEstr' => $fullSummaEstr,
             'fullSummaRu' => $fullSummaRu,
+            'moneyOfCompany' => $moneyOfCompany,
+            'moneyOfCompany1' => $moneyOfCompany1,
+            'moneyOfCompany2' => $moneyOfCompany2,
+            'moneyOfCompany3' => $moneyOfCompany3,
+            'moneyOfCompany4' => $moneyOfCompany4,
+            'moneyOfCompany5' => $moneyOfCompany5,
+            'moneyOfCompany6' => $moneyOfCompany6,
         );
     }
 }

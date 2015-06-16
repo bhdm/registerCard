@@ -1671,5 +1671,25 @@ class UserController extends Controller
         $referer = $request->headers->get('referer');
         return $this->redirect($referer);
     }
+
+    /**
+     * @Route("/get-quota-title/{companyId}", name="get_quota_title", options={"expose"=true}, defaults={"companyId" = null})
+     */
+    public function getQuotaTitle($companyId){
+
+        $amountRubSkzi = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->amountRub($companyId,0,0)['sumPrice'];
+        $amountRubEstr = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->amountRub($companyId,1,0)['sumPrice'];
+        $amountRubRu = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->amountRub($companyId,0,1)['sumPrice'];
+        $amountPlusQuota = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->amountPlusQuota($companyId)['sumQuota'];
+        $amountMinusQuota= $this->getDoctrine()->getRepository('CrmMainBundle:Company')->amountMinusQuota($companyId)['sumQuota'];
+
+        $amountRubSkziNew = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->amountRubNew($companyId,0,0)['sumPrice'];
+        $amountRubEstrNew = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->amountRubNew($companyId,1,0)['sumPrice'];
+        $amountRubRuNew = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->amountRubNew($companyId,0,1)['sumPrice'];
+
+        $param1 = $amountRubSkziNew + $amountRubEstrNew + $amountRubRuNew.'р.';
+        $param2 = (($amountPlusQuota - ($amountRubSkzi+$amountRubEstr+$amountRubRu+($amountMinusQuota*-1))) - ($param1)).'р.';
+        return new Response('Новые заявки: '.$param1."\nОбщий итог: ".$param2);
+    }
 }
 

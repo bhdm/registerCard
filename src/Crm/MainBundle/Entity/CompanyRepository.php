@@ -76,5 +76,38 @@ class CompanyRepository extends EntityRepository
         return $res->getQuery()->getOneOrNullResult();
     }
 
+    public function getMoney($date = null){
+        if ($date == null){
+            $sql = "
+          SELECT c.title title FROM Company c
+          WHERE  c.url is not NULL
+          ORDER BY c.title ASC";
+
+        }else{
+            $date1 = new \DateTime($date);
+            $date2 = $date1->modify('+1 month');
+            $date1 = $date;
+            $date2 = $date2->format('Y-m-d').' 00:00:00';
+            $sql = "
+          SELECT c.title title, SUM(u.price) sumprice FROM Company c
+          LEFT JOIN `user` u  ON u.Company_id = c.id
+          LEFT JOIN StatusLog ON StatusLog.id = (SELECT id FROM StatusLog sl WHERE sl.user_id = u.id AND sl.title != 'Новая' AND sl.title != 'Подтвержденная' AND sl.title != 'Отклонена' AND sl.title != 'Отправлен модератору' ORDER BY sl.id ASC LIMIT 1 )
+          WHERE StatusLog.id iS NOT NULL AND StatusLog.created >= '$date1' AND StatusLog.created < '$date2' AND c.url is not NULL
+          GROUP BY c.id
+          ORDER BY c.title ASC
+      ";
+        }
+
+        $pdo = $this->getEntityManager()->getConnection();
+        $st = $pdo->prepare($sql);
+        $st->execute();
+
+        $re = $st->fetchAll();
+        $array = array();
+        foreach ($re as $item) {
+            $array[$item['title']] = $item;
+        }
+        return $array;
+    }
 }
 

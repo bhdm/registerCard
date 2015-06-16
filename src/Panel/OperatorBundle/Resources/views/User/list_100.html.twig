@@ -108,7 +108,11 @@
                             </td>
                         {% endif %}
                         {% if company is not defined or company == null %}
-                            <td><a href="{{ path('panel_user_list',{'type' : 'null', 'company' : user.company.id }) }}" title="{{ user.company.quota }} р.">{{ user.company }}</a></td>
+                            <td>
+                                <a href="{{ path('panel_user_list',{'type' : 'null', 'company' : user.company.id }) }}"
+                                   title="" class="getQuotaCompany"
+                                   data-id="{{ user.company.id }}"
+                                        >{{ user.company }}</a></td>
                         {% endif %}
                         <td>
                             <a href="{{ path('panel_user_edit',{'userId' : user.id }) }}">{{ user }}</a>
@@ -264,6 +268,25 @@
                 div.addClass('disabled-click');
                 return false;
             });
+
+            $(' .getQuotaCompany').hover(
+                    function(){
+                        var item = $(this);
+                        if (item.attr('title') == ''){
+                            $.ajax({
+                                type: "POST",
+                                url: "{{ path('get_quota_title') }}/"+item.attr('data-id'),
+                                success: function(msg){
+                                    item.attr('title',msg);
+                                },
+                                error: function(msg){
+                                    div.text(txt);
+                                    alert('Ошибка получения информации');
+                                }
+
+                            });
+                        }
+                    });
         });
     </script>
 {% endblock %}

@@ -76,65 +76,65 @@
                 {% endfor %}
             </tr>
         </table>
-        <button id="statsOfDay">Показать статистику по дням</button>
-        <div style="width: 100%; overflow-x: scroll; display: none" id="statsOfDayBox">
-            <table class="table">
-                <caption>Cтатистика заявок по дням за текущий месяц</caption>
-                <tr>
-                    <th>Тип карт / дни</th>
-                    {% for j in range(1, countDay) %}
-                        <th>{{ j }}</th>
-                    {% endfor %}
-                </tr>
-                <tr>
-                    <td>СКЗИ</td>
-                    {% for j in range(1, countDay) %}
-                        <td>
-                            {% if statsByMonth['1'][year~'-'~month~'-'~j] is defined %}
-                                {{ statsByMonth['1'][year~'-'~month~'-'~j] }}
-                            {% else %}
-                                0
-                            {% endif %}
-                        </td>
-                    {% endfor %}
-                </tr>
-                <tr>
-                    <td>ЕСТР</td>
-                    {% for j in range(1, countDay) %}
-                        <td>
-                            {% if statsByMonth['2'][year~'-'~month~'-'~j] is defined %}
-                                {{ statsByMonth['2'][year~'-'~month~'-'~j] }}
-                            {% else %}
-                                0
-                            {% endif %}
-                        </td>
-                    {% endfor %}
-                </tr>
-                <tr>
-                    <td>РФ</td>
-                    {% for j in range(1, countDay) %}
-                        <td>
-                            {% if statsByMonth['3'][year~'-'~month~'-'~j] is defined %}
-                                {{ statsByMonth['3'][year~'-'~month~'-'~j] }}
-                            {% else %}
-                                0
-                            {% endif %}
-                        </td>
-                    {% endfor %}
-                </tr>
-                <tr>
-                    <td><b>ИТОГО</b></td>
-                    {% for j in range(1, 31) %}
-                        <td>
-                            {%  set x1  = (statsByMonth['1'][year~'-'~month~'-'~j] is defined ? statsByMonth['1'][year~'-'~month~'-'~j] : 0) %}
-                            {%  set x2  = (statsByMonth['2'][year~'-'~month~'-'~j] is defined ? statsByMonth['2'][year~'-'~month~'-'~j] : 0) %}
-                            {%  set x3  = (statsByMonth['3'][year~'-'~month~'-'~j] is defined ? statsByMonth['3'][year~'-'~month~'-'~j] : 0) %}
-                            <b>{{ x1+x2+x3 }}</b>
-                        </td>
-                    {% endfor %}
-                </tr>
-            </table>
-        </div>
+        {#<button id="statsOfDay">Показать статистику по дням</button>#}
+        {#<div style="width: 100%; overflow-x: scroll; display: none" id="statsOfDayBox">#}
+            {#<table class="table">#}
+                {#<caption>Cтатистика заявок по дням за текущий месяц</caption>#}
+                {#<tr>#}
+                    {#<th>Тип карт / дни</th>#}
+                    {#{% for j in range(1, countDay) %}#}
+                        {#<th>{{ j }}</th>#}
+                    {#{% endfor %}#}
+                {#</tr>#}
+                {#<tr>#}
+                    {#<td>СКЗИ</td>#}
+                    {#{% for j in range(1, countDay) %}#}
+                        {#<td>#}
+                            {#{% if statsByMonth['1'][year~'-'~month~'-'~j] is defined %}#}
+                                {#{{ statsByMonth['1'][year~'-'~month~'-'~j] }}#}
+                            {#{% else %}#}
+                                {#0#}
+                            {#{% endif %}#}
+                        {#</td>#}
+                    {#{% endfor %}#}
+                {#</tr>#}
+                {#<tr>#}
+                    {#<td>ЕСТР</td>#}
+                    {#{% for j in range(1, countDay) %}#}
+                        {#<td>#}
+                            {#{% if statsByMonth['2'][year~'-'~month~'-'~j] is defined %}#}
+                                {#{{ statsByMonth['2'][year~'-'~month~'-'~j] }}#}
+                            {#{% else %}#}
+                                {#0#}
+                            {#{% endif %}#}
+                        {#</td>#}
+                    {#{% endfor %}#}
+                {#</tr>#}
+                {#<tr>#}
+                    {#<td>РФ</td>#}
+                    {#{% for j in range(1, countDay) %}#}
+                        {#<td>#}
+                            {#{% if statsByMonth['3'][year~'-'~month~'-'~j] is defined %}#}
+                                {#{{ statsByMonth['3'][year~'-'~month~'-'~j] }}#}
+                            {#{% else %}#}
+                                {#0#}
+                            {#{% endif %}#}
+                        {#</td>#}
+                    {#{% endfor %}#}
+                {#</tr>#}
+                {#<tr>#}
+                    {#<td><b>ИТОГО</b></td>#}
+                    {#{% for j in range(1, 31) %}#}
+                        {#<td>#}
+                            {#{%  set x1  = (statsByMonth['1'][year~'-'~month~'-'~j] is defined ? statsByMonth['1'][year~'-'~month~'-'~j] : 0) %}#}
+                            {#{%  set x2  = (statsByMonth['2'][year~'-'~month~'-'~j] is defined ? statsByMonth['2'][year~'-'~month~'-'~j] : 0) %}#}
+                            {#{%  set x3  = (statsByMonth['3'][year~'-'~month~'-'~j] is defined ? statsByMonth['3'][year~'-'~month~'-'~j] : 0) %}#}
+                            {#<b>{{ x1+x2+x3 }}</b>#}
+                        {#</td>#}
+                    {#{% endfor %}#}
+                {#</tr>#}
+            {#</table>#}
+        {#</div>#}
         <table class="table">
             <caption>Cтатистика заявок по компаниям по месяцам</caption>
             <tr>
@@ -242,6 +242,31 @@
                     </td>
                 {% endfor %}
             </tr>
+        </table>
+
+
+        <table class="table">
+            <caption>Cтатистика денег по компаниям</caption>
+            <tr>
+                <th>Название опер / модератора</th>
+                <th>Янв</th>
+                <th>Фев</th>
+                <th>Мар</th>
+                <th>Апр</th>
+                <th>Май</th>
+                <th>Июн</th>
+            </tr>
+            {% for moc in moneyOfCompany  %}
+                <tr>
+                    <td>{{ moc.title }}</td>
+                    <td>{{ moneyOfCompany1[moc.title] is defined ? moneyOfCompany1[moc.title].sumprice : 0}}</td>
+                    <td>{{ moneyOfCompany2[moc.title] is defined ? moneyOfCompany2[moc.title].sumprice : 0}}</td>
+                    <td>{{ moneyOfCompany3[moc.title] is defined ? moneyOfCompany3[moc.title].sumprice : 0}}</td>
+                    <td>{{ moneyOfCompany4[moc.title] is defined ? moneyOfCompany4[moc.title].sumprice : 0}}</td>
+                    <td>{{ moneyOfCompany5[moc.title] is defined ? moneyOfCompany5[moc.title].sumprice : 0}}</td>
+                    <td>{{ moneyOfCompany6[moc.title] is defined ? moneyOfCompany6[moc.title].sumprice : 0}}</td>
+                </tr>
+            {% endfor %}
         </table>
 
 
