@@ -1689,7 +1689,9 @@ class UserController extends Controller
 
         $param1 = $amountRubSkziNew + $amountRubEstrNew + $amountRubRuNew.'р.';
         $param2 = (($amountPlusQuota - ($amountRubSkzi+$amountRubEstr+$amountRubRu+($amountMinusQuota*-1))) - ($param1)).'р.';
-        return new Response('Новые заявки: '.$param1."\nОбщий итог: ".$param2);
+        $param3 = ($amountPlusQuota - ($amountRubSkzi+$amountRubEstr+$amountRubRu+($amountMinusQuota*-1))).'р';
+
+        return new Response('Новые заявки: '.$param1."\nОсталось: ".$param3."\nОбщий итог: ".$param2);
     }
 }
 
