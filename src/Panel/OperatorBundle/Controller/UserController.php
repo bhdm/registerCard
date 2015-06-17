@@ -211,7 +211,7 @@ class UserController extends Controller
             $referer = $request->get('referer');
 
             $user->setEmail($data->get('email'));
-            $user->setPhone($data->get('phone'));
+            $user->setPhone($data->get('username'));
 
             if ( $data->get('manager') ){
                 $user->setManagerKey($data->get('manager'));
