@@ -264,6 +264,7 @@ class MiniController extends Controller{
         $user->setDileveryStructure($order['d_structure']);
         $user->setDileveryRoom($order['d_room']);
         $user->setDileveryZipcode($order['d_zipcode']);
+        $user->setPrice($company->getPriceSkzi());
 
 
         //Добавяляем сканы
