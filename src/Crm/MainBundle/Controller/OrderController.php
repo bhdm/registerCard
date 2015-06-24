@@ -986,9 +986,9 @@ class OrderController extends Controller{
     }
 
     /**
-     * @Route("/offer/{userId}", name="offer")
+     * @Route("/offer/{userId}/{date}", name="offer")
      */
-    public function offerAction($userId){
+    public function offerAction($userId,$date){
         $user = $this->getDoctrine()->getRepository('CrmMainBundle:User')->findOneById($userId);
         $mpdfService = $this->container->get('tfox.mpdfport');
         $html = $this->renderView('CrmMainBundle:Form:offer.html.twig', array('user' => $user));
