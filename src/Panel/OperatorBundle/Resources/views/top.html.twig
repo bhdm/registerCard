@@ -199,5 +199,23 @@
             $.notify("Выбрано "+count, "info");
         });
 
+        $(' .getQuotaCompany').hover(
+                function(){
+                    var item = $(this);
+                    if (item.attr('title') == ''){
+                        $.ajax({
+                            type: "POST",
+                            url: "{{ path('get_quota_title') }}/"+item.attr('data-id'),
+                            success: function(msg){
+                                item.attr('title',msg);
+                            },
+                            error: function(msg){
+                                div.text(txt);
+                                alert('Ошибка получения информации');
+                            }
+
+                        });
+                    }
+                });
     });
 </script>
