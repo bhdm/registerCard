@@ -53,7 +53,7 @@
                             <input type="text" style="width: 50px" value="{{ user.managerKey }}" class="managers" id="{{ user.id }}">
                         </td>
                     {% endif %}
-                    <td {{ user.price != 0 ? 'style="color: #CC0000"' : '' }}>{{ user.id }}</td>
+                    <td {{ user.price == 0 ? 'style="color: #CC0000"' : '' }}>{{ user.id }}</td>
                     <td>
                         {% if user.ru == false and user.estr == false %}
                             СКЗИ
