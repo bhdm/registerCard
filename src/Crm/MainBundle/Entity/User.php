@@ -85,6 +85,11 @@ class User extends BaseEntity implements UserInterface, EquatableInterface, \Ser
     protected $salt;
 
     /**
+     * @ORM\Column(type="string", nullable=true)
+     */
+    protected $hash;
+
+    /**
      * @Assert\NotBlank( message = "Поле СНИЛС обязательно для заполнения" )
      * @Assert\Regex(pattern= "/^[0-9]{3}-[0-9]{3}-[0-9]{3}\ [0-9]{2}$/", message="Неверный формат ввода.")
      * @ORM\Column(type="string", length=17, nullable=true)
@@ -426,6 +431,7 @@ class User extends BaseEntity implements UserInterface, EquatableInterface, \Ser
         $this->statuslog = new ArrayCollection();
         $this->estr = 0;
         $this->ru = 0;
+        $this->hash = md5(time());
     }
 
     public function __toString()
@@ -1724,6 +1730,22 @@ class User extends BaseEntity implements UserInterface, EquatableInterface, \Ser
     public function setWorkshop($workshop = 0)
     {
         $this->workshop = $workshop;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getHash()
+    {
+        return $this->hash;
+    }
+
+    /**
+     * @param mixed $hash
+     */
+    public function setHash($hash)
+    {
+        $this->hash = $hash;
     }
 
 
