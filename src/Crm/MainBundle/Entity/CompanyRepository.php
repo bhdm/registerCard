@@ -109,5 +109,36 @@ class CompanyRepository extends EntityRepository
         }
         return $array;
     }
+
+//SELECT c.id, c.title, SUM(q.quota) sumQuota, SUM(q2.quota) sumQuota2, SUM(u.price) sumPrice
+    public function debtors(){
+        $sql = "
+            SELECT c.id, c.title, ((SELECT SUM(q.quota) FROM CompanyQuotaLog q WHERE  q.enabled =1 AND q.company_id = c.id ) - SUM(u.price) ) sumPrice
+            FROM Company c
+
+            LEFT JOIN user u ON u.company_id = c.id
+
+            AND u.enabled =1
+            AND u.status !=0
+            AND u.status !=1
+            AND u.status !=10
+
+
+            WHERE c.enabled =1 AND c.url IS NOT NULL  AND c.url !=  ''
+            GROUP BY c.id
+            HAVING sumPrice < 0
+            ";
+        $pdo = $this->getEntityManager()->getConnection();
+        $st = $pdo->prepare($sql);
+        $st->execute();
+
+        $re = $st->fetchAll();
+        $array = array();
+        foreach ($re as $item) {
+            $array[$item['title']] = $item;
+        }
+        return $array;
+
+    }
 }
 

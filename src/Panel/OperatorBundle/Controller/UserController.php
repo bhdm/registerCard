@@ -91,7 +91,8 @@ class UserController extends Controller
             'companies'  => $companies,
             'operator'   => $operator,
             'operatorId' => $operatorId,
-            'managers' => $managers
+            'managers' => $managers,
+            'debtors' => $this->getDoctrine()->getRepository('CrmMainBundle:Company')->debtors()
         );
 
         if ($this->get('security.context')->isGranted('ROLE_ADMIN')) {

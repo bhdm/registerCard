@@ -639,5 +639,8 @@ class UserRepository extends EntityRepository
         $re = $re['0']['x'];
         return $re;
     }
+
+
+
 }
 
