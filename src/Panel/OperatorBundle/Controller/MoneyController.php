@@ -72,17 +72,43 @@ class MoneyController extends Controller
             'moneyOfCompany6' => $moneyOfCompany6,
         );
     }
+
+    /**
+     * @Route("/stats-maxim/{month}", name="panel_stats_maxim")
+     * @Template()
+     */
+    public function maximAction($month){
+        $date1 = '2015-'.$month.'-01 00:00:00';
+        $date2 = '2015-'.($month+1).'-01 00:00:00';
+        $date3 = new \DateTime($date1);
+        $sql = "SELECT COUNT(user.id) cid FROM
+                user
+                LEFT JOIN StatusLog ON StatusLog.id = (SELECT id FROM StatusLog sl WHERE sl.user_id = user.id AND sl.title != 'Новая' AND sl.title != 'Подтвержденная' AND sl.title != 'Отклонена' AND sl.title != 'Отправлен модератору' ORDER BY sl.id ASC LIMIT 1 )
+                WHERE StatusLog.created >= '$date1' AND StatusLog.created < '$date2' AND user.status > 1 AND
+                (( price >= 2250  AND estr = 0 AND ru = 0) OR (  price >= 3050 AND ( estr = 1 OR ru = 1)))
+                UNION ALL
+                SELECT COUNT(user.id) cid FROM
+                user
+                LEFT JOIN StatusLog ON StatusLog.id = (SELECT id FROM StatusLog sl WHERE sl.user_id = user.id AND sl.title != 'Новая' AND sl.title != 'Подтвержденная' AND sl.title != 'Отклонена' AND sl.title != 'Отправлен модератору' ORDER BY sl.id ASC LIMIT 1 )
+                WHERE StatusLog.created >= '$date1' AND StatusLog.created < '$date2' AND user.status > 1 AND
+                (( price <= 2249 AND price >= 2000  AND estr = 0 AND ru = 0) OR (  price <= 3049 AND price >= 2950 AND ( estr = 1 OR ru = 1)))
+                UNION ALL
+                SELECT COUNT(user.id) cid FROM
+                user
+                LEFT JOIN StatusLog ON StatusLog.id = (SELECT id FROM StatusLog sl WHERE sl.user_id = user.id AND sl.title != 'Новая' AND sl.title != 'Подтвержденная' AND sl.title != 'Отклонена' AND sl.title != 'Отправлен модератору' ORDER BY sl.id ASC LIMIT 1 )
+                WHERE StatusLog.created >= '$date1' AND StatusLog.created < '$date2' AND user.status > 1 AND
+                (( price <= 1999  AND estr = 0 AND ru = 0) OR (  price <= 2949 AND ( estr = 1 OR ru = 1)))
+                ";
+        $pdo = $this->getDoctrine()->getManager()->getConnection();
+        $st = $pdo->prepare($sql);
+        $st->execute();
+        $re = $st->fetchAll();
+        return array('stats' => $re, 'date' => $date3);
+    }
 }
 
 /**
  *
-SELECT COUNT(id) cid FROM user WHERE created >= '2015-07-01 00:00:00' AND created < '2015-08-01 00:00:00' AND status > 1 AND
-(( price >= 2250  AND estr = 0 AND ru = 0) OR (  price >= 3050 AND ( estr = 1 OR ru = 1)))
-UNION ALL
-SELECT COUNT(id) cid FROM user WHERE created >= '2015-07-01 00:00:00' AND created < '2015-08-01 00:00:00' AND status > 1 AND
-(( price <= 2249 AND price >= 2000  AND estr = 0 AND ru = 0) OR (  price <= 3049 AND price >= 2950 AND ( estr = 1 OR ru = 1)))
-UNION ALL
-SELECT COUNT(id) cid FROM user WHERE created >= '2015-07-01 00:00:00' AND created < '2015-08-01 00:00:00' AND status > 1 AND
-(( price <= 1999  AND estr = 0 AND ru = 0) OR (  price <= 2949 AND ( estr = 1 OR ru = 1)))
+
  *
  */

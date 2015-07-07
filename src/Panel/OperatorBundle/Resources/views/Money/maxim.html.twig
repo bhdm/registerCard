@@ -1,0 +1,58 @@
+{% extends 'PanelOperatorBundle::layout.html.twig' %}
+
+
+{% block breadcrumb %}
+    <ul class="breadcrumb well">
+        <li>Статистика</li>
+        <li>Выплаты Максиму</li>
+    </ul>
+{% endblock %}
+
+{% block content %}
+    <h2>Дата: {{ date | date('m.Y') }}</h2>
+    <br />
+    <br />
+    <table>
+        <tr>
+            <th>Множитель</th>
+            <th>Кол-во</th>
+            <th>Итого</th>
+        </tr>
+        <tr>
+            <td>100</td>
+            <td>{{ stats[0]['cid'] }}</td>
+            <td>{{ stats[0]['cid']*100 }}</td>
+        </tr>
+        <tr>
+            <td>100</td>
+            <td>{{ stats[1]['cid'] }}</td>
+            <td>{{ stats[1]['cid']*50 }}</td>
+        </tr>
+        <tr>
+            <td>30</td>
+            <td>{{ stats[2]['cid'] }}</td>
+            <td>{{ stats[2]['cid']*30 }}</td>
+        </tr>
+        <tr>
+            <td></td>
+            <td><b>ИТОГО:</b></td>
+            <td><b>{{ stats[0]['cid']*100 + stats[1]['cid']*50 + stats[2]['cid']*30 }}</b></td>
+        </tr>
+    </table>
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+<style>
+    table{
+        width: 400px;
+    }
+    table tr th{
+        text-align: center;
+    }
+    table tr td{
+        padding: 5px 10px;
+        text-align: center;
+    }
+</style>
+{% endblock %}
