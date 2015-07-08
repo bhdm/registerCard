@@ -24,7 +24,7 @@
             <td>{{ stats[0]['cid']*100 }}</td>
         </tr>
         <tr>
-            <td>100</td>
+            <td>50</td>
             <td>{{ stats[1]['cid'] }}</td>
             <td>{{ stats[1]['cid']*50 }}</td>
         </tr>
@@ -34,8 +34,8 @@
             <td>{{ stats[2]['cid']*30 }}</td>
         </tr>
         <tr>
-            <td></td>
             <td><b>ИТОГО:</b></td>
+            <td>{{ stats[0]['cid'] + stats[1]['cid'] + stats[2]['cid'] }}</td>
             <td><b>{{ stats[0]['cid']*100 + stats[1]['cid']*50 + stats[2]['cid']*30 }}</b></td>
         </tr>
     </table>
