@@ -284,7 +284,7 @@
                 key: '181d5e2c44994c335e5e81e9ae46e79a67b6b495',
                 type: $.kladr.type.region,
                 select: function(obj){
-                    $('#region').val(obj.typeShort+'. '+obj.name);
+                    $('#region').val(obj.typeShort+'.'+obj.name);
                     $('#region').trigger('refresh');
                 }
             });
@@ -295,7 +295,7 @@
                 parentInput: '[name="region"]',
                 type: $.kladr.type.area,
                 select: function(obj){
-                    $('#area').val(obj.typeShort+'. '+obj.name);
+                    $('#area').val(obj.typeShort+'.'+obj.name);
                     $('#area').trigger('refresh');
                 }
             });
@@ -306,7 +306,7 @@
                 parentInput: '[name="area"]',
                 type: $.kladr.type.city,
                 select: function(obj){
-                    $('#city').val(obj.typeShort+'. '+obj.name);
+                    $('#city').val(obj.typeShort+'.'+obj.name);
                     $('#city').trigger('refresh');
                 }
             });
@@ -319,7 +319,7 @@
                 select: function(obj){
 //                    $('#typeStreet').val(obj.typeShort);
 //                    $('#typeStreet').trigger('refresh');
-                    $('#street').val(obj.typeShort+'. '+obj.name);
+                    $('#street').val(obj.typeShort+'.'+obj.name);
                     $('#street').trigger('refresh');
                 }
             });
