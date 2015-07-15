@@ -105,10 +105,38 @@ class MoneyController extends Controller
         $re = $st->fetchAll();
         return array('stats' => $re, 'date' => $date3);
     }
+
+    public function statisticAction(){
+        #Высчитывает статистику по типам карт за последние 6 месяцев
+//        $statsOfType =
+    }
 }
 
 /**
- *
+ SELECT
+#     concat(user.estr, user.ru) typeCard,
+DATE_FORMAT(StatusLog.created, '%Y.%m') groupdate,
+COUNT(DISTINCT (u1.id)) a1,COUNT(DISTINCT (u2.id))  a2 ,COUNT(DISTINCT (u3.id)) a3
 
- *
+#     (COUNT(DISTINCT (u1.id)) + COUNT(DISTINCT (u2.id)) + COUNT(DISTINCT (u3.id))) a4
+#     StatusLog.title
+
+FROM
+StatusLog
+
+
+LEFT JOIN user u1 ON StatusLog.user_id = u1.id AND u1.estr = 0 AND u1.ru = 0
+LEFT JOIN user u2 ON StatusLog.user_id = u2.id AND u2.estr = 1 AND u2.ru = 0
+LEFT JOIN user u3 ON StatusLog.user_id = u3.id AND u3.estr = 0 AND u3.ru = 1
+
+WHERE
+StatusLog.title != 'Новая'
+AND StatusLog.title != 'Подтвержденная'
+AND StatusLog.title != 'Отклонена'
+AND StatusLog.title != 'Отправлен модератору'
+AND ( u1.status > 1 OR u2.status > 1 OR u3.status > 1 )
+
+# GROUP BY StatusLog.user_id, typeCard, groupdate
+GROUP BY  groupdate
+ORDER BY groupdate DESC
  */
