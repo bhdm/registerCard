@@ -29,4 +29,13 @@ class ApplicationCompanyController extends Controller
     {
         return array();
     }
+
+    /**
+     * @Route("/application-company-payment", name="application-company-payment", options={"expose"=true})
+     * @Template("CrmMainBundle:Application:Company/payment.html.twig")
+     */
+    public function step2Action(Request $request)
+    {
+        return array();
+    }
 }
