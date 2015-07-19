@@ -8,6 +8,7 @@
 
 {% block content %}
     <h2>Карта для юридических лиц</h2>
+    <form method="POST" enctype="multipart/form-data">
     <div class="block-form">
         <table class="table-form">
             <tr>
@@ -188,6 +189,7 @@
             </tr>
         </table>
     </div>
+    <hr>
     <div class="block-form">
         <table class="table-form">
             <caption>Данные о руководителе</caption>
@@ -225,11 +227,12 @@
                 <td></td>
                 <td>
                     <br />
-                    <input type="button" value="Далее" class="btn" id="submit">
+                    <input type="submit" value="Далее" class="btn" id="submit">
                 </td>
             </tr>
         </table>
     </div>
+    </form>
 {% endblock %}
 
 {% block stylesheets %}
