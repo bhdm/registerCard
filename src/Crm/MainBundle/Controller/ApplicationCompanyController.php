@@ -23,7 +23,7 @@ class ApplicationCompanyController extends Controller
 
     /**
      * @Route("/application-company", name="application-company", options={"expose"=true})
-     * @Template("CrmMainBundle:Application/Company:step1.html.twig")
+     * @Template("CrmMainBundle:Application:Company/order.html.twig")
      */
     public function step1Action(Request $request)
     {

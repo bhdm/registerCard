@@ -1,0 +1,423 @@
+{% extends  'CrmMainBundle::layout.html.twig'  %}
+
+{% block title %}
+    <title>Заказать карту предприятия тахографа с СКЗИ, РФ. ЕСТР Online</title>
+    <meta name="description" content="Быстро и удобно заказать карту предприятия для тахографов">
+    <meta name="keywords" content="Заказать карту водителя, тахографы, СКЗИ, ЕСТР, РФ, онлайн продажа карт для тахографа">
+{% endblock %}
+
+{% block content %}
+    <h2>Карта для юридических лиц</h2>
+    <div class="block-form">
+        <table class="table-form">
+            <tr>
+                <td>Тип карты<span class="required">*</span></td>
+                <td>
+                    <select class="cardType" id="cardType">
+                        <option value="0">Карта предприятия</option>
+                        <option value="1">Карта мастерской</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>Email<span class="required">*</span></td>
+                <td><input type="text"></td>
+            </tr>
+            <tr>
+                <td>Телефон<span class="required">*</span></td>
+                <td><input type="text" class="phone" id="phone" name="phone"></td>
+            </tr>
+            <tr>
+                <td>Тип заявления<span class="required">*</span></td>
+                <td>
+                    <select id="orderType">
+                        <option value="0">Первичная выдача карты</option>
+                        <option value="1">Замена карты в связи с утерей</option>
+                        <option value="2">Замена карты в связи со сроком годности</option>
+                    </select>
+                </td>
+                <td>Заявление <span class="mini">(форматы файла: PDF,JPG,PNG)</span></td>
+            </tr>
+            <tr>
+                <td>Количество карт<span class="required">*</span></td>
+                <td><input type="number" value="1" class="countCard"></td>
+                <td>
+                    <input type="file">
+                </td>
+            </tr>
+        </table>
+    </div>
+    <hr>
+    <div class="block-form" >
+        <table class="table-form">
+            <caption>Информация о предприятии</caption>
+            <tr>
+                <td>Полное наименование организации<span class="required">*</span></td>
+                <td><input type="text" name="companyFullName"></td>
+            </tr>
+            <tr>
+                <td>Сокращенное наименование организации<span class="required">*</span></td>
+                <td><input type="text" name="companyName"></td>
+            </tr>
+            <tr>
+                <td>В лице<span class="required">*</span></td>
+                <td><input type="text" placeholder="ФИО должностного лица" name="executiveName"></td>
+                <td>Копия ИНН <span class="mini">(форматы файла: PDF,JPG,PNG)</span></td>
+            </tr>
+            <tr>
+                <td>ИНН<span class="required">*</span></td>
+                <td>
+                    <input type="text" class="inn" id="inn" name="inn">
+                </td>
+                <td>
+                    <input type="file" name="fileInn">
+                </td>
+            </tr>
+            <tr>
+                <td>КПП<span class="required">*</span></td>
+                <td><input type="text" id="kpp" name="kpp"></td>
+                <td>Копия ОГРН <span class="mini">(форматы файла: PDF,JPG,PNG)</span></td>
+            </tr>
+            <tr>
+                <td>ОГРН<span class="required">*</span></td>
+                <td><input type="text" id="ogrn" name="ogrn"></td>
+                <td><input type="file" name="fileOgrn"></td>
+            </tr>
+        </table>
+    </div>
+    <hr>
+    <div class="block-form" >
+        <table class="table-form">
+            <caption>Юридический адрес</caption>
+            <tr>
+                <td class="label">Регион<span class="required">*</span>:</td>
+                <td class="value">
+                    <input type="text" class="style" placeholder="Регион" autocomplete="off" data-kladr-type="region" name="legal[region]" id="legal-region" value="" required="required">
+                </td>
+            </tr>
+            <tr>
+                <td class="label">Район:</td>
+                <td class="value">
+                    <input type="text" class="style" placeholder="Район" name="legal[area]" id="legal-area" value="">
+                </td>
+            </tr>
+            <tr>
+                <td class="label">Город:</td>
+                <td class="value">
+                    <input name="legal[city]"    id="legal-city"     type="text" placeholder="Город" value=""><br />
+                </td>
+            </tr>
+            <tr>
+                <td class="label">Улица:</td>
+                <td class="value">
+                    <input name="legal[street]"  id="legal-street"   type="text" placeholder="Название улицы" value=""><br />
+                </td>
+            </tr>
+            <tr>
+                <td class="label">Номер здания<span class="required">*</span>:</td>
+                <td class="value">
+                    <input name="legal[house]"   id="legal-house"    type="text" placeholder="Дом" class="little" value="">
+                    <input name="legal[corp]"    id="legal-corp"     type="text" placeholder="Корп"  class="little" value="">
+                    <input name="legal[structure]"    id="legal-structure"     type="text" placeholder="Строение"  class="little" value=""><br />
+                </td>
+            </tr>
+            <tr>
+                <td class="label">Кв./оф.</td>
+                <td class="value">
+                    <input type="hidden" name="legal[typeRoom]" id="legal-typeRoom" value="кв.">
+                    <input name="legal[room]"    id="legal-room"  type="text" placeholder="Номер"  class="little"  value="">
+                </td>
+            </tr>
+            <tr>
+                <td class="label">Индекс<span class="required">*</span>:</td>
+                <td class="value">
+                    <input name="legal[zipcode]" id="legal-zipcode"  type="text" placeholder="Индекс"  value=""><br />
+            </tr>
+        </table>
+    </div>
+    <hr>
+    <div class="block-form" >
+        <table class="table-form">
+            <caption>Почтовый адрес</caption>
+            <tr>
+                <td class="label">Регион<span class="required">*</span>:</td>
+                <td class="value">
+                    <input type="text" class="style" placeholder="Регион" autocomplete="off" data-kladr-type="region" name="mailing[region]" id="mailing-region" value="" required="required">
+                </td>
+                <td>
+
+                </td>
+            </tr>
+            <tr>
+                <td class="label">Район:</td>
+                <td class="value">
+                    <input type="text" class="style" placeholder="Район" name="mailing-area" id="mailing-area" value="">
+                </td>
+            </tr>
+            <tr>
+                <td class="label">Город:</td>
+                <td class="value">
+                    <input name="mailing[city]"    id="mailing-city"     type="text" placeholder="Город" value=""><br />
+                </td>
+            </tr>
+            <tr>
+                <td class="label">Улица:</td>
+                <td class="value">
+                    <input name="mailing[street]"  id="mailing-street"   type="text" placeholder="Название улицы" value=""><br />
+                </td>
+            </tr>
+            <tr>
+                <td class="label">Номер здания<span class="required">*</span>:</td>
+                <td class="value">
+                    <input name="mailing[house]"   id="mailing-house"    type="text" placeholder="Дом" class="little" value="">
+                    <input name="mailing[corp]"    id="mailing-corp"     type="text" placeholder="Корп"  class="little" value="">
+                    <input name="mailing[structure]"    id="mailing-structure"     type="text" placeholder="Строение"  class="little" value=""><br />
+                </td>
+            </tr>
+            <tr>
+                <td class="label">Квартира</td>
+                <td class="value">
+                    <input type="hidden" name="mailing[typeRoom]" id="mailing-typeRoom" value="кв.">
+                    <input name="mailing[room]"    id="mailing-room"  type="text" placeholder="Номер"  class="little"  value="">
+                </td>
+            </tr>
+            <tr>
+                <td class="label">Индекс<span class="required">*</span>:</td>
+                <td class="value">
+                    <input name="mailing[zipcode]" id="mailing-zipcode"  type="text" placeholder="Индекс"  value=""><br />
+            </tr>
+        </table>
+    </div>
+    <div class="block-form">
+        <table class="table-form">
+            <caption>Данные о руководителе</caption>
+            <tr>
+                <td>Фамилия<span class="required">*</span></td>
+                <td><input type="text" name="lastName"></td>
+            </tr>
+            <tr>
+                <td>Имя<span class="required">*</span></td>
+                <td><input type="text" name="firstName"></td>
+            </tr>
+            <tr>
+                <td>Отчество<span class="required">*</span></td>
+                <td><input type="text" name="surName"></td>
+            </tr>
+            <tr>
+                <td>Должность<span class="required">*</span></td>
+                <td><input type="text" name="post"></td>
+                <td>Приказ <span class="mini">(форматы файла: PDF,JPG,PNG)</span></td>
+            </tr>
+            <tr>
+                <td>Действующего на основании<span class="required">*</span></td>
+                <td><input type="text"></td>
+                <td>
+                    <input type="file" name="filePrikaz">
+                </td>
+            </tr>
+            <tr class="master">
+                <td>Лицензия ФСБ</td>
+                <td>
+                    <input type="file" name="fileFsb">
+                </td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>
+                    <br />
+                    <input type="button" value="Далее" class="btn" id="submit">
+                </td>
+            </tr>
+        </table>
+    </div>
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link href="{{ asset('bundles/crmmain/kladrapi/jquery.kladr.min.css') }}" rel="stylesheet" media="all">
+    <style>
+        .table-form{
+            width: 800px;
+        }
+        .table-form caption{
+            color: #005596;
+            text-align: left;
+            padding: 10px;
+        }
+        .table-form tr td:first-child{
+            text-align: right;
+            width: 230px;
+            padding-right: 10px;
+        }
+        .block-form{
+            margin: 0 auto;
+        }
+        select{
+            width: 220px;
+        }
+        .jq-selectbox__select-text{
+            width: 214px !important;
+        }
+        .master{
+            display: none;
+        }
+        .mini{
+            font-size: 12px;
+            color: #555555;
+        }
+    </style>
+
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset("bundles/crmmain/lib/chosen/chosen.jquery.js") }}" type="text/javascript"></script>
+    <script src="{{ asset('bundles/crmmain/javascripts/jquery.maskedinput.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('bundles/crmmain/tapmodo-Jcrop/js/jquery.Jcrop.min.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('bundles/crmmain/kladrapi/jquery.kladr.min.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('bundles/crmmain/javascripts/file.js') }}" type="text/javascript"></script>
+    <script>
+
+        $(document).ready(function(){
+
+            $( '#legal-region' ).kladr({
+                token: '541ee4ac7c52392c7d8b457e',
+                key: '181d5e2c44994c335e5e81e9ae46e79a67b6b495',
+                type: $.kladr.type.region,
+                select: function(obj){
+                    $('#legal-region').val(obj.typeShort+'.'+obj.name);
+                    $('#legal-region').trigger('refresh');
+                }
+            });
+
+            $( '#legal-area' ).kladr({
+                token: '541ee4ac7c52392c7d8b457e',
+                key: '181d5e2c44994c335e5e81e9ae46e79a67b6b495',
+                parentInput: '[name="legal[region]"]',
+                type: $.kladr.type.area,
+                select: function(obj){
+                    $('#legal-area').val(obj.typeShort+'.'+obj.name);
+                    $('#legal-area').trigger('refresh');
+                }
+            });
+
+            $('#legal-city' ).kladr({
+                token: '541ee4ac7c52392c7d8b457e',
+                key: '181d5e2c44994c335e5e81e9ae46e79a67b6b495',
+                parentInput: '[name="legal[area]"]',
+                type: $.kladr.type.city,
+                select: function(obj){
+                    $('#legal-city').val(obj.typeShort+'.'+obj.name);
+                    $('#legal-city').trigger('refresh');
+                }
+            });
+
+            $('#legal-street' ).kladr({
+                token: '541ee4ac7c52392c7d8b457e',
+                key: '181d5e2c44994c335e5e81e9ae46e79a67b6b495',
+                parentInput: '[name="legal[city]"]',
+                type: $.kladr.type.street,
+                select: function(obj){
+                    $('#legal-street').val(obj.typeShort+'.'+obj.name);
+                    $('#legal-street').trigger('refresh');
+                }
+            });
+            $('#legal-house' ).kladr({
+                token: '541ee4ac7c52392c7d8b457e',
+                key: '181d5e2c44994c335e5e81e9ae46e79a67b6b495',
+                parentInput: '[name="legal[street]"]',
+                type: $.kladr.type.building,
+                select: function(obj){
+                    $('#legal-zipcode').val(obj.zip);
+                    var home = obj.name.split('к');
+                    $('#legal-house').val(home[0]);
+                    if (home[1] != undefined){
+                        $('#legal-corp').val(home[1]);
+                    }
+
+                }
+            });
+
+            /////////////////////////////////////////////
+
+            $( '#mailing-region' ).kladr({
+                token: '541ee4ac7c52392c7d8b457e',
+                key: '181d5e2c44994c335e5e81e9ae46e79a67b6b495',
+                type: $.kladr.type.region,
+                select: function(obj){
+                    $('#mailing-region').val(obj.typeShort+'.'+obj.name);
+                    $('#mailing-region').trigger('refresh');
+                }
+            });
+
+            $( '#mailing-area' ).kladr({
+                token: '541ee4ac7c52392c7d8b457e',
+                key: '181d5e2c44994c335e5e81e9ae46e79a67b6b495',
+                parentInput: '[name="mailing[region]"]',
+                type: $.kladr.type.area,
+                select: function(obj){
+                    $('#mailing-area').val(obj.typeShort+'.'+obj.name);
+                    $('#mailing-area').trigger('refresh');
+                }
+            });
+
+            $('#mailing-city' ).kladr({
+                token: '541ee4ac7c52392c7d8b457e',
+                key: '181d5e2c44994c335e5e81e9ae46e79a67b6b495',
+                parentInput: '[name="mailing[area]"]',
+                type: $.kladr.type.city,
+                select: function(obj){
+                    $('#mailing-city').val(obj.typeShort+'.'+obj.name);
+                    $('#mailing-city').trigger('refresh');
+                }
+            });
+
+            $('#mailing-street' ).kladr({
+                token: '541ee4ac7c52392c7d8b457e',
+                key: '181d5e2c44994c335e5e81e9ae46e79a67b6b495',
+                parentInput: '[name="mailing[city]"]',
+                type: $.kladr.type.street,
+                select: function(obj){
+                    $('#mailing-street').val(obj.typeShort+'.'+obj.name);
+                    $('#mailing-street').trigger('refresh');
+                }
+            });
+            $('#mailing-house' ).kladr({
+                token: '541ee4ac7c52392c7d8b457e',
+                key: '181d5e2c44994c335e5e81e9ae46e79a67b6b495',
+                parentInput: '[name="mailing[street]"]',
+                type: $.kladr.type.building,
+                select: function(obj){
+                    $('#mailing-zipcode').val(obj.zip);
+                    var home = obj.name.split('к');
+                    $('#mailing-house').val(home[0]);
+                    if (home[1] != undefined){
+                        $('#mailing-corp').val(home[1]);
+                    }
+
+                }
+            });
+
+            /////////////////////////////////////////////
+
+            $('input:text, select').styler();
+//            $(".date").mask("99.99.9999");
+            $(".code").mask("999-999");
+            $("#zipcode").mask("999999");
+            $("#phone").mask("+7 (999) 999-9999");
+
+            $("#inn").mask("9999999999?99");
+            $("#kpp").mask("9999999999");
+            $("#ogrn").mask("9999999999999?99");
+
+            $('.cardType').change(function(){
+                $('input, select').trigger('refresh');
+                if ($('.cardType').val() == 1){
+                    $('.master').css('display','table-row');
+                }else{
+                    $('.master').css('display','none');
+                }
+            })
+        });
+    </script>
+{% endblock %}
