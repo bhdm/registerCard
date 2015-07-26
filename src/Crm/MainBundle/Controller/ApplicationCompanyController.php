@@ -45,7 +45,7 @@ class ApplicationCompanyController extends Controller
                 $fileSign = $session->get('signFile');
                 $info = new \SplFileInfo($fileSign);
                 $path = $this->get('kernel')->getRootDir() . '/../web/upload/usercompany/';
-                $path = $path.$item->getId().'/'.$item->getSalt().'.'.$info->getExtension();
+                $path = $path.$item->getId().'/'.$item->getSalt().'-si.'.$info->getExtension();
                 if (copy($fileSign,$path)){
                     unlink( $fileSign );
                 }
