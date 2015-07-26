@@ -238,7 +238,10 @@ class CompanyUser extends BaseEntity
 
     protected $operator;
 
-
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    protected $price = 0;
 
     # ###### #
     # МЕТОДЫ #
@@ -763,6 +766,38 @@ class CompanyUser extends BaseEntity
         $this->fileSign = $fileSign;
     }
 
+    /**
+     * @return mixed
+     */
+    public function getPrice()
+    {
+        return $this->price;
+    }
 
+    /**
+     * @param mixed $price
+     */
+    public function setPrice($price)
+    {
+        $this->price = $price;
+    }
+
+    public function companyTypeStr(){
+        switch ($this->companyType){
+            case 0: return 'Другое';
+            case 1: return 'Предприятие';
+            case 2: return 'Мастерская';
+        }
+        return 'Другое';
+    }
+
+    public function cardTypeStr(){
+        switch ($this->cardType){
+            case 1: return 'СКЗИ';
+            case 2: return 'ЕСТР';
+            case 3: return 'РФ';
+        }
+        return 'Другое';
+    }
 
 }

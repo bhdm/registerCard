@@ -1,0 +1,156 @@
+{% extends 'PanelOperatorBundle::layout.html.twig' %}
+
+
+{% block breadcrumb %}
+    {% include 'PanelOperatorBundle:User:breadcrumb.html.twig' %}
+{% endblock %}
+
+{% block content %}
+    <div class="well">
+        <h4>ТАБЛИЦА ЗАЯВОК</h4>
+        {% for flashMessage in app.session.flashbag.get('error') %}
+            <div class="alert alert-danger" role="alert">{{ flashMessage }}</div>
+        {% endfor %}
+        {% for flashMessage in app.session.flashbag.get('notice') %}
+            <div class="alert alert-success" role="alert">{{ flashMessage }}</div>
+        {% endfor %}
+
+        <table class="table" data-toggle="table"
+               data-sort-name="login"
+               data-sort-order="asc">
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>Тип компании</th>
+                <th>Тип карт</th>
+                <th>Кол-во</th>
+                <th>Стоимость</th>
+                <th>Дата</th>
+                <th>Статус</th>
+                <th>Комментарий</th>
+                <th class="setting">Инструменты</th>
+            </tr>
+            </thead>
+            <body>
+                {% for item in pagination %}
+                    <tr>
+                        <td>{{ item.id }}</td>
+                        <td>{{ item.companyTypeStr }}</td>
+                        <td>{{ item.cardTypeStr }}</td>
+                        <td>{{ item.cardAmount }}</td>
+                        <td>{{ item.price * 1  }} руб.</td>
+                        <td>{{ item.created | date('d.m.Y')}}</td>
+                        <td>{{ item.status }}</td>
+                        <td>{{ item.comment }}</td>
+                        <td></td>
+                    </tr>
+                {% endfor %}
+            </body>
+        </table>
+        <div class="navigation">
+            {{ knp_pagination_render(pagination) }}
+        </div>
+    </div>
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <style>
+        #filter-type{
+            width: 100px;
+        }
+        .comment-box{
+            width: 200px;
+            min-height: 50px;
+            cursor: pointer;
+        }
+    </style>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+        $(document).ready(function(){
+
+
+
+            $('.remove').click(function () {
+                var url = $(this).attr('data-href');
+                BootstrapDialog.show({
+                    title: 'УДАЛЕНИЕ',
+                    size: BootstrapDialog.SIZE_SMALL,
+                    type: BootstrapDialog.TYPE_DANGER,
+                    message: 'Вы точно хотите безвозратно удалить',
+                    buttons: [{
+                        label: 'Удалить',
+                        cssClass: 'btn-danger',
+                        autospin: true,
+                        action: function (dialogRef) {
+                            window.location.href = url;
+                        }
+                    }, {
+                        label: 'Отмена',
+                        action: function (dialogRef) {
+                            dialogRef.close();
+                        }
+                    }]
+                });
+            });
+
+            $('#allcheck').click(function () {
+                if($("#allcheck").prop('checked') == true){
+                    $("input[type=checkbox]" ).prop( "checked", true );
+                }else{
+                    $( "input[type=checkbox]" ).prop( "checked", false );
+                }
+            });
+
+            $('body').on('click', '.disabled-click' , function(){
+                var form =  $('<form method="post">' +
+                        '<textarea class="form-control" style="margin-bottom: 5px">'+$(this).text()+'</textarea>' +
+                        '<input type="hidden" class="old" value="'+$(this).text()+'" />' +
+                        '<button type="button" class="btn btn-default btn-success ok-textarea"> <span class="glyphicon glyphicon-ok"></span></button>' +
+                        '&nbsp;&nbsp;'+
+                        '<button type="button" class="btn btn-default btn-danger cancel-textarea"> <span class="glyphicon glyphicon-remove"></span></button>' +
+                        '</form>');
+                $(this).html(form);
+                $(this).removeClass('disabled-click');
+            });
+
+            $('.comment-box').on('click', '.cancel-textarea', function(){
+                var txt = $(this).parent().children('.old').val();
+                var div = $(this).parent().parent();
+                div.text(txt);
+                div.addClass('disabled-click');
+                return false;
+            });
+
+            $('.comment-box').on('click', '.ok-textarea', function(){
+                var txt = $(this).parent().children('.old').val();
+                var txt2 = $(this).parent().children('textarea').val();
+                var id = $(this).parent().parent().attr('data-id');
+                var div = $(this).parent().parent();
+                $.ajax({
+                    type: "POST",
+                    url: "{{ path('panel_user_set_comment') }}",
+                    data: "id="+id+'&comment='+txt2,
+                    success: function(msg){
+                        if (msg == 'ok'){
+                            div.text(txt2);
+                        }else{
+                            div.text(txt);
+                            alert('Ошибка сохранения:'+msg);
+                        }
+                    },
+                    error: function(msg){
+                        div.text(txt);
+                        alert('Ошибка сохранения:'+msg);
+                    }
+
+                });
+                div.addClass('disabled-click');
+                return false;
+            });
+        });
+    </script>
+{% endblock %}
