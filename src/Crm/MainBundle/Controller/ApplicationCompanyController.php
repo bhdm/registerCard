@@ -41,6 +41,19 @@ class ApplicationCompanyController extends Controller
                 $em->persist($item);
                 $em->flush();
                 $em->refresh($item);
+                $session = new Session();
+                $fileSign = $session->get('signFile');
+                $info = new \SplFileInfo($fileSign);
+                $path = $this->get('kernel')->getRootDir() . '/../web/upload/usercompany/';
+                $path = $path.$item->getId().'/'.$item->getSalt().'.'.$info->getExtension();
+                if (copy($fileSign,$path)){
+                    unlink( $fileSign );
+                }
+                $array = $this->getImgToArray($path);
+                $item->setFileSign($array);
+                $em->flush($item);
+                $em->refresh($item);
+
                 return $this->redirect($this->generateUrl('application_company_payment', array('id' => $item->getId())));
             }
         }
@@ -56,5 +69,35 @@ class ApplicationCompanyController extends Controller
     {
 //        $company = new CompanyUserType();
         return array();
+    }
+
+    public function getImgToArray($img){
+        if ($img == null){
+            $array =  array();
+        }else{
+//            $path = $img;
+            $str=strpos($img, "/upload");
+            $path=substr($img, 0, $str);
+//            $path = str_replace('/var/www/','',$path);
+            $size = filesize($img);
+            $fileName = basename($img);
+
+            $str=strpos($img, "/upload");
+            $originalName = substr($img, 0, $str);
+            $originalName = str_replace('/upload','',$originalName);
+
+            $mimeType = mime_content_type($img);
+
+            $array =  array(
+                'fileName' =>$fileName,
+                'originalName' =>$originalName,
+                'mimeType' =>$mimeType,
+                'size' =>$size,
+                'path' =>$path,
+                'width' =>getimagesize($img)[0],
+                'height' =>getimagesize($img)[1],
+            );
+        }
+        return $array;
     }
 }

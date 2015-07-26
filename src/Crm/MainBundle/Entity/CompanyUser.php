@@ -193,6 +193,13 @@ class CompanyUser extends BaseEntity
      */
     protected $fileLicense;
 
+    /**
+     * @Assert\File( maxSize="20M")
+     * @FileStore\UploadableField(mapping="usercompany")
+     * @ORM\Column(type="array", nullable=true)
+     */
+    protected $fileSign;
+
     # ########################### #
     # Информация о статусе заказа #
     # ########################### #
@@ -739,6 +746,23 @@ class CompanyUser extends BaseEntity
     {
         $this->salt = $salt;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getFileSign()
+    {
+        return $this->fileSign;
+    }
+
+    /**
+     * @param mixed $fileSign
+     */
+    public function setFileSign($fileSign)
+    {
+        $this->fileSign = $fileSign;
+    }
+
 
 
 }
