@@ -25,9 +25,10 @@ class ApplicationCompanyController extends Controller
 
     /**
      * @Route("/application-company", name="application_company", options={"expose"=true})
+     * @Route("/application-company/{url}", name="application_company", options={"expose"=true})
      * @Template("CrmMainBundle:Application:Company/order.html.twig")
      */
-    public function step1Action(Request $request)
+    public function step1Action(Request $request, $url=null)
     {
         $em = $this->getDoctrine()->getManager();
         $item = new CompanyUser();
@@ -37,7 +38,9 @@ class ApplicationCompanyController extends Controller
         if ($request->getMethod() == 'POST'){
             if ($formData->isValid()){
                 $item = $formData->getData();
-//                $item->setUser($this->getUser());
+                if ($url){
+                    $item->setCompany($this->getDoctrine()->getRepository('CrmMainBundle:Company')->findOneByUrl($url));
+                }
                 $em->persist($item);
                 $em->flush();
                 $em->refresh($item);
@@ -55,21 +58,22 @@ class ApplicationCompanyController extends Controller
                 $em->flush($item);
                 $em->refresh($item);
 
-                return $this->redirect($this->generateUrl('application_company_payment', array('id' => $item->getId())));
+                return $this->redirect($this->generateUrl('application_company_payment', array('url' => $url, 'id' => $item->getId())));
             }
         }
 
-        return array('form' => $form->createView());
+        return array('form' => $form->createView(), 'url' => $url);
     }
 
     /**
      * @Route("/application-company-payment/{id}", name="application_company_payment", options={"expose"=true})
+     * @Route("/application-company-payment/{id}/{url}", name="application_company_payment", options={"expose"=true})
      * @Template("CrmMainBundle:Application:Company/payment.html.twig")
      */
-    public function step2Action(Request $request, $id)
+    public function step2Action(Request $request, $id, $url= null)
     {
         $item = $this->getDoctrine()->getRepository('CrmMainBundle:CompanyUser')->findOneById($id);
-        return array('order' => $item);
+        return array('order' => $item, 'url' => $url);
     }
 
     /**
