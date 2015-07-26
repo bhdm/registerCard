@@ -48,6 +48,7 @@ class ApplicationCompanyController extends Controller
                 $path = $path.$item->getId().'/'.$item->getSalt().'-si.'.$info->getExtension();
                 if (copy($fileSign,$path)){
                     unlink( $fileSign );
+                    $session->set('signFile',null);
                 }
                 $array = $this->getImgToArray($path);
                 $item->setFileSign($array);
@@ -62,12 +63,28 @@ class ApplicationCompanyController extends Controller
     }
 
     /**
-     * @Route("/application-company-payment", name="application_company_payment", options={"expose"=true})
+     * @Route("/application-company-payment/{id}", name="application_company_payment", options={"expose"=true})
      * @Template("CrmMainBundle:Application:Company/payment.html.twig")
      */
-    public function step2Action(Request $request)
+    public function step2Action(Request $request, $id)
     {
-//        $company = new CompanyUserType();
+        $item = $this->getDoctrine()->getRepository('CrmMainBundle:CompanyUser')->findOneById($id);
+        return array('order' => $item);
+    }
+
+    /**
+     * @Route("/application-company-offer/{orderId}/{date}", name="usercompany_offer", options={"expose"=true})
+     * @Template("")
+     */
+    public function offerAction($orderId, $date){
+        return array();
+    }
+
+    /**
+     * @Route("/application-company-payment-pdf/{orderId}/{date}", name="usercompany_payment_pdf", options={"expose"=true})
+     * @Template("")
+     */
+    public function paymentAction($orderId, $date){
         return array();
     }
 

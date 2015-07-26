@@ -18,6 +18,12 @@ use Iphp\FileStoreBundle\Mapping\Annotation as FileStore;
  */
 class CompanyUser extends BaseEntity
 {
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Company", inversedBy="companies")
+     */
+    protected $company;
+
     /**
      * 1 = Предприятие или 2 = мастерская
      * @ORM\Column(type="integer")

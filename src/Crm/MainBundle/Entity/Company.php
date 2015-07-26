@@ -20,6 +20,10 @@ class Company extends BaseEntity
      */
     protected $users;
 
+    /**
+     * @ORM\OneToMany(targetEntity="CompanyUser", mappedBy="company")
+     */
+    protected $companies;
 
     /**
      * @Assert\NotBlank( message = "Поле название предприятия обязательно для заполнения" )
@@ -281,6 +285,7 @@ class Company extends BaseEntity
 
     public function __construct(){
         $this->quotaLog = new ArrayCollection();
+        $this->companies = new ArrayCollection();
     }
 
     public function __toString(){
@@ -1095,6 +1100,20 @@ class Company extends BaseEntity
         $this->priceEnterpriseRu = $priceEnterpriseRu;
     }
 
+    /**
+     * @return mixed
+     */
+    public function getCompanies()
+    {
+        return $this->companies;
+    }
 
+    /**
+     * @param mixed $companies
+     */
+    public function setCompanies($companies)
+    {
+        $this->companies = $companies;
+    }
 
 }
