@@ -176,6 +176,13 @@ class CompanyUser extends BaseEntity
      * @FileStore\UploadableField(mapping="usercompany")
      * @ORM\Column(type="array", nullable=true)
      */
+    protected $fileOrderTwo;
+
+    /**
+     * @Assert\File( maxSize="20M")
+     * @FileStore\UploadableField(mapping="usercompany")
+     * @ORM\Column(type="array", nullable=true)
+     */
     protected $fileInn;
 
     /**

@@ -56,6 +56,7 @@ class CompanyUserType extends AbstractType
             ->add('fileOgrn', 'iphp_file')
             ->add('fileDecree', 'iphp_file')
             ->add('fileLicense', 'iphp_file')
+            ->add('fileOrderTwo', 'iphp_file')
         ;
     }
     
