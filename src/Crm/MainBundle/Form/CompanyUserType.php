@@ -40,9 +40,9 @@ class CompanyUserType extends AbstractType
             ->add('companyFullTitle')
             ->add('companyTitle')
             ->add('companyExecutive')
-            ->add('companyInn', null, array('attr' => array('class' => 'inn')))
+            ->add('companyInn', null, array('attr' => array('class' => 'inn','size' => '12')))
             ->add('companyKpp', null, array('attr' => array('class' => 'kpp')))
-            ->add('companyOgrn', null, array('attr' => array('class' => 'ogrn')))
+            ->add('companyOgrn', null, array('attr' => array('class' => 'ogrn','size' => '15')))
             ->add('legalAdrs', new AdrsType())
             ->add('mailingAdrs', new AdrsType())
             ->add('firstName')
@@ -57,6 +57,15 @@ class CompanyUserType extends AbstractType
             ->add('fileDecree', 'iphp_file')
             ->add('fileLicense', 'iphp_file')
             ->add('fileOrderTwo', 'iphp_file')
+
+            ->add('licenseNumber')
+            ->add('licenseIssued')
+            ->add('licenseDateStart', 'date')
+            ->add('licenseDateEnd', 'date')
+            ->add('licenseDecreeNumber')
+            ->add('licenseDecreeDate', 'date')
+
+
         ;
     }
     

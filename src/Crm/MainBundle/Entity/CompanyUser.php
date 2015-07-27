@@ -256,6 +256,46 @@ class CompanyUser extends BaseEntity
      */
     protected $price = 0;
 
+    # ######################### #
+    # ИНФОРМАЦИЯ О ЛИЦЕНЗИИ ФСБ #
+    # ######################### #
+
+    /**
+     * Номер лицензии
+     * @ORM\Column(type="string", nullable=true)
+     */
+    protected $licenseNumber;
+
+    /**
+     * Кем выдана
+     * @ORM\Column(type="string", nullable=true)
+     */
+    protected $licenseIssued;
+
+    /**
+     * Дата выдачи
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    protected $licenseDateStart;
+
+    /**
+     * Дата окончания
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    protected $licenseDateEnd;
+
+    /**
+     * Номер приказа, по которому выдана лицензия
+     * @ORM\Column(type="string", nullable=true)
+     */
+    protected $licenseDecreeNumber;
+
+    /**
+     * дата приказа, по которому выдана лицензия
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    protected $licenseDecreeDate;
+
     # ###### #
     # МЕТОДЫ #
     # ###### #
@@ -812,5 +852,135 @@ class CompanyUser extends BaseEntity
         }
         return 'Другое';
     }
+
+    /**
+     * @return mixed
+     */
+    public function getCompany()
+    {
+        return $this->company;
+    }
+
+    /**
+     * @param mixed $company
+     */
+    public function setCompany($company)
+    {
+        $this->company = $company;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getFileOrderTwo()
+    {
+        return $this->fileOrderTwo;
+    }
+
+    /**
+     * @param mixed $fileOrderTwo
+     */
+    public function setFileOrderTwo($fileOrderTwo)
+    {
+        $this->fileOrderTwo = $fileOrderTwo;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getLicenseNumber()
+    {
+        return $this->licenseNumber;
+    }
+
+    /**
+     * @param mixed $licenseNumber
+     */
+    public function setLicenseNumber($licenseNumber)
+    {
+        $this->licenseNumber = $licenseNumber;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getLicenseIssued()
+    {
+        return $this->licenseIssued;
+    }
+
+    /**
+     * @param mixed $licenseIssued
+     */
+    public function setLicenseIssued($licenseIssued)
+    {
+        $this->licenseIssued = $licenseIssued;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getLicenseDateStart()
+    {
+        return $this->licenseDateStart;
+    }
+
+    /**
+     * @param mixed $licenseDateStart
+     */
+    public function setLicenseDateStart($licenseDateStart)
+    {
+        $this->licenseDateStart = $licenseDateStart;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getLicenseDateEnd()
+    {
+        return $this->licenseDateEnd;
+    }
+
+    /**
+     * @param mixed $licenseDateEnd
+     */
+    public function setLicenseDateEnd($licenseDateEnd)
+    {
+        $this->licenseDateEnd = $licenseDateEnd;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getLicenseDecreeNumber()
+    {
+        return $this->licenseDecreeNumber;
+    }
+
+    /**
+     * @param mixed $licenseDecreeNumber
+     */
+    public function setLicenseDecreeNumber($licenseDecreeNumber)
+    {
+        $this->licenseDecreeNumber = $licenseDecreeNumber;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getLicenseDecreeDate()
+    {
+        return $this->licenseDecreeDate;
+    }
+
+    /**
+     * @param mixed $licenseDecreeDate
+     */
+    public function setLicenseDecreeDate($licenseDecreeDate)
+    {
+        $this->licenseDecreeDate = $licenseDecreeDate;
+    }
+
+
 
 }
