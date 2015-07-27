@@ -64,8 +64,6 @@ class CompanyUserType extends AbstractType
             ->add('licenseDateEnd', 'date')
             ->add('licenseDecreeNumber')
             ->add('licenseDecreeDate', 'date')
-
-
         ;
     }
     
