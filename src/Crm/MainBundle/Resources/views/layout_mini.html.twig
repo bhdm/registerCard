@@ -86,11 +86,11 @@
                 });
 
                 $('.step').click(function(){
-                    var company = window.location.href;
-                    company = company.split('/');
-                    company = company[5];
-                    company = company.replace(/%20/g,' ');
-                    var url = Routing.generate('company-application-skzi-step'+$(this).html(),{'url' : company });
+                    type = $('.step').attr('data-type');
+
+                    var company = '{{  app.request.attributes.get('_route_params').url  }}';
+
+                    var url = Routing.generate('company-'+type+'-step'+$(this).children('.stepn').html(),{'url' : company });
                     window.location.href = url;
                 });
             })
