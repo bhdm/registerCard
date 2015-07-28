@@ -50,6 +50,7 @@ class CompanyUserType extends AbstractType
             ->add('surName')
             ->add('post')
             ->add('documentAccess')
+            ->add('stampNumber')
 
             ->add('fileOrder', 'iphp_file')
             ->add('fileInn', 'iphp_file')

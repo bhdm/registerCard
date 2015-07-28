@@ -88,11 +88,7 @@
     <div class="box">
         <table>
             <form method="POST" action="{{ url == null ? path('application-ru-step1') : path('company-ru-step1',{'url':url})}}" id="main-form">
-                <tr>
-                    <td colspan="3">
-                        <div class="error-msg"></div>
-                    </td>
-                </tr>
+
                 <tr>
                     <td class="label">E-mail<span class="required">*</span>:</td>
                     <td class="value">
@@ -125,6 +121,11 @@
                     <i style="font-size: 14px; color: #CC3333">* Поля отмеченные звездочкой обязательны для заполнения</i>
                     <br />
                 </td></tr>
+            <tr>
+                <td colspan="3">
+                    <div class="error-msg"></div>
+                </td>
+            </tr>
             <tr>
                 <td></td>
                 <td style="text-align: right">

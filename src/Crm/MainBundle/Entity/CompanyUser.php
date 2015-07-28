@@ -124,6 +124,11 @@ class CompanyUser extends BaseEntity
      */
     protected $mailCity;
 
+    /**
+     * @ORM\Column(type="string", nullable=true)
+     */
+    protected $stampNumber;
+
 
     # ######################### #
     # Информация о руководителе #
@@ -979,6 +984,22 @@ class CompanyUser extends BaseEntity
     public function setLicenseDecreeDate($licenseDecreeDate)
     {
         $this->licenseDecreeDate = $licenseDecreeDate;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getStampNumber()
+    {
+        return $this->stampNumber;
+    }
+
+    /**
+     * @param mixed $stampNumber
+     */
+    public function setStampNumber($stampNumber)
+    {
+        $this->stampNumber = $stampNumber;
     }
 
 

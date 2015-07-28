@@ -75,11 +75,7 @@
     <div class="box">
         <table>
             <form method="POST" action="{{ path('application-skzi-step4') }}" id="main-form" enctype="multipart/form-data">
-                <tr>
-                    <td colspan="3">
-                        <div class="error-msg"></div>
-                    </td>
-                </tr>
+
                 <tr>
                     <td class="label">Фотография<span class="required">*</span>:</td>
 
@@ -291,6 +287,11 @@
                     <i style="font-size: 14px; color: #CC3333">* Поля отмеченные звездочкой обязательны для заполнения</i>
                     <br />
                 </td></tr>
+            <tr>
+                <td colspan="3">
+                    <div class="error-msg"></div>
+                </td>
+            </tr>
             <tr>
                 <td></td>
                 <td style="text-align: right">

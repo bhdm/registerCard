@@ -82,11 +82,7 @@
                 </td>
             </tr>
             <form method="POST" action="{{ path('application-ru-step5') }}" id="main-form">
-                <tr>
-                    <td colspan="3">
-                        <div class="error-msg"></div>
-                    </td>
-                </tr>
+
                 <tr class="tehnolog-n">
                     <td class="label">Регион<span class="required">*</span>:</td>
                     <td class="value">
@@ -189,6 +185,11 @@
                         <br />
                         <i style="font-size: 14px; color: #CC3333">* Поля отмеченные звездочкой обязательны для заполнения</i>
                         <br />
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="3">
+                        <div class="error-msg"></div>
                     </td>
                 </tr>
             </form>

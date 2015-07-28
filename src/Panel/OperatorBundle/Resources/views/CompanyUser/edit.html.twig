@@ -2,6 +2,7 @@
 
 
 {% block content %}
+    {% form_theme form with  'PanelOperatorBundle::iphp_field.html.twig' %}
     <h2>Карта для юридических лиц</h2>
     <form method="POST" action="{{ path('application_company') }}" enctype="multipart/form-data">
         <div class="block-form">
@@ -78,6 +79,10 @@
                     <td>
                         {{ form_widget(form.fileOgrn) }}
                     </td>
+                </tr>
+                <tr>
+                    <td>Номер клейма<span class="mini"> (Для мастерских)</span></td>
+                    <td>{{ form_widget(form.stampNumber) }}</td>
                 </tr>
             </table>
         </div>
@@ -315,6 +320,13 @@
             width: 230px;
             padding-right: 10px;
         }
+        .table-form tr td table tr td:first-child{
+            display: none;
+        }
+        .table-form tr td table tr td:last-child{
+            overflow: hidden;
+            height: 100px;
+        }
         .block-form{
             margin: 0 auto;
         }
@@ -350,6 +362,41 @@
         .date_year{
             width: 100px;
         }
+        td, th {
+            padding: 5px;
+        }
+        input[type=text], input[type=number], input[type=password], input[type=email], input[type=url], textarea {
+            padding: 5px 10px;
+            font-size: 16px;
+            border-radius: 3px;
+            border-top: 2px solid #909090;
+            border-left: 2px solid #909090;
+            border-bottom: 1px solid #cccccc;
+            border-right: 1px solid #cccccc;
+            width: 270px;
+            background: #FAFAFA;
+        }
+        .full-img-link img{
+            display: none;
+        }
+
+        .navigateFile{
+            text-align: left;
+            display: none;
+        }
+        .navigateFile img {
+            width: 24px;
+            margin: 7px;
+            cursor: pointer;
+        }
+        .progress{
+            display: none;
+        }
+        .fileDoc img{
+            max-width: 415px;
+            max-height: 500px;
+            min-width: 200px;
+        }
     </style>
 
 {% endblock %}
@@ -365,6 +412,7 @@
     <script>
 
         $(document).ready(function(){
+            $('td .full-img-link:nth').html('Просмотр');
 
             $( '#crm_mainbundle_companyuser_legalAdrs_region' ).kladr({
                 token: '541ee4ac7c52392c7d8b457e',
