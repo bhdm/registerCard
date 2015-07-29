@@ -307,7 +307,7 @@ class CompanyUser extends BaseEntity
 
     public function __construct(){
         $this->salt = md5(time());
-        $this->dateDeploy = new \DateTime();
+//        $this->dateDeploy = new \DateTime();
     }
 
     /**

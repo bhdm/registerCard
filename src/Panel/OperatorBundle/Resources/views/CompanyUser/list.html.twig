@@ -7,6 +7,31 @@
 
 {% block content %}
     <div class="well">
+        <div class="form-inline" role="form">
+            <div class="dropdown form-group">
+                <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                    Все организации
+                    <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                    <li><a href="#">Предприятия</a></li>
+                    <li><a href="#">Мастерские</a></li>
+                </ul>
+            </div>
+            <div class="dropdown form-group">
+                <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                    Все карты
+                    <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
+                    <li><a href="#">СКЗИ</a></li>
+                    <li><a href="#">ЕСТР</a></li>
+                    <li><a href="#">РФ</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="well">
         <h4>ТАБЛИЦА ЗАЯВОК</h4>
         {% for flashMessage in app.session.flashbag.get('error') %}
             <div class="alert alert-danger" role="alert">{{ flashMessage }}</div>

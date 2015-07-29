@@ -53,7 +53,10 @@ class CompanyUserController extends Controller{
         $item = $this->getDoctrine()->getRepository('CrmMainBundle:CompanyUser')->findOneById($id);
         $form = $this->createForm(new CompanyUserType($em), $item);
         $formData = $form->handleRequest($request);
-
+        $signFilePath = $item->getFileSign();
+        if ($signFilePath){
+            $signFilePath = $signFilePath['path'];
+        }
         if ($request->getMethod() == 'POST'){
             if ($formData->isValid()){
                 $item = $formData->getData();
@@ -79,6 +82,6 @@ class CompanyUserController extends Controller{
             }
         }
 
-        return array('form' => $form->createView());
+        return array('form' => $form->createView(),'signFilePath' => $signFilePath);
     }
 }
