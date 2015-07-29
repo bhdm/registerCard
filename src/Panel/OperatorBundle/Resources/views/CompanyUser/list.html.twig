@@ -35,14 +35,23 @@
                 {% for item in pagination %}
                     <tr>
                         <td>{{ item.id }}</td>
-                        <td>{{ item.companyTypeStr }}</td>
-                        <td>{{ item.cardTypeStr }}</td>
+                        <td><span class="label label-{{ item.companyType == 0 ? 'danger' : item.companyType == 1 ? 'primary' : 'success' }}">{{ item.companyTypeStr }}</span></td>
+                        <td><span class="label label-{{ item.cardType == 1 ? 'Warning' : item.cardType == 2 ? 'primary' : 'success' }}">{{ item.cardTypeStr }}</td>
                         <td>{{ item.cardAmount }}</td>
-                        <td>{{ item.price * 1  }} руб.</td>
+                        <td style="text-align: center">{{ item.price * 1  }} руб.</td>
                         <td>{{ item.created | date('d.m.Y')}}</td>
-                        <td>{{ item.status }}</td>
+                        <td style="text-align: center">
+                            <div class="statusBox">
+                                {{ item.statusStr | raw }}
+                                {#<div class="statusItems">#}
+                                    {#{% for status in user.statusArray %}#}
+                                        {#{{ status.title }}&nbsp;-&nbsp;{{ status.date | date('d.m.Y') }}<br />#}
+                                    {#{% endfor %}#}
+                                {#</div>#}
+                            </div>
+                        </td>
                         <td>{{ item.comment }}</td>
-                        <td class="settings">
+                        <td class="settings" style="text-align: right">
                             {% spaceless %}
                             <a href="{{ path('operator_companyuser_edit',{'id' : item.id }) }}">
                                 <button type="button" class="btn btn-default btn-success">

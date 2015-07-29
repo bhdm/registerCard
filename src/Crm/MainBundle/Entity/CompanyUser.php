@@ -1002,6 +1002,37 @@ class CompanyUser extends BaseEntity
         $this->stampNumber = $stampNumber;
     }
 
-
+    public function getStatusStr(){
+        switch ($this->status){
+            case null:
+                $status = '<span class="status" style="border: 1px solid #000; color: #000000">Новая</span>';
+                break;
+            case 0:
+                $status = '<span class="status" style="border: 1px solid #000; color: #000000">Новая</span>';
+                break;
+            case 1:
+                $status = '<span class="status" style="border: 1px solid #cc8140; color: #cc8140">Подтвержденная</span>';
+                break;
+            case 2:
+                $status = '<span class="status" style="border: 1px solid #33CC33; color: #33CC33">Оплаченная</span>';
+                break;
+            case 3:
+                $status = '<span class="status" style="border: 1px solid #2135cc; color: #2135cc">В&nbsp;производстве</span>';
+                break;
+            case 6:
+                $status = '<span class="status" style="border: 1px solid #920055; color: #920055">Изготовлено</span>';
+                break;
+            case 4:
+                $status = '<span class="status" style="border: 1px solid #660000; color: #660000">На почте</span>';
+                break;
+            case 5:
+                $status = '<span class="status" style="border: 1px solid #6c9e9f; color: #6c9e9f">Получена</span>';
+                break;
+            case 10:
+                $status = '<span class="status" style="border: 1px solid #CC3333; color: #CC3333">Отклонена</span>';
+                break;
+        }
+        return $status;
+    }
 
 }

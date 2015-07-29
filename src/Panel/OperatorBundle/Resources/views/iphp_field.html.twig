@@ -20,7 +20,7 @@
                         {% endif %}
                         <td style="vertical-align: top;">
 
-                            <a href="{{ fileUrl }}" target="_blank" class="full-img-link">Просмотр</a>
+                            <a href="{{ fileUrl }}" target="_blank" class="full-img-link fancybox-pdf ">Просмотр</a>
                             <br>{{ fileData.size /1000}} Kb
                             {{  fileData.width is defined ? ', ' ~ fileData.width ~ 'x' ~ fileData.height : ""}}
 
