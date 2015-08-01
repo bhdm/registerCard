@@ -291,6 +291,68 @@ class CompanyController extends Controller
 
     /**
      * @Security("has_role('ROLE_OPERATOR')")
+     * @Route("/quota/get-data/{id}", name="get_quota_data", options={"expose" = true})
+     * @Template()
+     */
+    public function quotaFormEditAction(Request $request, $id){
+        $quotaLog = $this->getDoctrine()->getRepository('CrmMainBundle:CompanyQuotaLog')->findOneById($id);
+
+        return array('q' => $quotaLog);
+    }
+
+    /**
+     * @Security("has_role('ROLE_OPERATOR')")
+     * @Route("/quota/edit/{quotaId}", name="panel_company_quota_edit")
+     * @Template()
+     */
+    public function quotaEditAction(Request $request, $quotaId){
+
+        $quotaLog = $this->getDoctrine()->getRepository('CrmMainBundle:CompanyQuotaLog')->findOneById($quotaId);
+        $company = $quotaLog->getCompany();
+        if ($request->getMethod() == 'POST'){
+            $oldQuota = $company->getQuota();
+            $quota = $request->request->get('quota');
+            $comment = $request->request->get('comment');
+            $date = $request->request->get('created');
+            if (!$date){
+                $date = new \DateTime();
+            }else{
+                $date = new \DateTime($date.' 00:00:00');
+            }
+
+            $quotaLog->setQuota($quota);
+            $quotaLog->setComment($comment);
+            $quotaLog->setCompany($company);
+            $quotaLog->setCreated($date);
+
+            $quotaLog->setDriverSkzi($request->request->get('driverSkzi'));
+            $quotaLog->setDriverEstr($request->request->get('driverEstr'));
+            $quotaLog->setDriverRu(  $request->request->get('driverRu'));
+
+            $quotaLog->setCompanySkzi($request->request->get('companySkzi'));
+            $quotaLog->setCompanyEstr($request->request->get('companyEstr'));
+            $quotaLog->setCompanyRu(  $request->request->get('companyRu'));
+
+            $quotaLog->setMasterSkzi($request->request->get('masterSkzi'));
+            $quotaLog->setMasterEstr($request->request->get('masterEstr'));
+            $quotaLog->setMasterRu(  $request->request->get('masterRu'));
+
+
+            $this->getDoctrine()->getManager()->persist($quotaLog);
+            $this->getDoctrine()->getManager()->flush($quotaLog);
+            $company->setQuota($oldQuota+$quota);
+            $this->getDoctrine()->getManager()->flush($company);
+            $this->getDoctrine()->getManager()->refresh($company);
+        }
+
+        $referer = $request->headers->get('referer');
+        return $this->redirect($referer);
+    }
+
+
+
+    /**
+     * @Security("has_role('ROLE_OPERATOR')")
      * @Route("/get-quota/{companyId}", name="panel_company_get_quota", options={"expose" = true})
      * @Template()
      */
