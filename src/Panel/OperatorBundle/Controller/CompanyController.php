@@ -251,6 +251,20 @@ class CompanyController extends Controller
             $quotaLog->setComment($comment);
             $quotaLog->setCompany($company);
             $quotaLog->setCreated($date);
+
+            $quotaLog->setDriverSkzi($request->request->get('driverSkzi'));
+            $quotaLog->setDriverEstr($request->request->get('driverEstr'));
+            $quotaLog->setDriverRu(  $request->request->get('driverRu'));
+
+            $quotaLog->setCompanySkzi($request->request->get('companySkzi'));
+            $quotaLog->setCompanyEstr($request->request->get('companyEstr'));
+            $quotaLog->setCompanyRu(  $request->request->get('companyRu'));
+
+            $quotaLog->setMasterSkzi($request->request->get('masterSkzi'));
+            $quotaLog->setMasterEstr($request->request->get('masterEstr'));
+            $quotaLog->setMasterRu(  $request->request->get('masterRu'));
+
+
             $quotaLog->setOperator($this->getUser());
             $this->getDoctrine()->getManager()->persist($quotaLog);
             $this->getDoctrine()->getManager()->flush($quotaLog);

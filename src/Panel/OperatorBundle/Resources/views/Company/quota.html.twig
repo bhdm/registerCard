@@ -17,6 +17,7 @@
             <tr>
                 <th >Дата</th>
                 <th >Квота</th>
+                <th >Распределение</th>
                 <th >Примечание</th>
                 <th class="setting">Инструменты</th>
             </tr>
@@ -28,6 +29,23 @@
                         {{ q.quota }}
                         {% if ( q.quota > 0 ) %}
                         {% endif %}
+                    </td>
+                    <td>
+                        <div class="row">
+                            <div class="col-xs-4" title="Водитель СКЗИ">{{ q.driverSkzi }}</div>
+                            <div class="col-xs-4" title="Водитель ЕСТР">{{ q.driverEstr }}</div>
+                            <div class="col-xs-4" title="Водитель РФ"  >{{ q.driverRu }}</div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-4" title="предприятие СКЗИ">{{ q.companySkzi }}</div>
+                            <div class="col-xs-4" title="предприятие ЕСТР">{{ q.companyEstr }}</div>
+                            <div class="col-xs-4" title="предприятие РФ"  >{{ q.companyRu }}</div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-4" title="мастерская СКЗИ">{{ q.masterSkzi }}</div>
+                            <div class="col-xs-4" title="мастерская ЕСТР">{{ q.masterEstr }}</div>
+                            <div class="col-xs-4" title="мастерская РФ"  >{{ q.masterRu }}</div>
+                        </div>
                     </td>
                     <td>{{ q.comment }}</td>
                     <td class="setting">
@@ -79,6 +97,48 @@
                                     <label for="inputPassword" class="control-label col-xs-2">Комментарий</label>
                                     <div class="col-xs-10">
                                         <input type="text" name="comment" class="form-control" id="inputComment" placeholder="Комментарий">
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-xs-3">
+                                        <label class="control-label">Водитель</label>
+                                    </div>
+                                    <div class="col-xs-3">
+                                        <input type="text" name="driverSkzi" class="form-control"  placeholder="СКЗИ" >
+                                    </div>
+                                    <div class="col-xs-3">
+                                        <input type="text" name="driverEstr" class="form-control"  placeholder="ЕСТР" >
+                                    </div>
+                                    <div class="col-xs-3">
+                                        <input type="text" name="driverRu" class="form-control"  placeholder="РФ" >
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-xs-3">
+                                        <label class="control-label">Предприятие</label>
+                                    </div>
+                                    <div class="col-xs-3">
+                                        <input type="text" name="companySkzi" class="form-control"  placeholder="СКЗИ" >
+                                    </div>
+                                    <div class="col-xs-3">
+                                        <input type="text" name="companyEstr" class="form-control"  placeholder="ЕСТР" >
+                                    </div>
+                                    <div class="col-xs-3">
+                                        <input type="text" name="companyRu" class="form-control"  placeholder="РФ" >
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-xs-3">
+                                        <label class="control-label">Мастерская</label>
+                                    </div>
+                                    <div class="col-xs-3">
+                                        <input type="text" name="masterSkzi" class="form-control"  placeholder="СКЗИ" >
+                                    </div>
+                                    <div class="col-xs-3">
+                                        <input type="text" name="masterEstr" class="form-control"  placeholder="ЕСТР" >
+                                    </div>
+                                    <div class="col-xs-3">
+                                        <input type="text" name="masterRu" class="form-control"  placeholder="РФ" >
                                     </div>
                                 </div>
                                 <div class="form-group">
