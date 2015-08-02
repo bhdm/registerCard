@@ -34,6 +34,8 @@ class ApplicationEstrController extends Controller
             $order['email'] = $request->request->get('email');
             $order['phone'] = $request->request->get('phone');
             $order['citizenship'] = $request->request->get('rezident');
+            $order['oldNumber'] = $request->request->get('oldNumber');
+            $order['typeCard'] = $request->request->get('typeCard');
             $order['step1'] = true;
             $session->set('order',$order);
             if ($url == null){
@@ -213,9 +215,6 @@ class ApplicationEstrController extends Controller
             $order['d_room'] = $request->request->get('room');
             $order['d_zipcode'] = $request->request->get('zipcode');
             $order['success'] = true;
-
-            $order['oldNumber'] = $request->request->get('oldNumber');
-            $order['typeCard'] = $request->request->get('typeCard');
 
             $session->set('order',$order);
             if ($url == null){

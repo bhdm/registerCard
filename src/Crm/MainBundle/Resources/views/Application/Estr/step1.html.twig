@@ -115,6 +115,26 @@
                         <input type="hidden" name="rezident" id="rezident-hidden" value="1">
                     </td>
                 </tr>
+                <tr>
+                    <td class="label">Выбор типа карты</td>
+                    <td>
+                        <select id="typeCard" class="typeCard" style="width: 212px">
+                            <option value="0">Первичная выдача карты</option>
+                            <option value="1">Замена в связи с истечением срока действия карты</option>
+                            <option value="2">Замена в связи с дефектом, утерей или утратой карты</option>
+                            <option value="3">Замена карты вследствие изменения персональных данных</option>
+                        </select>
+                        <input type="hidden" name="typeCard" id="typeCard-hidden" value="1">
+                    </td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td class="label">Номер старой карты</td>
+                    <td>
+                        <input name="oldNumber" id="oldNumber"  type="text" placeholder="Номер старой карты" value="{{ order.oldNumber is defined ? order.oldNumber : '' }}"><br />
+                    </td>
+                    <td></td>
+                </tr>
             </form>
             <tr><td colspan="2">
                     <br />
@@ -151,6 +171,8 @@
             $('#submit').click(function(){
 
                 $('#rezident-hidden').val($('#rezident').val());
+                $('#typeCard-hidden').val($('#typeCard').val());
+
                 errorI = 1 ;
                 error = '';
                 if ( $('#email').val() == ''){
