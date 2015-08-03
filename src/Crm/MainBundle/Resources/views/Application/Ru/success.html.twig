@@ -5,7 +5,9 @@
         <h2>Заявка создана, Номер заказа {{ user.id }}</h2>
         <br/>
         <br/>
-        <a href="{{ path('offer',{'userId' : user.id, 'date' : '1541513'}) }}">Скачать счет-заказ</a>
+        {% if url == null %}
+            <a href="{{ path('offer',{'userId' : user.id, 'date' : '1541513'}) }}">Скачать счет-заказ</a>
+        {% enif %}
         <br/>
         <br/>
         {% if url == null %}
