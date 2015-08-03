@@ -371,6 +371,17 @@ class CompanyController extends Controller
         $amountRubEstrNew = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->amountRubNew($companyId,1,0)['sumPrice'];
         $amountRubRuNew = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->amountRubNew($companyId,0,1)['sumPrice'];
 
+        $sumVirtuals = $this->getDoctrine()->getRepository('CrmMainBundle:CompanyQuotaLog')->findByCompany($company);
+
+        $sumVirtual[0] = 0;
+        $sumVirtual[1] = 0;
+        $sumVirtual[2] = 0;
+        foreach ($sumVirtuals as $item){
+            $sumVirtual[0] += $item->getDriverSkzi();
+            $sumVirtual[1] += $item->getDriverEstr();
+            $sumVirtual[2] += $item->getDriverRu();
+        }
+
         return array(
             'company' => $company,
             'allUsers' => $users,
@@ -382,7 +393,8 @@ class CompanyController extends Controller
             'amountRubEstrNew' => $amountRubEstrNew ,
             'amountRubRuNew'=> $amountRubRuNew,
             'amountPlusQuota' =>$amountPlusQuota,
-            'amountMinusQuota' =>$amountMinusQuota
+            'amountMinusQuota' =>$amountMinusQuota,
+            'sumVirtual' =>$sumVirtual,
         );
     }
 
