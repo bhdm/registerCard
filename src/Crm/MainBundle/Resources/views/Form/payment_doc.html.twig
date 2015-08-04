@@ -19,6 +19,30 @@
                 left: 340px;
                 top: 243px;
             }
+            .price11{
+                position: absolute;
+                left: 318px;
+                top: 260px;
+                font-size: 10px;
+            }
+            .price12{
+                position: absolute;
+                left: 275px;
+                top: 280px;
+                font-size: 10px;
+            }
+            .price21{
+                position: absolute;
+                left: 318px;
+                top: 524px;
+                font-size: 10px;
+            }
+            .price22{
+                position: absolute;
+                left: 275px;
+                top: 544px;
+                font-size: 10px;
+            }
             .date1{
                 position: absolute;
                 top: 275px;
@@ -58,10 +82,10 @@
 
 
             {% if user.estr == 0 and user.ru == 0 %}
-                <img src="{{ asset('bundles/crmmain/images/doc-template.png') }}" width="700px">
+                <img src="{{ asset('bundles/crmmain/images/doc-template3.png') }}" width="700px">
                 {% set type = '( СКЗИ )' %}
             {% else %}
-                <img src="{{ asset('bundles/crmmain/images/doc-template2.png') }}" width="700px">
+                <img src="{{ asset('bundles/crmmain/images/doc-template3.png') }}" width="700px">
                 {% if user.estr == 1 %}
                     {% set type = '( ЕСТР )' %}
                 {% elseif user.ru == 1 %}
@@ -84,6 +108,8 @@
             <div class="title">
                 Оплата за карту тахографа {{ type }} , Заказ № {{ user.id }} Без НДС.
             </div>
+            <div class="price11">{{ user.price }}</div>
+            <div class="price12">{{ user.price }}</div>
 
             <div class="fio2" >{{ user.lastName }} {{ user.firstName }} {{ user.surName is not null ? user.surName : ''}}</div>
             <div class="adr2" >
@@ -98,5 +124,7 @@
             <div class="title2">
                 Оплата за карту тахографа {{ type }} , Заказ № {{ user.id }} Без НДС.
             </div>
+            <div class="price21">{{ user.price }}</div>
+            <div class="price22">{{ user.price }}</div>
     </body>
 </html>

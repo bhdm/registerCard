@@ -301,6 +301,7 @@ class AuthController extends Controller
 
     /**
      * @Route("/generatePaymentPdf", name="generate_payment_pdf")
+     * @Route("/generatePaymentPdf2", name="generate_payment_pdf2")
      */
     public function generatePaymentPdfAction(Request $request){
         if ($request->query->get('ord')!=null){
@@ -336,7 +337,7 @@ class AuthController extends Controller
 
 
     /**
-     * @Route("/generatePaymentPdf2", name="generate_payment_pdf2")
+     * @Route("/generatePaymentPdf2w", name="generate_payment_pdf2w")
      */
     public function generatePaymentPdf2Action(Request $request){
         if ($request->query->get('ord')!=null){
