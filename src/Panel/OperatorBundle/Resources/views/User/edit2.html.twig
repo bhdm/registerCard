@@ -16,26 +16,30 @@
                 {% if is_granted('ROLE_ADMIN')  %}
                     <tr>
                         <td>
-                            <div class="form-group">
-                                <label class="control-label col-sm-3" for="oldNumber">Старая карта:</label>
-                                <div class="col-sm-9">
-                                    <input type="text"  name="oldNumber" id="oldNumber" class="form-control" value="{{ user.lastNumberCard }}">
-                                </div>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <div class="form-group">
-                                <label class="control-label col-sm-3" for="typeCard">Тип выдачи:</label>
-                                <div class="col-sm-3">
-                                    <select id="typeCard" name="typeCard" class="miniselect">
-                                        <option value="0" {{ user.typeCard == 0 ? 'selected="selected"' : '' }}>Новая карта</option>
-                                        <option value="1" {{ user.typeCard == 1 ? 'selected="selected"' : '' }}>Замена</option>
-                                        <option value="2" {{ user.typeCard == 2 ? 'selected="selected"' : '' }}>Обновление</option>
-                                    </select>
-                                </div>
-                            </div>
+                            <table>
+                                <tr>
+                                    <td>
+                                        <div class="form-group">
+                                            <label class="control-label col-sm-3" for="typeCard">Тип выдачи:</label>
+                                            <div class="col-sm-3">
+                                                <select id="typeCard" name="typeCard" class="miniselect">
+                                                    <option value="0" {{ user.typeCard == 0 ? 'selected="selected"' : '' }}>Новая карта</option>
+                                                    <option value="1" {{ user.typeCard == 1 ? 'selected="selected"' : '' }}>Замена</option>
+                                                    <option value="2" {{ user.typeCard == 2 ? 'selected="selected"' : '' }}>Обновление</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="form-group">
+                                            <label class="control-label col-sm-3" for="oldNumber">Старая карта:</label>
+                                            <div class="col-sm-9">
+                                                <input type="text"  name="oldNumber" id="oldNumber" class="form-control" value="{{ user.lastNumberCard }}">
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </table>
                         </td>
                     </tr>
                 <tr>
