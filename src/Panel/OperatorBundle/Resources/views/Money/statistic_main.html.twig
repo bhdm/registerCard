@@ -1,0 +1,40 @@
+<div id="stats" style="width: 750px; height: 300px;"></div>
+
+    <script type="text/javascript"  src="https://www.google.com/jsapi"></script>
+    <script>
+        google.load('visualization', '1.1', {packages: ['line']});
+        google.setOnLoadCallback(drawChart);
+
+        function drawChart() {
+            var data = google.visualization.arrayToDataTable([
+                ['Месяц',  'СКЗИ', 'ЕСТР', 'РФ', 'ИТОГО'],
+                {% for j in range(12, 1) %}
+                [
+                    '{{ j }}.{{ year }}',
+                    {{ (users[j].skzi is defined ? users[j].skzi : 0) }},
+                    {{ (users[j].estr is defined ? users[j].estr : 0) }},
+                    {{ (users[j].ru is defined ? users[j].ru : 0) }},
+                    {{ (users[j].all is defined ? users[j].all : 0) }}
+
+                ],
+                {% endfor %}
+            ]);
+
+            var options = {
+                title: 'Cтатистика заявок за год',
+                curveType: 'function',
+                legend: { position: 'bottom' },
+                pointSize: 20,
+                pointShape: 'circle'
+            };
+
+            var chart = new google.charts.Line(document.getElementById('stats'));
+
+            chart.draw(data, options);
+        }
+        $(document).ready(function(){
+            $('#statsOfDay').click(function(){
+                $('#statsOfDayBox').css('display', 'block');
+            });
+        });
+    </script>

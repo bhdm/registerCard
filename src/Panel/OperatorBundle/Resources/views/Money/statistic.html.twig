@@ -1,0 +1,31 @@
+{% extends 'PanelOperatorBundle::layout.html.twig' %}
+
+
+{% block breadcrumb %}
+    <ul class="breadcrumb well">
+        <li>Статистика</li>
+    </ul>
+{% endblock %}
+
+
+{% block content %}
+    <div class="well">
+        <ul class="nav nav-tabs nav-justified">
+            <li class="{{ type == 'main' ? 'active' : '' }}"><a href="{{ path('statistic',{'type' : 'main'}) }}">График</a></li>
+            <li class="{{ type == 'company' ? 'active' : '' }}"><a href="{{ path('statistic',{'type' : 'company'}) }}">Компании</a></li>
+            <li class="{{ type == 'user' ? 'active' : '' }}"><a href="{{ path('statistic',{'type' : 'user'}) }}" >Пользователи</a></li>
+        </ul>
+    </div>
+    {% if type == 'main' %}
+        {% include 'PanelOperatorBundle:Money:statistic_main.html.twig' with params  %}
+    {% endif %}
+    {% if type == 'company' %}
+        {% include 'PanelOperatorBundle:Money:statistic_company.html.twig' with params  %}
+    {% endif %}
+{% endblock %}
+
+
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript"  src="https://www.google.com/jsapi"></script>
+{% endblock %}

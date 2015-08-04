@@ -106,9 +106,74 @@ class MoneyController extends Controller
         return array('stats' => $re, 'date' => $date3);
     }
 
-    public function statisticAction(){
-        #Высчитывает статистику по типам карт за последние 6 месяцев
-//        $statsOfType =
+    /**
+     * @Route("/statistic/{type}", name="statistic" , defaults={"type" = "main"})
+     * @Template()
+     */
+    public function statisticAction($type = 'main'){
+        $param = [];
+        if ($type == 'main'){
+            $pdo = $this->getDoctrine()->getManager()->getConnection();
+
+            $sql1 = 'SELECT COUNT(user.id) c, YEAR(user.created) y , MONTH(user.created) m FROM user
+                      WHERE user.status != 0 AND user.status != 1 AND user.estr=0 AND user.ru=0
+                      GROUP BY y,m
+                      ORDER BY y DESC , m DESC ';
+            $st = $pdo->prepare($sql1);
+            $st->execute();
+            $param['users']['skzi'] = $st->fetchAll();
+            $sql1 = 'SELECT COUNT(user.id) c, YEAR(user.created) y , MONTH(user.created) m FROM user
+                      WHERE user.status != 0 AND user.status != 1 AND user.estr=1 AND user.ru=0
+                      GROUP BY y,m
+                      ORDER BY y DESC , m DESC ';
+            $st = $pdo->prepare($sql1);
+            $st->execute();
+            $param['users']['estr'] = $st->fetchAll();
+            $sql1 = 'SELECT COUNT(user.id) c, YEAR(user.created) y , MONTH(user.created) m FROM user
+                      WHERE user.status != 0 AND user.status != 1 AND user.estr=0 AND user.ru=1
+                      GROUP BY y,m
+                      ORDER BY y DESC , m DESC ';
+            $st = $pdo->prepare($sql1);
+            $st->execute();
+            $param['users']['ru'] = $st->fetchAll();
+            $sql1 = 'SELECT COUNT(user.id) c, YEAR(user.created) y , MONTH(user.created) m FROM user
+                      WHERE user.status != 0 AND user.status != 1
+                      GROUP BY y,m
+                      ORDER BY y DESC , m DESC ';
+            $st = $pdo->prepare($sql1);
+            $st->execute();
+            $param['users']['all'] = $st->fetchAll();
+            $user = array();
+            $lastDateSkzi = $param['users']['skzi'][0]['m'];
+
+            for ($i = $lastDateSkzi; $i > 0 ; $i-- ){
+                $user[$i]['skzi'] = $param['users']['skzi'][$i]['c'];
+                $user[$i]['estr'] = $param['users']['estr'][$i]['c'];
+                $user[$i]['ru'] = $param['users']['ru'][$i]['c'];
+                $user[$i]['all'] = $param['users']['all'][$i]['c'];
+            }
+            $param['users'] = $user;
+        }elseif($type == 'company'){
+            $moneyOfCompany = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->getMoney();
+            $moneyOfCompany1 = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->getMoney('2015-03-01 00:00:00');
+            $moneyOfCompany2 = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->getMoney('2015-04-01 00:00:00');
+            $moneyOfCompany3 = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->getMoney('2015-05-01 00:00:00');
+            $moneyOfCompany4 = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->getMoney('2015-06-01 00:00:00');
+            $moneyOfCompany5 = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->getMoney('2015-07-01 00:00:00');
+            $moneyOfCompany6 = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->getMoney('2015-08-01 00:00:00');
+
+            $param['moneyOfCompany']  = $moneyOfCompany;
+            $param['moneyOfCompany1'] = $moneyOfCompany1;
+            $param['moneyOfCompany2'] = $moneyOfCompany2;
+            $param['moneyOfCompany3'] = $moneyOfCompany3;
+            $param['moneyOfCompany4'] = $moneyOfCompany4;
+            $param['moneyOfCompany5'] = $moneyOfCompany5;
+            $param['moneyOfCompany6'] = $moneyOfCompany6;
+        }
+
+        $param['year'] = (new \DateTime())->format('Y');
+
+        return array('type' => $type, 'params' => $param);
     }
 }
 
