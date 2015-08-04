@@ -127,6 +127,11 @@
                                         <span class="glyphicon glyphicon-file"></span>
                                     </button>
                                 </a>&nbsp;&nbsp;
+                                <a href="{{ path('offer',{'userId' : user.id, 'date' : '1541513'}) }}" target="_blank" class="no-underline">
+                                    <button type="button" class="btn btn-default btn-bg" title="Заявление">
+                                        <span class="glyphicon glyphicon-file"></span>
+                                    </button>
+                                </a>&nbsp;&nbsp;
                                 {% if user.myPetition == 1 or user.copyPetition is not empty %}
                                     <a href="{{ path('generate_petition',{'userId' : user.id}) }}" target="_blank" class="no-underline">
                                         <button type="button" class="btn btn-default btn-bg" title="Ходатайство">

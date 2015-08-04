@@ -137,6 +137,9 @@
                                             <li role="presentation">
                                                 <a role="menuitem" tabindex="-1" href="{{ path('generate_pdf_statement',{'id' : user.id}) }}" target="_blank">Заявление</a>
                                             </li>
+                                            <li role="presentation">
+                                                <a role="menuitem" tabindex="-1" href="{{ path('offer',{'userId' : user.id, 'date' : '1541513'}) }}" target="_blank">счет-заказ</a>
+                                            </li>
                                             {% if user.myPetition == 1 or user.copyPetition is not empty %}
                                                 <li role="presentation">
                                                     <a role="menuitem" tabindex="-1" href="{{ path('generate_petition',{'userId' : user.id}) }}" target="_blank">Ходатайсво</a>
