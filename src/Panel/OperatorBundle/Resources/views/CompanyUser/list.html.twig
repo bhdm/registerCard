@@ -7,27 +7,49 @@
 
 {% block content %}
     <div class="well">
-        <div class="form-inline" role="form">
-            <div class="dropdown form-group">
-                <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                    Все организации
-                    <span class="caret"></span>
-                </button>
-                <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                    <li><a href="#">Предприятия</a></li>
-                    <li><a href="#">Мастерские</a></li>
-                </ul>
+        <div class="row form-inline" role="form">
+            <div class="col-xs-5">
+                <div class="dropdown form-group">
+                    <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                        Все организации
+                        <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                        <li><a href="#">Предприятия</a></li>
+                        <li><a href="#">Мастерские</a></li>
+                    </ul>
+                </div>
+                <div class="dropdown form-group">
+                    <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                        Все карты
+                        <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
+                        <li><a href="#">СКЗИ</a></li>
+                        <li><a href="#">ЕСТР</a></li>
+                        <li><a href="#">РФ</a></li>
+                    </ul>
+                </div>
             </div>
-            <div class="dropdown form-group">
-                <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                    Все карты
-                    <span class="caret"></span>
-                </button>
-                <ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
-                    <li><a href="#">СКЗИ</a></li>
-                    <li><a href="#">ЕСТР</a></li>
-                    <li><a href="#">РФ</a></li>
-                </ul>
+            <div class="col-xs-4">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="button-group">
+                                <button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" id="dropdown-status">Статусы : Все <span class="caret"></span></button>
+                                <ul class="dropdown-menu">
+                                    <li><a href="#" class="small" data-value="Новые" tabIndex="-1"><input type="checkbox"/>&nbsp;Новые</a></li>
+                                    <li><a href="#" class="small" data-value="Подтвержденные" tabIndex="-1"><input type="checkbox"/>&nbsp;Подтвержденные</a></li>
+                                    <li><a href="#" class="small" data-value="Оплаченные" tabIndex="-1"><input type="checkbox"/>&nbsp;Оплаченные</a></li>
+                                    <li><a href="#" class="small" data-value="В производстве" tabIndex="-1"><input type="checkbox"/>&nbsp;В производстве</a></li>
+                                    <li><a href="#" class="small" data-value="На почте" tabIndex="-1"><input type="checkbox"/>&nbsp;На почте</a></li>
+                                    <li><a href="#" class="small" data-value="Полученные" tabIndex="-1"><input type="checkbox"/>&nbsp;Полученные</a></li>
+                                    <li><a href="#" class="small" data-value="Отмененные" tabIndex="-1"><input type="checkbox"/>&nbsp;Отмененные</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -41,52 +63,56 @@
         {% endfor %}
 
         <table class="table" data-toggle="table"
-               data-sort-name="login"
-               data-sort-order="asc">
+               data-sort-name="id"
+               data-sort-order="desc"
+               data-url="{{ path('get_companyuser_json') }}">
+
             <thead>
             <tr>
-                <th>ID</th>
-                <th>Тип компании</th>
-                <th>Тип карт</th>
-                <th>Кол-во</th>
-                <th>Стоимость</th>
-                <th>Дата</th>
-                <th>Статус</th>
+                <th data-field="id" data-sortable="true">ID</th>
+                <th data-field="companyType" data-sortable="true">Тип компании</th>
+                <th data-field="cardType" data-sortable="true">Тип карт</th>
+                <th data-field="email" data-sortable="true">Email</th>
+                <th data-field="amount" data-sortable="true">Кол-во</th>
+                <th data-field="price" data-sortable="true">Стоимость</th>
+                <th data-field="dateCreated" data-sortable="true">Дата</th>
+                <th data-field="status" data-sortable="true">Статус</th>
                 <th>Комментарий</th>
                 <th class="setting">Инструменты</th>
             </tr>
             </thead>
             <body>
-                {% for item in pagination %}
-                    <tr>
-                        <td>{{ item.id }}</td>
-                        <td><span class="label label-{{ item.companyType == 0 ? 'danger' : item.companyType == 1 ? 'primary' : 'success' }}">{{ item.companyTypeStr }}</span></td>
-                        <td><span class="label label-{{ item.cardType == 1 ? 'Warning' : item.cardType == 2 ? 'primary' : 'success' }}">{{ item.cardTypeStr }}</td>
-                        <td>{{ item.cardAmount }}</td>
-                        <td style="text-align: center">{{ item.price * 1  }} руб.</td>
-                        <td>{{ item.created | date('d.m.Y')}}</td>
-                        <td style="text-align: center">
-                            <div class="statusBox">
-                                {{ item.statusStr | raw }}
-                                {#<div class="statusItems">#}
-                                    {#{% for status in user.statusArray %}#}
-                                        {#{{ status.title }}&nbsp;-&nbsp;{{ status.date | date('d.m.Y') }}<br />#}
-                                    {#{% endfor %}#}
-                                {#</div>#}
-                            </div>
-                        </td>
-                        <td>{{ item.comment }}</td>
-                        <td class="settings" style="text-align: right">
-                            {% spaceless %}
-                            <a href="{{ path('operator_companyuser_edit',{'id' : item.id }) }}">
-                                <button type="button" class="btn btn-default btn-success">
-                                    <span class="glyphicon glyphicon-edit"></span>
-                                </button>
-                            </a>
-                            {% endspaceless %}
-                        </td>
-                    </tr>
-                {% endfor %}
+                {#{% for item in pagination %}#}
+                    {#<tr>#}
+                        {#<td>{{ item.id }}</td>#}
+                        {#<td><span class="label label-{{ item.companyType == 0 ? 'danger' : item.companyType == 1 ? 'primary' : 'success' }}">{{ item.companyTypeStr }}</span></td>#}
+                        {#<td><span class="label label-{{ item.cardType == 1 ? 'Warning' : item.cardType == 2 ? 'primary' : 'success' }}">{{ item.cardTypeStr }}</td>#}
+                        {#<td><span style="font-size: 13px">{{ item.username }}</span></td>#}
+                        {#<td>{{ item.cardAmount }}</td>#}
+                        {#<td style="text-align: center">{{ item.price * 1  }} руб.</td>#}
+                        {#<td>{{ item.created | date('d.m.Y')}}</td>#}
+                        {#<td style="text-align: center">#}
+                            {#<div class="statusBox">#}
+                                {#{{ item.statusStr | raw }}#}
+                                {#&#123;&#35;<div class="statusItems">&#35;&#125;#}
+                                    {#&#123;&#35;{% for status in user.statusArray %}&#35;&#125;#}
+                                        {#&#123;&#35;{{ status.title }}&nbsp;-&nbsp;{{ status.date | date('d.m.Y') }}<br />&#35;&#125;#}
+                                    {#&#123;&#35;{% endfor %}&#35;&#125;#}
+                                {#&#123;&#35;</div>&#35;&#125;#}
+                            {#</div>#}
+                        {#</td>#}
+                        {#<td>{{ item.comment }}</td>#}
+                        {#<td class="settings" style="text-align: right">#}
+                            {#{% spaceless %}#}
+                            {#<a href="{{ path('operator_companyuser_edit',{'id' : item.id }) }}">#}
+                                {#<button type="button" class="btn btn-default btn-success">#}
+                                    {#<span class="glyphicon glyphicon-edit"></span>#}
+                                {#</button>#}
+                            {#</a>#}
+                            {#{% endspaceless %}#}
+                        {#</td>#}
+                    {#</tr>#}
+                {#{% endfor %}#}
             </body>
         </table>
         <div class="navigation">
@@ -97,6 +123,7 @@
 
 {% block stylesheets %}
     {{ parent() }}
+    <link href="{{ asset('bundles/paneloperator/css/bootstrap-table.css') }}" rel="stylesheet">
     <style>
         #filter-type{
             width: 100px;
@@ -111,6 +138,7 @@
 
 {% block javascripts %}
     {{ parent() }}
+    <script src="{{ asset('bundles/paneloperator/js/bootstrap-table.js') }}"></script>
     <script>
         $(document).ready(function(){
 
@@ -193,6 +221,33 @@
                 div.addClass('disabled-click');
                 return false;
             });
+
+
+            var options = [];
+
+            $( '.dropdown-menu a' ).on( 'click', function( event ) {
+
+                var $target = $( event.currentTarget ),
+                        val = $target.attr( 'data-value' ),
+                        $inp = $target.find( 'input' ),
+                        idx;
+
+                console.log(options);
+                if ( ( idx = options.indexOf( val+', ' ) ) > -1 ) {
+                    options.splice( idx, 1 );
+                    setTimeout( function() { $inp.prop( 'checked', false ) }, 0);
+                } else {
+                    options.push( val+', ' );
+                    setTimeout( function() { $inp.prop( 'checked', true ) }, 0);
+                }
+
+                $( event.target ).blur();
+
+
+                $('#dropdown-status').html('Статусы: '+ (options.length == 0 ? 'Все' : options));
+                return false;
+            });
+
         });
     </script>
 {% endblock %}

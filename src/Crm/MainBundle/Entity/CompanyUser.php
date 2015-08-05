@@ -13,7 +13,7 @@ use Iphp\FileStoreBundle\Mapping\Annotation as FileStore;
  * User
  *
  * @ORM\Table("companyUser")
- * @ORM\Entity()
+ * @ORM\Entity(repositoryClass="CompanyUserRepository")
  * @FileStore\Uploadable
  */
 class CompanyUser extends BaseEntity
@@ -32,6 +32,7 @@ class CompanyUser extends BaseEntity
 
     /**
      * 1 = СКЗИ, 2 = ЕСТР 3 = РФ
+     * @ORM\Column(type="integer")
      */
     protected $cardType = 1;
 

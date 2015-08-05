@@ -12,6 +12,7 @@ use Crm\MainBundle\Entity\CompanyUser;
 use Crm\MainBundle\Entity\StatusLog;
 use Crm\MainBundle\Form\CompanyUserType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Security\Core\SecurityContext;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -42,6 +43,14 @@ class CompanyUserController extends Controller{
         );
 
         return array('pagination' => $pagination);
+    }
+
+    /**
+     * @Route("/list.json", name="get_companyuser_json")
+     */
+    public function getListJsonAction(){
+        $items = $this->getDoctrine()->getRepository('CrmMainBundle:CompanyUser')->filter();
+        return new JsonResponse($items);
     }
 
     /**
