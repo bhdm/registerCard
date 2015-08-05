@@ -65,19 +65,33 @@
         <table class="table" data-toggle="table"
                data-sort-name="id"
                data-sort-order="desc"
-               data-url="{{ path('get_companyuser_json') }}">
-
+               data-url="{{ path('get_companyuser_json') }}"
+               data-filter-control="true"
+               data-search="true"
+               data-show-refresh="true"
+               data-show-toggle="true"
+               data-show-columns="true"
+               data-show-export="true"
+               data-detail-view="true"
+               data-detail-formatter="detailFormatter"
+               data-minimum-count-columns="2"
+               data-show-pagination-switch="true"
+               data-pagination="true"
+               data-page-list="[10, 25, 50, 100, ALL]"
+               data-show-footer="true"
+               {#data-side-pagination="server"#}
+                >
             <thead>
             <tr>
-                <th data-field="id" data-sortable="true">ID</th>
-                <th data-field="companyType" data-sortable="true">Тип компании</th>
+                <th data-field="id" data-sortable="true" data-filter-control="input">ID</th>
+                <th data-field="companyType" data-sortable="true" data-filter-control="select">Тип компании</th>
                 <th data-field="cardType" data-sortable="true">Тип карт</th>
                 <th data-field="email" data-sortable="true">Email</th>
                 <th data-field="amount" data-sortable="true">Кол-во</th>
                 <th data-field="price" data-sortable="true">Стоимость</th>
                 <th data-field="dateCreated" data-sortable="true">Дата</th>
                 <th data-field="status" data-sortable="true">Статус</th>
-                <th>Комментарий</th>
+                <th data-field="comment"  data-sortable="false">Комментарий</th>
                 <th class="setting">Инструменты</th>
             </tr>
             </thead>
@@ -124,6 +138,7 @@
 {% block stylesheets %}
     {{ parent() }}
     <link href="{{ asset('bundles/paneloperator/css/bootstrap-table.css') }}" rel="stylesheet">
+    <link href="{{ asset('bundles/paneloperator/js/x-editable/dist/bootstrap3-editable/css/bootstrap-editable.css') }}" rel="stylesheet">
     <style>
         #filter-type{
             width: 100px;
@@ -139,6 +154,8 @@
 {% block javascripts %}
     {{ parent() }}
     <script src="{{ asset('bundles/paneloperator/js/bootstrap-table.js') }}"></script>
+    <script src="{{ asset('bundles/paneloperator/js/bootstrap-table-filter-control.js') }}"></script>
+    <script src="{{ asset('bundles/paneloperator/js/x-editable/dist/bootstrap3-editable/js/bootstrap-editable.min.js') }}"></script>
     <script>
         $(document).ready(function(){
 
@@ -251,3 +268,12 @@
         });
     </script>
 {% endblock %}
+
+{#
+http://issues.wenzhixin.net.cn/bootstrap-table/#extensions/filter-control.html
+http://issues.wenzhixin.net.cn/bootstrap-table/#options/basic-columns.html
+http://bootstrap-table.wenzhixin.net.cn/examples/#basic
+http://bootstrap-table.wenzhixin.net.cn/extensions/
+https://github.com/wenzhixin/bootstrap-table-examples/blob/master/welcome.html
+
+#}
