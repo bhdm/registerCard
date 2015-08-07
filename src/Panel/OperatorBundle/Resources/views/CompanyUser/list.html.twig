@@ -54,7 +54,40 @@
         </div>
     </div>
     <div class="well">
-        <h4>ТАБЛИЦА ЗАЯВОК</h4>
+        <div class="row">
+            <div class="col-xs-8">
+                <h4>ТАБЛИЦА ЗАЯВОК</h4>
+            </div>
+            <div class="col-xs-2">
+                <div class="dropdown form-group">
+                    <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                        Статус
+                        <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu"  aria-labelledby="dropdownMenu2">
+                        <li><a href="#" class="set-status" data-main="0">Новые</a></li>
+                        <li><a href="#" class="set-status" data-main="1">Подтвержденные</a></li>
+                        <li><a href="#" class="set-status" data-main="2">Оплаченные</a></li>
+                        <li><a href="#" class="set-status" data-main="3">В производстве</a></li>
+                        <li><a href="#" class="set-status" data-main="4">На почте</a></li>
+                        <li><a href="#" class="set-status" data-main="5">Полученны</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-xs-2">
+                <div class="dropdown form-group">
+                    <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                        Дейтсвие
+                        <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu"  aria-labelledby="dropdownMenu2">
+                        <li><a href="#">Скачать заявление</a></li>
+                        <li><a href="#">Скачать платежку</a></li>
+                        <li><a href="#" id="download-xml">Скачать XML</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
         {% for flashMessage in app.session.flashbag.get('error') %}
             <div class="alert alert-danger" role="alert">{{ flashMessage }}</div>
         {% endfor %}
@@ -63,82 +96,65 @@
         {% endfor %}
 
         <table class="table" data-toggle="table"
-               data-sort-name="id"
-               data-sort-order="desc"
-               data-url="{{ path('get_companyuser_json') }}"
-               data-filter-control="true"
-               data-search="true"
-               data-show-refresh="true"
-               data-show-toggle="true"
-               data-show-columns="true"
-               data-show-export="true"
-               data-detail-view="true"
-               data-detail-formatter="detailFormatter"
-               data-minimum-count-columns="2"
-               data-show-pagination-switch="true"
-               data-pagination="true"
-               data-page-list="[10, 25, 50, 100, ALL]"
-               data-show-footer="true"
-               {#data-side-pagination="server"#}
-                >
+               data-sort-name="login"
+               data-sort-order="asc">
             <thead>
             <tr>
-                <th data-field="id" data-sortable="true" data-filter-control="input">ID</th>
-                <th data-field="companyType" data-sortable="true" data-filter-control="select">Тип компании</th>
-                <th data-field="cardType" data-sortable="true">Тип карт</th>
-                <th data-field="email" data-sortable="true">Email</th>
-                <th data-field="amount" data-sortable="true">Кол-во</th>
-                <th data-field="price" data-sortable="true">Стоимость</th>
-                <th data-field="dateCreated" data-sortable="true">Дата</th>
-                <th data-field="status" data-sortable="true">Статус</th>
-                <th data-field="comment"  data-sortable="false">Комментарий</th>
+                <th></th>
+                <th>ID</th>
+                <th>Тип компании</th>
+                <th>Тип карт</th>
+                <th>Email</th>
+                <th>Кол-во</th>
+                <th>Стоимость</th>
+                <th style="width: 150px">Статус</th>
+                <th>Комментарий</th>
                 <th class="setting">Инструменты</th>
             </tr>
             </thead>
             <body>
-                {#{% for item in pagination %}#}
-                    {#<tr>#}
-                        {#<td>{{ item.id }}</td>#}
-                        {#<td><span class="label label-{{ item.companyType == 0 ? 'danger' : item.companyType == 1 ? 'primary' : 'success' }}">{{ item.companyTypeStr }}</span></td>#}
-                        {#<td><span class="label label-{{ item.cardType == 1 ? 'Warning' : item.cardType == 2 ? 'primary' : 'success' }}">{{ item.cardTypeStr }}</td>#}
-                        {#<td><span style="font-size: 13px">{{ item.username }}</span></td>#}
-                        {#<td>{{ item.cardAmount }}</td>#}
-                        {#<td style="text-align: center">{{ item.price * 1  }} руб.</td>#}
-                        {#<td>{{ item.created | date('d.m.Y')}}</td>#}
-                        {#<td style="text-align: center">#}
-                            {#<div class="statusBox">#}
-                                {#{{ item.statusStr | raw }}#}
-                                {#&#123;&#35;<div class="statusItems">&#35;&#125;#}
-                                    {#&#123;&#35;{% for status in user.statusArray %}&#35;&#125;#}
-                                        {#&#123;&#35;{{ status.title }}&nbsp;-&nbsp;{{ status.date | date('d.m.Y') }}<br />&#35;&#125;#}
-                                    {#&#123;&#35;{% endfor %}&#35;&#125;#}
-                                {#&#123;&#35;</div>&#35;&#125;#}
-                            {#</div>#}
-                        {#</td>#}
-                        {#<td>{{ item.comment }}</td>#}
-                        {#<td class="settings" style="text-align: right">#}
-                            {#{% spaceless %}#}
-                            {#<a href="{{ path('operator_companyuser_edit',{'id' : item.id }) }}">#}
-                                {#<button type="button" class="btn btn-default btn-success">#}
-                                    {#<span class="glyphicon glyphicon-edit"></span>#}
-                                {#</button>#}
-                            {#</a>#}
-                            {#{% endspaceless %}#}
-                        {#</td>#}
-                    {#</tr>#}
-                {#{% endfor %}#}
+                {% for item in pagination %}
+                    <tr>
+                        <td><input class="user-check" type="checkbox" name="user[{{  item.id }}]" value="{{ item.id }}"></td>
+                        <td>{{ item.id }}</td>
+                        <td style="text-align: center"><span class="label label-{{ item.companyType == 0 ? 'danger' : item.companyType == 1 ? 'primary' : 'success' }}">{{ item.companyTypeStr }}</span></td>
+                        <td style="text-align: center"><span class="label label-{{ item.cardType == 1 ? 'Warning' : item.cardType == 2 ? 'primary' : 'success' }}">{{ item.cardTypeStr }}</td>
+                        <td><span style="font-size: 12px">{{ item.username }}</span></td>
+                        <td style="text-align: center">{{ item.cardAmount }}</td>
+                        <td style="text-align: center">{{ item.price * 1  }} руб.</td>
+                        <td style="text-align: center">
+                            <div class="statusBox">
+                                {{ item.statusStr | raw }}&nbsp;&nbsp;<span class="glyphicon glyphicon-info-sign">&nbsp;</span>
+                                {#<div class="statusItems">#}
+                                    {#{% for status in user.statusArray %}#}
+                                        {#{{ status.title }}&nbsp;-&nbsp;{{ status.date | date('d.m.Y') }}<br />#}
+                                    {#{% endfor %}#}
+                                {#</div>#}
+                            </div>
+                        </td>
+                        <td>{{ item.comment }}</td>
+                        <td class="settings" style="text-align: right">
+                            {% spaceless %}
+                            <a href="{{ path('operator_companyuser_edit',{'id' : item.id }) }}">
+                                <button type="button" class="btn btn-default btn-success">
+                                    <span class="glyphicon glyphicon-edit"></span>
+                                </button>
+                            </a>
+                            {% endspaceless %}
+                        </td>
+                    </tr>
+                {% endfor %}
             </body>
         </table>
         <div class="navigation">
             {{ knp_pagination_render(pagination) }}
         </div>
     </div>
+    <iframe src="" id="iframe-download" width="1" height="1" scrolling="no-scrolling"></iframe>
 {% endblock %}
 
 {% block stylesheets %}
     {{ parent() }}
-    <link href="{{ asset('bundles/paneloperator/css/bootstrap-table.css') }}" rel="stylesheet">
-    <link href="{{ asset('bundles/paneloperator/js/x-editable/dist/bootstrap3-editable/css/bootstrap-editable.css') }}" rel="stylesheet">
     <style>
         #filter-type{
             width: 100px;
@@ -148,14 +164,14 @@
             min-height: 50px;
             cursor: pointer;
         }
+        th{
+            text-align: center;
+        }
     </style>
 {% endblock %}
 
 {% block javascripts %}
     {{ parent() }}
-    <script src="{{ asset('bundles/paneloperator/js/bootstrap-table.js') }}"></script>
-    <script src="{{ asset('bundles/paneloperator/js/bootstrap-table-filter-control.js') }}"></script>
-    <script src="{{ asset('bundles/paneloperator/js/x-editable/dist/bootstrap3-editable/js/bootstrap-editable.min.js') }}"></script>
     <script>
         $(document).ready(function(){
 
@@ -239,41 +255,37 @@
                 return false;
             });
 
-
-            var options = [];
-
-            $( '.dropdown-menu a' ).on( 'click', function( event ) {
-
-                var $target = $( event.currentTarget ),
-                        val = $target.attr( 'data-value' ),
-                        $inp = $target.find( 'input' ),
-                        idx;
-
-                console.log(options);
-                if ( ( idx = options.indexOf( val+', ' ) ) > -1 ) {
-                    options.splice( idx, 1 );
-                    setTimeout( function() { $inp.prop( 'checked', false ) }, 0);
-                } else {
-                    options.push( val+', ' );
-                    setTimeout( function() { $inp.prop( 'checked', true ) }, 0);
+            $('.user-check').click(function(){
+                if ($(this).prop( "checked" )){
+                    $(this).parent().parent().children('td').css('background','#DDD');
+                }else{
+                    $(this).parent().parent().children('td').css('background','#f5f5f5');
                 }
+            });
 
-                $( event.target ).blur();
+            $('#download-xml').click(function(){
+                var users = $('input:checked');
+                for ( var i = 0 ; i < users.length ; i ++){
+                    console.log($(users[i]));
+                    $('#iframe-download').contents().get(0).location.href =  Routing.generate('companyuser_download_xml', {'userId': users.eq(i).val() })
+                }
+            });
 
-
-                $('#dropdown-status').html('Статусы: '+ (options.length == 0 ? 'Все' : options));
-                return false;
+            $('.set-status').click(function(){
+                var status = $(this).attr('data-main');
+                var users = $('input:checked');
+                $.ajax({
+                    type: "POST",
+                    url: Routing.generate('companyuser_set_status', {'status': status}),
+                    data: users,
+                    success: function(msg){
+                        if (msg == 'Ok'){
+                            window.location.reload();
+                        }
+                    }
+                });
             });
 
         });
     </script>
 {% endblock %}
-
-{#
-http://issues.wenzhixin.net.cn/bootstrap-table/#extensions/filter-control.html
-http://issues.wenzhixin.net.cn/bootstrap-table/#options/basic-columns.html
-http://bootstrap-table.wenzhixin.net.cn/examples/#basic
-http://bootstrap-table.wenzhixin.net.cn/extensions/
-https://github.com/wenzhixin/bootstrap-table-examples/blob/master/welcome.html
-
-#}

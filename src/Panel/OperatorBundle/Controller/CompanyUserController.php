@@ -13,6 +13,7 @@ use Crm\MainBundle\Entity\StatusLog;
 use Crm\MainBundle\Form\CompanyUserType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\SecurityContext;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -92,5 +93,35 @@ class CompanyUserController extends Controller{
         }
 
         return array('form' => $form->createView(),'signFilePath' => $signFilePath);
+    }
+
+    /**
+     * @Route("/download/xml/{userId}", name="companyuser_download_xml", options={"expose" = true })
+     * @Template("PanelOperatorBundle:Doc:xml.html.twig")
+     */
+    public function downloadXmlAction($userId){
+        $order = $this->getDoctrine()->getRepository('CrmMainBundle:CompanyUser')->findOneById($userId);
+//        return array('order' => $order);
+        $response = new Response();
+        $response->headers->set('Content-Type', 'text/xml');
+        $content = $this->renderView("PanelOperatorBundle:Doc:xml.html.twig", array('order' => $order));
+        $response->headers->set('Content-Disposition', 'attachment;filename="XMLgeneration.xml');
+        $response->setContent($content);
+        return $response;
+    }
+
+    /**
+     * @Route("/status/set/{status}", name="companyuser_set_status", options={"expose" = true })
+     */
+    public function setStatusAction(Request $request, $status){
+        foreach ($request->request->get('user') as $id){
+            $order = $this->getDoctrine()->getRepository('CrmMainBundle:CompanyUser')->findOneById($id);
+            if ($order){
+                $order->setStatus($status);
+                $this->getDoctrine()->getManager()->flush($order);
+            }
+        }
+        return new Response('Ok');
+
     }
 }

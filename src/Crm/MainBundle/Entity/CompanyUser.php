@@ -1036,4 +1036,15 @@ class CompanyUser extends BaseEntity
         return $status;
     }
 
+    public function getXmlId(){
+        return str_pad($this->id, 8, "0", STR_PAD_LEFT);
+    }
+
+    public function getFullLegalAdrs(){
+        return implode(', ', $this->legalAdrs);
+    }
+
+    public function getFullmailingAdrs(){
+        return implode(', ', $this->mailingAdrs);
+    }
 }
