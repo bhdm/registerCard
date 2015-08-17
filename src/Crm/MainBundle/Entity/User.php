@@ -411,6 +411,11 @@ class User extends BaseEntity implements UserInterface, EquatableInterface, \Ser
     protected $ru = 0;
 
     /**
+     * @ORM\Column(type="array", nullable=true)
+     */
+    protected $typeCardFile;
+
+    /**
      * Карта предприятия
      * @ORM\Column(type="integer")
      */
@@ -1748,5 +1753,20 @@ class User extends BaseEntity implements UserInterface, EquatableInterface, \Ser
         $this->hash = $hash;
     }
 
+    /**
+     * @return mixed
+     */
+    public function getTypeCardFile()
+    {
+        return $this->typeCardFile;
+    }
+
+    /**
+     * @param mixed $typeCardFile
+     */
+    public function setTypeCardFile($typeCardFile)
+    {
+        $this->typeCardFile = $typeCardFile;
+    }
 
 }

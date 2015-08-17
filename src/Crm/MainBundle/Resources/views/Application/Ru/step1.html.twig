@@ -86,8 +86,8 @@
         <br style="clear: both"/>
     </div>
     <div class="box">
+        <form method="POST" action="{{ url == null ? path('application-ru-step1') : path('company-ru-step1',{'url':url})}}" id="main-form" enctype="multipart/form-data">
         <table>
-            <form method="POST" action="{{ url == null ? path('application-ru-step1') : path('company-ru-step1',{'url':url})}}" id="main-form">
 
                 <tr>
                     <td class="label">E-mail<span class="required">*</span>:</td>
@@ -128,14 +128,21 @@
                     </td>
                     <td></td>
                 </tr>
-                <tr>
+                <tr class="hideinput" style="display: none">
                     <td class="label">Номер старой карты</td>
                     <td>
-                        <input name="oldNumber" id="oldNumber"  type="text" placeholder="Номер старой карты" value="{{ order.oldNumber is defined ? order.oldNumber : '' }}"><br />
+                        <input name="oldNumber" id="oldNumber"  type="text" placeholder="Номер старой карты" value="{{ order.oldNumber is defined ? order.oldNumber : '' }}" required="required"><br />
                     </td>
                     <td></td>
                 </tr>
-            </form>
+                <tr class="hideinput" style="display: none">
+                    <td class="label">Заявление в полицию</td>
+                    <td>
+                        <input name="typeCardFile" id="typeCardFile" type="file" />
+                    </td>
+                    <td></td>
+                </tr>
+
             <tr><td colspan="2">
                     <br />
                     <i style="font-size: 14px; color: #CC3333">* Поля отмеченные звездочкой обязательны для заполнения</i>
@@ -149,10 +156,11 @@
             <tr>
                 <td></td>
                 <td style="text-align: right">
-                    <input type="button" value="Далее" class="btn" id="submit">
+                    <input type="submit" value="Далее" class="btn" id="submit">
                 </td>
             </tr>
         </table>
+        </form>
     </div>
 {% endblock %}
 
@@ -165,8 +173,18 @@
     <script>
         $(document).ready(function(){
 
-            $('input:text, select').styler();
+            $('input:text').styler();
+            $("select").chosen({disable_search_threshold: 10});
+
             $("#phone").mask("+7 (999) 999-9999");
+
+            $('#typeCard').change(function(){
+                if ($('#typeCard').val() == 2){
+                    $('.hideinput').css('display','table-row')
+                }else{
+                    $('.hideinput').css('display','none')
+                }
+            });
 
             $('#submit').click(function(){
 

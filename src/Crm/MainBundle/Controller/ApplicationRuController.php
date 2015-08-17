@@ -36,6 +36,15 @@ class ApplicationRuController extends Controller
             $order['citizenship'] = $request->request->get('rezident');
             $order['oldNumber'] = $request->request->get('oldNumber');
             $order['typeCard'] = $request->request->get('typeCard');
+            if ($request->files->get('typeCardFile')){
+                $order['typeCardFile'] = $request->files->get('typeCardFile');
+                $tmppath = $order['typeCardFile']->getPathName();
+                $typeFile = $order['typeCardFile']->getClientOriginalName();
+                $typeFile = substr(strrchr($typeFile,'.'),1);
+                $path = '/var/www/upload/tmp/'.time().'.'.$typeFile;
+                move_uploaded_file($tmppath,$path);
+                $order['typeCardFile'] = $this->getImgToArray($path);
+            }
             $order['step1'] = true;
             $session->set('order',$order);
             if ($url == null){
@@ -298,6 +307,7 @@ class ApplicationRuController extends Controller
         $user->setCopyDriverPassport2($this->getImgToArray($order['driver2FilePath']));
         $user->setCopySignature($this->getImgToArray($order['signFilePath']));
         $user->setPhoto($this->getImgToArray($order['photoFilePath']));
+        $user->setTypeCardFile($order['typeCardFile']);
 
         $user->setRu(true);
 

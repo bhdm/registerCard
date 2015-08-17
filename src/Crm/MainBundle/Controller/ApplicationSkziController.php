@@ -35,6 +35,15 @@ class ApplicationSkziController extends Controller
             $order['citizenship'] = $request->request->get('rezident');
             $order['oldNumber'] = $request->request->get('oldNumber');
             $order['typeCard'] = $request->request->get('typeCard');
+            if ($request->files->get('typeCardFile')){
+                $order['typeCardFile'] = $request->files->get('typeCardFile');
+                $tmppath = $order['typeCardFile']->getPathName();
+                $typeFile = $order['typeCardFile']->getClientOriginalName();
+                $typeFile = substr(strrchr($typeFile,'.'),1);
+                $path = '/var/www/upload/tmp/'.time().'.'.$typeFile;
+                move_uploaded_file($tmppath,$path);
+                $order['typeCardFile'] = $this->getImgToArray($path);
+            }
             $order['step1'] = true;
             $session->set('order',$order);
             return $this->redirect($this->generateUrl('application-skzi-step2'));
@@ -294,6 +303,8 @@ class ApplicationSkziController extends Controller
         $user->setCopySnils($this->getImgToArray($order['snilsFilePath']));
         $user->setCopySignature($this->getImgToArray($order['signFilePath']));
         $user->setPhoto($this->getImgToArray($order['photoFilePath']));
+        $user->setTypeCardFile($order['typeCardFile']);
+
         if (!empty($order['PetitionFilePath']) && $order['PetitionFilePath']!= null){
             $user->setCopyPetition($this->getImgToArray($order['PetitionFilePath']));
         }

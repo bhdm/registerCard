@@ -23,9 +23,10 @@
                                             <label class="control-label col-sm-3" for="typeCard">Тип выдачи:</label>
                                             <div class="col-sm-3">
                                                 <select id="typeCard" name="typeCard" class="miniselect">
-                                                    <option value="0" {{ user.typeCard == 0 ? 'selected="selected"' : '' }}>Новая карта</option>
-                                                    <option value="1" {{ user.typeCard == 1 ? 'selected="selected"' : '' }}>Замена</option>
-                                                    <option value="2" {{ user.typeCard == 2 ? 'selected="selected"' : '' }}>Обновление</option>
+                                                        <option value="0" {{ user.typeCard == 0 ? 'selected="selected"' : '' }}>Первичная выдача карты</option>
+                                                        <option value="1" {{ user.typeCard == 1 ? 'selected="selected"' : '' }}>Замена в связи с истечением срока действия карты</option>
+                                                        <option value="2" {{ user.typeCard == 2 ? 'selected="selected"' : '' }}>Замена в связи с дефектом, утерей или утратой карты</option>
+                                                        <option value="3" {{ user.typeCard == 3 ? 'selected="selected"' : '' }}>Замена карты вследствие изменения персональных данных</option>
                                                 </select>
                                             </div>
                                         </div>
