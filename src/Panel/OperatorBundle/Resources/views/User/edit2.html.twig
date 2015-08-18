@@ -28,6 +28,11 @@
                                                         <option value="2" {{ user.typeCard == 2 ? 'selected="selected"' : '' }}>Замена в связи с дефектом, утерей или утратой карты</option>
                                                         <option value="3" {{ user.typeCard == 3 ? 'selected="selected"' : '' }}>Замена карты вследствие изменения персональных данных</option>
                                                 </select>
+                                                {% if user.typeCardFile %}
+                                                    <br />
+
+                                                    <a href="/{{ user.typeCardFile.path }}" target="_blank">Скачать</a>
+                                                {% endif %}
                                             </div>
                                         </div>
                                     </td>
