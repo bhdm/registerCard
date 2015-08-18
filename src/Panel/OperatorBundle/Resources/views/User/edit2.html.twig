@@ -575,6 +575,9 @@
                                         <option value="{{ p.id }}" {{ user.companyPetition != null and user.companyPetition.id == p.id ? 'selected="selected"' : '' }}>{{ p.title }}</option>
                                     {% endfor %}
                                 </select>
+                                {% if user.companyPetition != null %}
+                                    <a href="{{ path('panel_petition_edit',{'id' : user.companyPetition.id }) }}" target="_blank">Смотреть</a>
+                                {% endif %}
                             </div>
                         </div>
                     </td>

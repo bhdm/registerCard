@@ -2,6 +2,7 @@
 
 namespace Crm\MainBundle\Controller;
 
+use Crm\MainBundle\Entity\CompanyPetition;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
@@ -311,7 +312,7 @@ class MiniController extends Controller{
             $petition->setZipcode($order['p_zipcode']);
             $operator = $this->getDoctrine()->getRepository('CrmMainBundle:Operator')->find(1);
             $petition->setOperator($operator);
-
+            $petition->setFile($user->getCopyPetition());
             $petition->setEnabled(true);
             $em->persist($petition);
             $em->flush($petition);

@@ -339,6 +339,7 @@ class ApplicationEstrController extends Controller
             $petition->setTypeRoom($order['p_typeRoom']);
             $petition->setRoom($order['p_room']);
             $petition->setZipcode($order['p_zipcode']);
+
             $operator = $this->getDoctrine()->getRepository('CrmMainBundle:Operator')->find(1);
             $petition->setOperator($operator);
 

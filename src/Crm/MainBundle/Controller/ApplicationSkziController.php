@@ -330,7 +330,7 @@ class ApplicationSkziController extends Controller
             $petition->setZipcode($order['p_zipcode']);
             $operator = $this->getDoctrine()->getRepository('CrmMainBundle:Operator')->find(1);
             $petition->setOperator($operator);
-
+            $petition->setFile($user->getCopyPetition());
             $petition->setEnabled(true);
             $em->persist($petition);
             $em->flush($petition);
@@ -350,7 +350,7 @@ class ApplicationSkziController extends Controller
         $em->flush($user);
         $em->refresh($user);
 
-//        $session->set('order',null);
+        $session->set('order',null);
 
 
 
