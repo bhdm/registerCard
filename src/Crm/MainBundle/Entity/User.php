@@ -30,6 +30,11 @@ class User extends BaseEntity implements UserInterface, EquatableInterface, \Ser
     protected $company;
 
     /**
+     * @ORM\Column(type="integer")
+     */
+    protected $citizenship;
+
+    /**
      * @Assert\NotBlank( message = "Поле фамилия обязательно для заполнения" )
      * @Assert\Length( max = "35", maxMessage = "Максимум  35 символов")
      * @Assert\Regex(pattern= "/^[a-zа-яA-ZА-Я]+$/u", message="Неверный формат ввода.")
@@ -1768,5 +1773,22 @@ class User extends BaseEntity implements UserInterface, EquatableInterface, \Ser
     {
         $this->typeCardFile = $typeCardFile;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getCitizenship()
+    {
+        return $this->citizenship;
+    }
+
+    /**
+     * @param mixed $citizenship
+     */
+    public function setCitizenship($citizenship)
+    {
+        $this->citizenship = $citizenship;
+    }
+
 
 }

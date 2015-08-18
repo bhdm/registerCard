@@ -18,6 +18,24 @@
                  class="Crm\MainBundle\Form\Extension\ImageTypeTwoExtension">
             <tag name="form.type_extension" alias="iphp_file" />
         </service>
+
+
+
+
+        <service id="crm_main_bundle.form.skzi"
+                 class="Crm\MainBundle\Form\SkziForm">
+            <tag name="form.type" alias="skzi" />
+        </service>
+
+        <service id="crm_main_bundle.form.flow.skzi"
+                 class="Crm\MainBundle\Form\SkziFlow"
+                 parent="craue.form.flow"
+                 scope="request">
+            <call method="setFormType">
+                <argument type="service" id="crm_main_bundle.form.skzi" />
+            </call>
+        </service>
+
     </services>
 
 
