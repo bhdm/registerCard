@@ -107,6 +107,33 @@
                         <input type="hidden" name="rezident" id="rezident-hidden" value="1">
                     </td>
                 </tr>
+                <tr>
+                    <td class="label">Выбор типа карты</td>
+                    <td>
+                        <select id="typeCard" class="typeCard" style="width: 212px">
+                            <option value="0">Первичная выдача карты</option>
+                            <option value="1">Замена в связи с истечением срока действия карты</option>
+                            <option value="2">Замена в связи с дефектом, утерей или утратой карты</option>
+                            <option value="3">Замена карты вследствие изменения персональных данных</option>
+                        </select>
+                        <input type="hidden" name="typeCard" id="typeCard-hidden" value="1">
+                    </td>
+                    <td></td>
+                </tr>
+                <tr class="hideinput" style="display: none">
+                    <td class="label">Номер старой карты</td>
+                    <td>
+                        <input name="oldNumber" id="oldNumber"  type="text" placeholder="Номер старой карты" value="{{ order.oldNumber is defined ? order.oldNumber : '' }}"><br />
+                    </td>
+                    <td></td>
+                </tr>
+                <tr class="hideinput" style="display: none">
+                    <td class="label">Заявление на блокировку<br /><a style="font-size: 12px" href="http://im-kard.ru/bundles/crmmain/docs/9.%20%D0%97%D0%B0%D1%8F%D0%B2%D0%BB%D0%B5%D0%BD%D0%B8%D0%B5%20%D0%BD%D0%B0%20%D0%B1%D0%BB%D0%BE%D0%BA%D0%B8%D1%80%D0%BE%D0%B2%D0%BA%D1%83%20%D0%BA%D0%B0%D1%80%D1%82%20%D0%B2%D0%BE%D0%B4%D0%B8%D1%82%D0%B5%D0%BB%D1%8F%20%D0%A1%D0%9A%D0%97%D0%98.docx" target="_blank">Скачать шаблон</a></td>
+                    <td>
+                        <input name="typeCardFile" id="typeCardFile" type="file" />
+                    </td>
+                    <td></td>
+                </tr>
             </form>
             <tr><td colspan="2">
                     <br />
@@ -132,8 +159,19 @@
     <script>
         $(document).ready(function(){
 
-            $('input:text, select').styler();
+            $('input:text').styler();
+            $("select").chosen({disable_search_threshold: 10});
+
             $("#phone").mask("+7 (999) 999-9999");
+
+            $('#typeCard').change(function(){
+                if ($('#typeCard').val() == 2){
+                    $('.hideinput').css('display','table-row')
+                }else{
+                    $('.hideinput').css('display','none')
+                }
+            });
+
 
             $('#submit').click(function(){
 
