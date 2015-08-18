@@ -52,6 +52,19 @@ class MiniController extends Controller{
             $order['email'] = $request->request->get('email');
             $order['phone'] = $request->request->get('phone');
             $order['citizenship'] = $request->request->get('rezident');
+            $order['oldNumber'] = $request->request->get('oldNumber');
+            $order['typeCard'] = $request->request->get('typeCard');
+
+            if ($request->files->get('typeCardFile')){
+                $order['typeCardFile'] = $request->files->get('typeCardFile');
+                $tmppath = $order['typeCardFile']->getPathName();
+                $typeFile = $order['typeCardFile']->getClientOriginalName();
+                $typeFile = substr(strrchr($typeFile,'.'),1);
+                $path = '/var/www/upload/tmp/'.time().'.'.$typeFile;
+                move_uploaded_file($tmppath,$path);
+                $order['typeCardFile'] = $this->getImgToArray($path);
+            }
+
             $order['step1'] = true;
             $session->set('order',$order);
             return $this->redirect($this->generateUrl('company-application-skzi-step2',array('url' => $url)));
@@ -277,9 +290,34 @@ class MiniController extends Controller{
             $user->setCopyPetition($this->getImgToArray($order['PetitionFilePath']));
         }
 
+        if (isset($order['typeCardFile']) && $order['typeCardFile']){
+            $user->setTypeCardFile($order['typeCardFile']);
+        }
 
         $company = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->findOneByUrl($url);
 
+        if ($order['myPetition'] == false){
+            $petition = new CompanyPetition();
+            $petition->setTitle($order['p_title']);
+            $petition->setRegion($order['p_region']);
+            $petition->setCity($order['p_city']);
+            $petition->setTypeStreet($order['p_typeStreet']);
+            $petition->setStreet($order['p_street']);
+            $petition->setHome($order['p_house']);
+            $petition->setCorp($order['p_corp']);
+            $petition->setStructure($order['p_structure']);
+            $petition->setTypeRoom($order['p_typeRoom']);
+            $petition->setRoom($order['p_room']);
+            $petition->setZipcode($order['p_zipcode']);
+            $operator = $this->getDoctrine()->getRepository('CrmMainBundle:Operator')->find(1);
+            $petition->setOperator($operator);
+
+            $petition->setEnabled(true);
+            $em->persist($petition);
+            $em->flush($petition);
+            $em->refresh($petition);
+            $user->setCompanyPetition($petition);
+        }
 
         $user->setCompany($company);
         $user->setProduction(0);

@@ -2,6 +2,7 @@
 
 namespace Crm\MainBundle\Controller;
 
+use Crm\MainBundle\Entity\CompanyPetition;
 use Crm\MainBundle\Entity\StatusLog;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -307,7 +308,10 @@ class ApplicationRuController extends Controller
         $user->setCopyDriverPassport2($this->getImgToArray($order['driver2FilePath']));
         $user->setCopySignature($this->getImgToArray($order['signFilePath']));
         $user->setPhoto($this->getImgToArray($order['photoFilePath']));
-        $user->setTypeCardFile($order['typeCardFile']);
+
+        if (isset($order['typeCardFile']) && $order['typeCardFile']){
+            $user->setTypeCardFile($order['typeCardFile']);
+        }
 
         $user->setRu(true);
 
@@ -315,6 +319,29 @@ class ApplicationRuController extends Controller
             $company = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->findOneByUrl('NO_COMPANY');
         }else{
             $company = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->findOneByUrl($url);
+        }
+
+        if ($order['myPetition'] == false){
+            $petition = new CompanyPetition();
+            $petition->setTitle($order['p_title']);
+            $petition->setRegion($order['p_region']);
+            $petition->setCity($order['p_city']);
+            $petition->setTypeStreet($order['p_typeStreet']);
+            $petition->setStreet($order['p_street']);
+            $petition->setHome($order['p_house']);
+            $petition->setCorp($order['p_corp']);
+            $petition->setStructure($order['p_structure']);
+            $petition->setTypeRoom($order['p_typeRoom']);
+            $petition->setRoom($order['p_room']);
+            $petition->setZipcode($order['p_zipcode']);
+            $operator = $this->getDoctrine()->getRepository('CrmMainBundle:Operator')->find(1);
+            $petition->setOperator($operator);
+
+            $petition->setEnabled(true);
+            $em->persist($petition);
+            $em->flush($petition);
+            $em->refresh($petition);
+            $user->setCompanyPetition($petition);
         }
 
         $user->setCompany($company);

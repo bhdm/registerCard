@@ -30,7 +30,7 @@ class User extends BaseEntity implements UserInterface, EquatableInterface, \Ser
     protected $company;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="integer", nullable=true)
      */
     protected $citizenship;
 

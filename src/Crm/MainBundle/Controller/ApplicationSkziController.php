@@ -3,6 +3,7 @@
 namespace Crm\MainBundle\Controller;
 
 use Crm\MainBundle\Entity\StatusLog;
+use Proxies\__CG__\Crm\MainBundle\Entity\CompanyPetition;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
@@ -303,7 +304,9 @@ class ApplicationSkziController extends Controller
         $user->setCopySnils($this->getImgToArray($order['snilsFilePath']));
         $user->setCopySignature($this->getImgToArray($order['signFilePath']));
         $user->setPhoto($this->getImgToArray($order['photoFilePath']));
-        $user->setTypeCardFile($order['typeCardFile']);
+        if (isset($order['typeCardFile']) && $order['typeCardFile']){
+            $user->setTypeCardFile($order['typeCardFile']);
+        }
 
         if (!empty($order['PetitionFilePath']) && $order['PetitionFilePath']!= null){
             $user->setCopyPetition($this->getImgToArray($order['PetitionFilePath']));
@@ -313,28 +316,30 @@ class ApplicationSkziController extends Controller
 
 
         if ($order['myPetition'] == false){
-            $company = new Company();
-            $company->setTitle($order['p_title']);
-            $company->setRegion($order['p_region']);
-            $company->setCity($order['p_city']);
-            $company->setTypeStreet($order['p_typeStreet']);
-            $company->setStreet($order['p_street']);
-            $company->setHome($order['p_house']);
-            $company->setCorp($order['p_corp']);
-            $company->setStructure($order['p_structure']);
-            $company->setTypeRoom($order['p_typeRoom']);
-            $company->setRoom($order['p_room']);
-            $company->setZipcode($order['p_zipcode']);
+            $petition = new CompanyPetition();
+            $petition->setTitle($order['p_title']);
+            $petition->setRegion($order['p_region']);
+            $petition->setCity($order['p_city']);
+            $petition->setTypeStreet($order['p_typeStreet']);
+            $petition->setStreet($order['p_street']);
+            $petition->setHome($order['p_house']);
+            $petition->setCorp($order['p_corp']);
+            $petition->setStructure($order['p_structure']);
+            $petition->setTypeRoom($order['p_typeRoom']);
+            $petition->setRoom($order['p_room']);
+            $petition->setZipcode($order['p_zipcode']);
             $operator = $this->getDoctrine()->getRepository('CrmMainBundle:Operator')->find(1);
-            $company->setOperator($operator);
+            $petition->setOperator($operator);
 
-            $company->setEnabled(false);
-            $em->persist($company);
-            $em->flush($company);
-            $em->refresh($company);
-        }else{
-            $company = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->findOneByUrl('NO_COMPANY');
+            $petition->setEnabled(true);
+            $em->persist($petition);
+            $em->flush($petition);
+            $em->refresh($petition);
+            $user->setCompanyPetition($petition);
         }
+
+        $company = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->findOneByUrl('NO_COMPANY');
+
         $user->setCompany($company);
         $user->setManagerKey($company->getManager());
         $user->setPrice($company->getPriceSkzi());
@@ -345,7 +350,7 @@ class ApplicationSkziController extends Controller
         $em->flush($user);
         $em->refresh($user);
 
-        $session->set('order',null);
+//        $session->set('order',null);
 
 
 
