@@ -55,6 +55,20 @@
                     <Building>лит. А</Building>
                     <Office>пом. 3-Н</Office>
                 </OrgPostAddress>
+            {% elseif driver.companyPetition != null %}
+                <OrgName>{{ driver.companyPetition.title }}</OrgName>
+                <OrgPostAddress>
+                    <FullAddress>{{ driver.companyPetition.zipcode }},
+                        {{ driver.companyPetition.region }},  {{ driver.companyPetition.city }},
+                        {{ driver.companyPetition.street }},д.{{ driver.companyPetition.home }} {{ driver.companyPetition.corp }}, {{ driver.companyPetition.room }}</FullAddress>
+                    <PostCode>{{ driver.companyPetition.zipcode }}</PostCode>
+                    <RegionCode>16</RegionCode>
+                    <Settlement>{{ driver.companyPetition.city }}</Settlement>
+                    <Street>{{ driver.companyPetition.street }}</Street>
+                    <House>{{ driver.companyPetition.home }}</House>
+                    <Building>{{ driver.companyPetition.corp }}</Building>
+                    <Office>{{ driver.companyPetition.room }}</Office>
+                </OrgPostAddress>
             {% else %}
                 <OrgName>{{ driver.company.title }}</OrgName>
                 <OrgPostAddress>
