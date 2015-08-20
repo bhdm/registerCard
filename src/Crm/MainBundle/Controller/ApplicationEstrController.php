@@ -324,7 +324,11 @@ class ApplicationEstrController extends Controller
             $company = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->findOneByUrl('NO_COMPANY');
         }else{
             $company = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->findOneByUrl($url);
+            if (!$company){
+                $company = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->findOneByUrl('NO_COMPANY');
+            }
         }
+        $user->setCompany($company);
 
         if ($order['myPetition'] == false){
             $petition = new CompanyPetition();
@@ -351,7 +355,6 @@ class ApplicationEstrController extends Controller
         }
 
 
-        $user->setCompany($company);
         $user->setManagerKey($company->getManager());
         $user->setPrice($company->getPriceEstr());
         $user->setProduction(0);

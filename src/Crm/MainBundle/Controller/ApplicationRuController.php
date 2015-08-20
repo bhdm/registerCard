@@ -319,7 +319,11 @@ class ApplicationRuController extends Controller
             $company = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->findOneByUrl('NO_COMPANY');
         }else{
             $company = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->findOneByUrl($url);
+            if (!$company){
+                $company = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->findOneByUrl('NO_COMPANY');
+            }
         }
+        $user->setCompany($company);
 
         if ($order['myPetition'] == false){
             $petition = new CompanyPetition();
@@ -344,7 +348,6 @@ class ApplicationRuController extends Controller
             $user->setCompanyPetition($petition);
         }
 
-        $user->setCompany($company);
         $user->setManagerKey($company->getManager());
         $user->setPrice($company->getPriceRu());
         $user->setProduction(0);
