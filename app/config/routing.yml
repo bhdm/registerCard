@@ -1,3 +1,8 @@
+crm_auth:
+    resource: "@CrmAuthBundle/Controller/"
+    type:     annotation
+    prefix:   /auth
+
 panel_operator:
     resource: "@PanelOperatorBundle/Controller/"
     type:     annotation
@@ -38,6 +43,12 @@ _security_check:
 _security_logout:
     pattern:  /operator/logout
 
+auth_security_check:
+    pattern:  /auth/login_check
+auth_security_logout:
+    pattern:  /auth/logout
+auth_security_login:
+    pattern:  /auth/login
 
 
 panel_security_login:

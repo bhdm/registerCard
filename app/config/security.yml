@@ -4,6 +4,10 @@ security:
            algorithm: sha512
            encode-as-base64: true
            iterations: 10
+        Crm\MainBundle\Entity\Client:
+           algorithm: sha512
+           encode-as-base64: true
+           iterations: 10
 
     role_hierarchy:
         ROLE_ADMIN:     [ROLE_MODERATOR]
@@ -14,6 +18,10 @@ security:
             entity: { class: CrmMainBundle:Operator }
         panel:
             entity: { class: CrmMainBundle:Operator }
+        auth:
+            entity:
+                class: CrmMainBundle:Client
+                property: username
 
     firewalls:
         dev:
@@ -44,9 +52,23 @@ security:
             security: true
             anonymous: true
 
-
+        auth_secured_area:
+            provider: auth
+            pattern: /auth
+            form_login:
+                check_path: auth_security_check
+                login_path: /auth/login
+            logout:
+                path:   /auth/logout
+            security: true
+            anonymous: true
 
     access_control:
 #        - { path: /operator/.*, role: ROLE_OPERATOR }
+
         - { path: ^/panel/login$, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: /.*, role: IS_AUTHENTICATED_ANONYMOUSLY }
+
+        - { path: ^/auth, role: ROLE_CLIENT }
+        - { path: ^/auth/login$, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/auth/register$, role: IS_AUTHENTICATED_ANONYMOUSLY }

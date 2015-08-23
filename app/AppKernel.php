@@ -28,7 +28,8 @@ class AppKernel extends Kernel
             new Crm\FaceBundle\CrmFaceBundle(),
             new Crm\ImageBundle\CrmImageBundle(),
             new Panel\OperatorBundle\PanelOperatorBundle(),
-            new Craue\FormFlowBundle\CraueFormFlowBundle()
+            new Craue\FormFlowBundle\CraueFormFlowBundle(),
+            new Crm\AuthBundle\CrmAuthBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

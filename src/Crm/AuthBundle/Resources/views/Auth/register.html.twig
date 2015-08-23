@@ -1,0 +1,31 @@
+{% extends 'CrmAuthBundle::layout.html.twig' %}
+
+{% block body %}
+    <div class="row">
+        <div class="col-xs-5">
+            <h2>Авторизация</h2>
+            <form class="row" method="post" action="{{ path('auth_security_check') }}">
+                <div>
+                    <div class="form-group">
+                        <label class="control-label required">Email</label>
+                        <input type="email" id="" name="_username" required="required" class="form-control" />
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label required">Пароль</label>
+                        <input type="password" id="" name="_password" required="required" class="form-control" />
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" id="" class="btn-primary btn">Войти</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="col-xs-2"></div>
+        <div class="col-xs-5">
+            <h2>Регистрация</h2>
+            <form class="row"  method="post">
+                {{  form_widget(form) }}
+            </form>
+        </div>
+    </div>
+{% endblock %}
