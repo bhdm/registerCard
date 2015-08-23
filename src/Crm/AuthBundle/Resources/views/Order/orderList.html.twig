@@ -1,0 +1,33 @@
+{% extends 'CrmAuthBundle::layout.html.twig' %}
+
+{% block body %}
+    <div class="row">
+        <h2>Заказы</h2>
+        <table class="table">
+            <tr>
+                <td>Дата заявки</td>
+                <td>Фамилия</td>
+                <td>Имя</td>
+                <td>Отчество</td>
+                <td>Тип заявки</td>
+                <td>Статус</td>
+                <td>Цена</td>
+            </tr>
+            {% for o in orders %}
+                <tr>
+                    <td>{{ o.created | date('d.m.y') }}</td>
+                    <td>{{ o.lastName  }}</td>
+                    <td>{{ o.firstName  }}</td>
+                    <td>{{ o.surName  }}</td>
+                    <td>{{ o.ru ? 'РФ' : o.estr ? 'ЕСТР' : 'СКЗИ'  }}</td>
+                    <td>{{ o.statusStr }}</td>
+                    <td>{{ o.price }}</td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="7" style="text-align: center" class="text-danger">Заказов карт не найдено</td>
+                </tr>
+            {% endfor %}
+        </table>
+    </div>
+{% endblock %}

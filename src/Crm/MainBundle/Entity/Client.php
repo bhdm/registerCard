@@ -17,6 +17,11 @@ class Client extends BaseEntity implements UserInterface
 {
 
     /**
+     * @ORM\OneToMany(targetEntity="User", mappedBy="client")
+     */
+    protected $orders;
+
+    /**
      * @ORM\Column(type="string", length=255)
      */
     protected $username;
@@ -64,6 +69,7 @@ class Client extends BaseEntity implements UserInterface
     public function __construct(){
         $this->roles = 'ROLE_CLIENT';
         $this->enabled = true;
+        $this->orders = new ArrayCollection();
     }
 
     public function __toString(){
@@ -282,5 +288,22 @@ class Client extends BaseEntity implements UserInterface
             $this->id
             ) = unserialize($serialized);
     }
+
+    /**
+     * @return mixed
+     */
+    public function getOrders()
+    {
+        return $this->orders;
+    }
+
+    /**
+     * @param mixed $orders
+     */
+    public function setOrders($orders)
+    {
+        $this->orders = $orders;
+    }
+
 
 }

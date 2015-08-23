@@ -2,6 +2,7 @@
 
 namespace Crm\AuthBundle\Controller;
 
+use Crm\AuthBundle\Form\ProfileCompanyType;
 use Crm\AuthBundle\Form\RegisterCompanyType;
 use Crm\MainBundle\Entity\Client;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -70,8 +71,19 @@ class AuthController extends Controller
      * @Route("/profile", name="auth_profile")
      * @Template()
      */
-    public function profileAction(){
-        return array();
+    public function profileAction(Request $request){
+        $em = $this->getDoctrine()->getManager();
+        $item = $this->getDoctrine()->getRepository('CrmMainBundle:Client')->findOneById($this->getUser()->getId());
+        $form = $this->createForm(new ProfileCompanyType($em), $item);
+        $formData = $form->handleRequest($request);
+        if ($request->getMethod() === 'POST'){
+            if ($formData->isValid()){
+                $item = $formData->getData();
+                $em->flush($item);
+                $em->refresh($item);
+            }
+        }
+        return array('form' => $form->createView());
     }
 
     /**

@@ -19,6 +19,11 @@ class User extends BaseEntity implements UserInterface, EquatableInterface, \Ser
 {
 
     /**
+     * @ORM\ManyToOne(targetEntity="Client", inversedBy="orders")
+     */
+    protected $client;
+
+    /**
      * @ORM\OneToMany(targetEntity="StatusLog", mappedBy="user")
      */
     protected $statuslog;
