@@ -30,7 +30,7 @@ class RobokassaController extends Controller
             $id = $user->getId();
             $robokassa = new Robokassa('infomax', 'Uflzoaac1', 'Uflzoaac2');
 //            $robokassa = new Robokassa('NPO_Tehnolog', 'Uflzoaac1', 'Uflzoaac2');
-            $robokassa->OutSum = 2250.00;
+            $robokassa->OutSum = 2450.00;
 //            $robokassa->IncCurrLabel = 'WMR';
             $robokassa->Desc = $id.': '.$user->getLastName().' '.$user->getFirstName().' '.$user->getSurName();
             $robokassa->addCustomValues(array(
