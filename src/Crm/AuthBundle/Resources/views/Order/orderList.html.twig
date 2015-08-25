@@ -1,8 +1,24 @@
 {% extends 'CrmAuthBundle::layout.html.twig' %}
 
+{% block title %}
+    <div style="height: 40px">
+    <div style="float: left; padding-right: 10px;">Мои заказы</div>
+    <div class="dropdown" style="float: left;">
+        <button class="btn btn-primary dropdown-toggle" type="button" id="addOrder" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+            Добавить новый заказ
+            <span class="caret"></span>
+        </button>
+        <ul class="dropdown-menu" aria-labelledby="addOrder">
+            <li><a href="#">СКЗИ</a></li>
+            <li><a href="#">ЕСТР</a></li>
+            <li><a href="#">РФ</a></li>
+        </ul>
+    </div>
+    </div>
+{% endblock %}
+
 {% block body %}
     <div class="row">
-        <h2>Заказы</h2>
         <table class="table">
             <tr>
                 <td>Дата заявки</td>
