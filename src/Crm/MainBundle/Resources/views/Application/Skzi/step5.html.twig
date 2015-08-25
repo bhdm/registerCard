@@ -1,4 +1,4 @@
-{% extends 'CrmMainBundle::layout.html.twig' %}
+{% extends layout | default(is_granted('ROLE_CLIENT') ? 'CrmAuthBundle::layout.html.twig' : 'CrmMainBundle::layout.html.twig') %}
 
 {% block title %}
     <title>Заказать карту водителя для тахографа с СКЗИ Online</title>

@@ -290,6 +290,10 @@ class ApplicationRuController extends Controller
             $user->setDileveryZipcode($order['d_zipcode']);
         }
 
+        if ($this->get('security.context')->isGranted('ROLE_CLIENT')){
+            $user->setClient($this->getUser());
+        }
+
         $user->setTypeCard($order['typeCard']);
         $user->setRegisteredArea($order['r_region']);
         $user->setRegisteredCity($order['r_city']);

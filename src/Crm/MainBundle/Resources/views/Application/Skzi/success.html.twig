@@ -1,11 +1,11 @@
-{% extends 'CrmMainBundle::layout.html.twig' %}
+{% extends layout | default(is_granted('ROLE_CLIENT') ? 'CrmAuthBundle::layout.html.twig' : 'CrmMainBundle::layout.html.twig') %}
 
 {% block content %}
     <div class="box">
         <h2>Заявка создана, Номер заказа {{ user.id }}</h2>
         <br/>
         <br/>
-        {% if url == null %}
+        {% if url is defined and url == null %}
             <a href="{{ path('offer',{'userId' : user.id, 'date' : '1541513'}) }}">Скачать счет-заказ</a>
         {% endif %}
         <br/>

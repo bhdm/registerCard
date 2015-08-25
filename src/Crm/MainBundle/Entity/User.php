@@ -1795,5 +1795,21 @@ class User extends BaseEntity implements UserInterface, EquatableInterface, \Ser
         $this->citizenship = $citizenship;
     }
 
+    /**
+     * @return mixed
+     */
+    public function getClient()
+    {
+        return $this->client;
+    }
+
+    /**
+     * @param mixed $client
+     */
+    public function setClient($client)
+    {
+        $this->client = $client;
+    }
+
 
 }

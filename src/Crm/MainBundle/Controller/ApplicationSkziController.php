@@ -24,6 +24,7 @@ class ApplicationSkziController extends Controller
 
     /**
      * @Route("/application/skzi/step1", name="application-skzi-step1", options={"expose"=true})
+     * @Route("/auth/application/skzi/step1", name="auth_application-skzi-step1", options={"expose"=true})
      * @Template("CrmMainBundle:Application/Skzi:step1.html.twig")
      */
     public function step1Action(Request $request)
@@ -54,6 +55,7 @@ class ApplicationSkziController extends Controller
 
     /**
      * @Route("/application/skzi/step2", name="application-skzi-step2", options={"expose"=true})
+     * @Route("/auth/application/skzi/step2", name="auth_application-skzi-step2", options={"expose"=true})
      * @Template("CrmMainBundle:Application/Skzi:step2.html.twig")
      */
     public function step2Action(Request $request){
@@ -92,6 +94,7 @@ class ApplicationSkziController extends Controller
 
     /**
      * @Route("/application/skzi/step3", name="application-skzi-step3", options={"expose"=true})
+     * @Route("/auth/application/skzi/step3", name="auth_application-skzi-step3", options={"expose"=true})
      * @Template("CrmMainBundle:Application/Skzi:step3.html.twig")
      */
     public function step3Action(Request $request){
@@ -146,6 +149,7 @@ class ApplicationSkziController extends Controller
 
     /**
      * @Route("/application/skzi/step100", name="application-skzi-step100", options={"expose"=true})
+     * @Route("/auth/application/skzi/step100", name="auth_application-skzi-step100", options={"expose"=true})
      * @Template()
      */
     public function step100Action(Request $request){
@@ -189,6 +193,7 @@ class ApplicationSkziController extends Controller
 
     /**
      * @Route("/application/skzi/step4", name="application-skzi-step4", options={"expose"=true})
+     * @Route("/auth/application/skzi/step4", name="auth_application-skzi-step4", options={"expose"=true})
      * @Template("CrmMainBundle:Application/Skzi:step4.html.twig")
      */
     public function step4Action(Request $request){
@@ -212,6 +217,7 @@ class ApplicationSkziController extends Controller
 
     /**
      * @Route("/application/skzi/step5", name="application-skzi-step5", options={"expose"=true})
+     * @Route("/auth/application/skzi/step5", name="auth_application-skzi-step5", options={"expose"=true})
      * @Template("CrmMainBundle:Application/Skzi:step5.html.twig")
      */
     public function step5Action(Request $request){
@@ -245,6 +251,7 @@ class ApplicationSkziController extends Controller
 
     /**
      * @Route("/application/skzi/success", name="application-skzi-success", options={"expose"=true})
+     * @Route("/auth/application/skzi/success", name="auth_application-skzi-success", options={"expose"=true})
      * @Template("CrmMainBundle:Application/Skzi:success.html.twig")
      */
     public function successAction(Request $request){
@@ -278,7 +285,9 @@ class ApplicationSkziController extends Controller
         $d = new \DateTime($order['driverEnds']);
         $user->setDriverDocDateEnds($d);
 
-
+        if ($this->get('security.context')->isGranted('ROLE_CLIENT')){
+            $user->setClient($this->getUser());
+        }
 
         $user->setMyPetition($order['myPetition']);
         $user->setSnils($order['snils']);

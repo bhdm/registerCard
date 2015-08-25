@@ -24,6 +24,7 @@ class ApplicationEstrController extends Controller
 
     /**
      * @Route("/application/estr/step1", name="application-estr-step1", options={"expose"=true})
+     * @Route("/auth/application/estr/step1", name="auth_application-estr-step1", options={"expose"=true})
      * @Route("/company/{url}/estr/step1", name="company-estr-step1", options={"expose"=true})
      * @Template("CrmMainBundle:Application/Estr:step1.html.twig")
      */
@@ -62,6 +63,7 @@ class ApplicationEstrController extends Controller
 
     /**
      * @Route("/application/estr/step2", name="application-estr-step2", options={"expose"=true})
+     * @Route("auth/application/estr/step2", name="auth_application-estr-step2", options={"expose"=true})
      * @Route("/company/{url}/estr/step2", name="company-estr-step2", options={"expose"=true})
      * @Template("CrmMainBundle:Application/Estr:step2.html.twig")
      */
@@ -121,6 +123,7 @@ class ApplicationEstrController extends Controller
 
     /**
      * @Route("/application/estr/step3", name="application-estr-step3", options={"expose"=true})
+     * @Route("/auth/application/estr/step3", name="auth_application-estr-step3", options={"expose"=true})
      * @Route("/company/{url}/estr/step3", name="company-estr-step3", options={"expose"=true})
      * @Template("CrmMainBundle:Application/Estr:step3.html.twig")
      */
@@ -166,6 +169,7 @@ class ApplicationEstrController extends Controller
 
 
     /**
+     * @Route("auth/application/estr/step4", name="auth_application-estr-step4", options={"expose"=true})
      * @Route("/application/estr/step4", name="application-estr-step4", options={"expose"=true})
      * @Route("/company/{url}/estr/step4", name="company-estr-step4", options={"expose"=true})
      * @Template("CrmMainBundle:Application/Estr:step4.html.twig")
@@ -197,6 +201,7 @@ class ApplicationEstrController extends Controller
 
     /**
      * @Route("/application/estr/step5", name="application-estr-step5", options={"expose"=true})
+     * @Route("/auth/application/estr/step5", name="auth_application-estr-step5", options={"expose"=true})
      * @Route("/companys/{url}/estr/step5", name="company-estr-step5", options={"expose"=true})
      * @Template("CrmMainBundle:Application/Estr:step5.html.twig")
      */
@@ -240,6 +245,7 @@ class ApplicationEstrController extends Controller
 
     /**
      * @Route("/application/estr/success", name="application-estr-success", options={"expose"=true})
+     * @Route("/auth/application/estr/success", name="auth_application-estr-success", options={"expose"=true})
      * @Route("/company/{url}/estr/success", name="company-estr-success", options={"expose"=true})
      * @Template("CrmMainBundle:Application/Estr:success.html.twig")
      */
@@ -304,6 +310,9 @@ class ApplicationEstrController extends Controller
         $user->setRegisteredRoom($order['r_room']);
         $user->setRegisteredZipcode($order['r_zipcode']);
 
+        if ($this->get('security.context')->isGranted('ROLE_CLIENT')){
+            $user->setClient($this->getUser());
+        }
 
 
         //Добавяляем сканы

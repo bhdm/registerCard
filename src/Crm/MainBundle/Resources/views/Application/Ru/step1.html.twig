@@ -1,5 +1,4 @@
-{% extends url == null ? 'CrmMainBundle::layout.html.twig' : 'CrmMainBundle::layout_mini.html.twig' %}
-
+{% extends url == null ? is_granted('ROLE_CLIENT') ? 'CrmAuthBundle::layout.html.twig' : 'CrmMainBundle::layout.html.twig' : 'CrmMainBundle::layout_mini.html.twig' %}
 {% block title %}
     <title>Заказать карту водителя для тахографа с СКЗИ Online</title>
     <meta name="description" content="Заказать карту водителя для тахографа с СКЗИ Online">

@@ -1,0 +1,27 @@
+.chosen-container{
+    float: left;
+    margin-left: 15px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+input{
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+.form-control{
+    width: 100% !important;
+}
+.required{
+    color: #000000 !important;
+}
+label{
+    text-align: left;
+    display: block !important;
+}
+
+h2{
+    text-align: left !important;
+}
+.btn:hover{
+    background: #286090 !important;
+}

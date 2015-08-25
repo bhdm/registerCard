@@ -23,6 +23,7 @@ security:
                 class: CrmMainBundle:Client
                 property: username
 
+
     firewalls:
         dev:
             pattern:  ^/(_(profiler|wdt)|css|images|js)/
@@ -54,7 +55,7 @@ security:
 
         auth_secured_area:
             provider: auth
-            pattern: /auth
+            pattern: /
             form_login:
                 check_path: auth_security_check
                 login_path: /auth/login
@@ -62,6 +63,9 @@ security:
                 path:   /auth/logout
             security: true
             anonymous: ~
+        secured_area:
+            pattern: ^/
+            anonymous: true
 
     access_control:
         - { path: ^/panel/login$, role: IS_AUTHENTICATED_ANONYMOUSLY }

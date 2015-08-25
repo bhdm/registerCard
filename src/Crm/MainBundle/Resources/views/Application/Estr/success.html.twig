@@ -1,16 +1,16 @@
-{% extends url == null ? 'CrmMainBundle::layout.html.twig' : 'CrmMainBundle::layout_mini.html.twig' %}
+{% extends url == null ? is_granted('ROLE_CLIENT') ? 'CrmAuthBundle::layout.html.twig' : 'CrmMainBundle::layout.html.twig' : 'CrmMainBundle::layout_mini.html.twig' %}
 
 {% block content %}
     <div class="box">
         <h2>Заявка создана, Номер заказа {{ user.id }}</h2>
         <br/>
         <br/>
-        {% if url == null %}
+        {% if url is defined and url == null %}
         <a href="{{ path('offer',{'userId' : user.id, 'date' : '1541513'}) }}">Скачать счет-заказ</a>
         {% endif %}
         <br/>
         <br/>
-        {% if url == null %}
+        {% if url is defined and url == null %}
             <b>Выберите способ оплаты:</b>
             <br/><br /><br />
             <a href="{{ path('payment_assist_estr',{'userId' : user.id} )  }}" class="btn">Online "Робокасса"</a>
@@ -23,7 +23,7 @@
             <br/>
             <br/>
             <i>Скорость поступления денежных средств влияет на время отправки вашей заявки на производство. <br />
-            {% if url == null %}
+            {% if url is defined and url == null %}
                 В случае возникновения вопросов обращайтесь в <a href="{{ path('faq') }}" target="_blank" style="color: #e8313e; border-bottom: 1px dashed #e8313e;">службу поддержки.</a></i>
             {% endif %}
         {% endif %}

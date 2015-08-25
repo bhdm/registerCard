@@ -24,4 +24,17 @@ class OrderController extends Controller
         $orders = $this->getUser()->getOrders();
         return ['orders' => $orders];
     }
+
+    /**
+     * @Route("/edit/{userId}", name="auth_user_edit")
+     * @Template()
+     */
+    public function editAction(Request $request, $userId)
+    {
+        $user = $this->getDoctrine()->getRepository('CrmMainBundle:User')->findOneById($userId);
+        $regions = $this->getDoctrine()->getRepository('CrmMainBundle:Region')->findAll();
+        $companies = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->getCompanies();
+        $petitions = $user->getCompany()->getOperator()->getPetitions();
+        return array('user' => $user, 'regions' => $regions, 'companies' => $companies,'petitions' => $petitions);
+    }
 }

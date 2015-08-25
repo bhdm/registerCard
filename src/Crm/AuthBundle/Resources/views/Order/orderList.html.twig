@@ -9,9 +9,9 @@
             <span class="caret"></span>
         </button>
         <ul class="dropdown-menu" aria-labelledby="addOrder">
-            <li><a href="#">СКЗИ</a></li>
-            <li><a href="#">ЕСТР</a></li>
-            <li><a href="#">РФ</a></li>
+            <li><a href="{{ path('application-skzi-step1') }}">СКЗИ</a></li>
+            <li><a href="{{ path('application-estr-step1') }}">ЕСТР</a></li>
+            <li><a href="{{ path('application-ru-step1') }}">РФ</a></li>
         </ul>
     </div>
     </div>
@@ -21,6 +21,7 @@
     <div class="row">
         <table class="table">
             <tr>
+                <td>номер</td>
                 <td>Дата заявки</td>
                 <td>Фамилия</td>
                 <td>Имя</td>
@@ -31,12 +32,13 @@
             </tr>
             {% for o in orders %}
                 <tr>
-                    <td>{{ o.created | date('d.m.y') }}</td>
+                    <td><a href="{{ path('auth_user_edit', {'userId' : o.id}) }}">{{ o.id }}</a></td>
+                    <td>{{ o.created | date('d.m.Y') }}</td>
                     <td>{{ o.lastName  }}</td>
                     <td>{{ o.firstName  }}</td>
                     <td>{{ o.surName  }}</td>
                     <td>{{ o.ru ? 'РФ' : o.estr ? 'ЕСТР' : 'СКЗИ'  }}</td>
-                    <td>{{ o.statusStr }}</td>
+                    <td>{{ o.statusString }}</td>
                     <td>{{ o.price }}</td>
                 </tr>
             {% else %}
