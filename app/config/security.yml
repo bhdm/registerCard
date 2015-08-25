@@ -61,14 +61,12 @@ security:
             logout:
                 path:   /auth/logout
             security: true
-            anonymous: true
+            anonymous: ~
 
     access_control:
-#        - { path: /operator/.*, role: ROLE_OPERATOR }
-
         - { path: ^/panel/login$, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: /operator/, role: ROLE_OPERATOR }
+        - { path: ^/auth/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/auth/register, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/auth/, roles: ROLE_CLIENT }
         - { path: /.*, role: IS_AUTHENTICATED_ANONYMOUSLY }
-
-        - { path: ^/auth, role: ROLE_CLIENT }
-        - { path: ^/auth/login$, role: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/auth/register$, role: IS_AUTHENTICATED_ANONYMOUSLY }
