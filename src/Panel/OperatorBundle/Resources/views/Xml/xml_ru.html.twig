@@ -16,13 +16,13 @@
             <SurNameUTF8>{{ user.enLastname }}</SurNameUTF8>
             <SurNameUTF8_Alternative>{{ user.lastName }}</SurNameUTF8_Alternative>
             <ThirdNameUTF8_Alternative>{{ user.surName }}</ThirdNameUTF8_Alternative>
-            {% if user.myPetition == 1 or user.company == null or user.company.title is not defined or user.company.title  == '' %}
-                <Organization>ООО "НПО "ТЕХНОЛОГ"</Organization>
-            {% elseif user.companyPetition != null %}
-                <Organization>{{ user.companyPetition.title }}</Organization>
-            {% else %}
-                <Organization>{{ user.company.title }}</Organization>
-            {% endif %}
+            {#{% if user.myPetition == 1 or user.company == null or user.company.title is not defined or user.company.title  == '' %}#}
+                {#<Organization>ООО "НПО "ТЕХНОЛОГ"</Organization>#}
+            {#{% elseif user.companyPetition != null %}#}
+                {#<Organization>{{ user.companyPetition.title }}</Organization>#}
+            {#{% else %}#}
+                {#<Organization>{{ user.company.title }}</Organization>#}
+            {#{% endif %}#}
             <CardHolderBirthDateDMY>{{ user.birthDate | date('d.m.Y') }}</CardHolderBirthDateDMY>
             <LanguageID>1</LanguageID>
 
@@ -31,6 +31,10 @@
             <Index>{{ user.registeredRegion }}, {{ user.registeredCity }}</Index>
             <House>{{ user.registeredStreet }}, {{ user.registeredHome }}, {{ user.registeredStructure }}, {{ user.registeredCorp }},{{ user.registeredRoom }}</House>
             <Photo>{{ files.photo.base }}</Photo>
+            <passport>{{ file.passport is defined ? file.passport.base : '' }}</passport>
+            <passport2>{{ file.passport2 is defined ? file.passport2.base : '' }}</passport2>
+            <driver>{{ file.driver is defined ? file.driver.base : '' }}</driver>
+            <sriver2>{{ file.driver2 is defined ? file.driver2.base : '' }}</sriver2>
             <Signature>{{ files.signature.base }}</Signature>
             <documents></documents>
             <cardstandart>720</cardstandart>
