@@ -132,6 +132,9 @@
                                                 <a role="menuitem" tabindex="-1" href="{{ path('xml_generator',{'userId' : user.id}) }}" target="_blank">XML</a>
                                             </li>
                                             <li role="presentation">
+                                                <a role="menuitem" tabindex="-1" href="{{ path('panel_operator_ru_xml',{'userId' : user.id}) }}" target="_blank">XML РФ</a>
+                                            </li>
+                                            <li role="presentation">
                                                 <a role="menuitem" tabindex="-1" href="{{ path('generate_payment_pdf') }}?ord={{ user.id }}" target="_blank">Плат. поручение</a>
                                             </li>
                                             <li role="presentation">

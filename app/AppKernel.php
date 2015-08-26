@@ -29,6 +29,7 @@ class AppKernel extends Kernel
             new Crm\ImageBundle\CrmImageBundle(),
             new Panel\OperatorBundle\PanelOperatorBundle(),
             new Craue\FormFlowBundle\CraueFormFlowBundle(),
+            new Cocur\Slugify\Bridge\Symfony\CocurSlugifyBundle(),
             new Crm\AuthBundle\CrmAuthBundle(),
         );
 

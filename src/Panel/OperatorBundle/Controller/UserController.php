@@ -203,6 +203,64 @@ class UserController extends Controller
 
         $user = $this->getDoctrine()->getRepository('CrmMainBundle:User')->findOneById($userId);
 
+        if ($user->getEnLastName() == null){
+            $user->setEnLastName(ucfirst($this->get('slugify')->slugify($user->getLastName())));
+        }
+        if ($user->getEnFirstName() == null){
+            $user->setEnFirstName(ucfirst($this->get('slugify')->slugify($user->getFirstName())));
+        }
+        if ($user->getEnSurName() == null){
+            $user->setEnSurName(ucfirst($this->get('slugify')->slugify($user->getSurName())));
+        }
+
+        if ($user->getEnDeliveryAdrs() == null){
+            $adrs = $user->getRegisteredZipcode();
+            if ($user->getRegisteredRegion()){
+                $adrs.= ', '.ucfirst($this->get('slugify')->slugify($user->getRegisteredRegion()));
+            }
+            if ($user->getRegisteredCity()){
+                $adrs.= ', '.ucfirst($this->get('slugify')->slugify($user->getRegisteredCity()));
+            }
+            if ($user->getRegisteredStreet()){
+                $adrs.= ', '.ucfirst($this->get('slugify')->slugify($user->getRegisteredStreet()));
+            }
+            if ($user->getRegisteredHome()){
+                $adrs.= ', д.'.ucfirst($this->get('slugify')->slugify($user->getRegisteredHome()));
+            }
+            if ($user->getRegisteredCorp()){
+                $adrs.= ', '.ucfirst($this->get('slugify')->slugify($user->getRegisteredCorp()));
+            }
+            if ($user->getRegisteredRoom()){
+                $adrs.= ', '.ucfirst($this->get('slugify')->slugify($user->getRegisteredRoom()));
+            }
+            $user->setEnDeliveryAdrs($adrs);
+        }
+
+        if ($user->getRuDeliveryAdrs() == null){
+            $adrs = $user->getRegisteredZipcode();
+            if ($user->getRegisteredRegion()){
+                $adrs.= ', '.ucfirst($user->getRegisteredRegion());
+            }
+            if ($user->getRegisteredCity()){
+                $adrs.= ', '.ucfirst($user->getRegisteredCity());
+            }
+            if ($user->getRegisteredStreet()){
+                $adrs.= ', '.ucfirst($user->getRegisteredStreet());
+            }
+            if ($user->getRegisteredHome()){
+                $adrs.= ', д.'.ucfirst($user->getRegisteredHome());
+            }
+            if ($user->getRegisteredCorp()){
+                $adrs.= ', '.ucfirst($user->getRegisteredCorp());
+            }
+            if ($user->getRegisteredRoom()){
+                $adrs.= ', '.ucfirst($user->getRegisteredRoom());
+            }
+            $user->setRuDeliveryAdrs($adrs);
+        }
+        $this->getDoctrine()->getManager()->flush($user);
+
+
         $referer = $request->headers->get('referer').'#userr'.$userId;
 
 
@@ -224,6 +282,11 @@ class UserController extends Controller
             $user->setLastName($data->get('lastName'));
             $user->setFirstName($data->get('firstName'));
             $user->setSurName($data->get('surName'));
+
+            $user->setEnLastName($data->get('enLastName'));
+            $user->setEnFirstName($data->get('enFirstName'));
+            $user->setEnSurName($data->get('enSurName'));
+
             $date = new \DateTime($data->get('birthDate'));
             $user->setBirthDate($date);
 
@@ -244,7 +307,8 @@ class UserController extends Controller
             $user->setRegisteredStructure($data->get('structure'));
             $user->setRegisteredRoom($data->get('room'));
             $user->setRegisteredZipcode($data->get('zipcode'));
-
+            $user->setEnDeliveryAdrs($data->get('address'));
+            $user->setRuDeliveryAdrs($data->get('address2'));
 
             $user->setDriverDocNumber($data->get('driverNumber'));
             $date = new \DateTime($data->get('driverStarts'));
@@ -1694,5 +1758,7 @@ class UserController extends Controller
 
         return new Response('Новые заявки: '.$param1."\nОсталось: ".$param3."\nОбщий итог: ".$param2);
     }
+
+
 }
 

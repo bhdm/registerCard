@@ -2,6 +2,7 @@
 
 namespace Panel\OperatorBundle\Controller;
 
+use Crm\MainBundle\WImage\WImage;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\SecurityContext;
@@ -57,5 +58,44 @@ class XmlController extends Controller
         }
         return $response;
 
+    }
+
+    /**
+     * @Route("/ru-xml/{userId}", name="panel_operator_ru_xml")
+     * @Template("")
+     */
+    public function ruXmlAction($userId){
+        $user = $this->getDoctrine()->getRepository('CrmMainBundle:User')->findOneById($userId);
+        $filePath = __DIR__.'/../../../../web/';
+
+        $image = new \Imagick($filePath.$user->getPhoto()['path']);
+        $image->setImageFormat('bmp');
+        $files['photo']['base'] = base64_encode($image->getImageBlob());
+        $files['photo']['title'] = 'Photo';
+        $files['photo']['file'] = $user->getPhoto();
+        $image->destroy();
+
+        $file = $user->getCopySignature();
+        $file = WImage::ImageToBlackAndWhite($file);
+        $file = WImage::cropSign($file, 591,118);
+        $image = new \Imagick($file);
+        $image->setImageFormat('bmp');
+        $files['signature']['base'] = base64_encode($image->getImageBlob());
+        $files['signature']['title'] = 'Signature';
+        $image->destroy();
+
+        $response = new Response();
+        $response->headers->set('Content-Type', 'text/xml');
+        $content = $this->renderView("PanelOperatorBundle:Xml:xml_ru.html.twig", array('user' => $user,'files' => $files));
+        $response->headers->set('Content-Disposition', 'attachment;filename="XMLgeneration.xml');
+        $response->setContent($content);
+        return $response;
+    }
+
+    public function imageToBase64($filePath){
+        $filePath = __DIR__.'/../../../../web/'.$filePath;
+        $imagedata = file_get_contents($filePath);
+        $base64 = base64_encode($imagedata);
+        return $base64;
     }
 }

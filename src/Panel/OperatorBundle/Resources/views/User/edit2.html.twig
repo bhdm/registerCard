@@ -206,6 +206,7 @@
                             <label class="control-label col-sm-3" for="lastName">Фамилия:</label>
                             <div class="col-sm-9">
                                 <input type="text"  name="lastName" id="lastName" class="form-control" value="{{ user.lastName }}">
+                                <input type="text"  name="enLastName" id="enLastName" class="form-control" value="{{ user.enLastName }}">
                             </div>
                         </div>
                     </td>
@@ -216,6 +217,7 @@
                             <label class="control-label col-sm-3" for="firstName">Имя:</label>
                             <div class="col-sm-9">
                                 <input type="text"  name="firstName" id="firstName" class="form-control" value="{{ user.firstName }}">
+                                <input type="text"  name="enFirstName" id="enFirstName" class="form-control" value="{{ user.enFirstName }}">
                             </div>
                         </div>
                     </td>
@@ -226,6 +228,7 @@
                             <label class="control-label col-sm-3" for="surName">Отчество:</label>
                             <div class="col-sm-9">
                                 <input type="text"  name="surName" id="surName" class="form-control" value="{{ user.surName }}">
+                                <input type="text"  name="enSurName" id="enSurName" class="form-control" value="{{ user.enSurName }}">
                             </div>
                         </div>
                     </td>
@@ -360,6 +363,26 @@
                             <label class="control-label col-sm-3" for="zipcode">Индекс:</label>
                             <div class="col-sm-3">
                                 <input type="text"  name="zipcode" id="zipcode" class="form-control" value="{{ user.registeredZipcode }}">
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="form-group">
+                            <label class="control-label col-sm-3" for="zipcode">Адрес на англ.:</label>
+                            <div class="col-sm-3">
+                                <textarea class="form-control" placeholder="Адрес на англ." name="address" id="address" style="width: 500px">{{ user.enDeliveryAdrs }}</textarea>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="form-group">
+                            <label class="control-label col-sm-3" for="zipcode">Адрес на рус.:</label>
+                            <div class="col-sm-3">
+                                <textarea class="form-control" placeholder="Адрес на англ." name="address2" id="address2" style="width: 500px">{{ user.ruDeliveryAdrs }}</textarea>
                             </div>
                         </div>
                     </td>

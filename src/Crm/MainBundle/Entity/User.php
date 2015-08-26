@@ -63,6 +63,22 @@ class User extends BaseEntity implements UserInterface, EquatableInterface, \Ser
     protected  $surName;
 
     /**
+     * @ORM\Column(type="string", length=100, nullable=true)
+     */
+    protected $enLastName;
+
+    /**
+     * @ORM\Column(type="string", length=100, nullable=true)
+     */
+    protected $enFirstName;
+
+    /**
+     * @ORM\Column(type="string", length=100, nullable=true)
+     */
+    protected $enSurName;
+
+
+    /**
      * @Assert\NotBlank( message = "Поле дата рождения обязательно для заполнения" )
      * @ORM\Column(type="datetime", length=100)
      */
@@ -319,6 +335,16 @@ class User extends BaseEntity implements UserInterface, EquatableInterface, \Ser
      * @ORM\Column(type="integer", nullable=true)
      */
     protected $delivery;
+
+    /**
+     * @ORM\Column(type="string", nullable=true)
+     */
+    protected $enDeliveryAdrs;
+
+    /**
+     * @ORM\Column(type="string", nullable=true)
+     */
+    protected $ruDeliveryAdrs;
 
     /**
      * @ORM\Column(type="array", nullable=true)
@@ -1809,6 +1835,86 @@ class User extends BaseEntity implements UserInterface, EquatableInterface, \Ser
     public function setClient($client)
     {
         $this->client = $client;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getEnLastName()
+    {
+        return $this->enLastName;
+    }
+
+    /**
+     * @param mixed $enLastName
+     */
+    public function setEnLastName($enLastName)
+    {
+        $this->enLastName = $enLastName;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getEnFirstName()
+    {
+        return $this->enFirstName;
+    }
+
+    /**
+     * @param mixed $enFirstName
+     */
+    public function setEnFirstName($enFirstName)
+    {
+        $this->enFirstName = $enFirstName;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getEnSurName()
+    {
+        return $this->enSurName;
+    }
+
+    /**
+     * @param mixed $enSurName
+     */
+    public function setEnSurName($enSurName)
+    {
+        $this->enSurName = $enSurName;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getEnDeliveryAdrs()
+    {
+        return $this->enDeliveryAdrs;
+    }
+
+    /**
+     * @param mixed $enDeliveryAdrs
+     */
+    public function setEnDeliveryAdrs($enDeliveryAdrs)
+    {
+        $this->enDeliveryAdrs = $enDeliveryAdrs;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getRuDeliveryAdrs()
+    {
+        return $this->ruDeliveryAdrs;
+    }
+
+    /**
+     * @param mixed $ruDeliveryAdrs
+     */
+    public function setRuDeliveryAdrs($ruDeliveryAdrs)
+    {
+        $this->ruDeliveryAdrs = $ruDeliveryAdrs;
     }
 
 

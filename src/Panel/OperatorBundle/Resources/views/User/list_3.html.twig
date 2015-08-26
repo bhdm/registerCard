@@ -116,6 +116,11 @@
                                             <span class="glyphicon glyphicon-file"></span>
                                         </button>
                                     </a>&nbsp;&nbsp;
+                                    <a href="{{ path('panel_operator_ru_xml',{'userId' : user.id}) }}" target="_blank" class="no-underline">
+                                        <button type="button" class="btn btn-default btn-bg" title="XML">
+                                            <span class="glyphicon glyphicon-file"></span>
+                                        </button>
+                                    </a>&nbsp;&nbsp;
                                     <a href="{{ path('generate_payment_pdf') }}?ord={{ user.id }}" target="_blank" class="no-underline">
                                         <button type="button" class="btn btn-default btn-bg" title="Платежное поручение">
                                             <span class="glyphicon glyphicon-file"></span>
