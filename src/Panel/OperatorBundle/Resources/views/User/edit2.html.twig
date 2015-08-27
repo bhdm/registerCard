@@ -200,6 +200,18 @@
                         </div>
                     </td>
                 </tr>
+                {#<tr>#}
+                    {#<td>#}
+                        {#<div class="form-group">#}
+                            {#<label class="control-label col-sm-3" for="lastName">Серия и номер пасспорта:</label>#}
+                            {#<div class="col-sm-9">#}
+                                {#<input type="text"  name="passportSerial" id="passportSerial" class="form-control" value="{{ user.passportSerial }}">#}
+                                {#<input type="text"  name="passportNumber" id="passportNumber" class="form-control" value="{{ user.passportNumber }}">#}
+                            {#</div>#}
+                        {#</div>#}
+                    {#</td>#}
+                {#</tr>#}
+
                 <tr>
                     <td>
                         <div class="form-group">
@@ -243,21 +255,20 @@
                         </div>
                     </td>
                 </tr>
-
-                {% if user.ru == 0 and user.estr == 0 %}
-                    <tr>
-                        <td>
-                            <div class="form-group">
-                                <label class="control-label col-sm-3" for="surName">Серия и номер:</label>
-                                <div class="col-sm-4">
-                                    <input type="text"  name="passportSerial" id="passportSerial" class="form-control" value="{{ user.passportSerial }}">
-                                </div>
-                                <div class="col-sm-5">
-                                    <input type="text"  name="passportNumber" id="passportNumber" class="form-control" value="{{ user.passportNumber }}">
-                                </div>
+                <tr>
+                    <td>
+                        <div class="form-group">
+                            <label class="control-label col-sm-3" for="surName">Серия и номер:</label>
+                            <div class="col-sm-4">
+                                <input type="text"  name="passportSerial" id="passportSerial" class="form-control" value="{{ user.passportSerial }}">
                             </div>
-                        </td>
-                    </tr>
+                            <div class="col-sm-5">
+                                <input type="text"  name="passportNumber" id="passportNumber" class="form-control" value="{{ user.passportNumber }}">
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                {% if user.ru == 0 and user.estr == 0 %}
                     <tr>
                         <td>
                             <div class="form-group">

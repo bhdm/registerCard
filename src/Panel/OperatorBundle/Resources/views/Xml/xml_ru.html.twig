@@ -31,10 +31,10 @@
             <Index>{{ user.registeredRegion }}, {{ user.registeredCity }}</Index>
             <House>{{ user.registeredStreet }}, {{ user.registeredHome }}, {{ user.registeredStructure }}, {{ user.registeredCorp }},{{ user.registeredRoom }}</House>
             <Photo>{{ files.photo.base }}</Photo>
-            <passport>{{ files.passport is defined ? files.passport.base : '' }}</passport>
-            <passport2>{{ files.passport2 is defined ? files.passport2.base : '' }}</passport2>
-            <driver>{{ files.driver is defined ? files.driver.base : '' }}</driver>
-            <sriver2>{{ files.driver2 is defined ? files.driver2.base : '' }}</sriver2>
+            <passportscan>{{ files.passport is defined ? files.passport.base : '' }}</passportscan>
+            {#<passport2>{{ files.passport2 is defined ? files.passport2.base : '' }}</passport2>#}
+            <pravascan>{{ files.driver is defined ? files.driver.base : '' }}</pravascan>
+            {#<sriver2>{{ files.driver2 is defined ? files.driver2.base : '' }}</sriver2>#}
             <Signature>{{ files.signature.base }}</Signature>
             <documents></documents>
             <cardstandart>720</cardstandart>

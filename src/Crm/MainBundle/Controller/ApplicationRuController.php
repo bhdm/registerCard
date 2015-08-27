@@ -79,7 +79,8 @@ class ApplicationRuController extends Controller
             $order['firstName']      = $request->request->get('firstName');
             $order['surName']        = $request->request->get('surName');
             $order['birthDate']      = $request->request->get('birthDate');
-
+            $order['passportSerial'] = $request->request->get('passportSerial');
+            $order['passportNumber'] = $request->request->get('passportNumber');
 
             $order['r_region']      = $request->request->get('region');
             $order['r_area']        = $request->request->get('area');
@@ -260,6 +261,8 @@ class ApplicationRuController extends Controller
         $d = new \DateTime($order['birthDate']);
         $user->setBirthDate($d);
 
+        $user->setPassportSerial($order['passportSerial']);
+        $user->setPassportNumber($order['passportNumber']);
 
 
         $user->setDriverDocIssuance($order['driverPlace']);
