@@ -73,4 +73,4 @@ security:
         - { path: ^/auth/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/auth/register, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/auth/, roles: ROLE_CLIENT }
-        - { path: /.*, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: /.*, role: IS_AUTHENTICATED_ANONYMOUSLY, requires_channel: %protocol%}

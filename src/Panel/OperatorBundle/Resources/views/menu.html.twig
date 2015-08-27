@@ -105,6 +105,13 @@
                     &nbsp;&nbsp;Проверка XML
                 </a>
             </li>
+            <li class="{{ app.request.attributes.get('_route') == 'operator_setting_price' ? 'active' : '' }}">
+                <a href="{{ path('operator_setting_price') }}">
+                    <i class="glyphicon glyphicon-signal"></i>
+                    &nbsp;&nbsp;Настройка
+                </a>
+            </li>
+
 
         {% endif %}
 

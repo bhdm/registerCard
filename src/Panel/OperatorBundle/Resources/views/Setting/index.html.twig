@@ -1,0 +1,29 @@
+{% extends 'PanelOperatorBundle::layout.html.twig' %}
+
+
+{% block crosh %}
+    <a href="{{ path('operator_main') }}">Главная</a> &raquo;
+    <a href="{{ path('operator_setting_price') }}">Настройки</a>
+{% endblock %}
+
+{% block content %}
+<form method="POST">
+    <form method="POST">
+        <table class="table">
+            {% for f in forms  %}
+            <tr>
+                <td class="label">{{ form_label(f.val) }}</td>
+                <td class="value">
+                    {{ form_widget(f.val) }}
+                </td>
+            </tr>
+            {% endfor %}
+            <tr>
+                <td></td>
+                <td>
+                    <button type="submit" class="btn btn-primary">Сохранить</button>
+                </td>
+            </tr>
+        </table>
+    </form>
+{% endblock %}
