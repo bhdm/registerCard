@@ -50,30 +50,131 @@
             {#Акция осуществляется по инициативе ООО "РусАвтоКарт"#}
         {#</div>#}
     {#</div>#}
-    <br />
-    <br />
-    <table style="width: 100%">
-        <tr>
-            <td style="width: 50%; text-align: center;">
-                {#<div class="index-btn">#}
-                <a href="{{ path('application-estr-step1') }}"><img src="{{ asset('bundles/crmmain/images/card-1.png') }}" class="img-btn"></a>
-                {#</div>#}
-            </td>
-            <td style="width: 50%; text-align: center;">
-                {#<div class="index-btn">#}
-                <a href="{{ path('application-ru-step1') }}"><img src="{{ asset('bundles/crmmain/images/card-2.png') }}" class="img-btn"></a>
-                {#</div>#}
-            </td>
-        </tr>
-        <tr>
-            <td colspan="2" style="text-align: center;">
-                {#<div class="index-btn">#}
-                <br />
-                <a href="{{ path('application-skzi-step1') }}"><img src="{{ asset('bundles/crmmain/images/card-3.png') }}" class="img-btn"></a>
-                {#</div>#}
-            </td>
-        </tr>
-    </table>
+    {#<br />#}
+    {#<br />#}
+    {#<table style="width: 100%">#}
+        {#<tr>#}
+            {#<td style="width: 50%; text-align: center;">#}
+                {#&#123;&#35;<div class="index-btn">&#35;&#125;#}
+                {#<a href="{{ path('application-estr-step1') }}"><img src="{{ asset('bundles/crmmain/images/card-1.png') }}" class="img-btn"></a>#}
+                {#&#123;&#35;</div>&#35;&#125;#}
+            {#</td>#}
+            {#<td style="width: 50%; text-align: center;">#}
+                {#&#123;&#35;<div class="index-btn">&#35;&#125;#}
+                {#<a href="{{ path('application-ru-step1') }}"><img src="{{ asset('bundles/crmmain/images/card-2.png') }}" class="img-btn"></a>#}
+                {#&#123;&#35;</div>&#35;&#125;#}
+            {#</td>#}
+        {#</tr>#}
+        {#<tr>#}
+            {#<td colspan="2" style="text-align: center;">#}
+                {#&#123;&#35;<div class="index-btn">&#35;&#125;#}
+                {#<br />#}
+                {#<a href="{{ path('application-skzi-step1') }}"><img src="{{ asset('bundles/crmmain/images/card-3.png') }}" class="img-btn"></a>#}
+                {#&#123;&#35;</div>&#35;&#125;#}
+            {#</td>#}
+        {#</tr>#}
+    {#</table>#}
+
+    <div class="card-block">
+        <div class="card-sale">АКЦИЯ до 30.09.2015</div>
+        <table>
+            <tr>
+                <td class="card-img"><img src="{{ asset('bundles/crmmain/images/card2-1.png') }}"/></td>
+                <td>
+                    <div class="card-header">
+                        Карта водителя <span class="card-name">СКЗИ</span>
+                        <div class="card-price">1 950,00 руб</div>
+                    </div>
+                    <div class="card-body">
+                        Карты предназначены для тахографов оборудованных блоком СКЗИ.<br />
+                        Дейтсвуют только на территории РФ.<br />
+                        <table class="card-docs">
+                            <tr>
+                                <td>Документы:</td>
+                                <td>
+                                    <ul>
+                                        <li>копия паспорта (лицевой разворот)</li>
+                                        <li>копия водительского удостоверения</li>
+                                        <li>СНИЛС</li>
+                                        <li>фото, подпись</li>
+                                    </ul>
+                                </td>
+                            </tr>
+                        </table>
+                        Срок изготовления: <b>15 дней</b><br />
+                        Доставка: <b>бесплатно</b>
+                        <a href="{{ path('application-skzi-step1') }}"><div class="btn btn-red btn-order">Заказать</div></a>
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="card-block">
+        <table>
+            <tr>
+                <td class="card-img"><img src="{{ asset('bundles/crmmain/images/card2-2.png') }}"/></td>
+                <td>
+                    <div class="card-header">
+                        Карта водителя <span class="card-name">ЕСТР</span>
+                        <div class="card-price">3 200,00 руб</div>
+                    </div>
+                    <div class="card-body">
+                        Карты предназначены для европейских тахографов стандарта ЕСТР.<br />
+                        Дейтсвуют только на территории Европы и  РФ.<br />
+                        <table class="card-docs">
+                            <tr>
+                                <td>Документы:</td>
+                                <td>
+                                    <ul>
+                                        <li>копия паспорта (лицевой разворот)</li>
+                                        <li>копия водительского удостоверения (две стороны)</li>
+                                        <li>СНИЛС</li>
+                                        <li>фото, подпись</li>
+                                    </ul>
+                                </td>
+                            </tr>
+                        </table>
+                        Срок изготовления: <b>15 дней</b><br />
+                        Доставка: <b>бесплатно</b>
+                        <a href="{{ path('application-estr-step1') }}"><div class="btn btn-red btn-order">Заказать</div></a>
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="card-block">
+        <table>
+            <tr>
+                <td class="card-img"><img src="{{ asset('bundles/crmmain/images/card2-3.png') }}"/></td>
+                <td>
+                    <div class="card-header">
+                        Карта водителя <span class="card-name">РФ</span> (пост. 720 от 10.09.2009 г.)
+                        <div class="card-price">3 200,00 руб</div>
+                    </div>
+                    <div class="card-body">
+                        Карты предназначены для тахографов <b>не</b> оборудованных блоками СКЗИ.<br />
+                        Дейтсвуют только на территории РФ.<br />
+                        <table class="card-docs">
+                            <tr>
+                                <td>Документы:</td>
+                                <td>
+                                    <ul>
+                                        <li>копия паспорта (лицевой разворот)</li>
+                                        <li>копия водительского удостоверения (две стороны)</li>
+                                        <li>СНИЛС</li>
+                                        <li>фото, подпись</li>
+                                    </ul>
+                                </td>
+                            </tr>
+                        </table>
+                        Срок изготовления: <b>10 дней</b><br />
+                        Доставка: <b>бесплатно</b>
+                        <a href="{{ path('application-ru-step1') }}"><div class="btn btn-red btn-order">Заказать</div></a>
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </div>
 
     <h2>
         Работа с корпоративными клиентами:
@@ -106,7 +207,93 @@
             </td>
         </tr>
     </table>
-    <br />
-    <br />
+    {#<br />#}
+    {#<br />#}
     {#<div style="font-size: 24px; text-align: center">Цена карты СКЗИ - <span class="redtext">2306р.</span> , ЕСТР - <span class="redtext">6200р</span>.</div>#}
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <style>
+        .card-block *{
+            color: #053960;
+        }
+        .card-block{
+            padding: 10px;
+            border: 1px solid #808080;
+            color: #1d3243;
+            margin-bottom: 20px;
+        }
+        .card-header{
+            border-bottom: 1px solid #1d3243;
+            color: #1d3243;
+            padding-bottom: 10px;
+        }
+        .card-img{
+            padding-right: 20px;
+        }
+        .card-price{
+            float: right;
+            font-size: 20px;
+            font-weight: bold;
+        }
+        .card-name{
+            font-size: 20px;
+            font-weight: bold;
+        }
+        .card-body{
+            padding-top: 10px;
+        }
+        .card-sale{
+            color: #cd253c;
+            font-size: 20px;
+            font-weight: bold;
+            padding: 0 30px;
+            border-bottom: 1px solid #cd253c;
+            display: inline-block;
+            float: right;
+            margin-right: 40px;
+            margin-bottom: 20px;
+        }
+        .btn-order{
+            float: right;
+            margin-right: 50px;
+            margin-top: -20px;
+        }
+        .btn-red{
+            -moz-box-shadow:inset 0px 1px 0px 0px #ffffff;
+            -webkit-box-shadow:inset 0px 1px 0px 0px #ffffff;
+            box-shadow:inset 0px 1px 0px 0px #ffffff;
+            background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #77a2e7), color-stop(1, #487ebb));
+            background:-moz-linear-gradient(top, #77a2e7 5%, #487ebb 100%);
+            background:-webkit-linear-gradient(top, #77a2e7 5%, #487ebb 100%);
+            background:-o-linear-gradient(top, #77a2e7 5%, #487ebb 100%);
+            background:-ms-linear-gradient(top, #77a2e7 5%, #487ebb 100%);
+            background:linear-gradient(to bottom, #77a2e7 5%, #487ebb 100%);
+            filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#77a2e7', endColorstr='#487ebb',GradientType=0);
+            background-color:#77a2e7;
+            -moz-border-radius:6px;
+            -webkit-border-radius:6px;
+            border-radius:6px;
+            border:1px solid #dcdcdc;
+            display:inline-block;
+            cursor:pointer;
+            color:#444;
+            font-family:arial;
+            font-size:15px;
+            padding:10px 24px;
+            text-decoration:none;
+            text-shadow:0px 1px 0px #444;
+        }
+        .btn-red:hover {
+            background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #487ebb), color-stop(1, #77a2e7));
+            background:-moz-linear-gradient(top, #487ebb 5%, #77a2e7 100%);
+            background:-webkit-linear-gradient(top, #487ebb 5%, #77a2e7 100%);
+            background:-o-linear-gradient(top, #487ebb 5%, #77a2e7 100%);
+            background:-ms-linear-gradient(top, #487ebb 5%, #77a2e7 100%);
+            background:linear-gradient(to bottom, #487ebb 5%, #77a2e7 100%);
+            filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#487ebb', endColorstr='#77a2e7',GradientType=0);
+            background-color:#487ebb;
+        }
+    </style>
 {% endblock %}
