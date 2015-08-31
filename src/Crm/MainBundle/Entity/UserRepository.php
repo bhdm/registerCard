@@ -68,7 +68,8 @@ class UserRepository extends EntityRepository
                          OR u.id = '$search'
                          OR u.lastName LIKE '%$search%'
                          OR u.firstName LIKE '%$search%'
-                         OR u.surName LIKE '%$search%')");
+                         OR u.surName LIKE '%$search%')'
+                         OR u.comment LIKE '%$search%')");
         }
 
         if (isset($type) && $type != null){
