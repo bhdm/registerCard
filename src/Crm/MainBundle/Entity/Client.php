@@ -66,10 +66,16 @@ class Client extends BaseEntity implements UserInterface
      */
     protected $companyTitle;
 
+    /**
+     * @ORM\OneToMany(targetEntity="Chat", mappedBy="client")
+     */
+    protected $messages;
+
     public function __construct(){
         $this->roles = 'ROLE_CLIENT';
         $this->enabled = true;
         $this->orders = new ArrayCollection();
+        $this->messages = new ArrayCollection();
     }
 
     public function __toString(){
@@ -304,6 +310,23 @@ class Client extends BaseEntity implements UserInterface
     {
         $this->orders = $orders;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getMessages()
+    {
+        return $this->messages;
+    }
+
+    /**
+     * @param mixed $messages
+     */
+    public function setMessages($messages)
+    {
+        $this->messages = $messages;
+    }
+
 
 
 }

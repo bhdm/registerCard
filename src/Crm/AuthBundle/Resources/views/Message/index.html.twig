@@ -1,0 +1,49 @@
+{% extends 'CrmAuthBundle::layout.html.twig' %}
+
+{% block title %}
+    <div style="height: 40px">
+        <div style="float: left; padding-right: 10px;">Мои сообщения</div>
+    </div>
+{% endblock %}
+
+{% block body %}
+    <div class="row">
+        <div class="col-xs-6">
+            <form method="POST">
+                {{ form_widget(form) }}
+            </form>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-6">
+            {% for m in messages %}
+                <div class="row" style="border-bottom: 1px solid #CCCCCC;margin-bottom: 10px">
+                    <div class="col-xs-4" style="text-align: left;">
+                        {{ m.created | date('d.m.Y H:i')}}
+                        <br/>
+                        {% if m.isOperator %}
+                            Администратор
+                        {% else %}
+                            Вы
+                        {% endif %}
+                    </div>
+                    <div class="col-xs-8" style="text-align: left">{{ m.body }}</div>
+                </div>
+
+            {% else %}
+                <div style="text-align: center" class="col-xs-6 text-danger">Сообщений не найдено</div>
+
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <style>
+        .crm_mainbundle_chat .form-group{
+            text-align: left;
+        }
+
+    </style>
+{% endblock %}

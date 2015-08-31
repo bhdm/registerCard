@@ -3,8 +3,7 @@
 
 
 {% block content %}
-    <div class="well" style="max-width: 940px;">
-        <form>
+        <form style="max-width: 700px">
             <table class="table">
                     <tr>
                         <td>
@@ -14,16 +13,10 @@
                                         <div class="form-group">
                                             <label class="control-label col-sm-3" for="typeCard">Тип выдачи:</label>
                                             <div class="col-sm-3">
-                                                <select disabled="disabled" id="typeCard" name="typeCard" class="miniselect">
-                                                        <option value="0" {{ user.typeCard == 0 ? 'selected="selected"' : '' }}>Первичная выдача карты</option>
-                                                        <option value="1" {{ user.typeCard == 1 ? 'selected="selected"' : '' }} style="color: #CC0000;">Замена в связи с истечением срока действия карты</option>
-                                                        <option value="2" {{ user.typeCard == 2 ? 'selected="selected"' : '' }} style="color: #CC0000;">Замена в связи с дефектом, утерей или утратой карты</option>
-                                                        <option value="3" {{ user.typeCard == 3 ? 'selected="selected"' : '' }} style="color: #CC0000;">Замена карты вследствие изменения персональных данных</option>
-                                                </select>
-                                                {% if user.typeCardFile %}
-                                                    <br />
-
-                                                {% endif %}
+                                                        {{ user.typeCard == 0 ? 'Первичная выдача карты' : '' }}
+                                                        {{ user.typeCard == 1 ? 'Замена в связи с истечением срока действия карты' : '' }}
+                                                        {{ user.typeCard == 2 ? 'Замена в связи с дефектом, утерей или утратой карты' : '' }}
+                                                        {{ user.typeCard == 3 ? 'Замена карты вследствие изменения персональных данных' : '' }}
                                             </div>
                                         </div>
                                     </td>
@@ -44,11 +37,7 @@
                         <div class="form-group">
                             <label class="control-label col-sm-3" for="status">Компания</label>
                             <div class="col-sm-9">
-                                <select disabled="disabled" id="company" name="company" class="chosen">
-                                    {% for c in companies %}
-                                    <option value="{{ c.id }}"  {{ user.company.id == c.id ?  'selected="selected"' : '' }}>{{ c.id }} {{ c.title }}</option>
-                                    {% endfor %}
-                                </select>
+                                {{ user.company.title }}
                             </div>
                         </div>
                     </td>
@@ -58,16 +47,7 @@
                         <div class="form-group">
                             <label class="control-label col-sm-3" for="status">Статус</label>
                             <div class="col-sm-9">
-                                <select disabled="disabled" id="status" name="status" class="miniselect">
-                                    <option value="0"  {{ user.status == 0 or user.status == null ? 'selected="selected"' : '' }}>Новая</option>
-                                    <option value="1"  {{ user.status == 1 ? 'selected="selected"' : '' }}>Подтвержденная</option>
-                                    <option value="2"  {{ user.status == 2 ? 'selected="selected"' : '' }}>Оплаченная</option>
-                                    <option value="3"  {{ user.status == 3 ? 'selected="selected"' : '' }}>В производстве</option>
-                                    <option value="6"  {{ user.status == 6 ? 'selected="selected"' : '' }}>Изготовлено</option>
-                                    <option value="4"  {{ user.status == 4 ? 'selected="selected"' : '' }}>На почте</option>
-                                    <option value="5"  {{ user.status == 5 ? 'selected="selected"' : '' }}>Получена</option>
-                                    <option value="10" {{ user.status == 10 ? 'selected="selected"' : '' }}>Отклонена</option>
-                                </select>
+                                {{ user.statusString }}
                             </div>
                         </div>
                     </td>
@@ -77,11 +57,11 @@
                         <div class="form-group">
                             <label class="control-label col-sm-3" for="type">Тип карты</label>
                             <div class="col-sm-9">
-                                <select disabled="disabled" id="type" name="type" class="miniselect">
-                                    <option value="0" {{ user.ru == 0 and user.estr == 0 ? 'selected="selected"' : ''}}>СКЗИ</option>
-                                    <option value="1" {{ user.ru == 0 and user.estr == 1 ? 'selected="selected"' : ''}}>ЕСТР</option>
-                                    <option value="2" {{ user.ru == 1 and user.estr == 0 ? 'selected="selected"' : ''}}>РФ</option>
-                                </select>
+
+                                    {{ user.ru == 0 and user.estr == 0 ? 'СКЗИ' : ''}}>
+                                    {{ user.ru == 0 and user.estr == 1 ? 'ЕСТР' : ''}}>
+                                    {{ user.ru == 1 and user.estr == 0 ? 'РФ' : ''}}>
+
                             </div>
                         </div>
                     </td>
@@ -517,15 +497,10 @@
                         <div class="form-group">
                             <label class="control-label col-sm-3" for="myPetition">Доп. ходатайство":</label>
                             <div class="col-sm-9">
-                                <select disabled="disabled" id="petition" name="petition" class="petition">
-                                    <option value="0">Не использовать</option>
-                                    {% for p in petitions %}
-                                        <option value="{{ p.id }}" {{ user.companyPetition != null and user.companyPetition.id == p.id ? 'selected="selected"' : '' }}>{{ p.title }}</option>
-                                    {% endfor %}
-                                </select>
-                                {% if user.companyPetition != null %}
-                                    <a href="{{ path('panel_petition_edit',{'id' : user.companyPetition.id }) }}" target="_blank">Смотреть</a>
-                                {% endif %}
+                                {{ user.companyPetition != null ? user.companyPetition.title : 'Не использовать' }}
+                                {#{% if user.companyPetition != null %}#}
+                                    {#<a href="{{ path('panel_petition_edit',{'id' : user.companyPetition.id }) }}" target="_blank">Смотреть</a>#}
+                                {#{% endif %}#}
                             </div>
                         </div>
                     </td>
@@ -535,17 +510,13 @@
                         <div class="form-group">
                             <label class="control-label col-sm-3" for="myPetition">Использвоть Ходатайство "НПО Технолог":</label>
                             <div class="col-sm-9">
-                                <select disabled="disabled" id="myPetition" name="myPetition" class="miniselect">
-                                    <option value="0" {{ user.myPetition == 0 ? 'selected="selected"' : '' }}>Не использовать</option>
-                                    <option value="1" {{ user.myPetition == 1 ? 'selected="selected"' : '' }}>Использовать</option>
-                                </select>
+                                {{ user.myPetition == 0 ? 'Не использовать' : 'Использовать' }}
                             </div>
                         </div>
                     </td>
                 </tr>
             </table>
         </form>
-    </div>
 {% endblock %}
 
 
