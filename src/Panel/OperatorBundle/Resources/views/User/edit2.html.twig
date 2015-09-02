@@ -252,11 +252,11 @@
                     <td>
                         <div class="form-group">
                             <label class="control-label col-sm-3" for="birthDate">Дата рождения:</label>
-                            <div class="col-sm-2">
+                            <div class="col-sm-3">
                                 <input type="text"  name="birthDate" id="birthDate" class="form-control date" value="{{ user.birthDate|date('d.m.Y') }}">
                             </div>
 
-                            <label class="control-label col-xs-2" for="surName">Серия&nbsp;/&nbsp;номер:</label>
+                            <label class="control-label col-xs-2" for="surName">Серия/номер:</label>
                             <div class="col-xs-2">
                                 <input type="text"  name="passportSerial" id="passportSerial" class="form-control" value="{{ user.passportSerial }}">
                             </div>
@@ -286,12 +286,11 @@
                         <td>
                             <div class="form-group">
                                 <label class="control-label col-sm-3" for="surName">Дата выдачи:</label>
-                                <div class="col-sm-2">
+                                <div class="col-sm-3">
                                     <input type="text"  name="PassportIssuanceDate" id="PassportIssuanceDate" class="form-control date" value="{{ user.PassportIssuanceDate|date("d.m.Y") }}">
                                 </div>
-                                <div class="col-xs-1"></div>
                                 <label class="control-label col-sm-3" for="surName">Код подразделения:</label>
-                                <div class="col-sm-2">
+                                <div class="col-sm-3">
                                     <input type="text"  name="passportCode" id="passportCode" class="form-control code" value="{{ user.passportCode }}">
                                 </div>
                             </div>
