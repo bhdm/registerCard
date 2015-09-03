@@ -3,6 +3,7 @@
 namespace Crm\MainBundle\Controller;
 
 use Crm\MainBundle\Entity\StatusLog;
+use Crm\MainBundle\Form\UserSkziType;
 use Proxies\__CG__\Crm\MainBundle\Entity\CompanyPetition;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -386,6 +387,23 @@ class ApplicationSkziController extends Controller
             );
         }
         return $array;
+    }
+
+    /**
+     * @Route("/application/skzi-new", name="new_skzi_order", options={"expose"=true})
+     * @Template("CrmMainBundle:Application:newAkzi.html.twig")
+     */
+    public function newAkziAction(Request $request){
+        $em = $this->getDoctrine()->getManager();
+        $item = new User();
+        $form = $this->createForm(new UserSkziType($em), $item);
+        $formData = $form->handleRequest($request);
+        if ($request->getMethod() == 'POST'){
+            if ($formData->isValid()){
+
+            }
+        }
+        return array('form' => $form->createView());
     }
 
 }

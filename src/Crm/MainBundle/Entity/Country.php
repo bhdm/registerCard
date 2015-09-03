@@ -55,6 +55,10 @@ class Country
         $this->driverDocCountries = new ArrayCollection();
     }
 
+    public function __toString(){
+        return ''.$this->title;
+    }
+
     /**
      * @return mixed
      */

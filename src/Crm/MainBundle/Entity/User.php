@@ -245,7 +245,15 @@ class User extends BaseEntity implements UserInterface, EquatableInterface, \Ser
      */
     protected $registeredRoom;
 
+    /**
+     * @ORM\Column(type="array")
+     */
+    protected $deliveryAdrs;
 
+    /**
+     * @ORM\Column(type="array")
+     */
+    protected $registeredAdrs;
 
 
     /**
@@ -1915,6 +1923,38 @@ class User extends BaseEntity implements UserInterface, EquatableInterface, \Ser
     public function setRuDeliveryAdrs($ruDeliveryAdrs)
     {
         $this->ruDeliveryAdrs = $ruDeliveryAdrs;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getDeliveryAdrs()
+    {
+        return $this->deliveryAdrs;
+    }
+
+    /**
+     * @param mixed $deliveryAdrs
+     */
+    public function setDeliveryAdrs($deliveryAdrs)
+    {
+        $this->deliveryAdrs = $deliveryAdrs;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getRegisteredAdrs()
+    {
+        return $this->registeredAdrs;
+    }
+
+    /**
+     * @param mixed $registeredAdrs
+     */
+    public function setRegisteredAdrs($registeredAdrs)
+    {
+        $this->registeredAdrs = $registeredAdrs;
     }
 
 
