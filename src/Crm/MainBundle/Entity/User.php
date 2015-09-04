@@ -481,6 +481,8 @@ class User extends BaseEntity implements UserInterface, EquatableInterface, \Ser
         $this->estr = 0;
         $this->ru = 0;
         $this->hash = md5(time());
+        $this->deliveryAdrs = array();
+        $this->registeredAdrs = array();
     }
 
     public function __toString()
