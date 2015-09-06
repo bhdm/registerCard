@@ -25,3 +25,6 @@ h2{
 .btn:hover{
     background: #286090 !important;
 }
+td.label:empty {
+     display: table-cell !important;
+}

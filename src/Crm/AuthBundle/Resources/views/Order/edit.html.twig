@@ -497,7 +497,7 @@
                         <div class="form-group">
                             <label class="control-label col-sm-3" for="myPetition">Свое ходатайство":</label>
                             <div class="col-sm-9">
-                                {{ user.companyPetition != null ? user.companyPetition.title : 'Не использовать' }}
+                                {{ user.companyPetition != null ? user.companyPetition.title : 'Не использовать' }} <a href="#">Изменить</a>
                                 {#{% if user.companyPetition != null %}#}
                                     {#<a href="{{ path('panel_petition_edit',{'id' : user.companyPetition.id }) }}" target="_blank">Смотреть</a>#}
                                 {#{% endif %}#}
