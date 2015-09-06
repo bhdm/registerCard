@@ -327,6 +327,9 @@ class ApplicationSkziController extends Controller
 
         if ($order['myPetition'] == false){
             $petition = new CompanyPetition();
+            if ($this->get('security.authorization_checker')->isGranted('ROLE_CLIENT')){
+                $petition->setClient($this->getUser());
+            }
             $petition->setTitle($order['p_title']);
             $petition->setRegion($order['p_region']);
             $petition->setCity($order['p_city']);

@@ -1,0 +1,37 @@
+{% extends 'CrmAuthBundle::layout.html.twig' %}
+
+{% block title %}
+    <div style="height: 40px">
+        <div style="float: left; padding-right: 10px;">Мои ходатайства</div>
+            <button class="btn btn-primary dropdown-toggle" type="button" id="addOrder" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" disabled>
+                Добавить новое ходатайство
+                <span class="caret"></span>
+            </button>
+    </div>
+{% endblock %}
+
+{% block body %}
+    <div class="row">
+        <table class="table">
+            <tr>
+                <td>номер</td>
+                <td>Дата создания</td>
+                <td>Компания</td>
+                <td>Кол-во заказов</td>
+                <td></td>
+            </tr>
+            {% for p in petitions %}
+                <tr>
+                    <td/>{{ p.id }}</td>
+                    <td>{{ p.created | date('d.m.Y') }}</td>
+                    <td>{{ p.title  }}</td>
+                    <td>{{ o.users | length  }}</td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="7" style="text-align: center" class="text-danger">Ходатайств не найдено</td>
+                </tr>
+            {% endfor %}
+        </table>
+    </div>
+{% endblock %}

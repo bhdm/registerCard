@@ -15,6 +15,13 @@ use Doctrine\Common\Collections\ArrayCollection;
  */
 class CompanyPetition extends BaseEntity{
 
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Client", inversedBy="petitions")
+     */
+    protected $client;
+
+
     /**
      * @ORM\OneToMany(targetEntity="Company", mappedBy="petition")
      */
@@ -648,5 +655,20 @@ class CompanyPetition extends BaseEntity{
         $this->template = $template;
     }
 
+    /**
+     * @return mixed
+     */
+    public function getClient()
+    {
+        return $this->client;
+    }
+
+    /**
+     * @param mixed $client
+     */
+    public function setClient($client)
+    {
+        $this->client = $client;
+    }
 
 }

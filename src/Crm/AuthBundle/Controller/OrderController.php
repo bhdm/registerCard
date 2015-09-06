@@ -3,6 +3,7 @@
 namespace Crm\AuthBundle\Controller;
 
 use Crm\MainBundle\Entity\Client;
+use Crm\MainBundle\Form\UserSkziType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
@@ -36,5 +37,23 @@ class OrderController extends Controller
         $companies = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->getCompanies();
         $petitions = $user->getCompany()->getOperator()->getPetitions();
         return array('user' => $user, 'regions' => $regions, 'companies' => $companies,'petitions' => $petitions);
+    }
+
+    /**
+     * @Route("/edit/skzi/{userId}", name="auth_user_skzi_edit")
+     * @Template()
+     */
+    public function editSkziAction(Request $request, $userId)
+    {
+        $item = $this->getDoctrine()->getRepository('CrmMainBundle:User')->findOneById($userId);
+        $em = $this->getDoctrine()->getManager();
+        $form = $this->createForm(new UserSkziType($em), $item);
+        $formData = $form->handleRequest($request);
+        if ($request->getMethod() == 'POST'){
+            if ($formData->isValid()){
+
+            }
+        }
+        return array('form' => $form->createView(),'user' => $item);
     }
 }

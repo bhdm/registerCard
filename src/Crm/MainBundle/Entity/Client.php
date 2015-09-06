@@ -17,6 +17,11 @@ class Client extends BaseEntity implements UserInterface
 {
 
     /**
+     * @ORM\OneToMany(targetEntity="CompanyPetition", mappedBy="client")
+     */
+    protected $petitions;
+
+    /**
      * @ORM\OneToMany(targetEntity="User", mappedBy="client")
      */
     protected $orders;
@@ -76,6 +81,7 @@ class Client extends BaseEntity implements UserInterface
         $this->enabled = true;
         $this->orders = new ArrayCollection();
         $this->messages = new ArrayCollection();
+        $this->petitions = new ArrayCollection();
     }
 
     public function __toString(){
@@ -325,6 +331,22 @@ class Client extends BaseEntity implements UserInterface
     public function setMessages($messages)
     {
         $this->messages = $messages;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getPetitions()
+    {
+        return $this->petitions;
+    }
+
+    /**
+     * @param mixed $petitions
+     */
+    public function setPetitions($petitions)
+    {
+        $this->petitions = $petitions;
     }
 
 

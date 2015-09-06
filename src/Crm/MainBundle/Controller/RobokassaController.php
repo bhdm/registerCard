@@ -10,6 +10,7 @@ use
     Sensio\Bundle\FrameworkExtraBundle\Configuration\Template,
     Doctrine\ORM\Query\ResultSetMapping;
 use Symfony\Component\DependencyInjection\ContainerInterface as Container;
+use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 
 class RobokassaController extends Controller
 {
@@ -42,6 +43,7 @@ class RobokassaController extends Controller
     }
 
     /**
+     * @Route("/payment/assist/{userId}", name="payment_assist")
      * @Route("/payment/assist/estr/{userId}", name="payment_assist_estr")
      * @Template("LearningMainBundle:Assist:redirect.html.twig")
      */

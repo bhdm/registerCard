@@ -2,18 +2,18 @@
 
 {% block title %}
     <div style="height: 40px">
-    <div style="float: left; padding-right: 10px;">Мои заказы</div>
-    <div class="dropdown" style="float: left;">
-        <button class="btn btn-primary dropdown-toggle" type="button" id="addOrder" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-            Добавить новый заказ
-            <span class="caret"></span>
-        </button>
-        <ul class="dropdown-menu" aria-labelledby="addOrder">
-            <li><a href="{{ path('application-skzi-step1') }}">СКЗИ</a></li>
-            <li><a href="{{ path('application-estr-step1') }}">ЕСТР</a></li>
-            <li><a href="{{ path('application-ru-step1') }}">РФ</a></li>
-        </ul>
-    </div>
+        <div style="float: left; padding-right: 10px;">Мои заказы</div>
+        <div class="dropdown" style="float: left;">
+            <button class="btn btn-primary dropdown-toggle" type="button" id="addOrder" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                Добавить новый заказ
+                <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="addOrder">
+                <li><a href="{{ path('application-skzi-step1') }}">СКЗИ</a></li>
+                <li><a href="{{ path('application-estr-step1') }}">ЕСТР</a></li>
+                <li><a href="{{ path('application-ru-step1') }}">РФ</a></li>
+            </ul>
+        </div>
     </div>
 {% endblock %}
 
@@ -29,10 +29,17 @@
                 <td>Тип заявки</td>
                 <td>Статус</td>
                 <td>Цена</td>
+                <td></td>
             </tr>
             {% for o in orders %}
                 <tr>
-                    <td><a href="{{ path('auth_user_edit', {'userId' : o.id}) }}">{{ o.id }}</a></td>
+                    <td>
+                        {#{% if o.estr == 0 and o.ru == 0 %}#}
+                            {#<a href="{{ path('auth_user_skzi_edit', {'userId' : o.id}) }}">{{ o.id }}</a>#}
+                        {#{% else %}#}
+                            <a href="{{ path('auth_user_edit', {'userId' : o.id}) }}">{{ o.id }}</a>
+                        {#{% endif %}#}
+                    </td>
                     <td>{{ o.created | date('d.m.Y') }}</td>
                     <td>{{ o.lastName  }}</td>
                     <td>{{ o.firstName  }}</td>
@@ -40,6 +47,20 @@
                     <td>{{ o.ru ? 'РФ' : o.estr ? 'ЕСТР' : 'СКЗИ'  }}</td>
                     <td>{{ o.statusString }}</td>
                     <td>{{ o.price }}</td>
+                    <td>
+                        {% if o.status == 0 %}
+                            <div class="dropdown">
+                                <button class="btn btn-default dropdown-toggle" type="button" id="dropdownPayment" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                    Оплата
+                                    <span class="caret"></span>
+                                </button>
+                                <ul class="dropdown-menu" aria-labelledby="dropdownPayment}">
+                                    <li><a href="{{ path('generate_payment_pdf') }}?ord={{ o.id }}">Платежное поручение</a></li>
+                                    <li><a href="{{ path('payment_assist',{'userId' : o.id} )  }}">Робокасса</a></li>
+                                </ul>
+                            </div>
+                        {% endif %}
+                    </td>
                 </tr>
             {% else %}
                 <tr>
