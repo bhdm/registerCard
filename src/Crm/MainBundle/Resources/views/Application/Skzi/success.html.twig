@@ -26,7 +26,10 @@
         {% if url is defined and url == null %}
             В случае возникновения вопросов обращайтесь в <a href="{{ path('faq') }}" target="_blank" style="color: #e8313e; border-bottom: 1px dashed #e8313e;">службу поддержки.</a></i>
         {% endif %}
-
+        {% if is_granted('ROLE_CLIENT') %}
+            <br/><br /><br />
+            <a href="{{ path('auth_order')  }}" class="btn">Перейти в заказы</a>
+        {% endif %}
     </div>
 {% endblock %}
 

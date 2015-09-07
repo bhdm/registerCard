@@ -363,6 +363,43 @@ class ApplicationSkziController extends Controller
         $em->flush($user);
         $em->refresh($user);
 
+        /**
+         * Если новенький - создаем под него учетную запись
+         */
+        if ($this->get('security.authorization_checker')->isGranted('ROLE_CLIENT')){
+            $pass = $this->generatePassword(6);
+            $client = new Client();
+            $client->setCompanyTitle(null);
+            $client->setLastName($user->getLastName());
+            $client->setUsername($user->getEmail());
+            $client->setFirstName($user->getFirstName());
+            $client->setSurName($user->getSurName());
+            $client->setOrders($user);
+            $client->setRoles('ROLE_CLIENT');
+            $client->setSalt(md5(time()));
+            $encoder = new MessageDigestPasswordEncoder('sha512', true, 10);
+            $password = $encoder->encodePassword($pass, $client->getSalt());
+            $client->setPassword($password);
+
+            $message = \Swift_Message::newInstance()
+                ->setSubject('Ваш заказ создан')
+                ->setFrom('info@im-kard.ru')
+                ->setTo($client->getUsername())
+                ->setBody(
+                    $this->renderView(
+                        'CrmAuthBundle:Mail:register.html.twig',
+                        array('client' => $client, 'pass' => $pass )
+                    ), 'text/html'
+                )
+            ;
+            $this->get('mailer')->send($message);
+
+            $em->persist($client);
+            $em->flush($client);
+            $em->refresh($client);
+
+        }
+
         $session->set('order',null);
 
 
