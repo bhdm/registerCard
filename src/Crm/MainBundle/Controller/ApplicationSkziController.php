@@ -320,8 +320,8 @@ class ApplicationSkziController extends Controller
             $user->setTypeCardFile($order['typeCardFile']);
         }
 
-        if (!empty($order['PetitionFilePath']) && $order['PetitionFilePath']!= null){
-            $user->setCopyPetition($this->getImgToArray($order['PetitionFilePath']));
+        if (!empty($order['petitionFilePath']) && $order['petitionFilePath']!= null){
+            $user->setCopyPetition($this->getImgToArray($order['petitionFilePath']));
         }
 
 
