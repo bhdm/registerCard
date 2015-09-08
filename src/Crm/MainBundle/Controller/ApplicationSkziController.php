@@ -15,6 +15,7 @@ use Crm\MainBundle\Entity\Page;
 use Crm\MainBundle\Entity\User;
 use Crm\MainBundle\Entity\Company;
 
+use Symfony\Component\Security\Core\Encoder\MessageDigestPasswordEncoder;
 use Symfony\Component\Serializer\Serializer;
 use Symfony\Component\Serializer\Encoder\XmlEncoder;
 use Symfony\Component\Serializer\Encoder\JsonEncoder;
