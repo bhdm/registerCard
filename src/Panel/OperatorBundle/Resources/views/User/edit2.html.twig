@@ -480,6 +480,60 @@
                         </div>
                     </td>
                 </tr>
+                 %}
+                <tr>
+                    <td>
+                        <div class="form-group">
+                            <label class="control-label col-sm-3" for="snils">Ходатайство:</label>
+                            {% if user.companyPetition != null %}
+                                <div class="col-sm-4">
+                                    <table>
+                                        <tr>
+                                            <td>Название: </td>
+                                            <td>{{ user.companyPetition.title }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Регион: </td>
+                                            <td>{{ user.companyPetition.region }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Область: </td>
+                                            <td>{{ user.companyPetition.area }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Город: </td>
+                                            <td>{{ user.companyPetition.city }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Улица: </td>
+                                            <td>{{ user.companyPetition.street }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="2">
+                                                д. {{ user.companyPetition.home }}
+                                                стр. {{ user.companyPetition.structure }}
+                                                корп. {{ user.companyPetition.corp }}
+                                                кв./оф. {{ user.companyPetition.room }}
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                                <div class="col-sm-1"></div>
+                                <div class="col-sm-4">
+                                    {% if user.companyPetition.file.path is defined %}
+                                        <img src="/{{ user.companyPetition.file.path }}" brightness="0" contrast="0" class="document"
+                                        <br>
+                                        <a href="{{ path('panel_download_png',{'filename' : user.copySnils.fileName }) }}">Скачать</a>
+                                    {% else %}
+                                        <img src="" brightness="0" contrast="0" data-type="snilsFile" class="document" id="snilsFileImg">
+                                    {% endif %}
+                                </div>
+                            {% else %}
+                                <div class="col-sm-8">НПО ТЕХНОЛОГ</div>
+                            {% endif %}
+                        </div>
+                    </td>
+                </tr>
                 <tr>
                     <td>
                         <div class="form-group">
