@@ -14,6 +14,9 @@
             {% if petition.template.fileName is defined  %}
                 <img src="/upload/template/{{ petition.template.fileName }}" style="max-width: 150px">
             {% endif %}
+            {% if petition.file.path is defined  %}
+                <img src="/{{ petition.file.path }}" brightness="0" contrast="0" class="document" />
+            {% endif %}
             {{ form_widget(formPetition) }}
         </form>
     </div>
