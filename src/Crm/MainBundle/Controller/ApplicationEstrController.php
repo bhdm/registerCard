@@ -391,7 +391,6 @@ class ApplicationEstrController extends Controller
                 $client->setPhone($user->getUsername());
                 $client->setFirstName($user->getFirstName());
                 $client->setSurName($user->getSurName());
-                $client->getOrders()->add($user);
                 $client->setRoles('ROLE_CLIENT');
             }
             $client->setSalt(md5(time()));
@@ -402,6 +401,11 @@ class ApplicationEstrController extends Controller
             $em->persist($client);
             $em->flush($client);
             $em->refresh($client);
+
+            $user->setClient($client);
+            $em->persist($user);
+            $em->flush($user);
+            $em->refresh($user);
 
             $message = \Swift_Message::newInstance()
                 ->setSubject('Ваш заказ создан')

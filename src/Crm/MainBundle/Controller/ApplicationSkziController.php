@@ -379,7 +379,6 @@ class ApplicationSkziController extends Controller
                 $client->setSurName($user->getSurName());
                 $client->setUsername($user->getEmail());
                 $client->setPhone($user->getUsername());
-                $client->getOrders()->add($user);
                 $client->setRoles('ROLE_CLIENT');
             }
             $client->setSalt(md5(time()));
@@ -390,6 +389,11 @@ class ApplicationSkziController extends Controller
             $em->persist($client);
             $em->flush($client);
             $em->refresh($client);
+
+            $user->setClient($client);
+            $em->persist($user);
+            $em->flush($user);
+            $em->refresh($user);
 
             $message = \Swift_Message::newInstance()
                 ->setSubject('Ваш заказ создан')
