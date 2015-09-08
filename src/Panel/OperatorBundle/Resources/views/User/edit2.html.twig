@@ -490,7 +490,9 @@
                                     <table>
                                         <tr>
                                             <td>Название: </td>
-                                            <td>{{ user.companyPetition.title }}</td>
+                                            <td>
+                                                <a href="{{ path('panel_petition_edit',{'id' : user.companyPetition.id }) }}" target="_blank">{{ user.companyPetition.title }}</a>
+                                            </td>
                                         </tr>
                                         <tr>
                                             <td>Регион: </td>
@@ -515,6 +517,10 @@
                                                 корп. {{ user.companyPetition.corp }}
                                                 кв./оф. {{ user.companyPetition.room }}
                                             </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Индекс:</td>
+                                            <td>{{ user.companyPetition.zipcode }}</td>
                                         </tr>
                                     </table>
                                 </div>
