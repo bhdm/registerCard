@@ -388,6 +388,7 @@ class ApplicationEstrController extends Controller
                 $client->setCompanyTitle(null);
                 $client->setLastName($user->getLastName());
                 $client->setUsername($user->getEmail());
+                $client->setPhone($user->getUsername());
                 $client->setFirstName($user->getFirstName());
                 $client->setSurName($user->getSurName());
                 $client->getOrders()->add($user);

@@ -375,9 +375,10 @@ class ApplicationSkziController extends Controller
                 $client = new Client();
                 $client->setCompanyTitle(null);
                 $client->setLastName($user->getLastName());
-                $client->setUsername($user->getEmail());
                 $client->setFirstName($user->getFirstName());
                 $client->setSurName($user->getSurName());
+                $client->setUsername($user->getEmail());
+                $client->setPhone($user->getUsername());
                 $client->getOrders()->add($user);
                 $client->setRoles('ROLE_CLIENT');
             }
