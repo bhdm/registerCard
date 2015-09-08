@@ -390,7 +390,7 @@ class ApplicationEstrController extends Controller
                 $client->setUsername($user->getEmail());
                 $client->setFirstName($user->getFirstName());
                 $client->setSurName($user->getSurName());
-                $client->setOrders($user);
+                $client->getOrders()->add($user);
                 $client->setRoles('ROLE_CLIENT');
             }
             $client->setSalt(md5(time()));
