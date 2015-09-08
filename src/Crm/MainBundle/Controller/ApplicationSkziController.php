@@ -4,7 +4,8 @@ namespace Crm\MainBundle\Controller;
 
 use Crm\MainBundle\Entity\StatusLog;
 use Crm\MainBundle\Form\UserSkziType;
-use Proxies\__CG__\Crm\MainBundle\Entity\CompanyPetition;
+use Crm\MainBundle\Entity\Client;
+use Crm\MainBundle\Entity\CompanyPetition;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
