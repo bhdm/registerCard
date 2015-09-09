@@ -134,6 +134,13 @@
                     &nbsp;&nbsp;Калькулятор
                 </a>
             </li>
+            <li>
+                <a  href="{{ path('panel_client_message_list') }}">
+                    <i class="glyphicon glyphicon glyphicon-th"></i>
+                    &nbsp;&nbsp;Сообщения клиентов
+                </a>
+            </li>
+
         {% endif %}
 
         <li class="{{ app.request.attributes.get('_route') == 'panel_security_logout' ? 'active' : '' }}">

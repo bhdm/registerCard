@@ -9,7 +9,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * Message to client
  *
  * @ORM\Table()
- * @ORM\Entity()
+ * @ORM\Entity(repositoryClass="Crm\MainBundle\Entity\ChatRepository")
  */
 class Chat extends BaseEntity
 {
