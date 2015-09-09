@@ -182,7 +182,7 @@ class OrderController extends Controller
         if ($user->getStatus() == 0){
             return $this->render("CrmAuthBundle:Order:edit2.html.twig", $params);
         }else{
-            return $this->render("CrmAuthBundle:Order:edit2.html.twig", $params);
+            return $this->render("CrmAuthBundle:Order:edit.html.twig", $params);
         }
     }
 
