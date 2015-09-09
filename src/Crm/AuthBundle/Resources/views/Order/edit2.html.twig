@@ -1,0 +1,725 @@
+{% extends 'CrmAuthBundle::layout.html.twig' %}
+
+
+
+{% block content %}
+    <form style="max-width: 700px" method="post">
+        <table class="table">
+            <tr>
+                <td>
+                    <table>
+                        <tr style="{{ user.typeCard > 0 ? 'background: #FFBCBC' : '' }}">
+                            <td style="{{ user.typeCard > 0 ? 'background: #FFBCBC' : '' }}">
+                                <div class="form-group">
+                                    <label class="control-label col-sm-3" for="typeCard">Тип выдачи:</label>
+                                    <div class="col-sm-3">
+                                        <select id="typeCard" name="typeCard" class="miniselect">
+                                            <option value="0" {{ user.typeCard == 0 ? 'selected="selected"' : '' }}>Первичная выдача карты</option>
+                                            <option value="1" {{ user.typeCard == 1 ? 'selected="selected"' : '' }} style="color: #CC0000;">Замена в связи с истечением срока действия карты</option>
+                                            <option value="2" {{ user.typeCard == 2 ? 'selected="selected"' : '' }} style="color: #CC0000;">Замена в связи с дефектом, утерей или утратой карты</option>
+                                            <option value="3" {{ user.typeCard == 3 ? 'selected="selected"' : '' }} style="color: #CC0000;">Замена карты вследствие изменения персональных данных</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="form-group">
+                                    <label class="control-label col-sm-3" for="oldNumber">Старая карта:</label>
+                                    <div class="col-sm-9">
+                                        <input  type="text"  name="oldNumber" id="oldNumber" class="form-control" value="{{ user.lastNumberCard }}">
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="h2">
+                        Данные для связи
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="form-group">
+                        <label class="control-label col-sm-3" for="username">Телефон:</label>
+                        <div class="col-sm-9">
+                            <input  type="text"  name="username" id="username" class="form-control" value="{{ user.username }}">
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="form-group">
+                        <label class="control-label col-sm-3" for="email">E-mail:</label>
+                        <div class="col-sm-9">
+                            <input  type="text"  name="email" id="email" class="form-control" value="{{ user.email }}">
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="h2">
+                        Паспортные данные
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="form-group">
+                        <label class="control-label col-sm-3" for="lastName">Сканы паспорта:</label>
+                        <div class="col-sm-4">
+                            <input type="file" name="passportFile" id="passportFile"  data-type="passportFile" class="fileAjax">
+                            {% if user.copyPassport.path is defined %}
+                                <img src="/{{ user.copyPassport.path }}" brightness="128" contrast="128" data-type="passportFile" class="document" id="passportFileImg">
+                                <br>
+                            {% endif %}
+                        </div>
+                        {% if user.ru == 1 or user.estr == 1 %}
+                            <div class="col-sm-1"></div>
+                            <div class="col-sm-4">
+                                <input type="file" name="passport2File" id="passport2File" data-type="passport2File" class="fileAjax">
+                                {% if user.copyPassport2.path is defined %}
+                                    <img src="/{{ user.copyPassport2.path }}" brightness="128" contrast="128" data-type="passport2File" class="document" id="passport2FileImg">
+                                    <br>
+
+                                {% endif %}
+                            </div>
+                        {% endif %}
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="form-group">
+                        <label class="control-label col-sm-3" for="lastName">Фамилия:</label>
+                        <div class="col-sm-9">
+                            <input  type="text"  name="lastName" id="lastName" class="form-control" value="{{ user.lastName }}">
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="form-group">
+                        <label class="control-label col-sm-3" for="firstName">Имя:</label>
+                        <div class="col-sm-9">
+                            <input  type="text"  name="firstName" id="firstName" class="form-control" value="{{ user.firstName }}">
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="form-group">
+                        <label class="control-label col-sm-3" for="surName">Отчество:</label>
+                        <div class="col-sm-9">
+                            <input  type="text"  name="surName" id="surName" class="form-control" value="{{ user.surName }}">
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="form-group">
+                        <label class="control-label col-sm-3" for="birthDate">Дата рождения:</label>
+                        <div class="col-sm-9">
+                            <input  type="text"  name="birthDate" id="birthDate" class="form-control date" value="{{ user.birthDate|date('d.m.Y') }}">
+                        </div>
+                    </div>
+                </td>
+            </tr>
+
+            {% if user.ru == 0 and user.estr == 0 %}
+                <tr>
+                    <td>
+                        <div class="form-group">
+                            <label class="control-label col-sm-3" for="surName">Серия и номер:</label>
+                            <div class="col-sm-4">
+                                <input  type="text"  name="passportSerial" id="passportSerial" class="form-control" value="{{ user.passportSerial }}">
+                            </div>
+                            <div class="col-sm-5">
+                                <input  type="text"  name="passportNumber" id="passportNumber" class="form-control" value="{{ user.passportNumber }}">
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="form-group">
+                            <label class="control-label col-sm-3" for="surName">Кем выдан:</label>
+                            <div class="col-sm-9">
+                                <input  type="text"  name="PassportIssuance" id="PassportIssuance" class="form-control" value="{{ user.PassportIssuance }}">
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="form-group">
+                            <label class="control-label col-sm-3" for="surName">Дата выдачи:</label>
+                            <div class="col-sm-9">
+                                <input  type="text"  name="PassportIssuanceDate" id="PassportIssuanceDate" class="form-control date" value="{{ user.PassportIssuanceDate|date("d.m.Y") }}">
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="form-group">
+                            <label class="control-label col-sm-3" for="surName">Код подразделения:</label>
+                            <div class="col-sm-9">
+                                <input  type="text"  name="passportCode" id="passportCode" class="form-control code" value="{{ user.passportCode }}">
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+
+            {% endif %}
+
+            <tr>
+                <td>
+                    <div class="form-group">
+                        <label class="control-label col-sm-3" for="region">Регион:</label>
+                        <div class="col-sm-9">
+                            <input  type="text"  name="region" id="region" class="form-control" value="{{ user.registeredRegion }}">
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="form-group">
+                        <label class="control-label col-sm-3" for="area">Район:</label>
+                        <div class="col-sm-9">
+                            <input  type="text"  name="area" id="area" class="form-control" value="{{ user.registeredArea }}">
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="form-group">
+                        <label class="control-label col-sm-3" for="city">Город:</label>
+                        <div class="col-sm-9">
+                            <input  type="text"  name="city" id="city" class="form-control" value="{{ user.registeredCity }}">
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="form-group">
+                        <label class="control-label col-sm-3" for="street">Улица:</label>
+                        <div class="col-sm-9">
+                            <input  type="text"  name="street" id="street" class="form-control"  value="{{ user.registeredStreet }}">
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="form-group">
+                        <label class="control-label col-sm-3" for="house">Здание:</label>
+                        <div class="col-sm-2">
+                            <input  type="text"  name="house" id="house" class="form-control" placeholder="Дом"  value="{{ user.registeredHome }}">
+                        </div>
+                        <div class="col-sm-2">
+                            <input  type="text"  name="corp" id="corp" class="form-control" placeholder="Корп"  value="{{ user.registeredCorp }}">
+                        </div>
+                        <div class="col-sm-2">
+                            <input  type="text"  name="structure" id="structure" class="form-control" placeholder="Стр" value="{{ user.registeredStructure }}">
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="form-group">
+                        <label class="control-label col-sm-3" for="room">Квартира:</label>
+                        <div class="col-sm-3">
+                            <input  type="text"  name="room" id="room" class="form-control" value="{{ user.registeredRoom }}">
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="form-group">
+                        <label class="control-label col-sm-3" for="zipcode">Индекс:</label>
+                        <div class="col-sm-3">
+                            <input  type="text"  name="zipcode" id="zipcode" class="form-control" value="{{ user.registeredZipcode }}">
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="h2">
+                        Водительское удостоверение
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="form-group">
+                        <label class="control-label col-sm-3" for="lastName">Сканы документа:</label>
+                        <div class="col-sm-4">
+                            <input type="file" name="driverFile" id="driverFile"  data-type="driverFile" class="fileAjax">
+                            {% if user.copyDriverPassport.path is defined %}
+                                <img src="/{{ user.copyDriverPassport.path }}" brightness="0" contrast="0" data-type="driverFile" class="document" id="driverFileImg">
+                                <br>
+                            {% endif %}
+                        </div>
+                        <div class="col-sm-1"></div>
+                        {% if user.ru == 1 or user.estr == 1 %}
+                            <div class="col-sm-4">
+                                <input type="file" name="driver2File" id="driver2File"  data-type="driver2File" class="fileAjax">
+                                {% if user.copyDriverPassport2.path is defined %}
+                                    <img src="/{{ user.copyDriverPassport2.path }}" brightness="0" contrast="0" data-type="driver2File" class="document" id="driver2FileImg">
+                                    <br>
+                                {% endif %}
+                            </div>
+                        {% endif %}
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="form-group">
+                        <label class="control-label col-sm-3" for="driverPlace">Кем выдано:</label>
+                        <div class="col-sm-9">
+                            <input  type="text"  name="driverPlace" id="driverPlace" class="form-control" value="{{ user.driverDocIssuance }}"  maxlength="33">
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="form-group">
+                        <label class="control-label col-sm-3" for="driverNumber">Номер удоств.:</label>
+                        <div class="col-sm-9">
+                            <input  type="text"  name="driverNumber" id="driverNumber" class="form-control" value="{{ user.driverDocNumber }}">
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="form-group">
+                        <label class="control-label col-sm-3" for="driverStarts">Дата выдачи:</label>
+                        <div class="col-sm-9">
+                            <input  type="text"  name="driverStarts" id="driverStarts" class="form-control date" value="{{ user.driverDocDateStarts|date('d.m.Y') }}">
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="h2">
+                        Фотография и подпись
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="form-group">
+                        <label class="control-label col-sm-3" for="lastName">Фото и подпись:</label>
+                        <div class="col-sm-4">
+                            <input type="file" name="photoFile" id="photoFile"  data-type="photoFile" class="fileAjax">
+                            {% if user.photo.path is defined %}
+                                <img src="/{{ user.photo.path }}" brightness="0" contrast="0" data-type="photoFile" class="document" id="photoFileImg">
+                                <br>
+                            {% endif %}
+                        </div>
+                        <div class="col-sm-1"></div>
+                        <div class="col-sm-4">
+                            <input type="file" name="signFile" id="signFile"  data-type="signFile" class="fileAjax">
+                            {% if user.copySignature.path is defined %}
+                                <img src="/{{ user.copySignature.path }}" brightness="0" contrast="0" data-type="signFile" class="document" id="signFileImg">
+                                <br>
+                            {% endif %}
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="form-group">
+                        <label class="control-label col-sm-3" for="snils">Снилс:</label>
+                        <div class="col-sm-4">
+                            <input  type="text"  name="snils" id="snils" class="form-control snils" value="{{ user.snils }}">
+                        </div>
+                        <div class="col-sm-1"></div>
+                        <div class="col-sm-4">
+                            <input type="file" name="snilsFile" id="snilsFile"  data-type="snilsFile" class="fileAjax">
+                            {% if user.copySnils.path is defined %}
+                                <img src="/{{ user.copySnils.path }}" brightness="0" contrast="0" data-type="snilsFile" class="document" id="snilsFileImg">
+                                <br>
+                            {% else %}
+                                <img src="" brightness="0" contrast="0" data-type="snilsFile" class="document" id="snilsFileImg">
+                            {% endif %}
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="h2">
+                        Информация о доставке
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="form-group">
+                        <label class="control-label col-sm-3" for="deliveryRegion">Регион:</label>
+                        <div class="col-sm-9">
+                            <input  type="text"  name="deliveryRegion" id="deliveryRegion" class="form-control" value="{{ user.dileveryRegion }}">
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="form-group">
+                        <label class="control-label col-sm-3" for="deliveryArea">Район:</label>
+                        <div class="col-sm-9">
+                            <input  type="text"  name="deliveryArea" id="deliveryArea" class="form-control" value="{{ user.dileveryArea }}">
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="form-group">
+                        <label class="control-label col-sm-3" for="deliveryCity">Город:</label>
+                        <div class="col-sm-9">
+                            <input  type="text"  name="deliveryCity" id="deliveryCity" class="form-control" value="{{ user.dileveryCity }}">
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="form-group">
+                        <label class="control-label col-sm-3" for="deliveryStreet">Улица:</label>
+                        <div class="col-sm-9">
+                            <input  type="text"  name="deliveryStreet" id="deliveryStreet" class="form-control" value="{{ user.dileveryStreet }}">
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="form-group">
+                        <label class="control-label col-sm-3" for="deliveryHouse">Здание:</label>
+                        <div class="col-sm-2">
+                            <input  type="text"  name="deliveryHouse" id="deliveryHouse" class="form-control" placeholder="Дом" value="{{ user.dileveryHome }}">
+                        </div>
+                        <div class="col-sm-2">
+                            <input  type="text"  name="deliveryCorp" id="deliveryCorp" class="form-control" placeholder="Корп" value="{{ user.dileveryCorp }}">
+                        </div>
+                        <div class="col-sm-2">
+                            <input  type="text"  name="deliveryStructure" id="deliveryStructure" class="form-control" placeholder="Стр" value="{{ user.dileveryStructure }}">
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="form-group">
+                        <label class="control-label col-sm-3" for="deliveryRoom">Квартира:</label>
+                        <div class="col-sm-3">
+                            <input  type="text"  name="deliveryRoom" id="deliveryRoom" class="form-control" value="{{ user.dileveryRoom }}">
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="form-group">
+                        <label class="control-label col-sm-3" for="deliveryZipcode">Индекс:</label>
+                        <div class="col-sm-3">
+                            <input  type="text"  name="deliveryZipcode" id="deliveryZipcode" class="form-control" value="{{ user.dileveryZipcode }}">
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="h2">
+                        Дополнительная информация
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="form-group">
+                        <label class="control-label col-sm-3" for="myPetition">Свое ходатайство":</label>
+                        <div class="col-sm-9">
+                            {#{{ user.companyPetition != null ? user.companyPetition.title : 'Не использовать' }} <a href="#">Изменить</a>#}
+                            {#{% if user.companyPetition != null %}#}
+                            {#<a href="{{ path('panel_petition_edit',{'id' : user.companyPetition.id }) }}" target="_blank">Смотреть</a>#}
+                            {#{% endif %}#}
+                            <select id="petition" name="petition" class="petition">
+                                <option value="0">Не использовать</option>
+                                {% for p in app.user.petitions %}
+                                    <option value="{{ p.id }}" {{ user.companyPetition != null and user.companyPetition.id == p.id ? 'selected="selected"' : '' }}>{{ p.title }}</option>
+                                {% endfor %}
+                            </select>
+                            {% if user.companyPetition != null %}
+                                {#<a href="{{ path('auth_petition_edit',{'id' : user.companyPetition.id }) }}" target="_blank">Смотреть</a>#}
+                            {% endif %}
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="form-group">
+                        <label class="control-label col-sm-3" for="myPetition">Использвоть Ходатайство "НПО Технолог":</label>
+                        <div class="col-sm-9">
+                            <select id="myPetition" name="myPetition" class="miniselect">
+                                <option value="0" {{ user.myPetition == 0 ? 'selected="selected"' : '' }}>Не использовать</option>
+                                <option value="1" {{ user.myPetition == 1 ? 'selected="selected"' : '' }}>Использовать</option>
+                            </select>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="form-group">
+                        <label class="control-label col-sm-3"></label>
+                        <div class="col-sm-5">
+
+                        </div>
+                        <div class="col-sm-4">
+                            <button type="submit" class="btn btn-default btn-primary"   title="Сохранить">
+                                Сохранить
+                            </button>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </form>
+
+    <div class="fileBox" data-user="{{ user.id }}">
+        <div class="file-container">
+            <div class="fileDoc">
+                <img src="" brightness="128" contrast="128">
+            </div>
+            <div class="navigateFile">
+                <table style="width: 100%">
+                    <tr>
+                        <td style="width: 220px">
+                            <div class="slider-box">
+                                Контрастность
+                                <div id="slider-vertical-1" class="slider-vertical-contrast" title="Контрастность"></div>
+                            </div>
+                            <div class="slider-box">
+                                Яркость
+                                <div id="slider-vertical-2" class="slider-vertical-brightness"></div>
+                            </div>
+                        </td>
+                        <td>
+                            <button type="button" class="btn btn-default btn-success rotateLeft"   title="Повернуть налево">
+                                Налево
+                            </button>
+                        </td>
+                        <td>
+                            <button type="button" class="btn btn-default btn-success rotateRight"   title="Повернуть направо">
+                                Направо
+                            </button>
+                        </td>
+                        <td>
+                            <button type="button" class="btn btn-default btn-success cropImage "   title="Обрезать">
+                                Обрезать
+                            </button>
+                        </td>
+                        <td>
+                            <button type="button" class="btn btn-default btn-primary saveImage "   title="Сохранить">
+                                Сохранить
+                            </button>
+                        </td>
+                        <td>
+                            <button type="button" class="btn btn-default btn-danger cancelImage "   title="Отмена">
+                                Закрыть
+                            </button>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <input type="hidden" id="x1" name="x1">
+            <input type="hidden" id="y1" name="y1">
+            <input type="hidden" id="x2" name="x2">
+            <input type="hidden" id="y2" name="y2">
+        </div>
+    </div>
+{% endblock %}
+
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link href="{{ asset('bundles/crmmain/monkeymonk-loader/jquery.loader.min.css') }}" rel="stylesheet" media="all">
+    <link href="{{ asset('bundles/crmmain/kladrapi/jquery.kladr.css') }}" rel="stylesheet" media="all">
+    <link href="{{ asset('bundles/crmmain/tapmodo-Jcrop/css/jquery.Jcrop.min.css') }}" rel="stylesheet" media="all">
+    <link href="{{ asset('bundles/crmmain/lib/jquery-ui/jquery-ui.min.css') }}" rel="stylesheet" media="all">
+    <link href="{{ asset('bundles/paneloperator/css/common.css') }}" rel="stylesheet">
+    {#<link href="{{ asset('bundles/paneloperator/bootstrap-table-master/src/bootstrap-table.css') }}" rel="stylesheet">#}
+
+    <link href="{{ asset('css/7dab105.css') }}" type="text/css" rel="stylesheet" media="all" />
+
+    <style>
+        .imgareaselect-selection2{
+            background: url({{ asset('bundles/crmmain/images/nophoto.png') }}) no-repeat;
+            -moz-background-size: 100%; /* Firefox 3.6+ */
+            -webkit-background-size: 100%; /* Safari 3.1+ и Chrome 4.0+ */
+            -o-background-size: 100%; /* Opera 9.6+ */
+            background-size: 100%;
+        }
+        .jq-selectbox__select-text{
+            width: auto !important;
+        }
+        .document{
+            max-width: 200px;
+        }
+    </style>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    {#<script src="{{ asset('bundles/crmmain/javascripts/jquery.maskedinput.js') }}" type="text/javascript"></script>#}
+    <script src="{{ asset('bundles/crmmain/monkeymonk-loader/jquery.loader.min.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('bundles/crmmain/lib/jquery-ui/jquery-ui.min.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('bundles/crmmain/kladrapi/jquery.kladr.min.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('bundles/crmmain/tapmodo-Jcrop/js/jquery.Jcrop.min.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('bundles/paneloperator/js/file.js') }}" type="text/javascript"></script>
+
+    <script>
+        $(document).ready(function(){
+            $("#phone").mask("+7 (999) 999-9999");
+            $(".date").mask("99.99.9999");
+            $(".code").mask("999-999");
+            $(".snils").mask("999-999-999 99");
+
+            $(".chosen").chosen({no_results_text: "Компаний по вашему запросу не найдено", width: 300});
+
+            $( 'input[name=region]' ).kladr({
+                token: '541ee4ac7c52392c7d8b457e',
+                key: '181d5e2c44994c335e5e81e9ae46e79a67b6b495',
+                type: $.kladr.type.region,
+                select: function(obj){
+                    $('#deliveryRegion').val(obj.type+' '+obj.name);
+                    $('#deliveryRegion').trigger('refresh');
+                }
+
+            });
+
+            $( 'input[name=area]' ).kladr({
+                token: '541ee4ac7c52392c7d8b457e',
+                key: '181d5e2c44994c335e5e81e9ae46e79a67b6b495',
+                parentInput: '[name="region"]',
+                type: $.kladr.type.area
+            });
+
+            $('input[name=city]' ).kladr({
+                token: '541ee4ac7c52392c7d8b457e',
+                key: '181d5e2c44994c335e5e81e9ae46e79a67b6b495',
+                parentInput: '[name="area"]',
+                type: $.kladr.type.city
+            });
+
+            $('input[name=street]' ).kladr({
+                token: '541ee4ac7c52392c7d8b457e',
+                key: '181d5e2c44994c335e5e81e9ae46e79a67b6b495',
+                parentInput: '[name="city"]',
+                type: $.kladr.type.street,
+                select: function(obj){
+                    $('#deliveryStreet').val(obj.typeShort+' '+obj.name);
+                    $('#deliveryStreet').trigger('refresh');
+                }
+            });
+            $('#house' ).kladr({
+                token: '541ee4ac7c52392c7d8b457e',
+                key: '181d5e2c44994c335e5e81e9ae46e79a67b6b495',
+                parentInput: '[name="street"]',
+                type: $.kladr.type.building,
+                select: function(obj){
+                    $('#zipcode').val(obj.zip);
+                    var home = obj.name.split('к');
+                    $('#house').val(home[0]);
+                    if (home[1] != undefined){
+                        $('#corp').val(home[1]);
+                    }
+
+                }
+            });
+
+            $( 'input[name=deliveryRegion]' ).kladr({
+                token: '541ee4ac7c52392c7d8b457e',
+                key: '181d5e2c44994c335e5e81e9ae46e79a67b6b495',
+                type: $.kladr.type.region,
+                select: function(obj){
+                    $('#deliveryRegion').val(obj.type+' '+obj.name);
+                    $('#deliveryRegion').trigger('refresh');
+                }
+            });
+
+            $( 'input[name=deliveryArea]' ).kladr({
+                token: '541ee4ac7c52392c7d8b457e',
+                key: '181d5e2c44994c335e5e81e9ae46e79a67b6b495',
+                parentInput: '[name="deliveryRegion"]',
+                type: $.kladr.type.area
+            });
+
+            $('input[name=deliveryCity]' ).kladr({
+                token: '541ee4ac7c52392c7d8b457e',
+                key: '181d5e2c44994c335e5e81e9ae46e79a67b6b495',
+                parentInput: '[name="deliveryArea"]',
+                type: $.kladr.type.city,
+                select: function(obj){
+                    $('#deliveryCity').val(obj.typeShort+' '+obj.name);
+                    $('#deliveryCity').trigger('refresh');
+                }
+            });
+
+            $('input[name=deliveryStreet]' ).kladr({
+                token: '541ee4ac7c52392c7d8b457e',
+                key: '181d5e2c44994c335e5e81e9ae46e79a67b6b495',
+                parentInput: '[name="deliveryCity"]',
+                type: $.kladr.type.street,
+                select: function(obj){
+                    $('#deliveryStreet').val(obj.type+' '+obj.name);
+                    $('#deliveryStreet').trigger('refresh');
+                }
+            });
+            $('#deliveryHouse' ).kladr({
+                token: '541ee4ac7c52392c7d8b457e',
+                key: '181d5e2c44994c335e5e81e9ae46e79a67b6b495',
+                parentInput: '[name="deliveryStreet"]',
+                type: $.kladr.type.building,
+                select: function(obj){
+                    $('#deliveryZipcode').val(obj.zip);
+                    var home = obj.name.split('к');
+                    $('#deliveryHouse').val(home[0]);
+                    if (home[1] != undefined){
+                        $('#deliveryCorp').val(home[1]);
+                    }
+
+                }
+            });
+
+            $(":text").focus(function(){    // получение фокуса текстовым полем
+                input_temp=this.value;
+                $(this).select();
+            });
+        });
+    </script>
+{% endblock %}
