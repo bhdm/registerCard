@@ -1,0 +1,37 @@
+{% extends 'PanelOperatorBundle::layout.html.twig' %}
+
+
+{% block crosh %}
+    <a href="{{ path('operator_main') }}">Главная</a> &raquo;
+    <a href="{{ path('panel_message') }}">Сообщения от клиентов</a> &raquo;
+{% endblock %}
+
+{% block content %}
+    <div class="well">
+        <div class="row">
+            <div class="col-xs-4">
+                <h3>Клиенты</h3>
+                {% for c in clients %}
+                    <div {{ c.client.id == activeClient ? 'text-primary' : ''}}>
+                        <a href="{{ path('panel_client_message_list',{'clientId' : c.client.id}) }}">{{ c.client.username }}</a>
+                    </div>
+                {% endfor %}
+            </div>
+            <div class="col-xs-6">
+                <h3>Сообщения</h3>
+                <form method="POST">
+                    <textarea class="form-control" name="body"></textarea>
+                    <br />
+                    <button type="submit" class="btn btn-primary">Отправить</button>
+                </form>
+                <hr />
+                {% for m in messages %}
+                    <div style="text-align: {{ m.isOperator ? 'right' : 'left' }}">
+                        <i>{{ m.created | date('d.m.Y H:i') }}</i><br />
+                        {{ m.body }}
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+{% endblock %}
