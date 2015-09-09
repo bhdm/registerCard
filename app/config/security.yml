@@ -59,6 +59,7 @@ security:
             form_login:
                 check_path: auth_security_check
                 login_path: /auth/login
+                default_target_path: /auth/order
             logout:
                 path:   /auth/logout
             security: true

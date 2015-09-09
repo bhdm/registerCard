@@ -25,6 +25,9 @@ h2{
 .btn:hover{
     background: #286090 !important;
 }
-td.label:empty {
+td.label, td.value {
      display: table-cell !important;
+}
+div.box{
+    text-align: left;
 }

@@ -12,8 +12,10 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Crm\MainBundle\Entity\Page;
 use Crm\MainBundle\Entity\User;
+use Crm\MainBundle\Entity\Client;
 use Crm\MainBundle\Entity\Company;
 
+use Symfony\Component\Security\Core\Encoder\MessageDigestPasswordEncoder;
 use Symfony\Component\Serializer\Serializer;
 use Symfony\Component\Serializer\Encoder\XmlEncoder;
 use Symfony\Component\Serializer\Encoder\JsonEncoder;
@@ -367,6 +369,51 @@ class ApplicationRuController extends Controller
         $em->flush($user);
         $em->refresh($user);
 
+        /**
+         * Если новенький - создаем под него учетную запись
+         */
+        if ($this->get('security.authorization_checker')->isGranted('IS_AUTHENTICATED_ANONYMOUSLY')){
+            $pass = $this->generatePassword(6);
+            $client = $this->getDoctrine()->getRepository('CrmMainBundle:Client')->findOneByUsername($user->getEmail());
+            if ($client == null ){
+                $client = new Client();
+                $client->setCompanyTitle(null);
+                $client->setLastName($user->getLastName());
+                $client->setUsername($user->getEmail());
+                $client->setPhone($user->getUsername());
+                $client->setFirstName($user->getFirstName());
+                $client->setSurName($user->getSurName());
+                $client->setRoles('ROLE_CLIENT');
+            }
+            $client->setSalt(md5(time()));
+            $encoder = new MessageDigestPasswordEncoder('sha512', true, 10);
+            $password = $encoder->encodePassword($pass, $client->getSalt());
+            $client->setPassword($password);
+
+            $em->persist($client);
+            $em->flush($client);
+            $em->refresh($client);
+
+            $user->setClient($client);
+            $em->persist($user);
+            $em->flush($user);
+            $em->refresh($user);
+
+            $message = \Swift_Message::newInstance()
+                ->setSubject('Ваш заказ создан')
+                ->setFrom('info@im-kard.ru')
+                ->setTo($client->getUsername())
+                ->setBody(
+                    $this->renderView(
+                        'CrmAuthBundle:Mail:register.html.twig',
+                        array('client' => $client, 'pass' => $pass )
+                    ), 'text/html'
+                )
+            ;
+            $this->get('mailer')->send($message);
+
+        }
+
         $session->set('order',null);
 
 
@@ -396,4 +443,30 @@ class ApplicationRuController extends Controller
         return $array;
     }
 
+    function generatePassword($number)
+    {
+        $arr = array('a','b','c','d','e','f',
+            'g','h','i','j','k','l',
+            'm','n','o','p','r','s',
+            't','u','v','x','y','z',
+            'A','B','C','D','E','F',
+            'G','H','I','J','K','L',
+            'M','N','O','P','R','S',
+            'T','U','V','X','Y','Z',
+            '1','2','3','4','5','6',
+            '7','8','9','0','.',',',
+            '(',')','[',']','!','?',
+            '&','^','%','@','*','$',
+            '<','>','/','|','+','-',
+            '{','}','`','~');
+        // Генерируем пароль
+        $pass = "";
+        for($i = 0; $i < $number; $i++)
+        {
+            // Вычисляем случайный индекс массива
+            $index = rand(0, count($arr) - 1);
+            $pass .= $arr[$index];
+        }
+        return $pass;
+    }
 }
