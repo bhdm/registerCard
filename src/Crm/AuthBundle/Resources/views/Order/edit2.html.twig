@@ -473,6 +473,9 @@
                                 {% endfor %}
                             </select>
                             {% if user.companyPetition != null %}
+                                    <a href="{{ path('auth_petitions_edit',{'id' : user.companyPetition.id }) }}" target="_blank">Смотреть</a>
+                            {% endif %}
+                            {% if user.companyPetition != null %}
                                 {#<a href="{{ path('auth_petition_edit',{'id' : user.companyPetition.id }) }}" target="_blank">Смотреть</a>#}
                             {% endif %}
                         </div>

@@ -22,7 +22,7 @@
             </tr>
             {% for p in petitions %}
                 <tr>
-                    <td>{{ p.id }}</td>
+                    <td><a href="{{ path('auth_petitions_edit',{'id' : p.id}) }}">{{ p.id }}</a></td>
                     <td>{{ p.created | date('d.m.Y') }}</td>
                     <td>{{ p.title  }}</td>
                     <td>{{ p.users | length  }}</td>
