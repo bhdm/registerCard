@@ -45,4 +45,32 @@ class ChatRepository extends EntityRepository
 //        exit;
         return $q->getResult();
     }
+
+    public function findNewMsg(){
+
+//        SELECT * , (
+//
+//        SELECT isOperator
+//FROM Chat cc
+//WHERE cc.client_id = c1_.id
+//ORDER BY id DESC
+//LIMIT 1
+//)aa
+//FROM Client c1_
+//WHERE c1_.enabled =1
+//        AND c1_.id IS NOT NULL
+//HAVING aa =0
+        $q = $this
+            ->createQueryBuilder('c')
+            ->leftJoin('c.client','u')
+            ->where('u.enabled = 1')
+            ->andWhere('u.id is not null')
+            ->groupBy('u.id')
+            ->having('c.isOperator = 0')
+            ->orderBy('c.created','DESC')
+            ->getQuery();
+//        echo $q->getSQL();
+//        exit;
+        return $q->getResult();
+    }
 }

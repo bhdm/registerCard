@@ -10,6 +10,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\SecurityContext;
 use Symfony\Component\HttpFoundation\Session\Session;
 
@@ -41,5 +42,31 @@ class MessageController extends Controller
         return array('messages' => $messages, 'form' => $form->createView());
     }
 
+    /**
+     * @Route("/new-message", name="auth_message_new")
+     */
+    public function newMessageAction(){
+        $sql = '
+            SELECT * , (
+              SELECT isOperator
+              FROM Chat cc
+              WHERE cc.client_id = c1_.id
+              ORDER BY id DESC
+              LIMIT 1
+          )aa
+          FROM Client c1_
+          WHERE c1_.enabled =1 AND c1_.id IS NOT NULL
+          HAVING aa =0';
+        $pdo = $this->getDoctrine()->getManager()->getConnection();
+        $st = $pdo->prepare($sql);
+        $st->execute();
+        $re = $st->fetchAll();
+        if (count($re) > 0){
+            $result = 'color: #CC0000';
+        }else{
+            $result = 'sadsd';
+        }
 
+        return new Response($result);
+    }
 }
