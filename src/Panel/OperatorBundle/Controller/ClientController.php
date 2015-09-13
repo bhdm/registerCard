@@ -20,7 +20,7 @@ use Symfony\Component\HttpFoundation\Session\Session;
 class ClientController extends Controller
 {
     /**
-     * @Route("/list", name="client_list")
+     * @Route("/list", name="panel_client_list")
      * @Template("")
      */
     public function listAction(){
