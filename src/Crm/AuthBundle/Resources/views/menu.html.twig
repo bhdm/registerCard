@@ -1,0 +1,33 @@
+<ul class="sidebar-nav">
+    <li class="sidebar-brand">
+        <a href="{{ path('main') }}">
+            На главную
+        </a>
+    </li>
+    <li>
+        <a href="{{ path('auth_profile') }}">Профиль</a>
+    </li>
+    <li>
+        <a href="{{ path('auth_order') }}">Мои заказы</a>
+    </li>
+    <li>
+        <a href="{{ path('auth_petitions_list') }}">Мои ходатайства</a>
+    </li>
+    <li>
+        <a href="{{ path('auth_message') }}">Мои сообщения</a>
+    </li>
+    <li>
+        <hr />
+    </li>
+{% if is_granted('ROLE_CLIENT_COMPANY') %}
+    <li>
+        {{ app.user.quota }}
+    </li>
+    <li>
+        <hr />
+    </li>
+{% endif %}
+    <li>
+        <a href="{{ path('auth_security_logout') }}">Выйти</a>
+    </li>
+</ul>

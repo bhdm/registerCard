@@ -76,12 +76,18 @@ class Client extends BaseEntity implements UserInterface
      */
     protected $messages;
 
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    protected $quota;
+
     public function __construct(){
         $this->roles = 'ROLE_CLIENT';
         $this->enabled = true;
         $this->orders = new ArrayCollection();
         $this->messages = new ArrayCollection();
         $this->petitions = new ArrayCollection();
+        $this->quota = 0;
     }
 
     public function __toString(){
@@ -348,6 +354,23 @@ class Client extends BaseEntity implements UserInterface
     {
         $this->petitions = $petitions;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getQuota()
+    {
+        return $this->quota;
+    }
+
+    /**
+     * @param mixed $quota
+     */
+    public function setQuota($quota = 0)
+    {
+        $this->quota = $quota;
+    }
+
 
 
 
