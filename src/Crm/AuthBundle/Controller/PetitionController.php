@@ -3,6 +3,7 @@
 namespace Crm\AuthBundle\Controller;
 
 use Crm\MainBundle\Entity\Client;
+use Crm\MainBundle\Entity\CompanyPetition;
 use Crm\MainBundle\Form\CompanyPetitionType;
 use Crm\MainBundle\Form\UserSkziType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -74,5 +75,51 @@ class PetitionController extends Controller
         }
 
         return ['petition' => $petition];
+    }
+
+
+    /**
+     * @Route("/add", name="auth_petitions_add")
+     * @Template("")
+     */
+    public function addAction(Request $request){
+        $em = $this->getDoctrine()->getManager();
+        $petition = new CompanyPetition();
+
+            $petitionForm = $this->createForm(new CompanyPetitionType($em), $petition);
+            $petitionForm->handleRequest($request);
+            if ($request->isMethod('POST')) {
+
+                if ($petitionForm->isValid()) {
+                    $petition = $petitionForm->getData();
+                    $petition->setClient($this->getUser());
+                    $name = time().'.jpg';
+                    $file = $petitionForm['template']->getData();
+                    if ($file){
+                        move_uploaded_file($file->getPathName(), '/var/www/upload/template/'.$name);
+
+                        $img = '/var/www/upload/template/'.$name;
+                        $path = $img;
+                        $size = filesize($img);
+                        $fileName = basename($img);
+                        $originalName = basename($img);
+                        $mimeType = mime_content_type($img);
+                        $array =  array(
+                            'path' =>$path,
+                            'size' =>$size,
+                            'fileName' =>$name,
+                            'originalName' =>$originalName,
+                            'mimeType' =>$mimeType,
+                        );
+                        $petition->setTemplate($array);
+                    }
+
+                    $em->flush();
+                    $em->refresh($petition);
+
+                    $this->redirect($this->generateUrl("auth_petitions_edit",['id' => $petition->getId()]));
+                }
+            }
+        return array( 'formPetition' => $petitionForm->createView(),'petition' => $petition);
     }
 }

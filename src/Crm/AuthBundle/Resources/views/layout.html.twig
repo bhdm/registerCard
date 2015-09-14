@@ -94,39 +94,36 @@
 <body>
 
 <header>
-    <div class="row">
+    <div class="row" style="background: #EEEEEE; padding: 20px">
         <div class="col-xs-3">
-            <img src="{{ asset('bundles/crmauth/images/logo.png?2') }}" style="width: 100px"/>
+            <div>
+            Личный кабинет <span class="text-primary"><b>[ИнфоМакс]</b></span>
+            </div>
         </div>
         <div class="col-xs-3"></div>
         <div class="col-xs-3"></div>
         <div class="col-xs-3"></div>
     </div>
 </header>
-<div id="wrapper">
-    <!-- Sidebar -->
-    {% if is_granted('ROLE_CLIENT') %}
-    <div id="sidebar-wrapper">
-        {% include "CrmAuthBundle::menu.html.twig" %}
-    </div>
-    {% endif %}
-    <!-- /#sidebar-wrapper -->
-
-    <!-- Page Content -->
-    <div id="page-content-wrapper">
-        <h1>{% block title %}{% endblock %}</h1>
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-lg-12">
-                    {% block body %}{% block content %}{% endblock %}{% endblock %}
+    <div class="row">
+        <div class="col-xs-3">
+            {% if is_granted('ROLE_CLIENT') %}
+                <div id="sidebar-wrapper">
+                    {% include "CrmAuthBundle::menu.html.twig" %}
+                </div>
+            {% endif %}
+        </div>
+        <div class="col-xs-8">
+            <h1>{% block title %}{% endblock %}</h1>
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-lg-12">
+                        {% block body %}{% block content %}{% endblock %}{% endblock %}
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-    <!-- /#page-content-wrapper -->
-
-</div>
-<!-- /#wrapper -->
 
 
 

@@ -3,10 +3,11 @@
 {% block title %}
     <div style="height: 40px">
         <div style="float: left; padding-right: 10px;">Мои ходатайства</div>
-            <button class="btn btn-primary dropdown-toggle" type="button" id="addOrder" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" disabled>
-                Добавить новое ходатайство
-                <span class="caret"></span>
-            </button>
+            <a href="{{ path('auth_petitions_add') }}">
+                <button class="btn btn-primary" type="button">
+                    Добавить новое ходатайство
+                </button>
+            </a>
     </div>
 {% endblock %}
 
