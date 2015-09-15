@@ -287,8 +287,8 @@ class MiniController extends Controller{
         $user->setCopySnils($this->getImgToArray($order['snilsFilePath']));
         $user->setCopySignature($this->getImgToArray($order['signFilePath']));
         $user->setPhoto($this->getImgToArray($order['photoFilePath']));
-        if (!empty($order['PetitionFilePath']) && $order['PetitionFilePath']!= null){
-            $user->setCopyPetition($this->getImgToArray($order['PetitionFilePath']));
+        if (!empty($order['petitionFilePath']) && $order['petitionFilePath']!= null){
+            $user->setCopyPetition($this->getImgToArray($order['petitionFilePath']));
         }
 
         if (isset($order['typeCardFile']) && $order['typeCardFile']){
