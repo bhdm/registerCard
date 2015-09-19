@@ -28,9 +28,12 @@ class OrderController extends Controller
         $form = $this->createForm(new UserSkziType($em), $item);
         $formData = $form->handleRequest($request);
         if ($request->getMethod() == 'POST'){
-            if ($formData->isValid()){
-
-            }
+//            if ($formData->isValid()){
+                $user = $formData->getData();
+                #Далее работа с файлами
+                $em->persist($user);
+                $em->persist($user);
+//            }
         }
         return array('form' => $form->createView());
     }

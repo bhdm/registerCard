@@ -27,7 +27,7 @@ class UserSkziType extends AbstractType
                 '0' => 'Российская Федерация',
                 '1' => 'Иностранное гражданство'
             ), 'attr' => ['class' =>'']])
-            ->add('lastNumberCard', null ,['label' => 'Прошлый номер карты'])
+            ->add('lastNumberCard', null ,['label' => 'Прошлый номер карты', 'required' => false])
             ->add('lastName', null,['label'=>'Фамилия'])
             ->add('firstName', null,['label'=>'Имя'])
             ->add('surName', null,['label'=>'Отчество'])
@@ -46,14 +46,14 @@ class UserSkziType extends AbstractType
 
 
             ->add('deliveryAdrs', new AdrsType(),array('mapped'=>true))
-            ->add('registeredAdrs', new AdrsType(),array('mapped'=>true))
-            ->add('petitionAdrs', new AdrsType(),array('mapped'=>true))
+            ->add('registeredAdrs', new AdrsType(),array('mapped'=>true, 'required' => false))
+            ->add('petitionAdrs', new AdrsType(),array('mapped'=>true, 'required' => false))
 //
 //
             ->add('myPetition', 'choice',
                 array('label' => 'Ходатайство','choices'=>array(
-                    '0' => 'Использовать НПО Технолог',
-                    '1' => 'использовать свое'
+                    '1' => 'Использовать НПО Технолог',
+                    '0' => 'использовать свое'
                 )))
             ->add('driverDocCountry', null, array('label' => 'Страна выдачи ВУ'))
             ->add('driverDocNumber', null ,['label' => 'Номер'])
