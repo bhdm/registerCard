@@ -26,7 +26,7 @@ class AdrsType extends AbstractType
             ->add('house',null, array('attr' => array('placeholder' => 'Дом', 'class' => 'adrsMini', 'autocomplete' => "off")))
             ->add('corp',null, array('required' => false, 'attr' => array('placeholder' => 'Корпус', 'class' => 'adrsMini', 'autocomplete' => "off")))
             ->add('structure',null, array('required' => false, 'attr' => array('placeholder' => 'Строение', 'class' => 'adrsMini', 'autocomplete' => "off")))
-            ->add('room',null , array('required' => false, 'attr' => array('autocomplete' => "off")))
+            ->add('room',null , array('required' => false, 'attr' => array('autocomplete' => "off", 'placeholder' => 'Кв./оф.')))
             ->add('zipcode',null, array('attr' => array('class' => 'zipcode', 'autocomplete' => "off")));
     }
 

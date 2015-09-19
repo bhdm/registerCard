@@ -54,15 +54,14 @@ progress {
 }
 .navigateFile {
     margin-top: 10px;
+    text-align: center;
+    display: block;
 }
 .navigateFile div img {
     width: 24px;
 }
 .navigateFile img {
     width: 24px;
-}
-.navigateFile{
-    display: block;
 }
 .minibtn {
     border: 1px solid #cccccc;
@@ -132,3 +131,21 @@ progress {
     /*border: 1px solid #000088;*/
     /*margin-top: 10px;*/
 /*}*/
+
+.navigateFile{
+    text-align: center;
+    display: none;
+}
+.navigateFile img {
+    width: 24px;
+    margin: 7px;
+    cursor: pointer;
+}
+.progress{
+    display: none;
+}
+.fileDoc img{
+    max-width: 250px;
+    max-height: 500px;
+    min-width: 200px;
+}

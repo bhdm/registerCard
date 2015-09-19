@@ -3,6 +3,7 @@
 namespace Crm\AuthBundle\Controller;
 
 use Crm\MainBundle\Entity\Client;
+use Crm\MainBundle\Entity\User;
 use Crm\MainBundle\Form\UserSkziType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -16,6 +17,24 @@ use Symfony\Component\HttpFoundation\Response;
  */
 class OrderController extends Controller
 {
+
+    /**
+     * @Route("/order/add-skzi", name="auth_add_skzi")
+     * @Template("CrmAuthBundle:Application:newSkzi.html.twig")
+     */
+    public function addSkziOrderAction(Request $request){
+        $em = $this->getDoctrine()->getManager();
+        $item = new User();
+        $form = $this->createForm(new UserSkziType($em), $item);
+        $formData = $form->handleRequest($request);
+        if ($request->getMethod() == 'POST'){
+            if ($formData->isValid()){
+
+            }
+        }
+        return array('form' => $form->createView());
+    }
+
     /**
      * @Route("/order", name="auth_order")
      * @Template()

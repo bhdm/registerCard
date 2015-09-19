@@ -7,7 +7,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-class UserSkziType extends AbstractType
+class UserEstrType extends AbstractType
 {
     /**
      * @param FormBuilderInterface $builder
@@ -26,46 +26,33 @@ class UserSkziType extends AbstractType
             ->add('citizenship', 'choice' ,['label' => 'Гражданство', 'choices' => array(
                 '0' => 'Российская Федерация',
                 '1' => 'Иностранное гражданство'
-            ), 'attr' => ['class' =>'']])
+            ), 'attr' => ['class' =>'styler']])
             ->add('lastNumberCard', null ,['label' => 'Прошлый номер карты'])
+
             ->add('lastName', null,['label'=>'Фамилия'])
             ->add('firstName', null,['label'=>'Имя'])
             ->add('surName', null,['label'=>'Отчество'])
-            ->add('enLastName', null, ['label'=>'Фамилия (англ)'])
-            ->add('enFirstName', null, ['label'=>'Имя (англ)'])
             ->add('birthDate', 'date',['label'=>'Дата рождения','widget' => 'single_text'])
-            ->add('passportSerial', null,['label'=>'Серия и номер паспорта'])
-            ->add('passportNumber', null,['label'=>''])
-            ->add('passportIssuance', null,['label'=>'Кем Выдан'])
-            ->add('passportIssuanceDate', 'date' ,['label'=>'Дата выдачи','widget' => 'single_text'])
-            ->add('passportCode', null,['label'=>'Код подразделения'])
 
             ->add('email', null,['label'=>'Email'])
             ->add('username', null,['label'=>'Телефон'])
             ->add('snils', null,['label'=>'СНИЛС', 'attr' => ['class'=> 'snils']])
 
+            ->add('registeredAdrs', new AdrsType(),array('mapped'=>true))
 
             ->add('deliveryAdrs', new AdrsType(),array('mapped'=>true))
-            ->add('registeredAdrs', new AdrsType(),array('mapped'=>true))
             ->add('petitionAdrs', new AdrsType(),array('mapped'=>true))
-//
-//
+
             ->add('myPetition', 'choice',
                 array('label' => 'Ходатайство','choices'=>array(
                     '0' => 'Использовать НПО Технолог',
                     '1' => 'использовать свое'
-                )))
-            ->add('driverDocCountry', null, array('label' => 'Страна выдачи ВУ'))
+                ),  'attr' => ['class' => 'styler']))
+
             ->add('driverDocNumber', null ,['label' => 'Номер'])
             ->add('driverDocIssuance', null ,['label' => 'Кем выдано'])
             ->add('driverDocDateStarts', 'date' ,['label' => 'Дата выдачи','widget' => 'single_text'])
-//            ->add('driverDocDateEnds', null ,['label' => 'Дата ококнчания'])
-//
-//            ->add('delivery', 'choice', array('label' => 'Метод получения', 'choices' => array(
-//                '0' => 'Самовывоз',
-//                '1' => 'Доставка почтой РФ',
-//            )))
-//
+
 //
 //            # Документы
 //            ->add('copyPassport')

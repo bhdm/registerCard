@@ -255,6 +255,10 @@ class User extends BaseEntity implements UserInterface, EquatableInterface, \Ser
      */
     protected $registeredAdrs;
 
+    /**
+     * @ORM\Column(type="array")
+     */
+    protected $petitionAdrs;
 
     /**
      * @ORM\Column(type="integer")
@@ -483,6 +487,7 @@ class User extends BaseEntity implements UserInterface, EquatableInterface, \Ser
         $this->hash = md5(time());
         $this->deliveryAdrs = array();
         $this->registeredAdrs = array();
+        $this->petitionAdrs = array();
     }
 
     public function __toString()
@@ -1957,6 +1962,22 @@ class User extends BaseEntity implements UserInterface, EquatableInterface, \Ser
     public function setRegisteredAdrs($registeredAdrs)
     {
         $this->registeredAdrs = $registeredAdrs;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getPetitionAdrs()
+    {
+        return $this->petitionAdrs;
+    }
+
+    /**
+     * @param mixed $petitionAdrs
+     */
+    public function setPetitionAdrs($petitionAdrs)
+    {
+        $this->petitionAdrs = $petitionAdrs;
     }
 
 
