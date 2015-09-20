@@ -12,6 +12,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Session\Session;
 
 /**
  * Class AuthController
@@ -25,6 +26,8 @@ class OrderController extends Controller
      * @Template("CrmAuthBundle:Application:newSkzi.html.twig")
      */
     public function addSkziOrderAction(Request $request){
+        $session = new Session();
+        $order = $session->get('order');
         $em = $this->getDoctrine()->getManager();
         $item = new User();
         $form = $this->createForm(new UserSkziType($em), $item);
@@ -32,9 +35,23 @@ class OrderController extends Controller
         if ($request->getMethod() == 'POST'){
 //            if ($formData->isValid()){
                 $user = $formData->getData();
-                #Далее работа с файлами
+                $user->setCopyPassport($this->getImgToArray($order['passportFilePath']));
+                $user->setCopyDriverPassport($this->getImgToArray($order['driverFilePath']));
+                $user->setCopySnils($this->getImgToArray($order['snilsFilePath']));
+                $user->setCopySignature($this->getImgToArray($order['signFilePath']));
+                $user->setPhoto($this->getImgToArray($order['photoFilePath']));
+                if (isset($order['typeCardFile']) && $order['typeCardFile']){
+                    $user->setTypeCardFile($order['typeCardFile']);
+                }
+
+                if (!empty($order['petitionFilePath']) && $order['petitionFilePath']!= null){
+                    $user->setCopyPetition($this->getImgToArray($order['petitionFilePath']));
+                }
+
                 $em->persist($user);
-                $em->persist($user);
+                $em->flush($user);
+                $em->refresh($user);
+                return $this->render('@CrmAuth/Application/success.html.twig',['user' => $user]);
 //            }
         }
         return array('form' => $form->createView());
@@ -266,5 +283,26 @@ class OrderController extends Controller
             }
         }
         return array('form' => $form->createView(),'user' => $item);
+    }
+
+    public function getImgToArray($img){
+        if ($img == null){
+            $array =  array();
+        }else{
+            $path = $img;
+            $path = str_replace('/var/www/','',$path);
+            $size = filesize($img);
+            $fileName = basename($img);
+            $originalName = basename($img);
+            $mimeType = mime_content_type($img);
+            $array =  array(
+                'path' =>$path,
+                'size' =>$size,
+                'fileName' =>$fileName,
+                'originalName' =>$originalName,
+                'mimeType' =>$mimeType,
+            );
+        }
+        return $array;
     }
 }

@@ -45,7 +45,7 @@ class UserSkziType extends AbstractType
             ->add('snils', null,['label'=>'СНИЛС', 'attr' => ['class'=> 'snils']])
 
 
-            ->add('deliveryAdrs', new AdrsType(),array('mapped'=>true))
+            ->add('deliveryAdrs', new AdrsType(),array('mapped'=>true, 'required' => false))
             ->add('registeredAdrs', new AdrsType(),array('mapped'=>true, 'required' => false))
             ->add('petitionAdrs', new AdrsType(),array('mapped'=>true, 'required' => false))
 //
