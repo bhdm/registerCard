@@ -4,6 +4,8 @@ namespace Crm\AuthBundle\Controller;
 
 use Crm\MainBundle\Entity\Client;
 use Crm\MainBundle\Entity\User;
+use Crm\MainBundle\Form\UserEstrType;
+use Crm\MainBundle\Form\UserRuType;
 use Crm\MainBundle\Form\UserSkziType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -34,6 +36,46 @@ class OrderController extends Controller
                 $em->persist($user);
                 $em->persist($user);
 //            }
+        }
+        return array('form' => $form->createView());
+    }
+
+    /**
+     * @Route("/order/add-estr", name="auth_add_estr")
+     * @Template("CrmAuthBundle:Application:newEstr.html.twig")
+     */
+    public function addEstrOrderAction(Request $request){
+        $em = $this->getDoctrine()->getManager();
+        $item = new User();
+        $form = $this->createForm(new UserEstrType($em), $item);
+        $formData = $form->handleRequest($request);
+        if ($request->getMethod() == 'POST'){
+//            if ($formData->isValid()){
+            $user = $formData->getData();
+            $user->setEstr(1);
+
+            $em->persist($user);
+            $em->persist($user);
+        }
+        return array('form' => $form->createView());
+    }
+
+    /**
+     * @Route("/order/add-ru", name="auth_add_ru")
+     * @Template("CrmAuthBundle:Application:newRu.html.twig")
+     */
+    public function addRuOrderAction(Request $request){
+        $em = $this->getDoctrine()->getManager();
+        $item = new User();
+        $form = $this->createForm(new UserRuType($em), $item);
+        $formData = $form->handleRequest($request);
+        if ($request->getMethod() == 'POST'){
+//            if ($formData->isValid()){
+            $user = $formData->getData();
+            $user->setRu(1);
+
+            $em->persist($user);
+            $em->persist($user);
         }
         return array('form' => $form->createView());
     }

@@ -7,7 +7,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-class UserEstrType extends AbstractType
+class UserRuType extends AbstractType
 {
     /**
      * @param FormBuilderInterface $builder
@@ -26,7 +26,7 @@ class UserEstrType extends AbstractType
             ->add('citizenship', 'choice' ,['label' => 'Гражданство', 'choices' => array(
                 '0' => 'Российская Федерация',
                 '1' => 'Иностранное гражданство'
-            ), 'attr' => ['class' =>'styler']])
+            )])
             ->add('lastNumberCard', null ,['label' => 'Прошлый номер карты'])
 
             ->add('lastName', null,['label'=>'Фамилия'])
@@ -35,7 +35,7 @@ class UserEstrType extends AbstractType
             ->add('birthDate', 'date',['label'=>'Дата рождения','widget' => 'single_text'])
 
             ->add('email', null,['label'=>'Email'])
-            ->add('username', null,['label'=>'Телефон'])
+            ->add('username', null,['label'=>'Телефон', 'attr' => ['class' => 'phone']])
             ->add('snils', null,['label'=>'СНИЛС', 'attr' => ['class'=> 'snils']])
 
             ->add('registeredAdrs', new AdrsType(),array('mapped'=>true))
@@ -47,9 +47,9 @@ class UserEstrType extends AbstractType
                 array('label' => 'Ходатайство','choices'=>array(
                     '0' => 'Использовать НПО Технолог',
                     '1' => 'использовать свое'
-                ),  'attr' => ['class' => 'styler']))
+                )))
 
-            ->add('driverDocNumber', null ,['label' => 'Номер'])
+            ->add('driverDocNumber', null ,['label' => 'Номер', 'attr' => ['class' => 'driverNumber']])
             ->add('driverDocIssuance', null ,['label' => 'Кем выдано'])
             ->add('driverDocDateStarts', 'date' ,['label' => 'Дата выдачи','widget' => 'single_text'])
 
@@ -67,7 +67,7 @@ class UserEstrType extends AbstractType
             ->add('typeCardFile', 'iphp_file')
         ;
     }
-    
+
     /**
      * @param OptionsResolverInterface $resolver
      */
