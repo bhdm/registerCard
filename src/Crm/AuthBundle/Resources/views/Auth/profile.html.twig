@@ -1,13 +1,8 @@
 {% extends 'CrmAuthBundle::layout.html.twig' %}
 
 {% block body %}
-    <div class="row">
-        <div class="col-xs-2"></div>
-        <div class="col-xs-5">
-            <h2>Профиль</h2>
-            <form class="row"  method="post">
-                {{  form_widget(form) }}
-            </form>
-        </div>
-    </div>
+        <h2>Профиль</h2>
+        <form class="row"  method="post">
+            {{  form_widget(form) }}
+        </form>
 {% endblock %}
