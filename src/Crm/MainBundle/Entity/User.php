@@ -333,8 +333,7 @@ class User extends BaseEntity implements UserInterface, EquatableInterface, \Ser
     protected $driverDocDateStarts;
 
     /**
-     * @Assert\NotBlank( message = "Поле действителен до (водительское удостоверение) обязательно для заполнения" )
-     * @ORM\Column(type="datetime")
+     * @ORM\Column(type="datetime", nullable=true)
      */
     protected $driverDocDateEnds;
     /**

@@ -353,7 +353,7 @@
                             <div class="navigateFile">
                                 <img src="{{ asset('bundles/crmmain/icons/rotateLeft.png') }}" class="rotateLeft" title="Повернуть налево">
                                 <img src="{{ asset('bundles/crmmain/icons/rotateRight.png') }}" class="rotateRight" title="Повернуть вправо">
-                                <div style="display: inline-block">
+                                <div>
                                     <span class="" title="Обрезать изображение">Обрезать</span>
                                     <br />
                                     <br />
@@ -427,25 +427,7 @@
     <link href="{{ asset('bundles/crmmain/tapmodo-Jcrop/css/jquery.Jcrop.min.css') }}" rel="stylesheet" media="all">
     <link href="{{ asset('bundles/crmmain/lib/chosen/chosen.min.css') }}" rel="stylesheet" media="all">
     <style>
-        .table-form{
-            width: 800px;
-        }
-        .table-form caption{
-            color: #005596;
-            text-align: left;
-            padding: 10px;
-        }
-        .table-form tr td:first-child{
-            text-align: right;
-            width: 150px;
-            padding-right: 10px;
-        }
-        .table-form tr td:nth-child(2){
-            width: 265px;
-        }
-        .table-form tr td{
-            padding: 0 10px;
-        }
+
 
         .block-form{
             margin: 0 auto;
@@ -463,13 +445,6 @@
             font-size: 12px;
             color: #555555;
         }
-        /*.adrsMini{*/
-            /*width: 80px !important;*/
-            /*margin-left: 10px;*/
-        /*}*/
-        /*.adrsMini:first-child{*/
-            /*margin-left: 0;*/
-        /*}*/
         .zipcode{
             width: 175px !important;
         }
@@ -674,8 +649,10 @@
 //            $('#crm_mainbundle_user_driverDocCountry').chosen({disable_search_threshold: 10,width: 270,placeholder_text_single: 'Выберите из списка'});
             $(".zipcode").mask("999999");
             $(".phone").mask("+7 (999) 999-9999");
-
-            $(".kpp").mask("999999999");
+            $(".code").mask("999-999");
+            $(".snils").mask("999-999-999 99");
+            $.mask.definitions['d'] = "[a-zA-Z0-9а-яА-Я]";
+            $('.driverNumber').mask("dddd999999");
 
             $('.cardType').change(function(){
                 $('input, select').trigger('refresh');

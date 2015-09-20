@@ -38,10 +38,10 @@ class UserSkziType extends AbstractType
             ->add('passportNumber', null,['label'=>''])
             ->add('passportIssuance', null,['label'=>'Кем Выдан'])
             ->add('passportIssuanceDate', 'date' ,['label'=>'Дата выдачи','widget' => 'single_text'])
-            ->add('passportCode', null,['label'=>'Код подразделения'])
+            ->add('passportCode', null,['label'=>'Код подразделения', 'attr' => ['class'=>'code']])
 
             ->add('email', null,['label'=>'Email'])
-            ->add('username', null,['label'=>'Телефон'])
+            ->add('username', null,['label'=>'Телефон', 'attr' => ['class' => 'phone']])
             ->add('snils', null,['label'=>'СНИЛС', 'attr' => ['class'=> 'snils']])
 
 
@@ -56,9 +56,10 @@ class UserSkziType extends AbstractType
                     '0' => 'использовать свое'
                 )))
             ->add('driverDocCountry', null, array('label' => 'Страна выдачи ВУ'))
-            ->add('driverDocNumber', null ,['label' => 'Номер'])
+            ->add('driverDocNumber', null ,['label' => 'Номер', 'attr' => ['class' => 'driverNumber']])
             ->add('driverDocIssuance', null ,['label' => 'Кем выдано'])
             ->add('driverDocDateStarts', 'date' ,['label' => 'Дата выдачи','widget' => 'single_text'])
+
 //            ->add('driverDocDateEnds', null ,['label' => 'Дата ококнчания'])
 //
 //            ->add('delivery', 'choice', array('label' => 'Метод получения', 'choices' => array(

@@ -62,6 +62,7 @@ progress {
 }
 .navigateFile img {
     width: 24px;
+    cursor: pointer;
 }
 .minibtn {
     border: 1px solid #cccccc;
@@ -144,8 +145,52 @@ progress {
 .progress{
     display: none;
 }
-.fileDoc img{
-    max-width: 250px;
-    max-height: 500px;
-    min-width: 200px;
+@media (min-width: 768px) {
+    .fileDoc img{
+        max-width: 400px;
+        max-height: 500px;
+        min-width: 200px;
+    }
+}
+@media (min-width: 768px) {
+    .fileDoc img{
+        max-width: 250px;
+        max-height: 500px;
+        min-width: 200px;
+    }
+}
+@media (min-width: 992px) {
+    .fileDoc img{
+        max-width: 325px;
+        max-height: 500px;
+        min-width: 200px;
+    }
+}
+@media (min-width: 1200px) {
+    .fileDoc img{
+        max-width: 400px;
+        max-height: 500px;
+        min-width: 200px;
+    }
+}
+
+.table-form{
+    width: 100%;
+}
+
+.table-form caption{
+    color: #005596;
+    text-align: left;
+    padding: 10px;
+}
+.table-form tr td:first-child{
+    text-align: right;
+    width: 150px;
+    padding-right: 10px;
+}
+.table-form tr td:nth-child(2){
+    width: 265px;
+}
+.table-form tr td{
+    padding: 0 10px;
 }
