@@ -1,0 +1,38 @@
+    <table class="table" style="font-size: 11px">
+        <tr>
+            <td><b>Поступило:</b></td>
+            <td>{{ amountPlusQuota }}р.</td>
+        </tr>
+        <tr>
+            <td><b>Использовано:</b></td>
+            <td>{{ amountRubSkzi+amountRubEstr+amountRubRu+(amountMinusQuota*-1) }}р.</td>
+        </tr>
+        <tr>
+            <td><b>КВ СКЗИ:</b></td>
+            <td>{{ sumVirtual[0] }}/{{ company.completedCount.skzi  }}шт({{ amountRubSkzi }}р.)</td>
+        </tr>
+        <tr>
+            <td><b>КВ ЕСТР:</b></td>
+            <td>{{ sumVirtual[1] }}/{{ company.completedCount.estr  }}шт({{ amountRubEstr }}р.)</td></td>
+        </tr>
+        <tr>
+            <td><b>КВ РФ:</b></td>
+            <td>{{ sumVirtual[2] }}/{{ company.completedCount.ru  }}шт({{ amountRubRu }}р.)</td></td>
+        </tr>
+        <tr>
+            <td><b>Осталось:</b></td>
+            <td>{{ amountPlusQuota - (amountRubSkzi+amountRubEstr+amountRubRu+(amountMinusQuota*-1)) }}р.</td>
+        </tr>
+        <tr>
+            <td><b>Новые заявки:</b></td>
+            <td>
+                {{ amountRubSkziNew+amountRubEstrNew+amountRubRuNew  }}р.
+            </td>
+        </tr>
+        <tr>
+            <td><b>Общий итог:</b></td>
+            <td>
+                {{ (amountPlusQuota - (amountRubSkzi+amountRubEstr+amountRubRu+(amountMinusQuota*-1))) - (amountRubSkziNew+amountRubEstrNew+amountRubRuNew) }}р.
+            </td>
+        </tr>
+    </table>

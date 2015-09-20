@@ -31,3 +31,8 @@
         <a href="{{ path('auth_security_logout') }}">Выйти</a>
     </li>
 </ul>
+<br />
+<br />
+{% if app.user.company != null %}
+    {{ render(path('auth_company_get_quota', {'companyId' : app.user.company.id })) }}
+{% endif %}

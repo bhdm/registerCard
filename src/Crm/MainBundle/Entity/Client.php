@@ -81,6 +81,11 @@ class Client extends BaseEntity implements UserInterface
      */
     protected $quota;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="Company", inversedBy="client")
+     */
+    protected $company;
+
     public function __construct(){
         $this->roles = 'ROLE_CLIENT';
         $this->enabled = true;
@@ -369,6 +374,22 @@ class Client extends BaseEntity implements UserInterface
     public function setQuota($quota = 0)
     {
         $this->quota = $quota;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCompany()
+    {
+        return $this->company;
+    }
+
+    /**
+     * @param mixed $company
+     */
+    public function setCompany($company)
+    {
+        $this->company = $company;
     }
 
 

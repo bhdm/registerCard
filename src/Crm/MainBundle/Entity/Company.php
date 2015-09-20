@@ -283,13 +283,19 @@ class Company extends BaseEntity
     protected $manager;
 
 
+    /**
+     * @ORM\OneToMany(targetEntity="Client", mappedBy="company")
+     */
+    protected $clients;
+
     public function __construct(){
         $this->quotaLog = new ArrayCollection();
         $this->companies = new ArrayCollection();
+        $this->clients = new ArrayCollection();
     }
 
     public function __toString(){
-        return $this->title;
+        return ''.$this->title;
     }
 
     /**
@@ -1115,5 +1121,22 @@ class Company extends BaseEntity
     {
         $this->companies = $companies;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getClients()
+    {
+        return $this->clients;
+    }
+
+    /**
+     * @param mixed $clients
+     */
+    public function setClients($clients)
+    {
+        $this->clients = $clients;
+    }
+
 
 }

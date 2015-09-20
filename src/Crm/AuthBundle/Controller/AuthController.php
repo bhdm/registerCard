@@ -98,4 +98,50 @@ class AuthController extends Controller
         }
 
     }
+
+    /**
+     * @Route("/get-quota/{companyId}", name="auth_company_get_quota", options={"expose" = true})
+     * @Template()
+     */
+    public function getQuotaAction($companyId){
+        $company = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->findOneById($companyId);
+        $users = $this->getDoctrine()->getRepository('CrmMainBundle:User')->findAllPrice($companyId,'all');
+        $users2 = $this->getDoctrine()->getRepository('CrmMainBundle:User')->findAllPrice($companyId,'new');
+
+        $amountRubSkzi = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->amountRub($companyId,0,0)['sumPrice'];
+        $amountRubEstr = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->amountRub($companyId,1,0)['sumPrice'];
+        $amountRubRu = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->amountRub($companyId,0,1)['sumPrice'];
+        $amountPlusQuota = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->amountPlusQuota($companyId)['sumQuota'];
+        $amountMinusQuota= $this->getDoctrine()->getRepository('CrmMainBundle:Company')->amountMinusQuota($companyId)['sumQuota'];
+
+        $amountRubSkziNew = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->amountRubNew($companyId,0,0)['sumPrice'];
+        $amountRubEstrNew = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->amountRubNew($companyId,1,0)['sumPrice'];
+        $amountRubRuNew = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->amountRubNew($companyId,0,1)['sumPrice'];
+
+        $sumVirtuals = $this->getDoctrine()->getRepository('CrmMainBundle:CompanyQuotaLog')->findByCompany($company);
+
+        $sumVirtual[0] = 0;
+        $sumVirtual[1] = 0;
+        $sumVirtual[2] = 0;
+        foreach ($sumVirtuals as $item){
+            $sumVirtual[0] += $item->getDriverSkzi();
+            $sumVirtual[1] += $item->getDriverEstr();
+            $sumVirtual[2] += $item->getDriverRu();
+        }
+
+        return array(
+            'company' => $company,
+            'allUsers' => $users,
+            'newUsers' => $users2,
+            'amountRubSkzi' =>$amountRubSkzi,
+            'amountRubEstr' => $amountRubEstr ,
+            'amountRubRu'=> $amountRubRu,
+            'amountRubSkziNew' =>$amountRubSkziNew,
+            'amountRubEstrNew' => $amountRubEstrNew ,
+            'amountRubRuNew'=> $amountRubRuNew,
+            'amountPlusQuota' =>$amountPlusQuota,
+            'amountMinusQuota' =>$amountMinusQuota,
+            'sumVirtual' =>$sumVirtual,
+        );
+    }
 }
