@@ -27,6 +27,26 @@ class OrderController extends Controller
      */
     public function addSkziOrderAction(Request $request){
         $session = new Session();
+        $session->set('passportFile', null);
+        $session->set('passport2File', null);
+        $session->set('driverFile', null);
+        $session->set('driver2File', null);
+        $session->set('snilsFile', null);
+        $session->set('signFile', null);
+        $session->set('photoFile', null);
+        $session->set('petitionFile', null);
+        $session->set('workFile', null);
+
+        $session->set('origin-passportFile', null);
+        $session->set('origin-passport2File', null);
+        $session->set('origin-driverFile', null);
+        $session->set('origin-driver2File', null);
+        $session->set('origin-snilsFile', null);
+        $session->set('origin-signFile', null);
+        $session->set('origin-photoFile', null);
+        $session->set('origin-petitionFile', null);
+        $session->set('origin-workFile', null);
+
         $order = $session->get('order');
         $em = $this->getDoctrine()->getManager();
         $item = new User();
@@ -62,6 +82,30 @@ class OrderController extends Controller
      * @Template("CrmAuthBundle:Application:newEstr.html.twig")
      */
     public function addEstrOrderAction(Request $request){
+
+        $session = new Session();
+        $session->set('passportFile', null);
+        $session->set('passport2File', null);
+        $session->set('driverFile', null);
+        $session->set('driver2File', null);
+        $session->set('snilsFile', null);
+        $session->set('signFile', null);
+        $session->set('photoFile', null);
+        $session->set('petitionFile', null);
+        $session->set('workFile', null);
+
+        $session->set('origin-passportFile', null);
+        $session->set('origin-passport2File', null);
+        $session->set('origin-driverFile', null);
+        $session->set('origin-driver2File', null);
+        $session->set('origin-snilsFile', null);
+        $session->set('origin-signFile', null);
+        $session->set('origin-photoFile', null);
+        $session->set('origin-petitionFile', null);
+        $session->set('origin-workFile', null);
+
+        $order = $session->get('order');
+
         $em = $this->getDoctrine()->getManager();
         $item = new User();
         $form = $this->createForm(new UserEstrType($em), $item);
@@ -70,9 +114,22 @@ class OrderController extends Controller
 //            if ($formData->isValid()){
             $user = $formData->getData();
             $user->setEstr(1);
+            $user = $formData->getData();
+            $user->setCopyPassport($this->getImgToArray($order['passportFilePath']));
+            $user->setCopyDriverPassport($this->getImgToArray($order['driverFilePath']));
+            $user->setCopySnils($this->getImgToArray($order['snilsFilePath']));
+            $user->setCopySignature($this->getImgToArray($order['signFilePath']));
+            $user->setPhoto($this->getImgToArray($order['photoFilePath']));
+            if (isset($order['typeCardFile']) && $order['typeCardFile']){
+                $user->setTypeCardFile($order['typeCardFile']);
+            }
 
+            if (!empty($order['petitionFilePath']) && $order['petitionFilePath']!= null){
+                $user->setCopyPetition($this->getImgToArray($order['petitionFilePath']));
+            }
             $em->persist($user);
-            $em->persist($user);
+            $em->flush($user);
+            $em->refresh($user);
         }
         return array('form' => $form->createView());
     }
@@ -82,6 +139,28 @@ class OrderController extends Controller
      * @Template("CrmAuthBundle:Application:newRu.html.twig")
      */
     public function addRuOrderAction(Request $request){
+        $session = new Session();
+        $session->set('passportFile', null);
+        $session->set('passport2File', null);
+        $session->set('driverFile', null);
+        $session->set('driver2File', null);
+        $session->set('snilsFile', null);
+        $session->set('signFile', null);
+        $session->set('photoFile', null);
+        $session->set('petitionFile', null);
+        $session->set('workFile', null);
+
+        $session->set('origin-passportFile', null);
+        $session->set('origin-passport2File', null);
+        $session->set('origin-driverFile', null);
+        $session->set('origin-driver2File', null);
+        $session->set('origin-snilsFile', null);
+        $session->set('origin-signFile', null);
+        $session->set('origin-photoFile', null);
+        $session->set('origin-petitionFile', null);
+        $session->set('origin-workFile', null);
+
+        $order = $session->get('order');
         $em = $this->getDoctrine()->getManager();
         $item = new User();
         $form = $this->createForm(new UserRuType($em), $item);
@@ -90,9 +169,22 @@ class OrderController extends Controller
 //            if ($formData->isValid()){
             $user = $formData->getData();
             $user->setRu(1);
+            $user = $formData->getData();
+            $user->setCopyPassport($this->getImgToArray($order['passportFilePath']));
+            $user->setCopyDriverPassport($this->getImgToArray($order['driverFilePath']));
+            $user->setCopySnils($this->getImgToArray($order['snilsFilePath']));
+            $user->setCopySignature($this->getImgToArray($order['signFilePath']));
+            $user->setPhoto($this->getImgToArray($order['photoFilePath']));
+            if (isset($order['typeCardFile']) && $order['typeCardFile']){
+                $user->setTypeCardFile($order['typeCardFile']);
+            }
 
+            if (!empty($order['petitionFilePath']) && $order['petitionFilePath']!= null){
+                $user->setCopyPetition($this->getImgToArray($order['petitionFilePath']));
+            }
             $em->persist($user);
-            $em->persist($user);
+            $em->flush($user);
+            $em->refresh($user);
         }
         return array('form' => $form->createView());
     }
@@ -117,7 +209,12 @@ class OrderController extends Controller
         $session = $request->getSession();
 
 
-
+        $session = new Session();
+        $order = $session->get('order');
+        $em = $this->getDoctrine()->getManager();
+        $item = new User();
+        $form = $this->createForm(new UserSkziType($em), $item);
+        $formData = $form->handleRequest($request);
 
         $session->set('passportFile', null);
         $session->set('passport2File', null);
@@ -141,74 +238,22 @@ class OrderController extends Controller
 
 
 
+        $em = $this->getDoctrine()->getManager();
+        $item = $user;
+
+        if ($user->getRu() == 0 && $user->getEstr() == 0 ){
+            $form = $this->createForm(new UserSkziType($em), $item, ['disabled' => true]);
+        }elseif ($user->getRu() == 1 ){
+            $form = $this->createForm(new UserRuType($em), $item, ['disabled' => true]);
+        }else{
+            $form = $this->createForm(new UserEstrType($em), $item, ['disabled' => true]);
+        }
+
+        $formData = $form->handleRequest($request);
+
         if ($request->getMethod() == 'POST') {
-            $data = $request->request;
-
-            $referer = $request->get('referer');
-
-            $user->setEmail($data->get('email'));
-            $user->setPhone($data->get('username'));
-
-            $user->setLastName($data->get('lastName'));
-            $user->setFirstName($data->get('firstName'));
-            $user->setSurName($data->get('surName'));
 
 
-            $date = new \DateTime($data->get('birthDate'));
-            $user->setBirthDate($date);
-
-            $user->setPassportNumber($data->get('passportNumber'));
-            $user->setPassportSerial($data->get('passportSerial'));
-            $user->setPassportIssuance($data->get('PassportIssuance'));
-            $date = new \DateTime($data->get('PassportIssuanceDate'));
-            $user->setPassportIssuanceDate($date);
-            $user->setPassportCode($data->get('passportCode'));
-
-
-            $user->setRegisteredRegion($data->get('region'));
-            $user->setRegisteredArea($data->get('area'));
-            $user->setRegisteredCity($data->get('city'));
-            $user->setRegisteredStreet($data->get('street'));
-            $user->setRegisteredHome($data->get('house'));
-            $user->setRegisteredCorp($data->get('corp'));
-            $user->setRegisteredStructure($data->get('structure'));
-            $user->setRegisteredRoom($data->get('room'));
-            $user->setRegisteredZipcode($data->get('zipcode'));
-            $user->setEnDeliveryAdrs($data->get('address'));
-            $user->setRuDeliveryAdrs($data->get('address2'));
-
-            $user->setDriverDocNumber($data->get('driverNumber'));
-            $date = new \DateTime($data->get('driverStarts'));
-            $user->setDriverDocDateStarts($date);
-            $user->setDriverDocIssuance($data->get('driverPlace'));
-
-
-            $user->setSnils($data->get('snils'));
-            $user->setLastNumberCard($data->get('oldNumber'));
-            $user->setTypeCard($data->get('typeCard'));
-
-
-            $user->setDileveryZipcode($data->get('deliveryZipcode'));
-            $user->setDileveryRegion($data->get('deliveryRegion'));
-            $user->setDileveryArea($data->get('deliveryArea'));
-            $user->setDileveryCity($data->get('deliveryCity'));
-            $user->setDileveryStreet($data->get('deliveryStreet'));
-            $user->setDileveryHome($data->get('deliveryHouse'));
-            $user->setDileveryCorp($data->get('deliveryCorp'));
-            $user->setDileveryCorp($data->get('deliveryStructure'));
-            $user->setDileveryRoom($data->get('deliveryRoom'));
-
-            $petition = $this->getDoctrine()->getRepository('CrmMainBundle:CompanyPetition')->findOneById($data->get('petition'));
-            $user->setCompanyPetition($petition);
-
-            $user->setSalt(md5(time()));
-
-
-            if ($data->get('myPetition')) {
-                $user->setMyPetition($data->get('myPetition'));
-            } else {
-                $user->setMyPetition(0);
-            }
 
             $this->getDoctrine()->getManager()->flush($user);
             $this->getDoctrine()->getManager()->refresh($user);
@@ -256,15 +301,14 @@ class OrderController extends Controller
             $session->save();
         }
 
-        $regions = $this->getDoctrine()->getRepository('CrmMainBundle:Region')->findAll();
-        $companies = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->getCompanies();
-        $petitions = $user->getCompany()->getOperator()->getPetitions();
-        $params = array('user' => $user, 'regions' => $regions, 'companies' => $companies,'petitions' => $petitions);
-        if ($user->getStatus() == 0){
-            return $this->render("CrmAuthBundle:Order:edit2.html.twig", $params);
+        if ($user->getRu() == 0 && $user->getEstr() == 0 ){
+            return $this->render('CrmAuthBundle:Application:newSkzi.html.twig',array('form' => $form->createView()));
+        }elseif ($user->getRu() == 1 ){
+            return $this->render('CrmAuthBundle:Application:newRu.html.twig',array('form' => $form->createView()));
         }else{
-            return $this->render("CrmAuthBundle:Order:edit.html.twig", $params);
+            return $this->render('CrmAuthBundle:Application:newEstr.html.twig',array('form' => $form->createView()));
         }
+
     }
 
     /**

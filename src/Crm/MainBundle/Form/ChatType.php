@@ -15,7 +15,7 @@ class ChatType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('body', null, array('label' => 'Введите текст сообщения'))
+            ->add('body', null, array('label' => 'Введите текст'))
             ->add('submit','submit',array('label' => 'Отправить сообщение', 'attr'=> array('class' => 'btn btn-primary')))
         ;
     }

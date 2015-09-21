@@ -72,8 +72,8 @@
                             <br />
                             <br />
                             <div class="fileDoc">
-                                {% if order.passportFilePath is defined %}
-                                    <img src="{{ path('get_image', {'type' : 'passport'}) }}" brightness="0" contrast="0">
+                                {% if form.vars.value.copyPassport.path is defined %}
+                                    <img src="/{{ form.vars.value.copyPassport.path }}" brightness="0" contrast="0">
                                 {% else %}
                                     <img src="" brightness="0" contrast="0">
                                 {% endif %}
@@ -129,8 +129,8 @@
                             <br />
                             <br />
                             <div class="fileDoc">
-                                {% if order.passport2FilePath is defined %}
-                                    <img src="{{ path('get_image', {'type' : 'passport2'}) }}" brightness="0" contrast="0">
+                                {% if form.vars.value.copyPassport2.path is defined %}
+                                    <img src="/{{ form.vars.value.copyPassport2.path }}" brightness="0" contrast="0">
                                 {% else %}
                                     <img src="" brightness="0" contrast="0">
                                 {% endif %}
@@ -197,8 +197,8 @@
                             <br />
                             <br />
                             <div class="fileDoc">
-                                {% if order.photoFilePath is defined %}
-                                    <img src="{{ path('get_image', {'type' : 'snils'}) }}" brightness="0" contrast="0">
+                                {% if form.vars.value.copySnils.path is defined %}
+                                    <img src="/{{ form.vars.value.copySnils.path }}" brightness="0" contrast="0">
                                 {% else %}
                                     <img src="" brightness="0" contrast="0">
                                 {% endif %}
@@ -237,8 +237,8 @@
                             <br />
                             <br />
                             <div class="fileDoc">
-                                {% if order.driverFilePath is defined %}
-                                    <img src="{{ path('get_image', {'type' : 'driver'}) }}" brightness="0" contrast="0">
+                                {% if form.vars.value.copyDriverPassport.path is defined %}
+                                    <img src="/{{ form.vars.value.copyDriverPassport.path }}" brightness="0" contrast="0">
                                 {% else %}
                                     <img src="" brightness="0" contrast="0">
                                 {% endif %}
@@ -278,8 +278,8 @@
                             <br />
                             <br />
                             <div class="fileDoc">
-                                {% if order.driver2FilePath is defined %}
-                                    <img src="{{ path('get_image', {'type' : 'driver2'}) }}" brightness="0" contrast="0">
+                                {% if form.vars.value.copyDriverPassport2.path is defined %}
+                                    <img src="/{{ form.vars.value.copyDriverPassport2.path }}" brightness="0" contrast="0">
                                 {% else %}
                                     <img src="" brightness="0" contrast="0">
                                 {% endif %}
@@ -326,6 +326,9 @@
                     </td>
                     <td class="petition-td">
                         {{ form_widget(form.copyPetition) }}
+                        {% if form.vars.value.copyPetition.path is defined %}
+                            <a href="/{{ form.vars.value.copyPetition.path }}" target="_blank">Открыть</a>
+                        {% endif %}
                     </td>
                 </tr>
                 <tr class="petition">
@@ -426,8 +429,8 @@
                             <br />
                             <br />
                             <div class="fileDoc">
-                                {% if order.signFilePath is defined %}
-                                    <img src="{{ path('get_image', {'type' : 'sign'}) }}" brightness="0" contrast="0">
+                                {% if form.vars.value.copySignature.path is defined %}
+                                    <img src="/{{ form.vars.value.copySignature.path }}" brightness="0" contrast="0">
                                 {% else %}
                                     <img src="" brightness="0" contrast="0">
                                 {% endif %}
@@ -459,8 +462,8 @@
                             <br />
                             <br />
                             <div class="fileDoc">
-                                {% if order.photoFilePath is defined %}
-                                    <img src="{{ path('get_image', {'type' : 'photo'}) }}" brightness="0" contrast="0">
+                                {% if form.vars.value.photo.path is defined %}
+                                    <img src="/{{ form.vars.value.photo.path }}" brightness="0" contrast="0">
                                 {% else %}
                                     <img src="" brightness="0" contrast="0">
                                 {% endif %}
