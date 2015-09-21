@@ -64,9 +64,38 @@ class MessageController extends Controller
         if (count($re) > 0){
             $result = 'color: #CC0000';
         }else{
-            $result = 'sadsd';
+            $result = '';
         }
 
         return new Response($result);
     }
+
+    /**
+     * @Route("/new-message-client", name="newMessageForClient")
+     */
+    public function newMessageClientAction(){
+        $sql = '
+            SELECT * , (
+              SELECT isOperator
+              FROM Chat cc
+              WHERE cc.client_id = c1_.id
+              ORDER BY id DESC
+              LIMIT 1
+          )aa
+          FROM Client c1_
+          WHERE c1_.enabled =1 AND c1_.id IS NOT NULL
+          HAVING aa = 1';
+        $pdo = $this->getDoctrine()->getManager()->getConnection();
+        $st = $pdo->prepare($sql);
+        $st->execute();
+        $re = $st->fetchAll();
+        if (count($re) > 0){
+            $result = 'color: #CC0000';
+        }else{
+            $result = '';
+        }
+
+        return new Response($result);
+    }
+
 }

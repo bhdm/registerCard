@@ -8,7 +8,7 @@
         <a href="{{ path('auth_order') }}">Мои заказы</a>
     </li>
     <li>
-        <a href="{{ path('auth_message') }}">Мои сообщения</a>
+        <a href="{{ path('auth_message') }}" style="{{ render(controller("CrmAuthBundle:Message:newMessageClient"))}}">Мои сообщения</a>
     </li>
     <li>
         <hr />
