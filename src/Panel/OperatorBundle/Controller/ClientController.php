@@ -2,6 +2,7 @@
 
 namespace Panel\OperatorBundle\Controller;
 
+use Crm\AuthBundle\Form\AdminClientType;
 use Crm\MainBundle\Entity\Company;
 use Crm\MainBundle\Entity\CompanyQuotaLog;
 use Crm\MainBundle\Form\CompanyType;
@@ -27,5 +28,24 @@ class ClientController extends Controller
         $clients = $this->getDoctrine()->getRepository('CrmMainBundle:Client')->findAll();
 
         return ['clients' => $clients ];
+    }
+
+    /**
+     * @Route("/edit/{id}", name="panel_client_edit")
+     * @Template("")
+     */
+    public function editAction(Request $request, $id){
+        $em = $this->getDoctrine()->getManager();
+        $item = $this->getDoctrine()->getRepository('CrmMainBundle:Client')->findOneById($id);
+        $form = $this->createForm(new AdminClientType($em), $item);
+        $formData = $form->handleRequest($request);
+        if ($request->getMethod() === 'POST'){
+            if ($formData->isValid()){
+                $item = $formData->getData();
+                $em->flush($item);
+                $em->refresh($item);
+            }
+        }
+        return array('form' => $form->createView());
     }
 }

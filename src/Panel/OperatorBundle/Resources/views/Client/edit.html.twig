@@ -1,0 +1,31 @@
+{% extends 'PanelOperatorBundle::layout.html.twig' %}
+
+
+{% block breadcrumb %}
+    <ul class="breadcrumb well">
+        <li>Список клиентов</li>
+        <li>Редактирование</li>
+        {#<li><a href="{{ path('panel_company_add') }}"><span class="btn btn-primary">Добавить</span></a></li>#}
+    </ul>
+{% endblock %}
+
+{% block content %}
+    <div class="well">
+        <form class="form" method="post">
+            {{ form_widget(form) }}
+        </form>
+    </div>
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <style>
+        #crm_authbundle_client_company-styler{
+            width: 182px !important;
+        }
+    </style>
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+
+{% endblock %}

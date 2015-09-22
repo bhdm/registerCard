@@ -23,7 +23,7 @@
             </thead>
             {% for client in clients %}
                 <tr style="{{ client.quota < 0 ? 'background: #FFCACA' : 0 }}" >
-                    <td>{{ client.username }}</td>
+                    <td><a href="{{ path('panel_client_edit',{'id' : client.id }) }}">{{ client.username }}</a></td>
                     <td>
                         {{ client.orders | length }}
                     </td>
