@@ -61,10 +61,10 @@ class CompanyUserType extends AbstractType
 
             ->add('licenseNumber')
             ->add('licenseIssued')
-            ->add('licenseDateStart', 'date')
-            ->add('licenseDateEnd', 'date')
+            ->add('licenseDateStart', 'date', ['widget' => 'single_text'])
+            ->add('licenseDateEnd', 'date', ['widget' => 'single_text'])
             ->add('licenseDecreeNumber')
-            ->add('licenseDecreeDate', 'date')
+            ->add('licenseDecreeDate', 'date', ['widget' => 'single_text'])
         ;
     }
     

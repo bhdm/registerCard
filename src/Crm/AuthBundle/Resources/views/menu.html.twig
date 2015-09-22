@@ -5,7 +5,8 @@
         </a>
     </li>
     <li>
-        <a href="{{ path('auth_order') }}">Мои заказы</a>
+        <a href="{{ path('auth_order') }}">Карты водителя</a>
+        <a href="{{ path('auth_order_company') }}">Карты юр. лиц</a>
     </li>
     <li>
         <a href="{{ path('auth_message') }}" style="{{ render(controller("CrmAuthBundle:Message:newMessageClient"))}}">Мои сообщения</a>

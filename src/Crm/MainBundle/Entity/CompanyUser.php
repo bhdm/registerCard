@@ -20,6 +20,11 @@ class CompanyUser extends BaseEntity
 {
 
     /**
+     * @ORM\ManyToOne(targetEntity="Client", inversedBy="companyOrders")
+     */
+    protected $client;
+
+    /**
      * @ORM\ManyToOne(targetEntity="Company", inversedBy="companies")
      */
     protected $company;
@@ -1047,4 +1052,22 @@ class CompanyUser extends BaseEntity
     public function getFullmailingAdrs(){
         return implode(', ', $this->mailingAdrs);
     }
+
+    /**
+     * @return mixed
+     */
+    public function getClient()
+    {
+        return $this->client;
+    }
+
+    /**
+     * @param mixed $client
+     */
+    public function setClient($client)
+    {
+        $this->client = $client;
+    }
+
+
 }

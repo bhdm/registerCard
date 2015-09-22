@@ -3,7 +3,9 @@
 namespace Crm\AuthBundle\Controller;
 
 use Crm\MainBundle\Entity\Client;
+use Crm\MainBundle\Entity\CompanyUser;
 use Crm\MainBundle\Entity\User;
+use Crm\MainBundle\Form\CompanyUserType;
 use Crm\MainBundle\Form\UserEstrType;
 use Crm\MainBundle\Form\UserRuType;
 use Crm\MainBundle\Form\UserSkziType;
@@ -146,6 +148,21 @@ class OrderController extends Controller
     }
 
     /**
+     * @Route("/order/add-company", name="auth_add_company")
+     * @Template("CrmAuthBundle:Application:newCompanyUser.html.twig")
+     */
+    public function addCompanyUser(Request $request){
+        $em = $this->getDoctrine()->getManager();
+        $item = new CompanyUser();
+        $form = $this->createForm(new CompanyUserType($em), $item);
+        $formData = $form->handleRequest($request);
+        if ($request->getMethod() == 'POST'){
+
+        }
+        return array('form' => $form->createView());
+    }
+
+    /**
      * @Route("/order", name="auth_order")
      * @Template()
      */
@@ -154,6 +171,17 @@ class OrderController extends Controller
         $orders = $this->getUser()->getOrders();
         return ['orders' => $orders];
     }
+
+    /**
+     * @Route("/order-company", name="auth_order_company")
+     * @Template()
+     */
+    public function orderListCompanyAction()
+    {
+        $orders = $this->getUser()->get;
+        return ['orders' => $orders];
+    }
+
 
     /**
      * @Route("/edit/{userId}", name="auth_user_edit")

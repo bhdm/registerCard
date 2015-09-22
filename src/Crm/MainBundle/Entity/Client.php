@@ -27,6 +27,11 @@ class Client extends BaseEntity implements UserInterface
     protected $orders;
 
     /**
+     * @ORM\OneToMany(targetEntity="CompanyUser", mappedBy="client")
+     */
+    protected $companyOrders;
+
+    /**
      * @ORM\Column(type="string", length=255)
      */
     protected $username;
@@ -86,10 +91,12 @@ class Client extends BaseEntity implements UserInterface
      */
     protected $company;
 
+
     public function __construct(){
         $this->roles = 'ROLE_CLIENT';
         $this->enabled = true;
         $this->orders = new ArrayCollection();
+        $this->companyOrders = new ArrayCollection();
         $this->messages = new ArrayCollection();
         $this->petitions = new ArrayCollection();
         $this->quota = 0;
@@ -390,6 +397,22 @@ class Client extends BaseEntity implements UserInterface
     public function setCompany($company)
     {
         $this->company = $company;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCompanyOrders()
+    {
+        return $this->companyOrders;
+    }
+
+    /**
+     * @param mixed $companyOrders
+     */
+    public function setCompanyOrders($companyOrders)
+    {
+        $this->companyOrders = $companyOrders;
     }
 
 
