@@ -49,6 +49,8 @@ class AuthController extends Controller
         if ($request->getMethod() === 'POST'){
             if ($formData->isValid()){
                 $item = $formData->getData();
+                $company = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->findOneByUrl('NO_COMPANY');
+                $item->setCompany($company);
                 $item->setSalt(md5(time()));
                 $encoder = new MessageDigestPasswordEncoder('sha512', true, 10);
                 $password = $encoder->encodePassword($item->getPassword(), $item->getSalt());

@@ -27,25 +27,7 @@ class OrderController extends Controller
      */
     public function addSkziOrderAction(Request $request){
         $session = new Session();
-        $session->set('passportFile', null);
-        $session->set('passport2File', null);
-        $session->set('driverFile', null);
-        $session->set('driver2File', null);
-        $session->set('snilsFile', null);
-        $session->set('signFile', null);
-        $session->set('photoFile', null);
-        $session->set('petitionFile', null);
-        $session->set('workFile', null);
-
-        $session->set('origin-passportFile', null);
-        $session->set('origin-passport2File', null);
-        $session->set('origin-driverFile', null);
-        $session->set('origin-driver2File', null);
-        $session->set('origin-snilsFile', null);
-        $session->set('origin-signFile', null);
-        $session->set('origin-photoFile', null);
-        $session->set('origin-petitionFile', null);
-        $session->set('origin-workFile', null);
+        $this->clearSession($session);
 
         $order = $session->get('order');
         $em = $this->getDoctrine()->getManager();
@@ -55,6 +37,10 @@ class OrderController extends Controller
         if ($request->getMethod() == 'POST'){
 //            if ($formData->isValid()){
                 $user = $formData->getData();
+                $company = $this->getUser()->getCompany();
+                $user->setCompany($company);
+                $user->setPirce($company->getPriceSkzi());
+
                 $user->setCopyPassport($this->getImgToArray($order['passportFilePath']));
                 $user->setCopyDriverPassport($this->getImgToArray($order['driverFilePath']));
                 $user->setCopySnils($this->getImgToArray($order['snilsFilePath']));
@@ -84,25 +70,7 @@ class OrderController extends Controller
     public function addEstrOrderAction(Request $request){
 
         $session = new Session();
-        $session->set('passportFile', null);
-        $session->set('passport2File', null);
-        $session->set('driverFile', null);
-        $session->set('driver2File', null);
-        $session->set('snilsFile', null);
-        $session->set('signFile', null);
-        $session->set('photoFile', null);
-        $session->set('petitionFile', null);
-        $session->set('workFile', null);
-
-        $session->set('origin-passportFile', null);
-        $session->set('origin-passport2File', null);
-        $session->set('origin-driverFile', null);
-        $session->set('origin-driver2File', null);
-        $session->set('origin-snilsFile', null);
-        $session->set('origin-signFile', null);
-        $session->set('origin-photoFile', null);
-        $session->set('origin-petitionFile', null);
-        $session->set('origin-workFile', null);
+        $this->clearSession($session);
 
         $order = $session->get('order');
 
@@ -113,6 +81,9 @@ class OrderController extends Controller
         if ($request->getMethod() == 'POST'){
 //            if ($formData->isValid()){
             $user = $formData->getData();
+            $company = $this->getUser()->getCompany();
+            $user->setCompany($company);
+            $user->setPirce($company->getPriceEstr());
             $user->setEstr(1);
             $user = $formData->getData();
             $user->setCopyPassport($this->getImgToArray($order['passportFilePath']));
@@ -140,25 +111,7 @@ class OrderController extends Controller
      */
     public function addRuOrderAction(Request $request){
         $session = new Session();
-        $session->set('passportFile', null);
-        $session->set('passport2File', null);
-        $session->set('driverFile', null);
-        $session->set('driver2File', null);
-        $session->set('snilsFile', null);
-        $session->set('signFile', null);
-        $session->set('photoFile', null);
-        $session->set('petitionFile', null);
-        $session->set('workFile', null);
-
-        $session->set('origin-passportFile', null);
-        $session->set('origin-passport2File', null);
-        $session->set('origin-driverFile', null);
-        $session->set('origin-driver2File', null);
-        $session->set('origin-snilsFile', null);
-        $session->set('origin-signFile', null);
-        $session->set('origin-photoFile', null);
-        $session->set('origin-petitionFile', null);
-        $session->set('origin-workFile', null);
+        $this->clearSession($session);
 
         $order = $session->get('order');
         $em = $this->getDoctrine()->getManager();
@@ -168,6 +121,9 @@ class OrderController extends Controller
         if ($request->getMethod() == 'POST'){
 //            if ($formData->isValid()){
             $user = $formData->getData();
+            $company = $this->getUser()->getCompany();
+            $user->setCompany($company);
+            $user->setPirce($company->getPriceRu());
             $user->setRu(1);
             $user = $formData->getData();
             $user->setCopyPassport($this->getImgToArray($order['passportFilePath']));
@@ -348,5 +304,29 @@ class OrderController extends Controller
             );
         }
         return $array;
+    }
+
+    protected function clearSession($session){
+        $session->set('passportFile', null);
+        $session->set('passport2File', null);
+        $session->set('driverFile', null);
+        $session->set('driver2File', null);
+        $session->set('snilsFile', null);
+        $session->set('signFile', null);
+        $session->set('photoFile', null);
+        $session->set('petitionFile', null);
+        $session->set('workFile', null);
+
+        $session->set('origin-passportFile', null);
+        $session->set('origin-passport2File', null);
+        $session->set('origin-driverFile', null);
+        $session->set('origin-driver2File', null);
+        $session->set('origin-snilsFile', null);
+        $session->set('origin-signFile', null);
+        $session->set('origin-photoFile', null);
+        $session->set('origin-petitionFile', null);
+        $session->set('origin-workFile', null);
+
+        return true;
     }
 }

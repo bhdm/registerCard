@@ -380,11 +380,13 @@ class ApplicationEstrController extends Controller
         /**
          * Если новенький - создаем под него учетную запись
          */
-        if ($this->get('security.authorization_checker')->isGranted('IS_AUTHENTICATED_ANONYMOUSLY')){
+        if ($this->get('security.authorization_checker')->isGranted('IS_AUTHENTICATED_ANONYMOUSLY') && (!isset($url) || $url == null)){
             $pass = $this->generatePassword(6);
             $client = $this->getDoctrine()->getRepository('CrmMainBundle:Client')->findOneByUsername($user->getEmail());
             if ($client == null ){
                 $client = new Client();
+                $company = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->findOneByUrl('NO_COMPANY');
+                $client->setCompany($company);
                 $client->setCompanyTitle(null);
                 $client->setLastName($user->getLastName());
                 $client->setUsername($user->getEmail());
