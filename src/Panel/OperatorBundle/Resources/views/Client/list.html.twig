@@ -27,7 +27,8 @@
                     <td><a href="{{ path('panel_client_edit',{'id' : client.id }) }}">{{ client.username }}</a></td>
                     <td>
                         {% if client.company != null %}
-                        <a href="{{ path('panel_user_list', {'type' : 'null' , 'company' : client.company.id }) }}">{{ client.company.title }}</a>
+                            <a href="{{ path('panel_user_list', {'type' : 'null' , 'company' : client.company.id }) }}">{{ client.company.title }}</a>
+                        {% endif %}
                     <td/>
                     <td>
                         {{ client.orders | length }}
