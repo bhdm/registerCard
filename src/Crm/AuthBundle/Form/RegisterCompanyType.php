@@ -29,7 +29,7 @@ class RegisterCompanyType extends AbstractType
                 'second_options' => array('label' => 'Повторите пароль'),
             ))
             ->add('docs', 'checkbox', array('label' => 'Согласен с лицензионным соглашением','required' => false,'mapped' => false))
-            ->add('submit', 'submit', array('label' => 'Зарегистрироваться'))
+            ->add('submit', 'submit', array('label' => 'Зарегистрироваться', 'attr' => ['class' => 'btn-primary']))
         ;
     }
     
