@@ -28,8 +28,7 @@ class OrderController extends Controller
      * @Template("CrmAuthBundle:Application:newSkzi.html.twig")
      */
     public function addSkziOrderAction(Request $request){
-        $session = new Session();
-        $this->clearSession($session);
+        $session = $request->getSession();
 
         $order = $session->get('order');
         $em = $this->getDoctrine()->getManager();
@@ -41,26 +40,32 @@ class OrderController extends Controller
                 $user = $formData->getData();
                 $company = $this->getUser()->getCompany();
                 $user->setCompany($company);
-                $user->setPirce($company->getPriceSkzi());
+                $user->setClient($this->getUser());
+                $user->setPrice($company->getPriceSkzi());
 
-                $user->setCopyPassport($this->getImgToArray($order['passportFilePath']));
-                $user->setCopyDriverPassport($this->getImgToArray($order['driverFilePath']));
-                $user->setCopySnils($this->getImgToArray($order['snilsFilePath']));
-                $user->setCopySignature($this->getImgToArray($order['signFilePath']));
-                $user->setPhoto($this->getImgToArray($order['photoFilePath']));
-                if (isset($order['typeCardFile']) && $order['typeCardFile']){
-                    $user->setTypeCardFile($order['typeCardFile']);
-                }
+                $user->setCopyPassport($this->getImgToArray($session->get('passportFile')));
+                $user->setCopyDriverPassport($this->getImgToArray($session->get('driverFile')));
+                $user->setCopySnils($this->getImgToArray($session->get('snilsFile')));
+                $user->setCopySignature($this->getImgToArray($session->get('signFile')));
+                $user->setPhoto($this->getImgToArray($session->get('photoFile')));
+//                if ($session->get('typeCardFile')){
+//                    $user->setTypeCardFile($session->get('typeCardFile'));
+//                }
 
-                if (!empty($order['petitionFilePath']) && $order['petitionFilePath']!= null){
-                    $user->setCopyPetition($this->getImgToArray($order['petitionFilePath']));
-                }
+//                if ($session->get('petitionFile')!= null){
+//                    $user->setCopyPetition($this->getImgToArray($session->get('petitionFile')));
+//                }
+                $user->setCopyWork(array());
+                $user->setTypeCardFile(array());
+                $user->setCopyPetition(array());
 
                 $em->persist($user);
                 $em->flush($user);
                 $em->refresh($user);
                 return $this->render('@CrmAuth/Application/success.html.twig',['user' => $user]);
 //            }
+        }else{
+            $this->clearSession($session);
         }
         return array('form' => $form->createView());
     }
@@ -72,7 +77,7 @@ class OrderController extends Controller
     public function addEstrOrderAction(Request $request){
 
         $session = new Session();
-        $this->clearSession($session);
+//        $this->clearSession($session);
 
         $order = $session->get('order');
 
@@ -85,25 +90,33 @@ class OrderController extends Controller
             $user = $formData->getData();
             $company = $this->getUser()->getCompany();
             $user->setCompany($company);
-            $user->setPirce($company->getPriceEstr());
+            $user->setClient($this->getUser());
+            $user->setPrice($company->getPriceEstr());
             $user->setEstr(1);
             $user = $formData->getData();
-            $user->setCopyPassport($this->getImgToArray($order['passportFilePath']));
-            $user->setCopyDriverPassport($this->getImgToArray($order['driverFilePath']));
-            $user->setCopySnils($this->getImgToArray($order['snilsFilePath']));
-            $user->setCopySignature($this->getImgToArray($order['signFilePath']));
-            $user->setPhoto($this->getImgToArray($order['photoFilePath']));
-            if (isset($order['typeCardFile']) && $order['typeCardFile']){
-                $user->setTypeCardFile($order['typeCardFile']);
-            }
+            $user->setCopyPassport($this->getImgToArray($session->get('passportFile')));
+            $user->setCopyPassport2($this->getImgToArray($session->get('passportFile2')));
+            $user->setCopyDriverPassport($this->getImgToArray($session->get('driverFile')));
+            $user->setCopyDriverPassport2($this->getImgToArray($session->get('driverFile2')));
+            $user->setCopySnils($this->getImgToArray($session->get('snilsFile')));
+            $user->setCopySignature($this->getImgToArray($session->get('signFile')));
+            $user->setPhoto($this->getImgToArray($session->get('photoFile')));
+//                if ($session->get('typeCardFile')){
+//                    $user->setTypeCardFile($session->get('typeCardFile'));
+//                }
 
-            if (!empty($order['petitionFilePath']) && $order['petitionFilePath']!= null){
-                $user->setCopyPetition($this->getImgToArray($order['petitionFilePath']));
-            }
+//                if ($session->get('petitionFile')!= null){
+//                    $user->setCopyPetition($this->getImgToArray($session->get('petitionFile')));
+//                }
+            $user->setCopyWork(array());
+            $user->setTypeCardFile(array());
+            $user->setCopyPetition(array());
             $em->persist($user);
             $em->flush($user);
             $em->refresh($user);
             return $this->render('@CrmAuth/Application/success.html.twig',['user' => $user]);
+        }else{
+            $this->clearSession($session);
         }
         return array('form' => $form->createView());
     }
@@ -114,7 +127,6 @@ class OrderController extends Controller
      */
     public function addRuOrderAction(Request $request){
         $session = new Session();
-        $this->clearSession($session);
 
         $order = $session->get('order');
         $em = $this->getDoctrine()->getManager();
@@ -126,25 +138,33 @@ class OrderController extends Controller
             $user = $formData->getData();
             $company = $this->getUser()->getCompany();
             $user->setCompany($company);
-            $user->setPirce($company->getPriceRu());
+            $user->setClient($this->getUser());
+            $user->setPrice($company->getPriceRu());
             $user->setRu(1);
             $user = $formData->getData();
-            $user->setCopyPassport($this->getImgToArray($order['passportFilePath']));
-            $user->setCopyDriverPassport($this->getImgToArray($order['driverFilePath']));
-            $user->setCopySnils($this->getImgToArray($order['snilsFilePath']));
-            $user->setCopySignature($this->getImgToArray($order['signFilePath']));
-            $user->setPhoto($this->getImgToArray($order['photoFilePath']));
-            if (isset($order['typeCardFile']) && $order['typeCardFile']){
-                $user->setTypeCardFile($order['typeCardFile']);
-            }
+            $user->setCopyPassport($this->getImgToArray($session->get('passportFile')));
+            $user->setCopyPassport2($this->getImgToArray($session->get('passportFile2')));
+            $user->setCopyDriverPassport($this->getImgToArray($session->get('driverFile')));
+            $user->setCopyDriverPassport2($this->getImgToArray($session->get('driverFile2')));
+            $user->setCopySnils($this->getImgToArray($session->get('snilsFile')));
+            $user->setCopySignature($this->getImgToArray($session->get('signFile')));
+            $user->setPhoto($this->getImgToArray($session->get('photoFile')));
+//                if ($session->get('typeCardFile')){
+//                    $user->setTypeCardFile($session->get('typeCardFile'));
+//                }
 
-            if (!empty($order['petitionFilePath']) && $order['petitionFilePath']!= null){
-                $user->setCopyPetition($this->getImgToArray($order['petitionFilePath']));
-            }
+//                if ($session->get('petitionFile')!= null){
+//                    $user->setCopyPetition($this->getImgToArray($session->get('petitionFile')));
+//                }
+            $user->setCopyWork(array());
+            $user->setTypeCardFile(array());
+            $user->setCopyPetition(array());
             $em->persist($user);
             $em->flush($user);
             $em->refresh($user);
             return $this->render('@CrmAuth/Application/success.html.twig',['user' => $user]);
+        }else{
+            $this->clearSession($session);
         }
         return array('form' => $form->createView());
     }
@@ -163,7 +183,8 @@ class OrderController extends Controller
                 $item = $formData->getData();
                 $company = $this->getUser()->getCompany();
                 $item->setCompany($company);
-                $item->setPirce($company->getPriceRu()*$item->getCardAmount());
+                $item->setClient($this->getUser());
+                $item->setPrice($company->getPriceRu()*$item->getCardAmount());
                 $em->persist($item);
                 $em->flush();
                 $em->refresh($item);
@@ -183,6 +204,8 @@ class OrderController extends Controller
 
                 return $this->render('@CrmAuth/Application/companySuccess.html.twig',['user' => $item]);
             }
+        }else{
+            $this->clearSession($session);
         }
         return array('form' => $form->createView());
     }

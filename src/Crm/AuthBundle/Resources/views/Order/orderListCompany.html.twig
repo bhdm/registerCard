@@ -14,15 +14,15 @@
     <div class="row">
         <table class="table">
             <tr>
-                <td>номер</td>
+                <td>Номер</td>
                 <td>Дата заявки</td>
-                <td>Вид карты</td>
+                <td>Тип компании</td>
                 <td>Тип карты</td>
                 <td>Организация</td>
                 <td>Количество</td>
                 <td>Статус</td>
                 <td>Цена</td>
-                <td></td>
+                <td>Сумма (р.)</td>
             </tr>
             {% for o in orders %}
                 <tr>
@@ -38,18 +38,19 @@
                     <td>{{ o.companyTitle  }}</td>
                     <td>{{ o.cardAmount  }}</td>
                     <td>{{ o.statusString }}</td>
+                    <td>{{ o.price / o.cardAmount }}</td>
                     <td>{{ o.price }}</td>
-                    <td>
-                        {% if o.status == 0 %}
-                            <a href="{{ path('generate_payment_company_pdf') }}?ord={{ o.id }}"><button class="btn-default">
-                                <span class="glyphicon glyphicon-barcode">&nbsp;</span>
-                            </button></a>
-                        {% endif %}
-                    </td>
+                    {#<td>#}
+                        {#{% if o.status == 0 %}#}
+                            {#<a href="{{ path('generate_payment_company_pdf') }}?ord={{ o.id }}"><button class="btn-default">#}
+                                {#<span class="glyphicon glyphicon-barcode">&nbsp;</span>#}
+                            {#</button></a>#}
+                        {#{% endif %}#}
+                    {#</td>#}
                 </tr>
             {% else %}
                 <tr>
-                    <td colspan="7" style="text-align: center" class="text-danger">Заказов карт не найдено</td>
+                    <td colspan="9" style="text-align: center" class="text-danger">Заказов карт не найдено</td>
                 </tr>
             {% endfor %}
         </table>
