@@ -6,7 +6,9 @@
     </li>
     <li>
         <a href="{{ path('auth_order') }}">Карты водителя</a>
-        <a href="{{ path('auth_order_company') }}">Карты юр. лиц</a>
+        {% if app.user.company != null and app.user.company.id != 551 %}
+            <a href="{{ path('auth_order_company') }}">Карты юр. лиц</a>
+        {% endif %}
     </li>
     <li>
         <a href="{{ path('auth_message') }}" style="{{ render(controller("CrmAuthBundle:Message:newMessageClient"))}}">Мои сообщения</a>
