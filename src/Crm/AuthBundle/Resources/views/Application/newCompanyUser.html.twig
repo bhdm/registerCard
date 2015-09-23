@@ -267,13 +267,13 @@
                 </tr>
                 <tr>
                     <td style="vertical-align: top; padding-top: 10px">Подпись<span class="required">*</span></td>
-                    <td colspan="2">
+                    <td>
                         <div class="file-container">
                             <input type="file" name="signFile" id="signFile" class="fileAjax"  required="required">
                             <progress class="progress" value="0" max="100" style="width: 270px"></progress>
                             <br />
                             <br />
-                            <div class="fileDoc">
+                            <div class="fileDoc" style="text-align: left">
                                 {% if order.signFilePath is defined %}
                                     <img src="{{ path('get_image', {'type' : 'sign'}) }}" brightness="0" contrast="0">
                                 {% else %}
@@ -283,7 +283,7 @@
                             <div class="navigateFile">
                                 <img src="{{ asset('bundles/crmmain/icons/rotateLeft.png') }}" class="rotateLeft" title="Повернуть налево">
                                 <img src="{{ asset('bundles/crmmain/icons/rotateRight.png') }}" class="rotateRight" title="Повернуть вправо">
-                                <div style="display: inline-block">
+                                <div style="">
                                     <span class="cropImage minibtn" title="Обрезать изображение">Обрезать</span>
                                     <br />
                                     <br />
@@ -296,6 +296,7 @@
                             <input type="hidden" id="y2" name="y2">
                         </div>
                     </td>
+                    <td></td>
                 </tr>
                 <tr>
                     <td></td>
@@ -370,6 +371,9 @@
         }
         select{
             margin: 10px 0;
+        }
+        .jcrop-holder{
+            margin: 0 !important;
         }
     </style>
 

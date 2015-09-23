@@ -27,7 +27,9 @@
             {% for o in orders %}
                 <tr>
                     <td>
-                        <a href="{{ path('auth_user_edit', {'userId' : o.id}) }}">{{ o.id }}</a>
+                        {#<a href="{{ path('auth_user_edit', {'userId' : o.id}) }}">#}
+                            {{ o.id }}
+                        {#</a>#}
 
                     </td>
                     <td>{{ o.created | date('d.m.Y') }}</td>
@@ -39,7 +41,7 @@
                     <td>{{ o.price }}</td>
                     <td>
                         {% if o.status == 0 %}
-                            <a href="{{ path('generate_payment_pdf') }}?ord={{ o.id }}"><button class="btn-default">
+                            <a href="{{ path('generate_payment_company_pdf') }}?ord={{ o.id }}"><button class="btn-default">
                                 <span class="glyphicon glyphicon-barcode">&nbsp;</span>
                             </button></a>
                         {% endif %}

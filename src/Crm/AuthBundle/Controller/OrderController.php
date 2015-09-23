@@ -103,6 +103,7 @@ class OrderController extends Controller
             $em->persist($user);
             $em->flush($user);
             $em->refresh($user);
+            return $this->render('@CrmAuth/Application/success.html.twig',['user' => $user]);
         }
         return array('form' => $form->createView());
     }
@@ -143,6 +144,7 @@ class OrderController extends Controller
             $em->persist($user);
             $em->flush($user);
             $em->refresh($user);
+            return $this->render('@CrmAuth/Application/success.html.twig',['user' => $user]);
         }
         return array('form' => $form->createView());
     }
@@ -157,10 +159,34 @@ class OrderController extends Controller
         $form = $this->createForm(new CompanyUserType($em), $item);
         $formData = $form->handleRequest($request);
         if ($request->getMethod() == 'POST'){
+            if ($formData->isValid()){
+                $item = $formData->getData();
+                $company = $this->getUser()->getCompany();
+                $item->setCompany($company);
+                $item->setPirce($company->getPriceRu()*$item->getCardAmount());
+                $em->persist($item);
+                $em->flush();
+                $em->refresh($item);
+                $session = new Session();
+                $fileSign = $session->get('signFile');
+                $info = new \SplFileInfo($fileSign);
+                $path = $this->get('kernel')->getRootDir() . '/../web/upload/usercompany/';
+                $path = $path.$item->getId().'/'.$item->getSalt().'-si.'.$info->getExtension();
+                if (copy($fileSign,$path)){
+                    unlink( $fileSign );
+                    $session->set('signFile',null);
+                }
+                $array = $this->getImgToArray($path);
+                $item->setFileSign($array);
+                $em->flush($item);
+                $em->refresh($item);
 
+                return $this->render('@CrmAuth/Application/companySuccess.html.twig',['user' => $item]);
+            }
         }
         return array('form' => $form->createView());
     }
+
 
     /**
      * @Route("/order", name="auth_order")
