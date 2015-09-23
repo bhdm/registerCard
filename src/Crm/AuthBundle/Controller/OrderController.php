@@ -178,7 +178,7 @@ class OrderController extends Controller
      */
     public function orderListCompanyAction()
     {
-        $orders = $this->getUser()->get;
+        $orders = $this->getUser()->getCompanyOrders();
         return ['orders' => $orders];
     }
 

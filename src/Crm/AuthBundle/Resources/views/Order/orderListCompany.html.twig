@@ -1,0 +1,55 @@
+{% extends 'CrmAuthBundle::layout.html.twig' %}
+
+{% block body %}
+    <div>
+        <h2>Мои заказы (карты для юридических лиц )</h2>
+        <div style="float: right; margin-top: -55px">
+            <a href="{{ path('auth_add_company') }}">
+                <button class="btn btn-primary" type="button" id="addOrder">
+                    Добавить новый заказ
+                </button>
+            </a>
+        </div>
+    </div>
+    <div class="row">
+        <table class="table">
+            <tr>
+                <td>номер</td>
+                <td>Дата заявки</td>
+                <td>Вид карты</td>
+                <td>Тип карты</td>
+                <td>Организация</td>
+                <td>Количество</td>
+                <td>Статус</td>
+                <td>Цена</td>
+                <td></td>
+            </tr>
+            {% for o in orders %}
+                <tr>
+                    <td>
+                        <a href="{{ path('auth_user_edit', {'userId' : o.id}) }}">{{ o.id }}</a>
+
+                    </td>
+                    <td>{{ o.created | date('d.m.Y') }}</td>
+                    <td>{{ o.companyTypeStr }}</td>
+                    <td>{{ o.cardTypeStr  }}</td>
+                    <td>{{ o.companyTitle  }}</td>
+                    <td>{{ o.cardAmount  }}</td>
+                    <td>{{ o.statusString }}</td>
+                    <td>{{ o.price }}</td>
+                    <td>
+                        {% if o.status == 0 %}
+                            <a href="{{ path('generate_payment_pdf') }}?ord={{ o.id }}"><button class="btn-default">
+                                <span class="glyphicon glyphicon-barcode">&nbsp;</span>
+                            </button></a>
+                        {% endif %}
+                    </td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="7" style="text-align: center" class="text-danger">Заказов карт не найдено</td>
+                </tr>
+            {% endfor %}
+        </table>
+    </div>
+{% endblock %}

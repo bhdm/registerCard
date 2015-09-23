@@ -1069,5 +1069,19 @@ class CompanyUser extends BaseEntity
         $this->client = $client;
     }
 
+    public function getCompanyTypeStr(){
+        switch ($this->companyType){
+            case 1: return 'Предприятие';
+            case 2: return 'Мастерская';
+        }
+    }
+
+    public function getCardTypeStr(){
+        switch ($this->cardType){
+            case 1: return 'СКЗИ';
+            case 2: return 'ЕСТР';
+            case 3: return 'РФ';
+        }
+    }
 
 }
