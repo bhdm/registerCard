@@ -14,6 +14,7 @@ use Doctrine\Common\Collections\ArrayCollection;
  *
  * @ORM\Table("user")
  * @ORM\Entity(repositoryClass="UserRepository")
+ * @ORM\HasLifecycleCallbacks()
  */
 class User extends BaseEntity implements UserInterface, EquatableInterface, \Serializable
 {
@@ -45,7 +46,7 @@ class User extends BaseEntity implements UserInterface, EquatableInterface, \Ser
      * @Assert\Regex(pattern= "/^[a-zа-яA-ZА-Я]+$/u", message="Неверный формат ввода.")
      * @ORM\Column(type="string", length=100)
      */
-    protected  $lastName;
+    protected $lastName;
 
     /**
      * @Assert\NotBlank( message = "Поле имя обязательно для заполнения" )
@@ -53,14 +54,14 @@ class User extends BaseEntity implements UserInterface, EquatableInterface, \Ser
      * @Assert\Regex(pattern= "/^[a-zа-яA-ZА-Я]+$/u", message="Неверный формат ввода.")
      * @ORM\Column(type="string", length=100)
      */
-    protected  $firstName;
+    protected $firstName;
 
     /**
      * @Assert\Length( max = "35", maxMessage = "Максимум  35 символов")
      * @Assert\Regex(pattern= "/^[a-zа-яA-ZА-Я]+$/u", message="Неверный формат ввода.")
      * @ORM\Column(type="string", length=100, nullable=true)
      */
-    protected  $surName;
+    protected $surName;
 
     /**
      * @ORM\Column(type="string", length=100, nullable=true)
@@ -82,19 +83,19 @@ class User extends BaseEntity implements UserInterface, EquatableInterface, \Ser
      * @Assert\NotBlank( message = "Поле дата рождения обязательно для заполнения" )
      * @ORM\Column(type="datetime", length=100)
      */
-    protected  $birthDate;
+    protected $birthDate;
 
     /**
      * @Assert\NotBlank( message = "Поле телефон обязательно для заполнения" )
      * @ORM\Column(type="string", length=70)
      */
-    protected  $username;
+    protected $username;
 
     /**
      * @Assert\Regex(pattern= "/^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{1,})$/", message="Неверный формат ввода.")
      * @ORM\Column(type="string", length=50, nullable=true)
      */
-    protected  $email;
+    protected $email;
 
 
     /**
@@ -127,7 +128,7 @@ class User extends BaseEntity implements UserInterface, EquatableInterface, \Ser
      * @Assert\Regex(pattern= "/^[0-9]{6}$/", message="Неверный формат ввода.")
      * @ORM\Column(type="string", length=12, nullable=true)
      */
-    protected  $dileveryZipcode;
+    protected $dileveryZipcode;
 
     /**
      * @ORM\Column(type="string", nullable=true)
@@ -188,7 +189,7 @@ class User extends BaseEntity implements UserInterface, EquatableInterface, \Ser
      * @Assert\Regex(pattern= "/^[0-9]{6}$/", message="Неверный формат ввода.")
      * @ORM\Column(type="string", length=12, nullable=true)
      */
-    protected  $registeredZipcode;
+    protected $registeredZipcode;
 
     /**
      * @Assert\Length( max = "64", maxMessage = "Максимум  64 символа")
@@ -474,12 +475,14 @@ class User extends BaseEntity implements UserInterface, EquatableInterface, \Ser
      */
     protected $workshop = 0;
 
-    public function getXmlId(){
+    public function getXmlId()
+    {
         return str_pad($this->id, 8, "0", STR_PAD_LEFT);
     }
 
-    public function __construct(){
-        $this->roles    = 'ROLE_UNCONFIRMED';
+    public function __construct()
+    {
+        $this->roles = 'ROLE_UNCONFIRMED';
         $this->statuslog = new ArrayCollection();
         $this->estr = 0;
         $this->ru = 0;
@@ -525,11 +528,11 @@ class User extends BaseEntity implements UserInterface, EquatableInterface, \Ser
      */
     public function setFirstName($firstName)
     {
-        $first = mb_substr($firstName,0,1, 'UTF-8');
+        $first = mb_substr($firstName, 0, 1, 'UTF-8');
         $first = mb_strtoupper($first, 'UTF-8');
-        $last = mb_substr($firstName,1,strlen($firstName),'UTF-8');
+        $last = mb_substr($firstName, 1, strlen($firstName), 'UTF-8');
         $last = mb_strtolower($last, 'UTF-8');
-        $this->firstName = $first.$last;
+        $this->firstName = $first . $last;
     }
 
     /**
@@ -545,11 +548,11 @@ class User extends BaseEntity implements UserInterface, EquatableInterface, \Ser
      */
     public function setLastName($lastName)
     {
-        $first = mb_substr($lastName,0,1, 'UTF-8');
+        $first = mb_substr($lastName, 0, 1, 'UTF-8');
         $first = mb_strtoupper($first, 'UTF-8');
-        $last = mb_substr($lastName,1,strlen($lastName),'UTF-8');
+        $last = mb_substr($lastName, 1, strlen($lastName), 'UTF-8');
         $last = mb_strtolower($last, 'UTF-8');
-        $this->lastName = $first.$last;
+        $this->lastName = $first . $last;
     }
 
     /**
@@ -581,11 +584,11 @@ class User extends BaseEntity implements UserInterface, EquatableInterface, \Ser
      */
     public function setSurName($surName)
     {
-        $first = mb_substr($surName,0,1, 'UTF-8');
+        $first = mb_substr($surName, 0, 1, 'UTF-8');
         $first = mb_strtoupper($first, 'UTF-8');
-        $last = mb_substr($surName,1,strlen($surName),'UTF-8');
+        $last = mb_substr($surName, 1, strlen($surName), 'UTF-8');
         $last = mb_strtolower($last, 'UTF-8');
-        $this->surName = $first.$last;
+        $this->surName = $first . $last;
     }
 
     /**
@@ -615,7 +618,7 @@ class User extends BaseEntity implements UserInterface, EquatableInterface, \Ser
     /**
      * @param mixed $password
      */
-    public function setPassword($password='1')
+    public function setPassword($password = '1')
     {
         $this->password = $password;
     }
@@ -628,9 +631,10 @@ class User extends BaseEntity implements UserInterface, EquatableInterface, \Ser
         return $this->roles;
     }
 
-    public function isRole($role){
+    public function isRole($role)
+    {
         $roles = explode(';', $this->roles);
-        $key   = array_search($role, $roles);
+        $key = array_search($role, $roles);
         if ($key !== false) {
             return true;
         }
@@ -679,7 +683,7 @@ class User extends BaseEntity implements UserInterface, EquatableInterface, \Ser
     public function removeRole($role)
     {
         $roles = explode(';', $this->roles);
-        $key   = array_search($role, $roles);
+        $key = array_search($role, $roles);
 
         if ($key !== false) {
             unset($roles[$key]);
@@ -746,11 +750,13 @@ class User extends BaseEntity implements UserInterface, EquatableInterface, \Ser
         $this->company = $company;
     }
 
-    public function getPhone(){
+    public function getPhone()
+    {
         return $this->username;
     }
 
-    public function setPhone($phone){
+    public function setPhone($phone)
+    {
         $this->username = $phone;
     }
 
@@ -771,11 +777,10 @@ class User extends BaseEntity implements UserInterface, EquatableInterface, \Ser
     }
 
 
-
     /**
      * @param mixed $status
      */
-    public function setStatus($status=0)
+    public function setStatus($status = 0)
     {
         $this->status = $status;
     }
@@ -788,7 +793,8 @@ class User extends BaseEntity implements UserInterface, EquatableInterface, \Ser
         return $this->status;
     }
 
-    public function getStatusString(){
+    public function getStatusString()
+    {
         $status = null;
 //        switch ($this->status){
 //            case null:
@@ -804,7 +810,7 @@ class User extends BaseEntity implements UserInterface, EquatableInterface, \Ser
 //                $status = 'Отправлен клиенту';
 //                break;
 //        }
-        switch ($this->status){
+        switch ($this->status) {
             case null:
                 $status = 'Новая';
                 break;
@@ -836,7 +842,8 @@ class User extends BaseEntity implements UserInterface, EquatableInterface, \Ser
         return $status;
     }
 
-    public function getStatusStringTwig(){
+    public function getStatusStringTwig()
+    {
 //        {% if user.status == null or user.status == 0  %}
 //        <span class="status" style="border: 1px solid #000">
 //                                {% elseif user.status == 10 %}
@@ -856,7 +863,7 @@ class User extends BaseEntity implements UserInterface, EquatableInterface, \Ser
 //                                {% else %}
 //                                    <span class="status" style="border: 1px solid #000000; color: #000000">
 //                                {% endif %}
-        switch ($this->status){
+        switch ($this->status) {
             case null:
                 $status = '<span class="status" style="border: 1px solid #000; color: #000000">Новая</span>';
                 break;
@@ -1001,7 +1008,6 @@ class User extends BaseEntity implements UserInterface, EquatableInterface, \Ser
     }
 
 
-
     /**
      * @param mixed $dileveryCorp
      */
@@ -1017,7 +1023,6 @@ class User extends BaseEntity implements UserInterface, EquatableInterface, \Ser
     {
         return $this->dileveryCorp;
     }
-
 
 
     /**
@@ -1051,7 +1056,6 @@ class User extends BaseEntity implements UserInterface, EquatableInterface, \Ser
     {
         return $this->dileveryRoom;
     }
-
 
 
     /**
@@ -1471,11 +1475,13 @@ class User extends BaseEntity implements UserInterface, EquatableInterface, \Ser
         $this->statuslog = $statuslog;
     }
 
-    public function addStatusLog($statuslog){
+    public function addStatusLog($statuslog)
+    {
         $this->statuslog[] = $statuslog;
     }
 
-    public function removeStatusLog($statuslog){
+    public function removeStatusLog($statuslog)
+    {
         $this->statuslog->removeElement($statuslog);
     }
 
@@ -1703,10 +1709,11 @@ class User extends BaseEntity implements UserInterface, EquatableInterface, \Ser
         $this->dileveryStructure = $dileveryStructure;
     }
 
-    public function getStatusArray(){
+    public function getStatusArray()
+    {
         $userLog = $this->statuslog;
         $userLogArray = array();
-        foreach ($userLog as $status){
+        foreach ($userLog as $status) {
             $userLogArray[] = array(
                 'title' => $status->getTitle(),
                 'date' => $status->getCreated(),
@@ -1979,5 +1986,31 @@ class User extends BaseEntity implements UserInterface, EquatableInterface, \Ser
         $this->petitionAdrs = $petitionAdrs;
     }
 
+    /**
+     * @ORM\PrePersist()
+     */
+    public function prePersist()
+    {
+        if (!empty($this->deliveryAdrs)) {
+            $this->dileveryRegion = $this->deliveryAdrs['region'];
+            $this->dileveryArea = $this->deliveryAdrs['area'];
+            $this->dileveryCity = $this->deliveryAdrs['city'];
+            $this->dileveryStreet = $this->deliveryAdrs['street'];
+            $this->dileveryHome = $this->deliveryAdrs['house'];
+            $this->dileveryStructure = $this->deliveryAdrs['structure'];
+            $this->dileveryRoom = $this->deliveryAdrs['room'];
+            $this->dileveryZipcode = $this->deliveryAdrs['zipcode'];
+        }
+        if (!empty($this->registeredAdrs)) {
+            $this->registeredRegion =   $this->registeredAdrs['region'];
+            $this->registeredArea =     $this->registeredAdrs['area'];
+            $this->registeredCity =     $this->registeredAdrs['city'];
+            $this->registeredStreet =   $this->registeredAdrs['street'];
+            $this->registeredHome =     $this->registeredAdrs['house'];
+            $this->registeredStructure =$this->registeredAdrs['structure'];
+            $this->registeredRoom =     $this->registeredAdrs['room'];
+            $this->registeredZipcode =  $this->registeredAdrs['zipcode'];
+        }
 
+    }
 }
