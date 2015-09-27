@@ -104,6 +104,19 @@
                     <td>{{ form_widget(form.birthDate) }}</td>
                 </tr>
                 <tr>
+                    <td>Серия и номер пасспорта<span class="required">*</span></td>
+                    <td>
+                        <div class="row">
+                            <div class="col-sm-4">
+                                {{ form_widget(form.passportSerial) }}
+                            </div>
+                            <div class="col-sm-8">
+                                {{ form_widget(form.passportNumber) }}
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
                     <td>Регион<span class="required">*</span>:</td>
                     <td class="value">
                         {{ form_widget(form.registeredAdrs.region) }}
