@@ -174,6 +174,7 @@ class OrderController extends Controller
      * @Template("CrmAuthBundle:Application:newCompanyUser.html.twig")
      */
     public function addCompanyUser(Request $request){
+        $session = new Session();
         $em = $this->getDoctrine()->getManager();
         $item = new CompanyUser();
         $form = $this->createForm(new CompanyUserType($em), $item);
