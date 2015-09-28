@@ -21,8 +21,7 @@ class PasswordCompanyType extends AbstractType
                 'options' => array('attr' => array('class' => 'password-field')),
                 'required' => true,
                 'first_options'  => array('label' => 'Пароль'),
-                'second_options' => array('label' => 'Повт
-                орите пароль'),
+                'second_options' => array('label' => 'Повторите пароль'),
             ))
 
             ->add('submit', 'submit', array('label' => 'Изменить'))
