@@ -33,7 +33,8 @@ class UserRuType extends AbstractType
             ->add('firstName', null,['label'=>'Имя'])
             ->add('surName', null,['label'=>'Отчество'])
             ->add('birthDate', 'date',['label'=>'Дата рождения','widget' => 'single_text'])
-
+            ->add('passportSerial', null,['label'=>'Серия и номер паспорта'])
+            ->add('passportNumber', null,['label'=>''])
             ->add('email', null,['label'=>'Email'])
             ->add('username', null,['label'=>'Телефон', 'attr' => ['class' => 'phone']])
             ->add('snils', null,['label'=>'СНИЛС', 'attr' => ['class'=> 'snils']])

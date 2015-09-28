@@ -105,7 +105,16 @@
                 </tr>
                 <tr>
                     <td>Серия и номер паспорта<span class="required">*</span></td>
-                    <td>{{ form_widget(form.passportSerial) }} {{ form_widget(form.passportNumber) }}</td>
+                    <td>
+                        <div class="row">
+                            <div class="col-sm-4">
+                                {{ form_widget(form.passportSerial) }}
+                            </div>
+                            <div class="col-sm-8">
+                                {{ form_widget(form.passportNumber) }}
+                            </div>
+                        </div>
+                    </td>
                 </tr>
                 <tr>
                     <td>Кем выдан<span class="required">*</span></td>

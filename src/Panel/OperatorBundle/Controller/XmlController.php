@@ -64,7 +64,7 @@ class XmlController extends Controller
      * @Route("/ru-xml/{userId}", name="panel_operator_ru_xml")
      * @Template("")
      */
-    public function ruXmlAction($userId){
+    public function ruXmlAction($userId, $isMethod = false){
         $user = $this->getDoctrine()->getRepository('CrmMainBundle:User')->findOneById($userId);
         $filePath = __DIR__.'/../../../../web/';
 
@@ -122,5 +122,24 @@ class XmlController extends Controller
         $imagedata = file_get_contents($filePath);
         $base64 = base64_encode($imagedata);
         return $base64;
+    }
+
+
+    /**
+     * @Route("/many-ru-xml/{userId}", name="panel_operator_many_ru_xml")
+     */
+    public function manyRuXmlAction(Request $request){
+        $usersId = $request->request->get('check');
+        $xmls = array();
+        $driver = null;
+        foreach ($usersId as $userId => $val){
+            $user = $this->getDoctrine()->getRepository('CrmMainBundle:User')->findOneById($userId);
+            if ($user && $user->getRu() == 1){
+                /**
+                 * Должен выдать ссылку на файл
+                 */
+                $xmls[$user->getId()] = $this->ruXmlAction($userId, true);
+            }
+        }
     }
 }
