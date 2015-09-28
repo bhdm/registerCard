@@ -124,15 +124,26 @@
                             <tr>
                                 <td>
                                     <span style="padding-left: 20px">
-                                        <img src="{{ asset('bundles/crmface/icons/vopros.png') }}" style="margin-bottom: -12px;">
-                                        <a href="{{ path('faq') }}" class="vopros">Задать вопрос</a>
+                                        {#<img src="{{ asset('bundles/crmface/icons/vopros.png') }}" style="margin-bottom: -12px;">#}
+                                        <a href="{{ path('faq') }}" class="vopros" style="padding-top: 14px;">Задать вопрос</a>
                                     </span>
                                     <br />
-                                    <br />
-                                    <br />
+                                    <img src="{{ asset('bundles/crmface/images/call.png') }}" class="call" style="width: 145px;display: block;margin-top: 20px;margin-left: 19px;">
                                 </td>
                                 <td>
-                                    <img src="{{ asset('bundles/crmface/images/call.png') }}" class="call">
+                                    {% if not is_granted('ROLE_CLIENT') %}
+                                        <a href="{{ path('auth_register') }}"><div class="btn btn-red btn-order" style="color: #FFF">Зарегистрироваться</div></a>
+                                        <br />
+                                        <br />
+                                        <br />
+                                        <a href="{{ path('auth_login') }}"><div class="btn btn-red btn-order" style="color: #FFF">Войти</div></a>
+                                    {% else %}
+                                        <a href="{{ path('auth_order') }}"><div class="btn btn-red btn-order" style="color: #FFF; ">{{app.user.username}}</div></a>
+                                        <br />
+                                        <br />
+                                        <br />
+                                        <a href="{{ path('auth_security_logout') }}"><div class="btn btn-red btn-order" style="color: #FFF">Выйти</div></a>
+                                    {% endif %}
                                 </td>
                             </tr>
                         </table>

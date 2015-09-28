@@ -95,7 +95,7 @@ a{
 .vopros{
     font-size: 24px;
     font-weight: bold;
-    padding-left: 20px;
+    /*padding-left: 20px;*/
     display: inline-block;
     margin-top: -10px;
 
