@@ -372,7 +372,7 @@ class ApplicationRuController extends Controller
         /**
          * Если новенький - создаем под него учетную запись
          */
-        if ($this->get('security.authorization_checker')->isGranted('IS_AUTHENTICATED_ANONYMOUSLY') && (!isset($url) || $url == null)){
+        if (!$this->get('security.authorization_checker')->isGranted('IS_AUTHENTICATED_REMEMBERED') && (!isset($url) || $url == null)){
             $pass = $this->generatePassword(6);
             $client = $this->getDoctrine()->getRepository('CrmMainBundle:Client')->findOneByUsername($user->getEmail());
             if ($client == null ){

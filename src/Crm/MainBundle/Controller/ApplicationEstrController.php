@@ -380,7 +380,7 @@ class ApplicationEstrController extends Controller
         /**
          * Если новенький - создаем под него учетную запись
          */
-        if ($this->get('security.authorization_checker')->isGranted('IS_AUTHENTICATED_ANONYMOUSLY') && (!isset($url) || $url == null)){
+        if (!$this->get('security.authorization_checker')->isGranted('IS_AUTHENTICATED_REMEMBERED') && (!isset($url) || $url == null)){
             $pass = $this->generatePassword(6);
             $client = $this->getDoctrine()->getRepository('CrmMainBundle:Client')->findOneByUsername($user->getEmail());
             if ($client == null ){
@@ -395,14 +395,14 @@ class ApplicationEstrController extends Controller
                 $client->setSurName($user->getSurName());
                 $client->setRoles('ROLE_CLIENT');
             }
-            $client->setSalt(md5(time()));
-            $encoder = new MessageDigestPasswordEncoder('sha512', true, 10);
-            $password = $encoder->encodePassword($pass, $client->getSalt());
-            $client->setPassword($password);
+//            $client->setSalt(md5(time()));
+//            $encoder = new MessageDigestPasswordEncoder('sha512', true, 10);
+//            $password = $encoder->encodePassword($pass, $client->getSalt());
+//            $client->setPassword($password);
 
-            $em->persist($client);
-            $em->flush($client);
-            $em->refresh($client);
+//            $em->persist($client);
+//            $em->flush($client);
+//            $em->refresh($client);
 
             $user->setClient($client);
             $em->persist($user);
