@@ -2,6 +2,7 @@
 
 namespace Crm\AuthBundle\Controller;
 
+use Crm\AuthBundle\Form\PasswordCompanyType;
 use Crm\AuthBundle\Form\ProfileCompanyType;
 use Crm\AuthBundle\Form\RegisterCompanyType;
 use Crm\MainBundle\Entity\Client;
@@ -10,6 +11,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\Security\Core\Encoder\MessageDigestPasswordEncoder;
 use Symfony\Component\Security\Core\SecurityContext;
 
@@ -85,7 +87,11 @@ class AuthController extends Controller
                 $em->refresh($item);
             }
         }
-        return array('form' => $form->createView());
+
+
+        $formPass = $this->createForm(new PasswordCompanyType($em), $item);
+
+        return array('form' => $form->createView(), 'formPass' => $formPass->createView());
     }
 
     /**
@@ -99,6 +105,32 @@ class AuthController extends Controller
 
         }
 
+    }
+
+    /**
+     * @Route("/password-check", name="auth_password_check")
+     */
+    public function resetEmailAction(Request $request){
+        $em = $this->getDoctrine()->getManager();
+        $item = $this->getDoctrine()->getRepository('CrmMainBundle:Client')->findOneById($this->getUser()->getId());
+        $form = $this->createForm(new PasswordCompanyType($em), $item);
+        $formData = $form->handleRequest($request);
+        if ($request->getMethod() === 'POST'){
+            if ($formData->isValid()){
+                $item->setSalt(md5(time()));
+                $encoder = new MessageDigestPasswordEncoder('sha512', true, 10);
+                $password = $encoder->encodePassword($item->getPassword(), $item->getSalt());
+                $item->setPassword($password);
+                $em->flush($item);
+                $session = new Session();
+                $session->getFlashBag()->add('success', 'Пароль изменен.');
+            }else{
+                $session = new Session();
+                $session->getFlashBag()->add('error', 'Ошибка: Пароли не совпадают');
+            }
+        }
+        $referer = $request->headers->get('referer');
+        return $this->redirect($referer);
     }
 
     /**

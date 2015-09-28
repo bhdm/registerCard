@@ -1,8 +1,23 @@
 {% extends 'CrmAuthBundle::layout.html.twig' %}
 
 {% block body %}
-        <h2>Профиль</h2>
-        <form method="post" style="width: 500px" class="form-horizontal">
-            {{  form_widget(form) }}
-        </form>
+    <h2>Профиль</h2>
+    <form method="post" style="width: 500px" class="form-horizontal">
+        {{  form_widget(form) }}
+    </form>
+    <h2>Сменить пароль</h2>
+    {% for flashMessage in app.session.flashbag.get('error') %}
+        <div id="flashmessage" class="text-danger">
+            {{ flashMessage }}
+        </div>
+    {% endfor %}
+    {% for flashMessage in app.session.flashbag.get('success') %}
+        <div id="flashmessage" class="text-success">
+            {{ flashMessage }}
+        </div>
+    {% endfor %}
+
+    <form method="post" style="width: 500px" class="form-horizontal" action="{{ path('auth_password_check') }}">
+        {{  form_widget(formPass) }}
+    </form>
 {% endblock %}
