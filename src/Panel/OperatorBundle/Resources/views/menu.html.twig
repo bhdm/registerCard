@@ -61,6 +61,13 @@
                 &nbsp;&nbsp;Главная
             </a>
         </li>
+        <li class="{{ app.request.attributes.get('_route') == 'operator_companyuser_list' ? 'active' : '' }}">
+            <a href="{{ path('operator_companyuser_list') }}">
+                <i class="glyphicon glyphicon-index"></i>
+                &nbsp;&nbsp;Юр. лица
+            </a>
+        </li>
+
 
         <li class="{{ app.request.attributes.get('_route') == 'panel_petition_list' ? 'active' : '' }}">
             <a href="{{ path('panel_petition_list') }}">
