@@ -25,6 +25,6 @@
 </ul>
 <br />
 <br />
-{% if app.user.company != null %}
+{% if app.user.company != null and app.user.company.id != 551 %}
     {{ render(path('auth_company_get_quota', {'companyId' : app.user.company.id })) }}
 {% endif %}
