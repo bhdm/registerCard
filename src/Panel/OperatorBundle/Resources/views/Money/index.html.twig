@@ -17,17 +17,17 @@
             <tr>
                 <th>Тип заявки</th>
                 <th>ИТОГО</th>
-                <th>мар</th>
-                <th>апр</th>
                 <th>май</th>
                 <th>июн</th>
                 <th>июл</th>
                 <th>авг</th>
+                <th>сен</th>
+                <th>окт</th>
             </tr>
             <tr>
                 <td>СКЗИ</td>
                 <td><b>{{ fullSummaSkzi }}</b></td>
-                {% for j in range(3, 8) %}
+                {% for j in range(5, 10) %}
                     <td>
                         {% if statsByYear['1'][year~'-'~j] is defined %}
                             {{ statsByYear['1'][year~'-'~j] }}
@@ -40,7 +40,7 @@
             <tr>
                 <td>ЕСТР</td>
                 <td><b>{{ fullSummaEstr }}</b></td>
-                {% for j in range(3, 8) %}
+                {% for j in range(5, 10) %}
                     <td>
                         {% if statsByYear['2'][year~'-'~j] is defined %}
                             {{ statsByYear['2'][year~'-'~j] }}
@@ -53,7 +53,7 @@
             <tr>
                 <td>РФ</td>
                 <td><b>{{ fullSummaRu }}</b></td>
-                {% for j in range(3, 8) %}
+                {% for j in range(5, 10) %}
                     <td>
                         {% if statsByYear['3'][year~'-'~j] is defined %}
                             {{ statsByYear['3'][year~'-'~j] }}
@@ -66,7 +66,7 @@
             <tr>
                 <td><b>ИТОГО</b></td>
                 <td><b>{{ fullSummaSkzi + fullSummaEstr + fullSummaRu }}</b></td>
-                {% for j in range(3, 8) %}
+                {% for j in range(5, 10) %}
                     <td>
                         {%  set x1  = (statsByYear['1'][year~'-'~j] is defined ? statsByYear['1'][year~'-'~j] : 0) %}
                         {%  set x2  = (statsByYear['2'][year~'-'~j] is defined ? statsByYear['2'][year~'-'~j] : 0) %}
@@ -139,17 +139,17 @@
             <caption>Cтатистика заявок по компаниям по месяцам</caption>
             <tr>
                 <th>Название компании</th>
-                <th>мар</th>
-                <th>апр</th>
                 <th>май</th>
                 <th>июн</th>
                 <th>июл</th>
                 <th>авг</th>
+                <th>сен</th>
+                <th>окт</th>
             </tr>
             {% for comps in statsOfCompany  %}
                 <tr>
                     <td>{{ comps.title }}</td>
-                    {% for j in range(3, 8) %}
+                    {% for j in range(5, 10) %}
                         <td>
                             {% if comps.count['1'][year~'-'~j] is defined %}
                                 {{ comps.count['1'][year~'-'~j] }}
@@ -174,7 +174,7 @@
             {% endfor %}
             <tr>
                 <td><b>ИТОГО</b></td>
-                {% for j in range(3, 8) %}
+                {% for j in range(5, 10) %}
                     <td>
                         {% set x1 = 0 %}
                         {% set x2 = 0 %}
@@ -193,17 +193,17 @@
             <caption>Cтатистика заявок по операторам и модераторамs по месяцам</caption>
             <tr>
                 <th>Название опер / модератора</th>
-                <th>мар</th>
-                <th>апр</th>
                 <th>май</th>
                 <th>июн</th>
                 <th>июл</th>
                 <th>авг</th>
+                <th>сен</th>
+                <th>окт</th>
             </tr>
             {% for comps in statsOfOperator  %}
                 <tr>
                     <td>{{ comps.title }}</td>
-                    {% for j in range(3, 8) %}
+                    {% for j in range(5, 10) %}
                         <td>
                             {% if comps.count['1'][year~'-'~j] is defined %}
                                 {{ comps.count['1'][year~'-'~j] }}
@@ -228,7 +228,7 @@
             {% endfor %}
             <tr>
                 <td><b>ИТОГО</b></td>
-                {% for j in range(3, 8) %}
+                {% for j in range(5, 10) %}
                     <td>
                         {% set x1 = 0 %}
                         {% set x2 = 0 %}
@@ -249,12 +249,12 @@
             <caption>Cтатистика денег по компаниям</caption>
             <tr>
                 <th>Название опер / модератора</th>
-                <th>мар</th>
-                <th>апр</th>
                 <th>май</th>
                 <th>июн</th>
                 <th>июл</th>
                 <th>авг</th>
+                <th>сен</th>
+                <th>окт</th>
             </tr>
             {% set s1 = 0 %}
             {% set s2 = 0 %}
