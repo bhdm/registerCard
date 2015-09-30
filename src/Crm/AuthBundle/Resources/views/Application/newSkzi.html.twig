@@ -415,7 +415,9 @@
                 <tr>
                     <td></td>
                     <td colspan="2" style="text-align: left">
-                        <input type="checkbox" required="required"> Я согласен с <a href="#" target="_blank">пользовательским соглашением сервиса</a><span class="required">*</span> <br />
+                        {% if edit is not defined  %}
+                            <input type="checkbox" required="required"> Я согласен с <a href="#" target="_blank">пользовательским соглашением сервиса</a><span class="required">*</span> <br />
+                        {% endif %}
                         <input type="checkbox" required="required"> Я подтверждаю правильность введенных данных<span class="required">*</span>
                     </td>
                 </tr>
@@ -425,7 +427,11 @@
                     <td></td>
                     <td>
                         <br />
-                        <input type="submit" value="Подтвердить и перейти на страницу оплаты" class="btn btn-primary" id="submit">
+                        {% if edit is not defined  %}
+                            <input type="submit" value="Подтвердить и перейти на страницу оплаты" class="btn btn-primary" id="submit">
+                        {% else %}
+                            <input type="submit" value="Сохранить" class="btn btn-primary" id="submit">
+                        {% endif %}
                     </td>
                 </tr>
             </table>
