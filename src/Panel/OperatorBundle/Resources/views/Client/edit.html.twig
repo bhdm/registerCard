@@ -27,5 +27,9 @@
 {% endblock %}
 {% block javascripts %}
     {{ parent() }}
-
+    <script>
+        $(document).ready(function(){
+            $("select").chosen({disable_search_threshold: 10});
+        });
+    </script>
 {% endblock %}
