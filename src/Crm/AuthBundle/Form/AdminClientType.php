@@ -18,7 +18,7 @@ class AdminClientType extends AbstractType
             ->add('username', 'email', array('label' => 'Email'))
             ->add('phone', 'text', array('label' => 'Телефон'))
             ->add('companyTitle', 'text', array('label' => 'Название организации'))
-            ->add('company', null, array('label' => 'Прикрепить к организации'))
+            ->add('company', null, array('label' => 'Прикрепить к организации', 'attr' => ['class' => 'chosen']))
 
             ->add('submit', 'submit', array('label' => 'Сохранить'))
         ;
