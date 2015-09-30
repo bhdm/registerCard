@@ -67,7 +67,7 @@
                     <td>{{ form_widget(form.firstName) }}</td>
                     <td rowspan="7" style="vertical-align: top">
                         <div class="file-container">
-                            <input type="file" name="passportFile" id="passportFile" class="fileAjax"  required="required">
+                            <input type="file" name="passportFile" id="passportFile" class="fileAjax" >
                             <progress class="progress" value="0" max="100" style="width: 270px"></progress>
                             <br />
                             <br />
@@ -148,7 +148,7 @@
                     <td style="vertical-align: top; padding-top: 10px">Копия СНИЛС<span class="required">*</span></td>
                     <td colspan="2">
                         <div class="file-container">
-                            <input type="file" name="snilsFile" id="snilsFile" class="fileAjax"  required="required">
+                            <input type="file" name="snilsFile" id="snilsFile" class="fileAjax" >
                             <progress class="progress" value="0" max="100" style="width: 270px"></progress>
                             <br />
                             <br />
@@ -188,7 +188,7 @@
                     </td>
                     <td rowspan="7" style="vertical-align: top">
                         <div class="file-container">
-                            <input type="file" name="driverFile" id="driverFile" class="fileAjax"  required="required">
+                            <input type="file" name="driverFile" id="driverFile" class="fileAjax"  >
                             <progress class="progress" value="0" max="100" style="width: 270px"></progress>
                             <br />
                             <br />
@@ -351,7 +351,7 @@
                     <td style="vertical-align: top; padding-top: 10px">Подпись<span class="required">*</span></td>
                     <td colspan="2">
                         <div class="file-container">
-                            <input type="file" name="signFile" id="signFile" class="fileAjax"  required="required">
+                            <input type="file" name="signFile" id="signFile" class="fileAjax" >
                             <progress class="progress" value="0" max="100" style="width: 270px"></progress>
                             <br />
                             <br />
@@ -384,7 +384,7 @@
                     <td style="vertical-align: top; padding-top: 10px">Фотография<span class="required">*</span></td>
                     <td colspan="2">
                         <div class="file-container">
-                            <input type="file" name="photoFile" id="photoFile" class="fileAjax"  required="required">
+                            <input type="file" name="photoFile" id="photoFile" class="fileAjax" >
                             <progress class="progress" value="0" max="100" style="width: 270px"></progress>
                             <br />
                             <br />
@@ -673,6 +673,8 @@
             $(".snils").mask("999-999-999 99");
             $.mask.definitions['d'] = "[a-zA-Z0-9а-яА-Я]";
             $('.driverNumber').mask("dddd999999");
+
+            $('.oldCardNumber').mask("RUDddddddddddddd");
 
             $('.cardType').change(function(){
                 $('input, select').trigger('refresh');

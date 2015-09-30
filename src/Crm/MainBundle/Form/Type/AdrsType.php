@@ -19,15 +19,15 @@ class AdrsType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('region', null , array('attr' => array('autocomplete' => "off")))
-            ->add('area', null , array('required' => false, 'attr' => array('autocomplete' => "off")))
-            ->add('city',null , array('required' => false, 'attr' => array('autocomplete' => "off")))
-            ->add('street',null , array('required' => false, 'attr' => array('autocomplete' => "off")))
-            ->add('house',null, array('attr' => array('placeholder' => 'Дом', 'class' => 'adrsMini', 'autocomplete' => "off")))
-            ->add('corp',null, array('required' => false, 'attr' => array('placeholder' => 'Корпус', 'class' => 'adrsMini', 'autocomplete' => "off")))
-            ->add('structure',null, array('required' => false, 'attr' => array('placeholder' => 'Строение', 'class' => 'adrsMini', 'autocomplete' => "off")))
-            ->add('room',null , array('required' => false, 'attr' => array('autocomplete' => "off", 'placeholder' => 'Кв./оф.')))
-            ->add('zipcode',null, array('attr' => array('class' => 'zipcode', 'autocomplete' => "off")));
+            ->add('region', null, array('required' => false))
+            ->add('area', null , array('required' => false))
+            ->add('city',null , array('required' => false))
+            ->add('street',null , array('required' => false))
+            ->add('house',null, array('required' => false, 'attr' => array('placeholder' => 'Дом', 'class' => 'adrsMini')))
+            ->add('corp',null, array('required' => false, 'attr' => array('placeholder' => 'Корпус', 'class' => 'adrsMini')))
+            ->add('structure',null, array('required' => false, 'attr' => array('placeholder' => 'Строение', 'class' => 'adrsMini')))
+            ->add('room',null , array('required' => false, 'attr' => array( 'placeholder' => 'Кв./оф.')))
+            ->add('zipcode',null, array('required' => false, 'attr' => array('class' => 'zipcode')));
     }
 
     public function getName()

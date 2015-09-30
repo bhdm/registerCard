@@ -27,7 +27,7 @@ class UserRuType extends AbstractType
                 '0' => 'Российская Федерация',
                 '1' => 'Иностранное гражданство'
             )])
-            ->add('lastNumberCard', null ,['label' => 'Прошлый номер карты'])
+            ->add('lastNumberCard', null ,['label' => 'Прошлый номер карты', 'required' => false])
 
             ->add('lastName', null,['label'=>'Фамилия'])
             ->add('firstName', null,['label'=>'Имя'])

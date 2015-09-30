@@ -284,7 +284,6 @@ class User extends BaseEntity implements UserInterface, EquatableInterface, \Ser
 
     /**
      * @Assert\Length( max = "32", maxMessage = "Максимум  32 символа")
-     * @Assert\NotBlank( message = "Поле номер паспорта обязательно для заполнения" )
      * @ORM\Column(type="string", length=32, nullable=true)
      */
     protected $passportNumber;
@@ -296,7 +295,6 @@ class User extends BaseEntity implements UserInterface, EquatableInterface, \Ser
     protected $passportIssuance;
 
     /**
-     * @Assert\NotBlank( message = "Поле дата выдачи паспорта обязательно для заполнения" )
      * @ORM\Column(type="datetime", nullable=true)
      */
     protected $passportIssuanceDate;
@@ -338,7 +336,6 @@ class User extends BaseEntity implements UserInterface, EquatableInterface, \Ser
      */
     protected $driverDocDateEnds;
     /**
-     * @Assert\Regex(pattern= "/^RUD[A-Z0-9]{13}$/", message="Неверный формат ввода.")
      * @ORM\Column(type="string", nullable=true)
      */
     protected $lastNumberCard;

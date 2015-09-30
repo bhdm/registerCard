@@ -276,18 +276,16 @@ class OrderController extends Controller
         $item = $user;
 
         if ($user->getRu() == 0 && $user->getEstr() == 0 ){
-            $form = $this->createForm(new UserSkziType($em), $item, ['disabled' => true]);
+            $form = $this->createForm(new UserSkziType($em), $item);
         }elseif ($user->getRu() == 1 ){
-            $form = $this->createForm(new UserRuType($em), $item, ['disabled' => true]);
+            $form = $this->createForm(new UserRuType($em), $item);
         }else{
-            $form = $this->createForm(new UserEstrType($em), $item, ['disabled' => true]);
+            $form = $this->createForm(new UserEstrType($em), $item);
         }
 
         $formData = $form->handleRequest($request);
 
         if ($request->getMethod() == 'POST') {
-
-
 
             $this->getDoctrine()->getManager()->flush($user);
             $this->getDoctrine()->getManager()->refresh($user);
