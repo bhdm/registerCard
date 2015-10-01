@@ -73,5 +73,7 @@ security:
         - { path: /operator/, role: ROLE_OPERATOR }
         - { path: ^/auth/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/auth/register, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/auth/reset-password-check/*, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/auth/reset-password, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/auth/, roles: ROLE_CLIENT }
         - { path: /.*, role: IS_AUTHENTICATED_ANONYMOUSLY, requires_channel: %protocol%}

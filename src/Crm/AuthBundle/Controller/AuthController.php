@@ -68,8 +68,58 @@ class AuthController extends Controller
 
     /**
      * @Route("/reset-password", name="auth_reset_password")
+     * @Template("")
      */
-    public function resetPasswordAction(){}
+    public function resetPasswordAction(Request $request){
+        if ($request->getMethod() == 'POST'){
+            $mail = $request->request->get('username');
+            $client = $this->getDoctrine()->getRepository('CrmMainBundle:Client')->findOneByUsername($mail);
+            if ($client){
+                $message = \Swift_Message::newInstance()
+                    ->setSubject('Восстановление пароля')
+                    ->setFrom('info@im-kard.ru')
+                    ->setTo($client->getUsername())
+                    ->setBody(
+                        $this->renderView(
+                            'CrmAuthBundle:Mail:reset-password.html.twig',
+                            array('client' => $client)
+                        ), 'text/html'
+                    )
+                ;
+                $this->get('mailer')->send($message);
+                return ['error' => [ 'message' => 'Письмо отправлено вам на почту']];
+            }else{
+                return ['error' => [ 'message' => 'Пользователь не найден']];
+            }
+        }
+        return [];
+    }
+
+    /**
+     * @Route("/reset-password-check/{id}/{hash}", name="auth_reset_password_2")
+     * @Template("")
+     */
+    public function resetPasswordCheckAction(Request $request, $id, $hash){
+        $em = $this->getDoctrine()->getManager();
+        $client = $this->getDoctrine()->getRepository('CrmMainBundle:Client')->findOneById($id);
+        if ($client->getSalt() == $hash){
+            if ($request->getMethod() == 'POST'){
+                if ($request->request->get('password') == $request->request->get('password')){
+                    $client->setSalt(md5(time()));
+                    $encoder = new MessageDigestPasswordEncoder('sha512', true, 10);
+                    $password = $encoder->encodePassword($request->request->get('password'), $client->getSalt());
+                    $client->setPassword($password);
+                    $em->flush($client);
+                    return ['error' => [ 'message' => 'Пароли изменены']];
+                }else{
+                    return ['error' => [ 'message' => 'Пароли не совпадают']];
+                }
+            }
+            return ['client' => $client];
+        }else{
+            return $this->redirect($this->generateUrl('auth_login'));
+        }
+    }
 
     /**
      * @Route("/profile", name="auth_profile")
