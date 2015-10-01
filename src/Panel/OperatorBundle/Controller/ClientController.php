@@ -48,4 +48,11 @@ class ClientController extends Controller
         }
         return array('form' => $form->createView());
     }
+
+    /**
+     * @Route("/in/{id}", name="auth_in")
+     */
+    public function inAction($id){
+//        https://blog.vandenbrand.org/2012/06/19/symfony2-authentication-provider-authenticate-against-webservice/
+    }
 }

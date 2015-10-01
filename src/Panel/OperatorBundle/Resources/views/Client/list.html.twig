@@ -15,8 +15,8 @@
                data-sort-order="asc">
             <thead>
             <tr>
-                <th >Название</th>
                 <th >Компания</th>
+                <th >Название</th>
                 <th >Кол-во заявок</th>
                 <th >Квота</th>
                 <th class="setting">Инструменты</th>
@@ -24,12 +24,15 @@
             </thead>
             {% for client in clients %}
                 <tr style="{{ client.quota < 0 ? 'background: #FFCACA' : 0 }}" >
-                    <td><a href="{{ path('panel_client_edit',{'id' : client.id }) }}">{{ client.username }}</a></td>
                     <td>
                         {% if client.company != null %}
                             <a href="{{ path('panel_user_list', {'type' : 'null' , 'company' : client.company.id }) }}">{{ client.company.title }}</a>
                         {% endif %}
                     <td/>
+                    <td>
+                        <a href="{{ path('panel_client_edit',{'id' : client.id }) }}">{{ client.username }}</a>
+                        {#<a href="{{ path('auth_in',{'id' : client.id }) }}">войти</a>#}
+                    </td>
                     <td>
                         {{ client.orders | length }}
                     </td>
