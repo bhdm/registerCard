@@ -15,54 +15,51 @@
 
                 {% if is_granted('ROLE_ADMIN')  %}
                     <tr>
-                        <td>
-                            <table>
-                                <tr style="{{ user.typeCard > 0 ? 'background: #FFBCBC' : '' }}">
-                                    <td style="{{ user.typeCard > 0 ? 'background: #FFBCBC' : '' }}">
-                                        <div class="form-group">
-                                            <label class="control-label col-sm-3" for="typeCard">Тип выдачи:</label>
-                                            <div class="col-sm-3">
-                                                <select id="typeCard" name="typeCard" class="miniselect">
-                                                        <option value="0" {{ user.typeCard == 0 ? 'selected="selected"' : '' }}>Первичная выдача карты</option>
-                                                        <option value="1" {{ user.typeCard == 1 ? 'selected="selected"' : '' }} style="color: #CC0000;">Замена в связи с истечением срока действия карты</option>
-                                                        <option value="2" {{ user.typeCard == 2 ? 'selected="selected"' : '' }} style="color: #CC0000;">Замена в связи с дефектом, утерей или утратой карты</option>
-                                                        <option value="3" {{ user.typeCard == 3 ? 'selected="selected"' : '' }} style="color: #CC0000;">Замена карты вследствие изменения персональных данных</option>
-                                                </select>
-                                                {% if user.typeCardFile %}
-                                                    <br />
 
-                                                    <a href="/{{ user.typeCardFile.path }}" target="_blank">Скачать</a>
-                                                {% endif %}
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div class="form-group">
-                                            <label class="control-label col-sm-3" for="oldNumber">Старая карта:</label>
-                                            <div class="col-sm-9">
-                                                <input type="text"  name="oldNumber" id="oldNumber" class="form-control" value="{{ user.lastNumberCard }}">
-                                            </div>
-                                        </div>
-                                    </td>
-                                </tr>
-                            </table>
+                        <td style="{{ user.typeCard > 0 ? 'background: #FFBCBC' : '' }}">
+                            <div class="form-group">
+                                <label class="control-label col-sm-3" for="typeCard">Тип выдачи:</label>
+                                <div class="col-sm-9">
+                                    <select id="typeCard" name="typeCard" class="">
+                                        <option value="0" {{ user.typeCard == 0 ? 'selected="selected"' : '' }}>Первичная выдача карты</option>
+                                        <option value="1" {{ user.typeCard == 1 ? 'selected="selected"' : '' }} style="color: #CC0000;">Замена в связи с истечением срока действия карты</option>
+                                        <option value="2" {{ user.typeCard == 2 ? 'selected="selected"' : '' }} style="color: #CC0000;">Замена в связи с дефектом, утерей или утратой карты</option>
+                                        <option value="3" {{ user.typeCard == 3 ? 'selected="selected"' : '' }} style="color: #CC0000;">Замена карты вследствие изменения персональных данных</option>
+                                    </select>
+                                    {% if user.typeCardFile %}
+                                        <br />
+
+                                        <a href="/{{ user.typeCardFile.path }}" target="_blank">Скачать</a>
+                                    {% endif %}
+                                </div>
+                            </div>
                         </td>
                     </tr>
-                <tr>
-                    <td>
-                        <div class="form-group">
-                            <label class="control-label col-sm-3" for="status">Компания</label>
-                            <div class="col-sm-9">
-                                <select id="company" name="company" class="chosen">
-                                    {% for c in companies %}
-                                    <option value="{{ c.id }}"  {{ user.company.id == c.id ?  'selected="selected"' : '' }}>{{ c.id }} {{ c.title }}</option>
-                                    {% endfor %}
-                                </select>
-                                <a href="{{ path('panel_company_edit',{'id' : user.company.id }) }}">Открыть</a>
+                    <tr>
+                        <td>
+                            <div class="form-group">
+                                <label class="control-label col-sm-3" for="oldNumber">Старая карта:</label>
+                                <div class="col-sm-9">
+                                    <input type="text"  name="oldNumber" id="oldNumber" class="form-control" value="{{ user.lastNumberCard }}">
+                                </div>
                             </div>
-                        </div>
-                    </td>
-                </tr>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="form-group">
+                                <label class="control-label col-sm-3" for="status">Компания</label>
+                                <div class="col-sm-9">
+                                    <select id="company" name="company" class="chosen">
+                                        {% for c in companies %}
+                                            <option value="{{ c.id }}"  {{ user.company.id == c.id ?  'selected="selected"' : '' }}>{{ c.id }} {{ c.title }}</option>
+                                        {% endfor %}
+                                    </select>
+                                    <a href="{{ path('panel_company_edit',{'id' : user.company.id }) }}">Открыть</a>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
                 {% endif %}
                 <tr>
                     <td>
@@ -119,26 +116,26 @@
                     </td>
                 </tr>
                 {% if is_granted('ROLE_ADMIN') %}
-                <tr>
-                    <td>
-                        <div class="form-group">
-                            <label class="control-label col-sm-3" for="manager">Менеджер:</label>
-                            <div class="col-sm-9">
-                                <input type="text"  name="manager" id="manager" class="form-control" value="{{ user.managerKey }}" style="width: 200px">
+                    <tr>
+                        <td>
+                            <div class="form-group">
+                                <label class="control-label col-sm-3" for="manager">Менеджер:</label>
+                                <div class="col-sm-9">
+                                    <input type="text"  name="manager" id="manager" class="form-control" value="{{ user.managerKey }}" style="width: 200px">
+                                </div>
                             </div>
-                        </div>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <div class="form-group">
-                            <label class="control-label col-sm-3" for="price">Стоимость:</label>
-                            <div class="col-sm-9">
-                                <input type="text"  name="price" id="price" class="form-control" value="{{ user.price }}" style="width: 200px">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="form-group">
+                                <label class="control-label col-sm-3" for="price">Стоимость:</label>
+                                <div class="col-sm-9">
+                                    <input type="text"  name="price" id="price" class="form-control" value="{{ user.price }}" style="width: 200px">
+                                </div>
                             </div>
-                        </div>
-                    </td>
-                </tr>
+                        </td>
+                    </tr>
                 {% endif %}
                 <tr>
                     <td>
@@ -201,15 +198,15 @@
                     </td>
                 </tr>
                 {#<tr>#}
-                    {#<td>#}
-                        {#<div class="form-group">#}
-                            {#<label class="control-label col-sm-3" for="lastName">Серия и номер пасспорта:</label>#}
-                            {#<div class="col-sm-9">#}
-                                {#<input type="text"  name="passportSerial" id="passportSerial" class="form-control" value="{{ user.passportSerial }}">#}
-                                {#<input type="text"  name="passportNumber" id="passportNumber" class="form-control" value="{{ user.passportNumber }}">#}
-                            {#</div>#}
-                        {#</div>#}
-                    {#</td>#}
+                {#<td>#}
+                {#<div class="form-group">#}
+                {#<label class="control-label col-sm-3" for="lastName">Серия и номер пасспорта:</label>#}
+                {#<div class="col-sm-9">#}
+                {#<input type="text"  name="passportSerial" id="passportSerial" class="form-control" value="{{ user.passportSerial }}">#}
+                {#<input type="text"  name="passportNumber" id="passportNumber" class="form-control" value="{{ user.passportNumber }}">#}
+                {#</div>#}
+                {#</div>#}
+                {#</td>#}
                 {#</tr>#}
 
                 <tr>
@@ -688,9 +685,9 @@
                                     Сохранить
                                 </button>
                                 {#<a href="{{ referer }}">#}
-                                    <button type="button" class="btn btn-default btn-danger"   title="Отмена">
+                                <button type="button" class="btn btn-default btn-danger"   title="Отмена">
                                     Отмена
-                                    </button>
+                                </button>
                                 {#</a>#}
                             </div>
                         </div>
