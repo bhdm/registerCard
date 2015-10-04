@@ -18,8 +18,27 @@
                 <th >Компания</th>
                 <th >Название</th>
                 <th >Кол-во заявок</th>
-                <th >Квота</th>
+                {#<th >Квота</th>#}
                 <th class="setting">Инструменты</th>
+            </tr>
+            <tr>
+                <td>
+                    <select class="chosen" id="companies" data-placeholder="Компания" style="width: 200px">
+                        {% for c in companiesList %}
+                            <option value="{{ c.id }}">{{ c }}</option>
+                        {% endfor %}
+                    </select>
+                </td>
+                <td>
+                    <select class="chosen" id="clients" data-placeholder="Клиент" style="width: 200px">
+                        {% for c in clientsList %}
+                            <option value="{{ c.id }}">{{ c.username }}</option>
+                        {% endfor %}
+                    </select>
+                </td>
+                {#<td></td>#}
+                <td></td>
+                <td></td>
             </tr>
             </thead>
             {% for client in clients %}
@@ -28,7 +47,7 @@
                         {% if client.company != null %}
                             <a href="{{ path('panel_user_list', {'type' : 'null' , 'company' : client.company.id }) }}">{{ client.company.title }}</a>
                         {% endif %}
-                    <td/>
+                    </td>
                     <td>
                         <a href="{{ path('panel_client_edit',{'id' : client.id }) }}">{{ client.username }}</a>
                         {#<a href="{{ path('auth_in',{'id' : client.id }) }}">войти</a>#}
@@ -36,9 +55,7 @@
                     <td>
                         {{ client.orders | length }}
                     </td>
-                    <td>
-                        {{ client.quota }}
-                    </td>
+                    {#<td>{{ client.quota }}</td>#}
                     <td class="setting">
                         {% spaceless %}
                             {#<a href="{{ path('panel_company_quota',{'companyId' : company.id}) }}">#}
@@ -72,12 +89,15 @@
 {% block javascripts %}
     {{ parent() }}
     <script>
-//        $(document).ready(function(){
-//            $(".chosen").chosen({no_results_text: "Компаний по вашему запросу не найдено", width: 300});
-//
-//            $('.chosen').change(function(){
-//                window.location.href = Routing.generate('panel_company_list', {'companyId': $(this).val() })
-//            });
-//        });
+        $(document).ready(function(){
+            $(".chosen").chosen({no_results_text: "По вашему запросу не найдено", width: 300});
+
+            $('#companies').change(function(){
+                window.location.href = Routing.generate('panel_client_list', {'companyId': $(this).val() })
+            });
+            $('#clients').change(function(){
+                window.location.href = Routing.generate('panel_client_list', {'clientId': $(this).val() })
+            });
+        });
     </script>
 {% endblock %}

@@ -21,13 +21,23 @@ use Symfony\Component\HttpFoundation\Session\Session;
 class ClientController extends Controller
 {
     /**
-     * @Route("/list", name="panel_client_list")
+     * @Route("/list", name="panel_client_list", options={"expose" = true})
      * @Template("")
      */
-    public function listAction(){
-        $clients = $this->getDoctrine()->getRepository('CrmMainBundle:Client')->findAll();
+    public function listAction(Request $request){
+        if ($request->query->get('companyId')){
+            $company = $this->getDoctrine()->getRepository('CrmMainBundle:Client')->findOneById($request->query->get('companyId'));
+            $clients = $this->getDoctrine()->getRepository('CrmMainBundle:Client')->findBy(['company' => $company]);
+        }elseif($request->query->get('clientId')){
+            $clients = $this->getDoctrine()->getRepository('CrmMainBundle:Client')->findBy(['id' => $request->query->get('clientId')]);
+        }else{
+            $clients = $this->getDoctrine()->getRepository('CrmMainBundle:Client')->findAll();
+        }
 
-        return ['clients' => $clients ];
+        $clientsList = $this->getDoctrine()->getRepository('CrmMainBundle:Client')->findAll();
+        $companiesList = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->findAll();
+
+        return ['clients' => $clients, 'companiesList' => $companiesList, 'clientsList' => $clientsList ];
     }
 
     /**
