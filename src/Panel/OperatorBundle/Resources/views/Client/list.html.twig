@@ -47,6 +47,8 @@
                         {% if client.company != null %}
                             <a href="{{ path('panel_user_list', {'type' : 'null' , 'company' : client.company.id }) }}">{{ client.company.title }}</a>
                         {% endif %}
+                        &nbsp;&nbsp;&nbsp;
+                        <a href="{{ path('auth_in',{'id' : client.id}) }}" target="_blank">Войти</a>
                     </td>
                     <td>
                         <a href="{{ path('panel_client_edit',{'id' : client.id }) }}">{{ client.username }}</a>

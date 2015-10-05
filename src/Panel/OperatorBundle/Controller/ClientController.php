@@ -11,8 +11,10 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 use Symfony\Component\Security\Core\SecurityContext;
 use Symfony\Component\HttpFoundation\Session\Session;
+use Symfony\Component\Security\Http\Event\InteractiveLoginEvent;
 
 /**
  * @Security("has_role('ROLE_OPERATOR')")
@@ -69,12 +71,5 @@ class ClientController extends Controller
             }
         }
         return array('form' => $form->createView());
-    }
-
-    /**
-     * @Route("/in/{id}", name="auth_in")
-     */
-    public function inAction($id){
-//        https://blog.vandenbrand.org/2012/06/19/symfony2-authentication-provider-authenticate-against-webservice/
     }
 }
