@@ -11,8 +11,10 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 use Symfony\Component\Security\Core\SecurityContext;
 use Symfony\Component\HttpFoundation\Session\Session;
+use Symfony\Component\Security\Http\Event\InteractiveLoginEvent;
 
 /**
  * @Security("has_role('ROLE_OPERATOR')")
@@ -62,7 +64,22 @@ class ClientController extends Controller
     /**
      * @Route("/in/{id}", name="auth_in")
      */
-    public function inAction($id){
-//        https://blog.vandenbrand.org/2012/06/19/symfony2-authentication-provider-authenticate-against-webservice/
+    public function inAction(Request $request, $id){
+//      https://blog.vandenbrand.org/2012/06/19/symfony2-authentication-provider-authenticate-against-webservice/
+        $user = $this->getDoctrine()->getRepository('CrmMainBundle:Client')->find($id);
+
+        $password = $user->getPassword();
+        $username = $user->getUsername();
+        $roles    = $user->getRoles();
+        // Get the security firewall name, login
+        #$providerKey = $this->container->getParameter('fos_user.firewall_name');
+        $token = new UsernamePasswordToken($user, $password, 'security', $roles);
+        $this->get("security.context")->setToken($token);
+        // Fire the login event
+        $event = new InteractiveLoginEvent($request, $token);
+        $this->get("event_dispatcher")->dispatch("security.interactive_login", $event);
+
+
+        return $this->redirect($this->generateUrl('auth_order'));
     }
 }

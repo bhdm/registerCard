@@ -55,6 +55,7 @@ security:
 
         auth_secured_area:
             provider: auth
+            switch_user: true
             pattern: /
             form_login:
                 check_path: auth_security_check
