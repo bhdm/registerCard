@@ -60,6 +60,21 @@
                             </div>
                         </td>
                     </tr>
+                    <tr>
+                        <td>
+                            <div class="form-group">
+                                <label class="control-label col-sm-3" for="status">Компания</label>
+                                <div class="col-sm-9">
+                                    <select id="client" name="client" class="chosen">
+                                        {% for c in clients %}
+                                            <option value="{{ c.id }}"  {{ user.client.id == c.id ?  'selected="selected"' : '' }}>{{ c.id }} {{ c.title }}</option>
+                                        {% endfor %}
+                                    </select>
+                                    <a href="{{ path('panel_client_edit',{'id' : user.client.id }) }}">Открыть</a>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
                 {% endif %}
                 <tr>
                     <td>

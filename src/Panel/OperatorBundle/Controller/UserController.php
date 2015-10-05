@@ -344,6 +344,13 @@ class UserController extends Controller
                 }
             }
 
+            if ($data->get('client') && $data->get('client') != null){
+                $client = $this->getDoctrine()->getRepository('CrmMainBundle:Client')->find($data->get('client'));
+                if ($client){
+                    $user->setCompany($client);
+                }
+            }
+
 //            $user->setPrice($data->get('price'));
 
             $view = $data->get('view');
@@ -435,9 +442,11 @@ class UserController extends Controller
 
 
         $regions = $this->getDoctrine()->getRepository('CrmMainBundle:Region')->findAll();
+        $clients = $this->getDoctrine()->getRepository('CrmMainBundle:Client')->findAll();
         $companies = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->getCompanies();
         $petitions = $this->getUser()->getPetitions();
-        return array('user' => $user, 'regions' => $regions, 'referer' => $referer,'companies' => $companies,'petitions' => $petitions);
+
+        return array('user' => $user, 'regions' => $regions, 'referer' => $referer,'companies' => $companies,'petitions' => $petitions, 'clients' => $clients);
 
     }
 
