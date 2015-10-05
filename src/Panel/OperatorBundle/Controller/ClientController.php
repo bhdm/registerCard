@@ -47,6 +47,7 @@ class ClientController extends Controller
     public function editAction(Request $request, $id){
         $em = $this->getDoctrine()->getManager();
         $item = $this->getDoctrine()->getRepository('CrmMainBundle:Client')->findOneById($id);
+        $oldCompany = $item->getCompany();
         $form = $this->createForm(new AdminClientType($em), $item);
         $formData = $form->handleRequest($request);
         if ($request->getMethod() === 'POST'){
@@ -54,6 +55,15 @@ class ClientController extends Controller
                 $item = $formData->getData();
                 $em->flush($item);
                 $em->refresh($item);
+                # Если старая дата отличется от новой, то необходимо все заявки новой компании в клиента
+                # Исключение 551
+                if ($item->getCompany()!= null && $item->getCompany() != $oldCompany && $item->getCompany()->getId() != 551){
+                    $users = $this->getDoctrine()->getRepository('CrmMainBundle:User')->findByCompany($item->getCompany());
+                    foreach ($users as $user){
+                        $user->setClient($item);
+                    }
+                    $em->flush();
+                }
             }
         }
         return array('form' => $form->createView());
