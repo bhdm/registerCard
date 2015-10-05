@@ -57,12 +57,14 @@ class ClientController extends Controller
                 $em->refresh($item);
                 # Если старая дата отличется от новой, то необходимо все заявки новой компании в клиента
                 # Исключение 551
-                if ($item->getCompany()!= null && $item->getCompany() != $oldCompany && $item->getCompany()->getId() != 551){
-                    $users = $this->getDoctrine()->getRepository('CrmMainBundle:User')->findByCompany($item->getCompany());
-                    foreach ($users as $user){
-                        $user->setClient($item);
+                if ($request->request->get('isCheck')){
+                    if ($item->getCompany()!= null && $item->getCompany() != $oldCompany && $item->getCompany()->getId() != 551){
+                        $users = $this->getDoctrine()->getRepository('CrmMainBundle:User')->findByCompany($item->getCompany());
+                        foreach ($users as $user){
+                            $user->setClient($item);
+                        }
+                        $em->flush();
                     }
-                    $em->flush();
                 }
             }
         }

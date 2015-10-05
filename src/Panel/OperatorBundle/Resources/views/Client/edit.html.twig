@@ -12,7 +12,9 @@
 {% block content %}
     <div class="well">
         <form class="form" method="post">
+
             {{ form_widget(form) }}
+            <input type="checkbox" name="isCheck"> Перенос карт
         </form>
     </div>
 {% endblock %}
