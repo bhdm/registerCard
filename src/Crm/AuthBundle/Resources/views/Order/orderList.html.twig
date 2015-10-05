@@ -42,7 +42,7 @@
                     <td>{{ o.firstName  }}</td>
                     <td>{{ o.surName  }}</td>
                     <td>{{ o.ru ? 'РФ' : o.estr ? 'ЕСТР' : 'СКЗИ'  }}</td>
-                    <td>{{ o.statusString }}</td>
+                    <td>{{ o.statusString |raw }}</td>
                     <td>{{ o.price }}</td>
                     <td>
                         {% if o.status == 0 %}
