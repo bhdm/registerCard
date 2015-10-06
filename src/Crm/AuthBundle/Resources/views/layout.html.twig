@@ -47,7 +47,12 @@
     <div class="container">
         <div class="navbar-header">
             <a class="navbar-brand" href="#">
-                Личный кабинет <span class="text-primary"><b>[ИнфоМакс]</b></span>
+                {% if app.user.company and app.user.company.id != 551 %}
+                    {% set company = app.user.company.title %}
+                {% else %}
+                    {% set company = 'ИнфоМакс' %}
+                {% endif %}
+                Личный кабинет <span class="text-primary"><b>[{{ company }}]</b></span>
             </a>
         </div>
     </div>
