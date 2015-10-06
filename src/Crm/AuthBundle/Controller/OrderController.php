@@ -218,7 +218,8 @@ class OrderController extends Controller
      */
     public function orderListAction()
     {
-        $orders = $this->getUser()->getOrders();
+//        $orders = $this->getUser()->getOrders();
+        $orders = $this->getDoctrine()->getRepository('CrmMainBundle:User')->findBy(['client' => $this->getUser()],['id' => 'DESC']);
         return ['orders' => $orders];
     }
 
