@@ -66,6 +66,7 @@
                                 <label class="control-label col-sm-3" for="status">Клиент</label>
                                 <div class="col-sm-9">
                                     <select id="client" name="client" class="chosen">
+                                            <option>не выбрано</option>
                                         {% for c in clients %}
                                             <option value="{{ c.id }}"  {{ user.client != null and user.client.id == c.id ?  'selected="selected"' : '' }}>{{ c.id }} {{ c.username }}</option>
                                         {% endfor %}
