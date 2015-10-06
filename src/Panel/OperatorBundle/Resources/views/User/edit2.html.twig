@@ -67,7 +67,7 @@
                                 <div class="col-sm-9">
                                     <select id="client" name="client" class="chosen">
                                         {% for c in clients %}
-                                            <option value="{{ c.id }}"  {{ user.client.id == c.id ?  'selected="selected"' : '' }}>{{ c.id }} {{ c.username }}</option>
+                                            <option value="{{ c.id }}"  {{ user.client != null and user.client.id == c.id ?  'selected="selected"' : '' }}>{{ c.id }} {{ c.username }}</option>
                                         {% endfor %}
                                     </select>
                                     <a href="{{ path('panel_client_edit',{'id' : user.client.id }) }}">Открыть</a>
@@ -560,7 +560,7 @@
                                 <div class="col-sm-1"></div>
                                 <div class="col-sm-4">
                                     {% if user.companyPetition.file.path is defined %}
-                                        <img src="/{{ user.companyPetition.file.path }}" brightness="0" contrast="0" class="document"
+                                        <img src="/{{ user.companyPetition.file.path }}" brightness="0" contrast="0" class="document" />
                                         <br>
                                         <a href="{{ path('panel_download_png',{'filename' : user.copySnils.fileName }) }}">Скачать</a>
                                     {% else %}
