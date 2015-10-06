@@ -103,412 +103,416 @@
                     <td>Дата рождения<span class="required">*</span></td>
                     <td>{{ form_widget(form.birthDate) }}</td>
                 </tr>
-                <tr>
-                    <td>Регион<span class="required">*</span>:</td>
-                    <td class="value">
-                        {{ form_widget(form.registeredAdrs.region) }}
-                    </td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td>Район:</td>
-                    <td class="value">
-                        {{ form_widget(form.registeredAdrs.area) }}
-                    </td>
-                    <td>Копия паспорта (Стр. регистрации)</td>
-                </tr>
-                <tr>
-                    <td>Город:</td>
-                    <td class="value">
-                        {{ form_widget(form.registeredAdrs.city) }}
-                    </td>
-                    <td rowspan="5" style="vertical-align: top">
-                        <div class="file-container">
-                            <input type="file" name="passport2File" id="passport2File" class="fileAjax" {{ edit is not defined ? 'required' : '' }} >
-                            <progress class="progress" value="0" max="100" style="width: 270px"></progress>
-                            <br />
-                            <br />
-                            <div class="fileDoc">
-                                {% if form.vars.value.copyPassport2.path is defined %}
-                                    <img src="/{{ form.vars.value.copyPassport2.path }}" brightness="0" contrast="0">
-                                {% else %}
-                                    <img src="" brightness="0" contrast="0">
-                                {% endif %}
-                            </div>
-                            <div class="navigateFile">
-                                <img src="{{ asset('bundles/crmmain/icons/rotateLeft.png') }}" class="rotateLeft" title="Повернуть налево">
-                                <img src="{{ asset('bundles/crmmain/icons/rotateRight.png') }}" class="rotateRight" title="Повернуть вправо">
-                                <div style="">
-                                    <span class="cropImage minibtn" title="Обрезать изображение">Обрезать</span>
-                                    <br />
-                                    <br />
-                                </div>
-
-                            </div>
-                            <input type="hidden" id="x1" name="x1">
-                            <input type="hidden" id="y1" name="y1">
-                            <input type="hidden" id="x2" name="x2">
-                            <input type="hidden" id="y2" name="y2">
-                        </div>
-                    </td>
-                </tr>
-                <tr>
-                    <td>Улица:</td>
-                    <td class="value">
-                        {{ form_widget(form.registeredAdrs.street) }}
-                    </td>
-                </tr>
-                <tr>
-                    <td>Номер здания<span class="required">*</span>:</td>
-                    <td class="value">
-                        <div class="row">
-                            <div class="col-xs-6">{{ form_widget(form.registeredAdrs.house) }}</div>
-                            <div class="col-xs-6">{{ form_widget(form.registeredAdrs.corp) }}</div>
-                        </div>
-                        <div class="row">
-                            <div class="col-xs-6">{{ form_widget(form.registeredAdrs.structure) }}</div>
-                            <div class="col-xs-6">{{ form_widget(form.registeredAdrs.room) }}</div>
-                            <input type="hidden" name="registered[typeRoom]" id="mailing-typeRoom" value="кв.">
-                        </div>
-                    </td>
-                </tr>
-                <tr>
-                    <td>Индекс<span class="required">*</span>:</td>
-                    <td class="value">
-                        {{ form_widget(form.registeredAdrs.zipcode) }}
-                </tr>
             </table>
-        </div>
-        <hr>
-        <div class="block-form" >
-            <table class="table-form">
-                <caption>Информация о СНИЛС</caption>
-                <tr>
-                    <td>Номер СНИЛС</td>
-                    <td>{{ form_widget(form.snils) }}</td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td style="vertical-align: top; padding-top: 10px">Копия СНИЛС<span class="required">*</span></td>
-                    <td colspan="2">
-                        <div class="file-container">
-                            <input type="file" name="snilsFile" id="snilsFile" class="fileAjax" >
-                            <progress class="progress" value="0" max="100" style="width: 270px"></progress>
-                            <br />
-                            <br />
-                            <div class="fileDoc">
-                                {% if form.vars.value.copySnils.path is defined %}
-                                    <img src="/{{ form.vars.value.copySnils.path }}" brightness="0" contrast="0">
-                                {% else %}
-                                    <img src="" brightness="0" contrast="0">
-                                {% endif %}
-                            </div>
-                            <div class="navigateFile">
-                                <img src="{{ asset('bundles/crmmain/icons/rotateLeft.png') }}" class="rotateLeft" title="Повернуть налево">
-                                <img src="{{ asset('bundles/crmmain/icons/rotateRight.png') }}" class="rotateRight" title="Повернуть вправо">
-                                <div style="">
-                                    <span class="cropImage minibtn" title="Обрезать изображение">Обрезать</span>
-                                    <br />
-                                    <br />
+            <div class="block-form" >
+                <table class="table-form">
+                    <caption>Прописка</caption>
+                    <tr>
+                        <td>Регион<span class="required">*</span>:</td>
+                        <td class="value">
+                            {{ form_widget(form.registeredAdrs.region) }}
+                        </td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>Район:</td>
+                        <td class="value">
+                            {{ form_widget(form.registeredAdrs.area) }}
+                        </td>
+                        <td>Копия паспорта (Стр. регистрации)</td>
+                    </tr>
+                    <tr>
+                        <td>Город:</td>
+                        <td class="value">
+                            {{ form_widget(form.registeredAdrs.city) }}
+                        </td>
+                        <td rowspan="5" style="vertical-align: top">
+                            <div class="file-container">
+                                <input type="file" name="passport2File" id="passport2File" class="fileAjax" {{ edit is not defined ? 'required' : '' }} >
+                                <progress class="progress" value="0" max="100" style="width: 270px"></progress>
+                                <br />
+                                <br />
+                                <div class="fileDoc">
+                                    {% if form.vars.value.copyPassport2.path is defined %}
+                                        <img src="/{{ form.vars.value.copyPassport2.path }}" brightness="0" contrast="0">
+                                    {% else %}
+                                        <img src="" brightness="0" contrast="0">
+                                    {% endif %}
                                 </div>
+                                <div class="navigateFile">
+                                    <img src="{{ asset('bundles/crmmain/icons/rotateLeft.png') }}" class="rotateLeft" title="Повернуть налево">
+                                    <img src="{{ asset('bundles/crmmain/icons/rotateRight.png') }}" class="rotateRight" title="Повернуть вправо">
+                                    <div style="">
+                                        <span class="cropImage minibtn" title="Обрезать изображение">Обрезать</span>
+                                        <br />
+                                        <br />
+                                    </div>
 
-                            </div>
-                            <input type="hidden" id="x1" name="x1">
-                            <input type="hidden" id="y1" name="y1">
-                            <input type="hidden" id="x2" name="x2">
-                            <input type="hidden" id="y2" name="y2">
-                        </div>
-                    </td>
-                </tr>
-            </table>
-        </div>
-        <div class="block-form" >
-            <table class="table-form">
-                <caption>Информация о водительском удостоверении</caption>
-                <tr>
-                    <td>Номер:</td>
-                    <td class="value">
-                        {{ form_widget(form.driverDocNumber) }}
-                    </td>
-                    <td rowspan="2" style="vertical-align: top">
-                        <div class="file-container">
-                            <input type="file" name="driverFile" id="driverFile" class="fileAjax" {{ edit is not defined ? 'required' : '' }} >
-                            <progress class="progress" value="0" max="100" style="width: 270px"></progress>
-                            <br />
-                            <br />
-                            <div class="fileDoc">
-                                {% if form.vars.value.copyDriverPassport.path is defined %}
-                                    <img src="/{{ form.vars.value.copyDriverPassport.path }}" brightness="0" contrast="0">
-                                {% else %}
-                                    <img src="" brightness="0" contrast="0">
-                                {% endif %}
-                            </div>
-                            <div class="navigateFile">
-                                <img src="{{ asset('bundles/crmmain/icons/rotateLeft.png') }}" class="rotateLeft" title="Повернуть налево">
-                                <img src="{{ asset('bundles/crmmain/icons/rotateRight.png') }}" class="rotateRight" title="Повернуть вправо">
-                                <div style="">
-                                    <span class="cropImage minibtn" title="Обрезать изображение">Обрезать</span>
-                                    <br />
-                                    <br />
                                 </div>
-
+                                <input type="hidden" id="x1" name="x1">
+                                <input type="hidden" id="y1" name="y1">
+                                <input type="hidden" id="x2" name="x2">
+                                <input type="hidden" id="y2" name="y2">
                             </div>
-                            <input type="hidden" id="x1" name="x1">
-                            <input type="hidden" id="y1" name="y1">
-                            <input type="hidden" id="x2" name="x2">
-                            <input type="hidden" id="y2" name="y2">
-                        </div>
-                    </td>
-                </tr>
-                <tr>
-                    <td>Кем выдано:</td>
-                    <td class="value">
-                        {{ form_widget(form.driverDocIssuance) }}
-                    </td>
-                </tr>
-                <tr>
-                    <td>Дата выдачи:</td>
-                    <td class="value">
-                        {{ form_widget(form.driverDocDateStarts) }}
-                    </td>
-                    <td rowspan="2" style="vertical-align: top">
-                        <div class="file-container">
-                            <input type="file" name="driver2File" id="driver2File" class="fileAjax" >
-                            <progress class="progress" value="0" max="100" style="width: 270px"></progress>
-                            <br />
-                            <br />
-                            <div class="fileDoc">
-                                {% if form.vars.value.copyDriverPassport2.path is defined %}
-                                    <img src="/{{ form.vars.value.copyDriverPassport2.path }}" brightness="0" contrast="0">
-                                {% else %}
-                                    <img src="" brightness="0" contrast="0">
-                                {% endif %}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Улица:</td>
+                        <td class="value">
+                            {{ form_widget(form.registeredAdrs.street) }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Номер здания<span class="required">*</span>:</td>
+                        <td class="value">
+                            <div class="row">
+                                <div class="col-xs-6">{{ form_widget(form.registeredAdrs.house) }}</div>
+                                <div class="col-xs-6">{{ form_widget(form.registeredAdrs.corp) }}</div>
                             </div>
-                            <div class="navigateFile">
-                                <img src="{{ asset('bundles/crmmain/icons/rotateLeft.png') }}" class="rotateLeft" title="Повернуть налево">
-                                <img src="{{ asset('bundles/crmmain/icons/rotateRight.png') }}" class="rotateRight" title="Повернуть вправо">
-                                <div style="">
-                                    <span class="cropImage minibtn" title="Обрезать изображение">Обрезать</span>
-                                    <br />
-                                    <br />
+                            <div class="row">
+                                <div class="col-xs-6">{{ form_widget(form.registeredAdrs.structure) }}</div>
+                                <div class="col-xs-6">{{ form_widget(form.registeredAdrs.room) }}</div>
+                                <input type="hidden" name="registered[typeRoom]" id="mailing-typeRoom" value="кв.">
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Индекс<span class="required">*</span>:</td>
+                        <td class="value">
+                            {{ form_widget(form.registeredAdrs.zipcode) }}
+                    </tr>
+                </table>
+            </div>
+            <hr>
+            <div class="block-form" >
+                <table class="table-form">
+                    <caption>Информация о СНИЛС</caption>
+                    <tr>
+                        <td>Номер СНИЛС</td>
+                        <td>{{ form_widget(form.snils) }}</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td style="vertical-align: top; padding-top: 10px">Копия СНИЛС<span class="required">*</span></td>
+                        <td colspan="2">
+                            <div class="file-container">
+                                <input type="file" name="snilsFile" id="snilsFile" class="fileAjax" >
+                                <progress class="progress" value="0" max="100" style="width: 270px"></progress>
+                                <br />
+                                <br />
+                                <div class="fileDoc">
+                                    {% if form.vars.value.copySnils.path is defined %}
+                                        <img src="/{{ form.vars.value.copySnils.path }}" brightness="0" contrast="0">
+                                    {% else %}
+                                        <img src="" brightness="0" contrast="0">
+                                    {% endif %}
                                 </div>
+                                <div class="navigateFile">
+                                    <img src="{{ asset('bundles/crmmain/icons/rotateLeft.png') }}" class="rotateLeft" title="Повернуть налево">
+                                    <img src="{{ asset('bundles/crmmain/icons/rotateRight.png') }}" class="rotateRight" title="Повернуть вправо">
+                                    <div style="">
+                                        <span class="cropImage minibtn" title="Обрезать изображение">Обрезать</span>
+                                        <br />
+                                        <br />
+                                    </div>
 
-                            </div>
-                            <input type="hidden" id="x1" name="x1">
-                            <input type="hidden" id="y1" name="y1">
-                            <input type="hidden" id="x2" name="x2">
-                            <input type="hidden" id="y2" name="y2">
-                        </div>
-                    </td>
-                </tr>
-            </table>
-        </div>
-        <hr>
-        <div class="block-form" >
-            <table class="table-form">
-                <caption>Информация о ходатайстве</caption>
-                <tr>
-                    <td>Ходатайство</td>
-                    <td>{{ form_widget(form.myPetition) }}</td>
-                    <td></td>
-                </tr>
-                <tr class="petition">
-                    <td>Регион<span class="required">*</span>:</td>
-                    <td class="value">
-                        {{ form_widget(form.petitionAdrs.region) }}
-                    </td>
-                    <td class="petition-td">Копия ходатайства <span class="mini">(форматы файла: PDF,JPG,PNG)</span></td>
-                </tr>
-                <tr class="petition">
-                    <td>Район:</td>
-                    <td class="value">
-                        {{ form_widget(form.petitionAdrs.area) }}
-                    </td>
-                    <td class="petition-td">
-                        {{ form_widget(form.copyPetition) }}
-                        {% if form.vars.value.copyPetition.path is defined %}
-                            <a href="/{{ form.vars.value.copyPetition.path }}" target="_blank">Открыть</a>
-                        {% endif %}
-                    </td>
-                </tr>
-                <tr class="petition">
-                    <td>Город:</td>
-                    <td class="value">
-                        {{ form_widget(form.petitionAdrs.city) }}
-                    </td>
-                </tr>
-                <tr class="petition">
-                    <td>Улица:</td>
-                    <td class="value">
-                        {{ form_widget(form.petitionAdrs.street) }}
-                    </td>
-                </tr>
-                <tr class="petition">
-                    <td>Здание<span class="required">*</span>:</td>
-                    <td class="value">
-                        <div class="row">
-                            <div class="col-xs-6">{{ form_widget(form.petitionAdrs.house) }}</div>
-                            <div class="col-xs-6">{{ form_widget(form.petitionAdrs.corp) }}</div>
-                        </div>
-                        <div class="row">
-                            <div class="col-xs-6">{{ form_widget(form.petitionAdrs.structure) }}</div>
-                            <div class="col-xs-6">{{ form_widget(form.petitionAdrs.room) }}</div>
-                            <input type="hidden" name="delivery[typeRoom]" id="delivery-typeRoom" value="кв.">
-                        </div>
-                    </td>
-                </tr>
-                <tr class="petition">
-                    <td>Индекс<span class="required">*</span>:</td>
-                    <td class="value">
-                        {{ form_widget(form.petitionAdrs.zipcode) }}
-                </tr>
-            </table>
-        </div>
-        <hr>
-        <div class="block-form" >
-            <table class="table-form">
-                <caption>Информация о доставке</caption>
-                <tr>
-                    <td>Регион<span class="required">*</span>:</td>
-                    <td class="value">
-                        {{ form_widget(form.deliveryAdrs.region) }}
-                    </td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td>Район:</td>
-                    <td class="value">
-                        {{ form_widget(form.deliveryAdrs.area) }}
-                    </td>
-                </tr>
-                <tr>
-                    <td>Город:</td>
-                    <td class="value">
-                        {{ form_widget(form.deliveryAdrs.city) }}
-                    </td>
-                </tr>
-                <tr>
-                    <td>Улица:</td>
-                    <td class="value">
-                        {{ form_widget(form.deliveryAdrs.street) }}
-                    </td>
-                </tr>
-                <tr>
-                    <td>Номер здания<span class="required">*</span>:</td>
-                    <td class="value">
-                        <div class="row">
-                            <div class="col-xs-6">{{ form_widget(form.deliveryAdrs.house) }}</div>
-                            <div class="col-xs-6">{{ form_widget(form.deliveryAdrs.corp) }}</div>
-                        </div>
-                        <div class="row">
-                            <div class="col-xs-6">{{ form_widget(form.deliveryAdrs.structure) }}</div>
-                            <div class="col-xs-6">{{ form_widget(form.deliveryAdrs.room) }}</div>
-                            <input type="hidden" name="mailing[typeRoom]" id="mailing-typeRoom" value="кв.">
-                        </div>
-                    </td>
-                </tr>
-                <tr>
-                    <td>Индекс<span class="required">*</span>:</td>
-                    <td class="value">
-                        {{ form_widget(form.deliveryAdrs.zipcode) }}
-                </tr>
-            </table>
-        </div>
-        <hr>
-        <div class="block-form">
-            <table class="table-form">
-                <tr>
-                    <td>&nbsp;</td>
-                </tr>
-                <tr>
-                    <td style="vertical-align: top; padding-top: 10px">Подпись<span class="required">*</span></td>
-                    <td colspan="2">
-                        <div class="file-container">
-                            <input type="file" name="signFile" id="signFile" class="fileAjax" {{ edit is not defined ? 'required' : '' }} >
-                            <progress class="progress" value="0" max="100" style="width: 270px"></progress>
-                            <br />
-                            <br />
-                            <div class="fileDoc">
-                                {% if form.vars.value.copySignature.path is defined %}
-                                    <img src="/{{ form.vars.value.copySignature.path }}" brightness="0" contrast="0">
-                                {% else %}
-                                    <img src="" brightness="0" contrast="0">
-                                {% endif %}
-                            </div>
-                            <div class="navigateFile">
-                                <img src="{{ asset('bundles/crmmain/icons/rotateLeft.png') }}" class="rotateLeft" title="Повернуть налево">
-                                <img src="{{ asset('bundles/crmmain/icons/rotateRight.png') }}" class="rotateRight" title="Повернуть вправо">
-                                <div>
-                                    <span class="" title="Обрезать изображение">Обрезать</span>
-                                    <br />
-                                    <br />
                                 </div>
-
+                                <input type="hidden" id="x1" name="x1">
+                                <input type="hidden" id="y1" name="y1">
+                                <input type="hidden" id="x2" name="x2">
+                                <input type="hidden" id="y2" name="y2">
                             </div>
-                            <input type="hidden" id="x1" name="x1">
-                            <input type="hidden" id="y1" name="y1">
-                            <input type="hidden" id="x2" name="x2">
-                            <input type="hidden" id="y2" name="y2">
-                        </div>
-                    </td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td style="vertical-align: top; padding-top: 10px">Фотография<span class="required">*</span></td>
-                    <td colspan="2">
-                        <div class="file-container">
-                            <input type="file" name="photoFile" id="photoFile" class="fileAjax" {{ edit is not defined ? 'required' : '' }} >
-                            <progress class="progress" value="0" max="100" style="width: 270px"></progress>
-                            <br />
-                            <br />
-                            <div class="fileDoc">
-                                {% if form.vars.value.photo.path is defined %}
-                                    <img src="/{{ form.vars.value.photo.path }}" brightness="0" contrast="0">
-                                {% else %}
-                                    <img src="" brightness="0" contrast="0">
-                                {% endif %}
-                            </div>
-                            <div class="navigateFile">
-                                <img src="{{ asset('bundles/crmmain/icons/rotateLeft.png') }}" class="rotateLeft" title="Повернуть налево">
-                                <img src="{{ asset('bundles/crmmain/icons/rotateRight.png') }}" class="rotateRight" title="Повернуть вправо">
-                                <div style="">
-                                    <span class="cropImage minibtn" title="Обрезать изображение">Обрезать</span>
-                                    <br />
-                                    <br />
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div class="block-form" >
+                <table class="table-form">
+                    <caption>Информация о водительском удостоверении</caption>
+                    <tr>
+                        <td>Номер:</td>
+                        <td class="value">
+                            {{ form_widget(form.driverDocNumber) }}
+                        </td>
+                        <td rowspan="2" style="vertical-align: top">
+                            <div class="file-container">
+                                <input type="file" name="driverFile" id="driverFile" class="fileAjax" {{ edit is not defined ? 'required' : '' }} >
+                                <progress class="progress" value="0" max="100" style="width: 270px"></progress>
+                                <br />
+                                <br />
+                                <div class="fileDoc">
+                                    {% if form.vars.value.copyDriverPassport.path is defined %}
+                                        <img src="/{{ form.vars.value.copyDriverPassport.path }}" brightness="0" contrast="0">
+                                    {% else %}
+                                        <img src="" brightness="0" contrast="0">
+                                    {% endif %}
                                 </div>
+                                <div class="navigateFile">
+                                    <img src="{{ asset('bundles/crmmain/icons/rotateLeft.png') }}" class="rotateLeft" title="Повернуть налево">
+                                    <img src="{{ asset('bundles/crmmain/icons/rotateRight.png') }}" class="rotateRight" title="Повернуть вправо">
+                                    <div style="">
+                                        <span class="cropImage minibtn" title="Обрезать изображение">Обрезать</span>
+                                        <br />
+                                        <br />
+                                    </div>
 
+                                </div>
+                                <input type="hidden" id="x1" name="x1">
+                                <input type="hidden" id="y1" name="y1">
+                                <input type="hidden" id="x2" name="x2">
+                                <input type="hidden" id="y2" name="y2">
                             </div>
-                            <input type="hidden" id="x1" name="x1">
-                            <input type="hidden" id="y1" name="y1">
-                            <input type="hidden" id="x2" name="x2">
-                            <input type="hidden" id="y2" name="y2">
-                        </div>
-                    </td>
-                </tr>
-                <tr>
-                    <td></td>
-                    <td colspan="2" style="text-align: left">
-                        {% if edit is not defined  %}
-                        <input type="checkbox" required="required"> Я согласен с <a href="#" target="_blank">пользовательским соглашением сервиса</a><span class="required">*</span> <br />
-                        {% endif %}
-                        <input type="checkbox" required="required"> Я подтверждаю правильность введенных данных<span class="required">*</span>
-                    </td>
-                </tr>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Кем выдано:</td>
+                        <td class="value">
+                            {{ form_widget(form.driverDocIssuance) }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Дата выдачи:</td>
+                        <td class="value">
+                            {{ form_widget(form.driverDocDateStarts) }}
+                        </td>
+                        <td rowspan="2" style="vertical-align: top">
+                            <div class="file-container">
+                                <input type="file" name="driver2File" id="driver2File" class="fileAjax" >
+                                <progress class="progress" value="0" max="100" style="width: 270px"></progress>
+                                <br />
+                                <br />
+                                <div class="fileDoc">
+                                    {% if form.vars.value.copyDriverPassport2.path is defined %}
+                                        <img src="/{{ form.vars.value.copyDriverPassport2.path }}" brightness="0" contrast="0">
+                                    {% else %}
+                                        <img src="" brightness="0" contrast="0">
+                                    {% endif %}
+                                </div>
+                                <div class="navigateFile">
+                                    <img src="{{ asset('bundles/crmmain/icons/rotateLeft.png') }}" class="rotateLeft" title="Повернуть налево">
+                                    <img src="{{ asset('bundles/crmmain/icons/rotateRight.png') }}" class="rotateRight" title="Повернуть вправо">
+                                    <div style="">
+                                        <span class="cropImage minibtn" title="Обрезать изображение">Обрезать</span>
+                                        <br />
+                                        <br />
+                                    </div>
 
-                {{ form_row(form._token) }}
-                <tr>
-                    <td></td>
-                    <td>
-                        <br />
-                        {% if edit is not defined  %}
-                            <input type="submit" value="Подтвердить и перейти на страницу оплаты" class="btn btn-primary" id="submit">
-                        {% else %}
-                            <input type="submit" value="Сохранить" class="btn btn-primary" id="submit">
-                        {% endif %}
-                    </td>
-                </tr>
-            </table>
-        </div>
+                                </div>
+                                <input type="hidden" id="x1" name="x1">
+                                <input type="hidden" id="y1" name="y1">
+                                <input type="hidden" id="x2" name="x2">
+                                <input type="hidden" id="y2" name="y2">
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <hr>
+            <div class="block-form" >
+                <table class="table-form">
+                    <caption>Информация о ходатайстве</caption>
+                    <tr>
+                        <td>Ходатайство</td>
+                        <td>{{ form_widget(form.myPetition) }}</td>
+                        <td></td>
+                    </tr>
+                    <tr class="petition">
+                        <td>Регион<span class="required">*</span>:</td>
+                        <td class="value">
+                            {{ form_widget(form.petitionAdrs.region) }}
+                        </td>
+                        <td class="petition-td">Копия ходатайства <span class="mini">(форматы файла: PDF,JPG,PNG)</span></td>
+                    </tr>
+                    <tr class="petition">
+                        <td>Район:</td>
+                        <td class="value">
+                            {{ form_widget(form.petitionAdrs.area) }}
+                        </td>
+                        <td class="petition-td">
+                            {{ form_widget(form.copyPetition) }}
+                            {% if form.vars.value.copyPetition.path is defined %}
+                                <a href="/{{ form.vars.value.copyPetition.path }}" target="_blank">Открыть</a>
+                            {% endif %}
+                        </td>
+                    </tr>
+                    <tr class="petition">
+                        <td>Город:</td>
+                        <td class="value">
+                            {{ form_widget(form.petitionAdrs.city) }}
+                        </td>
+                    </tr>
+                    <tr class="petition">
+                        <td>Улица:</td>
+                        <td class="value">
+                            {{ form_widget(form.petitionAdrs.street) }}
+                        </td>
+                    </tr>
+                    <tr class="petition">
+                        <td>Здание<span class="required">*</span>:</td>
+                        <td class="value">
+                            <div class="row">
+                                <div class="col-xs-6">{{ form_widget(form.petitionAdrs.house) }}</div>
+                                <div class="col-xs-6">{{ form_widget(form.petitionAdrs.corp) }}</div>
+                            </div>
+                            <div class="row">
+                                <div class="col-xs-6">{{ form_widget(form.petitionAdrs.structure) }}</div>
+                                <div class="col-xs-6">{{ form_widget(form.petitionAdrs.room) }}</div>
+                                <input type="hidden" name="delivery[typeRoom]" id="delivery-typeRoom" value="кв.">
+                            </div>
+                        </td>
+                    </tr>
+                    <tr class="petition">
+                        <td>Индекс<span class="required">*</span>:</td>
+                        <td class="value">
+                            {{ form_widget(form.petitionAdrs.zipcode) }}
+                    </tr>
+                </table>
+            </div>
+            <hr>
+            <div class="block-form" >
+                <table class="table-form">
+                    <caption>Информация о доставке</caption>
+                    <tr>
+                        <td>Регион<span class="required">*</span>:</td>
+                        <td class="value">
+                            {{ form_widget(form.deliveryAdrs.region) }}
+                        </td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>Район:</td>
+                        <td class="value">
+                            {{ form_widget(form.deliveryAdrs.area) }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Город:</td>
+                        <td class="value">
+                            {{ form_widget(form.deliveryAdrs.city) }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Улица:</td>
+                        <td class="value">
+                            {{ form_widget(form.deliveryAdrs.street) }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Номер здания<span class="required">*</span>:</td>
+                        <td class="value">
+                            <div class="row">
+                                <div class="col-xs-6">{{ form_widget(form.deliveryAdrs.house) }}</div>
+                                <div class="col-xs-6">{{ form_widget(form.deliveryAdrs.corp) }}</div>
+                            </div>
+                            <div class="row">
+                                <div class="col-xs-6">{{ form_widget(form.deliveryAdrs.structure) }}</div>
+                                <div class="col-xs-6">{{ form_widget(form.deliveryAdrs.room) }}</div>
+                                <input type="hidden" name="mailing[typeRoom]" id="mailing-typeRoom" value="кв.">
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Индекс<span class="required">*</span>:</td>
+                        <td class="value">
+                            {{ form_widget(form.deliveryAdrs.zipcode) }}
+                    </tr>
+                </table>
+            </div>
+            <hr>
+            <div class="block-form">
+                <table class="table-form">
+                    <tr>
+                        <td>&nbsp;</td>
+                    </tr>
+                    <tr>
+                        <td style="vertical-align: top; padding-top: 10px">Подпись<span class="required">*</span></td>
+                        <td colspan="2">
+                            <div class="file-container">
+                                <input type="file" name="signFile" id="signFile" class="fileAjax" {{ edit is not defined ? 'required' : '' }} >
+                                <progress class="progress" value="0" max="100" style="width: 270px"></progress>
+                                <br />
+                                <br />
+                                <div class="fileDoc">
+                                    {% if form.vars.value.copySignature.path is defined %}
+                                        <img src="/{{ form.vars.value.copySignature.path }}" brightness="0" contrast="0">
+                                    {% else %}
+                                        <img src="" brightness="0" contrast="0">
+                                    {% endif %}
+                                </div>
+                                <div class="navigateFile">
+                                    <img src="{{ asset('bundles/crmmain/icons/rotateLeft.png') }}" class="rotateLeft" title="Повернуть налево">
+                                    <img src="{{ asset('bundles/crmmain/icons/rotateRight.png') }}" class="rotateRight" title="Повернуть вправо">
+                                    <div>
+                                        <span class="" title="Обрезать изображение">Обрезать</span>
+                                        <br />
+                                        <br />
+                                    </div>
+
+                                </div>
+                                <input type="hidden" id="x1" name="x1">
+                                <input type="hidden" id="y1" name="y1">
+                                <input type="hidden" id="x2" name="x2">
+                                <input type="hidden" id="y2" name="y2">
+                            </div>
+                        </td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td style="vertical-align: top; padding-top: 10px">Фотография<span class="required">*</span></td>
+                        <td colspan="2">
+                            <div class="file-container">
+                                <input type="file" name="photoFile" id="photoFile" class="fileAjax" {{ edit is not defined ? 'required' : '' }} >
+                                <progress class="progress" value="0" max="100" style="width: 270px"></progress>
+                                <br />
+                                <br />
+                                <div class="fileDoc">
+                                    {% if form.vars.value.photo.path is defined %}
+                                        <img src="/{{ form.vars.value.photo.path }}" brightness="0" contrast="0">
+                                    {% else %}
+                                        <img src="" brightness="0" contrast="0">
+                                    {% endif %}
+                                </div>
+                                <div class="navigateFile">
+                                    <img src="{{ asset('bundles/crmmain/icons/rotateLeft.png') }}" class="rotateLeft" title="Повернуть налево">
+                                    <img src="{{ asset('bundles/crmmain/icons/rotateRight.png') }}" class="rotateRight" title="Повернуть вправо">
+                                    <div style="">
+                                        <span class="cropImage minibtn" title="Обрезать изображение">Обрезать</span>
+                                        <br />
+                                        <br />
+                                    </div>
+
+                                </div>
+                                <input type="hidden" id="x1" name="x1">
+                                <input type="hidden" id="y1" name="y1">
+                                <input type="hidden" id="x2" name="x2">
+                                <input type="hidden" id="y2" name="y2">
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td colspan="2" style="text-align: left">
+                            {% if edit is not defined  %}
+                                <input type="checkbox" required="required"> Я согласен с <a href="#" target="_blank">пользовательским соглашением сервиса</a><span class="required">*</span> <br />
+                            {% endif %}
+                            <input type="checkbox" required="required"> Я подтверждаю правильность введенных данных<span class="required">*</span>
+                        </td>
+                    </tr>
+
+                    {{ form_row(form._token) }}
+                    <tr>
+                        <td></td>
+                        <td>
+                            <br />
+                            {% if edit is not defined  %}
+                                <input type="submit" value="Подтвердить и перейти на страницу оплаты" class="btn btn-primary" id="submit">
+                            {% else %}
+                                <input type="submit" value="Сохранить" class="btn btn-primary" id="submit">
+                            {% endif %}
+                        </td>
+                    </tr>
+                </table>
+            </div>
     </form>
 {% endblock %}
 
