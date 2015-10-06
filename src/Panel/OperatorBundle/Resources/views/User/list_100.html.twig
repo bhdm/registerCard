@@ -60,7 +60,7 @@
                                     {{ user.statusStringTwig | raw }}
                                     <div class="statusItems">
                                         {% for status in user.statusArray %}
-                                            {{ status.title }}&nbsp;-&nbsp;{{ status.date | date('d.m.Y') }}<br />
+                                            {{ status.title | raw }}&nbsp;-&nbsp;{{ status.date | date('d.m.Y') }}<br />
                                         {% endfor %}
                                     </div>
                                 </div>

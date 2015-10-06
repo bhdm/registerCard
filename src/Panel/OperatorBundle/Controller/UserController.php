@@ -617,7 +617,7 @@ class UserController extends Controller
                             $moderator->setQuota($quotaModerator);
                             $this->getDoctrine()->getManager()->flush($moderator);
                             $statusLog = new StatusLog();
-                            $statusLog->setTitle('Отправлен администратору');
+                            $statusLog->setTitle('В&nbsp;производстве');
                             $statusLog->setUser($user);
                             $this->getDoctrine()->getManager()->persist($statusLog);
                             $session->getFlashBag()->add('notice', 'Пользователь ' . $user->getLastName() . ' переведен в производство ( архив )');
@@ -640,7 +640,7 @@ class UserController extends Controller
                 } else {
                     $this->getDoctrine()->getManager()->flush($operator);
                     $statusLog = new StatusLog();
-                    $statusLog->setTitle('Отправлен администратору');
+                    $statusLog->setTitle('В&nbsp;производстве');
                     $statusLog->setUser($user);
                     $this->getDoctrine()->getManager()->persist($statusLog);
 //                $session->getFlashBag()->add('notice', 'Пользователь '.$user->getLastName().' переведен в производство ( архив )');
@@ -1383,7 +1383,7 @@ class UserController extends Controller
                 } else {
                     $this->getDoctrine()->getManager()->flush($operator);
                     $statusLog = new StatusLog();
-                    $statusLog->setTitle('Отправлен администратору');
+                    $statusLog->setTitle('В&nbsp;производстве');
                     $statusLog->setUser($user);
                     $this->getDoctrine()->getManager()->persist($statusLog);
                     $session->getFlashBag()->add('notice', 'Пользователь '.$user->getLastName().' переведен в производство');
