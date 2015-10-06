@@ -347,7 +347,7 @@ class UserController extends Controller
             if ($data->get('client') && $data->get('client') != null){
                 $client = $this->getDoctrine()->getRepository('CrmMainBundle:Client')->find($data->get('client'));
                 if ($client){
-                    $user->setCompany($client);
+                    $user->setClient($client);
                 }
             }
 
