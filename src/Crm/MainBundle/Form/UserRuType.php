@@ -37,7 +37,7 @@ class UserRuType extends AbstractType
             ->add('passportNumber', null,['label'=>''])
             ->add('email', null,['label'=>'Email'])
             ->add('username', null,['label'=>'Телефон', 'attr' => ['class' => 'phone']])
-            ->add('snils', null,['label'=>'СНИЛС', 'attr' => ['class'=> 'snils']])
+            ->add('snils', null,['label'=>'СНИЛС', 'attr' => ['class'=> 'snils'], 'required' => false])
 
             ->add('registeredAdrs', new AdrsType(),array('mapped'=>true))
 
