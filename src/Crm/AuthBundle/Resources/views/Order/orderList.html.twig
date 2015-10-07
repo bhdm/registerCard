@@ -29,36 +29,38 @@
                 <td></td>
             </tr>
             {% for o in orders %}
-                <tr>
-                    <td>
-                        {#{% if o.estr == 0 and o.ru == 0 %}#}
-                            {#<a href="{{ path('auth_user_skzi_edit', {'userId' : o.id}) }}">{{ o.id }}</a>#}
-                        {#{% else %}#}
-                            <a href="{{ path('auth_user_edit', {'userId' : o.id}) }}">{{ o.id }}</a>
-                        {#{% endif %}#}
-                    </td>
-                    <td>{{ o.created | date('d.m.Y') }}</td>
-                    <td>{{ o.lastName  }}</td>
-                    <td>{{ o.firstName  }}</td>
-                    <td>{{ o.surName  }}</td>
-                    <td>{{ o.ru ? 'РФ' : o.estr ? 'ЕСТР' : 'СКЗИ'  }}</td>
-                    <td>{{ o.statusString |raw }}</td>
-                    <td>{{ o.price }}</td>
-                    <td>
-                        {% if o.status == 0 %}
-                            <div class="dropdown">
-                                <button class="btn btn-default dropdown-toggle" type="button" id="dropdownPayment" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                                    Оплата
-                                    <span class="caret"></span>
-                                </button>
-                                <ul class="dropdown-menu" aria-labelledby="dropdownPayment}">
-                                    <li><a href="{{ path('generate_payment_pdf') }}?ord={{ o.id }}">Платежное поручение</a></li>
-                                    <li><a href="{{ path('payment_assist',{'userId' : o.id} )  }}">Робокасса</a></li>
-                                </ul>
-                            </div>
-                        {% endif %}
-                    </td>
-                </tr>
+                {% if o.enabled == 1 %}
+                    <tr>
+                        <td>
+                            {#{% if o.estr == 0 and o.ru == 0 %}#}
+                                {#<a href="{{ path('auth_user_skzi_edit', {'userId' : o.id}) }}">{{ o.id }}</a>#}
+                            {#{% else %}#}
+                                <a href="{{ path('auth_user_edit', {'userId' : o.id}) }}">{{ o.id }}</a>
+                            {#{% endif %}#}
+                        </td>
+                        <td>{{ o.created | date('d.m.Y') }}</td>
+                        <td>{{ o.lastName  }}</td>
+                        <td>{{ o.firstName  }}</td>
+                        <td>{{ o.surName  }}</td>
+                        <td>{{ o.ru ? 'РФ' : o.estr ? 'ЕСТР' : 'СКЗИ'  }}</td>
+                        <td>{{ o.statusString |raw }}</td>
+                        <td>{{ o.price }}</td>
+                        <td>
+                            {% if o.status == 0 %}
+                                <div class="dropdown">
+                                    <button class="btn btn-default dropdown-toggle" type="button" id="dropdownPayment" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                        Оплата
+                                        <span class="caret"></span>
+                                    </button>
+                                    <ul class="dropdown-menu" aria-labelledby="dropdownPayment}">
+                                        <li><a href="{{ path('generate_payment_pdf') }}?ord={{ o.id }}">Платежное поручение</a></li>
+                                        <li><a href="{{ path('payment_assist',{'userId' : o.id} )  }}">Робокасса</a></li>
+                                    </ul>
+                                </div>
+                            {% endif %}
+                        </td>
+                    </tr>
+                {% endif %}
             {% else %}
                 <tr>
                     <td colspan="7" style="text-align: center" class="text-danger">Заказов карт не найдено</td>
