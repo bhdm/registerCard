@@ -72,4 +72,17 @@ class ClientController extends Controller
         }
         return array('form' => $form->createView());
     }
+
+    /**
+     * @Route("/remove/{id}", name="panel_client_remove")
+     * @Template("")
+     */
+    public function removeAction(Request $request, $id){
+        $em = $this->getDoctrine()->getManager();
+        $item = $this->getDoctrine()->getRepository('CrmMainBundle:Client')->findOneById($id);
+        $em->remove($item);
+        $referer = $request->headers->get('referer');
+        return $this->redirect($referer);
+    }
+
 }

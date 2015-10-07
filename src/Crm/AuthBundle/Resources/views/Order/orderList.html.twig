@@ -15,6 +15,24 @@
             </ul>
         </div>
     </div>
+    <form method="GET">
+        <div class="row">
+            <div class="col-xs-4">
+                <select class="form-control" name="type">
+                    <option selected="selected" value="0">Все типы</option>
+                    <option value="skzi">СКЗИ</option>
+                    <option value="estr">ЕСТР</option>
+                    <option value="ru">РФ</option>
+                </select>
+            </div>
+            <div class="col-xs-6">
+                <input placeholder="Введите слово" class="form-control" style="margin-top: 0;" name="search">
+            </div>
+            <div class="col-xs-2">
+                <button type="submit" class="btn btn-primary">Найти</button>
+            </div>
+        </div>
+    </form>
     <div class="row">
         <table class="table">
             <tr>
@@ -34,9 +52,9 @@
                     <tr>
                         <td>
                             {#{% if o.estr == 0 and o.ru == 0 %}#}
-                                {#<a href="{{ path('auth_user_skzi_edit', {'userId' : o.id}) }}">{{ o.id }}</a>#}
+                            {#<a href="{{ path('auth_user_skzi_edit', {'userId' : o.id}) }}">{{ o.id }}</a>#}
                             {#{% else %}#}
-                                <a href="{{ path('auth_user_edit', {'userId' : o.id}) }}">{{ o.id }}</a>
+                            <a href="{{ path('auth_user_edit', {'userId' : o.id}) }}">{{ o.id }}</a>
                             {#{% endif %}#}
                         </td>
                         <td>{{ o.created | date('d.m.Y') }}</td>

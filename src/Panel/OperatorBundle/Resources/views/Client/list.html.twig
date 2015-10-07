@@ -73,9 +73,9 @@
                             {#</a>#}
                             &nbsp;&nbsp;
                             <a href="#">
-                                <button type="button" class="btn btn-default btn-danger" title="Удалить">
+                                <a href="{{ path('panel_client_remove',{'id': client.id }) }}"><button type="button" class="btn btn-default btn-danger" title="Удалить">
                                     <span class="glyphicon glyphicon-remove"></span>
-                                </button>
+                                </button></a>
                             </a>
                         {% endspaceless %}
                     </td>
