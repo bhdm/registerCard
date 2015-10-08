@@ -648,7 +648,7 @@ class UserRepository extends EntityRepository
             ->from('CrmMainBundle:User','u')
             ->leftJoin('u.client', 'c')
             ->where('c.id = '.$clientId);
-            if ($type && $type!= 0){
+            if ($type && $type!= '0'){
                 if ($type == 'estr'){
                     $res->andWhere('u.estr = 1');
                 }elseif($type == 'ru'){
@@ -657,7 +657,7 @@ class UserRepository extends EntityRepository
                     $res->andWhere('u.ru = 0 and u.estr = 0');
                 }
             }
-        if ($type && $type != ''){
+        if ($search && $search != ''){
             $res->andWhere("u.lastName LIKE '%$search%' OR u.firstName LIKE '%$search%' OR u.surName LIKE '%$search%'");
         }
 
