@@ -216,10 +216,15 @@ class OrderController extends Controller
      * @Route("/order", name="auth_order")
      * @Template()
      */
-    public function orderListAction()
+    public function orderListAction(Request $request)
     {
 //        $orders = $this->getUser()->getOrders();
-        $orders = $this->getDoctrine()->getRepository('CrmMainBundle:User')->findBy(['client' => $this->getUser()],['id' => 'DESC']);
+//        findBy(['client' => $this->getUser()],['id' => 'DESC'])
+        $orders = $this->getDoctrine()->getRepository('CrmMainBundle:User')->filterForClient(
+            $this->getUser()->getId(),
+            $request->query->get('type'),
+            $request->query->get('search')
+        );
         return ['orders' => $orders];
     }
 

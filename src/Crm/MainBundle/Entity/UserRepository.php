@@ -641,6 +641,31 @@ class UserRepository extends EntityRepository
         return $re;
     }
 
+    public function filterForClient($clientId,$type = null,$search = null)
+    {
+        $res = $this->getEntityManager()->createQueryBuilder()
+            ->select('u')
+            ->from('CrmMainBundle:User','u')
+            ->leftJoin('u.client', 'c')
+            ->where('c.id = '.$clientId);
+            if ($type && $type!= 0){
+                if ($type == 'estr'){
+                    $res->andWhere('u.estr = 1');
+                }elseif($type == 'ru'){
+                    $res->andWhere('u.ru = 1');
+                }else{
+                    $res->andWhere('u.ru = 0 and u.estr = 0');
+                }
+            }
+        if ($type && $type != ''){
+            $res->andWhere("u.lastName LIKE '%$search%' OR u.firstName LIKE '%$search%' OR u.surName LIKE '%$search%'");
+        }
+
+        $res->orderBy('u.id', 'DESC');
+
+        return $res->getQuery()->getResult();
+
+    }
 
 
 }
