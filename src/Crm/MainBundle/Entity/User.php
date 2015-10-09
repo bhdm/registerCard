@@ -124,8 +124,6 @@ class User extends BaseEntity implements UserInterface, EquatableInterface, \Ser
     protected $snils;
 
     /**
-     * @Assert\NotBlank( message = "Поле почтоый индекс обязательно для заполнения" )
-     * @Assert\Regex(pattern= "/^[0-9]{6}$/", message="Неверный формат ввода.")
      * @ORM\Column(type="string", length=12, nullable=true)
      */
     protected $dileveryZipcode;
@@ -142,24 +140,18 @@ class User extends BaseEntity implements UserInterface, EquatableInterface, \Ser
     protected $dileveryArea;
 
     /**
-     * @Assert\Length( max = "64", maxMessage = "Максимум  64 символа")
-     * @Assert\NotBlank( message = "Поле город обязательно для заполнения" )
      * @ORM\Column(type="string", length=64, nullable=true)
      */
     protected $dileveryCity;
 
 
     /**
-     * @Assert\Length( max = "64", maxMessage = "Максимум  64 символа")
-     * @Assert\NotBlank( message = "Поле улица обязательно для заполнения" )
      * @ORM\Column(type="string", length=100, nullable=true)
      */
     protected $dileveryStreet;
 
 
     /**
-     * @Assert\Length( max = "10", maxMessage = "Максимум  10 символов")
-     * @Assert\NotBlank( message = "Поле дом обязательно для заполнения" )
      * @ORM\Column(type="string", length=100, nullable=true)
      */
     protected $dileveryHome;
@@ -185,8 +177,6 @@ class User extends BaseEntity implements UserInterface, EquatableInterface, \Ser
     protected $dileveryStructure;
 
     /**
-     * @Assert\NotBlank( message = "Поле почтоый индекс обязательно для заполнения" )
-     * @Assert\Regex(pattern= "/^[0-9]{6}$/", message="Неверный формат ввода.")
      * @ORM\Column(type="string", length=12, nullable=true)
      */
     protected $registeredZipcode;
@@ -204,24 +194,18 @@ class User extends BaseEntity implements UserInterface, EquatableInterface, \Ser
 
 
     /**
-     * @Assert\Length( max = "64", maxMessage = "Максимум  64 символа")
-     * @Assert\NotBlank( message = "Поле город обязательно для заполнения" )
      * @ORM\Column(type="string", length=64, nullable=true)
      */
     protected $registeredCity;
 
 
     /**
-     * @Assert\Length( max = "64", maxMessage = "Максимум  64 символа")
-     * @Assert\NotBlank( message = "Поле улица обязательно для заполнения" )
      * @ORM\Column(type="string", length=100, nullable=true)
      */
     protected $registeredStreet;
 
 
     /**
-     * @Assert\Length( max = "10", maxMessage = "Максимум  10 символов")
-     * @Assert\NotBlank( message = "Поле дом обязательно для заполнения" )
      * @ORM\Column(type="string", length=100, nullable=true)
      */
     protected $registeredHome;
