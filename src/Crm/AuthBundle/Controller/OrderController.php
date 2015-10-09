@@ -252,14 +252,10 @@ class OrderController extends Controller
 
         $session = $request->getSession();
 
-
         $session = new Session();
-        $order = $session->get('order');
         $em = $this->getDoctrine()->getManager();
-        $item = new User();
-        $form = $this->createForm(new UserSkziType($em), $item);
-        $formData = $form->handleRequest($request);
 
+        $order = $session->get('order');
         $session->set('passportFile', null);
         $session->set('passport2File', null);
         $session->set('driverFile', null);
@@ -283,20 +279,19 @@ class OrderController extends Controller
 
 
         $em = $this->getDoctrine()->getManager();
-        $item = $user;
 
         if ($user->getRu() == 0 && $user->getEstr() == 0 ){
-            $form = $this->createForm(new UserSkziType($em), $item);
+            $form = $this->createForm(new UserSkziType($em), $user);
         }elseif ($user->getRu() == 1 ){
-            $form = $this->createForm(new UserRuType($em), $item);
+            $form = $this->createForm(new UserRuType($em), $user);
         }else{
-            $form = $this->createForm(new UserEstrType($em), $item);
+            $form = $this->createForm(new UserEstrType($em), $user);
         }
 
         $formData = $form->handleRequest($request);
 
         if ($request->getMethod() == 'POST') {
-
+            $user = $formData->getData();
             $this->getDoctrine()->getManager()->flush($user);
             $this->getDoctrine()->getManager()->refresh($user);
 
