@@ -30,6 +30,9 @@ class ImageController extends Controller
             $path='/var/www/upload/tmp/'.$time.'.jpg';
             $path2='/var/www/upload/tmp/origin-'.$time.'.jpg';
             $file = $request->files->get('file');
+            if (!$file){
+                $error = array('error' => 'Ошибка загрузки. Повторите пожалуйста');
+            }
             if (explode('/' , $file->getMimeType())[0] != 'image'){
                 $error = array('error' => 'файл должен быть изображением формата JPG, PNG или BMP');
             }

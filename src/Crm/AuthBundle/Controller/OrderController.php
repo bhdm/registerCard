@@ -41,7 +41,11 @@ class OrderController extends Controller
                 $company = $this->getUser()->getCompany();
                 $user->setCompany($company);
                 $user->setClient($this->getUser());
+                if (!$company){
+                    $company = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->findOneByUrl('NO_COMPANY');
+                }
                 $user->setPrice($company->getPriceSkzi());
+
 
                 $user->setCopyPassport($this->getImgToArray($session->get('passportFile')));
                 $user->setCopyDriverPassport($this->getImgToArray($session->get('driverFile')));
