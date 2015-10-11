@@ -198,3 +198,11 @@ progress {
 .table-form tr td{
     padding: 0 10px;
 }
+
+.status{
+    display: inline-block;
+    padding: 2px ;
+    text-align: center;
+    width: 100px;
+    border-radius: 5px;
+}

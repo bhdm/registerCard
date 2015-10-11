@@ -117,8 +117,6 @@ class User extends BaseEntity implements UserInterface, EquatableInterface, \Ser
     protected $hash;
 
     /**
-     * @Assert\NotBlank( message = "Поле СНИЛС обязательно для заполнения" )
-     * @Assert\Regex(pattern= "/^[0-9]{3}-[0-9]{3}-[0-9]{3}\ [0-9]{2}$/", message="Неверный формат ввода.")
      * @ORM\Column(type="string", length=17, nullable=true)
      */
     protected $snils;

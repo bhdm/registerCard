@@ -33,16 +33,16 @@ class UserSkziType extends AbstractType
             ->add('surName', null,['label'=>'Отчество'])
             ->add('enLastName', null, ['label'=>'Фамилия (англ)'])
             ->add('enFirstName', null, ['label'=>'Имя (англ)'])
-            ->add('birthDate', 'date',['label'=>'Дата рождения','widget' => 'single_text'])
+            ->add('birthDate', 'text',['label'=>'Дата рождения', 'attr' => ['class' => 'date']])
             ->add('passportSerial', null,['label'=>'Серия и номер паспорта'])
             ->add('passportNumber', null,['label'=>''])
             ->add('passportIssuance', null,['label'=>'Кем Выдан'])
-            ->add('passportIssuanceDate', 'date' ,['label'=>'Дата выдачи','widget' => 'single_text'])
+            ->add('passportIssuanceDate', 'text' ,['label'=>'Дата выдачи', 'attr' => ['class' => 'date']])
             ->add('passportCode', null,['label'=>'Код подразделения', 'attr' => ['class'=>'code']])
 
             ->add('email', null,['label'=>'Email'])
             ->add('username', null,['label'=>'Телефон', 'attr' => ['class' => 'phone']])
-            ->add('snils', null,['label'=>'СНИЛС', 'attr' => ['class'=> 'snils']])
+            ->add('snils', null,['label'=>'СНИЛС', 'attr' => ['class'=> 'snils'], 'required' => true])
 
 
             ->add('deliveryAdrs', new AdrsType(),array('mapped'=>true, 'required' => false))
@@ -58,7 +58,7 @@ class UserSkziType extends AbstractType
             ->add('driverDocCountry', null, array('label' => 'Страна выдачи ВУ'))
             ->add('driverDocNumber', null ,['label' => 'Номер', 'attr' => ['class' => 'driverNumber']])
             ->add('driverDocIssuance', null ,['label' => 'Кем выдано'])
-            ->add('driverDocDateStarts', 'date' ,['label' => 'Дата выдачи','widget' => 'single_text'])
+            ->add('driverDocDateStarts', 'text' ,['label' => 'Дата выдачи', 'attr' => ['class' => 'date']])
 
 //            ->add('driverDocDateEnds', null ,['label' => 'Дата ококнчания'])
 //

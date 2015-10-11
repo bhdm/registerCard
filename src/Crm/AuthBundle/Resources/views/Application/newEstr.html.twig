@@ -186,14 +186,14 @@
             <hr>
             <div class="block-form" >
                 <table class="table-form">
-                    <caption>Информация о СНИЛС</caption>
+                    <caption>Информация о СНИЛС ( Если есть )</caption>
                     <tr>
                         <td>Номер СНИЛС</td>
                         <td>{{ form_widget(form.snils) }}</td>
                         <td></td>
                     </tr>
                     <tr>
-                        <td style="vertical-align: top; padding-top: 10px">Копия СНИЛС<span class="required">*</span></td>
+                        <td style="vertical-align: top; padding-top: 10px">Копия СНИЛС</td>
                         <td colspan="2">
                             <div class="file-container">
                                 <input type="file" name="snilsFile" id="snilsFile" class="fileAjax" >
@@ -806,6 +806,8 @@
             $(".phone").mask("+7 (999) 999-9999");
             $(".code").mask("999-999");
             $(".snils").mask("999-999-999 99");
+
+
             $.mask.definitions['d'] = "[a-zA-Z0-9а-яА-Я]";
             $('.driverNumber').mask("dddd999999");
             $('.oldCardNumber').mask("RUDddddddddddddd");
