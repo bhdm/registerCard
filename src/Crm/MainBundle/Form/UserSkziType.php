@@ -35,7 +35,7 @@ class UserSkziType extends AbstractType
             ->add('enFirstName', null, ['label'=>'Имя (англ)'])
             ->add('birthDate', 'text',['label'=>'Дата рождения', 'attr' => ['class' => 'date']])
             ->add('passportSerial', null,['label'=>'Серия и номер паспорта'])
-            ->add('passportNumber', null,['label'=>''])
+            ->add('passportNumber', null,['label'=>'', 'required' => true])
             ->add('passportIssuance', null,['label'=>'Кем Выдан'])
             ->add('passportIssuanceDate', 'text' ,['label'=>'Дата выдачи', 'attr' => ['class' => 'date']])
             ->add('passportCode', null,['label'=>'Код подразделения', 'attr' => ['class'=>'code']])
@@ -52,12 +52,12 @@ class UserSkziType extends AbstractType
 //
             ->add('myPetition', 'choice',
                 array('label' => 'Ходатайство','choices'=>array(
-                    '1' => 'Использовать НПО Технолог',
-                    '0' => 'использовать свое'
+                    '0' => 'Использовать НПО Технолог',
+                    '1' => 'использовать свое'
                 )))
             ->add('driverDocCountry', null, array('label' => 'Страна выдачи ВУ'))
             ->add('driverDocNumber', null ,['label' => 'Номер', 'attr' => ['class' => 'driverNumber']])
-            ->add('driverDocIssuance', null ,['label' => 'Кем выдано'])
+            ->add('driverDocIssuance', null ,['label' => 'Кем выдано', 'attr' => ['maxlength' => 63]])
             ->add('driverDocDateStarts', 'text' ,['label' => 'Дата выдачи', 'attr' => ['class' => 'date']])
 
 //            ->add('driverDocDateEnds', null ,['label' => 'Дата ококнчания'])

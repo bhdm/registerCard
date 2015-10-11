@@ -3,30 +3,32 @@
 {% block body %}
     <div class="row">
         <div class="col-xs-5">
-            <h2>Авторизация</h2>
-            <form class="row" method="post" action="login_check">
+            <h2 style="display: block; text-align: center !important;">Вход в личный кабинет</h2>
+            <form class="form-horizontal" method="post" action="login_check">
                 {% if error %}
                     <div class="error">{{ error.message }}</div>
                 {% endif %}
-                <div>
-                    <div class="form-group">
-                        <label class="control-label required">Email</label>
+                <div class="form-group">
+                    <label class="control-label required col-xs-4">Email</label>
+                    <div class="col-xs-8">
                         <input type="email" id="" name="_username" required="required" class="form-control" />
                     </div>
-                    <div class="form-group">
-                        <label class="control-label required">Пароль</label>
+                </div>
+                <div class="form-group">
+                    <label class="control-label required col-xs-4">Пароль</label>
+                    <div class=" col-xs-8">
                         <input type="password" id="" name="_password" required="required" class="form-control" />
                     </div>
-                    <div class="form-group" style="text-align: right">
-                        <div class="row">
-                            <div class="col-xs-7" style="text-align: right">
-                                <a href="{{ path('auth_register') }}">Зарегистрироваться</a>
-                                <br />
-                                <a href="{{ path('auth_reset_password') }}">Забыли пароль</a>
-                            </div>
-                            <div class="col-xs-5">
-                                <button type="submit" id="" class="btn-primary btn">Войти</button>
-                            </div>
+                </div>
+                <div class="form-group" style="text-align: right">
+                    <div class="row">
+                        <div class="col-xs-7" style="text-align: right">
+                            <a href="{{ path('auth_register') }}">Зарегистрироваться</a>
+                            <br />
+                            <a href="{{ path('auth_reset_password') }}">Забыли пароль</a>
+                        </div>
+                        <div class="col-xs-5">
+                            <button type="submit" id="" class="btn-primary btn">Войти</button>
                         </div>
                     </div>
                 </div>

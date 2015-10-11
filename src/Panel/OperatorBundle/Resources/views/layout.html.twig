@@ -72,6 +72,12 @@
                         var url = Routing.generate('panel_user_list', { 'status' : 'all', 'company': null, 'operator': null ,'type': null, 'search' : $('#a-search').val() });
                         window.location.href = url;
                     });
+                    $('#a-search').keypress(function(e) {
+                        if (e.which == 13) {
+                            var url = Routing.generate('panel_user_list', { 'status' : 'all', 'company': null, 'operator': null ,'type': null, 'search' : $('#a-search').val() });
+                            window.location.href = url;
+                        }
+                    });
                 });
             </script>
         {% endblock %}

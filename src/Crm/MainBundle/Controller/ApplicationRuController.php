@@ -31,6 +31,9 @@ class ApplicationRuController extends Controller
      */
     public function step1Action(Request $request, $url= null)
     {
+        if ($this->get('security.context')->isGranted('ROLE_CLIENT')){
+            return $this->redirect($this->generateUrl('auth_add_ru'));
+        }
         $session = $request->getSession();
         $order = $session->get('order');
         if ($request->getMethod() == 'POST'){

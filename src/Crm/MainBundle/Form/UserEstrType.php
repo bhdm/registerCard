@@ -50,7 +50,7 @@ class UserEstrType extends AbstractType
                 )))
 
             ->add('driverDocNumber', null ,['label' => 'Номер', 'attr' => ['class' => 'driverNumber']])
-            ->add('driverDocIssuance', null ,['label' => 'Кем выдано'])
+            ->add('driverDocIssuance', null ,['label' => 'Кем выдано', 'attr' => ['maxlength' => 63]])
             ->add('driverDocDateStarts', 'text' ,['label' => 'Дата выдачи', 'attr' => ['class' => 'date']])
 
 //

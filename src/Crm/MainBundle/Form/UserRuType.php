@@ -34,7 +34,7 @@ class UserRuType extends AbstractType
             ->add('surName', null,['label'=>'Отчество'])
             ->add('birthDate', 'text',['label'=>'Дата рождения', 'attr' => ['class' => 'date']])
             ->add('passportSerial', null,['label'=>'Серия и номер паспорта'])
-            ->add('passportNumber', null,['label'=>''])
+            ->add('passportNumber', null,['label'=>'', 'required' => true])
             ->add('email', null,['label'=>'Email'])
             ->add('username', null,['label'=>'Телефон', 'attr' => ['class' => 'phone']])
             ->add('snils', null,['label'=>'СНИЛС', 'attr' => ['class'=> 'snils'], 'required' => false])
@@ -51,7 +51,7 @@ class UserRuType extends AbstractType
                 )))
 
             ->add('driverDocNumber', null ,['label' => 'Номер', 'attr' => ['class' => 'driverNumber']])
-            ->add('driverDocIssuance', null ,['label' => 'Кем выдано'])
+            ->add('driverDocIssuance', null ,['label' => 'Кем выдано', 'attr' => ['maxlength' => 63]])
             ->add('driverDocDateStarts', 'text' ,['label' => 'Дата выдачи', 'attr' => ['class' => 'date']])
 
 //

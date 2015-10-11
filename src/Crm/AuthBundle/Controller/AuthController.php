@@ -28,6 +28,9 @@ class AuthController extends Controller
      * @Template()
      */
     public function loginAction(){
+        if ($this->get('security.context')->isGranted('ROLE_CLIENT')){
+            return $this->redirect($this->generateUrl('auth_profile'));
+        }
         if ($this->get('request')->attributes->has(SecurityContext::AUTHENTICATION_ERROR)) {
             $error = $this->get('request')->attributes->get(SecurityContext::AUTHENTICATION_ERROR);
         } else {

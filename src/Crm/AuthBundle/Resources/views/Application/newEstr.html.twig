@@ -819,7 +819,12 @@
                 }else{
                     $('.master').css('display','none');
                 }
-            })
+            });
+
+            {% if form.vars.value.myPetition is defined and form.vars.value.myPetition != 0 %}
+            $('.petition').css('display','table-row');
+            $('.petition-td').css('display','table-cell');
+            {% endif %}
         });
     </script>
 {% endblock %}
