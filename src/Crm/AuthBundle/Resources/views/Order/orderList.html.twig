@@ -49,7 +49,7 @@
             </tr>
             {% for o in orders %}
                 {% if o.enabled == 1 %}
-                    <tr class="{{ o.order != null and o.order != '' ? 'warning' : ''}}">
+                    <tr class="{{ o.comment != null and o.comment != '' ? 'warning' : ''}}">
                         <td>
                             {#{% if o.estr == 0 and o.ru == 0 %}#}
                             {#<a href="{{ path('auth_user_skzi_edit', {'userId' : o.id}) }}">{{ o.id }}</a>#}
