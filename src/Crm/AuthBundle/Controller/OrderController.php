@@ -37,21 +37,25 @@ class OrderController extends Controller
         $formData = $form->handleRequest($request);
         if ($request->getMethod() == 'POST'){
 //            if ($formData->isValid()){
-                $user = $formData->getData();
-                $company = $this->getUser()->getCompany();
-                $user->setCompany($company);
-                $user->setClient($this->getUser());
-                if (!$company){
-                    $company = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->findOneByUrl('NO_COMPANY');
-                }
-                $user->setPrice($company->getPriceSkzi());
+            $user = $formData->getData();
+            $user->setBirthDate(new \DateTime($user->getBirthDate()));
+            $user->setDriverDocDateStarts(new \DateTime($user->getDriverDocDateStarts()));
+            $user->setPassportIssuanceDate(new \DateTime($user->getPassportIssuanceDate()));
+
+            $company = $this->getUser()->getCompany();
+            $user->setCompany($company);
+            $user->setClient($this->getUser());
+            if (!$company){
+                $company = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->findOneByUrl('NO_COMPANY');
+            }
+            $user->setPrice($company->getPriceSkzi());
 
 
-                $user->setCopyPassport($this->getImgToArray($session->get('passportFile')));
-                $user->setCopyDriverPassport($this->getImgToArray($session->get('driverFile')));
-                $user->setCopySnils($this->getImgToArray($session->get('snilsFile')));
-                $user->setCopySignature($this->getImgToArray($session->get('signFile')));
-                $user->setPhoto($this->getImgToArray($session->get('photoFile')));
+            $user->setCopyPassport($this->getImgToArray($session->get('passportFile')));
+            $user->setCopyDriverPassport($this->getImgToArray($session->get('driverFile')));
+            $user->setCopySnils($this->getImgToArray($session->get('snilsFile')));
+            $user->setCopySignature($this->getImgToArray($session->get('signFile')));
+            $user->setPhoto($this->getImgToArray($session->get('photoFile')));
 //                if ($session->get('typeCardFile')){
 //                    $user->setTypeCardFile($session->get('typeCardFile'));
 //                }
@@ -59,14 +63,14 @@ class OrderController extends Controller
 //                if ($session->get('petitionFile')!= null){
 //                    $user->setCopyPetition($this->getImgToArray($session->get('petitionFile')));
 //                }
-                $user->setCopyWork(array());
-                $user->setTypeCardFile(array());
-                $user->setCopyPetition(array());
+            $user->setCopyWork(array());
+            $user->setTypeCardFile(array());
+            $user->setCopyPetition(array());
 
-                $em->persist($user);
-                $em->flush($user);
-                $em->refresh($user);
-                return $this->render('@CrmAuth/Application/success.html.twig',['user' => $user]);
+            $em->persist($user);
+            $em->flush($user);
+            $em->refresh($user);
+            return $this->render('@CrmAuth/Application/success.html.twig',['user' => $user]);
 //            }
         }else{
             $this->clearSession($session);
@@ -94,6 +98,8 @@ class OrderController extends Controller
             $user = $formData->getData();
             $company = $this->getUser()->getCompany();
             $user->setCompany($company);
+            $user->setBirthDate(new \DateTime($user->getBirthDate()));
+            $user->setDriverDocDateStarts(new \DateTime($user->getDriverDocDateStarts()));
             $user->setClient($this->getUser());
             $user->setPrice($company->getPriceEstr());
             $user->setEstr(1);
@@ -141,11 +147,15 @@ class OrderController extends Controller
 //            if ($formData->isValid()){
             $user = $formData->getData();
             $company = $this->getUser()->getCompany();
+
+            $user->setBirthDate(new \DateTime($user->getBirthDate()));
+            $user->setDriverDocDateStarts(new \DateTime($user->getDriverDocDateStarts()));
             $user->setCompany($company);
             $user->setClient($this->getUser());
             $user->setPrice($company->getPriceRu());
             $user->setRu(1);
             $user = $formData->getData();
+
             $user->setCopyPassport($this->getImgToArray($session->get('passportFile')));
             $user->setCopyPassport2($this->getImgToArray($session->get('passportFile2')));
             $user->setCopyDriverPassport($this->getImgToArray($session->get('driverFile')));
