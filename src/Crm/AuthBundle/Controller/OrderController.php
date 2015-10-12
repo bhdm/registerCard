@@ -271,6 +271,9 @@ class OrderController extends Controller
     public function editAction(Request $request, $userId)
     {
         $user = $this->getDoctrine()->getRepository('CrmMainBundle:User')->findOneById($userId);
+        $user->setBirthDate($user->getBirthDate()->format('d.m.Y'));
+        $user->setDriverDocDateStarts($user->getDriverDocDateStarts()->format('d.m.Y'));
+        $user->setPassportIssuanceDate($user->getPassportIssuanceDate()->format('d.m.Y'));
 
         $session = $request->getSession();
 
