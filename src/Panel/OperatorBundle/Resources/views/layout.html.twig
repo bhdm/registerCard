@@ -78,6 +78,14 @@
                             window.location.href = url;
                         }
                     });
+
+                    $('#filter-search').keypress(function(e) {
+                        if (e.which == 13) {
+                            var url = Routing.generate('panel_user_arhive', {'type': $('#filter-type').val(), 'dateStart' : $('#filter-dateStart').val(), 'dateEnd' : $('#filter-dateEnd').val(),'search' : $('#filter-search').val() });
+                            window.location.href = url;
+                        }
+                    });
+
                 });
             </script>
         {% endblock %}
