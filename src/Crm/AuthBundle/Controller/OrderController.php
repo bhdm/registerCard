@@ -48,7 +48,11 @@ class OrderController extends Controller
             if (!$company){
                 $company = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->findOneByUrl('NO_COMPANY');
             }
-            $user->setPrice($company->getPriceSkzi());
+            if ($company){
+                $user->setPrice($company->getPriceSkzi());
+            }else{
+                $user->setPrice(2150);
+            }
 
 
             $user->setCopyPassport($this->getImgToArray($session->get('passportFile')));
@@ -156,7 +160,11 @@ class OrderController extends Controller
             $user->setDriverDocDateStarts(new \DateTime($user->getDriverDocDateStarts()));
             $user->setCompany($company);
             $user->setClient($this->getUser());
-            $user->setPrice($company->getPriceRu());
+            if ($company){
+                $user->setPrice($company->getPriceRu());
+            }else{
+                $user->setPrice(3200);
+            }
             $user->setRu(1);
             $user = $formData->getData();
 
