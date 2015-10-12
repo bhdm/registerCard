@@ -101,7 +101,11 @@ class OrderController extends Controller
             $user->setBirthDate(new \DateTime($user->getBirthDate()));
             $user->setDriverDocDateStarts(new \DateTime($user->getDriverDocDateStarts()));
             $user->setClient($this->getUser());
-            $user->setPrice($company->getPriceEstr());
+            if ($company){
+                $user->setPrice($company->getPriceEstr());
+            }else{
+                $user->setPrice(3200);
+            }
             $user->setEstr(1);
             $user = $formData->getData();
             $user->setCopyPassport($this->getImgToArray($session->get('passportFile')));
