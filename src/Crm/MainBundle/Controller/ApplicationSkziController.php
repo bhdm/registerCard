@@ -375,7 +375,7 @@ class ApplicationSkziController extends Controller
         if (!$this->get('security.authorization_checker')->isGranted('IS_AUTHENTICATED_REMEMBERED') && (!isset($url) || $url == null)){
             $pass = $this->generatePassword(6);
             $client = $this->getDoctrine()->getRepository('CrmMainBundle:Client')->findOneByUsername($user->getEmail());
-            if ($client == null ){
+            if ($client == null  ){
                 $client = new Client();
                 $company = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->findOneByUrl('NO_COMPANY');
                 $client->setCompanyTitle(null);
