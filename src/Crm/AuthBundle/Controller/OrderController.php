@@ -323,6 +323,17 @@ class OrderController extends Controller
 
         if ($request->getMethod() == 'POST') {
             $user = $formData->getData();
+
+            if ($user->getBirthDate() != null){
+                $user->setBirthDate(new \DateTime($user->getBirthDate()));
+            }
+            if ($user->getDriverDocDateStarts() != null){
+                $user->setDriverDocDateStarts(new \DateTime($user->getDriverDocDateStarts()));
+            }
+            if ($user->getPassportIssuanceDate() != null){
+                $user->setPassportIssuanceDate(new \DateTime($user->getPassportIssuanceDate()));
+            }
+
             $this->getDoctrine()->getManager()->flush($user);
             $this->getDoctrine()->getManager()->refresh($user);
 
