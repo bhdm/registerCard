@@ -6,7 +6,7 @@
             <h2 style="display: block; text-align: center !important;">Вход в личный кабинет</h2>
             <form class="form-horizontal" method="post" action="login_check">
                 {% if error %}
-                    <div class="error">{{ error.message }}</div>
+                    <div class="error" style="color: #CC0000" >Ошибка ввода логина или пароля</div>
                 {% endif %}
                 <div class="form-group">
                     <label class="control-label required col-xs-4">Email</label>

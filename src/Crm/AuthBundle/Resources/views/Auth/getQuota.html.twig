@@ -33,7 +33,14 @@
         <tr>
             <td><b>Общий итог:</b></td>
             <td>
-                {{ (amountPlusQuota - (amountRubSkzi+amountRubEstr+amountRubRu+(amountMinusQuota*-1))) - (amountRubSkziNew+amountRubEstrNew+amountRubRuNew) }}р.
+                {% if (amountPlusQuota - (amountRubSkzi+amountRubEstr+amountRubRu+(amountMinusQuota*-1))) - (amountRubSkziNew+amountRubEstrNew+amountRubRuNew) < 0 %}
+                    {% set color = 'color: #CC0000;' %}
+                {% else %}
+                    {% set color = '' %}
+                {% endif %}
+                <span style="{{ color }}">
+                    {{ (amountPlusQuota - (amountRubSkzi+amountRubEstr+amountRubRu+(amountMinusQuota*-1))) - (amountRubSkziNew+amountRubEstrNew+amountRubRuNew) }}р.
+                </span>
             </td>
         </tr>
     </table>

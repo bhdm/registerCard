@@ -63,7 +63,7 @@ security:
                 default_target_path: /auth/order
             logout:
                 path:   /auth/logout
-                target: /auth/login
+                target: /
             security: true
             anonymous: ~
         secured_area:
