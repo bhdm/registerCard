@@ -38,9 +38,7 @@
             <tr>
                 <td>Номер</td>
                 <td>Дата заявки</td>
-                <td>Фамилия</td>
-                <td>Имя</td>
-                <td>Отчество</td>
+                <td>Ф.И.О.</td>
                 <td>Тип заявки</td>
                 <td>Статус</td>
                 <td>Цена</td>
@@ -58,9 +56,7 @@
                             {#{% endif %}#}
                         </td>
                         <td>{{ o.created | date('d.m.Y') }}</td>
-                        <td>{{ o.lastName  }}</td>
-                        <td>{{ o.firstName  }}</td>
-                        <td>{{ o.surName  }}</td>
+                        <td>{{ o. }}</td>
                         <td>{{ o.ru ? 'РФ' : o.estr ? 'ЕСТР' : 'СКЗИ'  }}</td>
                         <td>{{ o.statusStringTwig |raw }}</td>
                         <td>{{ o.price }}</td>
