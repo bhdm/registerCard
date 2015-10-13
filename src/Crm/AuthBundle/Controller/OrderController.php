@@ -113,9 +113,9 @@ class OrderController extends Controller
             $user->setEstr(1);
             $user = $formData->getData();
             $user->setCopyPassport($this->getImgToArray($session->get('passportFile')));
-            $user->setCopyPassport2($this->getImgToArray($session->get('passportFile2')));
+            $user->setCopyPassport2($this->getImgToArray($session->get('passport2File')));
             $user->setCopyDriverPassport($this->getImgToArray($session->get('driverFile')));
-            $user->setCopyDriverPassport2($this->getImgToArray($session->get('driverFile2')));
+            $user->setCopyDriverPassport2($this->getImgToArray($session->get('driver2File')));
             $user->setCopySnils($this->getImgToArray($session->get('snilsFile')));
             $user->setCopySignature($this->getImgToArray($session->get('signFile')));
             $user->setPhoto($this->getImgToArray($session->get('photoFile')));
@@ -169,9 +169,9 @@ class OrderController extends Controller
             $user = $formData->getData();
 
             $user->setCopyPassport($this->getImgToArray($session->get('passportFile')));
-            $user->setCopyPassport2($this->getImgToArray($session->get('passportFile2')));
+            $user->setCopyPassport2($this->getImgToArray($session->get('passport2File')));
             $user->setCopyDriverPassport($this->getImgToArray($session->get('driverFile')));
-            $user->setCopyDriverPassport2($this->getImgToArray($session->get('driverFile2')));
+            $user->setCopyDriverPassport2($this->getImgToArray($session->get('driver2File')));
             $user->setCopySnils($this->getImgToArray($session->get('snilsFile')));
             $user->setCopySignature($this->getImgToArray($session->get('signFile')));
             $user->setPhoto($this->getImgToArray($session->get('photoFile')));
