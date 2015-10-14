@@ -53,73 +53,45 @@
 <body>
 
 <header>
-<nav class="navbar navbar-default">
+    <nav class="navbar navbar-default">
+        <div class="container">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="#">
+                    {% if app.user != null and app.user.company != null and app.user.company.id != 551 %}
+                        {% set company = app.user.company.title %}
+                    {% else %}
+                        {% set company = 'ИнфоМакс' %}
+                    {% endif %}
+                    Личный кабинет <span class="text-primary"><b>[{{ company }}]</b></span>
+                </a>
+            </div>
+        </div>
+    </nav>
+</header>
     <div class="container">
-        <div class="navbar-header">
-            <a class="navbar-brand" href="#">
-                {% if app.user != null and app.user.company != null and app.user.company.id != 551 %}
-                    {% set company = app.user.company.title %}
-                {% else %}
-                    {% set company = 'ИнфоМакс' %}
+        <div class="row">
+            <div class="col-xs-3">
+                {% if is_granted('ROLE_CLIENT') %}
+                    <div id="sidebar-wrapper">
+                        {% include "CrmAuthBundle::menu.html.twig" %}
+                    </div>
                 {% endif %}
-                Личный кабинет <span class="text-primary"><b>[{{ company }}]</b></span>
-            </a>
-        </div>
-    </div>
-</nav>
-<div class="container">
-    <div class="row">
-        <div class="col-xs-3">
-            {% if is_granted('ROLE_CLIENT') %}
-                <div id="sidebar-wrapper">
-                    {% include "CrmAuthBundle::menu.html.twig" %}
+            </div>
+            <div class="col-xs-9">
+                <div class="container-fluid well">
+                    {% block body %}{% block content %}{% endblock %}{% endblock %}
                 </div>
-            {% endif %}
-        </div>
-        <div class="col-xs-9">
-            <div class="container-fluid well">
-                {% block body %}{% block content %}{% endblock %}{% endblock %}
             </div>
         </div>
     </div>
-</div>
 
-
-
-
-
-
-{#<div class="container">#}
-
-{#<div class="row">#}
-{#<div class="col-xs-3">#}
-{#<div id="sidebar-wrapper">#}
-{#<ul class="sidebar-nav">#}
-{#<li class="sidebar-brand">#}
-{#<a href="#">#}
-{#На главную#}
-{#</a>#}
-{#</li>#}
-{#<li>#}
-{#<a href="#">Мои заказы</a>#}
-{#</li>#}
-{#<li>#}
-{#<a href="#">Мои компании</a>#}
-{#</li>#}
-{#<li>#}
-{#<a href="#">Мои ходатайства</a>#}
-{#</li>#}
-{#<li>#}
-{#<a href="#">Мои сообщения</a>#}
-{#</li>#}
-{#</ul>#}
-{#</div>#}
-{#</div>#}
-{#<div class="col-xs-9">#}
-
-{#</div>#}
-{#</div>#}
-{#</div>#}
+    {% if is_granted("ROLE_CLIENT") %}
+        <!-- BEGIN JIVOSITE CODE {literal} -->
+        <script type='text/javascript'>
+            (function(){ var widget_id = 'Tq6XUUpiP0';
+                var s = document.createElement('script'); s.type = 'text/javascript'; s.async = true; s.src = '//code.jivosite.com/script/widget/'+widget_id; var ss = document.getElementsByTagName('script')[0]; ss.parentNode.insertBefore(s, ss);})();</script>
+        <!-- {/literal} END JIVOSITE CODE -->
+    {% endif %}
 
 
 </body>
