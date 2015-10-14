@@ -344,6 +344,8 @@ class OrderController extends Controller
 
             $this->getDoctrine()->getManager()->flush($user);
             $this->getDoctrine()->getManager()->refresh($user);
+
+            return $this->redirect($this->generateUrl('auth_order'));
         } else {
 
             $session->set('passportFile', null);
