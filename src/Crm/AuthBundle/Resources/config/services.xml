@@ -13,5 +13,9 @@
         </service>
     </services>
     -->
-
+    <services>
+        <service id="authentication_handler" class="Crm\AuthBundle\Handler\AuthenticationHandler">
+            <argument>sendmail</argument>
+        </service>
+    </services>
 </container>
