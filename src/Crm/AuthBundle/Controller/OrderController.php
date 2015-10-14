@@ -291,27 +291,6 @@ class OrderController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         $order = $session->get('order');
-        $session->set('passportFile', null);
-        $session->set('passport2File', null);
-        $session->set('driverFile', null);
-        $session->set('driver2File', null);
-        $session->set('snilsFile', null);
-        $session->set('signFile', null);
-        $session->set('photoFile', null);
-        $session->set('petitionFile', null);
-        $session->set('workFile', null);
-
-        $session->set('origin-passportFile', null);
-        $session->set('origin-passport2File', null);
-        $session->set('origin-driverFile', null);
-        $session->set('origin-driver2File', null);
-        $session->set('origin-snilsFile', null);
-        $session->set('origin-signFile', null);
-        $session->set('origin-photoFile', null);
-        $session->set('origin-petitionFile', null);
-        $session->set('origin-workFile', null);
-
-
 
         $em = $this->getDoctrine()->getManager();
 
@@ -342,7 +321,50 @@ class OrderController extends Controller
             $this->getDoctrine()->getManager()->refresh($user);
 
 
+            if ($session->get('passportFile')){
+                $user->setCopyPassport($this->getImgToArray($session->get('passportFile')));
+            }
+
+            if ($session->get('passport2File')){
+                $user->setCopyPassport2($this->getImgToArray($session->get('passport2File')));
+            }
+
+            if ($session->get('driverFile')){
+                $user->setCopyDriverPassport($this->getImgToArray($session->get('driverFile')));
+            }
+            if ($session->get('driver2File')){
+                $user->setCopyDriverPassport2($this->getImgToArray($session->get('driver2File')));
+            }
+            if ($session->get('snilsFile')){
+                $user->setCopySnils($this->getImgToArray($session->get('snilsFile')));
+            }
+            if ($session->get('signFile')){
+                $user->setCopySignature($this->getImgToArray($session->get('signFile')));
+            }
+            if ($session->get('photoFile')){
+                $user->setPhoto($this->getImgToArray($session->get('photoFile')));
+            }
         } else {
+
+            $session->set('passportFile', null);
+            $session->set('passport2File', null);
+            $session->set('driverFile', null);
+            $session->set('driver2File', null);
+            $session->set('snilsFile', null);
+            $session->set('signFile', null);
+            $session->set('photoFile', null);
+            $session->set('petitionFile', null);
+            $session->set('workFile', null);
+
+            $session->set('origin-passportFile', null);
+            $session->set('origin-passport2File', null);
+            $session->set('origin-driverFile', null);
+            $session->set('origin-driver2File', null);
+            $session->set('origin-snilsFile', null);
+            $session->set('origin-signFile', null);
+            $session->set('origin-photoFile', null);
+            $session->set('origin-petitionFile', null);
+            $session->set('origin-workFile', null);
 
             #Помещаем все фалы-картинки в сессию, что бы потом можно было бы редактировать
             $file = $user->getCopyPassport();
