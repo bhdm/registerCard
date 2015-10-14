@@ -5,9 +5,9 @@
         {#</a>#}
     {#</li>#}
     <li>
-        <a href="{{ path('auth_order') }}">Карты водителя</a>
+        <a href="{{ path('auth_order') }}">Карты водителей</a>
         {% if app.user.company != null and app.user.company.id != 551 %}
-            <a href="{{ path('auth_order_company') }}">Карты юр. лиц</a>
+            <a href="{{ path('auth_order_company') }}">Карты предприятий</a>
         {% endif %}
     </li>
     <li>

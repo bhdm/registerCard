@@ -74,7 +74,11 @@ class OrderController extends Controller
             $em->persist($user);
             $em->flush($user);
             $em->refresh($user);
-            return $this->render('@CrmAuth/Application/success.html.twig',['user' => $user]);
+            if ($this->getUser()->getCompany() != null && $this->getUser()->getCompany()->getUrl() != 'NO_COMPANY'){
+                return $this->redirect($this->generateUrl('auth_order'));
+            }else{
+                return $this->render('@CrmAuth/Application/success.html.twig',['user' => $user]);
+            }
 //            }
         }else{
             $this->clearSession($session);
