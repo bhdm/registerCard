@@ -317,9 +317,6 @@ class OrderController extends Controller
                 $user->setPassportIssuanceDate(new \DateTime($user->getPassportIssuanceDate()));
             }
 
-            $this->getDoctrine()->getManager()->flush($user);
-            $this->getDoctrine()->getManager()->refresh($user);
-
 
             if ($session->get('passportFile')){
                 $user->setCopyPassport($this->getImgToArray($session->get('passportFile')));
@@ -344,6 +341,9 @@ class OrderController extends Controller
             if ($session->get('photoFile')){
                 $user->setPhoto($this->getImgToArray($session->get('photoFile')));
             }
+
+            $this->getDoctrine()->getManager()->flush($user);
+            $this->getDoctrine()->getManager()->refresh($user);
         } else {
 
             $session->set('passportFile', null);
