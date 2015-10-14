@@ -405,7 +405,7 @@ class ApplicationSkziController extends Controller
             $message = \Swift_Message::newInstance()
                 ->setSubject('Ваш заказ создан')
                 ->setFrom('info@im-kard.ru')
-                ->setTo($client->getUsername())
+                ->setTo($user->getEmail())
                 ->setBody(
                     $this->renderView(
                         'CrmAuthBundle:Mail:register.html.twig',
