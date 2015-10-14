@@ -3,5 +3,7 @@
 Ваш заказ отправлен в обработку. <br /><br />
 
 Отслеживать свой заказ Вы можете через <a href="https://im-kard.ru/auth/login">личный кабинет</a> на сайте.<br /><br />
-Ваш логин: {{ client.username }}<br /><br />
-пароль: {{ pass }}
+{% if client != null %}
+    Ваш логин: {{ client.username }}<br /><br />
+    пароль: {{ pass }}
+{% endif %}
