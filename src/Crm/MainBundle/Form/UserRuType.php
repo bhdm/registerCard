@@ -46,8 +46,8 @@ class UserRuType extends AbstractType
 
             ->add('myPetition', 'choice',
                 array('label' => 'Ходатайство','choices'=>array(
-                    '0' => 'Использовать НПО Технолог',
-                    '1' => 'использовать свое'
+                    '0' => 'Ходатайство от ИнфоМакс',
+                    '1' => 'Свое ходатайство'
                 )))
 
             ->add('driverDocNumber', null ,['label' => 'Номер', 'attr' => ['class' => 'driverNumber']])
