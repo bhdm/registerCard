@@ -16,7 +16,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  * @UniqueEntity(
  *     fields={"username"},
  *     errorPath="username",
- *     message="Данный Email уже зарегестрирован в системе"
+ *     message="Данный Email уже зарегистрирован в системе"
  * )
  */
 class Client extends BaseEntity implements UserInterface
