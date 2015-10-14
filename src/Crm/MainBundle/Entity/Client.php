@@ -8,10 +8,16 @@ use Iphp\FileStoreBundle\Mapping\Annotation as FileStore;
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Core\Role\RoleInterface;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * @ORM\Table()
  * @ORM\Entity(repositoryClass="ClientRepository")
+ * @UniqueEntity(
+ *     fields={"username"},
+ *     errorPath="username",
+ *     message="Данный Email уже зарегестрирован в системе"
+ * )
  */
 class Client extends BaseEntity implements UserInterface
 {
@@ -32,7 +38,8 @@ class Client extends BaseEntity implements UserInterface
     protected $companyOrders;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     *
+     * @ORM\Column(type="string", length=255, unique=true)
      */
     protected $username;
 
