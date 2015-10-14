@@ -389,16 +389,18 @@ class ApplicationRuController extends Controller
                 $client->setSurName($user->getSurName());
                 $client->setRoles('ROLE_CLIENT');
             }
-            $client->setSalt(md5(time()));
-            $encoder = new MessageDigestPasswordEncoder('sha512', true, 10);
-            $password = $encoder->encodePassword($pass, $client->getSalt());
-            $client->setPassword($password);
+            if ($client){
+                $client->setSalt(md5(time()));
+                $encoder = new MessageDigestPasswordEncoder('sha512', true, 10);
+                $password = $encoder->encodePassword($pass, $client->getSalt());
+                $client->setPassword($password);
 
-            $em->persist($client);
-            $em->flush($client);
-            $em->refresh($client);
+                $em->persist($client);
+                $em->flush($client);
+                $em->refresh($client);
 
-            $user->setClient($client);
+                $user->setClient($client);
+            }
             $em->persist($user);
             $em->flush($user);
             $em->refresh($user);
