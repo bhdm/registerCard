@@ -33,6 +33,8 @@ class OrderController extends Controller
         $order = $session->get('order');
         $em = $this->getDoctrine()->getManager();
         $item = new User();
+        $item->setEmail($this->getUser()->getUsername());
+        $item->setUsername($this->getUser()->getPhone());
         $form = $this->createForm(new UserSkziType($em), $item);
         $formData = $form->handleRequest($request);
         if ($request->getMethod() == 'POST'){
@@ -99,6 +101,8 @@ class OrderController extends Controller
 
         $em = $this->getDoctrine()->getManager();
         $item = new User();
+        $item->setEmail($this->getUser()->getUsername());
+        $item->setUsername($this->getUser()->getPhone());
         $form = $this->createForm(new UserEstrType($em), $item);
         $formData = $form->handleRequest($request);
         if ($request->getMethod() == 'POST'){
@@ -157,6 +161,8 @@ class OrderController extends Controller
         $order = $session->get('order');
         $em = $this->getDoctrine()->getManager();
         $item = new User();
+        $item->setEmail($this->getUser()->getUsername());
+        $item->setUsername($this->getUser()->getPhone());
         $form = $this->createForm(new UserRuType($em), $item);
         $formData = $form->handleRequest($request);
         if ($request->getMethod() == 'POST'){
