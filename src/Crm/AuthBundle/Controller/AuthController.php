@@ -115,7 +115,8 @@ class AuthController extends Controller
                     $password = $encoder->encodePassword($request->request->get('password'), $client->getSalt());
                     $client->setPassword($password);
                     $em->flush($client);
-                    return ['error' => [ 'message' => 'Пароли изменены']];
+//                    return ['error' => [ 'message' => 'Пароли изменены']];
+                    return $this->redirect($this->generateUrl('auth_login'));
                 }else{
                     return ['error' => [ 'message' => 'Пароли не совпадают']];
                 }
