@@ -235,7 +235,7 @@ class CompanyUser extends BaseEntity
 
     /**
      * Дата производства, что бы не тянуть весь статус лог
-     * @ORM\Column(type="datetime")
+     * @ORM\Column(type="datetime", nullable=true)
      */
     protected $dateDeploy;
 

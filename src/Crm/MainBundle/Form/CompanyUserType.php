@@ -59,12 +59,12 @@ class CompanyUserType extends AbstractType
             ->add('fileLicense', 'iphp_file')
             ->add('fileOrderTwo', 'iphp_file')
 
-            ->add('licenseNumber')
-            ->add('licenseIssued')
-            ->add('licenseDateStart', 'date', ['widget' => 'single_text'])
-            ->add('licenseDateEnd', 'date', ['widget' => 'single_text'])
-            ->add('licenseDecreeNumber')
-            ->add('licenseDecreeDate', 'date', ['widget' => 'single_text'])
+            ->add('licenseNumber', null, array('required' => false))
+            ->add('licenseIssued', null, array('required' => false))
+            ->add('licenseDateStart', 'date', ['widget' => 'single_text','required' => false])
+            ->add('licenseDateEnd', 'date', ['widget' => 'single_text','required' => false])
+            ->add('licenseDecreeNumber', null, ['required' => false])
+            ->add('licenseDecreeDate', 'date', ['widget' => 'single_text','required' => false])
         ;
     }
     

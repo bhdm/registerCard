@@ -61,11 +61,11 @@
                 <caption>Информация о предприятии</caption>
                 <tr>
                     <td>Полное наименование организации<span class="required">*</span></td>
-                    <td>{{ form_widget(form.companyFullTitle) }}</td>
+                    <td colspan="2">{{ form_widget(form.companyFullTitle) }}</td>
                 </tr>
                 <tr>
                     <td>Сокращенное наименование организации<span class="required">*</span></td>
-                    <td>{{ form_widget(form.companyTitle) }}</td>
+                    <td colspan="2">{{ form_widget(form.companyTitle) }}</td>
                 </tr>
                 <tr>
                     <td>В лице<span class="required">*</span></td>
@@ -92,10 +92,6 @@
                     <td>
                         {{ form_widget(form.fileOgrn) }}
                     </td>
-                </tr>
-                <tr>
-                    <td>Номер клейма <span class="mini">(Для мастерских)</span></td>
-                    <td>{{ form_widget(form.stampNumber) }}</td>
                 </tr>
             </table>
         </div>
@@ -235,7 +231,18 @@
             </table>
         </div>
         <hr>
-        <div class="block-form">
+        <div class="block-form master" style="display: none">
+            <table class="table-form">
+                <caption>Данные о клейме (для мастерских)</caption>
+                <tr>
+                    <td>Номер клейма </td>
+                    <td>{{ form_widget(form.stampNumber) }}</td>
+                    <td></td>
+                </tr>
+            </table>
+        </div>
+        <hr>
+        <div class="block-form master" style="display: none">
             <table class="table-form">
                 <caption>Данные о лицензии ФСБ (для мастерских)</caption>
                 <tr>
@@ -271,6 +278,11 @@
                 <tr>
                     <td>&nbsp;</td>
                 </tr>
+            </table>
+        </div>
+        <hr />
+        <div class="block-form">
+            <table class="table-form">
                 <tr>
                     <td style="vertical-align: top; padding-top: 10px">Подпись<span class="required">*</span></td>
                     <td>
@@ -380,6 +392,9 @@
         }
         .jcrop-holder{
             margin: 0 !important;
+        }
+        .form-control{
+            max-width: 540px;
         }
     </style>
 
@@ -567,7 +582,15 @@
                 }else{
                     $('.master').css('display','none');
                 }
-            })
+            });
+
+            $('#crm_mainbundle_companyuser_companyType').change(function(){
+               if ($(this).val() == 2){
+                   $('.master').css('display','block');
+               }else{
+                   $('.master').css('display','none');
+               }
+            });
         });
     </script>
 {% endblock %}
