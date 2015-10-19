@@ -386,31 +386,41 @@
                 <table class="table-form">
                     <caption>Информация о доставке</caption>
                     <tr>
+                        <td>Ввести адрес доставки</td>
+                        <td>
+                            <select id="delivery" class="form-control">
+                                <option value="0">Нет</option>
+                                <option value="1">Да</option>
+                            </select>
+                        </td>
+                        <td></td>
+                    </tr>
+                    <tr class="delivery">
                         <td>Регион<span class="required">*</span>:</td>
                         <td class="value">
                             {{ form_widget(form.deliveryAdrs.region) }}
                         </td>
                         <td></td>
                     </tr>
-                    <tr>
+                    <tr class="delivery">
                         <td>Район:</td>
                         <td class="value">
                             {{ form_widget(form.deliveryAdrs.area) }}
                         </td>
                     </tr>
-                    <tr>
+                    <tr class="delivery">
                         <td>Город:</td>
                         <td class="value">
                             {{ form_widget(form.deliveryAdrs.city) }}
                         </td>
                     </tr>
-                    <tr>
+                    <tr class="delivery">
                         <td>Улица:</td>
                         <td class="value">
                             {{ form_widget(form.deliveryAdrs.street) }}
                         </td>
                     </tr>
-                    <tr>
+                    <tr class="delivery">
                         <td>Номер здания<span class="required">*</span>:</td>
                         <td class="value">
                             <div class="row">
@@ -424,7 +434,7 @@
                             </div>
                         </td>
                     </tr>
-                    <tr>
+                    <tr class="delivery">
                         <td>Индекс<span class="required">*</span>:</td>
                         <td class="value">
                             {{ form_widget(form.deliveryAdrs.zipcode) }}
@@ -583,6 +593,9 @@
         select{
             margin: 10px 0;
         }
+        .delivery{
+            display: none;
+        }
     </style>
 
 {% endblock %}
@@ -625,6 +638,15 @@
                 }
             });
 
+            $('#delivery').change(function(){
+                if ($(this).val()!= 0){
+                    $('.delivery').css('display','table-row');
+                    $('.delivery-td').css('display','table-cell');
+                }else{
+                    $('.delivery').css('display','none');
+                    $('.delivery-td').css('display','none');
+                }
+            });
 
             $('#crm_mainbundle_user_citizenship').change(function(){
                 if ($(this).val()!= 0){
