@@ -39,6 +39,21 @@ class ClientMessageController extends Controller
             $this->getDoctrine()->getManager()->refresh($msg);
         }
 
+        $query = "SELECT c.id id, (
+        SELECT isOperator
+        FROM  Chat
+        WHERE Chat.client_id = c.id
+        ORDER BY Chat.id DESC
+        LIMIT 1
+        ) msg
+        FROM Client c";
+        $pdo = $this->getDoctrine()->getManager()->getConnection();
+        $st = $pdo->prepare($query);
+        $st->execute();
+        $re = $st->fetchAll();
+        foreach ( $re as $val ){
+            $notAnswer[$val['id']] = $val['msg'];
+        }
 
         if ($clientId != null){
             $messages = $this->getDoctrine()->getRepository('CrmMainBundle:Chat')->loadMessages($clientId);
@@ -46,6 +61,6 @@ class ClientMessageController extends Controller
             $messages = array();
         }
 
-        return ['clients' => $client, 'activeClient'=> $clientId,'messages' => $messages];
+        return ['clients' => $client, 'activeClient'=> $clientId,'messages' => $messages, 'notAnswer' => $notAnswer];
     }
 }

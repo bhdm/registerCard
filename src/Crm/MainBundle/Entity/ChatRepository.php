@@ -73,4 +73,31 @@ class ChatRepository extends EntityRepository
 //        exit;
         return $q->getResult();
     }
+
+    public function findClientNotAnswer()
+    {
+        /**
+         * SELECT c.id, (
+        SELECT isOperator
+        FROM  `Chat`
+        WHERE Chat.client_id = c.id
+        ORDER BY Chat.id DESC
+        LIMIT 1
+        ) msg
+        FROM Client c
+        HAVING msg IS NOT NULL
+         */
+        $q = $this
+            ->createQueryBuilder('c')
+            ->leftJoin('c.client','u')
+            ->where('u.enabled = 1')
+            ->andWhere('u.id is not null')
+            ->groupBy('u.id')
+            ->having('c.isOperator = 0')
+            ->orderBy('c.created','DESC')
+            ->getQuery();
+//        echo $q->getSQL();
+//        exit;
+        return $q->getResult();
+    }
 }

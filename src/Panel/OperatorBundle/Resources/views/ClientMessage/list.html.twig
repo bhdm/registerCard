@@ -13,7 +13,7 @@
                 <h3>Клиенты</h3>
                 {% for c in clients %}
                     <div {{ c.client.id == activeClient ? 'text-primary' : ''}}>
-                        <a href="{{ path('panel_client_message_list',{'clientId' : c.client.id}) }}">
+                        <a href="{{ path('panel_client_message_list',{'clientId' : c.client.id}) }}" class="{{ notAnswer[c.client.id] is defined and notAnswer[c.client.id]  == 0 ? 'text-danger' : '' }}">
                             {% if c.client.company != null and c.client.company.id != 551 %}
                                 ({{ c.client.company }}){{ c.client.username }}
                             {% else %}
