@@ -12,12 +12,12 @@
             <div class="col-xs-4">
                 <h3>Клиенты</h3>
                 {% for c in clients %}
-                    <div style="{{ c.id == activeClient ? 'font-weight: bold;' : ''}}">
-                        <a href="{{ path('panel_client_message_list',{'clientId' : c.id}) }}" class="{{ notAnswer[c.id] is defined and notAnswer[c.id]  == 0 ? 'text-danger' : '' }}">
-                            {% if c.company != null and c.company.id != 551 %}
-                                ({{ c.company }}){{ c.username }}
+                    <div style="{{ c.client.id == activeClient ? 'font-weight: bold;' : ''}}">
+                        <a href="{{ path('panel_client_message_list',{'clientId' : c.client.id}) }}" class="{{ notAnswer[c.client.id] is defined and notAnswer[c.client.id]  == 0 ? 'text-danger' : '' }}">
+                            {% if c.client.company != null and c.client.company.id != 551 %}
+                                ({{ c.client.company }}){{ c.client.username }}
                             {% else %}
-                                {{ c.username }}
+                                {{ c.client.username }}
                             {% endif %}
                         </a>
                     </div>

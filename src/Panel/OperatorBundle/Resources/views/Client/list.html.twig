@@ -66,11 +66,11 @@
                                 {#</button>#}
                             {#</a>#}
                             {#&nbsp;&nbsp;#}
-                            {#<a href="{{ path('panel_company_edit',{'id' : company.id}) }}">#}
-                                {#<button type="button" class="btn btn-default btn-bg" title="Редактировать">#}
-                                    {#<span class="glyphicon glyphicon-pencil"></span>#}
-                                {#</button>#}
-                            {#</a>#}
+                            <a href="{{ path('panel_client_message_list',{'clientId' : client.id}) }}" >
+                                <button type="button" class="btn btn-primary btn-bg" title="Отправить сообщение">
+                                    <span class="glyphicon glyphicon-envelope"></span>
+                                </button>
+                            </a>
                             &nbsp;&nbsp;
                             <a href="#">
                                 <a href="{{ path('panel_client_delete',{'id': client.id }) }}"><button type="button" class="btn btn-default btn-danger" title="Удалить">
