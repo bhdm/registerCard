@@ -38,6 +38,16 @@
                     <tr>
                         <td>
                             <div class="form-group">
+                                <label class="control-label col-sm-3" for="oldNumber">Комментарий пользователя:</label>
+                                <div class="col-sm-9">
+                                    <textarea  name="userComment" id="userComment" class="form-control" disabled>{{ user.userComment }}</textarea>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="form-group">
                                 <label class="control-label col-sm-3" for="oldNumber">Старая карта:</label>
                                 <div class="col-sm-9">
                                     <input type="text"  name="oldNumber" id="oldNumber" class="form-control" value="{{ user.lastNumberCard }}">
