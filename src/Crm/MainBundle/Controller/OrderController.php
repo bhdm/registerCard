@@ -163,6 +163,8 @@ class OrderController extends Controller{
      */
     public function orderRegisterAction(Request $request){
 
+        return $this->redirect($this->generateUrl('application-skzi-step1'));
+
         $em   = $this->getDoctrine()->getManager();
 
         if ($request->getMethod()=='POST'){
@@ -300,7 +302,7 @@ class OrderController extends Controller{
 //            $company->setRoom($data->get('companyRoom'));
             $region = $this->getDoctrine()->getRepository('CrmMainBundle:Region')->findOneById($company->getRegion());
             $company->setRegion($region);
-            $company->setPetitions(null);
+            $company->setPetition(null);
             $em->persist($company);
             $em->flush($company);
             $em->refresh($company);
