@@ -454,6 +454,11 @@ class User extends BaseEntity implements UserInterface, EquatableInterface, \Ser
      */
     protected $workshop = 0;
 
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    protected $userComment;
+
     public function getXmlId()
     {
         return str_pad($this->id, 8, "0", STR_PAD_LEFT);
@@ -1994,4 +1999,22 @@ class User extends BaseEntity implements UserInterface, EquatableInterface, \Ser
         }
 
     }
+
+    /**
+     * @return mixed
+     */
+    public function getUserComment()
+    {
+        return $this->userComment;
+    }
+
+    /**
+     * @param mixed $userComment
+     */
+    public function setUserComment($userComment)
+    {
+        $this->userComment = $userComment;
+    }
+
+
 }

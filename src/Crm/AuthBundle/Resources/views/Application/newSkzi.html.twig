@@ -51,6 +51,16 @@
                     <td>{{ form_widget(form.lastNumberCard) }}</td>
                     <td></td>
                 </tr>
+                <tr class="typeCardFileRow">
+                    <td>Комментарий к заказу</td>
+                    <td>{{ form_widget(form.userComment) }}</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
             </table>
         </div>
         <hr>
@@ -486,7 +496,7 @@
         .date_year{
             width: 100px;
         }
-        .typeCardFile, .citizenship, .petition, .petition-td{
+        .typeCardFileRow, .typeCardFile, .citizenship, .petition, .petition-td{
             display: none;
         }
         #crm_mainbundle_user_passportSerial{
