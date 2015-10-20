@@ -26,7 +26,8 @@ class ClientMessageController extends Controller
      */
     public function listAction(Request $request, $clientId = null)
     {
-        $client = $this->getDoctrine()->getRepository('CrmMainBundle:Chat')->loadClients();
+//        $client = $this->getDoctrine()->getRepository('CrmMainBundle:Chat')->loadClients();
+        $clients = $this->getDoctrine()->getRepository('CrmMainBundle:Client')->findAll();
 
         if ($request->getMethod() == 'POST'){
             $msg = new Chat();
@@ -61,6 +62,6 @@ class ClientMessageController extends Controller
             $messages = array();
         }
 
-        return ['clients' => $client, 'activeClient'=> $clientId,'messages' => $messages, 'notAnswer' => $notAnswer];
+        return ['clients' => $clients, 'activeClient'=> $clientId,'messages' => $messages, 'notAnswer' => $notAnswer];
     }
 }
