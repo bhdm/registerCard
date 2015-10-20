@@ -37,7 +37,7 @@
                     <td>{{ o.cardTypeStr  }}</td>
                     <td>{{ o.companyTitle  }}</td>
                     <td>{{ o.cardAmount  }}</td>
-                    <td>{{ o.statusString }}</td>
+                    <td>{{ o.statusString is defined ? o.statusString | raw : '' }}</td>
                     <td>{{ o.price / o.cardAmount }}</td>
                     <td>{{ o.price }}</td>
                     {#<td>#}

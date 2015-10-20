@@ -149,7 +149,7 @@
         <hr>
         <div class="block-form" >
             <table class="table-form">
-                <caption>Почтовый адрес</caption>
+                <caption>Почтовый адрес <span class="btn btn-primary" id="dublAdrs">Дублировать</span></caption>
                 <tr>
                     <td>Регион<span class="required">*</span>:</td>
                     <td class="value">
@@ -590,6 +590,18 @@
                }else{
                    $('.master').css('display','none');
                }
+            });
+
+            $('#dublAdrs').click(function(){
+                $('#crm_mainbundle_companyuser_mailingAdrs_region').val($('#crm_mainbundle_companyuser_legalAdrs_region').val());
+                $('#crm_mainbundle_companyuser_mailingAdrs_area').val($('#crm_mainbundle_companyuser_legalAdrs_area').val());
+                $('#crm_mainbundle_companyuser_mailingAdrs_city').val($('#crm_mainbundle_companyuser_legalAdrs_city').val());
+                $('#crm_mainbundle_companyuser_mailingAdrs_street').val($('#crm_mainbundle_companyuser_legalAdrs_street').val());
+                $('#crm_mainbundle_companyuser_mailingAdrs_house').val($('#crm_mainbundle_companyuser_legalAdrs_house').val());
+                $('#crm_mainbundle_companyuser_mailingAdrs_corp').val($('#crm_mainbundle_companyuser_legalAdrs_corp').val());
+                $('#crm_mainbundle_companyuser_mailingAdrs_structure').val($('#crm_mainbundle_companyuser_legalAdrs_structure').val());
+                $('#crm_mainbundle_companyuser_mailingAdrs_room').val($('#crm_mainbundle_companyuser_legalAdrs_room').val());
+                $('#crm_mainbundle_companyuser_mailingAdrs_zipcode').val($('#crm_mainbundle_companyuser_legalAdrs_zipcode').val());
             });
         });
     </script>
