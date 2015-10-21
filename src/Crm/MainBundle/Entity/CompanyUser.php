@@ -1046,6 +1046,7 @@ class CompanyUser extends BaseEntity
     }
 
     public function getFullLegalAdrs(){
+        unset($this->legalAdrs[0]);
         foreach($this->legalAdrs as $key => $val){
             if ($val == null || $val == ''){
                 unset ($this->mailingAdrs[$key]);
@@ -1055,6 +1056,7 @@ class CompanyUser extends BaseEntity
     }
 
     public function getFullmailingAdrs(){
+        unset($this->legalAdrs[0]);
         foreach($this->mailingAdrs as $key => $val){
             if ($val == null || $val == ''){
                 unset ($this->mailingAdrs[$key]);
