@@ -33,6 +33,7 @@
                         <PostCode>{{ order.MailingAdrs.zipcode }}</PostCode>
                         <RegionCode>94</RegionCode>
                         <District>{{ order.MailingAdrs.area }}</District>
+                        <Settlement>г.П-Камчатский</Settlement>
                         <Settlement>{{ order.MailingAdrs.city }}</Settlement>
                         <Street>{{ order.MailingAdrs.street }}</Street>
                         <House>д. {{ order.MailingAdrs.house }}{{ order.MailingAdrs.corp ? ' к. '~order.MailingAdrs.corp }}</House>
@@ -47,7 +48,8 @@
                         <PostCode>{{ order.legalAdrs.zipcode }}</PostCode>
                         <RegionCode>94</RegionCode>
                         <District>{{ order.legalAdrs.area }}</District>
-                        <Settlement>{{ order.legalAdrs.city }}</Settlement>
+                        <Settlement>г.П-Камчатский</Settlement>
+                        {#<Settlement>{{ order.legalAdrs.city }}</Settlement>#}
                         <Street>{{ order.legalAdrs.street }}</Street>
                         <House>д. {{ order.legalAdrs.house }}{{ order.legalAdrs.corp ? ' к. '~order.legalAdrs.corp }}</House>
                         <Building>{{ order.legalAdrs.structure ? 'стр. '~order.legalAdrs.structure }}</Building>
