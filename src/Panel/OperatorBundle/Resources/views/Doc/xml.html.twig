@@ -15,7 +15,7 @@
         <Order_v2>
             <OrderNumber>FLGMN-00072372</OrderNumber>
             <OrderDate>{{ order.created | date('Y-m-d') }}</OrderDate>
-            <OrderCardType>M</OrderCardType> {# M - Мастер #}
+            <OrderCardType>P</OrderCardType> {# M - Мастер #}
             <OrderCardCount>{{ order.cardAmount }}</OrderCardCount>
             <OrderReason>create</OrderReason>
             <WorkshopOrder>
@@ -57,19 +57,19 @@
                     </AddressLegal>
                 </OrgInfo>
                 <OGRN>{{ order.companyOgrn }}</OGRN>
-                <MarkNumber>{{ order.stampNumber }}</MarkNumber>
-                <FssLicense>
-                    {#<LicenseNumber>{{ order.licenseNumber }}</LicenseNumber>#}
-                    {#<LicenseDateIssued>{{ order.licenseDateStart }}</LicenseDateIssued>#}
-                    {#<LicenseIssuedBy>{{ order.licenseIssued }}</LicenseIssuedBy>#}
-                    {#<DecisionNumber>{{ order.licenseDecreeNumber }}</DecisionNumber>#}
-                    {#<DecisionDate>{{ order.licenseDecreeDate }}</DecisionDate>#}
-                    <LicenseNumber>0003088</LicenseNumber>
-                    <LicenseDateIssued>2013-05-20</LicenseDateIssued>
-                    <LicenseIssuedBy>Управление ФСБ России по Республике Татарстан</LicenseIssuedBy>
-                    <DecisionNumber>№ 4270</DecisionNumber>
-                    <DecisionDate>2013-05-07</DecisionDate>
-                </FssLicense>
+                {#<MarkNumber>{{ order.stampNumber }}</MarkNumber>#}
+                {#<FssLicense>#}
+                    {#&#123;&#35;<LicenseNumber>{{ order.licenseNumber }}</LicenseNumber>&#35;&#125;#}
+                    {#&#123;&#35;<LicenseDateIssued>{{ order.licenseDateStart }}</LicenseDateIssued>&#35;&#125;#}
+                    {#&#123;&#35;<LicenseIssuedBy>{{ order.licenseIssued }}</LicenseIssuedBy>&#35;&#125;#}
+                    {#&#123;&#35;<DecisionNumber>{{ order.licenseDecreeNumber }}</DecisionNumber>&#35;&#125;#}
+                    {#&#123;&#35;<DecisionDate>{{ order.licenseDecreeDate }}</DecisionDate>&#35;&#125;#}
+                    {#<LicenseNumber>0003088</LicenseNumber>#}
+                    {#<LicenseDateIssued>2013-05-20</LicenseDateIssued>#}
+                    {#<LicenseIssuedBy>Управление ФСБ России по Республике Татарстан</LicenseIssuedBy>#}
+                    {#<DecisionNumber>№ 4270</DecisionNumber>#}
+                    {#<DecisionDate>2013-05-07</DecisionDate>#}
+                {#</FssLicense>#}
                 <ResponsiblePerson>
                     <ResponsiblePersonNameFirst>{{ order.firstName }}</ResponsiblePersonNameFirst>
                     <ResponsiblePersonNameMiddle>{{ order.surName }}</ResponsiblePersonNameMiddle>
