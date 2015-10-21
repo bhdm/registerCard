@@ -57,7 +57,8 @@
                     </AddressLegal>
                 </OrgInfo>
                 <OGRN>{{ order.companyOgrn }}</OGRN>
-                <MarkNumber>{{ order.stampNumber }}</MarkNumber>
+                {#<MarkNumber>{{ order.stampNumber }}</MarkNumber>#}
+                <MarkNumber />
                 {#<FssLicense>#}
                     {#&#123;&#35;<LicenseNumber>{{ order.licenseNumber }}</LicenseNumber>&#35;&#125;#}
                     {#&#123;&#35;<LicenseDateIssued>{{ order.licenseDateStart }}</LicenseDateIssued>&#35;&#125;#}
