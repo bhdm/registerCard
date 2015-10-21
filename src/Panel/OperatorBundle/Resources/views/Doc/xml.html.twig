@@ -34,7 +34,7 @@
                         <RegionCode>94</RegionCode>
                         <District>{{ order.MailingAdrs.area }}</District>
                         <Settlement>г.П-Камчатский</Settlement>
-                        <Settlement>{{ order.MailingAdrs.city }}</Settlement>
+                        {#<Settlement>{{ order.MailingAdrs.city }}</Settlement>#}
                         <Street>{{ order.MailingAdrs.street }}</Street>
                         <House>д. {{ order.MailingAdrs.house }}{{ order.MailingAdrs.corp ? ' к. '~order.MailingAdrs.corp }}</House>
                         <Building>{{ order.MailingAdrs.structure ? 'стр. '~order.MailingAdrs.structure }}</Building>
