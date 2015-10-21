@@ -1047,25 +1047,24 @@ class CompanyUser extends BaseEntity
 
     public function getFullLegalAdrs(){
         $data = $this->legalAdrs;
-        unset($data[0]);
-        unset($data[1]);
+
         foreach($data as $key => $val){
             if ($val == null || $val == ''){
                 unset ($data[$key]);
             }
         }
+        unset($data[0]);
         return implode(', ', $data);
     }
 
     public function getFullmailingAdrs(){
         $data = $this->mailingAdrs;
-        unset($data[0]);
-        unset($data[1]);
         foreach($data as $key => $val){
             if ($val == null || $val == ''){
                 unset ($data[$key]);
             }
         }
+        unset($data[0]);
         return implode(', ', $data);
     }
 
