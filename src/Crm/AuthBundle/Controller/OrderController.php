@@ -57,6 +57,7 @@ class OrderController extends Controller
             }
 
 
+            $user->setCopyPetition($this->getImgToArray($session->get('petitionFile')));
             $user->setCopyPassport($this->getImgToArray($session->get('passportFile')));
             $user->setCopyDriverPassport($this->getImgToArray($session->get('driverFile')));
             $user->setCopySnils($this->getImgToArray($session->get('snilsFile')));
@@ -84,15 +85,15 @@ class OrderController extends Controller
                 $user->setCopyWork($filename);
             }
 
-            if (isset($files['copyPetition']) && $files['copyPetition']['file'] != null){
-                $copyPetition = $files['copyPetition']['file'];
-                $rootDir = __DIR__.'/../../../../web/upload/';
-                $info = new \SplFileInfo($copyPetition->getClientOriginalName());
-                $ex = $info->getExtension();
-                $filename = time().'.'.$ex;
-                $copyPetition->move($rootDir, $filename);
-                $user->setCopyPetition($filename);
-            }
+//            if (isset($files['copyPetition']) && $files['copyPetition']['file'] != null){
+//                $copyPetition = $files['copyPetition']['file'];
+//                $rootDir = __DIR__.'/../../../../web/upload/';
+//                $info = new \SplFileInfo($copyPetition->getClientOriginalName());
+//                $ex = $info->getExtension();
+//                $filename = time().'.'.$ex;
+//                $copyPetition->move($rootDir, $filename);
+//                $user->setCopyPetition($filename);
+//            }
 
 //                if ($session->get('typeCardFile')){
 //                    $user->setTypeCardFile($session->get('typeCardFile'));
@@ -103,7 +104,7 @@ class OrderController extends Controller
 //                }
             $user->setCopyWork($this->getImgToArray($rootDir.$user->getCopyWork()));
             $user->setTypeCardFile($this->getImgToArray($rootDir.$user->getTypeCardFile()));
-            $user->setCopyPetition($this->getImgToArray($rootDir.$user->getCopyPetition()));
+//            $user->setCopyPetition($this->getImgToArray($rootDir.$user->getCopyPetition()));
 
             $em->persist($user);
             $em->flush($user);
@@ -152,6 +153,7 @@ class OrderController extends Controller
             }
             $user->setEstr(1);
             $user = $formData->getData();
+            $user->setCopyPetition($this->getImgToArray($session->get('petitionFile')));
             $user->setCopyPassport($this->getImgToArray($session->get('passportFile')));
             $user->setCopyPassport2($this->getImgToArray($session->get('passport2File')));
             $user->setCopyDriverPassport($this->getImgToArray($session->get('driverFile')));
@@ -166,9 +168,9 @@ class OrderController extends Controller
 //                if ($session->get('petitionFile')!= null){
 //                    $user->setCopyPetition($this->getImgToArray($session->get('petitionFile')));
 //                }
-            $user->setCopyWork($this->getImgToArray($user->getCopyWork()));
-            $user->setTypeCardFile($this->getImgToArray($user->getTypeCardFile()));
-            $user->setCopyPetition($this->getImgToArray($user->getCopyPetition()));
+//            $user->setCopyWork($this->getImgToArray($user->getCopyWork()));
+//            $user->setTypeCardFile($this->getImgToArray($user->getTypeCardFile()));
+//            $user->setCopyPetition($this->getImgToArray($user->getCopyPetition()));
             $em->persist($user);
             $em->flush($user);
             $em->refresh($user);
@@ -214,6 +216,7 @@ class OrderController extends Controller
             $user->setRu(1);
             $user = $formData->getData();
 
+            $user->setCopyPetition($this->getImgToArray($session->get('petitionFile')));
             $user->setCopyPassport($this->getImgToArray($session->get('passportFile')));
             $user->setCopyPassport2($this->getImgToArray($session->get('passport2File')));
             $user->setCopyDriverPassport($this->getImgToArray($session->get('driverFile')));
@@ -228,9 +231,9 @@ class OrderController extends Controller
 //                if ($session->get('petitionFile')!= null){
 //                    $user->setCopyPetition($this->getImgToArray($session->get('petitionFile')));
 //                }
-            $user->setCopyWork($this->getImgToArray($user->getCopyWork()));
-            $user->setTypeCardFile($this->getImgToArray($user->getTypeCardFile()));
-            $user->setCopyPetition($this->getImgToArray($user->getCopyPetition()));
+//            $user->setCopyWork($this->getImgToArray($user->getCopyWork()));
+//            $user->setTypeCardFile($this->getImgToArray($user->getTypeCardFile()));
+//            $user->setCopyPetition($this->getImgToArray($user->getCopyPetition()));
             $em->persist($user);
             $em->flush($user);
             $em->refresh($user);

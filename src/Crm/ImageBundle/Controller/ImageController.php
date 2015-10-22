@@ -33,9 +33,9 @@ class ImageController extends Controller
             if (!$file){
                 $error = array('error' => 'Ошибка загрузки. Повторите пожалуйста');
             }
-            if (explode('/' , $file->getMimeType())[0] != 'image'){
-                $error = array('error' => 'файл должен быть изображением формата JPG, PNG или BMP');
-            }
+//            if (explode('/' , $file->getMimeType())[0] != 'image'){
+//                $error = array('error' => 'файл должен быть изображением формата JPG, PNG или BMP');
+//            }
             if ($file->getSize() > 4194304 ){
                 $error = array('error' => 'Размер файла должен быть меньше 4 Mb');
             }
