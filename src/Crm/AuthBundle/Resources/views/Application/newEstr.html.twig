@@ -327,6 +327,13 @@
                         <td></td>
                     </tr>
                     <tr class="petition">
+                        <td>Название организации<span class="required">*</span>:</td>
+                        <td class="value">
+                            {{ form_widget(form.petitionTitle) }}
+                        </td>
+                        <td class="petition-td"></td>
+                    </tr>
+                    <tr class="petition">
                         <td>Регион<span class="required">*</span>:</td>
                         <td class="value">
                             {{ form_widget(form.petitionAdrs.region) }}

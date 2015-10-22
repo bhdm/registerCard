@@ -36,6 +36,11 @@ class User extends BaseEntity implements UserInterface, EquatableInterface, \Ser
     protected $company;
 
     /**
+     * @ORM\Column(type="string", nullable=true)
+     */
+    protected $petitionTitle;
+
+    /**
      * @ORM\Column(type="integer", nullable=true)
      */
     protected $citizenship;
@@ -2015,6 +2020,23 @@ class User extends BaseEntity implements UserInterface, EquatableInterface, \Ser
     {
         $this->userComment = $userComment;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getPetitionTitle()
+    {
+        return $this->petitionTitle;
+    }
+
+    /**
+     * @param mixed $petitionTitle
+     */
+    public function setPetitionTitle($petitionTitle)
+    {
+        $this->petitionTitle = $petitionTitle;
+    }
+
 
 
 }

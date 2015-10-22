@@ -537,7 +537,11 @@
                                         <tr>
                                             <td>Название: </td>
                                             <td>
-                                                <a href="{{ path('panel_petition_edit',{'id' : user.companyPetition.id }) }}" target="_blank">{{ user.companyPetition.title }}</a>
+                                                {% if user.petitionTitle == null %}
+                                                    <a href="{{ path('panel_petition_edit',{'id' : user.companyPetition.id }) }}" target="_blank">{{ user.companyPetition.title }}</a>
+                                                {% else %}
+                                                    {{ user.petitionTitle }}
+                                                {% endif %}
                                             </td>
                                         </tr>
                                         <tr>

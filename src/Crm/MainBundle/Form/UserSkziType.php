@@ -49,6 +49,7 @@ class UserSkziType extends AbstractType
             ->add('deliveryAdrs', new AdrsType(),array('mapped'=>true, 'required' => false))
             ->add('registeredAdrs', new AdrsType(),array('mapped'=>true, 'required' => false))
             ->add('petitionAdrs', new AdrsType(),array('mapped'=>true, 'required' => false))
+            ->add('petitionTitle', null ,array('mapped'=>true, 'required' => false))
 //
 //
             ->add('myPetition', 'choice',

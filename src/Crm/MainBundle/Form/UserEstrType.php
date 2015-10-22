@@ -44,6 +44,7 @@ class UserEstrType extends AbstractType
 
             ->add('deliveryAdrs', new AdrsType(),array('mapped'=>true))
             ->add('petitionAdrs', new AdrsType(),array('mapped'=>true))
+            ->add('petitionTitle', null ,array('mapped'=>true, 'required' => false))
 
             ->add('myPetition', 'choice',
                 array('label' => 'Ходатайство','choices'=>array(
