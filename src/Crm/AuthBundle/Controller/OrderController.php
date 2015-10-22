@@ -66,30 +66,30 @@ class OrderController extends Controller
             $files = $request->files->get('crm_mainbundle_user');
             if (isset($files['typeCardFile']) && $files['typeCardFile']['file'] != null){
                 $typeCardFile = $files['typeCardFile']['file'];
-                $rootDir = __DIR__.'/../../../../web/upload';
+                $rootDir = __DIR__.'/../../../../web/upload/';
                 $info = new \SplFileInfo($typeCardFile->getClientOriginalName());
                 $ex = $info->getExtension();
-                $filename = '/'.time().$ex;
+                $filename = time().'.'.$ex;
                 $typeCardFile->move($rootDir, $filename);
                 $user->setTypeCardFile($filename);
             }
 
             if (isset($files['copyWork']) && $files['copyWork']['file'] != null){
                 $copyWork = $files['copyWork']['file'];
-                $rootDir = __DIR__.'/../../../../web/upload';
+                $rootDir = __DIR__.'/../../../../web/upload/';
                 $info = new \SplFileInfo($copyWork->getClientOriginalName());
                 $ex = $info->getExtension();
-                $filename = '/'.time().$ex;
+                $filename = time().'.'.$ex;
                 $copyWork->move($rootDir, $filename);
                 $user->setCopyWork($filename);
             }
 
             if (isset($files['copyPetition']) && $files['copyPetition']['file'] != null){
                 $copyPetition = $files['copyPetition']['file'];
-                $rootDir = __DIR__.'/../../../../web/upload';
+                $rootDir = __DIR__.'/../../../../web/upload/';
                 $info = new \SplFileInfo($copyPetition->getClientOriginalName());
                 $ex = $info->getExtension();
-                $filename = '/'.time().$ex;
+                $filename = time().'.'.$ex;
                 $copyPetition->move($rootDir, $filename);
                 $user->setCopyPetition($filename);
             }
@@ -101,9 +101,9 @@ class OrderController extends Controller
 //                if ($session->get('petitionFile')!= null){
 //                    $user->setCopyPetition($this->getImgToArray($session->get('petitionFile')));
 //                }
-            $user->setCopyWork(array());
-            $user->setTypeCardFile(array());
-            $user->setCopyPetition(array());
+            $user->setCopyWork($this->getImgToArray($rootDir.$user->getCopyWork()));
+            $user->setTypeCardFile($this->getImgToArray($rootDir.$user->getTypeCardFile()));
+            $user->setCopyPetition($this->getImgToArray($rootDir.$user->getCopyPetition()));
 
             $em->persist($user);
             $em->flush($user);
@@ -166,9 +166,9 @@ class OrderController extends Controller
 //                if ($session->get('petitionFile')!= null){
 //                    $user->setCopyPetition($this->getImgToArray($session->get('petitionFile')));
 //                }
-            $user->setCopyWork(array());
-            $user->setTypeCardFile(array());
-            $user->setCopyPetition(array());
+            $user->setCopyWork($this->getImgToArray($user->getCopyWork()));
+            $user->setTypeCardFile($this->getImgToArray($user->getTypeCardFile()));
+            $user->setCopyPetition($this->getImgToArray($user->getCopyPetition()));
             $em->persist($user);
             $em->flush($user);
             $em->refresh($user);
@@ -228,9 +228,9 @@ class OrderController extends Controller
 //                if ($session->get('petitionFile')!= null){
 //                    $user->setCopyPetition($this->getImgToArray($session->get('petitionFile')));
 //                }
-            $user->setCopyWork(array());
-            $user->setTypeCardFile(array());
-            $user->setCopyPetition(array());
+            $user->setCopyWork($this->getImgToArray($user->getCopyWork()));
+            $user->setTypeCardFile($this->getImgToArray($user->getTypeCardFile()));
+            $user->setCopyPetition($this->getImgToArray($user->getCopyPetition()));
             $em->persist($user);
             $em->flush($user);
             $em->refresh($user);
@@ -493,7 +493,7 @@ class OrderController extends Controller
             $originalName = basename($img);
             $mimeType = mime_content_type($img);
             $array =  array(
-                'path' =>$path,
+                'path' =>str_replace('imkard/src/Crm/AuthBundle/Controller/../../../../web','',$path),
                 'size' =>$size,
                 'fileName' =>$fileName,
                 'originalName' =>$originalName,
