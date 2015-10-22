@@ -493,7 +493,7 @@ class OrderController extends Controller
             $originalName = basename($img);
             $mimeType = mime_content_type($img);
             $array =  array(
-                'path' =>str_replace('imkard/src/Crm/AuthBundle/Controller/../../../../web','',$path),
+                'path' =>str_replace('imkard/src/Crm/AuthBundle/Controller/../../../../web/','',$path),
                 'size' =>$size,
                 'fileName' =>$fileName,
                 'originalName' =>$originalName,

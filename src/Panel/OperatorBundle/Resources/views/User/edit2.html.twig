@@ -707,6 +707,21 @@
                 </tr>
                 <tr>
                     <td>
+                        {% if user.copyWork.path is defined and user.copyWork.path != '//upload/' %}
+                            <a href="/{{ user.copyWork.path }}" target="_blank">Документ разрешение на работу</a> <br />
+                        {% endif %}
+
+                        {% if user.typeCardFile.path is defined and user.typeCardFile.path != '//upload/' %}
+                            <a href="/{{ user.typeCardFile.path }}" target="_blank">Документ заявление</a><br />
+                        {% endif %}
+
+                        {% if user.copyPetition.path is defined and user.copyPetition.path != '//upload/' %}
+                            <a href="/{{ user.copyPetition.path }}" target="_blank">Документ Ходатайство</a><br />
+                        {% endif %}
+                    </td>
+                </tr>
+                <tr>
+                    <td>
                         <div class="form-group">
                             <label class="control-label col-sm-3"></label>
                             <div class="col-sm-5">
