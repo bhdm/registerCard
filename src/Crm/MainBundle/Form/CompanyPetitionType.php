@@ -21,6 +21,10 @@ class CompanyPetitionType extends AbstractType
                 'label' => 'Файл шаблон',
                 'data_class' => null
             ))
+            ->add('file', 'file', array(
+                'label' => 'Скан ходатайства',
+                'data_class' => null
+            ))
             ->add('region', null, array('label' => 'Регион'))
             ->add('area', null, array('label' => 'Область'))
             ->add('city', null, array('label' => 'Город'))
