@@ -111,6 +111,26 @@ class CompanyPetitionController extends Controller
                         $petition->setTemplate($array);
                     }
 
+                    $file = $petitionForm['file']->getData();
+                    if ($file){
+                        move_uploaded_file($file->getPathName(), '/var/www/upload/petitions/'.$name);
+
+                        $img = '/var/www/upload/template/'.$name;
+                        $path = $img;
+                        $size = filesize($img);
+                        $fileName = basename($img);
+                        $originalName = basename($img);
+                        $mimeType = mime_content_type($img);
+                        $array =  array(
+                            'path' =>$path,
+                            'size' =>$size,
+                            'fileName' =>$name,
+                            'originalName' =>$originalName,
+                            'mimeType' =>$mimeType,
+                        );
+                        $petition->setFile($array);
+                    }
+
                     $em->flush();
                     $em->refresh($petition);
                 }
