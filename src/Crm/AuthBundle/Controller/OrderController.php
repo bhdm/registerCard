@@ -56,7 +56,7 @@ class OrderController extends Controller
                 $user->setPrice(2150);
             }
 
-
+            $rootDir = __DIR__.'/../../../../web/upload/';
             $user->setCopyPetition($this->getImgToArray($session->get('petitionFile')));
             $user->setCopyPassport($this->getImgToArray($session->get('passportFile')));
             $user->setCopyDriverPassport($this->getImgToArray($session->get('driverFile')));
@@ -67,7 +67,6 @@ class OrderController extends Controller
             $files = $request->files->get('crm_mainbundle_user');
             if (isset($files['typeCardFile']) && $files['typeCardFile']['file'] != null){
                 $typeCardFile = $files['typeCardFile']['file'];
-                $rootDir = __DIR__.'/../../../../web/upload/';
                 $info = new \SplFileInfo($typeCardFile->getClientOriginalName());
                 $ex = $info->getExtension();
                 $filename = time().'.'.$ex;
@@ -77,7 +76,6 @@ class OrderController extends Controller
 
             if (isset($files['copyWork']) && $files['copyWork']['file'] != null){
                 $copyWork = $files['copyWork']['file'];
-                $rootDir = __DIR__.'/../../../../web/upload/';
                 $info = new \SplFileInfo($copyWork->getClientOriginalName());
                 $ex = $info->getExtension();
                 $filename = time().'.'.$ex;
