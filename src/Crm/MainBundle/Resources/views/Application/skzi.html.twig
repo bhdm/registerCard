@@ -1,0 +1,818 @@
+{% extends 'CrmMainBundle::layout.html.twig' %}
+{#{% extends is_granted('ROLE_CLIENT') ? 'CrmAuthBundle::layout.html.twig' : 'CrmMainBundle::layout.html.twig'  %}#}
+
+{% block title %}
+    <title>Заказать карту тахографа с СКЗИ, РФ. ЕСТР Online</title>
+    <meta name="description" content="Быстро и удобно заказать карту предприятия для тахографов">
+    <meta name="keywords" content="Заказать карту водителя, тахографы, СКЗИ, ЕСТР, РФ, онлайн продажа карт для тахографа">
+{% endblock %}
+
+{% block content %}
+    <h1 style="text-align: center" class="text-primary">Заказ карты СКЗИ</h1>
+    <p style="text-align: center">
+        Карты предназначены для тахографов оборудованных блоком СКЗИ.<br />
+        Действуют <b>только на территории РФ.</b>
+    </p>
+    <form method="POST"  enctype="multipart/form-data">
+        <div class="block-form">
+            {{ form_errors(form) }}
+
+            <table class="table-form">
+                <tr>
+                    <td>Email<span class="required">*</span></td>
+                    <td>{{ form_widget(form.email) }}</td>
+                    <td class="typeCardFile">Заявление на изменение<span class="mini">(форматы файла: JPG,PNG)</span></td>
+                </tr>
+                <tr>
+                    <td>Телефон<span class="required">*</span></td>
+                    <td>{{ form_widget(form.username) }}</td>
+                    <td class="typeCardFile">
+                        {{ form_widget(form.typeCardFile) }}
+                    </td>
+                </tr>
+                <tr>
+                    <td>Гражданство</td>
+                    <td>
+                        {{ form_widget(form.citizenship) }}
+                    </td>
+                    <td class="citizenship">Разрешение на работу<span class="mini">(форматы файла: JPG,PNG)</span></td>
+                </tr>
+                <tr>
+                    <td>Тип заявления<span class="required">*</span></td>
+                    <td>
+                        {{ form_widget(form.typeCard) }}
+                    </td>
+                    <td class="citizenship">
+                        {{ form_widget(form.copyWork) }}
+                    </td>
+                </tr>
+                <tr class="typeCardFileRow">
+                    <td>Прошлый номер карты<span class="required">*</span></td>
+                    <td>{{ form_widget(form.lastNumberCard) }}</td>
+                    <td></td>
+                </tr>
+                <tr class="typeCardFileRow">
+                    <td>Комментарий к заказу</td>
+                    <td>{{ form_widget(form.userComment) }}</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+            </table>
+        </div>
+        <hr>
+        <div class="block-form" >
+            <table class="table-form">
+                <caption>Паспортные данные</caption>
+                <tr>
+                    <td>Фамилия<span class="required">*</span></td>
+                    <td>{{ form_widget(form.lastName) }}</td>
+                    <td>Копия паспорта <span class="mini">(форматы файла: JPG,PNG)</span></td>
+                </tr>
+                <tr>
+                    <td>Имя<span class="required">*</span></td>
+                    <td>{{ form_widget(form.firstName) }}</td>
+                    <td rowspan="7" style="vertical-align: top">
+                        <div class="file-container">
+                            <input type="file" name="passportFile" id="passportFile" class="fileAjax" {{ edit is not defined ? 'required' : '' }} >
+                            <progress class="progress" value="0" max="100" style="width: 270px"></progress>
+                            <br />
+                            <br />
+                            <div class="fileDoc">
+                                {% if form.vars.value.copyPassport.path is defined %}
+                                    <img src="/{{ form.vars.value.copyPassport.path }}" brightness="0" contrast="0">
+                                {% else %}
+                                    <img src="" brightness="0" contrast="0">
+                                {% endif %}
+                            </div>
+                            <div class="navigateFile">
+                                <img src="{{ asset('bundles/crmmain/icons/rotateLeft.png') }}" class="rotateLeft" title="Повернуть налево">
+                                <img src="{{ asset('bundles/crmmain/icons/rotateRight.png') }}" class="rotateRight" title="Повернуть вправо">
+                                <div style="">
+                                    <span class="cropImage minibtn" title="Обрезать изображение">Обрезать</span>
+                                    <br />
+                                    <br />
+                                </div>
+
+                            </div>
+                            <input type="hidden" id="x1" name="x1">
+                            <input type="hidden" id="y1" name="y1">
+                            <input type="hidden" id="x2" name="x2">
+                            <input type="hidden" id="y2" name="y2">
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Отчество<span class="required">*</span></td>
+                    <td>{{ form_widget(form.surName) }}</td>
+                </tr>
+                <tr>
+                    <td>Дата рождения<span class="required">*</span></td>
+                    <td>{{ form_widget(form.birthDate) }}</td>
+                </tr>
+                <tr>
+                    <td>Серия и номер паспорта<span class="required">*</span></td>
+                    <td>
+                        <div class="row">
+                            <div class="col-sm-4">
+                                {{ form_widget(form.passportSerial) }}
+                            </div>
+                            <div class="col-sm-8">
+                                {{ form_widget(form.passportNumber) }}
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Кем выдан<span class="required">*</span></td>
+                    <td>
+                        {{ form_widget(form.passportIssuance) }}
+                    </td>
+                </tr>
+                <tr>
+                    <td>Дата выдачи</td>
+                    <td>{{ form_widget(form.passportIssuanceDate) }}</td>
+                    <td>
+                        {#Копия ОГРН <span class="mini">(форматы файла: JPG,PNG)</span>#}
+                    </td>
+                </tr>
+                <tr>
+                    <td>Код подразделения<span class="required">*</span></td>
+                    <td>{{ form_widget(form.passportCode) }}</td>
+                </tr>
+            </table>
+        </div>
+        <hr>
+        <div class="block-form" >
+            <table class="table-form">
+                <caption>Информация о СНИЛС</caption>
+                <tr>
+                    <td>Номер СНИЛС</td>
+                    <td>{{ form_widget(form.snils) }}</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td style="vertical-align: top; padding-top: 10px">Копия СНИЛС<span class="required">*</span></td>
+                    <td colspan="2">
+                        <div class="file-container">
+                            <input type="file" name="snilsFile" id="snilsFile" class="fileAjax" {{ edit is not defined ? 'required' : '' }} >
+                            <progress class="progress" value="0" max="100" style="width: 270px"></progress>
+                            <br />
+                            <br />
+                            <div class="fileDoc">
+                                {% if form.vars.value.copySnils.path is defined %}
+                                    <img src="/{{ form.vars.value.copySnils.path }}" brightness="0" contrast="0">
+                                {% else %}
+                                    <img src="" brightness="0" contrast="0">
+                                {% endif %}
+                            </div>
+                            <div class="navigateFile">
+                                <img src="{{ asset('bundles/crmmain/icons/rotateLeft.png') }}" class="rotateLeft" title="Повернуть налево">
+                                <img src="{{ asset('bundles/crmmain/icons/rotateRight.png') }}" class="rotateRight" title="Повернуть вправо">
+                                <div style="">
+                                    <span class="cropImage minibtn" title="Обрезать изображение">Обрезать</span>
+                                    <br />
+                                    <br />
+                                </div>
+
+                            </div>
+                            <input type="hidden" id="x1" name="x1">
+                            <input type="hidden" id="y1" name="y1">
+                            <input type="hidden" id="x2" name="x2">
+                            <input type="hidden" id="y2" name="y2">
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div class="block-form" >
+            <table class="table-form">
+                <caption>Информация о водительском удостоверении</caption>
+                <tr>
+                    <td>Номер:</td>
+                    <td class="value">
+                        {{ form_widget(form.driverDocNumber) }}
+                    </td>
+                    <td rowspan="7" style="vertical-align: top">
+                        <div class="file-container">
+                            <input type="file" name="driverFile" id="driverFile" class="fileAjax" {{ edit is not defined ? 'required' : '' }}  >
+                            <progress class="progress" value="0" max="100" style="width: 270px"></progress>
+                            <br />
+                            <br />
+                            <div class="fileDoc">
+                                {% if form.vars.value.copyDriverPassport.path is defined %}
+                                    <img src="/{{ form.vars.value.copyDriverPassport.path }}" brightness="0" contrast="0">
+                                {% else %}
+                                    <img src="" brightness="0" contrast="0">
+                                {% endif %}
+                            </div>
+                            <div class="navigateFile">
+                                <img src="{{ asset('bundles/crmmain/icons/rotateLeft.png') }}" class="rotateLeft" title="Повернуть налево">
+                                <img src="{{ asset('bundles/crmmain/icons/rotateRight.png') }}" class="rotateRight" title="Повернуть вправо">
+                                <div style="">
+                                    <span class="cropImage minibtn" title="Обрезать изображение">Обрезать</span>
+                                    <br />
+                                    <br />
+                                </div>
+
+                            </div>
+                            <input type="hidden" id="x1" name="x1">
+                            <input type="hidden" id="y1" name="y1">
+                            <input type="hidden" id="x2" name="x2">
+                            <input type="hidden" id="y2" name="y2">
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Кем выдано:</td>
+                    <td class="value">
+                        {{ form_widget(form.driverDocIssuance) }}
+                    </td>
+                </tr>
+                <tr>
+                    <td>Дата выдачи:</td>
+                    <td class="value">
+                        {{ form_widget(form.driverDocDateStarts) }}
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <hr>
+        <div class="block-form" >
+            <table class="table-form">
+                <caption>Информация о ходатайстве</caption>
+                <tr>
+                    <td>Ходатайство</td>
+
+                    <td>{{ form_widget(form.myPetition) }}</td>
+                    <td></td>
+                </tr>
+                <tr class="petition">
+                    <td>Название организации<span class="required">*</span>:</td>
+                    <td class="value">
+                        {{ form_widget(form.petitionTitle) }}
+                    </td>
+                    <td class="petition-td">
+
+                    </td>
+                </tr>
+                <tr class="petition">
+                    <td>Регион<span class="required">*</span>:</td>
+                    <td class="value">
+                        {{ form_widget(form.petitionAdrs.region) }}
+                    </td>
+                    <td class="petition-td">Копия ходатайства <span class="mini">(форматы файла: JPG,PNG)</span></td>
+                </tr>
+                <tr class="petition">
+                    <td>Район:</td>
+                    <td class="value">
+                        {{ form_widget(form.petitionAdrs.area) }}
+                    </td>
+                    <td class="petition-td" rowspan="4" style="vertical-align: top">
+                        <div class="file-container">
+                            <input type="file" name="petitionFile" id="petitionFile" class="fileAjax" >
+                            <progress class="progress" value="0" max="100" style="width: 270px"></progress>
+                            <br />
+                            <br />
+                            <div class="fileDoc">
+                                {% if form.vars.value.copyPetition.path is defined %}
+                                    <img src="/{{ form.vars.value.copyPetition.path }}" brightness="0" contrast="0">
+                                {% else %}
+                                    <img src="" brightness="0" contrast="0">
+                                {% endif %}
+                            </div>
+                            <div class="navigateFile">
+                                <img src="{{ asset('bundles/crmmain/icons/rotateLeft.png') }}" class="rotateLeft" title="Повернуть налево">
+                                <img src="{{ asset('bundles/crmmain/icons/rotateRight.png') }}" class="rotateRight" title="Повернуть вправо">
+                                <div style="">
+                                    <span class="cropImage minibtn" title="Обрезать изображение">Обрезать</span>
+                                    <br />
+                                    <br />
+                                </div>
+
+                            </div>
+                            <input type="hidden" id="x1" name="x1">
+                            <input type="hidden" id="y1" name="y1">
+                            <input type="hidden" id="x2" name="x2">
+                            <input type="hidden" id="y2" name="y2">
+                        </div>
+                    </td>
+                </tr>
+                <tr class="petition">
+                    <td>Город:</td>
+                    <td class="value">
+                        {{ form_widget(form.petitionAdrs.city) }}
+                    </td>
+                </tr>
+                <tr class="petition">
+                    <td>Улица:</td>
+                    <td class="value">
+                        {{ form_widget(form.petitionAdrs.street) }}
+                    </td>
+                </tr>
+                <tr class="petition">
+                    <td>Здание<span class="required">*</span>:</td>
+                    <td class="value">
+                        <div class="row">
+                            <div class="col-xs-6">{{ form_widget(form.petitionAdrs.house) }}</div>
+                            <div class="col-xs-6">{{ form_widget(form.petitionAdrs.corp) }}</div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-6">{{ form_widget(form.petitionAdrs.structure) }}</div>
+                            <div class="col-xs-6">{{ form_widget(form.petitionAdrs.room) }}</div>
+                            <input type="hidden" name="delivery[typeRoom]" id="delivery-typeRoom" value="кв.">
+                        </div>
+                    </td>
+                </tr>
+                <tr class="petition">
+                    <td>Индекс<span class="required">*</span>:</td>
+                    <td class="value">
+                        {{ form_widget(form.petitionAdrs.zipcode) }}
+                </tr>
+            </table>
+        </div>
+        <hr>
+        <div class="block-form" >
+            <table class="table-form">
+                <caption>Информация о доставке</caption>
+                <tr>
+                    <td>Ввести адрес доставки</td>
+                    <td>
+                        <select id="delivery" class="form-control">
+                            <option value="0">Нет</option>
+                            <option value="1">Да</option>
+                        </select>
+                    </td>
+                    <td></td>
+                </tr>
+                <tr class="delivery">
+                    <td>Регион<span class="required">*</span>:</td>
+                    <td class="value">
+                        {{ form_widget(form.deliveryAdrs.region) }}
+                    </td>
+                    <td></td>
+                </tr>
+                <tr class="delivery">
+                    <td>Район:</td>
+                    <td class="value">
+                        {{ form_widget(form.deliveryAdrs.area) }}
+                    </td>
+                </tr>
+                <tr class="delivery">
+                    <td>Город:</td>
+                    <td class="value">
+                        {{ form_widget(form.deliveryAdrs.city) }}
+                    </td>
+                </tr>
+                <tr class="delivery">
+                    <td>Улица:</td>
+                    <td class="value">
+                        {{ form_widget(form.deliveryAdrs.street) }}
+                    </td>
+                </tr>
+                <tr class="delivery">
+                    <td>Номер здания<span class="required">*</span>:</td>
+                    <td class="value">
+                        <div class="row">
+                            <div class="col-xs-6">{{ form_widget(form.deliveryAdrs.house) }}</div>
+                            <div class="col-xs-6">{{ form_widget(form.deliveryAdrs.corp) }}</div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-6">{{ form_widget(form.deliveryAdrs.structure) }}</div>
+                            <div class="col-xs-6">{{ form_widget(form.deliveryAdrs.room) }}</div>
+                            <input type="hidden" name="mailing[typeRoom]" id="mailing-typeRoom" value="кв.">
+                        </div>
+                    </td>
+                </tr>
+                <tr class="delivery">
+                    <td>Индекс<span class="required">*</span>:</td>
+                    <td class="value">
+                        {{ form_widget(form.deliveryAdrs.zipcode) }}
+                </tr>
+            </table>
+        </div>
+        <hr>
+        <div class="block-form">
+            <table class="table-form">
+                <tr>
+                    <td>&nbsp;</td>
+                </tr>
+                <tr>
+                    <td style="vertical-align: top; padding-top: 10px">Подпись<span class="required">*</span></td>
+                    <td colspan="2">
+                        <div class="file-container">
+                            <input type="file" name="signFile" id="signFile" class="fileAjax" {{ edit is not defined ? 'required' : '' }} >
+                            <progress class="progress" value="0" max="100" style="width: 270px"></progress>
+                            <br />
+                            <br />
+                            <div class="fileDoc">
+                                {% if form.vars.value.copySignature.path is defined %}
+                                    <img src="/{{ form.vars.value.copySignature.path }}" brightness="0" contrast="0">
+                                {% else %}
+                                    <img src="" brightness="0" contrast="0">
+                                {% endif %}
+                            </div>
+                            <div class="navigateFile">
+                                <img src="{{ asset('bundles/crmmain/icons/rotateLeft.png') }}" class="rotateLeft" title="Повернуть налево">
+                                <img src="{{ asset('bundles/crmmain/icons/rotateRight.png') }}" class="rotateRight" title="Повернуть вправо">
+                                <div style="">
+                                    <span class="cropImage minibtn" title="Обрезать изображение">Обрезать</span>
+                                    <br />
+                                    <br />
+                                </div>
+
+                            </div>
+                            <input type="hidden" id="x1" name="x1">
+                            <input type="hidden" id="y1" name="y1">
+                            <input type="hidden" id="x2" name="x2">
+                            <input type="hidden" id="y2" name="y2">
+                        </div>
+                    </td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td style="vertical-align: top; padding-top: 10px">Фотография<span class="required">*</span></td>
+                    <td colspan="2">
+                        <div class="file-container">
+                            <input type="file" name="photoFile" id="photoFile" class="fileAjax" {{ edit is not defined ? 'required' : '' }} >
+                            <progress class="progress" value="0" max="100" style="width: 270px"></progress>
+                            <br />
+                            <br />
+                            <div class="fileDoc">
+                                {% if form.vars.value.photo.path is defined %}
+                                    <img src="/{{ form.vars.value.photo.path }}" brightness="0" contrast="0">
+                                {% else %}
+                                    <img src="" brightness="0" contrast="0">
+                                {% endif %}
+                            </div>
+                            <div class="navigateFile">
+                                <img src="{{ asset('bundles/crmmain/icons/rotateLeft.png') }}" class="rotateLeft" title="Повернуть налево">
+                                <img src="{{ asset('bundles/crmmain/icons/rotateRight.png') }}" class="rotateRight" title="Повернуть вправо">
+                                <div style="">
+                                    <span class="cropImage minibtn" title="Обрезать изображение">Обрезать</span>
+                                    <br />
+                                    <br />
+                                </div>
+
+                            </div>
+                            <input type="hidden" id="x1" name="x1">
+                            <input type="hidden" id="y1" name="y1">
+                            <input type="hidden" id="x2" name="x2">
+                            <input type="hidden" id="y2" name="y2">
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td colspan="2" style="text-align: left">
+                        {% if edit is not defined  %}
+                            <input type="checkbox" required="required"> Я согласен с <a href="#" target="_blank">пользовательским соглашением сервиса</a><span class="required">*</span> <br />
+                        {% endif %}
+                        <input type="checkbox" required="required"> Я подтверждаю правильность введенных данных<span class="required">*</span>
+                    </td>
+                </tr>
+
+                {{ form_row(form._token) }}
+                <tr>
+                    <td></td>
+                    <td>
+                        <br />
+                        {% if edit is not defined  %}
+                            <input type="submit" value="Подтвердить и перейти на страницу оплаты" class="btn btn-primary" id="submit">
+                        {% else %}
+                            <input type="submit" value="Сохранить" class="btn btn-primary" id="submit">
+                        {% endif %}
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </form>
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link href="{{ asset('bundles/crmmain/kladrapi/jquery.kladr.min.css') }}" rel="stylesheet" media="all">
+    <link href="{{ asset('bundles/crmmain/tapmodo-Jcrop/css/jquery.Jcrop.min.css') }}" rel="stylesheet" media="all">
+    <link href="{{ asset('bundles/crmmain/lib/chosen/chosen.min.css') }}" rel="stylesheet" media="all">
+    <style>
+
+
+        .block-form{
+            margin: 0 auto;
+        }
+        select{
+            width: 220px;
+        }
+        #crm_mainbundle_user_orderType-styler .jq-selectbox__select-text{
+            width: 214px !important;
+        }
+        .master{
+            display: none;
+        }
+        .mini{
+            font-size: 12px;
+            color: #555555;
+        }
+        .zipcode{
+            width: 175px !important;
+        }
+        .date_day{
+            width: 70px;
+        }
+        .date_month{
+            width: 100px;
+        }
+        .date_year{
+            width: 100px;
+        }
+        .typeCardFileRow, .typeCardFile, .citizenship, .petition, .petition-td{
+            display: none;
+        }
+        #crm_mainbundle_user_passportSerial{
+            width: 105px;
+        }
+        #crm_mainbundle_user_passportNumber{
+            width: 160px;
+        }
+        .jq-selectbox__select-text{
+            font-size: 13px;
+        }
+        label.required{
+            color: inherit !important;
+        }
+        select{
+            margin: 10px 0;
+        }
+        .delivery{
+            display: none;
+        }
+    </style>
+
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset("bundles/crmmain/lib/chosen/chosen.jquery.js") }}" type="text/javascript"></script>
+    <script src="{{ asset('bundles/crmmain/tapmodo-Jcrop/js/jquery.Jcrop.min.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('bundles/crmmain/kladrapi/jquery.kladr.min.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('bundles/crmauth/javascripts/file.js') }}" type="text/javascript"></script>
+    <script>
+
+        $(document).ready(function(){
+
+            $('#crm_mainbundle_user_typeCard').change(function(){
+                if ($(this).val()!= 0){
+                    $('.typeCardFile').css('display','table-cell');
+                    $('.typeCardFileRow').css('display','table-row');
+                }else{
+                    $('.typeCardFile').css('display','none');
+                    $('.typeCardFileRow').css('display','none');
+                }
+            });
+
+            $('#crm_mainbundle_user_citizenship').change(function(){
+                if ($(this).val()!= 0){
+                    $('.citizenship').css('display','table-cell')
+                }else{
+                    $('.citizenship').css('display','none')
+                }
+            });
+
+            $('#crm_mainbundle_user_myPetition').change(function(){
+                if ($(this).val()!= 0){
+                    $('.petition').css('display','table-row');
+                    $('.petition-td').css('display','table-cell');
+                }else{
+                    $('.petition').css('display','none');
+                    $('.petition-td').css('display','none');
+                }
+            });
+
+            $('#delivery').change(function(){
+                if ($(this).val()!= 0){
+                    $('.delivery').css('display','table-row');
+                    $('.delivery-td').css('display','table-cell');
+                }else{
+                    $('.delivery').css('display','none');
+                    $('.delivery-td').css('display','none');
+                }
+            });
+
+            $('#crm_mainbundle_user_citizenship').change(function(){
+                if ($(this).val()!= 0){
+                    $('.citizenship').css('display','table-cell')
+                }else{
+                    $('.citizenship').css('display','none')
+                }
+            });
+
+            $( '#crm_mainbundle_user_deliveryAdrs_region' ).kladr({
+                token: '541ee4ac7c52392c7d8b457e',
+                key: '181d5e2c44994c335e5e81e9ae46e79a67b6b495',
+                type: $.kladr.type.region,
+                select: function(obj){
+                    $('#crm_mainbundle_user_deliveryAdrs_region').val(obj.typeShort+'.'+obj.name);
+                    $('#crm_mainbundle_user_deliveryAdrs_region').trigger('refresh');
+                }
+            });
+
+            $( '#crm_mainbundle_user_deliveryAdrs_area' ).kladr({
+                token: '541ee4ac7c52392c7d8b457e',
+                key: '181d5e2c44994c335e5e81e9ae46e79a67b6b495',
+                parentInput: '[name="crm_mainbundle_user[deliveryAdrs][region]"]',
+                type: $.kladr.type.district,
+                select: function(obj){
+                    $('#crm_mainbundle_user_deliveryAdrs_area').val(obj.typeShort+'.'+obj.name);
+                    $('#crm_mainbundle_user_deliveryAdrs_area').trigger('refresh');
+                }
+            });
+
+            $('#crm_mainbundle_user_deliveryAdrs_city' ).kladr({
+                token: '541ee4ac7c52392c7d8b457e',
+                key: '181d5e2c44994c335e5e81e9ae46e79a67b6b495',
+                parentInput: '[name="crm_mainbundle_user[deliveryAdrs][area]"]',
+                type: $.kladr.type.city,
+                select: function(obj){
+                    $('#crm_mainbundle_user_deliveryAdrs_city').val(obj.typeShort+'.'+obj.name);
+                    $('#crm_mainbundle_user_deliveryAdrs_city').trigger('refresh');
+                }
+            });
+
+            $('#crm_mainbundle_user_deliveryAdrs_street' ).kladr({
+                token: '541ee4ac7c52392c7d8b457e',
+                key: '181d5e2c44994c335e5e81e9ae46e79a67b6b495',
+                parentInput: '[name="crm_mainbundle_user[deliveryAdrs][city]"]',
+                type: $.kladr.type.street,
+                select: function(obj){
+                    $('#crm_mainbundle_user_deliveryAdrs_street').val(obj.typeShort+'.'+obj.name);
+                    $('#crm_mainbundle_user_deliveryAdrs_street').trigger('refresh');
+                }
+            });
+            $('#crm_mainbundle_user_deliveryAdrs_house' ).kladr({
+                token: '541ee4ac7c52392c7d8b457e',
+                key: '181d5e2c44994c335e5e81e9ae46e79a67b6b495',
+                parentInput: '[name="crm_mainbundle_user[deliveryAdrs][street]"]',
+                type: $.kladr.type.building,
+                select: function(obj){
+                    $('#crm_mainbundle_user_deliveryAdrs_zipcode').val(obj.zip);
+                    var home = obj.name.split('к');
+                    $('#crm_mainbundle_user_deliveryAdrs_house').val(home[0]);
+                    if (home[1] != undefined){
+                        $('#crm_mainbundle_user_deliveryAdrs_corp').val(home[1]);
+                    }
+
+                }
+            });
+
+            /////////////////////////////////////////////
+
+            $( '#crm_mainbundle_user_petitionAdrs_region' ).kladr({
+                token: '541ee4ac7c52392c7d8b457e',
+                key: '181d5e2c44994c335e5e81e9ae46e79a67b6b495',
+                type: $.kladr.type.region,
+                select: function(obj){
+                    $('#crm_mainbundle_user_petitionAdrs_region').val(obj.typeShort+'.'+obj.name);
+                    $('#crm_mainbundle_user_petitionAdrs_region').trigger('refresh');
+                }
+            });
+
+            $( '#crm_mainbundle_user_petitionAdrs_area' ).kladr({
+                token: '541ee4ac7c52392c7d8b457e',
+                key: '181d5e2c44994c335e5e81e9ae46e79a67b6b495',
+                parentInput: '[name="crm_mainbundle_user[petitionAdrs][region]"]',
+                type: $.kladr.type.district,
+                select: function(obj){
+                    $('#crm_mainbundle_user_petitionAdrs_area').val(obj.typeShort+'.'+obj.name);
+                    $('#crm_mainbundle_user_petitionAdrs_area').trigger('refresh');
+                }
+            });
+
+            $('#crm_mainbundle_user_petitionAdrs_city' ).kladr({
+                token: '541ee4ac7c52392c7d8b457e',
+                key: '181d5e2c44994c335e5e81e9ae46e79a67b6b495',
+                parentInput: '[name="crm_mainbundle_user[petitionAdrs][area]"]',
+                type: $.kladr.type.city,
+                select: function(obj){
+                    $('#crm_mainbundle_user_petitionAdrs_city').val(obj.typeShort+'.'+obj.name);
+                    $('#crm_mainbundle_user_petitionAdrs_city').trigger('refresh');
+                }
+            });
+
+            $('#crm_mainbundle_user_petitionAdrs_street' ).kladr({
+                token: '541ee4ac7c52392c7d8b457e',
+                key: '181d5e2c44994c335e5e81e9ae46e79a67b6b495',
+                parentInput: '[name="crm_mainbundle_user[petitionAdrs][city]"]',
+                type: $.kladr.type.street,
+                select: function(obj){
+                    $('#crm_mainbundle_user_petitionAdrs_street').val(obj.typeShort+'.'+obj.name);
+                    $('#crm_mainbundle_user_petitionAdrs_street').trigger('refresh');
+                }
+            });
+            $('#crm_mainbundle_user_petitionAdrs_house' ).kladr({
+                token: '541ee4ac7c52392c7d8b457e',
+                key: '181d5e2c44994c335e5e81e9ae46e79a67b6b495',
+                parentInput: '[name="crm_mainbundle_user[petitionAdrs][street]"]',
+                type: $.kladr.type.building,
+                select: function(obj){
+                    $('#crm_mainbundle_user_petitionAdrs_zipcode').val(obj.zip);
+                    var home = obj.name.split('к');
+                    $('#crm_mainbundle_user_petitionAdrs_house').val(home[0]);
+                    if (home[1] != undefined){
+                        $('#crm_mainbundle_user_petitionAdrs_corp').val(home[1]);
+                    }
+
+                }
+            });
+
+            ////////////////////////////////////////////
+
+            $( '#crm_mainbundle_user_registeredAdrs_region' ).kladr({
+                token: '541ee4ac7c52392c7d8b457e',
+                key: '181d5e2c44994c335e5e81e9ae46e79a67b6b495',
+                type: $.kladr.type.region,
+                select: function(obj){
+                    $('#crm_mainbundle_user_registeredAdrs_region').val(obj.typeShort+'.'+obj.name);
+                    $('#crm_mainbundle_user_registeredAdrs_region').trigger('refresh');
+                }
+            });
+
+            $( '#crm_mainbundle_user_registeredAdrs_area' ).kladr({
+                token: '541ee4ac7c52392c7d8b457e',
+                key: '181d5e2c44994c335e5e81e9ae46e79a67b6b495',
+                parentInput: '[name="crm_mainbundle_user[registeredAdrs][region]"]',
+                type: $.kladr.type.district,
+                select: function(obj){
+                    $('#crm_mainbundle_user_registeredAdrs_area').val(obj.typeShort+'.'+obj.name);
+                    $('#crm_mainbundle_user_registeredAdrs_area').trigger('refresh');
+                }
+            });
+
+            $('#crm_mainbundle_user_registeredAdrs_city' ).kladr({
+                token: '541ee4ac7c52392c7d8b457e',
+                key: '181d5e2c44994c335e5e81e9ae46e79a67b6b495',
+                parentInput: '[name="crm_mainbundle_user[registeredAdrs][area]"]',
+                type: $.kladr.type.city,
+                select: function(obj){
+                    $('#crm_mainbundle_user_registeredAdrs_city').val(obj.typeShort+'.'+obj.name);
+                    $('#crm_mainbundle_user_registeredAdrs_city').trigger('refresh');
+                }
+            });
+
+            $('#crm_mainbundle_user_registeredAdrs_street' ).kladr({
+                token: '541ee4ac7c52392c7d8b457e',
+                key: '181d5e2c44994c335e5e81e9ae46e79a67b6b495',
+                parentInput: '[name="crm_mainbundle_user[registeredAdrs][city]"]',
+                type: $.kladr.type.street,
+                select: function(obj){
+                    $('#crm_mainbundle_user_registeredAdrs_street').val(obj.typeShort+'.'+obj.name);
+                    $('#crm_mainbundle_user_registeredAdrs_street').trigger('refresh');
+                }
+            });
+            $('#crm_mainbundle_user_registeredAdrs_house' ).kladr({
+                token: '541ee4ac7c52392c7d8b457e',
+                key: '181d5e2c44994c335e5e81e9ae46e79a67b6b495',
+                parentInput: '[name="crm_mainbundle_user[registeredAdrs][street]"]',
+                type: $.kladr.type.building,
+                select: function(obj){
+                    $('#crm_mainbundle_user_registeredAdrs_zipcode').val(obj.zip);
+                    var home = obj.name.split('к');
+                    $('#crm_mainbundle_user_registeredAdrs_house').val(home[0]);
+                    if (home[1] != undefined){
+                        $('#crm_mainbundle_user_registeredAdrs_corp').val(home[1]);
+                    }
+
+                }
+            });
+
+            $('input:text,.date_day,.date_month,.date_year').styler();
+//            $('#crm_mainbundle_user_typeCard').chosen({disable_search_threshold: 10,width: 270,placeholder_text_single: 'Выберите из списка'});
+//            $('#crm_mainbundle_user_driverDocCountry').chosen({disable_search_threshold: 10,width: 270,placeholder_text_single: 'Выберите из списка'});
+            $(".zipcode").mask("999999");
+            $(".phone").mask("+7 (999) 999-9999");
+            $(".code").mask("999-999");
+            $(".snils").mask("999-999-999 99");
+
+
+            $.mask.definitions['d'] = "[a-zA-Z0-9а-яА-Я]";
+            $('.driverNumber').mask("dddd999999");
+            $('.oldCardNumber').mask("RUDddddddddddddd");
+
+            $('.cardType').change(function(){
+                $('input, select').trigger('refresh');
+                if ($('.cardType').val() == 1){
+                    $('.master').css('display','table-row');
+                }else{
+                    $('.master').css('display','none');
+                }
+            });
+
+            {% if form.vars.value.myPetition is defined and form.vars.value.myPetition != 0 %}
+            $('.petition').css('display','table-row');
+            $('.petition-td').css('display','table-cell');
+            {% endif %}
+        });
+    </script>
+{% endblock %}
