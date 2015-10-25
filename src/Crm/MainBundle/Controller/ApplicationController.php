@@ -24,7 +24,7 @@ class ApplicationController extends Controller
 
     /**
      * @Route("/application/estr/add", name="application-estr-add", options={"expose"=true})
-     * @Route("/company/application/estr/add", name="company-application-estr-add", options={"expose"=true})
+     * @Route("/{company}/application/estr/add", name="company-application-estr-add", options={"expose"=true})
      * @Template("")
      */
     public function estrAction(Request $request, $company = null)
@@ -41,11 +41,15 @@ class ApplicationController extends Controller
         if ($request->getMethod() == 'POST'){
 //            if ($formData->isValid()){
             $user = $formData->getData();
-            $company = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->findOneByUrl('NO_COMPANY');
+            if ($company != null){
+                $company = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->findOneByUrl($company);
+            }else{
+                $company = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->findOneByUrl('NO_COMPANY');
+            }
             $user->setCompany($company);
             $user->setBirthDate(new \DateTime($user->getBirthDate()));
             $user->setDriverDocDateStarts(new \DateTime($user->getDriverDocDateStarts()));
-            $user->setClient($this->getUser());
+//            $user->setClient($this->getUser());
             $user->setEstr(1);
             $user = $formData->getData();
             $user->setCopyPetition($this->getImgToArray($session->get('petitionFile')));
@@ -69,7 +73,7 @@ class ApplicationController extends Controller
 
     /**
      * @Route("/application/skzi/add", name="application-skzi-add", options={"expose"=true})
-     * @Route("/company/application/skzi/add", name="company-application-skzi-add", options={"expose"=true})
+     * @Route("/{company}/application/skzi/add", name="company-application-skzi-add", options={"expose"=true})
      * @Template("")
      */
     public function skziAction(Request $request, $company = null){
@@ -86,13 +90,15 @@ class ApplicationController extends Controller
             $user->setBirthDate(new \DateTime($user->getBirthDate()));
             $user->setDriverDocDateStarts(new \DateTime($user->getDriverDocDateStarts()));
             $user->setPassportIssuanceDate(new \DateTime($user->getPassportIssuanceDate()));
+//            $user->setClient($this->getUser());
 
-            $company = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->findOneByUrl('NO_COMPANY');
-            $user->setCompany($company);
-            $user->setClient($this->getUser());
-            if (!$company){
+            if ($company != null){
+                $company = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->findOneByUrl($company);
+            }else{
                 $company = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->findOneByUrl('NO_COMPANY');
             }
+            $user->setCompany($company);
+
             if ($company){
                 $user->setPrice($company->getPriceSkzi());
             }else{
@@ -144,7 +150,7 @@ class ApplicationController extends Controller
 
     /**
      * @Route("/application/ru/add", name="application-ru-add", options={"expose"=true})
-     * @Route("/company/application/ru/add", name="company-application-ru-add", options={"expose"=true})
+     * @Route("/{company}/application/ru/add", name="company-application-ru-add", options={"expose"=true})
      * @Template("")
      */
     public function ruAction(Request $request, $company = null){
@@ -158,11 +164,15 @@ class ApplicationController extends Controller
         if ($request->getMethod() == 'POST'){
 //            if ($formData->isValid()){
             $user = $formData->getData();
-            $company = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->findOneByUrl('NO_COMPANY');
-
+            if ($company != null){
+                $company = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->findOneByUrl($company);
+            }else{
+                $company = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->findOneByUrl('NO_COMPANY');
+            }
+            $user->setCompany($company);
             $user->setBirthDate(new \DateTime($user->getBirthDate()));
             $user->setDriverDocDateStarts(new \DateTime($user->getDriverDocDateStarts()));
-            $user->setCompany($company);
+
             $user->setClient($this->getUser());
             if ($company){
                 $user->setPrice($company->getPriceRu());
