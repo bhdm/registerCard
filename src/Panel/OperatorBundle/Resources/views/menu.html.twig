@@ -84,13 +84,14 @@
                 &nbsp;&nbsp;Компании
             </a>
         </li>
+        {% if is_granted('ROLE_ADMIN') %}
         <li class="{{ app.request.attributes.get('_route') == 'panel_client_list' ? 'active' : '' }}">
             <a href="{{ path('panel_client_list') }}">
                 <i class="glyphicon glyphicon-link"></i>
                 &nbsp;&nbsp;Клиенты
             </a>
         </li>
-
+        {% endif %}
         {% if is_granted('ROLE_MODERATOR') %}
             <li class="{{ app.request.attributes.get('_route') == 'panel_operator_list' ? 'active' : '' }}">
                 <a href="{{ path('panel_operator_list') }}">
@@ -130,12 +131,12 @@
 
         {% endif %}
 
-        <li class="{{ app.request.attributes.get('_route') == 'panel_message' ? 'active' : '' }}">
-            <a href="{{ path('panel_message') }}">
-                <i class="glyphicon glyphicon-user"></i>
-                &nbsp;&nbsp;Обратная связь
-            </a>
-        </li>
+        {#<li class="{{ app.request.attributes.get('_route') == 'panel_message' ? 'active' : '' }}">#}
+            {#<a href="{{ path('panel_message') }}">#}
+                {#<i class="glyphicon glyphicon-user"></i>#}
+                {#&nbsp;&nbsp;Обратная связь#}
+            {#</a>#}
+        {#</li>#}
         {% if is_granted('ROLE_ADMIN') %}
             <li>
                 <a href="{{ path('panel_review_list') }}">

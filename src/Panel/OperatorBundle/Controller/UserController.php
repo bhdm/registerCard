@@ -1785,7 +1785,7 @@ class UserController extends Controller
     }
 
     /**
-     * @Route("/panel/user-set-choose/payment/{userId}", name="panel_user_set_choose_confirmed")
+     * @Route("/panel/user-set-choose/payment/{userId}", name="panel_user_set_choose_payment")
      */
     public function panelUserSetChoosePaymentAction(Request $request, $userId){
         $user = $this->getDoctrine()->getRepository('CrmMainBundle:User')->findOneById($userId);
