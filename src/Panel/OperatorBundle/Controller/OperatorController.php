@@ -56,6 +56,13 @@ class OperatorController extends Controller
         if ($request->getMethod() == 'POST'){
             $operator->setUsername($request->request->get('username'));
 
+            $operator->setCompanytitle($request->request->get('companyTitle'));
+            $operator->setInn($request->request->get('inn'));
+            $operator->setRchet($request->request->get('rchet'));
+            $operator->setBank($request->request->get('bank'));
+            $operator->setKorchet($request->request->get('korchet'));
+            $operator->setBik($request->request->get('bik'));
+
             $operator->setPriceSkzi($request->request->get('priceSkzi'));
             $operator->setPriceEstr($request->request->get('priceEstr'));
             $operator->setPriceRu($request->request->get('priceRu'));
@@ -111,9 +118,20 @@ class OperatorController extends Controller
             $operator->setUsername($request->request->get('username'));
             $operator->setRoles($request->request->get('role'));
 
+
+            $operator->setCompanytitle($request->request->get('companyTitle'));
+            $operator->setInn($request->request->get('inn'));
+            $operator->setRchet($request->request->get('rchet'));
+            $operator->setBank($request->request->get('bank'));
+            $operator->setKorchet($request->request->get('korchet'));
+            $operator->setBik($request->request->get('bik'));
+
             $operator->setPriceSkzi($request->request->get('priceSkzi'));
             $operator->setPriceEstr($request->request->get('priceEstr'));
             $operator->setPriceRu($request->request->get('priceRu'));
+
+
+
 
             if ($request->request->get('confirmed') != null){
                 $operator->setConfirmed(true);

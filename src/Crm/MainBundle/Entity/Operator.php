@@ -118,6 +118,44 @@ class Operator extends BaseEntity implements UserInterface
      */
     protected $confirmed = false;
 
+
+    /**
+     * @ORM\Column(type="string", nullable=true)
+     */
+    protected $companytitle;
+
+
+    /**
+     * @ORM\Column(type="string", nullable=true)
+     */
+    protected $inn;
+
+    /**
+     * @ORM\Column(type="string", nullable=true)
+     */
+    protected $kpp;
+
+
+    /**
+     * @ORM\Column(type="string", nullable=true)
+     */
+    protected $rchet;
+
+    /**
+     * @ORM\Column(type="string", nullable=true)
+     */
+    protected $bank;
+
+    /**
+     * @ORM\Column(type="string", nullable=true)
+     */
+    protected $korchet;
+
+    /**
+     * @ORM\Column(type="string", nullable=true)
+     */
+    protected $bik;
+
     public function __construct(){
         $this->roles    = 'ROLE_OPERATOR';
         $this->companies = new ArrayCollection();
@@ -744,6 +782,118 @@ class Operator extends BaseEntity implements UserInterface
     public function setConfirmed($confirmed = false)
     {
         $this->confirmed = $confirmed;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCompanytitle()
+    {
+        return $this->companytitle;
+    }
+
+    /**
+     * @param mixed $companytitle
+     */
+    public function setCompanytitle($companytitle)
+    {
+        $this->companytitle = $companytitle;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getInn()
+    {
+        return $this->inn;
+    }
+
+    /**
+     * @param mixed $inn
+     */
+    public function setInn($inn)
+    {
+        $this->inn = $inn;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getKpp()
+    {
+        return $this->kpp;
+    }
+
+    /**
+     * @param mixed $kpp
+     */
+    public function setKpp($kpp)
+    {
+        $this->kpp = $kpp;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getRchet()
+    {
+        return $this->rchet;
+    }
+
+    /**
+     * @param mixed $rchet
+     */
+    public function setRchet($rchet)
+    {
+        $this->rchet = $rchet;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getBank()
+    {
+        return $this->bank;
+    }
+
+    /**
+     * @param mixed $bank
+     */
+    public function setBank($bank)
+    {
+        $this->bank = $bank;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getKorchet()
+    {
+        return $this->korchet;
+    }
+
+    /**
+     * @param mixed $korchet
+     */
+    public function setKorchet($korchet)
+    {
+        $this->korchet = $korchet;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getBik()
+    {
+        return $this->bik;
+    }
+
+    /**
+     * @param mixed $bik
+     */
+    public function setBik($bik)
+    {
+        $this->bik = $bik;
     }
 
 

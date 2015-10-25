@@ -28,6 +28,30 @@
                     <input name="password2" id="password2" type="password" value="" placeholder="Повторите пароль" class="form-control">
                 </td>
             </tr>
+            <tr>
+                <td class="label">Название компании:</td>
+                <td class="value"><input style="width: 358px;" type="text" class="form-control" name="companyTitle" placeholder="" ></td>
+            </tr>
+            <tr>
+                <td class="label">ИНН:</td>
+                <td class="value"><input style="width: 358px;" type="text" class="form-control" name="inn" placeholder="Индивидуальный номер налогоплатильщика"></td>
+            </tr>
+            <tr>
+                <td class="label">Р. счет:</td>
+                <td class="value"><input style="width: 358px;" type="text" class="form-control" name="rchet" placeholder="расчетный счет"></td>
+            </tr>
+            <tr>
+                <td class="label">Банк:</td>
+                <td class="value"><input style="width: 358px;" type="text" class="form-control" name="bank" placeholder="Полное название банка"></td>
+            </tr>
+            <tr>
+                <td class="label">Кор. счет:</td>
+                <td class="value"><input style="width: 358px;" type="text" class="form-control" name="korchet"></td>
+            </tr>
+            <tr>
+                <td class="label">БИК:</td>
+                <td class="value"><input style="width: 358px;" type="text" class="form-control" name="bik"></td>
+            </tr>
             {% if is_granted('ROLE_ADMIN') %}
             <tr>
                 <td class="label">Права:</td>
