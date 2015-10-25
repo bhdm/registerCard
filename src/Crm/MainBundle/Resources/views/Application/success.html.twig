@@ -30,6 +30,10 @@
             <br/><br /><br />
             <a href="{{ path('auth_order')  }}" class="btn">Перейти в заказы</a>
         {% endif %}
+        {% if url != null %}
+            <br/><br /><br />
+            <a href="{{ path('company', {'url' : url})  }}" class="btn">Перейти в заказы</a>
+        {% endif %}
     </div>
 {% endblock %}
 
