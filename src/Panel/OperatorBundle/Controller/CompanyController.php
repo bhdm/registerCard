@@ -194,6 +194,16 @@ class CompanyController extends Controller
                     $company->setPriceEnterpriseSkzi($data->get('priceEnterpriseSkzi'));
                     $company->setPriceEnterpriseRu(  $data->get('priceEnterpriseRu'));
 
+                    $rootDir = __DIR__.'/../../../../web/upload/';
+                    $file = $request->files->get('logo');
+                    if (isset($file) && $file != null){
+                        $info = new \SplFileInfo($file->getClientOriginalName());
+                        $ex = $info->getExtension();
+                        $filename = time().'.'.$ex;
+                        $file->move($rootDir, $filename);
+                        $company->setLogo($this->getImgToArray($rootDir.$filename));
+                    }
+
                     $em->flush($company);
                     $em->refresh($company);
                 }else{
@@ -418,6 +428,26 @@ class CompanyController extends Controller
 
         $referer = $request->headers->get('referer');
         return $this->redirect($referer);
+    }
 
+    public function getImgToArray($img){
+        if ($img == null){
+            $array =  array();
+        }else{
+            $path = $img;
+            $path = str_replace('/var/www/','',$path);
+            $size = filesize($img);
+            $fileName = basename($img);
+            $originalName = basename($img);
+            $mimeType = mime_content_type($img);
+            $array =  array(
+                'path' =>str_replace('imkard/src/Panel/OperatorBundle/Controller/../../../../web','',$path),
+                'size' =>$size,
+                'fileName' =>$fileName,
+                'originalName' =>$originalName,
+                'mimeType' =>$mimeType,
+            );
+        }
+        return $array;
     }
 }

@@ -41,6 +41,15 @@ class MiniController extends Controller{
     }
 
     /**
+     * @Route("/get-heder/{url}", name="get_heder")
+     * @Template("CrmMainBundle::getheader.html.twig")
+     */
+    public function getheaderAction($url){
+        $company = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->findOneByUrl($url);
+        return array('company' => $company);
+    }
+
+    /**
      * @Route("company/{url}/application-skzi-step1", name="company-application-skzi-step1", options={"expose"=true})
      * @Template()
      */

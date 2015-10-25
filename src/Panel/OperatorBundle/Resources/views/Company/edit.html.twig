@@ -11,7 +11,7 @@
     {% for flashMessage in app.session.flashbag.get('error') %}
         <div class="alert alert-danger" role="alert">{{ flashMessage }}</div>
     {% endfor %}
-    <form method="POST">
+    <form method="POST" enctype="multipart/form-data">
         <table class="table-edit">
             {% if companyUrl is not null %}
                 <tr>

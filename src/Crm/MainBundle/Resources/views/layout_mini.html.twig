@@ -111,7 +111,11 @@
 {% endif %}
 <body>
 <div class="body">
-    <div class="menu"></div>
+    <div class="menu">
+        {% if app.request.attributes.get('_route_params').url is defined %}
+            {{ render(controller('CrmMainBundle:Mini:getheader', {'url' : app.request.attributes.get('_route_params').url })) }}
+        {% endif %}
+    </div>
     {#{% include ("CrmMainBundle::menu.html.twig")  %}#}
     <div class="content">
         <br />
