@@ -3,6 +3,7 @@
 namespace Panel\OperatorBundle\Controller;
 
 use Crm\MainBundle\Entity\StatusLog;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -1768,6 +1769,34 @@ class UserController extends Controller
         return new Response('Новые заявки: '.$param1."\nОсталось: ".$param3."\nОбщий итог: ".$param2);
     }
 
+    /**
+     * @Route("/panel/user-set-choose/confirmed/{userId}", name="panel_user_set_choose_confirmed")
+     */
+    public function panelUserSetChooseConfirmedAction(Request $request, $userId){
+        $user = $this->getDoctrine()->getRepository('CrmMainBundle:User')->findOneById($userId);
+        if ($user->getComfirmed() == false){
+            $user->setComfirmed(true);
+        }else{
+            $user->setComfirmed(false);
+        }
+        $this->getDoctrine()->getManager()->flush($user);
+        $referer = $request->headers->get('referer');
+        return new RedirectResponse($referer);
+    }
 
+    /**
+     * @Route("/panel/user-set-choose/payment/{userId}", name="panel_user_set_choose_confirmed")
+     */
+    public function panelUserSetChoosePaymentAction(Request $request, $userId){
+        $user = $this->getDoctrine()->getRepository('CrmMainBundle:User')->findOneById($userId);
+        if ($user->getPayment() == false){
+            $user->setPayment(true);
+        }else{
+            $user->setPayment(false);
+        }
+        $this->getDoctrine()->getManager()->flush($user);
+        $referer = $request->headers->get('referer');
+        return new RedirectResponse($referer);
+    }
 }
 

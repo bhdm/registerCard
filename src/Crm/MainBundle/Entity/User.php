@@ -464,6 +464,16 @@ class User extends BaseEntity implements UserInterface, EquatableInterface, \Ser
      */
     protected $userComment;
 
+    /**
+     * @ORM\Column(type="boolean", nullable=false)
+     */
+    protected $isPayment = false;
+
+    /**
+     * @ORM\Column(type="boolean", nullable=false)
+     */
+    protected $isComfirmed = false;
+
     public function getXmlId()
     {
         return str_pad($this->id, 8, "0", STR_PAD_LEFT);
@@ -2035,6 +2045,38 @@ class User extends BaseEntity implements UserInterface, EquatableInterface, \Ser
     public function setPetitionTitle($petitionTitle)
     {
         $this->petitionTitle = $petitionTitle;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getPayment()
+    {
+        return $this->isPayment;
+    }
+
+    /**
+     * @param mixed $isPayment
+     */
+    public function setPayment($isPayment = false)
+    {
+        $this->isPayment = $isPayment;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getComfirmed()
+    {
+        return $this->isComfirmed;
+    }
+
+    /**
+     * @param mixed $isComfirmed
+     */
+    public function setComfirmed($isComfirmed = false)
+    {
+        $this->isComfirmed = $isComfirmed;
     }
 
 

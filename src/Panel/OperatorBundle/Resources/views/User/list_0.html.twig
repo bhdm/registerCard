@@ -140,6 +140,28 @@
                         {#</td>#}
                         <td class="setting">
                             {% spaceless %}
+                                {% if not is_granted('ROLE_ADMIN') %}
+                                    <a href="{{ path('panel_user_set_choose_payment',{'userId' : user.id }) }}">
+                                        <button type="button" class="btn btn-default btn-{{ user.payment == false ? 'warning' : 'success' }}" title="Оплачено">
+                                            <span class="glyphicon glyphicon-ok"></span>
+                                        </button>
+                                    </a>
+                                    &nbsp;&nbsp;
+                                    <a href="{{ path('panel_user_set_choose_confirmed',{'userId' : user.id }) }}">
+                                        <button type="button" class="btn btn-default btn-{{ user.comfirmed == false ? 'warning' : 'success' }}" title="Проверено">
+                                            <span class="glyphicon glyphicon-saved"></span>
+                                        </button>
+                                    </a>
+                                    &nbsp;&nbsp;
+                                {% else %}
+                                    {% if  user.payment == true %}
+                                        <span class="glyphicon glyphicon-ok"></span>
+                                    {% endif %}
+                                    &nbsp;
+                                    {% if  user.comfirmed == true %}
+                                        <span class="glyphicon glyphicon-saved"></span>
+                                    {% endif %}
+                                {% endif %}
                                 <a href="{{ path('panel_user_set_choose',{'userId' : user.id }) }}">
                                     <button type="button" class="btn btn-default btn-success">
                                         <span class="glyphicon glyphicon-star"></span>
@@ -171,6 +193,9 @@
             width: 200px;
             min-height: 50px;
             cursor: pointer;
+        }
+        .setting{
+            width: 250px;
         }
     </style>
 {% endblock %}
