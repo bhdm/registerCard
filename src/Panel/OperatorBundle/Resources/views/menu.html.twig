@@ -61,12 +61,14 @@
                 &nbsp;&nbsp;Главная
             </a>
         </li>
+        {% if is_granted('ROLE_ADMIN') %}
         <li class="{{ app.request.attributes.get('_route') == 'operator_companyuser_list' ? 'active' : '' }}">
             <a href="{{ path('operator_companyuser_list') }}">
                 <i class="glyphicon glyphicon-index"></i>
                 &nbsp;&nbsp;Юр. лица
             </a>
         </li>
+        {% endif %}
 
 
         <li class="{{ app.request.attributes.get('_route') == 'panel_petition_list' ? 'active' : '' }}">
