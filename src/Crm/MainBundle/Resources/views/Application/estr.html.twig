@@ -1,4 +1,4 @@
-{% extends 'CrmMainBundle::layout.html.twig' %}
+{% extends url == null ? 'CrmMainBundle::layout.html.twig' : 'CrmMainBundle::layout_mini.html.twig' %}
 {#{% extends is_granted('ROLE_CLIENT') ? 'CrmAuthBundle::layout.html.twig' : 'CrmMainBundle::layout.html.twig'  %}#}
 
 {% block title %}

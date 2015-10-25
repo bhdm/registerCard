@@ -24,10 +24,10 @@ class ApplicationController extends Controller
 
     /**
      * @Route("/application/estr/add", name="application-estr-add", options={"expose"=true})
-     * @Route("/{company}/application/estr/add", name="company-application-estr-add", options={"expose"=true})
+     * @Route("/{url}/application/estr/add", name="company-application-estr-add", options={"expose"=true})
      * @Template("")
      */
-    public function estrAction(Request $request, $company = null)
+    public function estrAction(Request $request, $url = null)
     {
         $session = new Session();
 //        $this->clearSession($session);
@@ -41,8 +41,8 @@ class ApplicationController extends Controller
         if ($request->getMethod() == 'POST'){
 //            if ($formData->isValid()){
             $user = $formData->getData();
-            if ($company != null){
-                $company = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->findOneByUrl($company);
+            if ($url != null){
+                $company = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->findOneByUrl($url);
             }else{
                 $company = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->findOneByUrl('NO_COMPANY');
             }
@@ -63,20 +63,20 @@ class ApplicationController extends Controller
             $em->persist($user);
             $em->flush($user);
             $em->refresh($user);
-            return $this->render('@CrmMain/Application/success.html.twig',['user' => $user]);
+            return $this->render('@CrmMain/Application/success.html.twig',['user' => $user, 'url' => $url]);
         }else{
             $this->clearSession($session);
         }
-        return array('form' => $form->createView());
+        return array('form' => $form->createView(), 'url' => $url);
     }
 
 
     /**
      * @Route("/application/skzi/add", name="application-skzi-add", options={"expose"=true})
-     * @Route("/{company}/application/skzi/add", name="company-application-skzi-add", options={"expose"=true})
+     * @Route("/{url}/application/skzi/add", name="company-application-skzi-add", options={"expose"=true})
      * @Template("")
      */
-    public function skziAction(Request $request, $company = null){
+    public function skziAction(Request $request, $url = null){
         $session = $request->getSession();
 
         $order = $session->get('order');
@@ -92,8 +92,8 @@ class ApplicationController extends Controller
             $user->setPassportIssuanceDate(new \DateTime($user->getPassportIssuanceDate()));
 //            $user->setClient($this->getUser());
 
-            if ($company != null){
-                $company = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->findOneByUrl($company);
+            if ($url != null){
+                $company = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->findOneByUrl($url);
             }else{
                 $company = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->findOneByUrl('NO_COMPANY');
             }
@@ -139,21 +139,21 @@ class ApplicationController extends Controller
             $em->persist($user);
             $em->flush($user);
             $em->refresh($user);
-            return $this->render('@CrmMain/Application/success.html.twig',['user' => $user]);
+            return $this->render('@CrmMain/Application/success.html.twig',['user' => $user, 'url' => $url]);
 //            }
         }else{
             $this->clearSession($session);
         }
-        return array('form' => $form->createView());
+        return array('form' => $form->createView(), 'url' => $url);
     }
 
 
     /**
      * @Route("/application/ru/add", name="application-ru-add", options={"expose"=true})
-     * @Route("/{company}/application/ru/add", name="company-application-ru-add", options={"expose"=true})
+     * @Route("/{url}/application/ru/add", name="company-application-ru-add", options={"expose"=true})
      * @Template("")
      */
-    public function ruAction(Request $request, $company = null){
+    public function ruAction(Request $request, $url = null){
         $session = new Session();
 
         $order = $session->get('order');
@@ -164,8 +164,8 @@ class ApplicationController extends Controller
         if ($request->getMethod() == 'POST'){
 //            if ($formData->isValid()){
             $user = $formData->getData();
-            if ($company != null){
-                $company = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->findOneByUrl($company);
+            if ($url != null){
+                $company = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->findOneByUrl($url);
             }else{
                 $company = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->findOneByUrl('NO_COMPANY');
             }
@@ -206,12 +206,12 @@ class ApplicationController extends Controller
 //            if ($this->getUser()->getCompany() != null && $this->getUser()->getCompany()->getUrl() != 'NO_COMPANY'){
 //                return $this->redirect($this->generateUrl('auth_order'));
 //            }else{
-                return $this->render('@CrmMain/Application/success.html.twig',['user' => $user]);
+                return $this->render('@CrmMain/Application/success.html.twig',['user' => $user, 'url' => $url]);
 //            }
         }else{
             $this->clearSession($session);
         }
-        return array('form' => $form->createView());
+        return array('form' => $form->createView(), 'url' => $url);
     }
 
 
