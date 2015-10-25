@@ -259,9 +259,9 @@ class User extends BaseEntity implements UserInterface, EquatableInterface, \Ser
     protected $paid = 0;
 
     /**
-     * @ORM\Column(type="boolean")
+     * @ORM\Column(type="boolean", nullable=true)
      */
-    protected $myPetition = 0;
+    protected $myPetition = false;
 
     /**
      * @Assert\Length( max = "32", maxMessage = "Максимум  32 символа")
@@ -1339,7 +1339,7 @@ class User extends BaseEntity implements UserInterface, EquatableInterface, \Ser
     /**
      * @param mixed $myPetition
      */
-    public function setMyPetition($myPetition)
+    public function setMyPetition($myPetition = false)
     {
         $this->myPetition = $myPetition;
     }
