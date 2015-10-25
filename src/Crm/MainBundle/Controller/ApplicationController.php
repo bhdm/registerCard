@@ -6,6 +6,7 @@ use Crm\MainBundle\Entity\Client;
 use Crm\MainBundle\Entity\CompanyPetition;
 use Crm\MainBundle\Entity\StatusLog;
 use Crm\MainBundle\Form\UserEstrType;
+use Crm\MainBundle\Form\UserRuType;
 use Crm\MainBundle\Form\UserSkziType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -57,11 +58,7 @@ class ApplicationController extends Controller
             $em->persist($user);
             $em->flush($user);
             $em->refresh($user);
-            if ($this->getUser()->getCompany() != null && $this->getUser()->getCompany()->getUrl() != 'NO_COMPANY'){
-                return $this->redirect($this->generateUrl('auth_order'));
-            }else{
-                return $this->render('@CrmAuth/Application/success.html.twig',['user' => $user]);
-            }
+            return $this->render('@CrmMain/Application/success.html.twig',['user' => $user]);
         }else{
             $this->clearSession($session);
         }
@@ -134,11 +131,7 @@ class ApplicationController extends Controller
             $em->persist($user);
             $em->flush($user);
             $em->refresh($user);
-            if ($this->getUser()->getCompany() != null && $this->getUser()->getCompany()->getUrl() != 'NO_COMPANY'){
-                return $this->redirect($this->generateUrl('auth_order'));
-            }else{
-                return $this->render('@CrmAuth/Application/success.html.twig',['user' => $user]);
-            }
+            return $this->render('@CrmMain/Application/success.html.twig',['user' => $user]);
 //            }
         }else{
             $this->clearSession($session);
@@ -147,6 +140,66 @@ class ApplicationController extends Controller
     }
 
 
+    /**
+     * @Route("/application/ru/add", name="application-ru-add", options={"expose"=true})
+     * @Template("")
+     */
+    public function ruAction(Request $request){
+        $session = new Session();
+
+        $order = $session->get('order');
+        $em = $this->getDoctrine()->getManager();
+        $item = new User();
+        $form = $this->createForm(new UserRuType($em), $item);
+        $formData = $form->handleRequest($request);
+        if ($request->getMethod() == 'POST'){
+//            if ($formData->isValid()){
+            $user = $formData->getData();
+            $company = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->findOneByUrl('NO_COMPANY');
+
+            $user->setBirthDate(new \DateTime($user->getBirthDate()));
+            $user->setDriverDocDateStarts(new \DateTime($user->getDriverDocDateStarts()));
+            $user->setCompany($company);
+            $user->setClient($this->getUser());
+            if ($company){
+                $user->setPrice($company->getPriceRu());
+            }else{
+                $user->setPrice(3200);
+            }
+            $user->setRu(1);
+            $user = $formData->getData();
+
+            $user->setCopyPetition($this->getImgToArray($session->get('petitionFile')));
+            $user->setCopyPassport($this->getImgToArray($session->get('passportFile')));
+            $user->setCopyPassport2($this->getImgToArray($session->get('passport2File')));
+            $user->setCopyDriverPassport($this->getImgToArray($session->get('driverFile')));
+            $user->setCopyDriverPassport2($this->getImgToArray($session->get('driver2File')));
+            $user->setCopySnils($this->getImgToArray($session->get('snilsFile')));
+            $user->setCopySignature($this->getImgToArray($session->get('signFile')));
+            $user->setPhoto($this->getImgToArray($session->get('photoFile')));
+//                if ($session->get('typeCardFile')){
+//                    $user->setTypeCardFile($session->get('typeCardFile'));
+//                }
+
+//                if ($session->get('petitionFile')!= null){
+//                    $user->setCopyPetition($this->getImgToArray($session->get('petitionFile')));
+//                }
+//            $user->setCopyWork($this->getImgToArray($user->getCopyWork()));
+//            $user->setTypeCardFile($this->getImgToArray($user->getTypeCardFile()));
+//            $user->setCopyPetition($this->getImgToArray($user->getCopyPetition()));
+            $em->persist($user);
+            $em->flush($user);
+            $em->refresh($user);
+//            if ($this->getUser()->getCompany() != null && $this->getUser()->getCompany()->getUrl() != 'NO_COMPANY'){
+//                return $this->redirect($this->generateUrl('auth_order'));
+//            }else{
+                return $this->render('@CrmMain/Application/success.html.twig',['user' => $user]);
+//            }
+        }else{
+            $this->clearSession($session);
+        }
+        return array('form' => $form->createView());
+    }
 
 
     protected function clearSession($session){
@@ -171,5 +224,26 @@ class ApplicationController extends Controller
         $session->set('origin-workFile', null);
 
         return true;
+    }
+
+    public function getImgToArray($img){
+        if ($img == null){
+            $array =  array();
+        }else{
+            $path = $img;
+            $path = str_replace('/var/www/','',$path);
+            $size = filesize($img);
+            $fileName = basename($img);
+            $originalName = basename($img);
+            $mimeType = mime_content_type($img);
+            $array =  array(
+                'path' =>str_replace('imkard/src/Crm/AuthBundle/Controller/../../../../web/','',$path),
+                'size' =>$size,
+                'fileName' =>$fileName,
+                'originalName' =>$originalName,
+                'mimeType' =>$mimeType,
+            );
+        }
+        return $array;
     }
 }

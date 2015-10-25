@@ -1,0 +1,58 @@
+{% extends 'CrmMainBundle::layout.html.twig'  %}
+
+{% block content %}
+    <div class="box">
+        <h2>Заявка создана, Номер заказа {{ user.id }}</h2>
+        <br/>
+        <br/>
+        {#{% if user.company != null and user.company.url == 'NO_COMPANY' %}#}
+        <a href="{{ path('offer',{'userId' : user.id, 'date' : '1541513'}) }}" class="btn">Скачать счет-заказ</a>
+        {#{% endif %}#}
+        <br/>
+        <br/>
+        <b>Выберите способ оплаты:</b>
+        <br/><br /><br />
+        <a href="{{ path('payment_assist',{'userId' : user.id} )  }}" class="btn">Online "Робокасса"</a>
+        <br />
+        Стоимость составит {{ user.price + 124 }} рублей ( НДС не облагается ) с учетом комиссии платежной системы (124 рубля). Нет очереди, работает круглосуточно. Срок поступления денежных средств до 45 минут, после проведения оплаты.
+
+        <br/>
+        <br/>
+        <a href="{{ path('generate_payment_pdf') }}?ord={{ user.id }}" target="_blank" class="btn">"Платежное поручение"</a><br/>
+        Стоимость составит {{ user.price }} рублей ( НДС не облагается ). При условии оплаты в сбербанке комиссия составит приблизительно 70 рублей. Срок поступления денежных средств примерно 3-е суток.
+        <br/>
+        <br/>
+        <i>Скорость поступления денежных средств влияет на время отправки вашей заявки на производство. <br />
+            {% if url is defined and url == null %}
+            В случае возникновения вопросов обращайтесь в <a href="{{ path('faq') }}" target="_blank" style="color: #e8313e; border-bottom: 1px dashed #e8313e;">службу поддержки.</a></i>
+        {% endif %}
+        {% if is_granted('ROLE_CLIENT') %}
+            <br/><br /><br />
+            <a href="{{ path('auth_order')  }}" class="btn">Перейти в заказы</a>
+        {% endif %}
+    </div>
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <style>
+        h3{
+            margin: 10px 0;
+        }
+        .btn{
+            padding: 8px 10px;
+            display: inline-block;
+            border-radius: 5px;
+            background: #000;
+            color: #FFF;
+            margin-bottom: 10px;
+            border: 0;
+        }
+        .btn:hover{
+            box-shadow: 0 0 10px rgba(0,0,0,0.5);
+            border-bottom: 0;
+
+        }
+    </style>
+
+{% endblock %}
