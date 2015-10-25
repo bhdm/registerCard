@@ -88,6 +88,7 @@
                         </td>
                     </tr>
                 {% endif %}
+                {% if is_granted('ROLE_ADMIN')  %}
                 <tr>
                     <td>
                         <div class="form-group">
@@ -109,6 +110,7 @@
                         </div>
                     </td>
                 </tr>
+                {% endif %}
                 <tr>
                     <td colspan="2">
                         <textarea class="form-control" placeholder="Комментарий" name="comment" id="comment">{{ user.comment }}</textarea>
