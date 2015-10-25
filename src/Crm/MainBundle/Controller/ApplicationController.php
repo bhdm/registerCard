@@ -24,9 +24,10 @@ class ApplicationController extends Controller
 
     /**
      * @Route("/application/estr/add", name="application-estr-add", options={"expose"=true})
+     * @Route("/company/application/estr/add", name="company-application-estr-add", options={"expose"=true})
      * @Template("")
      */
-    public function estrAction(Request $request, $url = null)
+    public function estrAction(Request $request, $company = null)
     {
         $session = new Session();
 //        $this->clearSession($session);
@@ -68,9 +69,10 @@ class ApplicationController extends Controller
 
     /**
      * @Route("/application/skzi/add", name="application-skzi-add", options={"expose"=true})
+     * @Route("/company/application/skzi/add", name="company-application-skzi-add", options={"expose"=true})
      * @Template("")
      */
-    public function skziAction(Request $request){
+    public function skziAction(Request $request, $company = null){
         $session = $request->getSession();
 
         $order = $session->get('order');
@@ -142,9 +144,10 @@ class ApplicationController extends Controller
 
     /**
      * @Route("/application/ru/add", name="application-ru-add", options={"expose"=true})
+     * @Route("/company/application/ru/add", name="company-application-ru-add", options={"expose"=true})
      * @Template("")
      */
-    public function ruAction(Request $request){
+    public function ruAction(Request $request, $company = null){
         $session = new Session();
 
         $order = $session->get('order');

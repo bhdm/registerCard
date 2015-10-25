@@ -44,10 +44,10 @@ class AuthController extends Controller
     }
 
     /**
-     * @Route("/register", name="auth_register")
+     * @Route("/register/{company}", name="auth_register", defaults={"company" = null})
      * @Template()
      */
-    public function registerAction(Request $request){
+    public function registerAction(Request $request, $company = null){
         # Регистрация только для юр. лиц.
         $em = $this->getDoctrine()->getManager();
         $item = new Client();
@@ -56,7 +56,11 @@ class AuthController extends Controller
         if ($request->getMethod() === 'POST'){
             if ($formData->isValid()){
                 $item = $formData->getData();
-                $company = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->findOneByUrl('NO_COMPANY');
+                if ($company == null){
+                    $company = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->findOneByUrl('NO_COMPANY');
+                }else{
+                    $company = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->findOneByUrl($company);
+                }
                 $item->setCompany($company);
                 $item->setSalt(md5(time()));
                 $encoder = new MessageDigestPasswordEncoder('sha512', true, 10);
