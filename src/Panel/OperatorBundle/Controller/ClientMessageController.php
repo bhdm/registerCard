@@ -47,13 +47,14 @@ class ClientMessageController extends Controller
         ORDER BY Chat.id DESC
         LIMIT 1
         ) msg
-        LEFT JOIN company co ON co.id = c.company_id
         FROM Client c
-        WHERE company.operator_id = ".$this->getUser()->getId();
+        LEFT JOIN Company co ON co.id = c.company_id
+        WHERE co.operator_id = ".$this->getUser()->getId();
         $pdo = $this->getDoctrine()->getManager()->getConnection();
         $st = $pdo->prepare($query);
         $st->execute();
         $re = $st->fetchAll();
+        $notAnswer = array();
         foreach ( $re as $val ){
             $notAnswer[$val['id']] = $val['msg'];
         }

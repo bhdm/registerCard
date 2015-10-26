@@ -22,7 +22,7 @@ class ChatRepository extends EntityRepository
         $q = $this
             ->createQueryBuilder('c')
             ->leftJoin('c.client','u')
-            ->leftJoin('c.company','co')
+            ->leftJoin('u.company','co')
             ->leftJoin('co.operator','o')
             ->where('u.enabled = 1')
             ->andWhere('u.id is not null')

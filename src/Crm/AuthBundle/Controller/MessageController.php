@@ -55,7 +55,8 @@ class MessageController extends Controller
               LIMIT 1
           )aa
           FROM Client c1_
-          WHERE c1_.enabled =1 AND c1_.id IS NOT NULL
+          LEFT JOIN Company co ON co.id = c1_.company_id
+          WHERE c1_.enabled =1 AND c1_.id IS NOT NULL AND co.operator_id = '.$this->getUser()->getId().'
           HAVING aa =0';
         $pdo = $this->getDoctrine()->getManager()->getConnection();
         $st = $pdo->prepare($sql);
