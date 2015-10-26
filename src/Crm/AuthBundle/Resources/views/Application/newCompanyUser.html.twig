@@ -603,6 +603,11 @@
                 $('#crm_mainbundle_companyuser_mailingAdrs_room').val($('#crm_mainbundle_companyuser_legalAdrs_room').val());
                 $('#crm_mainbundle_companyuser_mailingAdrs_zipcode').val($('#crm_mainbundle_companyuser_legalAdrs_zipcode').val());
             });
+
+            {% if app.user.company.operator.id is defined and app.user.company.operator.id == 33 %}
+                    $("#crm_mainbundle_companyuser_cardType option[value='2']").remove();
+                    $("#crm_mainbundle_companyuser_cardType option[value='3']").remove();
+            {% endif %}
         });
     </script>
 {% endblock %}
