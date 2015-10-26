@@ -16,4 +16,21 @@ class DefaultController extends Controller
     {
         return array('name' => $name.'sdsd');
     }
+
+    /**
+     * @Template("")
+     */
+    public function getHeaderAction($url = null){
+        $company = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->findOneByUrl($url);
+        if ($company){
+            $operator = $company->getOperator();
+        }else{
+            $operator = null;
+        }
+        if (!$operator){
+            $operator = null;
+        }
+
+        return ['operator' => $operator];
+    }
 }

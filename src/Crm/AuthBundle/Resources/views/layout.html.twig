@@ -57,12 +57,19 @@
         <div class="container">
             <div class="navbar-header">
                 <a class="navbar-brand" href="#">
+                    Личный кабинет
                     {% if app.user != null and app.user.company != null and app.user.company.id != 551 %}
                         {% set company = app.user.company.title %}
+                        <span class="text-primary"><b>[{{ company }}]</b></span>
                     {% else %}
-                        {% set company = 'ИнфоМакс' %}
+                        {% if app.request.attributes.get('_route_params').url is defined %}
+                            {{ render(controller('CrmAuthBundle:Default:getHeader', {'url' : app.request.attributes.get('_route_params').url })) }}
+                        {% else %}
+                            {% set company = 'ИнфоМакс' %}
+                            <span class="text-primary"><b>[{{ company }}]</b></span>
+                        {% endif %}
                     {% endif %}
-                    Личный кабинет <span class="text-primary"><b>[{{ company }}]</b></span>
+
                 </a>
             </div>
         </div>
