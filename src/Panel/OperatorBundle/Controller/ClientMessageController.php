@@ -26,7 +26,7 @@ class ClientMessageController extends Controller
      */
     public function listAction(Request $request, $clientId = null)
     {
-        $client = $this->getDoctrine()->getRepository('CrmMainBundle:Chat')->loadClients();
+        $client = $this->getDoctrine()->getRepository('CrmMainBundle:Chat')->loadClients($this->getUser()->getId());
 //        $client = $this->getDoctrine()->getRepository('CrmMainBundle:Chat')->loadClients();
 
         if ($request->getMethod() == 'POST'){
@@ -47,7 +47,9 @@ class ClientMessageController extends Controller
         ORDER BY Chat.id DESC
         LIMIT 1
         ) msg
-        FROM Client c";
+        LEFT JOIN company co ON co.id = c.company_id
+        FROM Client c
+        WHERE company.operator_id = ".$this->getUser()->getId();
         $pdo = $this->getDoctrine()->getManager()->getConnection();
         $st = $pdo->prepare($query);
         $st->execute();

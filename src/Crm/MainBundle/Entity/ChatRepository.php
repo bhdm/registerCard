@@ -17,13 +17,16 @@ class ChatRepository extends EntityRepository
         return $this->findBy(array('enabled'=> 1 ), array('created' => 'DESC'));
     }
 
-    public function loadClients()
+    public function loadClients($operatorId)
     {
         $q = $this
             ->createQueryBuilder('c')
             ->leftJoin('c.client','u')
+            ->leftJoin('c.company','co')
+            ->leftJoin('co.operator','o')
             ->where('u.enabled = 1')
             ->andWhere('u.id is not null')
+            ->andWhere('o.id = '.$operatorId)
             ->groupBy('u.id')
             ->orderBy('c.created','DESC')
             ->getQuery();

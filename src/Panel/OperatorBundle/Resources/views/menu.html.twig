@@ -150,6 +150,7 @@
                     &nbsp;&nbsp;Калькулятор
                 </a>
             </li>
+        {% endif %}
             <li>
                 <a  href="{{ path('panel_client_message_list') }}" style="{{ render(controller("CrmAuthBundle:Message:newMessage"))}}" target="_blank">
                     <i class="glyphicon glyphicon glyphicon-th"></i>
@@ -157,7 +158,6 @@
                 </a>
             </li>
 
-        {% endif %}
 
         <li class="{{ app.request.attributes.get('_route') == 'panel_security_logout' ? 'active' : '' }}">
             <a href="{{ path('panel_security_logout') }}" class="text-danger">
