@@ -73,7 +73,7 @@
                         <Building>{{ driver.companyPetition.corp }}</Building>
                         <Office>{{ driver.companyPetition.room }}</Office>
                     </OrgPostAddress>
-                {% elseif  driver.petitionAdrs not empty %}
+                {% elseif  driver.petitionAdrs is not empty %}
                     <OrgName>{{ driver.petitionTitle }}</OrgName>
                     <OrgPostAddress>
                         <FullAddress>{{ driver.petitionAdrs.zipcode }},
