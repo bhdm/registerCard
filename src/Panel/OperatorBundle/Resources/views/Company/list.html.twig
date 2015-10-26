@@ -41,9 +41,9 @@
                     <td><a href="{{ path('panel_user_list', {'type' : 'null' , 'company' : company.id }) }}">{{ company.title }}</a></td>
                     <td>
                         {% if company.url != null and company.url != '' %}
-                            <a href="https://im-kard.ru.ru{{ path('company',{'url' : company.url }) }}" target="_blank">Заказ</a>
+                            <a href="https://im-kard.ru{{ path('company',{'url' : company.url }) }}" target="_blank">Заказ</a>
                             &nbsp;&nbsp;
-                            <a href="https://im-kard.ru.ru/auth/register/{{ company.url }}" target="_blank">Регистрация</a>
+                            <a href="https://im-kard.ru/auth/register/{{ company.url }}" target="_blank">Регистрация</a>
                         {% endif %}
                     </td>
                     <td>
