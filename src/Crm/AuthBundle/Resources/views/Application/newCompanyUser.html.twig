@@ -30,12 +30,12 @@
                 <tr>
                     <td>Email<span class="required">*</span></td>
                     <td>{{ form_widget(form.username) }}</td>
-                    <td>Заявление <span class="mini">(форматы файла: JPG,PNG)</span></td>
+                    <td class="master-col">Заявление <span class="mini">(форматы файла: JPG,PNG)</span></td>
                 </tr>
                 <tr>
                     <td>Телефон<span class="required">*</span></td>
                     <td>{{ form_widget(form.phone) }}</td>
-                    <td>
+                    <td class="master-col">
                         {{ form_widget(form.fileOrder) }}
                     </td>
                 </tr>
@@ -44,14 +44,19 @@
                     <td>
                         {{ form_widget(form.orderType) }}
                     </td>
-                    <td>Заявление <span class="mini">(лист 2)</span></td>
+                    <td class="master-col">Заявление <span class="mini">(лист 2)</span></td>
                 </tr>
                 <tr>
                     <td>Количество карт<span class="required">*</span></td>
                     <td>{{ form_widget(form.cardAmount) }}</td>
-                    <td>
+                    <td class="master-col">
                         {{ form_widget(form.fileOrderTwo) }}
                     </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
                 </tr>
             </table>
         </div>
@@ -70,28 +75,33 @@
                 <tr>
                     <td>В лице<span class="required">*</span></td>
                     <td>{{ form_widget(form.companyExecutive) }}</td>
-                    <td>Копия ИНН <span class="mini">(форматы файла: JPG,PNG)</span></td>
+                    <td class="master-col">Копия ИНН <span class="mini">(форматы файла: JPG,PNG)</span></td>
                 </tr>
                 <tr>
                     <td>ИНН<span class="required">*</span></td>
                     <td>
                         {{ form_widget(form.companyInn) }}
                     </td>
-                    <td>
+                    <td class="master-col">
                         {{ form_widget(form.fileInn) }}
                     </td>
                 </tr>
                 <tr>
                     <td>КПП<span class="required">*</span></td>
                     <td>{{ form_widget(form.companyKpp) }}</td>
-                    <td>Копия ОГРН <span class="mini">(форматы файла: JPG,PNG)</span></td>
+                    <td class="master-col">Копия ОГРН <span class="mini">(форматы файла: JPG,PNG)</span></td>
                 </tr>
                 <tr>
                     <td>ОГРН<span class="required">*</span></td>
                     <td>{{ form_widget(form.companyOgrn) }}</td>
-                    <td>
+                    <td class="master-col">
                         {{ form_widget(form.fileOgrn) }}
                     </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
                 </tr>
             </table>
         </div>
@@ -216,16 +226,18 @@
                 <tr>
                     <td>Должность<span class="required">*</span></td>
                     <td>{{ form_widget(form.post) }}</td>
-                    <td>Приказ <span class="mini">(форматы файла: JPG,PNG)</span></td>
+                    <td  class="master-col">Приказ <span class="mini">(форматы файла: JPG,PNG)</span></td>
                 </tr>
                 <tr>
                     <td>Действующего на основании<span class="required">*</span></td>
                     <td>{{ form_widget(form.documentAccess) }}</td>
-                    <td>
+                    <td  class="master-col">
                         {{ form_widget(form.fileDecree) }}
                     </td>
                 </tr>
                 <tr>
+                    <td>&nbsp;</td>
+                    <td>&nbsp;</td>
                     <td>&nbsp;</td>
                 </tr>
             </table>
@@ -353,7 +365,7 @@
         #crm_mainbundle_user_orderType-styler .jq-selectbox__select-text{
             width: 214px !important;
         }
-        .master{
+        .master, .master-row, .master-col{
             display: none;
         }
         .mini{
@@ -587,8 +599,12 @@
             $('#crm_mainbundle_companyuser_companyType').change(function(){
                if ($(this).val() == 2){
                    $('.master').css('display','block');
+                   $('.master-row').css('display','table-row');
+                   $('.master-col').css('display','table-cell');
                }else{
                    $('.master').css('display','none');
+                   $('.master-row').css('display','none');
+                   $('.master-col').css('display','none');
                }
             });
 

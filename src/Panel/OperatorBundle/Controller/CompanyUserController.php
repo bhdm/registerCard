@@ -124,4 +124,16 @@ class CompanyUserController extends Controller{
         return new Response('Ok');
 
     }
+
+    /**
+     * @Route("/new-company-user", name="new-company-user")
+     */
+    public function newUserAction(){
+        $cu = $this->getDoctrine()->getRepository('CrmMainBundle:CompanyUser')->findByStatus(0);
+        if (count($cu)>0){
+            return new Response('color: #CC0000');
+        }else{
+            return new Response();
+        }
+    }
 }
