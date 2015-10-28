@@ -18,9 +18,8 @@
                     <td class="label">Ссылка для регистрации:</td>
 
                     <td class="value" style="font-size: 12px">
-                        <a href="https://im-kard.ru{{ path('company',{'url' : company.url }) }}" target="_blank">Одиночные заказы</a>
-                        <br />
-                        <a href="https://im-kard.ru/auth/register/{{ company.url }}" target="_blank">Регистрация лк</a>
+                        {#<b><a href="https://im-kard.ru{{ path('company',{'url' : company.url }) }}" target="_blank">Одиночные заказы</a></b>#}
+                        <b><a href="https://im-kard.ru/auth/register/{{ company.url }}" target="_blank">Регистрация лк</a></b>
                     </td>
                 </tr>
             {% endif %}
