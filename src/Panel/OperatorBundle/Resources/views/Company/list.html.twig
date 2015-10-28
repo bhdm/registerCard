@@ -23,7 +23,7 @@
                         {% endfor %}
                     </select>
                 </th>
-                <th >Ссылка</th>
+                {#<th >Ссылка</th>#}
                 <th ></th>
                 <th ></th>
                 {#<th >Кол-во заявок</th>#}
@@ -39,13 +39,13 @@
                         {% endif %}
                     </td>
                     <td><a href="{{ path('panel_user_list', {'type' : 'null' , 'company' : company.id }) }}">{{ company.title }}</a></td>
-                    <td>
-                        {% if company.url != null and company.url != '' %}
-                            <a href="https://im-kard.ru{{ path('company',{'url' : company.url }) }}" target="_blank">Заказ</a>
-                            &nbsp;&nbsp;
-                            <a href="https://im-kard.ru/auth/register/{{ company.url }}" target="_blank">Регистрация</a>
-                        {% endif %}
-                    </td>
+                    {#<td>#}
+                        {#{% if company.url != null and company.url != '' %}#}
+                            {#<a href="https://im-kard.ru{{ path('company',{'url' : company.url }) }}" target="_blank">Заказ</a>#}
+                            {#&nbsp;&nbsp;#}
+                            {#<a href="https://im-kard.ru/auth/register/{{ company.url }}" target="_blank">Регистрация</a>#}
+                        {#{% endif %}#}
+                    {#</td>#}
                     <td>
 
                     </td>

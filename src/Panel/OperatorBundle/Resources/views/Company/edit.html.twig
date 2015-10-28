@@ -16,8 +16,11 @@
             {% if companyUrl is not null %}
                 <tr>
                     <td class="label">Ссылка для регистрации:</td>
+
                     <td class="value" style="font-size: 12px">
-                        <a href="{{ companyUrl }}" target="_blank"><b>{{ companyUrl  }}</b></a>
+                        <a href="https://im-kard.ru{{ path('company',{'url' : company.url }) }}" target="_blank">Одиночные заказы</a>
+                        <br />
+                        <a href="https://im-kard.ru/auth/register/{{ company.url }}" target="_blank">Регистрация лк</a>
                     </td>
                 </tr>
             {% endif %}

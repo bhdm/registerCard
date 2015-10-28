@@ -300,7 +300,8 @@ class OrderController extends Controller
                 $em->flush($item);
                 $em->refresh($item);
 
-                return $this->render('@CrmAuth/Application/companySuccess.html.twig',['user' => $item]);
+//                return $this->render('@CrmAuth/Application/companySuccess.html.twig',['user' => $item]);
+                return $this->redirect($this->generateUrl('auth_order_company'));
             }
         }else{
             $this->clearSession($session);
