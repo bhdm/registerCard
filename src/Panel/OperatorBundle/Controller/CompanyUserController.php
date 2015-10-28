@@ -110,7 +110,7 @@ class CompanyUserController extends Controller{
 //            $image->destroy();
 //        }
 
-        $file = $order->getCopySignature();
+        $file = $order->getFileSign();
         $file = WImage::ImageToBlackAndWhite($file);
         $file = WImage::cropSign($file, 591,118);
         $image = new \Imagick($file);
