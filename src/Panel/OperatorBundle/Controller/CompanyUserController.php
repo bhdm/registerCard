@@ -11,6 +11,7 @@ namespace Panel\OperatorBundle\Controller;
 use Crm\MainBundle\Entity\CompanyUser;
 use Crm\MainBundle\Entity\StatusLog;
 use Crm\MainBundle\Form\CompanyUserType;
+use Crm\MainBundle\WImage\WImage;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
