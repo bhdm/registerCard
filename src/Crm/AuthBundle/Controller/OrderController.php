@@ -262,7 +262,27 @@ class OrderController extends Controller
                 $company = $this->getUser()->getCompany();
                 $item->setCompany($company);
                 $item->setClient($this->getUser());
-                $item->setPrice($company->getPriceRu()*$item->getCardAmount());
+
+                if ($item->getCardType() == 1){
+                    if ($item->getCompanyType() == 1){
+                        $item->setPrice($company->getPriceEnterpriseSkzi()*$item->getCardAmount());
+                    }else{
+                        $item->setPrice($company->getPriceMasterSkzi()*$item->getCardAmount());
+                    }
+                }elseif($item->getCardType() == 2){
+                    if ($item->getCompanyType() == 1){
+                        $item->setPrice($company->getPriceEnterpriseEstr()*$item->getCardAmount());
+                    }else{
+                        $item->setPrice($company->getPriceMasterEstr()*$item->getCardAmount());
+                    }
+                }else{
+                    if ($item->getCompanyType() == 1){
+                        $item->setPrice($company->getPriceEnterpriseRu()*$item->getCardAmount());
+                    }else{
+                        $item->setPrice($company->getPriceMasterRu()*$item->getCardAmount());
+                    }
+                }
+
                 $em->persist($item);
                 $em->flush();
                 $em->refresh($item);
