@@ -158,6 +158,11 @@ class CompanyUser extends BaseEntity
     protected $surName;
 
     /**
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    protected $birthday;
+
+    /**
      * @Assert\NotBlank( message = "Поле должность обязательно для заполнения" )
      * @ORM\Column(type="string")
      */
@@ -1097,5 +1102,23 @@ class CompanyUser extends BaseEntity
             case 3: return 'РФ';
         }
     }
+
+    /**
+     * @return mixed
+     */
+    public function getBirthday()
+    {
+        return $this->birthday;
+    }
+
+    /**
+     * @param mixed $birthday
+     */
+    public function setBirthday($birthday)
+    {
+        $this->birthday = $birthday;
+    }
+
+
 
 }

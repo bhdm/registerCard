@@ -48,6 +48,8 @@ class CompanyUserType extends AbstractType
             ->add('firstName')
             ->add('lastName')
             ->add('surName')
+            ->add('birthday', 'date', ['widget' => 'single_text','required' => false, 'attr' => ['class' => 'date']])
+
             ->add('post')
             ->add('documentAccess')
             ->add('stampNumber')
