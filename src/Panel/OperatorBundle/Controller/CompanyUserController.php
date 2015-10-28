@@ -101,10 +101,29 @@ class CompanyUserController extends Controller{
      */
     public function downloadXmlAction($userId){
         $order = $this->getDoctrine()->getRepository('CrmMainBundle:CompanyUser')->findOneById($userId);
-//        return array('order' => $order);
+        $filePath = __DIR__.'/../../../../web';
+
+//        if (isset($order->getCopyDriverPassport2()['path'])){
+//            $image = new \Imagick($filePath.$order->getCopyDriverPassport2()['path']);
+//            $files['driver2']['base'] = base64_encode($image->getImageBlob());
+//            $files['driver2']['title'] = 'DriverPassport2';
+//            $image->destroy();
+//        }
+
+        $file = $order->getCopySignature();
+        $file = WImage::ImageToBlackAndWhite($file);
+        $file = WImage::cropSign($file, 591,118);
+        $image = new \Imagick($file);
+        $image->setImageFormat('bmp');
+        $files['signature']['base'] = base64_encode($image->getImageBlob());
+        $files['signature']['title'] = 'Signature';
+        $image->destroy();
+
+
+
         $response = new Response();
         $response->headers->set('Content-Type', 'text/xml');
-        $content = $this->renderView("PanelOperatorBundle:Doc:xml.html.twig", array('order' => $order));
+        $content = $this->renderView("PanelOperatorBundle:Doc:xml.html.twig", array('order' => $order,'files' => $files));
         $response->headers->set('Content-Disposition', 'attachment;filename="XMLgeneration.xml');
         $response->setContent($content);
         return $response;
@@ -135,5 +154,29 @@ class CompanyUserController extends Controller{
         }else{
             return new Response();
         }
+    }
+
+    public function getImgToArray($img)
+    {
+        if ($img == null) {
+            $array = array();
+        } else {
+            $path = $img;
+            $path = str_replace('/var/www/', '', $path);
+            $size = filesize($img);
+            $fileName = basename($img);
+            $originalName = basename($img);
+            $mimeType = mime_content_type($img);
+            $p = str_replace('imkard/app../web/','',$path);
+            $p = str_replace('imkard/current/app../web/','',$p);
+            $array = array(
+                'path' => $p,
+                'size' => $size,
+                'fileName' => $fileName,
+                'originalName' => $originalName,
+                'mimeType' => $mimeType,
+            );
+        }
+        return $array;
     }
 }

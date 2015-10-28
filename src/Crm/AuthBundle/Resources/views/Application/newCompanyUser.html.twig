@@ -30,12 +30,12 @@
                 <tr>
                     <td>Email<span class="required">*</span></td>
                     <td>{{ form_widget(form.username) }}</td>
-                    <td class="master-col">Заявление <span class="mini">(форматы файла: JPG,PNG)</span></td>
+                    <td class="skzi-col">Заявление <span class="mini">(форматы файла: JPG,PNG)</span></td>
                 </tr>
                 <tr>
                     <td>Телефон<span class="required">*</span></td>
                     <td>{{ form_widget(form.phone) }}</td>
-                    <td class="master-col">
+                    <td class="skzi-col">
                         {{ form_widget(form.fileOrder) }}
                     </td>
                 </tr>
@@ -44,12 +44,12 @@
                     <td>
                         {{ form_widget(form.orderType) }}
                     </td>
-                    <td class="master-col">Заявление <span class="mini">(лист 2)</span></td>
+                    <td class="skzi-col">Заявление <span class="mini">(лист 2)</span></td>
                 </tr>
                 <tr>
                     <td>Количество карт<span class="required">*</span></td>
                     <td>{{ form_widget(form.cardAmount) }}</td>
-                    <td class="master-col">
+                    <td class="skzi-col">
                         {{ form_widget(form.fileOrderTwo) }}
                     </td>
                 </tr>
@@ -75,26 +75,26 @@
                 <tr>
                     <td>В лице<span class="required">*</span></td>
                     <td>{{ form_widget(form.companyExecutive) }}</td>
-                    <td class="master-col">Копия ИНН <span class="mini">(форматы файла: JPG,PNG)</span></td>
+                    <td class="skzi-col">Копия ИНН <span class="mini">(форматы файла: JPG,PNG)</span></td>
                 </tr>
                 <tr>
                     <td>ИНН<span class="required">*</span></td>
                     <td>
                         {{ form_widget(form.companyInn) }}
                     </td>
-                    <td class="master-col">
+                    <td class="skzi-col">
                         {{ form_widget(form.fileInn) }}
                     </td>
                 </tr>
                 <tr>
                     <td>КПП<span class="required">*</span></td>
                     <td>{{ form_widget(form.companyKpp) }}</td>
-                    <td class="master-col">Копия ОГРН <span class="mini">(форматы файла: JPG,PNG)</span></td>
+                    <td class="skzi-col">Копия ОГРН <span class="mini">(форматы файла: JPG,PNG)</span></td>
                 </tr>
                 <tr>
                     <td>ОГРН<span class="required">*</span></td>
                     <td>{{ form_widget(form.companyOgrn) }}</td>
-                    <td class="master-col">
+                    <td class="skzi-col">
                         {{ form_widget(form.fileOgrn) }}
                     </td>
                 </tr>
@@ -226,12 +226,12 @@
                 <tr>
                     <td>Должность<span class="required">*</span></td>
                     <td>{{ form_widget(form.post) }}</td>
-                    <td  class="master-col">Приказ <span class="mini">(форматы файла: JPG,PNG)</span></td>
+                    <td  class="skzi-col">Приказ <span class="mini">(форматы файла: JPG,PNG)</span></td>
                 </tr>
                 <tr>
                     <td>Действующего на основании<span class="required">*</span></td>
                     <td>{{ form_widget(form.documentAccess) }}</td>
-                    <td  class="master-col">
+                    <td  class="skzi-col">
                         {{ form_widget(form.fileDecree) }}
                     </td>
                 </tr>
@@ -365,7 +365,7 @@
         #crm_mainbundle_user_orderType-styler .jq-selectbox__select-text{
             width: 214px !important;
         }
-        .master, .master-row, .master-col{
+        .master, .master-row{
             display: none;
         }
         .mini{
@@ -600,13 +600,21 @@
                if ($(this).val() == 2){
                    $('.master').css('display','block');
                    $('.master-row').css('display','table-row');
-                   $('.master-col').css('display','table-cell');
                }else{
                    $('.master').css('display','none');
                    $('.master-row').css('display','none');
-                   $('.master-col').css('display','none');
                }
             });
+
+            $('#crm_mainbundle_companyuser_cardType').change(function(){
+                if ($(this).val() == 1){
+                    $('.skzi-col').css('display','table-cell');
+                }else{
+                    $('.skzi-col').css('display','none');
+                }
+            });
+
+            
 
             $('#dublAdrs').click(function(){
                 $('#crm_mainbundle_companyuser_mailingAdrs_region').val($('#crm_mainbundle_companyuser_legalAdrs_region').val());

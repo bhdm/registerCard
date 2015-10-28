@@ -43,6 +43,9 @@ class ApplicationController extends Controller
             $user = $formData->getData();
             if ($url != null){
                 $company = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->findOneByUrl($url);
+                if ($company == null){
+                    $company = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->findOneByUrl('NO_COMPANY');
+                }
             }else{
                 $company = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->findOneByUrl('NO_COMPANY');
             }
@@ -94,6 +97,9 @@ class ApplicationController extends Controller
 
             if ($url != null){
                 $company = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->findOneByUrl($url);
+                if ($company == null){
+                    $company = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->findOneByUrl('NO_COMPANY');
+                }
             }else{
                 $company = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->findOneByUrl('NO_COMPANY');
             }
@@ -166,6 +172,9 @@ class ApplicationController extends Controller
             $user = $formData->getData();
             if ($url != null){
                 $company = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->findOneByUrl($url);
+                if ($company == null){
+                    $company = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->findOneByUrl('NO_COMPANY');
+                }
             }else{
                 $company = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->findOneByUrl('NO_COMPANY');
             }
