@@ -111,14 +111,14 @@ class CompanyUserController extends Controller{
 //            $image->destroy();
 //        }
 
-        $file = $order->getFileSign();
-        $file = WImage::ImageToBlackAndWhite($file);
-        $file = WImage::cropSign($file, 591,118);
-        $image = new \Imagick($file);
-        $image->setImageFormat('bmp');
-        $files['signature']['base'] = base64_encode($image->getImageBlob());
-        $files['signature']['title'] = 'Signature';
-        $image->destroy();
+//        $file = $order->getFileSign();
+//        $file = WImage::ImageToBlackAndWhite($file);
+//        $file = WImage::cropSign($file, 591,118);
+//        $image = new \Imagick($file);
+//        $image->setImageFormat('bmp');
+//        $files['signature']['base'] = base64_encode($image->getImageBlob());
+//        $files['signature']['title'] = 'Signature';
+//        $image->destroy();
 
 
 
