@@ -36,7 +36,7 @@ class CompanyUserController extends Controller{
      * @Template()
      */
     public function listAction(){
-        $items = $this->getDoctrine()->getRepository('CrmMainBundle:CompanyUser')->findByEnabled(true);
+        $items = $this->getDoctrine()->getRepository('CrmMainBundle:CompanyUser')->findBy(['enabled' =>true], ['id' => 'DESC']);
         $paginator = $this->get('knp_paginator');
         $pagination = $paginator->paginate(
             $items,
