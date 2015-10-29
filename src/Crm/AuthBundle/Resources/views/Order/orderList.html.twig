@@ -72,8 +72,8 @@
                                         <span class="caret"></span>
                                     </button>
                                     <ul class="dropdown-menu" aria-labelledby="dropdownPayment}">
-                                        <li><a href="{{ path('generate_payment_pdf') }}?ord={{ o.id }}">Платежное поручение</a></li>
-                                        <li><a href="{{ path('payment_assist',{'userId' : o.id} )  }}">Робокасса</a></li>
+                                        <li><a href="{{ path('generate_payment_pdf') }}?ord={{ o.id }}" target="_blank">Платежное поручение</a></li>
+                                        <li><a href="{{ path('payment_assist',{'userId' : o.id} )  }}" target="_blank">Робокасса</a></li>
                                         <li><a href="{{ path('generate_pdf_statement',{'id' : o.id}) }}" target="_blank">Скачать заявку</a></li>
                                     </ul>
                                 </div>
