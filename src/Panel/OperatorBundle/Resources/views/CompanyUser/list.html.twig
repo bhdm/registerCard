@@ -39,12 +39,11 @@
                                 <button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" id="dropdown-status">Статусы : Все <span class="caret"></span></button>
                                 <ul class="dropdown-menu">
                                     <li><a href="#" class="small" data-value="Новые" tabIndex="-1"><input type="checkbox"/>&nbsp;Новые</a></li>
-                                    <li><a href="#" class="small" data-value="Подтвержденные" tabIndex="-1"><input type="checkbox"/>&nbsp;Подтвержденные</a></li>
-                                    <li><a href="#" class="small" data-value="Оплаченные" tabIndex="-1"><input type="checkbox"/>&nbsp;Оплаченные</a></li>
                                     <li><a href="#" class="small" data-value="В производстве" tabIndex="-1"><input type="checkbox"/>&nbsp;В производстве</a></li>
+                                    <li><a href="#" class="small" data-value="Изготовлены" tabIndex="-1"><input type="checkbox"/>&nbsp;Изготовлены</a></li>
                                     <li><a href="#" class="small" data-value="На почте" tabIndex="-1"><input type="checkbox"/>&nbsp;На почте</a></li>
                                     <li><a href="#" class="small" data-value="Полученные" tabIndex="-1"><input type="checkbox"/>&nbsp;Полученные</a></li>
-                                    <li><a href="#" class="small" data-value="Отмененные" tabIndex="-1"><input type="checkbox"/>&nbsp;Отмененные</a></li>
+                                    <li><a href="#" class="small" data-value="Отклоненные" tabIndex="-1"><input type="checkbox"/>&nbsp;Отклоненные</a></li>
                                 </ul>
                             </div>
                         </div>
@@ -102,6 +101,7 @@
             <tr>
                 <th></th>
                 <th>ID</th>
+                <th>Компания</th>
                 <th>Тип компании</th>
                 <th>Тип карт</th>
                 <th>Название</th>
@@ -117,9 +117,10 @@
                     <tr>
                         <td><input class="user-check" type="checkbox" name="user[{{  item.id }}]" value="{{ item.id }}"></td>
                         <td>{{ item.id }}</td>
+                        <td>{{ item.company }}</td>
                         <td style="text-align: center"><span class="label label-{{ item.companyType == 0 ? 'danger' : item.companyType == 1 ? 'primary' : 'success' }}">{{ item.companyTypeStr }}</span></td>
                         <td style="text-align: center"><span class="label label-{{ item.cardType == 1 ? 'Warning' : item.cardType == 2 ? 'primary' : 'success' }}">{{ item.cardTypeStr }}</td>
-                        <td><span style="font-size: 12px">{{ item.companyTitle }}</span></td>
+                        <td><span style="font-size: 12px; cursor: pointer" title="{{ item.company }}" >{{ item.companyTitle }}</span></td>
                         <td style="text-align: center">{{ item.cardAmount }}</td>
                         <td style="text-align: center">{{ item.price * 1  }} руб.</td>
                         <td style="text-align: center">

@@ -1047,6 +1047,10 @@ class CompanyUser extends BaseEntity
             case 10:
                 $status = '<span class="status" style="border: 1px solid #CC3333; color: #CC3333">Отклонена</span>';
                 break;
+            default:
+                $status = '<span class="status" style="border: 1px solid #CC3333; color: #CC3333">Ошибка статуса</span>';
+                break;
+
         }
         return $status;
     }
