@@ -332,6 +332,11 @@ class UserController extends Controller
             $user->setDileveryCorp($data->get('deliveryStructure'));
             $user->setDileveryRoom($data->get('deliveryRoom'));
 
+
+            if ($data->get('confirm') == 1){
+                $user->setComfirmed(true);
+            }
+
             $petition = $this->getDoctrine()->getRepository('CrmMainBundle:CompanyPetition')->findOneById($data->get('petition'));
             $user->setCompanyPetition($petition);
 

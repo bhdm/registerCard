@@ -725,13 +725,20 @@
                     <td>
                         <div class="form-group">
                             <label class="control-label col-sm-3"></label>
-                            <div class="col-sm-5">
+                            <div class="col-sm-1">
 
                             </div>
-                            <div class="col-sm-4">
+                            <div class="col-sm-8">
                                 <button type="submit" class="btn btn-default btn-primary"   title="Сохранить">
                                     Сохранить
                                 </button>
+
+                                {#{% if not is_granted('ROLE_ADMIN') %}#}
+                                    <button type="submit" class="btn btn-default btn-success"  id="confirm" title="Сохранить и подтввердить правильность">
+                                        Сохранить и подтввердить правильность
+                                    </button>
+                                {#{% endif %}#}
+
                                 {#<a href="{{ referer }}">#}
                                 <button type="button" class="btn btn-default btn-danger"   title="Отмена">
                                     Отмена
@@ -742,6 +749,7 @@
                     </td>
                 </tr>
             </table>
+            <input type="hidden" name="confirm" id="input-confirm" value="0">
         </form>
     </div>
 
@@ -834,6 +842,12 @@
 
     <script>
         $(document).ready(function(){
+
+            $('#confirm').click(function(){
+                $('#input-confirm').val(1);
+                return true;
+            });
+
             $("#phone").mask("+7 (999) 999-9999");
             $(".date").mask("99.99.9999");
             $(".code").mask("999-999");
