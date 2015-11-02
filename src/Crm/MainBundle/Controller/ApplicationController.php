@@ -29,7 +29,7 @@ class ApplicationController extends Controller
      */
     public function estrAction(Request $request, $url = null)
     {
-        $session = new Session();
+        $session = $request->getSession();
 //        $this->clearSession($session);
 
         $order = $session->get('order');
@@ -167,7 +167,7 @@ class ApplicationController extends Controller
      * @Template("")
      */
     public function ruAction(Request $request, $url = null){
-        $session = new Session();
+        $session = $request->getSession();
 
         $order = $session->get('order');
         $em = $this->getDoctrine()->getManager();

@@ -125,7 +125,7 @@ class OrderController extends Controller
      */
     public function addEstrOrderAction(Request $request){
 
-        $session = new Session();
+        $session = $request->getSession();
 //        $this->clearSession($session);
 
         $order = $session->get('order');
@@ -188,7 +188,7 @@ class OrderController extends Controller
      * @Template("CrmAuthBundle:Application:newRu.html.twig")
      */
     public function addRuOrderAction(Request $request){
-        $session = new Session();
+        $session = $request->getSession();
 
         $order = $session->get('order');
         $em = $this->getDoctrine()->getManager();
@@ -251,7 +251,7 @@ class OrderController extends Controller
      * @Template("CrmAuthBundle:Application:newCompanyUser.html.twig")
      */
     public function addCompanyUser(Request $request){
-        $session = new Session();
+        $session = $request->getSession();
         $em = $this->getDoctrine()->getManager();
         $item = new CompanyUser();
         $form = $this->createForm(new CompanyUserType($em), $item);
