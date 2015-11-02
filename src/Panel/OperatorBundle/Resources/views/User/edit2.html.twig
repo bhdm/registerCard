@@ -721,6 +721,18 @@
                         {% endif %}
                     </td>
                 </tr>
+                {% if not is_granted('ROLE_ADMIN') %}
+                <tr>
+                    <td>
+                        <div class="form-group">
+                            <label class="control-label col-sm-3" for="myPetition">Подтверждаю правильность данных</label>
+                            <div class="col-sm-9">
+                                <input type="checkbox" name="confirm">
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                {% endif %}
                 <tr>
                     <td>
                         <div class="form-group">
@@ -734,9 +746,9 @@
                                 </button>
 
                                 {#{% if not is_granted('ROLE_ADMIN') %}#}
-                                    <button type="submit" class="btn btn-default btn-success"  id="confirm" title="Сохранить и подтввердить правильность">
-                                        Сохранить и подтввердить правильность
-                                    </button>
+                                    {#<button type="submit" class="btn btn-default btn-success"  id="confirm" title="Сохранить и подтвердить правильность">#}
+                                        {#Сохранить и подтвердить правильность#}
+                                    {#</button>#}
                                 {#{% endif %}#}
 
                                 {#<a href="{{ referer }}">#}
@@ -749,7 +761,7 @@
                     </td>
                 </tr>
             </table>
-            <input type="hidden" name="confirm" id="input-confirm" value="0">
+            {#<input type="hidden" name="confirm" id="input-confirm" value="0">#}
         </form>
     </div>
 
@@ -843,9 +855,9 @@
     <script>
         $(document).ready(function(){
 
-            $('#confirm').click(function(){
-                $('#input-confirm').val(1);
-                return true;
+//            $('#confirm').click(function(){
+//                $('#input-confirm').val(1);
+//                return true;
             });
 
             $("#phone").mask("+7 (999) 999-9999");

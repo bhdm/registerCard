@@ -333,7 +333,7 @@ class UserController extends Controller
             $user->setDileveryRoom($data->get('deliveryRoom'));
 
 
-            if ($data->get('confirm') == 1){
+            if ($data->get('confirm') == 1 || $data->get('confirm') == '0n' || $data->get('confirm') == true ){
                 $user->setComfirmed(true);
             }
 
