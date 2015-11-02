@@ -523,7 +523,7 @@
                         <td></td>
                         <td colspan="2" style="text-align: left">
                             {% if edit is not defined  %}
-                                <input type="checkbox" required="required"> Я согласен с <a href="#" target="_blank">пользовательским соглашением сервиса</a><span class="required">*</span> <br />
+                                <input type="checkbox" required="required"> Я согласен с <a href="{{ path('page',{'url' : 'eula'}) }}" target="_blank">пользовательским соглашением сервиса</a><span class="required">*</span> <br />
                             {% endif %}
                             <input type="checkbox" required="required"> Я подтверждаю правильность введенных данных<span class="required">*</span>
                         </td>
