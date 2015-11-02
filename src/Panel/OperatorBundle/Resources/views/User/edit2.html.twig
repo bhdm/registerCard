@@ -683,7 +683,9 @@
                                 <select id="petition" name="petition" class="petition">
                                     <option value="0">Не использовать</option>
                                     {% for p in petitions %}
-                                        <option value="{{ p.id }}" {{ user.companyPetition != null and user.companyPetition.id == p.id ? 'selected="selected"' : '' }}>{{ p.title }}</option>
+                                        {% if p.title != '' and p.title != null %}
+                                            <option value="{{ p.id }}" {{ user.companyPetition != null and user.companyPetition.id == p.id ? 'selected="selected"' : '' }}>{{ p.title }}</option>
+                                        {% endif %}
                                     {% endfor %}
                                 </select>
                                 {% if user.companyPetition != null %}
