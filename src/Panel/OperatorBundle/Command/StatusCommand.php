@@ -39,7 +39,7 @@ class StatusCommand extends ContainerAwareCommand
         }
 
         $message = \Swift_Message::newInstance()
-            ->setSubject('Ваш заказ создан')
+            ->setSubject('Заказы скорее всего получены')
             ->setFrom('info@im-kard.ru')
             ->setTo('imkardru@gmail.com')
             ->setBody(
@@ -49,7 +49,7 @@ class StatusCommand extends ContainerAwareCommand
                 ), 'text/html'
             )
         ;
-//        $this->get('mailer')->send($message);
+        $this->get('mailer')->send($message);
     }
 
 }
