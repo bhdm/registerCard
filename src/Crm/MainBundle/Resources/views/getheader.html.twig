@@ -1,9 +1,11 @@
 <table>
     <tr>
         <td>
-            <div style="margin-left: 50px; padding-top: 5px">
-                <img src="{{ company.logo.path }}" style="max-width: 120px; max-height: 40px">
-            </div>
+            {% if company.logo.path is defined %}
+                <div style="margin-left: 50px; padding-top: 5px">
+                    <img src="{{ company.logo.path }}" style="max-width: 120px; max-height: 40px">
+                </div>
+            {% endif %}
         </td>
         <td>
             <div style="margin-left: 50px; padding-top: 5px">

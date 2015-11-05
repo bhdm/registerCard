@@ -111,37 +111,12 @@
 {% endif %}
 <body>
 <div class="body">
-    <div class="menu">
-        {% if app.request.attributes.get('_route_params').url is defined %}
-            {{ render(controller('CrmMainBundle:Mini:getheader', {'url' : app.request.attributes.get('_route_params').url })) }}
-        {% endif %}
-    </div>
-    {#{% include ("CrmMainBundle::menu.html.twig")  %}#}
     <div class="content">
         <br />
         {% block content %}{% endblock %}
     </div>
     {# @todo Перевести в плагин #}
     <br/>
-    <div class="footer" style="    width: 900px;">
-        <table style="width: 100%">
-            <tr>
-                {#<td style="color: #CC0000; text-align: center;">ООО "ИнфоМакс" <br /> 2015 г.</td>#}
-                <td style="font-weight: bold; color: #FFFFFF; text-align: center; font-size: 16px">
-                    {#<span style="font-size: 20px; color: #FFFFFF">ООО "ИнфоМакс"</span>#}
-                    <br />
-                    {#Санкт-Петербург, пр. Маршала Говорова, д.37#}
-                    <br />
-                    {#8(812)425-12-44, +7(967)359-98-05#}
-                    <br />
-                    {#e-mail: imkardru@gmail.com#}
-                </td>
-                <td style="text-align: center;">
-                    {#<img src="{{ asset('bundles/crmface/images/robokassa.png') }}">#}
-                </td>
-            </tr>
-        </table>
-    </div>
 </div>
 <!-- Yandex.Metrika counter -->
 <script type="text/javascript">
