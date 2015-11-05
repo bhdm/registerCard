@@ -1,5 +1,37 @@
 {% extends 'CrmAuthBundle::layout.html.twig' %}
 
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset('bundles/paneloperator/js/bootbox.min.js') }}"></script>
+    <script>
+        $(document).ready(function(){
+            $('.setCard').click(function () {
+                var url = $(this).attr('data-href');
+                BootstrapDialog.show({
+                    title: 'Получение карты',
+                    size: BootstrapDialog.SIZE_SMALL,
+                    type: BootstrapDialog.TYPE_DANGER,
+                    message: 'Вы точно получили карту?',
+                    buttons: [{
+                        label: 'Да',
+                        cssClass: 'btn-danger',
+                        autospin: true,
+                        action: function (dialogRef) {
+                            window.location.href = url;
+                        }
+                    }, {
+                        label: 'Отмена',
+                        action: function (dialogRef) {
+                            dialogRef.close();
+                        }
+                    }]
+                });
+            });
+        });
+
+    </script>
+{% endblock %}
+
 {% block body %}
     <div>
         <h2>Карты водителей</h2>
@@ -79,7 +111,7 @@
                                 </div>
                             {% endif %}
                             {% if o.status == 4 %}
-                                <a href="{{ path('auth_status_set', { 'id' : o.id }) }}"><button class="btn btn-primary">Получено</button></a>
+                                <a data-href="{{ path('auth_status_set', { 'id' : o.id }) }}" class="setCard"><button class="btn btn-primary">Получено</button></a>
                             {% endif %}
                         </td>
                     </tr>
