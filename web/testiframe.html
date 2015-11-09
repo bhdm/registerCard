@@ -2,6 +2,16 @@
   <head></head>
 
   <body>
-    <iframe onload="iframeLoaded()" src="//imkard.loc/app_dev.php/company/OOO YTTY" height="900" width="920" id="order-card" sandbox="allow-same-origin allow-scripts allow-forms"></iframe>
+    <iframe onload="iframeLoaded()" src="//i.im-kard.ru/app_dev.php/company/Omnicomm-Service-ind" width="920" id="order-card" sandbox="allow-same-origin allow-scripts allow-forms"   ></iframe>
+
+    <script type="text/javascript">
+      function iframeLoaded() {
+          var iFrameID = document.getElementById('order-card');
+          if(iFrameID) {
+                iFrameID.height = "";
+                iFrameID.height = iFrameID.contentWindow.document.body.scrollHeight + "px";
+          }
+      }
+    </script>
   </body>
 </html>
