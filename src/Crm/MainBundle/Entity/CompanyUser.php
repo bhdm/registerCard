@@ -230,7 +230,6 @@ class CompanyUser extends BaseEntity
     protected $fileLicenseTwo;
 
     /**
-     * @Assert\File( maxSize="2M")
      * @ORM\Column(type="array", nullable=true)
      */
     protected $fileSign;

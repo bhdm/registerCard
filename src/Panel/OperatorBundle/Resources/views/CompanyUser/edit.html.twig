@@ -8,334 +8,335 @@
         <div class="block-form">
             {{ form_errors(form) }}
 
-            {#<table class="table-form">#}
-                {#<tr>#}
-                    {#<td>Тип карты<span class="required">*</span></td>#}
-                    {#<td>#}
-                        {#{{ form_widget(form.companyType) }}#}
-                    {#</td>#}
-                {#</tr>#}
-                {#<tr>#}
-                    {#<td>Вид карты<span class="required">*</span></td>#}
-                    {#<td>#}
-                        {#{{ form_widget(form.cardType) }}#}
-                    {#</td>#}
-                {#</tr>#}
-                {#<tr>#}
-                    {#<td>Email<span class="required">*</span></td>#}
-                    {#<td>{{ form_widget(form.username) }}</td>#}
-                    {#<td class="skzi-col">Заявление <span class="mini">(форматы файла: JPG,PNG)</span></td>#}
-                {#</tr>#}
-                {#<tr>#}
-                    {#<td>Телефон<span class="required">*</span></td>#}
-                    {#<td>{{ form_widget(form.phone) }}</td>#}
-                    {#<td class="skzi-col">#}
-                        {#{{ form_widget(form.fileOrder) }}#}
-                    {#</td>#}
-                {#</tr>#}
-                {#<tr>#}
-                    {#<td>Тип заявления<span class="required">*</span></td>#}
-                    {#<td>#}
-                        {#{{ form_widget(form.orderType) }}#}
-                    {#</td>#}
-                    {#<td class="skzi-col">Заявление <span class="mini">(лист 2)</span></td>#}
-                {#</tr>#}
-                {#<tr>#}
-                    {#<td>Количество карт<span class="required">*</span></td>#}
-                    {#<td>{{ form_widget(form.cardAmount) }}</td>#}
-                    {#<td class="skzi-col">#}
-                        {#{{ form_widget(form.fileOrderTwo) }}#}
-                    {#</td>#}
-                {#</tr>#}
-                {#<tr>#}
-                    {#<td></td>#}
-                    {#<td></td>#}
-                    {#<td></td>#}
-                {#</tr>#}
-            {#</table>#}
+            <table class="table-form">
+                <tr>
+                    <td>Тип карты<span class="required">*</span></td>
+                    <td>
+                        {{ form_widget(form.companyType) }}
+                    </td>
+                </tr>
+                <tr>
+                    <td>Вид карты<span class="required">*</span></td>
+                    <td>
+                        {{ form_widget(form.cardType) }}
+                    </td>
+                </tr>
+                <tr>
+                    <td>Email<span class="required">*</span></td>
+                    <td>{{ form_widget(form.username) }}</td>
+                    <td class="skzi-col">Заявление <span class="mini">(форматы файла: JPG,PNG)</span></td>
+                </tr>
+                <tr>
+                    <td>Телефон<span class="required">*</span></td>
+                    <td>{{ form_widget(form.phone) }}</td>
+                    <td class="skzi-col">
+                        {{ form_widget(form.fileOrder) }}
+                    </td>
+                </tr>
+                <tr>
+                    <td>Тип заявления<span class="required">*</span></td>
+                    <td>
+                        {{ form_widget(form.orderType) }}
+                    </td>
+                    <td class="skzi-col">Заявление <span class="mini">(лист 2)</span></td>
+                </tr>
+                <tr>
+                    <td>Количество карт<span class="required">*</span></td>
+                    <td>{{ form_widget(form.cardAmount) }}</td>
+                    <td class="skzi-col">
+                        {{ form_widget(form.fileOrderTwo) }}
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+            </table>
         </div>
         <hr>
         <div class="block-form" >
-            {#<table class="table-form">#}
-                {#<caption>Информация о предприятии</caption>#}
-                {#<tr>#}
-                    {#<td>Полное наименование организации<span class="required">*</span></td>#}
-                    {#<td colspan="2">{{ form_widget(form.companyFullTitle) }}</td>#}
-                {#</tr>#}
-                {#<tr>#}
-                    {#<td>Сокращенное наименование организации<span class="required">*</span></td>#}
-                    {#<td colspan="2">{{ form_widget(form.companyTitle) }}</td>#}
-                {#</tr>#}
-                {#<tr>#}
-                    {#<td>В лице<span class="required">*</span></td>#}
-                    {#<td>{{ form_widget(form.companyExecutive) }}</td>#}
-                    {#<td class="skzi-col">Копия ИНН <span class="mini">(форматы файла: JPG,PNG)</span></td>#}
-                {#</tr>#}
-                {#<tr>#}
-                    {#<td>ИНН<span class="required">*</span></td>#}
-                    {#<td>#}
-                        {#{{ form_widget(form.companyInn) }}#}
-                    {#</td>#}
-                    {#<td class="skzi-col">#}
-                        {#{{ form_widget(form.fileInn) }}#}
-                    {#</td>#}
-                {#</tr>#}
-                {#<tr>#}
-                    {#<td>КПП<span class="required">*</span></td>#}
-                    {#<td>{{ form_widget(form.companyKpp) }}</td>#}
-                    {#<td class="skzi-col">Копия ОГРН <span class="mini">(форматы файла: JPG,PNG)</span></td>#}
-                {#</tr>#}
-                {#<tr>#}
-                    {#<td>ОГРН<span class="required">*</span></td>#}
-                    {#<td>{{ form_widget(form.companyOgrn) }}</td>#}
-                    {#<td class="skzi-col">#}
-                        {#{{ form_widget(form.fileOgrn) }}#}
-                    {#</td>#}
-                {#</tr>#}
-                {#<tr>#}
-                    {#<td></td>#}
-                    {#<td></td>#}
-                    {#<td></td>#}
-                {#</tr>#}
-            {#</table>#}
+            <table class="table-form">
+                <caption>Информация о предприятии</caption>
+                <tr>
+                    <td>Полное наименование организации<span class="required">*</span></td>
+                    <td colspan="2">{{ form_widget(form.companyFullTitle) }}</td>
+                </tr>
+                <tr>
+                    <td>Сокращенное наименование организации<span class="required">*</span></td>
+                    <td colspan="2">{{ form_widget(form.companyTitle) }}</td>
+                </tr>
+                <tr>
+                    <td>В лице<span class="required">*</span></td>
+                    <td>{{ form_widget(form.companyExecutive) }}</td>
+                    <td class="skzi-col">Копия ИНН <span class="mini">(форматы файла: JPG,PNG)</span></td>
+                </tr>
+                <tr>
+                    <td>ИНН<span class="required">*</span></td>
+                    <td>
+                        {{ form_widget(form.companyInn) }}
+                    </td>
+                    <td class="skzi-col">
+                        {{ form_widget(form.fileInn) }}
+                    </td>
+                </tr>
+                <tr>
+                    <td>КПП<span class="required">*</span></td>
+                    <td>{{ form_widget(form.companyKpp) }}</td>
+                    <td class="skzi-col">Копия ОГРН <span class="mini">(форматы файла: JPG,PNG)</span></td>
+                </tr>
+                <tr>
+                    <td>ОГРН<span class="required">*</span></td>
+                    <td>{{ form_widget(form.companyOgrn) }}</td>
+                    <td class="skzi-col">
+                        {{ form_widget(form.fileOgrn) }}
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+            </table>
         </div>
         <hr>
         <div class="block-form" >
-            {#<table class="table-form">#}
-                {#<caption>Юридический адрес</caption>#}
-                {#<tr>#}
-                    {#<td>Регион<span class="required">*</span>:</td>#}
-                    {#<td class="value">#}
-                        {#{{ form_widget(form.legalAdrs.region) }}#}
-                    {#</td>#}
-                    {#<td />#}
-                {#</tr>#}
-                {#<tr>#}
-                    {#<td>Район:</td>#}
-                    {#<td class="value">#}
-                        {#{{ form_widget(form.legalAdrs.area) }}#}
-                    {#</td>#}
-                {#</tr>#}
-                {#<tr>#}
-                    {#<td>Город:</td>#}
-                    {#<td class="value">#}
-                        {#{{ form_widget(form.legalAdrs.city) }}#}
-                    {#</td>#}
-                {#</tr>#}
-                {#<tr>#}
-                    {#<td>Улица:</td>#}
-                    {#<td class="value">#}
-                        {#{{ form_widget(form.legalAdrs.street) }}#}
-                    {#</td>#}
-                {#</tr>#}
-                {#<tr>#}
-                    {#<td>Номер здания<span class="required">*</span>:</td>#}
-                    {#<td class="value">#}
-                        {#{{ form_widget(form.legalAdrs.house) }}#}
-                        {#{{ form_widget(form.legalAdrs.corp) }}#}
-                        {#{{ form_widget(form.legalAdrs.structure) }}#}
-                    {#</td>#}
-                {#</tr>#}
-                {#<tr>#}
-                    {#<td>Кв./оф.</td>#}
-                    {#<td class="value">#}
-                        {#<input type="hidden" name="legal[typeRoom]" id="legal-typeRoom" value="кв.">#}
-                        {#{{ form_widget(form.legalAdrs.room) }}#}
-                    {#</td>#}
-                {#</tr>#}
-                {#<tr>#}
-                    {#<td>Индекс<span class="required">*</span>:</td>#}
-                    {#<td class="value">#}
-                        {#{{ form_widget(form.legalAdrs.zipcode) }}#}
-                {#</tr>#}
-            {#</table>#}
+            <table class="table-form">
+                <caption>Юридический адрес</caption>
+                <tr>
+                    <td>Регион<span class="required">*</span>:</td>
+                    <td class="value">
+                        {{ form_widget(form.legalAdrs.region) }}
+                    </td>
+                    <td />
+                </tr>
+                <tr>
+                    <td>Район:</td>
+                    <td class="value">
+                        {{ form_widget(form.legalAdrs.area) }}
+                    </td>
+                </tr>
+                <tr>
+                    <td>Город:</td>
+                    <td class="value">
+                        {{ form_widget(form.legalAdrs.city) }}
+                    </td>
+                </tr>
+                <tr>
+                    <td>Улица:</td>
+                    <td class="value">
+                        {{ form_widget(form.legalAdrs.street) }}
+                    </td>
+                </tr>
+                <tr>
+                    <td>Номер здания<span class="required">*</span>:</td>
+                    <td class="value">
+                        {{ form_widget(form.legalAdrs.house) }}
+                        {{ form_widget(form.legalAdrs.corp) }}
+                        {{ form_widget(form.legalAdrs.structure) }}
+                    </td>
+                </tr>
+                <tr>
+                    <td>Кв./оф.</td>
+                    <td class="value">
+                        <input type="hidden" name="legal[typeRoom]" id="legal-typeRoom" value="кв.">
+                        {{ form_widget(form.legalAdrs.room) }}
+                    </td>
+                </tr>
+                <tr>
+                    <td>Индекс<span class="required">*</span>:</td>
+                    <td class="value">
+                        {{ form_widget(form.legalAdrs.zipcode) }}
+                </tr>
+            </table>
         </div>
         <hr>
         <div class="block-form" >
-            {#<table class="table-form">#}
-                {#<caption>Почтовый адрес <span class="btn btn-primary" id="dublAdrs">Дублировать</span></caption>#}
-                {#<tr>#}
-                    {#<td>Регион<span class="required">*</span>:</td>#}
-                    {#<td class="value">#}
-                        {#{{ form_widget(form.mailingAdrs.region) }}#}
-                    {#</td>#}
-                    {#<td></td>#}
-                {#</tr>#}
-                {#<tr>#}
-                    {#<td>Район:</td>#}
-                    {#<td class="value">#}
-                        {#{{ form_widget(form.mailingAdrs.area) }}#}
-                    {#</td>#}
-                {#</tr>#}
-                {#<tr>#}
-                    {#<td>Город:</td>#}
-                    {#<td class="value">#}
-                        {#{{ form_widget(form.mailingAdrs.city) }}#}
-                    {#</td>#}
-                {#</tr>#}
-                {#<tr>#}
-                    {#<td>Улица:</td>#}
-                    {#<td class="value">#}
-                        {#{{ form_widget(form.mailingAdrs.street) }}#}
-                    {#</td>#}
-                {#</tr>#}
-                {#<tr>#}
-                    {#<td>Номер здания<span class="required">*</span>:</td>#}
-                    {#<td class="value">#}
-                        {#{{ form_widget(form.mailingAdrs.house) }}#}
-                        {#{{ form_widget(form.mailingAdrs.corp) }}#}
-                        {#{{ form_widget(form.mailingAdrs.structure) }}#}
-                    {#</td>#}
-                {#</tr>#}
-                {#<tr>#}
-                    {#<td>Кв./оф.</td>#}
-                    {#<td class="value">#}
-                        {#<input type="hidden" name="mailing[typeRoom]" id="mailing-typeRoom" value="кв.">#}
-                        {#{{ form_widget(form.mailingAdrs.room) }}#}
-                    {#</td>#}
-                {#</tr>#}
-                {#<tr>#}
-                    {#<td>Индекс<span class="required">*</span>:</td>#}
-                    {#<td class="value">#}
-                        {#{{ form_widget(form.mailingAdrs.zipcode) }}#}
-                {#</tr>#}
-            {#</table>#}
+            <table class="table-form">
+                <caption>Почтовый адрес <span class="btn btn-primary" id="dublAdrs">Дублировать</span></caption>
+                <tr>
+                    <td>Регион<span class="required">*</span>:</td>
+                    <td class="value">
+                        {{ form_widget(form.mailingAdrs.region) }}
+                    </td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>Район:</td>
+                    <td class="value">
+                        {{ form_widget(form.mailingAdrs.area) }}
+                    </td>
+                </tr>
+                <tr>
+                    <td>Город:</td>
+                    <td class="value">
+                        {{ form_widget(form.mailingAdrs.city) }}
+                    </td>
+                </tr>
+                <tr>
+                    <td>Улица:</td>
+                    <td class="value">
+                        {{ form_widget(form.mailingAdrs.street) }}
+                    </td>
+                </tr>
+                <tr>
+                    <td>Номер здания<span class="required">*</span>:</td>
+                    <td class="value">
+                        {{ form_widget(form.mailingAdrs.house) }}
+                        {{ form_widget(form.mailingAdrs.corp) }}
+                        {{ form_widget(form.mailingAdrs.structure) }}
+                    </td>
+                </tr>
+                <tr>
+                    <td>Кв./оф.</td>
+                    <td class="value">
+                        <input type="hidden" name="mailing[typeRoom]" id="mailing-typeRoom" value="кв.">
+                        {{ form_widget(form.mailingAdrs.room) }}
+                    </td>
+                </tr>
+                <tr>
+                    <td>Индекс<span class="required">*</span>:</td>
+                    <td class="value">
+                        {{ form_widget(form.mailingAdrs.zipcode) }}
+                </tr>
+            </table>
         </div>
         <hr>
         <div class="block-form">
-            {#<table class="table-form">#}
-                {#<caption>Данные о руководителе</caption>#}
-                {#<tr>#}
-                    {#<td>Фамилия<span class="required">*</span></td>#}
-                    {#<td>{{ form_widget(form.lastName) }}</td>#}
-                {#</tr>#}
-                {#<tr>#}
-                    {#<td>Имя<span class="required">*</span></td>#}
-                    {#<td>{{ form_widget(form.firstName) }}</td>#}
-                {#</tr>#}
-                {#<tr>#}
-                    {#<td>Отчество<span class="required">*</span></td>#}
-                    {#<td>{{ form_widget(form.surName) }}</td>#}
-                {#</tr>#}
-                {#<tr>#}
-                    {#<td>Дата рождения<span class="required">*</span></td>#}
-                    {#<td>{{ form_widget(form.birthday) }}</td>#}
-                {#</tr>#}
-                {#<tr>#}
-                    {#<td>Должность<span class="required">*</span></td>#}
-                    {#<td>{{ form_widget(form.post) }}</td>#}
-                    {#<td  class="skzi-col">Приказ <span class="mini">(форматы файла: JPG,PNG)</span></td>#}
-                {#</tr>#}
-                {#<tr>#}
-                    {#<td>Действующего на основании<span class="required">*</span></td>#}
-                    {#<td>{{ form_widget(form.documentAccess) }}</td>#}
-                    {#<td  class="skzi-col">#}
-                        {#{{ form_widget(form.fileDecree) }}#}
-                    {#</td>#}
-                {#</tr>#}
-                {#<tr>#}
-                    {#<td>&nbsp;</td>#}
-                    {#<td>&nbsp;</td>#}
-                    {#<td>&nbsp;</td>#}
-                {#</tr>#}
-            {#</table>#}
+            <table class="table-form">
+                <caption>Данные о руководителе</caption>
+                <tr>
+                    <td>Фамилия<span class="required">*</span></td>
+                    <td>{{ form_widget(form.lastName) }}</td>
+                </tr>
+                <tr>
+                    <td>Имя<span class="required">*</span></td>
+                    <td>{{ form_widget(form.firstName) }}</td>
+                </tr>
+                <tr>
+                    <td>Отчество<span class="required">*</span></td>
+                    <td>{{ form_widget(form.surName) }}</td>
+                </tr>
+                <tr>
+                    <td>Дата рождения<span class="required">*</span></td>
+                    <td>{{ form_widget(form.birthday) }}</td>
+                </tr>
+                <tr>
+                    <td>Должность<span class="required">*</span></td>
+                    <td>{{ form_widget(form.post) }}</td>
+                    <td  class="skzi-col">Приказ <span class="mini">(форматы файла: JPG,PNG)</span></td>
+                </tr>
+                <tr>
+                    <td>Действующего на основании<span class="required">*</span></td>
+                    <td>{{ form_widget(form.documentAccess) }}</td>
+                    <td  class="skzi-col">
+                        {{ form_widget(form.fileDecree) }}
+                    </td>
+                </tr>
+                <tr>
+                    <td>&nbsp;</td>
+                    <td>&nbsp;</td>
+                    <td>&nbsp;</td>
+                </tr>
+            </table>
         </div>
         <hr>
         <div class="block-form master" style="display: none">
-            {#<table class="table-form">#}
-                {#<caption>Данные о клейме (для мастерских)</caption>#}
-                {#<tr>#}
-                    {#<td>Номер клейма </td>#}
-                    {#<td>{{ form_widget(form.stampNumber) }}</td>#}
-                    {#<td></td>#}
-                {#</tr>#}
-            {#</table>#}
+            <table class="table-form">
+                <caption>Данные о клейме (для мастерских)</caption>
+                <tr>
+                    <td>Номер клейма </td>
+                    <td>{{ form_widget(form.stampNumber) }}</td>
+                    <td></td>
+                </tr>
+            </table>
         </div>
         <hr>
         <div class="block-form master" style="display: none">
-            {#<table class="table-form">#}
-                {#<caption>Данные о лицензии ФСБ (для мастерских)</caption>#}
-                {#<tr>#}
-                    {#<td>Номер</td>#}
-                    {#<td>{{ form_widget(form.licenseNumber) }}</td>#}
-                    {#<td>#}
-                        {#Лицензия ФСБ <span class="mini">(форматы файла: JPG,PNG)</span>#}
-                    {#</td>#}
-                {#</tr>#}
-                {#<tr>#}
-                    {#<td>Кем выдана</td>#}
-                    {#<td>{{ form_widget(form.licenseIssued) }}</td>#}
-                    {#<td>#}
-                        {#{{ form_widget(form.fileLicense) }}#}
-                    {#</td>#}
-                {#</tr>#}
-                {#<tr>#}
-                    {#<td>Дата выдачи</td>#}
-                    {#<td>{{ form_widget(form.licenseDateStart) }}</td>#}
-                {#</tr>#}
-                {#<tr>#}
-                    {#<td>Дата окончания</td>#}
-                    {#<td>{{ form_widget(form.licenseDateEnd) }}</td>#}
-                {#</tr>#}
-                {#<tr>#}
-                    {#<td>Номер приказа</td>#}
-                    {#<td>{{ form_widget(form.licenseDecreeNumber) }}</td>#}
-                {#</tr>#}
-                {#<tr>#}
-                    {#<td>Дата приказа</td>#}
-                    {#<td>{{ form_widget(form.licenseDecreeDate) }}</td>#}
-                {#</tr>#}
-                {#<tr>#}
-                    {#<td>&nbsp;</td>#}
-                {#</tr>#}
-            {#</table>#}
+            <table class="table-form">
+                <caption>Данные о лицензии ФСБ (для мастерских)</caption>
+                <tr>
+                    <td>Номер</td>
+                    <td>{{ form_widget(form.licenseNumber) }}</td>
+                    <td>
+                        Лицензия ФСБ <span class="mini">(форматы файла: JPG,PNG)</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Кем выдана</td>
+                    <td>{{ form_widget(form.licenseIssued) }}</td>
+                    <td>
+                        {{ form_widget(form.fileLicense) }}
+                    </td>
+                </tr>
+                <tr>
+                    <td>Дата выдачи</td>
+                    <td>{{ form_widget(form.licenseDateStart) }}</td>
+                </tr>
+                <tr>
+                    <td>Дата окончания</td>
+                    <td>{{ form_widget(form.licenseDateEnd) }}</td>
+                </tr>
+                <tr>
+                    <td>Номер приказа</td>
+                    <td>{{ form_widget(form.licenseDecreeNumber) }}</td>
+                </tr>
+                <tr>
+                    <td>Дата приказа</td>
+                    <td>{{ form_widget(form.licenseDecreeDate) }}</td>
+                </tr>
+                <tr>
+                    <td>&nbsp;</td>
+                </tr>
+            </table>
         </div>
         <hr />
         <div class="block-form">
-            {#<table class="table-form">#}
-                {#<tr>#}
-                    {#<td style="vertical-align: top; padding-top: 10px">Подпись<span class="required">*</span></td>#}
-                    {#<td>#}
-                        {#<div class="file-container">#}
-                            {#<input type="file" name="signFile" id="signFile" class="fileAjax">#}
-                            {#<progress class="progress" value="0" max="100" style="width: 270px"></progress>#}
-                            {#<br />#}
-                            {#<br />#}
-                            {#<div class="fileDoc" style="text-align: left">#}
-                                {#{% if order.signFilePath is defined %}#}
+            <table class="table-form">
+                <tr>
+                    <td style="vertical-align: top; padding-top: 10px">Подпись<span class="required">*</span></td>
+                    <td>
+                        <div class="file-container">
+                            <input type="file" name="signFile" id="signFile" class="fileAjax">
+                            <progress class="progress" value="0" max="100" style="width: 270px"></progress>
+                            <br />
+                            <br />
+                            <div class="fileDoc" style="text-align: left">
+                                {% if order.fileSign['path'] is defined %}
+                                    <img src="/{{ order.fileSign['path'] }}" brightness="0" contrast="0">
                                     {#<img src="{{ path('get_image', {'type' : 'sign'}) }}" brightness="0" contrast="0">#}
-                                {#{% else %}#}
-                                    {#<img src="" brightness="0" contrast="0">#}
-                                {#{% endif %}#}
-                            {#</div>#}
-                            {#<div class="navigateFile">#}
-                                {#<img src="{{ asset('bundles/crmmain/icons/rotateLeft.png') }}" class="rotateLeft" title="Повернуть налево">#}
-                                {#<img src="{{ asset('bundles/crmmain/icons/rotateRight.png') }}" class="rotateRight" title="Повернуть вправо">#}
-                                {#<div style="">#}
-                                    {#<span class="cropImage minibtn" title="Обрезать изображение">Обрезать</span>#}
-                                    {#<br />#}
-                                    {#<br />#}
-                                {#</div>#}
+                                {% else %}
+                                    <img src="" brightness="0" contrast="0">
+                                {% endif %}
+                            </div>
+                            <div class="navigateFile">
+                                <img src="{{ asset('bundles/crmmain/icons/rotateLeft.png') }}" class="rotateLeft" title="Повернуть налево">
+                                <img src="{{ asset('bundles/crmmain/icons/rotateRight.png') }}" class="rotateRight" title="Повернуть вправо">
+                                <div style="">
+                                    <span class="cropImage minibtn" title="Обрезать изображение">Обрезать</span>
+                                    <br />
+                                    <br />
+                                </div>
 
-                            {#</div>#}
-                            {#<input type="hidden" id="x1" name="x1">#}
-                            {#<input type="hidden" id="y1" name="y1">#}
-                            {#<input type="hidden" id="x2" name="x2">#}
-                            {#<input type="hidden" id="y2" name="y2">#}
-                        {#</div>#}
-                    {#</td>#}
-                    {#<td></td>#}
-                {#</tr>#}
+                            </div>
+                            <input type="hidden" id="x1" name="x1">
+                            <input type="hidden" id="y1" name="y1">
+                            <input type="hidden" id="x2" name="x2">
+                            <input type="hidden" id="y2" name="y2">
+                        </div>
+                    </td>
+                    <td></td>
+                </tr>
 
                 {{ form_row(form._token) }}
-                {#<tr>#}
-                    {#<td></td>#}
-                    {#<td>#}
-                        {#<br />#}
+                <tr>
+                    <td></td>
+                    <td>
+                        <br />
                         <input type="submit" value="Подтвердить и сохранить" class="btn btn-primary" id="submit">
-                    {#</td>#}
-                {#</tr>#}
-            {#</table>#}
+                    </td>
+                </tr>
+            </table>
         </div>
     </form>
 {% endblock %}
