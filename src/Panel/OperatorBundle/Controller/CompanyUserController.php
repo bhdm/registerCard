@@ -63,33 +63,36 @@ class CompanyUserController extends Controller{
         $em = $this->getDoctrine()->getManager();
         $item = $this->getDoctrine()->getRepository('CrmMainBundle:CompanyUser')->findOneById($id);
         $form = $this->createForm(new CompanyUserType($em), $item);
+
         $formData = $form->handleRequest($request);
-        $signFilePath = $item->getFileSign();
-        if ($signFilePath){
-            $signFilePath = $signFilePath['path'];
-        }
         if ($request->getMethod() == 'POST'){
-            if ($formData->isValid()){
-                $item = $formData->getData();
+            $signFilePath = $item->getFileSign();
+            if ($signFilePath){
+                $signFilePath = $signFilePath['path'];
+            }
+            if ($request->getMethod() == 'POST'){
+                if ($formData->isValid()){
+                    $item = $formData->getData();
 
-                $em->persist($item);
-                $em->flush();
-                $em->refresh($item);
-                $session = new Session();
-                $fileSign = $session->get('signFile');
-                $info = new \SplFileInfo($fileSign);
-                $path = $this->get('kernel')->getRootDir() . '/../web/upload/usercompany/';
-                $path = $path.$item->getId().'/'.$item->getSalt().'-si.'.$info->getExtension();
-                if (copy($fileSign,$path)){
-                    unlink( $fileSign );
-                    $session->set('signFile',null);
+                    $em->persist($item);
+                    $em->flush();
+                    $em->refresh($item);
+                    $session = new Session();
+                    $fileSign = $session->get('signFile');
+                    $info = new \SplFileInfo($fileSign);
+                    $path = $this->get('kernel')->getRootDir() . '/../web/upload/usercompany/';
+                    $path = $path.$item->getId().'/'.$item->getSalt().'-si.'.$info->getExtension();
+                    if (copy($fileSign,$path)){
+                        unlink( $fileSign );
+                        $session->set('signFile',null);
+                    }
+                    $array = $this->getImgToArray($path);
+                    $item->setFileSign($array);
+                    $em->flush($item);
+                    $em->refresh($item);
+
+                    return array('form' => $form->createView());
                 }
-                $array = $this->getImgToArray($path);
-                $item->setFileSign($array);
-                $em->flush($item);
-                $em->refresh($item);
-
-                return array('form' => $form->createView());
             }
         }
 

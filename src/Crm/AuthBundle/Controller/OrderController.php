@@ -159,6 +159,27 @@ class OrderController extends Controller
             $user->setCopySnils($this->getImgToArray($session->get('snilsFile')));
             $user->setCopySignature($this->getImgToArray($session->get('signFile')));
             $user->setPhoto($this->getImgToArray($session->get('photoFile')));
+
+            $rootDir = __DIR__.'/../../../../web/upload/';
+            $files = $request->files->get('crm_mainbundle_user');
+            if (isset($files['typeCardFile']) && $files['typeCardFile']['file'] != null){
+                $typeCardFile = $files['typeCardFile']['file'];
+                $info = new \SplFileInfo($typeCardFile->getClientOriginalName());
+                $ex = $info->getExtension();
+                $filename = time().'.'.$ex;
+                $typeCardFile->move($rootDir, $filename);
+                $user->setTypeCardFile($filename);
+            }
+
+            if (isset($files['copyWork']) && $files['copyWork']['file'] != null){
+                $copyWork = $files['copyWork']['file'];
+                $info = new \SplFileInfo($copyWork->getClientOriginalName());
+                $ex = $info->getExtension();
+                $filename = time().'.'.$ex;
+                $copyWork->move($rootDir, $filename);
+                $user->setCopyWork($filename);
+            }
+
 //                if ($session->get('typeCardFile')){
 //                    $user->setTypeCardFile($session->get('typeCardFile'));
 //                }
@@ -222,6 +243,27 @@ class OrderController extends Controller
             $user->setCopySnils($this->getImgToArray($session->get('snilsFile')));
             $user->setCopySignature($this->getImgToArray($session->get('signFile')));
             $user->setPhoto($this->getImgToArray($session->get('photoFile')));
+
+            $rootDir = __DIR__.'/../../../../web/upload/';
+            $files = $request->files->get('crm_mainbundle_user');
+            if (isset($files['typeCardFile']) && $files['typeCardFile']['file'] != null){
+                $typeCardFile = $files['typeCardFile']['file'];
+                $info = new \SplFileInfo($typeCardFile->getClientOriginalName());
+                $ex = $info->getExtension();
+                $filename = time().'.'.$ex;
+                $typeCardFile->move($rootDir, $filename);
+                $user->setTypeCardFile($filename);
+            }
+
+            if (isset($files['copyWork']) && $files['copyWork']['file'] != null){
+                $copyWork = $files['copyWork']['file'];
+                $info = new \SplFileInfo($copyWork->getClientOriginalName());
+                $ex = $info->getExtension();
+                $filename = time().'.'.$ex;
+                $copyWork->move($rootDir, $filename);
+                $user->setCopyWork($filename);
+            }
+
 //                if ($session->get('typeCardFile')){
 //                    $user->setTypeCardFile($session->get('typeCardFile'));
 //                }

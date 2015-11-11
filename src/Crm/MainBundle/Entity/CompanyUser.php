@@ -102,7 +102,7 @@ class CompanyUser extends BaseEntity
 
     /**
      * @Assert\NotBlank( message = "Поле КПП обязательно для заполнения" )
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string", nullable=true)
      */
     protected $companyKpp;
 
@@ -224,6 +224,13 @@ class CompanyUser extends BaseEntity
 
     /**
      * @Assert\File( maxSize="2M")
+     * @FileStore\UploadableField(mapping="usercompany")
+     * @ORM\Column(type="array", nullable=true)
+     */
+    protected $fileLicenseTwo;
+
+    /**
+     * @Assert\File( maxSize="2M")
      * @ORM\Column(type="array", nullable=true)
      */
     protected $fileSign;
@@ -320,6 +327,11 @@ class CompanyUser extends BaseEntity
      * @ORM\Column(type="boolean", nullable=true)
      */
     protected $confirmed = false;
+
+    /**
+     * @ORM\Column(type="string", nullable=true)
+     */
+    protected $oldCard;
 
     # ###### #
     # МЕТОДЫ #
@@ -1161,6 +1173,37 @@ class CompanyUser extends BaseEntity
         $this->confirmed = $confirmed;
     }
 
+    /**
+     * @return mixed
+     */
+    public function getFileLicenseTwo()
+    {
+        return $this->fileLicenseTwo;
+    }
+
+    /**
+     * @param mixed $fileLicenseTwo
+     */
+    public function setFileLicenseTwo($fileLicenseTwo)
+    {
+        $this->fileLicenseTwo = $fileLicenseTwo;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getOldCard()
+    {
+        return $this->oldCard;
+    }
+
+    /**
+     * @param mixed $oldCard
+     */
+    public function setOldCard($oldCard)
+    {
+        $this->oldCard = $oldCard;
+    }
 
 
 

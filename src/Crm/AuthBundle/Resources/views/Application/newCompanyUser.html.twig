@@ -54,6 +54,11 @@
                     </td>
                 </tr>
                 <tr>
+                    <td>Номер старой карты</td>
+                    <td>{{ form_widget(form.oldCard) }}</td>
+                </tr>
+
+                <tr>
                     <td></td>
                     <td></td>
                     <td></td>
@@ -223,7 +228,7 @@
                     <td>Отчество<span class="required">*</span></td>
                     <td>{{ form_widget(form.surName) }}</td>
                 </tr>
-                <tr>
+                <tr class="company">
                     <td>Дата рождения<span class="required">*</span></td>
                     <td>{{ form_widget(form.birthday) }}</td>
                 </tr>
@@ -278,10 +283,16 @@
                 <tr>
                     <td>Дата выдачи</td>
                     <td>{{ form_widget(form.licenseDateStart) }}</td>
+                    <td>
+                        Обратная сторона
+                    </td>
                 </tr>
                 <tr>
                     <td>Дата окончания</td>
                     <td>{{ form_widget(form.licenseDateEnd) }}</td>
+                    <td>
+                        {{ form_widget(form.fileLicenseTwo) }}
+                    </td>
                 </tr>
                 <tr>
                     <td>Номер приказа</td>
@@ -601,13 +612,15 @@
             });
 
             $('#crm_mainbundle_companyuser_companyType').change(function(){
-               if ($(this).val() == 2){
-                   $('.master').css('display','block');
-                   $('.master-row').css('display','table-row');
-               }else{
-                   $('.master').css('display','none');
-                   $('.master-row').css('display','none');
-               }
+                if ($(this).val() == 2){
+                    $('.master').css('display','block');
+                    $('.master-row').css('display','table-row');
+                    $('.company').css('display','none');
+                }else{
+                    $('.master').css('display','none');
+                    $('.master-row').css('display','none');
+                    $('.company').css('display','table-row');
+                }
             });
 
             $('#crm_mainbundle_companyuser_cardType').change(function(){
@@ -618,7 +631,7 @@
                 }
             });
 
-            
+
 
             $('#dublAdrs').click(function(){
                 $('#crm_mainbundle_companyuser_mailingAdrs_region').val($('#crm_mainbundle_companyuser_legalAdrs_region').val());
@@ -633,8 +646,8 @@
             });
 
             {% if app.user.company.operator.id is defined and app.user.company.operator.id == 33 %}
-                    $("#crm_mainbundle_companyuser_cardType option[value='2']").remove();
-                    $("#crm_mainbundle_companyuser_cardType option[value='3']").remove();
+            $("#crm_mainbundle_companyuser_cardType option[value='2']").remove();
+            $("#crm_mainbundle_companyuser_cardType option[value='3']").remove();
             {% endif %}
         });
     </script>
