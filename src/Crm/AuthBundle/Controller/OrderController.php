@@ -296,6 +296,9 @@ class OrderController extends Controller
         $session = $request->getSession();
         $em = $this->getDoctrine()->getManager();
         $item = new CompanyUser();
+        $item->setUsername($this->getUser()->getUsername());
+        $item->setPhone($this->getUser()->getPhone());
+
         $form = $this->createForm(new CompanyUserType($em), $item);
         $formData = $form->handleRequest($request);
         if ($request->getMethod() == 'POST'){

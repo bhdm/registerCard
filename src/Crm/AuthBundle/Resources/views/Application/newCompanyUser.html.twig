@@ -228,7 +228,7 @@
                     <td>Отчество<span class="required">*</span></td>
                     <td>{{ form_widget(form.surName) }}</td>
                 </tr>
-                <tr class="company">
+                <tr class="noskzi">
                     <td>Дата рождения<span class="required">*</span></td>
                     <td>{{ form_widget(form.birthday) }}</td>
                 </tr>
@@ -423,6 +423,9 @@
         .form-control{
             max-width: 540px;
         }
+        .noskzi{
+            display: none;
+        }
     </style>
 
 {% endblock %}
@@ -602,12 +605,12 @@
             $.mask.definitions['d'] = "[a-zA-Z0-9а-яА-Я]";
             $('.driverNumber').mask("dddd999999");
 
-            $('.cardType').change(function(){
+            $('#crm_mainbundle_companyuser_cardType').change(function(){
                 $('input, select').trigger('refresh');
-                if ($('.cardType').val() == 1){
-                    $('.master').css('display','table-row');
+                if ($(this).val() == 1){
+                    $('.noskzi').css('display','none');
                 }else{
-                    $('.master').css('display','none');
+                    $('.noskzi').css('display','table-row');
                 }
             });
 
@@ -615,11 +618,9 @@
                 if ($(this).val() == 2){
                     $('.master').css('display','block');
                     $('.master-row').css('display','table-row');
-                    $('.company').css('display','none');
                 }else{
                     $('.master').css('display','none');
                     $('.master-row').css('display','none');
-                    $('.company').css('display','table-row');
                 }
             });
 

@@ -34,7 +34,7 @@
 
 {% block body %}
     <div>
-        <h2>Карты водителей</h2>
+        <h2>Карты водителей ({{ orders | length }} шт)</h2>
         <div class="dropdown" style="float: right; margin-top: -55px">
             <button class="btn btn-primary dropdown-toggle" type="button" id="addOrder" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                 Добавить новый заказ
@@ -93,7 +93,16 @@
                         <td>{{ o.created | date('d.m.Y') }}</td>
                         <td>{{ o }}</td>
                         <td>{{ o.ru ? 'РФ' : o.estr ? 'ЕСТР' : 'СКЗИ'  }}</td>
-                        <td>{{ o.statusStringTwig |raw }}</td>
+                        <td>
+                            <div class="statusBox">
+                                {{ o.statusStringTwig | raw }}
+                                <div class="statusItems">
+                                    {% for status in o.statusArray %}
+                                        {{ status.title | raw }}&nbsp;-&nbsp;{{ status.date | date('d.m.Y') }}<br />
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </td>
                         <td>{{ o.price }}</td>
                         <td>{{ o.comment }}</td>
                         <td>
@@ -123,4 +132,25 @@
             {% endfor %}
         </table>
     </div>
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <style>
+        .statusItems{
+            display: none;
+        }
+        .statusBox{
+            font-size: 12px;
+            cursor: pointer;
+            margin-top: 6px;
+        }
+        .statusBox:hover .statusItems{
+            display: block;
+            position: absolute;
+            background: #FFFFFF;
+            border: 1px solid #C2C2C2;
+            padding: 5px;
+        }
+    </style>
 {% endblock %}
