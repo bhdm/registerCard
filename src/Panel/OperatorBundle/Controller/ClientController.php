@@ -46,7 +46,7 @@ class ClientController extends Controller
             $clients = $this->getDoctrine()->getRepository('CrmMainBundle:Client')->findBy(['company' => $company]);
 
             $clientsList = $company->getClients();
-            $companiesList = array($company);
+            $companiesList = $this->getCompanies();
         }
 
         return ['clients' => $clients, 'companiesList' => $companiesList, 'clientsList' => $clientsList ];
