@@ -63,37 +63,49 @@ class CompanyUserController extends Controller{
         $em = $this->getDoctrine()->getManager();
         $item = $this->getDoctrine()->getRepository('CrmMainBundle:CompanyUser')->findOneById($id);
         $form = $this->createForm(new CompanyUserType($em), $item);
-        $formData = $form->handleRequest($request);
-        $signFilePath = $item->getFileSign();
-        if ($signFilePath){
-            $signFilePath = $signFilePath['path'];
-        }
-        if ($request->getMethod() == 'POST'){
-            if ($formData->isValid()){
-                $item = $formData->getData();
 
+        $formData = $form->handleRequest($request);
+        if ($request->getMethod() == 'POST'){
+
+
+                #Если здесь все хорошо, то прикрепляем подпись
+
+                $session = new Session();
+
+                $fileSign = $session->get('signFile');
+                if ($fileSign){
+                    $rootPath = $this->get('kernel')->getRootDir() . '/../web/upload/usercompany/';
+                    $info = new \SplFileInfo($fileSign);
+
+                    $path = $rootPath.$item->getId().'/'.$item->getSalt().'-si.'.$info->getExtension();
+                    if (is_file($path)){
+                        if (copy($fileSign,$path)){
+                            $session->set('signFile',null);
+                        }
+                    }else{
+                        if (copy($fileSign,$path)){
+                            unlink( $fileSign );
+                            $session->set('signFile',null);
+                        }
+                    }
+
+                    $array = $this->getImgToArray($path);
+                    $item->setFileSign($array);
+                }
+
+
+
+                $item = $formData->getData();
                 $em->persist($item);
                 $em->flush();
                 $em->refresh($item);
-                $session = new Session();
-                $fileSign = $session->get('signFile');
-                $info = new \SplFileInfo($fileSign);
-                $path = $this->get('kernel')->getRootDir() . '/../web/upload/usercompany/';
-                $path = $path.$item->getId().'/'.$item->getSalt().'-si.'.$info->getExtension();
-                if (copy($fileSign,$path)){
-                    unlink( $fileSign );
-                    $session->set('signFile',null);
-                }
-                $array = $this->getImgToArray($path);
-                $item->setFileSign($array);
-                $em->flush($item);
-                $em->refresh($item);
+
 
                 return array('form' => $form->createView());
             }
-        }
 
-        return array('form' => $form->createView(),'signFilePath' => $signFilePath);
+
+        return array('form' => $form->createView(), 'order' => $item);
     }
 
     /**
@@ -171,7 +183,7 @@ class CompanyUserController extends Controller{
             $p = str_replace('imkard/app../web/','',$path);
             $p = str_replace('imkard/current/app../web/','',$p);
             $array = array(
-                'path' => $p,
+                'path' => str_replace('imkard/app/../web/','',$path),
                 'size' => $size,
                 'fileName' => $fileName,
                 'originalName' => $originalName,

@@ -4,9 +4,10 @@
 {% block content %}
     {% form_theme form with  'PanelOperatorBundle::iphp_field.html.twig' %}
     <h2>Карта для юридических лиц</h2>
-    <form method="POST" action="" enctype="multipart/form-data">
+    <form method="POST"  enctype="multipart/form-data">
         <div class="block-form">
             {{ form_errors(form) }}
+
             <table class="table-form">
                 <tr>
                     <td>Тип карты<span class="required">*</span></td>
@@ -15,14 +16,20 @@
                     </td>
                 </tr>
                 <tr>
+                    <td>Вид карты<span class="required">*</span></td>
+                    <td>
+                        {{ form_widget(form.cardType) }}
+                    </td>
+                </tr>
+                <tr>
                     <td>Email<span class="required">*</span></td>
                     <td>{{ form_widget(form.username) }}</td>
-                    <td>Заявление <span class="mini">(форматы файла: PDF,JPG,PNG)</span></td>
+                    <td class="skzi-col">Заявление <span class="mini">(форматы файла: JPG,PNG)</span></td>
                 </tr>
                 <tr>
                     <td>Телефон<span class="required">*</span></td>
                     <td>{{ form_widget(form.phone) }}</td>
-                    <td>
+                    <td class="skzi-col">
                         {{ form_widget(form.fileOrder) }}
                     </td>
                 </tr>
@@ -31,14 +38,23 @@
                     <td>
                         {{ form_widget(form.orderType) }}
                     </td>
-                    <td>Заявление <span class="mini">(лист 2)</span></td>
+                    <td class="skzi-col">Заявление <span class="mini">(лист 2)</span></td>
                 </tr>
                 <tr>
                     <td>Количество карт<span class="required">*</span></td>
                     <td>{{ form_widget(form.cardAmount) }}</td>
-                    <td>
+                    <td class="skzi-col">
                         {{ form_widget(form.fileOrderTwo) }}
                     </td>
+                </tr>
+                <tr>
+                    <td>Стоимость<span class="required">*</span></td>
+                    <td>{{ form_widget(form.price) }}</td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
                 </tr>
             </table>
         </div>
@@ -48,41 +64,42 @@
                 <caption>Информация о предприятии</caption>
                 <tr>
                     <td>Полное наименование организации<span class="required">*</span></td>
-                    <td>{{ form_widget(form.companyFullTitle) }}</td>
+                    <td colspan="2">{{ form_widget(form.companyFullTitle) }}</td>
                 </tr>
                 <tr>
                     <td>Сокращенное наименование организации<span class="required">*</span></td>
-                    <td>{{ form_widget(form.companyTitle) }}</td>
+                    <td colspan="2">{{ form_widget(form.companyTitle) }}</td>
                 </tr>
                 <tr>
                     <td>В лице<span class="required">*</span></td>
                     <td>{{ form_widget(form.companyExecutive) }}</td>
-                    <td>Копия ИНН <span class="mini">(форматы файла: PDF,JPG,PNG)</span></td>
+                    <td class="skzi-col">Копия ИНН <span class="mini">(форматы файла: JPG,PNG)</span></td>
                 </tr>
                 <tr>
                     <td>ИНН<span class="required">*</span></td>
                     <td>
                         {{ form_widget(form.companyInn) }}
                     </td>
-                    <td>
+                    <td class="skzi-col">
                         {{ form_widget(form.fileInn) }}
                     </td>
                 </tr>
                 <tr>
                     <td>КПП<span class="required">*</span></td>
                     <td>{{ form_widget(form.companyKpp) }}</td>
-                    <td>Копия ОГРН <span class="mini">(форматы файла: PDF,JPG,PNG)</span></td>
+                    <td class="skzi-col">Копия ОГРН <span class="mini">(форматы файла: JPG,PNG)</span></td>
                 </tr>
                 <tr>
                     <td>ОГРН<span class="required">*</span></td>
                     <td>{{ form_widget(form.companyOgrn) }}</td>
-                    <td>
+                    <td class="skzi-col">
                         {{ form_widget(form.fileOgrn) }}
                     </td>
                 </tr>
                 <tr>
-                    <td>Номер клейма<span class="mini"> (Для мастерских)</span></td>
-                    <td>{{ form_widget(form.stampNumber) }}</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
                 </tr>
             </table>
         </div>
@@ -91,31 +108,32 @@
             <table class="table-form">
                 <caption>Юридический адрес</caption>
                 <tr>
-                    <td class="label">Регион<span class="required">*</span>:</td>
+                    <td>Регион<span class="required">*</span>:</td>
                     <td class="value">
                         {{ form_widget(form.legalAdrs.region) }}
                     </td>
+                    <td />
                 </tr>
                 <tr>
-                    <td class="label">Район:</td>
+                    <td>Район:</td>
                     <td class="value">
                         {{ form_widget(form.legalAdrs.area) }}
                     </td>
                 </tr>
                 <tr>
-                    <td class="label">Город:</td>
+                    <td>Город:</td>
                     <td class="value">
                         {{ form_widget(form.legalAdrs.city) }}
                     </td>
                 </tr>
                 <tr>
-                    <td class="label">Улица:</td>
+                    <td>Улица:</td>
                     <td class="value">
                         {{ form_widget(form.legalAdrs.street) }}
                     </td>
                 </tr>
                 <tr>
-                    <td class="label">Номер здания<span class="required">*</span>:</td>
+                    <td>Номер здания<span class="required">*</span>:</td>
                     <td class="value">
                         {{ form_widget(form.legalAdrs.house) }}
                         {{ form_widget(form.legalAdrs.corp) }}
@@ -123,14 +141,14 @@
                     </td>
                 </tr>
                 <tr>
-                    <td class="label">Кв./оф.</td>
+                    <td>Кв./оф.</td>
                     <td class="value">
                         <input type="hidden" name="legal[typeRoom]" id="legal-typeRoom" value="кв.">
                         {{ form_widget(form.legalAdrs.room) }}
                     </td>
                 </tr>
                 <tr>
-                    <td class="label">Индекс<span class="required">*</span>:</td>
+                    <td>Индекс<span class="required">*</span>:</td>
                     <td class="value">
                         {{ form_widget(form.legalAdrs.zipcode) }}
                 </tr>
@@ -139,33 +157,34 @@
         <hr>
         <div class="block-form" >
             <table class="table-form">
-                <caption>Почтовый адрес</caption>
+                <caption>Почтовый адрес <span class="btn btn-primary" id="dublAdrs">Дублировать</span></caption>
                 <tr>
-                    <td class="label">Регион<span class="required">*</span>:</td>
+                    <td>Регион<span class="required">*</span>:</td>
                     <td class="value">
                         {{ form_widget(form.mailingAdrs.region) }}
                     </td>
+                    <td></td>
                 </tr>
                 <tr>
-                    <td class="label">Район:</td>
+                    <td>Район:</td>
                     <td class="value">
                         {{ form_widget(form.mailingAdrs.area) }}
                     </td>
                 </tr>
                 <tr>
-                    <td class="label">Город:</td>
+                    <td>Город:</td>
                     <td class="value">
                         {{ form_widget(form.mailingAdrs.city) }}
                     </td>
                 </tr>
                 <tr>
-                    <td class="label">Улица:</td>
+                    <td>Улица:</td>
                     <td class="value">
                         {{ form_widget(form.mailingAdrs.street) }}
                     </td>
                 </tr>
                 <tr>
-                    <td class="label">Номер здания<span class="required">*</span>:</td>
+                    <td>Номер здания<span class="required">*</span>:</td>
                     <td class="value">
                         {{ form_widget(form.mailingAdrs.house) }}
                         {{ form_widget(form.mailingAdrs.corp) }}
@@ -173,14 +192,14 @@
                     </td>
                 </tr>
                 <tr>
-                    <td class="label">Кв./оф.</td>
+                    <td>Кв./оф.</td>
                     <td class="value">
                         <input type="hidden" name="mailing[typeRoom]" id="mailing-typeRoom" value="кв.">
                         {{ form_widget(form.mailingAdrs.room) }}
                     </td>
                 </tr>
                 <tr>
-                    <td class="label">Индекс<span class="required">*</span>:</td>
+                    <td>Индекс<span class="required">*</span>:</td>
                     <td class="value">
                         {{ form_widget(form.mailingAdrs.zipcode) }}
                 </tr>
@@ -203,31 +222,48 @@
                     <td>{{ form_widget(form.surName) }}</td>
                 </tr>
                 <tr>
+                    <td>Дата рождения<span class="required">*</span></td>
+                    <td>{{ form_widget(form.birthday) }}</td>
+                </tr>
+                <tr>
                     <td>Должность<span class="required">*</span></td>
                     <td>{{ form_widget(form.post) }}</td>
-                    <td>Приказ <span class="mini">(форматы файла: PDF,JPG,PNG)</span></td>
+                    <td  class="skzi-col">Приказ <span class="mini">(форматы файла: JPG,PNG)</span></td>
                 </tr>
                 <tr>
                     <td>Действующего на основании<span class="required">*</span></td>
                     <td>{{ form_widget(form.documentAccess) }}</td>
-                    <td>
+                    <td  class="skzi-col">
                         {{ form_widget(form.fileDecree) }}
                     </td>
                 </tr>
                 <tr>
                     <td>&nbsp;</td>
+                    <td>&nbsp;</td>
+                    <td>&nbsp;</td>
                 </tr>
             </table>
         </div>
         <hr>
-        <div class="block-form">
+        <div class="block-form master" style="display: none">
+            <table class="table-form">
+                <caption>Данные о клейме (для мастерских)</caption>
+                <tr>
+                    <td>Номер клейма </td>
+                    <td>{{ form_widget(form.stampNumber) }}</td>
+                    <td></td>
+                </tr>
+            </table>
+        </div>
+        <hr>
+        <div class="block-form master" style="display: none">
             <table class="table-form">
                 <caption>Данные о лицензии ФСБ (для мастерских)</caption>
                 <tr>
                     <td>Номер</td>
                     <td>{{ form_widget(form.licenseNumber) }}</td>
                     <td>
-                        Лицензия ФСБ <span class="mini">(форматы файла: PDF,JPG,PNG)</span>
+                        Лицензия ФСБ <span class="mini">(форматы файла: JPG,PNG)</span>
                     </td>
                 </tr>
                 <tr>
@@ -256,17 +292,23 @@
                 <tr>
                     <td>&nbsp;</td>
                 </tr>
+            </table>
+        </div>
+        <hr />
+        <div class="block-form">
+            <table class="table-form">
                 <tr>
                     <td style="vertical-align: top; padding-top: 10px">Подпись<span class="required">*</span></td>
-                    <td colspan="2">
+                    <td>
                         <div class="file-container">
-                            <input type="file" name="signFile" id="signFile" class="fileAjax"  required="required">
+                            <input type="file" name="signFile" id="signFile" class="fileAjax">
                             <progress class="progress" value="0" max="100" style="width: 270px"></progress>
                             <br />
                             <br />
-                            <div class="fileDoc">
-                                {% if signFilePath != NULL %}
-                                    <img src="{{ signFilePath }}" brightness="0" contrast="0">
+                            <div class="fileDoc" style="text-align: left">
+                                {% if order.fileSign['path'] is defined %}
+                                    <img src="/{{ order.fileSign['path'] }}" brightness="0" contrast="0">
+                                    {#<img src="{{ path('get_image', {'type' : 'sign'}) }}" brightness="0" contrast="0">#}
                                 {% else %}
                                     <img src="" brightness="0" contrast="0">
                                 {% endif %}
@@ -274,7 +316,7 @@
                             <div class="navigateFile">
                                 <img src="{{ asset('bundles/crmmain/icons/rotateLeft.png') }}" class="rotateLeft" title="Повернуть налево">
                                 <img src="{{ asset('bundles/crmmain/icons/rotateRight.png') }}" class="rotateRight" title="Повернуть вправо">
-                                <div style="display: inline-block">
+                                <div style="">
                                     <span class="cropImage minibtn" title="Обрезать изображение">Обрезать</span>
                                     <br />
                                     <br />
@@ -287,13 +329,15 @@
                             <input type="hidden" id="y2" name="y2">
                         </div>
                     </td>
+                    <td></td>
                 </tr>
+
                 {{ form_row(form._token) }}
                 <tr>
                     <td></td>
                     <td>
                         <br />
-                        <input type="submit" value="Сохранить" class="btn" id="submit">
+                        <input type="submit" value="Подтвердить и сохранить" class="btn btn-primary" id="submit">
                     </td>
                 </tr>
             </table>
