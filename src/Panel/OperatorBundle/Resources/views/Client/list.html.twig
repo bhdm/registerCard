@@ -4,7 +4,9 @@
 {% block breadcrumb %}
     <ul class="breadcrumb well">
         <li>Список клиентов</li>
-        {#<li><a href="{{ path('panel_company_add') }}"><span class="btn btn-primary">Добавить</span></a></li>#}
+        {% if company != null %}
+            <li><a href="{{ path('panel_client_add', {'companyId' : company.id}) }}"><span class="btn btn-primary">Добавить</span></a></li>
+        {% endif %}
     </ul>
 {% endblock %}
 

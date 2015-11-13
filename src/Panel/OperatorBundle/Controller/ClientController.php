@@ -2,7 +2,9 @@
 
 namespace Panel\OperatorBundle\Controller;
 
+use Crm\AuthBundle\Form\AdminClientAddType;
 use Crm\AuthBundle\Form\AdminClientType;
+use Crm\MainBundle\Entity\Client;
 use Crm\MainBundle\Entity\Company;
 use Crm\MainBundle\Entity\CompanyQuotaLog;
 use Crm\MainBundle\Form\CompanyType;
@@ -12,6 +14,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
+use Symfony\Component\Security\Core\Encoder\MessageDigestPasswordEncoder;
 use Symfony\Component\Security\Core\SecurityContext;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\Security\Http\Event\InteractiveLoginEvent;
@@ -33,8 +36,10 @@ class ClientController extends Controller
                 $clients = $this->getDoctrine()->getRepository('CrmMainBundle:Client')->findBy(['company' => $company]);
             }elseif($request->query->get('clientId')){
                 $clients = $this->getDoctrine()->getRepository('CrmMainBundle:Client')->findBy(['id' => $request->query->get('clientId')]);
+                $company = null;
             }else{
                 $clients = $this->getDoctrine()->getRepository('CrmMainBundle:Client')->findAll();
+                $company = null;
             }
 
             $clientsList = $this->getDoctrine()->getRepository('CrmMainBundle:Client')->findAll();
@@ -46,10 +51,10 @@ class ClientController extends Controller
             $clients = $this->getDoctrine()->getRepository('CrmMainBundle:Client')->findBy(['company' => $company]);
 
             $clientsList = $company->getClients();
-            $companiesList = $this->getCompanies();
+            $companiesList = $this->getUser()->getCompanies();
         }
 
-        return ['clients' => $clients, 'companiesList' => $companiesList, 'clientsList' => $clientsList ];
+        return ['clients' => $clients, 'companiesList' => $companiesList, 'clientsList' => $clientsList , 'company' => $company];
     }
 
     /**
@@ -60,7 +65,7 @@ class ClientController extends Controller
         $em = $this->getDoctrine()->getManager();
         $item = $this->getDoctrine()->getRepository('CrmMainBundle:Client')->findOneById($id);
         $oldCompany = $item->getCompany();
-        $form = $this->createForm(new AdminClientType($em), $item);
+        $form = $this->createForm(new AdminClientType($this->getUser()->getId(),$em), $item);
         $formData = $form->handleRequest($request);
         if ($request->getMethod() === 'POST'){
             if ($formData->isValid()){
@@ -82,6 +87,38 @@ class ClientController extends Controller
         }
         return array('form' => $form->createView());
     }
+
+
+    /**
+     * @Route("/add/{companyId}", name="panel_client_add")
+     * @Template("")
+     */
+    public function addAction(Request $request, $companyId){
+        $em = $this->getDoctrine()->getManager();
+        $item = new Client();
+        $form = $this->createForm(new AdminClientAddType($em), $item);
+        $formData = $form->handleRequest($request);
+        if ($request->getMethod() === 'POST'){
+            if ($formData->isValid()){
+                $item = $formData->getData();
+
+                $company = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->findOneById($companyId);
+
+                $item->setCompany($company);
+                $item->setSalt(md5(time()));
+
+                $encoder = new MessageDigestPasswordEncoder('sha512', true, 10);
+                $password = $encoder->encodePassword($item->getPassword(), $item->getSalt());
+
+                $item->setPassword($password);
+                $em->persist($item);
+                $em->flush();
+                $em->refresh($item);
+            }
+        }
+        return array('form' => $form->createView());
+    }
+
 
     /**
      * @Route("/remove/{id}", name="panel_client_delete")
