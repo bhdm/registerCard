@@ -26,8 +26,8 @@
                 {#<th >Ссылка</th>#}
                 <th ></th>
                 <th ></th>
+                <th ></th>
                 {#<th >Кол-во заявок</th>#}
-                <th >Квота</th>
                 <th class="setting">Инструменты</th>
             </tr>
             </thead>
@@ -50,7 +50,13 @@
 
                     </td>
                     <td> {{ company.userConfirmation | length}} / {{ company.users | length }}</td>
-                    <td style="text-align: center"> {{ company.quota }}</td>
+
+                    <td style="text-align: center">
+                        <a href="{{ path('panel_client_list',{'companyId' : company.id }) }}">
+                            <button class="btn btn-info"><span class="glyphicon glyphicon-user">&nbsp;{{ company.clients | length }}</span></button>
+                        </a>
+                    </td>
+
                     <td class="setting">
                         {% spaceless %}
                             {#<a href="{{ path('user_edit',{'id' : item.id}) }}">#}

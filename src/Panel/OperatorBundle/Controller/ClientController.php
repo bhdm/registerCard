@@ -23,21 +23,31 @@ use Symfony\Component\Security\Http\Event\InteractiveLoginEvent;
 class ClientController extends Controller
 {
     /**
-     * @Route("/list", name="panel_client_list", options={"expose" = true})
+     * @Route("/list/{companyId}", name="panel_client_list", options={"expose" = true}, defaults={"companyId" = null})
      * @Template("")
      */
-    public function listAction(Request $request){
-        if ($request->query->get('companyId')){
-            $company = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->findOneById($request->query->get('companyId'));
-            $clients = $this->getDoctrine()->getRepository('CrmMainBundle:Client')->findBy(['company' => $company]);
-        }elseif($request->query->get('clientId')){
-            $clients = $this->getDoctrine()->getRepository('CrmMainBundle:Client')->findBy(['id' => $request->query->get('clientId')]);
-        }else{
-            $clients = $this->getDoctrine()->getRepository('CrmMainBundle:Client')->findAll();
-        }
+    public function listAction(Request $request, $companyId = null){
+        if ($companyId == null){
+            if ($request->query->get('companyId')){
+                $company = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->findOneById($request->query->get('companyId'));
+                $clients = $this->getDoctrine()->getRepository('CrmMainBundle:Client')->findBy(['company' => $company]);
+            }elseif($request->query->get('clientId')){
+                $clients = $this->getDoctrine()->getRepository('CrmMainBundle:Client')->findBy(['id' => $request->query->get('clientId')]);
+            }else{
+                $clients = $this->getDoctrine()->getRepository('CrmMainBundle:Client')->findAll();
+            }
 
-        $clientsList = $this->getDoctrine()->getRepository('CrmMainBundle:Client')->findAll();
-        $companiesList = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->findAll();
+            $clientsList = $this->getDoctrine()->getRepository('CrmMainBundle:Client')->findAll();
+            $companiesList = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->findAll();
+        }else{
+
+
+            $company = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->findOneById($companyId);
+            $clients = $this->getDoctrine()->getRepository('CrmMainBundle:Client')->findBy(['company' => $company]);
+
+            $clientsList = $company->getClients();
+            $companiesList = array($company);
+        }
 
         return ['clients' => $clients, 'companiesList' => $companiesList, 'clientsList' => $clientsList ];
     }
