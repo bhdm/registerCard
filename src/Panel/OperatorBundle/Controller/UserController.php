@@ -332,6 +332,18 @@ class UserController extends Controller
             $user->setDileveryCorp($data->get('deliveryStructure'));
             $user->setDileveryRoom($data->get('deliveryRoom'));
 
+            $petitionAdrs = array();
+            $petitionAdrs['zipcode']  = $data->get('petitionZipcode');
+            $petitionAdrs['region']   = $data->get('petitionRegion');
+            $petitionAdrs['area']     = $data->get('petitionArea');
+            $petitionAdrs['city']     = $data->get('petitionCity');
+            $petitionAdrs['street']   = $data->get('petitionStreet');
+            $petitionAdrs['house']    = $data->get('petitionHouse');
+            $petitionAdrs['corp']     = $data->get('petitionCorp');
+            $petitionAdrs['structure']= $data->get('petitionStructure');
+            $petitionAdrs['room']     = $data->get('petitionRoom');
+            $user->setPetitionAdrs($petitionAdrs);
+
 
             if ($data->get('confirm') == 1 || $data->get('confirm') == '0n' || $data->get('confirm') == true ){
                 $user->setComfirmed(true);
@@ -1281,7 +1293,7 @@ class UserController extends Controller
                 $user->setCopyWork($img);
                 break;
             case 'petitionFile' :
-                $user->serCopyPetition($img);
+                $user->setCopyPetition($img);
                 break;
         }
         $this->getDoctrine()->getManager()->flush($user);

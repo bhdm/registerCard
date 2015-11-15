@@ -531,7 +531,9 @@
                 <tr>
                     <td>
                         <div class="form-group">
-                            <label class="control-label col-sm-3" for="snils">Ходатайство:</label>
+                            <div class="h2">
+                                Информация о ходатайства
+                            </div>
                             {% if user.companyPetition != null %}
                                 <div class="col-sm-4">
                                     <table>
@@ -588,6 +590,89 @@
                             {% else %}
                                 <div class="col-sm-8">НПО ТЕХНОЛОГ</div>
                             {% endif %}
+                        </div>
+                    </td>
+                </tr>
+                <td>
+                    <div class="form-group">
+                        <label class="control-label col-sm-3" for="lastName">Скан ходатайства:</label>
+                        <div class="col-sm-4">
+                            <input type="file" name="petitionFile" id="petitionFile"  data-type="petitionFile" class="fileAjax">
+                            {% if user.copyPetition.path is defined %}
+                                <img src="/{{ user.copyPetition.path }}" brightness="128" contrast="128" data-type="passportFile" class="document" id="petitionFileImg">
+                                <br>
+                                <a href="{{ path('panel_download_png',{'filename' : user.copyPetition.fileName }) }}">Скачать</a>
+                            {% endif %}
+                        </div>
+
+                    </div>
+                </td>
+                <tr>
+                    <td>
+                        <div class="form-group">
+                            <label class="control-label col-sm-3" for="deliveryZipcode">Индекс:</label>
+                            <div class="col-sm-3">
+                                <input type="text"  name="petitionZipcode" id="petitionZipcode" class="form-control" value="{{ user.petitionAdrs.zipcode }}">
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="form-group">
+                            <label class="control-label col-sm-3" for="petitionRegion">Регион:</label>
+                            <div class="col-sm-9">
+                                <input type="text"  name="petitionRegion" id="petitionRegion" class="form-control" value="{{ user.petitionAdrs.region }}">
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="form-group">
+                            <label class="control-label col-sm-3" for="petitionArea">Район:</label>
+                            <div class="col-sm-9">
+                                <input type="text"  name="petitionArea" id="petitionArea" class="form-control" value="{{ user.petitionAdrs.area }}">
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="form-group">
+                            <label class="control-label col-sm-3" for="petitionCity">Город:</label>
+                            <div class="col-sm-9">
+                                <input type="text"  name="petitionCity" id="petitionCity" class="form-control" value="{{ user.petitionAdrs.city }}">
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="form-group">
+                            <label class="control-label col-sm-3" for="petitionStreet">Улица:</label>
+                            <div class="col-sm-9">
+                                <input type="text"  name="petitionStreet" id="petitionStreet" class="form-control" value="{{ user.petitionAdrs.street }}">
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="form-group">
+                            <label class="control-label col-sm-3" for="petitionHouse">Здание:</label>
+                            <div class="col-sm-2">
+                                <input type="text"  name="petitionHouse" id="petitionHouse" class="form-control" placeholder="Дом" value="{{ user.petitionAdrs.house }}">
+                            </div>
+                            <div class="col-sm-2">
+                                <input type="text"  name="petitionCorp" id="petitionCorp" class="form-control" placeholder="Корп" value="{{ user.petitionAdrs.corp }}">
+                            </div>
+                            <div class="col-sm-2">
+                                <input type="text"  name="petitionStructure" id="petitionStructure" class="form-control" placeholder="Стр" value="{{ user.petitionAdrs.structure }}">
+                            </div>
+                            <div class="col-sm-2">
+                                <input type="text"  name="petitionRoom" id="petitionRoom" class="form-control" value="{{ user.petitionAdrs.room }}" placeholder="Кв.">
+                            </div>
                         </div>
                     </td>
                 </tr>
@@ -716,10 +801,6 @@
 
                         {% if user.typeCardFile.path is defined and user.typeCardFile.path != '//upload/' %}
                             <a href="/{{ user.typeCardFile.path }}" target="_blank">Документ заявление</a><br />
-                        {% endif %}
-
-                        {% if user.copyPetition.path is defined and user.copyPetition.path != '//upload/' %}
-                            <a href="/{{ user.copyPetition.path }}" target="_blank">Документ Ходатайство</a><br />
                         {% endif %}
                     </td>
                 </tr>
