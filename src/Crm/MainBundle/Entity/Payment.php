@@ -14,6 +14,11 @@ use Symfony\Component\Validator\Constraints as Assert;
 class Payment extends BaseEntity
 {
     /**
+     * @ORM\Column(type="string", nullable=true)
+     */
+    protected $number;
+
+    /**
      * @ORM\Column(type="string")
      */
     protected $bankTitle;
