@@ -343,6 +343,8 @@ class UserController extends Controller
             $petitionAdrs['structure']= $data->get('petitionStructure');
             $petitionAdrs['room']     = $data->get('petitionRoom');
             $user->setPetitionAdrs($petitionAdrs);
+            $user->setPetitionTitle($data->get('petitionTitle'));
+
 
 
             if ($data->get('confirm') == 1 || $data->get('confirm') == '0n' || $data->get('confirm') == true ){

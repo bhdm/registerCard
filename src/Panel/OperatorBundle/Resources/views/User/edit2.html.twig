@@ -593,24 +593,36 @@
                         </div>
                     </td>
                 </tr>
-                <td>
-                    <div class="form-group">
-                        <label class="control-label col-sm-3" for="lastName">Скан ходатайства:</label>
-                        <div class="col-sm-4">
-                            <input type="file" name="petitionFile" id="petitionFile"  data-type="petitionFile" class="fileAjax">
-                            {% if user.copyPetition.path is defined %}
-                                <img src="/{{ user.copyPetition.path }}" brightness="128" contrast="128" data-type="passportFile" class="document" id="petitionFileImg">
-                                <br>
-                                <a href="{{ path('panel_download_png',{'filename' : user.copyPetition.fileName }) }}">Скачать</a>
-                            {% endif %}
-                        </div>
-
-                    </div>
-                </td>
                 <tr>
                     <td>
                         <div class="form-group">
-                            <label class="control-label col-sm-3" for="deliveryZipcode">Индекс:</label>
+                            <label class="control-label col-sm-3" for="lastName">Скан ходатайства:</label>
+                            <div class="col-sm-4">
+                                <input type="file" name="petitionFile" id="petitionFile"  data-type="petitionFile" class="fileAjax">
+                                {% if user.copyPetition.path is defined %}
+                                    <img src="/{{ user.copyPetition.path }}" brightness="128" contrast="128" data-type="passportFile" class="document" id="petitionFileImg">
+                                    <br>
+                                    <a href="{{ path('panel_download_png',{'filename' : user.copyPetition.fileName }) }}">Скачать</a>
+                                {% endif %}
+                            </div>
+
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="form-group">
+                            <label class="control-label col-sm-3" for="petitionTitle">Название компании:</label>
+                            <div class="col-sm-3">
+                                <input type="text"  name="petitionTitle" id="petitionTitle" class="form-control" value="{{ user.petitionTitle }}">
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="form-group">
+                            <label class="control-label col-sm-3" for="petitionZipcode">Индекс:</label>
                             <div class="col-sm-3">
                                 <input type="text"  name="petitionZipcode" id="petitionZipcode" class="form-control" value="{{ user.petitionAdrs.zipcode }}">
                             </div>
@@ -760,26 +772,26 @@
                         </div>
                     </td>
                 </tr>
-                <tr>
-                    <td>
-                        <div class="form-group">
-                            <label class="control-label col-sm-3" for="myPetition">Доп. ходатайство":</label>
-                            <div class="col-sm-9">
-                                <select id="petition" name="petition" class="petition">
-                                    <option value="0">Не использовать</option>
-                                    {% for p in petitions %}
-                                        {% if p.title != '' and p.title != null %}
-                                            <option value="{{ p.id }}" {{ user.companyPetition != null and user.companyPetition.id == p.id ? 'selected="selected"' : '' }}>{{ p.title }}</option>
-                                        {% endif %}
-                                    {% endfor %}
-                                </select>
-                                {% if user.companyPetition != null %}
-                                    <a href="{{ path('panel_petition_edit',{'id' : user.companyPetition.id }) }}" target="_blank">Смотреть</a>
-                                {% endif %}
-                            </div>
-                        </div>
-                    </td>
-                </tr>
+                {#<tr>#}
+                    {#<td>#}
+                        {#<div class="form-group">#}
+                            {#<label class="control-label col-sm-3" for="myPetition">Доп. ходатайство":</label>#}
+                            {#<div class="col-sm-9">#}
+                                {#<select id="petition" name="petition" class="petition">#}
+                                    {#<option value="0">Не использовать</option>#}
+                                    {#{% for p in petitions %}#}
+                                        {#{% if p.title != '' and p.title != null %}#}
+                                            {#<option value="{{ p.id }}" {{ user.companyPetition != null and user.companyPetition.id == p.id ? 'selected="selected"' : '' }}>{{ p.title }}</option>#}
+                                        {#{% endif %}#}
+                                    {#{% endfor %}#}
+                                {#</select>#}
+                                {#{% if user.companyPetition != null %}#}
+                                    {#<a href="{{ path('panel_petition_edit',{'id' : user.companyPetition.id }) }}" target="_blank">Смотреть</a>#}
+                                {#{% endif %}#}
+                            {#</div>#}
+                        {#</div>#}
+                    {#</td>#}
+                {#</tr>#}
                 <tr>
                     <td>
                         <div class="form-group">

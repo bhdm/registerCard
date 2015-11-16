@@ -69,6 +69,15 @@ class Payment extends BaseEntity
     protected $client;
 
     /**
+     * @ORM\Column(type="integer")
+     */
+    protected $status = 0;
+
+    public function __construct(){
+        $this->status = 0;
+    }
+
+    /**
      * @return mixed
      */
     public function getBankTitle()
