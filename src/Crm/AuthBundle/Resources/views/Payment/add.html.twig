@@ -1,0 +1,23 @@
+{% extends 'CrmAuthBundle::layout.html.twig' %}
+
+
+{% block content %}
+    <div style="height: 40px">
+        <div style="float: left; padding-right: 10px;">Мои счета</div>
+        <div style="float: left; padding-right: 10px;">Добавление</div>
+    </div>
+    <div class="">
+        <form method="POST" enctype="multipart/form-data">
+            {{ form_widget(form) }}
+        </form>
+    </div>
+{% endblock %}
+
+
+{% block javascripts %}
+    {{ parent() }}
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+{% endblock %}

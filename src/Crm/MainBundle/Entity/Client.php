@@ -23,6 +23,11 @@ class Client extends BaseEntity implements UserInterface
 {
 
     /**
+     * @ORM\OneToMany(targetEntity="Payment", mappedBy="client")
+     */
+    protected $payments;
+
+    /**
      * @ORM\OneToMany(targetEntity="CompanyPetition", mappedBy="client")
      */
     protected $petitions;
@@ -420,6 +425,22 @@ class Client extends BaseEntity implements UserInterface
     public function setCompanyOrders($companyOrders)
     {
         $this->companyOrders = $companyOrders;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getPayments()
+    {
+        return $this->payments;
+    }
+
+    /**
+     * @param mixed $payments
+     */
+    public function setPayments($payments)
+    {
+        $this->payments = $payments;
     }
 
 
