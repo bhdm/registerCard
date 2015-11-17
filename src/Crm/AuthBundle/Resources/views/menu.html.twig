@@ -11,9 +11,9 @@
     <li>
         <a href="{{ path('auth_order_company') }}">Карты предприятий</a>
     </li>
-    <li>
-        <a href="{{ path('auth_payment_list') }}">Счета</a>
-    </li>
+    {#<li>#}
+        {#<a href="{{ path('auth_payment_list') }}">Счета</a>#}
+    {#</li>#}
     {% endif %}
     <li>
         <a href="{{ path('auth_message') }}" style="{{ render(controller("CrmAuthBundle:Message:newMessageClient"))}}">Мои сообщения</a>
