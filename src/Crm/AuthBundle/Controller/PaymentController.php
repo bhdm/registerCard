@@ -5,6 +5,7 @@ namespace Crm\AuthBundle\Controller;
 use Crm\MainBundle\Entity\Client;
 use Crm\MainBundle\Entity\CompanyUser;
 use Crm\MainBundle\Entity\Payment;
+use Crm\MainBundle\Entity\PaymentOrder;
 use Crm\MainBundle\Entity\User;
 use Crm\MainBundle\Form\CompanyUserType;
 use Crm\MainBundle\Form\PaymentType;
@@ -63,6 +64,28 @@ class PaymentController extends Controller
                 $em->persist($payment);
                 $em->flush();
                 $em->refresh($payment);
+
+
+                for ($i = 0; $i < 10; $i ++){
+                    if (isset($request->request->get('title')[$i]) && $request->request->get('title')[$i] != null){
+                        $operator = $this->getUser()->getCompany()->getOperator();
+                        switch ($request->request->get('title')[$i]){
+                            case 'Карта водителя СКЗИ': $price = $operator->getPriceSkzi(); break;
+                            case 'Карта водителя ЕСТР': $price = $operator->getPriceEstr(); break;
+                            case 'Карта водителя РФ': $price = $operator->getPriceRu(); break;
+                            default: $price = 0; break;
+                        }
+                        $o = new PaymentOrder();
+                        $o->setPayment($payment);
+                        $o->setTitle($request->request->get('title')[$i]);
+                        $o->setAmount($request->request->get('amount')[$i]);
+                        $o->setPrice($price);
+                        $em->persist($o);
+                        $em->flush($o);
+                    }else{
+                        break;
+                    }
+                }
 
                 $this->redirect($this->generateUrl("auth_payment_list"));
             }

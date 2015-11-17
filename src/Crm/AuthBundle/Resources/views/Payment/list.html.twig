@@ -33,13 +33,22 @@
             <tr>
                 <td>Номер</td>
                 <td>Дата создания</td>
+                <td>Количество</td>
                 <td>Сумма</td>
+                <td>Статус</td>
+                <td></td>
             </tr>
             {% for p in payments %}
                 <tr>
                     <td>{{ p.id }}</td>
                     <td>{{ p.created | date('d.m.Y') }}</td>
-                    <td>{{ p.price }} р.</td>
+                    <td>{{ p.amount }}</td>
+                    <td>{{ p.summa }} р.</td>
+                    <td>{{ p.statusStr | raw }}</td>
+                    <td>
+                        <button type="button" class="btn" >Печать</button>
+                    </td>
+
                 </tr>
             {% else %}
                 <tr>

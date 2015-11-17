@@ -254,6 +254,28 @@ class Payment extends BaseEntity
         $this->status = $status;
     }
 
+    public function getSumma(){
+        $summa = 0;
+        foreach ($this->orders as $o){
+            $summa += $o->getAmount() * $o->getPrice();
+        }
+        return $summa;
+    }
 
+    public function getAmount(){
+        $summa = 0;
+        foreach ($this->orders as $o){
+            $summa += $o->getAmount();
+        }
+        return $summa;
+    }
+
+    public function getStatusStr(){
+        switch ($this->status){
+            case 0 : return '<span class="status" style="border: 1px solid #CC3333; color: #CC3333">Новый</span>'; break;
+            case 1 : return '<span class="status" style="border: 1px solid #cca44d; color: #cca44d">Проведен</span>'; break;
+            case 2 : return '<span class="status" style="border: 1px solid #33CC33; color: #33CC33">Оплачено</span>'; break;
+        }
+    }
 }
 
