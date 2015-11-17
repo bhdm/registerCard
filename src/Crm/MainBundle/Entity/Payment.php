@@ -2,6 +2,7 @@
 
 namespace Crm\MainBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -53,15 +54,7 @@ class Payment extends BaseEntity
      */
     protected $checkingAccount;
 
-    /**
-     * @ORM\Column(type="decimal", scale=2)
-     */
-    protected $price;
 
-    /**
-     * @ORM\Column(type="integer")
-     */
-    protected $amount;
 
     /**
      * @ORM\ManyToOne(targetEntity="Client", inversedBy="payments")
@@ -69,12 +62,20 @@ class Payment extends BaseEntity
     protected $client;
 
     /**
+     * @ORM\OneToMany(targetEntity="PaymentOrder", mappedBy="payment")
+     */
+    protected $orders;
+
+    /**
      * @ORM\Column(type="integer")
      */
     protected $status = 0;
 
+
+
     public function __construct(){
         $this->status = 0;
+        $this->orders = new ArrayCollection();
     }
 
     /**
@@ -192,38 +193,6 @@ class Payment extends BaseEntity
     /**
      * @return mixed
      */
-    public function getPrice()
-    {
-        return $this->price;
-    }
-
-    /**
-     * @param mixed $price
-     */
-    public function setPrice($price)
-    {
-        $this->price = $price;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getAmount()
-    {
-        return $this->amount;
-    }
-
-    /**
-     * @param mixed $amount
-     */
-    public function setAmount($amount)
-    {
-        $this->amount = $amount;
-    }
-
-    /**
-     * @return mixed
-     */
     public function getClient()
     {
         return $this->client;
@@ -236,5 +205,55 @@ class Payment extends BaseEntity
     {
         $this->client = $client;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getNumber()
+    {
+        return $this->number;
+    }
+
+    /**
+     * @param mixed $number
+     */
+    public function setNumber($number)
+    {
+        $this->number = $number;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getOrders()
+    {
+        return $this->orders;
+    }
+
+    /**
+     * @param mixed $orders
+     */
+    public function setOrders($orders)
+    {
+        $this->orders = $orders;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getStatus()
+    {
+        return $this->status;
+    }
+
+    /**
+     * @param mixed $status
+     */
+    public function setStatus($status)
+    {
+        $this->status = $status;
+    }
+
+
 }
 
