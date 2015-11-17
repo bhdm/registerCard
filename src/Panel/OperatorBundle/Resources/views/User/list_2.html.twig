@@ -25,7 +25,7 @@
                 {% endif %}
                 <th>№</th>
                 <th>Тип</th>
-                <th>Вид</th>
+                {#<th>Вид</th>#}
                 <th>Дата</th>
                 {% if not is_granted('ROLE_ADMIN') %}
                     <th>Квота</th>
@@ -66,17 +66,17 @@
                             ДРУГОЕ
                         {% endif %}
                     </td>
-                    <td>
-                        {% if user.enterprise == false and user.workshop == false %}
-                            КВ
-                        {% elseif user.enterprise == true and user.workshop == false %}
-                            КП
-                        {% elseif user.enterprise == false and user.workshop == true %}
-                            КМ
-                        {% else %}
-                            ДРУГОЕ
-                        {% endif %}
-                    </td>
+                    {#<td>#}
+                        {#{% if user.enterprise == false and user.workshop == false %}#}
+                            {#КВ#}
+                        {#{% elseif user.enterprise == true and user.workshop == false %}#}
+                            {#КП#}
+                        {#{% elseif user.enterprise == false and user.workshop == true %}#}
+                            {#КМ#}
+                        {#{% else %}#}
+                            {#ДРУГОЕ#}
+                        {#{% endif %}#}
+                    {#</td>#}
                     <td class="subtitles">{{ user.created | date('d.m.Y') }}</td>
                     {% if not is_granted('ROLE_ADMIN') %}
                     <td>
