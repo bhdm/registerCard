@@ -48,7 +48,7 @@ class UserEstrType extends AbstractType
 
             ->add('myPetition', 'choice',
                 array('label' => 'Ходатайство','choices'=>array(
-                    '0' => 'Ходатайство от ИнфоМакс',
+                    '0' => 'Ходатайство по умолчанию',
                     '1' => 'Свое ходатайство'
                 )))
 

@@ -47,7 +47,7 @@ class UserRuType extends AbstractType
 
             ->add('myPetition', 'choice',
                 array('label' => 'Ходатайство','choices'=>array(
-                    '0' => 'Ходатайство от ИнфоМакс',
+                    '0' => 'ХодатайствоХодатайство по умолчанию',
                     '1' => 'Свое ходатайство'
                 )))
 
