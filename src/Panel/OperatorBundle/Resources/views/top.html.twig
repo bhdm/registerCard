@@ -64,19 +64,19 @@
                     <option value="2" {{ f_type == '2' ? 'selected="selected"' : '' }}>РФ</option>
                 </select>
             </td>
-            <td style="padding-left: 10px">
-                {% if app.request.attributes.get('_route_params').view is defined %}
-                    {% set f_view = app.request.attributes.get('_route_params').view %}
-                {% else %}
-                    {% set f_view = 'null' %}
-                {% endif %}
-                <select style="width: 250px" name="type" id="filter-view">
-                    <option value="null" {{ f_view == 'null' ? 'selected="selected"' : '' }}>Все виды</option>
-                    <option value="0" {{ f_view == '0' ? 'selected="selected"' : '' }}>КВ</option>
-                    <option value="1" {{ f_view == '1' ? 'selected="selected"' : '' }}>КП</option>
-                    <option value="2" {{ f_view == '2' ? 'selected="selected"' : '' }}>КМ</option>
-                </select>
-            </td>
+            {#<td style="padding-left: 10px">#}
+                {#{% if app.request.attributes.get('_route_params').view is defined %}#}
+                    {#{% set f_view = app.request.attributes.get('_route_params').view %}#}
+                {#{% else %}#}
+                    {#{% set f_view = 'null' %}#}
+                {#{% endif %}#}
+                {#<select style="width: 250px" name="type" id="filter-view">#}
+                    {#<option value="null" {{ f_view == 'null' ? 'selected="selected"' : '' }}>Все виды</option>#}
+                    {#<option value="0" {{ f_view == '0' ? 'selected="selected"' : '' }}>КВ</option>#}
+                    {#<option value="1" {{ f_view == '1' ? 'selected="selected"' : '' }}>КП</option>#}
+                    {#<option value="2" {{ f_view == '2' ? 'selected="selected"' : '' }}>КМ</option>#}
+                {#</select>#}
+            {#</td>#}
             <td>
                 <input type="date" class="form-control" style="width: 150px;margin: 0 10px" id="filter-dateStart" placeholder="начало"
                        value="{{ app.request.query.all.dateStart is defined ? app.request.query.all.dateStart : '' }}">

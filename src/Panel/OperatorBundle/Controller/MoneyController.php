@@ -25,14 +25,14 @@ class MoneyController extends Controller
     public function indexAction(Request $request)
     {
         $year = 2015;
-        $month = 9;
+        $month = 11;
 
         /** Новые заявки */
         $newsUsers = $this->getDoctrine()->getRepository('CrmMainBundle:User')->findNewUser($this->getUser());
 
         /** Статистика */
-        $statsOfCompany = $this->getDoctrine()->getRepository('CrmMainBundle:User')->statsOfCompany($this->getUser(), $year);
-        $statsOfOperator = $this->getDoctrine()->getRepository('CrmMainBundle:User')->statsOfOperator($this->getUser(), $year);
+//        $statsOfCompany = $this->getDoctrine()->getRepository('CrmMainBundle:User')->statsOfCompany($this->getUser(), $year);
+//        $statsOfOperator = $this->getDoctrine()->getRepository('CrmMainBundle:User')->statsOfOperator($this->getUser(), $year);
 //        $statsOfModerator = $this->getDoctrine()->getRepository('CrmMainBundle:User')->statsOfOperator($this->getUser(), $year);
 
         $statsByYear = $this->getDoctrine()->getRepository('CrmMainBundle:User')->statsByYear($this->getUser(), $year);
@@ -52,8 +52,8 @@ class MoneyController extends Controller
 
         $countDay = cal_days_in_month(CAL_GREGORIAN, $month, $year);
         return array(
-            'statsOfOperator' => $statsOfOperator,
-            'statsOfCompany' => $statsOfCompany,
+//            'statsOfOperator' => $statsOfOperator,
+//            'statsOfCompany' => $statsOfCompany,
             'statsByYear' => $statsByYear,
             'statsByMonth' => $statsByMonth,
             'newusers' => $newsUsers,
