@@ -64,6 +64,12 @@ class ApplicationController extends Controller
             $user->setCopySignature($this->getImgToArray($session->get('signFile')));
             $user->setPhoto($this->getImgToArray($session->get('photoFile')));
 
+            if ($company){
+                $user->setPrice($company->getPriceEstr());
+            }else{
+                $user->setPrice(3200);
+            }
+
             $cl = $this->newClient($user, $url);
             $user->setClient($cl);
 
