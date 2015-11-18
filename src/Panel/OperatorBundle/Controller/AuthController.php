@@ -6,6 +6,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\SecurityContext;
 use Symfony\Component\Security\Core\Encoder\MessageDigestPasswordEncoder;
 
@@ -50,4 +51,41 @@ class AuthController extends Controller
             'error' => $error,
         );
     }
+
+    /**
+     * @Route("/reset-password", name="panel_reset_password")
+     * @Template()
+     */
+    public function resetPasswordAction(Request $request){
+        $em = $this->getDoctrine()->getManager();
+        $operator = $this->getUser();
+        $form = $this->createFormBuilder($operator)
+            ->add('password', 'repeated', array(
+                'type' => 'password',
+                'invalid_message' => 'Пароли должны совпадать',
+                'options' => array('attr' => array('class' => 'password-field')),
+                'required' => true,
+                'first_options'  => array('label' => 'Пароль'),
+                'second_options' => array('label' => 'Повторите пароль'),
+            ))
+            ->add('save', 'submit', array('label' => 'Изменить пароль', 'attr' => ['class' => 'btn']))
+            ->getForm();
+
+        $form->handleRequest($request);
+        $is = false;
+        if ($form->isValid()) {
+            $operator = $form->getData();
+
+            $operator->setSalt(md5(time()));
+            $encoder = new MessageDigestPasswordEncoder('sha512', true, 10);
+            $password = $encoder->encodePassword($operator->getPassword(), $operator->getSalt());
+            $operator->setPassword($password);
+
+            $em->flush($operator);
+            $is = true;
+        }
+
+        return ['form' => $form->createView(), 'ir' => $is];
+    }
+
 }

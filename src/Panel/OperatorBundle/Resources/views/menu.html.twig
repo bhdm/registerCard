@@ -159,6 +159,13 @@
             </li>
 
 
+        <li class="{{ app.request.attributes.get('_route') == 'panel_reset_password' ? 'active' : '' }}">
+            <a href="{{ path('panel_reset_password') }}" class="">
+                <i class="glyphicon glyphicon-collapse-down"></i>
+                &nbsp;&nbsp;Сменить пароль
+            </a>
+        </li>
+
         <li class="{{ app.request.attributes.get('_route') == 'panel_security_logout' ? 'active' : '' }}">
             <a href="{{ path('panel_security_logout') }}" class="text-danger">
                 <i class="glyphicon glyphicon-collapse-down"></i>
