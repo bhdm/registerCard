@@ -291,9 +291,9 @@ class User extends BaseEntity implements UserInterface, EquatableInterface, \Ser
 
     # Водительское удостоверение
 
+    #Regex(pattern= "/^[а-я|А-Я|a-z|A-Z|0-9]{4}[0-9]{4..6}$/", message="Неверный формат ввода.")
     /**
      * @Assert\NotBlank( message = "Поле Номер водительского удостоверения обязательно для заполнения" )
-     * @Assert\Regex(pattern= "/^[а-я|А-Я|a-z|A-Z|0-9]{4}[0-9]{4..6}$/", message="Неверный формат ввода.")
      * @ORM\Column(type="string", nullable=true)
      */
     protected $driverDocNumber;
@@ -348,6 +348,16 @@ class User extends BaseEntity implements UserInterface, EquatableInterface, \Ser
      * @ORM\Column(type="array", nullable=true)
      */
     protected $copyPassport2;
+
+    /**
+     * @ORM\Column(type="array", nullable=true)
+     */
+    protected $copyPassportTranslate;
+
+    /**
+     * @ORM\Column(type="array", nullable=true)
+     */
+    protected $copyDriverPassportTranslate;
 
     /**
      * @ORM\Column(type="array", nullable=true)
@@ -2074,6 +2084,70 @@ class User extends BaseEntity implements UserInterface, EquatableInterface, \Ser
     public function setComfirmed($isComfirmed = false)
     {
         $this->isComfirmed = $isComfirmed;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCopyPassportTranslate()
+    {
+        return $this->copyPassportTranslate;
+    }
+
+    /**
+     * @param mixed $copyPassportTranslate
+     */
+    public function setCopyPassportTranslate($copyPassportTranslate)
+    {
+        $this->copyPassportTranslate = $copyPassportTranslate;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getIsPayment()
+    {
+        return $this->isPayment;
+    }
+
+    /**
+     * @param mixed $isPayment
+     */
+    public function setIsPayment($isPayment)
+    {
+        $this->isPayment = $isPayment;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getIsComfirmed()
+    {
+        return $this->isComfirmed;
+    }
+
+    /**
+     * @param mixed $isComfirmed
+     */
+    public function setIsComfirmed($isComfirmed)
+    {
+        $this->isComfirmed = $isComfirmed;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCopyDriverPassportTranslate()
+    {
+        return $this->copyDriverPassportTranslate;
+    }
+
+    /**
+     * @param mixed $copyDriverPassportTranslate
+     */
+    public function setCopyDriverPassportTranslate($copyDriverPassportTranslate)
+    {
+        $this->copyDriverPassportTranslate = $copyDriverPassportTranslate;
     }
 
 

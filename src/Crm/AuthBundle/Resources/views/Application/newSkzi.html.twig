@@ -75,7 +75,7 @@
                 <tr>
                     <td>Имя<span class="required">*</span></td>
                     <td>{{ form_widget(form.firstName) }}</td>
-                    <td rowspan="7" style="vertical-align: top">
+                    <td rowspan="5" style="vertical-align: top">
                         <div class="file-container">
                             <input type="file" name="passportFile" id="passportFile" class="fileAjax" {{ edit is not defined ? 'required' : '' }} >
                             <progress class="progress" value="0" max="100" style="width: 270px"></progress>
@@ -135,13 +135,40 @@
                 <tr>
                     <td>Дата выдачи</td>
                     <td>{{ form_widget(form.passportIssuanceDate) }}</td>
-                    <td>
-                        {#Копия ОГРН <span class="mini">(форматы файла: JPG,PNG)</span>#}
-                    </td>
+                    <td>Перевод паспорта <span class="mini">(форматы файла: JPG,PNG)</span></td>
                 </tr>
                 <tr>
                     <td>Код подразделения</td>
                     <td>{{ form_widget(form.passportCode) }}</td>
+                    <td rowspan="2" style="vertical-align: top">
+                        <div class="file-container">
+                            <input type="file" name="passportTranslateFile" id="passportTranslateFile" class="fileAjax" {{ edit is not defined ? 'required' : '' }} >
+                            <progress class="progress" value="0" max="100" style="width: 270px"></progress>
+                            <br />
+                            <br />
+                            <div class="fileDoc">
+                                {% if form.vars.value.copyPassportTranslate.path is defined %}
+                                    <img src="/{{ form.vars.value.copyPassportTranslate.path }}" brightness="0" contrast="0">
+                                {% else %}
+                                    <img src="" brightness="0" contrast="0">
+                                {% endif %}
+                            </div>
+                            <div class="navigateFile">
+                                <img src="{{ asset('bundles/crmmain/icons/rotateLeft.png') }}" class="rotateLeft" title="Повернуть налево">
+                                <img src="{{ asset('bundles/crmmain/icons/rotateRight.png') }}" class="rotateRight" title="Повернуть вправо">
+                                <div style="">
+                                    <span class="cropImage minibtn" title="Обрезать изображение">Обрезать</span>
+                                    <br />
+                                    <br />
+                                </div>
+
+                            </div>
+                            <input type="hidden" id="x1" name="x1">
+                            <input type="hidden" id="y1" name="y1">
+                            <input type="hidden" id="x2" name="x2">
+                            <input type="hidden" id="y2" name="y2">
+                        </div>
+                    </td>
                 </tr>
             </table>
         </div>
@@ -196,7 +223,7 @@
                     <td class="value">
                         {{ form_widget(form.driverDocNumber) }}
                     </td>
-                    <td rowspan="7" style="vertical-align: top">
+                    <td rowspan="3" style="vertical-align: top">
                         <div class="file-container">
                             <input type="file" name="driverFile" id="driverFile" class="fileAjax" {{ edit is not defined ? 'required' : '' }}  >
                             <progress class="progress" value="0" max="100" style="width: 270px"></progress>
@@ -236,6 +263,44 @@
                     <td>Дата выдачи:</td>
                     <td class="value">
                         {{ form_widget(form.driverDocDateStarts) }}
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td>Перевод вод. удостоверения <span class="mini">(форматы файла: JPG,PNG)</span></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td rowspan="2" style="vertical-align: top">
+                        <div class="file-container">
+                            <input type="file" name="driverTranslateFile" id="driverTranslateFile" class="fileAjax" {{ edit is not defined ? 'required' : '' }} >
+                            <progress class="progress" value="0" max="100" style="width: 270px"></progress>
+                            <br />
+                            <br />
+                            <div class="fileDoc">
+                                {% if form.vars.value.copyDriverPassportTranslate.path is defined %}
+                                    <img src="/{{ form.vars.value.copyDriverPassportTranslate.path }}" brightness="0" contrast="0">
+                                {% else %}
+                                    <img src="" brightness="0" contrast="0">
+                                {% endif %}
+                            </div>
+                            <div class="navigateFile">
+                                <img src="{{ asset('bundles/crmmain/icons/rotateLeft.png') }}" class="rotateLeft" title="Повернуть налево">
+                                <img src="{{ asset('bundles/crmmain/icons/rotateRight.png') }}" class="rotateRight" title="Повернуть вправо">
+                                <div style="">
+                                    <span class="cropImage minibtn" title="Обрезать изображение">Обрезать</span>
+                                    <br />
+                                    <br />
+                                </div>
+
+                            </div>
+                            <input type="hidden" id="x1" name="x1">
+                            <input type="hidden" id="y1" name="y1">
+                            <input type="hidden" id="x2" name="x2">
+                            <input type="hidden" id="y2" name="y2">
+                        </div>
                     </td>
                 </tr>
             </table>

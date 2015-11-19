@@ -59,7 +59,9 @@ class OrderController extends Controller
             $rootDir = __DIR__.'/../../../../web/upload/';
             $user->setCopyPetition($this->getImgToArray($session->get('petitionFile')));
             $user->setCopyPassport($this->getImgToArray($session->get('passportFile')));
+            $user->setCopyPassportTranslate($this->getImgToArray($session->get('passportTranslateFile')));
             $user->setCopyDriverPassport($this->getImgToArray($session->get('driverFile')));
+            $user->setCopyDriverPassportTranslate($this->getImgToArray($session->get('driverTranslateFile')));
             $user->setCopySnils($this->getImgToArray($session->get('snilsFile')));
             $user->setCopySignature($this->getImgToArray($session->get('signFile')));
             $user->setPhoto($this->getImgToArray($session->get('photoFile')));
