@@ -67,6 +67,15 @@ class OperatorController extends Controller
             $operator->setPriceEstr($request->request->get('priceEstr'));
             $operator->setPriceRu($request->request->get('priceRu'));
 
+            $operator->setPriceCompanySkzi($request->request->get('priceCompanySkzi'));
+            $operator->setPriceCompanyEstr($request->request->get('priceCompanyEstr'));
+            $operator->setPriceCompanyRu($request->request->get('priceCompanyRu'));
+
+            $operator->setPriceMasterSkzi($request->request->get('priceMasterSkzi'));
+            $operator->setPriceMasterEstr($request->request->get('priceMasterEstr'));
+            $operator->setPriceMasterRu($request->request->get('priceMasterRu'));
+
+
             if ($request->request->get('confirmed') != null){
                 $operator->setConfirmed(true);
             }else{
@@ -129,6 +138,14 @@ class OperatorController extends Controller
             $operator->setPriceSkzi($request->request->get('priceSkzi'));
             $operator->setPriceEstr($request->request->get('priceEstr'));
             $operator->setPriceRu($request->request->get('priceRu'));
+
+            $operator->setPriceCompanySkzi($request->request->get('priceCompanySkzi'));
+            $operator->setPriceCompanyEstr($request->request->get('priceCompanyEstr'));
+            $operator->setPriceCompanyRu($request->request->get('priceCompanyRu'));
+
+            $operator->setPriceMasterSkzi($request->request->get('priceMasterSkzi'));
+            $operator->setPriceMasterEstr($request->request->get('priceMasterEstr'));
+            $operator->setPriceMasterRu($request->request->get('priceMasterRu'));
 
 
 
