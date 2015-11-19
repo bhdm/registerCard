@@ -135,12 +135,12 @@
                 <tr>
                     <td>Дата выдачи</td>
                     <td>{{ form_widget(form.passportIssuanceDate) }}</td>
-                    <td>Перевод паспорта <span class="mini">(форматы файла: JPG,PNG)</span></td>
+                    <td class="citizenship">Перевод паспорта <span class="mini">(форматы файла: JPG,PNG)</span></td>
                 </tr>
                 <tr>
                     <td>Код подразделения</td>
                     <td>{{ form_widget(form.passportCode) }}</td>
-                    <td rowspan="2" style="vertical-align: top">
+                    <td class="citizenship" rowspan="2" style="vertical-align: top">
                         <div class="file-container">
                             <input type="file" name="passportTranslateFile" id="passportTranslateFile" class="fileAjax" {{ edit is not defined ? 'required' : '' }} >
                             <progress class="progress" value="0" max="100" style="width: 270px"></progress>
@@ -268,12 +268,12 @@
                 <tr>
                     <td></td>
                     <td></td>
-                    <td>Перевод вод. удостоверения <span class="mini">(форматы файла: JPG,PNG)</span></td>
+                    <td class="citizenship">Перевод вод. удостоверения <span class="mini">(форматы файла: JPG,PNG)</span></td>
                 </tr>
                 <tr>
                     <td></td>
                     <td></td>
-                    <td rowspan="2" style="vertical-align: top">
+                    <td class="citizenship" rowspan="2" style="vertical-align: top">
                         <div class="file-container">
                             <input type="file" name="driverTranslateFile" id="driverTranslateFile" class="fileAjax" {{ edit is not defined ? 'required' : '' }} >
                             <progress class="progress" value="0" max="100" style="width: 270px"></progress>
