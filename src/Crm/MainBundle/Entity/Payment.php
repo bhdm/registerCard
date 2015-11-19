@@ -277,5 +277,7 @@ class Payment extends BaseEntity
             case 2 : return '<span class="status" style="border: 1px solid #33CC33; color: #33CC33">Оплачено</span>'; break;
         }
     }
+
+
 }
 

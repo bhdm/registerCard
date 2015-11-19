@@ -32,7 +32,7 @@ class PaymentController extends Controller
      */
     public function listAction(){
         $client = $this->getUser();
-        $payments = $client->getPayments();
+        $payments = $this->getDoctrine()->getRepository('CrmMainBundle:Payment')->findBy(['enabled' => true, 'client'=> $client],['created' => 'DESC']);
 
         return ['payments' => $payments];
     }

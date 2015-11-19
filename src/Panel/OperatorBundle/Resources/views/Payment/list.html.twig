@@ -1,0 +1,78 @@
+{% extends 'PanelOperatorBundle::layout.html.twig' %}
+
+
+{% block breadcrumb %}
+    <ul class="breadcrumb well">
+        <li>Список счетов</li>
+    </ul>
+{% endblock %}
+
+{% block content %}
+    <div class="well">
+        <table class="table">
+            <thead>
+            <tr>
+                <th >Номер</th>
+                <th >Дата</th>
+                <th >Клиент</th>
+                <th >Компания</th>
+                <th >Кол&nbsp;-&nbsp;во</th>
+                <th >Сумма</th>
+                <th >Статус</th>
+                <th class="setting">Инструменты</th>
+            </tr>
+            </thead>
+            {% for p in pagination %}
+                <tr>
+                    <td>{{ p.id~p.number }}</td>
+                    <td>{{ p.created | date('d.m.Y') }}</td>
+                    <td>{{ p.client.username }}</td>
+                    <td>{{ p.client.company }}</td>
+                    <td>{{ p.amount }}</td>
+                    <td>{{ p.summa }}</td>
+                    <td>
+                        <div class="dropdown">
+                            <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu{{ p.id }}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                {{ p.statusStr | raw }}
+                                <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu" aria-labelledby="dropdownMenu{{ p.id }}">
+                                <li><a href="#">Новый</a></li>
+                                <li><a href="#">Проведен</a></li>
+                                <li><a href="#">Оплачен</a></li>
+                            </ul>
+                        </div>
+                    </td>
+
+                    <td class="setting">
+                        {% spaceless %}
+                            <a href="{{ path('panel_payment_edit',{'id' : p.id}) }}" >
+                                <button type="button" class="btn btn-primary btn-bg" title="Отправить сообщение">
+                                    <span class="glyphicon glyphicon-edit"></span>
+                                </button>
+                            </a>
+                            &nbsp;&nbsp;
+                            <a href="#">
+                                <a href="{{ path('panel_payment_delete',{'id': p.id }) }}"><button type="button" class="btn btn-default btn-danger" title="Удалить">
+                                        <span class="glyphicon glyphicon-remove"></span>
+                                    </button></a>
+                            </a>
+                        {% endspaceless %}
+                    </td>
+                </tr>
+            {% endfor%}
+        </table>
+        <div class="navigation">
+        {{ knp_pagination_render(pagination) }}
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+        $(document).ready(function(){
+            $(".chosen").chosen({no_results_text: "По вашему запросу не найдено", width: 300});
+        });
+    </script>
+{% endblock %}
