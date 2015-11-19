@@ -49,6 +49,7 @@ class XmlController extends Controller
         $files[5]['title'] = 'SNILS';
         $files[5]['file'] = $user->getCopySnils();
 
+
         if (isset($files[6])){
             $files[6]['base'] = $this->ImageToPdf($user->getCopyWork()['originalName']);
             $files[6]['title'] = 'Work';
@@ -83,6 +84,17 @@ class XmlController extends Controller
             }
         }
 
+        if (isset($user->getCopyPassportTranslate()['originalName'])){
+            $files[9]['base'] = $this->imageToPdf($user->getCopyPassportTranslate()['originalName']);
+            $files[9]['title'] = 'PassportTranslate';
+            $files[9]['file'] = $user->getCopyPassportTranslate();
+        }
+        if (isset($user->getCopyDriverPassportTranslate()['originalName'])){
+            $files[10]['base'] = $this->imageToPdf($user->getCopyDriverPassportTranslate()['originalName']);
+            $files[10]['title'] = 'DriverPassportTranslate';
+            $files[10]['file'] = $user->getCopyDriverPassportTranslate();
+        }
+
         $region = $user->getCompany()->getRegion();
         if (!is_numeric($region)){
 //            $s = array('Республика ',' Область',' Край','Город ',' Автономный округ');
@@ -93,7 +105,13 @@ class XmlController extends Controller
 
         $em = $this->getDoctrine()->getManager();
         $user->setProduction(1);
+
+
+
+
         $em->flush($user);
+
+
 
 
         $response = new Response();
