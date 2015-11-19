@@ -224,6 +224,19 @@
                                 </div>
                             {% endif %}
                         </div>
+                        <br style="clear: both"/>
+                        <div class="form-group">
+                            <label class="control-label col-sm-3" for="lastName">Перевод паспорта:</label>
+                            <div class="col-sm-4">
+                                <input type="file" name="passportTranslateFile" id="passportTranslateFile"  data-type="passportTranslateFile" class="fileAjax">
+                                {% if user.copyPassport.path is defined %}
+                                    <img src="/{{ user.copyPassportTranslate.path }}" brightness="128" contrast="128" data-type="passportTranslateFile" class="document" id="passportTranslateFileImg">
+                                    <br>
+                                    <a href="{{ path('panel_download_png',{'filename' : user.copyPassportTranslate.fileName }) }}">Скачать</a>
+                                {% endif %}
+                            </div>
+                        </div>
+
                     </td>
                 </tr>
                 {#<tr>#}
@@ -443,6 +456,19 @@
                                 </div>
                             {% endif %}
                         </div>
+                        <br style="clear: both"/>
+                        <div class="form-group">
+                            <label class="control-label col-sm-3" for="lastName">Перевод вод. удостоверения:</label>
+                            <div class="col-sm-4">
+                                <input type="file" name="driverTranslateFile" id="driverTranslateFile"  data-type="driverTranslateFile" class="fileAjax">
+                                {% if user.copyDriverPassport.path is defined %}
+                                    <img src="/{{ user.copyDriverPassportTranslate.path }}" brightness="128" contrast="128" data-type="driverTranslateFile" class="document" id="driverTranslateFileImg">
+                                    <br>
+                                    <a href="{{ path('panel_download_png',{'filename' : user.copyDriverPassportTranslate.fileName }) }}">Скачать</a>
+                                {% endif %}
+                            </div>
+                        </div>
+
                     </td>
                 </tr>
                 <tr>
