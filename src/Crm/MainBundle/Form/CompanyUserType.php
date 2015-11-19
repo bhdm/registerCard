@@ -48,7 +48,7 @@ class CompanyUserType extends AbstractType
             ->add('mailingAdrs', new AdrsType())
             ->add('firstName')
             ->add('lastName')
-            ->add('surName')
+            ->add('surName', null, ['required' => false])
             ->add('birthday', 'date', ['widget' => 'single_text','required' => false, 'attr' => ['class' => 'date']])
 
             ->add('post')

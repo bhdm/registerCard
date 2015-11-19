@@ -30,7 +30,7 @@ class UserSkziType extends AbstractType
             ->add('lastNumberCard', null ,['label' => 'Прошлый номер карты', 'required' => false])
             ->add('lastName', null,['label'=>'Фамилия'])
             ->add('firstName', null,['label'=>'Имя'])
-            ->add('surName', null,['label'=>'Отчество'])
+            ->add('surName', null,['label'=>'Отчество', 'required' => false])
             ->add('enLastName', null, ['label'=>'Фамилия (англ)'])
             ->add('enFirstName', null, ['label'=>'Имя (англ)'])
             ->add('birthDate', 'text',['label'=>'Дата рождения', 'attr' => ['class' => 'date']])

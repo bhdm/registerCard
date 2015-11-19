@@ -62,8 +62,6 @@ class User extends BaseEntity implements UserInterface, EquatableInterface, \Ser
     protected $firstName;
 
     /**
-     * @Assert\Length( max = "35", maxMessage = "Максимум  35 символов")
-     * @Assert\Regex(pattern= "/^[a-zа-яA-ZА-Я]+$/u", message="Неверный формат ввода.")
      * @ORM\Column(type="string", length=100, nullable=true)
      */
     protected $surName;

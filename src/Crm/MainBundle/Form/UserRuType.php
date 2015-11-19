@@ -31,7 +31,7 @@ class UserRuType extends AbstractType
 
             ->add('lastName', null,['label'=>'Фамилия'])
             ->add('firstName', null,['label'=>'Имя'])
-            ->add('surName', null,['label'=>'Отчество'])
+            ->add('surName', null,['label'=>'Отчество', 'required' => false])
             ->add('birthDate', 'text',['label'=>'Дата рождения', 'attr' => ['class' => 'date']])
             ->add('passportSerial', null,['label'=>'Серия и номер паспорта'])
             ->add('passportNumber', null,['label'=>'', 'required' => true])
