@@ -293,7 +293,7 @@ class User extends BaseEntity implements UserInterface, EquatableInterface, \Ser
 
     /**
      * @Assert\NotBlank( message = "Поле Номер водительского удостоверения обязательно для заполнения" )
-     * @Assert\Regex(pattern= "/^[а-я|А-Я|a-z|A-Z|0-9]{4}[0-9]{6}$/", message="Неверный формат ввода.")
+     * @Assert\Regex(pattern= "/^[а-я|А-Я|a-z|A-Z|0-9]{4}[0-9]{4..6}$/", message="Неверный формат ввода.")
      * @ORM\Column(type="string", nullable=true)
      */
     protected $driverDocNumber;
