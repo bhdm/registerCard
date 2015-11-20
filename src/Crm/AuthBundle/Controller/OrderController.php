@@ -59,7 +59,9 @@ class OrderController extends Controller
             $rootDir = __DIR__.'/../../../../web/upload/';
             $user->setCopyPetition($this->getImgToArray($session->get('petitionFile')));
             $user->setCopyPassport($this->getImgToArray($session->get('passportFile')));
+            $user->setCopyPassportTranslate($this->getImgToArray($session->get('passportTranslateFile')));
             $user->setCopyDriverPassport($this->getImgToArray($session->get('driverFile')));
+            $user->setCopyDriverPassportTranslate($this->getImgToArray($session->get('driverTranslateFile')));
             $user->setCopySnils($this->getImgToArray($session->get('snilsFile')));
             $user->setCopySignature($this->getImgToArray($session->get('signFile')));
             $user->setPhoto($this->getImgToArray($session->get('photoFile')));
@@ -159,6 +161,27 @@ class OrderController extends Controller
             $user->setCopySnils($this->getImgToArray($session->get('snilsFile')));
             $user->setCopySignature($this->getImgToArray($session->get('signFile')));
             $user->setPhoto($this->getImgToArray($session->get('photoFile')));
+
+            $rootDir = __DIR__.'/../../../../web/upload/';
+            $files = $request->files->get('crm_mainbundle_user');
+            if (isset($files['typeCardFile']) && $files['typeCardFile']['file'] != null){
+                $typeCardFile = $files['typeCardFile']['file'];
+                $info = new \SplFileInfo($typeCardFile->getClientOriginalName());
+                $ex = $info->getExtension();
+                $filename = time().'.'.$ex;
+                $typeCardFile->move($rootDir, $filename);
+                $user->setTypeCardFile($filename);
+            }
+
+            if (isset($files['copyWork']) && $files['copyWork']['file'] != null){
+                $copyWork = $files['copyWork']['file'];
+                $info = new \SplFileInfo($copyWork->getClientOriginalName());
+                $ex = $info->getExtension();
+                $filename = time().'.'.$ex;
+                $copyWork->move($rootDir, $filename);
+                $user->setCopyWork($filename);
+            }
+
 //                if ($session->get('typeCardFile')){
 //                    $user->setTypeCardFile($session->get('typeCardFile'));
 //                }
@@ -222,6 +245,27 @@ class OrderController extends Controller
             $user->setCopySnils($this->getImgToArray($session->get('snilsFile')));
             $user->setCopySignature($this->getImgToArray($session->get('signFile')));
             $user->setPhoto($this->getImgToArray($session->get('photoFile')));
+
+            $rootDir = __DIR__.'/../../../../web/upload/';
+            $files = $request->files->get('crm_mainbundle_user');
+            if (isset($files['typeCardFile']) && $files['typeCardFile']['file'] != null){
+                $typeCardFile = $files['typeCardFile']['file'];
+                $info = new \SplFileInfo($typeCardFile->getClientOriginalName());
+                $ex = $info->getExtension();
+                $filename = time().'.'.$ex;
+                $typeCardFile->move($rootDir, $filename);
+                $user->setTypeCardFile($filename);
+            }
+
+            if (isset($files['copyWork']) && $files['copyWork']['file'] != null){
+                $copyWork = $files['copyWork']['file'];
+                $info = new \SplFileInfo($copyWork->getClientOriginalName());
+                $ex = $info->getExtension();
+                $filename = time().'.'.$ex;
+                $copyWork->move($rootDir, $filename);
+                $user->setCopyWork($filename);
+            }
+
 //                if ($session->get('typeCardFile')){
 //                    $user->setTypeCardFile($session->get('typeCardFile'));
 //                }
@@ -254,6 +298,9 @@ class OrderController extends Controller
         $session = $request->getSession();
         $em = $this->getDoctrine()->getManager();
         $item = new CompanyUser();
+        $item->setUsername($this->getUser()->getUsername());
+        $item->setPhone($this->getUser()->getPhone());
+
         $form = $this->createForm(new CompanyUserType($em), $item);
         $formData = $form->handleRequest($request);
         if ($request->getMethod() == 'POST'){

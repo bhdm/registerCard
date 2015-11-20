@@ -6,6 +6,7 @@ use Crm\AuthBundle\Form\PasswordCompanyType;
 use Crm\AuthBundle\Form\ProfileCompanyType;
 use Crm\AuthBundle\Form\RegisterCompanyType;
 use Crm\MainBundle\Entity\Client;
+use Crm\MainBundle\Entity\StatusLog;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
@@ -259,6 +260,24 @@ class AuthController extends Controller
         $this->get("event_dispatcher")->dispatch("security.interactive_login", $event);
 
 
+        return $this->redirect($this->generateUrl('auth_order'));
+    }
+
+
+    /**
+     * @Route("/status-set/{id}", name="auth_status_set")
+     */
+    public function statusSetAction($id){
+        $order = $this->getDoctrine()->getRepository('CrmMainBundle:User')->findOneById($id);
+        if ($order && $order->getClient() == $this->getUser()){
+            $sl = new StatusLog();
+            $sl->setUser($order);
+            $sl->setTitle('Получена');
+            $this->getDoctrine()->getManager()->persist($sl);
+            $this->getDoctrine()->getManager()->flush($sl);
+            $order->setStatus(5);
+            $this->getDoctrine()->getManager()->flush($order);
+        }
         return $this->redirect($this->generateUrl('auth_order'));
     }
 }

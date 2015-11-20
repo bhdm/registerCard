@@ -8,17 +8,42 @@ use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 class AdminClientType extends AbstractType
 {
+
+    private $userId;
+
+    private $em;
+
+    public function __construct($userId, $em)
+    {
+        $this->userId = $userId;
+        $this->em = $em;
+    }
+
     /**
      * @param FormBuilderInterface $builder
      * @param array $options
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+
+
         $builder
             ->add('username', 'email', array('label' => 'Email'))
             ->add('phone', 'text', array('label' => 'Телефон'))
             ->add('companyTitle', 'text', array('label' => 'Название организации'))
-            ->add('company', null, array('label' => 'Прикрепить к организации', 'attr' => ['class' => 'chosen']))
+
+
+            ->add('company', 'entity', array(
+                'label' => 'Прикрепить к организации',
+                'attr' => ['class' => 'chosen'],
+                'class' => 'CrmMainBundle:Company',
+                'query_builder' => function() {
+                        $qb =  $this->em->getRepository('CrmMainBundle:Company')->createQueryBuilder('c');
+                        $qb->leftJoin('c.operator','o');
+                        $qb->where('o.id='.$this->userId);
+                        return ($qb);
+                    }
+            ))
 
             ->add('submit', 'submit', array('label' => 'Сохранить'))
         ;

@@ -1,8 +1,40 @@
 {% extends 'CrmAuthBundle::layout.html.twig' %}
 
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset('bundles/paneloperator/js/bootbox.min.js') }}"></script>
+    <script>
+        $(document).ready(function(){
+            $('.setCard').click(function () {
+                var url = $(this).attr('data-href');
+                BootstrapDialog.show({
+                    title: 'Получение карты',
+                    size: BootstrapDialog.SIZE_SMALL,
+                    type: BootstrapDialog.TYPE_DANGER,
+                    message: 'Вы точно получили карту?',
+                    buttons: [{
+                        label: 'Да',
+                        cssClass: 'btn-danger',
+                        autospin: true,
+                        action: function (dialogRef) {
+                            window.location.href = url;
+                        }
+                    }, {
+                        label: 'Отмена',
+                        action: function (dialogRef) {
+                            dialogRef.close();
+                        }
+                    }]
+                });
+            });
+        });
+
+    </script>
+{% endblock %}
+
 {% block body %}
     <div>
-        <h2>Карты водителей</h2>
+        <h2>Карты водителей ({{ orders | length }} шт)</h2>
         <div class="dropdown" style="float: right; margin-top: -55px">
             <button class="btn btn-primary dropdown-toggle" type="button" id="addOrder" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                 Добавить новый заказ
@@ -61,7 +93,16 @@
                         <td>{{ o.created | date('d.m.Y') }}</td>
                         <td>{{ o }}</td>
                         <td>{{ o.ru ? 'РФ' : o.estr ? 'ЕСТР' : 'СКЗИ'  }}</td>
-                        <td>{{ o.statusStringTwig |raw }}</td>
+                        <td>
+                            <div class="statusBox">
+                                {{ o.statusStringTwig | raw }}
+                                <div class="statusItems">
+                                    {% for status in o.statusArray %}
+                                        {{ status.title | raw }}&nbsp;-&nbsp;{{ status.date | date('d.m.Y') }}<br />
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </td>
                         <td>{{ o.price }}</td>
                         <td>{{ o.comment }}</td>
                         <td>
@@ -72,11 +113,14 @@
                                         <span class="caret"></span>
                                     </button>
                                     <ul class="dropdown-menu" aria-labelledby="dropdownPayment}">
-                                        <li><a href="{{ path('generate_payment_pdf') }}?ord={{ o.id }}">Платежное поручение</a></li>
-                                        <li><a href="{{ path('payment_assist',{'userId' : o.id} )  }}">Робокасса</a></li>
+                                        <li><a href="{{ path('generate_payment_pdf') }}?ord={{ o.id }}" target="_blank">Платежное поручение</a></li>
+                                        <li><a href="{{ path('payment_assist',{'userId' : o.id} )  }}" target="_blank">Робокасса</a></li>
                                         <li><a href="{{ path('generate_pdf_statement',{'id' : o.id}) }}" target="_blank">Скачать заявку</a></li>
                                     </ul>
                                 </div>
+                            {% endif %}
+                            {% if o.status == 4 %}
+                                <a data-href="{{ path('auth_status_set', { 'id' : o.id }) }}" class="setCard"><button class="btn btn-primary">Получено</button></a>
                             {% endif %}
                         </td>
                     </tr>
@@ -88,4 +132,25 @@
             {% endfor %}
         </table>
     </div>
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <style>
+        .statusItems{
+            display: none;
+        }
+        .statusBox{
+            font-size: 12px;
+            cursor: pointer;
+            margin-top: 6px;
+        }
+        .statusBox:hover .statusItems{
+            display: block;
+            position: absolute;
+            background: #FFFFFF;
+            border: 1px solid #C2C2C2;
+            padding: 5px;
+        }
+    </style>
 {% endblock %}

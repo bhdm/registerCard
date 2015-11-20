@@ -54,6 +54,11 @@
                     </td>
                 </tr>
                 <tr>
+                    <td>Номер старой карты</td>
+                    <td>{{ form_widget(form.oldCard) }}</td>
+                </tr>
+
+                <tr>
                     <td></td>
                     <td></td>
                     <td></td>
@@ -223,7 +228,7 @@
                     <td>Отчество<span class="required">*</span></td>
                     <td>{{ form_widget(form.surName) }}</td>
                 </tr>
-                <tr>
+                <tr class="noskzi">
                     <td>Дата рождения<span class="required">*</span></td>
                     <td>{{ form_widget(form.birthday) }}</td>
                 </tr>
@@ -278,10 +283,16 @@
                 <tr>
                     <td>Дата выдачи</td>
                     <td>{{ form_widget(form.licenseDateStart) }}</td>
+                    <td>
+                        Обратная сторона
+                    </td>
                 </tr>
                 <tr>
                     <td>Дата окончания</td>
                     <td>{{ form_widget(form.licenseDateEnd) }}</td>
+                    <td>
+                        {{ form_widget(form.fileLicenseTwo) }}
+                    </td>
                 </tr>
                 <tr>
                     <td>Номер приказа</td>
@@ -344,7 +355,7 @@
                     <td></td>
                     <td>
                         <br />
-                        <input type="submit" value="Подтвердить и перейти на страницу оплаты" class="btn btn-primary" id="submit">
+                        <input type="submit" value="Подтвердить и сохранить" class="btn btn-primary" id="submit">
                     </td>
                 </tr>
             </table>
@@ -411,6 +422,9 @@
         }
         .form-control{
             max-width: 540px;
+        }
+        .noskzi{
+            display: none;
         }
     </style>
 
@@ -591,23 +605,23 @@
             $.mask.definitions['d'] = "[a-zA-Z0-9а-яА-Я]";
             $('.driverNumber').mask("dddd999999");
 
-            $('.cardType').change(function(){
+            $('#crm_mainbundle_companyuser_cardType').change(function(){
                 $('input, select').trigger('refresh');
-                if ($('.cardType').val() == 1){
-                    $('.master').css('display','table-row');
+                if ($(this).val() == 1){
+                    $('.noskzi').css('display','none');
                 }else{
-                    $('.master').css('display','none');
+                    $('.noskzi').css('display','table-row');
                 }
             });
 
             $('#crm_mainbundle_companyuser_companyType').change(function(){
-               if ($(this).val() == 2){
-                   $('.master').css('display','block');
-                   $('.master-row').css('display','table-row');
-               }else{
-                   $('.master').css('display','none');
-                   $('.master-row').css('display','none');
-               }
+                if ($(this).val() == 2){
+                    $('.master').css('display','block');
+                    $('.master-row').css('display','table-row');
+                }else{
+                    $('.master').css('display','none');
+                    $('.master-row').css('display','none');
+                }
             });
 
             $('#crm_mainbundle_companyuser_cardType').change(function(){
@@ -618,7 +632,7 @@
                 }
             });
 
-            
+
 
             $('#dublAdrs').click(function(){
                 $('#crm_mainbundle_companyuser_mailingAdrs_region').val($('#crm_mainbundle_companyuser_legalAdrs_region').val());
@@ -633,8 +647,8 @@
             });
 
             {% if app.user.company.operator.id is defined and app.user.company.operator.id == 33 %}
-                    $("#crm_mainbundle_companyuser_cardType option[value='2']").remove();
-                    $("#crm_mainbundle_companyuser_cardType option[value='3']").remove();
+            $("#crm_mainbundle_companyuser_cardType option[value='2']").remove();
+            $("#crm_mainbundle_companyuser_cardType option[value='3']").remove();
             {% endif %}
         });
     </script>
