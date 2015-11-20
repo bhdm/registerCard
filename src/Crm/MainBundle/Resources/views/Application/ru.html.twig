@@ -35,7 +35,7 @@
                     <td>
                         {{ form_widget(form.citizenship) }}
                     </td>
-                    <td class="citizenship">Разрешение на работу<span class="mini">(форматы файла: JPG,PNG)</span></td>
+                    <td class="citizenship">Временная регистрация<span class="mini">(форматы файла: JPG,PNG)</span></td>
                 </tr>
                 <tr>
                     <td>Тип заявления<span class="required">*</span></td>
@@ -101,7 +101,7 @@
                     </td>
                 </tr>
                 <tr>
-                    <td>Отчество<span class="required">*</span></td>
+                    <td>Отчество</td>
                     <td>{{ form_widget(form.surName) }}</td>
                 </tr>
                 <tr>
@@ -528,7 +528,7 @@
                         <td></td>
                         <td colspan="2" style="text-align: left">
                             {% if edit is not defined  %}
-                                <input type="checkbox" required="required"> Я согласен с <a href="#" target="_blank">пользовательским соглашением сервиса</a><span class="required">*</span> <br />
+                                <input type="checkbox" required="required"> Я согласен с <a href="{{ path('page',{'url' : 'eula'}) }}" target="_blank">пользовательским соглашением сервиса</a><span class="required">*</span> <br />
                             {% endif %}
                             <input type="checkbox" required="required"> Я подтверждаю правильность введенных данных<span class="required">*</span>
                         </td>
@@ -540,7 +540,7 @@
                         <td>
                             <br />
                             {% if edit is not defined  %}
-                                <input type="submit" value="Подтвердить и перейти на страницу оплаты" class="btn btn-primary" id="submit">
+                                <input type="submit" value="Подтвердить и сохранить" class="btn btn-primary" id="submit">
                             {% else %}
                                 <input type="submit" value="Сохранить" class="btn btn-primary" id="submit">
                             {% endif %}
@@ -854,7 +854,7 @@
             $(".code").mask("999-999");
             $(".snils").mask("999-999-999 99");
             $.mask.definitions['d'] = "[a-zA-Z0-9а-яА-Я]";
-            $('.driverNumber').mask("dddd999999");
+            $('.driverNumber').mask("dddd9999?99");
             $('.oldCardNumber').mask("RUDddddddddddddd");
 
             $('.cardType').change(function(){

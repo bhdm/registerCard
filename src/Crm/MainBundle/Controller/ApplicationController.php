@@ -63,6 +63,16 @@ class ApplicationController extends Controller
             $user->setCopySnils($this->getImgToArray($session->get('snilsFile')));
             $user->setCopySignature($this->getImgToArray($session->get('signFile')));
             $user->setPhoto($this->getImgToArray($session->get('photoFile')));
+
+            if ($company){
+                $user->setPrice($company->getPriceEstr());
+            }else{
+                $user->setPrice(3200);
+            }
+
+            $cl = $this->newClient($user, $url);
+            $user->setClient($cl);
+
             $em->persist($user);
             $em->flush($user);
             $em->refresh($user);
@@ -114,7 +124,9 @@ class ApplicationController extends Controller
             $rootDir = __DIR__.'/../../../../web/upload/';
             $user->setCopyPetition($this->getImgToArray($session->get('petitionFile')));
             $user->setCopyPassport($this->getImgToArray($session->get('passportFile')));
+            $user->setCopyPassportTranslate($this->getImgToArray($session->get('passportTranslateFile')));
             $user->setCopyDriverPassport($this->getImgToArray($session->get('driverFile')));
+            $user->setCopyDriverPassportTranslate($this->getImgToArray($session->get('driverTranslateFile')));
             $user->setCopySnils($this->getImgToArray($session->get('snilsFile')));
             $user->setCopySignature($this->getImgToArray($session->get('signFile')));
             $user->setPhoto($this->getImgToArray($session->get('photoFile')));
@@ -141,6 +153,9 @@ class ApplicationController extends Controller
             $user->setCopyWork($this->getImgToArray($rootDir.$user->getCopyWork()));
             $user->setTypeCardFile($this->getImgToArray($rootDir.$user->getTypeCardFile()));
 //            $user->setCopyPetition($this->getImgToArray($rootDir.$user->getCopyPetition()));
+
+            $cl = $this->newClient($user, $url);
+            $user->setClient($cl);
 
             $em->persist($user);
             $em->flush($user);
@@ -209,6 +224,10 @@ class ApplicationController extends Controller
 //            $user->setCopyWork($this->getImgToArray($user->getCopyWork()));
 //            $user->setTypeCardFile($this->getImgToArray($user->getTypeCardFile()));
 //            $user->setCopyPetition($this->getImgToArray($user->getCopyPetition()));
+
+            $cl = $this->newClient($user, $url);
+            $user->setClient($cl);
+
             $em->persist($user);
             $em->flush($user);
             $em->refresh($user);
@@ -267,6 +286,58 @@ class ApplicationController extends Controller
             );
         }
         return $array;
+    }
+
+
+    public function newClient($user, $url){
+        $em = $this->getDoctrine()->getManager();
+        if (!$this->get('security.authorization_checker')->isGranted('IS_AUTHENTICATED_REMEMBERED')){
+            $pass = $this->generatePassword(6);
+            $client = $this->getDoctrine()->getRepository('CrmMainBundle:Client')->findOneByUsername($user->getEmail());
+            if ($client == null){
+                $client = new Client();
+                if ($url == null){
+                    $company = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->findOneByUrl('NO_COMPANY');
+                }else{
+                    $company = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->findOneByUrl($url);
+                }
+                $client->setCompany($company);
+                $client->setCompanyTitle(null);
+                $client->setLastName($user->getLastName());
+                $client->setUsername($user->getEmail());
+                $client->setPhone($user->getUsername());
+                $client->setFirstName($user->getFirstName());
+                $client->setSurName($user->getSurName());
+                $client->setRoles('ROLE_CLIENT');
+            }
+            if ($client){
+                $client->setSalt(md5(time()));
+                $encoder = new MessageDigestPasswordEncoder('sha512', true, 10);
+                $password = $encoder->encodePassword($pass, $client->getSalt());
+                $client->setPassword($password);
+
+                $em->persist($client);
+                $em->flush($client);
+                $em->refresh($client);
+
+            }
+
+            $message = \Swift_Message::newInstance()
+                ->setSubject('Ваш заказ создан')
+                ->setFrom('info@im-kard.ru')
+                ->setTo($user->getEmail())
+                ->setBody(
+                    $this->renderView(
+                        'CrmAuthBundle:Mail:register.html.twig',
+                        array('client' => $client, 'pass' => $pass )
+                    ), 'text/html'
+                )
+            ;
+            $this->get('mailer')->send($message);
+
+        }
+
+        return $client;
     }
 
     public function generatePassword($number)

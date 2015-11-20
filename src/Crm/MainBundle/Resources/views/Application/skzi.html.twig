@@ -35,7 +35,7 @@
                     <td>
                         {{ form_widget(form.citizenship) }}
                     </td>
-                    <td class="citizenship">Разрешение на работу<span class="mini">(форматы файла: JPG,PNG)</span></td>
+                    <td class="citizenship">Временная регистрация<span class="mini">(форматы файла: JPG,PNG)</span></td>
                 </tr>
                 <tr>
                     <td>Тип заявления<span class="required">*</span></td>
@@ -106,7 +106,7 @@
                     </td>
                 </tr>
                 <tr>
-                    <td>Отчество<span class="required">*</span></td>
+                    <td>Отчество</td>
                     <td>{{ form_widget(form.surName) }}</td>
                 </tr>
                 <tr>
@@ -135,13 +135,40 @@
                 <tr>
                     <td>Дата выдачи</td>
                     <td>{{ form_widget(form.passportIssuanceDate) }}</td>
-                    <td>
-                        {#Копия ОГРН <span class="mini">(форматы файла: JPG,PNG)</span>#}
-                    </td>
+                    <td class="citizenship">Перевод паспорта <span class="mini">(форматы файла: JPG,PNG)</span></td>
                 </tr>
                 <tr>
-                    <td>Код подразделения<span class="required">*</span></td>
+                    <td>Код подразделения</td>
                     <td>{{ form_widget(form.passportCode) }}</td>
+                    <td class="citizenship" rowspan="2" style="vertical-align: top">
+                        <div class="file-container">
+                            <input type="file" name="passportTranslateFile" id="passportTranslateFile" class="fileAjax" >
+                            <progress class="progress" value="0" max="100" style="width: 270px"></progress>
+                            <br />
+                            <br />
+                            <div class="fileDoc">
+                                {% if form.vars.value.copyPassportTranslate.path is defined %}
+                                    <img src="/{{ form.vars.value.copyPassportTranslate.path }}" brightness="0" contrast="0">
+                                {% else %}
+                                    <img src="" brightness="0" contrast="0">
+                                {% endif %}
+                            </div>
+                            <div class="navigateFile">
+                                <img src="{{ asset('bundles/crmmain/icons/rotateLeft.png') }}" class="rotateLeft" title="Повернуть налево">
+                                <img src="{{ asset('bundles/crmmain/icons/rotateRight.png') }}" class="rotateRight" title="Повернуть вправо">
+                                <div style="">
+                                    <span class="cropImage minibtn" title="Обрезать изображение">Обрезать</span>
+                                    <br />
+                                    <br />
+                                </div>
+
+                            </div>
+                            <input type="hidden" id="x1" name="x1">
+                            <input type="hidden" id="y1" name="y1">
+                            <input type="hidden" id="x2" name="x2">
+                            <input type="hidden" id="y2" name="y2">
+                        </div>
+                    </td>
                 </tr>
             </table>
         </div>
@@ -236,6 +263,44 @@
                     <td>Дата выдачи:</td>
                     <td class="value">
                         {{ form_widget(form.driverDocDateStarts) }}
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td class="citizenship">Перевод вод. удостоверения <span class="mini">(форматы файла: JPG,PNG)</span></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td class="citizenship" rowspan="2" style="vertical-align: top">
+                        <div class="file-container">
+                            <input type="file" name="driverTranslateFile" id="driverTranslateFile" class="fileAjax" >
+                            <progress class="progress" value="0" max="100" style="width: 270px"></progress>
+                            <br />
+                            <br />
+                            <div class="fileDoc">
+                                {% if form.vars.value.copyDriverPassportTranslate.path is defined %}
+                                    <img src="/{{ form.vars.value.copyDriverPassportTranslate.path }}" brightness="0" contrast="0">
+                                {% else %}
+                                    <img src="" brightness="0" contrast="0">
+                                {% endif %}
+                            </div>
+                            <div class="navigateFile">
+                                <img src="{{ asset('bundles/crmmain/icons/rotateLeft.png') }}" class="rotateLeft" title="Повернуть налево">
+                                <img src="{{ asset('bundles/crmmain/icons/rotateRight.png') }}" class="rotateRight" title="Повернуть вправо">
+                                <div style="">
+                                    <span class="cropImage minibtn" title="Обрезать изображение">Обрезать</span>
+                                    <br />
+                                    <br />
+                                </div>
+
+                            </div>
+                            <input type="hidden" id="x1" name="x1">
+                            <input type="hidden" id="y1" name="y1">
+                            <input type="hidden" id="x2" name="x2">
+                            <input type="hidden" id="y2" name="y2">
+                        </div>
                     </td>
                 </tr>
             </table>
@@ -469,7 +534,7 @@
                     <td></td>
                     <td colspan="2" style="text-align: left">
                         {% if edit is not defined  %}
-                            <input type="checkbox" required="required"> Я согласен с <a href="#" target="_blank">пользовательским соглашением сервиса</a><span class="required">*</span> <br />
+                            <input type="checkbox" required="required"> Я согласен с <a href="{{ path('page',{'url' : 'eula'}) }}" target="_blank">пользовательским соглашением сервиса</a><span class="required">*</span> <br />
                         {% endif %}
                         <input type="checkbox" required="required"> Я подтверждаю правильность введенных данных<span class="required">*</span>
                     </td>
@@ -481,7 +546,7 @@
                     <td>
                         <br />
                         {% if edit is not defined  %}
-                            <input type="submit" value="Подтвердить и перейти на страницу оплаты" class="btn btn-primary" id="submit">
+                            <input type="submit" value="Подтвердить и сохранить" class="btn btn-primary" id="submit">
                         {% else %}
                             <input type="submit" value="Сохранить" class="btn btn-primary" id="submit">
                         {% endif %}
@@ -797,7 +862,7 @@
 
 
             $.mask.definitions['d'] = "[a-zA-Z0-9а-яА-Я]";
-            $('.driverNumber').mask("dddd999999");
+            $('.driverNumber').mask("dddd9999?99");
             $('.oldCardNumber').mask("RUDddddddddddddd");
 
             $('.cardType').change(function(){
