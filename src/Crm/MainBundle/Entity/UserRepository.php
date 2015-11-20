@@ -285,10 +285,10 @@ class UserRepository extends EntityRepository
 //        echo '<br />';
 //        echo '<br />';
 //        exit;
-        $result = $res->getQuery()->getResult();
-//        $result = $res->getQuery();
 
-        return $result;
+//        $result = $res->getQuery();
+//        $result = $res->getQuery()->getResult();
+        return $res;
     }
 
     public function calendar($params = array()){

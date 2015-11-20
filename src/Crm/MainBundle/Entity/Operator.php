@@ -88,6 +88,36 @@ class Operator extends BaseEntity implements UserInterface
     protected $priceRu = 0;
 
     /**
+     * @ORM\Column(type="integer")
+     */
+    protected $priceCompanySkzi = 0;
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    protected $priceCompanyEstr = 0;
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    protected $priceCompanyRu = 0;
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    protected $priceMasterSkzi = 0;
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    protected $priceMasterEstr = 0;
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    protected $priceMasterRu = 0;
+
+    /**
      * @ORM\OneToMany(targetEntity="CompanyQuotaLog", mappedBy="operator")
      */
     protected $companyQuotaLog;
@@ -895,6 +925,103 @@ class Operator extends BaseEntity implements UserInterface
     {
         $this->bik = $bik;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getPriceCompanySkzi()
+    {
+        return $this->priceCompanySkzi;
+    }
+
+    /**
+     * @param mixed $priceCompanySkzi
+     */
+    public function setPriceCompanySkzi($priceCompanySkzi)
+    {
+        $this->priceCompanySkzi = $priceCompanySkzi;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getPriceCompanyEstr()
+    {
+        return $this->priceCompanyEstr;
+    }
+
+    /**
+     * @param mixed $priceCompanyEstr
+     */
+    public function setPriceCompanyEstr($priceCompanyEstr)
+    {
+        $this->priceCompanyEstr = $priceCompanyEstr;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getPriceCompanyRu()
+    {
+        return $this->priceCompanyRu;
+    }
+
+    /**
+     * @param mixed $priceCompanyRu
+     */
+    public function setPriceCompanyRu($priceCompanyRu)
+    {
+        $this->priceCompanyRu = $priceCompanyRu;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getPriceMasterSkzi()
+    {
+        return $this->priceMasterSkzi;
+    }
+
+    /**
+     * @param mixed $priceMasterSkzi
+     */
+    public function setPriceMasterSkzi($priceMasterSkzi)
+    {
+        $this->priceMasterSkzi = $priceMasterSkzi;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getPriceMasterEstr()
+    {
+        return $this->priceMasterEstr;
+    }
+
+    /**
+     * @param mixed $priceMasterEstr
+     */
+    public function setPriceMasterEstr($priceMasterEstr)
+    {
+        $this->priceMasterEstr = $priceMasterEstr;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getPriceMasterRu()
+    {
+        return $this->priceMasterRu;
+    }
+
+    /**
+     * @param mixed $priceMasterRu
+     */
+    public function setPriceMasterRu($priceMasterRu)
+    {
+        $this->priceMasterRu = $priceMasterRu;
+    }
+
 
 
 

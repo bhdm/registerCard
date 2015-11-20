@@ -102,7 +102,7 @@ class CompanyUser extends BaseEntity
 
     /**
      * @Assert\NotBlank( message = "Поле КПП обязательно для заполнения" )
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string", nullable=true)
      */
     protected $companyKpp;
 
@@ -224,6 +224,12 @@ class CompanyUser extends BaseEntity
 
     /**
      * @Assert\File( maxSize="2M")
+     * @FileStore\UploadableField(mapping="usercompany")
+     * @ORM\Column(type="array", nullable=true)
+     */
+    protected $fileLicenseTwo;
+
+    /**
      * @ORM\Column(type="array", nullable=true)
      */
     protected $fileSign;
@@ -311,6 +317,21 @@ class CompanyUser extends BaseEntity
      */
     protected $licenseDecreeDate;
 
+    /**
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    protected $paid = false;
+
+    /**
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    protected $confirmed = false;
+
+    /**
+     * @ORM\Column(type="string", nullable=true)
+     */
+    protected $oldCard;
+
     # ###### #
     # МЕТОДЫ #
     # ###### #
@@ -318,6 +339,8 @@ class CompanyUser extends BaseEntity
     public function __construct(){
         $this->salt = md5(time());
         $this->dateDeploy = new \DateTime();
+        $this->paid = false;
+        $this->confirmed = false;
     }
 
     /**
@@ -1021,26 +1044,24 @@ class CompanyUser extends BaseEntity
                 $status = '<span class="status" style="border: 1px solid #000; color: #000000">Новая</span>';
                 break;
             case 1:
-                $status = '<span class="status" style="border: 1px solid #cc8140; color: #cc8140">Подтвержденная</span>';
-                break;
-            case 2:
-                $status = '<span class="status" style="border: 1px solid #33CC33; color: #33CC33">Оплаченная</span>';
-                break;
-            case 3:
                 $status = '<span class="status" style="border: 1px solid #2135cc; color: #2135cc">В&nbsp;производстве</span>';
                 break;
-            case 6:
+            case 2:
                 $status = '<span class="status" style="border: 1px solid #920055; color: #920055">Изготовлено</span>';
                 break;
-            case 4:
+            case 3:
                 $status = '<span class="status" style="border: 1px solid #660000; color: #660000">На почте</span>';
                 break;
-            case 5:
+            case 4:
                 $status = '<span class="status" style="border: 1px solid #6c9e9f; color: #6c9e9f">Получена</span>';
                 break;
             case 10:
                 $status = '<span class="status" style="border: 1px solid #CC3333; color: #CC3333">Отклонена</span>';
                 break;
+            default:
+                $status = '<span class="status" style="border: 1px solid #CC3333; color: #CC3333">Ошибка статуса</span>';
+                break;
+
         }
         return $status;
     }
@@ -1117,6 +1138,70 @@ class CompanyUser extends BaseEntity
     public function setBirthday($birthday)
     {
         $this->birthday = $birthday;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getPaid()
+    {
+        return $this->paid;
+    }
+
+    /**
+     * @param mixed $paid
+     */
+    public function setPaid($paid)
+    {
+        $this->paid = $paid;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getConfirmed()
+    {
+        return $this->confirmed;
+    }
+
+    /**
+     * @param mixed $confirmed
+     */
+    public function setConfirmed($confirmed)
+    {
+        $this->confirmed = $confirmed;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getFileLicenseTwo()
+    {
+        return $this->fileLicenseTwo;
+    }
+
+    /**
+     * @param mixed $fileLicenseTwo
+     */
+    public function setFileLicenseTwo($fileLicenseTwo)
+    {
+        $this->fileLicenseTwo = $fileLicenseTwo;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getOldCard()
+    {
+        return $this->oldCard;
+    }
+
+    /**
+     * @param mixed $oldCard
+     */
+    public function setOldCard($oldCard)
+    {
+        $this->oldCard = $oldCard;
     }
 
 
