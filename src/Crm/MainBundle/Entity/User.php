@@ -450,7 +450,7 @@ class User extends BaseEntity implements UserInterface, EquatableInterface, \Ser
     protected $ru = 0;
 
     /**
-     * @ORM\Column(type="array", nullable=true)
+     * @ORM\Column(type="string", nullable=true)
      */
     protected $typeCardFile;
 
