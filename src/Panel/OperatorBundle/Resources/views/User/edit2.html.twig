@@ -28,7 +28,7 @@
                                     {% if user.typeCardFile %}
                                         <br />
 
-                                        <a href="/{{ user.typeCardFile.path }}" target="_blank">Скачать</a>
+                                        <a href="/upload/{{ user.typeCardFile}}" target="_blank">Скачать</a>
                                     {% endif %}
                                 </div>
                             </div>
@@ -833,13 +833,6 @@
                 </tr>
                 <tr>
                     <td>
-                        {% if user.copyWork.path is defined and user.copyWork.path != '//upload/' %}
-                            <a href="/{{ user.copyWork.path }}" target="_blank">Документ Временная регистрация</a> <br />
-                        {% endif %}
-
-                        {% if user.typeCardFile.path is defined and user.typeCardFile.path != '//upload/' %}
-                            <a href="/{{ user.typeCardFile.path }}" target="_blank">Документ заявление</a><br />
-                        {% endif %}
                     </td>
                 </tr>
                 {% if not is_granted('ROLE_ADMIN') %}
