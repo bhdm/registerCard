@@ -49,7 +49,7 @@
                     <td>
 
                     </td>
-                    <td> {{ company.userConfirmation | length}} / {{ company.users | length }}</td>
+                    <td> <span title="Все">{{ company.users | length }}</span> / <span title="В работе">{{ company.userConfirmation | length}}</span></td>
 
                     <td style="text-align: center">
                         <a href="{{ path('panel_client_list',{'companyId' : company.id }) }}">
