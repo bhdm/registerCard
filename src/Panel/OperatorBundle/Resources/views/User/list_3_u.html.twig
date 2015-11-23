@@ -42,7 +42,7 @@
             </tr>
             </thead>
             {% for user in pagination %}
-                <tr id="userr{{ user.id. }}">
+                <tr id="userr{{ user.id }}">
                     <td><input type="checkbox" name="user[{{ user.id }}]" value="{{ user.id }}"></td>
                     {% if is_granted('ROLE_ADMIN') %}
                         <td>
