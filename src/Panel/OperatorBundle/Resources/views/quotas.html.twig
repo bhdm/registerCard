@@ -32,3 +32,7 @@
     {% if app.request.attributes.get('_route_params').operator is defined and app.request.attributes.get('_route_params').operator != 'null' and app.request.attributes.get('_route_params').operator != null %}
         {{ render_hinclude(path('panel_operator_get_quota', {'operatorId' : app.request.attributes.get('_route_params').operator})) }}
     {% endif %}
+
+    {% if app.user.moderator.roles[0] == 'ROLE_ADMIN' %}
+        {{ render_hinclude(path('panel_operator_get_quota', {'operatorId' : app.user.id })) }}
+    {% endif %}
