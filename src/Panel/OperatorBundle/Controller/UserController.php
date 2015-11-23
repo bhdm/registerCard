@@ -61,6 +61,7 @@ class UserController extends Controller
         }
 
         $users = $this->getDoctrine()->getRepository('CrmMainBundle:User')->operatorFilter($type, $status, $company, $operator, $searchtxt, $dateStart, $dateEnd, 0, $filterManager, $confirmed);
+        $usersCount = $this->getDoctrine()->getRepository('CrmMainBundle:User')->operatorFilterCount($type, $status, $company, $operator, $searchtxt, $dateStart, $dateEnd, 0, $filterManager, $confirmed);
 
         $paginator = $this->get('knp_paginator');
         $pagination = $paginator->paginate(
@@ -85,7 +86,7 @@ class UserController extends Controller
         }
 
         $vars = array(
-            'count' => count($users),
+            'count' => $usersCount,
             'pagination' => $pagination,
             'companyId'  => $companyId,
             'company'    => $company,

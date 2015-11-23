@@ -33,6 +33,6 @@
         {{ render_hinclude(path('panel_operator_get_quota', {'operatorId' : app.request.attributes.get('_route_params').operator})) }}
     {% endif %}
 
-    {% if app.user.moderator.roles[0] == 'ROLE_ADMIN' %}
+    {% if app.user.moderator != null and app.user.moderator.roles[0] == 'ROLE_ADMIN' %}
         {{ render_hinclude(path('panel_operator_get_quota', {'operatorId' : app.user.id })) }}
     {% endif %}
