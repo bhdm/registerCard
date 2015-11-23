@@ -186,6 +186,16 @@ class Operator extends BaseEntity implements UserInterface
      */
     protected $bik;
 
+    /**
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    public $iframe = false;
+
+    /**
+     * @ORM\Column(type="string", nullable=true)
+     */
+    public $eula;
+
     public function __construct(){
         $this->roles    = 'ROLE_OPERATOR';
         $this->companies = new ArrayCollection();
@@ -1022,6 +1032,37 @@ class Operator extends BaseEntity implements UserInterface
         $this->priceMasterRu = $priceMasterRu;
     }
 
+    /**
+     * @return mixed
+     */
+    public function getIframe()
+    {
+        return $this->iframe;
+    }
+
+    /**
+     * @param mixed $iframe
+     */
+    public function setIframe($iframe = false)
+    {
+        $this->iframe = $iframe;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getEula()
+    {
+        return $this->eula;
+    }
+
+    /**
+     * @param mixed $eula
+     */
+    public function setEula($eula)
+    {
+        $this->eula = $eula;
+    }
 
 
 

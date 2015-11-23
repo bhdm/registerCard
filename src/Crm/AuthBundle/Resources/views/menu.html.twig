@@ -21,12 +21,14 @@
     <li>
         <hr />
     </li>
-    <li>
-        <a href="{{ path('auth_profile') }}">Профиль</a>
-    </li>
-    <li>
-        <a href="{{ path('auth_security_logout') }}">Выйти</a>
-    </li>
+    {% if not app.user.company.operator.iframe == true %}
+        <li>
+            <a href="{{ path('auth_profile') }}">Профиль</a>
+        </li>
+        <li>
+            <a href="{{ path('auth_security_logout') }}">Выйти</a>
+        </li>
+    {% endif %}
 </ul>
 <br />
 <br />
