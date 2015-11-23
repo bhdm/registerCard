@@ -224,7 +224,7 @@ class OperatorController extends Controller
     }
 
     /**
-     * @Security("has_role('ROLE_MODERATOR')")
+     * @Security("has_role('ROLE_OPERATOR')")
      * @Route("/get-quota/{operatorId}", name="panel_operator_get_quota", options={"expose" = true})
      * @Template()
      */
