@@ -336,7 +336,9 @@ class OrderController extends Controller
                 $session = new Session();
                 $fileSign = $session->get('signFile');
                 $info = new \SplFileInfo($fileSign);
+
                 $path = $this->get('kernel')->getRootDir() . '/../web/upload/usercompany/';
+                mkdir($path.$item->getId());
                 $path = $path.$item->getId().'/'.$item->getSalt().'-si.'.$info->getExtension();
                 if (copy($fileSign,$path)){
                     unlink( $fileSign );
