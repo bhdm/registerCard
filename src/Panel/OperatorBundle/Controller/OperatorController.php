@@ -82,6 +82,29 @@ class OperatorController extends Controller
                 $operator->setConfirmed(false);
             }
 
+            if ($request->request->get('iframe') != null){
+                $operator->setIframe(true);
+            }else{
+                $operator->setIframe(false);
+            }
+
+
+            $fileSign = $request->files->get('eula');
+            if ($fileSign){
+                $filaName = $fileSign->getClientOriginalName();
+                $fileSign = $fileSign->getPathName();
+                $info = new \SplFileInfo($fileSign);
+                $path = $this->get('kernel')->getRootDir() . '/../web/upload/';
+
+                $path = $path.$operator->getId().$filaName;
+                if (copy($fileSign,$path)){
+                    unlink( $fileSign );
+                }
+            }
+
+            $operator->setEula($operator->getId().$filaName);
+
+
             if ( $this->get('security.context')->isGranted('ROLE_ADMIN')){
                 if ($request->request->get('moderator') != null){
                     $moderator = $this->getDoctrine()->getRepository('CrmMainBundle:Operator')->find($request->request->get('moderator'));

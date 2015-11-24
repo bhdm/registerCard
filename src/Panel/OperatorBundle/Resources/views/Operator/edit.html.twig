@@ -8,7 +8,7 @@
 {% endblock %}
 
 {% block content %}
-    <form method="POST">
+    <form method="POST" enctype="multipart/form-data">
         <table>
             <tr>
                 <td class="label">Логин:</td>
@@ -61,6 +61,22 @@
             <tr>
                 <td class="label">БИК:</td>
                 <td class="value"><input style="width: 358px;" type="text" class="form-control" name="bik" value="{{ operator.bik }}"></td>
+            </tr>
+            <tr>
+                <td class="label">Соглашение:</td>
+                <td class="value" style="  padding-top: 5px;">
+                    <input name="eula" id="eula" type="file"  />
+                    {% if operator.eula != null %}
+                        <a href="/upload/{{ operator.eula }}" target="_blank">Посмотреть</a>
+                    {% endif %}
+                </td>
+            </tr>
+
+            <tr>
+                <td class="label">Система iframe:</td>
+                <td class="value" style="  padding-top: 5px;">
+                    <input name="iframe" id="iframe" type="checkbox" {{ operator.iframe == true ? 'checked="checked"' }} />
+                </td>
             </tr>
             <tr>
                 <td class="label">Доверенный оператор:</td>
