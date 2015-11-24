@@ -164,8 +164,8 @@ class OrderController extends Controller
 
             $rootDir = __DIR__.'/../../../../web/upload/';
             $files = $request->files->get('crm_mainbundle_user');
-            if (isset($files['typeCardFile']) && $files['typeCardFile']['file'] != null){
-                $typeCardFile = $files['typeCardFile']['file'];
+            if (isset($files['typeCardFile'])){
+                $typeCardFile = $files['typeCardFile'];
                 $info = new \SplFileInfo($typeCardFile->getClientOriginalName());
                 $ex = $info->getExtension();
                 $filename = time().'.'.$ex;
@@ -173,8 +173,8 @@ class OrderController extends Controller
                 $user->setTypeCardFile($filename);
             }
 
-            if (isset($files['copyWork']) && $files['copyWork']['file'] != null){
-                $copyWork = $files['copyWork']['file'];
+            if (isset($files['copyWork']) && $files['copyWork'] != null){
+                $copyWork = $files['copyWork'];
                 $info = new \SplFileInfo($copyWork->getClientOriginalName());
                 $ex = $info->getExtension();
                 $filename = time().'.'.$ex;
@@ -336,7 +336,9 @@ class OrderController extends Controller
                 $session = new Session();
                 $fileSign = $session->get('signFile');
                 $info = new \SplFileInfo($fileSign);
+
                 $path = $this->get('kernel')->getRootDir() . '/../web/upload/usercompany/';
+                mkdir($path.$item->getId());
                 $path = $path.$item->getId().'/'.$item->getSalt().'-si.'.$info->getExtension();
                 if (copy($fileSign,$path)){
                     unlink( $fileSign );

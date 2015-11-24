@@ -6,22 +6,29 @@
     {#</li>#}
     <li>
         <a href="{{ path('auth_order') }}">Карты водителей</a>
-        {% if app.user.company != null and app.user.company.id != 551 %}
-            <a href="{{ path('auth_order_company') }}">Карты предприятий</a>
-        {% endif %}
     </li>
+    {% if app.user.company != null and app.user.company.id != 551 %}
+    <li>
+        <a href="{{ path('auth_order_company') }}">Карты предприятий</a>
+    </li>
+    {#<li>#}
+        {#<a href="{{ path('auth_payment_list') }}">Счета</a>#}
+    {#</li>#}
+    {% endif %}
     <li>
         <a href="{{ path('auth_message') }}" style="{{ render(controller("CrmAuthBundle:Message:newMessageClient"))}}">Мои сообщения</a>
     </li>
     <li>
         <hr />
     </li>
-    <li>
-        <a href="{{ path('auth_profile') }}">Профиль</a>
-    </li>
-    <li>
-        <a href="{{ path('auth_security_logout') }}">Выйти</a>
-    </li>
+    {% if not app.user.company.operator.iframe == true %}
+        <li>
+            <a href="{{ path('auth_profile') }}">Профиль</a>
+        </li>
+        <li>
+            <a href="{{ path('auth_security_logout') }}">Выйти</a>
+        </li>
+    {% endif %}
 </ul>
 <br />
 <br />

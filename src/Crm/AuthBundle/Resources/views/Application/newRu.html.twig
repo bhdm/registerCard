@@ -197,48 +197,48 @@
                 </table>
             </div>
             <hr>
-            <div class="block-form" >
-                <table class="table-form">
-                    <caption>Информация о СНИЛС ( Не обязательно )</caption>
-                    <tr>
-                        <td>Номер СНИЛС</td>
-                        <td>{{ form_widget(form.snils) }}</td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td style="vertical-align: top; padding-top: 10px">Копия СНИЛС</td>
-                        <td colspan="2">
-                            <div class="file-container">
-                                <input type="file" name="snilsFile" id="snilsFile" class="fileAjax"  >
-                                <progress class="progress" value="0" max="100" style="width: 270px"></progress>
-                                <br />
-                                <br />
-                                <div class="fileDoc">
-                                    {% if form.vars.value.copySnils.path is defined %}
-                                        <img src="/{{ form.vars.value.copySnils.path }}" brightness="0" contrast="0">
-                                    {% else %}
-                                        <img src="" brightness="0" contrast="0">
-                                    {% endif %}
-                                </div>
-                                <div class="navigateFile">
-                                    <img src="{{ asset('bundles/crmmain/icons/rotateLeft.png') }}" class="rotateLeft" title="Повернуть налево">
-                                    <img src="{{ asset('bundles/crmmain/icons/rotateRight.png') }}" class="rotateRight" title="Повернуть вправо">
-                                    <div style="">
-                                        <span class="cropImage minibtn" title="Обрезать изображение">Обрезать</span>
-                                        <br />
-                                        <br />
-                                    </div>
+            {#<div class="block-form" >#}
+                {#<table class="table-form">#}
+                    {#<caption>Информация о СНИЛС ( Не обязательно )</caption>#}
+                    {#<tr>#}
+                        {#<td>Номер СНИЛС</td>#}
+                        {#<td>{{ form_widget(form.snils) }}</td>#}
+                        {#<td></td>#}
+                    {#</tr>#}
+                    {#<tr>#}
+                        {#<td style="vertical-align: top; padding-top: 10px">Копия СНИЛС</td>#}
+                        {#<td colspan="2">#}
+                            {#<div class="file-container">#}
+                                {#<input type="file" name="snilsFile" id="snilsFile" class="fileAjax"  >#}
+                                {#<progress class="progress" value="0" max="100" style="width: 270px"></progress>#}
+                                {#<br />#}
+                                {#<br />#}
+                                {#<div class="fileDoc">#}
+                                    {#{% if form.vars.value.copySnils.path is defined %}#}
+                                        {#<img src="/{{ form.vars.value.copySnils.path }}" brightness="0" contrast="0">#}
+                                    {#{% else %}#}
+                                        {#<img src="" brightness="0" contrast="0">#}
+                                    {#{% endif %}#}
+                                {#</div>#}
+                                {#<div class="navigateFile">#}
+                                    {#<img src="{{ asset('bundles/crmmain/icons/rotateLeft.png') }}" class="rotateLeft" title="Повернуть налево">#}
+                                    {#<img src="{{ asset('bundles/crmmain/icons/rotateRight.png') }}" class="rotateRight" title="Повернуть вправо">#}
+                                    {#<div style="">#}
+                                        {#<span class="cropImage minibtn" title="Обрезать изображение">Обрезать</span>#}
+                                        {#<br />#}
+                                        {#<br />#}
+                                    {#</div>#}
 
-                                </div>
-                                <input type="hidden" id="x1" name="x1">
-                                <input type="hidden" id="y1" name="y1">
-                                <input type="hidden" id="x2" name="x2">
-                                <input type="hidden" id="y2" name="y2">
-                            </div>
-                        </td>
-                    </tr>
-                </table>
-            </div>
+                                {#</div>#}
+                                {#<input type="hidden" id="x1" name="x1">#}
+                                {#<input type="hidden" id="y1" name="y1">#}
+                                {#<input type="hidden" id="x2" name="x2">#}
+                                {#<input type="hidden" id="y2" name="y2">#}
+                            {#</div>#}
+                        {#</td>#}
+                    {#</tr>#}
+                {#</table>#}
+            {#</div>#}
             <div class="block-form" >
                 <table class="table-form">
                     <caption>Информация о водительском удостоверении</caption>
@@ -523,7 +523,11 @@
                         <td></td>
                         <td colspan="2" style="text-align: left">
                             {% if edit is not defined  %}
-                                <input type="checkbox" required="required"> Я согласен с <a href="{{ path('page',{'url' : 'eula'}) }}" target="_blank">пользовательским соглашением сервиса</a><span class="required">*</span> <br />
+                                {% if app.user.company.operator.eula != null %}
+                                    <input type="checkbox" required="required"> Я согласен с <a href="/upload/{{ app.user.company.operator.eula }}" target="_blank">пользовательским соглашением сервиса</a><span class="required">*</span> <br />
+                                {% else %}
+                                    <input type="checkbox" required="required"> Я согласен с <a href="{{ path('page',{'url' : 'eula'}) }}" target="_blank">пользовательским соглашением сервиса</a><span class="required">*</span> <br />
+                                {% endif %}
                             {% endif %}
                             <input type="checkbox" required="required"> Я подтверждаю правильность введенных данных<span class="required">*</span>
                         </td>
