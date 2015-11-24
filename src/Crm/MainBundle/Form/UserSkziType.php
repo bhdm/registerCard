@@ -30,7 +30,7 @@ class UserSkziType extends AbstractType
             ->add('lastNumberCard', null ,['label' => 'Прошлый номер карты', 'required' => false])
             ->add('lastName', null,['label'=>'Фамилия'])
             ->add('firstName', null,['label'=>'Имя'])
-            ->add('surName', null,['label'=>'Отчество'])
+            ->add('surName', null,['label'=>'Отчество', 'required' => false])
             ->add('enLastName', null, ['label'=>'Фамилия (англ)'])
             ->add('enFirstName', null, ['label'=>'Имя (англ)'])
             ->add('birthDate', 'text',['label'=>'Дата рождения', 'attr' => ['class' => 'date']])
@@ -38,7 +38,7 @@ class UserSkziType extends AbstractType
             ->add('passportNumber', null,['label'=>'', 'required' => true])
             ->add('passportIssuance', null,['label'=>'Кем Выдан', 'attr' => ['maxlength' => 63]])
             ->add('passportIssuanceDate', 'text' ,['label'=>'Дата выдачи', 'attr' => ['class' => 'date']])
-            ->add('passportCode', null,['label'=>'Код подразделения', 'attr' => ['class'=>'code']])
+            ->add('passportCode', null,['label'=>'Код подразделения', 'required' => false, 'attr' => ['class'=>'code']])
             ->add('userComment', null,['label'=>'Комментарий пользователя', 'required' => false])
 
             ->add('email', null,['label'=>'Email'])
@@ -54,7 +54,7 @@ class UserSkziType extends AbstractType
 //
             ->add('myPetition', 'choice',
                 array('label' => 'Ходатайство','choices'=>array(
-                    '0' => 'Ходатайство от ИнфоМакс',
+                    '0' => 'Ходатайство по умолчанию',
                     '1' => 'Свое ходатайство'
                 )))
             ->add('driverDocCountry', null, array('label' => 'Страна выдачи ВУ'))
@@ -79,8 +79,8 @@ class UserSkziType extends AbstractType
 //            ->add('copySignature')
 //            ->add('copySnils')
             ->add('copyPetition', 'iphp_file')
-            ->add('copyWork', 'iphp_file')
-            ->add('typeCardFile', 'iphp_file')
+            ->add('copyWork', 'file', ['required' => false, 'data_class' => null])
+            ->add('typeCardFile', 'file', ['required' => false, 'data_class' => null])
         ;
     }
     

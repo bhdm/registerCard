@@ -33,7 +33,7 @@ class UserEstrType extends AbstractType
 
             ->add('lastName', null,['label'=>'Фамилия'])
             ->add('firstName', null,['label'=>'Имя'])
-            ->add('surName', null,['label'=>'Отчество'])
+            ->add('surName', null,['label'=>'Отчество', 'required' => false])
             ->add('birthDate', 'text',['label'=>'Дата рождения', 'attr' => ['class' => 'date']])
 
             ->add('email', null,['label'=>'Email'])
@@ -48,7 +48,7 @@ class UserEstrType extends AbstractType
 
             ->add('myPetition', 'choice',
                 array('label' => 'Ходатайство','choices'=>array(
-                    '0' => 'Ходатайство от ИнфоМакс',
+                    '0' => 'Ходатайство по умолчанию',
                     '1' => 'Свое ходатайство'
                 )))
 
@@ -66,8 +66,8 @@ class UserEstrType extends AbstractType
 //            ->add('copySignature')
 //            ->add('copySnils')
             ->add('copyPetition', 'iphp_file')
-            ->add('copyWork', 'iphp_file')
-            ->add('typeCardFile', 'iphp_file')
+            ->add('copyWork', 'file', ['required' => false,'data_class' => null])
+            ->add('typeCardFile', 'file', ['required' => false,'data_class' => null])
         ;
     }
     

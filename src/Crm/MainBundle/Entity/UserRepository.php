@@ -291,6 +291,120 @@ class UserRepository extends EntityRepository
         return $res;
     }
 
+    public function operatorFilterCount($type, $status,  $companyId, $user, $searchtxt = null, $dateStart = null, $dateEnd = null, $comment = 0 , $filterManager = null, $confirmed = 0){
+        if ($user){
+            $userId = $user->getId();
+        }else{
+            $userId = null;
+        }
+
+
+        $res = $this->getEntityManager()->createQueryBuilder()
+            ->select('COUNT(u.id)')
+            ->from('CrmMainBundle:User','u')
+            ->leftJoin('u.company ','co')
+            ->leftJoin('co.operator ','op');
+
+        $res->where('u.enabled = true');
+//        $res->andWhere('op.id = '.$userId);
+
+
+        if ($confirmed == 1){
+            $res->andWhere(" co.confirmed = 1  ");
+        }
+
+        if ($comment == 1){
+            $res->andWhere(" ( u.comment is not null AND u.comment != '' ) ");
+        }
+
+        if ($filterManager != null){
+            $res->andWhere("u.managerKey = '".$filterManager."'");
+        }
+        if ($type == 0){
+            $res->andWhere('u.estr = 0 AND u.ru = 0');
+        }elseif ($type == 1){
+            $res->andWhere('u.estr = 1 AND u.ru = 0');
+        }elseif ($type == 2){
+            $res->andWhere('u.estr = 0 AND u.ru = 1');
+        }
+        if ($companyId != null && $companyId != 'null' ){
+            $res->andWhere('co.id = '.$companyId);
+        }
+
+        if ($user->isRole('ROLE_ADMIN')) {
+            if ($status !== null && $status != 'null'){
+                if ($status !== 'all'){
+                    $res->andWhere('u.status = '.$status);
+                }
+                if ($status == 'all' || $status == 3 || $status == 4 || $status == 6 ){
+                    $res->leftJoin('op.moderator','mo');
+                    $res->leftJoin('mo.moderator','mo2');
+                    $res->andWhere('op.id = '.$userId.' OR mo.id ='.$userId .' OR mo2.id = '.$userId);
+                }else{
+                    $res->andWhere('op.id = '.$userId);
+                }
+            }else{
+                $res->andWhere('u.status = 0');
+                $res->andWhere('op.id = '.$userId);
+            }
+        }else{
+            if ( $status !== 'all' ){
+                if ($status == 3 || $status == 4 || $status == 6 ){
+                    $res->andWhere('u.status = 3 OR u.status = 4 OR u.status = 6');
+                }else{
+                    $res->andWhere('u.status = '.$status);
+                }
+            }
+            $res->andWhere('op.id = '.$userId);
+
+        }
+
+
+
+
+        if ($searchtxt != null){
+            $res->andWhere("
+                u.id = '".$searchtxt."'".
+                " OR u.username LIKE '%".$searchtxt."%'".
+                " OR u.email LIKE '%".$searchtxt."%'".
+                " OR u.firstName LIKE '%".$searchtxt."%'".
+                " OR u.lastName LIKE '%".$searchtxt."%'".
+                " OR u.surName LIKE '%".$searchtxt."%'".
+                " OR co.title LIKE '%".$searchtxt."%'"
+            );
+        }
+        if ($dateStart != null){
+            $dateStart = $dateStart.' 00:00:00';
+            $res->andWhere("u.created >='".$dateStart."'");
+        }
+        if ($dateEnd != null){
+            $dateEnd = $dateEnd.' 23:59:59';
+            $res->andWhere("u.created <='".$dateEnd."'");
+        }
+//        if ($production == 0){
+//            $res->andWhere('u.production = 0');
+//        }else{
+//            $res->andWhere('u.production > 0');
+//        }
+//        if ($choose == 1){
+//            $res->andWhere('u.choose = 1');
+//        }else{
+//            $res->andWhere('u.choose != 1');
+//        }
+
+
+        $res->orderBy('u.created', 'DESC');
+        /** ***************** */
+//        echo $res->getQuery()->getSQL();
+//        echo '<br />';
+//        echo '<br />';
+//        exit;
+
+//        $result = $res->getQuery();
+        $result = $res->getQuery()->getSingleScalarResult();
+        return $result;
+    }
+
     public function calendar($params = array()){
 //        $d = new \DateTime();
 //        $dateStringStart = $d->format('Y').'-'.$params['month'].'-01 00:00:00';
