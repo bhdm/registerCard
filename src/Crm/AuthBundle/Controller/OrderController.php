@@ -310,6 +310,11 @@ class OrderController extends Controller
                 $item->setCompany($company);
                 $item->setClient($this->getUser());
 
+                $item->setBirthday(new \DateTime($item->getBirthday()));
+                $item->setLicenseDateStart(new \DateTime($item->getLicenseDateStart()));
+                $item->setLicenseDateEnd(new \DateTime($item->getLicenseDateEnd()));
+                $item->setLicenseDecreeDate(new \DateTime($item->getLicenseDecreeDate()));
+
                 if ($item->getCardType() == 1){
                     if ($item->getCompanyType() == 1){
                         $item->setPrice($company->getPriceEnterpriseSkzi()*$item->getCardAmount());
