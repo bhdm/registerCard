@@ -420,6 +420,11 @@ class User extends BaseEntity implements UserInterface, EquatableInterface, \Ser
     protected $price = 0;
 
     /**
+     * @ORM\Column(type="integer")
+     */
+    protected $priceOperator = 0;
+
+    /**
      * @ORM\Column(type="string", nullable=true)
      */
     protected $cardNumber = 0;
@@ -2148,6 +2153,22 @@ class User extends BaseEntity implements UserInterface, EquatableInterface, \Ser
     public function setCopyDriverPassportTranslate($copyDriverPassportTranslate)
     {
         $this->copyDriverPassportTranslate = $copyDriverPassportTranslate;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getPriceOperator()
+    {
+        return $this->priceOperator;
+    }
+
+    /**
+     * @param mixed $priceOperator
+     */
+    public function setPriceOperator($priceOperator = 0)
+    {
+        $this->priceOperator = $priceOperator;
     }
 
 

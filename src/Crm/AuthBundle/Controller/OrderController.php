@@ -589,6 +589,8 @@ class OrderController extends Controller
         $session->set('photoFile', null);
         $session->set('petitionFile', null);
         $session->set('workFile', null);
+        $session->set('passportTranslateFile', null);
+        $session->set('driverTranslateFile', null);
 
         $session->set('origin-passportFile', null);
         $session->set('origin-passport2File', null);
@@ -599,6 +601,8 @@ class OrderController extends Controller
         $session->set('origin-photoFile', null);
         $session->set('origin-petitionFile', null);
         $session->set('origin-workFile', null);
+        $session->set('origin-passportTranslateFile', null);
+        $session->set('origin-driverTranslateFile', null);
 
         return true;
     }
