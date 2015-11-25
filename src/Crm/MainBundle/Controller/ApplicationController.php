@@ -150,8 +150,8 @@ class ApplicationController extends Controller
                 $user->setCopyWork($filename);
             }
 
-            $user->setCopyWork($this->getImgToArray($rootDir.$user->getCopyWork()));
-            $user->setTypeCardFile($this->getImgToArray($rootDir.$user->getTypeCardFile()));
+//            $user->setCopyWork($this->getImgToArray($rootDir.$user->getCopyWork()));
+//            $user->setTypeCardFile($this->getImgToArray($rootDir.$user->getTypeCardFile()));
 //            $user->setCopyPetition($this->getImgToArray($rootDir.$user->getCopyPetition()));
 
             $cl = $this->newClient($user, $url);
