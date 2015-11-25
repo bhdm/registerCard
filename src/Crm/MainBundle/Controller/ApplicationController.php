@@ -150,9 +150,7 @@ class ApplicationController extends Controller
                 $user->setCopyWork($filename);
             }
 
-//            if ($user->getCopyWork() != null){
-//                $user->setCopyWork($this->getImgToArray($rootDir.$user->getCopyWork()));
-//            }
+//            $user->setCopyWork($this->getImgToArray($rootDir.$user->getCopyWork()));
 //            $user->setTypeCardFile($this->getImgToArray($rootDir.$user->getTypeCardFile()));
 //            $user->setCopyPetition($this->getImgToArray($rootDir.$user->getCopyPetition()));
 
@@ -236,7 +234,7 @@ class ApplicationController extends Controller
 //            if ($this->getUser()->getCompany() != null && $this->getUser()->getCompany()->getUrl() != 'NO_COMPANY'){
 //                return $this->redirect($this->generateUrl('auth_order'));
 //            }else{
-                return $this->render('@CrmMain/Application/success.html.twig',['user' => $user, 'url' => $url]);
+            return $this->render('@CrmMain/Application/success.html.twig',['user' => $user, 'url' => $url]);
 //            }
         }else{
             $this->clearSession($session);
