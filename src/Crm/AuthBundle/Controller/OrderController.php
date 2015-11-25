@@ -102,8 +102,8 @@ class OrderController extends Controller
 //                if ($session->get('petitionFile')!= null){
 //                    $user->setCopyPetition($this->getImgToArray($session->get('petitionFile')));
 //                }
-            $user->setCopyWork($this->getImgToArray($rootDir.$user->getCopyWork()));
-            $user->setTypeCardFile($this->getImgToArray($rootDir.$user->getTypeCardFile()));
+//            $user->setCopyWork($this->getImgToArray($rootDir.$user->getCopyWork()));
+//            $user->setTypeCardFile($this->getImgToArray($rootDir.$user->getTypeCardFile()));
 //            $user->setCopyPetition($this->getImgToArray($rootDir.$user->getCopyPetition()));
 
             $em->persist($user);

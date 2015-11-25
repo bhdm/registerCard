@@ -132,8 +132,8 @@ class ApplicationController extends Controller
             $user->setPhoto($this->getImgToArray($session->get('photoFile')));
 
             $files = $request->files->get('crm_mainbundle_user');
-            if (isset($files['typeCardFile']) && $files['typeCardFile']['file'] != null){
-                $typeCardFile = $files['typeCardFile']['file'];
+            if (isset($files['typeCardFile']) && $files['typeCardFile'] != null){
+                $typeCardFile = $files['typeCardFile'];
                 $info = new \SplFileInfo($typeCardFile->getClientOriginalName());
                 $ex = $info->getExtension();
                 $filename = time().'.'.$ex;
@@ -141,8 +141,8 @@ class ApplicationController extends Controller
                 $user->setTypeCardFile($filename);
             }
 
-            if (isset($files['copyWork']) && $files['copyWork']['file'] != null){
-                $copyWork = $files['copyWork']['file'];
+            if (isset($files['copyWork']) && $files['copyWork'] != null){
+                $copyWork = $files['copyWork'];
                 $info = new \SplFileInfo($copyWork->getClientOriginalName());
                 $ex = $info->getExtension();
                 $filename = time().'.'.$ex;
@@ -150,8 +150,10 @@ class ApplicationController extends Controller
                 $user->setCopyWork($filename);
             }
 
-            $user->setCopyWork($this->getImgToArray($rootDir.$user->getCopyWork()));
-            $user->setTypeCardFile($this->getImgToArray($rootDir.$user->getTypeCardFile()));
+//            if ($user->getCopyWork() != null){
+//                $user->setCopyWork($this->getImgToArray($rootDir.$user->getCopyWork()));
+//            }
+//            $user->setTypeCardFile($this->getImgToArray($rootDir.$user->getTypeCardFile()));
 //            $user->setCopyPetition($this->getImgToArray($rootDir.$user->getCopyPetition()));
 
             $cl = $this->newClient($user, $url);
