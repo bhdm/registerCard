@@ -7,8 +7,10 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 use Symfony\Component\Security\Core\SecurityContext;
 use Symfony\Component\Security\Core\Encoder\MessageDigestPasswordEncoder;
+use Symfony\Component\Security\Http\Event\InteractiveLoginEvent;
 
 /**
  * @Route("/panel")
@@ -86,6 +88,28 @@ class AuthController extends Controller
         }
 
         return ['form' => $form->createView(), 'ir' => $is];
+    }
+
+    /**
+     * @Route("/operator-in/{id}", name="auth_operator_in")
+     */
+    public function inAction(Request $request, $id){
+//      https://blog.vandenbrand.org/2012/06/19/symfony2-authentication-provider-authenticate-against-webservice/
+        $user = $this->getDoctrine()->getRepository('CrmMainBundle:Operator')->find($id);
+
+        $password = $user->getPassword();
+        $username = $user->getUsername();
+        $roles    = $user->getRoles();
+        // Get the security firewall name, login
+        #$providerKey = $this->container->getParameter('fos_user.firewall_name');
+        $token = new UsernamePasswordToken($user, $password, 'operator', $roles);
+        $this->get("security.context")->setToken($token);
+        // Fire the login event
+        $event = new InteractiveLoginEvent($request, $token);
+        $this->get("event_dispatcher")->dispatch("security.interactive_login", $event);
+
+
+        return $this->redirect($this->generateUrl('panel_user_list'));
     }
 
 }

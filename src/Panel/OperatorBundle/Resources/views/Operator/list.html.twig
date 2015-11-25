@@ -27,6 +27,8 @@
                         <a href="{{ path('panel_user_list',{'status' : '0', 'type': 'null', 'company' : 'null', 'operator' : o.id}) }}">
                             {{ o }}
                         </a>
+
+                        <a href="{{ path('auth_operator_in',{'id' : o.id}) }}">Войти</a>
                     </td>
                     <td>
                             <span title="Новые">{{ o.countUsers.new }}</span> /
