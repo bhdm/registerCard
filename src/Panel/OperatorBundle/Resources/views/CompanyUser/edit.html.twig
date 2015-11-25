@@ -598,7 +598,12 @@
                 }else{
                     $('.master').css('display','none');
                 }
-            })
+            });
+
+            $(":text").focus(function(){    // получение фокуса текстовым полем
+                input_temp=this.value;
+                $(this).select();
+            });
         });
     </script>
 {% endblock %}
