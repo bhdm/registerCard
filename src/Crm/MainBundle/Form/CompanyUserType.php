@@ -68,11 +68,11 @@ class CompanyUserType extends AbstractType
             ->add('licenseNumber', null, array('required' => false))
             ->add('licenseIssued', null, array('required' => false))
 //            ->add('licenseDateStart', 'date', ['widget' => 'single_text','required' => false])
-            ->add('licenseDateStart', 'text',['label'=>'Дата рождения', 'attr' => ['class' => 'date','required' => false]])
+            ->add('licenseDateStart', 'text',['label'=>'Дата рождения', 'attr' => ['class' => 'date'],'required' => false])
 //            ->add('licenseDateEnd', 'date', ['widget' => 'single_text','required' => false])
-            ->add('licenseDateEnd', 'text',['label'=>'Дата рождения', 'attr' => ['class' => 'date','required' => false]])
+            ->add('licenseDateEnd', 'text',['label'=>'Дата рождения', 'attr' => ['class' => 'date'],'required' => false])
             ->add('licenseDecreeNumber', null, ['required' => false])
-            ->add('licenseDecreeDate', 'text',[ 'attr' => ['class' => 'date','required' => false]])
+            ->add('licenseDecreeDate', 'text',[ 'attr' => ['class' => 'date'],'required' => false])
         ;
     }
     
