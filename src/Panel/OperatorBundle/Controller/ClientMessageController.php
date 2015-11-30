@@ -50,6 +50,7 @@ class ClientMessageController extends Controller
         FROM Client c
         LEFT JOIN Company co ON co.id = c.company_id
         WHERE co.operator_id = ".$this->getUser()->getId();
+
         $pdo = $this->getDoctrine()->getManager()->getConnection();
         $st = $pdo->prepare($query);
         $st->execute();
@@ -63,6 +64,19 @@ class ClientMessageController extends Controller
             $messages = $this->getDoctrine()->getRepository('CrmMainBundle:Chat')->loadMessages($clientId);
         }else{
             $messages = array();
+        }
+
+        # Если clientId != null, то делаем сообщения его прочитанными
+        if ($clientId != null){
+            $query = 'UPDATE Chat
+                      SET `read` = 1
+                      WHERE
+                        Chat.client_id = '.$clientId.' AND
+                        isOperator = 0
+                        ';
+            $pdo = $this->getDoctrine()->getManager()->getConnection();
+            $pdo->exec($query);
+
         }
 
         return ['clients' => $client, 'activeClient'=> $clientId,'messages' => $messages, 'notAnswer' => $notAnswer];
