@@ -54,7 +54,26 @@
                             <input type="text" style="width: 50px" value="{{ user.managerKey }}" class="managers" id="{{ user.id }}">
                         </td>
                     {% endif %}
-                    <td {{ user.price == 0 ? 'style="color: #CC0000"' : '' }}>{{ user.id }}</td>
+                    <td {{ user.price == 0 ? 'style="color: #CC0000"' : '' }}>
+                        {{ user.id }}
+                        {% if is_granted('ROLE_ADMIN') %}
+                            {% if  user.payment == true %}
+                                <span class="glyphicon glyphicon-ok" style="color: #00cc00"></span>
+                            {% else %}
+                                {% if user.company.operator != null and user.company.operator.id != 1 %}
+                                    <span class="glyphicon glyphicon-ok"  style="color: #cc0000"></span>
+                                {% endif %}
+                            {% endif %}
+                            &nbsp;
+                            {% if  user.comfirmed == true %}
+                                <span class="glyphicon glyphicon-saved" style="color: #00cc00"></span>
+                            {% else %}
+                                {% if user.company.operator != null and user.company.operator.id != 1 %}
+                                    <span class="glyphicon glyphicon-saved" style="color: #cc0000"></span>
+                                {% endif %}
+                            {% endif %}
+                        {% endif %}
+                    </td>
                     <td>
                         {% if user.ru == false and user.estr == false %}
                             СКЗИ
