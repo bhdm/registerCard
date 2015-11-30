@@ -17,6 +17,7 @@
                data-sort-order="asc">
             <thead>
             <tr>
+                <th >Опеатор</th>
                 <th >Компания</th>
                 <th >Название</th>
                 <th >Кол-во заявок</th>
@@ -24,6 +25,14 @@
                 <th class="setting">Инструменты</th>
             </tr>
             <tr>
+                <td>
+                    <select class="chosen" id="operators" data-placeholder="оператор" style="width: 200px">
+                        <option value="0">Оператор</option>
+                        {% for c in operatorList %}
+                            <option value="{{ c.id }}" {{ operator != null and operator.id == c.id ? 'selected="selected"' : ""}}>{{ c }}</option>
+                        {% endfor %}
+                    </select>
+                </td>
                 <td>
                     <select class="chosen" id="companies" data-placeholder="Компания" style="width: 200px">
                         {% for c in companiesList %}
@@ -45,6 +54,11 @@
             </thead>
             {% for client in clients %}
                 <tr style="{{ client.quota < 0 ? 'background: #FFCACA' : 0 }}" >
+                    <td>
+                        {% if client.company != null and client.company.operator != null %}
+                            {{ client.company.operator }}
+                        {% endif %}
+                    </td>
                     <td>
                         {% if client.company != null %}
                             <a href="{{ path('panel_user_list', {'type' : 'null' , 'company' : client.company.id }) }}">{{ client.company.title }}</a>
@@ -101,6 +115,9 @@
             });
             $('#clients').change(function(){
                 window.location.href = Routing.generate('panel_client_list', {'clientId': $(this).val() })
+            });
+            $('#operators').change(function(){
+                window.location.href = Routing.generate('panel_client_list', {'operatorId': $(this).val() })
             });
         });
     </script>

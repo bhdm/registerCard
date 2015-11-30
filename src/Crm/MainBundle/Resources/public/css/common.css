@@ -491,3 +491,7 @@ input.little{
 .file-container .jq-file{
     margin-bottom: 10px;
 }
+
+.text-danger{
+    color: #cc0000 !important;
+}

@@ -207,3 +207,6 @@ progress {
     border-radius: 5px;
     font-size: 11px;
 }
+.text-danger{
+    color: #cc0000 !important;
+}

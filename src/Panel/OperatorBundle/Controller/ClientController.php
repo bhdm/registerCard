@@ -34,12 +34,19 @@ class ClientController extends Controller
             if ($request->query->get('companyId')){
                 $company = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->findOneById($request->query->get('companyId'));
                 $clients = $this->getDoctrine()->getRepository('CrmMainBundle:Client')->findBy(['company' => $company]);
-            }elseif($request->query->get('clientId')){
+                $operator = null;
+            }elseif($request->query->get('clientId')) {
                 $clients = $this->getDoctrine()->getRepository('CrmMainBundle:Client')->findBy(['id' => $request->query->get('clientId')]);
+                $company = null;
+                $operator = null;
+            }elseif($request->query->get('operatorId') && $request->query->get('operatorId') != 0){
+                $operator = $this->getDoctrine()->getRepository('CrmMainBundle:Operator')->find($request->query->get('operatorId'));
+                $clients = $this->getDoctrine()->getRepository('CrmMainBundle:Client')->findByOperator($request->query->get('operatorId'));
                 $company = null;
             }else{
                 $clients = $this->getDoctrine()->getRepository('CrmMainBundle:Client')->findAll();
                 $company = null;
+                $operator = null;
             }
 
             $clientsList = $this->getDoctrine()->getRepository('CrmMainBundle:Client')->findAll();
@@ -52,9 +59,16 @@ class ClientController extends Controller
 
             $clientsList = $company->getClients();
             $companiesList = $this->getUser()->getCompanies();
-        }
 
-        return ['clients' => $clients, 'companiesList' => $companiesList, 'clientsList' => $clientsList , 'company' => $company];
+
+
+        }
+        if ($this->get('security.context')->isGranted('ROLE_ADMIN')){
+            $operatorList = $this->getDoctrine()->getRepository('CrmMainBundle:Operator')->findAll();
+        }else{
+            $operatorList = [$this->getUser()];
+        }
+        return ['clients' => $clients, 'companiesList' => $companiesList, 'clientsList' => $clientsList , 'company' => $company, 'operatorList' => $operatorList, 'operator' => $operator];
     }
 
     /**
