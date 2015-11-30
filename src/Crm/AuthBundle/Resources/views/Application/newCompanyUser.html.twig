@@ -30,7 +30,7 @@
                 <tr>
                     <td>Email<span class="required">*</span></td>
                     <td>{{ form_widget(form.username) }}</td>
-                    <td class="skzi-col">Заявление <span class="mini text-danger">(форматы файла: JPG,PNG)</span></td>
+                    <td class="skzi-col">Заявление <span class="mini text-danger">(допустимые форматы: JPG,PNG)</span></td>
                 </tr>
                 <tr>
                     <td>Телефон<span class="required">*</span></td>
@@ -54,8 +54,8 @@
                     </td>
                 </tr>
                 <tr>
-                    <td>Номер старой карты</td>
-                    <td>{{ form_widget(form.oldCard) }}</td>
+                    <td class="displayorderType">Номер старой карты</td>
+                    <td class="displayorderType">{{ form_widget(form.oldCard) }}</td>
                 </tr>
 
                 <tr>
@@ -78,9 +78,9 @@
                     <td colspan="2">{{ form_widget(form.companyTitle) }}</td>
                 </tr>
                 <tr>
-                    <td>В лице<span class="required">*</span></td>
-                    <td>{{ form_widget(form.companyExecutive) }}</td>
-                    <td class="skzi-col">Копия ИНН <span class="mini text-danger">(форматы файла: JPG,PNG)</span></td>
+                    <td class="displayorderType">В лице<span class="required">*</span></td>
+                    <td class="displayorderType">{{ form_widget(form.companyExecutive) }}</td>
+                    <td class="skzi-col">Копия ИНН <span class="mini text-danger">(допустимые форматы: JPG,PNG)</span></td>
                 </tr>
                 <tr>
                     <td>ИНН<span class="required">*</span></td>
@@ -94,7 +94,7 @@
                 <tr>
                     <td>КПП<span class="required">*</span></td>
                     <td>{{ form_widget(form.companyKpp) }}</td>
-                    <td class="skzi-col">Копия ОГРН <span class="mini text-danger">(форматы файла: JPG,PNG)</span></td>
+                    <td class="skzi-col">Копия ОГРН <span class="mini text-danger">(допустимые форматы: JPG,PNG)</span></td>
                 </tr>
                 <tr>
                     <td>ОГРН<span class="required">*</span></td>
@@ -111,7 +111,7 @@
             </table>
         </div>
         <hr>
-        <div class="block-form" >
+        <div class="block-form skzi-div" >
             <table class="table-form">
                 <caption>Юридический адрес</caption>
                 <tr>
@@ -164,7 +164,7 @@
         <hr>
         <div class="block-form" >
             <table class="table-form">
-                <caption>Почтовый адрес <span class="btn btn-primary" id="dublAdrs">Дублировать</span></caption>
+                <caption >Почтовый адрес <span class="btn btn-primary" id="dublAdrs">Дублировать</span></caption>
                 <tr>
                     <td>Регион<span class="required">*</span>:</td>
                     <td class="value">
@@ -235,11 +235,11 @@
                 <tr>
                     <td>Должность<span class="required">*</span></td>
                     <td>{{ form_widget(form.post) }}</td>
-                    <td  class="skzi-col">Приказ <span class="mini text-danger">(форматы файла: JPG,PNG)</span></td>
+                    <td  class="skzi-col">Приказ <span class="mini text-danger">(допустимые форматы: JPG,PNG)</span></td>
                 </tr>
                 <tr>
-                    <td>Действующего на основании<span class="required">*</span></td>
-                    <td>{{ form_widget(form.documentAccess) }}</td>
+                    <td class="displayorderType">Действующего на основании<span class="required">*</span></td>
+                    <td class="displayorderType">{{ form_widget(form.documentAccess) }}</td>
                     <td  class="skzi-col">
                         {{ form_widget(form.fileDecree) }}
                     </td>
@@ -270,7 +270,7 @@
                     <td>Номер</td>
                     <td>{{ form_widget(form.licenseNumber) }}</td>
                     <td>
-                        Лицензия ФСБ <span class="mini text-danger">(форматы файла: JPG,PNG)</span>
+                        Лицензия ФСБ <span class="mini text-danger">(допустимые форматы: JPG,PNG)</span>
                     </td>
                 </tr>
                 <tr>
@@ -426,6 +426,9 @@
         .noskzi{
             display: none;
         }
+        .displayorderType{
+            display: none;
+        }
     </style>
 
 {% endblock %}
@@ -504,15 +507,15 @@
                 parentInput: '[name="crm_mainbundle_user[mailingAdrs][area]"]',
                 type: $.kladr.type.city,
                 select: function(obj){
-                    $('#crm_mainbundle_companyuser_mailingAdrs_city').val(obj.typeShort+'.'+obj.name);
-                    $('#crm_mainbundle_companyuser_mailingAdrs_city').trigger('refresh');
+//                    $('#crm_mainbundle_companyuser_mailingAdrs_city').val(obj.typeShort+'.'+obj.name);
+//                    $('#crm_mainbundle_companyuser_mailingAdrs_city').trigger('refresh');
                 }
             });
 
             $('#crm_mainbundle_companyuser_mailingAdrs_street' ).kladr({
                 token: '541ee4ac7c52392c7d8b457e',
                 key: '181d5e2c44994c335e5e81e9ae46e79a67b6b495',
-                parentInput: '[name="crm_mainbundle_user[mailingAdrs][city]"]',
+                parentInput: '[name="crm_mainbundle_companyuser[mailingAdrs][city]"]',
                 type: $.kladr.type.street,
                 select: function(obj){
                     $('#crm_mainbundle_companyuser_mailingAdrs_street').val(obj.typeShort+'.'+obj.name);
@@ -522,7 +525,7 @@
             $('#crm_mainbundle_companyuser_mailingAdrs_house' ).kladr({
                 token: '541ee4ac7c52392c7d8b457e',
                 key: '181d5e2c44994c335e5e81e9ae46e79a67b6b495',
-                parentInput: '[name="crm_mainbundle_user[mailingAdrs][street]"]',
+                parentInput: '[name="crm_mainbundle_companyuser[mailingAdrs][street]"]',
                 type: $.kladr.type.building,
                 select: function(obj){
                     $('#crm_mainbundle_companyuser_mailingAdrs_zipcode').val(obj.zip);
@@ -609,8 +612,13 @@
                 $('input, select').trigger('refresh');
                 if ($(this).val() == 1){
                     $('.noskzi').css('display','none');
+                    $('.skzi-div').css('display','block');
+                    $('#dublAdrs').css('display','inline-block');
+
                 }else{
                     $('.noskzi').css('display','table-row');
+                    $('.skzi-div').css('display','none');
+                    $('#dublAdrs').css('display','none');
                 }
             });
 
@@ -631,6 +639,15 @@
                     $('.skzi-col').css('display','none');
                 }
             });
+
+            $('#crm_mainbundle_companyuser_orderType').change(function(){
+                if ($(this).val() == 0){
+                    $('.displayorderType').css('display','none');
+                }else{
+                    $('.displayorderType').css('display','table-cell');
+                }
+            });
+
 
 
 

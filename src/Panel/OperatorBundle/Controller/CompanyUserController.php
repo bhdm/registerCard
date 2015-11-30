@@ -192,4 +192,25 @@ class CompanyUserController extends Controller{
         }
         return $array;
     }
+
+    /**
+     * @Route("/panel_download_png_company/{filename}", name="panel_download_png_company", options={"expose"=true})
+     */
+    public function downloadPngAction($filename){
+        $filename = str_replace('+','/',$filename);
+        $path='/var/www/';
+        $image = new \Imagick($path.$filename);
+        $image->setImageFormat('bmp');
+        $info = pathinfo($filename);
+        $file_name =  basename($filename,'.'.$info['extension']);
+        $image->setImageFilename($filename.'.bmp');
+        $response = new Response();
+//        $response->headers->set('Cache-Control', 'private');
+        $response->headers->set('Content-type', 'image/bmp');
+        $response->headers->set('Content-Disposition', 'attachment; filename="' . $file_name . '.bmp";');
+//        $response->headers->set('Content-length', filesize($path.$filename));
+        $response->setContent($image);
+
+        return $response;
+    }
 }
