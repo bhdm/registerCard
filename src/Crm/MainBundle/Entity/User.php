@@ -2172,5 +2172,13 @@ class User extends BaseEntity implements UserInterface, EquatableInterface, \Ser
     }
 
 
+    /**
+     * @ORM\PreUpdate()
+     */
+    public function preUpdate(){
+        if ($this->status == 1){
+            $this->status = 2;
+        }
+    }
 
 }

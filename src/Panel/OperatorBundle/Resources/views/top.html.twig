@@ -131,9 +131,9 @@
                 {{ render(path('panel_user_get_count',{'status' : '0', 'company' : f_company, 'operator' : f_operator  })) }}
             </a>
         </li>
-        <li class="{{ app.request.attributes.get('_route_params').status == '1' ? 'active' : '' }}">
-            <a href="{{ path('panel_user_list', { 'status' : 1, 'type' :  f_type , 'company' : f_company, 'operator' : f_operator }) }}{{ searchLine }}" class="active">Подтвержденные {{ render(path('panel_user_get_count',{'status' : 1, 'company' : f_company, 'operator' : f_operator })) }}</a>
-        </li>
+        {#<li class="{{ app.request.attributes.get('_route_params').status == '1' ? 'active' : '' }}">#}
+            {#<a href="{{ path('panel_user_list', { 'status' : 1, 'type' :  f_type , 'company' : f_company, 'operator' : f_operator }) }}{{ searchLine }}" class="active">Подтвержденные {{ render(path('panel_user_get_count',{'status' : 1, 'company' : f_company, 'operator' : f_operator })) }}</a>#}
+        {#</li>#}
         <li class="{{ app.request.attributes.get('_route_params').status == '2' ? 'active' : '' }}">
             <a href="{{ path('panel_user_list', { 'status' : 2, 'type' :  f_type , 'company' : f_company, 'operator' : f_operator }) }}{{ searchLine }}" class="active">Оплаченные {{ render(path('panel_user_get_count',{'status' : 2, 'company' : f_company, 'operator' : f_operator })) }}</a>
         </li>
