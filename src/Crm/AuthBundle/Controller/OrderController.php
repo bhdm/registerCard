@@ -310,10 +310,10 @@ class OrderController extends Controller
                 $item->setCompany($company);
                 $item->setClient($this->getUser());
 
-                $item->setBirthday(new \DateTime($item->getBirthday()));
-                $item->setLicenseDateStart(new \DateTime($item->getLicenseDateStart()));
-                $item->setLicenseDateEnd(new \DateTime($item->getLicenseDateEnd()));
-                $item->setLicenseDecreeDate(new \DateTime($item->getLicenseDecreeDate()));
+//                $item->setBirthday(new \DateTime($item->getBirthday()));
+//                $item->setLicenseDateStart(new \DateTime($item->getLicenseDateStart()));
+//                $item->setLicenseDateEnd(new \DateTime($item->getLicenseDateEnd()));
+//                $item->setLicenseDecreeDate(new \DateTime($item->getLicenseDecreeDate()));
 
                 if ($item->getCardType() == 1){
                     if ($item->getCompanyType() == 1){
@@ -568,8 +568,10 @@ class OrderController extends Controller
             $fileName = basename($img);
             $originalName = basename($img);
             $mimeType = mime_content_type($img);
+            $path = str_replace('imkard/src/Crm/AuthBundle/Controller/../../../../web/','',$path);
+            $path = str_replace('imkard/app/../web/','',$path);
             $array =  array(
-                'path' =>str_replace('imkard/src/Crm/AuthBundle/Controller/../../../../web/','',$path),
+                'path' =>$path,
                 'size' =>$size,
                 'fileName' =>$fileName,
                 'originalName' =>$originalName,
