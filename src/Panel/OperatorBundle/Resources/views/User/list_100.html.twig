@@ -28,6 +28,7 @@
                 <th>Тип</th>
                 {#<th>Вид</th>#}
                 <th>Дата</th>
+                <th>Оператор</th>
                 {% if company is not defined or company == null %}
                     <th >
                         <select class="chosen" data-placeholder="Компания">
@@ -126,6 +127,11 @@
                                 {% endif %}
                             </td>
                         {% endif %}
+                        <td>
+                            {% if user.company.operator != null and user.company.operator.id != 1 %}
+                                <span style="font-size: 12px">{{ user.company.operator }}</span>
+                            {% endif %}
+                        </td>
                         {% if company is not defined or company == null %}
                             <td>
                                 <a href="{{ path('panel_user_list',{'type' : 'null', 'company' : user.company.id }) }}" {{ debtors[user.company.title] is defined ? "style='color: #CC0000'" : '' }}
