@@ -31,7 +31,6 @@
                 {% if not is_granted('ROLE_ADMIN') %}
                     <th>Квота</th>
                 {% endif %}
-                <th>Опрератор</th>
                 {% if company is not defined or company == null %}
                     <th >
                         <select class="chosen" data-placeholder="Компания">
@@ -115,17 +114,17 @@
                                 {% endif %}
                             </td>
                         {% endif %}
-                        <td>
-                            {% if user.company.operator != null and user.company.operator.id != 1 %}
-                                <span style="font-size: 12px">{{ user.company.operator }}</span>
-                            {% endif %}
-                        </td>
+
                         {% if company is not defined or company == null %}
                             <td>
                                 <a href="{{ path('panel_user_list',{'type' : 'null', 'company' : user.company.id }) }}"
                                    title="" class="getQuotaCompany"
                                    data-id="{{ user.company.id }}"
-                                        >{{ user.company }}</a></td>
+                                        >{{ user.company }}</a>
+                                {% if user.company.operator != null and user.company.operator.id != 1 %}
+                                    <br /><span style="font-size: 12px">{{ user.company.operator }}</span>
+                                {% endif %}
+                            </td>
                         {% endif %}
                         <td>
                             <a href="{{ path('panel_user_edit',{'userId' : user.id }) }}">{{ user }}</a>
