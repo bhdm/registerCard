@@ -98,7 +98,7 @@ class MessageController extends Controller
 //          FROM Client c1_
 //          WHERE c1_.enabled =1 AND c1_.id IS NOT NULL
 //          HAVING aa = 1';
-        $sql = 'SELECT * FROM Chat WHERE isOperator = 1 AND `read` = 0 AND enabled =1 AND client_id = '.$this->getUser()->getId();
+        $sql = 'SELECT * FROM Chat WHERE isOperator = 1 AND `isRead` = 0 AND enabled =1 AND client_id = '.$this->getUser()->getId();
         $pdo = $this->getDoctrine()->getManager()->getConnection();
         $st = $pdo->prepare($sql);
         $st->execute();
