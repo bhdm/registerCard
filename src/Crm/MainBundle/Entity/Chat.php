@@ -30,7 +30,7 @@ class Chat extends BaseEntity
     protected $body;
 
     /**
-     * @ORM\Column(type="boolean", nullable = false)
+     * @ORM\Column(name="isRead", type="boolean", nullable = false)
      */
     protected $read = false;
 
