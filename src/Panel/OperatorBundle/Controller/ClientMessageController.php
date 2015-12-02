@@ -69,7 +69,7 @@ class ClientMessageController extends Controller
         # Если clientId != null, то делаем сообщения его прочитанными
         if ($clientId != null){
             $query = 'UPDATE Chat
-                      SET `read` = 1
+                      SET `isRead` = 1
                       WHERE
                         Chat.client_id = '.$clientId.' AND
                         isOperator = 0
