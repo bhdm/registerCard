@@ -459,7 +459,7 @@ class Client extends BaseEntity implements UserInterface
     /**
      * @param mixed $adrs
      */
-    public function setAdrs($adrs)
+    public function setAdrs($adrs = array())
     {
         $this->adrs = $adrs;
     }

@@ -1158,7 +1158,7 @@ class Company extends BaseEntity
     /**
      * @param mixed $adrs
      */
-    public function setAdrs($adrs)
+    public function setAdrs($adrs = array())
     {
         $this->adrs = $adrs;
     }
