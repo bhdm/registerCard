@@ -25,7 +25,7 @@ class MoneyController extends Controller
     public function indexAction(Request $request)
     {
         $year = 2015;
-        $month = 11;
+        $month = 12;
 
         /** Новые заявки */
         $newsUsers = $this->getDoctrine()->getRepository('CrmMainBundle:User')->findNewUser($this->getUser());
@@ -43,12 +43,12 @@ class MoneyController extends Controller
         $fullSummaRu   = $this->getDoctrine()->getRepository('CrmMainBundle:User')->fullSumma(0,1);
 
         $moneyOfCompany = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->getMoney();
-        $moneyOfCompany1 = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->getMoney('2015-04-01 00:00:00');
-        $moneyOfCompany2 = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->getMoney('2015-05-01 00:00:00');
-        $moneyOfCompany3 = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->getMoney('2015-06-01 00:00:00');
-        $moneyOfCompany4 = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->getMoney('2015-07-01 00:00:00');
-        $moneyOfCompany5 = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->getMoney('2015-08-01 00:00:00');
-        $moneyOfCompany6 = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->getMoney('2015-09-01 00:00:00');
+        $moneyOfCompany1 = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->getMoney('2015-07-01 00:00:00');
+        $moneyOfCompany2 = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->getMoney('2015-08-01 00:00:00');
+        $moneyOfCompany3 = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->getMoney('2015-09-01 00:00:00');
+        $moneyOfCompany4 = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->getMoney('2015-10-01 00:00:00');
+        $moneyOfCompany5 = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->getMoney('2015-11-01 00:00:00');
+        $moneyOfCompany6 = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->getMoney('2015-12-01 00:00:00');
 
         $countDay = cal_days_in_month(CAL_GREGORIAN, $month, $year);
         return array(
@@ -155,12 +155,12 @@ class MoneyController extends Controller
             $param['users'] = $user;
         }elseif($type == 'company'){
             $moneyOfCompany = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->getMoney();
-            $moneyOfCompany1 = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->getMoney('2015-03-01 00:00:00');
-            $moneyOfCompany2 = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->getMoney('2015-04-01 00:00:00');
-            $moneyOfCompany3 = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->getMoney('2015-05-01 00:00:00');
-            $moneyOfCompany4 = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->getMoney('2015-06-01 00:00:00');
-            $moneyOfCompany5 = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->getMoney('2015-07-01 00:00:00');
-            $moneyOfCompany6 = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->getMoney('2015-08-01 00:00:00');
+            $moneyOfCompany1 = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->getMoney('2015-07-01 00:00:00');
+            $moneyOfCompany2 = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->getMoney('2015-08-01 00:00:00');
+            $moneyOfCompany3 = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->getMoney('2015-09-01 00:00:00');
+            $moneyOfCompany4 = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->getMoney('2015-10-01 00:00:00');
+            $moneyOfCompany5 = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->getMoney('2015-11-01 00:00:00');
+            $moneyOfCompany6 = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->getMoney('2015-12-01 00:00:00');
 
             $param['moneyOfCompany']  = $moneyOfCompany;
             $param['moneyOfCompany1'] = $moneyOfCompany1;
