@@ -21,7 +21,7 @@
     <li>
         <hr />
     </li>
-    {% if not app.user.company.operator.iframe == true %}
+    {% if app.user.company.operator.iframe is defined and not app.user.company.operator.iframe == true %}
         <li>
             <a href="{{ path('auth_profile') }}">Профиль</a>
         </li>
