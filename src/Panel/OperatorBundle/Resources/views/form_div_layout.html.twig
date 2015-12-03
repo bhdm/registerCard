@@ -238,14 +238,16 @@
         {% set label = name|humanize %}
     {%- endif -%}
 {%- endif -%}
-        <div class="col-sm-3">
-            <label{% for attrname, attrvalue in label_attr %} {{ attrname }}="{{ attrvalue }}"{% endfor %}>
-            {{ label|trans({}, translation_domain) }}
-            {% if required %}
-                <span style="color: #CC0000">*</span>
-            {% endif %}
-            </label>
-        </div>
+        {% if label != null and label != 'null' %}
+            <div class="col-sm-3">
+                <label{% for attrname, attrvalue in label_attr %} {{ attrname }}="{{ attrvalue }}"{% endfor %}>
+                {{ label|trans({}, translation_domain) }}
+                {% if required %}
+                    <span style="color: #CC0000">*</span>
+                {% endif %}
+                </label>
+            </div>
+        {% endif %}
     {%- endif -%}
 {%- endblock form_label -%}
 

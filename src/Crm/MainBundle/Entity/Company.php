@@ -90,12 +90,20 @@ class Company extends BaseEntity
 
 
     # Адрес предприятия
+    /**
+     * @ORM\Column(type="array")
+     */
+    protected $adrs;
+
+
+    /**
+     * @TODO Больше ненужно!!!!
+     */
 
     /**
      * @ORM\Column(type="string", nullable=true)
      */
     protected $area;
-
 
 
     /**
@@ -292,6 +300,7 @@ class Company extends BaseEntity
         $this->quotaLog = new ArrayCollection();
         $this->companies = new ArrayCollection();
         $this->clients = new ArrayCollection();
+        $this->adrs = array();
     }
 
     public function __toString(){
@@ -1137,6 +1146,23 @@ class Company extends BaseEntity
     {
         $this->clients = $clients;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getAdrs()
+    {
+        return $this->adrs;
+    }
+
+    /**
+     * @param mixed $adrs
+     */
+    public function setAdrs($adrs)
+    {
+        $this->adrs = $adrs;
+    }
+
 
 
 }

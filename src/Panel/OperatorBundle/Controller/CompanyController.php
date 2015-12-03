@@ -5,6 +5,7 @@ namespace Panel\OperatorBundle\Controller;
 use Crm\MainBundle\Entity\Company;
 use Crm\MainBundle\Entity\CompanyQuotaLog;
 use Crm\MainBundle\Form\CompanyType;
+use Crm\MainBundle\Form\PanelCompanyType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -130,89 +131,26 @@ class CompanyController extends Controller
         $em = $this->getDoctrine()->getManager();
         $company = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->findOneById($id);
         $petitions = $this->getDoctrine()->getRepository('CrmMainBundle:CompanyPetition')->findBy(array('operator'=> $this->getUser(), 'enabled' => true));
-        if ($request->getMethod() == 'POST') {
-            $data = $request->request;
 
-            if ($company) {
-
-                $url = $data->get('url');
-                $c = $em->getRepository('CrmMainBundle:Company')->findByUrl($url);
-                if ($c == null || $c[0]->getId() == $company->getId()) {
+        $form = $this->createForm(new PanelCompanyType($em), $company);
+        $formData = $form->handleRequest($request);
 
 
-                    $company->setTitle($data->get('companyName'));
 
-                    if ($request->request->get('petition') && $request->request->get('petition')!= '' && $request->request->get('petition') != 'null'){
-                        $petition = $this->getDoctrine()->getRepository('CrmMainBundle:CompanyPetition')->findOneById($request->request->get('petition'));
-                        $company->setPetition($petition);
-                    }else{
-                        $company->setPetition(null);
-                    }
+            if ($request->getMethod() == 'POST'){
 
-                    $company->setTitle($data->get('companyName'));
+                $company = $formData->getData();
 
+                $em->flush($company);
+                $em->refresh($company);
 
-                    $company->setZipcode($data->get('companyZipcode'));
-                    $region = $this->getDoctrine()->getRepository('CrmMainBundle:Region')->findOneById($data->get('companyRegion'));
-                    $company->setRegion($region);
-                    $company->setCity($data->get('companyCity'));
-                    $company->setTypeStreet($data->get('companyTypeStreet'));
-                    $company->setStreet($data->get('companyStreet'));
-                    $company->setHome($data->get('companyHouse'));
-                    $company->setCorp($data->get('companyCorp'));
-                    $company->setStructure($data->get('companyStructure'));
-                    $company->setTypeRoom($data->get('companyTypeRoom'));
-                    $company->setRoom($data->get('companyRoom'));
-                    $company->setUrl($data->get('url'));
-                    $company->setManager($data->get('manager'));
-                    $company->setDelivery(($data->get('delivery') == 1 ? true : false));
-
-                    if ($data->get('confirmed') != null){
-                        $company->setConfirmed(true);
-                    }else{
-                        $company->setConfirmed(false);
-                    }
-
-                    $company->setForma($data->get('forma'));
-                    $company->setInn($data->get('inn'));
-                    $company->setKpp($data->get('kpp'));
-                    $company->setOgrn($data->get('ogrn'));
-                    $company->setRchet($data->get('rchet'));
-                    $company->setBank($data->get('bank'));
-                    $company->setKorchet($data->get('korchet'));
-                    $company->setBik($data->get('bik'));
-
-                    $company->setPriceEstr($data->get('priceEstr'));
-                    $company->setPriceSkzi($data->get('priceSkzi'));
-                    $company->setPriceRu($data->get('priceRu'));
-
-                    $company->setPriceMasterEstr($data->get('priceMasterEstr'));
-                    $company->setPriceMasterSkzi($data->get('priceMasterSkzi'));
-                    $company->setPriceMasterRu($data->get('priceMasterRu'));
-
-                    $company->setPriceEnterpriseEstr($data->get('priceEnterpriseEstr'));
-                    $company->setPriceEnterpriseSkzi($data->get('priceEnterpriseSkzi'));
-                    $company->setPriceEnterpriseRu(  $data->get('priceEnterpriseRu'));
-
-                    $rootDir = __DIR__.'/../../../../web/upload/';
-                    $file = $request->files->get('logo');
-                    if (isset($file) && $file != null){
-                        $info = new \SplFileInfo($file->getClientOriginalName());
-                        $ex = $info->getExtension();
-                        $filename = time().'.'.$ex;
-                        $file->move($rootDir, $filename);
-                        $company->setLogo($this->getImgToArray($rootDir.$filename));
-                    }
-
-                    $em->flush($company);
-                    $em->refresh($company);
-                }else{
-                    $session = new Session();
-                    $session->getFlashBag()->add('error', 'Такой URL уже существует. Выберите пожалуйста другой');
-                }
+                return $this->redirect($this->generateUrl('panel_company_list'));
             }
-            return $this->redirect($this->generateUrl('panel_company_list'));
-        }
+
+
+
+
+
         if ($company->getUrl()){
             $companyUrl = 'http://doroga01.ru/app.php/company/order/'.$company->getUrl();
         }else{
@@ -220,7 +158,7 @@ class CompanyController extends Controller
         }
         $country = $this->getDoctrine()->getRepository('CrmMainBundle:Country')->findOneById(3159);
         $regions = $this->getDoctrine()->getRepository('CrmMainBundle:Region')->findByCountry($country);
-        return array('company'=> $company, 'regions' => $regions,'companyUrl' => $companyUrl,'petitions' => $petitions);
+        return array('form' => $form->createView(), 'company'=> $company, 'regions' => $regions,'companyUrl' => $companyUrl,'petitions' => $petitions);
     }
 
     /**

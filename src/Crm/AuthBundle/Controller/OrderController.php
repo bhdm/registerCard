@@ -35,11 +35,21 @@ class OrderController extends Controller
         $item = new User();
         $item->setEmail($this->getUser()->getUsername());
         $item->setUsername($this->getUser()->getPhone());
+        $company = $this->getUser()->getCompany();
+        if (!empty($company->getAdrs())){
+            $item->setDeliveryAdrs($company->getAdrs());
+        }
+
         $form = $this->createForm(new UserSkziType($em), $item);
         $formData = $form->handleRequest($request);
         if ($request->getMethod() == 'POST'){
 //            if ($formData->isValid()){
             $user = $formData->getData();
+
+            if ($request->request->get('delivery') !=1){
+                $user->setDeliveryAdrs(array());
+            }
+
             $user->setBirthDate(new \DateTime($user->getBirthDate()));
             $user->setDriverDocDateStarts(new \DateTime($user->getDriverDocDateStarts()));
             $user->setPassportIssuanceDate(new \DateTime($user->getPassportIssuanceDate()));
@@ -136,11 +146,20 @@ class OrderController extends Controller
         $item = new User();
         $item->setEmail($this->getUser()->getUsername());
         $item->setUsername($this->getUser()->getPhone());
+        $company = $this->getUser()->getCompany();
+        if (!empty($company->getAdrs())){
+            $item->setDeliveryAdrs($company->getAdrs());
+        }
+
         $form = $this->createForm(new UserEstrType($em), $item);
         $formData = $form->handleRequest($request);
         if ($request->getMethod() == 'POST'){
 //            if ($formData->isValid()){
             $user = $formData->getData();
+            if ($request->request->get('delivery') !=1){
+                $user->setDeliveryAdrs(array());
+            }
+
             $company = $this->getUser()->getCompany();
             $user->setCompany($company);
             $user->setBirthDate(new \DateTime($user->getBirthDate()));
@@ -218,11 +237,22 @@ class OrderController extends Controller
         $item = new User();
         $item->setEmail($this->getUser()->getUsername());
         $item->setUsername($this->getUser()->getPhone());
+
+        $company = $this->getUser()->getCompany();
+        if (!empty($company->getAdrs())){
+            $item->setDeliveryAdrs($company->getAdrs());
+        }
+
         $form = $this->createForm(new UserRuType($em), $item);
         $formData = $form->handleRequest($request);
         if ($request->getMethod() == 'POST'){
 //            if ($formData->isValid()){
             $user = $formData->getData();
+
+            if ($request->request->get('delivery') !=1){
+                $user->setDeliveryAdrs(array());
+            }
+
             $company = $this->getUser()->getCompany();
 
             $user->setBirthDate(new \DateTime($user->getBirthDate()));
