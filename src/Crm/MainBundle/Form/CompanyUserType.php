@@ -3,6 +3,7 @@
 namespace Crm\MainBundle\Form;
 
 use Crm\MainBundle\Form\Type\AdrsType;
+use Crm\MainBundle\DataTransformer\DateTimeToStringTransformer;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
@@ -49,7 +50,8 @@ class CompanyUserType extends AbstractType
             ->add('firstName')
             ->add('lastName')
             ->add('surName', null, ['required' => false])
-            ->add('birthday', 'date', ['widget' => 'single_text','required' => false, 'attr' => ['class' => 'date']])
+//            ->add('birthday', 'date', ['widget' => 'single_text','required' => false, 'attr' => ['class' => 'date']])
+            ->add('birthday', 'date',['widget' => 'single_text', 'format' => 'dd.MM.yyyy', 'label'=>'Дата рождения', 'attr' => ['class' => 'date']])
 
             ->add('post')
             ->add('oldCard')
@@ -66,10 +68,12 @@ class CompanyUserType extends AbstractType
 
             ->add('licenseNumber', null, array('required' => false))
             ->add('licenseIssued', null, array('required' => false))
-            ->add('licenseDateStart', 'date', ['widget' => 'single_text','required' => false])
-            ->add('licenseDateEnd', 'date', ['widget' => 'single_text','required' => false])
+//            ->add('licenseDateStart', 'date', ['widget' => 'single_text','required' => false])
+            ->add('licenseDateStart', 'date',['widget' => 'single_text', 'format' => 'dd.MM.yyyy', 'label'=>'Дата рождения', 'attr' => ['class' => 'date'],'required' => false])
+//            ->add('licenseDateEnd', 'date', ['widget' => 'single_text','required' => false])
+            ->add('licenseDateEnd', 'date',['widget' => 'single_text', 'format' => 'dd.MM.yyyy', 'label'=>'Дата рождения', 'attr' => ['class' => 'date'],'required' => false])
             ->add('licenseDecreeNumber', null, ['required' => false])
-            ->add('licenseDecreeDate', 'date', ['widget' => 'single_text','required' => false])
+            ->add('licenseDecreeDate', 'date',['widget' => 'single_text', 'format' => 'dd.MM.yyyy', 'label'=>'Дата рождения', 'attr' => ['class' => 'date'],'required' => false])
         ;
     }
     

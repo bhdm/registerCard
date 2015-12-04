@@ -420,6 +420,11 @@ class User extends BaseEntity implements UserInterface, EquatableInterface, \Ser
     protected $price = 0;
 
     /**
+     * @ORM\Column(type="integer")
+     */
+    protected $priceOperator = 0;
+
+    /**
      * @ORM\Column(type="string", nullable=true)
      */
     protected $cardNumber = 0;
@@ -1717,25 +1722,15 @@ class User extends BaseEntity implements UserInterface, EquatableInterface, \Ser
 
     public function getStatusArray()
     {
-        $userLog = $this->statuslog;
-        $userLogArray = array();
-        foreach ($userLog as $key => $status) {
-//            if ($userLogArray[$key-1]['title'] != $status->getTitle()){
-                $userLogArray[$status->getTitle()] = array(
-                    'title' => $status->getTitle(),
-                    'date' => $status->getCreated(),
-                );
-//            }
-//            if (isset($userLogArray[$status->getTitle()])){
-//                if ($userLogArray[$status->getTitle()] < $status->getCreated()){
-//                    $userLogArray[$status->getTitle()]['title'] = $status->getTitle();
-//                    $userLogArray[$status->getTitle()]['date'] = $status->getCreated();
-//                }
-//            }else{
-//
-//            }
-        }
-        return $userLogArray;
+//        $userLog = $this->statuslog;
+//        $userLogArray = array();
+//        foreach ($userLog as $key => $status) {
+//                $userLogArray[$status->getTitle()] = array(
+//                    'title' => $status->getTitle(),
+//                    'date' => $status->getCreated(),
+//                );
+//        }
+//        return $userLogArray;
     }
 
     /**
@@ -2150,6 +2145,30 @@ class User extends BaseEntity implements UserInterface, EquatableInterface, \Ser
         $this->copyDriverPassportTranslate = $copyDriverPassportTranslate;
     }
 
+    /**
+     * @return mixed
+     */
+    public function getPriceOperator()
+    {
+        return $this->priceOperator;
+    }
 
+    /**
+     * @param mixed $priceOperator
+     */
+    public function setPriceOperator($priceOperator = 0)
+    {
+        $this->priceOperator = $priceOperator;
+    }
+
+
+    /**
+     * @ORM\PreUpdate()
+     */
+    public function preUpdate(){
+        if ($this->status == 1){
+            $this->status = 0;
+        }
+    }
 
 }

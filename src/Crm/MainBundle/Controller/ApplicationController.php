@@ -234,7 +234,7 @@ class ApplicationController extends Controller
 //            if ($this->getUser()->getCompany() != null && $this->getUser()->getCompany()->getUrl() != 'NO_COMPANY'){
 //                return $this->redirect($this->generateUrl('auth_order'));
 //            }else{
-            return $this->render('@CrmMain/Application/success.html.twig',['user' => $user, 'url' => $url]);
+                return $this->render('@CrmMain/Application/success.html.twig',['user' => $user, 'url' => $url]);
 //            }
         }else{
             $this->clearSession($session);

@@ -29,6 +29,11 @@ class Chat extends BaseEntity
      */
     protected $body;
 
+    /**
+     * @ORM\Column(name="isRead", type="boolean", nullable = false)
+     */
+    protected $read = false;
+
     public function __construct(){
         $this->isOperator = false;
     }
@@ -79,6 +84,38 @@ class Chat extends BaseEntity
     public function setBody($body)
     {
         $this->body = $body;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getIsOperator()
+    {
+        return $this->isOperator;
+    }
+
+    /**
+     * @param mixed $isOperator
+     */
+    public function setIsOperator($isOperator)
+    {
+        $this->isOperator = $isOperator;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getRead()
+    {
+        return $this->read;
+    }
+
+    /**
+     * @param mixed $read
+     */
+    public function setRead($read = false)
+    {
+        $this->read = $read;
     }
 
 

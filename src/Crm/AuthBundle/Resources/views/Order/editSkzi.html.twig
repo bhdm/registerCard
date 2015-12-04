@@ -19,7 +19,7 @@
                  <tr>
                     <td>Email<span class="required">*</span></td>
                     <td>{{ form_widget(form.email) }}</td>
-                    <td class="typeCardFile">Заявление на изменение<span class="mini">(форматы файла: PDF,JPG,PNG)</span></td>
+                    <td class="typeCardFile">Заявление на изменение<span class="mini">(допустимые форматы: PDF,JPG,PNG)</span></td>
                 </tr>
                 <tr>
                     <td>Телефон<span class="required">*</span></td>
@@ -33,7 +33,7 @@
                     <td>
                         {{ form_widget(form.citizenship) }}
                     </td>
-                    <td class="citizenship">Временная регистрация<span class="mini">(форматы файла: PDF,JPG,PNG)</span></td>
+                    <td class="citizenship">Временная регистрация<span class="mini">(допустимые форматы: PDF,JPG,PNG)</span></td>
                 </tr>
                 <tr>
                     <td>Тип заявления<span class="required">*</span></td>
@@ -64,7 +64,7 @@
                 <tr>
                     <td>Фамилия<span class="required">*</span></td>
                     <td>{{ form_widget(form.lastName) }}</td>
-                    <td>Копия паспорта <span class="mini">(форматы файла: PDF,JPG,PNG)</span></td>
+                    <td>Копия паспорта <span class="mini">(допустимые форматы: PDF,JPG,PNG)</span></td>
                 </tr>
                 <tr>
                     <td>Имя<span class="required">*</span></td>
@@ -121,7 +121,7 @@
                     <td>{{ form_label(form.passportIssuanceDate) }}</td>
                     <td>{{ form_widget(form.passportIssuanceDate) }}</td>
                     <td>
-                        {#Копия ОГРН <span class="mini">(форматы файла: PDF,JPG,PNG)</span>#}
+                        {#Копия ОГРН <span class="mini">(допустимые форматы: PDF,JPG,PNG)</span>#}
                     </td>
                 </tr>
                 <tr>
@@ -180,7 +180,7 @@
                     <td class="value">
                         {{ form_widget(form.driverDocCountry) }}
                     </td>
-                    <td>Копия водительского удостоверения <span class="mini">(форматы файла: PDF,JPG,PNG)</span></td>
+                    <td>Копия водительского удостоверения <span class="mini">(допустимые форматы: PDF,JPG,PNG)</span></td>
                 </tr>
                 <tr>
                     <td class="label">{{ form_label(form.driverDocNumber) }}:</td>
@@ -245,7 +245,7 @@
                     <td class="value">
                         {{ form_widget(form.petitionAdrs.region) }}
                     </td>
-                    <td class="petition-td">Копия ходатайства <span class="mini">(форматы файла: PDF,JPG,PNG)</span></td>
+                    <td class="petition-td">Копия ходатайства <span class="mini">(допустимые форматы: PDF,JPG,PNG)</span></td>
                 </tr>
                 <tr class="petition">
                     <td class="label">Район:</td>

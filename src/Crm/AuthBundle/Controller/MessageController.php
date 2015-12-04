@@ -39,6 +39,17 @@ class MessageController extends Controller
             }
         }
         $messages = $this->getDoctrine()->getRepository('CrmMainBundle:Chat')->findBy(['client' => $this->getUser()], ['id' => 'DESC']);
+
+
+            $query = 'UPDATE Chat
+                      SET `isRead` = 1
+                      WHERE
+                        Chat.client_id = '.$this->getUser()->getId().' AND
+                        isOperator = 1
+                        ';
+            $pdo = $this->getDoctrine()->getManager()->getConnection();
+            $pdo->exec($query);
+
         return array('messages' => $messages, 'form' => $form->createView());
     }
 
@@ -46,18 +57,19 @@ class MessageController extends Controller
      * @Route("/new-message", name="auth_message_new")
      */
     public function newMessageAction(){
-        $sql = '
-            SELECT * , (
-              SELECT isOperator
-              FROM Chat cc
-              WHERE cc.client_id = c1_.id
-              ORDER BY id DESC
-              LIMIT 1
-          )aa
-          FROM Client c1_
-          LEFT JOIN Company co ON co.id = c1_.company_id
-          WHERE c1_.enabled =1 AND c1_.id IS NOT NULL AND co.operator_id = '.$this->getUser()->getId().'
-          HAVING aa =0';
+//        $sql = '
+//            SELECT * , (
+//              SELECT isOperator
+//              FROM Chat cc
+//              WHERE cc.client_id = c1_.id AND cc.read = 0
+//              ORDER BY id DESC
+//              LIMIT 1
+//          )aa
+//          FROM Client c1_
+//          LEFT JOIN Company co ON co.id = c1_.company_id
+//          WHERE c1_.enabled =1 AND c1_.id IS NOT NULL AND co.operator_id = '.$this->getUser()->getId().'
+//          HAVING aa = 0';
+        $sql = 'SELECT * FROM Chat WHERE isOperator = 0 AND `isRead` = 0 AND enabled =1';
         $pdo = $this->getDoctrine()->getManager()->getConnection();
         $st = $pdo->prepare($sql);
         $st->execute();
@@ -75,17 +87,18 @@ class MessageController extends Controller
      * @Route("/new-message-client", name="newMessageForClient")
      */
     public function newMessageClientAction(){
-        $sql = '
-            SELECT * , (
-              SELECT isOperator
-              FROM Chat cc
-              WHERE cc.client_id = c1_.id
-              ORDER BY id DESC
-              LIMIT 1
-          )aa
-          FROM Client c1_
-          WHERE c1_.enabled =1 AND c1_.id IS NOT NULL
-          HAVING aa = 1';
+//        $sql = '
+//            SELECT * , (
+//              SELECT isOperator
+//              FROM Chat cc
+//              WHERE cc.client_id = c1_.id AND cc.read = 0
+//              ORDER BY id DESC
+//              LIMIT 1
+//          )aa
+//          FROM Client c1_
+//          WHERE c1_.enabled =1 AND c1_.id IS NOT NULL
+//          HAVING aa = 1';
+        $sql = 'SELECT * FROM Chat WHERE isOperator = 1 AND `isRead` = 0 AND enabled =1 AND client_id = '.$this->getUser()->getId();
         $pdo = $this->getDoctrine()->getManager()->getConnection();
         $st = $pdo->prepare($sql);
         $st->execute();

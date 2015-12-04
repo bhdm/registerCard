@@ -103,6 +103,10 @@ class Client extends BaseEntity implements UserInterface
      */
     protected $company;
 
+    /**
+     * @ORM\Column(type="array")
+     */
+    protected $adrs;
 
     public function __construct(){
         $this->roles = 'ROLE_CLIENT';
@@ -112,6 +116,7 @@ class Client extends BaseEntity implements UserInterface
         $this->messages = new ArrayCollection();
         $this->petitions = new ArrayCollection();
         $this->quota = 0;
+        $this->adrs = array();
     }
 
     public function __toString(){
@@ -443,7 +448,19 @@ class Client extends BaseEntity implements UserInterface
         $this->payments = $payments;
     }
 
+    /**
+     * @return mixed
+     */
+    public function getAdrs()
+    {
+        return $this->adrs;
+    }
 
-
-
+    /**
+     * @param mixed $adrs
+     */
+    public function setAdrs($adrs = array())
+    {
+        $this->adrs = $adrs;
+    }
 }
