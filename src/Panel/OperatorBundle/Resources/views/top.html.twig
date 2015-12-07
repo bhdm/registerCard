@@ -217,5 +217,28 @@
                         });
                     }
                 });
+
+        $('.statusBox').hover(
+                function(){
+                    var $this = $(this);
+                    var userId = $(this).parent().parent().attr('id');
+                    userId = userId.substr(5);
+//                    alert('\''+$(this).children('.statusItems').html()+'\'');
+                        if ($(this).children('.statusItems').html()[0] == '\n'){
+                            $.ajax({
+                                type: "GET",
+                                url: "{{ path('panel_user_get_statuslog') }}",
+                                data: "userId="+userId,
+                                success: function(msg){
+                                    console.log(s = msg);
+                                    var html = '';
+                                    $.each(s,function(h,t){
+                                        html += t.title + "&nbsp;-&nbsp;" + t.date+ '<br />';
+                                    });
+                                    $this.children('.statusItems').html(html);
+                                }
+                            });
+                        }
+                });
     });
 </script>

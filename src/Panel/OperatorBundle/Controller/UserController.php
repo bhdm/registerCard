@@ -3,6 +3,7 @@
 namespace Panel\OperatorBundle\Controller;
 
 use Crm\MainBundle\Entity\StatusLog;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -1823,6 +1824,23 @@ class UserController extends Controller
         $this->getDoctrine()->getManager()->flush($user);
         $referer = $request->headers->get('referer');
         return new RedirectResponse($referer);
+    }
+
+    /**
+     * @Route("/panel/get-status-log/user", name="panel_user_get_statuslog")
+     */
+    public function getStatuslogAction(Request $request){
+        $userId = $request->query->get('userId');
+        $user = $this->getDoctrine()->getRepository('CrmMainBundle:User')->find($userId);
+        $log = $user->getStatusArray(true);
+        foreach($log as $k => $l){
+            $log[$k]['date'] = $l['date']->format('d.m.Y');
+//            var_dump($l);
+//            exit;
+        }
+//        var_dump($log);
+//        exit;
+        return new JsonResponse($log);
     }
 }
 
