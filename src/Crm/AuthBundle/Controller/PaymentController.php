@@ -92,4 +92,33 @@ class PaymentController extends Controller
         }
         return array( 'form' => $paymentForm->createView(),'payment' => $payment);
     }
+
+
+    /**
+     * @Route("/payment/print/{id}", name="auth_payment_print")
+     */
+    public function printAction($id){
+        $client = $this->getUser();
+        $payment = $this->getDoctrine()->getRepository('CrmMainBundle:Payment')->findOneBy(['enabled' => true, 'client'=> $client, 'id' => $id]);
+        if ($payment){
+//            $mpdfService = $this->container->get('tfox.mpdfport');
+//
+//            $html = $this->render('CrmAuthBundle:Payment:print.html.twig',array('user' => $client,'payment' => $payment));
+//
+//            $arguments = array(
+//                'constructorArgs' => array('utf-8', 'A4-L', 5 ,5 ,5 ,5,5 ), //Constructor arguments. Numeric array. Don't forget about points 2 and 3 in Warning section!
+////                'writeHtmlMode' => null, //$mode argument for WriteHTML method
+////                'writeHtmlInitialise' => null, //$mode argument for WriteHTML method
+////                'writeHtmlClose' => null, //$close argument for WriteHTML method
+////                'outputFilename' => null, //$filename argument for Output method
+////                'outputDest' => null, //$dest argument for Output method
+//            );
+//            return $mpdfService->generatePdfResponse($html, $arguments);
+
+            $mpdfService = $this->get('tfox.mpdfport');
+            $html = $this->renderView('CrmAuthBundle:Payment:print.html.twig',array('client' => $client,'payment' => $payment));
+            $response = $mpdfService->generatePdfResponse($html);
+            return $response;
+        }
+    }
 }
