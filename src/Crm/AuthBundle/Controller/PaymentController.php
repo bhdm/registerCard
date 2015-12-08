@@ -45,7 +45,8 @@ class PaymentController extends Controller
     public function addAction(Request $request){
         $em = $this->getDoctrine()->getManager();
         $payment = new Payment();
-
+        $company = $this->getUser()->getCompany();
+        $company = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->find($company->getId());
         $paymentForm = $this->createForm(new PaymentType($em), $payment);
         $paymentForm->handleRequest($request);
         if ($request->isMethod('POST')) {
@@ -90,7 +91,7 @@ class PaymentController extends Controller
                 $this->redirect($this->generateUrl("auth_payment_list"));
             }
         }
-        return array( 'form' => $paymentForm->createView(),'payment' => $payment);
+        return array( 'form' => $paymentForm->createView(),'payment' => $payment,'c' => $company);
     }
 
 

@@ -159,7 +159,7 @@ class PaymentController extends Controller
                 $price += ($item->getAmount()*$item->getPrice());
             }
             $paymentQuota->setQuota($price);
-            $paymentQuota->setComment('Номер счета '.$order->getId().' от '.$order->getCreated()->format('d.m.Y'));
+            $paymentQuota->setComment('Сч. '.$order->getId().' от '.$order->getCreated()->format('d.m.Y'));
             $paymentQuota->setCompany($company);
             $paymentQuota->setOperator($company->getOperator());
             $company->setQuota($company->getQuota()+$price);
