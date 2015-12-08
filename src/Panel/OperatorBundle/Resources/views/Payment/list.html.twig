@@ -37,9 +37,9 @@
                                 <span class="caret"></span>
                             </button>
                             <ul class="dropdown-menu" aria-labelledby="dropdownMenu{{ p.id }}">
-                                <li><a href="#">Новый</a></li>
-                                <li><a href="#">Проведен</a></li>
-                                <li><a href="#">Оплачен</a></li>
+                                <li><a href="{{ path('panel_payment_status',{'id' : p.id , 'status' : '0' }) }}">Новый</a></li>
+                                <li><a href="{{ path('panel_payment_status',{'id' : p.id , 'status' : '1' }) }}">Проведен</a></li>
+                                <li><a href="{{ path('panel_payment_status',{'id' : p.id , 'status' : '2' }) }}">Оплачен</a></li>
                             </ul>
                         </div>
                     </td>

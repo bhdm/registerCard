@@ -8,13 +8,13 @@
 </head>
 
 <body style="position:relative;">
-<div style="text-align: center">
-    Внимание! Оплата данного счета означает согласие с условиями поставки товара. Уведомление об оплате
-    обязательно, в противном случае не гарантируется наличие товара на складе. Товар отпускается по факту
-    прихода денег на р/с Поставщика, самовывозом, при наличии доверенности и паспорта.
-</div>
-<br />
-<br />
+{#<div style="text-align: center">#}
+    {#Внимание! Оплата данного счета означает согласие с условиями поставки товара. Уведомление об оплате#}
+    {#обязательно, в противном случае не гарантируется наличие товара на складе. Товар отпускается по факту#}
+    {#прихода денег на р/с Поставщика, самовывозом, при наличии доверенности и паспорта.#}
+{#</div>#}
+{#<br />#}
+{#<br />#}
 <table style="margin: 0 auto; width: 100%" border="1" cellpadding="0" cellspacing="0">
     <tr>
         <td rowspan="2" colspan="2" width="50%">
@@ -46,7 +46,7 @@
     </tr>
 </table>
 <h2>Счет на оплату № {{ payment.id }} от {{ payment.created | date ('d.m.Y')}}</h2>
-<h2><hr /></h2>
+<hr />
 <div>
     <table>
         <tr>
@@ -111,12 +111,12 @@
     </tr>
 </table>
 <br />
-<br />
 <div>
-    Всего наименований {{ amount }} на сумму {{ s }} рублей.
+    Всего наименований {{ amount }} на сумму {{ s }}.00 рублей. <br />
+    <b>{{ price }} рублей 00 копеек</b>
 </div>
 <br />
 <br />
-<img src="{{ app.request.scheme ~'://' ~ app.request.httpHost ~ asset('bundles/crmauth/images/payment-mp.png') }}">
+<img src="{{ app.request.scheme ~'://' ~ app.request.httpHost ~ asset('bundles/crmauth/images/payment-mp.png') }}" style="width: 1500px">
 </body>
 </html>

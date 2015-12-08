@@ -112,4 +112,63 @@ class PaymentController extends Controller
         }
         return array( 'form' => $paymentForm->createView(),'payment' => $payment);
     }
+
+    /**
+     * @Route("/choose-status/{id}/{status}", name="panel_payment_status")
+     */
+    public function chooseStatusAction(Request $request, $id, $status){
+        $em = $this->getDoctrine()->getManager();
+        $order = $this->getDoctrine()->getRepository('CrmMainBundle:Payment')->find($id);
+        $order->setStatus($status);
+        $em->flush($order);
+        if ($status == '2'){
+            $company = $order->getClient()->getCompany();
+            $price = 0;
+            $paymentQuota = new CompanyQuotaLog();
+            foreach ($order->getOrders() as $item) {
+                if ($item->getTitle() === 'Карта водителя ЕСТР'){
+                    $paymentQuota->setDriverEstr($item->getAmount());
+                }
+                if ($item->getTitle() === 'Карта водителя СКЗИ'){
+                    $paymentQuota->setDriverSkzi($item->getAmount());
+                }
+                if ($item->getTitle() === 'Карта водителя РФ'){
+                    $paymentQuota->setDriverRu($item->getAmount());
+                }
+
+                if ($item->getTitle() === 'Карта предприятия ЕСТР'){
+                    $paymentQuota->setCompanyEstr($item->getAmount());
+                }
+                if ($item->getTitle() === 'Карта предприятия СКЗИ'){
+                    $paymentQuota->setCompanySkzi($item->getAmount());
+                }
+                if ($item->getTitle() === 'Карта предприятия РФ'){
+                    $paymentQuota->setCompanyRu($item->getAmount());
+                }
+
+                if ($item->getTitle() === 'Карта мастерской ЕСТР'){
+                    $paymentQuota->setMasterEstr($item->getAmount());
+                }
+                if ($item->getTitle() === 'Карта мастерской СКЗИ'){
+                    $paymentQuota->setMasterSkzi($item->getAmount());
+                }
+                if ($item->getTitle() === 'Карта мастерской РФ'){
+                    $paymentQuota->setMasterRu($item->getAmount());
+                }
+
+                $price += ($item->getAmount()*$item->getPrice());
+            }
+            $paymentQuota->setQuota($price);
+            $paymentQuota->setComment('Номер счета '.$order->getId().' от '.$order->getCreated()->format('d.m.Y'));
+            $paymentQuota->setCompany($company);
+            $paymentQuota->setOperator($company->getOperator());
+            $company->setQuota($company->getQuota()+$price);
+            $em->persist($paymentQuota);
+            $em->flush($paymentQuota);
+            $em->flush($company);
+
+        }
+        $referer = $request->headers->get('referer');
+        return $this->redirect($referer);
+    }
 }
