@@ -100,9 +100,9 @@ class OperatorController extends Controller
                 if (copy($fileSign,$path)){
                     unlink( $fileSign );
                 }
+                $operator->setEula($operator->getId().$filaName);
             }
 
-            $operator->setEula($operator->getId().$filaName);
 
 
             if ( $this->get('security.context')->isGranted('ROLE_ADMIN')){

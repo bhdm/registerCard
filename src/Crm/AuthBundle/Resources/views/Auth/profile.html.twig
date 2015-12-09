@@ -3,21 +3,62 @@
 {% block body %}
     <h2>Профиль</h2>
     <form method="post" style="width: 500px" class="form-horizontal">
-        {{  form_widget(form) }}
-    </form>
-    <h2>Сменить пароль</h2>
-    {% for flashMessage in app.session.flashbag.get('error') %}
-        <div id="flashmessage" class="text-danger">
-            {{ flashMessage }}
-        </div>
-    {% endfor %}
-    {% for flashMessage in app.session.flashbag.get('success') %}
-        <div id="flashmessage" class="text-success">
-            {{ flashMessage }}
-        </div>
-    {% endfor %}
+        {#{{  form_widget(form) }}#}
+        {{ form_row(form.username) }}
+        {{ form_row(form.phone) }}
+        {{ form_row(form.companyTitle) }}
 
-    <form method="post" style="width: 500px" class="form-horizontal" action="{{ path('auth_password_check') }}">
-        {{  form_widget(formPass) }}
+        <div class="form-group">
+            <label class="col-sm-4 control-label required">Регион</label>
+            <div class="col-sm-8">{{ form_widget(form.adrs.region) }}</div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-4 control-label required">Район</label>
+            <div class="col-sm-8">{{ form_widget(form.adrs.area) }}</div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-4 control-label required">Город</label>
+            <div class="col-sm-8">{{ form_widget(form.adrs.city) }}</div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-4 control-label required">Улица</label>
+            <div class="col-sm-8">{{ form_widget(form.adrs.street) }}</div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-4 control-label required">Номер здания</label>
+            <div class="col-sm-8">
+                <div class="row">
+                    <div class="col-xs-6">{{ form_widget(form.adrs.house) }}</div>
+                    <div class="col-xs-6">{{ form_widget(form.adrs.corp) }}</div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-6">{{ form_widget(form.adrs.structure) }}</div>
+                    <div class="col-xs-6">{{ form_widget(form.adrs.room) }}</div>
+                    <input type="hidden" name="registered[typeRoom]" id="mailing-typeRoom" value="кв.">
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-4 control-label required">Индекс</label>
+            <div class="col-sm-8">{{ form_widget(form.adrs.zipcode) }}</div>
+        </div>
     </form>
+    {#{{ dump(isIframe) }}#}
+    {% if isIframe != true %}
+        <h2>Сменить пароль</h2>
+        {% for flashMessage in app.session.flashbag.get('error') %}
+            <div id="flashmessage" class="text-danger">
+                {{ flashMessage }}
+            </div>
+        {% endfor %}
+        {% for flashMessage in app.session.flashbag.get('success') %}
+            <div id="flashmessage" class="text-success">
+                {{ flashMessage }}
+            </div>
+        {% endfor %}
+
+        <form method="post" style="width: 500px" class="form-horizontal" action="{{ path('auth_password_check') }}">
+            {{  form_widget(formPass) }}
+        </form>
+    {% endif %}
 {% endblock %}
