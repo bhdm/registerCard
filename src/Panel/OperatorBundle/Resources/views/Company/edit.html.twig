@@ -29,6 +29,16 @@
     </form>
 {% endblock %}
 
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset('bundles/crmadmin/lib/ckeditor/ckeditor.js') }}"></script>
+    <script>
+        $(document).ready(function(){
+           $('.form-group').eq(4).children('.col-sm-3').css('display', 'none');
+        });
+    </script>
+{% endblock %}
+
 {% block stylesheets %}
     {{ parent() }}
     <style>
@@ -68,6 +78,10 @@
         }
         .jq-selectbox{
             padding: 5px 0;
+        }
+        textarea{
+            width: auto;
+            display: inline-block;
         }
     </style>
 {% endblock %}

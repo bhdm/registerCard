@@ -57,6 +57,7 @@ class CompanyController extends Controller{
             $data = $request->request;
             if ($company){
                 $company->setTitle($data->get('companyName'));
+                $company->setDescription($data->get('description'));
                 $company->setZipcode($data->get('companyZipcode'));
                 $region = $this->getDoctrine()->getRepository('CrmMainBundle:Region')->findOneById($data->get('companyRegion'));
                 $company->setRegion($region);
@@ -106,6 +107,7 @@ class CompanyController extends Controller{
         if ($request->getMethod() == 'POST'){
             $data = $request->request;
             $company->setTitle($data->get('companyName'));
+            $company->setDescription($data->get('description'));
             $company->setZipcode($data->get('companyZipcode'));
             $region = $this->getDoctrine()->getRepository('CrmMainBundle:Region')->findOneById($data->get('companyRegion'));
             $company->setRegion($region);

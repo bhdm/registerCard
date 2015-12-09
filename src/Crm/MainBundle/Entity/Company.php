@@ -32,6 +32,11 @@ class Company extends BaseEntity
     protected $title;
 
     /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    protected $description;
+
+    /**
      * @ORM\Column(type="integer")
      */
     protected $quota = 0;
@@ -1161,6 +1166,22 @@ class Company extends BaseEntity
     public function setAdrs($adrs = array())
     {
         $this->adrs = $adrs;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getDescription()
+    {
+        return $this->description;
+    }
+
+    /**
+     * @param mixed $description
+     */
+    public function setDescription($description)
+    {
+        $this->description = $description;
     }
 
 

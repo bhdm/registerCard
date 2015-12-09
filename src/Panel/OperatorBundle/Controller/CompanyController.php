@@ -135,8 +135,6 @@ class CompanyController extends Controller
         $form = $this->createForm(new PanelCompanyType($em), $company);
         $formData = $form->handleRequest($request);
 
-
-
             if ($request->getMethod() == 'POST'){
 
                 $company = $formData->getData();
