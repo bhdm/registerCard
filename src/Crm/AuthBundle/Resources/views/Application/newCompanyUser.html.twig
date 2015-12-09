@@ -78,8 +78,8 @@
                     <td colspan="2">{{ form_widget(form.companyTitle) }}</td>
                 </tr>
                 <tr>
-                    <td>В лице<span class="required">*</span></td>
-                    <td>{{ form_widget(form.companyExecutive) }}</td>
+                    <td><span class="onlyskzi">В лице<span class="required">*</span></span></td>
+                    <td><span class="onlyskzi">{{ form_widget(form.companyExecutive) }}</span></td>
                     <td class="skzi-col">Копия ИНН <span class="mini text-danger">(допустимые форматы: JPG,PNG)</span></td>
                 </tr>
                 <tr>
@@ -228,7 +228,7 @@
                     <td>Отчество<span class="required">*</span></td>
                     <td>{{ form_widget(form.surName) }}</td>
                 </tr>
-                <tr class="noskzi">
+                <tr class="onlyskzi">
                     <td>Дата рождения<span class="required">*</span></td>
                     <td>{{ form_widget(form.birthday) }}</td>
                 </tr>
@@ -238,8 +238,8 @@
                     <td  class="skzi-col">Приказ <span class="mini text-danger">(допустимые форматы: JPG,PNG)</span></td>
                 </tr>
                 <tr>
-                    <td>Действующего на основании<span class="required">*</span></td>
-                    <td>{{ form_widget(form.documentAccess) }}</td>
+                    <td><span class="onlyskzi">Действующего на основании<span class="required">*</span></span></td>
+                    <td><span class="onlyskzi">{{ form_widget(form.documentAccess) }}</span></td>
                     <td  class="skzi-col">
                         {{ form_widget(form.fileDecree) }}
                     </td>
@@ -614,11 +614,14 @@
                     $('.noskzi').css('display','none');
                     $('.skzi-div').css('display','block');
                     $('#dublAdrs').css('display','inline-block');
-
+                    $('span.onlyskzi').css('display','inline')
+                    $('tr.onlyskzi').css('display','table-row')
                 }else{
                     $('.noskzi').css('display','table-row');
                     $('.skzi-div').css('display','none');
                     $('#dublAdrs').css('display','none');
+                    $('span.onlyskzi').css('display','none')
+                    $('tr.onlyskzi').css('display','none')
                 }
             });
 
