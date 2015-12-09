@@ -4,6 +4,7 @@
     <h2>Профиль</h2>
     <form method="post" style="width: 500px" class="form-horizontal">
         {#{{  form_widget(form) }}#}
+        {{ form_errors(form) }}
         {{ form_row(form.username) }}
         {{ form_row(form.phone) }}
         {{ form_row(form.companyTitle) }}
@@ -42,6 +43,8 @@
             <label class="col-sm-4 control-label required">Индекс</label>
             <div class="col-sm-8">{{ form_widget(form.adrs.zipcode) }}</div>
         </div>
+        {{ form_row(form.submit) }}
+        {{ form_row(form._token) }}
     </form>
     {#{{ dump(isIframe) }}#}
     {% if isIframe != true %}

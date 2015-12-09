@@ -58,10 +58,10 @@
         <tr>
             <td>Покупатель:</td>
             <td>
-                {% if client.company.adrs.zipcode is defined %}
-                    {{ client.company.adrs.zipcode }},
-                    {{ client.company.adrs.region }},  {{ client.company.adrs.city }},
-                    {{ client.company.adrs.street }},д.{{ client.company.adrs.house }} {{ client.company.adrs.corp }}, {{ client.company.adrs.room }}
+                {% if client.adrs.zipcode is defined %}
+                    {{ client.adrs.zipcode }},
+                    {{ client.adrs.region }},  {{ client.adrs.city }},
+                    {{ client.adrs.street }},д.{{ client.adrs.house }} {{ client.adrs.corp }}, {{ client.adrs.room }}
                 {% endif %}
             </td>
         </tr>

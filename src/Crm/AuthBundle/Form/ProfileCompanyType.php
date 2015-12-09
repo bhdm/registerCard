@@ -19,7 +19,7 @@ class ProfileCompanyType extends AbstractType
             ->add('username', 'email', array('label' => 'Email'))
             ->add('phone', 'text', array('label' => 'Телефон'))
             ->add('companyTitle', 'text', array('label' => 'Название организации'))
-            ->add('adrs', new AdrsType(), ['label' => 'null'])
+            ->add('adrs', new AdrsType())
             ->add('submit', 'submit', array('label' => 'Сохранить'))
         ;
     }
