@@ -5,7 +5,7 @@
         <h2>Заявка создана, Номер заказа {{ user.id }}</h2>
         <br/>
         <br/>
-        {% if url == null %}
+        {% if url == null and user.company.operator is defined and user.company.operator.iframe != true %}
             {#<a href="{{ path('offer',{'userId' : user.id, 'date' : '1541513'}) }}" class="btn">Скачать счет-заказ</a>#}
         <br/>
         <br/>
