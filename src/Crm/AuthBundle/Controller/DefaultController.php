@@ -31,7 +31,7 @@ class DefaultController extends Controller
             $operator = null;
         }
 
-        if ( $operator->getTitle() === 'tahograf-163'){
+        if ( $operator->getId() === 41){
             $operator = '';
         }
         return ['operator' => $operator];
