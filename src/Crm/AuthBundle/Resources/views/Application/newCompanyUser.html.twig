@@ -20,24 +20,50 @@
                     <td>
                         {{ form_widget(form.companyType) }}
                     </td>
+                    <td class="skzi-col">Заявление <span class="mini text-danger">(допустимые форматы: JPG,PNG)</span></td>
                 </tr>
                 <tr>
                     <td>Вид карты<span class="required">*</span></td>
                     <td>
                         {{ form_widget(form.cardType) }}
                     </td>
+                    <td class="skzi-col" rowspan="3">
+                        <div class="file-container">
+                            <input type="file" name="fileOrderFile" id="fileOrderFile" class="fileAjax" {{ edit is not defined ? 'required' : '' }} >
+                            <progress class="progress" value="0" max="100" style="width: 270px"></progress>
+                            <br />
+                            <br />
+                            <div class="fileDoc">
+                                {% if form.vars.value.fileOrder.path is defined %}
+                                    <img src="/{{ form.vars.value.fileOrder.path }}" brightness="0" contrast="0">
+                                {% else %}
+                                    <img src="" brightness="0" contrast="0">
+                                {% endif %}
+                            </div>
+                            <div class="navigateFile">
+                                <img src="{{ asset('bundles/crmmain/icons/rotateLeft.png') }}" class="rotateLeft" title="Повернуть налево">
+                                <img src="{{ asset('bundles/crmmain/icons/rotateRight.png') }}" class="rotateRight" title="Повернуть вправо">
+                                <div style="">
+                                    <span class="cropImage minibtn" title="Обрезать изображение">Обрезать</span>
+                                    <br />
+                                    <br />
+                                </div>
+
+                            </div>
+                            <input type="hidden" id="x1" name="x1">
+                            <input type="hidden" id="y1" name="y1">
+                            <input type="hidden" id="x2" name="x2">
+                            <input type="hidden" id="y2" name="y2">
+                        </div>
+                    </td>
                 </tr>
                 <tr>
                     <td>Email<span class="required">*</span></td>
                     <td>{{ form_widget(form.username) }}</td>
-                    <td class="skzi-col">Заявление <span class="mini text-danger">(допустимые форматы: JPG,PNG)</span></td>
                 </tr>
                 <tr>
                     <td>Телефон<span class="required">*</span></td>
                     <td>{{ form_widget(form.phone) }}</td>
-                    <td class="skzi-col">
-                        {{ form_widget(form.fileOrder) }}
-                    </td>
                 </tr>
                 <tr>
                     <td>Тип заявления<span class="required">*</span></td>
@@ -47,10 +73,36 @@
                     <td class="skzi-col">Заявление <span class="mini">(лист 2)</span></td>
                 </tr>
                 <tr>
-                    <td>Количество карт<span class="required">*</span></td>
+                    <td >Количество карт<span class="required">*</span></td>
                     <td>{{ form_widget(form.cardAmount) }}</td>
-                    <td class="skzi-col">
-                        {{ form_widget(form.fileOrderTwo) }}
+                    <td class="skzi-col" rowspan="4">
+                        <div class="file-container">
+                            <input type="file" name="fileOrderTwoFile" id="fileOrderTwoFile" class="fileAjax" {{ edit is not defined ? 'required' : '' }} >
+                            <progress class="progress" value="0" max="100" style="width: 270px"></progress>
+                            <br />
+                            <br />
+                            <div class="fileDoc">
+                                {% if form.vars.value.fileOrderTwo.path is defined %}
+                                    <img src="/{{ form.vars.value.fileOrderTwo.path }}" brightness="0" contrast="0">
+                                {% else %}
+                                    <img src="" brightness="0" contrast="0">
+                                {% endif %}
+                            </div>
+                            <div class="navigateFile">
+                                <img src="{{ asset('bundles/crmmain/icons/rotateLeft.png') }}" class="rotateLeft" title="Повернуть налево">
+                                <img src="{{ asset('bundles/crmmain/icons/rotateRight.png') }}" class="rotateRight" title="Повернуть вправо">
+                                <div style="">
+                                    <span class="cropImage minibtn" title="Обрезать изображение">Обрезать</span>
+                                    <br />
+                                    <br />
+                                </div>
+
+                            </div>
+                            <input type="hidden" id="x1" name="x1">
+                            <input type="hidden" id="y1" name="y1">
+                            <input type="hidden" id="x2" name="x2">
+                            <input type="hidden" id="y2" name="y2">
+                        </div>
                     </td>
                 </tr>
                 <tr>
@@ -58,6 +110,22 @@
                     <td>{{ form_widget(form.oldCard) }}</td>
                 </tr>
 
+                <tr>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                </tr>
                 <tr>
                     <td></td>
                     <td></td>
@@ -87,20 +155,74 @@
                     <td>
                         {{ form_widget(form.companyInn) }}
                     </td>
-                    <td class="skzi-col">
-                        {{ form_widget(form.fileInn) }}
+                    <td class="skzi-col" rowspan="3" style="vertical-align: top;">
+                        <div class="file-container">
+                            <input type="file" name="fileInnFile" id="fileInnFile" class="fileAjax" {{ edit is not defined ? 'required' : '' }} >
+                            <progress class="progress" value="0" max="100" style="width: 270px"></progress>
+                            <br />
+                            <br />
+                            <div class="fileDoc">
+                                {% if form.vars.value.fileInn.path is defined %}
+                                    <img src="/{{ form.vars.value.fileInn.path }}" brightness="0" contrast="0">
+                                {% else %}
+                                    <img src="" brightness="0" contrast="0">
+                                {% endif %}
+                            </div>
+                            <div class="navigateFile">
+                                <img src="{{ asset('bundles/crmmain/icons/rotateLeft.png') }}" class="rotateLeft" title="Повернуть налево">
+                                <img src="{{ asset('bundles/crmmain/icons/rotateRight.png') }}" class="rotateRight" title="Повернуть вправо">
+                                <div style="">
+                                    <span class="cropImage minibtn" title="Обрезать изображение">Обрезать</span>
+                                    <br />
+                                    <br />
+                                </div>
+
+                            </div>
+                            <input type="hidden" id="x1" name="x1">
+                            <input type="hidden" id="y1" name="y1">
+                            <input type="hidden" id="x2" name="x2">
+                            <input type="hidden" id="y2" name="y2">
+                        </div>
                     </td>
                 </tr>
                 <tr>
                     <td>КПП<span class="required">*</span></td>
                     <td>{{ form_widget(form.companyKpp) }}</td>
-                    <td class="skzi-col">Копия ОГРН <span class="mini text-danger">(допустимые форматы: JPG,PNG)</span></td>
                 </tr>
                 <tr>
                     <td>ОГРН<span class="required">*</span></td>
                     <td>{{ form_widget(form.companyOgrn) }}</td>
+                </tr>
+                <tr>
+                    <td class="skzi-col">Копия ОГРН <span class="mini text-danger">(допустимые форматы: JPG,PNG)</span></td>
                     <td class="skzi-col">
-                        {{ form_widget(form.fileOgrn) }}
+                        <div class="file-container">
+                            <input type="file" name="fileOgrnFile" id="fileOgrnFile" class="fileAjax" {{ edit is not defined ? 'required' : '' }} >
+                            <progress class="progress" value="0" max="100" style="width: 270px"></progress>
+                            <br />
+                            <br />
+                            <div class="fileDoc">
+                                {% if form.vars.value.fileOgrn.path is defined %}
+                                    <img src="/{{ form.vars.value.fileOgrn.path }}" brightness="0" contrast="0">
+                                {% else %}
+                                    <img src="" brightness="0" contrast="0">
+                                {% endif %}
+                            </div>
+                            <div class="navigateFile">
+                                <img src="{{ asset('bundles/crmmain/icons/rotateLeft.png') }}" class="rotateLeft" title="Повернуть налево">
+                                <img src="{{ asset('bundles/crmmain/icons/rotateRight.png') }}" class="rotateRight" title="Повернуть вправо">
+                                <div style="">
+                                    <span class="cropImage minibtn" title="Обрезать изображение">Обрезать</span>
+                                    <br />
+                                    <br />
+                                </div>
+
+                            </div>
+                            <input type="hidden" id="x1" name="x1">
+                            <input type="hidden" id="y1" name="y1">
+                            <input type="hidden" id="x2" name="x2">
+                            <input type="hidden" id="y2" name="y2">
+                        </div>
                     </td>
                 </tr>
                 <tr>
@@ -241,7 +363,33 @@
                     <td><span class="onlyskzi">Действующего на основании<span class="required">*</span></span></td>
                     <td><span class="onlyskzi">{{ form_widget(form.documentAccess) }}</span></td>
                     <td  class="skzi-col">
-                        {{ form_widget(form.fileDecree) }}
+                        <div class="file-container">
+                            <input type="file" name="fileDecreeFile" id="fileDecreeFile" class="fileAjax" {{ edit is not defined ? 'required' : '' }} >
+                            <progress class="progress" value="0" max="100" style="width: 270px"></progress>
+                            <br />
+                            <br />
+                            <div class="fileDoc">
+                                {% if form.vars.value.fileDecree.path is defined %}
+                                    <img src="/{{ form.vars.value.fileDecree.path }}" brightness="0" contrast="0">
+                                {% else %}
+                                    <img src="" brightness="0" contrast="0">
+                                {% endif %}
+                            </div>
+                            <div class="navigateFile">
+                                <img src="{{ asset('bundles/crmmain/icons/rotateLeft.png') }}" class="rotateLeft" title="Повернуть налево">
+                                <img src="{{ asset('bundles/crmmain/icons/rotateRight.png') }}" class="rotateRight" title="Повернуть вправо">
+                                <div style="">
+                                    <span class="cropImage minibtn" title="Обрезать изображение">Обрезать</span>
+                                    <br />
+                                    <br />
+                                </div>
+
+                            </div>
+                            <input type="hidden" id="x1" name="x1">
+                            <input type="hidden" id="y1" name="y1">
+                            <input type="hidden" id="x2" name="x2">
+                            <input type="hidden" id="y2" name="y2">
+                        </div>
                     </td>
                 </tr>
                 <tr>
