@@ -1720,17 +1720,20 @@ class User extends BaseEntity implements UserInterface, EquatableInterface, \Ser
         $this->dileveryStructure = $dileveryStructure;
     }
 
-    public function getStatusArray()
+    public function getStatusArray($ajax = false)
     {
-//        $userLog = $this->statuslog;
-//        $userLogArray = array();
-//        foreach ($userLog as $key => $status) {
-//                $userLogArray[$status->getTitle()] = array(
-//                    'title' => $status->getTitle(),
-//                    'date' => $status->getCreated(),
-//                );
-//        }
-//        return $userLogArray;
+        if ($ajax === false){
+            return null;
+        }
+        $userLog = $this->statuslog;
+        $userLogArray = array();
+        foreach ($userLog as $key => $status) {
+                $userLogArray[$status->getTitle()] = array(
+                    'title' => $status->getTitle(),
+                    'date' => $status->getCreated(),
+                );
+        }
+        return $userLogArray;
     }
 
     /**

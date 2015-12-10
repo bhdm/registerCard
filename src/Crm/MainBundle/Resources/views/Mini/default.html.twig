@@ -3,11 +3,13 @@
 
 {% block content %}
 
-    <h1>{{ company.title }}</h1>
-
-
     {% if company is defined and company.id != 1013 %}
-        <h2>подача карт для физических лиц:</h2>
+        {% if company.description == null %}
+            <h1>{{ company.title }}</h1>
+            <h2>подача карт для физических лиц:</h2>
+        {% else %}
+            {{ company.description | raw }}
+        {% endif %}
         <br />
         <a href="{{ path('company-application-estr-add',{'url': company.url}) }}"><span class="btn">Карта ЕСТР</span></a>
         <br />

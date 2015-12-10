@@ -18,6 +18,7 @@ class PanelCompanyType extends AbstractType
         $builder
 //            ->add('logo', 'file', array('label' => ''))
             ->add('title', null, array('label' => 'Название компании'))
+            ->add('description', null, array('label' => 'Описание', 'attr' => ['class' => 'ckeditor']))
             ->add('url', null, array('label' => 'URL'))
 //            ->add('delivery', null, array('label' => ''))
             ->add('adrs', new AdrsType(),array('mapped'=>true, 'label' => 'null'))
