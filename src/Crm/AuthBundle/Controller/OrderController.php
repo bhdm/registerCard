@@ -12,6 +12,7 @@ use Crm\MainBundle\Form\UserSkziType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\Session;
@@ -637,5 +638,18 @@ class OrderController extends Controller
         $session->set('origin-driverTranslateFile', null);
 
         return true;
+    }
+
+    /**
+     * @Route("/order/get-status-log/user", name="auth_user_get_statuslog")
+     */
+    public function getStatuslogAction(Request $request){
+        $userId = $request->query->get('userId');
+        $user = $this->getDoctrine()->getRepository('CrmMainBundle:User')->find($userId);
+        $log = $user->getStatusArray(true);
+        foreach($log as $k => $l){
+            $log[$k]['date'] = $l['date']->format('d.m.Y');
+        }
+        return new JsonResponse($log);
     }
 }
