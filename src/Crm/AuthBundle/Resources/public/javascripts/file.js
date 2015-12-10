@@ -269,7 +269,13 @@ $(document).ready(function(){
                 $('body').loader('hide');
             },
             error:function (error) {
-                console.log(error);
+                console.log(s=error);
+                $('body').loader('hide');
+                var $popup = $('<div class="flash-message">' + error.responseJSON.data.error  + '</div>');
+                $popup.insertAfter('body');
+                setTimeout(function() {
+                    $popup.fadeOut('slow', function() { $popup.remove(); });
+                }, 2000);
             },
             data: formData,
             cache: false,

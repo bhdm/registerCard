@@ -1,0 +1,121 @@
+<html>
+<head>
+    <style>
+        td{
+            padding: 5px 10px;
+        }
+    </style>
+</head>
+
+<body style="position:relative;">
+{#<div style="text-align: center">#}
+    {#Внимание! Оплата данного счета означает согласие с условиями поставки товара. Уведомление об оплате#}
+    {#обязательно, в противном случае не гарантируется наличие товара на складе. Товар отпускается по факту#}
+    {#прихода денег на р/с Поставщика, самовывозом, при наличии доверенности и паспорта.#}
+{#</div>#}
+{#<br />#}
+{#<br />#}
+<table style="margin: 0 auto; width: 100%" border="1" cellpadding="0" cellspacing="0">
+    <tr>
+        <td rowspan="2" colspan="2" width="50%">
+            МОСКОВСКИЙ ФИЛИАЛ ОАО КБ"РЕГИОНАЛЬНЫЙ КРЕДИТ" Г. МОСКВА
+        </td>
+        <td>
+            БИК
+        </td>
+        <td rowspan="2">
+            044583340<br />
+            30101810000000000340
+        </td>
+    </tr>
+    <tr>
+        <td>Сч. №</td>
+    </tr>
+    <tr>
+        <td>ИНН 7805543860</td>
+        <td>КПП 780501001</td>
+        <td rowspan="2">Сч. №</td>
+        <td rowspan="2">40702810670110000776</td>
+    </tr>
+    <tr>
+        <td colspan="2">
+            ООО "ИнфоМакс"<br />
+            <br />
+            Получатель
+        </td>
+    </tr>
+</table>
+<h2>Счет на оплату № {{ payment.id }} от {{ payment.created | date ('d.m.Y')}}</h2>
+<hr />
+<div>
+    <table>
+        <tr>
+            <td>Поставщик:</td>
+            <td>
+                ООО "ИнфоМакс", ИНН 7805543860, КПП 780501001, 198096, Санкт-Петербург г, Маринеско , дом № 5, корпус Лит.А, квартира пом.3Н, тел.: +7(812)425-12-44
+            </td>
+        </tr>
+        <tr>
+            <td>Покупатель:</td>
+            <td>
+                {% if client.adrs.zipcode is defined %}
+                    {{ client.adrs.zipcode }},
+                    {{ client.adrs.region }},  {{ client.adrs.city }},
+                    {{ client.adrs.street }},д.{{ client.adrs.house }} {{ client.adrs.corp }}, {{ client.adrs.room }}
+                {% endif %}
+            </td>
+        </tr>
+    </table>
+</div>
+<br />
+<br />
+<table width="100%" cellspacing="0" cellpadding="0" border="1">
+    <tr>
+        <th>№</th>
+        <th>Товары(работы, услуги)</th>
+        <th>Кол-во</th>
+        <th>Ед.</th>
+        <th>Цена</th>
+        <th>Сумма</th>
+    </tr>
+    {% set s = 0 %}
+    {% set amount = 0 %}
+    {% for k,o in payment.orders %}
+        <tr>
+            <td>{{ k+1 }}</td>
+            <td>{{ o.title }}</td>
+            <td>{{ o.amount }}</td>
+            <td>Шт.</td>
+            <td>{{ o.price }} р.</td>
+            <td>{{ o.price * o.amount}} р.</td>
+        </tr>
+        {% set s = s + (o.price * o.amount) %}
+        {% set amount = amount + 1 %}
+    {% endfor %}
+</table>
+<table width="100%">
+    <tr>
+        <td style="width: 65%"></td>
+        <td style="text-align: right;">ИТОГО:</td>
+        <td>{{ s }} р.</td>
+    </tr>
+    <tr>
+        <td></td>
+        <td style="text-align: right;">Без налога (НДС):</td>
+    </tr>
+    <tr>
+        <td></td>
+        <td style="text-align: right;">Всего к оплате:</td>
+        <td>{{ s }} р.</td>
+    </tr>
+</table>
+<br />
+<div>
+    Всего наименований {{ amount }} на сумму {{ s }}.00 рублей. <br />
+    <b>{{ price }}</b>
+</div>
+<br />
+<br />
+<img src="{{ app.request.scheme ~'://' ~ app.request.httpHost ~ asset('bundles/crmauth/images/payment-mp.png') }}" style="width: 1500px">
+</body>
+</html>

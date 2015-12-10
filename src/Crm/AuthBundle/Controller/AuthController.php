@@ -152,7 +152,7 @@ class AuthController extends Controller
 
         $formPass = $this->createForm(new PasswordCompanyType($em), $item);
 
-        return array('form' => $form->createView(), 'formPass' => $formPass->createView());
+        return array('form' => $form->createView(), 'formPass' => $formPass->createView(), 'isIframe' => $item->getCompany()->getOperator()->getIframe());
     }
 
     /**

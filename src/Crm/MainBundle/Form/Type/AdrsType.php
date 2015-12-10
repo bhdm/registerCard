@@ -19,10 +19,10 @@ class AdrsType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('region', null, array('required' => false))
-            ->add('area', null , array('required' => false))
-            ->add('city',null , array('required' => false))
-            ->add('street',null , array('required' => false))
+            ->add('region', null, array('required' => false,'label' => 'Регион'))
+            ->add('area', null , array('required' => false,'label' => 'Область'))
+            ->add('city',null , array('required' => false,'label' => 'Город'))
+            ->add('street',null , array('required' => false,'label' => 'Улица'))
             ->add('house',null, array('required' => false, 'attr' => array('placeholder' => 'Дом', 'class' => 'adrsMini')))
             ->add('corp',null, array('required' => false, 'attr' => array('placeholder' => 'Корпус', 'class' => 'adrsMini')))
             ->add('structure',null, array('required' => false, 'attr' => array('placeholder' => 'Строение', 'class' => 'adrsMini')))

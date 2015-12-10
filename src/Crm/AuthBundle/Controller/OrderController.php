@@ -35,11 +35,21 @@ class OrderController extends Controller
         $item = new User();
         $item->setEmail($this->getUser()->getUsername());
         $item->setUsername($this->getUser()->getPhone());
+        $company = $this->getUser()->getCompany();
+        if (!empty($company->getAdrs())){
+            $item->setDeliveryAdrs($company->getAdrs());
+        }
+
         $form = $this->createForm(new UserSkziType($em), $item);
         $formData = $form->handleRequest($request);
         if ($request->getMethod() == 'POST'){
 //            if ($formData->isValid()){
             $user = $formData->getData();
+
+            if ($request->request->get('delivery') !=1){
+                $user->setDeliveryAdrs(array());
+            }
+
             $user->setBirthDate(new \DateTime($user->getBirthDate()));
             $user->setDriverDocDateStarts(new \DateTime($user->getDriverDocDateStarts()));
             $user->setPassportIssuanceDate(new \DateTime($user->getPassportIssuanceDate()));
@@ -136,11 +146,20 @@ class OrderController extends Controller
         $item = new User();
         $item->setEmail($this->getUser()->getUsername());
         $item->setUsername($this->getUser()->getPhone());
+        $company = $this->getUser()->getCompany();
+        if (!empty($company->getAdrs())){
+            $item->setDeliveryAdrs($company->getAdrs());
+        }
+
         $form = $this->createForm(new UserEstrType($em), $item);
         $formData = $form->handleRequest($request);
         if ($request->getMethod() == 'POST'){
 //            if ($formData->isValid()){
             $user = $formData->getData();
+            if ($request->request->get('delivery') !=1){
+                $user->setDeliveryAdrs(array());
+            }
+
             $company = $this->getUser()->getCompany();
             $user->setCompany($company);
             $user->setBirthDate(new \DateTime($user->getBirthDate()));
@@ -218,11 +237,22 @@ class OrderController extends Controller
         $item = new User();
         $item->setEmail($this->getUser()->getUsername());
         $item->setUsername($this->getUser()->getPhone());
+
+        $company = $this->getUser()->getCompany();
+        if (!empty($company->getAdrs())){
+            $item->setDeliveryAdrs($company->getAdrs());
+        }
+
         $form = $this->createForm(new UserRuType($em), $item);
         $formData = $form->handleRequest($request);
         if ($request->getMethod() == 'POST'){
 //            if ($formData->isValid()){
             $user = $formData->getData();
+
+            if ($request->request->get('delivery') !=1){
+                $user->setDeliveryAdrs(array());
+            }
+
             $company = $this->getUser()->getCompany();
 
             $user->setBirthDate(new \DateTime($user->getBirthDate()));
@@ -309,6 +339,11 @@ class OrderController extends Controller
                 $company = $this->getUser()->getCompany();
                 $item->setCompany($company);
                 $item->setClient($this->getUser());
+
+//                $item->setBirthday(new \DateTime($item->getBirthday()));
+//                $item->setLicenseDateStart(new \DateTime($item->getLicenseDateStart()));
+//                $item->setLicenseDateEnd(new \DateTime($item->getLicenseDateEnd()));
+//                $item->setLicenseDecreeDate(new \DateTime($item->getLicenseDecreeDate()));
 
                 if ($item->getCardType() == 1){
                     if ($item->getCompanyType() == 1){
@@ -563,8 +598,10 @@ class OrderController extends Controller
             $fileName = basename($img);
             $originalName = basename($img);
             $mimeType = mime_content_type($img);
+            $path = str_replace('imkard/src/Crm/AuthBundle/Controller/../../../../web/','',$path);
+            $path = str_replace('imkard/app/../web/','',$path);
             $array =  array(
-                'path' =>str_replace('imkard/src/Crm/AuthBundle/Controller/../../../../web/','',$path),
+                'path' =>$path,
                 'size' =>$size,
                 'fileName' =>$fileName,
                 'originalName' =>$originalName,
@@ -584,6 +621,8 @@ class OrderController extends Controller
         $session->set('photoFile', null);
         $session->set('petitionFile', null);
         $session->set('workFile', null);
+        $session->set('passportTranslateFile', null);
+        $session->set('driverTranslateFile', null);
 
         $session->set('origin-passportFile', null);
         $session->set('origin-passport2File', null);
@@ -594,6 +633,8 @@ class OrderController extends Controller
         $session->set('origin-photoFile', null);
         $session->set('origin-petitionFile', null);
         $session->set('origin-workFile', null);
+        $session->set('origin-passportTranslateFile', null);
+        $session->set('origin-driverTranslateFile', null);
 
         return true;
     }

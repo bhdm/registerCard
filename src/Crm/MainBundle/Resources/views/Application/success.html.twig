@@ -5,7 +5,7 @@
         <h2>Заявка создана, Номер заказа {{ user.id }}</h2>
         <br/>
         <br/>
-        {% if url == null %}
+        {% if url == null and user.company.operator is defined and user.company.operator.iframe != true %}
             {#<a href="{{ path('offer',{'userId' : user.id, 'date' : '1541513'}) }}" class="btn">Скачать счет-заказ</a>#}
             <br/>
             <br/>
@@ -25,8 +25,8 @@
         <br/>
         <br/>
         <i>Скорость поступления денежных средств влияет на время отправки вашей заявки на производство. <br />
-            {% if url is defined and url == null %}
-            В случае возникновения вопросов обращайтесь в <a href="{{ path('faq') }}" target="_parent" style="color: #e8313e; border-bottom: 1px dashed #e8313e;">службу поддержки.</a></i>
+        {% if url is defined and url == null %}
+            В случае возникновения вопросов обращайтесь в <a href="{{ path('faq') }}" target="_blank" style="color: #e8313e; border-bottom: 1px dashed #e8313e;">службу поддержки.</a></i>
         {% endif %}
         {% if is_granted('ROLE_CLIENT') %}
             <br/><br /><br />

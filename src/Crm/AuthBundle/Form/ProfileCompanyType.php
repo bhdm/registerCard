@@ -2,6 +2,7 @@
 
 namespace Crm\AuthBundle\Form;
 
+use Crm\MainBundle\Form\Type\AdrsType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
@@ -18,7 +19,7 @@ class ProfileCompanyType extends AbstractType
             ->add('username', 'email', array('label' => 'Email'))
             ->add('phone', 'text', array('label' => 'Телефон'))
             ->add('companyTitle', 'text', array('label' => 'Название организации'))
-
+            ->add('adrs', new AdrsType())
             ->add('submit', 'submit', array('label' => 'Сохранить'))
         ;
     }
