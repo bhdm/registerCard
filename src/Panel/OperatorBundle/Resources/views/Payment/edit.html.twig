@@ -19,11 +19,11 @@
                     <div class="col-xs-2">Сумма</div>
                 </div>
                 <div class="orders">
-                    {% for o in payment.orders %}
+                    {% for k,o in payment.orders %}
                         <div>
                             <div class="row">
                                 <div class="col-xs-4">
-                                    <select class="form-control chosen" name="title-save[{{ o.id }}]" >
+                                    <select class="form-control chosen" name="title[{{k }}]" >
 
                                         <option {{ o.title == 'Карта водителя СКЗИ' ? 'selected="selected"' : '' }}value="Карта водителя СКЗИ" data-price="101">Карта водителя СКЗИ</option>
                                         <option {{ o.title == 'Карта водителя ЕСТР' ? 'selected="selected"' : '' }}value="Карта водителя ЕСТР" data-price="102">Карта водителя ЕСТР</option>
@@ -37,10 +37,10 @@
                                     </select>
                                 </div>
                                 <div class="col-xs-1">
-                                    <input type="text" class="form-control amount" name="amount[0]" value="{{ o.amount }}">
+                                    <input type="text" class="form-control amount" name="amount[{{ k }}]" value="{{ o.amount }}">
                                 </div>
                                 <div class="col-xs-2">
-                                    <input type="text" class="form-control price"   value="{{ o.price }}">
+                                    <input type="text" class="form-control price"   value="{{ o.price }}" name="price[{{ k }}]">
                                 </div>
                                 <div class="col-xs-2">
                                     <input type="text" class="form-control summa" disabled  value="{{ o.amount*o.price }}">
@@ -56,7 +56,7 @@
                     <div>
                         <div class="row">
                             <div class="col-xs-4">
-                                <select class="form-control chosen" name="title[0]">
+                                <select class="form-control chosen" name="title[{{ payment.orders | length }}]">
 
                                     <option value="Карта водителя СКЗИ"     data-price="{{ company.priceSkzi }}"            >Карта водителя СКЗИ</option>
                                     <option value="Карта водителя ЕСТР"     data-price="{{ company.priceEstr }}"            >Карта водителя ЕСТР</option>
@@ -70,10 +70,10 @@
                                 </select>
                             </div>
                             <div class="col-xs-1">
-                                <input type="text" class="form-control amount" name="amount[0]" >
+                                <input type="text" class="form-control amount" name="amount[{{ payment.orders | length }}]" >
                             </div>
                             <div class="col-xs-2">
-                                <input type="text" class="form-control price"  value="{{ company.priceSkzi }}">
+                                <input type="text" class="form-control price"  value="{{ company.priceSkzi }}" name="price[{{ payment.orders | length }}]">
                             </div>
                             <div class="col-xs-2">
                                 <input type="text" class="form-control summa"  readonly disabled>
@@ -85,6 +85,9 @@
                         </div>
                         <br />
                     </div>
+                </div>
+                <div>
+                    <b>ИТОГО: <span class="sumPrice">{{ sumPrice }} руб.</span></b>
                 </div>
                 <br />
                 <button type="submit" class="btn btn-primary">Сохранить</button>
@@ -102,7 +105,7 @@
     </script>
     <script>
         $(document).ready(function(){
-            var num =1;
+            var num = {{ payment.orders | length +1 }};
             var block =
                     '<div>' +
                     '<div class="row">'+
@@ -123,7 +126,7 @@
                     '<input type="text" class="form-control amount" name="amount['+num+']">'+
                     '</div>'+
                     '<div class="col-xs-2">'+
-                    '<input type="text" class="form-control price"  disabled value="101">'+
+                    '<input type="text" class="form-control price"  disabled value="{{ company.priceSkzi }}" name="price['+num+']">'+
                     '</div>'+
                     '<div class="col-xs-2">'+
                     '<input type="text" class="form-control summa"  disabled>'+
@@ -153,7 +156,28 @@
                 var amount = $(this).parent().parent().children('div').eq(1).children('input').val();
                 $(this).parent().parent().children('div').eq(2).children('input').val(price);
                 $(this).parent().parent().children('div').eq(3).children('input').val(price*amount);
+
+                var sumPrice = 0;
+                for (i = 0 ; i < $('.summa').length ; i ++){
+                    sumPrice += parseFloat($('.summa').eq(i).val());
+                }
+                $('.sumPrice').html(sumPrice+' руб.');
             });
+
+            $('body').on("keyup", '.price', function(){
+                var price = $(this).val();
+//                alert(price);
+                var amount = $(this).parent().parent().children('div').eq(1).children('input').val();
+//                $(this).parent().parent().children('div').eq(2).children('input').val(price);
+                $(this).parent().parent().children('div').eq(3).children('input').val(price*amount);
+
+                var sumPrice = 0;
+                for (i = 0 ; i < $('.summa').length ; i ++){
+                    sumPrice += parseFloat($('.summa').eq(i).val());
+                }
+                $('.sumPrice').html(sumPrice+' руб.');
+            });
+
         });
 
     </script>

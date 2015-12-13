@@ -86,22 +86,30 @@ class PaymentController extends Controller
                 $em->flush();
                 $em->refresh($payment);
 
+                foreach ( $payment->getOrders() as $o ){
+                    $em->remove($o);
+                }
+                $em->flush();
+                $em->refresh($payment);
 
+                $operator = $payment->getCLient()->getCompany()->getOperator();
                 for ($i = 0; $i < 10; $i ++){
                     if (isset($request->request->get('title')[$i]) && $request->request->get('title')[$i] != null){
-                        $operator = $this->getUser()->getCompany()->getOperator();
-                        switch ($request->request->get('title')[$i]){
-                            case 'Карта водителя СКЗИ': $price = $operator->getPriceSkzi(); break;
-                            case 'Карта водителя ЕСТР': $price = $operator->getPriceEstr(); break;
-                            case 'Карта водителя РФ': $price = $operator->getPriceRu(); break;
-                            default: $price = 0; break;
+//                        switch ($request->request->get('title')[$i]){
+//                            case 'Карта водителя СКЗИ': $price = $operator->getPriceSkzi(); break;
+//                            case 'Карта водителя ЕСТР': $price = $operator->getPriceEstr(); break;
+//                            case 'Карта водителя РФ': $price = $operator->getPriceRu(); break;
+//                            default: $price = 0; break;
+//                        }
+                        if ($request->request->get('amount')[$i]){
+                            $o = new PaymentOrder();
+                            $o->setPayment($payment);
+                            $o->setTitle($request->request->get('title')[$i]);
+                            $o->setAmount($request->request->get('amount')[$i]);
+                            $o->setPrice($request->request->get('price')[$i]);
+                            $em->persist($o);
+                            $em->flush($o);
                         }
-                        $o = new PaymentOrder();
-                        $o->setPayment($payment);
-                        $o->setTitle($request->request->get('title')[$i]);
-                        $o->setAmount($request->request->get('amount')[$i]);
-                        $o->setPrice($price);
-                        $em->flush($o);
                     }else{
                         break;
                     }
@@ -111,7 +119,11 @@ class PaymentController extends Controller
             }
         }
         $company = $payment->getClient()->getCompany();
-        return array( 'form' => $paymentForm->createView(),'payment' => $payment, 'company' => $company);
+        $sumPrice = 0;
+        foreach ($payment->getOrders() as $o){
+            $sumPrice += ($o->getAmount() * $o->getPrice());
+        }
+        return array( 'form' => $paymentForm->createView(),'payment' => $payment, 'company' => $company, 'sumPrice' => $sumPrice);
     }
 
     /**

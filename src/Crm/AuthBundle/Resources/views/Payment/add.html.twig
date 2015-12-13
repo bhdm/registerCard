@@ -46,6 +46,9 @@
                     <br />
                 </div>
             </div>
+            <div>
+                <b>ИТОГО: <span class="sumPrice"></span></b>
+            </div>
             <br />
             <button type="submit" class="btn btn-primary">Сохранить</button>
         </form>
@@ -108,6 +111,12 @@
                 var amount = $(this).parent().parent().children('div').eq(1).children('input').val();
                 $(this).parent().parent().children('div').eq(2).children('input').val(price);
                 $(this).parent().parent().children('div').eq(3).children('input').val(price*amount);
+
+                var sumPrice = 0;
+                for (i = 0 ; i < $('.summa').length ; i ++){
+                    sumPrice += parseFloat($('.summa').eq(i).val());
+                }
+                $('.sumPrice').html(sumPrice+' руб.');
             });
         });
 
