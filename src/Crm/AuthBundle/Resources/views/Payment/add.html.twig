@@ -61,39 +61,39 @@
     <script>
         $(document).ready(function(){
             var num =1;
-            var block =
-                    '<div>' +
-                    '<div class="row">'+
-                    '<div class="col-xs-4">'+
-                    '<select class="form-control" name="title['+num+']">'+
-                    '<option value="Карта водителя СКЗИ"    data-price="{{ c.priceSkzi }}"          >Карта водителя СКЗИ</option>'+
-                    '<option value="Карта водителя ЕСТР"    data-price="{{ c.priceEstr }}"          >Карта водителя ЕСТР</option>'+
-                    '<option value="Карта водителя РФ"      data-price="{{ c.priceRu }}"            >Карта водителя РФ</option>'+
-                    '<option value="Карта предприятия СКЗИ" data-price="{{ c.priceEnterpriseSkzi }}">Карта предприятия СКЗИ</option>'+
-                    '<option value="Карта предприятия ЕСТР" data-price="{{ c.priceEnterpriseEstr }}">Карта предприятия ЕСТР</option>'+
-                    '<option value="Карта предприятия РФ"   data-price="{{ c.priceEnterpriseRu }}"  >Карта предприятия РФ</option>'+
-                    '<option value="Карта мастерской СКЗИ"  data-price="{{ c.priceMasterSkzi }}"    >Карта мастерской СКЗИ</option>'+
-                    '<option value="Карта мастерской ЕСТР"  data-price="{{ c.priceMasterEstr }}"    >Карта мастерской ЕСТР</option>'+
-                    '<option value="Карта мастерской РФ"    data-price="{{ c.priceMasterRU }}"      >Карта мастерской РФ</option>'+
-                    '</select>'+
-                    '</div>'+
-                    '<div class="col-xs-1">'+
-                    '<input type="text" class="form-control amount" name="amount['+num+']">'+
-                    '</div>'+
-                    '<div class="col-xs-2">'+
-                    '<input type="text" class="form-control price"  disabled value="101">'+
-                    '</div>'+
-                    '<div class="col-xs-2">'+
-                    '<input type="text" class="form-control summa"  disabled>'+
-                    '</div>'+
-                    '<div class="col-xs-1">'+
-                    '<button type="button" class="btn btn-danger remove"><span class="glyphicon glyphicon-minus"></span></button>'+
-                    '</div>'+
-                    '</div>' +
-                    '<br />' +
-                    '</div>';
 
             $('#add').click(function(){
+                var block =
+                        '<div>' +
+                        '<div class="row">'+
+                        '<div class="col-xs-4">'+
+                        '<select class="form-control" name="title['+num+']">'+
+                        '<option value="Карта водителя СКЗИ"    data-price="{{ c.priceSkzi }}"          >Карта водителя СКЗИ</option>'+
+                        '<option value="Карта водителя ЕСТР"    data-price="{{ c.priceEstr }}"          >Карта водителя ЕСТР</option>'+
+                        '<option value="Карта водителя РФ"      data-price="{{ c.priceRu }}"            >Карта водителя РФ</option>'+
+                        '<option value="Карта предприятия СКЗИ" data-price="{{ c.priceEnterpriseSkzi }}">Карта предприятия СКЗИ</option>'+
+                        '<option value="Карта предприятия ЕСТР" data-price="{{ c.priceEnterpriseEstr }}">Карта предприятия ЕСТР</option>'+
+                        '<option value="Карта предприятия РФ"   data-price="{{ c.priceEnterpriseRu }}"  >Карта предприятия РФ</option>'+
+                        '<option value="Карта мастерской СКЗИ"  data-price="{{ c.priceMasterSkzi }}"    >Карта мастерской СКЗИ</option>'+
+                        '<option value="Карта мастерской ЕСТР"  data-price="{{ c.priceMasterEstr }}"    >Карта мастерской ЕСТР</option>'+
+                        '<option value="Карта мастерской РФ"    data-price="{{ c.priceMasterRU }}"      >Карта мастерской РФ</option>'+
+                        '</select>'+
+                        '</div>'+
+                        '<div class="col-xs-1">'+
+                        '<input type="text" class="form-control amount" name="amount['+num+']">'+
+                        '</div>'+
+                        '<div class="col-xs-2">'+
+                        '<input type="text" class="form-control price"  disabled value="101">'+
+                        '</div>'+
+                        '<div class="col-xs-2">'+
+                        '<input type="text" class="form-control summa"  disabled>'+
+                        '</div>'+
+                        '<div class="col-xs-1">'+
+                        '<button type="button" class="btn btn-danger remove"><span class="glyphicon glyphicon-minus"></span></button>'+
+                        '</div>'+
+                        '</div>' +
+                        '<br />' +
+                        '</div>';
                 $('.orders').append(block);
             });
             $('body').on("click", '.remove', function(){
