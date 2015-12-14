@@ -143,12 +143,24 @@
             });
             $('body').on("click", '.remove', function(){
                 $(this).parent().parent().parent().remove();
+                var sumPrice = 0;
+                for (i = 0 ; i < $('.summa').length ; i ++){
+                    sumPrice += parseFloat($('.summa').eq(i).val());
+                }
+                $('.sumPrice').html(sumPrice+' руб.');
             });
             $('body').on("change", 'select', function(){
                 var price = $(this).find("option:selected").attr("data-price");
                 var amount = $(this).parent().parent().children('div').eq(1).children('input').val();
                 $(this).parent().parent().children('div').eq(2).children('input').val(price);
                 $(this).parent().parent().children('div').eq(3).children('input').val(price*amount);
+
+                var sumPrice = 0;
+                for (i = 0 ; i < $('.summa').length ; i ++){
+                    sumPrice += parseFloat($('.summa').eq(i).val());
+                }
+                $('.sumPrice').html(sumPrice+' руб.');
+
             });
             $('body').on("keyup", '.amount', function(){
                 var price = $(this).parent().parent().children('div').eq(0).children('select').find("option:selected").attr("data-price");
