@@ -70,13 +70,13 @@
                                 </select>
                             </div>
                             <div class="col-xs-1">
-                                <input type="text" class="form-control amount" name="amount[{{ payment.orders | length }}]" >
+                                <input type="text" class="form-control amount" name="amount[{{ payment.orders | length }}]" value="0" >
                             </div>
                             <div class="col-xs-2">
                                 <input type="text" class="form-control price"  value="{{ company.priceSkzi }}" name="price[{{ payment.orders | length }}]">
                             </div>
                             <div class="col-xs-2">
-                                <input type="text" class="form-control summa"  readonly disabled>
+                                <input type="text" class="form-control summa"  readonly disabled  value="0">
                             </div>
                             <div class="col-xs-1">
                                 <button type="button" class="btn" id="add"><span class="glyphicon glyphicon-plus"></span></button>
@@ -123,13 +123,13 @@
                     '</select>'+
                     '</div>'+
                     '<div class="col-xs-1">'+
-                    '<input type="text" class="form-control amount" name="amount['+num+']">'+
+                    '<input type="text" class="form-control amount" name="amount['+num+']" value="0">'+
                     '</div>'+
                     '<div class="col-xs-2">'+
                     '<input type="text" class="form-control price"  disabled value="{{ company.priceSkzi }}" name="price['+num+']">'+
                     '</div>'+
                     '<div class="col-xs-2">'+
-                    '<input type="text" class="form-control summa"  disabled>'+
+                    '<input type="text" class="form-control summa"  disabled value="0">'+
                     '</div>'+
                     '<div class="col-xs-1">'+
                     '<button type="button" class="btn btn-danger remove"><span class="glyphicon glyphicon-minus"></span></button>'+
