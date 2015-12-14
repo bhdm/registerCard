@@ -78,6 +78,14 @@ class Payment extends BaseEntity
         $this->orders = new ArrayCollection();
     }
 
+    public function getId(){
+        if ($this->number){
+            return $this->number;
+        }else{
+            return $this->id;
+        }
+    }
+
     /**
      * @return mixed
      */
