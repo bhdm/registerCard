@@ -69,7 +69,18 @@ class MessageController extends Controller
 //          LEFT JOIN Company co ON co.id = c1_.company_id
 //          WHERE c1_.enabled =1 AND c1_.id IS NOT NULL AND co.operator_id = '.$this->getUser()->getId().'
 //          HAVING aa = 0';
-        $sql = 'SELECT * FROM Chat WHERE isOperator = 0 AND `isRead` = 0 AND enabled =1';
+        $operatorId = $this->getUser()->getId();
+        $sql = '
+        SELECT *
+        FROM Chat
+        LEFT JOIN  Client ON Client.id = Chat.client_id
+        LEFT JOIN  Company ON Company.id = Client.company_id
+        WHERE
+          isOperator = 0 AND
+          `isRead` = 0 AND
+          enabled =1 AND
+          Company.operator_id = '.$operatorId;
+
         $pdo = $this->getDoctrine()->getManager()->getConnection();
         $st = $pdo->prepare($sql);
         $st->execute();
