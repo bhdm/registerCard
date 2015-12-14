@@ -69,11 +69,11 @@ class PaymentController extends Controller
 
                 for ($i = 0; $i < 10; $i ++){
                     if (isset($request->request->get('title')[$i]) && $request->request->get('title')[$i] != null){
-                        $operator = $this->getUser()->getCompany()->getOperator();
+                        $company = $this->getUser()->getCompany();
                         switch ($request->request->get('title')[$i]){
-                            case 'Карта водителя СКЗИ': $price = $operator->getPriceSkzi(); break;
-                            case 'Карта водителя ЕСТР': $price = $operator->getPriceEstr(); break;
-                            case 'Карта водителя РФ': $price = $operator->getPriceRu(); break;
+                            case 'Карта водителя СКЗИ': $price = $company->getPriceSkzi(); break;
+                            case 'Карта водителя ЕСТР': $price = $company->getPriceEstr(); break;
+                            case 'Карта водителя РФ': $price = $company->getPriceRu(); break;
                             default: $price = 0; break;
                         }
                         $o = new PaymentOrder();
