@@ -61,11 +61,11 @@
                 {% if client.companyTitle %}
                     {{ client.companyTitle }},
                 {% endif %}
-                {% if client.kpp %}
-                    КПП: {{ client.kpp }},
-                {% endif %}
                 {% if client.inn %}
                     ИНН: {{ client.inn }},
+                {% endif %}
+                {% if client.kpp %}
+                    КПП: {{ client.kpp }},
                 {% endif %}
                 {% if client.adrs.zipcode is defined %}
                     {{ client.adrs.zipcode }},
