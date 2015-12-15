@@ -2003,6 +2003,7 @@ class User extends BaseEntity implements UserInterface, EquatableInterface, \Ser
             $this->dileveryCity = $this->deliveryAdrs['city'];
             $this->dileveryStreet = $this->deliveryAdrs['street'];
             $this->dileveryHome = $this->deliveryAdrs['house'];
+            $this->dileveryCorp = $this->deliveryAdrs['corp'];
             $this->dileveryStructure = $this->deliveryAdrs['structure'];
             $this->dileveryRoom = $this->deliveryAdrs['room'];
             $this->dileveryZipcode = $this->deliveryAdrs['zipcode'];
@@ -2013,6 +2014,7 @@ class User extends BaseEntity implements UserInterface, EquatableInterface, \Ser
             $this->registeredCity =     $this->registeredAdrs['city'];
             $this->registeredStreet =   $this->registeredAdrs['street'];
             $this->registeredHome =     $this->registeredAdrs['house'];
+            $this->registeredCorp =     $this->registeredAdrs['corp'];
             $this->registeredStructure =$this->registeredAdrs['structure'];
             $this->registeredRoom =     $this->registeredAdrs['room'];
             $this->registeredZipcode =  $this->registeredAdrs['zipcode'];
