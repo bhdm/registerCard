@@ -58,13 +58,13 @@ class CompanyUserType extends AbstractType
             ->add('documentAccess')
             ->add('stampNumber')
 
-            ->add('fileOrder', 'iphp_file')
-            ->add('fileInn', 'iphp_file')
-            ->add('fileOgrn', 'iphp_file')
-            ->add('fileDecree', 'iphp_file')
+//            ->add('fileOrder', 'iphp_file')
+//            ->add('fileInn', 'iphp_file')
+//            ->add('fileOgrn', 'iphp_file')
+//            ->add('fileDecree', 'iphp_file')
             ->add('fileLicense', 'iphp_file')
             ->add('fileLicenseTwo', 'iphp_file')
-            ->add('fileOrderTwo', 'iphp_file')
+//            ->add('fileOrderTwo', 'iphp_file')
 
             ->add('licenseNumber', null, array('required' => false))
             ->add('licenseIssued', null, array('required' => false))

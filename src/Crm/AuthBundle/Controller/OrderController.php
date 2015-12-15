@@ -370,18 +370,71 @@ class OrderController extends Controller
                 $em->flush();
                 $em->refresh($item);
                 $session = new Session();
-                $fileSign = $session->get('signFile');
-                $info = new \SplFileInfo($fileSign);
 
                 $path = $this->get('kernel')->getRootDir() . '/../web/upload/usercompany/';
                 mkdir($path.$item->getId());
-                $path = $path.$item->getId().'/'.$item->getSalt().'-si.'.$info->getExtension();
-                if (copy($fileSign,$path)){
-                    unlink( $fileSign );
+
+//
+                $file = $session->get('signFile');
+                $info = new \SplFileInfo($file);
+                $path = $path.$item->getId().'/'.$item->getSalt().'-sign.'.$info->getExtension();
+                if (copy($file,$path)){
+                    unlink( $file );
                     $session->set('signFile',null);
+                    $array = $this->getImgToArray($path);
+                    $item->setFileSign($array);
                 }
-                $array = $this->getImgToArray($path);
-                $item->setFileSign($array);
+
+                $file = $session->get('fileOrderFile');
+                $info = new \SplFileInfo($file);
+                $path = $path.$item->getId().'/'.$item->getSalt().'-fileOrderFile.'.$info->getExtension();
+                if (copy($file,$path)){
+                    unlink( $file );
+                    $session->set('fileOrderFile',null);
+                    $array = $this->getImgToArray($path);
+                    $item->setFileOrder($array);
+                }
+
+                $file = $session->get('fileOrderTwoFile');
+                $info = new \SplFileInfo($file);
+                $path = $path.$item->getId().'/'.$item->getSalt().'-fileOrderTwoFile.'.$info->getExtension();
+                if (copy($file,$path)){
+                    unlink( $file );
+                    $session->set('fileOrderTwoFile',null);
+                    $array = $this->getImgToArray($path);
+                    $item->setFileOrderTwo($array);
+                }
+
+                $file = $session->get('fileInnFile');
+                $info = new \SplFileInfo($file);
+                $path = $path.$item->getId().'/'.$item->getSalt().'-fileInnFile.'.$info->getExtension();
+                if (copy($file,$path)){
+                    unlink( $file );
+                    $session->set('fileInnFile',null);
+                    $array = $this->getImgToArray($path);
+                    $item->setFileInn($array);
+                }
+
+                $file = $session->get('fileOgrnFile');
+                $info = new \SplFileInfo($file);
+                $path = $path.$item->getId().'/'.$item->getSalt().'-fileOgrnFile.'.$info->getExtension();
+                if (copy($file,$path)){
+                    unlink( $file );
+                    $session->set('fileOgrnFile',null);
+                    $array = $this->getImgToArray($path);
+                    $item->setFileOgrn($array);
+                }
+
+                $file = $session->get('fileDecreeFile');
+                $info = new \SplFileInfo($file);
+                $path = $path.$item->getId().'/'.$item->getSalt().'-fileDecreeFile.'.$info->getExtension();
+                if (copy($file,$path)){
+                    unlink( $file );
+                    $session->set('fileDecreeFile',null);
+                    $array = $this->getImgToArray($path);
+                    $item->setFileDecree($array);
+                }
+
                 $em->flush($item);
                 $em->refresh($item);
 
