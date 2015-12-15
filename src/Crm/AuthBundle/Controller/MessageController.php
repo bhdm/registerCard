@@ -78,7 +78,7 @@ class MessageController extends Controller
         WHERE
           isOperator = 0 AND
           `isRead` = 0 AND
-          enabled =1 AND
+          Chat.enabled =1 AND
           Company.operator_id = '.$operatorId;
 
         $pdo = $this->getDoctrine()->getManager()->getConnection();
