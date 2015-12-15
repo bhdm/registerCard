@@ -58,6 +58,15 @@
         <tr>
             <td>Покупатель:</td>
             <td>
+                {% if client.companyTitle %}
+                    {{ client.companyTitle }},
+                {% endif %}
+                {% if client.inn %}
+                    ИНН: {{ client.inn }},
+                {% endif %}
+                {% if client.kpp %}
+                    КПП: {{ client.kpp }},
+                {% endif %}
                 {% if client.adrs.zipcode is defined %}
                     {{ client.adrs.zipcode }},
                     {{ client.adrs.region }},  {{ client.adrs.city }},
@@ -65,6 +74,9 @@
                 {% endif %}
             </td>
         </tr>
+        <tr>
+            <td>Основание:</td>
+            <td>{{ client.doc }}</td>
     </table>
 </div>
 <br />
