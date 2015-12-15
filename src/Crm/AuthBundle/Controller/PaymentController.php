@@ -88,7 +88,7 @@ class PaymentController extends Controller
                     }
                 }
 
-                $this->redirect($this->generateUrl("auth_payment_list"));
+                return $this->redirect($this->generateUrl("auth_payment_list"));
             }
         }
         return array( 'form' => $paymentForm->createView(),'payment' => $payment,'c' => $company);
