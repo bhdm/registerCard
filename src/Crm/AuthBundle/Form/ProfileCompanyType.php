@@ -20,7 +20,7 @@ class ProfileCompanyType extends AbstractType
             ->add('phone', 'text', array('label' => 'Телефон'))
             ->add('companyTitle', 'text', array('label' => 'Название организации'))
             ->add('inn', 'text', array('label' => 'ИНН'))
-            ->add('kpp', 'text', array('label' => 'KPP'))
+            ->add('kpp', 'text', array('label' => 'КПП'))
             ->add('doc', 'text', array('label' => 'На основании'))
             ->add('adrs', new AdrsType())
             ->add('submit', 'submit', array('label' => 'Сохранить'))
