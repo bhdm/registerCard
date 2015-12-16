@@ -53,7 +53,7 @@
 
                     <td style="text-align: center">
                         <a href="{{ path('panel_client_list',{'companyId' : company.id }) }}">
-                            <button class="btn btn-info"><span class="glyphicon glyphicon-user">&nbsp;{{ company.clients | length }}</span></button>
+                            <button class="btn btn-info"><span class="glyphicon glyphicon-user">&nbsp;{{ company.clients ? company.clients | length | 0 }}</span></button>
                         </a>
                     </td>
 

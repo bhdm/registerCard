@@ -27,7 +27,7 @@
                     <td>{{ p.id }} ( {{ p.number }} )</td>
                     <td>{{ p.created | date('d.m.Y') }}</td>
                     <td>{{ p.client.username }}</td>
-                    <td>{{ p.client.company }}</td>
+                    <td><a href="{{ path('panel_company_edit',{'id' : p.client.company.id }) }}">{{ p.client.company }}</a></td>
                     <td>{{ p.amount }}</td>
                     <td>{{ p.summa }}</td>
                     <td>
