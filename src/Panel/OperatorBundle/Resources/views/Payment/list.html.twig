@@ -24,7 +24,7 @@
             </thead>
             {% for p in pagination %}
                 <tr>
-                    <td>{{ p.id }} {{ p.number ? '('~p.number~')' | ''}} </td>
+                    <td>{{ p.id }} {{ p.number ? '('~p.number~')' : ''}} </td>
                     <td>{{ p.created | date('d.m.Y') }}</td>
                     <td>{{ p.client.username }}</td>
                     <td><a href="{{ path('panel_company_edit',{'id' : p.client.company.id }) }}">{{ p.client.company }}</a></td>
