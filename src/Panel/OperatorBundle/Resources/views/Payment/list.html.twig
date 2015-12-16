@@ -24,7 +24,7 @@
             </thead>
             {% for p in pagination %}
                 <tr>
-                    <td>{{ p.id~p.number }}</td>
+                    <td>{{ p.id }} ( {{ p.number }} )</td>
                     <td>{{ p.created | date('d.m.Y') }}</td>
                     <td>{{ p.client.username }}</td>
                     <td>{{ p.client.company }}</td>
