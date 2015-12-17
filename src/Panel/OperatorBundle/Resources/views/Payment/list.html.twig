@@ -27,7 +27,7 @@
                     <td>{{ p.id }} {{ p.number ? '('~p.number~')' : ''}} </td>
                     <td>{{ p.created | date('d.m.Y') }}</td>
                     <td>{{ p.client.username }}</td>
-                    <td><a href="{{ path('panel_company_edit',{'id' : p.client.company.id }) }}">{{ p.client.company }}</a></td>
+                    <td><a href="{{ path('panel_user_list', {'type' : 'null' , 'company' : p.client.company.id }) }}">{{ p.client.company }}</a></td>
                     <td>{{ p.amount }}</td>
                     <td>{{ p.summa }}</td>
                     <td>
@@ -46,17 +46,9 @@
 
                     <td class="setting">
                         {% spaceless %}
-                            <a href="{{ path('panel_payment_edit',{'id' : p.id}) }}" >
-                                <button type="button" class="btn btn-primary btn-bg" title="Отправить сообщение">
-                                    <span class="glyphicon glyphicon-edit"></span>
-                                </button>
-                            </a>
-                            &nbsp;&nbsp;
-                            <a href="#">
-                                <a href="{{ path('panel_payment_delete',{'id': p.id }) }}"><button type="button" class="btn btn-default btn-danger" title="Удалить">
-                                        <span class="glyphicon glyphicon-remove"></span>
-                                    </button></a>
-                            </a>
+                            <button type="button" class="btn btn-default btn-danger remove" data-href="{{ path('panel_payment_delete',{'id': p.id }) }}">
+                                <span class="glyphicon glyphicon-remove"></span>
+                            </button>
                         {% endspaceless %}
                     </td>
                 </tr>
@@ -73,6 +65,31 @@
     <script>
         $(document).ready(function(){
             $(".chosen").chosen({no_results_text: "По вашему запросу не найдено", width: 300});
+
+            $('.remove').click(function () {
+                var url = $(this).attr('data-href');
+                BootstrapDialog.show({
+                    title: 'УДАЛЕНИЕ',
+                    size: BootstrapDialog.SIZE_SMALL,
+                    type: BootstrapDialog.TYPE_DANGER,
+                    message: 'Вы точно хотите безвозратно удалить',
+                    buttons: [{
+                        label: 'Удалить',
+                        cssClass: 'btn-danger',
+                        autospin: true,
+                        action: function (dialogRef) {
+                            window.location.href = url;
+                        }
+                    }, {
+                        label: 'Отмена',
+                        action: function (dialogRef) {
+                            dialogRef.close();
+                        }
+                    }]
+                });
+            });
         });
+
+
     </script>
 {% endblock %}
