@@ -46,6 +46,12 @@
 
                     <td class="setting">
                         {% spaceless %}
+                            <a href="{{ path('panel_payment_edit',{'id' : p.id}) }}" >
+                                <button type="button" class="btn btn-primary btn-bg" title="редактирование счета">
+                                    <span class="glyphicon glyphicon-edit"></span>
+                                </button>
+                            </a>
+                            &nbsp;&nbsp;
                             <button type="button" class="btn btn-default btn-danger remove" data-href="{{ path('panel_payment_delete',{'id': p.id }) }}">
                                 <span class="glyphicon glyphicon-remove"></span>
                             </button>
