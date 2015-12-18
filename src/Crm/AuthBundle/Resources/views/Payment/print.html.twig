@@ -45,7 +45,7 @@
         </td>
     </tr>
 </table>
-<h2>Счет на оплату № {{ p.number != null ? p.number : p.id }} от {{ payment.created | date ('d.m.Y')}}</h2>
+<h2>Счет на оплату № {{ p.number != null and p.number != '' and p.number != 0  ? p.number : p.id }} от {{ payment.created | date ('d.m.Y')}}</h2>
 <hr />
 <div>
     <table>
