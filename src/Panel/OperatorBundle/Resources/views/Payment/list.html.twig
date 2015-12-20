@@ -37,7 +37,12 @@
             {% for p in pagination %}
                 <tr>
                     <td>{{ p.id }} {{ p.number ? '('~p.number~')' : ''}} </td>
-                    <td>{{ p.created | date('d.m.Y') }}</td>
+                    <td>
+                        {{ p.created | date('d.m.Y') }}
+                        {% if p.print == 1 %}
+                            <span class="glyphicon glyphicon-print" style="color: #0000cc"></span>
+                        {% endif %}
+                    </td>
                     <td>{{ p.client.username }}</td>
                     <td><a href="{{ path('panel_user_list', {'type' : 'null' , 'company' : p.client.company.id }) }}">{{ p.client.company }}</a></td>
                     <td>{{ p.amount }}</td>

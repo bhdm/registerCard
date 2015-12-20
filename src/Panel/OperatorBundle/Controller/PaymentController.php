@@ -205,7 +205,7 @@ class PaymentController extends Controller
         }
         $price = $this->num2str($price);
         if ($payment){
-            $payment->setStatus(1);
+            $payment->setPrint(1);
             $this->getDoctrine()->getManager()->flush($payment);
             $mpdfService = $this->get('tfox.mpdfport');
             $html = $this->renderView('CrmAuthBundle:Payment:print.html.twig',array('client' => $client,'payment' => $payment,'price' => $price));
