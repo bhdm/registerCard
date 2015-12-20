@@ -26,7 +26,7 @@ class CompanyController extends Controller
      */
     public function listAction(Request $request, $companyId = null)
     {
-        $companies = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->findBy(array('operator' => $this->getUser(), 'enabled' => true));
+        $companies = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->debtors2($this->getUser());
         if ($companyId != null){
             $companies2 = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->findById($companyId);
         }else{

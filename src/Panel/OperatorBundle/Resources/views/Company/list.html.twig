@@ -19,7 +19,7 @@
                 <th >
                     <select class="chosen" data-placeholder="Компания">
                         {% for c in companies %}
-                            <option value="{{ c.id }}">{{ c }}</option>
+                            <option value="{{ c.id }}">{{ c.title }}</option>
                         {% endfor %}
                     </select>
                 </th>
@@ -32,7 +32,7 @@
             </tr>
             </thead>
             {% for company in companies2 %}
-                <tr style="{{ company.quota < 0 ? 'background: #FFCACA' : 0 }}" >
+                <tr style="{{ company.sumPrice < 0 ? 'background: #FFCACA' : 0 }}" >
                     <td>
                         {% if company.confirmed == true %}
                             <img src="{{ asset('bundles/crmmain/images/like.png') }}" style="width: 24px;">
@@ -48,13 +48,13 @@
                         {#{% endif %}#}
                     {#</td>#}
                     <td>
-                        {{ company.quota }}
+                        {{ company.sumPrice }}
                     </td>
-                    <td> <span title="Все">{{ company.users | length }}</span> / <span title="В работе">{{ company.userConfirmation | length}}</span></td>
+                    <td></td>
 
                     <td style="text-align: center">
                         <a href="{{ path('panel_client_list',{'companyId' : company.id }) }}">
-                            <button class="btn btn-info"><span class="glyphicon glyphicon-user">&nbsp;{{ company.clients ? company.clients | length : 0 }}</span></button>
+                            <button class="btn btn-info"><span class="glyphicon glyphicon-user">&nbsp;{{ company.amountClient ? company.amountClient : 0}}</span></button>
                         </a>
                     </td>
 
