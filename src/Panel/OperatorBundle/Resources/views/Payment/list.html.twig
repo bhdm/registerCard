@@ -58,6 +58,12 @@
 
                     <td class="setting">
                         {% spaceless %}
+                            <a href="{{ path('panel_payment_print',{'id' : p.id}) }}" target="_blank">
+                                <button type="button" class="btn btn-primary btn-bg" title="Печать">
+                                    <span class="glyphicon glyphicon-print"></span>
+                                </button>
+                            </a>
+                            &nbsp;&nbsp;
                             <a href="{{ path('panel_payment_edit',{'id' : p.id}) }}" >
                                 <button type="button" class="btn btn-primary btn-bg" title="редактирование счета">
                                     <span class="glyphicon glyphicon-edit"></span>
