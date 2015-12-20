@@ -10,7 +10,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * Payment
  *
  * @ORM\Table()
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="PaymentRepository")
  */
 class Payment extends BaseEntity
 {

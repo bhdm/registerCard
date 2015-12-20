@@ -14,8 +14,20 @@
             <tr>
                 <th >Номер</th>
                 <th >Дата</th>
-                <th >Клиент</th>
-                <th >Компания</th>
+                <th>
+                    <select class="chosen" id="clients" data-placeholder="Клиент" style="width: 200px">
+                        {% for c in clientsList %}
+                            <option value="{{ c.id }}">{{ c.username }}</option>
+                        {% endfor %}
+                    </select>
+                </th>
+                <th>
+                    <select class="chosen" id="companies" data-placeholder="Компания" style="width: 200px">
+                        {% for c in companiesList %}
+                            <option value="{{ c.id }}">{{ c }}</option>
+                        {% endfor %}
+                    </select>
+                </th>
                 <th >Кол&nbsp;-&nbsp;во</th>
                 <th >Сумма</th>
                 <th >Статус</th>
@@ -71,6 +83,14 @@
     <script>
         $(document).ready(function(){
             $(".chosen").chosen({no_results_text: "По вашему запросу не найдено", width: 300});
+
+            $('#companies').change(function(){
+                window.location.href = Routing.generate('panel_payment_list', {'companyId': $(this).val() })
+            });
+            $('#clients').change(function(){
+                window.location.href = Routing.generate('panel_payment_list', {'clientId': $(this).val() })
+            });
+
 
             $('.remove').click(function () {
                 var url = $(this).attr('data-href');

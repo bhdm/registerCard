@@ -28,20 +28,28 @@ use Symfony\Component\Security\Http\Event\InteractiveLoginEvent;
 class PaymentController extends Controller
 {
     /**
-     * @Route("/list", name="panel_payment_list")
+     * @Route("/list", name="panel_payment_list", options={"expose" = true})
      * @Template()
      */
     public function listAction(Request $request)
     {
-        $payments = $this->getDoctrine()->getRepository('CrmMainBundle:Payment')->findBy(['enabled' => true],['created' => 'DESC']);
+        if ($request->query->get('companyId')){
+
+            $payments = $this->getDoctrine()->getRepository('CrmMainBundle:Payment')->filter(['company' => $request->query->get('companyId')]);
+        }elseif($request->query->get('clientId')){
+            $payments = $this->getDoctrine()->getRepository('CrmMainBundle:Payment')->filter(['client' => $request->query->get('clientId')]);
+        }else{
+            $payments = $this->getDoctrine()->getRepository('CrmMainBundle:Payment')->findBy(['enabled' => true],['created' => 'DESC']);
+        }
         $paginator = $this->get('knp_paginator');
         $pagination = $paginator->paginate(
             $payments,
             $this->get('request')->query->get('page', 1),
-            50
+            20
         );
-
-        return ['pagination' => $pagination];
+        $clientsList = $this->getDoctrine()->getRepository('CrmMainBundle:Client')->findAll();
+        $companyList = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->findAll();
+        return ['pagination' => $pagination, 'clientsList' => $clientsList, 'companiesList' => $companyList ];
     }
 
     /**

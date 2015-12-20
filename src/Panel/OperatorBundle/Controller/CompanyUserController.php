@@ -133,7 +133,7 @@ class CompanyUserController extends Controller{
 //        $image->destroy();
 
 
-
+        $files = array();
         $response = new Response();
         $response->headers->set('Content-Type', 'text/xml');
         $content = $this->renderView("PanelOperatorBundle:Doc:xml.html.twig", array('order' => $order,'files' => $files));
