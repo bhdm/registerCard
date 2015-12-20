@@ -159,6 +159,7 @@ class CompanyRepository extends EntityRepository
 
             WHERE c.enabled =1 AND c.url IS NOT NULL  AND c.url !=  ''
             AND c.operator_id = $operatorId
+            AND c.id != 551
             GROUP BY c.id
             HAVING sumPrice is not NULL
             ORDER BY sumPrice ASC
