@@ -30,7 +30,11 @@
                     <td>Телефон<span class="required">*</span></td>
                     <td>{{ form_widget(form.phone) }}</td>
                     <td class="skzi-col">
-                        {{ form_widget(form.fileOrder) }}
+                        {% if order.fileOrder['path'] is defined %}
+                            <img src="/{{ order.fileOrder['path'] }}" brightness="0" contrast="0">
+                        {% else %}
+                            <img src="" brightness="0" contrast="0">
+                        {% endif %}
                     </td>
                 </tr>
                 <tr>
@@ -44,7 +48,11 @@
                     <td>Количество карт<span class="required">*</span></td>
                     <td>{{ form_widget(form.cardAmount) }}</td>
                     <td class="skzi-col">
-                        {{ form_widget(form.fileOrderTwo) }}
+                        {% if order.fileOrderTwo['path'] is defined %}
+                            <img src="/{{ order.fileOrderTwo['path'] }}" brightness="0" contrast="0">
+                        {% else %}
+                            <img src="" brightness="0" contrast="0">
+                        {% endif %}
                     </td>
                 </tr>
                 <tr>
@@ -81,7 +89,11 @@
                         {{ form_widget(form.companyInn) }}
                     </td>
                     <td class="skzi-col">
-                        {{ form_widget(form.fileInn) }}
+                        {% if order.fileInn['path'] is defined %}
+                            <img src="/{{ order.fileInn['path'] }}" brightness="0" contrast="0">
+                        {% else %}
+                            <img src="" brightness="0" contrast="0">
+                        {% endif %}
                     </td>
                 </tr>
                 <tr>
@@ -93,7 +105,11 @@
                     <td>ОГРН<span class="required">*</span></td>
                     <td>{{ form_widget(form.companyOgrn) }}</td>
                     <td class="skzi-col">
-                        {{ form_widget(form.fileOgrn) }}
+                        {% if order.fileOgrn['path'] is defined %}
+                            <img src="/{{ order.fileOgrn['path'] }}" brightness="0" contrast="0">
+                        {% else %}
+                            <img src="" brightness="0" contrast="0">
+                        {% endif %}
                     </td>
                 </tr>
                 <tr>
@@ -234,7 +250,7 @@
                     <td>Действующего на основании<span class="required">*</span></td>
                     <td>{{ form_widget(form.documentAccess) }}</td>
                     <td  class="skzi-col">
-                        {{ form_widget(form.fileDecree) }}
+                        {#{{ form_widget(form.fileDecree) }}#}
                     </td>
                 </tr>
                 <tr>
@@ -308,7 +324,6 @@
                             <div class="fileDoc" style="text-align: left">
                                 {% if order.fileSign['path'] is defined %}
                                     <img src="/{{ order.fileSign['path'] }}" brightness="0" contrast="0">
-                                    {#<img src="{{ path('get_image', {'type' : 'sign'}) }}" brightness="0" contrast="0">#}
                                 {% else %}
                                     <img src="" brightness="0" contrast="0">
                                 {% endif %}
@@ -328,7 +343,9 @@
                             <input type="hidden" id="x2" name="x2">
                             <input type="hidden" id="y2" name="y2">
                         </div>
-                        <a href="{{ path('panel_download_png_company',{'filename' : order.fileSign['path'] | replace('/','+') }) }}">Скачать</a>
+                        {% if order.fileSign['path'] is defined %}
+                            <a href="{{ path('panel_download_png_company',{'filename' : order.fileSign['path'] | replace('/','+') }) }}">Скачать</a>
+                        {% endif %}
                     </td>
                     <td></td>
                 </tr>
