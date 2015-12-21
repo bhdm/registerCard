@@ -370,14 +370,11 @@ class OrderController extends Controller
                 $em->flush();
                 $em->refresh($item);
                 $session = new Session();
-
                 $path = $this->get('kernel')->getRootDir() . '/../web/upload/usercompany/';
                 mkdir($path.$item->getId());
-
-//
                 $file = $session->get('signFile');
                 $info = new \SplFileInfo($file);
-                $path = $path.$item->getId().'/'.$item->getSalt().'-sign.'.$info->getExtension();
+                $path = $path.$item->getId().'/'.$item->getSalt().time().'-sign.'.$info->getExtension();
                 if (copy($file,$path)){
                     unlink( $file );
                     $session->set('signFile',null);
@@ -385,9 +382,10 @@ class OrderController extends Controller
                     $item->setFileSign($array);
                 }
 
+                $path = $this->get('kernel')->getRootDir() . '/../web/upload/usercompany/';
                 $file = $session->get('fileOrderFile');
                 $info = new \SplFileInfo($file);
-                $path = $path.$item->getId().'/'.$item->getSalt().'-fileOrderFile.'.$info->getExtension();
+                $path = $path.$item->getId().'/'.$item->getSalt().time().'-fileOrderFile.'.$info->getExtension();
                 if (copy($file,$path)){
                     unlink( $file );
                     $session->set('fileOrderFile',null);
@@ -395,9 +393,10 @@ class OrderController extends Controller
                     $item->setFileOrder($array);
                 }
 
+                $path = $this->get('kernel')->getRootDir() . '/../web/upload/usercompany/';
                 $file = $session->get('fileOrderTwoFile');
                 $info = new \SplFileInfo($file);
-                $path = $path.$item->getId().'/'.$item->getSalt().'-fileOrderTwoFile.'.$info->getExtension();
+                $path = $path.$item->getId().'/'.$item->getSalt().time().'-fileOrderTwoFile.'.$info->getExtension();
                 if (copy($file,$path)){
                     unlink( $file );
                     $session->set('fileOrderTwoFile',null);
@@ -405,9 +404,10 @@ class OrderController extends Controller
                     $item->setFileOrderTwo($array);
                 }
 
+                $path = $this->get('kernel')->getRootDir() . '/../web/upload/usercompany/';
                 $file = $session->get('fileInnFile');
                 $info = new \SplFileInfo($file);
-                $path = $path.$item->getId().'/'.$item->getSalt().'-fileInnFile.'.$info->getExtension();
+                $path = $path.$item->getId().'/'.$item->getSalt().time().'-fileInnFile.'.$info->getExtension();
                 if (copy($file,$path)){
                     unlink( $file );
                     $session->set('fileInnFile',null);
@@ -415,9 +415,10 @@ class OrderController extends Controller
                     $item->setFileInn($array);
                 }
 
+                $path = $this->get('kernel')->getRootDir() . '/../web/upload/usercompany/';
                 $file = $session->get('fileOgrnFile');
                 $info = new \SplFileInfo($file);
-                $path = $path.$item->getId().'/'.$item->getSalt().'-fileOgrnFile.'.$info->getExtension();
+                $path = $path.$item->getId().'/'.$item->getSalt().time().'-fileOgrnFile.'.$info->getExtension();
                 if (copy($file,$path)){
                     unlink( $file );
                     $session->set('fileOgrnFile',null);
@@ -425,9 +426,10 @@ class OrderController extends Controller
                     $item->setFileOgrn($array);
                 }
 
+                $path = $this->get('kernel')->getRootDir() . '/../web/upload/usercompany/';
                 $file = $session->get('fileDecreeFile');
                 $info = new \SplFileInfo($file);
-                $path = $path.$item->getId().'/'.$item->getSalt().'-fileDecreeFile.'.$info->getExtension();
+                $path = $path.$item->getId().'/'.$item->getSalt().time().'-fileDecreeFile.'.$info->getExtension();
                 if (copy($file,$path)){
                     unlink( $file );
                     $session->set('fileDecreeFile',null);

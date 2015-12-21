@@ -328,6 +328,9 @@ class CompanyController extends Controller
             $sumVirtual[2] += $item->getDriverRu();
         }
 
+        #Сумма выставленных неоплаченных счетов
+        $paymentSum = $this->getDoctrine()->getRepository('CrmMainBundle:Payment')->getAmountOfUnPaidBills($companyId);
+
         return array(
             'company' => $company,
             'allUsers' => $users,
@@ -341,6 +344,7 @@ class CompanyController extends Controller
             'amountPlusQuota' =>$amountPlusQuota,
             'amountMinusQuota' =>$amountMinusQuota,
             'sumVirtual' =>$sumVirtual,
+            'paymentSum' => $paymentSum
         );
     }
 
