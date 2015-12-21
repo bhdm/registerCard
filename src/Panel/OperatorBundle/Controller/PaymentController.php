@@ -123,7 +123,7 @@ class PaymentController extends Controller
                     }
                 }
 
-                return $this->redirect($this->generateUrl("auth_payment_list"));
+                return $this->redirect($this->generateUrl("panel_payment_list"));
             }
         }
         $company = $payment->getClient()->getCompany();
