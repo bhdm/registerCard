@@ -51,7 +51,12 @@ class CompanyUserType extends AbstractType
             ->add('lastName')
             ->add('surName', null, ['required' => false])
 //            ->add('birthday', 'date', ['widget' => 'single_text','required' => false, 'attr' => ['class' => 'date']])
-            ->add('birthday', 'date',['widget' => 'single_text', 'format' => 'dd.MM.yyyy', 'label'=>'Дата рождения', 'attr' => ['class' => 'date']])
+            ->add('birthday', 'date',[
+                'widget' => 'single_text',
+                'format' => 'dd.MM.yyyy',
+                'label'=>'Дата рождения',
+                'required' => false,
+                'attr' => ['class' => 'date']])
 
             ->add('post')
             ->add('oldCard')
