@@ -141,11 +141,9 @@
                                         <span class="glyphicon glyphicon-edit"></span>
                                     </button>
                                 </a>
-                                <a href="{{ path('operator_companyuser_remove',{'id' : item.id }) }}">
-                                    <button type="button" class="btn btn-default btn-danger">
-                                        <span class="glyphicon glyphicon-remove"></span>
-                                    </button>
-                                </a>
+                                <button type="button" class="btn btn-default btn-danger remove" data-href="{{ path('operator_companyuser_remove',{'id': item.id }) }}">
+                                    <span class="glyphicon glyphicon-remove"></span>
+                                </button>
                             {% endspaceless %}
                         </td>
                     </tr>
