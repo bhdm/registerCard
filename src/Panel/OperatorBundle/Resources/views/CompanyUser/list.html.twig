@@ -136,11 +136,16 @@
                         <td>{{ item.comment }}</td>
                         <td class="settings" style="text-align: right">
                             {% spaceless %}
-                            <a href="{{ path('operator_companyuser_edit',{'id' : item.id }) }}">
-                                <button type="button" class="btn btn-default btn-success">
-                                    <span class="glyphicon glyphicon-edit"></span>
-                                </button>
-                            </a>
+                                <a href="{{ path('operator_companyuser_edit',{'id' : item.id }) }}">
+                                    <button type="button" class="btn btn-default btn-success">
+                                        <span class="glyphicon glyphicon-edit"></span>
+                                    </button>
+                                </a>
+                                <a href="{{ path('operator_companyuser_remove',{'id' : item.id }) }}">
+                                    <button type="button" class="btn btn-default btn-success">
+                                        <span class="glyphicon glyphicon-edit"></span>
+                                    </button>
+                                </a>
                             {% endspaceless %}
                         </td>
                     </tr>

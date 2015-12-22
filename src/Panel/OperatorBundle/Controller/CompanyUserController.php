@@ -109,6 +109,19 @@ class CompanyUserController extends Controller{
     }
 
     /**
+     * @Route("/remove/{id}", name="operator_companyuser_remove")
+     */
+    public function removeAction($id){
+        $em = $this->getDoctrine()->getManager();
+        $item = $this->getDoctrine()->getRepository('CrmMainBundle:CompanyUser')->find($id);
+        if ($item->getStatus() == 0){
+            $em->remove($item);
+            $em->flush();
+        }
+        return $this->redirectToRoute('operator_companyuser_list');
+    }
+
+    /**
      * @Route("/download/xml/{userId}", name="companyuser_download_xml", options={"expose" = true })
      * @Template("PanelOperatorBundle:Doc:xml.html.twig")
      */
