@@ -60,10 +60,28 @@ class CompanyUserController extends Controller{
      * @Template()
      */
     public function editAction(Request $request, $id){
+        $session = $request->getSession();
+
+
+
+
+        $session->set('fileOrderFile', null);
+        $session->set('fileOrder2File', null);
+        $session->set('fileInnFile', null);
+        $session->set('fileOgrn', null);
+        $session->set('signFile', null);
+        $session->set('fileLicenseFile', null);
+
+        $session->set('origin-fileOrderFile', null);
+        $session->set('origin-fileOrder2File', null);
+        $session->set('origin-fileInnFile', null);
+        $session->set('origin-fileOgrn', null);
+        $session->set('origin-signFile', null);
+        $session->set('origin-fileLicenseFile', null);
+
         $em = $this->getDoctrine()->getManager();
         $item = $this->getDoctrine()->getRepository('CrmMainBundle:CompanyUser')->findOneById($id);
         $form = $this->createForm(new CompanyUserType($em), $item);
-
         $formData = $form->handleRequest($request);
         if ($request->getMethod() == 'POST'){
 
@@ -102,7 +120,16 @@ class CompanyUserController extends Controller{
 
 
                 return array('form' => $form->createView());
+            } else {
+
+            #Помещаем все фалы-картинки в сессию, что бы потом можно было бы редактировать
+            $file = $item->getfileOrder();
+            if (!empty($file) && file_exists('/var/www/' . $file['path'])) {
+                $session->set('fileOrderFile', '/var/www/' . $file['path']);
             }
+
+            $session->save();
+        }
 
 
         return array('form' => $form->createView(), 'order' => $item);

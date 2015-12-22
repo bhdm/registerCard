@@ -30,10 +30,11 @@
                     <td>Телефон<span class="required">*</span></td>
                     <td>{{ form_widget(form.phone) }}</td>
                     <td class="skzi-col">
+                        <input type="file" name="fileOrderFile" id="fileOrderFile" data-type="fileOrderFile" class="fileAjax">
                         {% if order.fileOrder['path'] is defined %}
-                            <img src="/{{ order.fileOrder['path'] }}" brightness="0" contrast="0">
+                            <img src="/{{ order.fileOrder['path'] }}" brightness="0" contrast="0" class="document" data-type="fileOrderFile">
                         {% else %}
-                            <img src="" brightness="0" contrast="0">
+                            <img src="" brightness="0" contrast="0" class="document">
                         {% endif %}
                     </td>
                 </tr>
@@ -48,10 +49,11 @@
                     <td>Количество карт<span class="required">*</span></td>
                     <td>{{ form_widget(form.cardAmount) }}</td>
                     <td class="skzi-col">
+                        <input type="file" name="fileOrderTwoFile" id="fileOrderTwoFile" data-type="fileOrderTwoFile" class="fileAjax">
                         {% if order.fileOrderTwo['path'] is defined %}
-                            <img src="/{{ order.fileOrderTwo['path'] }}" brightness="0" contrast="0">
+                            <img src="/{{ order.fileOrderTwo['path'] }}" brightness="0" contrast="0" class="document" data-type="fileOrderTwoFile">
                         {% else %}
-                            <img src="" brightness="0" contrast="0">
+                            <img src="" brightness="0" contrast="0" class="document">
                         {% endif %}
                     </td>
                 </tr>
@@ -89,10 +91,11 @@
                         {{ form_widget(form.companyInn) }}
                     </td>
                     <td class="skzi-col">
+                        <input type="file" name="fileInnFile" id="fileInnFile" data-type="fileInnFile" class="fileAjax">
                         {% if order.fileInn['path'] is defined %}
-                            <img src="/{{ order.fileInn['path'] }}" brightness="0" contrast="0">
+                            <img src="/{{ order.fileInn['path'] }}" brightness="0" contrast="0" class="document" data-type="fileInnFile">
                         {% else %}
-                            <img src="" brightness="0" contrast="0">
+                            <img src="" brightness="0" contrast="0" class="document">
                         {% endif %}
                     </td>
                 </tr>
@@ -105,10 +108,11 @@
                     <td>ОГРН<span class="required">*</span></td>
                     <td>{{ form_widget(form.companyOgrn) }}</td>
                     <td class="skzi-col">
+                        <input type="file" name="fileOgrnFile" id="fileOgrnFile" data-type="fileOgrnFile" class="fileAjax" data-type="fileOgrnFile">
                         {% if order.fileOgrn['path'] is defined %}
-                            <img src="/{{ order.fileOgrn['path'] }}" brightness="0" contrast="0">
+                            <img src="/{{ order.fileOgrn['path'] }}" brightness="0" contrast="0" class="document">
                         {% else %}
-                            <img src="" brightness="0" contrast="0">
+                            <img src="" brightness="0" contrast="0" class="document">
                         {% endif %}
                     </td>
                 </tr>
@@ -286,7 +290,12 @@
                     <td>Кем выдана</td>
                     <td>{{ form_widget(form.licenseIssued) }}</td>
                     <td>
-                        {{ form_widget(form.fileLicense) }}
+                        <input type="file" name="fileLicenseFile" id="fileLicenseFile" data-type="fileLicenseFile" class="fileAjax">
+                        {% if order.fileLicense['path'] is defined and order.fileLicense['path'] != null %}
+                            <img src="/{{ order.fileLicense['path'] }}" brightness="0" contrast="0" class="document" data-type="fileLicenseFile">
+                        {% else %}
+                            <img src="" brightness="0" contrast="0" class="document">
+                        {% endif %}
                     </td>
                 </tr>
                 <tr>
@@ -316,33 +325,12 @@
                 <tr>
                     <td style="vertical-align: top; padding-top: 10px">Подпись<span class="required">*</span></td>
                     <td>
-                        <div class="file-container">
-                            <input type="file" name="signFile" id="signFile" class="fileAjax">
-                            <progress class="progress" value="0" max="100" style="width: 270px"></progress>
-                            <br />
-                            <br />
-                            <div class="fileDoc" style="text-align: left">
-                                {% if order.fileSign['path'] is defined %}
-                                    <img src="/{{ order.fileSign['path'] }}" brightness="0" contrast="0">
-                                {% else %}
-                                    <img src="" brightness="0" contrast="0">
-                                {% endif %}
-                            </div>
-                            <div class="navigateFile">
-                                <img src="{{ asset('bundles/crmmain/icons/rotateLeft.png') }}" class="rotateLeft" title="Повернуть налево">
-                                <img src="{{ asset('bundles/crmmain/icons/rotateRight.png') }}" class="rotateRight" title="Повернуть вправо">
-                                <div style="">
-                                    <span class="cropImage minibtn" title="Обрезать изображение">Обрезать</span>
-                                    <br />
-                                    <br />
-                                </div>
-
-                            </div>
-                            <input type="hidden" id="x1" name="x1">
-                            <input type="hidden" id="y1" name="y1">
-                            <input type="hidden" id="x2" name="x2">
-                            <input type="hidden" id="y2" name="y2">
-                        </div>
+                        <input type="file" name="fileSignFile" id="fileSignFile" data-type="fileSignFile" class="fileAjax">
+                        {% if order.fileSign['path'] is defined %}
+                            <img src="/{{ order.fileSign['path'] }}" brightness="0" contrast="0" class="document" data-type="fileSignFile">
+                        {% else %}
+                            <img src="" brightness="0" contrast="0" class="document">
+                        {% endif %}
                         {% if order.fileSign['path'] is defined %}
                             <a href="{{ path('panel_download_png_company',{'filename' : order.fileSign['path'] | replace('/','+') }) }}">Скачать</a>
                         {% endif %}
@@ -361,6 +349,59 @@
             </table>
         </div>
     </form>
+
+    <div class="fileBox" data-user="{{ order.id }}">
+        <div class="file-container">
+            <div class="fileDoc">
+                <img src="" brightness="128" contrast="128">
+            </div>
+            <div class="navigateFile">
+                <table style="width: 100%">
+                    <tr>
+                        <td style="width: 220px">
+                            <div class="slider-box">
+                                Контрастность
+                                <div id="slider-vertical-1" class="slider-vertical-contrast" title="Контрастность"></div>
+                            </div>
+                            <div class="slider-box">
+                                Яркость
+                                <div id="slider-vertical-2" class="slider-vertical-brightness"></div>
+                            </div>
+                        </td>
+                        <td>
+                            <button type="button" class="btn-xs btn-default btn-success rotateLeft"   title="Повернуть налево">
+                                Налево
+                            </button>
+                        </td>
+                        <td>
+                            <button type="button" class="btn-xs btn-default btn-success rotateRight"   title="Повернуть направо">
+                                Направо
+                            </button>
+                        </td>
+                        <td>
+                            <button type="button" class="btn-xs btn-default btn-success cropImage "   title="Обрезать">
+                                Обрезать
+                            </button>
+                        </td>
+                        <td>
+                            <button type="button" class="btn-xs btn-default btn-primary saveImage "   title="Сохранить">
+                                Сохранить
+                            </button>
+                        </td>
+                        <td>
+                            <button type="button" class="btn-xs btn-default btn-danger cancelImage "   title="Отмена">
+                                Закрыть
+                            </button>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <input type="hidden" id="x1" name="x1">
+            <input type="hidden" id="y1" name="y1">
+            <input type="hidden" id="x2" name="x2">
+            <input type="hidden" id="y2" name="y2">
+        </div>
+    </div>
 {% endblock %}
 
 {% block stylesheets %}
@@ -445,7 +486,7 @@
 
         .navigateFile{
             text-align: left;
-            display: none;
+            /*display: none;*/
         }
         .navigateFile img {
             width: 24px;
@@ -478,7 +519,7 @@
     <script src="{{ asset('bundles/crmmain/kladrapi/jquery.kladr.min.js') }}" type="text/javascript"></script>
     <script src="{{ asset('bundles/crmmain/lib/jquery-ui/jquery-ui.min.js') }}" type="text/javascript"></script>
     <script src="{{ asset('bundles/crmmain/monkeymonk-loader/jquery.loader.min.js') }}" type="text/javascript"></script>
-    <script src="{{ asset('bundles/crmmain/javascripts/file.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('bundles/paneloperator/js/file.js') }}" type="text/javascript"></script>
     <script>
 
         $(document).ready(function(){
