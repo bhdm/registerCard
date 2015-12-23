@@ -74,15 +74,15 @@
                     <ResponsiblePersonPosition>{{ order.post }}</ResponsiblePersonPosition>
                     <ResponsiblePersonReason/>
                 </ResponsiblePerson>
-                <Sign>
-                    <AttachmentType>Signature</AttachmentType>
-                    <FileFormat>FILE</FileFormat>
-                    <Body>{{ files.signature.base }}</Body>
-                </Sign>
+                {#<Sign>#}
+                    {#<AttachmentType>Signature</AttachmentType>#}
+                    {#<FileFormat>PDF</FileFormat>#}
+                    {#<Body>{{ files.signature.base }}</Body>#}
+                {#</Sign>#}
             </CompanyOrder>
             <Attachment>
                 <AttachmentType>Other</AttachmentType>
-                <FileFormat>PNG</FileFormat>
+                <FileFormat>PDF</FileFormat>
                 <Body>{{ files.fileOrder }}</Body>
             </Attachment>
             {#<Attachment>#}

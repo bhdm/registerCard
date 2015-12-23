@@ -86,41 +86,41 @@ class CompanyUserController extends Controller{
         if ($request->getMethod() == 'POST'){
 
 
-                #Если здесь все хорошо, то прикрепляем подпись
+            #Если здесь все хорошо, то прикрепляем подпись
 
-                $session = new Session();
+            $session = new Session();
 
-                $fileSign = $session->get('signFile');
-                if ($fileSign){
-                    $rootPath = $this->get('kernel')->getRootDir() . '/../web/upload/usercompany/';
-                    $info = new \SplFileInfo($fileSign);
+            $fileSign = $session->get('signFile');
+            if ($fileSign){
+                $rootPath = $this->get('kernel')->getRootDir() . '/../web/upload/usercompany/';
+                $info = new \SplFileInfo($fileSign);
 
-                    $path = $rootPath.$item->getId().'/'.$item->getSalt().'-si.'.$info->getExtension();
-                    if (is_file($path)){
-                        if (copy($fileSign,$path)){
-                            $session->set('signFile',null);
-                        }
-                    }else{
-                        if (copy($fileSign,$path)){
-                            unlink( $fileSign );
-                            $session->set('signFile',null);
-                        }
+                $path = $rootPath.$item->getId().'/'.$item->getSalt().'-si.'.$info->getExtension();
+                if (is_file($path)){
+                    if (copy($fileSign,$path)){
+                        $session->set('signFile',null);
                     }
-
-                    $array = $this->getImgToArray($path);
-                    $item->setFileSign($array);
+                }else{
+                    if (copy($fileSign,$path)){
+                        unlink( $fileSign );
+                        $session->set('signFile',null);
+                    }
                 }
 
+                $array = $this->getImgToArray($path);
+                $item->setFileSign($array);
+            }
 
 
-                $item = $formData->getData();
-                $em->persist($item);
-                $em->flush();
-                $em->refresh($item);
+
+            $item = $formData->getData();
+            $em->persist($item);
+            $em->flush();
+            $em->refresh($item);
 
 
-                return array('form' => $form->createView());
-            } else {
+            return array('form' => $form->createView());
+        } else {
 
             #Помещаем все фалы-картинки в сессию, что бы потом можно было бы редактировать
             $file = $item->getfileOrder();
@@ -176,7 +176,9 @@ class CompanyUserController extends Controller{
 
 
         if (isset($order->getFileOrder()['path'])){
-            $files['fileOrder'] = base64_encode(file_get_contents('/var/www/imkard/current/web/'.$order->getFileOrder()['path']));
+            $filename = base64_encode($order->getFileOrder()['path']);
+            $url = 'http://'.$_SERVER['SERVER_NAME'].$this->generateUrl('panel_image_to_pdf_company',['filename' => $filename ]);
+            $files['fileOrder'] = base64_encode(file_get_contents($url));
         }
 
 
@@ -259,4 +261,27 @@ class CompanyUserController extends Controller{
 
         return $response;
     }
+
+    /**
+     * @Route("/panel_image_to_pdf_company/{filename}", name="panel_image_to_pdf_company")
+     */
+    public function imageToPdfAction($filename){
+        $filename = base64_decode($filename);
+        $mpdfService = $this->container->get('tfox.mpdfport');
+        $html = '<img src="/'.$filename.'" style="max-height: 500px"/>';
+
+        $width = rand(0,200);
+        $html.= '<br /><br /><br />';
+        $html.= '<img src="/bundles/crmmain/images/copy.png"  style="margin-left: '.$width.'px"/>';
+        $arguments = array(
+//            'constructorArgs' => array('utf-8', 'A4-P', 5 ,5 ,5 ,5,5 ),
+            'writeHtmlMode' => null, //$mode argument for WriteHTML method
+            'writeHtmlInitialise' => null, //$mode argument for WriteHTML method
+            'writeHtmlClose' => null, //$close argument for WriteHTML method
+            'outputFilename' => null, //$filename argument for Output method
+            'outputDest' => null, //$dest argument for Output method
+        );
+        return $mpdfService->generatePdfResponse($html, $arguments);
+    }
+
 }
