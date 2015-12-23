@@ -182,6 +182,25 @@ class CompanyUserController extends Controller{
               $files['fileOrder'] = base64_encode(file_get_contents('http://'.$_SERVER['SERVER_NAME'].'/'.$order->getFileOrder()['path']));
         }
 
+        if (isset($order->getFileOrderTwo()['path'])){
+            $files['fileOrderTwo'] = base64_encode(file_get_contents('http://'.$_SERVER['SERVER_NAME'].'/'.$order->getFileOrderTwo()['path']));
+        }
+
+        if (isset($order->getFileInn()['path'])){
+            $files['fileInn'] = base64_encode(file_get_contents('http://'.$_SERVER['SERVER_NAME'].'/'.$order->getFileInn()['path']));
+        }
+
+        if (isset($order->getFileOgrn()['path'])){
+            $files['fileOgrn'] = base64_encode(file_get_contents('http://'.$_SERVER['SERVER_NAME'].'/'.$order->getFileOgrn()['path']));
+        }
+
+        if (isset($order->getFileDecree()['path'])){
+            $files['fileDecree'] = base64_encode(file_get_contents('http://'.$_SERVER['SERVER_NAME'].'/'.$order->getFileDecree()['path']));
+        }
+
+        if (isset($order->getFileLicense()['path'])){
+            $files['fileLicense'] = base64_encode(file_get_contents('http://'.$_SERVER['SERVER_NAME'].'/'.$order->getFileLicense()['path']));
+        }
 
         $response = new Response();
         $response->headers->set('Content-Type', 'text/xml');

@@ -80,46 +80,50 @@
                     <Body>{{ files.signature.base }}</Body>
                 </Sign>
             </CompanyOrder>
-            <Attachment>
-                <AttachmentType>Other</AttachmentType>
-                <FileFormat>PNG</FileFormat>
-                <Body>{{ files.fileOrder }}</Body>
-            </Attachment>
-            {#<Attachment>#}
-                {#<AttachmentType>Other</AttachmentType>#}
-                {#<FileFormat>PNG</FileFormat>#}
-                {#<Body>#}
+            {% if files.fileOrder is defined %}
+                <Attachment>
+                    <AttachmentType>Other</AttachmentType>
+                    <FileFormat>PNG</FileFormat>
+                    <Body>{{ files.fileOrder }}</Body>
+                </Attachment>
+            {% endif %}
+            {% if files.fileOrderTwo is defined %}
+                <Attachment>
+                    <AttachmentType>Other</AttachmentType>
+                    <FileFormat>PNG</FileFormat>
+                    <Body>{{ files.fileOrderTwo }}</Body>
+                </Attachment>
+            {% endif %}
+            {% if files.fileInn is defined %}
+                <Attachment>
+                    <AttachmentType>Other</AttachmentType>
+                    <FileFormat>PNG</FileFormat>
+                    <Body>{{ files.fileInn }}</Body>
+                </Attachment>
+            {% endif %}
+            {% if files.fileOgrn is defined %}
+                <Attachment>
+                    <AttachmentType>Other</AttachmentType>
+                    <FileFormat>PNG</FileFormat>
+                    <Body>{{ files.fileOgrn }}</Body>
+                </Attachment>
+            {% endif %}
+            {% if files.fileDecree is defined %}
+                <Attachment>
+                    <AttachmentType>Other</AttachmentType>
+                    <FileFormat>PNG</FileFormat>
+                    <Body>{{ files.fileDecree }}</Body>
+                </Attachment>
+            {% endif %}
+            {% if files.fileLicense is defined %}
+                <Attachment>
+                    <AttachmentType>Other</AttachmentType>
+                    <FileFormat>PNG</FileFormat>
+                    <Body>{{ files.fileLicense }}</Body>
+                </Attachment>
+            {% endif %}
 
-                {#</Body>#}
-            {#</Attachment>#}
-            {#<Attachment>#}
-                {#<AttachmentType>Other</AttachmentType>#}
-                {#<FileFormat>PNG</FileFormat>#}
-                {#<Body>#}
 
-                {#</Body>#}
-            {#</Attachment>#}
-            {#<Attachment>#}
-                {#<AttachmentType>Other</AttachmentType>#}
-                {#<FileFormat>PNG</FileFormat>#}
-                {#<Body>#}
-
-                {#</Body>#}
-            {#</Attachment>#}
-            {#<Attachment>#}
-                {#<AttachmentType>Other</AttachmentType>#}
-                {#<FileFormat>PNG</FileFormat>#}
-                {#<Body>#}
-
-                {#</Body>#}
-            {#</Attachment>#}
-            {#<Attachment>#}
-                {#<AttachmentType>CardOrder</AttachmentType>#}
-                {#<FileFormat>PNG</FileFormat>#}
-                {#<Body>#}
-
-                {#</Body>#}
-            {#</Attachment>#}
         </Order_v2>
     </ns2:TacPackage>
 {% endspaceless %}
