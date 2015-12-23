@@ -76,8 +76,8 @@
                 </ResponsiblePerson>
                 <Sign>
                     <AttachmentType>Signature</AttachmentType>
-                    <FileFormat>{% if files[3].file.mimeType == 'image/jpeg' %}JPG{% elseif files[3].file.mimeType == 'image/png' %}PNG{% elseif files[3].file.mimeType == 'image/gif' %}GIF{% else %}FILE{% endif %}</FileFormat>
-                    <Body>{{ files[3].base }}</Body>
+                    <FileFormat>FILE</FileFormat>
+                    <Body>{{ files.signature.base }}</Body>
                 </Sign>
             </CompanyOrder>
             <Attachment>
