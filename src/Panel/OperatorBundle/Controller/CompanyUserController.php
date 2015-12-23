@@ -163,17 +163,17 @@ class CompanyUserController extends Controller{
 //            $image->destroy();
 //        }
 
-//        $file = $order->getFileSign();
-//        $file = WImage::ImageToBlackAndWhite($file);
-//        $file = WImage::cropSign($file, 591,118);
-//        $image = new \Imagick($file);
-//        $image->setImageFormat('bmp');
-//        $files['signature']['base'] = base64_encode($image->getImageBlob());
-//        $files['signature']['title'] = 'Signature';
-//        $image->destroy();
+        $file = $order->getFileSign();
+        $file = WImage::ImageToBlackAndWhite($file);
+        $file = WImage::cropSign($file, 591,118);
+        $image = new \Imagick($file);
+        $image->setImageFormat('bmp');
+        $files['signature']['base'] = base64_encode($image->getImageBlob());
+        $files['signature']['title'] = 'Signature';
+        $image->destroy();
 
 
-        $files = array();
+
 
         if (isset($order->getFileOrder()['path'])){
             $files['fileOrder'] = base64_encode(file_get_contents('/var/www/imkard/current/web/'.$order->getFileOrder()['path']));
