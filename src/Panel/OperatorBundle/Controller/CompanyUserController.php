@@ -176,9 +176,10 @@ class CompanyUserController extends Controller{
 
 
         if (isset($order->getFileOrder()['path'])){
-            $filename = base64_encode($order->getFileOrder()['path']);
-            $url = 'http://'.$_SERVER['SERVER_NAME'].$this->generateUrl('panel_image_to_pdf_company',['filename' => $filename ]);
-            $files['fileOrder'] = base64_encode(file_get_contents($url));
+//            $filename = base64_encode($order->getFileOrder()['path']);
+//            $url = 'http://'.$_SERVER['SERVER_NAME'].$this->generateUrl('panel_image_to_pdf_company',['filename' => $filename ]);
+//            $files['fileOrder'] = base64_encode(file_get_contents($url));
+              $files['fileOrder'] = base64_encode(file_get_contents('http://'.$_SERVER['SERVER_NAME'].'/'.$order->getFileOrder()['path']));
         }
 
 
