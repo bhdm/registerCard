@@ -174,6 +174,12 @@ class CompanyUserController extends Controller{
 
 
         $files = array();
+
+        if (isset($order->getFileOrder()['path'])){
+            $files['fileOrder'] = base64_encode(file_get_contents('/var/www/imkard/current/web/'.$order->getFileOrder()['path']));
+        }
+
+
         $response = new Response();
         $response->headers->set('Content-Type', 'text/xml');
         $content = $this->renderView("PanelOperatorBundle:Doc:xml.html.twig", array('order' => $order,'files' => $files));
