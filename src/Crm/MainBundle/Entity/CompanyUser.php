@@ -182,49 +182,42 @@ class CompanyUser extends BaseEntity
 
     /**
      * @Assert\File( maxSize="2M")
-     * @FileStore\UploadableField(mapping="usercompany")
      * @ORM\Column(type="array", nullable=true)
      */
     protected $fileOrder;
 
     /**
      * @Assert\File( maxSize="2M")
-     * @FileStore\UploadableField(mapping="usercompany")
      * @ORM\Column(type="array", nullable=true)
      */
     protected $fileOrderTwo;
 
     /**
      * @Assert\File( maxSize="2M")
-     * @FileStore\UploadableField(mapping="usercompany")
      * @ORM\Column(type="array", nullable=true)
      */
     protected $fileInn;
 
     /**
      * @Assert\File( maxSize="2M")
-     * @FileStore\UploadableField(mapping="usercompany")
      * @ORM\Column(type="array", nullable=true)
      */
     protected $fileOgrn;
 
     /**
      * @Assert\File( maxSize="2M")
-     * @FileStore\UploadableField(mapping="usercompany")
      * @ORM\Column(type="array", nullable=true)
      */
     protected $fileDecree;
 
     /**
      * @Assert\File( maxSize="2M")
-     * @FileStore\UploadableField(mapping="usercompany")
      * @ORM\Column(type="array", nullable=true)
      */
     protected $fileLicense;
 
     /**
      * @Assert\File( maxSize="2M")
-     * @FileStore\UploadableField(mapping="usercompany")
      * @ORM\Column(type="array", nullable=true)
      */
     protected $fileLicenseTwo;

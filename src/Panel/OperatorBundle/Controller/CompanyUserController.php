@@ -119,7 +119,7 @@ class CompanyUserController extends Controller{
             $em->refresh($item);
 
 
-            return array('form' => $form->createView());
+            return array('form' => $form->createView(), 'order' => $item);
         } else {
 
             #Помещаем все фалы-картинки в сессию, что бы потом можно было бы редактировать
