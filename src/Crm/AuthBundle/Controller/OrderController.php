@@ -335,7 +335,6 @@ class OrderController extends Controller
         $form = $this->createForm(new CompanyUserType($em), $item);
         $formData = $form->handleRequest($request);
         if ($request->getMethod() == 'POST'){
-            if ($formData->isValid()){
                 $item = $formData->getData();
                 $company = $this->getUser()->getCompany();
                 $item->setCompany($company);
@@ -373,68 +372,80 @@ class OrderController extends Controller
                 $path = $this->get('kernel')->getRootDir() . '/../web/upload/usercompany/';
                 mkdir($path.$item->getId());
                 $file = $session->get('signFile');
-                $info = new \SplFileInfo($file);
-                $path = $path.$item->getId().'/'.$item->getSalt().time().'-sign.'.$info->getExtension();
-                if (copy($file,$path)){
-                    unlink( $file );
-                    $session->set('signFile',null);
-                    $array = $this->getImgToArray($path);
-                    $item->setFileSign($array);
+                if ($file){
+                    $info = new \SplFileInfo($file);
+                    $path = $path.$item->getId().'/'.$item->getSalt().time().'-sign.'.$info->getExtension();
+                    if (copy($file,$path)){
+                        unlink( $file );
+                        $session->set('signFile',null);
+                        $array = $this->getImgToArray($path);
+                        $item->setFileSign($array);
+                    }
                 }
 
                 $path = $this->get('kernel')->getRootDir() . '/../web/upload/usercompany/';
                 $file = $session->get('fileOrderFile');
-                $info = new \SplFileInfo($file);
-                $path = $path.$item->getId().'/'.$item->getSalt().time().'-fileOrderFile.'.$info->getExtension();
-                if (copy($file,$path)){
-                    unlink( $file );
-                    $session->set('fileOrderFile',null);
-                    $array = $this->getImgToArray($path);
-                    $item->setFileOrder($array);
+                if ($file){
+                    $info = new \SplFileInfo($file);
+                    $path = $path.$item->getId().'/'.$item->getSalt().time().'-fileOrderFile.'.$info->getExtension();
+                    if (copy($file,$path)){
+                        unlink( $file );
+                        $session->set('fileOrderFile',null);
+                        $array = $this->getImgToArray($path);
+                        $item->setFileOrder($array);
+                    }
                 }
 
                 $path = $this->get('kernel')->getRootDir() . '/../web/upload/usercompany/';
                 $file = $session->get('fileOrderTwoFile');
-                $info = new \SplFileInfo($file);
-                $path = $path.$item->getId().'/'.$item->getSalt().time().'-fileOrderTwoFile.'.$info->getExtension();
-                if (copy($file,$path)){
-                    unlink( $file );
-                    $session->set('fileOrderTwoFile',null);
-                    $array = $this->getImgToArray($path);
-                    $item->setFileOrderTwo($array);
+                if ($file){
+                    $info = new \SplFileInfo($file);
+                    $path = $path.$item->getId().'/'.$item->getSalt().time().'-fileOrderTwoFile.'.$info->getExtension();
+                    if (copy($file,$path)){
+                        unlink( $file );
+                        $session->set('fileOrderTwoFile',null);
+                        $array = $this->getImgToArray($path);
+                        $item->setFileOrderTwo($array);
+                    }
                 }
 
                 $path = $this->get('kernel')->getRootDir() . '/../web/upload/usercompany/';
                 $file = $session->get('fileInnFile');
-                $info = new \SplFileInfo($file);
-                $path = $path.$item->getId().'/'.$item->getSalt().time().'-fileInnFile.'.$info->getExtension();
-                if (copy($file,$path)){
-                    unlink( $file );
-                    $session->set('fileInnFile',null);
-                    $array = $this->getImgToArray($path);
-                    $item->setFileInn($array);
+                if ($file){
+                    $info = new \SplFileInfo($file);
+                    $path = $path.$item->getId().'/'.$item->getSalt().time().'-fileInnFile.'.$info->getExtension();
+                    if (copy($file,$path)){
+                        unlink( $file );
+                        $session->set('fileInnFile',null);
+                        $array = $this->getImgToArray($path);
+                        $item->setFileInn($array);
+                    }
                 }
 
                 $path = $this->get('kernel')->getRootDir() . '/../web/upload/usercompany/';
                 $file = $session->get('fileOgrnFile');
-                $info = new \SplFileInfo($file);
-                $path = $path.$item->getId().'/'.$item->getSalt().time().'-fileOgrnFile.'.$info->getExtension();
-                if (copy($file,$path)){
-                    unlink( $file );
-                    $session->set('fileOgrnFile',null);
-                    $array = $this->getImgToArray($path);
-                    $item->setFileOgrn($array);
+                if ($file){
+                    $info = new \SplFileInfo($file);
+                    $path = $path.$item->getId().'/'.$item->getSalt().time().'-fileOgrnFile.'.$info->getExtension();
+                    if (copy($file,$path)){
+                        unlink( $file );
+                        $session->set('fileOgrnFile',null);
+                        $array = $this->getImgToArray($path);
+                        $item->setFileOgrn($array);
+                    }
                 }
 
                 $path = $this->get('kernel')->getRootDir() . '/../web/upload/usercompany/';
                 $file = $session->get('fileDecreeFile');
-                $info = new \SplFileInfo($file);
-                $path = $path.$item->getId().'/'.$item->getSalt().time().'-fileDecreeFile.'.$info->getExtension();
-                if (copy($file,$path)){
-                    unlink( $file );
-                    $session->set('fileDecreeFile',null);
-                    $array = $this->getImgToArray($path);
-                    $item->setFileDecree($array);
+                if ($file){
+                    $info = new \SplFileInfo($file);
+                    $path = $path.$item->getId().'/'.$item->getSalt().time().'-fileDecreeFile.'.$info->getExtension();
+                    if (copy($file,$path)){
+                        unlink( $file );
+                        $session->set('fileDecreeFile',null);
+                        $array = $this->getImgToArray($path);
+                        $item->setFileDecree($array);
+                    }
                 }
 
                 $em->flush($item);
@@ -442,7 +453,7 @@ class OrderController extends Controller
 
 //                return $this->render('@CrmAuth/Application/companySuccess.html.twig',['user' => $item]);
                 return $this->redirect($this->generateUrl('auth_order_company'));
-            }
+
         }else{
             $this->clearSession($session);
         }

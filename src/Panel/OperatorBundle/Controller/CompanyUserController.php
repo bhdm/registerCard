@@ -68,15 +68,15 @@ class CompanyUserController extends Controller{
         $session->set('fileOrderFile', null);
         $session->set('fileOrder2File', null);
         $session->set('fileInnFile', null);
-        $session->set('fileOgrn', null);
-        $session->set('signFile', null);
+        $session->set('fileOgrnFile', null);
+        $session->set('fileSignFile', null);
         $session->set('fileLicenseFile', null);
 
         $session->set('origin-fileOrderFile', null);
         $session->set('origin-fileOrder2File', null);
         $session->set('origin-fileInnFile', null);
-        $session->set('origin-fileOgrn', null);
-        $session->set('origin-signFile', null);
+        $session->set('origin-fileOgrnFile', null);
+        $session->set('origin-fileSignFile', null);
         $session->set('origin-fileLicenseFile', null);
 
         $em = $this->getDoctrine()->getManager();
@@ -90,26 +90,7 @@ class CompanyUserController extends Controller{
 
             $session = new Session();
 
-            $fileSign = $session->get('signFile');
-            if ($fileSign){
-                $rootPath = $this->get('kernel')->getRootDir() . '/../web/upload/usercompany/';
-                $info = new \SplFileInfo($fileSign);
 
-                $path = $rootPath.$item->getId().'/'.$item->getSalt().'-si.'.$info->getExtension();
-                if (is_file($path)){
-                    if (copy($fileSign,$path)){
-                        $session->set('signFile',null);
-                    }
-                }else{
-                    if (copy($fileSign,$path)){
-                        unlink( $fileSign );
-                        $session->set('signFile',null);
-                    }
-                }
-
-                $array = $this->getImgToArray($path);
-                $item->setFileSign($array);
-            }
 
 
 
@@ -126,6 +107,31 @@ class CompanyUserController extends Controller{
             $file = $item->getfileOrder();
             if (!empty($file) && file_exists('/var/www/' . $file['path'])) {
                 $session->set('fileOrderFile', '/var/www/' . $file['path']);
+            }
+
+            $file = $item->getfileOrderTwo();
+            if (!empty($file) && file_exists('/var/www/' . $file['path'])) {
+                $session->set('fileOrderTwoFile', '/var/www/' . $file['path']);
+            }
+
+            $file = $item->getfileInn();
+            if (!empty($file) && file_exists('/var/www/' . $file['path'])) {
+                $session->set('fileInnFile', '/var/www/' . $file['path']);
+            }
+
+            $file = $item->getfileOgrn();
+            if (!empty($file) && file_exists('/var/www/' . $file['path'])) {
+                $session->set('fileOgrnFile', '/var/www/' . $file['path']);
+            }
+
+            $file = $item->getFileSign();
+            if (!empty($file) && file_exists('/var/www/' . $file['path'])) {
+                $session->set('fileSignFile', '/var/www/' . $file['path']);
+            }
+
+            $file = $item->getFileLicense();
+            if (!empty($file) && file_exists('/var/www/' . $file['path'])) {
+                $session->set('fileLicenseFile', '/var/www/' . $file['path']);
             }
 
             $session->save();

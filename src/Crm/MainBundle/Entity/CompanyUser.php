@@ -89,8 +89,7 @@ class CompanyUser extends BaseEntity
 
     /**
      * Должностное лицо (поле в лице ФИО)
-     * @Assert\NotBlank( message = "Поле в лице обязательно для заполнения" )
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string", nullable=true)
      */
     protected $companyExecutive;
 
@@ -170,8 +169,7 @@ class CompanyUser extends BaseEntity
 
     /**
      * Документ, на основании которого действует (тектовая строка)
-     * @Assert\NotBlank( message = "Поле Документ, на основании которого действует обязательно для заполнения" )
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string", nullable=true)
      */
     protected $documentAccess;
 
