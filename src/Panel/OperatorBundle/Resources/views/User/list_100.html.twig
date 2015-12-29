@@ -84,6 +84,8 @@
                                         {% endfor %}
                                     </div>
                                 </div>
+                            {% else %}
+                                {{ user.statusStringTwig | raw }}
                             {% endif %}
 
                         </td>
@@ -110,23 +112,23 @@
                             {#{% endif %}#}
                         {#</td>#}
                         <td class="subtitles">{{ user.created | date('d.m.Y') }}</td>
-                        {% if not is_granted('ROLE_ADMIN') %}
-                            <td>
-                                {% if user.company.operator is defined %}
-                                    {% if user.ru == false and user.estr == false %}
-                                        {{ user.company.operator.priceSkzi }}
-                                    {% elseif user.ru == false and user.estr == true %}
-                                        {{ user.company.operator.priceEstr }}
-                                    {% elseif user.ru == true and user.estr == false %}
-                                        {{ user.company.operator.priceRu }}
-                                    {% else %}
-                                        0
-                                    {% endif %}
-                                {% else %}
-                                    0
-                                {% endif %}
-                            </td>
-                        {% endif %}
+                        {#{% if not is_granted('ROLE_ADMIN') %}#}
+                            {#<td>#}
+                                {#{% if user.company.operator is defined %}#}
+                                    {#{% if user.ru == false and user.estr == false %}#}
+                                        {#{{ user.company.operator.priceSkzi }}#}
+                                    {#{% elseif user.ru == false and user.estr == true %}#}
+                                        {#{{ user.company.operator.priceEstr }}#}
+                                    {#{% elseif user.ru == true and user.estr == false %}#}
+                                        {#{{ user.company.operator.priceRu }}#}
+                                    {#{% else %}#}
+                                        {#0#}
+                                    {#{% endif %}#}
+                                {#{% else %}#}
+                                    {#0#}
+                                {#{% endif %}#}
+                            {#</td>#}
+                        {#{% endif %}#}
                         {#<td>#}
                             {#{% if user.company.operator != null and user.company.operator.id != 1 %}#}
                                 {#<span style="font-size: 12px">{{ user.company.operator }}</span>#}
