@@ -448,7 +448,11 @@ class OrderController extends Controller
                 }
 
                 $path = $this->get('kernel')->getRootDir() . '/../web/upload/usercompany/';
-                $file = $item->getFileLicense()->getPathName();
+                if ($item->getFileLicense()){
+                    $file = $item->getFileLicense()->getPathName();
+                }else{
+                    $file = null;
+                }
                 if ($file){
                     $info = new \SplFileInfo($file);
                     $path = $path.$item->getId().'/'.$item->getSalt().time().'-license.'.$info->getExtension();
@@ -462,7 +466,11 @@ class OrderController extends Controller
                 }
 
                 $path = $this->get('kernel')->getRootDir() . '/../web/upload/usercompany/';
-                $file = $item->getFileLicenseTwo()->getPathName();
+                if ($item->getFileLicense()){
+                    $file = $item->getFileLicenseTwo()->getPathName();
+                }else{
+                    $file = null;
+                }
                 if ($file){
                     $info = new \SplFileInfo($file);
                     $path = $path.$item->getId().'/'.$item->getSalt().time().'-licenseTwo.'.$info->getExtension();
