@@ -76,7 +76,10 @@ class Payment extends BaseEntity
      */
     protected $print = 0;
 
-
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    protected $comment;
 
     public function __construct(){
         $this->status = 0;
@@ -299,6 +302,22 @@ class Payment extends BaseEntity
     public function setPrint($print)
     {
         $this->print = $print;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getComment()
+    {
+        return $this->comment;
+    }
+
+    /**
+     * @param mixed $comment
+     */
+    public function setComment($comment)
+    {
+        $this->comment = $comment;
     }
 
 

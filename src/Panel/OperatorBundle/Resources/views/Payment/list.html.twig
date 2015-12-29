@@ -30,6 +30,7 @@
                 </th>
                 <th >Кол&nbsp;-&nbsp;во</th>
                 <th >Сумма</th>
+                <th>Комментарий</th>
                 <th >Статус</th>
                 <th class="setting">Инструменты</th>
             </tr>
@@ -47,6 +48,7 @@
                     <td><a href="{{ path('panel_user_list', {'type' : 'null' , 'company' : p.client.company.id }) }}">{{ p.client.company }}</a></td>
                     <td>{{ p.amount }}</td>
                     <td>{{ p.summa }}</td>
+                    <td>{{ p.comment }}</td>
                     <td>
                         <div class="dropdown">
                             <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu{{ p.id }}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">

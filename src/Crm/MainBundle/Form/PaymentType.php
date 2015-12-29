@@ -16,6 +16,7 @@ class PaymentType extends AbstractType
     {
         $builder
 //            ->add('title', null, ['label' => 'Название'])
+            ->add('comment', null, ['label' => 'Комментарий'])
         ;
     }
     
