@@ -365,6 +365,17 @@ class OrderController extends Controller
                     }
                 }
 
+                $fileLicense = $item->getFileLicense();
+                $fileLicenseTwo = $item->getFileLicenseTwo();
+                $item->setFileLicense(null);
+                $item->setFileLicenseTwo(null);
+                $em->persist($item);
+                $em->flush();
+                $em->refresh($item);
+                $item->setFileLicense($fileLicense);
+                $item->setFileLicenseTwo($fileLicenseTwo);
+
+
                 $session = new Session();
                 $path = $this->get('kernel')->getRootDir() . '/../web/upload/usercompany/';
                 if (!is_dir($path.$item->getId())){
@@ -483,10 +494,7 @@ class OrderController extends Controller
                     $item->setFileLicense(array());
                 }
 
-            $em->persist($item);
-            $em->flush();
-            $em->refresh($item);
-
+                $em->flush($item);
 //                return $this->render('@CrmAuth/Application/companySuccess.html.twig',['user' => $item]);
                 return $this->redirect($this->generateUrl('auth_order_company'));
 
