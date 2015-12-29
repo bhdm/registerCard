@@ -709,7 +709,7 @@ class OrderController extends Controller
             $fileName = basename($img);
             $originalName = basename($img);
             $mimeType = mime_content_type($img);
-            $path = end(explode('../web', $path));
+//            $path = end(explode('../web', $path));
             $path = str_replace('imkard/2015-09-08_21.50.28/app/../web/','',$path);
             $path = str_replace('imkard/src/Crm/AuthBundle/Controller/../../../../web/','',$path);
             $path = str_replace('imkard/app/../web/','',$path);
