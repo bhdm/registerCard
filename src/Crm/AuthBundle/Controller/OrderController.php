@@ -365,12 +365,11 @@ class OrderController extends Controller
                     }
                 }
 
-                $em->persist($item);
-                $em->flush();
-                $em->refresh($item);
                 $session = new Session();
                 $path = $this->get('kernel')->getRootDir() . '/../web/upload/usercompany/';
-                mkdir($path.$item->getId());
+                if (!is_dir($path.$item->getId())){
+                    @mkdir($path.$item->getId());
+                }
                 $file = $session->get('signFile');
                 if ($file){
                     $info = new \SplFileInfo($file);
@@ -448,8 +447,37 @@ class OrderController extends Controller
                     }
                 }
 
-                $em->flush($item);
-                $em->refresh($item);
+                $path = $this->get('kernel')->getRootDir() . '/../web/upload/usercompany/';
+                $file = $item->getFileLicense()->getPathName();
+                if ($file){
+                    $info = new \SplFileInfo($file);
+                    $path = $path.$item->getId().'/'.$item->getSalt().time().'-license.'.$info->getExtension();
+                    if (copy($file,$path)){
+                        unlink( $file );
+                        $array = $this->getImgToArray($path);
+                        $item->setFileLicense($array);
+                    }
+                }else{
+                    $item->setFileLicense(array());
+                }
+
+                $path = $this->get('kernel')->getRootDir() . '/../web/upload/usercompany/';
+                $file = $item->getFileLicenseTwo()->getPathName();
+                if ($file){
+                    $info = new \SplFileInfo($file);
+                    $path = $path.$item->getId().'/'.$item->getSalt().time().'-licenseTwo.'.$info->getExtension();
+                    if (copy($file,$path)){
+                        unlink( $file );
+                        $array = $this->getImgToArray($path);
+                        $item->setFileLicenseTwo($array);
+                    }
+                }else{
+                    $item->setFileLicense(array());
+                }
+
+            $em->persist($item);
+            $em->flush();
+            $em->refresh($item);
 
 //                return $this->render('@CrmAuth/Application/companySuccess.html.twig',['user' => $item]);
                 return $this->redirect($this->generateUrl('auth_order_company'));

@@ -63,35 +63,80 @@ class CompanyUserController extends Controller{
         $session = $request->getSession();
 
 
-
-
-        $session->set('fileOrderFile', null);
-        $session->set('fileOrder2File', null);
-        $session->set('fileInnFile', null);
-        $session->set('fileOgrnFile', null);
-        $session->set('fileSignFile', null);
-        $session->set('fileLicenseFile', null);
-
-        $session->set('origin-fileOrderFile', null);
-        $session->set('origin-fileOrder2File', null);
-        $session->set('origin-fileInnFile', null);
-        $session->set('origin-fileOgrnFile', null);
-        $session->set('origin-fileSignFile', null);
-        $session->set('origin-fileLicenseFile', null);
-
         $em = $this->getDoctrine()->getManager();
         $item = $this->getDoctrine()->getRepository('CrmMainBundle:CompanyUser')->findOneById($id);
         $form = $this->createForm(new CompanyUserType($em), $item);
         $formData = $form->handleRequest($request);
-        if ($request->getMethod() == 'POST'){
+        if ($request->getMethod() === 'POST'){
 
 
             #Если здесь все хорошо, то прикрепляем подпись
 
-            $session = new Session();
+            $path = $this->get('kernel')->getRootDir() . '/../web/upload/usercompany/';
+            $file = $session->get('fileSignFile');
+            if ($file){
+                $info = new \SplFileInfo($file);
+                $path = $path.$item->getId().'/'.$item->getSalt().time().'-sign.'.$info->getExtension();
+                if (copy($file,$path)){
+                    unlink( $file );
+                    $session->set('fileSignFile',null);
+                    $array = $this->getImgToArray($path);
+                    $item->setFileSign($array);
+                }
+            }
 
+            $path = $this->get('kernel')->getRootDir() . '/../web/upload/usercompany/';
+            $file = $session->get('fileOrderFile');
+            if ($file){
+                $info = new \SplFileInfo($file);
 
+                $path = $path.$item->getId().'/'.$item->getSalt().time().'-order.'.$info->getExtension();
+                if (copy($file,$path)){
+                    unlink( $file );
+                    $session->set('fileOrderFile',null);
+                    $array = $this->getImgToArray($path);
+                    $item->setFileOrder($array);
+                }
+            }
 
+            $path = $this->get('kernel')->getRootDir() . '/../web/upload/usercompany/';
+            $file = $session->get('fileOrderTwoFile');
+            if ($file){
+                $info = new \SplFileInfo($file);
+                $path = $path.$item->getId().'/'.$item->getSalt().time().'-ordertwo.'.$info->getExtension();
+                if (copy($file,$path)){
+                    unlink( $file );
+                    $session->set('fileOrderTwoFile',null);
+                    $array = $this->getImgToArray($path);
+                    $item->setFileOrderTwo($array);
+                }
+            }
+
+            $path = $this->get('kernel')->getRootDir() . '/../web/upload/usercompany/';
+            $file = $session->get('fileInnFile');
+            if ($file){
+                $info = new \SplFileInfo($file);
+                $path = $path.$item->getId().'/'.$item->getSalt().time().'-inn.'.$info->getExtension();
+                if (copy($file,$path)){
+                    unlink( $file );
+                    $session->set('fileInnFile',null);
+                    $array = $this->getImgToArray($path);
+                    $item->setFileInn($array);
+                }
+            }
+
+            $path = $this->get('kernel')->getRootDir() . '/../web/upload/usercompany/';
+            $file = $session->get('fileOgrnFile');
+            if ($file){
+                $info = new \SplFileInfo($file);
+                $path = $path.$item->getId().'/'.$item->getSalt().time().'-ogrn.'.$info->getExtension();
+                if (copy($file,$path)){
+                    unlink( $file );
+                    $session->set('fileOgrnFile',null);
+                    $array = $this->getImgToArray($path);
+                    $item->setFileOgrn($array);
+                }
+            }
 
 
             $item = $formData->getData();
@@ -101,7 +146,21 @@ class CompanyUserController extends Controller{
 
 
             return array('form' => $form->createView(), 'order' => $item);
-        } else {
+        }
+
+            $session->set('fileOrderFile', null);
+            $session->set('fileOrder2File', null);
+            $session->set('fileInnFile', null);
+            $session->set('fileOgrnFile', null);
+            $session->set('fileSignFile', null);
+            $session->set('fileLicenseFile', null);
+
+            $session->set('origin-fileOrderFile', null);
+            $session->set('origin-fileOrder2File', null);
+            $session->set('origin-fileInnFile', null);
+            $session->set('origin-fileOgrnFile', null);
+            $session->set('origin-fileSignFile', null);
+            $session->set('origin-fileLicenseFile', null);
 
             #Помещаем все фалы-картинки в сессию, что бы потом можно было бы редактировать
             $file = $item->getfileOrder();
@@ -135,7 +194,7 @@ class CompanyUserController extends Controller{
             }
 
             $session->save();
-        }
+
 
 
         return array('form' => $form->createView(), 'order' => $item);

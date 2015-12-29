@@ -32,9 +32,9 @@
                     <td class="skzi-col">
                         <input type="file" name="fileOrderFile" id="fileOrderFile" data-type="fileOrderFile" class="fileAjax">
                         {% if order.fileOrder['path'] is defined %}
-                            <img src="/{{ order.fileOrder['path'] }}" brightness="0" contrast="0" class="document" data-type="fileOrderFile">
+                            <img src="/{{ order.fileOrder['path'] }}" brightness="0" contrast="0" class="document" data-type="fileOrderFile" id="fileOrderFileImg">
                         {% else %}
-                            <img src="" brightness="0" contrast="0" class="document">
+                            <img src="" brightness="0" contrast="0" class="document" id="fileOrderFileImg">
                         {% endif %}
                     </td>
                 </tr>
@@ -51,9 +51,9 @@
                     <td class="skzi-col">
                         <input type="file" name="fileOrderTwoFile" id="fileOrderTwoFile" data-type="fileOrderTwoFile" class="fileAjax">
                         {% if order.fileOrderTwo['path'] is defined %}
-                            <img src="/{{ order.fileOrderTwo['path'] }}" brightness="0" contrast="0" class="document" data-type="fileOrderTwoFile">
+                            <img src="/{{ order.fileOrderTwo['path'] }}" brightness="0" contrast="0" class="document" data-type="fileOrderTwoFile" id="fileOrderTwoFileImg">
                         {% else %}
-                            <img src="" brightness="0" contrast="0" class="document">
+                            <img src="" brightness="0" contrast="0" class="document" id="fileOrderTwoFileImg">
                         {% endif %}
                     </td>
                 </tr>
@@ -93,9 +93,9 @@
                     <td class="skzi-col">
                         <input type="file" name="fileInnFile" id="fileInnFile" data-type="fileInnFile" class="fileAjax">
                         {% if order.fileInn['path'] is defined %}
-                            <img src="/{{ order.fileInn['path'] }}" brightness="0" contrast="0" class="document" data-type="fileInnFile">
+                            <img src="/{{ order.fileInn['path'] }}" brightness="0" contrast="0" class="document" data-type="fileInnFile" id="fileInnFileImg">
                         {% else %}
-                            <img src="" brightness="0" contrast="0" class="document">
+                            <img src="" brightness="0" contrast="0" class="document" id="fileInnFileImg">
                         {% endif %}
                     </td>
                 </tr>
@@ -110,9 +110,9 @@
                     <td class="skzi-col">
                         <input type="file" name="fileOgrnFile" id="fileOgrnFile" data-type="fileOgrnFile" class="fileAjax" data-type="fileOgrnFile">
                         {% if order.fileOgrn['path'] is defined %}
-                            <img src="/{{ order.fileOgrn['path'] }}" brightness="0" contrast="0" class="document">
+                            <img src="/{{ order.fileOgrn['path'] }}" brightness="0" contrast="0" class="document" id="fileOgrnFileImg">
                         {% else %}
-                            <img src="" brightness="0" contrast="0" class="document">
+                            <img src="" brightness="0" contrast="0" class="document" id="fileOgrnFileImg">
                         {% endif %}
                     </td>
                 </tr>
