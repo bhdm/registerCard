@@ -42,6 +42,7 @@
                 {% endif %}
                 <th >ФИО / Email</th>
                 <th>Документы</th>
+                <th>Комментарий</th>
                 <th class="setting">Инструменты</th>
             </tr>
             </thead>
@@ -168,6 +169,7 @@
                                 </div>
                             {% endspaceless %}
                         </td>
+                        <td><div class="comment-box disabled-click" data-id="{{ user.id }}">{{ user.comment }}</div></td>
                         <td class="setting">
                             {% spaceless %}
                                 <a href="{{ path('panel_user_set_stend',{'userId' : user.id }) }}" title="В изготовлено">
@@ -203,6 +205,21 @@
             width: 200px;
             min-height: 50px;
             cursor: pointer;
+        }
+        .statusItems{
+            display: none;
+        }
+        .statusBox{
+            font-size: 12px;
+            cursor: pointer;
+            margin-top: 6px;
+        }
+        .statusBox:hover .statusItems{
+            display: block;
+            position: absolute;
+            background: #FFFFFF;
+            border: 1px solid #C2C2C2;
+            padding: 5px;
         }
     </style>
 {% endblock %}
@@ -303,6 +320,7 @@
                 }else{
                     $(this).parent().parent().parent().parent().css('background', '#FFCFCF');
                 }
+
                 div.addClass('disabled-click');
                 return false;
             });
