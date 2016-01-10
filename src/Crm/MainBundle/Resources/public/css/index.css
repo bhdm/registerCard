@@ -1,0 +1,17 @@
+.phone{
+    font-size: 18px;
+}
+.price{
+    font-size: 24px;
+    font-weight: bold;
+}
+.list-numeric{
+    font-size: 18px;
+    line-height: 40px;
+}
+.navbar{
+    margin-bottom: 0;
+}
+.nav-tabs > li > a{
+    font-size: 17px;
+}

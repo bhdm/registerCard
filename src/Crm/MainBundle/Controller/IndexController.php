@@ -19,7 +19,7 @@ class IndexController extends Controller
 {
     /**
      * @Route("/", name="main")
-     * @Template()
+     * @Template("CrmMainBundle:Index:index_new.html.twig")
      */
     public function indexAction()
     {

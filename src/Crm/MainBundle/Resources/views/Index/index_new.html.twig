@@ -1,0 +1,369 @@
+<html>
+<head>
+    <link href="//fonts.googleapis.com/css?family=Open+Sans:300italic,300,400italic,400,600italic,600,700italic,700,800italic,800" rel="stylesheet" type="text/css">
+    <link href="{{ asset('bundles/crmauth/css/bootstrap.css') }}" rel="stylesheet">
+    <link href="{{ asset('bundles/crmmain/css/index.css') }}" rel="stylesheet" media="all">
+    <link href="{{ asset('bundles/crmmain/lib/fancyapps/jquery.fancybox.css') }}" rel="stylesheet" media="all">
+
+    <script rel="script" src="{{ asset('bundles/crmmain/javascripts/jQuery.js') }}"></script>
+    <script src="{{ asset('bundles/crmmain/lib/fancyapps/jquery.fancybox.pack.js') }}"></script>
+    <script src="{{ asset('bundles/crmauth/js/bootstrap.min.js') }}"></script>
+    <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
+    <script src="{{ path('fos_js_routing_js', {"callback": "fos.Router.setData"}) }}"></script>
+    <script>
+        $(document).ready(function(){
+            $(".fancybox").fancybox();
+        });
+    </script>
+</head>
+
+<body>
+<header class="container">
+    <div class="row">
+        <div class="col-md-2 col-xs-2">
+            <img src="{{ asset('bundles/crmmain/images/logo3.png') }}" style="width: 100px; margin-left: 20px">
+        </div>
+        <div class="col-md-4 hidden-xs">
+            &nbsp;
+        </div>
+        <div class="col-md-3 col-xs-4" style="font-size: 17px; padding-top: 10px">
+            Время Работы:<br />
+            <b>пн. - пт.</b> с 9-00 до 18-00 <br />
+            <b>пн. - вс.</b> с 8-00 до 23-00
+        </div>
+        <div class="col-md-3 col-xs-6 phone text-right">
+            <br />
+            8 (812) 425-12-44<br />+7 (967) 359-98-05
+        </div>
+    </div>
+</header>
+<div class="container">
+    <nav role="navigation" class="navbar navbar-default">
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" data-target="#navbarCollapse" data-toggle="collapse" class="navbar-toggle">
+                    <span class="sr-only">Меню сайта</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                {#<a href="#" class="navbar-brand">#}
+
+                {#</a>#}
+            </div>
+            <!-- Collection of nav links and other content for toggling -->
+            <div id="navbarCollapse" class="collapse navbar-collapse">
+                <ul class="nav navbar-nav">
+                    <li class="active"><a href="#">Главная</a></li>
+                    <li><a href="#">Корпоративным клиентам</a></li>
+                    <li><a href="#">Документы</a></li>
+                    <li><a href="#">Частые вопросы</a></li>
+                    <li><a href="#">О компании</a></li>
+                    <li><a href="#">Контакты</a></li>
+                </ul>
+                {#<ul class="nav nav-pills navbar-right">#}
+                    {#<li class=""><a href="#"><button type="button" class="btn btn-primary">Войти</button></a></li>#}
+                {#</ul>#}
+                <ul class="nav navbar-right nav-pills nav-stacked" style="padding-top: 5px;">
+                    <li class="active">
+                        <a href="#">
+                            Войти
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <img src="{{ asset('bundles/crmmain/images/img101.png') }}" style="width: 100%">
+    <h1 class="text-primary">Наши преимущества</h1>
+    <ul class="list-numeric">
+        <li>Заказать карту можно из любой точки России, Вам нужно только нажать кнопку <a href="#" class="redtext"><b>Подать Заявку</b></a>;</li>
+        <li>Благодаря специальной программе, Ваши данные поступают на производство сразу после оплаты;</li>
+        <li>Доставка осуществляется Почтой России (3-7 дн.) - <span class="redtext"><b>бесплатно</b></span>;</li>
+        <li style="display: block"></li>
+        <li>
+            Мы имеем все необходимые лицензии
+            &nbsp;&nbsp;&nbsp;
+            <a class="fancybox" href="{{ asset('bundles/crmmain/images/l1.jpg') }}"><img src="{{ asset('bundles/crmface/icons/sertificate.png') }}" style="margin-bottom: -15px;"></a>
+            &nbsp;
+            <a class="fancybox" href="{{ asset('bundles/crmmain/images/l2.jpg') }}"><img src="{{ asset('bundles/crmface/icons/sertificate.png') }}" style="margin-bottom: -15px;"></a>
+            &nbsp;
+            <a class="fancybox" href="{{ asset('bundles/crmmain/images/l3.jpg') }}"><img src="{{ asset('bundles/crmface/icons/sertificate.png') }}" style="margin-bottom: -15px;"></a>
+            &nbsp;
+            <a class="fancybox" href="{{ asset('bundles/crmmain/images/patent.png') }}"><img src="{{ asset('bundles/crmmain/images/patent.png') }}" style="height: 51px; margin-bottom: -15px;"></a>
+            &nbsp;
+            <a class="fancybox" href="{{ asset('bundles/crmmain/images/svidetelstvo.png') }}"><img src="{{ asset('bundles/crmmain/images/svidetelstvo.png') }}" style="height: 51px; margin-bottom: -15px;"></a>
+            <br />
+            <br />
+        </li>
+    </ul>
+    <div class="" data-example-id="togglable-tabs">
+        <ul id="myTabs" class="nav nav-tabs" role="tablist">
+            <li role="presentation" class="active">
+                <a href="#driver" id="home-tab" role="tab" data-toggle="tab" aria-controls="driver" aria-expanded="false">Карты для водителей</a>
+            </li>
+            <li role="presentation">
+                <a href="#company" role="tab" id="profile-tab" data-toggle="tab" aria-controls="company" aria-expanded="false">Карты для предприятий</a>
+            </li>
+            <li role="presentation">
+                <a href="#master" role="tab" id="profile-tab" data-toggle="tab" aria-controls="master" aria-expanded="false">Карты для мастерских</a>
+            </li>
+        </ul>
+        <div id="myTabContent" class="tab-content">
+            <div role="tabpanel" class="tab-pane fade active in" id="driver" aria-labelledby="home-tab">
+                <h2 class="text-primary">Карты для водителей</h2>
+                <div class="row">
+                    <div class="col-sm-6 col-md-4">
+                        <div class="thumbnail">
+                            <img src="{{ asset('bundles/crmmain/images/card2-1.png') }}">
+                            <div class="caption">
+                                <h3>Карта СКЗИ</h3>
+                                <p>
+                                    Карты предназначены для тахографов оборудованных блоком СКЗИ.<br />
+                                    Действуют только на территории РФ.<br />
+                                </p>
+                                <b>Документы:</b>
+                                <ul>
+                                    <li>копия паспорта (лицевой разворот)</li>
+                                    <li>копия водительского удостоверения</li>
+                                    <li>СНИЛС</li>
+                                    <li>фото, подпись</li>
+                                </ul>
+                                <br />
+                                <br />
+                                <div class="row">
+                                    <div class="col-xs-6 price">2&nbsp;150,00 руб</div>
+                                    <div class="col-xs-6"><a href="#" class="btn-lg btn-primary" role="button">Заказать</a></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-4">
+                        <div class="thumbnail">
+                            <img src="{{ asset('bundles/crmmain/images/card2-2.png') }}">
+                            <div class="caption">
+                                <h3>Карта ЕСТР</h3>
+                                <p>
+                                    Карты предназначены для европейских тахографов стандарта ЕСТР.<br />
+                                    Действуют только на территории Европы и  РФ.<br />
+                                </p>
+                                <b>Документы:</b>
+                                <ul>
+                                    <li>копия паспорта (лицевой разворот, страница регистрации)</li>
+                                    <li>копия водительского удостоверения (две стороны)</li>
+                                    <li>фото, подпись</li>
+                                </ul>
+                                <br />
+                                <div class="row">
+                                    <div class="col-xs-6 price">3&nbsp;200,00 руб</div>
+                                    <div class="col-xs-6"><a href="#" class="btn-lg btn-primary" role="button">Заказать</a></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-4">
+                        <div class="thumbnail">
+                            <img src="{{ asset('bundles/crmmain/images/card2-3.png') }}">
+                            <div class="caption">
+                                <h3>Карта ЕСТР</h3>
+                                <p>
+                                    Карты предназначены для тахографов <b>не</b> оборудованных блоками СКЗИ.<br />
+                                    Дейтсвуют только на территории РФ.<br />
+                                </p>
+                                <b>Документы:</b>
+                                <ul>
+                                    <li>копия паспорта (лицевой разворот, страница регистрации)</li>
+                                    <li>копия водительского удостоверения (две стороны)</li>
+                                    <li>фото, подпись</li>
+                                </ul>
+                                <br />
+                                <div class="row">
+                                    <div class="col-xs-6 price">3&nbsp;200,00 руб</div>
+                                    <div class="col-xs-6"><a href="#" class="btn-lg btn-primary" role="button">Заказать</a></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <hr />
+            </div>
+            <div role="tabpanel" class="tab-pane fade" id="company" aria-labelledby="company-tab">
+                <h2 class="text-primary">Карты для предприятий</h2>
+                <div class="row">
+                    <div class="col-sm-6 col-md-4">
+                        <div class="thumbnail">
+                            <img src="{{ asset('bundles/crmmain/images/card2-1.png') }}">
+                            <div class="caption">
+                                <h3>Карта СКЗИ</h3>
+                                <p>
+                                    Карты предназначены для тахографов оборудованных блоком СКЗИ.<br />
+                                    Действуют только на территории РФ.<br />
+                                </p>
+                                <b>Документы:</b>
+                                <ul>
+                                    <li>копия паспорта (лицевой разворот)</li>
+                                    <li>копия водительского удостоверения</li>
+                                    <li>СНИЛС</li>
+                                    <li>фото, подпись</li>
+                                </ul>
+                                <br />
+                                <br />
+                                <div class="row">
+                                    <div class="col-xs-6 price">2&nbsp;150,00 руб</div>
+                                    <div class="col-xs-6"><a href="#" class="btn-lg btn-primary" role="button">Заказать</a></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-4">
+                        <div class="thumbnail">
+                            <img src="{{ asset('bundles/crmmain/images/card2-2.png') }}">
+                            <div class="caption">
+                                <h3>Карта ЕСТР</h3>
+                                <p>
+                                    Карты предназначены для европейских тахографов стандарта ЕСТР.<br />
+                                    Действуют только на территории Европы и  РФ.<br />
+                                </p>
+                                <b>Документы:</b>
+                                <ul>
+                                    <li>копия паспорта (лицевой разворот, страница регистрации)</li>
+                                    <li>копия водительского удостоверения (две стороны)</li>
+                                    <li>фото, подпись</li>
+                                </ul>
+                                <br />
+                                <div class="row">
+                                    <div class="col-xs-6 price">3&nbsp;200,00 руб</div>
+                                    <div class="col-xs-6"><a href="#" class="btn-lg btn-primary" role="button">Заказать</a></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-4">
+                        <div class="thumbnail">
+                            <img src="{{ asset('bundles/crmmain/images/card2-3.png') }}">
+                            <div class="caption">
+                                <h3>Карта ЕСТР</h3>
+                                <p>
+                                    Карты предназначены для тахографов <b>не</b> оборудованных блоками СКЗИ.<br />
+                                    Дейтсвуют только на территории РФ.<br />
+                                </p>
+                                <b>Документы:</b>
+                                <ul>
+                                    <li>копия паспорта (лицевой разворот, страница регистрации)</li>
+                                    <li>копия водительского удостоверения (две стороны)</li>
+                                    <li>фото, подпись</li>
+                                </ul>
+                                <br />
+                                <div class="row">
+                                    <div class="col-xs-6 price">3&nbsp;200,00 руб</div>
+                                    <div class="col-xs-6"><a href="#" class="btn-lg btn-primary" role="button">Заказать</a></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <hr />
+            </div>
+
+            <div role="tabpanel" class="tab-pane fade" id="master" aria-labelledby="master-tab">
+                <h2 class="text-primary">Карты для мастерских</h2>
+                <div class="row">
+                    <div class="col-sm-6 col-md-4">
+                        <div class="thumbnail">
+                            <img src="{{ asset('bundles/crmmain/images/card2-1.png') }}">
+                            <div class="caption">
+                                <h3>Карта СКЗИ</h3>
+                                <p>
+                                    Карты предназначены для тахографов оборудованных блоком СКЗИ.<br />
+                                    Действуют только на территории РФ.<br />
+                                </p>
+                                <b>Документы:</b>
+                                <ul>
+                                    <li>копия паспорта (лицевой разворот)</li>
+                                    <li>копия водительского удостоверения</li>
+                                    <li>СНИЛС</li>
+                                    <li>фото, подпись</li>
+                                </ul>
+                                <br />
+                                <br />
+                                <div class="row">
+                                    <div class="col-xs-6 price">2&nbsp;150,00 руб</div>
+                                    <div class="col-xs-6"><a href="#" class="btn-lg btn-primary" role="button">Заказать</a></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-4">
+                        <div class="thumbnail">
+                            <img src="{{ asset('bundles/crmmain/images/card2-2.png') }}">
+                            <div class="caption">
+                                <h3>Карта ЕСТР</h3>
+                                <p>
+                                    Карты предназначены для европейских тахографов стандарта ЕСТР.<br />
+                                    Действуют только на территории Европы и  РФ.<br />
+                                </p>
+                                <b>Документы:</b>
+                                <ul>
+                                    <li>копия паспорта (лицевой разворот, страница регистрации)</li>
+                                    <li>копия водительского удостоверения (две стороны)</li>
+                                    <li>фото, подпись</li>
+                                </ul>
+                                <br />
+                                <div class="row">
+                                    <div class="col-xs-6 price">3&nbsp;200,00 руб</div>
+                                    <div class="col-xs-6"><a href="#" class="btn-lg btn-primary" role="button">Заказать</a></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-4">
+                        <div class="thumbnail">
+                            <img src="{{ asset('bundles/crmmain/images/card2-3.png') }}">
+                            <div class="caption">
+                                <h3>Карта ЕСТР</h3>
+                                <p>
+                                    Карты предназначены для тахографов <b>не</b> оборудованных блоками СКЗИ.<br />
+                                    Дейтсвуют только на территории РФ.<br />
+                                </p>
+                                <b>Документы:</b>
+                                <ul>
+                                    <li>копия паспорта (лицевой разворот, страница регистрации)</li>
+                                    <li>копия водительского удостоверения (две стороны)</li>
+                                    <li>фото, подпись</li>
+                                </ul>
+                                <br />
+                                <div class="row">
+                                    <div class="col-xs-6 price">3&nbsp;200,00 руб</div>
+                                    <div class="col-xs-6"><a href="#" class="btn-lg btn-primary" role="button">Заказать</a></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <hr />
+            </div>
+        </div>
+    </div>
+
+
+    <footer class="well">
+        <div class="row">
+            <div class="col-xs-3 text-center" style="font-size: 17px">
+                <br />
+                ООО "Инфомакс" <br /> 2016 г
+            </div>
+            <div class="col-xs-6 text-center">
+                <span style="font-size: 17px"><b>ООО "ИнфоМакс"</b></span><br />
+                Санкт-Петербург, пр. Маршала Говорова, д.37 <br />
+                <a href="cellto:88124251244">8(812)425-12-44</a>, <a href="cellto:+7(967)359-98-05">+7(967)359-98-05</a> <br />
+                e-mail: <a href="mailto:imkardru@gmail.com">imkardru@gmail.com</a>
+            </div>
+            <div class="col-xs-3 text-center">
+                <img src="{{ asset('bundles/crmmain/images/robokassa.png') }}" style="width: 100%; max-width: 175px">
+            </div>
+        </div>
+    </footer>
+</div>
+</body>
+</html>
