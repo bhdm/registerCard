@@ -53,9 +53,11 @@ function getImage(data,container, first){
         fileDoc.children('.jcrop-holder').children('img').attr('src',data.data.img);
         var type = container.children('.jq-file').children('input[type=file]').attr('id');
 
+        console.log(first);
         if ( first == 0 ){
             var maxHeight = 400;
             var maxWidth = 400;
+            console.log(type );
             if (type == 'photoFile'){
                 fileDoc.children('img').Jcrop({
                     boxHeight: maxHeight,
@@ -79,9 +81,11 @@ function getImage(data,container, first){
                 });
             }
         }else{
+            console.log(type );
             var maxHeight = 600;
             var maxWidth = 600;
             if (type == 'photoFile'){
+                console.log(' YES');
                 fileDoc.children('img').Jcrop({
                     boxHeight: maxHeight,
                     boxWidth:  maxWidth,
