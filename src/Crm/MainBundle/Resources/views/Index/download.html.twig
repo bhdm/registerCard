@@ -1,28 +1,41 @@
-{% extends 'CrmMainBundle::layout.html.twig' %}
+{% extends 'CrmMainBundle::layout_new.html.twig' %}
 
 {% block content %}
-    <div class="box">
-        <h2>Скачать документы</h2>
+    <div class="container">
+        <h2>Работа с корпоративными клиентами:</h2>
+        <ul style="list-style: decimal; font-size: 17px">
+        <li>Скачать документы для заключения Договора;</li>
+        <li>Заполнить Заявку на необходимые карты;</li>
+        <li>Заключить Договор;</li>
+        <li>Получить специальную ссылку для ввода данных;</li>
+        <li>Ввести данные (бесплатная помощь менеджера online);</li>
+        <li>Полная или частичная оплата по поданным Заявлениям;</li>
+        <li>Через 10-20 дней получение карт;</li>
+        <li>Подписание Акта выполненных работ.</li>
+        </ul>
+        <hr />
+        <h2>Скачать документы:</h2>
         <br />
         <div>
-            <a target="_blank" href="{{ asset('bundles/crmmain/docs/1. Памятка по заказу карт для тахографов.doc') }}">1. Памятка по заказу карт для тахографов</a>
+            <span class="glyphicon glyphicon-file">&nbsp;</span><a target="_blank" href="{{ asset('bundles/crmmain/docs/1. Памятка по заказу карт для тахографов.doc') }}">Памятка по заказу карт для тахографов</a>
             <br /><br />
-            <a target="_blank" href="{{ asset('bundles/crmmain/docs/2. Заявка на карты трех видов.doc') }}">2. Заявка на карты трех видов</a>
+            <span class="glyphicon glyphicon-file">&nbsp;</span><a target="_blank" href="{{ asset('bundles/crmmain/docs/2. Заявка на карты трех видов.doc') }}">Заявка на карты трех видов</a>
             <br /><br />
-            <a target="_blank" href="{{ asset('bundles/crmmain/docs/3. Договор на карты СКЗИ, ЕСТР и РФ.doc') }}">3. Договор на карты СКЗИ, ЕСТР и РФ</a>
+            <span class="glyphicon glyphicon-file">&nbsp;</span><a target="_blank" href="{{ asset('bundles/crmmain/docs/3. Договор на карты СКЗИ, ЕСТР и РФ.doc') }}">Договор на карты СКЗИ, ЕСТР и РФ</a>
             <br /><br />
-            <a target="_blank" href="{{ asset('bundles/crmmain/docs/4. Приложение 1 - Протокол согласования цены.docx') }}">4. Приложение 1 - Протокол согласования цены</a>
+            <span class="glyphicon glyphicon-file">&nbsp;</span><a target="_blank" href="{{ asset('bundles/crmmain/docs/4. Приложение 1 - Протокол согласования цены.docx') }}">Приложение 1 - Протокол согласования цены</a>
             <br /><br />
-            <a target="_blank" href="{{ asset('bundles/crmmain/docs/5. Приложение 2 - Требование к поставке карт тахографа.docx') }}">5. Приложение 2 - Требование к поставке карт тахографа</a>
+            <span class="glyphicon glyphicon-file">&nbsp;</span><a target="_blank" href="{{ asset('bundles/crmmain/docs/5. Приложение 2 - Требование к поставке карт тахографа.docx') }}">Приложение 2 - Требование к поставке карт тахографа</a>
             <br /><br />
-            <a target="_blank" href="{{ asset('bundles/crmmain/docs/6. Заявление на карту предприятия СКЗИ.pdf') }}">6. Заявление на карту предприятия СКЗИ</a>
+            <span class="glyphicon glyphicon-file">&nbsp;</span><a target="_blank" href="{{ asset('bundles/crmmain/docs/6. Заявление на карту предприятия СКЗИ.pdf') }}">Заявление на карту предприятия СКЗИ</a>
             <br /><br />
-            <a target="_blank" href="{{ asset('bundles/crmmain/docs/7. Согласие на передачу перс.данных-коллективное.doc') }}">7. Согласие на передачу перс.данных-коллективное</a>
+            <span class="glyphicon glyphicon-file">&nbsp;</span><a target="_blank" href="{{ asset('bundles/crmmain/docs/7. Согласие на передачу перс.данных-коллективное.doc') }}">Согласие на передачу перс.данных-коллективное</a>
             <br /><br />
-            <a target="_blank" href="{{ asset('bundles/crmmain/docs/8. Заявление на карту мастерской СКЗИ.pdf') }}">8. Заявление на карту мастерской СКЗИ</a>
+            <span class="glyphicon glyphicon-file">&nbsp;</span><a target="_blank" href="{{ asset('bundles/crmmain/docs/8. Заявление на карту мастерской СКЗИ.pdf') }}">Заявление на карту мастерской СКЗИ</a>
             <br /><br />
-            <a target="_blank" href="{{ asset('bundles/crmmain/docs/9. Заявление на блокировку карт водителя СКЗИ.docx') }}">9. Заявление на блокировку карт водителя СКЗИ</a>
-
+            <span class="glyphicon glyphicon-file">&nbsp;</span><a target="_blank" href="{{ asset('bundles/crmmain/docs/9. Заявление на блокировку карт водителя СКЗИ.docx') }}">Заявление на блокировку карт водителя СКЗИ</a>
+            <br /><br />
+            <br /><br />
         </div>
     </div>
 {% endblock %}
@@ -30,6 +43,18 @@
 {% block stylesheets %}
     {{ parent() }}
     <style>
-
+        html{
+            width: 100%;
+        }
+        body{
+            /*min-height: 100%;*/
+            /*padding-bottom: 150px;*/
+        }
+        footer{
+            /*position: absolute;*/
+            /*bottom: 0;*/
+            /*left: 0;*/
+            /*right: 0;*/
+        }
     </style>
 {% endblock %}

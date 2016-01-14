@@ -107,107 +107,89 @@
     {% form_theme formPass 'CrmAuthBundle:Form:bootstrap_3_horizontal_layout.html.twig' %}
 {% endif %}
 
-<body>
-    <div class="body">
-        <div class="logo">
-            <table cellpadding="0" cellspacing="0" style="width: 100%; padding: 0 10px">
-                <tr>
-                    <td>
-                        <a href="{{ path('main') }}"><img src="{{ asset('bundles/crmmain/images/logo.png') }}?2" ></a>
-                    </td>
-                    <td style="vertical-align: top">
-                        <br />
-                        <table>
-                            <tr>
-                                <td>
-                                    <span class="phone" style="font-size: 14px">
-                                        8 (812) 425-12-44
-                                        <br />
-                                        +7 (967) 359-98-05
-                                    </span>
-                                </td>
-                                <td>
-                                    <span class="workday">
-                                    пн. - пт. с 9-00 до 18-00
-                                    <br />
-                                    пн. - вс. с 8-00 до 23-00
-                                    </span>
-                                </td>
-                            </tr>
-                        </table>
-                        <table style="width: 100%;">
-                            <tr>
-                                <td>
-                                    <span style="padding-left: 20px">
-                                        {#<img src="{{ asset('bundles/crmface/icons/vopros.png') }}" style="margin-bottom: -12px;">#}
-                                        <a href="{{ path('faq') }}" class="vopros" style="padding-top: 14px;">Задать вопрос</a>
-                                    </span>
-                                    <br />
-                                    <img src="{{ asset('bundles/crmface/images/call.png') }}" class="call" style="width: 145px;display: block;margin-top: 20px;margin-left: 19px;">
-                                </td>
-                                <td>
-                                    {% if not is_granted('ROLE_CLIENT') %}
-                                        <a href="{{ path('auth_register') }}"><div class="btn btn-red btn-order" style="color: #FFF">Зарегистрироваться</div></a>
-                                        <br />
-                                        <br />
-                                        <br />
-                                        <a href="{{ path('auth_login') }}"><div class="btn btn-red btn-order" style="color: #FFF">Войти</div></a>
-                                    {% else %}
-                                        <a href="{{ path('auth_order') }}"><div class="btn btn-red btn-order" style="color: #FFF; ">{{app.user.username}}</div></a>
-                                        <br />
-                                        <br />
-                                        <br />
-                                        <a href="{{ path('auth_security_logout') }}"><div class="btn btn-red btn-order" style="color: #FFF">Выйти</div></a>
-                                    {% endif %}
-                                </td>
-                            </tr>
-                        </table>
-                    </td>
-                </tr>
-            </table>
+<body style="background: #FFF; ">
+    <header class="container">
+        <div class="row">
+            <div class="col-md-2 col-xs-2">
+                <img src="{{ asset('bundles/crmmain/images/logo3.png') }}" style="width: 100px; margin-left: 20px">
+            </div>
+            <div class="col-md-4 hidden-xs">
+                &nbsp;
+            </div>
+            <div class="col-md-3 col-xs-4" style="font-size: 17px; padding-top: 10px">
+                Время Работы:<br />
+                <b>пн. - пт.</b> с 9-00 до 18-00 <br />
+                <b>пн. - вс.</b> с 8-00 до 23-00
+            </div>
+            <div class="col-md-3 col-xs-6 phone text-right">
+                <br />
+                8 (812) 425-12-44<br />+7 (967) 359-98-05<br /><a href="mailto:imkardru@gmail.com">imkardru@gmail.com</a>
+            </div>
         </div>
-        <div class="menu">
-            <ul>
-                <li><a href="{{ path('main') }}">Главная</a></li>
-                <li>
-                    Подать заявку
-                    <ul class="submenu">
-                        <li> <a href="{{ path('application-skzi-add') }}">Карта СКЗИ </a></li>
-                        <li> <a href="{{ path('application-estr-add') }}">Карта ЕСТР </a></li>
-                        <li> <a href="{{ path('application-ru-add') }}">Карта РФ </a></li>
-                        <li> <a href="{{ path('download') }}">Корпоративным клиентам</a></li>
+    </header>
+    <div class="container">
+        <nav role="navigation" class="navbar navbar-default">
+            <div class="container-fluid">
+                <!-- Brand and toggle get grouped for better mobile display -->
+                <div class="navbar-header">
+                    <button type="button" data-target="#navbarCollapse" data-toggle="collapse" class="navbar-toggle">
+                        <span class="sr-only">Меню сайта</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    {#<a href="#" class="navbar-brand">#}
+
+                    {#</a>#}
+                </div>
+                <!-- Collection of nav links and other content for toggling -->
+                <div id="navbarCollapse" class="collapse navbar-collapse">
+                    <ul class="nav navbar-nav">
+                        <li class="active"><a href="{{ path('main') }}">Главная</a></li>
+                        <li><a href="{{ path('download') }}">Корпоративным клиентам</a></li>
+                        <li><a href="{{ path('documents') }}">Документы</a></li>
+                        <li><a href="{{ path('faq') }}">Частые вопросы</a></li>
+                        <li><a href="{{ path('page',{ 'url' : 'about'}) }}">О компании</a></li>
+                        <li><a href="{{ path('page',{ 'url' : 'contact'}) }}">Контакты</a></li>
                     </ul>
-                </li>
-                <li><a href="{{ path('documents') }}">Документы</a></li>
-                <li><a href="{{ path('faq') }}">Частые вопросы</a></li>
-                <li><a href="{{ path('status') }}">Статус</a></li>
-                <li><a href="{{ path('page',{ 'url' : 'about'}) }}">О компании</a></li>
-                <li><a href="{{ path('page',{ 'url' : 'contact'}) }}">Контакты</a></li>
-            </ul>
-        </div>
+                    {#<ul class="nav nav-pills navbar-right">#}
+                    {#<li class=""><a href="#"><button type="button" class="btn btn-primary">Войти</button></a></li>#}
+                    {#</ul>#}
+                    <ul class="nav navbar-right nav-pills nav-stacked" style="padding-top: 5px;">
+                        <li class="active">
+                            {% if not is_granted('ROLE_CLIENT') %}
+                                <a href="{{ path('auth_login') }}">
+                                    Войти
+                                </a>
+                            {% else %}
+                                <a href="{{ path('auth_order') }}">{{ app.user.username }}</a>
+                            {% endif %}
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
         <div class="content">
             {% block content %}{% endblock %}
         </div>
         <br/>
-        <div class="footer">
-            <table style="width: 100%">
-                <tr>
-                    <td style="color: #CC0000; text-align: center;">ООО "ИнфоМакс" <br /> {{ "now" | date('Y') }}г.</td>
-                    <td style="font-weight: bold; color: #FFFFFF; text-align: center; font-size: 16px">
-                        <span style="font-size: 20px; color: #FFFFFF">ООО "ИнфоМакс"</span>
-                        <br />
-                        Санкт-Петербург, пр. Маршала Говорова, д.37
-                        <br />
-                        8(812)425-12-44, +7(967)359-98-05
-                        <br />
-                        e-mail: imkardru@gmail.com
-                    </td>
-                    <td style="text-align: center;">
-                        <img src="{{ asset('bundles/crmface/images/robokassa.png') }}">
-                    </td>
-                </tr>
-            </table>
-        </div>
+        <footer class="well">
+            <div class="row">
+                <div class="col-xs-3 text-center" style="font-size: 17px">
+                    <br />
+                    ООО "Инфомакс" <br /> 2016 г
+                </div>
+                <div class="col-xs-6 text-center">
+                    <span style="font-size: 17px"><b>ООО "ИнфоМакс"</b></span><br />
+                    Санкт-Петербург, пр. Маршала Говорова, д.37 <br />
+                    <a href="cellto:88124251244">8(812)425-12-44</a>, <a href="cellto:+7(967)359-98-05">+7(967)359-98-05</a> <br />
+                    e-mail: <a href="mailto:imkardru@gmail.com">imkardru@gmail.com</a>
+                </div>
+                <div class="col-xs-3 text-center">
+                    <img src="{{ asset('bundles/crmmain/images/robokassa.png') }}" style="width: 100%; max-width: 175px">
+                </div>
+            </div>
+        </footer>
     </div>
 
     <div class="popup callbox" style="top: 300px; min-height: 150px">

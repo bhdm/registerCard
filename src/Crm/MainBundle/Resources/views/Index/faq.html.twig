@@ -1,14 +1,24 @@
-{% extends 'CrmMainBundle::layout.html.twig' %}
+{% extends 'CrmMainBundle::layout_new.html.twig' %}
 
 {% block content %}
     <div class="box">
         <h2>Задать вопрос</h2>
         {% if msg == false %}
-            <div class="feedback-box">
+            <div class="feedback-box" style="margin: 0 auto">
                 <form method="POST">
+                    {% form_theme formFeedback 'bootstrap_3_horizontal_layout.html.twig' %}
                     {{ form_widget(formFeedback) }}
+                    <br />
+                    <br />
                     <div style="text-align: right">
                         <i style="font-size: 14px; color: #CC3333">* Поля отмеченные звездочкой обязательны для заполнения</i>
+                    </div>
+                    <br />
+                    <br />
+                    <div class="row">
+                        <div class="col-xs-12 text-right">
+                            <button type="submit" class="btn btn-primary">Задать вопрос</button>
+                        </div>
                     </div>
                 </form>
             </div>
