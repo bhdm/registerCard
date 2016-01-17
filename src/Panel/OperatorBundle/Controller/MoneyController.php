@@ -78,8 +78,8 @@ class MoneyController extends Controller
      * @Template()
      */
     public function maximAction($month){
-        $date1 = '2015-'.$month.'-01 00:00:00';
-        $date2 = '2015-'.($month+1).'-01 00:00:00';
+        $date1 = '2016-'.$month.'-01 00:00:00';
+        $date2 = '2016-'.($month+1).'-01 00:00:00';
         $date3 = new \DateTime($date1);
         $sql = "SELECT COUNT(user.id) cid FROM
                 user
