@@ -96,6 +96,14 @@
                     var url = Routing.generate('application-'+type+'-step'+$(this).children('.stepn').html());
                     window.location.href = url;
                 });
+                $('.dropdown-menu-title').click(function(){
+                    if ($('.dropdown-menu-list .dropdown-menu').css('display') == 'block'){
+                        $('.dropdown-menu-list .dropdown-menu').css('display','none');
+                    }else{
+                        $('.dropdown-menu-list .dropdown-menu').css('display','block');
+                    }
+                    return false;
+                });
             })
         </script>
     {% endblock %}
@@ -146,6 +154,24 @@
                 <div id="navbarCollapse" class="collapse navbar-collapse">
                     <ul class="nav navbar-nav">
                         <li class="active"><a href="{{ path('main') }}">Главная</a></li>
+                        <li class="nav-tree">
+                            <a href="#" class="dropdown-menu-title">Заказать карту</a>
+                            <div class="dropdown-menu-list">
+                                <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                                    <li><a href="{{ path('application-skzi-add') }}">Карта водителя СКЗИ</a></li>
+                                    <li><a href="{{ path('application-estr-add') }}">Карта водителя ЕСТР</a></li>
+                                    <li><a href="{{ path('application-ru-add') }}">Карта водителя РФ</a></li>
+                                    <li role="separator" class="divider"></li>
+                                    {#<li><a href="#">Карта предприятия СКЗИ</a></li>#}
+                                    {#<li><a href="#">Карта предприятия ЕСТР</a></li>#}
+                                    {#<li><a href="#">Карта предприятия РФ</a></li>#}
+                                    {#<li role="separator" class="divider"></li>#}
+                                    {#<li><a href="#">Карта мастерской СКЗИ</a></li>#}
+                                    {#<li><a href="#">Карта мастерской ЕСТР</a></li>#}
+                                    {#<li><a href="#">Карта мастерской РФ</a></li>#}
+                                </ul>
+                            </div>
+                        </li>
                         <li><a href="{{ path('download') }}">Корпоративным клиентам</a></li>
                         <li><a href="{{ path('documents') }}">Документы</a></li>
                         <li><a href="{{ path('faq') }}">Частые вопросы</a></li>
