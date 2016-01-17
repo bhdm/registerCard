@@ -192,7 +192,7 @@
                     <li class="active">
                         {% if not is_granted('ROLE_CLIENT') %}
                             <a href="{{ path('auth_login') }}">
-                                Войти
+                                Вход
                             </a>
                         {% else %}
                             <a href="{{ path('auth_order') }}">{{ app.user.username }}</a>
