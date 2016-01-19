@@ -407,7 +407,26 @@ input.little{
     color: #CC0000;
 }
 
-
+.fileBox {
+    display: none;
+    position: fixed;
+    top: 150px;
+    left: 50%;
+    margin-left: -360px;
+    width: 700px;
+    background: #F0F0F0;
+    border: 1px solid #000088;
+    border-radius: 10px;
+    z-index: 9999;
+    padding: 10px;
+}
+.fileBox .fileDoc {
+    max-height: 500px;
+    min-height: 300px;
+}
+.jcrop-holder {
+    margin: 0 auto;
+}
 .navigateFile{
     text-align: left;
     display: none;
