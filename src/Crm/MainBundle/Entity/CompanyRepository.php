@@ -76,6 +76,21 @@ class CompanyRepository extends EntityRepository
         return $res->getQuery()->getOneOrNullResult();
     }
 
+    public function getMoneyNew(){
+        $dateEnd = new \DateTime(date("Y-m-d 23:59:59"));
+        $dateFirst = clone $dateEnd;
+        $dateFirst->modify('-5 month');
+
+        $query = "
+            SELECT YEAR(isProduction) y , MONTH(isProduction) m, SUM(price) s, COUNT(id) c
+            FROM `user`
+            WHERE
+              isProduction is not null AND
+              isProduction >= '$dateFirst' AND
+              enabled = 1
+            GROUP BY YEAR(isProduction), MONTH(isProduction)
+            ORDER BY y DESC, m DESC";
+    }
     public function getMoney($date = null){
         if ($date == null){
             $sql = "

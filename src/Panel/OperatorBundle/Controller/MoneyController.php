@@ -50,6 +50,8 @@ class MoneyController extends Controller
         $moneyOfCompany5 = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->getMoney('2015-11-01 00:00:00');
         $moneyOfCompany6 = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->getMoney('2015-12-01 00:00:00');
 
+        $moneyOfCompany_new = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->getMoneyNew();
+
         $countDay = cal_days_in_month(CAL_GREGORIAN, $month, $year);
         return array(
 //            'statsOfOperator' => $statsOfOperator,

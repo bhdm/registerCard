@@ -486,6 +486,12 @@ class User extends BaseEntity implements UserInterface, EquatableInterface, \Ser
      */
     protected $isComfirmed = false;
 
+    /**
+     * Дата когда стала в подтвржденной
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    protected $isProduction;
+
     public function getXmlId()
     {
         return str_pad($this->id, 8, "0", STR_PAD_LEFT);
@@ -1736,6 +1742,16 @@ class User extends BaseEntity implements UserInterface, EquatableInterface, \Ser
         return $userLogArray;
     }
 
+    public function getDateInProduction(){
+        $userLog = $this->statuslog;
+        foreach ($userLog as $key => $status) {
+            if ( $status->getTitle() === 'Оплаченная' ){
+                return $status->getCreated();
+            }
+        }
+        return null;
+    }
+
     /**
      * @return mixed
      */
@@ -2175,5 +2191,22 @@ class User extends BaseEntity implements UserInterface, EquatableInterface, \Ser
             $this->status = 0;
         }
     }
+
+    /**
+     * @return mixed
+     */
+    public function getIsProduction()
+    {
+        return $this->isProduction;
+    }
+
+    /**
+     * @param mixed $isProduction
+     */
+    public function setIsProduction($isProduction)
+    {
+        $this->isProduction = $isProduction;
+    }
+
 
 }
