@@ -18,14 +18,14 @@
             <tr>
                 <th>Тип заявки</th>
                 <th>ИТОГО</th>
-                {% for d in dates | reverse %}
+                {% for d in dates  %}
                     <th>{{ d |date('m.Y') }}</th>
                 {% endfor %}
             </tr>
             <tr>
                 <td>СКЗИ</td>
                 <td><b>{{ fullSummaSkzi }}</b></td>
-                {% for d in dates | reverse %}
+                {% for d in dates  %}
                     <td>
                         {% if statsByYear['1'][d | date('Y-n')] is defined %}
                             {{ statsByYear['1'][d | date('Y-n')] }}
@@ -38,7 +38,7 @@
             <tr>
                 <td>ЕСТР</td>
                 <td><b>{{ fullSummaEstr }}</b></td>
-                {% for d in dates | reverse %}
+                {% for d in dates  %}
                     <td>
                         {% if statsByYear['2'][d | date('Y-n')] is defined %}
                             {{ statsByYear['2'][d | date('Y-n')] }}
@@ -51,7 +51,7 @@
             <tr>
                 <td>РФ</td>
                 <td><b>{{ fullSummaRu }}</b></td>
-                {% for d in dates | reverse %}
+                {% for d in dates  %}
                     <td>
                         {% if statsByYear['3'][d | date('Y-n')] is defined %}
                             {{ statsByYear['3'][d | date('Y-n')] }}
@@ -64,7 +64,7 @@
             <tr>
                 <td><b>ИТОГО</b></td>
                 <td><b>{{ fullSummaSkzi + fullSummaEstr + fullSummaRu }}</b></td>
-                {% for d in dates | reverse %}
+                {% for d in dates  %}
                     <td>
                         {%  set x1  = (statsByYear['1'][d | date('Y-n')] is defined ? statsByYear['1'][d | date('Y-n')] : 0) %}
                         {%  set x2  = (statsByYear['2'][d | date('Y-n')] is defined ? statsByYear['2'][d | date('Y-n')] : 0) %}
@@ -79,14 +79,14 @@
         <table class="table">
             <tr>
                 <th>Оператор</th>
-                {% for d in dates | reverse %}
+                {% for d in dates  %}
                     <th>{{ d |date('m.Y') }}</th>
                 {% endfor %}
             </tr>
             {% for company,c in moneyOfCompany %}
                 <tr>
                     <td>{{ company }}</td>
-                    {% for date in dates | reverse %}
+                    {% for date in dates  %}
                         <td>
                             {% if c[date |date('Y-m')] is defined %}
                                 {{ c[date |date('Y-m')].count }} / {{ c[date |date('Y-m')].sum }}
@@ -113,7 +113,7 @@
         function drawChart() {
             var data = google.visualization.arrayToDataTable([
                 ['Месяц',  'СКЗИ', 'ЕСТР', 'РФ', 'ИТОГО'],
-                {% for d in dates | reverse %}
+                {% for d in dates  %}
                 [
                     '{{ d|date('m.Y') }}',
                     {{ (statsByYear['1'][d | date('Y-n')] is defined ? statsByYear['1'][d | date('Y-n')] : 0) }},
