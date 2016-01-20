@@ -197,7 +197,7 @@ class IndexController extends Controller
         $message = \Swift_Message::newInstance()
             ->setSubject('Просьба перезвонить')
             ->setFrom('info@im-kard.ru')
-            ->setTo('bipur@mail.ru')
+            ->setTo('imkardru@gmail.com')
             ->setBody(
                 $this->renderView(
                     'CrmMainBundle:Mail:setphone.html.twig',
