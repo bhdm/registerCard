@@ -42,17 +42,18 @@ class MoneyController extends Controller
         $fullSummaEstr = $this->getDoctrine()->getRepository('CrmMainBundle:User')->fullSumma(1,0);
         $fullSummaRu   = $this->getDoctrine()->getRepository('CrmMainBundle:User')->fullSumma(0,1);
 
-        $moneyOfCompany = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->getMoney();
-        $moneyOfCompany1 = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->getMoney('2015-07-01 00:00:00');
-        $moneyOfCompany2 = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->getMoney('2015-08-01 00:00:00');
-        $moneyOfCompany3 = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->getMoney('2015-09-01 00:00:00');
-        $moneyOfCompany4 = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->getMoney('2015-10-01 00:00:00');
-        $moneyOfCompany5 = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->getMoney('2015-11-01 00:00:00');
-        $moneyOfCompany6 = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->getMoney('2015-12-01 00:00:00');
-
         $moneyOfCompany_new = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->getMoneyNew();
 
         $countDay = cal_days_in_month(CAL_GREGORIAN, $month, $year);
+
+        #Формируем массив дат
+        for ($i = 0 ; $i < 7 ; $i ++){
+            $t = '';
+            if ($i > 0){
+                $t = '-'.$i.'month';
+            }
+            $dates[] = new \DateTime($t);
+        }
         return array(
 //            'statsOfOperator' => $statsOfOperator,
 //            'statsOfCompany' => $statsOfCompany,
@@ -65,13 +66,14 @@ class MoneyController extends Controller
             'fullSummaSkzi' => $fullSummaSkzi,
             'fullSummaEstr' => $fullSummaEstr,
             'fullSummaRu' => $fullSummaRu,
-            'moneyOfCompany' => $moneyOfCompany,
-            'moneyOfCompany1' => $moneyOfCompany1,
-            'moneyOfCompany2' => $moneyOfCompany2,
-            'moneyOfCompany3' => $moneyOfCompany3,
-            'moneyOfCompany4' => $moneyOfCompany4,
-            'moneyOfCompany5' => $moneyOfCompany5,
-            'moneyOfCompany6' => $moneyOfCompany6,
+            'moneyOfCompany' => $moneyOfCompany_new,
+            'dates' => $dates
+//            'moneyOfCompany1' => $moneyOfCompany1,
+//            'moneyOfCompany2' => $moneyOfCompany2,
+//            'moneyOfCompany3' => $moneyOfCompany3,
+//            'moneyOfCompany4' => $moneyOfCompany4,
+//            'moneyOfCompany5' => $moneyOfCompany5,
+//            'moneyOfCompany6' => $moneyOfCompany6,
         );
     }
 

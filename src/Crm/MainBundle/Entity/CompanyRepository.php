@@ -77,19 +77,35 @@ class CompanyRepository extends EntityRepository
     }
 
     public function getMoneyNew(){
-        $dateEnd = new \DateTime(date("Y-m-d 23:59:59"));
+        $dateEnd = new \DateTime(date("Y-m-01 00:00:00"));
         $dateFirst = clone $dateEnd;
         $dateFirst->modify('-5 month');
+        $dateFirst = $dateFirst->format('Y-m-d').' 00:00:00';
 
         $query = "
-            SELECT YEAR(isProduction) y , MONTH(isProduction) m, SUM(price) s, COUNT(id) c
-            FROM `user`
+            SELECT YEAR(u.isProduction) y , MONTH(u.isProduction) m, SUM(u.price) s, COUNT(u.id) c, o.username op
+            FROM `user` u
+            LEFT JOIN Company co ON co.id = u.company_id
+            LEFT JOIN Operator o ON o.id = co.operator_id
             WHERE
               isProduction is not null AND
               isProduction >= '$dateFirst' AND
-              enabled = 1
-            GROUP BY YEAR(isProduction), MONTH(isProduction)
-            ORDER BY y DESC, m DESC";
+              u.enabled = 1 AND u.status >= 2
+            GROUP BY o.id, YEAR(isProduction), MONTH(isProduction)
+            ORDER BY o.id, y DESC, m DESC";
+
+            $pdo = $this->getEntityManager()->getConnection();
+            $st = $pdo->prepare($query);
+            $st->execute();
+
+        $re = $st->fetchAll();
+        $array = array();
+        foreach ($re as $item) {
+            $array[$item['op']][$item['y'].'-'.$item['m']]['count'] = $item['c'];
+            $array[$item['op']][$item['y'].'-'.$item['m']]['sum'] = $item['s'];
+        }
+
+        return $array;
     }
     public function getMoney($date = null){
         if ($date == null){
