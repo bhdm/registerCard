@@ -509,49 +509,56 @@ class UserRepository extends EntityRepository
      * Вывод статистики за год по месяцам
      */
     public function statsByYear($user,$year){
+        $dateEnd = new \DateTime(date("Y-m-01 00:00:00"));
+        $dateFirst = clone $dateEnd;
+        $dateFirst->modify('-5 month');
+        $dateFirst = $dateFirst->format('Y-m-d').' 00:00:00';
+
         if ( $user->isRole('ROLE_OPERATOR') ){
             $sql  =
-                "SELECT COUNT(user.id) uid, MONTH(StatusLog.created) m, YEAR(StatusLog.created) y,
+                "SELECT COUNT(user.id) uid, MONTH(user.isProduction) m, YEAR(user.isProduction) y,
             IF (user.ru = 0 AND user.estr = 0, '1', IF (user.ru = 0 AND user.estr = 1, '2', '3')) type
             FROM user
-            LEFT JOIN StatusLog ON StatusLog.id = (SELECT id FROM StatusLog sl WHERE sl.user_id = user.id AND sl.title != 'Новая' AND sl.title != 'Подтвержденная' AND sl.title != 'Отклонена' AND sl.title != 'Отправлен модератору' ORDER BY sl.id ASC LIMIT 1 )
             LEFT JOIN Company ON user.Company_id = Company.id
             LEFT JOIN Operator ON Company.operator_id = Operator.id
             WHERE
                 user.enabled = 1 AND user.status >=2 AND user.status != 10 AND Operator.id = ".$user->getId()."
+                 AND isProduction is not null
+                 AND isProduction >= '$dateFirst'
             GROUP BY
                 y, m, `type`
-            HAVING y = $year
+
             ORDER BY
                 y DESC, m DESC";
         }elseif ( $user->isRole('ROLE_MODERATOR') ){
             $sql  =
-                "SELECT COUNT(user.id) uid, MONTH(StatusLog.created) m, YEAR(StatusLog.created) y,
+                "SELECT COUNT(user.id) uid, MONTH(user.isProduction) m, YEAR(user.isProduction) y,
             IF (user.ru = 0 AND user.estr = 0, '1', IF (user.ru = 0 AND user.estr = 1, '2', '3')) type
             FROM user
-            LEFT JOIN StatusLog ON StatusLog.id = (SELECT id FROM StatusLog sl WHERE sl.user_id = user.id AND sl.title != 'Новая' AND sl.title != 'Подтвержденная' AND sl.title != 'Отклонена' AND sl.title != 'Отправлен модератору' ORDER BY sl.id ASC LIMIT 1 )
             LEFT JOIN Company ON user.Company_id = Company.id
             LEFT JOIN Operator ON Company.Operator_id = Operator.id
             WHERE
                 user.enabled = 1 AND user.status >=2 AND user.status != 10 AND ( Operator.moderator_id = ".$user->getId()." OR Company.operator_id = ".$user->getId().")
+                AND isProduction is not null
+                AND isProduction >= '$dateFirst'
             GROUP BY
                 y, m, `type`
-            HAVING y = $year
             ORDER BY
                 y DESC, m DESC";
         }elseif ( $user->isRole('ROLE_ADMIN') ){
             $sql  =
-                "SELECT COUNT(user.id) uid, MONTH(StatusLog.created) m, YEAR(StatusLog.created) y,
+                "SELECT COUNT(user.id) uid, MONTH(user.isProduction) m, YEAR(user.isProduction) y,
             IF (user.ru = 0 AND user.estr = 0, '1', IF (user.ru = 0 AND user.estr = 1, '2', '3')) type
             FROM user
-            LEFT JOIN StatusLog ON StatusLog.id = (SELECT id FROM StatusLog sl WHERE sl.user_id = user.id AND sl.title != 'Новая' AND sl.title != 'Подтвержденная' AND sl.title != 'Отклонена' AND sl.title != 'Отправлен модератору' ORDER BY sl.id ASC LIMIT 1 )
+
             LEFT JOIN Company ON user.Company_id = Company.id
             LEFT JOIN Operator ON Company.Operator_id = Operator.id
             WHERE
                 user.enabled = 1 AND user.status >=2 AND user.status != 10
+                AND isProduction is not null
+                AND isProduction >= '$dateFirst'
             GROUP BY
                 y, m, `type`
-            HAVING y = $year
             ORDER BY
                 y DESC, m DESC";
         }else{
