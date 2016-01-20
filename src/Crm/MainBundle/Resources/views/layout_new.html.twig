@@ -110,6 +110,10 @@
                    }
                     return false;
                 });
+
+                $('.callto').click(function(){
+                    $('#callto').modal();
+                });
             })
         </script>
     {% endblock %}
@@ -129,7 +133,9 @@
             <img src="{{ asset('bundles/crmmain/images/logo3.png') }}" style="width: 100px; margin-left: 20px">
         </div>
         <div class="col-md-4 hidden-xs">
-            &nbsp;
+            <br />
+            <br />
+            <button class="btn btn-primary callto" type="button">Обратный звонок</button>
         </div>
         <div class="col-md-3 col-xs-4" style="font-size: 17px; padding-top: 10px">
             Время Работы:<br />
@@ -225,6 +231,32 @@
         </div>
     </footer>
 </div>
+<div class="modal fade" tabindex="-1" role="dialog" id="callto">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Заказать обратный звонок</h4>
+            </div>
+            <div class="modal-body">
+                <form method="POST" action="{{ path('set-number') }}" class="form">
+                    <div class="form-group">
+                        <label>Ваше имя:</label>
+                        <input type="text" class="form-control" name="name" required="required">
+                    </div>
+                    <div class="form-group">
+                        <label>Ваш телефон:</label>
+                        <input type="text" class="form-control" name="tel" required="required">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Отмена</button>
+                <button type="button" class="btn btn-primary">Отправить</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
 <script type="text/javascript">
     (function (d, w, c) {
         (w[c] = w[c] || []).push(function() {
