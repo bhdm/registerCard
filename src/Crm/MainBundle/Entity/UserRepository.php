@@ -15,7 +15,7 @@ class UserRepository extends EntityRepository
 
     public function fullSumma($estr,$ru){
         $users = $this->getEntityManager()->createQuery('
-		 	SELECT COUNT(u) as fullSumma
+		 	SELECT COUNT(u.id) as fullSumma
 		 	FROM CrmMainBundle:User u
 		 	WHERE u.status >= 2 AND u.estr = :estr AND u.ru = :ru AND u.enabled = 1
 		')->setParameter('estr', $estr)

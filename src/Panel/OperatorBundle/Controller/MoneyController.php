@@ -24,19 +24,11 @@ class MoneyController extends Controller
      */
     public function indexAction(Request $request)
     {
-        $year = 2015;
-        $month = 12;
+        $year = 2016;
+        $month = 01;
 
-        /** Новые заявки */
-        $newsUsers = $this->getDoctrine()->getRepository('CrmMainBundle:User')->findNewUser($this->getUser());
-
-        /** Статистика */
-//        $statsOfCompany = $this->getDoctrine()->getRepository('CrmMainBundle:User')->statsOfCompany($this->getUser(), $year);
-//        $statsOfOperator = $this->getDoctrine()->getRepository('CrmMainBundle:User')->statsOfOperator($this->getUser(), $year);
-//        $statsOfModerator = $this->getDoctrine()->getRepository('CrmMainBundle:User')->statsOfOperator($this->getUser(), $year);
 
         $statsByYear = $this->getDoctrine()->getRepository('CrmMainBundle:User')->statsByYear($this->getUser(), $year);
-        $statsByMonth = $this->getDoctrine()->getRepository('CrmMainBundle:User')->statsByMonth($this->getUser(), $year, $month);
 
         $fullSummaSkzi = $this->getDoctrine()->getRepository('CrmMainBundle:User')->fullSumma(0,0);
         $fullSummaEstr = $this->getDoctrine()->getRepository('CrmMainBundle:User')->fullSumma(1,0);
@@ -55,11 +47,7 @@ class MoneyController extends Controller
             $dates[] = new \DateTime($t);
         }
         return array(
-//            'statsOfOperator' => $statsOfOperator,
-//            'statsOfCompany' => $statsOfCompany,
             'statsByYear' => $statsByYear,
-            'statsByMonth' => $statsByMonth,
-            'newusers' => $newsUsers,
             'countDay' => $countDay,
             'year' =>$year,
             'month' => $month,
@@ -68,12 +56,6 @@ class MoneyController extends Controller
             'fullSummaRu' => $fullSummaRu,
             'moneyOfCompany' => $moneyOfCompany_new,
             'dates' => $dates
-//            'moneyOfCompany1' => $moneyOfCompany1,
-//            'moneyOfCompany2' => $moneyOfCompany2,
-//            'moneyOfCompany3' => $moneyOfCompany3,
-//            'moneyOfCompany4' => $moneyOfCompany4,
-//            'moneyOfCompany5' => $moneyOfCompany5,
-//            'moneyOfCompany6' => $moneyOfCompany6,
         );
     }
 
