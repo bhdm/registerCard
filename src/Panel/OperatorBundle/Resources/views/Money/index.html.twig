@@ -12,6 +12,7 @@
         <div id="stats" style="width: 750px; height: 300px;"></div>
         <br/>
         <br/>
+        {{ dump(statsByYear) }}
         <table class="table">
             <caption>Cтатистика заявок по месяцам</caption>
             <tr>
@@ -26,8 +27,8 @@
                 <td><b>{{ fullSummaSkzi }}</b></td>
                 {% for d in dates | reverse %}
                     <td>
-                        {% if statsByYear['1'][d | date('Y-m')] is defined %}
-                            {{ statsByYear['1'][d | date('Y-m')] }}
+                        {% if statsByYear['1'][d | date('Y-n')] is defined %}
+                            {{ statsByYear['1'][d | date('Y-n')] }}
                         {% else %}
                             0
                         {% endif %}
@@ -39,8 +40,8 @@
                 <td><b>{{ fullSummaEstr }}</b></td>
                 {% for d in dates | reverse %}
                     <td>
-                        {% if statsByYear['2'][d | date('Y-m')] is defined %}
-                            {{ statsByYear['2'][d | date('Y-m')] }}
+                        {% if statsByYear['2'][d | date('Y-n')] is defined %}
+                            {{ statsByYear['2'][d | date('Y-n')] }}
                         {% else %}
                             0
                         {% endif %}
@@ -52,8 +53,8 @@
                 <td><b>{{ fullSummaRu }}</b></td>
                 {% for d in dates | reverse %}
                     <td>
-                        {% if statsByYear['3'][d | date('Y-m')] is defined %}
-                            {{ statsByYear['3'][d | date('Y-m')] }}
+                        {% if statsByYear['3'][d | date('Y-n')] is defined %}
+                            {{ statsByYear['3'][d | date('Y-n')] }}
                         {% else %}
                             0
                         {% endif %}
@@ -65,9 +66,9 @@
                 <td><b>{{ fullSummaSkzi + fullSummaEstr + fullSummaRu }}</b></td>
                 {% for d in dates | reverse %}
                     <td>
-                        {%  set x1  = (statsByYear['1'][d | date('Y-m')] is defined ? statsByYear['1'][d | date('Y-m')] : 0) %}
-                        {%  set x2  = (statsByYear['2'][d | date('Y-m')] is defined ? statsByYear['2'][d | date('Y-m')] : 0) %}
-                        {%  set x3  = (statsByYear['3'][d | date('Y-m')] is defined ? statsByYear['3'][d | date('Y-m')] : 0) %}
+                        {%  set x1  = (statsByYear['1'][d | date('Y-n')] is defined ? statsByYear['1'][d | date('Y-n')] : 0) %}
+                        {%  set x2  = (statsByYear['2'][d | date('Y-n')] is defined ? statsByYear['2'][d | date('Y-n')] : 0) %}
+                        {%  set x3  = (statsByYear['3'][d | date('Y-n')] is defined ? statsByYear['3'][d | date('Y-n')] : 0) %}
                         <b>{{ x1+x2+x3 }}</b>
                     </td>
                 {% endfor %}
@@ -114,7 +115,11 @@
                 ['Месяц',  'СКЗИ', 'ЕСТР', 'РФ', 'ИТОГО'],
                 {% for d in dates | reverse %}
                 [
-                    '{{ d|date('m.Y') }}', {{ (statsByYear['1'][d | date('Y-m')] is defined ? statsByYear['1'][d | date('Y-m')] : 0) }}, {{ (statsByYear['2'][d | date('Y-m')] is defined ? statsByYear['2'][d | date('Y-m')] : 0) }}, {{ (statsByYear['3'][d | date('Y-m')] is defined ? statsByYear['3'][d | date('Y-m')] : 0) }}, {{ (statsByYear['1'][d | date('Y-m')] is defined ? statsByYear['1'][d | date('Y-m')] : 0) + (statsByYear['2'][d | date('Y-m')] is defined ? statsByYear['2'][d | date('Y-m')] : 0) + (statsByYear['3'][d | date('Y-m')] is defined ? statsByYear['3'][d | date('Y-m')] : 0) }}
+                    '{{ d|date('m.Y') }}',
+                    {{ (statsByYear['1'][d | date('Y-n')] is defined ? statsByYear['1'][d | date('Y-n')] : 0) }},
+                    {{ (statsByYear['2'][d | date('Y-n')] is defined ? statsByYear['2'][d | date('Y-n')] : 0) }},
+                    {{ (statsByYear['3'][d | date('Y-n')] is defined ? statsByYear['3'][d | date('Y-n')] : 0) }},
+                    {{ (statsByYear['1'][d | date('Y-n')] is defined ? statsByYear['1'][d | date('Y-n')] : 0) + (statsByYear['2'][d | date('Y-n')] is defined ? statsByYear['2'][d | date('Y-n')] : 0) + (statsByYear['3'][d | date('Y-n')] is defined ? statsByYear['3'][d | date('Y-n')] : 0) }}
                 ],
                 {% endfor %}
             ]);
