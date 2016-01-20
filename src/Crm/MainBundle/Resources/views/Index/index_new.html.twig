@@ -459,8 +459,8 @@
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                 <h4 class="modal-title">Заказать обратный звонок</h4>
             </div>
+            <form method="POST" action="{{ path('set-number') }}" class="form">
             <div class="modal-body">
-                <form method="POST" action="{{ path('set-number') }}" class="form">
                     <div class="form-group">
                         <label>Ваше имя:</label>
                         <input type="text" class="form-control" name="name" required="required">
@@ -469,12 +469,12 @@
                         <label>Ваш телефон:</label>
                         <input type="text" class="form-control" name="tel" required="required">
                     </div>
-                </form>
             </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Отмена</button>
-                <button type="button" class="btn btn-primary">Отправить</button>
-            </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Отмена</button>
+                    <button type="submit" class="btn btn-primary">Отправить</button>
+                </div>
+            </form>
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
