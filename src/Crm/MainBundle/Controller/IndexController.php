@@ -23,19 +23,9 @@ class IndexController extends Controller
      */
     public function indexAction()
     {
-//        $indexPage_1 = $this->getDoctrine()->getRepository('CrmMainBundle:Page')->findOneByUrl('indexPage_1');
-//        $indexPage_2 = $this->getDoctrine()->getRepository('CrmMainBundle:Page')->findOneByUrl('indexPage_2');
-//        $indexPage_3 = $this->getDoctrine()->getRepository('CrmMainBundle:Page')->findOneByUrl('indexPage_3');
-//        $indexPage_4 = $this->getDoctrine()->getRepository('CrmMainBundle:Page')->findOneByUrl('indexPage_4');
-//        $users = $this->getDoctrine()->getRepository('CrmMainBundle:User')->findByDelivery(null);
-//        $users = str_split(count($users)+18285);
-
+        $company = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->findOneById(551);
         return array(
-//            'indexPage_1'   => $indexPage_1,
-//            'indexPage_2'   => $indexPage_2,
-//            'indexPage_3'   => $indexPage_3,
-//            'indexPage_4'   => $indexPage_4,
-//            'users'         => $users,
+              'company' => $company
         );
     }
 

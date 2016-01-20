@@ -25,6 +25,12 @@
         });
 
     </script>
+    <style>
+        .sale{
+            color: #CC0000;
+            text-decoration:  line-through;
+        }
+    </style>
 </head>
 
 <body>
@@ -114,6 +120,7 @@
     <ul class="list-numeric">
         <li>Заказать карту можно из любой точки России;</li>
         <li>Благодаря специальной программе, Ваши данные поступают на производство сразу после оплаты;</li>
+        <li>Оплата после оформления заявки через Online платеж или по платежному поручению;</li>
         <li>Доставка осуществляется Почтой России (3-7 дн.) - <span class="redtext"><b>бесплатно</b></span>;</li>
         <li style="display: block"></li>
     </ul>
@@ -162,7 +169,7 @@
                         <div class="thumbnail">
                             <img src="{{ asset('bundles/crmmain/images/card2-1.png') }}">
                             <div class="caption">
-                                <h3>Карта СКЗИ</h3>
+                                <h3>Карта СКЗИ <span style="color: #CC0000;float: right;text-transform: uppercase;margin-right: 52px;">Акция</span></h3>
                                 <p>
                                     Карты предназначены для тахографов оборудованных блоком СКЗИ.<br />
                                     Действуют только на территории РФ.<br />
@@ -178,9 +185,16 @@
                                 Срок изготовления: <b>15 дней</b><br />
                                 Доставка: <b>бесплатно</b>
                                 <br />
+                                {#<div class="row">#}
+                                    {#<div class="col-xs-6 price"><span class="sale">{{ company.priceSkzi }} руб</span></div>#}
+                                {#</div>#}
                                 <div class="row">
-                                    <div class="col-xs-6 price">2&nbsp;150,00 руб</div>
-                                    <div class="col-xs-6"><a href="{{ path('application-skzi-add') }}" class="btn-lg btn-primary" role="button">Заказать</a></div>
+                                    <div class="col-xs-6 price"><span class="sale">{{ company.priceSkzi }},00 руб</span></div>
+                                    <div class="col-xs-6 price">{{ company.priceSkzi }},00 руб</div>
+                                </div>
+                                <br />
+                                <div class="row">
+                                    <div class="col-xs-12 text-center"><a href="{{ path('application-skzi-add') }}" class="btn-lg btn-primary" role="button">Online оформление заявки</a></div>
                                 </div>
                             </div>
                         </div>
@@ -204,8 +218,13 @@
                                 Доставка: <b>бесплатно</b>
                                 <br />
                                 <div class="row">
-                                    <div class="col-xs-6 price">3&nbsp;200,00 руб</div>
-                                    <div class="col-xs-6"><a href="{{ path('application-estr-add') }}" class="btn-lg btn-primary" role="button">Заказать</a></div>
+                                    <div class="col-xs-offset-6 col-xs-6 price">
+                                        {{ company.priceEstr }},00 руб
+                                    </div>
+                                </div>
+                                <br />
+                                <div class="row text-center">
+                                    <div class="col-xs-12"><a href="{{ path('application-estr-add') }}" class="btn-lg btn-primary text-center" role="button">Online оформление Заявки</a></div>
                                 </div>
                             </div>
                         </div>
@@ -229,8 +248,13 @@
                                 Доставка: <b>бесплатно</b>
                                 <br />
                                 <div class="row">
-                                    <div class="col-xs-6 price">3&nbsp;200,00 руб</div>
-                                    <div class="col-xs-6"><a href="{{ path('application-ru-add') }}" class="btn-lg btn-primary" role="button">Заказать</a></div>
+                                    <div class="col-xs-offset-6 col-xs-6 price">
+                                        {{ company.priceRu }},00 руб
+                                    </div>
+                                </div>
+                                <br />
+                                <div class="row text-center">
+                                    <div class="col-xs-12"><a href="{{ path('application-ru-add') }}" class="btn-lg btn-primary text-center" role="button">Online оформление Заявки</a></div>
                                 </div>
                             </div>
                         </div>
