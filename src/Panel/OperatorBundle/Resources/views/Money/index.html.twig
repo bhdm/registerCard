@@ -112,9 +112,9 @@
         function drawChart() {
             var data = google.visualization.arrayToDataTable([
                 ['Месяц',  'СКЗИ', 'ЕСТР', 'РФ', 'ИТОГО'],
-                {% for j in range(12, 1) %}
+                {% for d in dates | reverse %}
                 [
-                    '{{ j }}.{{ year }}', {{ (statsByYear['1'][year~'-'~j] is defined ? statsByYear['1'][year~'-'~j] : 0) }}, {{ (statsByYear['2'][year~'-'~j] is defined ? statsByYear['2'][year~'-'~j] : 0) }}, {{ (statsByYear['3'][year~'-'~j] is defined ? statsByYear['3'][year~'-'~j] : 0) }}, {{ (statsByYear['1'][year~'-'~j] is defined ? statsByYear['1'][year~'-'~j] : 0) + (statsByYear['2'][year~'-'~j] is defined ? statsByYear['2'][year~'-'~j] : 0) + (statsByYear['3'][year~'-'~j] is defined ? statsByYear['3'][year~'-'~j] : 0) }}
+                    '{{ d|date('m.Y') }}', {{ (statsByYear['1'][d | date('Y-m')] is defined ? statsByYear['1'][d | date('Y-m')] : 0) }}, {{ (statsByYear['2'][d | date('Y-m')] is defined ? statsByYear['2'][d | date('Y-m')] : 0) }}, {{ (statsByYear['3'][d | date('Y-m')] is defined ? statsByYear['3'][d | date('Y-m')] : 0) }}, {{ (statsByYear['1'][d | date('Y-m')] is defined ? statsByYear['1'][d | date('Y-m')] : 0) + (statsByYear['2'][d | date('Y-m')] is defined ? statsByYear['2'][d | date('Y-m')] : 0) + (statsByYear['3'][d | date('Y-m')] is defined ? statsByYear['3'][d | date('Y-m')] : 0) }}
                 ],
                 {% endfor %}
             ]);
