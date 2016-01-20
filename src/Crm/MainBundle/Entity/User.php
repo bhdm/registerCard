@@ -95,7 +95,7 @@ class User extends BaseEntity implements UserInterface, EquatableInterface, \Ser
     protected $username;
 
     /**
-     * @Assert\Regex(pattern= "/^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{1,})$/", message="Неверный формат ввода.")
+     * @Assert\Regex(pattern= "/^([a-z0-9_-]+\.)*[a-z0-9_-]+@[a-z0-9_-]+(\.[a-z0-9_-]+)*\.[a-z]{2,6}$/", message="Неверный формат ввода.")
      * @ORM\Column(type="string", length=50, nullable=true)
      */
     protected $email;
