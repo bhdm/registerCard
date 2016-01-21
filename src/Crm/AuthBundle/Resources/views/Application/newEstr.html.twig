@@ -64,8 +64,8 @@
             </table>
         </div>
         <hr>
-        <div class="block-form" >
-            <table class="table-form">
+            <div class="block-form" >
+                <table class="table-form">
                 <caption>Паспортные данные</caption>
                 <tr>
                     <td>Фамилия<span class="required">*</span></td>
@@ -114,6 +114,7 @@
                     <td>{{ form_widget(form.birthDate) }}</td>
                 </tr>
             </table>
+            </div>
             <div class="block-form" >
                 <table class="table-form">
                     <caption>Прописка</caption>
@@ -194,48 +195,6 @@
                 </table>
             </div>
             <hr>
-            {#<div class="block-form" >#}
-                {#<table class="table-form">#}
-                    {#<caption>Информация о СНИЛС ( Не обязательно )</caption>#}
-                    {#<tr>#}
-                        {#<td>Номер СНИЛС</td>#}
-                        {#<td>{{ form_widget(form.snils) }}</td>#}
-                        {#<td></td>#}
-                    {#</tr>#}
-                    {#<tr>#}
-                        {#<td style="vertical-align: top; padding-top: 10px">Копия СНИЛС</td>#}
-                        {#<td colspan="2">#}
-                            {#<div class="file-container">#}
-                                {#<input type="file" name="snilsFile" id="snilsFile" class="fileAjax" >#}
-                                {#<progress class="progress" value="0" max="100" style="width: 270px"></progress>#}
-                                {#<br />#}
-                                {#<br />#}
-                                {#<div class="fileDoc">#}
-                                    {#{% if form.vars.value.copySnils.path is defined %}#}
-                                        {#<img src="/{{ form.vars.value.copySnils.path }}" brightness="0" contrast="0">#}
-                                    {#{% else %}#}
-                                        {#<img src="" brightness="0" contrast="0">#}
-                                    {#{% endif %}#}
-                                {#</div>#}
-                                {#<div class="navigateFile">#}
-                                    {#<img src="{{ asset('bundles/crmmain/icons/rotateLeft.png') }}" class="rotateLeft" title="Повернуть налево">#}
-                                    {#<img src="{{ asset('bundles/crmmain/icons/rotateRight.png') }}" class="rotateRight" title="Повернуть вправо">#}
-                                    {#<div style="">#}
-                                        {#<span class="cropImage minibtn" title="Обрезать изображение">Обрезать</span>#}
-                                        {#<br />#}
-                                        {#<br />#}
-                                    {#</div>#}
-
-                                {#</div>#}
-                                {#<input type="hidden" id="x1" name="x1">#}
-                                {#<input type="hidden" id="y1" name="y1">#}
-                                {#<input type="hidden" id="x2" name="x2">#}
-                                {#<input type="hidden" id="y2" name="y2">#}
-                            {#</div>#}
-                        {#</td>#}
-                    {#</tr>#}
-                {#</table>#}
-            {#</div>#}
             <div class="block-form" >
                 <table class="table-form">
                     <caption>Информация о водительском удостоверении</caption>
@@ -318,97 +277,6 @@
                 </table>
             </div>
             <hr>
-            {#<div class="block-form" >#}
-                {#<table class="table-form">#}
-                    {#<caption>Информация о ходатайстве</caption>#}
-                    {#<tr>#}
-                        {#<td>Ходатайство</td>#}
-                        {#<td>{{ form_widget(form.myPetition) }}</td>#}
-                        {#<td></td>#}
-                    {#</tr>#}
-                    {#<tr class="petition">#}
-                        {#<td>Название организации<span class="required">*</span>:</td>#}
-                        {#<td class="value">#}
-                            {#{{ form_widget(form.petitionTitle) }}#}
-                        {#</td>#}
-                        {#<td class="petition-td"></td>#}
-                    {#</tr>#}
-                    {#<tr class="petition">#}
-                        {#<td>Регион<span class="required">*</span>:</td>#}
-                        {#<td class="value">#}
-                            {#{{ form_widget(form.petitionAdrs.region) }}#}
-                        {#</td>#}
-                        {#<td class="petition-td">Копия ходатайства <span class="mini text-danger">(допустимые форматы: JPG,PNG)</span></td>#}
-                    {#</tr>#}
-                    {#<tr class="petition">#}
-                        {#<td>Район:</td>#}
-                        {#<td class="value">#}
-                            {#{{ form_widget(form.petitionAdrs.area) }}#}
-                        {#</td>#}
-                        {#<td class="petition-td">#}
-                            {#<div class="file-container">#}
-                                {#<input type="file" name="petitionFile" id="petitionFile" class="fileAjax" >#}
-                                {#<progress class="progress" value="0" max="100" style="width: 270px"></progress>#}
-                                {#<br />#}
-                                {#<br />#}
-                                {#<div class="fileDoc">#}
-                                    {#{% if form.vars.value.copyPetition.path is defined %}#}
-                                        {#<img src="/{{ form.vars.value.copyPetition.path }}" brightness="0" contrast="0">#}
-                                    {#{% else %}#}
-                                        {#<img src="" brightness="0" contrast="0">#}
-                                    {#{% endif %}#}
-                                {#</div>#}
-                                {#<div class="navigateFile">#}
-                                    {#<img src="{{ asset('bundles/crmmain/icons/rotateLeft.png') }}" class="rotateLeft" title="Повернуть налево">#}
-                                    {#<img src="{{ asset('bundles/crmmain/icons/rotateRight.png') }}" class="rotateRight" title="Повернуть вправо">#}
-                                    {#<div style="">#}
-                                        {#<span class="cropImage minibtn" title="Обрезать изображение">Обрезать</span>#}
-                                        {#<br />#}
-                                        {#<br />#}
-                                    {#</div>#}
-
-                                {#</div>#}
-                                {#<input type="hidden" id="x1" name="x1">#}
-                                {#<input type="hidden" id="y1" name="y1">#}
-                                {#<input type="hidden" id="x2" name="x2">#}
-                                {#<input type="hidden" id="y2" name="y2">#}
-                            {#</div>#}
-                        {#</td>#}
-                    {#</tr>#}
-                    {#<tr class="petition">#}
-                        {#<td>Город:</td>#}
-                        {#<td class="value">#}
-                            {#{{ form_widget(form.petitionAdrs.city) }}#}
-                        {#</td>#}
-                    {#</tr>#}
-                    {#<tr class="petition">#}
-                        {#<td>Улица:</td>#}
-                        {#<td class="value">#}
-                            {#{{ form_widget(form.petitionAdrs.street) }}#}
-                        {#</td>#}
-                    {#</tr>#}
-                    {#<tr class="petition">#}
-                        {#<td>Здание<span class="required">*</span>:</td>#}
-                        {#<td class="value">#}
-                            {#<div class="row">#}
-                                {#<div class="col-xs-6">{{ form_widget(form.petitionAdrs.house) }}</div>#}
-                                {#<div class="col-xs-6">{{ form_widget(form.petitionAdrs.corp) }}</div>#}
-                            {#</div>#}
-                            {#<div class="row">#}
-                                {#<div class="col-xs-6">{{ form_widget(form.petitionAdrs.structure) }}</div>#}
-                                {#<div class="col-xs-6">{{ form_widget(form.petitionAdrs.room) }}</div>#}
-                                {#<input type="hidden" name="delivery[typeRoom]" id="delivery-typeRoom" value="кв.">#}
-                            {#</div>#}
-                        {#</td>#}
-                    {#</tr>#}
-                    {#<tr class="petition">#}
-                        {#<td>Индекс<span class="required">*</span>:</td>#}
-                        {#<td class="value">#}
-                            {#{{ form_widget(form.petitionAdrs.zipcode) }}#}
-                    {#</tr>#}
-                {#</table>#}
-            {#</div>#}
-            {#<hr>#}
             <div class="block-form" >
                 <table class="table-form">
                     <caption>Информация о доставке</caption>
