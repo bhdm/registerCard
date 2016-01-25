@@ -15,3 +15,47 @@
 .nav-tabs > li > a{
     font-size: 17px;
 }
+#map{
+    width: 100%;
+    height: 300px;
+    border: 1px solid #CCC;
+    margin-bottom: 20px;
+}
+
+.review{
+    /*width: 600px;*/
+    position: relative;
+}
+.review-rating{
+    font-size: 18px;
+    color: #2e6da4;
+}
+.review-info{
+    /*width: 500px;*/
+    font-size: 18px;
+}
+.review-fio{
+    display: inline-block;
+    padding-right: 20px;
+}
+.review-date{
+    display: inline-block;
+    color: #555555;
+    float: right;
+    font-size: 14px;
+}
+.review-city{
+    display: inline-block;
+    padding-right: 20px;
+    color: #555555;
+    font-style: italic;
+}
+.review-body{
+    /*height: 100px;*/
+    /*overflow-y: hidden;*/
+    padding-left: 30px;
+}
+.review-bottom{
+    margin: 10px 0;
+    border-bottom: 1px solid #CCC;
+}

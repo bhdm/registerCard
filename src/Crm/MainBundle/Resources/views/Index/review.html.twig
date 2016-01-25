@@ -7,54 +7,191 @@
 {% endblock %}
 
 {% block content %}
-    <div class="box">
+    <div class="container" style="text-align: left">
         <h2>Отзывы клиентов</h2>
-        {#{% if msg == false %}#}
-            {#<form method="POST">#}
-                {#{{ form_widget(formFeedback) }}#}
-            {#</form>#}
-        {#{% else %}#}
-            {#<div class="msg">Ваше сообщение отправлено</div>#}
-        {#{% endif %}#}
-
-        {% for r in reviews %}
-            <div class="review-item">
-                <div class="name">{{ r.name }}</div>
-                <span class="date">{{ r.created | date("d.m.Y") }}</span>
-                <div class="body">
-                    {{ r.body }}
-                    {% if r.file %}
-                        <br />
-                        <img src="{{ r.file }}" style="max-width: 600px">
-                    {% endif %}
-                    <br />
-                    <br />
-                </div>
+        <div class="row row-review">
+            <div class="col-xs-12 col-sm-6">
+                <select class="form-control">
+                    <option value="0" selected disabled>Выберите город:</option>
+                </select>
+                <br />
+                {% for r in reviews %}
+                    <div class="review">
+                        <div class="review-info">
+                            <div class="review-fio">{{ r.name }}</div>
+                            <div class="review-city">{{ r.city }}</div>
+                            <div class="review-date">{{ r.created | date('d.m.Y') }}</div>
+                        </div>
+                        <div class="review-info">
+                            <div class="review-rating">
+                                {% for i in 1..(r.rating) %}
+                                    <span class="glyphicon glyphicon-star"></span>
+                                {% endfor %}
+                                {% if r.rating < 5 %}
+                                    {% for i in 1..(5 - r.rating) %}
+                                        <span class="glyphicon glyphicon-star-empty"></span>
+                                    {% endfor %}
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="review-body">
+                            {{ r.body }}
+                        </div>
+                        <div class="review-bottom"></div>
+                    </div>
+                {% endfor %}
             </div>
-        {% endfor %}
+            <div class="col-xs-12 col-sm-offset-1 col-sm-5">
+                <form class="form" method="POST">
+                    <div class="form-group row">
+                        <label class="col-xs-4">Имя:</label>
+                        <div class="col-xs-8">
+                            <input type="text" class="form-control" name="name">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-xs-4">Email:</label>
+                        <div class="col-xs-8">
+                            <input type="text" class="form-control" name="email">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-xs-4">Регион:</label>
+                        <div class="col-xs-8">
+                            <input type="text" class="form-control" name="region">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-xs-4">Город:</label>
+                        <div class="col-xs-8">
+                            <input type="text" class="form-control" name="city">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-xs-4">Оценка:</label>
+                        <div class="col-xs-5">
+                            <div class="form-rating" style="font-size: 24px; cursor: pointer">
+                                <span class="glyphicon glyphicon-star-empty" id="r1"></span>
+                                <span class="glyphicon glyphicon-star-empty" id="r2"></span>
+                                <span class="glyphicon glyphicon-star-empty" id="r3"></span>
+                                <span class="glyphicon glyphicon-star-empty" id="r4"></span>
+                                <span class="glyphicon glyphicon-star-empty" id="r5"></span>
+                            </div>
+                        </div>
+                        <div class="col-xs-3 text-right">
+                            <input type="hidden" name="rating" value="0" id="rating">
+                            <div class="text-bold" style="padding-top: 8px">0 из 5</div>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-xs-12">
+                            <textarea class="form-control" style="height: 200px" name="body"></textarea>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-xs-12 text-right">
+                            <button type="submit" class="btn btn-primary">Отправить отзыв</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
     </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{  parent() }}
+    <script>
+        $(document).ready(function(){
+            $('#r1').hover(
+              function(){
+                  $('#r1').removeClass('glyphicon-star-empty');
+                  $('#r2').removeClass('glyphicon-star');
+                  $('#r3').removeClass('glyphicon-star');
+                  $('#r4').removeClass('glyphicon-star');
+                  $('#r5').removeClass('glyphicon-star');
+
+                  $('#r1').addClass('glyphicon-star');
+                  $('#r2').addClass('glyphicon-star-empty');
+                  $('#r3').addClass('glyphicon-star-empty');
+                  $('#r4').addClass('glyphicon-star-empty');
+                  $('#r5').addClass('glyphicon-star-empty');
+                  $('#rating').val(1);
+              }
+            );
+            $('#r2').hover(
+                    function(){
+                        $('#r1').removeClass('glyphicon-star-empty');
+                        $('#r2').removeClass('glyphicon-star-empty');
+                        $('#r3').removeClass('glyphicon-star');
+                        $('#r4').removeClass('glyphicon-star');
+                        $('#r5').removeClass('glyphicon-star');
+
+                        $('#r1').addClass('glyphicon-star');
+                        $('#r2').addClass('glyphicon-star');
+                        $('#r3').addClass('glyphicon-star-empty');
+                        $('#r4').addClass('glyphicon-star-empty');
+                        $('#r5').addClass('glyphicon-star-empty');
+                        $('#rating').val(2);
+                    }
+            );
+            $('#r3').hover(
+                    function(){
+                        $('#r1').removeClass('glyphicon-star-empty');
+                        $('#r2').removeClass('glyphicon-star-empty');
+                        $('#r3').removeClass('glyphicon-star-empty');
+                        $('#r4').removeClass('glyphicon-star');
+                        $('#r5').removeClass('glyphicon-star');
+
+                        $('#r1').addClass('glyphicon-star');
+                        $('#r2').addClass('glyphicon-star');
+                        $('#r3').addClass('glyphicon-star');
+                        $('#r4').addClass('glyphicon-star-empty');
+                        $('#r5').addClass('glyphicon-star-empty');
+                        $('#rating').val(3);
+                    }
+            );
+            $('#r4').hover(
+                    function(){
+                        $('#r1').removeClass('glyphicon-star-empty');
+                        $('#r2').removeClass('glyphicon-star-empty');
+                        $('#r3').removeClass('glyphicon-star-empty');
+                        $('#r4').removeClass('glyphicon-star-empty');
+                        $('#r5').removeClass('glyphicon-star');
+
+                        $('#r1').addClass('glyphicon-star');
+                        $('#r2').addClass('glyphicon-star');
+                        $('#r3').addClass('glyphicon-star');
+                        $('#r4').addClass('glyphicon-star');
+                        $('#r5').addClass('glyphicon-star-empty');
+                        $('#rating').val(4);
+                    }
+            );
+            $('#r5').hover(
+                    function(){
+                        $('#r1').removeClass('glyphicon-star-empty');
+                        $('#r2').removeClass('glyphicon-star-empty');
+                        $('#r3').removeClass('glyphicon-star-empty');
+                        $('#r4').removeClass('glyphicon-star-empty');
+                        $('#r5').removeClass('glyphicon-star-empty');
+
+                        $('#r1').addClass('glyphicon-star');
+                        $('#r2').addClass('glyphicon-star');
+                        $('#r3').addClass('glyphicon-star');
+                        $('#r4').addClass('glyphicon-star');
+                        $('#r5').addClass('glyphicon-star');
+                        $('#rating').val(5);
+                    }
+            );
+        });
+    </script>
 {% endblock %}
 
 {% block stylesheets %}
     {{ parent() }}
     <style>
-        .msg{
-            color: #006600;
-            font-size: 18pt;
-        }
-        .review-item{
-            margin-left: 30px;
-            margin-top: 20px;
-        }
-        .date{
-            font-size: 15px;
-            color: #000;
-        }
-        .review-item .body{
-            width: 600px;
-            text-align: justify;
-            margin: 5px 0 !important;
-            border-bottom: 1px solid #004B84;
+        .row-review{
+            color: #333;
         }
     </style>
 {% endblock %}

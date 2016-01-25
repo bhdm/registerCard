@@ -1,0 +1,27 @@
+<div class="row">
+    <div class="col-xs-12 col-sm-6">
+        {% for r in reviews %}
+            <div class="review">
+                <div class="review-info">
+                    <div class="review-fio">{{ r.name }}</div>
+                    <div class="review-city">{{ r.city }}</div>
+                    <div class="review-date">{{ r.created | date('d.m.Y') }}</div>
+                </div>
+                <div class="review-info">
+                    <div class="review-rating">
+                        {% for i in 1..(r.rating) %}
+                            <span class="glyphicon glyphicon-star"></span>
+                        {% endfor %}
+                        {% for i in 1..(5-r.rating) %}
+                            <span class="glyphicon glyphicon-star-empty"></span>
+                        {% endfor %}
+                    </div>
+                </div>
+                <div class="review-body">
+                    {{ r.body }}
+                </div>
+                <div class="review-bottom"></div>
+            </div>
+        {% endfor %}
+    </div>
+</div>

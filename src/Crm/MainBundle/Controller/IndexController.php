@@ -24,8 +24,10 @@ class IndexController extends Controller
     public function indexAction()
     {
         $company = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->findOneById(551);
+        $reviews = $this->getDoctrine()->getRepository('CrmMainBundle:Review')->findByEnabled(true);
         return array(
-              'company' => $company
+              'company' => $company,
+              'reviews' => $reviews
         );
     }
 
@@ -187,6 +189,8 @@ class IndexController extends Controller
         return $response;
     }
 
+
+
     /**
      * @Route("/set-number", name="set-number")
      */
@@ -226,19 +230,21 @@ class IndexController extends Controller
      */
     public function reviewAction(Request $request){
 
-        $review = new Review();
         $em = $this->getDoctrine()->getManager();
-        $formReview = $this->createForm(new ReviewType($em), $review);
-        $msg = false;
-        $formReview->handleRequest($request);
+
         if ($request->isMethod('POST')) {
-            if ($formReview->isValid()) {
-                $msg = true;
-                $review = $formReview->getData();
-                $review->setEnabled(false);
-                $em->persist($review);
-                $em->flush();
-                $message = \Swift_Message::newInstance()
+            $review = new Review();
+            $review->setName($request->request->get('name'));
+            $review->setEmail($request->request->get('email'));
+            $review->setRegion($request->request->get('region'));
+            $review->setCity($request->request->get('city'));
+            $review->setRating($request->request->get('rating'));
+            $review->setBody($request->request->get('body'));
+            $review->setEnabled(false);
+            $em->persist($review);
+            $em->flush();
+
+            $message = \Swift_Message::newInstance()
                     ->setSubject('Форма для отзывов и предложений')
                     ->setFrom('info@im-kard.ru')
                     ->setTo('bipur@mail.ru')
@@ -250,12 +256,12 @@ class IndexController extends Controller
                     )
                 ;
                 $this->get('mailer')->send($message);
-            }
         }
+
 
         $reviews = $this->getDoctrine()->getRepository('CrmMainBundle:Review')->findByEnabled(true);
 
-        return array ('reviews' => $reviews, 'msg'=>$msg, 'formFeedback' => $formReview->createView());
+        return array ('reviews' => $reviews);
 
     }
 }

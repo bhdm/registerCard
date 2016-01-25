@@ -10,6 +10,10 @@
     <script src="{{ asset('bundles/crmauth/js/bootstrap.min.js') }}"></script>
     <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
     <script src="{{ path('fos_js_routing_js', {"callback": "fos.Router.setData"}) }}"></script>
+
+
+    <script src="https://api-maps.yandex.ru/2.1/?load=package.full&lang=ru-RU" type="text/javascript"></script>
+
     <script>
         $(document).ready(function(){
             $(".fancybox").fancybox();
@@ -102,10 +106,11 @@
                             </ul>
                         </div>
                     </li>
-                    <li><a href="{{ path('download') }}">Юридическим лицам</a></li>
+                    <li><a href="{{ path('download') }}">Юр. лицам</a></li>
                     <li><a href="{{ path('documents') }}">Документы</a></li>
                     <li><a href="{{ path('faq') }}">Частые вопросы</a></li>
                     <li><a href="{{ path('page',{ 'url' : 'about'}) }}">О компании</a></li>
+                    <li><a href="{{ path('reviews') }}">Отзывы</a></li>
                     <li><a href="{{ path('page',{ 'url' : 'contact'}) }}">Контакты</a></li>
                 </ul>
                 {#<ul class="nav nav-pills navbar-right">#}
@@ -445,7 +450,8 @@
         </div>
     </div>
 
-
+    {#{{ include('@CrmMain/Index/map.html.twig') }}#}
+    {#{{ include('@CrmMain/Index/reviews.html.twig') }}#}
     <footer class="well">
         <div class="row">
             <div class="col-xs-3 text-center" style="font-size: 17px">
