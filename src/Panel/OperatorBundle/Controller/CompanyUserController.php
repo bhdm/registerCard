@@ -220,7 +220,7 @@ class CompanyUserController extends Controller{
     public function downloadXmlAction($userId){
         $order = $this->getDoctrine()->getRepository('CrmMainBundle:CompanyUser')->findOneById($userId);
         $filePath = $this->get('kernel')->getRootDir() . '/../web/upload/'.$order->getId();
-        $url = $_SERVER['SERVER_NAME'] . '/upload/'.$order->getId();
+        $url = 'https://'.$_SERVER['SERVER_NAME'] . '/upload/'.$order->getId();
         
 //        if (isset($order->getCopyDriverPassport2()['path'])){
 //            $image = new \Imagick($filePath.$order->getCopyDriverPassport2()['path']);
