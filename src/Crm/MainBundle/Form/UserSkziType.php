@@ -61,7 +61,7 @@ class UserSkziType extends AbstractType
             ->add('driverDocNumber', null ,['label' => 'Номер', 'attr' => ['class' => 'driverNumber']])
             ->add('driverDocIssuance', null ,['label' => 'Кем выдано', 'attr' => ['maxlength' => 33]])
             ->add('driverDocDateStarts', 'text' ,['label' => 'Дата выдачи', 'attr' => ['class' => 'date']])
-
+            ->add('userComment', 'textarea' ,['label' => 'Примечание', 'required' => false])
 //            ->add('driverDocDateEnds', null ,['label' => 'Дата ококнчания'])
 //
 //            ->add('delivery', 'choice', array('label' => 'Метод получения', 'choices' => array(
