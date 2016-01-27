@@ -101,6 +101,9 @@ class CompanyRepository extends EntityRepository
         $re = $st->fetchAll();
         $array = array();
         foreach ($re as $item) {
+            if ($item['m'] < 10){
+                $item['m'] = '0'.$item['m'];
+            }
             $array[$item['op']][$item['y'].'-'.$item['m']]['count'] = $item['c'];
             $array[$item['op']][$item['y'].'-'.$item['m']]['sum'] = $item['s'];
         }
