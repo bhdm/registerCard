@@ -220,7 +220,8 @@ class CompanyUserController extends Controller{
     public function downloadXmlAction($userId){
         $order = $this->getDoctrine()->getRepository('CrmMainBundle:CompanyUser')->findOneById($userId);
         $filePath = $this->get('kernel')->getRootDir() . '/../web/upload/'.$order->getId();
-
+        $url = $_SERVER['SERVER_NAME'] . '/upload/'.$order->getId();
+        
 //        if (isset($order->getCopyDriverPassport2()['path'])){
 //            $image = new \Imagick($filePath.$order->getCopyDriverPassport2()['path']);
 //            $files['driver2']['base'] = base64_encode($image->getImageBlob());
@@ -239,32 +240,31 @@ class CompanyUserController extends Controller{
 
 
 
-
         if (isset($order->getFileOrder()['path'])){
 //            $filename = base64_encode($order->getFileOrder()['path']);
-//            $url = 'http://'.$filePath.$this->generateUrl('panel_image_to_pdf_company',['filename' => $filename ]);
+//            $url = $url.$this->generateUrl('panel_image_to_pdf_company',['filename' => $filename ]);
 //            $files['fileOrder'] = base64_encode(file_get_contents($url));
-              $files['fileOrder'] = base64_encode(file_get_contents('http://'.$filePath.'/'.$order->getFileOrder()['fileName']));
+              $files['fileOrder'] = base64_encode(file_get_contents($url.'/'.$order->getFileOrder()['fileName']));
         }
 
         if (isset($order->getFileOrderTwo()['path'])){
-            $files['fileOrderTwo'] = base64_encode(file_get_contents('http://'.$filePath.'/'.$order->getFileOrderTwo()['fileName']));
+            $files['fileOrderTwo'] = base64_encode(file_get_contents($url.'/'.$order->getFileOrderTwo()['fileName']));
         }
 
         if (isset($order->getFileInn()['path'])){
-            $files['fileInn'] = base64_encode(file_get_contents('http://'.$filePath.'/'.$order->getFileInn()['fileName']));
+            $files['fileInn'] = base64_encode(file_get_contents($url.'/'.$order->getFileInn()['fileName']));
         }
 
         if (isset($order->getFileOgrn()['path'])){
-            $files['fileOgrn'] = base64_encode(file_get_contents('http://'.$filePath.'/'.$order->getFileOgrn()['fileName']));
+            $files['fileOgrn'] = base64_encode(file_get_contents($url.'/'.$order->getFileOgrn()['fileName']));
         }
 
         if (isset($order->getFileDecree()['path'])){
-            $files['fileDecree'] = base64_encode(file_get_contents('http://'.$filePath.'/'.$order->getFileDecree()['fileName']));
+            $files['fileDecree'] = base64_encode(file_get_contents($url.'/'.$order->getFileDecree()['fileName']));
         }
 
         if (isset($order->getFileLicense()['path'])){
-            $files['fileLicense'] = base64_encode(file_get_contents('http://'.$filePath.'/'.$order->getFileLicense()['fileName']));
+            $files['fileLicense'] = base64_encode(file_get_contents($url.'/'.$order->getFileLicense()['fileName']));
         }
 
         $response = new Response();
