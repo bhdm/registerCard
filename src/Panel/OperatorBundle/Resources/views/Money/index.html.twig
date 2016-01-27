@@ -104,9 +104,9 @@
                             {% if c[date |date('Y-m')] is defined %}
                                 {% set itogo = 0 %}
                                 {% for company,c in moneyOfCompany %}
-                                    {% set itogo = itogo + {{ c[date |date('Y-m')].sum }} %}
+                                    {% set itogo = itogo +  c[date |date('Y-m')].sum }} %}
                                 {% endfor %}
-                                {{ itogo }}
+                                <b>{{ itogo }}</b>
                             {% endif %}
                         </td>
                     {% endfor %}
