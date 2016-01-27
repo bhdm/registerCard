@@ -85,7 +85,6 @@ class CompanyRepository extends EntityRepository
         $query = "
             SELECT YEAR(u.isProduction) y , MONTH(u.isProduction) m, SUM(u.price) s, COUNT(u.id) c
             FROM `user` u
-            LEFT JOIN Operator o ON o.id = co.operator_id
             WHERE
               isProduction is not null AND
               isProduction >= '$dateFirst' AND
