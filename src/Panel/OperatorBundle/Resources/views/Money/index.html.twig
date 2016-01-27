@@ -97,6 +97,20 @@
                     {% endfor %}
                 </tr>
             {% endfor %}
+                <tr>
+                    <td>ИТОГО</td>
+                    {% for date in dates  %}
+                        <td>
+                            {% if c[date |date('Y-m')] is defined %}
+                                {% set itogo = 0 %}
+                                {% for company,c in moneyOfCompany %}
+                                    {% set itogo = itogo + {{ c[date |date('Y-m')].sum }} %}
+                                {% endfor %}
+                                {{ itogo }}
+                            {% endif %}
+                        </td>
+                    {% endfor %}
+                </tr>
         </table>
 
 
