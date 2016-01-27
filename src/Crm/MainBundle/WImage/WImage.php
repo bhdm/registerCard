@@ -38,7 +38,7 @@
         }
 
         static public function imageToBlackAndWhite($path) {
-            $im = imagecreatefromjpeg('/var/www/');
+            $im = imagecreatefromjpeg('/var/www/'.$path['path']);
             for ($x = imagesx($im); $x--;) {
                 for ($y = imagesy($im); $y--;) {
                     $rgb = imagecolorat($im, $x, $y);
