@@ -554,7 +554,7 @@ class UserRepository extends EntityRepository
             LEFT JOIN Company ON user.Company_id = Company.id
             LEFT JOIN Operator ON Company.Operator_id = Operator.id
             WHERE
-                user.enabled = 1 AND user.status >=2 AND user.status != 10
+                `user`.enabled = 1 AND user.status >=2 AND user.status != 10
                 AND isProduction is not null
                 AND isProduction >= '$dateFirst'
             GROUP BY

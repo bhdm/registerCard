@@ -83,8 +83,10 @@ class CompanyRepository extends EntityRepository
         $dateFirst = $dateFirst->format('Y-m-d').' 00:00:00';
 
         $query = "
-            SELECT YEAR(u.isProduction) y , MONTH(u.isProduction) m, SUM(u.price) s, COUNT(u.id) c
+            SELECT YEAR(u.isProduction) y , MONTH(u.isProduction) m, SUM(u.price) s, COUNT(u.id) c, o.username op
             FROM `user` u
+            LEFT JOIN Company co ON co.id = u.company_id
+            LEFT JOIN Operator o ON o.id = co.operator_id
             WHERE
               isProduction is not null AND
               isProduction >= '$dateFirst' AND
