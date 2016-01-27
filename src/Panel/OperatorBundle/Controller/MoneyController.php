@@ -60,12 +60,12 @@ class MoneyController extends Controller
     }
 
     /**
-     * @Route("/stats-maxim/{month}", name="panel_stats_maxim")
+     * @Route("/stats-maxim/{year}/{month}", name="panel_stats_maxim")
      * @Template()
      */
-    public function maximAction($month){
-        $date1 = '2016-'.$month.'-01 00:00:00';
-        $date2 = '2016-'.($month+1).'-01 00:00:00';
+    public function maximAction($year, $month){
+        $date1 = $year.'-'.$month.'-01 00:00:00';
+        $date2 = $year.'-'.($month+1).'-01 00:00:00';
         $date3 = new \DateTime($date1);
         $sql = "SELECT COUNT(user.id) cid FROM
                 user
