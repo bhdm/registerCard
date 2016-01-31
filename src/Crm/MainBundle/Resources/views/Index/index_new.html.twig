@@ -206,6 +206,7 @@
                                 <p>
                                     Карты предназначены для тахографов оборудованных блоком СКЗИ.<br />
                                     Действуют только на территории РФ.<br />
+                                    <a href="#" onclick="$('#tahoinfo').modal(); return false;">Тахографы с блоком СКЗИ</a>
                                 </p>
                                 <b>Документы:</b>
                                 <ul>
@@ -503,6 +504,76 @@
                     <button type="submit" class="btn btn-primary">Отправить</button>
                 </div>
             </form>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<div class="modal in" tabindex="-1" role="dialog2" id="tahoinfo">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Тахографы с блоком СКЗИ</h4>
+            </div>
+
+            <div class="modal-body">
+                <table class="table" style="margin-bottom: 0 !important;">
+                    <tr>
+                        <td style="border-top: 0;"><img src="{{ asset('bundles/crmmain/images/tahos/1.png') }}" style="width: 150px"></td>
+                        <td style="border-top: 0; vertical-align: middle">
+                            "Штрих - Тахо RUS", SM 10042.00.00-13,<br /> SM 10042.00.00-14<br />
+                            Производитель - ООО "НТЦ Измеритель"
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><img src="{{ asset('bundles/crmmain/images/tahos/2.png') }}" style="width: 150px"></td>
+                        <td style=" vertical-align: middle;">
+                            "КАСБИ DT - 20 M" <br />
+                            ПРоизводитель - АО "КЗТА"
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><img src="{{ asset('bundles/crmmain/images/tahos/3.png') }}" style="width: 150px"></td>
+                        <td style=" vertical-align: middle;">
+                            "Меркурий ТА - 001"<br />
+                            Производитель - ООО "АСТОР ТРЕЙД"
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><img src="{{ asset('bundles/crmmain/images/tahos/4.png') }}" style="width: 150px"></td>
+                        <td style=" vertical-align: middle;">
+                            "DTCO 3283"<br />
+                            Производитель - ООО "Континентал Аутомотив РУС"
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><img src="{{ asset('bundles/crmmain/images/tahos/5.png') }}" style="width: 150px"></td>
+                        <td style=" vertical-align: middle;">
+                            "ТЦА 02НК"<br />
+                            Производитель - ЗАО "Измеритель - авто"
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><img src="{{ asset('bundles/crmmain/images/tahos/6.png') }}" style="width: 150px"></td>
+                        <td style=" vertical-align: middle;">
+                            "drive 5", "Drive Smart"<br />
+                            Производитель - ООО "ПОС система" <br />
+                            ООО "АТОЛ ДРАЙВ"
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><img src="{{ asset('bundles/crmmain/images/tahos/7.png') }}" style="width: 150px"></td>
+                        <td style=" vertical-align: middle;">
+                            "EFAS V2 RUS"<br />
+                            Производитель - ООО "ИНТЕЛЛИК РУС"
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Закрыть</button>
+            </div>
+
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
