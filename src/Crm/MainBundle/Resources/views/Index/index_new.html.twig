@@ -32,6 +32,15 @@
             });
         });
 
+        $(document).ready(function(){
+            $('a[href^="#"]').click(function(){
+                if(document.getElementById($(this).attr('href').substr(1)) != null) {
+                    $('html, body').animate({ scrollTop: $($(this).attr('href')).offset().top-50 }, 600);
+                }
+                return false;
+            });
+        });
+
     </script>
     <style>
         .sale{
@@ -138,7 +147,7 @@
     width: 680px;
     margin-left: -340px;
     font-size: 35px;
-    text-align: center;color: #0E4478;">Карты для тахографов -<br> бесплатная доставка по всей России!!!</div>
+    text-align: center;color: #0E4478;"><a href="#cards" style="text-transform: none; color: #0E4478">Карты для тахографов</a> -<br> бесплатная доставка по всей России!!!</div>
     <h1 class="text-primary" style="font-size: 25px;">Наши преимущества</h1>
     <ul class="list-numeric">
         <li>Заказать карту можно из любой точки России;</li>
@@ -174,7 +183,7 @@
         <li>Гарантия на карты от производителя 1 год</li>
     </ul>
     <div class="" data-example-id="togglable-tabs">
-        <ul id="myTabs" class="nav nav-tabs" role="tablist">
+        <ul id="cards" class="nav nav-tabs" role="tablist">
             <li role="presentation" class="active">
                 <a href="#driver" id="home-tab" role="tab" data-toggle="tab" aria-controls="driver" aria-expanded="false">Карты для водителей</a>
             </li>

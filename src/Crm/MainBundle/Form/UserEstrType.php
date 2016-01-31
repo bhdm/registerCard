@@ -56,8 +56,6 @@ class UserEstrType extends AbstractType
             ->add('driverDocIssuance', null ,['label' => 'Кем выдано', 'attr' => ['maxlength' => 33]])
             ->add('driverDocDateStarts', 'text' ,['label' => 'Дата выдачи', 'attr' => ['class' => 'date']])
 
-            ->add('userComment', 'textarea')
-
 //
 //            # Документы
 //            ->add('copyPassport')
