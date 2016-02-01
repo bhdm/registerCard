@@ -13,47 +13,47 @@
             <input type="hidden" name="referer" value="{{ referer }}" >
             <table class="table">
 
-                {% if is_granted('ROLE_ADMIN')  %}
-                    <tr>
-                        <td style="{{ user.typeCard > 0 ? 'background: #FFBCBC' : '' }}">
-                            <div class="form-group">
-                                <label class="control-label col-sm-3" for="typeCard">Тип выдачи:</label>
-                                <div class="col-sm-9">
-                                    <select id="typeCard" name="typeCard" class="">
-                                        <option value="0" {{ user.typeCard == 0 ? 'selected="selected"' : '' }}>Первичная выдача карты</option>
-                                        <option value="1" {{ user.typeCard == 1 ? 'selected="selected"' : '' }} style="color: #CC0000;">Замена в связи с истечением срока действия карты</option>
-                                        <option value="2" {{ user.typeCard == 2 ? 'selected="selected"' : '' }} style="color: #CC0000;">Замена в связи с дефектом, утерей или утратой карты</option>
-                                        <option value="3" {{ user.typeCard == 3 ? 'selected="selected"' : '' }} style="color: #CC0000;">Замена карты вследствие изменения персональных данных</option>
-                                    </select>
-                                    {% if user.typeCardFile %}
-                                        <br />
+                <tr>
+                    <td style="{{ user.typeCard > 0 ? 'background: #FFBCBC' : '' }}">
+                        <div class="form-group">
+                            <label class="control-label col-sm-3" for="typeCard">Тип выдачи:</label>
+                            <div class="col-sm-9">
+                                <select id="typeCard" name="typeCard" class="">
+                                    <option value="0" {{ user.typeCard == 0 ? 'selected="selected"' : '' }}>Первичная выдача карты</option>
+                                    <option value="1" {{ user.typeCard == 1 ? 'selected="selected"' : '' }} style="color: #CC0000;">Замена в связи с истечением срока действия карты</option>
+                                    <option value="2" {{ user.typeCard == 2 ? 'selected="selected"' : '' }} style="color: #CC0000;">Замена в связи с дефектом, утерей или утратой карты</option>
+                                    <option value="3" {{ user.typeCard == 3 ? 'selected="selected"' : '' }} style="color: #CC0000;">Замена карты вследствие изменения персональных данных</option>
+                                </select>
+                                {% if user.typeCardFile %}
+                                    <br />
 
-                                        <a href="/upload/{{ user.typeCardFile}}" target="_blank">Скачать</a>
-                                    {% endif %}
-                                </div>
+                                    <a href="/upload/{{ user.typeCardFile}}" target="_blank">Скачать</a>
+                                {% endif %}
                             </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <div class="form-group">
-                                <label class="control-label col-sm-3" for="oldNumber">Комментарий пользователя:</label>
-                                <div class="col-sm-9">
-                                    <textarea  name="userComment" id="userComment" class="form-control" disabled>{{ user.userComment }}</textarea>
-                                </div>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="form-group">
+                            <label class="control-label col-sm-3" for="oldNumber">Комментарий пользователя:</label>
+                            <div class="col-sm-9">
+                                <textarea  name="userComment" id="userComment" class="form-control" disabled>{{ user.userComment }}</textarea>
                             </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <div class="form-group">
-                                <label class="control-label col-sm-3" for="oldNumber">Старая карта:</label>
-                                <div class="col-sm-9">
-                                    <input type="text"  name="oldNumber" id="oldNumber" class="form-control" value="{{ user.lastNumberCard }}">
-                                </div>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="form-group">
+                            <label class="control-label col-sm-3" for="oldNumber">Старая карта:</label>
+                            <div class="col-sm-9">
+                                <input type="text"  name="oldNumber" id="oldNumber" class="form-control" value="{{ user.lastNumberCard }}">
                             </div>
-                        </td>
-                    </tr>
+                        </div>
+                    </td>
+                </tr>
+                {% if is_granted('ROLE_ADMIN')  %}
                     <tr>
                         <td>
                             <div class="form-group">
@@ -155,6 +155,7 @@
                             </div>
                         </td>
                     </tr>
+                {% endif %}
                     <tr>
                         <td>
                             <div class="form-group">
@@ -165,7 +166,6 @@
                             </div>
                         </td>
                     </tr>
-                {% endif %}
                 <tr>
                     <td>
                         <div class="h2">
