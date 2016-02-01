@@ -24,7 +24,7 @@ class GeoStatisticCommand extends ContainerAwareCommand
         $container = $this->getContainer();
         $em = $container->get('doctrine')->getManager();
 
-        $users = $em->getRepository('CrmMainBundle:User')->findBy([],[],2000,0);
+        $users = $em->getRepository('CrmMainBundle:User')->findBy([],[],2000,2001);
 
         foreach ($users as $key => $user){
             if ( $user->getDileveryRegion() != null){
