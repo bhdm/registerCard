@@ -114,7 +114,7 @@ class AuthController extends Controller
         $client = $this->getDoctrine()->getRepository('CrmMainBundle:Client')->findOneById($id);
         if ($client->getSalt() == $hash){
             if ($request->getMethod() == 'POST'){
-                if ($request->request->get('password') == $request->request->get('password')){
+//                if ($request->request->get('password') == $request->request->get('password')){
                     $client->setSalt(md5(time()));
                     $encoder = new MessageDigestPasswordEncoder('sha512', true, 10);
                     $password = $encoder->encodePassword($request->request->get('password'), $client->getSalt());
@@ -122,9 +122,9 @@ class AuthController extends Controller
                     $em->flush($client);
 //                    return ['error' => [ 'message' => 'Пароли изменены']];
                     return $this->redirect($this->generateUrl('auth_login'));
-                }else{
-                    return ['error' => [ 'message' => 'Пароли не совпадают']];
-                }
+//                }else{
+//                    return ['error' => [ 'message' => 'Пароли не совпадают']];
+//                }
             }
             return ['client' => $client];
         }else{
@@ -279,5 +279,13 @@ class AuthController extends Controller
             $this->getDoctrine()->getManager()->flush($order);
         }
         return $this->redirect($this->generateUrl('auth_order'));
+    }
+
+    /**
+     * @Route("/docs", name="auth_docs")
+     * @Template("")
+     */
+    public function docsAction(){
+        return [];
     }
 }

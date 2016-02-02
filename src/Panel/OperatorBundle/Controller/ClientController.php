@@ -49,6 +49,7 @@ class ClientController extends Controller
                 $operator = null;
             }
 
+
             $clientsList = $this->getDoctrine()->getRepository('CrmMainBundle:Client')->findAll();
             $companiesList = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->findAll();
         }else{
@@ -68,7 +69,15 @@ class ClientController extends Controller
         }else{
             $operatorList = [$this->getUser()];
         }
-        return ['clients' => $clients, 'companiesList' => $companiesList, 'clientsList' => $clientsList , 'company' => $company, 'operatorList' => $operatorList, 'operator' => $operator];
+
+        $paginator = $this->get('knp_paginator');
+        $pagination = $paginator->paginate(
+            $clients,
+            $this->get('request')->query->get('page', 1),
+            50
+        );
+
+        return ['pagination' => $pagination, 'companiesList' => $companiesList, 'clientsList' => $clientsList , 'company' => $company, 'operatorList' => $operatorList, 'operator' => $operator];
     }
 
     /**

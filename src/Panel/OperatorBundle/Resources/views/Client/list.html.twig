@@ -52,7 +52,7 @@
                 <td></td>
             </tr>
             </thead>
-            {% for client in clients %}
+            {% for client in pagination %}
                 <tr style="{{ client.quota < 0 ? 'background: #FFCACA' : 0 }}" >
                     <td>
                         {% if client.company != null and client.company.operator != null %}
@@ -98,6 +98,10 @@
                 </tr>
             {% endfor%}
         </table>
+        <div class="navigation">
+            {{ knp_pagination_render(pagination) }}
+        </div>
+
         {#<div class="navigation">#}
         {#{{ knp_pagination_render(pagination) }}#}
         {#</div>#}
