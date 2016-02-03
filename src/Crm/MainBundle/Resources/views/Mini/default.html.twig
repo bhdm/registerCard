@@ -4,32 +4,133 @@
 {% block content %}
 
     {% if company is defined and company.id != 1013 %}
-        {% if company.description == null %}
-            <h1>{{ company.title }}</h1>
-            <h2>подача карт для физических лиц:</h2>
-        {% else %}
-            {{ company.description | raw }}
-        {% endif %}
-        <br />
-        <a href="{{ path('company-application-estr-add',{'url': company.url}) }}"><span class="btn">Карта ЕСТР</span></a>
-        <br />
-        <br />
-        <a href="{{ path('company-application-ru-add',{'url': company.url}) }}"><span class="btn">Карта РФ</span></a>
-        <br />
-        <br />
-    {% endif %}
-    <a href="{{ path('company-application-skzi-add', {'url' : company.url}) }}"><span class="btn">Карта СКЗИ</span></a>
+        {#{% if company.description == null %}#}
+            {#<h1>{{ company.title }}</h1>#}
+        {#{% else %}#}
+            {#{{ company.description | raw }}#}
+        {#{% endif %}#}
+        <a href="#">Лицензионное соглашение</a>
+        <div style="float: right;">
+        <a href="{{ path('auth_login',{'url': company.url}) }}"><span class="btn btn-blue">Вход</span></a>
+        <a href="{{ path('auth_register',{'url': company.url}) }}"><span class="btn btn-blue">Регистрация</span></a>
+        </div>
 
-    <br />
-    <br />
-    <br />
-    <br />
-    <br />
-    <br />
-    <br />
-    <br />
-    <br />
-    <br />
+        {#<br />#}
+        {#<br />#}
+        {#<a href="{{ path('company-application-estr-add',{'url': company.url}) }}"><span class="btn">Карта ЕСТР</span></a>#}
+        {#<br />#}
+        {#<br />#}
+        {#<a href="{{ path('company-application-ru-add',{'url': company.url}) }}"><span class="btn">Карта РФ</span></a>#}
+        {#<br />#}
+        {#<br />#}
+    <div id="myTabContent" class="tab-content">
+        <div role="tabpanel" class="tab-pane fade active in" id="driver" aria-labelledby="home-tab">
+        <br />
+        <br />
+        <div class="row">
+            <div class="col-sm-4 col-md-4">
+                <div class="thumbnail">
+                    <img src="{{ asset('bundles/crmmain/images/card2-1.png') }}">
+                    <div class="caption">
+                        <h3>Карта СКЗИ</h3>
+                        <p>
+                            Карты предназначены для тахографов оборудованных блоком СКЗИ.<br />
+                            Действуют только на территории РФ.<br />
+                        </p>
+                        <b>Документы:</b>
+                        <ul>
+                            <li>копия паспорта (лицевой разворот)</li>
+                            <li>копия водительского удостоверения</li>
+                            <li>СНИЛС</li>
+                            <li>фото, подпись</li>
+                        </ul>
+                        <br />
+                        Срок изготовления: <b>15 дней</b><br />
+                        Доставка: <b>бесплатно</b>
+                        <br />
+                        {#<div class="row">#}
+                        {#<div class="col-xs-6 price"><span class="sale">{{ company.priceSkzi }} руб</span></div>#}
+                        {#</div>#}
+                        <div class="row">
+                            <div class="col-xs-6 price"><span class="sale">2450,00 руб</span></div>
+                            <div class="col-xs-6 price">{{ company.priceSkzi }},00 руб</div>
+                        </div>
+                        <br />
+                        <div class="row">
+                            <div class="col-xs-12 text-center"><a href="{{ path('application-skzi-add') }}" class="btn-lg btn-primary" role="button">Оформление заявки</a></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-4 col-md-4">
+                <div class="thumbnail">
+                    <img src="{{ asset('bundles/crmmain/images/card2-2.png') }}">
+                    <div class="caption">
+                        <h3>Карта ЕСТР</h3>
+                        <p>
+                            Карты предназначены для европейских тахографов стандарта ЕСТР.<br />
+                            Действуют только на территории Европы и  РФ.<br />
+                        </p>
+                        <b>Документы:</b>
+                        <ul>
+                            <li>копия паспорта (лицевой разворот, страница регистрации)</li>
+                            <li>копия водительского удостоверения (две стороны)</li>
+                            <li>фото, подпись</li>
+                        </ul>
+                        Срок изготовления: <b>15 дней</b><br />
+                        Доставка: <b>бесплатно</b>
+                        <br />
+                        <div class="row">
+                            <div class="col-xs-offset-6 col-xs-6 price">
+                                {{ company.priceEstr }},00 руб
+                            </div>
+                        </div>
+                        <br />
+                        <div class="row text-center">
+                            <div class="col-xs-12"><a href="{{ path('application-estr-add') }}" class="btn-lg btn-primary text-center" role="button">Оформление Заявки</a></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-4 col-md-4">
+                <div class="thumbnail">
+                    <img src="{{ asset('bundles/crmmain/images/card2-3.png') }}">
+                    <div class="caption">
+                        <h3>Карта РФ</h3>
+                        <p>
+                            Карты предназначены для тахографов <b>не</b> оборудованных блоками СКЗИ.<br />
+                            Дейтсвуют только на территории РФ.<br />
+                        </p>
+                        <b>Документы:</b>
+                        <ul>
+                            <li>копия паспорта (лицевой разворот, страница регистрации)</li>
+                            <li>копия водительского удостоверения (две стороны)</li>
+                            <li>фото, подпись</li>
+                        </ul>
+                        Срок изготовления: <b>10 дней</b><br />
+                        Доставка: <b>бесплатно</b>
+                        <br />
+                        <br />
+                        <div class="row">
+                            <div class="col-xs-offset-6 col-xs-6 price">
+                                {{ company.priceRu }},00 руб
+                            </div>
+                        </div>
+                        <br />
+                        <div class="row text-center">
+                            <div class="col-xs-12"><a href="{{ path('application-ru-add') }}" class="btn-lg btn-primary text-center" role="button">Оформление Заявки</a></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <hr />
+    </div>
+    </div>
+    {% else %}
+        <a href="{{ path('company-application-skzi-add', {'url' : company.url}) }}"><span class="btn">Карта СКЗИ</span></a>
+    {% endif %}
+
     <br />
     <br />
     <style>

@@ -2,6 +2,7 @@
 
 {% block body %}
     <div class="row">
+        {% if url is not defined or url == null%}
         <div class="col-xs-5">
             <h2 style="text-align: left">Регистрация</h2>
             <form class="form-horizontal"  method="post">
@@ -15,6 +16,14 @@
 
             </div>
         </div>
+        {% else %}
+            <div class="col-xs-12">
+                <h2 style="text-align: left">Регистрация</h2>
+                <form class="form-horizontal"  method="post">
+                    {{  form_widget(form) }}
+                </form>
+            </div>
+        {% endif %}
     </div>
     <script src="{{ asset('bundles/crmauth/js/pdfobject.min.js') }}"></script>
     <script>

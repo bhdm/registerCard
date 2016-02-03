@@ -2,11 +2,11 @@
 
 {% block body %}
     <div class="row">
-        <div class="col-xs-5">
+        <div class="{{ url is defined and url !=null ? 'col-xs-12' : 'col-xs-5' }}">
             <h2 style="display: block; text-align: center !important;">Вход в личный кабинет</h2>
             <form class="form-horizontal" method="post" action="login_check">
                 {% if error %}
-                    <div class="error" style="color: #CC0000" >Ошибка ввода логина или пароля</div>
+                    <div class="error" style="color: #CC0000; text-align: center" >Ошибка ввода логина или пароля</div>
                 {% endif %}
                 <div class="form-group">
                     <label class="control-label required col-xs-4">Email</label>
@@ -23,7 +23,11 @@
                 <div class="form-group" style="text-align: right">
                     <div class="row">
                         <div class="col-xs-7" style="text-align: right">
-                            <a href="{{ path('auth_register') }}">Зарегистрироваться</a>
+                            {% if url is not defined or url == null%}
+                                <a href="{{ path('auth_register') }}">Зарегистрироваться</a>
+                            {% else %}
+                                <a href="{{ path('auth_register',{'url' : url}) }}">Зарегистрироваться</a>
+                            {% endif %}
                             <br />
                             <a href="{{ path('auth_reset_password') }}">Забыли пароль</a>
                         </div>

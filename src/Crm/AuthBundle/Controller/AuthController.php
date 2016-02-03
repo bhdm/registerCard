@@ -25,10 +25,10 @@ use Symfony\Component\Security\Http\Event\InteractiveLoginEvent;
 class AuthController extends Controller
 {
     /**
-     * @Route("/login", name="auth_login")
+     * @Route("/login/{url}", name="auth_login", defaults={"url"  = null})
      * @Template()
      */
-    public function loginAction(){
+    public function loginAction( Request $request, $url = null){
         if ($this->get('security.context')->isGranted('ROLE_CLIENT')){
             return $this->redirect($this->generateUrl('auth_profile'));
         }
@@ -37,10 +37,11 @@ class AuthController extends Controller
         } else {
             $error = $this->get('request')->getSession()->get(SecurityContext::AUTHENTICATION_ERROR);
         }
-
+//        $url = $request->query->get('url');
         return $this->render('CrmAuthBundle:Auth:login.html.twig', array(
             'last_username' => $this->get('request')->getSession()->get(SecurityContext::LAST_USERNAME),
-            'error' => $error
+            'error' => $error,
+            'url' => $url
         ));
     }
 
@@ -73,7 +74,7 @@ class AuthController extends Controller
                 return $this->redirect($this->generateUrl('email_confirmed', ['salt' => 'email_send']));
             }
         }
-        return array('form' => $form->createView());
+        return array('form' => $form->createView(),'url' => $url);
     }
 
     /**

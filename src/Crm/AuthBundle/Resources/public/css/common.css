@@ -23,7 +23,7 @@ h2{
     text-align: left !important;
 }
 .btn:hover{
-    background: #286090 !important;
+    /*background: #286090 !important;*/
 }
 td.label, td.value {
      display: table-cell !important;
