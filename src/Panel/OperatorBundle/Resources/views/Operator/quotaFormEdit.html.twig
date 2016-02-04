@@ -1,0 +1,30 @@
+<p>
+<form class="form-horizontal" method="POST" action="{{ path('panel_operator_quota_edit',{'quotaId' : q.id}) }}">
+    <fieldset >
+        <div class="form-group">
+            <label for="inputQuota" class="control-label col-xs-2">Кол-во рублей</label>
+            <div class="col-xs-10">
+                <input type="number" name="quota" class="form-control" id="inputQuota" placeholder="Количество рублей" value="{{ q.quota }}">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="inputPassword" class="control-label col-xs-2">Комментарий</label>
+            <div class="col-xs-10">
+                <input type="text" name="comment" class="form-control" id="inputComment" placeholder="Комментарий" value="{{ q.comment }}">
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-xs-offset-2 col-xs-10">
+                <div class="checkbox">
+                    <label><input type="checkbox" required="required" > Подтвердить ввод данных</label>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-xs-offset-2 col-xs-10">
+                <button type="submit" class="btn btn-primary">Добавить</button>
+            </div>
+        </div>
+    </fieldset>
+</form>
+</p>

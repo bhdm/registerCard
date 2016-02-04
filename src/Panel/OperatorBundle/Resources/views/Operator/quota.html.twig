@@ -28,6 +28,11 @@
                     <td>{{ q.comment }}</td>
                     <td class="setting">
                         {% spaceless %}
+                            <button type="button" class="btn btn-warning quotaEdit" title="Изменить" data-id="{{ q.id }}">
+                                <span class="glyphicon glyphicon-edit"></span>
+                            </button>
+                            &nbsp;
+                            &nbsp;
                             <a href="#">
                                 <button type="button" class="btn btn-default btn-danger" title="Удалить">
                                     <span class="glyphicon glyphicon-remove"></span>
@@ -39,7 +44,7 @@
             {% endfor%}
         </table>
         <div class="navigation">
-        {{ knp_pagination_render(quotes) }}
+            {{ knp_pagination_render(quotes) }}
         </div>
 
         <div class="modal fade" id="addQuotaForm">
@@ -82,19 +87,47 @@
                         </p>
                     </div>
                     {#<div class="modal-footer">#}
-                        {#<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>#}
-                        {#<button type="button" class="btn btn-primary">Save changes</button>#}
+                    {#<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>#}
+                    {#<button type="button" class="btn btn-primary">Save changes</button>#}
                     {#</div>#}
                 </div>
             </div>
         </div>
 
     </div>
+    <div class="modal fade" id="editQuotaForm">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    <h4 class="modal-title">Изменение квоты</h4>
+                </div>
+                <div class="modal-body" id="quotaForm">
+                </div>
+            </div>
+        </div>
+    </div>
 
     <script>
         $(document).ready(function(){
             $('#quotaAdd').click(function(){
                 $('#addQuotaForm').modal('show');
+            });
+
+            $('#quotaAdd').click(function(){
+                $('#addQuotaForm').modal('show');
+            });
+
+            $('.quotaEdit').click(function(){
+                var qoutaId = $(this).attr('data-id');
+                $.ajax({
+                    method: "POST",
+                    url: Routing.generate('load-operator-quota', {'id': qoutaId }),
+                    success: function(msg){
+                        $('#quotaForm').html(msg);
+                        $('#editQuotaForm').modal('show');
+                    }
+                })
             });
 
         })
