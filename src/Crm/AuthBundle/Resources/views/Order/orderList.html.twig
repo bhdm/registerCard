@@ -77,7 +77,7 @@
     </div>
     <form method="GET">
         <div class="row">
-            <div class="col-xs-4">
+            <div class="col-xs-3">
                 <select class="form-control" name="type">
                     <option selected="selected" value="0">Все типы</option>
                     <option value="skzi">СКЗИ</option>
@@ -85,7 +85,20 @@
                     <option value="ru">РФ</option>
                 </select>
             </div>
-            <div class="col-xs-6">
+            <div class="col-xs-3">
+                <select class="form-control" name="status">
+                    <option selected="selected" value="100">Все статусы</option>
+                    <option value="0">Новые</option>
+                    <option value="1">Подтвержденные</option>
+                    <option value="2">Оплаченные</option>
+                    <option value="3">В производстве</option>
+                    <option value="4">Изготовленые</option>
+                    <option value="6">Полученные</option>
+                    <option value="5">На почте</option>
+                    <option value="10">Отклоненные</option>
+                </select>
+            </div>
+            <div class="col-xs-4">
                 <input placeholder="Введите слово" class="form-control" style="margin-top: 0;" name="search">
             </div>
             <div class="col-xs-2">

@@ -762,7 +762,7 @@ class UserRepository extends EntityRepository
         return $re;
     }
 
-    public function filterForClient($clientId,$type = null,$search = null)
+    public function filterForClient($clientId,$type = null, $status, $search = null)
     {
         $res = $this->getEntityManager()->createQueryBuilder()
             ->select('u')
@@ -778,6 +778,10 @@ class UserRepository extends EntityRepository
                     $res->andWhere('u.ru = 0 and u.estr = 0');
                 }
             }
+        if ($status != null && $status != 100){
+            $res->andWhere('u.status = :status')
+                ->setParameter('status', $status);
+        }
         if ($search && $search != ''){
             $res->andWhere("u.lastName LIKE '%$search%' OR u.firstName LIKE '%$search%' OR u.surName LIKE '%$search%'");
         }

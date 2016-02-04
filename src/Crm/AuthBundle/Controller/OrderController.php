@@ -516,6 +516,7 @@ class OrderController extends Controller
         $orders = $this->getDoctrine()->getRepository('CrmMainBundle:User')->filterForClient(
             $this->getUser()->getId(),
             $request->query->get('type'),
+            $request->query->get('status'),
             $request->query->get('search')
         );
         return ['orders' => $orders];
