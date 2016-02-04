@@ -65,7 +65,9 @@ class ApplicationController extends Controller
             $user->setPhoto($this->getImgToArray($session->get('photoFile')));
 
             if ($company){
+                $operator = $company->getOperator();
                 $user->setPrice($company->getPriceEstr());
+                $user->setPriceOperator($operator->getPriceEstr());
             }else{
                 $user->setPrice(3200);
             }
@@ -116,7 +118,9 @@ class ApplicationController extends Controller
             $user->setCompany($company);
 
             if ($company){
+                $operator = $company->getOperator();
                 $user->setPrice($company->getPriceSkzi());
+                $user->setPriceOperator($operator->getPriceSkzi());
             }else{
                 $user->setPrice(2150);
             }
@@ -199,7 +203,9 @@ class ApplicationController extends Controller
 
             $user->setClient($this->getUser());
             if ($company){
+                $operator = $company->getOperator();
                 $user->setPrice($company->getPriceRu());
+                $user->setPriceOperator($operator->getPriceRu());
             }else{
                 $user->setPrice(3200);
             }

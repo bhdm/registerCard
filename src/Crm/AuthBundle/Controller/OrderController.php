@@ -62,7 +62,9 @@ class OrderController extends Controller
                 $company = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->findOneByUrl('NO_COMPANY');
             }
             if ($company){
+                $operator = $company->getOperator();
                 $user->setPrice($company->getPriceSkzi());
+                $user->setPriceOperator($operator->getPriceSkzi());
             }else{
                 $user->setPrice(2150);
             }
@@ -167,7 +169,9 @@ class OrderController extends Controller
             $user->setDriverDocDateStarts(new \DateTime($user->getDriverDocDateStarts()));
             $user->setClient($this->getUser());
             if ($company){
+                $operator = $company->getOperator();
                 $user->setPrice($company->getPriceEstr());
+                $user->setPriceOperator($operator->getPriceEstr());
             }else{
                 $user->setPrice(3200);
             }
@@ -261,7 +265,9 @@ class OrderController extends Controller
             $user->setCompany($company);
             $user->setClient($this->getUser());
             if ($company){
+                $operator = $company->getOperator();
                 $user->setPrice($company->getPriceRu());
+                $user->setPriceOperator($operator->getPriceRu());
             }else{
                 $user->setPrice(3200);
             }
