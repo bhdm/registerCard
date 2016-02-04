@@ -70,19 +70,19 @@ class MoneyController extends Controller
         $sql = "SELECT COUNT(user.id) cid FROM
                 user
 
-                WHERE user.isProduction >= '$date1' AND user.isProduction < '$date2' AND user.status > 1 AND
+                WHERE user.isProduction >= '$date1' AND user.isProduction < '$date2' AND user.status > 1 AND user.status != 10 AND
                 (( price >= 2250  AND estr = 0 AND ru = 0) OR (  price >= 3050 AND ( estr = 1 OR ru = 1)))
                 UNION ALL
                 SELECT COUNT(user.id) cid FROM
                 user
 
-                WHERE user.isProduction >= '$date1' AND user.isProduction < '$date2' AND user.status > 1 AND
+                WHERE user.isProduction >= '$date1' AND user.isProduction < '$date2' AND user.status > 1 AND user.status != 10 AND
                 (( price <= 2249 AND price >= 2000  AND estr = 0 AND ru = 0) OR (  price <= 3049 AND price >= 2950 AND ( estr = 1 OR ru = 1)))
                 UNION ALL
                 SELECT COUNT(user.id) cid FROM
                 user
 
-                WHERE user.isProduction >= '$date1' AND user.isProduction < '$date2' AND user.status > 1 AND
+                WHERE user.isProduction >= '$date1' AND user.isProduction < '$date2' AND user.status > 1 AND user.status != 10 AND
                 (( price <= 1999  AND estr = 0 AND ru = 0) OR (  price <= 2949 AND ( estr = 1 OR ru = 1)))
                 ";
         $pdo = $this->getDoctrine()->getManager()->getConnection();
