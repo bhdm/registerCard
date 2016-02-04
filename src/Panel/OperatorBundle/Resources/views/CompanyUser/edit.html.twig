@@ -255,6 +255,12 @@
                     <td>{{ form_widget(form.documentAccess) }}</td>
                     <td  class="skzi-col">
                         {#{{ form_widget(form.fileDecree) }}#}
+                        <input type="file" name="fileDecreeFile" id="fileDecreeFile" data-type="fileDecreeFile" class="fileAjax" data-type="fileDecreeFile">
+                        {% if order.fileOgrn['path'] is defined %}
+                            <img src="/upload/usercompany/{{ order.id }}/{{ order.fileOgrn['fileName'] }}" brightness="0" contrast="0" class="document" id="fileDecreeFileImg">
+                        {% else %}
+                            <img src="" brightness="0" contrast="0" class="document" id="fileOgrnFileImg" />
+                        {% endif %}
                     </td>
                 </tr>
                 <tr>

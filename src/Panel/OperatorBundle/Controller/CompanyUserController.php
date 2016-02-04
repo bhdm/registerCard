@@ -138,6 +138,19 @@ class CompanyUserController extends Controller{
                 }
             }
 
+            $path = $this->get('kernel')->getRootDir() . '/../web/upload/usercompany/';
+            $file = $session->get('fileDecreeFile');
+            if ($file){
+                $info = new \SplFileInfo($file);
+                $path = $path.$item->getId().'/'.$item->getSalt().time().'-decree.'.$info->getExtension();
+                if (copy($file,$path)){
+                    unlink( $file );
+                    $session->set('fileDecreeFile',null);
+                    $array = $this->getImgToArray($path);
+                    $item->setFileDecree($array);
+                }
+            }
+
 
             $item = $formData->getData();
             $em->persist($item);
@@ -191,6 +204,11 @@ class CompanyUserController extends Controller{
             $file = $item->getFileLicense();
             if (!empty($file) && file_exists('/var/www/' . $file['path'])) {
                 $session->set('fileLicenseFile', '/var/www/' . $file['path']);
+            }
+
+            $file = $item->getFileDecree();
+            if (!empty($file) && file_exists('/var/www/' . $file['path'])) {
+                $session->set('fileDecreeFile', '/var/www/' . $file['path']);
             }
 
             $session->save();
