@@ -17,13 +17,13 @@ class RobokassaController extends Controller
 //    /**
 //     *
 //     * @Route("/course/{courseId}", name="course")
-//     * @Template("LearningMainBundle:Course:course.html.twig")
+//     * @Template("CrmMainBundle:Course:course.html.twig")
 //     */
 //    public function showAssistAction(){ array}
 
     /**
      * @Route("/payment/assist/{userId}", name="payment_assist")
-     * @Template("LearningMainBundle:Assist:redirect.html.twig")
+     * @Template("CrmMainBundle:Assist:redirect.html.twig")
      */
     public function PostAssistAction(Request $request, $userId){
         if ($request->getMethod()=='GET'){
@@ -45,7 +45,7 @@ class RobokassaController extends Controller
     /**
      * @Route("/payment/assist/{userId}", name="payment_assist")
      * @Route("/payment/assist/estr/{userId}", name="payment_assist_estr")
-     * @Template("LearningMainBundle:Assist:redirect.html.twig")
+     * @Template("CrmMainBundle:Assist:redirect.html.twig")
      */
     public function PostAssistEstrAction(Request $request, $userId){
         if ($request->getMethod()=='GET'){
@@ -66,7 +66,7 @@ class RobokassaController extends Controller
 
     /**
      * @Route("/payment/assist/ru/{userId}", name="payment_assist_ru")
-     * @Template("LearningMainBundle:Assist:redirect.html.twig")
+     * @Template("CrmMainBundle:Assist:redirect.html.twig")
      */
     public function PostAssistRuAction(Request $request, $userId){
         if ($request->getMethod()=='GET'){
@@ -95,7 +95,7 @@ class RobokassaController extends Controller
 
         mail('tulupov.m@gmail.com','Оплата карты для тахографа', "orderId: $orderId, price: $price");
         $em = $this->getDoctrine()->getManager();
-        $user = $this->getDoctrine()->getRepository('LearningMainBundle:Payment')->findOneById($orderId);
+        $user = $this->getDoctrine()->getRepository('CrmMainBundle:Payment')->findOneById($orderId);
 
         $success = false;
         if ($user != null){
@@ -124,7 +124,7 @@ class RobokassaController extends Controller
 
         mail('tulupov.m@gmail.com','Оплата карты для тахографа', "orderId: $orderId, price: $price");
         $em = $this->getDoctrine()->getManager();
-        $user = $this->getDoctrine()->getRepository('LearningMainBundle:Payment')->findOneById($orderId);
+        $user = $this->getDoctrine()->getRepository('CrmMainBundle:Payment')->findOneById($orderId);
 
         if ($user != null){
             $user->setPrice($price);
@@ -140,7 +140,7 @@ class RobokassaController extends Controller
     /**
      * Сюда попадаем после оплаты если ошибка
      * @Route("/course/payment/error", name="payment_course_error")
-     * @Template("LearningMainBundle:Assist:payment.html.twig")
+     * @Template("CrmMainBundle:Assist:payment.html.twig")
      */
     public function errorPaymentAction(){
         return array(
@@ -153,16 +153,16 @@ class RobokassaController extends Controller
     /**
      * Генерирует чеки по заказу
      * @Route("/course/payment/check/{paymentId}", name="payment_course_check")
-     * @Template("LearningMainBundle:Assist:check.html.twig")
+     * @Template("CrmMainBundle:Assist:check.html.twig")
      */
     public function generateСheckAction($paymentId){
-        $payment = $this->getDoctrine()->getRepository('LearningMainBundle:Payment')->findOneById($paymentId);
+        $payment = $this->getDoctrine()->getRepository('CrmMainBundle:Payment')->findOneById($paymentId);
         $user = $payment->getUser();
         if ($this->getUser()){
             if ($payment!= null && $payment->getUser() == $this->getUser()){
                 $mpdfService = $this->container->get('tfox.mpdfport');
 
-                $html = $this->render('LearningMainBundle:Assist:check.html.twig',array('payment' => $payment));
+                $html = $this->render('CrmMainBundle:Assist:check.html.twig',array('payment' => $payment));
 
                 $arguments = array(
 //                    'constructorArgs' => array('utf-8', 'A4-L', 5 ,5 ,5 ,5,5 ), //Constructor arguments. Numeric array. Don't forget about points 2 and 3 in Warning section!
