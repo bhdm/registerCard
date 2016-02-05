@@ -90,25 +90,19 @@ class RobokassaController extends Controller
      * @Route("/payment/success", name="payment_success")
      */
     public function successPaymentAction(Request $request){
-        $orderId = $request->query->get('InvId');
+//        https://im-kard.ru/payment/success?inv_id=1235162225&InvId=1235162225&out_summ=125.000000&OutSum=125.000000&crc=1431e5c4e792c50c736d3755cbf48357&SignatureValue=1431e5c4e792c50c736d3755cbf48357&Culture=ru&shp_order=10321
+        $orderId = $request->query->get('shp_order');
         $price = $request->query->get('OutSum');
 
         mail('tulupov.m@gmail.com','Оплата карты для тахографа', "orderId: $orderId, price: $price");
         $em = $this->getDoctrine()->getManager();
         $user = $this->getDoctrine()->getRepository('CrmMainBundle:Payment')->findOneById($orderId);
 
-        $success = false;
-        if ($user != null){
-            $user->setPrice($price);
-            $user->setStatus(3);
-            $em->flush($user);
-            $em->refresh($user);
+        $success = true;
 
-            $em->flush();
-            $success = true;
-        }
         return array(
             'success'   => $success,
+            'user'   => $user,
         );
 
 
