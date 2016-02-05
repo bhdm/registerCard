@@ -100,10 +100,7 @@ class RobokassaController extends Controller
 
         $success = true;
 
-        return array(
-            'success'   => $success,
-            'user'   => $user,
-        );
+        return $this->redirectToRoute('main');
 
 
     }
