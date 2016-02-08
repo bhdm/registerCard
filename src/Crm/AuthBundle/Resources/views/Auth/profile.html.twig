@@ -12,6 +12,7 @@
         {{ form_row(form.kpp) }}
         {{ form_row(form.doc) }}
 
+        <h3>Юридический адрес</h3>
         <div class="form-group">
             <label class="col-sm-4 control-label required">Регион</label>
             <div class="col-sm-8">{{ form_widget(form.adrs.region) }}</div>
@@ -46,7 +47,45 @@
             <label class="col-sm-4 control-label required">Индекс</label>
             <div class="col-sm-8">{{ form_widget(form.adrs.zipcode) }}</div>
         </div>
-        {{ form_row(form.submit) }}
+
+
+        <h3>Адрес доставки <button type="button" style="float: right" class="btn btn-info" id="dubl">Дублировать юр. адрес</button></h3>
+        <div class="form-group">
+            <label class="col-sm-4 control-label required">Регион</label>
+            <div class="col-sm-8">{{ form_widget(form.deliveryAdrs.region) }}</div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-4 control-label required">Район</label>
+            <div class="col-sm-8">{{ form_widget(form.deliveryAdrs.area) }}</div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-4 control-label required">Город</label>
+            <div class="col-sm-8">{{ form_widget(form.deliveryAdrs.city) }}</div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-4 control-label required">Улица</label>
+            <div class="col-sm-8">{{ form_widget(form.deliveryAdrs.street) }}</div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-4 control-label required">Номер здания</label>
+            <div class="col-sm-8">
+                <div class="row">
+                    <div class="col-xs-6">{{ form_widget(form.deliveryAdrs.house) }}</div>
+                    <div class="col-xs-6">{{ form_widget(form.deliveryAdrs.corp) }}</div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-6">{{ form_widget(form.deliveryAdrs.structure) }}</div>
+                    <div class="col-xs-6">{{ form_widget(form.deliveryAdrs.room) }}</div>
+                    <input type="hidden" name="registered[typeRoom]" id="mailing-typeRoom" value="кв.">
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-4 control-label required">Индекс</label>
+            <div class="col-sm-8">{{ form_widget(form.deliveryAdrs.zipcode) }}</div>
+        </div>
+        
+        {{ form_row(form.submit,{'attr' : {'class' : 'btn-primary'}}) }}
         {{ form_row(form._token) }}
     </form>
     {#{{ dump(isIframe) }}#}
@@ -67,4 +106,23 @@
             {{  form_widget(formPass) }}
         </form>
     {% endif %}
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+        $(document).ready(function(){
+           $('#dubl').click(function(){
+               $('#crm_authbundle_client_deliveryAdrs_region').val(     $('#crm_authbundle_client_adrs_region').val());
+               $('#crm_authbundle_client_deliveryAdrs_area').val(       $('#crm_authbundle_client_adrs_area').val());
+               $('#crm_authbundle_client_deliveryAdrs_city').val(       $('#crm_authbundle_client_adrs_city').val());
+               $('#crm_authbundle_client_deliveryAdrs_street').val(     $('#crm_authbundle_client_adrs_street').val());
+               $('#crm_authbundle_client_deliveryAdrs_house').val(      $('#crm_authbundle_client_adrs_house').val());
+               $('#crm_authbundle_client_deliveryAdrs_corp').val(       $('#crm_authbundle_client_adrs_corp').val());
+               $('#crm_authbundle_client_deliveryAdrs_structure').val(  $('#crm_authbundle_client_adrs_structure').val());
+               $('#crm_authbundle_client_deliveryAdrs_room').val(       $('#crm_authbundle_client_adrs_room').val());
+               $('#crm_authbundle_client_deliveryAdrs_zipcode').val(    $('#crm_authbundle_client_adrs_zipcode').val());
+           });
+        });
+    </script>
 {% endblock %}

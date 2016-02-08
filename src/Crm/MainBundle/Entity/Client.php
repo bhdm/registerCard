@@ -109,6 +109,11 @@ class Client extends BaseEntity implements UserInterface
     protected $adrs;
 
     /**
+     * @ORM\Column(type="array")
+     */
+    protected $deliveryAdrs;
+
+    /**
      * @ORM\Column(type="string", nullable=true)
      */
     protected $inn;
@@ -548,6 +553,23 @@ class Client extends BaseEntity implements UserInterface
     {
         $this->send = $send;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getDeliveryAdrs()
+    {
+        return $this->deliveryAdrs;
+    }
+
+    /**
+     * @param mixed $deliveryAdrs
+     */
+    public function setDeliveryAdrs($deliveryAdrs = array())
+    {
+        $this->deliveryAdrs = $deliveryAdrs;
+    }
+
 
 
 
