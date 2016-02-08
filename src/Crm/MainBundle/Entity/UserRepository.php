@@ -516,7 +516,7 @@ class UserRepository extends EntityRepository
 
         if ( $user->isRole('ROLE_OPERATOR') ){
             $sql  =
-                "SELECT COUNT(user.id) uid, MONTH(user.isProduction) m, YEAR(user.isProduction) y,
+                "SELECT COUNT(user.id) uid, SUM(user.price) us, MONTH(user.isProduction) m, YEAR(user.isProduction) y,
             IF (user.ru = 0 AND user.estr = 0, '1', IF (user.ru = 0 AND user.estr = 1, '2', '3')) type
             FROM user
             LEFT JOIN Company ON user.Company_id = Company.id
@@ -532,7 +532,7 @@ class UserRepository extends EntityRepository
                 y DESC, m DESC";
         }elseif ( $user->isRole('ROLE_MODERATOR') ){
             $sql  =
-                "SELECT COUNT(user.id) uid, MONTH(user.isProduction) m, YEAR(user.isProduction) y,
+                "SELECT COUNT(user.id) uid, SUM(user.price) us, MONTH(user.isProduction) m, YEAR(user.isProduction) y,
             IF (user.ru = 0 AND user.estr = 0, '1', IF (user.ru = 0 AND user.estr = 1, '2', '3')) type
             FROM user
             LEFT JOIN Company ON user.Company_id = Company.id
@@ -547,7 +547,7 @@ class UserRepository extends EntityRepository
                 y DESC, m DESC";
         }elseif ( $user->isRole('ROLE_ADMIN') ){
             $sql  =
-                "SELECT COUNT(user.id) uid, MONTH(user.isProduction) m, YEAR(user.isProduction) y,
+                "SELECT COUNT(user.id) uid, SUM(user.price) us, MONTH(user.isProduction) m, YEAR(user.isProduction) y,
             IF (user.ru = 0 AND user.estr = 0, '1', IF (user.ru = 0 AND user.estr = 1, '2', '3')) type
             FROM user
 
@@ -573,7 +573,8 @@ class UserRepository extends EntityRepository
 
         $result = array();
         foreach ( $re as $val ){
-            $result[$val['type']][$val['y'].'-'.$val['m']] = $val['uid'];
+            $result[$val['type']][$val['y'].'-'.$val['m']]['count'] = $val['uid'];
+            $result[$val['type']][$val['y'].'-'.$val['m']]['sum'] = $val['us'];
         }
 
         return $result;
