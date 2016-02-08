@@ -37,7 +37,7 @@ class OrderController extends Controller
         $item->setEmail($this->getUser()->getUsername());
         $item->setUsername($this->getUser()->getPhone());
         $item->setDeliveryAdrs($this->getUser()->getDeliveryAdrs());
-        $item->setRegisteredAdrs($this->getUser()->getAdrs());
+//        $item->setRegisteredAdrs($this->getUser()->getAdrs());
         $company = $this->getUser()->getCompany();
         if (!empty($company->getAdrs())){
             $item->setDeliveryAdrs($company->getAdrs());
@@ -152,7 +152,7 @@ class OrderController extends Controller
         $item->setEmail($this->getUser()->getUsername());
         $item->setUsername($this->getUser()->getPhone());
         $item->setDeliveryAdrs($this->getUser()->getDeliveryAdrs());
-        $item->setRegisteredAdrs($this->getUser()->getAdrs());
+//        $item->setRegisteredAdrs($this->getUser()->getAdrs());
         $company = $this->getUser()->getCompany();
         if (!empty($company->getAdrs())){
             $item->setDeliveryAdrs($company->getAdrs());
@@ -247,7 +247,7 @@ class OrderController extends Controller
         $item->setEmail($this->getUser()->getUsername());
         $item->setUsername($this->getUser()->getPhone());
         $item->setDeliveryAdrs($this->getUser()->getDeliveryAdrs());
-        $item->setRegisteredAdrs($this->getUser()->getAdrs());
+//        $item->setRegisteredAdrs($this->getUser()->getAdrs());
 
         $company = $this->getUser()->getCompany();
         if (!empty($company->getAdrs())){
