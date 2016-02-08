@@ -39,9 +39,9 @@ class OrderController extends Controller
         $item->setDeliveryAdrs($this->getUser()->getDeliveryAdrs());
 //        $item->setRegisteredAdrs($this->getUser()->getAdrs());
         $company = $this->getUser()->getCompany();
-        if (!empty($company->getAdrs())){
-            $item->setDeliveryAdrs($company->getAdrs());
-        }
+//        if (!empty($company->getAdrs())){
+//            $item->setDeliveryAdrs($company->getAdrs());
+//        }
 
         $form = $this->createForm(new UserSkziType($em), $item);
         $formData = $form->handleRequest($request);
@@ -154,9 +154,9 @@ class OrderController extends Controller
         $item->setDeliveryAdrs($this->getUser()->getDeliveryAdrs());
 //        $item->setRegisteredAdrs($this->getUser()->getAdrs());
         $company = $this->getUser()->getCompany();
-        if (!empty($company->getAdrs())){
-            $item->setDeliveryAdrs($company->getAdrs());
-        }
+//        if (!empty($company->getAdrs())){
+//            $item->setDeliveryAdrs($company->getAdrs());
+//        }
 
         $form = $this->createForm(new UserEstrType($em), $item);
         $formData = $form->handleRequest($request);
@@ -250,9 +250,9 @@ class OrderController extends Controller
 //        $item->setRegisteredAdrs($this->getUser()->getAdrs());
 
         $company = $this->getUser()->getCompany();
-        if (!empty($company->getAdrs())){
-            $item->setDeliveryAdrs($company->getAdrs());
-        }
+//        if (!empty($company->getAdrs())){
+//            $item->setDeliveryAdrs($company->getAdrs());
+//        }
 
         $form = $this->createForm(new UserRuType($em), $item);
         $formData = $form->handleRequest($request);

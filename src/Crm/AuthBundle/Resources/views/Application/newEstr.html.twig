@@ -275,16 +275,16 @@
             <div class="block-form" >
                 <table class="table-form">
                     <caption>Информация о доставке</caption>
-                    <tr>
-                        <td>Ввести адрес доставки</td>
-                        <td>
-                            <select id="delivery" class="form-control" name="delivery">
-                                <option value="0">Нет</option>
-                                <option value="1">Да</option>
-                            </select>
-                        </td>
-                        <td></td>
-                    </tr>
+                    {#<tr>#}
+                        {#<td>Ввести адрес доставки</td>#}
+                        {#<td>#}
+                            {#<select id="delivery" class="form-control" name="delivery">#}
+                                {#<option value="0">Нет</option>#}
+                                {#<option value="1">Да</option>#}
+                            {#</select>#}
+                        {#</td>#}
+                        {#<td></td>#}
+                    {#</tr>#}
                     <tr class="delivery">
                         <td>Регион<span class="required">*</span>:</td>
                         <td class="value">
@@ -494,7 +494,7 @@
             margin: 10px 0;
         }
         .delivery{
-            display: none;
+            /*display: none;*/
         }
     </style>
 
