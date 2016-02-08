@@ -8,9 +8,57 @@
             </div>
         </div>
         <div class="form-group">
+            <label for="inputQuota" class="control-label col-xs-2">Дата поступления</label>
+            <div class="col-xs-10">
+                <input type="date" name="created" class="form-control" id="created" placeholder="Дата" value="{{ q.created | date('Y-m-d') }}">
+            </div>
+        </div>
+        <div class="form-group">
             <label for="inputPassword" class="control-label col-xs-2">Комментарий</label>
             <div class="col-xs-10">
-                <input type="text" name="comment" class="form-control" id="inputComment" placeholder="Комментарий" value="{{ q.comment }}">
+                <input type="text" name="comment" class="form-control" id="inputComment" placeholder="Комментарий"  value="{{ q.comment }}">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-3">
+                <label class="control-label">Водитель</label>
+            </div>
+            <div class="col-xs-3">
+                <input type="text" name="driverSkzi" class="form-control"  placeholder="СКЗИ" value="{{ q.driverSkzi }}">
+            </div>
+            <div class="col-xs-3">
+                <input type="text" name="driverEstr" class="form-control"  placeholder="ЕСТР" value="{{ q.driverEstr }}">
+            </div>
+            <div class="col-xs-3">
+                <input type="text" name="driverRu" class="form-control"  placeholder="РФ" value="{{ q.driverRu }}">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-3">
+                <label class="control-label">Предприятие</label>
+            </div>
+            <div class="col-xs-3">
+                <input type="text" name="companySkzi" class="form-control"  placeholder="СКЗИ"   value="{{ q.companySkzi }}">
+            </div>
+            <div class="col-xs-3">
+                <input type="text" name="companyEstr" class="form-control"  placeholder="ЕСТР"   value="{{ q.companyEstr }}">
+            </div>
+            <div class="col-xs-3">
+                <input type="text" name="companyRu" class="form-control"  placeholder="РФ"      value="{{ q.companyRu }}">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-3">
+                <label class="control-label">Мастерская</label>
+            </div>
+            <div class="col-xs-3">
+                <input type="text" name="masterSkzi" class="form-control"  placeholder="СКЗИ" value="{{ q.masterSkzi }}">
+            </div>
+            <div class="col-xs-3">
+                <input type="text" name="masterEstr" class="form-control"  placeholder="ЕСТР" value="{{ q.masterEstr }}">
+            </div>
+            <div class="col-xs-3">
+                <input type="text" name="masterRu" class="form-control"  placeholder="РФ"     value="{{ q.masterRu }}">
             </div>
         </div>
         <div class="form-group">
