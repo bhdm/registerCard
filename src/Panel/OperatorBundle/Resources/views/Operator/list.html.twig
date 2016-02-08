@@ -24,7 +24,7 @@
             {% for o in operators %}
                 <tr>
                     <td>
-                        <a href="{{ path('panel_user_list',{'status' : '0', 'type': 'null', 'company' : 'null', 'operator' : o.id}) }}">
+                        <a href="{{ path('panel_user_list',{'status' : 'all', 'type': 'null', 'company' : 'null', 'operator' : o.id}) }}">
                             {{ o }}
                         </a>
 
