@@ -123,6 +123,12 @@ class Client extends BaseEntity implements UserInterface
      */
     protected $doc;
 
+    /**
+     * Если 0, то не получал письмо
+     * @ORM\Column(type="integer")
+     */
+    protected $send;
+
     public function __construct(){
         $this->roles = 'ROLE_CLIENT';
         $this->enabled = true;
@@ -525,6 +531,22 @@ class Client extends BaseEntity implements UserInterface
     public function setDoc($doc)
     {
         $this->doc = $doc;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getSend()
+    {
+        return $this->send;
+    }
+
+    /**
+     * @param mixed $send
+     */
+    public function setSend($send)
+    {
+        $this->send = $send;
     }
 
 
