@@ -34,22 +34,29 @@ class PaymentController extends Controller
     public function listAction(Request $request)
     {
         if ($request->query->get('companyId')){
-
-            $payments = $this->getDoctrine()->getRepository('CrmMainBundle:Payment')->filter(['company' => $request->query->get('companyId')]);
+            $payments = $this->getDoctrine()->getRepository('CrmMainBundle:Payment')->filter(['enabled' => true, 'company' => $request->query->get('companyId')]);
         }elseif($request->query->get('clientId')){
-            $payments = $this->getDoctrine()->getRepository('CrmMainBundle:Payment')->filter(['client' => $request->query->get('clientId')]);
+            $payments = $this->getDoctrine()->getRepository('CrmMainBundle:Payment')->filter(['enabled' => true, 'client' => $request->query->get('clientId')]);
+        }elseif($request->query->get('statusId') != null && $request->query->get('statusId') != 3 ){
+            $payments = $this->getDoctrine()->getRepository('CrmMainBundle:Payment')->findBy(['enabled' => true, 'status' => $request->query->get('statusId')],['created' => 'DESC']);
         }else{
             $payments = $this->getDoctrine()->getRepository('CrmMainBundle:Payment')->findBy(['enabled' => true],['created' => 'DESC']);
         }
+
+        $sum = 0;
+        foreach ( $payments as $p ){
+            $sum += $p->getSumma();
+        }
+
         $paginator = $this->get('knp_paginator');
         $pagination = $paginator->paginate(
             $payments,
-            $this->get('request')->query->get('page', 1),
+            $request->query->get('page', 1),
             20
         );
         $clientsList = $this->getDoctrine()->getRepository('CrmMainBundle:Client')->findAll();
         $companyList = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->findAll();
-        return ['pagination' => $pagination, 'clientsList' => $clientsList, 'companiesList' => $companyList ];
+        return ['pagination' => $pagination, 'clientsList' => $clientsList, 'companiesList' => $companyList,'sum' => $sum ];
     }
 
     /**

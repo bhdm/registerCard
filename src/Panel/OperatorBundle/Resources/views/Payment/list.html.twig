@@ -31,7 +31,14 @@
                 <th >Кол&nbsp;-&nbsp;во</th>
                 <th >Сумма</th>
                 <th>Комментарий</th>
-                <th >Статус</th>
+                <th >
+                    <select class="chosen" id="status" data-placeholder="Статус" style="width: 80px">
+                        <option value="3">Все</option>
+                        <option value="0">Новые</option>
+                        <option value="1">Проведенные</option>
+                        <option value="2">Оплченные</option>
+                    </select>
+                </th>
                 <th class="setting">Инструменты</th>
             </tr>
             </thead>
@@ -84,6 +91,11 @@
                     </td>
                 </tr>
             {% endfor%}
+            <tr>
+                <td colspan="4"></td>
+                <td><b>ИТОГО:</b></td>
+                <td>{{ sum }} руб.</td>
+            </tr>
         </table>
         <div class="navigation">
         {{ knp_pagination_render(pagination) }}
@@ -102,6 +114,9 @@
             });
             $('#clients').change(function(){
                 window.location.href = Routing.generate('panel_payment_list', {'clientId': $(this).val() })
+            });
+            $('#status').change(function(){
+                window.location.href = Routing.generate('panel_payment_list', {'statusId': $(this).val() })
             });
 
 
