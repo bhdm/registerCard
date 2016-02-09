@@ -143,6 +143,7 @@ class Client extends BaseEntity implements UserInterface
         $this->petitions = new ArrayCollection();
         $this->quota = 0;
         $this->adrs = array();
+        $this->deliveryAdrs = array();
     }
 
     public function __toString(){
