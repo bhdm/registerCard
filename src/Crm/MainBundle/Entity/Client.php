@@ -144,6 +144,7 @@ class Client extends BaseEntity implements UserInterface
         $this->quota = 0;
         $this->adrs = array();
         $this->deliveryAdrs = array();
+        $this->send = 0;
     }
 
     public function __toString(){
@@ -550,7 +551,7 @@ class Client extends BaseEntity implements UserInterface
     /**
      * @param mixed $send
      */
-    public function setSend($send)
+    public function setSend($send = 0)
     {
         $this->send = $send;
     }
