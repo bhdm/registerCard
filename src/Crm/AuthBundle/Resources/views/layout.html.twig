@@ -34,6 +34,10 @@
 
                 $('input:text,input:file,input:radio,input:password').styler();
                 $('.styler').styler();
+
+                $('form').submit(function(){
+                    $('button[type=submit]').attr('disabled','disabled')
+                });
             });
         </script>
     {% endblock %}

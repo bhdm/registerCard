@@ -114,6 +114,10 @@
                 $('.callto').click(function(){
                     $('#callto').modal();
                 });
+
+                $('form').submit(function(){
+                   $('button[type=submit]').attr('disabled','disabled')
+                });
             })
         </script>
     {% endblock %}
