@@ -27,7 +27,7 @@ class UserEstrType extends AbstractType
                 '0' => 'Российская Федерация',
                 '1' => 'Иностранное гражданство'
             )])
-            ->add('userComment', null,['label'=>'Комментарий пользователя', 'required' => false])
+            ->add('comment', null,['label'=>'Комментарий пользователя', 'required' => false])
 
             ->add('lastNumberCard', null ,['label' => 'Прошлый номер карты', 'required' => false])
 
