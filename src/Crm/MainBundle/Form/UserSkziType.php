@@ -41,7 +41,7 @@ class UserSkziType extends AbstractType
             ->add('passportCode', null,['label'=>'Код подразделения', 'required' => false, 'attr' => ['class'=>'code']])
             ->add('userComment', null,['label'=>'Комментарий пользователя', 'required' => false])
 
-            ->add('email', null,['label'=>'Email'])
+            ->add('email', null,['label'=>'Email', 'required' => true])
             ->add('username', null,['label'=>'Телефон', 'attr' => ['class' => 'phone']])
             ->add('snils', null,['label'=>'СНИЛС', 'attr' => ['class'=> 'snils'], 'required' => true])
 
