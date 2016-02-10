@@ -92,4 +92,22 @@ class ReviewController extends Controller
         return $this->redirect($this->generateUrl('panel_review_list'));
 
     }
+
+    /**
+     * @Route("/enabled/{id}", name="panel_review_enabled", options={"expose" = true})
+     * @Template()
+     */
+    public function enabledAction($id)
+    {
+        $review = $this->getDoctrine()->getRepository('CrmMainBundle:Review')->findOneById($id);
+        $em = $this->getDoctrine()->getManager();
+        if ($review->getEnabled() == true){
+            $review->setEnabled(false);
+        }else{
+            $review->setEnabled(true);
+        }
+        $em->flush();
+        return $this->redirect($this->generateUrl('panel_review_list'));
+
+    }
 }

@@ -16,17 +16,27 @@
             <thead>
             <tr>
                 <th>Имя</th>
+                <th>Город</th>
+                <th>Рейтинг</th>
                 <th>Дата</th>
                 <th class="setting">Инструменты</th>
             </tr>
             </thead>
             {% for r in reviews %}
                 <tr >
+                    <td>{{ r.city }}</td>
                     <td>{{ r.name }} ( {{ r.email }} )</td>
+                    <td>{{ r.rating }} из 5 </td>
                     <td>{{ r.created | date('d.m.Y') }}</td>
 
                     <td class="setting">
                         {% spaceless %}
+                            &nbsp;&nbsp;
+                            <a href="{{ path('panel_review_enabled',{'id' : r.id}) }}">
+                                <button type="button" class="btn btn-default" title="Изменить статус">
+                                    <span class="glyphicon glyphicon-ok"style="color: {{ r.enabled == 0 ? '#CC0000' : '#00CC00' }}"></span>
+                                </button>
+                            </a>
                             &nbsp;&nbsp;
                             <a href="{{ path('panel_review_edit',{'id' : r.id}) }}">
                                 <button type="button" class="btn btn-default btn-bg" title="Редактировать">
