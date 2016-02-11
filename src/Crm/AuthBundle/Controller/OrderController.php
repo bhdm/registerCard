@@ -51,9 +51,9 @@ class OrderController extends Controller
 //            if ($formData->isValid()){
             $user = $formData->getData();
 
-            if ($request->request->get('delivery') !=1){
-                $user->setDeliveryAdrs(array());
-            }
+//            if ($request->request->get('delivery') !=1){
+//                $user->setDeliveryAdrs(array());
+//            }
 
             $user->setBirthDate(new \DateTime($user->getBirthDate()));
             $user->setDriverDocDateStarts(new \DateTime($user->getDriverDocDateStarts()));
@@ -167,9 +167,9 @@ class OrderController extends Controller
         if ($request->getMethod() == 'POST'){
 //            if ($formData->isValid()){
             $user = $formData->getData();
-            if ($request->request->get('delivery') !=1){
-                $user->setDeliveryAdrs(array());
-            }
+//            if ($request->request->get('delivery') !=1){
+//                $user->setDeliveryAdrs(array());
+//            }
 
             $company = $this->getUser()->getCompany();
             $user->setCompany($company);
@@ -267,9 +267,9 @@ class OrderController extends Controller
 //            if ($formData->isValid()){
             $user = $formData->getData();
 
-            if ($request->request->get('delivery') !=1){
-                $user->setDeliveryAdrs(array());
-            }
+//            if ($request->request->get('delivery') !=1){
+//                $user->setDeliveryAdrs(array());
+//            }
 
             $company = $this->getUser()->getCompany();
 
