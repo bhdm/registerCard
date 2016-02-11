@@ -38,7 +38,6 @@
                         </select>
                     </th>
                 {% endif %}
-                <th >ФИО / Email</th>
                 {% if is_granted('ROLE_ADMIN') %}
                     <th></th>
                 {% endif %}
@@ -125,11 +124,38 @@
                         {% if is_granted('ROLE_ADMIN') %}
                             <td>
                                 {% spaceless %}
-                                    <a href="{{ path('generate_payment_pdf') }}?ord={{ user.id }}" target="_blank" class="no-underline">
-                                        <button type="button" class="btn btn-default btn-bg" title="Платежное поручение">
+                                    <div class="dropdown">
+                                        <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true">
                                             <span class="glyphicon glyphicon-file"></span>
+                                            <span class="caret"></span>
                                         </button>
-                                    </a>&nbsp;&nbsp;
+                                        <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu4">
+                                            <li role="presentation">
+                                                <a role="menuitem" tabindex="-1" href="{{ path('xml_generator',{'userId' : user.id}) }}" target="_blank">XML</a>
+                                            </li>
+                                            <li role="presentation">
+                                                <a role="menuitem" tabindex="-1" href="{{ path('panel_operator_ru_xml',{'userId' : user.id}) }}" target="_blank">XML РФ</a>
+                                            </li>
+                                            <li role="presentation">
+                                                <a role="menuitem" tabindex="-1" href="{{ path('generate_payment_pdf') }}?ord={{ user.id }}" target="_blank">Плат. поручение</a>
+                                            </li>
+                                            <li role="presentation">
+                                                <a role="menuitem" tabindex="-1" href="{{ path('generate_pdf_statement',{'id' : user.id}) }}" target="_blank">Заявление</a>
+                                            </li>
+                                            <li role="presentation">
+                                                <a role="menuitem" tabindex="-1" href="{{ path('offer',{'userId' : user.id, 'date' : '1541513'}) }}" target="_blank">счет-заказ</a>
+                                            </li>
+                                            {% if user.myPetition == 1 or user.copyPetition is not empty %}
+                                                <li role="presentation">
+                                                    <a role="menuitem" tabindex="-1" href="{{ path('generate_petition',{'userId' : user.id}) }}" target="_blank">Ходатайсво</a>
+                                                </li>
+                                            {% elseif user.companyPetition is not null %}
+                                                <li role="presentation">
+                                                    <a role="menuitem" tabindex="-1" href="{{ path('operator_generate_petition', { 'petitionId' : user.companyPetition.id }) }}" target="_blank">Ходатайство</a>
+                                                </li>
+                                            {% endif %}
+                                        </ul>
+                                    </div>
                                 {% endspaceless %}
                             </td>
                         {% endif %}
