@@ -69,19 +69,19 @@
                     </div>
                     <div class="form-group row">
                         <label class="col-xs-4">Оценка:</label>
-                        <div class="col-xs-5">
-                            <div class="form-rating" style="font-size: 24px; cursor: pointer;">
-                                <span class="glyphicon glyphicon-star-empty" id="r1" style="color: #ffd700;"></span>
-                                <span class="glyphicon glyphicon-star-empty" id="r2" style="color: #ffd700;"></span>
-                                <span class="glyphicon glyphicon-star-empty" id="r3" style="color: #ffd700;"></span>
-                                <span class="glyphicon glyphicon-star-empty" id="r4" style="color: #ffd700;"></span>
-                                <span class="glyphicon glyphicon-star-empty" id="r5" style="color: #ffd700;"></span>
+                        <div class="col-xs-8">
+                            <div class="form-rating" style="font-size: 40px; cursor: pointer;">
+                                <span class="glyphicon glyphicon-star" id="r1" style="color: #ffd700;"></span>
+                                <span class="glyphicon glyphicon-star" id="r2" style="color: #ffd700;"></span>
+                                <span class="glyphicon glyphicon-star" id="r3" style="color: #ffd700;"></span>
+                                <span class="glyphicon glyphicon-star" id="r4" style="color: #ffd700;"></span>
+                                <span class="glyphicon glyphicon-star" id="r5" style="color: #ffd700;"></span>
                             </div>
+                            <input type="hidden" name="rating" value="5" id="rating">
                         </div>
-                        <div class="col-xs-3 text-right">
-                            <input type="hidden" name="rating" value="0" id="rating">
-                            <div class="text-bold" style="padding-top: 8px">0 из 5</div>
-                        </div>
+                        {#<div class="col-xs-3 text-right">#}
+                            {#<div class="text-bold" style="padding-top: 8px">0 из 5</div>#}
+                        {#</div>#}
                     </div>
                     <div class="form-group row">
                         <div class="col-xs-12">

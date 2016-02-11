@@ -28,12 +28,9 @@
                     </td>
                 </tr>
                 <tr>
-                    <td class="label">Фото / Скан:</td>
+                    <td class="label">Количество звезд:</td>
                     <td class="value">
-                        <input name="file" id="file" type="file">
-                        {% if review.file %}
-                            <img src="{{ review.file }}" style="max-width: 250px">
-                        {% endif %}
+                        <input name="rating" max="5" maxlength="5" id="rating" type="number" class="form-control"  value="{{ review.rating }}">
                     </td>
                 </tr>
                 <tr><td>&nbsp;</td></tr>
