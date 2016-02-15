@@ -351,7 +351,7 @@ class CompanyUserController extends Controller{
      */
     public function downloadPngAction($filename){
         $filename = str_replace('+','/',$filename);
-        $path='/var/www/';
+        $path='/var/www/upload/usercompany/';
         $image = new \Imagick($path.$filename);
         $image->setImageFormat('bmp');
         $info = pathinfo($filename);
