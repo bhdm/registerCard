@@ -18,7 +18,7 @@
             </tr>
         {% set summ = 0 %}
         {% for d in debtors %}
-            {% set summ = summ + (d.sumPrice*(-1)) %}
+            {% set summ = summ + d.sumPrice %}
         {% endfor %}
             <tr>
                 <td></td>
