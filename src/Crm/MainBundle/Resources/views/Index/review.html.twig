@@ -11,9 +11,12 @@
         <h2>Отзывы клиентов</h2>
         <div class="row row-review">
             <div class="col-xs-12 col-sm-6">
-                {#<select class="form-control">#}
-                    {#<option value="0" selected disabled>Выберите город:</option>#}
-                {#</select>#}
+                <select class="form-control" id="city">
+                    <option value="0" selected disabled>Выберите город:</option>
+                    {% for c in cities %}
+                        <option value="{{ c }}">{{ c }}</option>
+                    {% endfor %}
+                </select>
                 <br />
                 {% for r in reviews %}
                     <div class="review">
@@ -183,6 +186,12 @@
                         $('#rating').val(5);
                     }
             );
+
+            $('#city').change(function () {
+                url = '?city='+$('#city').val();
+                console.log(url);
+                document.location.href = url;
+            })
         });
     </script>
 {% endblock %}

@@ -260,8 +260,15 @@ class IndexController extends Controller
 
 
         $reviews = $this->getDoctrine()->getRepository('CrmMainBundle:Review')->findByEnabled(true);
+        $cities = [];
+        foreach ($reviews as $r){
+            $cities[$r->getCity()] = $r->getCity();
+        }
 
-        return array ('reviews' => $reviews);
+        if ($request->query->get('city')){
+            $reviews = $this->getDoctrine()->getRepository('CrmMainBundle:Review')->findByCity($request->query->get('city'));
+        }
+        return array ('reviews' => $reviews, 'cities' => $cities);
 
     }
 }
