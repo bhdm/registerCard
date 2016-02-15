@@ -298,14 +298,14 @@ class IndexController extends Controller
         }
 
 
-        $reviews = $this->getDoctrine()->getRepository('CrmMainBundle:Review')->findByEnabled(true);
+        $reviews = $this->getDoctrine()->getRepository('CrmMainBundle:Review')->findBy(['enabled' => true],['id' => 'DESC']);
         $cities = [];
         foreach ($reviews as $r){
             $cities[$r->getCity()] = $r->getCity();
         }
 
         if ($request->query->get('city')){
-            $reviews = $this->getDoctrine()->getRepository('CrmMainBundle:Review')->findByCity($request->query->get('city'));
+            $reviews = $this->getDoctrine()->getRepository('CrmMainBundle:Review')->findBy(['city' => $request->query->get('city')],['id' => 'DESC']);
         }
         return array ('reviews' => $reviews, 'cities' => $cities);
 
