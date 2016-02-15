@@ -24,9 +24,9 @@
                             </td>
                             <td>
                                 <div class="form-group">
-                                    <label class="control-label col-sm-3" for="oldNumber">Старая карта:</label>
+                                    <label class="control-label col-sm-3" for="oldNumber" style="{{ user.typeCard != 0 ? 'display:block' : '' }}">Старая карта:</label>
                                     <div class="col-sm-9">
-                                        <input  type="text"  name="oldNumber" id="oldNumber" class="form-control" value="{{ user.lastNumberCard }}">
+                                        <input  type="text"  name="oldNumber" id="oldNumber" class="form-control" value="{{ user.lastNumberCard }}" style="{{ user.typeCard != 0 ? 'display:block' : '' }}">
                                     </div>
                                 </div>
                             </td>
