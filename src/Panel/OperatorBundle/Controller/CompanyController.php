@@ -390,4 +390,15 @@ class CompanyController extends Controller
         }
         return $array;
     }
+
+
+    /**
+     * @Route("/debtors", name="debtors")
+     * @Template("")
+     */
+    public function debtorsAction(){
+        $debtors = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->debtors2($this->getUser());
+        return ['debtors' => $debtors];
+    }
+
 }

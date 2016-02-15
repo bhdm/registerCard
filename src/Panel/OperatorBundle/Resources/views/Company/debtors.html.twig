@@ -1,0 +1,23 @@
+{% extends 'PanelOperatorBundle::layout.html.twig' %}
+
+
+{% block breadcrumb %}
+    <ul class="breadcrumb well" xmlns="http://www.w3.org/1999/html">
+        <li>Должники</li>
+    </ul>
+{% endblock %}
+
+{% block content %}
+<div class="well">
+    <table class="table" data-toggle="table">
+        {% for d in debtors %}
+            <tr>
+                <td>{{ d.id }}</td>
+                <td>{{ d.title }}</td>
+                <td>{{ d.sumPrice }}</td>
+                <td>{{ d.amountClient }}</td>
+            </tr>
+        {% endfor %}
+   </table>
+</div>
+{% endblock %}

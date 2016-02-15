@@ -195,7 +195,7 @@ class CompanyRepository extends EntityRepository
             AND c.operator_id = $operatorId
             AND c.id != 551
             GROUP BY c.id
-            HAVING sumPrice is not NULL
+            HAVING sumPrice < 0
             ORDER BY sumPrice ASC
             ";
         $pdo = $this->getEntityManager()->getConnection();
@@ -206,4 +206,5 @@ class CompanyRepository extends EntityRepository
 
     }
 }
+
 
