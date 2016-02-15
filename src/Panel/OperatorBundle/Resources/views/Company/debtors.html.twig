@@ -16,9 +16,9 @@
                 <th>Общий итог</th>
                 <th>КОл-во заявок</th>
             </tr>
-        {% set sum = 0 %}
+        {% set summ = 0 %}
         {% for d in debtors %}
-            {% set sum = sum + (sumPrice*(-1)) %}
+            {% set summ = summ + (d.sumPrice*(-1)) %}
         {% endfor %}
             <tr>
                 <td></td>
