@@ -123,7 +123,7 @@
                     <li><a href="{{ path('page',{ 'url' : 'contact'}) }}">Контакты</a></li>
                 </ul>
                 {#<ul class="nav nav-pills navbar-right">#}
-                    {#<li class=""><a href="#"><button type="button" class="btn btn-primary">Войти</button></a></li>#}
+                {#<li class=""><a href="#"><button type="button" class="btn btn-primary">Войти</button></a></li>#}
                 {#</ul>#}
                 <ul class="nav navbar-right nav-pills nav-stacked" style="padding-top: 5px;">
                     <li class="active">
@@ -184,10 +184,10 @@
                 <a href="#driver" id="home-tab" role="tab" data-toggle="tab" aria-controls="driver" aria-expanded="false">Карты для водителей</a>
             </li>
             {#<li role="presentation">#}
-                {#<a href="#company" role="tab" id="profile-tab" data-toggle="tab" aria-controls="company" aria-expanded="false">Карты для предприятий</a>#}
+            {#<a href="#company" role="tab" id="profile-tab" data-toggle="tab" aria-controls="company" aria-expanded="false">Карты для предприятий</a>#}
             {#</li>#}
             {#<li role="presentation">#}
-                {#<a href="#master" role="tab" id="profile-tab" data-toggle="tab" aria-controls="master" aria-expanded="false">Карты для мастерских</a>#}
+            {#<a href="#master" role="tab" id="profile-tab" data-toggle="tab" aria-controls="master" aria-expanded="false">Карты для мастерских</a>#}
             {#</li>#}
         </ul>
         <div id="myTabContent" class="tab-content">
@@ -216,7 +216,7 @@
                                 Доставка: <b>бесплатно</b>
                                 <br />
                                 {#<div class="row">#}
-                                    {#<div class="col-xs-6 price"><span class="sale">{{ company.priceSkzi }} руб</span></div>#}
+                                {#<div class="col-xs-6 price"><span class="sale">{{ company.priceSkzi }} руб</span></div>#}
                                 {#</div>#}
                                 <div class="row">
                                     <div class="col-xs-6 price"><span class="sale">2450,00 руб</span></div>
@@ -246,6 +246,7 @@
                                 </ul>
                                 Срок изготовления: <b>15 дней</b><br />
                                 Доставка: <b>бесплатно</b>
+                                <br />
                                 <br />
                                 <div class="row">
                                     <div class="col-xs-offset-6 col-xs-6 price">
@@ -282,6 +283,7 @@
                                         {{ company.priceRu }},00 руб
                                     </div>
                                 </div>
+                                <br />
                                 <br />
                                 <div class="row text-center">
                                     <div class="col-xs-12"><a href="{{ path('application-ru-add') }}" class="btn-lg btn-primary text-center" role="button">Онлайн оформление Заявки</a></div>
@@ -456,6 +458,99 @@
         </div>
     </div>
 
+    <div>
+        <h1 class="text-primary" style="font-size: 25px;">Отзывы</h1>
+        <form method="POST" class="form">
+            <div class="row">
+                <div class="col-xs-6" style="padding-right: 20px; border-right: 1px dotted #CCC">
+                    {% for r in reviews %}
+                        <div class="review">
+                            <div class="review-info">
+                                <div class="row">
+                                    <div class="col-xs-12 col-sm-6">
+                                        <div class="review-fio">{{ r.name }}</div>
+                                        <div class="review-city">{{ r.city }}</div>
+                                    </div>
+                                    <div class="col-xs-12 col-sm-4">
+                                        <div class="review-info">
+                                            <div class="review-rating">
+                                                {% for i in 1..(r.rating) %}
+                                                    <span class="glyphicon glyphicon-star" style="color: #ffd700;"></span>
+                                                {% endfor %}
+                                                {% if r.rating < 5 %}
+                                                    {% for i in 1..(5 - r.rating) %}
+                                                        <span class="glyphicon glyphicon-star-empty" style="color: #ffd700;"></span>
+                                                    {% endfor %}
+                                                {% endif %}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-12 col-sm-2">
+                                        <div class="review-date">{{ r.created | date('d.m.Y') }}</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="review-body">
+                                {{ r.body }}
+                            </div>
+                            <div class="review-bottom"></div>
+                        </div>
+                    {% endfor %}
+                </div>
+                <div class="col-xs-6">
+                    <form class="form" method="POST" enctype="multipart/form-data">
+                        <div class="form-group row">
+                            <label class="col-xs-4">Имя:</label>
+                            <div class="col-xs-8">
+                                <input type="text" class="form-control" name="name">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-xs-4">Email:</label>
+                            <div class="col-xs-8">
+                                <input type="text" class="form-control" name="email">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-xs-4">Город:</label>
+                            <div class="col-xs-8">
+                                <input type="text" class="form-control" name="city">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-xs-4">Оценка:</label>
+                            <div class="col-xs-8">
+                                <div class="form-rating" style="font-size: 40px; cursor: pointer;">
+                                    <span class="glyphicon glyphicon-star" id="r1" style="color: #ffd700;"></span>
+                                    <span class="glyphicon glyphicon-star" id="r2" style="color: #ffd700;"></span>
+                                    <span class="glyphicon glyphicon-star" id="r3" style="color: #ffd700;"></span>
+                                    <span class="glyphicon glyphicon-star" id="r4" style="color: #ffd700;"></span>
+                                    <span class="glyphicon glyphicon-star" id="r5" style="color: #ffd700;"></span>
+                                </div>
+                                <input type="hidden" name="rating" value="5" id="rating">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-xs-12">
+                                <textarea class="form-control" style="height: 200px" name="body"></textarea>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-xs-12">
+                                <input type="file" class="form-control" name="file">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-xs-12 text-right">
+                                <button type="submit" class="btn btn-primary">Отправить отзыв</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </form>
+    </div>
+
     {#{{ include('@CrmMain/Index/map.html.twig') }}#}
     {#{{ include('@CrmMain/Index/reviews.html.twig') }}#}
     <footer class="well">
@@ -485,7 +580,7 @@
                 <h4 class="modal-title">Заказать обратный звонок</h4>
             </div>
             <form method="POST" action="{{ path('set-number') }}" class="form">
-            <div class="modal-body">
+                <div class="modal-body">
                     <div class="form-group">
                         <label>Ваше имя:</label>
                         <input type="text" class="form-control" name="name" required="required">
@@ -494,7 +589,7 @@
                         <label>Ваш телефон:</label>
                         <input type="tel" class="form-control" name="phone" required="required">
                     </div>
-            </div>
+                </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Отмена</button>
                     <button type="submit" class="btn btn-primary">Отправить</button>
@@ -573,7 +668,88 @@
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
+<script>
+    $('#r1').hover(
+            function(){
+                $('#r1').removeClass('glyphicon-star-empty');
+                $('#r2').removeClass('glyphicon-star');
+                $('#r3').removeClass('glyphicon-star');
+                $('#r4').removeClass('glyphicon-star');
+                $('#r5').removeClass('glyphicon-star');
 
+                $('#r1').addClass('glyphicon-star');
+                $('#r2').addClass('glyphicon-star-empty');
+                $('#r3').addClass('glyphicon-star-empty');
+                $('#r4').addClass('glyphicon-star-empty');
+                $('#r5').addClass('glyphicon-star-empty');
+                $('#rating').val(1);
+            }
+    );
+    $('#r2').hover(
+            function(){
+                $('#r1').removeClass('glyphicon-star-empty');
+                $('#r2').removeClass('glyphicon-star-empty');
+                $('#r3').removeClass('glyphicon-star');
+                $('#r4').removeClass('glyphicon-star');
+                $('#r5').removeClass('glyphicon-star');
+
+                $('#r1').addClass('glyphicon-star');
+                $('#r2').addClass('glyphicon-star');
+                $('#r3').addClass('glyphicon-star-empty');
+                $('#r4').addClass('glyphicon-star-empty');
+                $('#r5').addClass('glyphicon-star-empty');
+                $('#rating').val(2);
+            }
+    );
+    $('#r3').hover(
+            function(){
+                $('#r1').removeClass('glyphicon-star-empty');
+                $('#r2').removeClass('glyphicon-star-empty');
+                $('#r3').removeClass('glyphicon-star-empty');
+                $('#r4').removeClass('glyphicon-star');
+                $('#r5').removeClass('glyphicon-star');
+
+                $('#r1').addClass('glyphicon-star');
+                $('#r2').addClass('glyphicon-star');
+                $('#r3').addClass('glyphicon-star');
+                $('#r4').addClass('glyphicon-star-empty');
+                $('#r5').addClass('glyphicon-star-empty');
+                $('#rating').val(3);
+            }
+    );
+    $('#r4').hover(
+            function(){
+                $('#r1').removeClass('glyphicon-star-empty');
+                $('#r2').removeClass('glyphicon-star-empty');
+                $('#r3').removeClass('glyphicon-star-empty');
+                $('#r4').removeClass('glyphicon-star-empty');
+                $('#r5').removeClass('glyphicon-star');
+
+                $('#r1').addClass('glyphicon-star');
+                $('#r2').addClass('glyphicon-star');
+                $('#r3').addClass('glyphicon-star');
+                $('#r4').addClass('glyphicon-star');
+                $('#r5').addClass('glyphicon-star-empty');
+                $('#rating').val(4);
+            }
+    );
+    $('#r5').hover(
+            function(){
+                $('#r1').removeClass('glyphicon-star-empty');
+                $('#r2').removeClass('glyphicon-star-empty');
+                $('#r3').removeClass('glyphicon-star-empty');
+                $('#r4').removeClass('glyphicon-star-empty');
+                $('#r5').removeClass('glyphicon-star-empty');
+
+                $('#r1').addClass('glyphicon-star');
+                $('#r2').addClass('glyphicon-star');
+                $('#r3').addClass('glyphicon-star');
+                $('#r4').addClass('glyphicon-star');
+                $('#r5').addClass('glyphicon-star');
+                $('#rating').val(5);
+            }
+    );
+</script>
 <script type="text/javascript">
     (function (d, w, c) {
         (w[c] = w[c] || []).push(function() {

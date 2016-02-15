@@ -21,10 +21,49 @@ class IndexController extends Controller
      * @Route("/", name="main")
      * @Template("CrmMainBundle:Index:index_new.html.twig")
      */
-    public function indexAction()
+    public function indexAction(Request $request)
     {
         $company = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->findOneById(551);
-        $reviews = $this->getDoctrine()->getRepository('CrmMainBundle:Review')->findByEnabled(true);
+        $reviews = $this->getDoctrine()->getRepository('CrmMainBundle:Review')->findBy(['enabled' => true], ['created' => 'DESC'],3);
+        $em = $this->getDoctrine()->getManager();
+        if ($request->isMethod('POST')) {
+            $review = new Review();
+            $review->setName($request->request->get('name'));
+            $review->setEmail($request->request->get('email'));
+            $review->setRegion($request->request->get('region'));
+            $review->setCity($request->request->get('city'));
+            $review->setRating($request->request->get('rating'));
+            $review->setBody($request->request->get('body'));
+
+//            Загрузка файла
+            $file = $request->files->get('file');
+            if ($file){
+                $filename = time().'.'.$file->guessExtension();
+                $file->move(
+                    '/var/www/upload/reviews',
+                    $filename
+                );
+                $review->setFile($filename);
+            }
+
+            $review->setEnabled(false);
+            $em->persist($review);
+            $em->flush();
+
+            $message = \Swift_Message::newInstance()
+                ->setSubject('Форма для отзывов и предложений')
+                ->setFrom('info@im-kard.ru')
+                ->setTo('bipur@mail.ru')
+                ->setBody(
+                    $this->renderView(
+                        'CrmMainBundle:Mail:review.html.twig',
+                        array('review' => $review)
+                    ), 'text/html'
+                )
+            ;
+            $this->get('mailer')->send($message);
+        }
+
         return array(
               'company' => $company,
               'reviews' => $reviews
