@@ -16,6 +16,16 @@
                 <th>Общий итог</th>
                 <th>КОл-во заявок</th>
             </tr>
+        {% set sum = 0 %}
+        {% for d in debtors %}
+            {% set sum = sum + sumPrice %}
+        {% endfor %}
+            <tr>
+                <td></td>
+                <td><b>ИТОГО:</b></td>
+                <td><b>{{ sum }}</b></td>
+                <td></td>
+            </tr>
         {% for d in debtors %}
             <tr>
                 <td>{{ d.id }}</td>
