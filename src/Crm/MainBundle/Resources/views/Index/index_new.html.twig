@@ -460,95 +460,93 @@
 
     <div>
         <h1 class="text-primary" style="font-size: 25px;">Отзывы</h1>
-        <form method="POST" class="form">
-            <div class="row">
-                <div class="col-xs-6" style="padding-right: 20px; border-right: 1px dotted #CCC">
-                    {% for r in reviews %}
-                        <div class="review">
-                            <div class="review-info">
-                                <div class="row">
-                                    <div class="col-xs-12 col-sm-6">
-                                        <div class="review-fio">{{ r.name }}</div>
-                                        <div class="review-city">{{ r.city }}</div>
-                                    </div>
-                                    <div class="col-xs-12 col-sm-4">
-                                        <div class="review-info">
-                                            <div class="review-rating">
-                                                {% for i in 1..(r.rating) %}
-                                                    <span class="glyphicon glyphicon-star" style="color: #ffd700;"></span>
+        <div class="row">
+            <div class="col-xs-6" style="padding-right: 20px; border-right: 1px dotted #CCC">
+                {% for r in reviews %}
+                    <div class="review">
+                        <div class="review-info">
+                            <div class="row">
+                                <div class="col-xs-12 col-sm-6">
+                                    <div class="review-fio">{{ r.name }}</div>
+                                    <div class="review-city">{{ r.city }}</div>
+                                </div>
+                                <div class="col-xs-12 col-sm-4">
+                                    <div class="review-info">
+                                        <div class="review-rating">
+                                            {% for i in 1..(r.rating) %}
+                                                <span class="glyphicon glyphicon-star" style="color: #ffd700;"></span>
+                                            {% endfor %}
+                                            {% if r.rating < 5 %}
+                                                {% for i in 1..(5 - r.rating) %}
+                                                    <span class="glyphicon glyphicon-star-empty" style="color: #ffd700;"></span>
                                                 {% endfor %}
-                                                {% if r.rating < 5 %}
-                                                    {% for i in 1..(5 - r.rating) %}
-                                                        <span class="glyphicon glyphicon-star-empty" style="color: #ffd700;"></span>
-                                                    {% endfor %}
-                                                {% endif %}
-                                            </div>
+                                            {% endif %}
                                         </div>
                                     </div>
-                                    <div class="col-xs-12 col-sm-2">
-                                        <div class="review-date">{{ r.created | date('d.m.Y') }}</div>
-                                    </div>
+                                </div>
+                                <div class="col-xs-12 col-sm-2">
+                                    <div class="review-date">{{ r.created | date('d.m.Y') }}</div>
                                 </div>
                             </div>
-                            <div class="review-body">
-                                {{ r.body }}
-                            </div>
-                            <div class="review-bottom"></div>
                         </div>
-                    {% endfor %}
-                </div>
-                <div class="col-xs-6">
-                    <form class="form" method="POST" enctype="multipart/form-data">
-                        <div class="form-group row">
-                            <label class="col-xs-4">Имя:</label>
-                            <div class="col-xs-8">
-                                <input type="text" class="form-control" name="name">
-                            </div>
+                        <div class="review-body">
+                            {{ r.body }}
                         </div>
-                        <div class="form-group row">
-                            <label class="col-xs-4">Email:</label>
-                            <div class="col-xs-8">
-                                <input type="text" class="form-control" name="email">
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <label class="col-xs-4">Город:</label>
-                            <div class="col-xs-8">
-                                <input type="text" class="form-control" name="city">
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <label class="col-xs-4">Оценка:</label>
-                            <div class="col-xs-8">
-                                <div class="form-rating" style="font-size: 40px; cursor: pointer;">
-                                    <span class="glyphicon glyphicon-star" id="r1" style="color: #ffd700;"></span>
-                                    <span class="glyphicon glyphicon-star" id="r2" style="color: #ffd700;"></span>
-                                    <span class="glyphicon glyphicon-star" id="r3" style="color: #ffd700;"></span>
-                                    <span class="glyphicon glyphicon-star" id="r4" style="color: #ffd700;"></span>
-                                    <span class="glyphicon glyphicon-star" id="r5" style="color: #ffd700;"></span>
-                                </div>
-                                <input type="hidden" name="rating" value="5" id="rating">
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <div class="col-xs-12">
-                                <textarea class="form-control" style="height: 200px" name="body"></textarea>
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <div class="col-xs-12">
-                                <input type="file" class="form-control" name="file">
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <div class="col-xs-12 text-right">
-                                <button type="submit" class="btn btn-primary">Отправить отзыв</button>
-                            </div>
-                        </div>
-                    </form>
-                </div>
+                        <div class="review-bottom"></div>
+                    </div>
+                {% endfor %}
             </div>
-        </form>
+            <div class="col-xs-6">
+                <form class="form" method="POST" enctype="multipart/form-data">
+                    <div class="form-group row">
+                        <label class="col-xs-4">Имя:</label>
+                        <div class="col-xs-8">
+                            <input type="text" class="form-control" name="name">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-xs-4">Email:</label>
+                        <div class="col-xs-8">
+                            <input type="text" class="form-control" name="email">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-xs-4">Город:</label>
+                        <div class="col-xs-8">
+                            <input type="text" class="form-control" name="city">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-xs-4">Оценка:</label>
+                        <div class="col-xs-8">
+                            <div class="form-rating" style="font-size: 40px; cursor: pointer;">
+                                <span class="glyphicon glyphicon-star" id="r1" style="color: #ffd700;"></span>
+                                <span class="glyphicon glyphicon-star" id="r2" style="color: #ffd700;"></span>
+                                <span class="glyphicon glyphicon-star" id="r3" style="color: #ffd700;"></span>
+                                <span class="glyphicon glyphicon-star" id="r4" style="color: #ffd700;"></span>
+                                <span class="glyphicon glyphicon-star" id="r5" style="color: #ffd700;"></span>
+                            </div>
+                            <input type="hidden" name="rating" value="5" id="rating">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-xs-12">
+                            <textarea class="form-control" style="height: 200px" name="body"></textarea>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-xs-12">
+                            <input type="file" name="reviewFile">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-xs-12 text-right">
+                            <button type="submit" class="btn btn-primary">Отправить отзыв</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
     </div>
 
     {#{{ include('@CrmMain/Index/map.html.twig') }}#}

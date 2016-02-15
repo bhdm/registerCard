@@ -36,7 +36,7 @@ class IndexController extends Controller
             $review->setBody($request->request->get('body'));
 
 //            Загрузка файла
-            $file = $request->files->get('file');
+            $file = $request->files->get('reviewFile');
             if ($file){
                 $filename = time().'.'.$file->guessExtension();
                 $file->move(

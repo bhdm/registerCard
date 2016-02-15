@@ -24,7 +24,7 @@ class ReviewController extends Controller
      */
     public function listAction(Request $request)
     {
-        $reviews = $this->getDoctrine()->getRepository('CrmMainBundle:Review')->findAll();
+        $reviews = $this->getDoctrine()->getRepository('CrmMainBundle:Review')->findBy([],['id'=> 'DESC']);
         return array('reviews' => $reviews);
     }
 
