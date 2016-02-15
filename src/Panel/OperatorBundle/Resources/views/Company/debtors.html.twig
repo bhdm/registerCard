@@ -10,10 +10,16 @@
 {% block content %}
 <div class="well">
     <table class="table" data-toggle="table">
+            <tr>
+                <th>ID</th>
+                <th>Название</th>
+                <th>Общий итог</th>
+                <th>КОл-во заявок</th>
+            </tr>
         {% for d in debtors %}
             <tr>
                 <td>{{ d.id }}</td>
-                <td>{{ d.title }}</td>
+                <td><a href="{{ path('panel_user_list',{'type' : 'null', 'company' : d.id }) }}">{{ d.title }}</a></td>
                 <td>{{ d.sumPrice }}</td>
                 <td>{{ d.amountClient }}</td>
             </tr>
