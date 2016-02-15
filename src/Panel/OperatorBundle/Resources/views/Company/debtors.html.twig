@@ -23,7 +23,7 @@
             <tr>
                 <td></td>
                 <td><b>ИТОГО:</b></td>
-                <td><b>{{ sum }}</b></td>
+                <td><b>{{ summ }}</b></td>
                 <td></td>
             </tr>
         {% for d in debtors %}
@@ -31,7 +31,7 @@
                 <td>{{ d.id }}</td>
                 <td><a href="{{ path('panel_user_list',{'type' : 'null', 'company' : d.id }) }}">{{ d.title }}</a></td>
                 <td>{{ d.sumPrice }}</td>
-                <td>{{ d.amountClient }}</td>
+                <td>{{ d.amountUser }}</td>
             </tr>
         {% endfor %}
    </table>

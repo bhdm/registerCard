@@ -148,6 +148,7 @@ class CompanyRepository extends EntityRepository
     public function debtors(){
         $sql = "
             SELECT c.id, c.title, ((SELECT SUM(q.quota) FROM CompanyQuotaLog q WHERE  q.enabled =1 AND q.company_id = c.id ) - SUM(u.price) ) sumPrice
+            COUNT(u.id) amountUser,
             FROM Company c
 
             LEFT JOIN user u ON u.company_id = c.id
