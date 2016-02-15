@@ -397,7 +397,7 @@ class CompanyController extends Controller
      * @Template("")
      */
     public function debtorsAction(){
-        $debtors = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->debtors2($this->getUser());
+        $debtors = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->debtors($this->getUser());
         return ['debtors' => $debtors];
     }
 
