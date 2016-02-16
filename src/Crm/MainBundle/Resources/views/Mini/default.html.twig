@@ -9,7 +9,7 @@
         {#{% else %}#}
             {#{{ company.description | raw }}#}
         {#{% endif %}#}
-        <a href="#">Лицензионное соглашение</a>
+        <a href="https://im-kard.ru/bundles/crmmain/docs/license.pdf" target="_blank">Лицензионное соглашение</a>
         <div style="float: right;">
         <a href="{{ path('auth_login',{'url': company.url}) }}"><span class="btn btn-blue">Вход</span></a>
         <a href="{{ path('auth_register',{'url': company.url}) }}"><span class="btn btn-blue">Регистрация</span></a>
