@@ -349,8 +349,8 @@ class CompanyUserController extends Controller{
     /**
      * @Route("/panel_download_png_company/{filename}", name="panel_download_png_company", options={"expose"=true})
      */
-    public function downloadPngAction($id){
-        $companyUser = $this->getDoctrine()->getRepository('CrmMainBundle:CompanyUser')->find($id);
+    public function downloadPngAction($filename){
+        $companyUser = $this->getDoctrine()->getRepository('CrmMainBundle:CompanyUser')->find($filename);
         $filename = $companyUser->getFileSign()['path'];
         $path='/var/www/';
         $image = new \Imagick($path.$filename);
