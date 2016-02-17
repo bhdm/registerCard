@@ -303,6 +303,7 @@ class IndexController extends Controller
         foreach ($reviews as $r){
             $cities[$r->getCity()] = $r->getCity();
         }
+        ksort($cities);
 
         if ($request->query->get('city')){
             $reviews = $this->getDoctrine()->getRepository('CrmMainBundle:Review')->findBy(['city' => $request->query->get('city')],['id' => 'DESC'],15);
