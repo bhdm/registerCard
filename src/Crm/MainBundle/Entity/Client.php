@@ -108,6 +108,32 @@ class Client extends BaseEntity implements UserInterface
      */
     protected $adrs;
 
+    /**
+     * @ORM\Column(type="array")
+     */
+    protected $deliveryAdrs;
+
+    /**
+     * @ORM\Column(type="string", nullable=true)
+     */
+    protected $inn;
+
+    /**
+     * @ORM\Column(type="string", nullable=true)
+     */
+    protected $kpp;
+
+    /**
+     * @ORM\Column(type="string", nullable=true)
+     */
+    protected $doc;
+
+    /**
+     * Если 0, то не получал письмо
+     * @ORM\Column(type="integer")
+     */
+    protected $send;
+
     public function __construct(){
         $this->roles = 'ROLE_CLIENT';
         $this->enabled = true;
@@ -117,6 +143,8 @@ class Client extends BaseEntity implements UserInterface
         $this->petitions = new ArrayCollection();
         $this->quota = 0;
         $this->adrs = array();
+        $this->deliveryAdrs = array();
+        $this->send = 0;
     }
 
     public function __toString(){
@@ -463,4 +491,88 @@ class Client extends BaseEntity implements UserInterface
     {
         $this->adrs = $adrs;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getInn()
+    {
+        return $this->inn;
+    }
+
+    /**
+     * @param mixed $inn
+     */
+    public function setInn($inn)
+    {
+        $this->inn = $inn;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getKpp()
+    {
+        return $this->kpp;
+    }
+
+    /**
+     * @param mixed $kpp
+     */
+    public function setKpp($kpp)
+    {
+        $this->kpp = $kpp;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getDoc()
+    {
+        return $this->doc;
+    }
+
+    /**
+     * @param mixed $doc
+     */
+    public function setDoc($doc)
+    {
+        $this->doc = $doc;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getSend()
+    {
+        return $this->send;
+    }
+
+    /**
+     * @param mixed $send
+     */
+    public function setSend($send = 0)
+    {
+        $this->send = $send;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getDeliveryAdrs()
+    {
+        return $this->deliveryAdrs;
+    }
+
+    /**
+     * @param mixed $deliveryAdrs
+     */
+    public function setDeliveryAdrs($deliveryAdrs = array())
+    {
+        $this->deliveryAdrs = $deliveryAdrs;
+    }
+
+
+
+
 }

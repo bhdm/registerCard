@@ -95,7 +95,7 @@ class User extends BaseEntity implements UserInterface, EquatableInterface, \Ser
     protected $username;
 
     /**
-     * @Assert\Regex(pattern= "/^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{1,})$/", message="Неверный формат ввода.")
+     * @Assert\Regex(pattern= "/^([a-zA-Z0-9_-]+\.)*[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)*\.[a-zA-Z]{2,6}$/", message="Неверный формат ввода.")
      * @ORM\Column(type="string", length=50, nullable=true)
      */
     protected $email;
@@ -275,7 +275,7 @@ class User extends BaseEntity implements UserInterface, EquatableInterface, \Ser
 
     /**
      * @Assert\Length( max = "63", maxMessage = "Максимум  63 символа")
-     * @ORM\Column(type="string", nullable=true)
+     * @ORM\Column(type="text", nullable=true)
      */
     protected $passportIssuance;
 
@@ -485,6 +485,12 @@ class User extends BaseEntity implements UserInterface, EquatableInterface, \Ser
      * @ORM\Column(type="boolean", nullable=false)
      */
     protected $isComfirmed = false;
+
+    /**
+     * Дата когда стала в подтвржденной
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    protected $isProduction;
 
     public function getXmlId()
     {
@@ -1736,6 +1742,16 @@ class User extends BaseEntity implements UserInterface, EquatableInterface, \Ser
         return $userLogArray;
     }
 
+    public function getDateInProduction(){
+        $userLog = $this->statuslog;
+        foreach ($userLog as $key => $status) {
+            if ( $status->getTitle() === 'Оплаченная' ){
+                return $status->getCreated();
+            }
+        }
+        return null;
+    }
+
     /**
      * @return mixed
      */
@@ -2003,6 +2019,7 @@ class User extends BaseEntity implements UserInterface, EquatableInterface, \Ser
             $this->dileveryCity = $this->deliveryAdrs['city'];
             $this->dileveryStreet = $this->deliveryAdrs['street'];
             $this->dileveryHome = $this->deliveryAdrs['house'];
+            $this->dileveryCorp = $this->deliveryAdrs['corp'];
             $this->dileveryStructure = $this->deliveryAdrs['structure'];
             $this->dileveryRoom = $this->deliveryAdrs['room'];
             $this->dileveryZipcode = $this->deliveryAdrs['zipcode'];
@@ -2013,6 +2030,7 @@ class User extends BaseEntity implements UserInterface, EquatableInterface, \Ser
             $this->registeredCity =     $this->registeredAdrs['city'];
             $this->registeredStreet =   $this->registeredAdrs['street'];
             $this->registeredHome =     $this->registeredAdrs['house'];
+            $this->registeredCorp =     $this->registeredAdrs['corp'];
             $this->registeredStructure =$this->registeredAdrs['structure'];
             $this->registeredRoom =     $this->registeredAdrs['room'];
             $this->registeredZipcode =  $this->registeredAdrs['zipcode'];
@@ -2173,5 +2191,22 @@ class User extends BaseEntity implements UserInterface, EquatableInterface, \Ser
             $this->status = 0;
         }
     }
+
+    /**
+     * @return mixed
+     */
+    public function getIsProduction()
+    {
+        return $this->isProduction;
+    }
+
+    /**
+     * @param mixed $isProduction
+     */
+    public function setIsProduction($isProduction)
+    {
+        $this->isProduction = $isProduction;
+    }
+
 
 }

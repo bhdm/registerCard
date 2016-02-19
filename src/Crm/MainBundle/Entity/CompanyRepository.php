@@ -76,6 +76,40 @@ class CompanyRepository extends EntityRepository
         return $res->getQuery()->getOneOrNullResult();
     }
 
+    public function getMoneyNew(){
+        $dateEnd = new \DateTime(date("Y-m-01 00:00:00"));
+        $dateFirst = clone $dateEnd;
+        $dateFirst->modify('-5 month');
+        $dateFirst = $dateFirst->format('Y-m-d').' 00:00:00';
+
+        $query = "
+            SELECT YEAR(u.isProduction) y , MONTH(u.isProduction) m, SUM(u.price) s, COUNT(u.id) c, o.username op
+            FROM `user` u
+            LEFT JOIN Company co ON co.id = u.company_id
+            LEFT JOIN Operator o ON o.id = co.operator_id
+            WHERE
+              isProduction is not null AND
+              isProduction >= '$dateFirst' AND
+              u.enabled = 1 AND u.status >= 2 AND u.status != 10
+            GROUP BY o.id, YEAR(isProduction), MONTH(isProduction)
+            ORDER BY o.id, y DESC, m DESC";
+
+            $pdo = $this->getEntityManager()->getConnection();
+            $st = $pdo->prepare($query);
+            $st->execute();
+
+        $re = $st->fetchAll();
+        $array = array();
+        foreach ($re as $item) {
+            if ($item['m'] < 10){
+                $item['m'] = '0'.$item['m'];
+            }
+            $array[$item['op']][$item['y'].'-'.$item['m']]['count'] = $item['c'];
+            $array[$item['op']][$item['y'].'-'.$item['m']]['sum'] = $item['s'];
+        }
+
+        return $array;
+    }
     public function getMoney($date = null){
         if ($date == null){
             $sql = "
@@ -138,6 +172,37 @@ class CompanyRepository extends EntityRepository
             $array[$item['title']] = $item;
         }
         return $array;
+
+    }
+
+    public function debtors2($operator){
+        $operatorId = $operator->getId();
+        $sql = "
+            SELECT c.id, c.title, ((SELECT SUM(q.quota) FROM CompanyQuotaLog q WHERE  q.enabled =1 AND q.company_id = c.id ) - SUM(u.price) ) sumPrice, COUNT(cl.id) amountClient,
+            c.confirmed
+            FROM Company c
+
+            LEFT JOIN user u ON u.company_id = c.id
+            LEFT JOIN Client cl ON cl.company_id = c.id
+
+            AND u.enabled =1
+            AND u.status !=0
+            AND u.status !=1
+            AND u.status !=10
+
+
+            WHERE c.enabled =1 AND c.url IS NOT NULL  AND c.url !=  ''
+            AND c.operator_id = $operatorId
+            AND c.id != 551
+            GROUP BY c.id
+            HAVING sumPrice is not NULL
+            ORDER BY sumPrice ASC
+            ";
+        $pdo = $this->getEntityManager()->getConnection();
+        $st = $pdo->prepare($sql);
+        $st->execute();
+
+        return $st->fetchAll();
 
     }
 }

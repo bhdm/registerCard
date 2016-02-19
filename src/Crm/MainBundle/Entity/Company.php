@@ -1184,6 +1184,17 @@ class Company extends BaseEntity
         $this->description = $description;
     }
 
+    /**
+     * @TODO понять зачем это (Используется в /panel/operator/company/list)
+     *
+     */
+    public function sumPrice(){
+        return 0;
+    }
+
+    public function amountClient(){
+        return 0;
+    }
 
 
 }

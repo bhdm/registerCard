@@ -10,7 +10,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * Payment
  *
  * @ORM\Table()
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="PaymentRepository")
  */
 class Payment extends BaseEntity
 {
@@ -71,12 +71,22 @@ class Payment extends BaseEntity
      */
     protected $status = 0;
 
+    /**
+     * @ORM\Column(type="integer")
+     */
+    protected $print = 0;
 
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    protected $comment;
 
     public function __construct(){
         $this->status = 0;
+        $this->print= 0;
         $this->orders = new ArrayCollection();
     }
+
 
     /**
      * @return mixed
@@ -276,6 +286,38 @@ class Payment extends BaseEntity
             case 1 : return '<span class="status" style="border: 1px solid #cca44d; color: #cca44d">Проведен</span>'; break;
             case 2 : return '<span class="status" style="border: 1px solid #33CC33; color: #33CC33">Оплачено</span>'; break;
         }
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getPrint()
+    {
+        return $this->print;
+    }
+
+    /**
+     * @param mixed $print
+     */
+    public function setPrint($print)
+    {
+        $this->print = $print;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getComment()
+    {
+        return $this->comment;
+    }
+
+    /**
+     * @param mixed $comment
+     */
+    public function setComment($comment)
+    {
+        $this->comment = $comment;
     }
 
 
