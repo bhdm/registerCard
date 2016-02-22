@@ -313,7 +313,7 @@ class IndexController extends Controller
         $pagination = $paginator->paginate(
             $reviews,
             $this->get('request')->query->get('page', 1),
-            30
+            15
         );
 
         return array ('pagination' => $pagination, 'cities' => $cities);
