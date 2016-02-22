@@ -298,7 +298,7 @@ class IndexController extends Controller
         }
 
 
-        $reviews = $this->getDoctrine()->getRepository('CrmMainBundle:Review')->findBy(['enabled' => true],['id' => 'DESC'],15);
+        $reviews = $this->getDoctrine()->getRepository('CrmMainBundle:Review')->findBy(['enabled' => true],['id' => 'DESC']);
         $cities = [];
         foreach ($reviews as $r){
             $cities[$r->getCity()] = $r->getCity();
@@ -306,9 +306,17 @@ class IndexController extends Controller
         ksort($cities);
 
         if ($request->query->get('city')){
-            $reviews = $this->getDoctrine()->getRepository('CrmMainBundle:Review')->findBy(['city' => $request->query->get('city')],['id' => 'DESC'],15);
+            $reviews = $this->getDoctrine()->getRepository('CrmMainBundle:Review')->findBy(['city' => $request->query->get('city')],['id' => 'DESC']);
         }
-        return array ('reviews' => $reviews, 'cities' => $cities);
+
+        $paginator = $this->get('knp_paginator');
+        $pagination = $paginator->paginate(
+            $reviews,
+            $this->get('request')->query->get('page', 1),
+            30
+        );
+
+        return array ('pagination' => $pagination, 'cities' => $cities);
 
     }
 }

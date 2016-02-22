@@ -18,7 +18,7 @@
                     {% endfor %}
                 </select>
                 <br />
-                {% for r in reviews %}
+                {% for r in pagination %}
                     <div class="review">
                         <div class="review-info">
                             <div class="review-fio">{{ r.name }}</div>
@@ -43,6 +43,9 @@
                         <div class="review-bottom"></div>
                     </div>
                 {% endfor %}
+                <div class="navigation" style="text-align: center;">
+                    {{ knp_pagination_render(pagination) }}
+                </div>
             </div>
             <div class="col-xs-12 col-sm-offset-1 col-sm-5">
                 <form class="form" method="POST" enctype="multipart/form-data">
@@ -59,10 +62,10 @@
                         </div>
                     </div>
                     {#<div class="form-group row">#}
-                        {#<label class="col-xs-4">Регион:</label>#}
-                        {#<div class="col-xs-8">#}
-                            {#<input type="text" class="form-control" name="region">#}
-                        {#</div>#}
+                    {#<label class="col-xs-4">Регион:</label>#}
+                    {#<div class="col-xs-8">#}
+                    {#<input type="text" class="form-control" name="region">#}
+                    {#</div>#}
                     {#</div>#}
                     <div class="form-group row">
                         <label class="col-xs-4">Город:</label>
@@ -83,7 +86,7 @@
                             <input type="hidden" name="rating" value="5" id="rating">
                         </div>
                         {#<div class="col-xs-3 text-right">#}
-                            {#<div class="text-bold" style="padding-top: 8px">0 из 5</div>#}
+                        {#<div class="text-bold" style="padding-top: 8px">0 из 5</div>#}
                         {#</div>#}
                     </div>
                     <div class="form-group row">
@@ -95,9 +98,10 @@
                         <div class="col-xs-12">
                             <input type="file" name="reviewFile">
                         </div>
-                    <div class="form-group row">
-                        <div class="col-xs-12 text-right">
-                            <button type="submit" class="btn btn-primary">Отправить отзыв</button>
+                        <div class="form-group row">
+                            <div class="col-xs-12 text-right">
+                                <button type="submit" class="btn btn-primary">Отправить отзыв</button>
+                            </div>
                         </div>
                     </div>
                 </form>
@@ -111,20 +115,20 @@
     <script>
         $(document).ready(function(){
             $('#r1').hover(
-              function(){
-                  $('#r1').removeClass('glyphicon-star-empty');
-                  $('#r2').removeClass('glyphicon-star');
-                  $('#r3').removeClass('glyphicon-star');
-                  $('#r4').removeClass('glyphicon-star');
-                  $('#r5').removeClass('glyphicon-star');
+                    function(){
+                        $('#r1').removeClass('glyphicon-star-empty');
+                        $('#r2').removeClass('glyphicon-star');
+                        $('#r3').removeClass('glyphicon-star');
+                        $('#r4').removeClass('glyphicon-star');
+                        $('#r5').removeClass('glyphicon-star');
 
-                  $('#r1').addClass('glyphicon-star');
-                  $('#r2').addClass('glyphicon-star-empty');
-                  $('#r3').addClass('glyphicon-star-empty');
-                  $('#r4').addClass('glyphicon-star-empty');
-                  $('#r5').addClass('glyphicon-star-empty');
-                  $('#rating').val(1);
-              }
+                        $('#r1').addClass('glyphicon-star');
+                        $('#r2').addClass('glyphicon-star-empty');
+                        $('#r3').addClass('glyphicon-star-empty');
+                        $('#r4').addClass('glyphicon-star-empty');
+                        $('#r5').addClass('glyphicon-star-empty');
+                        $('#rating').val(1);
+                    }
             );
             $('#r2').hover(
                     function(){
