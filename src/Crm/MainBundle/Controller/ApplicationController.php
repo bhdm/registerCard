@@ -4,7 +4,9 @@ namespace Crm\MainBundle\Controller;
 
 use Crm\MainBundle\Entity\Client;
 use Crm\MainBundle\Entity\CompanyPetition;
+use Crm\MainBundle\Entity\CompanyUser;
 use Crm\MainBundle\Entity\StatusLog;
+use Crm\MainBundle\Form\CompanyUserType;
 use Crm\MainBundle\Form\UserEstrType;
 use Crm\MainBundle\Form\UserRuType;
 use Crm\MainBundle\Form\UserSkziType;
@@ -374,4 +376,190 @@ class ApplicationController extends Controller
         }
         return $pass;
     }
+
+
+    /**
+     * @Route("/order/add-company", name="add_company_user")
+     * @Template("")
+     */
+    public function companyUserAction(Request $request){
+        $session = $request->getSession();
+        $em = $this->getDoctrine()->getManager();
+        $item = new CompanyUser();
+//        $item->setUsername($this->getUser()->getUsername());
+//        $item->setPhone($this->getUser()->getPhone());
+
+        $form = $this->createForm(new CompanyUserType($em), $item);
+        $formData = $form->handleRequest($request);
+        if ($request->getMethod() == 'POST'){
+            $item = $formData->getData();
+            $company = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->findOneByUrl('NO_COMPANY');
+            $item->setCompany($company);
+            $item->setClient($this->getUser());
+
+//                $item->setBirthday(new \DateTime($item->getBirthday()));
+//                $item->setLicenseDateStart(new \DateTime($item->getLicenseDateStart()));
+//                $item->setLicenseDateEnd(new \DateTime($item->getLicenseDateEnd()));
+//                $item->setLicenseDecreeDate(new \DateTime($item->getLicenseDecreeDate()));
+
+            if ($item->getCardType() == 1){
+                if ($item->getCompanyType() == 1){
+                    $item->setPrice($company->getPriceEnterpriseSkzi()*$item->getCardAmount());
+                }else{
+                    $item->setPrice($company->getPriceMasterSkzi()*$item->getCardAmount());
+                }
+            }elseif($item->getCardType() == 2){
+                if ($item->getCompanyType() == 1){
+                    $item->setPrice($company->getPriceEnterpriseEstr()*$item->getCardAmount());
+                }else{
+                    $item->setPrice($company->getPriceMasterEstr()*$item->getCardAmount());
+                }
+            }else{
+                if ($item->getCompanyType() == 1){
+                    $item->setPrice($company->getPriceEnterpriseRu()*$item->getCardAmount());
+                }else{
+                    $item->setPrice($company->getPriceMasterRu()*$item->getCardAmount());
+                }
+            }
+
+            $fileLicense = $item->getFileLicense();
+            $fileLicenseTwo = $item->getFileLicenseTwo();
+            $item->setFileLicense(null);
+            $item->setFileLicenseTwo(null);
+            $em->persist($item);
+            $em->flush();
+            $em->refresh($item);
+            $item->setFileLicense($fileLicense);
+            $item->setFileLicenseTwo($fileLicenseTwo);
+
+
+            $session = new Session();
+            $path = $this->get('kernel')->getRootDir() . '/../web/upload/usercompany/';
+            if (!is_dir($path.$item->getId())){
+                @mkdir($path.$item->getId());
+            }
+            $file = $session->get('signFile');
+            if ($file){
+                $info = new \SplFileInfo($file);
+                $path = $path.$item->getId().'/'.$item->getSalt().time().'-sign.'.$info->getExtension();
+                if (copy($file,$path)){
+                    unlink( $file );
+                    $session->set('signFile',null);
+                    $array = $this->getImgToArray($path);
+                    $item->setFileSign($array);
+                }
+            }
+
+            $path = $this->get('kernel')->getRootDir() . '/../web/upload/usercompany/';
+            $file = $session->get('fileOrderFile');
+            if ($file){
+                $info = new \SplFileInfo($file);
+                $path = $path.$item->getId().'/'.$item->getSalt().time().'-fileOrderFile.'.$info->getExtension();
+                if (copy($file,$path)){
+                    unlink( $file );
+                    $session->set('fileOrderFile',null);
+                    $array = $this->getImgToArray($path);
+                    $item->setFileOrder($array);
+                }
+            }
+
+            $path = $this->get('kernel')->getRootDir() . '/../web/upload/usercompany/';
+            $file = $session->get('fileOrderTwoFile');
+            if ($file){
+                $info = new \SplFileInfo($file);
+                $path = $path.$item->getId().'/'.$item->getSalt().time().'-fileOrderTwoFile.'.$info->getExtension();
+                if (copy($file,$path)){
+                    unlink( $file );
+                    $session->set('fileOrderTwoFile',null);
+                    $array = $this->getImgToArray($path);
+                    $item->setFileOrderTwo($array);
+                }
+            }
+
+            $path = $this->get('kernel')->getRootDir() . '/../web/upload/usercompany/';
+            $file = $session->get('fileInnFile');
+            if ($file){
+                $info = new \SplFileInfo($file);
+                $path = $path.$item->getId().'/'.$item->getSalt().time().'-fileInnFile.'.$info->getExtension();
+                if (copy($file,$path)){
+                    unlink( $file );
+                    $session->set('fileInnFile',null);
+                    $array = $this->getImgToArray($path);
+                    $item->setFileInn($array);
+                }
+            }
+
+            $path = $this->get('kernel')->getRootDir() . '/../web/upload/usercompany/';
+            $file = $session->get('fileOgrnFile');
+            if ($file){
+                $info = new \SplFileInfo($file);
+                $path = $path.$item->getId().'/'.$item->getSalt().time().'-fileOgrnFile.'.$info->getExtension();
+                if (copy($file,$path)){
+                    unlink( $file );
+                    $session->set('fileOgrnFile',null);
+                    $array = $this->getImgToArray($path);
+                    $item->setFileOgrn($array);
+                }
+            }
+
+            $path = $this->get('kernel')->getRootDir() . '/../web/upload/usercompany/';
+            $file = $session->get('fileDecreeFile');
+            if ($file){
+                $info = new \SplFileInfo($file);
+                $path = $path.$item->getId().'/'.$item->getSalt().time().'-fileDecreeFile.'.$info->getExtension();
+                if (copy($file,$path)){
+                    unlink( $file );
+                    $session->set('fileDecreeFile',null);
+                    $array = $this->getImgToArray($path);
+                    $item->setFileDecree($array);
+                }
+            }
+
+            $path = $this->get('kernel')->getRootDir() . '/../web/upload/usercompany/';
+            if ($item->getFileLicense()){
+                $file = $item->getFileLicense()->getPathName();
+            }else{
+                $file = null;
+            }
+            if ($file){
+                $info = new \SplFileInfo($file);
+                $path = $path.$item->getId().'/'.$item->getSalt().time().'-license.'.$info->getExtension();
+                if (copy($file,$path)){
+                    unlink( $file );
+                    $array = $this->getImgToArray($path);
+                    $item->setFileLicense($array);
+                }
+            }else{
+                $item->setFileLicense(array());
+            }
+
+            $path = $this->get('kernel')->getRootDir() . '/../web/upload/usercompany/';
+            if ($item->getFileLicense()){
+                $file = $item->getFileLicenseTwo()->getPathName();
+            }else{
+                $file = null;
+            }
+            if ($file){
+                $info = new \SplFileInfo($file);
+                $path = $path.$item->getId().'/'.$item->getSalt().time().'-licenseTwo.'.$info->getExtension();
+                if (copy($file,$path)){
+                    unlink( $file );
+                    $array = $this->getImgToArray($path);
+                    $item->setFileLicenseTwo($array);
+                }
+            }else{
+                $item->setFileLicense(array());
+            }
+
+            $em->flush($item);
+            $em->refresh($item);
+//                return $this->render('@CrmAuth/Application/companySuccess.html.twig',['user' => $item]);
+            return $this->render('@CrmMain/Application/companySuccess.html.twig',['user' => $item]);
+
+        }else{
+            $this->clearSession($session);
+        }
+        return array('form' => $form->createView());
+    }
+
 }
