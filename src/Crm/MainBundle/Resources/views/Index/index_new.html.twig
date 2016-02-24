@@ -119,7 +119,7 @@
                     <li><a href="{{ path('documents') }}">Документы</a></li>
                     <li><a href="{{ path('faq') }}">Частые вопросы</a></li>
                     <li><a href="{{ path('page',{ 'url' : 'about'}) }}">О компании</a></li>
-                    <li><a href="{{ path('reviews') }}">Отзывы</a></li>
+                    <li><a href="#order-href">Отзывы</a></li>
                     <li><a href="{{ path('page',{ 'url' : 'contact'}) }}">Контакты</a></li>
                 </ul>
                 {#<ul class="nav nav-pills navbar-right">#}
@@ -459,7 +459,7 @@
     </div>
 
     <div>
-        <h1 class="text-primary" style="font-size: 25px;">Отзывы</h1>
+        <h1 class="text-primary" style="font-size: 25px;" id="order-href">Отзывы</h1>
         <div class="row">
             <div class="col-xs-6" style="padding-right: 20px; border-right: 1px dotted #CCC">
                 {% for r in reviews %}
@@ -490,11 +490,25 @@
                             </div>
                         </div>
                         <div class="review-body">
-                            {{ r.body }}
+                            {% if r.file != null %}
+                                <div class="row">
+                                    <div class="col-xs-8">
+                                        {{ r.body }}
+                                    </div>
+                                    <div class="col-xs-4">
+                                        <a href="/upload/reviews/{{ r.file }}" class="fancybox thumbnail"><img src="/upload/reviews/{{ r.file }}" class="img-thumbnails"></a>
+                                    </div>
+                                </div>
+                            {% else %}
+                                {{ r.body }}
+                            {% endif %}
                         </div>
                         <div class="review-bottom"></div>
                     </div>
                 {% endfor %}
+                <div class="text-right">
+                    <a href="{{ path('reviews') }}">Читать все отзывы</a>
+                </div>
             </div>
             <div class="col-xs-6">
                 <form class="form" method="POST" enctype="multipart/form-data">
@@ -549,6 +563,9 @@
         </div>
     </div>
 
+    <br />
+    <br />
+    <br />
     {#{{ include('@CrmMain/Index/map.html.twig') }}#}
     {#{{ include('@CrmMain/Index/reviews.html.twig') }}#}
     <footer class="well">

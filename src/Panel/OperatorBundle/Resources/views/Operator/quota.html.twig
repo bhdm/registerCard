@@ -17,6 +17,7 @@
             <tr>
                 <th >Дата</th>
                 <th >Квота</th>
+                <th >Сумма</th>
                 <th >Примечание</th>
                 <th class="setting">Инструменты</th>
             </tr>
@@ -41,6 +42,7 @@
                             <div class="col-xs-4" title="мастерская РФ"  >{{ q.masterRu }}</div>
                         </div>
                     </td>
+                    <td>{{ q.quota }} р.</td>
                     <td>{{ q.comment }}</td>
                     <td class="setting">
                         {% spaceless %}

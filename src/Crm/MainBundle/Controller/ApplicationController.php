@@ -29,6 +29,15 @@ class ApplicationController extends Controller
      */
     public function estrAction(Request $request, $url = null)
     {
+        if ($url != null){
+            $company = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->findOneByUrl($url);
+            if ($company == null){
+                $company = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->findOneByUrl('NO_COMPANY');
+            }
+        }else{
+            $company = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->findOneByUrl('NO_COMPANY');
+        }
+
         $session = $request->getSession();
 //        $this->clearSession($session);
 
@@ -41,14 +50,7 @@ class ApplicationController extends Controller
         if ($request->getMethod() == 'POST'){
 //            if ($formData->isValid()){
             $user = $formData->getData();
-            if ($url != null){
-                $company = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->findOneByUrl($url);
-                if ($company == null){
-                    $company = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->findOneByUrl('NO_COMPANY');
-                }
-            }else{
-                $company = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->findOneByUrl('NO_COMPANY');
-            }
+
             $user->setCompany($company);
             $user->setBirthDate(new \DateTime($user->getBirthDate()));
             $user->setDriverDocDateStarts(new \DateTime($user->getDriverDocDateStarts()));
@@ -82,7 +84,7 @@ class ApplicationController extends Controller
         }else{
             $this->clearSession($session);
         }
-        return array('form' => $form->createView(), 'url' => $url);
+        return array('form' => $form->createView(), 'url' => $url, 'company' => $company);
     }
 
 
@@ -93,6 +95,14 @@ class ApplicationController extends Controller
      */
     public function skziAction(Request $request, $url = null){
         $session = $request->getSession();
+        if ($url != null){
+            $company = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->findOneByUrl($url);
+            if ($company == null){
+                $company = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->findOneByUrl('NO_COMPANY');
+            }
+        }else{
+            $company = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->findOneByUrl('NO_COMPANY');
+        }
 
         $order = $session->get('order');
         $em = $this->getDoctrine()->getManager();
@@ -107,14 +117,6 @@ class ApplicationController extends Controller
             $user->setPassportIssuanceDate(new \DateTime($user->getPassportIssuanceDate()));
 //            $user->setClient($this->getUser());
 
-            if ($url != null){
-                $company = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->findOneByUrl($url);
-                if ($company == null){
-                    $company = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->findOneByUrl('NO_COMPANY');
-                }
-            }else{
-                $company = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->findOneByUrl('NO_COMPANY');
-            }
             $user->setCompany($company);
 
             if ($company){
@@ -164,7 +166,7 @@ class ApplicationController extends Controller
             $em->persist($user);
             $em->flush($user);
             $em->refresh($user);
-            return $this->render('@CrmMain/Application/success.html.twig',['user' => $user, 'url' => $url]);
+            return $this->render('@CrmMain/Application/success.html.twig',['user' => $user, 'url' => $url, 'company' => $company]);
 //            }
         }else{
             $this->clearSession($session);
@@ -180,7 +182,14 @@ class ApplicationController extends Controller
      */
     public function ruAction(Request $request, $url = null){
         $session = $request->getSession();
-
+        if ($url != null){
+            $company = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->findOneByUrl($url);
+            if ($company == null){
+                $company = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->findOneByUrl('NO_COMPANY');
+            }
+        }else{
+            $company = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->findOneByUrl('NO_COMPANY');
+        }
         $order = $session->get('order');
         $em = $this->getDoctrine()->getManager();
         $item = new User();
@@ -189,14 +198,7 @@ class ApplicationController extends Controller
         if ($request->getMethod() == 'POST'){
 //            if ($formData->isValid()){
             $user = $formData->getData();
-            if ($url != null){
-                $company = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->findOneByUrl($url);
-                if ($company == null){
-                    $company = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->findOneByUrl('NO_COMPANY');
-                }
-            }else{
-                $company = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->findOneByUrl('NO_COMPANY');
-            }
+
             $user->setCompany($company);
             $user->setBirthDate(new \DateTime($user->getBirthDate()));
             $user->setDriverDocDateStarts(new \DateTime($user->getDriverDocDateStarts()));
@@ -245,7 +247,7 @@ class ApplicationController extends Controller
         }else{
             $this->clearSession($session);
         }
-        return array('form' => $form->createView(), 'url' => $url);
+        return array('form' => $form->createView(), 'url' => $url, 'company' => $company);
     }
 
 

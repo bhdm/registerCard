@@ -13,6 +13,7 @@
             <div class="col-xs-12 col-sm-6">
                 <select class="form-control" id="city">
                     <option value="0" selected disabled>Выберите город:</option>
+                    <option value="">Все города</option>
                     {% for c in cities %}
                         <option value="{{ c }}">{{ c }}</option>
                     {% endfor %}
@@ -38,7 +39,18 @@
                             </div>
                         </div>
                         <div class="review-body">
-                            {{ r.body }}
+                            {% if r.file != null %}
+                                <div class="row">
+                                    <div class="col-xs-8">
+                                        {{ r.body }}
+                                    </div>
+                                    <div class="col-xs-4">
+                                        <a href="/upload/reviews/{{ r.file }}" class="fancybox thumbnail"><img src="/upload/reviews/{{ r.file }}" class="img-thumbnails"></a>
+                                    </div>
+                                </div>
+                            {% else %}
+                                {{ r.body }}
+                            {% endif %}
                         </div>
                         <div class="review-bottom"></div>
                     </div>
