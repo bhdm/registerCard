@@ -16,8 +16,8 @@
             <thead>
             <tr>
                 <th >Дата</th>
-                <th >Квота</th>
                 <th >Сумма</th>
+                <th >Квота</th>
                 <th >Примечание</th>
                 <th class="setting">Инструменты</th>
             </tr>
@@ -25,6 +25,7 @@
             {% for q in quotes %}
                 <tr>
                     <td>{{ q.created | date('d.m.Y H:i') }}</td>
+                    <td>{{ q.quota }} р.</td>
                     <td>
                         <div class="row">
                             <div class="col-xs-4" title="Водитель СКЗИ">{{ q.driverSkzi }}</div>
@@ -42,7 +43,6 @@
                             <div class="col-xs-4" title="мастерская РФ"  >{{ q.masterRu }}</div>
                         </div>
                     </td>
-                    <td>{{ q.quota }} р.</td>
                     <td>{{ q.comment }}</td>
                     <td class="setting">
                         {% spaceless %}
