@@ -205,6 +205,7 @@ class UserController extends Controller
         $session->save();
 
         $user = $this->getDoctrine()->getRepository('CrmMainBundle:User')->findOneById($userId);
+        $olduser = $user;
 
         if ($user->getEnLastName() == null){
             $user->setEnLastName(ucfirst($this->get('slugify')->slugify($user->getLastName())));
@@ -409,10 +410,12 @@ class UserController extends Controller
             $this->getDoctrine()->getManager()->refresh($user);
 
 
-            if ($this->changeStatus($user, $data->get('status'))) {
-                $this->getDoctrine()->getManager()->flush($user);
-                $this->getDoctrine()->getManager()->refresh($user);
-            }
+//            if ($olduser->getStatus() == $data->get('status')){
+                if ($this->changeStatus($user, $data->get('status'))) {
+                    $this->getDoctrine()->getManager()->flush($user);
+                    $this->getDoctrine()->getManager()->refresh($user);
+                }
+//            }
 
             if ( $referer != null )
                 return $this->redirect($referer);
@@ -1333,6 +1336,9 @@ class UserController extends Controller
         $oldStatus = $user->getStatus();
         $em = $this->getDoctrine()->getManager();
 
+        if ($user->getStatus() == $status){
+            return true;
+        }
 
         /**
          * Переход до оплачено
