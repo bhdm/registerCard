@@ -497,6 +497,11 @@ class User extends BaseEntity implements UserInterface, EquatableInterface, \Ser
      */
     protected $meta;
 
+    /**
+     * @ORM\Column(type="string", nullable=true)
+     */
+    protected $post;
+
     public function getXmlId()
     {
         return str_pad($this->id, 8, "0", STR_PAD_LEFT);
@@ -512,7 +517,7 @@ class User extends BaseEntity implements UserInterface, EquatableInterface, \Ser
         $this->deliveryAdrs = array();
         $this->registeredAdrs = array();
         $this->petitionAdrs = array();
-        $this->meta = serialize(get_browser(null, true));
+        $this->meta = serialize($_SERVER['HTTP_USER_AGENT']);
     }
 
     public function __toString()
@@ -2228,6 +2233,22 @@ class User extends BaseEntity implements UserInterface, EquatableInterface, \Ser
     public function setMeta($meta)
     {
         $this->meta = $meta;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getPost()
+    {
+        return $this->post;
+    }
+
+    /**
+     * @param mixed $post
+     */
+    public function setPost($post)
+    {
+        $this->post = $post;
     }
 
 

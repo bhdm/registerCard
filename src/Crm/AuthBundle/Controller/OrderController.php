@@ -135,7 +135,8 @@ class OrderController extends Controller
         }else{
             $this->clearSession($session);
         }
-        return array('form' => $form->createView());
+        $company = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->findOneBy(['id' => $this->getUser()->getCompany()]);
+        return array('form' => $form->createView(),'company2' => $company);
     }
 
     /**
@@ -235,7 +236,8 @@ class OrderController extends Controller
         }else{
             $this->clearSession($session);
         }
-        return array('form' => $form->createView());
+        $company = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->findOneBy(['id' => $this->getUser()->getCompany()]);
+        return array('form' => $form->createView(),'company2' => $company);
     }
 
     /**
@@ -337,7 +339,8 @@ class OrderController extends Controller
         }else{
             $this->clearSession($session);
         }
-        return array('form' => $form->createView());
+        $company = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->findOneBy(['id' => $this->getUser()->getCompany()]);
+        return array('form' => $form->createView(),'company2' => $company);
     }
 
     /**

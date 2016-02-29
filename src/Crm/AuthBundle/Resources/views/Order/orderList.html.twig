@@ -138,7 +138,14 @@
                             </div>
                         </td>
                         <td>{{ o.price }}</td>
-                        <td>{{ o.comment }}</td>
+                        <td>
+                            {% if o.status == 4 or o.status == 5  %}
+                                <a href="#" target="_blank">{{ o.post }}</a>
+                            {% else %}
+                                {{ o.comment }}
+                            {% endif %}
+
+                        </td>
                         <td>
                             {% if o.status == 0 %}
                                 <div class="dropdown">

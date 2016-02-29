@@ -173,7 +173,7 @@ class ApplicationController extends Controller
         }else{
             $this->clearSession($session);
         }
-        return array('form' => $form->createView(), 'url' => $url);
+        return array('form' => $form->createView(), 'url' => $url, 'company' => $company);
     }
 
 
