@@ -127,7 +127,7 @@
                         <br />
                         <a href="?search={{ user.email }}"><span class="subtitles">{{ user.email }}</span></a>
                     </td>
-                    <td><div class="comment-box disabled-click" data-id="{{ user.id }}">{{ user.comment }}</div></td>
+                    <td><div class="comment-box disabled-click" data-id="{{ user.id }}">{{ user.post }}</div></td>
                     <td class="setting">
                         {% spaceless %}
                             <a href="{{ path('panel_user_set_email',{'userId' : user.id }) }}" title="На почту">
@@ -241,7 +241,7 @@
                 var div = $(this).parent().parent();
                 $.ajax({
                     type: "POST",
-                    url: "{{ path('panel_user_set_comment') }}",
+                    url: "{{ path('panel_user_set_post') }}",
                     data: "id="+id+'&comment='+txt2,
                     success: function(msg){
                         if (msg == 'ok'){

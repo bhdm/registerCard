@@ -1256,6 +1256,26 @@ class UserController extends Controller
         }
     }
 
+    /**
+     * Показывает циферку в меню
+     * @Security("has_role('ROLE_OPERATOR')")
+     * @Route("/user/set/post", name="panel_user_set_post", options={"expose"=true})
+     * @Template()
+     */
+    public function setPostAction(Request $request)
+    {
+        if ($request->getMethod() == 'POST') {
+            $request = $request->request;
+            $user = $this->getDoctrine()->getRepository('CrmMainBundle:User')->find($request->get('id'));
+            if ($user) {
+                $user->setPost($request->get('comment'));
+                $this->getDoctrine()->getManager()->flush($user);
+                return new Response('ok');
+            }
+            return new Response('no');
+        }
+    }
+
 
     /**
      * Показывает циферку в меню
