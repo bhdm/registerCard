@@ -51,9 +51,15 @@ class Review extends BaseEntity
      */
     protected $file;
 
+    /**
+     * @ORM\Column(type="string", nullable=true)
+     */
+    protected $ip;
+
     public function __construct()
     {
         $this->rating = 0;
+        $this->ip = $_SERVER["REMOTE_ADDR"];
     }
 
     /**
@@ -166,6 +172,22 @@ class Review extends BaseEntity
     public function setRating($rating = 0)
     {
         $this->rating = $rating;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getIp()
+    {
+        return $this->ip;
+    }
+
+    /**
+     * @param mixed $ip
+     */
+    public function setIp($ip)
+    {
+        $this->ip = $ip;
     }
 
 
