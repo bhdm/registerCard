@@ -40,6 +40,7 @@ class ReviewController extends Controller
             $review->setName($request->request->get('name'));
             $review->setEmail($request->request->get('email'));
             $review->setBody($request->request->get('body'));
+            $review->setCity($request->request->get('city'));
             $review->setRating($request->request->get('rating'));
             $file = $request->files->get('file');
             if ($file){
@@ -67,6 +68,7 @@ class ReviewController extends Controller
             $review->setName($request->request->get('name'));
             $review->setEmail($request->request->get('email'));
             $review->setBody($request->request->get('body'));
+            $review->setCity($request->request->get('city'));
             $review->setRating($request->request->get('rating'));
             $file = $request->files->get('file');
             if ($file){
