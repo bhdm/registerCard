@@ -157,10 +157,293 @@
         </div>
     </nav>
     {#{{ include('@CrmMain/Index/map.html.twig') }}#}
-    <img src="{{ asset('bundles/crmmain/images/img101_2.jpg') }}" style="width: 100%">
-    <div id="maintext">
-        <a href="#cards" style="text-transform: none; color: #0E4478">Карты для тахографов -<br />  изготовление и <br> бесплатная доставка по всей России!!!</a>
+    {#<img src="" style="width: 100%">#}
+
+    <div style="">
+    {#<div style="background: url('{{ asset('bundles/crmmain/images/img101_3.jpg') }}');">#}
+        <div class="" data-example-id="togglable-tabs">
+            {#<ul id="cards" class="nav nav-tabs" role="tablist">#}
+                {#<li role="presentation" class="active">#}
+                    {#<a href="#driver" id="home-tab" role="tab" data-toggle="tab" aria-controls="driver" aria-expanded="false">Карты для водителей</a>#}
+                {#</li>#}
+                {#<li role="presentation">#}
+                {#<a href="#company" role="tab" id="profile-tab" data-toggle="tab" aria-controls="company" aria-expanded="false">Карты для предприятий</a>#}
+                {#</li>#}
+                {#<li role="presentation">#}
+                {#<a href="#master" role="tab" id="profile-tab" data-toggle="tab" aria-controls="master" aria-expanded="false">Карты для мастерских</a>#}
+                {#</li>#}
+            {#</ul>#}
+            <div id="myTabContent" class="tab-content">
+                <div role="tabpanel" class="tab-pane fade active in" id="driver" aria-labelledby="home-tab">
+                    <h2 class="text-primary">Карты для водителей</h2>
+                    <div class="row">
+                        <div class="col-sm-6 col-md-4">
+                            <div class="thumbnail">
+                                <img src="{{ asset('bundles/crmmain/images/card2-1.png') }}">
+                                <div class="caption">
+                                    <h3>Карта СКЗИ <span style="color: #CC0000;float: right;text-transform: uppercase;margin-right: 52px;">Акция</span></h3>
+                                    <p>
+                                        Карты предназначены для тахографов оборудованных блоком СКЗИ.<br />
+                                        Действуют только на территории РФ.<br />
+                                        <a href="#" onclick="$('#tahoinfo').modal(); return false;">Тахографы с блоком СКЗИ</a>
+                                    </p>
+                                    <b>Документы:</b>
+                                    <ul>
+                                        <li>копия паспорта (лицевой разворот)</li>
+                                        <li>копия водительского удостоверения</li>
+                                        <li>СНИЛС</li>
+                                        <li>фото, подпись</li>
+                                    </ul>
+                                    <br />
+                                    Срок изготовления: <b>15 дней</b><br />
+                                    Доставка: <b>бесплатно</b>
+                                    <br />
+                                    {#<div class="row">#}
+                                    {#<div class="col-xs-6 price"><span class="sale">{{ company.priceSkzi }} руб</span></div>#}
+                                    {#</div>#}
+                                    <div class="row">
+                                        <div class="col-xs-6 price"><span class="sale">2450,00 руб</span></div>
+                                        <div class="col-xs-6 price">{{ company.priceSkzi }},00 руб</div>
+                                    </div>
+                                    <br />
+                                    <div class="row">
+                                        <div class="col-xs-12 text-center"><a href="{{ path('application-skzi-add') }}" class="btn-lg btn-primary" role="button">Онлайн оформление заявки</a></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-md-4">
+                            <div class="thumbnail">
+                                <img src="{{ asset('bundles/crmmain/images/card2-2.png') }}">
+                                <div class="caption">
+                                    <h3>Карта ЕСТР</h3>
+                                    <p>
+                                        Карты предназначены для европейских тахографов стандарта ЕСТР.<br />
+                                        Действуют только на территории Европы и  РФ.<br />
+                                    </p>
+                                    <b>Документы:</b>
+                                    <ul>
+                                        <li>копия паспорта (лицевой разворот, страница регистрации)</li>
+                                        <li>копия водительского удостоверения (две стороны)</li>
+                                        <li>фото, подпись</li>
+                                    </ul>
+                                    Срок изготовления: <b>15 дней</b><br />
+                                    Доставка: <b>бесплатно</b>
+                                    <br />
+                                    <br />
+                                    <div class="row">
+                                        <div class="col-xs-offset-6 col-xs-6 price">
+                                            {{ company.priceEstr }},00 руб
+                                        </div>
+                                    </div>
+                                    <br />
+                                    <div class="row text-center">
+                                        <div class="col-xs-12"><a href="{{ path('application-estr-add') }}" class="btn-lg btn-primary text-center" role="button">Онлайн оформление Заявки</a></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-md-4">
+                            <div class="thumbnail">
+                                <img src="{{ asset('bundles/crmmain/images/card2-3.png') }}">
+                                <div class="caption">
+                                    <h3>Карта РФ</h3>
+                                    <p>
+                                        Карты предназначены для тахографов <b>не</b> оборудованных блоками СКЗИ.<br />
+                                        Дейтсвуют только на территории РФ.<br />
+                                    </p>
+                                    <b>Документы:</b>
+                                    <ul>
+                                        <li>копия паспорта (лицевой разворот, страница регистрации)</li>
+                                        <li>копия водительского удостоверения (две стороны)</li>
+                                        <li>фото, подпись</li>
+                                    </ul>
+                                    Срок изготовления: <b>10 дней</b><br />
+                                    Доставка: <b>бесплатно</b>
+                                    <br />
+                                    <div class="row">
+                                        <div class="col-xs-offset-6 col-xs-6 price">
+                                            {{ company.priceRu }},00 руб
+                                        </div>
+                                    </div>
+                                    <br />
+                                    <br />
+                                    <div class="row text-center">
+                                        <div class="col-xs-12"><a href="{{ path('application-ru-add') }}" class="btn-lg btn-primary text-center" role="button">Онлайн оформление Заявки</a></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <hr />
+                </div>
+                <div role="tabpanel" class="tab-pane fade" id="company" aria-labelledby="company-tab">
+                    <h2 class="text-primary">Карты для предприятий</h2>
+                    <div class="row">
+                        <div class="col-sm-6 col-md-4">
+                            <div class="thumbnail">
+                                <img src="{{ asset('bundles/crmmain/images/card2-1.png') }}">
+                                <div class="caption">
+                                    <h3>Карта СКЗИ</h3>
+                                    <p>
+                                        Карты предназначены для тахографов оборудованных блоком СКЗИ.<br />
+                                        Действуют только на территории РФ.<br />
+                                    </p>
+                                    <b>Документы:</b>
+                                    <ul>
+                                        <li>копия паспорта (лицевой разворот)</li>
+                                        <li>копия водительского удостоверения</li>
+                                        <li>СНИЛС</li>
+                                        <li>фото, подпись</li>
+                                    </ul>
+                                    <br />
+                                    <br />
+                                    <div class="row">
+                                        <div class="col-xs-6 price">2&nbsp;150,00 руб</div>
+                                        <div class="col-xs-6"><a href="#" class="btn-lg btn-primary" role="button">Заказать</a></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-md-4">
+                            <div class="thumbnail">
+                                <img src="{{ asset('bundles/crmmain/images/card2-2.png') }}">
+                                <div class="caption">
+                                    <h3>Карта ЕСТР</h3>
+                                    <p>
+                                        Карты предназначены для европейских тахографов стандарта ЕСТР.<br />
+                                        Действуют только на территории Европы и  РФ.<br />
+                                    </p>
+                                    <b>Документы:</b>
+                                    <ul>
+                                        <li>копия паспорта (лицевой разворот, страница регистрации)</li>
+                                        <li>копия водительского удостоверения (две стороны)</li>
+                                        <li>фото, подпись</li>
+                                    </ul>
+                                    <br />
+                                    <div class="row">
+                                        <div class="col-xs-6 price">3&nbsp;200,00 руб</div>
+                                        <div class="col-xs-6"><a href="#" class="btn-lg btn-primary" role="button">Заказать</a></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-md-4">
+                            <div class="thumbnail">
+                                <img src="{{ asset('bundles/crmmain/images/card2-3.png') }}">
+                                <div class="caption">
+                                    <h3>Карта ЕСТР</h3>
+                                    <p>
+                                        Карты предназначены для тахографов <b>не</b> оборудованных блоками СКЗИ.<br />
+                                        Дейтсвуют только на территории РФ.<br />
+                                    </p>
+                                    <b>Документы:</b>
+                                    <ul>
+                                        <li>копия паспорта (лицевой разворот, страница регистрации)</li>
+                                        <li>копия водительского удостоверения (две стороны)</li>
+                                        <li>фото, подпись</li>
+                                    </ul>
+                                    <br />
+                                    <div class="row">
+                                        <div class="col-xs-6 price">3&nbsp;200,00 руб</div>
+                                        <div class="col-xs-6"><a href="#" class="btn-lg btn-primary" role="button">Заказать</a></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <hr />
+                </div>
+
+                <div role="tabpanel" class="tab-pane fade" id="master" aria-labelledby="master-tab">
+                    <h2 class="text-primary">Карты для мастерских</h2>
+                    <div class="row">
+                        <div class="col-sm-6 col-md-4">
+                            <div class="thumbnail">
+                                <img src="{{ asset('bundles/crmmain/images/card2-1.png') }}">
+                                <div class="caption">
+                                    <h3>Карта СКЗИ</h3>
+                                    <p>
+                                        Карты предназначены для тахографов оборудованных блоком СКЗИ.<br />
+                                        Действуют только на территории РФ.<br />
+                                    </p>
+                                    <b>Документы:</b>
+                                    <ul>
+                                        <li>копия паспорта (лицевой разворот)</li>
+                                        <li>копия водительского удостоверения</li>
+                                        <li>СНИЛС</li>
+                                        <li>фото, подпись</li>
+                                    </ul>
+                                    Срок изготовления: <b>15 дней</b><br />
+                                    Доставка: <b>бесплатно</b>
+                                    <br />
+                                    <br />
+                                    <div class="row">
+                                        <div class="col-xs-6 price">2&nbsp;150,00 руб</div>
+                                        <div class="col-xs-6"><a href="#" class="btn-lg btn-primary" role="button">Заказать</a></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-md-4">
+                            <div class="thumbnail">
+                                <img src="{{ asset('bundles/crmmain/images/card2-2.png') }}">
+                                <div class="caption">
+                                    <h3>Карта ЕСТР</h3>
+                                    <p>
+                                        Карты предназначены для европейских тахографов стандарта ЕСТР.<br />
+                                        Действуют только на территории Европы и  РФ.<br />
+                                    </p>
+                                    <b>Документы:</b>
+                                    <ul>
+                                        <li>копия паспорта (лицевой разворот, страница регистрации)</li>
+                                        <li>копия водительского удостоверения (две стороны)</li>
+                                        <li>фото, подпись</li>
+                                    </ul>
+                                    Срок изготовления: <b>15 дней</b><br />
+                                    Доставка: <b>бесплатно</b>
+                                    <br />
+                                    <div class="row">
+                                        <div class="col-xs-6 price">3&nbsp;200,00 руб</div>
+                                        <div class="col-xs-6"><a href="#" class="btn-lg btn-primary" role="button">Заказать</a></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-md-4">
+                            <div class="thumbnail">
+                                <img src="{{ asset('bundles/crmmain/images/card2-3.png') }}">
+                                <div class="caption">
+                                    <h3>Карта ЕСТР</h3>
+                                    <p>
+                                        Карты предназначены для тахографов <b>не</b> оборудованных блоками СКЗИ.<br />
+                                        Дейтсвуют только на территории РФ.<br />
+                                    </p>
+                                    <b>Документы:</b>
+                                    <ul>
+                                        <li>копия паспорта (лицевой разворот, страница регистрации)</li>
+                                        <li>копия водительского удостоверения (две стороны)</li>
+                                        <li>фото, подпись</li>
+                                    </ul>
+                                    Срок изготовления: <b>10 дней</b><br />
+                                    Доставка: <b>бесплатно</b>
+                                    <br />
+                                    <div class="row">
+                                        <div class="col-xs-6 price">3&nbsp;200,00 руб</div>
+                                        <div class="col-xs-6"><a href="#" class="btn-lg btn-primary" role="button">Заказать</a></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <hr />
+                </div>
+            </div>
+        </div>
     </div>
+    {#<div id="maintext">#}
+        {#<a href="#cards" style="text-transform: none; color: #0E4478">Карты для тахографов -<br />  изготовление и <br> бесплатная доставка по всей России!!!</a>#}
+    {#</div>#}
     <h1 class="text-primary" style="font-size: 25px;">Наши преимущества</h1>
     <ul class="list-numeric">
         <li>Заказать карту можно из любой точки России;</li>
@@ -195,285 +478,6 @@
         </li>
         <li>Гарантия на карты от производителя 1 год</li>
     </ul>
-    <div class="" data-example-id="togglable-tabs">
-        <ul id="cards" class="nav nav-tabs" role="tablist">
-            <li role="presentation" class="active">
-                <a href="#driver" id="home-tab" role="tab" data-toggle="tab" aria-controls="driver" aria-expanded="false">Карты для водителей</a>
-            </li>
-            {#<li role="presentation">#}
-            {#<a href="#company" role="tab" id="profile-tab" data-toggle="tab" aria-controls="company" aria-expanded="false">Карты для предприятий</a>#}
-            {#</li>#}
-            {#<li role="presentation">#}
-            {#<a href="#master" role="tab" id="profile-tab" data-toggle="tab" aria-controls="master" aria-expanded="false">Карты для мастерских</a>#}
-            {#</li>#}
-        </ul>
-        <div id="myTabContent" class="tab-content">
-            <div role="tabpanel" class="tab-pane fade active in" id="driver" aria-labelledby="home-tab">
-                <h2 class="text-primary">Карты для водителей</h2>
-                <div class="row">
-                    <div class="col-sm-6 col-md-4">
-                        <div class="thumbnail">
-                            <img src="{{ asset('bundles/crmmain/images/card2-1.png') }}">
-                            <div class="caption">
-                                <h3>Карта СКЗИ <span style="color: #CC0000;float: right;text-transform: uppercase;margin-right: 52px;">Акция</span></h3>
-                                <p>
-                                    Карты предназначены для тахографов оборудованных блоком СКЗИ.<br />
-                                    Действуют только на территории РФ.<br />
-                                    <a href="#" onclick="$('#tahoinfo').modal(); return false;">Тахографы с блоком СКЗИ</a>
-                                </p>
-                                <b>Документы:</b>
-                                <ul>
-                                    <li>копия паспорта (лицевой разворот)</li>
-                                    <li>копия водительского удостоверения</li>
-                                    <li>СНИЛС</li>
-                                    <li>фото, подпись</li>
-                                </ul>
-                                <br />
-                                Срок изготовления: <b>15 дней</b><br />
-                                Доставка: <b>бесплатно</b>
-                                <br />
-                                {#<div class="row">#}
-                                {#<div class="col-xs-6 price"><span class="sale">{{ company.priceSkzi }} руб</span></div>#}
-                                {#</div>#}
-                                <div class="row">
-                                    <div class="col-xs-6 price"><span class="sale">2450,00 руб</span></div>
-                                    <div class="col-xs-6 price">{{ company.priceSkzi }},00 руб</div>
-                                </div>
-                                <br />
-                                <div class="row">
-                                    <div class="col-xs-12 text-center"><a href="{{ path('application-skzi-add') }}" class="btn-lg btn-primary" role="button">Онлайн оформление заявки</a></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-6 col-md-4">
-                        <div class="thumbnail">
-                            <img src="{{ asset('bundles/crmmain/images/card2-2.png') }}">
-                            <div class="caption">
-                                <h3>Карта ЕСТР</h3>
-                                <p>
-                                    Карты предназначены для европейских тахографов стандарта ЕСТР.<br />
-                                    Действуют только на территории Европы и  РФ.<br />
-                                </p>
-                                <b>Документы:</b>
-                                <ul>
-                                    <li>копия паспорта (лицевой разворот, страница регистрации)</li>
-                                    <li>копия водительского удостоверения (две стороны)</li>
-                                    <li>фото, подпись</li>
-                                </ul>
-                                Срок изготовления: <b>15 дней</b><br />
-                                Доставка: <b>бесплатно</b>
-                                <br />
-                                <br />
-                                <div class="row">
-                                    <div class="col-xs-offset-6 col-xs-6 price">
-                                        {{ company.priceEstr }},00 руб
-                                    </div>
-                                </div>
-                                <br />
-                                <div class="row text-center">
-                                    <div class="col-xs-12"><a href="{{ path('application-estr-add') }}" class="btn-lg btn-primary text-center" role="button">Онлайн оформление Заявки</a></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-6 col-md-4">
-                        <div class="thumbnail">
-                            <img src="{{ asset('bundles/crmmain/images/card2-3.png') }}">
-                            <div class="caption">
-                                <h3>Карта РФ</h3>
-                                <p>
-                                    Карты предназначены для тахографов <b>не</b> оборудованных блоками СКЗИ.<br />
-                                    Дейтсвуют только на территории РФ.<br />
-                                </p>
-                                <b>Документы:</b>
-                                <ul>
-                                    <li>копия паспорта (лицевой разворот, страница регистрации)</li>
-                                    <li>копия водительского удостоверения (две стороны)</li>
-                                    <li>фото, подпись</li>
-                                </ul>
-                                Срок изготовления: <b>10 дней</b><br />
-                                Доставка: <b>бесплатно</b>
-                                <br />
-                                <div class="row">
-                                    <div class="col-xs-offset-6 col-xs-6 price">
-                                        {{ company.priceRu }},00 руб
-                                    </div>
-                                </div>
-                                <br />
-                                <br />
-                                <div class="row text-center">
-                                    <div class="col-xs-12"><a href="{{ path('application-ru-add') }}" class="btn-lg btn-primary text-center" role="button">Онлайн оформление Заявки</a></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <hr />
-            </div>
-            <div role="tabpanel" class="tab-pane fade" id="company" aria-labelledby="company-tab">
-                <h2 class="text-primary">Карты для предприятий</h2>
-                <div class="row">
-                    <div class="col-sm-6 col-md-4">
-                        <div class="thumbnail">
-                            <img src="{{ asset('bundles/crmmain/images/card2-1.png') }}">
-                            <div class="caption">
-                                <h3>Карта СКЗИ</h3>
-                                <p>
-                                    Карты предназначены для тахографов оборудованных блоком СКЗИ.<br />
-                                    Действуют только на территории РФ.<br />
-                                </p>
-                                <b>Документы:</b>
-                                <ul>
-                                    <li>копия паспорта (лицевой разворот)</li>
-                                    <li>копия водительского удостоверения</li>
-                                    <li>СНИЛС</li>
-                                    <li>фото, подпись</li>
-                                </ul>
-                                <br />
-                                <br />
-                                <div class="row">
-                                    <div class="col-xs-6 price">2&nbsp;150,00 руб</div>
-                                    <div class="col-xs-6"><a href="#" class="btn-lg btn-primary" role="button">Заказать</a></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-6 col-md-4">
-                        <div class="thumbnail">
-                            <img src="{{ asset('bundles/crmmain/images/card2-2.png') }}">
-                            <div class="caption">
-                                <h3>Карта ЕСТР</h3>
-                                <p>
-                                    Карты предназначены для европейских тахографов стандарта ЕСТР.<br />
-                                    Действуют только на территории Европы и  РФ.<br />
-                                </p>
-                                <b>Документы:</b>
-                                <ul>
-                                    <li>копия паспорта (лицевой разворот, страница регистрации)</li>
-                                    <li>копия водительского удостоверения (две стороны)</li>
-                                    <li>фото, подпись</li>
-                                </ul>
-                                <br />
-                                <div class="row">
-                                    <div class="col-xs-6 price">3&nbsp;200,00 руб</div>
-                                    <div class="col-xs-6"><a href="#" class="btn-lg btn-primary" role="button">Заказать</a></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-6 col-md-4">
-                        <div class="thumbnail">
-                            <img src="{{ asset('bundles/crmmain/images/card2-3.png') }}">
-                            <div class="caption">
-                                <h3>Карта ЕСТР</h3>
-                                <p>
-                                    Карты предназначены для тахографов <b>не</b> оборудованных блоками СКЗИ.<br />
-                                    Дейтсвуют только на территории РФ.<br />
-                                </p>
-                                <b>Документы:</b>
-                                <ul>
-                                    <li>копия паспорта (лицевой разворот, страница регистрации)</li>
-                                    <li>копия водительского удостоверения (две стороны)</li>
-                                    <li>фото, подпись</li>
-                                </ul>
-                                <br />
-                                <div class="row">
-                                    <div class="col-xs-6 price">3&nbsp;200,00 руб</div>
-                                    <div class="col-xs-6"><a href="#" class="btn-lg btn-primary" role="button">Заказать</a></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <hr />
-            </div>
-
-            <div role="tabpanel" class="tab-pane fade" id="master" aria-labelledby="master-tab">
-                <h2 class="text-primary">Карты для мастерских</h2>
-                <div class="row">
-                    <div class="col-sm-6 col-md-4">
-                        <div class="thumbnail">
-                            <img src="{{ asset('bundles/crmmain/images/card2-1.png') }}">
-                            <div class="caption">
-                                <h3>Карта СКЗИ</h3>
-                                <p>
-                                    Карты предназначены для тахографов оборудованных блоком СКЗИ.<br />
-                                    Действуют только на территории РФ.<br />
-                                </p>
-                                <b>Документы:</b>
-                                <ul>
-                                    <li>копия паспорта (лицевой разворот)</li>
-                                    <li>копия водительского удостоверения</li>
-                                    <li>СНИЛС</li>
-                                    <li>фото, подпись</li>
-                                </ul>
-                                Срок изготовления: <b>15 дней</b><br />
-                                Доставка: <b>бесплатно</b>
-                                <br />
-                                <br />
-                                <div class="row">
-                                    <div class="col-xs-6 price">2&nbsp;150,00 руб</div>
-                                    <div class="col-xs-6"><a href="#" class="btn-lg btn-primary" role="button">Заказать</a></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-6 col-md-4">
-                        <div class="thumbnail">
-                            <img src="{{ asset('bundles/crmmain/images/card2-2.png') }}">
-                            <div class="caption">
-                                <h3>Карта ЕСТР</h3>
-                                <p>
-                                    Карты предназначены для европейских тахографов стандарта ЕСТР.<br />
-                                    Действуют только на территории Европы и  РФ.<br />
-                                </p>
-                                <b>Документы:</b>
-                                <ul>
-                                    <li>копия паспорта (лицевой разворот, страница регистрации)</li>
-                                    <li>копия водительского удостоверения (две стороны)</li>
-                                    <li>фото, подпись</li>
-                                </ul>
-                                Срок изготовления: <b>15 дней</b><br />
-                                Доставка: <b>бесплатно</b>
-                                <br />
-                                <div class="row">
-                                    <div class="col-xs-6 price">3&nbsp;200,00 руб</div>
-                                    <div class="col-xs-6"><a href="#" class="btn-lg btn-primary" role="button">Заказать</a></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-6 col-md-4">
-                        <div class="thumbnail">
-                            <img src="{{ asset('bundles/crmmain/images/card2-3.png') }}">
-                            <div class="caption">
-                                <h3>Карта ЕСТР</h3>
-                                <p>
-                                    Карты предназначены для тахографов <b>не</b> оборудованных блоками СКЗИ.<br />
-                                    Дейтсвуют только на территории РФ.<br />
-                                </p>
-                                <b>Документы:</b>
-                                <ul>
-                                    <li>копия паспорта (лицевой разворот, страница регистрации)</li>
-                                    <li>копия водительского удостоверения (две стороны)</li>
-                                    <li>фото, подпись</li>
-                                </ul>
-                                Срок изготовления: <b>10 дней</b><br />
-                                Доставка: <b>бесплатно</b>
-                                <br />
-                                <div class="row">
-                                    <div class="col-xs-6 price">3&nbsp;200,00 руб</div>
-                                    <div class="col-xs-6"><a href="#" class="btn-lg btn-primary" role="button">Заказать</a></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <hr />
-            </div>
-        </div>
-    </div>
     <div>
         <h1 class="text-primary" style="font-size: 25px;" id="order-href">Отзывы</h1>
         <div class="row">
