@@ -46,6 +46,19 @@
                 <tr>
                     <td>
                         <div class="form-group">
+                            <label class="control-label col-sm-3" for="oldNumber">ШПИ:</label>
+                            <div class="col-sm-9">
+                                <input  name="post" id="post" class="form-control" value="{{ user.post }}" />
+                                {% if user.post != null %}
+                                    <a href="https://www.pochta.ru/tracking#{{ user.post }}" target="_blank">перейти</a>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="form-group">
                             <label class="control-label col-sm-3" for="oldNumber">Старая карта:</label>
                             <div class="col-sm-9">
                                 <input type="text"  name="oldNumber" id="oldNumber" class="form-control" value="{{ user.lastNumberCard }}">
