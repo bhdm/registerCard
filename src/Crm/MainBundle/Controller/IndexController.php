@@ -25,6 +25,12 @@ class IndexController extends Controller
     {
         $company = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->findOneById(551);
         $reviews = $this->getDoctrine()->getRepository('CrmMainBundle:Review')->findBy(['enabled' => true], ['created' => 'DESC'],3);
+
+        $userCount = $this->getDoctrine()->getRepository('CrmMainBundle:User')->createQueryBuilder('u')
+            ->select('COUNT(u) cu')
+            ->getQuery()->getOneOrNullResult();
+        $userCount = (is_array($userCount) ? $userCount['cu'] : $userCount);
+
         $em = $this->getDoctrine()->getManager();
         if ($request->isMethod('POST')) {
             $review = new Review();
@@ -66,7 +72,8 @@ class IndexController extends Controller
 
         return array(
               'company' => $company,
-              'reviews' => $reviews
+              'reviews' => $reviews,
+              'userCount' => "$userCount"
         );
     }
 

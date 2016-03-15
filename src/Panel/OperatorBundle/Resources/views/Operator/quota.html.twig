@@ -3,7 +3,7 @@
 
 {% block breadcrumb %}
     <ul class="breadcrumb well">
-        <li>Квоты оператора {{ operator.username }} </li>
+        <li>Квоты оператора <a href="{{ path('panel_user_list', {'status' : 'all', 'type' : 'null', 'company' : 'null', 'operator' : operator.id }) }}">{{ operator.username }}</a> </li>
         <li><span class="btn btn-primary" id="quotaAdd">Добавить квоту</span></li>
     </ul>
 {% endblock %}
@@ -16,8 +16,8 @@
             <thead>
             <tr>
                 <th >Дата</th>
-                <th >Сумма</th>
                 <th >Квота</th>
+                <th >Распределение</th>
                 <th >Примечание</th>
                 <th class="setting">Инструменты</th>
             </tr>

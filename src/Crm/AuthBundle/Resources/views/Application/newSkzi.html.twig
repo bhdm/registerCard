@@ -51,7 +51,7 @@
                     </td>
                 </tr>
                 <tr class="typeCardFileRow" style="{{ form.vars.value.typeCard != 0 ? 'display:table-row' }}">
-                    <td>Прошлый номер карты<span class="required">*</span></td>
+                    <td>Прошлый номер карты (необязательно)</td>
                     <td>{{ form_widget(form.lastNumberCard) }}</td>
                     <td></td>
                 </tr>
@@ -646,7 +646,7 @@
         $(document).ready(function(){
 
             $('#crm_mainbundle_user_typeCard').change(function(){
-                if ($(this).val()!= 0){
+                if ($(this).val()!= 0 && $(this).val()!= 1){
                     $('.typeCardFile').css('display','table-cell');
                     $('.typeCardFileRow').css('display','table-row');
                 }else{

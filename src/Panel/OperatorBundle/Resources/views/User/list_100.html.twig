@@ -188,7 +188,13 @@
                                 {% endspaceless %}
                             </td>
                         {% endif %}
-                        <td><div class="comment-box disabled-click" data-id="{{ user.id }}">{{ user.comment }}</div></td>
+                        <td>
+                            {% if user.post != null %}
+                                <a href="https://www.pochta.ru/tracking#{{ user.post }}" target="_blank">{{ user.post }}</a>
+                            {% else %}
+                                <div class="comment-box disabled-click" data-id="{{ user.id }}">{{ user.comment }}</div>
+                            {% endif %}
+                        </td>
                     </tr>
                 {% endfor%}
             </form>

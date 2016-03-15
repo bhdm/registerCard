@@ -286,6 +286,7 @@ class UserController extends Controller
             $user->setLastName($data->get('lastName'));
             $user->setFirstName($data->get('firstName'));
             $user->setSurName($data->get('surName'));
+            $user->setPost($data->get('post'));
 
             $user->setEnLastName($data->get('enLastName'));
             $user->setEnFirstName($data->get('enFirstName'));
