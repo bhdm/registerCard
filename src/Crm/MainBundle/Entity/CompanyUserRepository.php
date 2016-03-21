@@ -19,5 +19,17 @@ class CompanyUserRepository extends EntityRepository
             ->from('CrmMainBundle:CompanyUser', 'c');
         return $res->getQuery()->getResult();
     }
+
+    public function search($operator){
+        $res = $this->getEntityManager()->createQueryBuilder()
+            ->select('u')
+            ->from('CrmMainBundle:CompanyUser', 'u')
+            ->leftJoin('u.company','c')
+            ->leftJoin('c.operator','o')
+            ->where('o.id = '.$operator->getId())
+            ->orderBy('u.id', 'DESC');
+        return $res->getQuery()->getResult();
+    }
+
 }
 

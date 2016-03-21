@@ -61,7 +61,7 @@
                 &nbsp;&nbsp;Главная
             </a>
         </li>
-        {% if is_granted('ROLE_ADMIN') %}
+        {% if is_granted('ROLE_OPERATOR') %}
         <li class="{{ app.request.attributes.get('_route') == 'operator_companyuser_list' ? 'active' : '' }}">
             <a href="{{ path('operator_companyuser_list') }}" style="{{ render(controller("PanelOperatorBundle:CompanyUser:newUser"))}}">
                 <i class="glyphicon glyphicon-index"></i>

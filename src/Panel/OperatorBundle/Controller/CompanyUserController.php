@@ -36,7 +36,11 @@ class CompanyUserController extends Controller{
      * @Template()
      */
     public function listAction(){
-        $items = $this->getDoctrine()->getRepository('CrmMainBundle:CompanyUser')->findBy(['enabled' =>true], ['id' => 'DESC']);
+        if ($this->get('security.context')->isGranted('ROLE_ADMIN')) {
+            $items = $this->getDoctrine()->getRepository('CrmMainBundle:CompanyUser')->findBy(['enabled' =>true], ['id' => 'DESC']);
+        }else{
+            $items = $this->getDoctrine()->getRepository('CrmMainBundle:CompanyUser')->search($this->getUser());
+        }
         $paginator = $this->get('knp_paginator');
         $pagination = $paginator->paginate(
             $items,
