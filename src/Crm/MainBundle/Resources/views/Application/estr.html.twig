@@ -10,7 +10,7 @@
 {% block content %}
     <h1 style="text-align: center" class="text-primary">Онлайн оформление карты ЕСТР</h1>
     <p style="text-align: center">
-        Карты предназначены для европейских тахографов стандарта ЕСТР.<br />
+        Карты предназначены <b>для европейских тахографов стандарта ЕСТР.</b><br />
         Действуют только на территории <b>Европы и РФ</b>.
         <br />
         Цена: <span style="font-weight: bold">{{ company.priceEstr}} руб.</span><br />
@@ -415,8 +415,8 @@
                         <td>Ввести адрес доставки</td>
                         <td>
                             <select id="delivery" class="form-control">
-                                <option value="0">Нет</option>
                                 <option value="1">Да</option>
+                                <option value="0">Нет</option>
                             </select>
                         </td>
                         <td></td>
@@ -626,7 +626,7 @@
             margin: 10px 0;
         }
         .delivery{
-            display: none;
+            /*display: none;*/
         }
         .imgareaselect-selection2{
             background: url({{ asset('bundles/crmmain/images/nophoto.png') }}) no-repeat;
