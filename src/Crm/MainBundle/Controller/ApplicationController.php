@@ -56,6 +56,7 @@ class ApplicationController extends Controller
             $user->setCompany($company);
             $user->setBirthDate(new \DateTime($user->getBirthDate()));
             $user->setDriverDocDateStarts(new \DateTime($user->getDriverDocDateStarts()));
+            $user->setDateEndCard(new \DateTime($user->getDateEndCard()));
 //            $user->setClient($this->getUser());
             $user->setEstr(1);
             $user = $formData->getData();

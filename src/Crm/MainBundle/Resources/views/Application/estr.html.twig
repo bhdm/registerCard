@@ -55,6 +55,11 @@
                     <td>{{ form_widget(form.lastNumberCard) }}</td>
                     <td></td>
                 </tr>
+                <tr class="typeCardFileRow2">
+                    <td>Дата окончания  (необязательно)</td>
+                    <td>{{ form_widget(form.dateEndCard) }}</td>
+                    <td></td>
+                </tr>
                 <tr>
                     <td></td>
                     <td></td>
@@ -607,7 +612,7 @@
         .date_year{
             width: 100px;
         }
-        .typeCardFileRow, .typeCardFile, .citizenship, .petition, .petition-td{
+        .typeCardFileRow, .typeCardFileRow2, .typeCardFile, .citizenship, .petition, .petition-td{
             display: none;
         }
         #crm_mainbundle_user_passportSerial{
@@ -653,9 +658,17 @@
                 if ($(this).val()!= 0 && $(this).val()!= 1){
                     $('.typeCardFile').css('display','table-cell');
                     $('.typeCardFileRow').css('display','table-row');
+                    $('.typeCardFileRow2').css('display','none');
                 }else{
-                    $('.typeCardFile').css('display','none');
-                    $('.typeCardFileRow').css('display','none');
+                    if($(this).val() == 1){
+                        $('.typeCardFile').css('display','none');
+                        $('.typeCardFileRow').css('display','none');
+                        $('.typeCardFileRow2').css('display','table-row');
+                    }else{
+                        $('.typeCardFile').css('display','none');
+                        $('.typeCardFileRow').css('display','none');
+                        $('.typeCardFileRow2').css('display','none');
+                    }
                 }
             });
 
