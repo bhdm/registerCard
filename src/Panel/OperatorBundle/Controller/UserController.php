@@ -333,7 +333,7 @@ class UserController extends Controller
             $user->setDileveryStreet($data->get('deliveryStreet'));
             $user->setDileveryHome($data->get('deliveryHouse'));
             $user->setDileveryCorp($data->get('deliveryCorp'));
-            $user->setDileveryCorp($data->get('deliveryStructure'));
+            $user->setDileveryStructure($data->get('deliveryStructure'));
             $user->setDileveryRoom($data->get('deliveryRoom'));
 
             $petitionAdrs = array();

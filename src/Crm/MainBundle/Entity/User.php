@@ -502,6 +502,11 @@ class User extends BaseEntity implements UserInterface, EquatableInterface, \Ser
      */
     protected $post;
 
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    protected $dateEndCard;
+
     public function getXmlId()
     {
         return str_pad($this->id, 8, "0", STR_PAD_LEFT);
@@ -2250,6 +2255,23 @@ class User extends BaseEntity implements UserInterface, EquatableInterface, \Ser
     {
         $this->post = $post;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getDateEndCard()
+    {
+        return $this->dateEndCard;
+    }
+
+    /**
+     * @param mixed $dateEndCard
+     */
+    public function setDateEndCard($dateEndCard)
+    {
+        $this->dateEndCard = $dateEndCard;
+    }
+
 
 
 }
