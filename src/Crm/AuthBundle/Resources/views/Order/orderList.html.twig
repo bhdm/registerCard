@@ -139,7 +139,7 @@
                         </td>
                         <td>{{ o.price }}</td>
                         <td>
-                            {% if o.status == 4 or o.status == 5  %}
+                            {% if o.post != null  %}
                                 <a href="https://www.pochta.ru/tracking#{{ o.post }}" target="_blank">{{ o.post }}</a>
                             {% else %}
                                 {{ o.comment }}
