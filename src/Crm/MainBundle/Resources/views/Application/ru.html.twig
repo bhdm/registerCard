@@ -47,7 +47,33 @@
                         {{ form_widget(form.typeCard) }}
                     </td>
                     <td class="citizenship">
-                        {{ form_widget(form.copyWork) }}
+                        <div class="file-container">
+                            <input type="file" name="copyWorkFile" id="copyWorkFile" class="fileAjax" {{ edit is not defined ? 'required' : '' }} >
+                            <progress class="progress" value="0" max="100" style="width: 270px"></progress>
+                            <br />
+                            <br />
+                            <div class="fileDoc">
+                                {% if form.vars.value.copyWork.path is defined %}
+                                    <img src="/{{ form.vars.value.copyWork.path }}" brightness="0" contrast="0">
+                                {% else %}
+                                    <img src="" brightness="0" contrast="0">
+                                {% endif %}
+                            </div>
+                            <div class="navigateFile">
+                                <img src="{{ asset('bundles/crmmain/icons/rotateLeft.png') }}" class="rotateLeft" title="Повернуть налево">
+                                <img src="{{ asset('bundles/crmmain/icons/rotateRight.png') }}" class="rotateRight" title="Повернуть вправо">
+                                <div style="">
+                                    <span class="cropImage minibtn" title="Обрезать изображение">Обрезать</span>
+                                    <br />
+                                    <br />
+                                </div>
+
+                            </div>
+                            <input type="hidden" id="x1" name="x1">
+                            <input type="hidden" id="y1" name="y1">
+                            <input type="hidden" id="x2" name="x2">
+                            <input type="hidden" id="y2" name="y2">
+                        </div>
                     </td>
                 </tr>
                 <tr class="typeCardFileRow">

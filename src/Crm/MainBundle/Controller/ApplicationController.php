@@ -60,6 +60,9 @@ class ApplicationController extends Controller
 //            $user->setClient($this->getUser());
             $user->setEstr(1);
             $user = $formData->getData();
+            if ($session->get('copyWorkFile')){
+                $user->setCopyWork($this->getImgToArray($session->get('copyWorkFile')));
+            }
             $user->setCopyPetition($this->getImgToArray($session->get('petitionFile')));
             $user->setCopyPassport($this->getImgToArray($session->get('passportFile')));
             $user->setCopyPassport2($this->getImgToArray($session->get('passport2File')));
@@ -131,6 +134,9 @@ class ApplicationController extends Controller
             }
 
             $rootDir = __DIR__.'/../../../../web/upload/';
+            if ($session->get('copyWorkFile')){
+                $user->setCopyWork($this->getImgToArray($session->get('copyWorkFile')));
+            }
             $user->setCopyPetition($this->getImgToArray($session->get('petitionFile')));
             $user->setCopyPassport($this->getImgToArray($session->get('passportFile')));
             $user->setCopyPassportTranslate($this->getImgToArray($session->get('passportTranslateFile')));
@@ -150,14 +156,14 @@ class ApplicationController extends Controller
                 $user->setTypeCardFile($filename);
             }
 
-            if (isset($files['copyWork']) && $files['copyWork'] != null){
-                $copyWork = $files['copyWork'];
-                $info = new \SplFileInfo($copyWork->getClientOriginalName());
-                $ex = $info->getExtension();
-                $filename = time().'.'.$ex;
-                $copyWork->move($rootDir, $filename);
-                $user->setCopyWork($filename);
-            }
+//            if (isset($files['copyWork']) && $files['copyWork'] != null){
+//                $copyWork = $files['copyWork'];
+//                $info = new \SplFileInfo($copyWork->getClientOriginalName());
+//                $ex = $info->getExtension();
+//                $filename = time().'.'.$ex;
+//                $copyWork->move($rootDir, $filename);
+//                $user->setCopyWork($filename);
+//            }
 
 //            $user->setCopyWork($this->getImgToArray($rootDir.$user->getCopyWork()));
 //            $user->setTypeCardFile($this->getImgToArray($rootDir.$user->getTypeCardFile()));
@@ -217,6 +223,9 @@ class ApplicationController extends Controller
             $user->setRu(1);
             $user = $formData->getData();
 
+            if ($session->get('copyWorkFile')){
+                $user->setCopyWork($this->getImgToArray($session->get('copyWorkFile')));
+            }
             $user->setCopyPetition($this->getImgToArray($session->get('petitionFile')));
             $user->setCopyPassport($this->getImgToArray($session->get('passportFile')));
             $user->setCopyPassport2($this->getImgToArray($session->get('passport2File')));

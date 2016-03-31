@@ -226,6 +226,21 @@
                 <tr>
                     <td>
                         <div class="form-group">
+                            <label class="control-label col-sm-3" for="lastName">Временная регистрация:</label>
+                            <div class="col-sm-4">
+                                <input type="file" name="copyWorkFile" id="copyWorkFile"  data-type="copyWorkFile" class="fileAjax">
+                                {% if user.copyWork.path is defined %}
+                                    <img src="/{{ user.copyWork.path }}" brightness="128" contrast="128" data-type="copyWorkFile" class="document" id="copyWorkFileImg">
+                                    <br>
+                                    <a href="{{ path('panel_download_png',{'filename' : user.copyWork.fileName }) }}">Скачать</a>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="form-group">
                             <label class="control-label col-sm-3" for="lastName">Сканы паспорта:</label>
                             <div class="col-sm-4">
                                 <input type="file" name="passportFile" id="passportFile"  data-type="passportFile" class="fileAjax">
