@@ -763,6 +763,25 @@ class UserRepository extends EntityRepository
         return $re;
     }
 
+    public function findAllPriceOperator($opearatorId, $type){
+        $query = "
+            SELECT
+            SUM(IF( u.ru = 1 , c.priceRu , IF (u.estr = 1 , c.priceEstr, c.priceSkzi) )) x
+            FROM user u
+            LEFT JOIN Company c ON c.id = u.company_id
+            LEFT JOIN Operator o ON o.id = c.operator_id
+            WHERE operator_id=$opearatorId AND u.enabled =1 AND u.status != 10";
+        if ($type == 'new'){
+            $query .=' AND ( u.status=0 OR u.status=1 )';
+        }
+        $pdo = $this->getEntityManager()->getConnection();
+        $st = $pdo->prepare($query);
+        $st->execute();
+        $re = $st->fetchAll();
+        $re = $re['0']['x'];
+        return $re;
+    }
+
     public function filterForClient($clientId,$type = null, $status, $search = null)
     {
         $res = $this->getEntityManager()->createQueryBuilder()

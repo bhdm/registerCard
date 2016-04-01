@@ -57,4 +57,29 @@ class PaymentRepository extends EntityRepository
         }
         return $amount;
     }
+
+    public function getAmountOfUnPaidBillsOperator($operatorId){
+        $q = $this
+            ->createQueryBuilder('p')
+            ->select('o.price, o.amount')
+//            ->from('CrmMainBundle:Payment','p')
+            ->leftJoin('p.client','c')
+            ->leftJoin('c.company','c2')
+            ->leftJoin('c2.operator','operator')
+            ->leftJoin('p.orders','o')
+            ->where('p.enabled = 1 AND c.enabled = 1')
+            ->andWhere('operator.id = :operatorId')
+            ->andWhere('p.status != 2')
+            ->setParameter(':operatorId', $operatorId);
+        $q->orderBy('p.created','DESC');
+
+        $result = $q->getQuery()->getResult();
+
+        $amount = 0;
+        foreach ($result as $order) {
+            $amount += ($order['price']*$order['amount']);
+        }
+        return $amount;
+    }
+
 }

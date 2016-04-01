@@ -60,4 +60,55 @@ class OperatorRepository extends EntityRepository implements UserProviderInterfa
         return $this->getEntityName() === $class
         || is_subclass_of($class, $this->getEntityName());
     }
+
+
+    public function amountRub($operatorId,$estr,$ru){
+        $res = $this->getEntityManager()->createQueryBuilder()
+            ->select('SUM(u.price) sumPrice')
+            ->from('CrmMainBundle:Operator', 'o')
+            ->leftJoin('o.companies','c')
+            ->leftJoin('c.users','u')
+            ->where("u.enabled = 1 AND c.enabled = 1 AND o.id = ".$operatorId)
+            ->andWhere('u.estr = '.$estr)
+            ->andWhere('u.ru = '.$ru)
+            ->andWhere('u.status != 0 AND u.status != 1 AND u.status != 10 ');
+        return $res->getQuery()->getOneOrNullResult();
+    }
+
+    public function amountRubNew($operatorId,$estr,$ru){
+        $res = $this->getEntityManager()->createQueryBuilder()
+            ->select('SUM(u.price) sumPrice')
+            ->from('CrmMainBundle:Operator', 'o')
+            ->leftJoin('o.companies','c')
+            ->leftJoin('c.users','u')
+            ->where("u.enabled = 1 AND c.enabled = 1 AND o.id = ".$operatorId)
+            ->andWhere('u.estr = '.$estr)
+            ->andWhere('u.ru = '.$ru)
+            ->andWhere('u.status = 0 or u.status = 1');
+//        echo $res->getQuery()->getSQL();
+//        exit;
+        return $res->getQuery()->getOneOrNullResult();
+    }
+
+    public function amountPlusQuota($operatorId){
+        $res = $this->getEntityManager()->createQueryBuilder()
+            ->select('SUM(q.quota) sumQuota')
+            ->from('CrmMainBundle:Operator', 'o')
+            ->leftJoin('o.companies','c')
+            ->leftJoin('c.quotaLog','q', 'WITH','q.enabled = 1')
+            ->where("c.enabled = 1 AND o.id = ".$operatorId.' AND q.quota > 0');
+//        echo $res->getQuery()->getSQL();
+//        exit;
+        return $res->getQuery()->getOneOrNullResult();
+    }
+
+    public function amountMinusQuota($operatorId){
+        $res = $this->getEntityManager()->createQueryBuilder()
+            ->select('SUM(q.quota) sumQuota')
+            ->from('CrmMainBundle:Operator', 'o')
+            ->leftJoin('o.companies','c')
+            ->leftJoin('c.quotaLog','q', 'WITH','q.enabled = 1')
+            ->where("c.enabled = 1 AND c.id = ".$operatorId.' AND q.quota < 0');
+        return $res->getQuery()->getOneOrNullResult();
+    }
 }

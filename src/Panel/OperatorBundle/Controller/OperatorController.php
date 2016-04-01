@@ -266,7 +266,50 @@ class OperatorController extends Controller
     public function getQuotaAction($operatorId){
         $operator = $this->getDoctrine()->getRepository('CrmMainBundle:Operator')->findOneById($operatorId);
 
-        return array('operator' => $operator);
+        $users = $this->getDoctrine()->getRepository('CrmMainBundle:User')->findAllPriceOperator($operatorId,'all');
+        $users2 = $this->getDoctrine()->getRepository('CrmMainBundle:User')->findAllPriceOperator($operatorId,'new');
+
+        $amountRubSkzi = $this->getDoctrine()->getRepository('CrmMainBundle:Operator')->amountRub($operatorId,0,0)['sumPrice'];
+        $amountRubEstr = $this->getDoctrine()->getRepository('CrmMainBundle:Operator')->amountRub($operatorId,1,0)['sumPrice'];
+        $amountRubRu = $this->getDoctrine()->getRepository('CrmMainBundle:Operator')->amountRub($operatorId,0,1)['sumPrice'];
+        $amountPlusQuota = $this->getDoctrine()->getRepository('CrmMainBundle:Operator')->amountPlusQuota($operatorId)['sumQuota'];
+        $amountMinusQuota= $this->getDoctrine()->getRepository('CrmMainBundle:Operator')->amountMinusQuota($operatorId)['sumQuota'];
+
+        $amountRubSkziNew = $this->getDoctrine()->getRepository('CrmMainBundle:Operator')->amountRubNew($operatorId,0,0)['sumPrice'];
+        $amountRubEstrNew = $this->getDoctrine()->getRepository('CrmMainBundle:Operator')->amountRubNew($operatorId,1,0)['sumPrice'];
+        $amountRubRuNew = $this->getDoctrine()->getRepository('CrmMainBundle:Operator')->amountRubNew($operatorId,0,1)['sumPrice'];
+
+        $sumVirtuals = $this->getDoctrine()->getRepository('CrmMainBundle:OperatorQuotaLog')->findByOperator($operator);
+
+        $sumVirtual[0] = 0;
+        $sumVirtual[1] = 0;
+        $sumVirtual[2] = 0;
+        foreach ($sumVirtuals as $item){
+            $sumVirtual[0] += $item->getDriverSkzi();
+            $sumVirtual[1] += $item->getDriverEstr();
+            $sumVirtual[2] += $item->getDriverRu();
+        }
+
+        #Сумма выставленных неоплаченных счетов
+        $paymentSum = $this->getDoctrine()->getRepository('CrmMainBundle:Payment')->getAmountOfUnPaidBillsOperator($operatorId);
+
+        return array(
+            'operator' => $operator,
+            'allUsers' => $users,
+            'newUsers' => $users2,
+            'amountRubSkzi' =>$amountRubSkzi,
+            'amountRubEstr' => $amountRubEstr ,
+            'amountRubRu'=> $amountRubRu,
+            'amountRubSkziNew' =>$amountRubSkziNew,
+            'amountRubEstrNew' => $amountRubEstrNew ,
+            'amountRubRuNew'=> $amountRubRuNew,
+            'amountPlusQuota' =>$amountPlusQuota,
+            'amountMinusQuota' =>$amountMinusQuota,
+            'sumVirtual' =>$sumVirtual,
+            'paymentSum' => $paymentSum
+        );
+
+//        return array('operator' => $operator);
     }
 
     /**

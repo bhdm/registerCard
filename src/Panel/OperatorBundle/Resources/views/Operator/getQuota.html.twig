@@ -16,3 +16,94 @@
     <div style="display: inline-block; width: 70px;">ЕСТР: </div><h4 style="display: inline;">{{ operator.priceEstr }} р.</h4><br />
     <div style="display: inline-block; width: 70px;">РФ: </div><h4 style="display: inline;">{{ operator.priceRu }} р.</h4>
 </div>
+
+<div class="well">
+    <h3 class="modal-title">Квоты оператора {{ operator }}</h3>
+    <table class="table">
+        <tr>
+            <td><b>Поступило:</b></td>
+            <td>{{ amountPlusQuota }}р.</td>
+        </tr>
+        <tr>
+            <td><b>Использовано:</b></td>
+            <td>{{ amountRubSkzi+amountRubEstr+amountRubRu+(amountMinusQuota*-1) }}р.</td>
+        </tr>
+        <tr>
+            <td><b>КВ СКЗИ:</b></td>
+            <td>{{ sumVirtual[0] }}/{{ operator.completedCount.skzi  }}шт({{ amountRubSkzi }}р.)</td>
+        </tr>
+        <tr>
+            <td><b>КВ ЕСТР:</b></td>
+            <td>{{ sumVirtual[1] }}/{{ operator.completedCount.estr  }}шт({{ amountRubEstr }}р.)</td></td>
+        </tr>
+        <tr>
+            <td><b>КВ РФ:</b></td>
+            <td>{{ sumVirtual[2] }}/{{ operator.completedCount.ru  }}шт({{ amountRubRu }}р.)</td></td>
+        </tr>
+        <tr>
+            <td><b>КП СКЗИ:</b></td>
+            <td>0шт.(0р.)</td>
+        </tr>
+        <tr>
+            <td><b>КП ЕСТР:</b></td>
+            <td>0шт.(0р.)</td>
+        </tr>
+        <tr>
+            <td><b>КП РФ:</b></td>
+            <td>0шт.(0р.)</td>
+        </tr>
+        <tr>
+            <td><b>КМ СКЗИ:</b></td>
+            <td>0шт.(0р.)</td>
+        </tr>
+        <tr>
+            <td><b>КМ ЕСТР:</b></td>
+            <td>0шт.(0р.)</td>
+        </tr>
+        <tr>
+            <td><b>КМ РФ:</b></td>
+            <td>0шт.(0р.)</td>
+        </tr>
+        <tr>
+            <td><b>Осталось:</b></td>
+            <td>{{ amountPlusQuota - (amountRubSkzi+amountRubEstr+amountRubRu+(amountMinusQuota*-1)) }}р.</td>
+        </tr>
+        <tr>
+            <td><b>Новые заявки:</b></td>
+            <td>
+                {{ amountRubSkziNew+amountRubEstrNew+amountRubRuNew  }}р.
+            </td>
+        </tr>
+        <tr>
+            <td><b>Общий итог:</b></td>
+            <td>
+                {{ (amountPlusQuota - (amountRubSkzi+amountRubEstr+amountRubRu+(amountMinusQuota*-1))) - (amountRubSkziNew+amountRubEstrNew+amountRubRuNew) }}р.
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <table style="width: 100%">
+                    <tr>
+                        <td style="width: 30%">СКЗИ </td>
+                        <td>{{  operator.priceSkzi }} р<br /></td>
+                    </tr>
+                    <tr>
+                        <td>ЕСТР </td>
+                        <td>{{ operator.priceEstr }} р.<br /></td>
+                    </tr>
+                    <tr>
+                        <td>РФ </td>
+                        <td>{{ operator.priceRu }} р.</td>
+                    </tr>
+                </table>
+
+
+
+            </td>
+        </tr>
+        <tr>
+            <td>Неоплаченных счетов</td>
+            <td>{{ paymentSum }}</td>
+        </tr>
+    </table>
+</div>
