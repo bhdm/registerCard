@@ -65,7 +65,7 @@ class UserRuType extends AbstractType
 //            ->add('copySignature')
 //            ->add('copySnils')
             ->add('copyPetition', 'iphp_file')
-            ->add('copyWork', 'file', ['required' => false, 'data_class' => null])
+//            ->add('copyWork', 'file', ['required' => false, 'data_class' => null])
             ->add('typeCardFile', 'file', ['required' => false, 'data_class' => null])
         ;
     }
