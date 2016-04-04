@@ -19,6 +19,7 @@
                data-sort-order="asc">
             <thead>
             <tr>
+                <th></th>
                 <th><input type="checkbox" id="allcheck"></th>
                 {% if is_granted('ROLE_ADMIN') %}
                     <th>M</th>
@@ -48,7 +49,18 @@
             <form id="form-list" method="POST">
                 {% for user in pagination %}
                     <tr style="{{ user.comment != null and user.comment != '' ? 'background: #FFCFCF;' : '' }}" id="userr{{ user.id }}">
-                        <td><input type="checkbox" name="user[{{ user.id }}]" value="{{ user.id }}"></td>
+                        <td>
+                            {% if user.price == 0   %}
+                                <span class="text-danger">P</span>
+                            {% endif %}
+                            <br />
+                            {% if user.priceOperator == 0 and user.company.operator.username != 'operator'  %}
+                                <span class="text-danger">O</span>
+                            {% endif %}
+                        </td>
+                        <td>
+                            <input type="checkbox" name="user[{{ user.id }}]" value="{{ user.id }}">
+                        </td>
                         {% if is_granted('ROLE_ADMIN') %}
                             <td>
                                 <input type="text" style="width: 50px" value="{{ user.managerKey }}" class="managers" id="{{ user.id }}">
