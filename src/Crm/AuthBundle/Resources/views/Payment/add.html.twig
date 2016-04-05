@@ -98,6 +98,8 @@
                 $('.orders').append(block);
                 num += 1;
                 $(this).addClass('btn-danger');
+                $(this).addClass('remove');
+                $(this).removeClass('add');
                 $(this).html('<span class="glyphicon glyphicon-minus"></span>');
                 $(this).removeAttr('id');
             });
