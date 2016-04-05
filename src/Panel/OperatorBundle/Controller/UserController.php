@@ -413,10 +413,13 @@ class UserController extends Controller
 
 
 //            if ($olduser->getStatus() == $data->get('status')){
+
+            if ($this->get('security.context')->isGranted('ROLE_ADMIN')){
                 if ($this->changeStatus($user, $data->get('status'))) {
                     $this->getDoctrine()->getManager()->flush($user);
                     $this->getDoctrine()->getManager()->refresh($user);
                 }
+            }
 //            }
 
             if ( $referer != null )
