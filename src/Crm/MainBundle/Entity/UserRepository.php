@@ -225,7 +225,7 @@ class UserRepository extends EntityRepository
                 if ($status == 'all' || $status == 3 || $status == 4 || $status == 6 ){
                     $res->leftJoin('op.moderator','mo');
                     $res->leftJoin('mo.moderator','mo2');
-                    $res->andWhere('op.id = '.$userId.' OR mo.id ='.$userId .' OR mo2.id = '.$userId);
+//                    $res->andWhere('op.id = '.$userId.' OR mo.id ='.$userId .' OR mo2.id = '.$userId);
                 }else{
                     $res->andWhere('op.id = '.$userId);
                 }
