@@ -40,7 +40,7 @@
                             <input type="text" class="form-control summa"  readonly disabled>
                         </div>
                         <div class="col-xs-1">
-                            <button type="button" class="btn" id="add"><span class="glyphicon glyphicon-plus"></span></button>
+                            <button type="button" class="btn add" id="add"><span class="glyphicon glyphicon-plus"></span></button>
                         </div>
                         <br />
                     </div>
@@ -63,7 +63,7 @@
         $(document).ready(function(){
             var num =1;
 
-            $('#add').click(function(){
+            $('body').on("click", '.add', function(){
                 var block =
                         '<div>' +
                         '<div class="row">'+
@@ -90,13 +90,16 @@
                         '<input type="text" class="form-control summa"  disabled>'+
                         '</div>'+
                         '<div class="col-xs-1">'+
-                        '<button type="button" class="btn btn-danger remove"><span class="glyphicon glyphicon-minus"></span></button>'+
+                        '<button type="button" class="btn add" id="add"><span class="glyphicon glyphicon-plus"></span></button>'+
                         '</div>'+
                         '</div>' +
                         '<br />' +
                         '</div>';
                 $('.orders').append(block);
                 num += 1;
+                $(this).addClass('btn-danger');
+                $(this).html('<span class="glyphicon glyphicon-minus"></span>');
+                $(this).removeAttr('id');
             });
             $('body').on("click", '.remove', function(){
                 $(this).parent().parent().parent().remove();
