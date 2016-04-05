@@ -301,6 +301,7 @@ class UserController extends Controller
             $date = new \DateTime($data->get('PassportIssuanceDate'));
             $user->setPassportIssuanceDate($date);
             $user->setPassportCode($data->get('passportCode'));
+            $user->setPriceOperator($data->get('priceOperator'));
 
 
             $user->setRegisteredRegion($data->get('region'));
