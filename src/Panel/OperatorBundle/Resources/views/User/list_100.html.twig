@@ -202,7 +202,11 @@
                         {% endif %}
                         <td>
                             {% if user.post != null %}
-                                <a href="https://www.pochta.ru/tracking#{{ user.post }}" target="_blank">{{ user.post }}</a>
+                                {% if user.comment != null %}
+                                    <a style="color: #CC0000" title="{{ user.comment }}" href="https://www.pochta.ru/tracking#{{ user.post }}" target="_blank">{{ user.post }}</a>
+                                {% else %}
+                                    <a href="https://www.pochta.ru/tracking#{{ user.post }}" target="_blank">{{ user.post }}</a>
+                                {% endif %}
                             {% else %}
                                 <div class="comment-box disabled-click" data-id="{{ user.id }}">{{ user.comment }}</div>
                             {% endif %}
