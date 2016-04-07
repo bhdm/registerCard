@@ -382,6 +382,11 @@ class User extends BaseEntity implements UserInterface, EquatableInterface, \Ser
     /**
      * @ORM\Column(type="array", nullable=true)
      */
+    protected $copyLastCard;
+
+    /**
+     * @ORM\Column(type="array", nullable=true)
+     */
     protected $copySnils;
 
     /**
@@ -2272,6 +2277,23 @@ class User extends BaseEntity implements UserInterface, EquatableInterface, \Ser
         $this->dateEndCard = $dateEndCard;
     }
 
+    /**
+     * @return mixed
+     */
+    public function getCopyLastCard()
+    {
+        return $this->copyLastCard;
+    }
+
+    /**
+     * @param mixed $copyLastCard
+     */
+    public function setCopyLastCard($copyLastCard)
+    {
+        $this->copyLastCard = $copyLastCard;
+    }
+
+        
 
 
 }

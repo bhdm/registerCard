@@ -546,6 +546,21 @@
                 </tr>
                 <tr>
                     <td>
+                        <div class="form-group">
+                            <label class="control-label col-sm-3" for="lastName">Прошлая карта (в ЕСТР):</label>
+                            <div class="col-sm-9">
+                                <input type="file" name="copyLastCardFile" id="copyLastCardFile"  data-type="copyLastCardFile" class="fileAjax">
+                                {% if user.copyLastCard.path is defined %}
+                                    <img src="/{{ user.copyLastCard.path }}" brightness="0" contrast="0" data-type="copyLastCardFile" class="document" id="copyLastCardFileImg">
+                                    <br>
+                                    <a href="{{ path('panel_download_png',{'filename' : user.copyLastCard.fileName }) }}">Скачать</a>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
                         <div class="h2">
                             Фотография и подпись
                         </div>
