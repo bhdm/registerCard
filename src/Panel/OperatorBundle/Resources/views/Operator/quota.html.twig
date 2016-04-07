@@ -22,7 +22,7 @@
                 <th class="setting">Инструменты</th>
             </tr>
             </thead>
-            {% for q in quotes %}
+            {% for q in quotes | reverse %}
                 {% if q.enabled == true %}
                     <tr>
                         <td>{{ q.created | date('d.m.Y H:i') }}</td>
