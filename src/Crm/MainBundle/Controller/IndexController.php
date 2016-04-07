@@ -287,6 +287,24 @@ class IndexController extends Controller
             $review->setRating($request->request->get('rating'));
             $review->setBody($request->request->get('body'));
             $review->setEnabled(false);
+            $file = $request->files->get('reviewFile');
+            if ($file){
+                $filename = time().'.'.$file->guessExtension();
+                $file->move(
+                    '/var/www/upload/reviews',
+                    $filename
+                );
+                $review->setFile($filename);
+            }
+            $file = $request->files->get('photoFile');
+            if ($file){
+                $filename = time().'ph.'.$file->guessExtension();
+                $file->move(
+                    '/var/www/upload/reviews',
+                    $filename
+                );
+                $review->setPhoto($filename);
+            }
             $em->persist($review);
             $em->flush();
 

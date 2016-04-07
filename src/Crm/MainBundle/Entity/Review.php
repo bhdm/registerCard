@@ -54,6 +54,11 @@ class Review extends BaseEntity
     /**
      * @ORM\Column(type="string", nullable=true)
      */
+    protected $photo;
+
+    /**
+     * @ORM\Column(type="string", nullable=true)
+     */
     protected $ip;
 
     public function __construct()
@@ -190,7 +195,23 @@ class Review extends BaseEntity
         $this->ip = $ip;
     }
 
+    /**
+     * @return mixed
+     */
+    public function getPhoto()
+    {
+        return $this->photo;
+    }
 
+    /**
+     * @param mixed $photo
+     */
+    public function setPhoto($photo)
+    {
+        $this->photo = $photo;
+    }
+
+    
 
 }
 
