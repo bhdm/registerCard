@@ -345,6 +345,7 @@ class OperatorController extends Controller
 
             $quotaLog->setQuota($quota);
             $quotaLog->setComment($comment);
+            $quotaLog->setCreated($date);
 //            $quotaLog->setCompany($company);
 //            $quotaLog->setCreated($date);
 //
