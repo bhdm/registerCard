@@ -52,6 +52,13 @@
                         </td>
                     </tr>
                 {% endif %}
+                {% if review.photo != null %}
+                    <tr>
+                        <td class="value" colspan="2">
+                            <a href="/upload/reviews/{{ review.photo }}">Скачать файл</a>
+                        </td>
+                    </tr>
+                {% endif %}
                 <tr>
                     <td></td>
                     <td style="text-align: right"><br /><button type="submit" class="btn btn-primary">Сохранить</button></td>

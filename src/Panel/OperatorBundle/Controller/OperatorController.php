@@ -372,4 +372,27 @@ class OperatorController extends Controller
         return $this->redirect($referer);
     }
 
+
+    /**
+     * @Security("has_role('ROLE_OPERATOR')")
+     * @Route("/quota/remove/{operatorId}/{id}", name="panel_operator_quota_remove", options={"expose" = true})
+     */
+    public function removeQuotaAction(Request $request, $operatorId, $id){
+        $em = $this->getDoctrine()->getManager();
+        $operator = $this->getDoctrine()->getRepository('CrmMainBundle:Operator')->findOneById($operatorId);
+        $quotaLog = $this->getDoctrine()->getRepository('CrmMainBundle:OperatorQuotaLog')->findOneById($id);
+
+        $quota = $quotaLog->getQuota();
+        $companyQuota = $operator->getQuota();
+        $operator->setQuota($companyQuota-$quota);
+
+        $em->flush($operator);
+
+        $quotaLog->setEnabled(false);
+        $em->flush($quotaLog);
+
+        $referer = $request->headers->get('referer');
+        return $this->redirect($referer);
+    }
+
 }

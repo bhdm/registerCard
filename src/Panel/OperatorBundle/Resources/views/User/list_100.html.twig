@@ -54,7 +54,7 @@
                                 <span class="text-danger">P</span>
                             {% endif %}
                             <br />
-                            {% if user.priceOperator == 0 and user.company.operator.username != 'operator'  %}
+                            {% if user.priceOperator == 0 and user.company.operator is defined and user.company.operator.username != 'operator'  %}
                                 <span class="text-danger">O</span>
                             {% endif %}
                         </td>
@@ -72,7 +72,7 @@
                                 {% if  user.payment == true %}
                                     <span class="glyphicon glyphicon-ok" style="color: #00cc00"></span>
                                 {% else %}
-                                    {% if user.company.operator != null and user.company.operator.id != 1 %}
+                                    {% if user.company.operator is defined and user.company.operator != null  and user.company.operator.id != 1 %}
                                         <span class="glyphicon glyphicon-ok"  style="color: #cc0000"></span>
                                     {% endif %}
                                 {% endif %}
@@ -80,7 +80,7 @@
                                 {% if  user.comfirmed == true %}
                                     <span class="glyphicon glyphicon-saved" style="color: #00cc00"></span>
                                 {% else %}
-                                    {% if user.company.operator != null and user.company.operator.id != 1 %}
+                                    {% if user.company.operator is defined and user.company.operator != null and user.company.operator.id != 1 %}
                                         <span class="glyphicon glyphicon-saved" style="color: #cc0000"></span>
                                     {% endif %}
                                 {% endif %}
@@ -148,11 +148,11 @@
                         {#</td>#}
                         {% if company is not defined or company == null %}
                             <td>
-                                <a href="{{ path('panel_user_list',{'type' : 'null', 'company' : user.company.id }) }}" {{ debtors[user.company.title] is defined ? "style='color: #CC0000'" : '' }}
+                                <a href="{{ path('panel_user_list',{'type' : 'null', 'company' : (user.company.id is defined ? user.company.id : '') }) }}" {{ debtors[(user.company.title is defined ? user.company.title : '')] is defined ? "style='color: #CC0000'" : '' }}
                                    title="" class="getQuotaCompany"
-                                   data-id="{{ user.company.id }}"
+                                   data-id="{{ user.company.id is defined ? user.company.id : '' }}"
                                 >{{ user.company }}</a>
-                                {% if user.company.operator != null and user.company.operator.id != 1 %}
+                                {% if user.company.operator is defined and user.company.operator != null and user.company.operator.id != 1 %}
                                     <br /><span style="font-size: 12px">{{ user.company.operator }}</span>
                                 {% endif %}
                             </td>

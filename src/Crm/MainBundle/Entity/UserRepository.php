@@ -813,5 +813,19 @@ class UserRepository extends EntityRepository
     }
 
 
+    public function findDouble(){
+        $subselect = $this->getEntityManager()->createQueryBuilder()
+            ->select('COUNT(t) t')
+            ->from('CrmMainBundle:User','t')
+            ->where('t.lastName = lastName')
+            ->andWhere('t.firstName = firstName')
+            ->andWhere('t.surName = u.surname')
+            ->getDQL();
+        $res = $this->getEntityManager()->createQueryBuilder()
+            ->select('u.id id, u.email email, u.lastName lastName, u.firstName firstName')
+            ->addSelect('COUNT(u.id)')
+            ->from('CrmMainBundle:User','u')
+            ->groupBy('u.id');
+    }
 }
 

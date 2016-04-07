@@ -23,42 +23,44 @@
             </tr>
             </thead>
             {% for q in quotes %}
-                <tr>
-                    <td>{{ q.created | date('d.m.Y H:i') }}</td>
-                    <td>{{ q.quota }} р.</td>
-                    <td>
-                        <div class="row">
-                            <div class="col-xs-4" title="Водитель СКЗИ">{{ q.driverSkzi }}</div>
-                            <div class="col-xs-4" title="Водитель ЕСТР">{{ q.driverEstr }}</div>
-                            <div class="col-xs-4" title="Водитель РФ"  >{{ q.driverRu }}</div>
-                        </div>
-                        <div class="row">
-                            <div class="col-xs-4" title="предприятие СКЗИ">{{ q.companySkzi }}</div>
-                            <div class="col-xs-4" title="предприятие ЕСТР">{{ q.companyEstr }}</div>
-                            <div class="col-xs-4" title="предприятие РФ"  >{{ q.companyRu }}</div>
-                        </div>
-                        <div class="row">
-                            <div class="col-xs-4" title="мастерская СКЗИ">{{ q.masterSkzi }}</div>
-                            <div class="col-xs-4" title="мастерская ЕСТР">{{ q.masterEstr }}</div>
-                            <div class="col-xs-4" title="мастерская РФ"  >{{ q.masterRu }}</div>
-                        </div>
-                    </td>
-                    <td>{{ q.comment }}</td>
-                    <td class="setting">
-                        {% spaceless %}
-                            <button type="button" class="btn btn-warning quotaEdit" title="Изменить" data-id="{{ q.id }}">
-                                <span class="glyphicon glyphicon-edit"></span>
-                            </button>
-                            &nbsp;
-                            &nbsp;
-                            <a href="#">
-                                <button type="button" class="btn btn-default btn-danger" title="Удалить">
-                                    <span class="glyphicon glyphicon-remove"></span>
+                {% if q.enabled == true %}
+                    <tr>
+                        <td>{{ q.created | date('d.m.Y H:i') }}</td>
+                        <td>{{ q.quota }} р.</td>
+                        <td>
+                            <div class="row">
+                                <div class="col-xs-4" title="Водитель СКЗИ">{{ q.driverSkzi }}</div>
+                                <div class="col-xs-4" title="Водитель ЕСТР">{{ q.driverEstr }}</div>
+                                <div class="col-xs-4" title="Водитель РФ"  >{{ q.driverRu }}</div>
+                            </div>
+                            <div class="row">
+                                <div class="col-xs-4" title="предприятие СКЗИ">{{ q.companySkzi }}</div>
+                                <div class="col-xs-4" title="предприятие ЕСТР">{{ q.companyEstr }}</div>
+                                <div class="col-xs-4" title="предприятие РФ"  >{{ q.companyRu }}</div>
+                            </div>
+                            <div class="row">
+                                <div class="col-xs-4" title="мастерская СКЗИ">{{ q.masterSkzi }}</div>
+                                <div class="col-xs-4" title="мастерская ЕСТР">{{ q.masterEstr }}</div>
+                                <div class="col-xs-4" title="мастерская РФ"  >{{ q.masterRu }}</div>
+                            </div>
+                        </td>
+                        <td>{{ q.comment }}</td>
+                        <td class="setting">
+                            {% spaceless %}
+                                <button type="button" class="btn btn-warning quotaEdit" title="Изменить" data-id="{{ q.id }}">
+                                    <span class="glyphicon glyphicon-edit"></span>
                                 </button>
-                            </a>
-                        {% endspaceless %}
-                    </td>
-                </tr>
+                                &nbsp;
+                                &nbsp;
+                                <a href="{{ path('panel_operator_quota_remove',{ 'operatorId' : q.operator.id, 'id' : q.id} ) }}">
+                                    <button type="button" class="btn btn-default btn-danger" title="Удалить">
+                                        <span class="glyphicon glyphicon-remove"></span>
+                                    </button>
+                                </a>
+                            {% endspaceless %}
+                        </td>
+                    </tr>
+                {% endif %}
             {% endfor%}
         </table>
         <div class="navigation">

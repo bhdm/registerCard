@@ -1873,5 +1873,16 @@ class UserController extends Controller
 //        exit;
         return new JsonResponse($log);
     }
+
+
+    /**
+     * @Route("/double", name="panel_user_double")
+     * @Template("")
+     */
+    public function doubleAction(){
+        $users = $this->getDoctrine()->getRepository('CrmMainBundle:User')->findDouble();
+
+        return ['users' => $users];
+    }
 }
 
