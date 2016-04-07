@@ -63,6 +63,7 @@ class ApplicationController extends Controller
             if ($session->get('copyWorkFile')){
                 $user->setCopyWork($this->getImgToArray($session->get('copyWorkFile')));
             }
+            $user->setCopyLastCard($this->getImgToArray($session->get('copyLastCardFile')));
             $user->setCopyPetition($this->getImgToArray($session->get('petitionFile')));
             $user->setCopyPassport($this->getImgToArray($session->get('passportFile')));
             $user->setCopyPassport2($this->getImgToArray($session->get('passport2File')));

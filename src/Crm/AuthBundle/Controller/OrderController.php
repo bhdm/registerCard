@@ -193,6 +193,7 @@ class OrderController extends Controller
             $user->setCopyDriverPassport2($this->getImgToArray($session->get('driver2File')));
             $user->setCopySnils($this->getImgToArray($session->get('snilsFile')));
             $user->setCopySignature($this->getImgToArray($session->get('signFile')));
+            $user->setCopyLastCard($this->getImgToArray($session->get('copyLastCardFile')));
             $user->setPhoto($this->getImgToArray($session->get('photoFile')));
 
             $rootDir = __DIR__.'/../../../../web/upload/';
@@ -759,6 +760,7 @@ class OrderController extends Controller
         $session->set('workFile', null);
         $session->set('passportTranslateFile', null);
         $session->set('driverTranslateFile', null);
+        $session->set('copyLastCardFile', null);
 
         $session->set('origin-passportFile', null);
         $session->set('origin-passport2File', null);
@@ -771,6 +773,7 @@ class OrderController extends Controller
         $session->set('origin-workFile', null);
         $session->set('origin-passportTranslateFile', null);
         $session->set('origin-driverTranslateFile', null);
+        $session->set('origin-copyLastCardFile', null);
 
         return true;
     }
