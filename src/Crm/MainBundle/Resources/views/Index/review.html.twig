@@ -8,6 +8,11 @@
 
 {% block content %}
     <div class="container" style="text-align: left">
+        <div class="text-center">
+            <div  class="alert" style="font-size: 18px; text-align: center;color: #50875b;background-color: #D1FFD9;border-color: #50875b;">
+                Большое спасибо за оставленные отзывы. Мы рады, что Вы остались довольны нашей работой.
+            </div>
+        </div>
         <h2>Отзывы клиентов</h2>
         <div class="row row-review">
             <div class="col-xs-12 col-sm-6">
@@ -65,7 +70,6 @@
                 <div class="navigation" style="text-align: center;">
                     {{ knp_pagination_render(pagination) }}
                 </div>
-                <div  class="alert" style="font-size: 18px; text-align: center;color: #8E4A0F;background-color: #FFD387;border-color: #faebcc;">Большое спасибо за оставленные отзывы. <br />Мы рады, что Вы остались довольны нашей работой.</div>
             </div>
             <div class="col-xs-12 col-sm-offset-1 col-sm-5">
                 <form class="form" method="POST" enctype="multipart/form-data">
