@@ -276,6 +276,8 @@
                                     <img src="/{{ user.copyPassportTranslate.path }}" brightness="128" contrast="128" data-type="passportTranslateFile" class="document" id="passportTranslateFileImg">
                                     <br>
                                     <a href="{{ path('panel_download_png',{'filename' : user.copyPassportTranslate.fileName }) }}">Скачать</a>
+                                {% else %}
+                                    <img src="" brightness="128" contrast="128" data-type="passportTranslateFile" class="document" id="passportTranslateFileImg">
                                 {% endif %}
                             </div>
                         </div>
