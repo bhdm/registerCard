@@ -30,7 +30,8 @@ class StatusCommand extends ContainerAwareCommand
         $orders = $em->createQuery("
 			SELECT u.id, u.email FROM CrmMainBundle:StatusLog sl
             LEFT JOIN sl.user u 
-            WHERE sl.id = (SELECT MAX(sl2.id) FROM CrmMainBundle:StatusLog sl2 WHERE sl2.user = u ) AND sl.title = 'На почте' AND sl.created >= '".$date." 00:00:00' AND sl.created <= '".$date." 23:59:59'
+            WHERE sl.id = 
+            (SELECT MAX(sl2.id) FROM CrmMainBundle:StatusLog sl2 WHERE sl2.user = u ) AND sl.title = 'На почте' AND sl.created >= '".$date." 00:00:00' AND sl.created <= '".$date." 23:59:59'
 		")->getResult();
 
         $txt = '';
@@ -44,10 +45,7 @@ class StatusCommand extends ContainerAwareCommand
             ->setFrom('info@im-kard.ru')
             ->setTo('imkardru@gmail.com')
             ->setBody(
-                $this->renderView(
-                    'PanelOperatorBundle:Mail:statusCommand.html.twig',
-                    array('txt' => $txt)
-                ), 'text/html'
+                'У следующих заявок доставка длиться уже 20 дней<br /><br />'.$txt, 'text/html'
             )
         ;
         $this->get('mailer')->send($message);
