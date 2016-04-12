@@ -28,9 +28,9 @@ class StatusCommand extends ContainerAwareCommand
         $container = $this->getContainer();
         $em = $container->get('doctrine')->getManager();
         $orders = $em->createQuery("
-			SELECT u.id, u.email FROM `StatusLog` sl
-            LEFT JOIN user  u ON u.id = sl.user_id
-            WHERE sl.id = (SELECT MAX(id) FROM StatusLog sl2 WHERE sl2.user_id = u.id ) AND sl.title = 'На почте' AND sl.created >= '".$date." 00:00:00' AND sl.created <= '".$date." 23:59:59'
+			SELECT u.id, u.email FROM CrmMainBundle:StatusLog sl
+            LEFT JOIN sl.user u 
+            WHERE sl.id = (SELECT MAX(id) FROM CrmMainBundle:StatusLog sl2 WHERE sl2.user_id = u.id ) AND sl.title = 'На почте' AND sl.created >= '".$date." 00:00:00' AND sl.created <= '".$date." 23:59:59'
 		")->getResult();
 
         $txt = '';
