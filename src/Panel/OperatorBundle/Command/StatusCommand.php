@@ -28,7 +28,7 @@ class StatusCommand extends ContainerAwareCommand
         $container = $this->getContainer();
         $em = $container->get('doctrine')->getManager();
         $orders = $em->createQuery("
-			SELECT u.id, u.email FROM CrmMainBundle:StatusLog sl
+			SELECT u.id, u.email, u.lastName, u.firstName FROM CrmMainBundle:StatusLog sl
             LEFT JOIN sl.user u 
             WHERE sl.id = 
             (SELECT MAX(sl2.id) FROM CrmMainBundle:StatusLog sl2 WHERE sl2.user = u ) AND sl.title = 'На почте' AND sl.created >= '".$date." 00:00:00' AND sl.created <= '".$date." 23:59:59'
@@ -36,7 +36,7 @@ class StatusCommand extends ContainerAwareCommand
 
         $txt = '';
         foreach ($orders as $order){
-            $txt .= '<a href="https://im-kard.ru/panel/operator/user/edit/'.$order['id'].'" target="_blank">'.$order['id'].' - '.$order['email'].'</a><br />';
+            $txt .= '<a href="https://im-kard.ru/panel/operator/user/edit/'.$order['id'].'" target="_blank">'.$order['id'].' - '.$order['email']."$order[lastName] $order[firstName]".'</a><br />';
               $output->writeln('<a href="https://im-kard.ru/panel/operator/user/edit/'.$order['id'].'" target="_blank">'.$order['id'].' - '.$order['email'].'</a><br />');
         }
 
