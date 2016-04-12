@@ -48,7 +48,7 @@ class StatusCommand extends ContainerAwareCommand
                 'У следующих заявок доставка длиться уже 20 дней<br /><br />'.$txt, 'text/html'
             )
         ;
-        $this->get('mailer')->send($message);
+        $container->get('mailer')->send($message);
     }
 
 }
