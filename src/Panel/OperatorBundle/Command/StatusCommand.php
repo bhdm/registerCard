@@ -11,7 +11,7 @@ use
 class StatusCommand extends ContainerAwareCommand
 {
 //    https://www.pochta.ru/tracking?p_p_id=trackingPortlet_WAR_portalportlet&p_p_lifecycle=2&p_p_state=normal&p_p_mode=view&p_p_resource_id=getList&p_p_cacheability=cacheLevelPage&p_p_col_id=column-1&p_p_col_count=1&barcodeList=19010395015457&postmanAllowed=true&_=234234
-    private $testEmails = array('tulupov.m@gmail.com', 'plisenkova.o@evrika.ru');
+    private $testEmails = array('tulupov.m@gmail.com');
 
     protected function configure()
     {
@@ -35,7 +35,7 @@ class StatusCommand extends ContainerAwareCommand
 
         $txt = '';
         foreach ($orders as $order){
-//            $txt = '<a href="https://im-kard.ru/panel/operator/user/edit/'.$order['id'].'" target="_blank">'.$order['id'].' - '.$order['email'].'</a><br />';
+            $txt = '<a href="https://im-kard.ru/panel/operator/user/edit/'.$order['id'].'" target="_blank">'.$order['id'].' - '.$order['email'].'</a><br />';
               $output->writeln('<a href="https://im-kard.ru/panel/operator/user/edit/'.$order['id'].'" target="_blank">'.$order['id'].' - '.$order['email'].'</a><br />');
         }
 
