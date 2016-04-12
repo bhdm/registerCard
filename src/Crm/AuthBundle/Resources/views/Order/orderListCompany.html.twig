@@ -3,12 +3,24 @@
 {% block body %}
     <div>
         <h2>Карты предприятий и мастерских</h2>
-        <div style="float: right; margin-top: -55px">
-            <a href="{{ path('auth_add_company') }}">
-                <button class="btn btn-primary" type="button" id="addOrder">
-                    Добавить новый заказ
-                </button>
-            </a>
+        <div class="dropdown" style="float: right; margin-top: -55px">
+            <button class="btn btn-primary dropdown-toggle" type="button" id="addOrder" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                Добавить новый заказ
+                <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="addOrder">
+                <li><a href="{{ path('auth_add_company_skzi') }}">Карта предприятия СКЗИ</a></li>
+                <li><a href="{{ path('auth_add_company_estr') }}">Карта предприятия ЕСТР</a></li>
+                <li><a href="{{ path('auth_add_company_ru') }}">Карта предприятия РФ</a></li>
+                {% if app.user.company.operator.id is defined and app.user.company.operator.id == 33 %}
+                {% else %}
+                    <li> - </li>
+                    <li><a href="{{ path('auth_add_master_skzi') }}">Карта предприятия СКЗИ</a></li>
+                    <li><a href="{{ path('auth_add_master_estr') }}">Карта предприятия ЕСТР</a></li>
+                    <li><a href="{{ path('auth_add_master_ru') }}">Карта предприятия РФ</a></li>
+                {% endif %}
+
+            </ul>
         </div>
     </div>
     <div class="row">
