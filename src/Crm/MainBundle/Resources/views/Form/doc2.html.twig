@@ -258,11 +258,11 @@
     {% else %}
         {% if user.companyPetition != null %}
             {{ user.companyPetition.zipcode }},
-            {{ user.companyPetition.region }},  {{ user.companyPetition.city }},
+            {{ user.companyPetition.city }},
             {{ user.companyPetition.street }},д.{{ user.companyPetition.home }} {{ user.companyPetition.corp }}, {{ user.companyPetition.room }}
         {% else %}
             {{ user.company.zipcode }},
-            {{ user.company.region }},  {{ user.company.city }},
+            {{ user.company.city }},
             {{ user.company.street }},д.{{ user.company.home }} {{ user.company.corp }}, {{ user.company.room }}
         {% endif %}
     {% endif %}
