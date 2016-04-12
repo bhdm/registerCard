@@ -36,8 +36,8 @@ class StatusCommand extends ContainerAwareCommand
 
         $txt = '';
         foreach ($orders as $order){
-            $txt .= '<a href="https://im-kard.ru/panel/operator/user/edit/'.$order['id'].'" target="_blank">'.$order['id'].' - '.$order['email']."$order[lastName] $order[firstName]".'</a><br />';
-              $output->writeln('<a href="https://im-kard.ru/panel/operator/user/edit/'.$order['id'].'" target="_blank">'.$order['id'].' - '.$order['email'].'</a><br />');
+            $txt .= '<a href="https://im-kard.ru/panel/operator/user/edit/'.$order['id'].'" target="_blank">'.$order['id'].' - '.$order['email']." $order[lastName] $order[firstName]".'</a><br />';
+//              $output->writeln('<a href="https://im-kard.ru/panel/operator/user/edit/'.$order['id'].'" target="_blank">'.$order['id'].' - '.$order['email'].'</a><br />');
         }
 
         $message = \Swift_Message::newInstance()
