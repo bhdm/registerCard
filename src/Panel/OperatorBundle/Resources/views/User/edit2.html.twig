@@ -850,6 +850,16 @@
                         </div>
                     </td>
                 </tr>
+                <tr>
+                    <td>
+                        <div class="form-group">
+                            <label class="control-label col-sm-3" for="deliveryStreet">Улица:</label>
+                            <div class="col-sm-9">
+                                <input type="text"  name="deliveryRecipient" id="deliveryRecipient" class="form-control" value="{{ user.deliveryAdrs.recipient is defined ? user.deliveryAdrs.recipient : '' }}">
+                            </div>
+                        </div>
+                    </td>
+                </tr>
 
                 <tr>
                     <td>

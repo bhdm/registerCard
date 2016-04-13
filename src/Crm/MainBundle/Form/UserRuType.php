@@ -2,6 +2,7 @@
 
 namespace Crm\MainBundle\Form;
 
+use Crm\MainBundle\Form\Type\AdrsDeliveryType;
 use Crm\MainBundle\Form\Type\AdrsType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -41,7 +42,7 @@ class UserRuType extends AbstractType
 
             ->add('registeredAdrs', new AdrsType(),array('mapped'=>true))
 
-            ->add('deliveryAdrs', new AdrsType(),array('mapped'=>true))
+            ->add('deliveryAdrs', new AdrsDeliveryType(),array('mapped'=>true))
             ->add('petitionAdrs', new AdrsType(),array('mapped'=>true))
             ->add('petitionTitle', null ,array('mapped'=>true, 'required' => false))
 

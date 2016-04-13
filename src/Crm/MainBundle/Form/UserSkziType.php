@@ -2,6 +2,7 @@
 
 namespace Crm\MainBundle\Form;
 
+use Crm\MainBundle\Form\Type\AdrsDeliveryType;
 use Crm\MainBundle\Form\Type\AdrsType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -46,7 +47,7 @@ class UserSkziType extends AbstractType
             ->add('snils', null,['label'=>'СНИЛС', 'attr' => ['class'=> 'snils'], 'required' => true])
 
 
-            ->add('deliveryAdrs', new AdrsType(),array('mapped'=>true, 'required' => false))
+            ->add('deliveryAdrs', new AdrsDeliveryType(),array('mapped'=>true, 'required' => false))
             ->add('registeredAdrs', new AdrsType(),array('mapped'=>true, 'required' => false))
             ->add('petitionAdrs', new AdrsType(),array('mapped'=>true, 'required' => false))
             ->add('petitionTitle', null ,array('mapped'=>true, 'required' => false))
