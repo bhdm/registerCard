@@ -16,7 +16,15 @@
                 <td style="vertical-align: top">{{ ud.user.surName }}</td>
                 <td style="vertical-align: top">
                     {% for d in  ud.double %}
-                        <a target="_blank" href="{{ path('panel_user_edit', {'userId' : d.id }) }}">{{ d.id }} ({{ d.created | date('d.m.Y') }}) </a><br />
+                        <a target="_blank" href="{{ path('panel_user_edit', {'userId' : d.id }) }}">{{ d.id }} ({{ d.created | date('d.m.Y') }}) </a>
+                        {% if d.estr == 1 and d.ru == 0 %}
+                            ЕСТР
+                        {% elseif d.estr == 0 and d.ru == 1 %}
+                            РФ
+                        {% endif %}
+
+                        d.statusString
+                        <br />
                     {% endfor %}
                 </td>
             </tr>
