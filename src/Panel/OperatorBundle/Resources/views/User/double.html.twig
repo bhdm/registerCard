@@ -16,7 +16,7 @@
                 <td style="vertical-align: top">{{ ud.user.surName }}</td>
                 <td style="vertical-align: top">
                     {% for d in  ud.double %}
-                        <a href="{{ path('panel_user_edit', {'userId' : d.id }) }}">{{ d.id }} ({{ d.created | date('d.m.Y') }}) </a><br />
+                        <a target="_blank" href="{{ path('panel_user_edit', {'userId' : d.id }) }}">{{ d.id }} ({{ d.created | date('d.m.Y') }}) </a><br />
                     {% endfor %}
                 </td>
             </tr>
