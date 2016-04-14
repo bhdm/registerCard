@@ -813,13 +813,15 @@ class UserRepository extends EntityRepository
     }
 
 
-    public function unique(){
+    public function unique($page, $max){
         return $this->getEntityManager()->createQueryBuilder()
             ->select('u')
             ->from('CrmMainBundle:User','u')
             ->groupBy('u.firstName')
             ->addGroupBy('u.lastName')
             ->addGroupBy('u.surName')
+            ->setFirstResult($page*$max)
+            ->setMaxResults($max)
             ->getQuery()->getResult();
     }
 

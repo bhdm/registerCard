@@ -1886,8 +1886,13 @@ class UserController extends Controller
      * @Route("/double", name="panel_user_double")
      * @Template("")
      */
-    public function doubleAction(){
-        $users = $this->getDoctrine()->getRepository('CrmMainBundle:User')->unique();
+    public function doubleAction(Request $request){
+        $page = $request->query->get('page');
+        if ($page == null){
+            $page = 0;
+        }
+        $max = $request->query->get('max');
+        $users = $this->getDoctrine()->getRepository('CrmMainBundle:User')->unique($page, $max);
         $userDouble = [];
         foreach ($users as $user){
             $double = $this->getDoctrine()->getRepository('CrmMainBundle:User')->finDouble($user);
