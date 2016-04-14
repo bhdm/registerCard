@@ -21,6 +21,8 @@
                             ЕСТР
                         {% elseif d.estr == 0 and d.ru == 1 %}
                             РФ
+                        {% else %}
+                            СКЗИ
                         {% endif %}
 
                         {{ d.statusString }}
