@@ -832,6 +832,7 @@ class UserRepository extends EntityRepository
             ->where("u.firstName = '".$user->getFirstName()."'")
             ->andWhere("u.lastName = '".$user->getLastName()."'")
             ->andWhere("u.surName = '".$user->getSurName()."'")
+            ->andWhere("u.enabled = true")
             ->getQuery()->getResult();
     }
 
