@@ -82,13 +82,13 @@
                     <td></td>
                 </tr>
                 <tr class="typeCardFileRow2">
-                    <td>Дата окончания  (необязательно)</td>
+                    <td>Дата окончания (необязательно)</td>
                     <td>{{ form_widget(form.dateEndCard) }}</td>
                     <td>Копия прошлой карты</td>
                 </tr>
                 <tr class="typeCardFileRow2">
                     <td></td>
-                    <td></td>
+                    <td id="errorlastCard" style="color: #CC0000;"></td>
                     <td>
                         <div class="file-container">
                             <input type="file" name="copyLastCardFile" id="copyLastCardFile" class="fileAjax" >
@@ -718,6 +718,20 @@
 
         $(document).ready(function(){
 
+            $('#submit').click(function () {
+                if ($('#crm_mainbundle_user_typeCard').val()==1){
+                    if (
+                            $('#crm_mainbundle_user_dateEndCard').val() == '' &&
+                            $('#copyLastCardFile-styler .jq-file__name').html() == 'Файл не выбран'
+                    ){
+                        $('#errorlastCard').html('Заполните, пожалуйста, дату окончания или копию прошлой карты');
+                        return false;
+                    }else{
+                        $('#errorlastCard').html('');
+                        return true;
+                    }
+                }
+            });
             $('#crm_mainbundle_user_typeCard').change(function(){
                 if ($(this).val()!= 0 && $(this).val()!= 1){
                     $('.typeCardFile').css('display','table-cell');
