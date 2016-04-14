@@ -1,0 +1,25 @@
+{% extends 'PanelOperatorBundle::layout.html.twig' %}
+
+
+{% block content %}
+    <table>
+        <tr>
+            <th>Фамилия</th>
+            <th>Имя</th>
+            <th>Отчество</th>
+            <th>Повторы</th>
+        </tr>
+        {% for ud in userDouble %}
+            <tr>
+                <td>{{ ud.user.lastName }}</td>
+                <td>{{ ud.user.firstName }}</td>
+                <td>{{ ud.user.surName }}</td>
+                <td>
+                    {% for d in  ud.double %}
+                        <a href="{{ path('panel_user_edit', {'userId' : d.id }) }}">{{ d.id }} ({{ d.created | date('d.m.Y') }}) </a><br />
+                    {% endfor %}
+                </td>
+            </tr>
+        {% endfor %}
+    </table>
+{% endblock %}

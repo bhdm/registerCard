@@ -1887,9 +1887,19 @@ class UserController extends Controller
      * @Template("")
      */
     public function doubleAction(){
-        $users = $this->getDoctrine()->getRepository('CrmMainBundle:User')->findDouble();
+        $users = $this->getDoctrine()->getRepository('CrmMainBundle:User')->unique();
+        $userDouble = [];
+        foreach ($users as $user){
+            $double = $this->getDoctrine()->getRepository('CrmMainBundle:User')->finDouble($user);
+            if (count($double) > 1){
+                $userDouble[] = array(
+                    'user' => $user,
+                    'double' => $double,
+                );
 
-        return ['users' => $users];
+            }
+        }
+        return ['userDouble' => $userDouble];
     }
 }
 
