@@ -30,7 +30,7 @@ class getPostStatusCommand extends ContainerAwareCommand
         $orders = $em->createQuery("
 			SELECT u.id, u.email, u.lastName, u.firstName, u.post FROM CrmMainBundle:user
           
-            WHERE u.isProduction is NULL AND u.status != 10 AND u.enabled = 1 AND u.created > '".$date->format('Y-m-d H:i:s')."'")->getResult();
+            WHERE u.isProduction is NULL AND u.status != 10 AND u.enabled = 1 AND u.created > '".$date."'")->getResult();
         $txt = '';
         foreach ($orders as $order){
             if ($order['post']){
