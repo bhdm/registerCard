@@ -28,7 +28,7 @@ class getPostStatusCommand extends ContainerAwareCommand
         $container = $this->getContainer();
         $em = $container->get('doctrine')->getManager();
         $orders = $em->createQuery("
-			SELECT u.id, u.email, u.lastName, u.firstName, u.post FROM CrmMainBundle:user
+			SELECT u.id, u.email, u.lastName, u.firstName, u.post FROM CrmMainBundle:User u
           
             WHERE u.isProduction is NULL AND u.status != 10 AND u.enabled = 1 AND u.created > '".$date."'")->getResult();
         $txt = '';
