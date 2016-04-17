@@ -766,7 +766,7 @@ class UserRepository extends EntityRepository
     public function findAllPriceOperator($opearatorId, $type){
         $query = "
             SELECT
-            SUM(IF( u.ru = 1 , c.priceRu , IF (u.estr = 1 , c.priceEstr, c.priceSkzi) )) x
+            SUM(IF( u.ru = 1 , o.priceRu , IF (u.estr = 1 , o.priceEstr, o.priceSkzi) )) x
             FROM user u
             LEFT JOIN Company c ON c.id = u.company_id
             LEFT JOIN Operator o ON o.id = c.operator_id

@@ -64,7 +64,7 @@ class OperatorRepository extends EntityRepository implements UserProviderInterfa
 
     public function amountRub($operatorId,$estr,$ru){
         $res = $this->getEntityManager()->createQueryBuilder()
-            ->select('SUM(u.price) sumPrice')
+            ->select('SUM(u.priceOperator) sumPrice')
             ->from('CrmMainBundle:Operator', 'o')
             ->leftJoin('o.companies','c')
             ->leftJoin('c.users','u')
@@ -77,7 +77,7 @@ class OperatorRepository extends EntityRepository implements UserProviderInterfa
 
     public function amountRubNew($operatorId,$estr,$ru){
         $res = $this->getEntityManager()->createQueryBuilder()
-            ->select('SUM(u.price) sumPrice')
+            ->select('SUM(u.priceOperator) sumPrice')
             ->from('CrmMainBundle:Operator', 'o')
             ->leftJoin('o.companies','c')
             ->leftJoin('c.users','u')
