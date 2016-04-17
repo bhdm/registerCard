@@ -38,7 +38,7 @@ class getPostStatusCommand extends ContainerAwareCommand
                 $json = json_decode(file_get_contents("https://www.pochta.ru/tracking?p_p_id=trackingPortlet_WAR_portalportlet&p_p_lifecycle=2&p_p_state=normal&p_p_mode=view&p_p_resource_id=getList&p_p_cacheability=cacheLevelPage&p_p_col_id=column-1&p_p_col_count=1&barcodeList=$post&postmanAllowed=true"));
 //                $output->writeln();
 //                var_dump("https://www.pochta.ru/tracking?p_p_id=trackingPortlet_WAR_portalportlet&p_p_lifecycle=2&p_p_state=normal&p_p_mode=view&p_p_resource_id=getList&p_p_cacheability=cacheLevelPage&p_p_col_id=column-1&p_p_col_count=1&barcodeList=$post&postmanAllowed=true");
-                var_dump($json->{'list'}[0]->{'trackingItem'}{'hasBeenGiven'}, true);
+                var_dump($json->{'list'}, true);
 //                if ( $json['list'][0]['trackingItem']['hasBeenGiven'] == true ){
 //                    $txt .= '<a href="https://im-kard.ru/panel/operator/user/edit/'.$order['id'].'" target="_blank">'.$order['id'].' - '.$order['email']." $order[lastName] $order[firstName]".'</a><br />';
 //                }
