@@ -32,11 +32,13 @@ class getPostStatusCommand extends ContainerAwareCommand
           
             WHERE u.isProduction is NULL AND u.status != 10 AND u.enabled = 1 AND u.created < '".$date."'")->getResult();
         $txt = '';
+        $t = 0;
         foreach ($orders as $order){
+            $t++;
             if ($order['post']){
                 $post = $order['post'];
                 $json = json_decode(file_get_contents("https://www.pochta.ru/tracking?p_p_id=trackingPortlet_WAR_portalportlet&p_p_lifecycle=2&p_p_state=normal&p_p_mode=view&p_p_resource_id=getList&p_p_cacheability=cacheLevelPage&p_p_col_id=column-1&p_p_col_count=1&barcodeList=$post&postmanAllowed=true"));
-//                $output->writeln();
+                $output->writeln('Проверено '.$t. ' из '.count($orders));
 //                var_dump("https://www.pochta.ru/tracking?p_p_id=trackingPortlet_WAR_portalportlet&p_p_lifecycle=2&p_p_state=normal&p_p_mode=view&p_p_resource_id=getList&p_p_cacheability=cacheLevelPage&p_p_col_id=column-1&p_p_col_count=1&barcodeList=$post&postmanAllowed=true");
                 if ( $json->{'list'}[0]->{'trackingItem'}->{'hasBeenGiven'} == true ){
                     $txt .= '<a href="https://im-kard.ru/panel/operator/user/edit/'.$order['id'].'" target="_blank">'.$order['id'].' - '.$order['email']." $order[lastName] $order[firstName]".'</a><br />';
