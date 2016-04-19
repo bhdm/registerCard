@@ -37,7 +37,7 @@ class CompanyUser extends BaseEntity
 
     /**
      * 1 = СКЗИ, 2 = ЕСТР 3 = РФ
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="integer", nullable=true)
      */
     protected $cardType = 1;
 
