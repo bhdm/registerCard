@@ -31,7 +31,7 @@ class CompanyUser extends BaseEntity
 
     /**
      * 1 = Предприятие или 2 = мастерская
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="integer", nullable=true)
      */
     protected $companyType = 1;
 
