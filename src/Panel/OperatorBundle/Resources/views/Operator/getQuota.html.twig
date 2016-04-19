@@ -1,21 +1,21 @@
-<div class="well">
-    <h3 class="modal-title">Квоты оператора {{ operator }}</h3>
-    <h4>Осталось рублей:</h4>
-    <h3>{{ operator.quota }}</h3>
-    <br/>
+{#<div class="well">#}
+    {#<h3 class="modal-title">Квоты оператора {{ operator }}</h3>#}
+    {#<h4>Осталось рублей:</h4>#}
+    {#<h3>{{ operator.quota }}</h3>#}
+    {#<br/>#}
     {#<h4>Неподтвержденных заявок:</h4>#}
     {#<h3>{{ app.user.NewOrderCount }} шт.</h3>#}
     {#<br />#}
-    <h4>Использовано:</h4>
-    <div style="display: inline-block; width: 70px;">СКЗИ: </div><h4 style="display: inline;">{{ operator.completedCount.skzi  }}</h4> шт. ( {{ operator.completedCount.skzi  * operator.priceSkzi }} р. ) <br />
-    <div style="display: inline-block; width: 70px;">ЕСТР: </div><h4 style="display: inline;">{{ operator.completedCount.estr  }}</h4> шт. ({{ operator.completedCount.estr  * operator.priceEstr }} р. )<br />
-    <div style="display: inline-block; width: 70px;">РФ: </div><h4 style="display: inline;">{{ operator.completedCount.ru  }}</h4> шт. ({{ operator.completedCount.ru  * operator.priceRu }} р. )<br />
-    <br />
-    <h4>Стоимость заявки:</h4>
-    <div style="display: inline-block; width: 70px;">СКЗИ: </div><h4 style="display: inline;">{{  operator.priceSkzi }} р.</h4><br />
-    <div style="display: inline-block; width: 70px;">ЕСТР: </div><h4 style="display: inline;">{{ operator.priceEstr }} р.</h4><br />
-    <div style="display: inline-block; width: 70px;">РФ: </div><h4 style="display: inline;">{{ operator.priceRu }} р.</h4>
-</div>
+    {#<h4>Использовано:</h4>#}
+    {#<div style="display: inline-block; width: 70px;">СКЗИ: </div><h4 style="display: inline;">{{ operator.completedCount.skzi  }}</h4> шт. ( {{ operator.completedCount.skzi  * operator.priceSkzi }} р. ) <br />#}
+    {#<div style="display: inline-block; width: 70px;">ЕСТР: </div><h4 style="display: inline;">{{ operator.completedCount.estr  }}</h4> шт. ({{ operator.completedCount.estr  * operator.priceEstr }} р. )<br />#}
+    {#<div style="display: inline-block; width: 70px;">РФ: </div><h4 style="display: inline;">{{ operator.completedCount.ru  }}</h4> шт. ({{ operator.completedCount.ru  * operator.priceRu }} р. )<br />#}
+    {#<br />#}
+    {#<h4>Стоимость заявки:</h4>#}
+    {#<div style="display: inline-block; width: 70px;">СКЗИ: </div><h4 style="display: inline;">{{  operator.priceSkzi }} р.</h4><br />#}
+    {#<div style="display: inline-block; width: 70px;">ЕСТР: </div><h4 style="display: inline;">{{ operator.priceEstr }} р.</h4><br />#}
+    {#<div style="display: inline-block; width: 70px;">РФ: </div><h4 style="display: inline;">{{ operator.priceRu }} р.</h4>#}
+{#</div>#}
 
 <div class="well">
     <h3 class="modal-title">Квоты оператора {{ operator }}</h3>

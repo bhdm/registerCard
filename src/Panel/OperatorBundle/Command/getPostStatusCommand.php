@@ -48,7 +48,7 @@ class getPostStatusCommand extends ContainerAwareCommand
         }
 
         $message = \Swift_Message::newInstance()
-            ->setSubject('Заказы скорее всего получены (Проверено на почте)')
+            ->setSubject('Полученные карты')
             ->setFrom('info@im-kard.ru')
             ->setTo('imkardru@gmail.com')
             ->setBody(
