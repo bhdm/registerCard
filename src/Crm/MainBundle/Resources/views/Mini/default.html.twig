@@ -30,12 +30,19 @@
         <div class="row">
             <div class="col-sm-4 col-md-4">
                 <div class="thumbnail">
+                    <div class="row">
+                        <br />
+                        <div class="col-xs-12 text-center"><a href="{{ path('company-application-skzi-add', {'url' : company.url }) }}" class="btn-lg btn-primary" role="button">Онлайн оформление заявки</a></div>
+                        <br />
+                        <br />
+                    </div>
                     <img src="{{ asset('bundles/crmmain/images/card2-1.png') }}">
                     <div class="caption">
-                        <h3>Карта СКЗИ</h3>
+                        <h3>Карта СКЗИ <span style="color: #CC0000;float: right;text-transform: uppercase;margin-right: 52px;">Акция</span></h3>
                         <p>
                             Карты предназначены для тахографов оборудованных блоком СКЗИ.<br />
                             Действуют только на территории РФ.<br />
+                            <a href="#" onclick="$('#tahoinfo').modal(); return false;" style="font-size: 17px; font-weight: bold;">Список тахографов с блоком СКЗИ</a>
                         </p>
                         <b>Документы:</b>
                         <ul>
@@ -51,21 +58,26 @@
                         {#<div class="row">#}
                         {#<div class="col-xs-6 price"><span class="sale">{{ company.priceSkzi }} руб</span></div>#}
                         {#</div>#}
+
                         <div class="row">
-                            <div class="col-xs-offset-6  col-xs-6 price">{{ company.priceSkzi }},00 руб</div>
+                            <div class="col-xs-6 price"><span class="sale">2500,00 руб</span></div>
+                            <div class="col-xs-6 price">{{ company.priceSkzi }},00 руб</div>
                         </div>
                         <br />
-                        <div class="row">
-                            <div class="col-xs-12 text-center"><a href="{{ path('company-application-skzi-add', {'url' : company.url }) }}" class="btn-lg btn-primary" role="button">Оформление заявки</a></div>
-                        </div>
                     </div>
                 </div>
             </div>
             <div class="col-sm-4 col-md-4">
                 <div class="thumbnail">
+                    <div class="row">
+                        <br />
+                        <div class="col-xs-12 text-center"><a href="{{ path('company-application-estr-add', {'url' : company.url }) }}" class="btn-lg btn-primary" role="button">Оформление заявки</a></div>
+                        <br />
+                        <br />
+                    </div>
                     <img src="{{ asset('bundles/crmmain/images/card2-2.png') }}">
                     <div class="caption">
-                        <h3>Карта ЕСТР</h3>
+                        <h3>Карта ЕСТР <span style="color: #CC0000;float: right;text-transform: uppercase;margin-right: 52px;">Акция</span></h3>
                         <p>
                             Карты предназначены для европейских тахографов стандарта ЕСТР.<br />
                             Действуют только на территории Европы и  РФ.<br />
@@ -80,22 +92,24 @@
                         Доставка: <b>бесплатно</b>
                         <br />
                         <div class="row">
-                            <div class="col-xs-offset-6 col-xs-6 price">
-                                {{ company.priceEstr }},00 руб
-                            </div>
+                            <div class="col-xs-6 price"><span class="sale">2500,00 руб</span></div>
+                            <div class="col-xs-6 price">{{ company.priceEstr }},00 руб</div>
                         </div>
                         <br />
-                        <div class="row text-center">
-                            <div class="col-xs-12 text-center"><a href="{{ path('company-application-estr-add', {'url' : company.url }) }}" class="btn-lg btn-primary" role="button">Оформление заявки</a></div>
-                        </div>
                     </div>
                 </div>
             </div>
             <div class="col-sm-4 col-md-4">
                 <div class="thumbnail">
+                    <div class="row">
+                        <br />
+                        <div class="col-xs-12 text-center"><a href="{{ path('company-application-ru-add', {'url' : company.url }) }}" class="btn-lg btn-primary" role="button">Оформление заявки</a></div>
+                        <br />
+                        <br />
+                    </div>
                     <img src="{{ asset('bundles/crmmain/images/card2-3.png') }}">
                     <div class="caption">
-                        <h3>Карта РФ</h3>
+                        <h3>Карта РФ <span style="color: #CC0000;float: right;text-transform: uppercase;margin-right: 52px;">Акция</span></h3>
                         <p>
                             Карты предназначены для тахографов <b>не</b> оборудованных блоками СКЗИ.<br />
                             Дейтсвуют только на территории РФ.<br />
@@ -111,14 +125,10 @@
                         <br />
                         <br />
                         <div class="row">
-                            <div class="col-xs-offset-6 col-xs-6 price">
-                                {{ company.priceRu }},00 руб
-                            </div>
+                            <div class="col-xs-6 price"><span class="sale">2500,00 руб</span></div>
+                            <div class="col-xs-6 price">{{ company.priceRu }},00 руб</div>
                         </div>
                         <br />
-                        <div class="row text-center">
-                            <div class="col-xs-12 text-center"><a href="{{ path('company-application-ru-add', {'url' : company.url }) }}" class="btn-lg btn-primary" role="button">Оформление заявки</a></div>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -133,10 +143,101 @@
     <br />
     <br />
     <style>
+        .sale{
+            color: #CC0000;
+            text-decoration:  line-through;
+        }
+        button.btn.btn-primary.callto {
+            margin-left: 70px;
+            margin-top: -9px;
+        }
+
+        ul.counter {
+            list-style-type:none;
+            /*width:566px;*/
+            margin: 0 auto;
+            padding: 0;
+        }
+        .counter li {
+            display: inline-block;
+            background:url({{ asset('bundles/crmmain/images/filmstrip.png') }}) 0 0 no-repeat;
+            width:53px;
+            height:103px;
+            /*height: 80px;*/
+        }
         .btn{
             display: inline-block;
             width: 200px;
             text-align: center;
         }
     </style>
+    <div class="modal in" tabindex="-1" role="dialog2" id="tahoinfo">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" style="font-size: 17px; font-weight: bold">Список тахографов с блоком СКЗИ</h4>
+                </div>
+
+                <div class="modal-body">
+                    <table class="table" style="margin-bottom: 0 !important;">
+                        <tr>
+                            <td style="border-top: 0;"><img src="{{ asset('bundles/crmmain/images/tahos/1.png') }}" style="width: 150px"></td>
+                            <td style="border-top: 0; vertical-align: middle">
+                                "Штрих - Тахо RUS", SM 10042.00.00-13,<br /> SM 10042.00.00-14<br />
+                                Производитель - ООО "НТЦ Измеритель"
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><img src="{{ asset('bundles/crmmain/images/tahos/2.png') }}" style="width: 150px"></td>
+                            <td style=" vertical-align: middle;">
+                                "КАСБИ DT - 20 M" <br />
+                                ПРоизводитель - АО "КЗТА"
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><img src="{{ asset('bundles/crmmain/images/tahos/3.png') }}" style="width: 150px"></td>
+                            <td style=" vertical-align: middle;">
+                                "Меркурий ТА - 001"<br />
+                                Производитель - ООО "АСТОР ТРЕЙД"
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><img src="{{ asset('bundles/crmmain/images/tahos/4.png') }}" style="width: 150px"></td>
+                            <td style=" vertical-align: middle;">
+                                "DTCO 3283"<br />
+                                Производитель - ООО "Континентал Аутомотив РУС"
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><img src="{{ asset('bundles/crmmain/images/tahos/5.png') }}" style="width: 150px"></td>
+                            <td style=" vertical-align: middle;">
+                                "ТЦА 02НК"<br />
+                                Производитель - ЗАО "Измеритель - авто"
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><img src="{{ asset('bundles/crmmain/images/tahos/6.png') }}" style="width: 150px"></td>
+                            <td style=" vertical-align: middle;">
+                                "drive 5", "Drive Smart"<br />
+                                Производитель - ООО "ПОС система" <br />
+                                ООО "АТОЛ ДРАЙВ"
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><img src="{{ asset('bundles/crmmain/images/tahos/7.png') }}" style="width: 150px"></td>
+                            <td style=" vertical-align: middle;">
+                                "EFAS V2 RUS"<br />
+                                Производитель - ООО "ИНТЕЛЛИК РУС"
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Закрыть</button>
+                </div>
+
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
 {% endblock %}
