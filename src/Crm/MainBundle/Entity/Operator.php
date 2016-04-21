@@ -580,7 +580,7 @@ class Operator extends BaseEntity implements UserInterface
         foreach ($companies as $company){
             $users = $company->getUsers();
             foreach ($users as $user){
-                if ($user->getProduction() > 0){
+                if ($user->getStatus() > 1 && $user->getStatus() != 10 ){
                     if ($user->getRu() == 0 && $user->getEstr() == 0){
                         $count['skzi'] ++;
                     }elseif($user->getRu() == 1 && $user->getEstr() == 0){
