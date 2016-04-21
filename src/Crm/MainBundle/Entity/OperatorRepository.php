@@ -94,9 +94,8 @@ class OperatorRepository extends EntityRepository implements UserProviderInterfa
         $res = $this->getEntityManager()->createQueryBuilder()
             ->select('SUM(q.quota) sumQuota')
             ->from('CrmMainBundle:Operator', 'o')
-            ->leftJoin('o.companies','c')
-            ->leftJoin('c.quotaLog','q', 'WITH','q.enabled = 1')
-            ->where("c.enabled = 1 AND o.id = ".$operatorId.' AND q.quota > 0');
+            ->leftJoin('o.quotaLog','q', 'WITH','q.enabled = 1')
+            ->where("o.id = ".$operatorId.' AND q.quota > 0');
 //        echo $res->getQuery()->getSQL();
 //        exit;
         return $res->getQuery()->getOneOrNullResult();
@@ -106,9 +105,8 @@ class OperatorRepository extends EntityRepository implements UserProviderInterfa
         $res = $this->getEntityManager()->createQueryBuilder()
             ->select('SUM(q.quota) sumQuota')
             ->from('CrmMainBundle:Operator', 'o')
-            ->leftJoin('o.companies','c')
-            ->leftJoin('c.quotaLog','q', 'WITH','q.enabled = 1')
-            ->where("c.enabled = 1 AND c.id = ".$operatorId.' AND q.quota < 0');
+            ->leftJoin('o.quotaLog','q', 'WITH','q.enabled = 1')
+            ->where("o.id = ".$operatorId.' AND q.quota < 0');
         return $res->getQuery()->getOneOrNullResult();
     }
 }
