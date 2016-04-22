@@ -31,7 +31,7 @@ class UserEstrType extends AbstractType
             ->add('comment', null,['label'=>'Комментарий пользователя', 'required' => false])
 
             ->add('lastNumberCard', null ,['label' => 'Прошлый номер карты', 'required' => false])
-            ->add('dateEndCard', 'text',['label'=>'Дата окончания', 'attr' => ['class' => 'date'], 'required' => false])
+            ->add('dateEndCard', 'text',['label'=>'Дата окончания', 'type'=> 'single_text', 'attr' => ['class' => 'date'], 'required' => false])
 
             ->add('lastName', null,['label'=>'Фамилия'])
             ->add('firstName', null,['label'=>'Имя'])
