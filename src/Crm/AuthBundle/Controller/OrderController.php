@@ -162,7 +162,8 @@ class OrderController extends Controller
 //                $item->setDeliveryAdrs($company->getAdrs());
 //            }
         }
-
+        $item->setBirthDate($item->getBirthDate()->format('d.m.Y'));
+        $item->setDateEndCard($item->getDateEndCard()->format('d.m.Y'));
         $form = $this->createForm(new UserEstrType($em), $item);
         $formData = $form->handleRequest($request);
         if ($request->getMethod() == 'POST'){

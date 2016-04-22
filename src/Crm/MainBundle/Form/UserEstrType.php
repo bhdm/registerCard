@@ -31,12 +31,12 @@ class UserEstrType extends AbstractType
             ->add('comment', null,['label'=>'Комментарий пользователя', 'required' => false])
 
             ->add('lastNumberCard', null ,['label' => 'Прошлый номер карты', 'required' => false])
-            ->add('dateEndCard', 'text',['label'=>'Дата окончания', 'type'=> 'single_text', 'attr' => ['class' => 'date'], 'required' => false])
+            ->add('dateEndCard', 'text',['label'=>'Дата окончания', 'attr' => ['class' => 'date'], 'required' => false])
 
             ->add('lastName', null,['label'=>'Фамилия'])
             ->add('firstName', null,['label'=>'Имя'])
             ->add('surName', null,['label'=>'Отчество', 'required' => false])
-            ->add('birthDate', 'text',['label'=>'Дата рождения', 'type'=> 'single_text', 'attr' => ['class' => 'date']])
+            ->add('birthDate', 'text',['label'=>'Дата рождения', 'attr' => ['class' => 'date']])
 
             ->add('email', null,['label'=>'Email', 'required' => true])
             ->add('username', null,['label'=>'Телефон', 'attr' => ['class' => 'phone']])
