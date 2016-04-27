@@ -36,7 +36,7 @@ class UserEstrType extends AbstractType
             ->add('lastName', null,['label'=>'Фамилия'])
             ->add('firstName', null,['label'=>'Имя'])
             ->add('surName', null,['label'=>'Отчество', 'required' => false])
-            ->add('birthDate', null,['label'=>'Дата рождения', 'attr' => ['class' => 'date'], 'date_widget' => 'single_text', 'format' =>'dd.mm.YYYY'])
+            ->add('birthDate', 'text',['label'=>'Дата рождения', 'attr' => ['class' => 'date']])
 
             ->add('email', null,['label'=>'Email', 'required' => true])
             ->add('username', null,['label'=>'Телефон', 'attr' => ['class' => 'phone']])
@@ -56,7 +56,7 @@ class UserEstrType extends AbstractType
 
             ->add('driverDocNumber', null ,['label' => 'Номер', 'attr' => ['class' => 'driverNumber']])
             ->add('driverDocIssuance', null ,['label' => 'Кем выдано', 'attr' => ['maxlength' => 33]])
-            ->add('driverDocDateStarts', null ,['label' => 'Дата выдачи', 'attr' => ['class' => 'date'], 'date_widget' => 'single_text', 'format' =>'dd.mm.YYYY'])
+            ->add('driverDocDateStarts', 'text' ,['label' => 'Дата выдачи', 'attr' => ['class' => 'date']])
 
 //
 //            # Документы
