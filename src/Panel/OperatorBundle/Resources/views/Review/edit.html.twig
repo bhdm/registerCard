@@ -45,18 +45,23 @@
                         <textarea id="body" name="body" class="form-control" style="width: 300px; height: 150px">{{ review.body }}</textarea>
                     </td>
                 </tr>
+                <tr>
+                    <td>&nbsp;</td>
+                </tr>
                 {% if review.file != null %}
                     <tr>
-                        <td class="value" colspan="2">
+                        <td class="value">
                             <a href="/upload/reviews/{{ review.file }}">Скачать файл</a>
                         </td>
+                        <td><a href="{{ path('panel_review_remove_file', {'type' : 'file', 'id' : review.id }) }}">Удалить</a></td>
                     </tr>
                 {% endif %}
                 {% if review.photo != null %}
                     <tr>
-                        <td class="value" colspan="2">
+                        <td class="value">
                             <a href="/upload/reviews/{{ review.photo }}">Скачать файл</a>
                         </td>
+                        <td><a href="{{ path('panel_review_remove_file', {'type' : 'photo', 'id' : review.id }) }}">Удалить</a></td>
                     </tr>
                 {% endif %}
                 <tr>

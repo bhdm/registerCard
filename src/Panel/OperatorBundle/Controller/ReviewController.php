@@ -114,4 +114,20 @@ class ReviewController extends Controller
         return $this->redirect($this->generateUrl('panel_review_list'));
 
     }
+
+    /**
+     * @Route("/remove/file/{type}/{id}", name="panel_review_remove_file")
+     */
+    public function removeFileAction($type, $id){
+        $em = $this->getDoctrine()->getManager();
+        $r = $this->getDoctrine()->getRepository('CrmMainBundle:Review')->findOneBy(['id' => $id]);
+        if ($type == 'file'){
+            $r->setFile(array());
+        }
+        if ($type == 'photo'){
+            $r->setPhoto(array());
+        }
+        $em->flush();
+        return $this->redirect($this->generateUrl('panel_review_list'));
+    }
 }
