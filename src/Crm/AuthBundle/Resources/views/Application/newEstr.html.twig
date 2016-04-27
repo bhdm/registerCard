@@ -78,7 +78,7 @@
                 </tr>
                 <tr class="typeCardFileRow2" style="{{ form.vars.value.typeCard != 0 ? 'display:table-row' }}">
                     <td>Дата окончания прошлой карты</td>
-                    <td>{{ form_widget(form.lastNumberCard) }}</td>
+                    <td>{{ form_widget(form.lastNumberCard,{'attr' : {'class' : 'date'}}) }}</td>
                     <td>или копия прошлой карты</td>
                 </tr>
                 <tr class="typeCardFileRow2" style="{{ form.vars.value.typeCard != 0 ? 'display:table-row' }}">
