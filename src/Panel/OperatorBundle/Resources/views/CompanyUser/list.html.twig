@@ -133,7 +133,13 @@
                                 {#</div>#}
                             </div>
                         </td>
-                        <td>{{ item.comment }}</td>
+                        <td>
+                            {{ item.comment }}
+                            {% if item.postNumber != null %}
+                                <br />
+                                <a href="https://www.pochta.ru/tracking#{{ item.postNumber }}" target="_blank">{{ item.postNumber }}</a>
+                            {% endif %}
+                        </td>
                         <td class="settings" style="text-align: right">
                             {% spaceless %}
                                 <a href="{{ path('operator_companyuser_edit',{'id' : item.id }) }}">

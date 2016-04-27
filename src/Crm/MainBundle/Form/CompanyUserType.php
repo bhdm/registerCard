@@ -70,7 +70,7 @@ class CompanyUserType extends AbstractType
             ->add('fileDecree', 'iphp_file', array('required' => false))
             ->add('fileLicense', 'iphp_file', array('required' => false))
             ->add('fileLicenseTwo', 'iphp_file', array('required' => false))
-//
+            ->add('postNumber', null, ['required' => false])
             ->add('licenseNumber', null, array('required' => false))
             ->add('licenseIssued', null, array('required' => false))
 //            ->add('licenseDateStart', 'date', ['widget' => 'single_text','required' => false])
@@ -81,7 +81,7 @@ class CompanyUserType extends AbstractType
             ->add('licenseDecreeDate', 'date',['widget' => 'single_text', 'format' => 'dd.MM.yyyy', 'label'=>'Дата рождения', 'attr' => ['class' => 'date'],'required' => false])
         ;
     }
-    
+
     /**
      * @param OptionsResolverInterface $resolver
      */

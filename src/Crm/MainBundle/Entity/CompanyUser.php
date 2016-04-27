@@ -323,6 +323,11 @@ class CompanyUser extends BaseEntity
      */
     protected $oldCard;
 
+    /**
+     * @ORM\Column(type="string", nullable=true)
+     */
+    protected $postNumber;
+
     # ###### #
     # МЕТОДЫ #
     # ###### #
@@ -1195,6 +1200,23 @@ class CompanyUser extends BaseEntity
         $this->oldCard = $oldCard;
     }
 
+    /**
+     * @return mixed
+     */
+    public function getPostNumber()
+    {
+        return $this->postNumber;
+    }
+
+    /**
+     * @param mixed $postNumber
+     */
+    public function setPostNumber($postNumber)
+    {
+        $this->postNumber = $postNumber;
+    }
+
+    
 
 
 }
