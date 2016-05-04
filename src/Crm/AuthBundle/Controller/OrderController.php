@@ -816,6 +816,9 @@ class OrderController extends Controller
         if ($request->getMethod() == 'POST'){
             $item = $formData->getData();
             $company = $this->getUser()->getCompany();
+            $item->setCompanyType(1);
+            $item->setCardType(2);
+
             $item->setCompany($company);
             $item->setClient($this->getUser());
 
@@ -1001,6 +1004,8 @@ class OrderController extends Controller
             $company = $this->getUser()->getCompany();
             $item->setCompany($company);
             $item->setClient($this->getUser());
+            $item->setCompanyType(1);
+            $item->setCardType(1);
 
 //                $item->setBirthday(new \DateTime($item->getBirthday()));
 //                $item->setLicenseDateStart(new \DateTime($item->getLicenseDateStart()));
@@ -1185,6 +1190,9 @@ class OrderController extends Controller
             $item->setCompany($company);
             $item->setClient($this->getUser());
 
+            $item->setCompanyType(1);
+            $item->setCardType(3);
+
 //                $item->setBirthday(new \DateTime($item->getBirthday()));
 //                $item->setLicenseDateStart(new \DateTime($item->getLicenseDateStart()));
 //                $item->setLicenseDateEnd(new \DateTime($item->getLicenseDateEnd()));
@@ -1367,6 +1375,9 @@ class OrderController extends Controller
             $company = $this->getUser()->getCompany();
             $item->setCompany($company);
             $item->setClient($this->getUser());
+
+            $item->setCompanyType(2);
+            $item->setCardType(1);
 
 //                $item->setBirthday(new \DateTime($item->getBirthday()));
 //                $item->setLicenseDateStart(new \DateTime($item->getLicenseDateStart()));
@@ -1551,6 +1562,9 @@ class OrderController extends Controller
             $item->setCompany($company);
             $item->setClient($this->getUser());
 
+            $item->setCompanyType(2);
+            $item->setCardType(2);
+
 //                $item->setBirthday(new \DateTime($item->getBirthday()));
 //                $item->setLicenseDateStart(new \DateTime($item->getLicenseDateStart()));
 //                $item->setLicenseDateEnd(new \DateTime($item->getLicenseDateEnd()));
@@ -1733,6 +1747,9 @@ class OrderController extends Controller
             $company = $this->getUser()->getCompany();
             $item->setCompany($company);
             $item->setClient($this->getUser());
+
+            $item->setCompanyType(2);
+            $item->setCardType(3);
 
 //                $item->setBirthday(new \DateTime($item->getBirthday()));
 //                $item->setLicenseDateStart(new \DateTime($item->getLicenseDateStart()));
