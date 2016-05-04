@@ -52,7 +52,7 @@ class CompanyUser extends BaseEntity
 
     /**
      * @Assert\NotBlank( message = "Поле email обязательно для заполнения" )
-     * @Assert\Regex(pattern= "/^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{1,})$/", message="Неверный формат ввода.")
+     * @Assert\Email(message="Неверный формат ввода.")
      * @ORM\Column(type="string", length=50)
      */
     protected $username;
