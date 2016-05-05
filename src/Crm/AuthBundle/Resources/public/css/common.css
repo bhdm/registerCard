@@ -259,8 +259,8 @@ background-size: 100%;
 .callbackphone{
     width: 100px;
     position: fixed;
-    left: 70px;
-    bottom: 100px;
+    right: 70px;
+    top: 50%;
     cursor: pointer;
     -webkit-animation: blink5 1s linear infinite;
     animation: blink5 1s linear infinite;
