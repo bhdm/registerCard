@@ -344,5 +344,15 @@ class IndexController extends Controller
         return array ('pagination' => $pagination, 'cities' => $cities);
 
     }
+
+    /**
+     * @Route("/public/{url}", name="public_page")
+     * @Template()
+     */
+    public function publicPageAction($url){
+        $page = $this->getDoctrine()->getRepository('CrmMainBundle:Page')->findOneByUrl($url);
+        return array( 'page' => $page );
+    }
+
 }
 

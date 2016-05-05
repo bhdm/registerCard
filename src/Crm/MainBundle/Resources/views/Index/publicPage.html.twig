@@ -1,0 +1,28 @@
+{% extends 'CrmMainBundle::layout_new.html.twig' %}
+
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-3" style="border-right: 1px solid #CCC">
+                <ul class="publicPage-menu" style="list-style: none; padding: 10px; text-align: right">
+                    <li style="padding: 10px"><a href="{{ path('public_page',{'url' : 'how_to_pay'}) }}">Способы оплаты</a></li>
+                    <li style="padding: 10px"><a href="{{ path('public_page',{'url' : 'how_to_pay'}) }}">Контактная информация</a></li>
+                    <li style="padding: 10px"><a href="{{ path('public_page',{'url' : 'oferta'}) }}">Договор-оферта</a></li>
+                    <li style="padding: 10px"><a href="{{ path('public_page',{'url' : 'refuld'}) }}">Условия возврата товара</a></li>
+                    <li style="padding: 10px"><a href="{{ path('public_page',{'url' : 'refuld-service'}) }}">Отказ от услуги</a></li>
+                </ul>
+            </div>
+            <div class="col-xs-9">
+                <h2>{{ page.title }}</h2>
+                {{ page.body | raw }}
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <style>
+
+    </style>
+{% endblock %}
