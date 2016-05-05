@@ -20,7 +20,7 @@
             Стоимость составит {{ user.price + 124 }} рублей ( НДС не облагается ) с учетом комиссии платежной системы (124 рубля). Нет очереди, работает круглосуточно. Срок поступления денежных средств до 45 минут, после проведения оплаты.
             <br/>
             <br/>
-            <a href="http://im-kard.ru/how_to_pay.html" class="fancybox fancybox-iframe btn" target="_blank" style="    display: inline;">Как оплатить</a>
+            <a href="{{ path('public_page',{'url' : 'how_to_pay'}) }}" class="fancybox fancybox-iframe btn" target="_blank" style="    display: inline;">Как оплатить</a>
             <br/>
             <br/>
         {% endif %}

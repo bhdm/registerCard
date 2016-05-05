@@ -22,7 +22,7 @@
         Стоимость составит {{ user.price }} рублей ( НДС не облагается ). При условии оплаты в сбербанке комиссия составит приблизительно 70 рублей. Срок поступления денежных средств примерно 3-е суток.
         <br/>
         <br/>
-        <a href="http://im-kard.ru/how_to_pay.html" class="fancybox fancybox-iframe btn" target="_blank" style="    display: inline;">Как оплатить</a>
+        <a href="{{ path('public_page',{'url' : 'how_to_pay'}) }}" class="fancybox fancybox-iframe btn" target="_blank" style="    display: inline;">Как оплатить</a>
         <br/>
         <i>Скорость поступления денежных средств влияет на время отправки вашей заявки на производство. <br />
             {% if url is defined and url == null %}
