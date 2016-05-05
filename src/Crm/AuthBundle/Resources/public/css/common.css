@@ -256,3 +256,26 @@ background-size: 100%;
 .loader .loader-load{
     position: fixed !important;
 }
+.callbackphone{
+    width: 100px;
+    position: fixed;
+    left: 70px;
+    bottom: 100px;
+    cursor: pointer;
+    -webkit-animation: blink5 1s linear infinite;
+    animation: blink5 1s linear infinite;
+}
+@-webkit-keyframes blink5 {
+    0% { opacity: 1 }
+    25% { opacity: 0.8 }
+    50% { opacity: 0.6 }
+    75% { opacity: 0.8 }
+    100% { opacity: 1 }
+}
+@keyframes blink5 {
+    0% { opacity: 1 }
+    25% { opacity: 0.8 }
+    50% { opacity: 0.6 }
+    75% { opacity: 0.8 }
+    100% { opacity: 1 }
+}

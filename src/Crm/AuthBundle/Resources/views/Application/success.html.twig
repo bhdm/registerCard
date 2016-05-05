@@ -21,6 +21,7 @@
         <a href="{{ path('generate_payment_pdf') }}?ord={{ user.id }}" target="_blank" class="btn">"Платежное поручение"</a><br/>
         Стоимость составит {{ user.price }} рублей ( НДС не облагается ). При условии оплаты в сбербанке комиссия составит приблизительно 70 рублей. Срок поступления денежных средств примерно 3-е суток.
         <br/>
+        <a href="http://im-kard.ru/how_to_pay.html" class="fancybox fancybox-iframe btn" target="_blank">Как оплатить</a>
         <br/>
         <i>Скорость поступления денежных средств влияет на время отправки вашей заявки на производство. <br />
             {% if url is defined and url == null %}
