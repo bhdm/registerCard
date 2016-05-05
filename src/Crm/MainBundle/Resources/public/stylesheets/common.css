@@ -326,7 +326,7 @@ input.little{
     width: 100px;
     position: fixed;
     right: 70px;
-    top: 50%;
+    top: 40%;
     cursor: pointer;
     -webkit-animation: blink5 1s linear infinite;
     animation: blink5 1s linear infinite;
