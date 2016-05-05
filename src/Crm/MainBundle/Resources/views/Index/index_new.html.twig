@@ -10,11 +10,12 @@
     <script src="{{ asset('bundles/crmauth/js/bootstrap.min.js') }}"></script>
     <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
     <script src="{{ path('fos_js_routing_js', {"callback": "fos.Router.setData"}) }}"></script>
-
+    <script src="{{ asset('bundles/crmmain/javascripts/jquery.maskedinput.js') }}" type="text/javascript"></script>
     <script src="https://api-maps.yandex.ru/2.1/?load=package.full&lang=ru-RU" type="text/javascript"></script>
 
     <script>
         $(document).ready(function(){
+            $("input.phone").mask("+7 (999) 999-9999");
             $(".fancybox").fancybox();
 
             $('.dropdown-menu-title').click(function(){

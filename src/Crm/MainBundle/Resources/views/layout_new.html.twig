@@ -57,6 +57,7 @@
 
         <script>
             $(document).ready(function(){
+                $("input.phone").mask("+7 (999) 999-9999");
                 $(".date").inputmask("d.m.y",{ "placeholder": "дд.мм.гггг" });
                 $('.call').click(function(){
                     $('.callbox').fadeIn();
