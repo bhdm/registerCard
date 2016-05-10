@@ -165,6 +165,7 @@
         <button id="print" class="btn btn-primary">Выгрузка в Excel</button>
         <button id="delivery" class="btn btn-primary">доставка</button>
         <button id="clearManager" class="btn btn-primary">Очистить Тег</button>
+        <button id="setNumberPost" class="btn btn-primary" data-toggle="modal" data-target="#modalSetNumberPost">Добавить ШПИ</button>
     </div>
 {% endif %}
 
@@ -193,6 +194,15 @@
             $('#form-list').attr('target', '_self');
             $('#form-list').submit();
         });
+
+        $('#comfirmedsavepost').click(function(){
+            var url = Routing.generate('panel_user_save_number_post',{'number' : $('#inputNumberPost').val()});
+            $('#form-list').attr('action', url);
+            $('#form-list').attr('target', '_self');
+            $('#form-list').submit();
+        });
+
+
 
         $('.checkxml').click(function(){
             var count = $('.checkxml:checked').length;
@@ -242,3 +252,23 @@
                 });
     });
 </script>
+
+
+<div class="modal fade" tabindex="-1" role="dialog" id="modalSetNumberPost">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Массовое выставление ШПИ</h4>
+            </div>
+            <div class="modal-body">
+                <p>Укажите номер ШПИ</p>
+                <input type="text" class="form-control" name="numberPost" id="inputNumberPost">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Закрыть</button>
+                <button type="button" class="btn btn-primary" id="comfirmedsavepost">Сохранить</button>
+            </div>
+        </div>
+    </div>
+</div>

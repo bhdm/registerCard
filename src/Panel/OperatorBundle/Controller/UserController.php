@@ -1906,5 +1906,23 @@ class UserController extends Controller
         }
         return ['userDouble' => $userDouble];
     }
+
+
+    /**
+     * @Route("/save-number-post/{number}", name="panel_user_save_number_post", options={"expose"=true})
+     */
+    public function saveNumberPostAction(Request $request, $number){
+        $data = $request->request->get('user');
+        $em = $this->getDoctrine()->getManager();
+        foreach ($data as $key => $val) {
+            $user = $this->getDoctrine()->getRepository('CrmMainBundle:User')->find($key);
+            if ($user != null) {
+                $user->setPost($number);
+                $em->flush($user);
+            }
+        }
+        $referer = $request->headers->get('referer');
+        return $this->redirect($referer);
+    }
 }
 
