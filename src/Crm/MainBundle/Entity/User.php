@@ -125,6 +125,11 @@ class User extends BaseEntity implements UserInterface, EquatableInterface, \Ser
     protected $snils;
 
     /**
+     * @ORM\Column(type="string", length=17, nullable=true)
+     */
+    protected $inn;
+
+    /**
      * @ORM\Column(type="string", length=12, nullable=true)
      */
     protected $dileveryZipcode;
@@ -388,6 +393,11 @@ class User extends BaseEntity implements UserInterface, EquatableInterface, \Ser
      * @ORM\Column(type="array", nullable=true)
      */
     protected $copySnils;
+
+    /**
+     * @ORM\Column(type="array", nullable=true)
+     */
+    protected $copyInn;
 
     /**
      * @ORM\Column(type="array", nullable=true)
@@ -2293,7 +2303,39 @@ class User extends BaseEntity implements UserInterface, EquatableInterface, \Ser
         $this->copyLastCard = $copyLastCard;
     }
 
-        
+    /**
+     * @return mixed
+     */
+    public function getInn()
+    {
+        return $this->inn;
+    }
+
+    /**
+     * @param mixed $inn
+     */
+    public function setInn($inn)
+    {
+        $this->inn = $inn;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCopyInn()
+    {
+        return $this->copyInn;
+    }
+
+    /**
+     * @param mixed $copyInn
+     */
+    public function setCopyInn($copyInn)
+    {
+        $this->copyInn = $copyInn;
+    }
+
+
 
 
 }

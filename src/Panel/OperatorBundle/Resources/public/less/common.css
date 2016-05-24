@@ -101,3 +101,6 @@ input,
   color: #000 !important;
   font-size: 16px !important;
 }
+.modal-dialog {
+  margin-top: 300px;
+}
