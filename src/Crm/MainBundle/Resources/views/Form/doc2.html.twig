@@ -7,13 +7,13 @@
         .rud{
             letter-spacing: 7px;
             position: absolute;
-            top: 332px;
-            left: 112px;
+            top: 345px;
+            left: 440px;
             font-size: 17px;
         }
         .fio{
             position: absolute;
-            top: 368px;
+            top: 380px;
             left: 73px;
             font-size: 17px;
         }
@@ -25,7 +25,7 @@
         }
         .companyAdress{
             position: absolute;
-            top: 496px;
+            top: 505px;
             left: 73px;
             font-size: 15px;
         }
@@ -36,75 +36,69 @@
             /*font-size: 15px;*/
             /*letter-spacing: 2px;*/
             position: absolute;
-            top: 559px;
-            left: 490px;
+            top: 580px;
+            left: 560px;
             font-size: 15px;
             letter-spacing: 3px;
         }
 
         .dateBirthDate{
             position: absolute;
-            top: 577px;
-            left: 300px;
+            top: 620px;
+            left: 320px;
             font-size: 15px;
             letter-spacing: 3px;
         }
 
         .passportNumber{
             position: absolute;
-            top: 630px;
-            left: 170px;
+            top: 680px;
+            left: 190px;
             font-size: 15px;
         }
         .passportDate{
             position: absolute;
-            top: 630px;
-            left: 350px;
+            top: 685px;
+            left: 400px;
             font-size: 15px;
             letter-spacing: 2px;
         }
         .passportPlace{
             position: absolute;
-            top: 648px;
-            left: 147px;
+            top: 700px;
+            left: 160px;
             font-size: 15px;
         }
         .passportCode{
             position: absolute;
-            top: 691px;
-            left: 300px;
+            top: 740px;
+            left: 340px;
             font-size: 15px;
             letter-spacing: 12px;
         }
 
         .driverCountry{
             position: absolute;
-            top: 769px;
-            left: 186px;
+            top: 830px;
+            left: 200px;
             font-size: 15px;
         }
         .driverNumber{
             position: absolute;
-            top: 735px;
-            left: 116px;
-            font-size: 15px;
-        }
-        .driverNumber{
-            position: absolute;
-            top: 735px;
-            left: 116px;
+            top: 790px;
+            left: 120px;
             font-size: 15px;
         }
         .driverDate{
             position: absolute;
-            top: 735px;
-            left: 279px;
+            top: 790px;
+            left: 320px;
             font-size: 15px;
             letter-spacing: 2px;
         }
         .driverPlace{
             position: absolute;
-            top: 752px;
+            top: 810px;
             left: 160px;
             font-size: 15px;
         }
@@ -167,13 +161,13 @@
         .company0{
             position: absolute;
             top: 53px;
-            left: 345px;
+            left: 400px;
             font-size: 17px
         }
         .fio0{
             position: absolute;
-            top: 95px;
-            left: 345px;
+            top: 100px;
+            left: 400px;
             font-size: 17px
         }
         img{
@@ -181,52 +175,52 @@
         }
         .gal{
             position: absolute;
-            top: 388px;
-            left: 233px;
+            top: 385px;
+            left: 267px;
             font-size: 17px;
         }
         .line0{
             position: absolute;
-            top: 202px;
+            top: 222px;
             border-bottom: 3px solid #000000;
-            left: 160px;
+            left: 180px;
         }
         .line2{
             position: absolute;
-            top: 202px;
+            top: 222px;
             border-bottom: 3px solid #000000;
-            left: 230px;
+            left: 250px;
         }
         .line3{
             position: absolute;
-            top: 202px;
+            top: 222px;
             border-bottom: 3px solid #000000;
-            left: 230px;
+            left: 250px;
         }
         .line1{
             position: absolute;
-            top: 202px;
+            top: 285px;
             border-bottom: 3px solid #000000;
             left: 310px;
         }
 
         .line10{
             position: absolute;
-            top: 255px;
+            top: 285px;
             border-bottom: 3px solid #000000;
-            left: 140px;
+            left: 160px;
         }
         .line12{
             position: absolute;
-            top: 255px;
+            top: 285px;
             border-bottom: 3px solid #000000;
-            left: 198px;
+            left: 220px;
         }
         .line13{
             position: absolute;
-            top: 255px;
+            top: 285px;
             border-bottom: 3px solid #000000;
-            left: 198px;
+            left: 295px;
         }
         .line11{
             position: absolute;
@@ -234,6 +228,17 @@
             border-bottom: 3px solid #000000;
             left: 270px;
         }
+        .page1_photo{
+            position: absolute;
+            top: 875px;
+            left: 445px;
+        }
+        .page1_photo2{
+            position: absolute;
+            top: 900px;
+            left: 580px;
+        }
+
     </style>
 </head>
 
@@ -280,6 +285,14 @@
 <div class="driverDate">{{ user.driverDocDateStarts | date("d") }}&nbsp;&nbsp;&nbsp;&nbsp;{{ user.driverDocDateStarts | date("m") }}&nbsp;&nbsp;&nbsp;&nbsp;{{ user.driverDocDateStarts | date("Y") }}</div>
 <div class="driverPlace">{{ user.driverDocIssuance }}</div>
 <div class="driverCountry" style="width: 100px">РФ</div>
+<div class="page1_photo">
+    <img src="{{ miniSign }}" style="max-width: 120px">
+</div>
+<div class="page1_photo2">
+    {{ user.lastName }} {{ user.firstName| slice(0,1) }}. {{ user.surName | slice(0,1) }}.
+</div>
+
+
 <div>
     <img src="{{ asset('bundles/crmmain/page2.png') }}" style="position: absolute; top: 0">
     <img src="/{{ user.photo.path }}" class="photo" style="margin-top: -750px; margin-bottom: 750px; position: relative; margin-left: -602px">

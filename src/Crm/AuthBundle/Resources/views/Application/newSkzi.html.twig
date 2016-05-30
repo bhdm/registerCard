@@ -200,7 +200,7 @@
         <hr>
         <div class="block-form" >
             <table class="table-form">
-                <caption>Информация о СНИЛС</caption>
+                <caption>Информация о СНИЛС и ИНН</caption>
                 <tr>
                     <td>Номер СНИЛС</td>
                     <td>{{ form_widget(form.snils) }}</td>
@@ -217,6 +217,43 @@
                             <div class="fileDoc">
                                 {% if form.vars.value.copySnils.path is defined %}
                                     <img src="/{{ form.vars.value.copySnils.path }}" brightness="0" contrast="0">
+                                {% else %}
+                                    <img src="" brightness="0" contrast="0">
+                                {% endif %}
+                            </div>
+                            <div class="navigateFile">
+                                <img src="{{ asset('bundles/crmmain/icons/rotateLeft.png') }}" class="rotateLeft" title="Повернуть налево">
+                                <img src="{{ asset('bundles/crmmain/icons/rotateRight.png') }}" class="rotateRight" title="Повернуть вправо">
+                                <div style="">
+                                    <span class="cropImage minibtn" title="Обрезать изображение">Обрезать</span>
+                                    <br />
+                                    <br />
+                                </div>
+
+                            </div>
+                            <input type="hidden" id="x1" name="x1">
+                            <input type="hidden" id="y1" name="y1">
+                            <input type="hidden" id="x2" name="x2">
+                            <input type="hidden" id="y2" name="y2">
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Номер ИНН</td>
+                    <td>{{ form_widget(form.inn) }}</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td style="vertical-align: top; padding-top: 10px">Копия ИНН<span class="required">*</span></td>
+                    <td colspan="2">
+                        <div class="file-container">
+                            <input type="file" name="innFile" id="innFile" class="fileAjax" {{ edit is not defined ? 'required' : '' }} >
+                            <progress class="progress" value="0" max="100" style="width: 270px"></progress>
+                            <br />
+                            <br />
+                            <div class="fileDoc">
+                                {% if form.vars.value.copyInn.path is defined %}
+                                    <img src="/{{ form.vars.value.copyInn.path }}" brightness="0" contrast="0">
                                 {% else %}
                                     <img src="" brightness="0" contrast="0">
                                 {% endif %}

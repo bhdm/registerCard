@@ -45,6 +45,7 @@ class UserSkziType extends AbstractType
             ->add('email', null,['label'=>'Email', 'required' => true])
             ->add('username', null,['label'=>'Телефон', 'attr' => ['class' => 'phone']])
             ->add('snils', null,['label'=>'СНИЛС', 'attr' => ['class'=> 'snils'], 'required' => true])
+            ->add('inn', null,['label'=>'ИНН', 'attr' => ['class'=> 'inn'], 'required' => true])
 
 
             ->add('deliveryAdrs', new AdrsDeliveryType(),array('mapped'=>true, 'required' => false))

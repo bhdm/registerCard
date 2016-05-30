@@ -188,6 +188,7 @@ class UserController extends Controller
         $session->set('driverFile', null);
         $session->set('driver2File', null);
         $session->set('snilsFile', null);
+        $session->set('innFile', null);
         $session->set('signFile', null);
         $session->set('photoFile', null);
         $session->set('petitionFile', null);
@@ -199,6 +200,7 @@ class UserController extends Controller
         $session->set('origin-driverFile', null);
         $session->set('origin-driver2File', null);
         $session->set('origin-snilsFile', null);
+        $session->set('origin-innFile', null);
         $session->set('origin-signFile', null);
         $session->set('origin-photoFile', null);
         $session->set('origin-petitionFile', null);
@@ -457,6 +459,10 @@ class UserController extends Controller
             $file = $user->getCopySnils();
             if (!empty($file) && file_exists('/var/www/' . $file['path'])) {
                 $session->set('snilsFile', '/var/www/' . $file['path']);
+            }
+            $file = $user->getCopyInn();
+            if (!empty($file) && file_exists('/var/www/' . $file['path'])) {
+                $session->set('innFile', '/var/www/' . $file['path']);
             }
             $file = $user->getPhoto();
             if (!empty($file) && file_exists('/var/www/' . $file['path'])) {
