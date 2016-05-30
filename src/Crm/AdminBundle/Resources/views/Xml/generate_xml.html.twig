@@ -134,6 +134,14 @@
         </Attachment>
         {% endif %}
 
+        {#{% if files[11] is defined %}#}
+            {#<Attachment>#}
+                {#<AttachmentType>Other</AttachmentType>#}
+                {#<FileFormat>PDF</FileFormat>#}
+                {#<Body>{{ files[11].base }}</Body>#}
+            {#</Attachment>#}
+        {#{% endif %}#}
+
         {# Временная регистрация #}
         {% if files[6] is defined %}
         <Attachment>

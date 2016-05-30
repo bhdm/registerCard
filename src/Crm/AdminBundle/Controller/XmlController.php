@@ -44,10 +44,11 @@ class XmlController extends Controller
         $files[3]['base'] = $file;
         $files[3]['title'] = 'Signature';
         $files[3]['file'] = $user->getCopySignature();
-;
+
         $files[5]['base'] = $this->ImageToPdf($user->getCopySnils()['originalName']);
         $files[5]['title'] = 'SNILS';
         $files[5]['file'] = $user->getCopySnils();
+
 
 
         if (isset($files[6])){
@@ -55,6 +56,12 @@ class XmlController extends Controller
             $files[6]['title'] = 'Work';
             $files[6]['file'] = $user->getCopyWork();
         }
+
+
+        $files[11]['base'] = $this->ImageToPdf($user->getCopyInn()['originalName']);
+        $files[11]['title'] = 'INN';
+        $files[11]['file'] = $user->getCopyInn();
+
 
         # Заявление
         $url = $this->generateUrl('generate_pdf_statement',array('id'=>$user->getId()));
