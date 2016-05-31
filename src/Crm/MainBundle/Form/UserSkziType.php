@@ -40,7 +40,7 @@ class UserSkziType extends AbstractType
             ->add('passportIssuanceDate', 'text' ,['label'=>'Дата выдачи', 'attr' => ['class' => 'date']])
             ->add('passportCode', null,['label'=>'Код подразделения', 'required' => false, 'attr' => ['class'=>'code']])
             ->add('userComment', null,['label'=>'Комментарий пользователя', 'required' => false])
-
+            ->add('inn', null,['label'=>'ИНН', 'attr' => ['class'=> 'inn'], 'required' => true])
             ->add('email', null,['label'=>'Email'])
             ->add('username', null,['label'=>'Телефон', 'attr' => ['class' => 'phone']])
             ->add('snils', null,['label'=>'СНИЛС', 'attr' => ['class'=> 'snils'], 'required' => true])

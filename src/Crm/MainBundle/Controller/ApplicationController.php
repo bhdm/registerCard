@@ -135,6 +135,7 @@ class ApplicationController extends Controller
 
             $rootDir = __DIR__.'/../../../../web/upload/';
             $user->setCopyPetition($this->getImgToArray($session->get('petitionFile')));
+            $user->setCopyInn($this->getImgToArray($session->get('innFile')));
             $user->setCopyPassport($this->getImgToArray($session->get('passportFile')));
             $user->setCopyPassportTranslate($this->getImgToArray($session->get('passportTranslateFile')));
             $user->setCopyDriverPassport($this->getImgToArray($session->get('driverFile')));
@@ -285,6 +286,7 @@ class ApplicationController extends Controller
         $session->set('driverFile', null);
         $session->set('driver2File', null);
         $session->set('snilsFile', null);
+        $session->set('innFile', null);
         $session->set('signFile', null);
         $session->set('photoFile', null);
         $session->set('petitionFile', null);
@@ -295,6 +297,7 @@ class ApplicationController extends Controller
         $session->set('origin-driverFile', null);
         $session->set('origin-driver2File', null);
         $session->set('origin-snilsFile', null);
+        $session->set('origin-innFile', null);
         $session->set('origin-signFile', null);
         $session->set('origin-photoFile', null);
         $session->set('origin-petitionFile', null);
