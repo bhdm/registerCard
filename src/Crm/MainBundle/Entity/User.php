@@ -2218,5 +2218,35 @@ class User extends BaseEntity implements UserInterface, EquatableInterface, \Ser
         $this->isProduction = $isProduction;
     }
 
+    /**
+     * @return mixed
+     */
+    public function getInn()
+    {
+        return $this->inn;
+    }
 
+    /**
+     * @param mixed $inn
+     */
+    public function setInn($inn)
+    {
+        $this->inn = $inn;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCopyInn()
+    {
+        return $this->copyInn;
+    }
+
+    /**
+     * @param mixed $copyInn
+     */
+    public function setCopyInn($copyInn)
+    {
+        $this->copyInn = $copyInn;
+    }
 }
