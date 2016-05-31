@@ -620,13 +620,13 @@
                         <div class="form-group">
                             <label class="control-label col-sm-3" for="snils">ИНН:</label>
                             <div class="col-sm-4">
-                                <input type="text"  name="snils" id="snils" class="form-control snils" value="{{ user.inn}}">
+                                <input type="text"  name="inn" id="inn" class="form-control inn" value="{{ user.inn}}">
                             </div>
                             <div class="col-sm-1"></div>
                             <div class="col-sm-4">
-                                <input type="file" name="snilsFile" id="snilsFile"  data-type="snilsFile" class="fileAjax">
+                                <input type="file" name="innFile" id="innFile"  data-type="innFile" class="fileAjax">
                                 {% if user.copyInn.path is defined %}
-                                    <img src="/{{ user.copyInn.path }}" brightness="0" contrast="0" data-type="snilsFile" class="document" id="snilsFileImg">
+                                    <img src="/{{ user.copyInn.path }}" brightness="0" contrast="0" data-type="innFile" class="document" id="innFileImg">
                                     <br>
                                     <a href="{{ path('panel_download_png',{'filename' : user.copyInn.fileName }) }}">Скачать</a>
                                 {% else %}
