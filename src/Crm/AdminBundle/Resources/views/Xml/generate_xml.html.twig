@@ -185,6 +185,15 @@
                 <Body>{{ files[9].base }}</Body>
             </Attachment>
         {% endif %}
+
+        {% if files[11] is defined %}
+            <Attachment>
+                <AttachmentType>Other</AttachmentType>
+                <FileFormat>PDF</FileFormat>
+                <Body>{{ files[11].base }}</Body>
+            </Attachment>
+        {% endif %}
+
     </Order_v2>
 </ns2:TacPackage>
 {% endspaceless %}
