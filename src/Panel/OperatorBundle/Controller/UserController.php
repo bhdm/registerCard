@@ -300,6 +300,7 @@ class UserController extends Controller
             $user->setBirthDate($date);
 
             $user->setPassportNumber($data->get('passportNumber'));
+
             $user->setPassportSerial($data->get('passportSerial'));
             $user->setPassportIssuance($data->get('PassportIssuance'));
             $date = new \DateTime($data->get('PassportIssuanceDate'));
@@ -327,6 +328,7 @@ class UserController extends Controller
 
 
             $user->setSnils($data->get('snils'));
+            $user->setInn($data->get('inn'));
             $user->setLastNumberCard($data->get('oldNumber'));
             $user->setTypeCard($data->get('typeCard'));
 
