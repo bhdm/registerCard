@@ -1330,6 +1330,9 @@ class UserController extends Controller
             case 'snilsFile' :
                 $user->setCopySnils($img);
                 break;
+            case 'innFile' :
+                $user->setCopyInn($img);
+                break;
             case 'photoFile' :
                 $user->setPhoto($img);
                 break;
