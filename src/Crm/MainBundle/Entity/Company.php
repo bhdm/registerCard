@@ -87,6 +87,51 @@ class Company extends BaseEntity
     protected $priceEnterpriseRu = 0;
 
     /**
+     * @ORM\Column(type="integer")
+     */
+    protected $priceSaleSkzi = 0;
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    protected $priceSaleEstr = 0;
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    protected $priceSaleRu = 0;
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    protected $priceSaleMasterSkzi = 0;
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    protected $priceSaleMasterEstr = 0;
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    protected $priceSaleMasterRu = 0;
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    protected $priceSaleEnterpriseSkzi = 0;
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    protected $priceSaleEnterpriseEstr = 0;
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    protected $priceSaleEnterpriseRu = 0;
+
+    /**
      * @Assert\NotBlank( message = "Поле почтоый индекс обязательно для заполнения" )
      * @Assert\Regex(pattern= "/^[0-9]{6}$/", message="Неверный формат ввода.")
      * @ORM\Column(type="string", length=12)
@@ -976,18 +1021,18 @@ class Company extends BaseEntity
             'estr' => 0,
             'ru' => 0
         );
-            $users = $this->getUsers();
-            foreach ($users as $user){
-                if ($user->getStatus() >= 2 && $user->getEnabled() == true && $user->getStatus() != 10 ){
-                    if ($user->getRu() == 0 && $user->getEstr() == 0){
-                        $count['skzi'] ++;
-                    }elseif($user->getRu() == 1 && $user->getEstr() == 0){
-                        $count['ru'] ++;
-                    }elseif($user->getRu() == 0 && $user->getEstr() == 1){
-                        $count['estr'] ++;
-                    }
+        $users = $this->getUsers();
+        foreach ($users as $user){
+            if ($user->getStatus() >= 2 && $user->getEnabled() == true && $user->getStatus() != 10 ){
+                if ($user->getRu() == 0 && $user->getEstr() == 0){
+                    $count['skzi'] ++;
+                }elseif($user->getRu() == 1 && $user->getEstr() == 0){
+                    $count['ru'] ++;
+                }elseif($user->getRu() == 0 && $user->getEstr() == 1){
+                    $count['estr'] ++;
                 }
             }
+        }
 
         return $count;
     }
@@ -1195,6 +1240,151 @@ class Company extends BaseEntity
     public function amountClient(){
         return 0;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getPriceSaleMasterSkzi()
+    {
+        return $this->priceSaleMasterSkzi;
+    }
+
+    /**
+     * @param mixed $priceSaleMasterSkzi
+     */
+    public function setPriceSaleMasterSkzi($priceSaleMasterSkzi)
+    {
+        $this->priceSaleMasterSkzi = $priceSaleMasterSkzi;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getPriceSaleMasterEstr()
+    {
+        return $this->priceSaleMasterEstr;
+    }
+
+    /**
+     * @param mixed $priceSaleMasterEstr
+     */
+    public function setPriceSaleMasterEstr($priceSaleMasterEstr)
+    {
+        $this->priceSaleMasterEstr = $priceSaleMasterEstr;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getPriceSaleMasterRu()
+    {
+        return $this->priceSaleMasterRu;
+    }
+
+    /**
+     * @param mixed $priceSaleMasterRu
+     */
+    public function setPriceSaleMasterRu($priceSaleMasterRu)
+    {
+        $this->priceSaleMasterRu = $priceSaleMasterRu;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getPriceSaleEnterpriseSkzi()
+    {
+        return $this->priceSaleEnterpriseSkzi;
+    }
+
+    /**
+     * @param mixed $priceSaleEnterpriseSkzi
+     */
+    public function setPriceSaleEnterpriseSkzi($priceSaleEnterpriseSkzi)
+    {
+        $this->priceSaleEnterpriseSkzi = $priceSaleEnterpriseSkzi;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getPriceSaleEnterpriseEstr()
+    {
+        return $this->priceSaleEnterpriseEstr;
+    }
+
+    /**
+     * @param mixed $priceSaleEnterpriseEstr
+     */
+    public function setPriceSaleEnterpriseEstr($priceSaleEnterpriseEstr)
+    {
+        $this->priceSaleEnterpriseEstr = $priceSaleEnterpriseEstr;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getPriceSaleEnterpriseRu()
+    {
+        return $this->priceSaleEnterpriseRu;
+    }
+
+    /**
+     * @param mixed $priceSaleEnterpriseRu
+     */
+    public function setPriceSaleEnterpriseRu($priceSaleEnterpriseRu)
+    {
+        $this->priceSaleEnterpriseRu = $priceSaleEnterpriseRu;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getPriceSaleSkzi()
+    {
+        return $this->priceSaleSkzi;
+    }
+
+    /**
+     * @param mixed $priceSaleSkzi
+     */
+    public function setPriceSaleSkzi($priceSaleSkzi)
+    {
+        $this->priceSaleSkzi = $priceSaleSkzi;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getPriceSaleEstr()
+    {
+        return $this->priceSaleEstr;
+    }
+
+    /**
+     * @param mixed $priceSaleEstr
+     */
+    public function setPriceSaleEstr($priceSaleEstr)
+    {
+        $this->priceSaleEstr = $priceSaleEstr;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getPriceSaleRu()
+    {
+        return $this->priceSaleRu;
+    }
+
+    /**
+     * @param mixed $priceSaleRu
+     */
+    public function setPriceSaleRu($priceSaleRu)
+    {
+        $this->priceSaleRu = $priceSaleRu;
+    }
+
 
 
 }
