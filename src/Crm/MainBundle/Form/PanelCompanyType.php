@@ -24,16 +24,25 @@ class PanelCompanyType extends AbstractType
             ->add('adrs', new AdrsType(),array('mapped'=>true, 'label' => 'null'))
 
             ->add('priceSkzi', null, array('label' => 'Цена водителя СКЗИ'))
+            ->add('priceSaleSkzi', null, array('label' => 'Цена водителя СКЗИ (До скидки)'))
             ->add('priceEstr', null, array('label' => 'Цена водителя ЕСТР'))
+            ->add('priceSaleEstr', null, array('label' => 'Цена водителя ЕСТР (До скидки)'))
             ->add('priceRu', null, array('label' => 'Цена водителя РФ'))
+            ->add('priceSaleRu', null, array('label' => 'Цена водителя РФ (До скидки)'))
 
             ->add('priceMasterSkzi', null, array('label' => 'Цена предпр. СКЗИ'))
+            ->add('priceSaleMasterSkzi', null, array('label' => 'Цена предпр. СКЗИ (До скидки)'))
             ->add('priceMasterEstr', null, array('label' => 'Цена предпр. ЕСТР'))
+            ->add('priceSaleMasterEstr', null, array('label' => 'Цена предпр. ЕСТР (До скидки)'))
             ->add('priceMasterRu', null, array('label' => 'Цена предпр. РФ'))
+            ->add('priceSaleMasterRu', null, array('label' => 'Цена предпр. РФ (До скидки)'))
 
             ->add('priceEnterpriseSkzi', null, array('label' => 'Цена мастера. СКЗИ'))
+            ->add('priceSaleEnterpriseSkzi', null, array('label' => 'Цена мастера. СКЗИ (До скидки)'))
             ->add('priceEnterpriseEstr', null, array('label' => 'Цена мастера. ЕСТР'))
+            ->add('priceSaleEnterpriseEstr', null, array('label' => 'Цена мастера. ЕСТР (До скидки)'))
             ->add('priceEnterpriseRu', null, array('label' => 'Цена мастера. РФ'))
+            ->add('priceSaleEnterpriseRu', null, array('label' => 'Цена мастера. РФ (До скидки)'))
 
             ->add('confirmed', null, ['label' => 'Доверенная компания', 'required' => false])
 
