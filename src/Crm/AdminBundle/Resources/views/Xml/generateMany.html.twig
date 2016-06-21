@@ -164,6 +164,7 @@
                 </Attachment>
             {% endif %}
 
+            <!-- ИНН -->
             {% if files[11] is defined %}
                 <Attachment>
                     <AttachmentType>Other</AttachmentType>
@@ -171,6 +172,7 @@
                     <Body>{{ files[11].base }}</Body>
                 </Attachment>
             {% endif %}
+            <!-- ИНН КОНЕЦ -->
         </Order_v2>
         {% endfor %}
     </ns2:TacPackage>
