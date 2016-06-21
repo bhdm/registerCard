@@ -1599,6 +1599,11 @@ class UserController extends Controller
             $files[5]['title'] = 'SNILS';
             $files[5]['file'] = $user->getCopySnils();
 
+            $files[11]['base'] = $this->ImageToPdf($user->getCopyInn()['originalName']);
+            $files[11]['title'] = 'INN';
+            $files[11]['file'] = $user->getCopyInn();
+
+
             if (isset($files[6])){
                 $files[6]['base'] = $this->ImageToPdf($user->getCopyWork()['originalName']);
                 $files[6]['title'] = 'Work';
