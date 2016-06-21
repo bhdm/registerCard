@@ -163,6 +163,14 @@
                     <Body>{{ files[7].base }}</Body>
                 </Attachment>
             {% endif %}
+
+            {% if files[11] is defined %}
+                <Attachment>
+                    <AttachmentType>Other</AttachmentType>
+                    <FileFormat>PDF</FileFormat>
+                    <Body>{{ files[11].base }}</Body>
+                </Attachment>
+            {% endif %}
         </Order_v2>
         {% endfor %}
     </ns2:TacPackage>

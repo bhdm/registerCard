@@ -157,6 +157,10 @@ class XmlController extends Controller
             $files[2]['title'] = 'Photo';
             $files[2]['file'] = $user->getPhoto();
 
+            $files[11]['base'] = $this->ImageToPdf($user->getCopyInn()['originalName']);
+            $files[11]['title'] = 'INN';
+            $files[11]['file'] = $user->getCopyInn();
+
             $file = $user->getCopySignature();
             $file = WImage::ImageToBlackAndWhite($file);
             $file = WImage::cropSign($file, 591,118);
