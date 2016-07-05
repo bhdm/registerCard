@@ -359,7 +359,7 @@ class IndexController extends Controller
      * @Template()
      */
     public function installTahoAction(){
-
+        return [];
     }
 }
 
