@@ -196,51 +196,51 @@
                 </tr>
             </table>
         </div>
-        <hr>
-        <div class="block-form master">
-            <table class="table-form">
-                <caption>Данные о лицензии ФСБ (для мастерских)</caption>
-                <tr>
-                    <td>Номер</td>
-                    <td>{{ form_widget(form.licenseNumber) }}</td>
-                    <td>
-                        Лицензия ФСБ <span class="mini text-danger">(допустимые форматы: JPG,PNG)</span>
-                    </td>
-                </tr>
-                <tr>
-                    <td>Кем выдана</td>
-                    <td>{{ form_widget(form.licenseIssued) }}</td>
-                    <td>
-                        {{ form_widget(form.fileLicense) }}
-                    </td>
-                </tr>
-                <tr>
-                    <td>Дата выдачи</td>
-                    <td>{{ form_widget(form.licenseDateStart) }}</td>
-                    <td>
-                        Обратная сторона
-                    </td>
-                </tr>
-                <tr>
-                    <td>Дата окончания</td>
-                    <td>{{ form_widget(form.licenseDateEnd) }}</td>
-                    <td>
-                        {{ form_widget(form.fileLicenseTwo) }}
-                    </td>
-                </tr>
-                <tr>
-                    <td>Номер приказа</td>
-                    <td>{{ form_widget(form.licenseDecreeNumber) }}</td>
-                </tr>
-                <tr>
-                    <td>Дата приказа</td>
-                    <td>{{ form_widget(form.licenseDecreeDate) }}</td>
-                </tr>
-                <tr>
-                    <td>&nbsp;</td>
-                </tr>
-            </table>
-        </div>
+        {#<hr>#}
+        {#<div class="block-form master">#}
+            {#<table class="table-form">#}
+                {#<caption>Данные о лицензии ФСБ (для мастерских)</caption>#}
+                {#<tr>#}
+                    {#<td>Номер</td>#}
+                    {#<td>{{ form_widget(form.licenseNumber) }}</td>#}
+                    {#<td>#}
+                        {#Лицензия ФСБ <span class="mini text-danger">(допустимые форматы: JPG,PNG)</span>#}
+                    {#</td>#}
+                {#</tr>#}
+                {#<tr>#}
+                    {#<td>Кем выдана</td>#}
+                    {#<td>{{ form_widget(form.licenseIssued) }}</td>#}
+                    {#<td>#}
+                        {#{{ form_widget(form.fileLicense) }}#}
+                    {#</td>#}
+                {#</tr>#}
+                {#<tr>#}
+                    {#<td>Дата выдачи</td>#}
+                    {#<td>{{ form_widget(form.licenseDateStart) }}</td>#}
+                    {#<td>#}
+                        {#Обратная сторона#}
+                    {#</td>#}
+                {#</tr>#}
+                {#<tr>#}
+                    {#<td>Дата окончания</td>#}
+                    {#<td>{{ form_widget(form.licenseDateEnd) }}</td>#}
+                    {#<td>#}
+                        {#{{ form_widget(form.fileLicenseTwo) }}#}
+                    {#</td>#}
+                {#</tr>#}
+                {#<tr>#}
+                    {#<td>Номер приказа</td>#}
+                    {#<td>{{ form_widget(form.licenseDecreeNumber) }}</td>#}
+                {#</tr>#}
+                {#<tr>#}
+                    {#<td>Дата приказа</td>#}
+                    {#<td>{{ form_widget(form.licenseDecreeDate) }}</td>#}
+                {#</tr>#}
+                {#<tr>#}
+                    {#<td>&nbsp;</td>#}
+                {#</tr>#}
+            {#</table>#}
+        {#</div>#}
         <hr />
         <div class="block-form">
             <table class="table-form">
