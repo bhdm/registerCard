@@ -101,6 +101,7 @@
             <tr>
                 <th></th>
                 <th>ID</th>
+                <th>Фамилия</th>
                 <th>Компания</th>
                 <th>Тип компании</th>
                 <th>Тип карт</th>
@@ -117,6 +118,7 @@
                     <tr>
                         <td><input class="user-check" type="checkbox" name="user[{{  item.id }}]" value="{{ item.id }}"></td>
                         <td>{{ item.id }}</td>
+                        <td>{{ item.lastName }}</td>
                         <td>{{ item.company is defined ? item.company.operator }}</td>
                         <td style="text-align: center"><span class="label label-{{ item.companyType == 0 ? 'danger' : item.companyType == 1 ? 'primary' : 'success' }}">{{ item.companyTypeStr }}</span></td>
                         <td style="text-align: center"><span class="label label-{{ item.cardType == 1 ? 'Warning' : item.cardType == 2 ? 'primary' : 'success' }}">{{ item.cardTypeStr }}</td>
