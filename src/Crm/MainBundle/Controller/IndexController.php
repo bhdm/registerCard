@@ -354,5 +354,12 @@ class IndexController extends Controller
         return array( 'page' => $page );
     }
 
+    /**
+     * @Route("/install-tahograf", name="install_tahograf")
+     * @Template()
+     */
+    public function installTahoAction(){
+
+    }
 }
 
