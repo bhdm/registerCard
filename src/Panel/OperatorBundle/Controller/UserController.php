@@ -543,7 +543,7 @@ class UserController extends Controller
         $user = $this->getDoctrine()->getRepository('CrmMainBundle:User')->find($userId);
         if ($user) {
             if ($type == 'true') {
-                $user->setStatus(1);
+                $user->setStatus(2);
             } else {
                 $user->setStatus(0);
             }
@@ -553,7 +553,7 @@ class UserController extends Controller
             $statusLog->setTitle($user->getStatusString());
             $statusLog->setUser($user);
             $this->getDoctrine()->getManager()->persist($statusLog);
-            $session->getFlashBag()->add('notice', 'Пользователь ' . $user->getLastName() . ' переведен в подтвержденные');
+            $session->getFlashBag()->add('notice', 'Пользователь ' . $user->getLastName() . ' переведен в оплаченные');
         }
         return $this->redirect($request->headers->get('referer'));
     }
