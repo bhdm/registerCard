@@ -62,6 +62,7 @@ class ClientMessageController extends Controller
 
         if ($clientId != null){
             $messages = $this->getDoctrine()->getRepository('CrmMainBundle:Chat')->loadMessages($clientId);
+            $username = $this->getDoctrine()->getRepository('CrmMainBundle:Client')->find($clientId);
         }else{
             $messages = array();
         }
@@ -79,6 +80,6 @@ class ClientMessageController extends Controller
 
         }
 
-        return ['clients' => $client, 'activeClient'=> $clientId,'messages' => $messages, 'notAnswer' => $notAnswer];
+        return ['clients' => $client, 'activeClient'=> $clientId,'messages' => $messages, 'notAnswer' => $notAnswer, 'username'=>$username];
     }
 }
