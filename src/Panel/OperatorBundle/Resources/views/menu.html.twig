@@ -178,6 +178,14 @@
             </a>
         </li>
 
+        {% if is_granted('ROLE_OPERATOR') %}
+            <li>
+                <a href="{{ path('download') }}" class="" target="_blank">
+                    <i class="glyphicon glyphicon-align-justify"></i>
+                        Документы
+                </a>
+            </li>
+        {% endif %}
         <li class="{{ app.request.attributes.get('_route') == 'panel_security_logout' ? 'active' : '' }}">
             <a href="{{ path('panel_security_logout') }}" class="text-danger">
                 <i class="glyphicon glyphicon-collapse-down"></i>
