@@ -1942,7 +1942,25 @@ class UserController extends Controller
     }
 
     /**
-     * @Route("/change-mass-staus/{type}", name="panel_user_change_status", options={"expose"=true})
+     * @Route("/user-change-tag/{tag}", name="panel_user_change_tag", options={"expose"=true})
+     */
+    public function massChangeTagAction(Request $request, $tag){
+        $data = $request->request->get('user');
+        $em = $this->getDoctrine()->getManager();
+        foreach ($data as $key => $val) {
+            $user = $this->getDoctrine()->getRepository('CrmMainBundle:User')->find($key);
+            if ($user != null) {
+                $user->setManagerKey($tag);
+                $em->flush($user);
+            }
+        }
+        $referer = $request->headers->get('referer');
+        return $this->redirect($referer);
+    }
+
+
+    /**
+     * @Route("/change-mass-status/{type}", name="panel_user_change_status", options={"expose"=true})
      */
     public function massChangeSTatusAction(Request $request, $type){
         $data = $request->request->get('user');

@@ -166,6 +166,7 @@
         <button id="delivery" class="btn btn-primary">доставка</button>
         <button id="clearManager" class="btn btn-primary">Очистить Тег</button>
         <button id="setNumberPost" class="btn btn-primary" data-toggle="modal" data-target="#modalSetNumberPost">Добавить ШПИ</button>
+        <button id="setNumberPost" class="btn btn-primary" data-toggle="modal" data-target="#modalchangeTag">Добавить Тег</button>
         <button id="changeStatus" class="btn btn-primary" data-toggle="modal" data-target="#modalchangeStatus">Сменить статус</button>
     </div>
 {% endif %}
@@ -205,6 +206,13 @@
 
         $('#comfirmednewstatus').click(function () {
             var url = Routing.generate('panel_user_change_status',{'type' : $('#newstatusselect').val()});
+            $('#form-list').attr('action', url);
+            $('#form-list').attr('target', '_self');
+            $('#form-list').submit();
+        })
+
+        $('#changeteg').click(function () {
+            var url = Routing.generate('panel_user_change_tag',{'tag' : $('#inputtag').val()});
             $('#form-list').attr('action', url);
             $('#form-list').attr('target', '_self');
             $('#form-list').submit();
@@ -280,6 +288,24 @@
     </div>
 </div>
 
+<div class="modal fade" tabindex="-1" role="dialog" id="modalchangeTag">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Массовое выставление тега</h4>
+            </div>
+            <div class="modal-body">
+                <p>Укажите тег</p>
+                <input type="text" class="form-control" name="inputtag" id="inputtag">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Закрыть</button>
+                <button type="button" class="btn btn-primary" id="changeteg">Сохранить</button>
+            </div>
+        </div>
+    </div>
+</div>
 
 <div class="modal fade" tabindex="-1" role="dialog" id="modalchangeStatus">
     <div class="modal-dialog">
