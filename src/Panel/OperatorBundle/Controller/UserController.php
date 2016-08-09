@@ -1940,5 +1940,28 @@ class UserController extends Controller
         $referer = $request->headers->get('referer');
         return $this->redirect($referer);
     }
+
+    /**
+     * @Route("/change-mass-staus/{type}", name="panel_user_change_status", options={"expose"=true})
+     */
+    public function massChangeSTatusAction(Request $request, $type){
+        $data = $request->request->get('user');
+        $em = $this->getDoctrine()->getManager();
+        foreach ($data as $key => $val) {
+            $user = $this->getDoctrine()->getRepository('CrmMainBundle:User')->find($key);
+            if ($user != null) {
+                $user->setStatus($type);
+                $em->flush($user);
+
+                $statusLog = new StatusLog();
+                $statusLog->setTitle($user->getStatusString());
+                $statusLog->setUser($user);
+                $em->persist($statusLog);
+                $em->flush($statusLog);
+            }
+        }
+        $referer = $request->headers->get('referer');
+        return $this->redirect($referer);
+    }
 }
 

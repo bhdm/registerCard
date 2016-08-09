@@ -166,6 +166,7 @@
         <button id="delivery" class="btn btn-primary">доставка</button>
         <button id="clearManager" class="btn btn-primary">Очистить Тег</button>
         <button id="setNumberPost" class="btn btn-primary" data-toggle="modal" data-target="#modalSetNumberPost">Добавить ШПИ</button>
+        <button id="changeStatus" class="btn btn-primary" data-toggle="modal" data-target="#modalchangeStatus">Сменить статус</button>
     </div>
 {% endif %}
 
@@ -202,6 +203,12 @@
             $('#form-list').submit();
         });
 
+        $('#comfirmednewstatus').click(function () {
+            var url = Routing.generate('panel_user_change_status',{'type' : $('#newstatusselect').val()});
+            $('#form-list').attr('action', url);
+            $('#form-list').attr('target', '_self');
+            $('#form-list').submit();
+        })
 
 
         $('.checkxml').click(function(){
@@ -268,6 +275,34 @@
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Закрыть</button>
                 <button type="button" class="btn btn-primary" id="comfirmedsavepost">Сохранить</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade" tabindex="-1" role="dialog" id="modalchangeStatus">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Массовое изменение статуса</h4>
+            </div>
+            <div class="modal-body">
+                <p>Выберите статус</p>
+                <select id="newstatusselect" class="form-control">
+                    <option value="0">Новый</option>
+                    <option value="2">Оплачен</option>
+                    <option value="3">В производстве</option>
+                    <option value="6">Изготовлен</option>
+                    <option value="4">На почте</option>
+                    <option value="5">Получен</option>
+                    <option value="10">Отклонен</option>
+                </select>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Закрыть</button>
+                <button type="button" class="btn btn-primary" id="comfirmednewstatus">Сохранить</button>
             </div>
         </div>
     </div>
