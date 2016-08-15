@@ -208,6 +208,7 @@ $(document).ready(function(){
         //var loader = 'http://im-kard.ru/bundles/crmmain/images/ajax_loader.gif';
         //container.children('.fileDoc').children('img').attr('src', loader);
         //if(file.value.length){
+            $('body').css('position','fixed');
             $('body').loader('show',
                 {
                     className: 'loader',
@@ -216,17 +217,17 @@ $(document).ready(function(){
 
                     delay: 200,
                     loader: true,       // if true, you can hide the loader by clicking on it
-                    overlay: true,      // display or not the overlay
-                    onHide: function () {
-                        $('body').css('position','relative');
-                        $('body').css('right','auto');
-                        $('body').css('left','auto');
-                    },
-                    onShow: function () {
-                        $('body').css('position','fixed');
-                        $('body').css('right','0');
-                        $('body').css('left','0');
-                    }
+                    overlay: true      // display or not the overlay
+                    // onHide: function () {
+                    //     $('body').css('position','relative');
+                    //     $('body').css('right','auto');
+                    //     $('body').css('left','auto');
+                    // },
+                    // onShow: function () {
+                    //
+                    //     $('body').css('right','0');
+                    //     $('body').css('left','0');
+                    // }
 
                 }
             );
@@ -276,10 +277,12 @@ $(document).ready(function(){
                 $('.navigateFile').css('display','mome');
                 navigateFile.css('display','block');
                 $('body').loader('hide');
+                $('body').css('position','relative');
             },
             error:function (error) {
                 console.log(error);
                 $('body').loader('hide');
+                $('body').css('position','relative');
                 var $popup = $('<div class="flash-message">' + error.responseJSON.data.error  + '</div>');
                 $popup.insertAfter('body');
                 setTimeout(function() {
