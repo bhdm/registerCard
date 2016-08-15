@@ -213,8 +213,8 @@ $(document).ready(function(){
         //container.children('.fileDoc').children('img').attr('src', loader);
         //if(file.value.length){
         $('body').css('position','fixed');
-        $('body').css('right','auto');
-        $('body').css('left','auto');
+        $('body').css('right','0');
+        $('body').css('left','0');
 
         $('body').loader('show',
             {
