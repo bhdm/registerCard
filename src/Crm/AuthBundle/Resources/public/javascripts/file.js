@@ -212,7 +212,7 @@ $(document).ready(function(){
         //var loader = 'http://im-kard.ru/bundles/crmmain/images/ajax_loader.gif';
         //container.children('.fileDoc').children('img').attr('src', loader);
         //if(file.value.length){
-        $('body').css('position','relative');
+        $('body').css('position','fixed');
         $('body').css('right','auto');
         $('body').css('left','auto');
 
