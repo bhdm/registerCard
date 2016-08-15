@@ -216,7 +216,17 @@ $(document).ready(function(){
 
                     delay: 200,
                     loader: true,       // if true, you can hide the loader by clicking on it
-                    overlay: true      // display or not the overlay
+                    overlay: true,      // display or not the overlay
+                    onHide: function () {
+                        $('body').css('position','relative');
+                        $('body').css('right','auto');
+                        $('body').css('left','auto');
+                    },
+                    onShow: function () {
+                        $('body').css('position','fixed');
+                        $('body').css('right','0');
+                        $('body').css('left','0');
+                    }
 
                 }
             );
