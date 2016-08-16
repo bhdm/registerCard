@@ -261,10 +261,10 @@
                     <td  class="skzi-col">
                         {#{{ form_widget(form.fileDecree) }}#}
                         <input type="file" name="fileDecreeFile" id="fileDecreeFile" data-type="fileDecreeFile" class="fileAjax" data-type="fileDecreeFile">
-                        {% if order.fileOgrn['path'] is defined %}
+                        {% if order.fileDecree['path'] is defined %}
                             <img src="/upload/usercompany/{{ order.id }}/{{ order.fileDecree['fileName'] }}" brightness="0" contrast="0" class="document" id="fileDecreeFileImg">
                         {% else %}
-                            <img src="" brightness="0" contrast="0" class="document" id="fileOgrnFileImg" />
+                            <img src="" brightness="0" contrast="0" class="document" id="fileDecreeFileImg" />
                         {% endif %}
                     </td>
                 </tr>
