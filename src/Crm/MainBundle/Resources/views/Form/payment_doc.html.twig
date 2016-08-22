@@ -181,8 +181,8 @@
                 {% endif %}
             {% endif %}
 
-            {% if user.compnay.operator is defined and user.compnay.operator != null and user.compnay.operator.inn != null %}
-                {% set op = user.compnay.operator %}
+            {% if user.company.operator is defined and user.company.operator != null and user.company.operator.inn != null %}
+                {% set op = user.company.operator %}
             {% else %}
                 {% set op = null %}
             {% endif %}
