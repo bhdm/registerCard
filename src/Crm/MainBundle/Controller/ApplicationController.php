@@ -76,18 +76,18 @@ class ApplicationController extends Controller
             $em->persist($user);
             $em->flush($user);
             $em->refresh($user);
-            $message = \Swift_Message::newInstance()
-                ->setSubject('Закза создан')
-                ->setFrom('info@im-kard.ru')
-                ->setTo($company->getOperator()->getUsername())
-                ->setBody(
-                    $this->renderView(
-                        'CrmAuthBundle:Mail:registerOperator.html.twig',
-                        array('user' => $user)
-                    ), 'text/html'
-                )
-            ;
-            $this->get('mailer')->send($message);
+//            $message = \Swift_Message::newInstance()
+//                ->setSubject('Закза создан')
+//                ->setFrom('info@im-kard.ru')
+//                ->setTo($company->getOperator()->getUsername())
+//                ->setBody(
+//                    $this->renderView(
+//                        'CrmAuthBundle:Mail:registerOperator.html.twig',
+//                        array('user' => $user)
+//                    ), 'text/html'
+//                )
+//            ;
+//            $this->get('mailer')->send($message);
             return $this->render('@CrmMain/Application/success.html.twig',['user' => $user, 'url' => $url]);
         }else{
             $this->clearSession($session);
@@ -173,18 +173,18 @@ class ApplicationController extends Controller
             $em->persist($user);
             $em->flush($user);
             $em->refresh($user);
-            $message = \Swift_Message::newInstance()
-                ->setSubject('Закза создан')
-                ->setFrom('info@im-kard.ru')
-                ->setTo($company->getOperator()->getUsername())
-                ->setBody(
-                    $this->renderView(
-                        'CrmAuthBundle:Mail:registerOperator.html.twig',
-                        array('user' => $user)
-                    ), 'text/html'
-                )
-            ;
-            $this->get('mailer')->send($message);
+////            $message = \Swift_Message::newInstance()
+////                ->setSubject('Закза создан')
+////                ->setFrom('info@im-kard.ru')
+////                ->setTo($company->getOperator()->getUsername())
+////                ->setBody(
+////                    $this->renderView(
+////                        'CrmAuthBundle:Mail:registerOperator.html.twig',
+////                        array('user' => $user)
+////                    ), 'text/html'
+////                )
+////            ;
+//            $this->get('mailer')->send($message);
             return $this->render('@CrmMain/Application/success.html.twig',['user' => $user, 'url' => $url]);
 //            }
         }else{
@@ -256,18 +256,18 @@ class ApplicationController extends Controller
             $em->persist($user);
             $em->flush($user);
             $em->refresh($user);
-            $message = \Swift_Message::newInstance()
-                ->setSubject('Закза создан')
-                ->setFrom('info@im-kard.ru')
-                ->setTo($company->getOperator()->getUsername())
-                ->setBody(
-                    $this->renderView(
-                        'CrmAuthBundle:Mail:registerOperator.html.twig',
-                        array('user' => $user)
-                    ), 'text/html'
-                )
-            ;
-            $this->get('mailer')->send($message);
+//            $message = \Swift_Message::newInstance()
+//                ->setSubject('Закза создан')
+//                ->setFrom('info@im-kard.ru')
+//                ->setTo($company->getOperator()->getUsername())
+//                ->setBody(
+//                    $this->renderView(
+//                        'CrmAuthBundle:Mail:registerOperator.html.twig',
+//                        array('user' => $user)
+//                    ), 'text/html'
+//                )
+//            ;
+//            $this->get('mailer')->send($message);
 //            if ($this->getUser()->getCompany() != null && $this->getUser()->getCompany()->getUrl() != 'NO_COMPANY'){
 //                return $this->redirect($this->generateUrl('auth_order'));
 //            }else{
