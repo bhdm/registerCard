@@ -1915,4 +1915,17 @@ class OrderController extends Controller
         }
         return array('form' => $form->createView());
     }
+
+    /**
+     * @Route("/complaint/{orderId}", name="auth_complaint")
+     * @Template()
+     */
+    public function complaintAction($orderId){
+        $user = $this->getUser();
+        $order = $this->getDoctrine()->getRepository('CrmMainBundle:User')->findOneBy(['id' => $orderId]);
+//        if ($order->getClient() == $user || $this->get('security.context')->isGranted('ROLE_ADMIN')){
+            return ['user' => $user, 'order' => $order];
+//        }
+        throw $this->createAccessDeniedException('Доступ запрещен');
+    }
 }
