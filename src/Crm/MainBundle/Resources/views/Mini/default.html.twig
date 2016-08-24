@@ -3,7 +3,7 @@
 
 {% block content %}
 
-    {% if company is defined and company.id != 1013 %}
+    {% if company is defined and company.id != 0 %}
         {#{% if company.description == null %}#}
             {#<h1>{{ company.title }}</h1>#}
         {#{% else %}#}
@@ -103,6 +103,7 @@
                     </div>
                 </div>
             </div>
+            {% if company is defined and company.id != 1013 %}
             <div class="col-sm-4 col-md-4">
                 <div class="thumbnail">
                     <img src="{{ asset('bundles/crmmain/images/card2-3.png') }}">
@@ -138,6 +139,7 @@
                     </div>
                 </div>
             </div>
+            {% endif %}
         </div>
         <hr />
     </div>
