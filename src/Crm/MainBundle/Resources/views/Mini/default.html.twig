@@ -10,12 +10,14 @@
             {#{{ company.description | raw }}#}
         {#{% endif %}#}
         {#<a href="https://im-kard.ru/bundles/crmmain/docs/license.pdf" target="_blank">Лицензионное соглашение</a>#}
+        {% if company is defined and company.id != 1013 %}
         <div style="float: right;">
         <a href="{{ path('auth_login',{'url': company.url}) }}"><span class="btn btn-blue">Вход</span></a>
         <a href="{{ path('auth_register',{'url': company.url}) }}"><span class="btn btn-blue">Регистрация</span></a>
         </div>
         <br />
         <br />
+        {% endif %}
         {#<br />#}
         {#<br />#}
         {#<a href="{{ path('company-application-estr-add',{'url': company.url}) }}"><span class="btn">Карта ЕСТР</span></a>#}
