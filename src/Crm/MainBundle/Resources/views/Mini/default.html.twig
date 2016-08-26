@@ -10,7 +10,7 @@
             {#{{ company.description | raw }}#}
         {#{% endif %}#}
         {#<a href="https://im-kard.ru/bundles/crmmain/docs/license.pdf" target="_blank">Лицензионное соглашение</a>#}
-        {% if company is defined and company.id != 1013 %}
+        {% if company is defined and company.id != 1013 and company.id != 1107 %}
         <div style="float: right;">
         <a href="{{ path('auth_login',{'url': company.url}) }}"><span class="btn btn-blue">Вход</span></a>
         <a href="{{ path('auth_register',{'url': company.url}) }}"><span class="btn btn-blue">Регистрация</span></a>
@@ -105,7 +105,7 @@
                     </div>
                 </div>
             </div>
-            {% if company is defined and company.id != 1013 %}
+            {% if company is defined and company.id != 1013 and company.id != 1107 %}
             <div class="col-sm-4 col-md-4">
                 <div class="thumbnail">
                     <img src="{{ asset('bundles/crmmain/images/card2-3.png') }}">
