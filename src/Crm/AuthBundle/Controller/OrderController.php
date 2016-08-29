@@ -1460,6 +1460,19 @@ class OrderController extends Controller
             }
 
             $path = $this->get('kernel')->getRootDir() . '/../web/upload/usercompany/';
+            $file = $session->get('fileStampFile');
+            if ($file){
+                $info = new \SplFileInfo($file);
+                $path = $path.$item->getId().'/'.$item->getSalt().time().'-fileStampFile.'.$info->getExtension();
+                if (copy($file,$path)){
+                    unlink( $file );
+                    $session->set('fileStampFile',null);
+                    $array = $this->getImgToArray($path);
+                    $item->setFileStamp($array);
+                }
+            }
+
+            $path = $this->get('kernel')->getRootDir() . '/../web/upload/usercompany/';
             $file = $session->get('fileInnFile');
             if ($file){
                 $info = new \SplFileInfo($file);
@@ -1629,6 +1642,19 @@ class OrderController extends Controller
                     $session->set('fileOrderFile',null);
                     $array = $this->getImgToArray($path);
                     $item->setFileOrder($array);
+                }
+            }
+
+            $path = $this->get('kernel')->getRootDir() . '/../web/upload/usercompany/';
+            $file = $session->get('fileStampFile');
+            if ($file){
+                $info = new \SplFileInfo($file);
+                $path = $path.$item->getId().'/'.$item->getSalt().time().'-fileStampFile.'.$info->getExtension();
+                if (copy($file,$path)){
+                    unlink( $file );
+                    $session->set('fileStampFile',null);
+                    $array = $this->getImgToArray($path);
+                    $item->setFileStamp($array);
                 }
             }
 
@@ -1815,6 +1841,19 @@ class OrderController extends Controller
                     $session->set('fileOrderFile',null);
                     $array = $this->getImgToArray($path);
                     $item->setFileOrder($array);
+                }
+            }
+
+            $path = $this->get('kernel')->getRootDir() . '/../web/upload/usercompany/';
+            $file = $session->get('fileStampFile');
+            if ($file){
+                $info = new \SplFileInfo($file);
+                $path = $path.$item->getId().'/'.$item->getSalt().time().'-fileStampFile.'.$info->getExtension();
+                if (copy($file,$path)){
+                    unlink( $file );
+                    $session->set('fileStampFile',null);
+                    $array = $this->getImgToArray($path);
+                    $item->setFileStamp($array);
                 }
             }
 

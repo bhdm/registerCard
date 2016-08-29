@@ -179,6 +179,12 @@ class CompanyUser extends BaseEntity
     # ################ #
 
     /**
+     * @Assert\File( maxSize="4M")
+     * @ORM\Column(type="array", nullable=true)
+     */
+    protected $stampOrder;
+
+    /**
      * @Assert\File( maxSize="2M")
      * @ORM\Column(type="array", nullable=true)
      */
@@ -1216,7 +1222,23 @@ class CompanyUser extends BaseEntity
         $this->postNumber = $postNumber;
     }
 
-    
+    /**
+     * @return mixed
+     */
+    public function getStampOrder()
+    {
+        return $this->stampOrder;
+    }
+
+    /**
+     * @param mixed $stampOrder
+     */
+    public function setStampOrder($stampOrder)
+    {
+        $this->stampOrder = $stampOrder;
+    }
+
+
 
 
 }
