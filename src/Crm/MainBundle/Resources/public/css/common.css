@@ -576,3 +576,6 @@ input.little{
 .loader .loader-load{
     position: fixed !important;
 }
+.loader{
+    position: fixed !important;
+}
