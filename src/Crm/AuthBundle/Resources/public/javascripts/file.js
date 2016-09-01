@@ -212,9 +212,9 @@ $(document).ready(function(){
         //var loader = 'http://im-kard.ru/bundles/crmmain/images/ajax_loader.gif';
         //container.children('.fileDoc').children('img').attr('src', loader);
         //if(file.value.length){
-        $('body').css('position','fixed');
-        $('body').css('right','0');
-        $('body').css('left','0');
+        // $('body').css('position','fixed');
+        // $('body').css('right','0');
+        // $('body').css('left','0');
 
         $('body').loader('show',
             {
@@ -275,12 +275,12 @@ $(document).ready(function(){
                 $('.navigateFile').css('display','mome');
                 navigateFile.css('display','block');
                 $('body').loader('hide');
-                $('body').css('position','relative');
+                // $('body').css('position','relative');
             },
             error:function (error) {
                 console.log(s=error);
                 $('body').loader('hide');
-                $('body').css('position','relative');
+                // $('body').css('position','relative');
                 var $popup = $('<div class="flash-message">' + error.responseJSON.data.error  + '</div>');
                 $popup.insertAfter('body');
                 setTimeout(function() {
