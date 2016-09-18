@@ -180,7 +180,7 @@
             });
 
             $('#filter-send').click(function () {
-                var url = Routing.generate('panel_user_list', { 'status' : {{ app.request.attributes.get('_route_params').status }}, 'company': '{{ companyId }}', 'operator': '{{ operatorId }}' ,'type': $('#filter-type').val(), 'dateStart' : $('#filter-dateStart').val(), 'dateEnd' : $('#filter-dateEnd').val(),'search' : $('#filter-search').val(), 'filterManager' : $('#filter-manager').val() });
+                var url = Routing.generate('panel_user_list', { 'status' : {{ app.request.attributes.get('_route_params').status }}, 'company': '{{ companyId }}', 'operator': '{{ operatorId }}' ,'type': $('#filter-type').val(), 'dateStart' : $('#filter-dateStart').val(), 'dateEnd' : $('#filter-dateEnd').val(),'search' : $('#filter-search').val(), 'filterManager' : $('#filter-manager').val().toString() });
                 window.location.href = url;
             });
 

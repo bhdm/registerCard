@@ -203,8 +203,13 @@ class UserRepository extends EntityRepository
             $res->andWhere(" ( u.comment is not null AND u.comment != '' ) ");
         }
 
-        if ($filterManager != null){
-            $res->andWhere("u.managerKey = '".$filterManager."'");
+        if ($filterManager !== null and is_array($filterManager)){
+            $strMan = '';
+            foreach ($filterManager as $f){
+                $strMan .= " u.managerKey = '".$f."' OR";
+            }
+            $strMan = substr($strMan, 0, -2);
+            $res->andWhere("($strMan)");
         }
         if ($type == 0){
             $res->andWhere('u.estr = 0 AND u.ru = 0');
@@ -318,9 +323,15 @@ class UserRepository extends EntityRepository
             $res->andWhere(" ( u.comment is not null AND u.comment != '' ) ");
         }
 
-        if ($filterManager != null){
-            $res->andWhere("u.managerKey = '".$filterManager."'");
+        if ($filterManager !== null and is_array($filterManager)){
+            $strMan = '';
+            foreach ($filterManager as $f){
+                $strMan .= " u.managerKey = '".$f."' OR";
+            }
+            $strMan = substr($strMan, 0, -2);
+            $res->andWhere("($strMan)");
         }
+
         if ($type == 0){
             $res->andWhere('u.estr = 0 AND u.ru = 0');
         }elseif ($type == 1){

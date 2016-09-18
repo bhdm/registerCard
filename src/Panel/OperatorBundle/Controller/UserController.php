@@ -38,6 +38,8 @@ class UserController extends Controller
         $filterManager = $request->query->get('filterManager');
         if ($filterManager == 'null'){
             $filterManager = null;
+        }else{
+            $filterManager = explode(',',$filterManager);
         }
 
         $searchtxt = $request->query->get('search');
