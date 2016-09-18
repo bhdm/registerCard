@@ -522,6 +522,11 @@ class User extends BaseEntity implements UserInterface, EquatableInterface, \Ser
      */
     protected $dateEndCard;
 
+    /**
+     * @ORM\ManyToMany(targetEntity="Crm\MainBundle\Entity\Tag", mappedBy="users")
+     */
+    private $tags;
+
     public function getXmlId()
     {
         return str_pad($this->id, 8, "0", STR_PAD_LEFT);
@@ -538,6 +543,7 @@ class User extends BaseEntity implements UserInterface, EquatableInterface, \Ser
         $this->registeredAdrs = array();
         $this->petitionAdrs = array();
         $this->meta = serialize($_SERVER['HTTP_USER_AGENT']);
+        $this->tags = new ArrayCollection();
     }
 
     public function __toString()
@@ -2339,7 +2345,20 @@ class User extends BaseEntity implements UserInterface, EquatableInterface, \Ser
         $this->copyInn = $copyInn;
     }
 
+    /**
+     * @return mixed
+     */
+    public function getTags()
+    {
+        return $this->tags;
+    }
 
-
+    /**
+     * @param mixed $tags
+     */
+    public function setTags($tags)
+    {
+        $this->tags = $tags;
+    }
 
 }
