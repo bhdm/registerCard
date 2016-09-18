@@ -160,7 +160,7 @@
                                     <ul class="dropdown-menu" aria-labelledby="dropdownPayment}">
                                         {% if o.company != null and not ( o.company.operator.id is defined and o.company.operator.id == 39 ) %}
                                             <li><a href="{{ path('generate_payment_pdf') }}?ord={{ o.id }}" target="_blank">Платежное поручение</a></li>
-                                            <li><a href="{{ path('payment_assist',{'userId' : o.id} )  }}" target="_blank">Робокасса</a></li>
+                                            <li><a href="{{ path('payment_assist',{'userId' : o.id} )  }}" target="_blank">Робокасса - онлайн оплата</a></li>
                                         {% endif %}
                                         <li><a href="{{ path('generate_pdf_statement',{'id' : o.id}) }}" target="_blank">Скачать заявку</a></li>
                                     </ul>

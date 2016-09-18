@@ -206,6 +206,9 @@ class UserRepository extends EntityRepository
         if ($filterManager !== null and is_array($filterManager)){
             $strMan = '';
             foreach ($filterManager as $f){
+                if ($f == 'nul'){
+                    $f = '';
+                }
                 $strMan .= " u.managerKey = '".$f."' OR";
             }
             $strMan = substr($strMan, 0, -2);
@@ -326,6 +329,9 @@ class UserRepository extends EntityRepository
         if ($filterManager !== null and is_array($filterManager)){
             $strMan = '';
             foreach ($filterManager as $f){
+                if ($f == 'nul'){
+                    $f = '';
+                }
                 $strMan .= " u.managerKey = '".$f."' OR";
             }
             $strMan = substr($strMan, 0, -2);
