@@ -571,6 +571,10 @@ class User extends BaseEntity implements UserInterface, EquatableInterface, \Ser
         return $this->firstName;
     }
 
+    public function getFullname(){
+        return $this->lastName.' '.$this->firstName.' '.$this->surName;
+    }
+
     /**
      * @param mixed $firstName
      */

@@ -61,7 +61,7 @@
                 </tr>
                 <tr>
                     <td><br /><br /></td>
-                    <td><br /><br /></td>
+                    <td style="text-align: center">{{ 'now' | date('d.m.Y') }}</td>
                 </tr>
             </table>
         </td>
@@ -83,7 +83,10 @@
     <tr>
         <td class="green">2</td>
         <td class="green">Номер карты тахографа</td>
-        <td style="text-align: center; font-size: 20px">RUD _ _ _ _ _ _ _ _ _ _ _ _ _ </td>
+        <td style="text-align: center; font-size: 20px">RUD
+            {#_ _ _ _ _ _ _ _ _ _ _ _ _#}
+            <input type="text" style="letter-spacing: 5px; width: 250px; float: right" value="" >
+        </td>
     </tr>
     <tr>
         <td class="green">3</td>
@@ -100,19 +103,19 @@
                 <tr>
                    <td rowspan="3">Паспорт РФ <br /> Прочее _________</td>
                    <td class="green">3.3 Серия</td>
-                   <td><input type="text"></td>
+                   <td><input type="text" value="{{ order.passportSerial }}"></td>
                    <td class="green">3.4 Номер</td>
-                   <td><input type="text"></td>
+                   <td><input type="text" value="{{ order.passportNumber }}"></td>
                    <td class="green">3.5 Дата</td>
-                   <td><input type="date"></td>
+                   <td><input type="date" value="{{ order.passportIssuanceDate | date('Y-m-d') }}"></td>
                 </tr>
                 <tr>
                     <td class="green">3.6 Кем выдан</td>
-                    <td colspan="5"><textarea style="height: 50px"></textarea></td>
+                    <td colspan="5"><textarea style="height: 50px">{{ order.passportIssuance }}</textarea></td>
                 </tr>
                 <tr>
                     <td class="green">3.7 Код подразделения</td>
-                    <td colspan="5"><input type="text" style="width: 100px"></td>
+                    <td colspan="5"><input type="text" style="width: 100px" value="{{ order.passportCode }}"></td>
                 </tr>
             </table>
         </td>
@@ -122,9 +125,9 @@
             <table class="table">
                 <tr>
                     <td class="green">3.8 Номер телефона</td>
-                    <td><input type="text"></td>
+                    <td><input type="text" value="{{ order.phone }}"></td>
                     <td class="green">3.9 E-mail</td>
-                    <td><input type="text"></td>
+                    <td><input type="text" value="{{ order.email }}"></td>
                 </tr>
             </table>
         </td>
@@ -135,20 +138,16 @@
     </tr>
     <tr>
         <td colspan="3">
-            <textarea style="height: 100px">
-Карта тахографа неработоспособна (т.е. не может эксплуатироваться в тахографе, в соответствии с ее назначением)
-
-Персональные данные, выгравированные на карте тахографа, не соответствуют данным, указанным в
-заявлении о выдаче (замене, обновлении) карты тахографа
-
-Персональные данные, выгравированные на карте тахографа, не соответствуют данным, записанным в
-чипе карты
-
-Персональные данные, записанные в чипе карты, не соответствуют данным, указанным в заявлении о
-выдаче (замене, обновлении) карты тахографа
-
-Наличие дефектов производства на пластике или контактной плате (царапины, сколы, порезы и т.д.)
-            </textarea>
+            <ul style="list-style: none; text-align: left">
+                <li><input type="checkbox" style="display: inline; width: 24px; min-height: 15px;">&nbsp;&nbsp;&nbsp; Карта тахографа неработоспособна (т.е. не может эксплуатироваться в тахографе, в соответствии с ее назначением)</li>
+                <li><input type="checkbox" style="display: inline; width: 24px; min-height: 15px;">&nbsp;&nbsp;&nbsp; Персональные данные, выгравированные на карте тахографа, не соответствуют данным, указанным в
+                    заявлении о выдаче (замене, обновлении) карты тахографа</li>
+                <li><input type="checkbox" style="display: inline; width: 24px; min-height: 15px;">&nbsp;&nbsp;&nbsp; Персональные данные, выгравированные на карте тахографа, не соответствуют данным, записанным в
+                    чипе карты</li>
+                <li><input type="checkbox" style="display: inline; width: 24px; min-height: 15px;">&nbsp;&nbsp;&nbsp; Персональные данные, записанные в чипе карты, не соответствуют данным, указанным в заявлении о
+                    выдаче (замене, обновлении) карты тахографа</li>
+                <li><input type="checkbox" style="display: inline; width: 24px; min-height: 15px;">&nbsp;&nbsp;&nbsp; Наличие дефектов производства на пластике или контактной плате (царапины, сколы, порезы и т.д.)</li>
+            </ul>
         </td>
     </tr>
     <tr>
@@ -253,9 +252,15 @@
     <br />
     <br />
     <br />
-    <table style="width: 100%" cellspacing="25">
+    <table style="width: 100%" cellspacing="0">
+        <tr>
+            <td style="text-align: center" valign="bottom">{{ order.fullname }}</td>
+            <td style="width: 100px"></td>
+            <td style="text-align: center"><img src="/{{ order.copySignature.path }}"></td>
+        </tr>
         <tr>
             <td style="width: 60%; border-top: 1px solid #000; text-align: center">Ф.И.О. Заявителя</td>
+            <td style="width: 100px"></td>
             <td style="border-top: 1px solid #000; text-align: center">Подпись</td>
         </tr>
     </table>

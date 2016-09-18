@@ -572,7 +572,9 @@ class Client extends BaseEntity implements UserInterface
         $this->deliveryAdrs = $deliveryAdrs;
     }
 
-
+    public function getFullname(){
+        return $this->lastName.' '.$this->firstName.' '.$this->surName;
+    }
 
 
 }
