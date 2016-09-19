@@ -95,7 +95,7 @@
             <td colspan="3">
                 <br />
                 <select id="filter-manager" class="choosenselect" multiple>
-                    <option value="null">Фильтр по менеджеру</option>
+                    <option value="null" selected>Показать всех</option>
                     <option value="nul">Без тега</option>
                     {% for manager in managers %}
                         <option value="{{ manager.managerKey }}" {{ app.request.query.all.filterManager is defined and app.request.query.all.filterManager == manager.managerKey ? 'selected="selected"' : ''}}>{{ manager.managerKey }}</option>
