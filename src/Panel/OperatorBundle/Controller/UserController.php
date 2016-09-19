@@ -36,7 +36,7 @@ class UserController extends Controller
         }
 
         $filterManager = $request->query->get('filterManager');
-        if ($filterManager == 'null'){
+        if ($filterManager == 'null' || $filterManager == null){
             $filterManager = null;
         }else{
             $filterManager = explode(',',$filterManager);
