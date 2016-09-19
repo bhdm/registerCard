@@ -264,6 +264,9 @@
             $(".chosen").chosen({no_results_text: "Компаний по вашему запросу не найдено", width: 200});
 
             $('.chosen').change(function(){
+                if ($(this).val() == null){
+                    $(this).val('null');
+                }
                 window.location.href = Routing.generate('panel_user_list', {'type': 'null', 'company': $(this).val() })
             });
 
