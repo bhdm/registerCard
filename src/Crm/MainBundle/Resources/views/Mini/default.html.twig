@@ -49,8 +49,9 @@
                             <li>фото, подпись</li>
                         </ul>
                         <br />
+                        {% if company.id != 1013 and company.id != 1107 %}
                         Срок изготовления: <b>15 дней</b><br />
-                        
+                        {% endif %}
                         <br />
                         {#<div class="row">#}
                         {#<div class="col-xs-6 price"><span class="sale">{{ company.priceSkzi }} руб</span></div>#}
@@ -85,7 +86,9 @@
                             <li>копия водительского удостоверения (две стороны)</li>
                             <li>фото, подпись</li>
                         </ul>
-                        Срок изготовления: <b>15 дней</b><br />
+                        {% if company.id != 1013 and company.id != 1107 %}
+                            Срок изготовления: <b>15 дней</b><br />
+                        {% endif %}
                         
                         <br />
                         <br />
