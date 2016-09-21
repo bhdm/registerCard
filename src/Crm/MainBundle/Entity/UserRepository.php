@@ -334,7 +334,7 @@ class UserRepository extends EntityRepository
             foreach ($filterManager as $f){
                 if ($f != 'null' and $f != null){
                     if ($f == 'nul'){
-                        $strMan .= " u.managerKey = '' OR  u.managerKey is null OR ";
+                        $strMan .= " u.managerKey = '' OR  u.managerKey is null OR";
                     }else{
                         $strMan .= " u.managerKey = '".$f."' OR";
                     }
