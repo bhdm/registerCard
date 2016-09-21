@@ -96,7 +96,7 @@
                 <br />
                 <select id="filter-manager" class="choosenselect" multiple>
                     <option value="null" selected>Показать всех</option>
-                    <option value="nul">Без тега</option>
+                    <option value="nul"  {{ filterManager['nul'] is defined ? 'selected="selected"' : '' }}>Без тега</option>
                     {% for manager in managers %}
                         <option value="{{ manager.managerKey }}"
                                 {{ filterManager[manager.managerKey] is defined ? 'selected="selected"' : '' }}>

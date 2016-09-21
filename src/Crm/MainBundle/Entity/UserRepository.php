@@ -206,10 +206,13 @@ class UserRepository extends EntityRepository
         if ($filterManager !== null and is_array($filterManager)){
             $strMan = '';
             foreach ($filterManager as $f){
-                if ($f == 'nul'){
-                    $f = '';
+                if ($f != 'null' and $f != null){
+                    if ($f == 'nul'){
+                        $strMan .= " u.managerKey = '' OR  u.managerKey is null OR ";
+                    }else{
+                        $strMan .= " u.managerKey = '".$f."' OR";
+                    }
                 }
-                $strMan .= " u.managerKey = '".$f."' OR";
             }
             $strMan = substr($strMan, 0, -2);
             $res->andWhere("($strMan)");
@@ -329,10 +332,13 @@ class UserRepository extends EntityRepository
         if ($filterManager !== null and is_array($filterManager)){
             $strMan = '';
             foreach ($filterManager as $f){
-                if ($f == 'nul'){
-                    $f = '';
+                if ($f != 'null' and $f != null){
+                    if ($f == 'nul'){
+                        $strMan .= " u.managerKey = '' OR  u.managerKey is null OR ";
+                    }else{
+                        $strMan .= " u.managerKey = '".$f."' OR";
+                    }
                 }
-                $strMan .= " u.managerKey = '".$f."' OR";
             }
             $strMan = substr($strMan, 0, -2);
             $res->andWhere("($strMan)");
