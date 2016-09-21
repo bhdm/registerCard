@@ -239,7 +239,7 @@ class UserRepository extends EntityRepository
 //                }
             }else{
                 $res->andWhere('u.status = 0');
-                $res->andWhere('op.id = '.$userId);
+//                $res->andWhere('op.id = '.$userId);
             }
         }else{
             if ( $status !== 'all' ){
