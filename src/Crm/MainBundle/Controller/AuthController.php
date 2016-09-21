@@ -269,30 +269,30 @@ class AuthController extends Controller
 //                $mail = null;
 //            }
 
-            $user = $this->getDoctrine()->getRepository('CrmMainBundle:User')->findOneById($id);
-            $mpdfService = $this->container->get('tfox.mpdfport');
+        $user = $this->getDoctrine()->getRepository('CrmMainBundle:User')->findOneById($id);
+        $mpdfService = $this->container->get('tfox.mpdfport');
 
-            $file = $user->getCopySignature();
-            $bigSign = WImage::cropSign(__DIR__.'/../../../../web/'.$file['path'], 285,140, false);
+        $file = $user->getCopySignature();
+        $bigSign = WImage::cropSign(__DIR__.'/../../../../web/'.$file['path'], 285,140, false);
 //            $bigSign = '/upload/temp/'.substr($bigSign, strrpos($bigSign, '/')+1);
-            $miniSign = $bigSign;
+        $miniSign = $bigSign;
 //            $miniSign = WImage::cropSign(__DIR__.'/../../../../web/'.$file['path'], 591,118, false);
 //            $miniSign = '/upload/tmp/'.substr($miniSign, strrpos($miniSign, '/')+1);
 
 //            $html = $this->render('CrmMainBundle:Form:doc2.html.twig',array('user' => $user));
-            $width = rand(0,200);
-            $html = $this->render('CrmMainBundle:Form:doc2.html.twig',array('user' => $user, 'bigSign' => $bigSign, 'miniSign' => $miniSign, 'width' => $width));
+        $width = rand(0,200);
+        $html = $this->render('CrmMainBundle:Form:doc2.html.twig',array('user' => $user, 'bigSign' => $bigSign, 'miniSign' => $miniSign, 'width' => $width));
 
 
-            $arguments = array(
-                'constructorArgs' => array(null, null, 0 ,10 ,3 ,0, 3), //Constructor arguments. Numeric array. Don't forget about points 2 and 3 in Warning section!
-                'writeHtmlMode' => null, //$mode argument for WriteHTML method
-                'writeHtmlInitialise' => null, //$mode argument for WriteHTML method
-                'writeHtmlClose' => null, //$close argument for WriteHTML method
-                'outputFilename' => null, //$filename argument for Output method
-                'outputDest' => null, //$dest argument for Output method
-            );
-             $response = $mpdfService->generatePdf($html->getContent(), $arguments);
+        $arguments = array(
+            'constructorArgs' => array(null, null, 0 ,10 ,3 ,0, 3), //Constructor arguments. Numeric array. Don't forget about points 2 and 3 in Warning section!
+            'writeHtmlMode' => null, //$mode argument for WriteHTML method
+            'writeHtmlInitialise' => null, //$mode argument for WriteHTML method
+            'writeHtmlClose' => null, //$close argument for WriteHTML method
+            'outputFilename' => null, //$filename argument for Output method
+            'outputDest' => null, //$dest argument for Output method
+        );
+        $response = $mpdfService->generatePdf($html->getContent(), $arguments);
 
 //                return new Response($html);
 //            return $response;
