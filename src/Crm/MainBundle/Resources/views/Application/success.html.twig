@@ -11,7 +11,7 @@
             <br/>
             <b>Выберите способ оплаты:</b>
         {% endif %}
-        <a href="{{ path('generate_pdf_statement',{'id' : user.id}) }}" target="_parent" class="btn">Скачать заявку</a>
+        <a href="https://im-kard.ru{{ path('generate_pdf_statement',{'id' : user.id}) }}" target="_parent" class="btn">Скачать заявку</a>
         <br/><br /><br />
         {% if url == null or ( user.company.operator is defined and user.company.operator.iframe == true) %}
             <a href="{{ path('payment_assist',{'userId' : user.id} )  }}" class="btn" target="_parent">Online "Робокасса"</a>
