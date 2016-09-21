@@ -97,6 +97,7 @@ class UserController extends Controller
             'operator'   => $operator,
             'operatorId' => $operatorId,
             'managers' => $managers,
+            'filterManager' => ($filterManager != null ? array_flip($filterManager) : null ),
             'debtors' => $this->getDoctrine()->getRepository('CrmMainBundle:Company')->debtors()
         );
 

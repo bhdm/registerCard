@@ -98,7 +98,9 @@
                     <option value="null" selected>Показать всех</option>
                     <option value="nul">Без тега</option>
                     {% for manager in managers %}
-                        <option value="{{ manager.managerKey }}" {{ app.request.query.all.filterManager is defined and app.request.query.all.filterManager == manager.managerKey ? 'selected="selected"' : ''}}>{{ manager.managerKey }}</option>
+                        <option value="{{ manager.managerKey }}"
+                                {{ filterManager[manager.managerKey] is defined ? 'selected="selected"' : '' }}>
+                            {{ manager.managerKey }}</option>
                     {% endfor %}
                 </select>
             </td>
