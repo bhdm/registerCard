@@ -42,9 +42,9 @@
             </button>
             <ul class="dropdown-menu" aria-labelledby="addOrder">
                 <li><a href="{{ path('auth_add_skzi') }}">СКЗИ</a></li>
+                <li><a href="{{ path('auth_add_estr') }}">ЕСТР</a></li>
                 {% if app.user.company.operator.id is defined and app.user.company.operator.id == 33 %}
                 {% else %}
-                    <li><a href="{{ path('auth_add_estr') }}">ЕСТР</a></li>
                     <li><a href="{{ path('auth_add_ru') }}">РФ</a></li>
                 {% endif %}
             </ul>
