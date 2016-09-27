@@ -353,6 +353,13 @@ class CompanyController extends Controller
         $amountRubEstrCompany = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->amountRubCompany($companyId,2)['sumPrice'];
         $amountRubRuCompany = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->amountRubCompany($companyId,3)['sumPrice'];
 
+        $amountRubSkziNewMaster = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->amountRubNewMaster($companyId,1)['sumPrice'];
+        $amountRubEstrNewMaster = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->amountRubNewMaster($companyId,2)['sumPrice'];
+        $amountRubRuNewMaster   = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->amountRubNewMaster($companyId,3)['sumPrice'];
+
+        $amountRubSkziNewCompany = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->amountRubNewCompany($companyId,1)['sumPrice'];
+        $amountRubEstrNewCompany = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->amountRubNewCompany($companyId,2)['sumPrice'];
+        $amountRubRuNewCompany   = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->amountRubNewCompany($companyId,3)['sumPrice'];
 
         return array(
             'company' => $company,
@@ -374,7 +381,14 @@ class CompanyController extends Controller
             'amountRubRuMaster' => $amountRubRuMaster,
             'amountRubSkziCompany' => $amountRubSkziCompany,
             'amountRubEstrCompany' => $amountRubEstrCompany,
-            'amountRubRuCompany' => $amountRubRuCompany
+            'amountRubRuCompany' => $amountRubRuCompany,
+
+            'amountRubSkziNewMaster'  => $amountRubSkziNewMaster,
+            'amountRubEstrNewMaster'  => $amountRubEstrNewMaster,
+            'amountRubRuNewMaster'    => $amountRubRuNewMaster,
+            'amountRubSkziNewCompany' => $amountRubSkziNewCompany,
+            'amountRubEstrNewCompany' => $amountRubEstrNewCompany,
+            'amountRubRuNewCompany'   => $amountRubRuNewCompany
         );
     }
 

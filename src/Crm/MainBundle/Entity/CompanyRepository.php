@@ -237,6 +237,30 @@ class CompanyRepository extends EntityRepository
 
         return $res->getQuery()->getOneOrNullResult();
     }
+
+    public function amountRubNewMaster($companyId,$type){
+        $res = $this->getEntityManager()->createQueryBuilder()
+            ->select('SUM(u.price) sumPrice')
+            ->from('CrmMainBundle:Company', 'c')
+            ->leftJoin('c.companies','u')
+            ->where("u.enabled = 1 AND c.enabled = 1 AND c.id = ".$companyId)
+            ->andWhere('u.companyType = 2')
+            ->andWhere('u.cardType = '.$type)
+            ->andWhere('u.status = 0');
+        return $res->getQuery()->getOneOrNullResult();
+    }
+
+    public function amountRubNewCompany($companyId,$type){
+        $res = $this->getEntityManager()->createQueryBuilder()
+            ->select('SUM(u.price) sumPrice')
+            ->from('CrmMainBundle:Company', 'c')
+            ->leftJoin('c.companies','u')
+            ->where("u.enabled = 1 AND c.enabled = 1 AND c.id = ".$companyId)
+            ->andWhere('u.companyType = 1')
+            ->andWhere('u.cardType = '.$type)
+            ->andWhere('u.status = 0');
+        return $res->getQuery()->getOneOrNullResult();
+    }
 }
 
 
