@@ -1047,11 +1047,11 @@ class Company extends BaseEntity
         foreach ($users as $user){
             if ($user->getStatus() >= 1 && $user->getStatus() != 10 && $user->getCompanyType() == 2){
                 if ($user->getCardType() == 1){
-                    $count['skzi'] ++;
+                    $count['skzi'] += $user->getCount();
                 }elseif($user->getCardType() == 3){
-                    $count['ru'] ++;
+                    $count['ru'] += $user->getCount();
                 }elseif($user->getCardType() == 2){
-                    $count['estr'] ++;
+                    $count['estr'] += $user->getCount();
                 }
             }
         }
@@ -1069,11 +1069,11 @@ class Company extends BaseEntity
         foreach ($users as $user){
             if ($user->getStatus() >= 1 && $user->getStatus() != 10 && $user->getCompanyType() == 1){
                 if ($user->getCardType() == 1){
-                    $count['skzi'] ++;
+                    $count['skzi']  += $user->getCount();
                 }elseif($user->getCardType() == 3){
-                    $count['ru'] ++;
+                    $count['ru']  += $user->getCount();
                 }elseif($user->getCardType() == 2){
-                    $count['estr'] ++;
+                    $count['estr']  += $user->getCount();
                 }
             }
         }
