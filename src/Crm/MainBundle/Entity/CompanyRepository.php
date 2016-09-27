@@ -42,6 +42,8 @@ class CompanyRepository extends EntityRepository
         return $res->getQuery()->getOneOrNullResult();
     }
 
+
+
     public function amountRubNew($companyId,$estr,$ru){
         $res = $this->getEntityManager()->createQueryBuilder()
             ->select('SUM(u.price) sumPrice')
@@ -204,6 +206,36 @@ class CompanyRepository extends EntityRepository
 
         return $st->fetchAll();
 
+    }
+
+    public function amountRubMaster($companyId,$type){
+
+        $res = $this->getEntityManager()->createQueryBuilder()
+            ->select('SUM(u.price) sumPrice')
+            ->from('CrmMainBundle:Company', 'c')
+            ->leftJoin('c.companies','u')
+            ->where("u.enabled = 1 AND c.id = ".$companyId)
+            ->andWhere('u.cardType = '.$type)
+            ->andWhere('u.companyType = 2')
+            ->andWhere('u.status != 0 AND u.status != 10 ');
+
+
+        return $res->getQuery()->getOneOrNullResult();
+    }
+
+    public function amountRubCompany($companyId,$type){
+
+        $res = $this->getEntityManager()->createQueryBuilder()
+            ->select('SUM(u.price) sumPrice')
+            ->from('CrmMainBundle:Company', 'c')
+            ->leftJoin('c.companies','u')
+            ->where("u.enabled = 1 AND c.id = ".$companyId)
+            ->andWhere('u.cardType = '.$type)
+            ->andWhere('u.companyType = 1')
+            ->andWhere('u.status != 0 AND u.status != 10 ');
+
+
+        return $res->getQuery()->getOneOrNullResult();
     }
 }
 

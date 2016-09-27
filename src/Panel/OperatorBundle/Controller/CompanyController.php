@@ -322,14 +322,37 @@ class CompanyController extends Controller
         $sumVirtual[0] = 0;
         $sumVirtual[1] = 0;
         $sumVirtual[2] = 0;
+        $sumVirtual[3] = 0;
+        $sumVirtual[4] = 0;
+        $sumVirtual[5] = 0;
+        $sumVirtual[6] = 0;
+        $sumVirtual[7] = 0;
+        $sumVirtual[8] = 0;
+
         foreach ($sumVirtuals as $item){
             $sumVirtual[0] += $item->getDriverSkzi();
             $sumVirtual[1] += $item->getDriverEstr();
             $sumVirtual[2] += $item->getDriverRu();
+            $sumVirtual[3] += $item->getMasterSkzi();
+            $sumVirtual[4] += $item->getMasterEstr();
+            $sumVirtual[5] += $item->getMasterRu();
+
+            $sumVirtual[6] += $item->getCompanySkzi();
+            $sumVirtual[7] += $item->getCompanyEstr();
+            $sumVirtual[8] += $item->getCompanyRu();
         }
 
         #Сумма выставленных неоплаченных счетов
         $paymentSum = $this->getDoctrine()->getRepository('CrmMainBundle:Payment')->getAmountOfUnPaidBills($companyId);
+
+        $amountRubSkziMaster = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->amountRubMaster($companyId,1)['sumPrice'];
+        $amountRubEstrMaster = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->amountRubMaster($companyId,2)['sumPrice'];
+        $amountRubRuMaster = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->amountRubMaster($companyId,3)['sumPrice'];
+
+        $amountRubSkziCompany = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->amountRubCompany($companyId,1)['sumPrice'];
+        $amountRubEstrCompany = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->amountRubCompany($companyId,2)['sumPrice'];
+        $amountRubRuCompany = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->amountRubCompany($companyId,3)['sumPrice'];
+
 
         return array(
             'company' => $company,
@@ -344,7 +367,14 @@ class CompanyController extends Controller
             'amountPlusQuota' =>$amountPlusQuota,
             'amountMinusQuota' =>$amountMinusQuota,
             'sumVirtual' =>$sumVirtual,
-            'paymentSum' => $paymentSum
+            'paymentSum' => $paymentSum,
+
+            'amountRubSkziMaster' => $amountRubSkziMaster,
+            'amountRubEstrMaster' => $amountRubEstrMaster,
+            'amountRubRuMaster' => $amountRubRuMaster,
+            'amountRubSkziCompany' => $amountRubSkziCompany,
+            'amountRubEstrCompany' => $amountRubEstrCompany,
+            'amountRubRuCompany' => $amountRubRuCompany
         );
     }
 
