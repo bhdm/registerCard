@@ -1059,7 +1059,7 @@ class Company extends BaseEntity
         return $count;
     }
 
-    public function completedCountCompany(){
+    public function getCompletedCountCompany(){
         $count = array(
             'skzi' => 0,
             'estr' => 0,
