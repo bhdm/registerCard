@@ -594,6 +594,54 @@ class Operator extends BaseEntity implements UserInterface
         return $count;
     }
 
+    public function completedCountMaster(){
+        $count = array(
+            'skzi' => 0,
+            'estr' => 0,
+            'ru' => 0
+        );
+        $companies = $this->getCompanies();
+        foreach ($companies as $company){
+            $users = $company->getCompanies();
+            foreach ($users as $user){
+                if ($user->getStatus() >= 1 && $user->getStatus() != 10 && $user->getCompanyType() == 2){
+                    if ($user->getCardType() == 1){
+                        $count['skzi'] ++;
+                    }elseif($user->getCardType() == 3){
+                        $count['ru'] ++;
+                    }elseif($user->getCardType() == 2){
+                        $count['estr'] ++;
+                    }
+                }
+            }
+        }
+        return $count;
+    }
+
+    public function completedCountCompany(){
+        $count = array(
+            'skzi' => 0,
+            'estr' => 0,
+            'ru' => 0
+        );
+        $companies = $this->getCompanies();
+        foreach ($companies as $company){
+            $users = $company->getCompanies();
+            foreach ($users as $user){
+                if ($user->getStatus() >= 1 && $user->getStatus() != 10 && $user->getCompanyType() == 1){
+                    if ($user->getCardType() == 1){
+                        $count['skzi'] ++;
+                    }elseif($user->getCardType() == 3){
+                        $count['ru'] ++;
+                    }elseif($user->getCardType() == 2){
+                        $count['estr'] ++;
+                    }
+                }
+            }
+        }
+        return $count;
+    }
+
     /**
      * @return mixed
      */

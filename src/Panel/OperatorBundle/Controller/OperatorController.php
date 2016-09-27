@@ -279,6 +279,8 @@ class OperatorController extends Controller
         $amountRubEstrNew = $this->getDoctrine()->getRepository('CrmMainBundle:Operator')->amountRubNew($operatorId,1,0)['sumPrice'];
         $amountRubRuNew = $this->getDoctrine()->getRepository('CrmMainBundle:Operator')->amountRubNew($operatorId,0,1)['sumPrice'];
 
+
+
         $sumVirtuals = $this->getDoctrine()->getRepository('CrmMainBundle:OperatorQuotaLog')->findByOperator($operator);
 
         $sumVirtual[0] = 0;
@@ -289,10 +291,29 @@ class OperatorController extends Controller
             $sumVirtual[0] += $item->getDriverSkzi();
             $sumVirtual[1] += $item->getDriverEstr();
             $sumVirtual[2] += $item->getDriverRu();
+
+            $sumVirtual[3] += $item->getMasterSkzi();
+            $sumVirtual[4] += $item->getMasterEstr();
+            $sumVirtual[5] += $item->getMasterRu();
+
+            $sumVirtual[6] += $item->getCompanySkzi();
+            $sumVirtual[7] += $item->getCompanyEstr();
+            $sumVirtual[8] += $item->getCompanyRu();
         }
 
         #Сумма выставленных неоплаченных счетов
         $paymentSum = $this->getDoctrine()->getRepository('CrmMainBundle:Payment')->getAmountOfUnPaidBillsOperator($operatorId);
+
+
+
+        $amountRubSkziMaster = $this->getDoctrine()->getRepository('CrmMainBundle:Operator')->amountRubMaster($operatorId,1)['sumPrice'];
+        $amountRubEstrMaster = $this->getDoctrine()->getRepository('CrmMainBundle:Operator')->amountRubMaster($operatorId,2)['sumPrice'];
+        $amountRubRuMaster = $this->getDoctrine()->getRepository('CrmMainBundle:Operator')->amountRubMaster($operatorId,3)['sumPrice'];
+
+        $amountRubSkziCompany = $this->getDoctrine()->getRepository('CrmMainBundle:Operator')->amountRubCompany($operatorId,1)['sumPrice'];
+        $amountRubEstrCompany = $this->getDoctrine()->getRepository('CrmMainBundle:Operator')->amountRubCompany($operatorId,2)['sumPrice'];
+        $amountRubRuCompany = $this->getDoctrine()->getRepository('CrmMainBundle:Operator')->amountRubCompany($operatorId,3)['sumPrice'];
+
 
         return array(
             'operator' => $operator,
@@ -307,7 +328,14 @@ class OperatorController extends Controller
             'amountPlusQuota' =>$amountPlusQuota,
             'amountMinusQuota' =>$amountMinusQuota,
             'sumVirtual' =>$sumVirtual,
-            'paymentSum' => $paymentSum
+            'paymentSum' => $paymentSum,
+            'amountRubSkziMaster' => $amountRubSkziMaster,
+            'amountRubEstrMaster' => $amountRubEstrMaster,
+            'amountRubRuMaster' => $amountRubRuMaster,
+            'amountRubSkziCompany' => $amountRubSkziCompany,
+            'amountRubEstrCompany' => $amountRubEstrCompany,
+            'amountRubRuCompany' => $amountRubRuCompany
+
         );
 
 //        return array('operator' => $operator);

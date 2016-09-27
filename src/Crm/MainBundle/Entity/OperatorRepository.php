@@ -109,4 +109,32 @@ class OperatorRepository extends EntityRepository implements UserProviderInterfa
             ->where("o.id = ".$operatorId.' AND q.quota < 0');
         return $res->getQuery()->getOneOrNullResult();
     }
+
+
+
+    public function amountRubMaster($operatorId,$type){
+        $res = $this->getEntityManager()->createQueryBuilder()
+            ->select('SUM(u.price) sumPrice')
+            ->from('CrmMainBundle:Operator', 'o')
+            ->leftJoin('o.companies','c')
+            ->leftJoin('c.companies','u')
+            ->where("u.enabled = 1 AND o.id = ".$operatorId)
+            ->andWhere('u.cardType = '.$type)
+            ->andWhere('u.companyType = 2')
+            ->andWhere('u.status != 0 AND u.status != 10 ');
+        return $res->getQuery()->getOneOrNullResult();
+    }
+
+    public function amountRubCompany($operatorId,$type){
+        $res = $this->getEntityManager()->createQueryBuilder()
+            ->select('SUM(u.price) sumPrice')
+            ->from('CrmMainBundle:Operator', 'o')
+            ->leftJoin('o.companies','c')
+            ->leftJoin('c.companies','u')
+            ->where("u.enabled = 1 AND o.id = ".$operatorId)
+            ->andWhere('u.cardType = '.$type)
+            ->andWhere('u.companyType = 1')
+            ->andWhere('u.status != 0 AND u.status != 10 ');
+        return $res->getQuery()->getOneOrNullResult();
+    }
 }

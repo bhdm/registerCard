@@ -40,30 +40,37 @@
             <td><b>КВ РФ:</b></td>
             <td>{{ sumVirtual[2] }}/{{ operator.completedCount.ru  }}шт({{ amountRubRu }}р.)</td></td>
         </tr>
-        <tr>
-            <td><b>КП СКЗИ:</b></td>
-            <td>0шт.(0р.)</td>
-        </tr>
-        <tr>
-            <td><b>КП ЕСТР:</b></td>
-            <td>0шт.(0р.)</td>
-        </tr>
-        <tr>
-            <td><b>КП РФ:</b></td>
-            <td>0шт.(0р.)</td>
-        </tr>
+
+
         <tr>
             <td><b>КМ СКЗИ:</b></td>
-            <td>0шт.(0р.)</td>
+            <td>{{ sumVirtual[3] }}/{{ operator.completedCountMaster.skzi  }}шт({{ amountRubSkziMaster }}р.)</td>
         </tr>
         <tr>
             <td><b>КМ ЕСТР:</b></td>
-            <td>0шт.(0р.)</td>
+            <td>{{ sumVirtual[4] }}/{{ operator.completedCountMaster.estr  }}шт({{ amountRubEstrMaster }}р.)</td>
         </tr>
         <tr>
             <td><b>КМ РФ:</b></td>
-            <td>0шт.(0р.)</td>
+            <td>{{ sumVirtual[5] }}/{{ operator.completedCountMaster.ru  }}шт({{ amountRubRuMaster }}р.)</td>
         </tr>
+
+
+        <tr>
+            <td><b>КП СКЗИ:</b></td>
+            <td>{{ sumVirtual[6] }}/{{ operator.completedCountCompany.skzi  }}шт({{ amountRubSkziCompany }}р.)</td>
+        </tr>
+        <tr>
+            <td><b>КП ЕСТР:</b></td>
+            <td>{{ sumVirtual[7] }}/{{ operator.completedCountCompany.skzi  }}шт({{ amountRubSkziCompany }}р.)</td>
+        </tr>
+        <tr>
+            <td><b>КП РФ:</b></td>
+            <td>{{ sumVirtual[8] }}/{{ operator.completedCountCompany.skzi  }}шт({{ amountRubSkziCompany }}р.)</td>
+        </tr>
+
+
+
         <tr>
             <td><b>Осталось:</b></td>
             <td>{{ amountPlusQuota - (amountRubSkzi+amountRubEstr+amountRubRu+(amountMinusQuota*-1)) }}р.</td>
