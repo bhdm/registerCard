@@ -1239,6 +1239,12 @@ class CompanyUser extends BaseEntity
     }
 
 
+    public function setFileStamp($stamp){
+        $this->stampOrder = $stamp;
+    }
 
+    public function getFileStamp(){
+        return $this->stampOrder;
+    }
 
 }
