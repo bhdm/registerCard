@@ -1021,18 +1021,62 @@ class Company extends BaseEntity
             'estr' => 0,
             'ru' => 0
         );
-            $users = $this->getUsers();
-            foreach ($users as $user){
-                if ($user->getStatus() >= 2 && $user->getEnabled() == true && $user->getStatus() != 10 ){
-                    if ($user->getRu() == 0 && $user->getEstr() == 0){
-                        $count['skzi'] ++;
-                    }elseif($user->getRu() == 1 && $user->getEstr() == 0){
-                        $count['ru'] ++;
-                    }elseif($user->getRu() == 0 && $user->getEstr() == 1){
-                        $count['estr'] ++;
-                    }
+        $users = $this->getUsers();
+        foreach ($users as $user){
+            if ($user->getStatus() >= 2 && $user->getEnabled() == true && $user->getStatus() != 10 ){
+                if ($user->getRu() == 0 && $user->getEstr() == 0){
+                    $count['skzi'] ++;
+                }elseif($user->getRu() == 1 && $user->getEstr() == 0){
+                    $count['ru'] ++;
+                }elseif($user->getRu() == 0 && $user->getEstr() == 1){
+                    $count['estr'] ++;
                 }
             }
+        }
+
+        return $count;
+    }
+
+    public function completedCountMaster(){
+        $count = array(
+            'skzi' => 0,
+            'estr' => 0,
+            'ru' => 0
+        );
+        $users = $this->getCompanies();
+        foreach ($users as $user){
+            if ($user->getStatus() >= 1 && $user->getStatus() != 10 && $user->getCompanyType() == 2){
+                if ($user->getCardType() == 1){
+                    $count['skzi'] ++;
+                }elseif($user->getCardType() == 3){
+                    $count['ru'] ++;
+                }elseif($user->getCardType() == 2){
+                    $count['estr'] ++;
+                }
+            }
+        }
+
+        return $count;
+    }
+
+    public function completedCountCompany(){
+        $count = array(
+            'skzi' => 0,
+            'estr' => 0,
+            'ru' => 0
+        );
+        $users = $this->getCompanies();
+        foreach ($users as $user){
+            if ($user->getStatus() >= 1 && $user->getStatus() != 10 && $user->getCompanyType() == 1){
+                if ($user->getCardType() == 1){
+                    $count['skzi'] ++;
+                }elseif($user->getCardType() == 3){
+                    $count['ru'] ++;
+                }elseif($user->getCardType() == 2){
+                    $count['estr'] ++;
+                }
+            }
+        }
 
         return $count;
     }
@@ -1385,6 +1429,6 @@ class Company extends BaseEntity
         $this->priceSaleRu = $priceSaleRu;
     }
 
-    
+
 
 }
