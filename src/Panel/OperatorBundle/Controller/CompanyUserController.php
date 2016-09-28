@@ -162,7 +162,7 @@ class CompanyUserController extends Controller{
             $em->refresh($item);
 
 
-            return array('form' => $form->createView(), 'order' => $item);
+            return $this->redirectToRoute('operator_companyuser_list');
         }
 
             $session->set('fileOrderFile', null);
