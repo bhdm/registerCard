@@ -36,7 +36,7 @@
                 <td>Цена</td>
                 <td>Сумма (р.)</td>
             </tr>
-            {% for o in orders %}
+            {% for o in orders | reverse %}
                 <tr>
                     <td>
                         {#<a href="{{ path('auth_user_edit', {'userId' : o.id}) }}">#}
