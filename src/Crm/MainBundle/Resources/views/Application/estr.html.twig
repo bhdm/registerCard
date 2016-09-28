@@ -176,6 +176,13 @@
                     <td>Дата рождения<span class="required">*</span></td>
                     <td>{{ form_widget(form.birthDate) }}</td>
                 </tr>
+                <tr>
+                    <td>Серия и номер пасспорта<span class="required">*</span></td>
+                    <td>
+                        {{ form_widget(form.passportSerial, {'attr': {'style' : 'width: 75px !important; display: inline;'}}) }}
+                        {{ form_widget(form.passportNumber, {'attr': {'style' : 'width: 165px !important; display: inline;'}}) }}
+                    </td>
+                </tr>
             </table>
             <div class="block-form" >
                 <table class="table-form">
