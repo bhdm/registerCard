@@ -1,62 +1,87 @@
-    <table class="table" style="font-size: 11px">
-        <tr>
-            <td><b>Поступило:</b></td>
-            <td>{{ amountPlusQuota }}р.</td>
-            {#amountPlusQuota#}
-        </tr>
-        <tr>
-            <td><b>Использовано:</b></td>
-            <td>{{ amountRubSkzi+amountRubEstr+amountRubRu+(amountMinusQuota*-1) }}р.</td>
-        </tr>
-        <tr>
-            <td><b>КВ СКЗИ:</b></td>
-            <td>{{ sumVirtual[0] }}/{{ company.completedCount.skzi  }}шт({{ amountRubSkzi }}р.)</td>
-        </tr>
-        <tr>
-            <td><b>КВ ЕСТР:</b></td>
-            <td>{{ sumVirtual[1] }}/{{ company.completedCount.estr  }}шт({{ amountRubEstr }}р.)</td></td>
-        </tr>
-        <tr>
-            <td><b>КВ РФ:</b></td>
-            <td>{{ sumVirtual[2] }}/{{ company.completedCount.ru  }}шт({{ amountRubRu }}р.)</td></td>
-        </tr>
-        <tr>
-            <td><b>Осталось:</b></td>
-            <td>{{ amountPlusQuota - (amountRubSkzi+amountRubEstr+amountRubRu+(amountMinusQuota*-1)) }}р.</td>
-        </tr>
-        <tr>
-            <td><b>Новые заявки:</b></td>
-            <td>
-                {{ amountRubSkziNew+amountRubEstrNew+amountRubRuNew  }}р.
-            </td>
-        </tr>
-        <tr>
-            <td><b>Общий итог:</b></td>
-            <td>
-                {% if (amountPlusQuota - (amountRubSkzi+amountRubEstr+amountRubRu+(amountMinusQuota*-1))) - (amountRubSkziNew+amountRubEstrNew+amountRubRuNew) < 0 %}
-                    {% set color = 'color: #CC0000;' %}
-                {% else %}
-                    {% set color = '' %}
-                {% endif %}
-                <span style="{{ color }}">
-                    {{ (amountPlusQuota - (amountRubSkzi+amountRubEstr+amountRubRu+(amountMinusQuota*-1))) - (amountRubSkziNew+amountRubEstrNew+amountRubRuNew) }}р.
-                </span>
-            </td>
-        </tr>
-        <tr>
-            <td><b>Цены:</b></td>
-            <td></td>
-        </tr>
-        <tr>
-            <td><b>КВ СКЗИ:</b></td>
-            <td>{{ company.priceSkzi }}р.</td>
-        </tr>
-        <tr>
-            <td><b>КВ ЕСТР:</b></td>
-            <td>{{ company.priceEstr }}р.</td>
-        </tr>
-        <tr>
-            <td><b>КВ РФ:</b></td>
-            <td>{{ company.priceRu }}р.</td>
-        </tr>
+<table class="table">
+    <tr>
+        <td><b>Поступило:</b></td>
+        <td>{{ amountPlusQuota }}р.</td>
+    </tr>
+    <tr>
+        <td><b>Использовано:</b></td>
+        <td>{{ amountRubSkziCompany+amountRubEstrCompany+amountRubRuCompany+amountRubSkziMaster+amountRubEstrMaster+amountRubRuMaster+amountRubSkzi+amountRubEstr+amountRubRu+(amountMinusQuota*-1) }}р.</td>
+    </tr>
+    <tr>
+        <td><b>КВ СКЗИ:</b></td>
+        <td>{{ sumVirtual[0] }}/{{ company.completedCount.skzi  }}шт({{ amountRubSkzi }}р.)</td>
+    </tr>
+    <tr>
+        <td><b>КВ ЕСТР:</b></td>
+        <td>{{ sumVirtual[1] }}/{{ company.completedCount.estr  }}шт({{ amountRubEstr }}р.)</td></td>
+    </tr>
+    <tr>
+        <td><b>КВ РФ:</b></td>
+        <td>{{ sumVirtual[2] }}/{{ company.completedCount.ru  }}шт({{ amountRubRu }}р.)</td></td>
+    </tr>
+
+    <tr>
+        <td><b>КМ СКЗИ:</b></td>
+        <td>{{ sumVirtual[3] }}/{{ company.completedCountMaster.skzi  }}шт({{ amountRubSkziMaster }}р.)</td>
+    </tr>
+    <tr>
+        <td><b>КМ ЕСТР:</b></td>
+        <td>{{ sumVirtual[4] }}/{{ company.completedCountMaster.estr  }}шт({{ amountRubEstrMaster }}р.)</td>
+    </tr>
+    <tr>
+        <td><b>КМ РФ:</b></td>
+        <td>{{ sumVirtual[5] }}/{{ company.completedCountMaster.ru  }}шт({{ amountRubRuMaster }}р.)</td>
+    </tr>
+
+    <tr>
+        <td><b>КП СКЗИ:</b></td>
+        <td>{{ sumVirtual[6] }}/{{ company.completedCountCompany.skzi  }}шт({{ amountRubSkziCompany }}р.)</td>
+    </tr>
+    <tr>
+        <td><b>КП ЕСТР:</b></td>
+        <td>{{ sumVirtual[7] }}/{{ company.completedCountCompany.estr  }}шт({{ amountRubEstrCompany }}р.)</td>
+    </tr>
+    <tr>
+        <td><b>КП РФ:</b></td>
+        <td>{{ sumVirtual[8] }}/{{ company.completedCountCompany.ru  }}шт({{ amountRubRuCompany }}р.)</td>
+    </tr>
+
+
+    <tr>
+        <td><b>Осталось:</b></td>
+        <td>{{ amountPlusQuota - (amountRubSkziCompany+amountRubEstrCompany+amountRubRuCompany+amountRubSkziMaster+amountRubEstrMaster+amountRubRuMaster+amountRubSkzi+amountRubEstr+amountRubRu+(amountMinusQuota*-1)) }}р.</td>
+    </tr>
+    <tr>
+        <td><b>Новые заявки:</b></td>
+        <td>
+            {{ amountRubSkziNewCompany+amountRubEstrNewCompany+amountRubRuNewCompany+amountRubSkziNewMaster+amountRubEstrNewMaster+amountRubRuNewMaster+amountRubSkziNew+amountRubEstrNew+amountRubRuNew  }}р.
+        </td>
+    </tr>
+    <tr>
+        <td><b>Общий итог:</b></td>
+        <td>
+            {{ (amountPlusQuota - (amountRubSkziCompany+amountRubEstrCompany+amountRubRuCompany+amountRubSkziMaster+amountRubEstrMaster+amountRubRuMaster+amountRubSkzi+amountRubEstr+amountRubRu+(amountMinusQuota*-1))) - (amountRubSkziNewCompany+amountRubEstrNewCompany+amountRubRuNewCompany+amountRubSkziNewMaster+amountRubEstrNewMaster+amountRubRuNewMaster+amountRubSkziNew+amountRubEstrNew+amountRubRuNew) }}р.
+        </td>
+    </tr>
+    <tr>
+        <td colspan="2">
+            <table style="width: 100%">
+                <tr>
+                    <td style="width: 30%">СКЗИ </td>
+                    <td>{{  company.priceSkzi }} р<br /></td>
+                </tr>
+                <tr>
+                    <td>ЕСТР </td>
+                    <td>{{ company.priceEstr }} р.<br /></td>
+                </tr>
+                <tr>
+                    <td>РФ </td>
+                    <td>{{ company.priceRu }} р.</td>
+                </tr>
+            </table>
+
+
+
+        </td>
+    </tr>
     </table>
