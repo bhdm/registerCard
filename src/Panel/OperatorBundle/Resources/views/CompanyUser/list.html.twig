@@ -129,7 +129,7 @@
                         <td style="text-align: center"><span class="label label-{{ item.cardType == 1 ? 'Warning' : item.cardType == 2 ? 'primary' : 'success' }}">{{ item.cardTypeStr }}</td>
                         <td><span style="font-size: 12px; cursor: pointer" title="{{ item.company }}" >{{ item.companyTitle }}</span></td>
                         <td style="text-align: center">{{ item.cardAmount }}</td>
-                        <td style="text-align: center">{{ item.price * 1  }} руб.</td>
+                        <td style="text-align: center">{{ item.price * item.cardAmount  }} руб.</td>
                         <td style="text-align: center">
                             <div class="statusBox">
                                 {{ item.statusStr | raw }}&nbsp;&nbsp;<span class="glyphicon glyphicon-info-sign">&nbsp;</span>
