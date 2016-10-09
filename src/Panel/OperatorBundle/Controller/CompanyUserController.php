@@ -395,7 +395,7 @@ class CompanyUserController extends Controller{
     }
 
     /**
-     * @Route(/oldorder)
+     * @Route("/oldorder")
      */
     public function generateAction()
     {
