@@ -165,57 +165,57 @@ class CompanyUserController extends Controller{
             return $this->redirectToRoute('operator_companyuser_list');
         }
 
-            $session->set('fileOrderFile', null);
-            $session->set('fileOrder2File', null);
-            $session->set('fileInnFile', null);
-            $session->set('fileOgrnFile', null);
-            $session->set('fileSignFile', null);
-            $session->set('fileLicenseFile', null);
+        $session->set('fileOrderFile', null);
+        $session->set('fileOrder2File', null);
+        $session->set('fileInnFile', null);
+        $session->set('fileOgrnFile', null);
+        $session->set('fileSignFile', null);
+        $session->set('fileLicenseFile', null);
 
-            $session->set('origin-fileOrderFile', null);
-            $session->set('origin-fileOrder2File', null);
-            $session->set('origin-fileInnFile', null);
-            $session->set('origin-fileOgrnFile', null);
-            $session->set('origin-fileSignFile', null);
-            $session->set('origin-fileLicenseFile', null);
+        $session->set('origin-fileOrderFile', null);
+        $session->set('origin-fileOrder2File', null);
+        $session->set('origin-fileInnFile', null);
+        $session->set('origin-fileOgrnFile', null);
+        $session->set('origin-fileSignFile', null);
+        $session->set('origin-fileLicenseFile', null);
 
-            #Помещаем все фалы-картинки в сессию, что бы потом можно было бы редактировать
-            $file = $item->getfileOrder();
-            if (!empty($file) && file_exists('/var/www/' . $file['path'])) {
-                $session->set('fileOrderFile', '/var/www/' . $file['path']);
-            }
+        #Помещаем все фалы-картинки в сессию, что бы потом можно было бы редактировать
+        $file = $item->getfileOrder();
+        if (!empty($file) && file_exists('/var/www/' . $file['path'])) {
+            $session->set('fileOrderFile', '/var/www/' . $file['path']);
+        }
 
-            $file = $item->getfileOrderTwo();
-            if (!empty($file) && file_exists('/var/www/' . $file['path'])) {
-                $session->set('fileOrderTwoFile', '/var/www/' . $file['path']);
-            }
+        $file = $item->getfileOrderTwo();
+        if (!empty($file) && file_exists('/var/www/' . $file['path'])) {
+            $session->set('fileOrderTwoFile', '/var/www/' . $file['path']);
+        }
 
-            $file = $item->getfileInn();
-            if (!empty($file) && file_exists('/var/www/' . $file['path'])) {
-                $session->set('fileInnFile', '/var/www/' . $file['path']);
-            }
+        $file = $item->getfileInn();
+        if (!empty($file) && file_exists('/var/www/' . $file['path'])) {
+            $session->set('fileInnFile', '/var/www/' . $file['path']);
+        }
 
-            $file = $item->getfileOgrn();
-            if (!empty($file) && file_exists('/var/www/' . $file['path'])) {
-                $session->set('fileOgrnFile', '/var/www/' . $file['path']);
-            }
+        $file = $item->getfileOgrn();
+        if (!empty($file) && file_exists('/var/www/' . $file['path'])) {
+            $session->set('fileOgrnFile', '/var/www/' . $file['path']);
+        }
 
-            $file = $item->getFileSign();
-            if (!empty($file) && file_exists('/var/www/' . $file['path'])) {
-                $session->set('fileSignFile', '/var/www/' . $file['path']);
-            }
+        $file = $item->getFileSign();
+        if (!empty($file) && file_exists('/var/www/' . $file['path'])) {
+            $session->set('fileSignFile', '/var/www/' . $file['path']);
+        }
 
-            $file = $item->getFileLicense();
-            if (!empty($file) && file_exists('/var/www/' . $file['path'])) {
-                $session->set('fileLicenseFile', '/var/www/' . $file['path']);
-            }
+        $file = $item->getFileLicense();
+        if (!empty($file) && file_exists('/var/www/' . $file['path'])) {
+            $session->set('fileLicenseFile', '/var/www/' . $file['path']);
+        }
 
-            $file = $item->getFileDecree();
-            if (!empty($file) && file_exists('/var/www/' . $file['path'])) {
-                $session->set('fileDecreeFile', '/var/www/' . $file['path']);
-            }
+        $file = $item->getFileDecree();
+        if (!empty($file) && file_exists('/var/www/' . $file['path'])) {
+            $session->set('fileDecreeFile', '/var/www/' . $file['path']);
+        }
 
-            $session->save();
+        $session->save();
 
 
 
@@ -243,7 +243,7 @@ class CompanyUserController extends Controller{
         $order = $this->getDoctrine()->getRepository('CrmMainBundle:CompanyUser')->findOneById($userId);
         $filePath = $this->get('kernel')->getRootDir() . '/../web/upload/usercompany/'.$order->getId();
         $url = 'https://'.$_SERVER['SERVER_NAME'] . '/upload/usercompany/'.$order->getId();
-        
+
 //        if (isset($order->getCopyDriverPassport2()['path'])){
 //            $image = new \Imagick($filePath.$order->getCopyDriverPassport2()['path']);
 //            $files['driver2']['base'] = base64_encode($image->getImageBlob());
@@ -266,7 +266,7 @@ class CompanyUserController extends Controller{
 //            $filename = base64_encode($order->getFileOrder()['path']);
 //            $url = $url.$this->generateUrl('panel_image_to_pdf_company',['filename' => $filename ]);
 //            $files['fileOrder'] = base64_encode(file_get_contents($url));
-              $files['fileOrder'] = base64_encode(file_get_contents($url.'/'.$order->getFileOrder()['fileName']));
+            $files['fileOrder'] = base64_encode(file_get_contents($url.'/'.$order->getFileOrder()['fileName']));
         }
 
         if (isset($order->getFileOrderTwo()['path'])){
@@ -392,6 +392,69 @@ class CompanyUserController extends Controller{
             'outputDest' => null, //$dest argument for Output method
         );
         return $mpdfService->generatePdfResponse($html, $arguments);
+    }
+
+    /**
+     * @Route(/oldorder)
+     */
+    public function generateAction()
+    {
+
+        $oldorders = array(
+            '984' =>	 ['КП СКЗИ'	 => [1	, 2450	], 'КП ЕСТР' =>	[1	,4500	], 'КП РФ' => [ 0, 0	],	 'КМ СКЗИ' =>[	0, 0	] ,   'КМ ЕСТР' =>[	0,0		], 'КМ РФ' => [	0,0	]],
+            '265' =>	 ['КП СКЗИ'	 => [8	, 14920	], 'КП ЕСТР' =>	[0  ,0		], 'КП РФ' => [	0, 0	],	 'КМ СКЗИ' =>[	0, 	    ] ,   'КМ ЕСТР' =>[	0,0		], 'КМ РФ' => [	0,0	]],
+            '434' =>	 ['КП СКЗИ'	 => [8	, 15030	], 'КП ЕСТР' =>	[3	,13200	], 'КП РФ' => [	0, 0	],	 'КМ СКЗИ' =>[	8,17650 ],	  'КМ ЕСТР' =>[	3,13500	], 'КМ РФ' => [	4,18000]],
+            '517' =>	 ['КП СКЗИ'	 => [26	, 56950	], 'КП ЕСТР' =>	[0	,0	    ], 'КП РФ' => [	0, 0	],	 'КМ СКЗИ' =>[	0, 0	] ,   'КМ ЕСТР' =>[	0,0		], 'КМ РФ' => [	0,0	]],
+            '638' =>	 ['КП СКЗИ'	 => [2	, 4900	], 'КП ЕСТР' =>	[0	,0	    ], 'КП РФ' => [	0, 0	],	 'КМ СКЗИ' =>[	0, 0	] ,   'КМ ЕСТР' =>[	0,0		], 'КМ РФ' => [	0,0	]],
+            '656' =>	 ['КП СКЗИ'	 => [1	, 1890	], 'КП ЕСТР' =>	[0	,0	    ], 'КП РФ' => [	0, 0	],	 'КМ СКЗИ' =>[	0, 0	] ,   'КМ ЕСТР' =>[	0,0		], 'КМ РФ' => [	0,0	]],
+            '609' =>	 ['КП СКЗИ'	 => [4	, 7870	], 'КП ЕСТР' =>	[0	,0	    ], 'КП РФ' => [	0, 0	],	 'КМ СКЗИ' =>[	0, 0	] ,   'КМ ЕСТР' =>[	0,0		], 'КМ РФ' => [	0,0	]],
+            '319' =>	 ['КП СКЗИ'	 => [10	, 21200	], 'КП ЕСТР' =>	[0	,0	    ], 'КП РФ' => [	0, 0	],	 'КМ СКЗИ' =>[	0, 0	] ,   'КМ ЕСТР' =>[	0,0		], 'КМ РФ' => [	0,0	]],
+            '567' =>	 ['КП СКЗИ'	 => [5	, 9450	], 'КП ЕСТР' =>	[0	,0	    ], 'КП РФ' => [	0, 0	],	 'КМ СКЗИ' =>[	0, 0	] ,   'КМ ЕСТР' =>[	0,0		], 'КМ РФ' => [	1,4500]],
+            '460' =>	 ['КП СКЗИ'	 => [4	, 7560	], 'КП ЕСТР' =>	[0	,0	    ], 'КП РФ' => [	0, 0	],	 'КМ СКЗИ' =>[	0, 0	] ,   'КМ ЕСТР' =>[	0,0		], 'КМ РФ' => [	0,0	]],
+            '840' =>	 ['КП СКЗИ'	 => [0	, 0   	], 'КП ЕСТР' =>	[1	,4300	], 'КП РФ' => [	0, 0	],	 'КМ СКЗИ' =>[	0, 0	] ,   'КМ ЕСТР' =>[	0,0		], 'КМ РФ' => [	0,0	]],
+            '821' =>	 ['КП СКЗИ'	 => [2	, 3780	], 'КП ЕСТР' =>	[0	,0	    ], 'КП РФ' => [	0, 0	],	 'КМ СКЗИ' =>[	0, 0	] ,   'КМ ЕСТР' =>[	0,0		], 'КМ РФ' => [	0,0	]],
+            '891' =>	 ['КП СКЗИ'	 => [3	, 5700	], 'КП ЕСТР' =>	[0	,0	    ], 'КП РФ' => [	0, 0	],	 'КМ СКЗИ' =>[	0, 0	] ,   'КМ ЕСТР' =>[	0,0		], 'КМ РФ' => [	0,0	]],
+            '905' =>	 ['КП СКЗИ'	 => [1	, 2450	], 'КП ЕСТР' =>	[0	,0	    ], 'КП РФ' => [	0, 0	],	 'КМ СКЗИ' =>[	0, 0	] ,   'КМ ЕСТР' =>[	0,0		], 'КМ РФ' => [	0,0	]],
+            '698' =>	 ['КП СКЗИ'	 => [0	, 0   	], 'КП ЕСТР' =>	[0	,0	    ], 'КП РФ' => [	0, 0	],	 'КМ СКЗИ' =>[	0, 0	] ,   'КМ ЕСТР' =>[	3,13500	], 'КМ РФ' => [	0,0	]],
+            '950' =>	 ['КП СКЗИ'	 => [0	, 0   	], 'КП ЕСТР' =>	[0	,0	    ], 'КП РФ' => [	1,	4500],	 'КМ СКЗИ' =>[	0, 0	] ,   'КМ ЕСТР' =>[	0,0		], 'КМ РФ' => [	0,0	]],
+            '939' =>	 ['КП СКЗИ'	 => [2	, 3800	], 'КП ЕСТР' =>	[1	,4200	], 'КП РФ' => [	0, 0	],	 'КМ СКЗИ' =>[	0, 0	] ,   'КМ ЕСТР' =>[	0,0		], 'КМ РФ' => [	0,0	]],
+            '915' =>	 ['КП СКЗИ'	 => [0	, 0   	], 'КП ЕСТР' =>	[1	,4300	], 'КП РФ' => [	0, 0	],	 'КМ СКЗИ' =>[	0, 0	] ,   'КМ ЕСТР' =>[	2,8800	], 'КМ РФ' => [	1,4300]],
+            '946' =>	 ['КП СКЗИ'	 => [1	, 1900	], 'КП ЕСТР' =>	[0	,0	    ], 'КП РФ' => [	0, 0	],	 'КМ СКЗИ' =>[	0, 0	] ,   'КМ ЕСТР' =>[	0,0		], 'КМ РФ' => [	0,0	]],
+            '956' =>	 ['КП СКЗИ'	 => [1	, 2450	], 'КП ЕСТР' =>	[0	,0	    ], 'КП РФ' => [	1,	4500],	 'КМ СКЗИ' =>[	0, 0	] ,   'КМ ЕСТР' =>[	0,0		], 'КМ РФ' => [	0,0	]],
+            '954' =>	 ['КП СКЗИ'	 => [0	, 0   	], 'КП ЕСТР' =>	[0	,0	    ], 'КП РФ' => [	0, 0	],	 'КМ СКЗИ' =>[	0, 0	] ,   'КМ ЕСТР' =>[	0,0		], 'КМ РФ' => [	1,4200]],
+            '988' =>	 ['КП СКЗИ'	 => [20	, 30000	], 'КП ЕСТР' =>	[0	,0	    ], 'КП РФ' => [	0, 0	],	 'КМ СКЗИ' =>[	0, 0	] ,   'КМ ЕСТР' =>[	0,0		], 'КМ РФ' => [	0,0	]],
+            '951' =>	 ['КП СКЗИ'	 => [1	, 1900	], 'КП ЕСТР' =>	[0	,0	    ], 'КП РФ' => [	0, 0	],	 'КМ СКЗИ' =>[	0, 0	] ,   'КМ ЕСТР' =>[	0,0		], 'КМ РФ' => [	0,0	]],
+            '637' =>	 ['КП СКЗИ'	 => [0	, 0   	], 'КП ЕСТР' =>	[1	,4200	], 'КП РФ' => [	0, 0	],	 'КМ СКЗИ' =>[	0, 0	] ,   'КМ ЕСТР' =>[	0,0		], 'КМ РФ' => [	0,0	]],
+            '1003' =>	 ['КП СКЗИ'	 => [1	, 1450	], 'КП ЕСТР' =>	[0	,0	    ], 'КП РФ' => [	0, 0	],	 'КМ СКЗИ' =>[	0, 0	] ,   'КМ ЕСТР' =>[	0,0		], 'КМ РФ' => [	0,0	]],
+        );
+       
+       
+       foreach ($oldorders as $compId => $ord ){
+           $company = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->find($compId);
+           $order = new CompanyUser();
+           $order->setCompany($company);
+           $order->setCardAmount($ord['КП СКЗИ'][0]);
+           $order->setPrice($ord['КП СКЗИ'][1]/$ord['КП СКЗИ'][0]);
+           $order->setComment('Из таблицы');
+           $order->setCompanyType(1);
+           $order->setCardType(1);
+           $order->setUsername('admin');
+           $this->getDoctrine()->getManager()->persist($order);
+           $this->getDoctrine()->getManager()->flush($order);
+       }
+       
+       
+       
+       
+       
+       
+       
+       
+       
+       
+       
+       
+
     }
 
 }
