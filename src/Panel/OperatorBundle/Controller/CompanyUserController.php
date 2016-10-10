@@ -449,8 +449,8 @@ class CompanyUserController extends Controller{
                 $order->setLastName('oldCard');
                 $order->setPost('oldCard');
                 $order->setStatus(4);
-                $this->getDoctrine()->getManager()->persist($order);
-                $this->getDoctrine()->getManager()->flush($order);
+//                $this->getDoctrine()->getManager()->persist($order);
+//                $this->getDoctrine()->getManager()->flush($order);
             }
 
             if ($ord['КП ЕСТР'][1] > 0){
@@ -471,8 +471,8 @@ class CompanyUserController extends Controller{
                 $order->setLastName('oldCard');
                 $order->setPost('oldCard');
                 $order->setStatus(4);
-                $this->getDoctrine()->getManager()->persist($order);
-                $this->getDoctrine()->getManager()->flush($order);
+//                $this->getDoctrine()->getManager()->persist($order);
+//                $this->getDoctrine()->getManager()->flush($order);
             }
 
             if ($ord['КП РФ'][1] > 0){
@@ -493,8 +493,8 @@ class CompanyUserController extends Controller{
                 $order->setLastName('oldCard');
                 $order->setPost('oldCard');
                 $order->setStatus(4);
-                $this->getDoctrine()->getManager()->persist($order);
-                $this->getDoctrine()->getManager()->flush($order);
+//                $this->getDoctrine()->getManager()->persist($order);
+//                $this->getDoctrine()->getManager()->flush($order);
             }
 
             if ($ord['КМ СКЗИ'][1] > 0){
@@ -515,8 +515,8 @@ class CompanyUserController extends Controller{
                 $order->setLastName('oldCard');
                 $order->setPost('oldCard');
                 $order->setStatus(4);
-                $this->getDoctrine()->getManager()->persist($order);
-                $this->getDoctrine()->getManager()->flush($order);
+//                $this->getDoctrine()->getManager()->persist($order);
+//                $this->getDoctrine()->getManager()->flush($order);
             }
 
             if ($ord['КМ ЕСТР'][1] > 0){
@@ -537,8 +537,8 @@ class CompanyUserController extends Controller{
                 $order->setLastName('oldCard');
                 $order->setPost('oldCard');
                 $order->setStatus(4);
-                $this->getDoctrine()->getManager()->persist($order);
-                $this->getDoctrine()->getManager()->flush($order);
+//                $this->getDoctrine()->getManager()->persist($order);
+//                $this->getDoctrine()->getManager()->flush($order);
             }
 
 
@@ -560,8 +560,8 @@ class CompanyUserController extends Controller{
                 $order->setLastName('oldCard');
                 $order->setPost('oldCard');
                 $order->setStatus(4);
-                $this->getDoctrine()->getManager()->persist($order);
-                $this->getDoctrine()->getManager()->flush($order);
+//                $this->getDoctrine()->getManager()->persist($order);
+//                $this->getDoctrine()->getManager()->flush($order);
             }
         }
 
