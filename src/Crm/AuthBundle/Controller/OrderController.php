@@ -83,16 +83,17 @@ class OrderController extends Controller
             $user->setCopyInn($this->getImgToArray($session->get('innFile')));
             $user->setCopySignature($this->getImgToArray($session->get('signFile')));
             $user->setPhoto($this->getImgToArray($session->get('photoFile')));
+            $user->setTypeCardFile($this->getImgToArray($session->get('typeCardFile')));
 
             $files = $request->files->get('crm_mainbundle_user');
-            if (isset($files['typeCardFile']) && $files['typeCardFile'] != null){
-                $typeCardFile = $files['typeCardFile'];
-                $info = new \SplFileInfo($typeCardFile->getClientOriginalName());
-                $ex = $info->getExtension();
-                $filename = time().'.'.$ex;
-                $typeCardFile->move($rootDir, $filename);
-                $user->setTypeCardFile($filename);
-            }
+//            if (isset($files['typeCardFile']) && $files['typeCardFile'] != null){
+//                $typeCardFile = $files['typeCardFile'];
+//                $info = new \SplFileInfo($typeCardFile->getClientOriginalName());
+//                $ex = $info->getExtension();
+//                $filename = time().'.'.$ex;
+//                $typeCardFile->move($rootDir, $filename);
+//                $user->setTypeCardFile($filename);
+//            }
 
             if (isset($files['copyWork']) && $files['copyWork'] != null){
                 $copyWork = $files['copyWork'];
@@ -653,6 +654,7 @@ class OrderController extends Controller
             $session->set('photoFile', null);
             $session->set('petitionFile', null);
             $session->set('workFile', null);
+            $session->set('typeCardFile', null);
 
             $session->set('origin-passportFile', null);
             $session->set('origin-passport2File', null);
@@ -663,6 +665,7 @@ class OrderController extends Controller
             $session->set('origin-photoFile', null);
             $session->set('origin-petitionFile', null);
             $session->set('origin-workFile', null);
+            $session->set('origin-typeCardFile', null);
 
             #Помещаем все фалы-картинки в сессию, что бы потом можно было бы редактировать
             $file = $user->getCopyPassport();
@@ -693,6 +696,11 @@ class OrderController extends Controller
             if (!empty($file) && file_exists('/var/www/' . $file['path'])) {
                 $session->set('signFile', '/var/www/' . $file['path']);
             }
+            $file = $user->getTypeCardFile();
+            if (!empty($file) && file_exists('/var/www/' . $file['path'])) {
+                $session->set('typeCardFile', '/var/www/' . $file['path']);
+            }
+
             $file = $user->getCopyPetition();
             if (!empty($file) && file_exists('/var/www/' . $file['path'])) {
                 $session->set('petitionFile', '/var/www/' . $file['path']);
