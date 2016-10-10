@@ -427,33 +427,155 @@ class CompanyUserController extends Controller{
             '637' =>	 ['КП СКЗИ'	 => [0	, 0   	], 'КП ЕСТР' =>	[1	,4200	], 'КП РФ' => [	0, 0	],	 'КМ СКЗИ' =>[	0, 0	] ,   'КМ ЕСТР' =>[	0,0		], 'КМ РФ' => [	0,0	]],
             '1003' =>	 ['КП СКЗИ'	 => [1	, 1450	], 'КП ЕСТР' =>	[0	,0	    ], 'КП РФ' => [	0, 0	],	 'КМ СКЗИ' =>[	0, 0	] ,   'КМ ЕСТР' =>[	0,0		], 'КМ РФ' => [	0,0	]],
         );
-       
-       
-       foreach ($oldorders as $compId => $ord ){
-           $company = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->find($compId);
-           $order = new CompanyUser();
-           $order->setCompany($company);
-           $order->setCardAmount($ord['КП СКЗИ'][0]);
-           $order->setPrice($ord['КП СКЗИ'][1]/$ord['КП СКЗИ'][0]);
-           $order->setComment('Из таблицы');
-           $order->setCompanyType(1);
-           $order->setCardType(1);
-           $order->setUsername('admin');
-           $this->getDoctrine()->getManager()->persist($order);
-           $this->getDoctrine()->getManager()->flush($order);
-       }
-       
-       
-       
-       
-       
-       
-       
-       
-       
-       
-       
-       
+
+
+        foreach ($oldorders as $compId => $ord ){
+            $company = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->find($compId);
+            if ($ord['КП СКЗИ'][1] > 0){
+                $order = new CompanyUser();
+                $order->setCompany($company);
+                $order->setCardAmount($ord['КП СКЗИ'][0]);
+                $order->setPrice($ord['КП СКЗИ'][1]/$ord['КП СКЗИ'][0]);
+                $order->setComment('Из таблицы');
+                $order->setCompanyType(1);
+                $order->setCardType(1);
+                $order->setUsername('admin');
+                $order->setPhone('11');
+                $order->setCompanyFullTitle('oldCard');
+                $order->setCompanyTitle('oldCard');
+                $order->setCompanyInn(11);
+                $order->setCompanyOgrn(11);
+                $order->setFirstName('oldCard');
+                $order->setLastName('oldCard');
+                $order->setPost('oldCard');
+                $order->setStatus(4);
+                $this->getDoctrine()->getManager()->persist($order);
+                $this->getDoctrine()->getManager()->flush($order);
+            }
+
+            if ($ord['КП ЕСТР'][1] > 0){
+                $order = new CompanyUser();
+                $order->setCompany($company);
+                $order->setCardAmount($ord['КП ЕСТР'][0]);
+                $order->setPrice($ord['КП ЕСТР'][1]/$ord['КП ЕСТР'][0]);
+                $order->setComment('Из таблицы');
+                $order->setCompanyType(1);
+                $order->setCardType(2);
+                $order->setUsername('admin');
+                $order->setPhone('11');
+                $order->setCompanyFullTitle('oldCard');
+                $order->setCompanyTitle('oldCard');
+                $order->setCompanyInn(11);
+                $order->setCompanyOgrn(11);
+                $order->setFirstName('oldCard');
+                $order->setLastName('oldCard');
+                $order->setPost('oldCard');
+                $order->setStatus(4);
+                $this->getDoctrine()->getManager()->persist($order);
+                $this->getDoctrine()->getManager()->flush($order);
+            }
+
+            if ($ord['КП РФ'][1] > 0){
+                $order = new CompanyUser();
+                $order->setCompany($company);
+                $order->setCardAmount($ord['КП РФ'][0]);
+                $order->setPrice($ord['КП РФ'][1]/$ord['КП РФ'][0]);
+                $order->setComment('Из таблицы');
+                $order->setCompanyType(1);
+                $order->setCardType(3);
+                $order->setUsername('admin');
+                $order->setPhone('11');
+                $order->setCompanyFullTitle('oldCard');
+                $order->setCompanyTitle('oldCard');
+                $order->setCompanyInn(11);
+                $order->setCompanyOgrn(11);
+                $order->setFirstName('oldCard');
+                $order->setLastName('oldCard');
+                $order->setPost('oldCard');
+                $order->setStatus(4);
+                $this->getDoctrine()->getManager()->persist($order);
+                $this->getDoctrine()->getManager()->flush($order);
+            }
+
+            if ($ord['КМ СКЗИ'][1] > 0){
+                $order = new CompanyUser();
+                $order->setCompany($company);
+                $order->setCardAmount($ord['КМ СКЗИ'][0]);
+                $order->setPrice($ord['КМ СКЗИ'][1]/$ord['КМ СКЗИ'][0]);
+                $order->setComment('Из таблицы');
+                $order->setCompanyType(2);
+                $order->setCardType(1);
+                $order->setUsername('admin');
+                $order->setPhone('11');
+                $order->setCompanyFullTitle('oldCard');
+                $order->setCompanyTitle('oldCard');
+                $order->setCompanyInn(11);
+                $order->setCompanyOgrn(11);
+                $order->setFirstName('oldCard');
+                $order->setLastName('oldCard');
+                $order->setPost('oldCard');
+                $order->setStatus(4);
+                $this->getDoctrine()->getManager()->persist($order);
+                $this->getDoctrine()->getManager()->flush($order);
+            }
+
+            if ($ord['КМ ЕСТР'][1] > 0){
+                $order = new CompanyUser();
+                $order->setCompany($company);
+                $order->setCardAmount($ord['КМ ЕСТР'][0]);
+                $order->setPrice($ord['КМ ЕСТР'][1]/$ord['КМ ЕСТР'][0]);
+                $order->setComment('Из таблицы');
+                $order->setCompanyType(2);
+                $order->setCardType(2);
+                $order->setUsername('admin');
+                $order->setPhone('11');
+                $order->setCompanyFullTitle('oldCard');
+                $order->setCompanyTitle('oldCard');
+                $order->setCompanyInn(11);
+                $order->setCompanyOgrn(11);
+                $order->setFirstName('oldCard');
+                $order->setLastName('oldCard');
+                $order->setPost('oldCard');
+                $order->setStatus(4);
+                $this->getDoctrine()->getManager()->persist($order);
+                $this->getDoctrine()->getManager()->flush($order);
+            }
+
+
+            if ($ord['КМ РФ'][1] > 0){
+                $order = new CompanyUser();
+                $order->setCompany($company);
+                $order->setCardAmount($ord['КМ РФ'][0]);
+                $order->setPrice($ord['КМ РФ'][1]/$ord['КМ РФ'][0]);
+                $order->setComment('Из таблицы');
+                $order->setCompanyType(2);
+                $order->setCardType(3);
+                $order->setUsername('admin');
+                $order->setPhone('11');
+                $order->setCompanyFullTitle('oldCard');
+                $order->setCompanyTitle('oldCard');
+                $order->setCompanyInn(11);
+                $order->setCompanyOgrn(11);
+                $order->setFirstName('oldCard');
+                $order->setLastName('oldCard');
+                $order->setPost('oldCard');
+                $order->setStatus(4);
+                $this->getDoctrine()->getManager()->persist($order);
+                $this->getDoctrine()->getManager()->flush($order);
+            }
+        }
+
+
+
+
+
+
+
+
+
+
+
+
 
     }
 
