@@ -270,7 +270,7 @@ class CompanyUser extends BaseEntity
     protected $operator;
 
     /**
-     * @ORM\Column(type="integer", nullable=true)
+     * @ORM\Column(type="decimal", precision=10, scale=2, nullable=true)
      */
     protected $price = 0;
 
