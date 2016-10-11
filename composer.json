@@ -27,12 +27,9 @@
         "tfox/mpdf-port-bundle": "1.2.*",
         "phpmailer/phpmailer": "dev-master",
         "gregwar/captcha-bundle": "dev-master",
-        "liuggio/excelbundle": "~2.0",
+        "liuggio/excelbundle": ">=1.0.4",
         "doctrine/doctrine-fixtures-bundle": "2.2.*",
         "braincrafted/bootstrap-bundle": "dev-master",
-        "knplabs/knp-paginator-bundle": "~2.4",
-        "friendsofsymfony/jsrouting-bundle": "@stable",
-        "gregwar/captcha-bundle": "dev-master",
         "friendsofsymfony/http-cache-bundle": "~1.0",
         "craue/formflow-bundle": "~3.0@dev",
         "cocur/slugify": "~1.2"

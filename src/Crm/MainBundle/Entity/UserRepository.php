@@ -813,15 +813,15 @@ class UserRepository extends EntityRepository
             ->from('CrmMainBundle:User','u')
             ->leftJoin('u.client', 'c')
             ->where('c.id = '.$clientId);
-            if ($type && $type!= '0'){
-                if ($type == 'estr'){
-                    $res->andWhere('u.estr = 1');
-                }elseif($type == 'ru'){
-                    $res->andWhere('u.ru = 1');
-                }else{
-                    $res->andWhere('u.ru = 0 and u.estr = 0');
-                }
+        if ($type && $type!= '0'){
+            if ($type == 'estr'){
+                $res->andWhere('u.estr = 1');
+            }elseif($type == 'ru'){
+                $res->andWhere('u.ru = 1');
+            }else{
+                $res->andWhere('u.ru = 0 and u.estr = 0');
             }
+        }
         if ($status != null && $status != 100){
             $res->andWhere('u.status = :status')
                 ->setParameter('status', $status);
@@ -860,5 +860,70 @@ class UserRepository extends EntityRepository
             ->getQuery()->getResult();
     }
 
+    public function findForAct($companyId, $date){
+        $orders = $this->getEntityManager()->createQueryBuilder()
+            ->select('u')
+            ->from('CrmMainBundle:User','u')
+            ->leftJoin('u.company','c')
+            ->where("c.id = '".$companyId."'")
+            ->andWhere("u.status > 1 and u.status != 10")
+            ->andWhere("u.enabled = true")
+            ->andWhere("u.created >= :date")
+            ->setParameter(':date', $date)
+            ->orderBy('u.created', 'ASC')
+            ->getQuery()->getResult();
+
+        $ords = [];
+        foreach ($orders as $o){
+            $ords[$o->getCreated()->format('d.m.Y')][] = $o;
+        }
+
+        return $ords;
+    }
+
+    public function findForActBefore($companyId, $date){
+        return $this->getEntityManager()->createQueryBuilder()
+            ->select('SUM(u.price)')
+            ->from('CrmMainBundle:User','u')
+            ->leftJoin('u.company','c')
+            ->where("c.id = '".$companyId."'")
+            ->andWhere("u.status > 1 and u.status != 10")
+            ->andWhere("u.enabled = true")
+            ->andWhere("u.created < :date")
+            ->setParameter(':date', $date)
+            ->getQuery()->getOneOrNullResult();
+    }
+
+    public function findAct($companyId, $date){
+        $quotas = $this->getEntityManager()->createQueryBuilder()
+            ->select('q')
+            ->from('CrmMainBundle:CompanyQuotaLog','q')
+            ->leftJoin('q.company', 'c')
+            ->where('q.enabled = true')
+            ->andWhere("c.id = '".$companyId."'")
+            ->andWhere("q.created >= :date")
+            ->setParameter(':date', $date)
+            ->orderBy('q.created', 'ASC')
+            ->getQuery()->getResult();
+
+        $ords = [];
+        foreach ($quotas as $o){
+            $ords[$o->getCreated()->format('d.m.Y')][] = $o;
+        }
+
+        return $ords;
+    }
+
+    public function findActBefore($companyId, $date){
+        return $this->getEntityManager()->createQueryBuilder()
+            ->select('SUM(q.quota)')
+            ->from('CrmMainBundle:CompanyQuotaLog','q')
+            ->leftJoin('q.company', 'c')
+            ->where('q.enabled = true')
+            ->andWhere("c.id = '".$companyId."'")
+            ->andWhere("q.created < :date")
+            ->setParameter(':date', $date)
+            ->getQuery()->getOneOrNullResult();
+    }
 }
 

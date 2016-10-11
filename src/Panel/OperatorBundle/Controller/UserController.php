@@ -1984,5 +1984,117 @@ class UserController extends Controller
         $referer = $request->headers->get('referer');
         return $this->redirect($referer);
     }
+
+    /**
+     * @Route("/generate-act/{companyId}/{date}")
+     */
+    public function generateActAction($companyId, $date){
+        $date = new \DateTime($date);
+        $orders = $this->getDoctrine()->getRepository('CrmMainBundle:User')->findForAct($companyId, $date);
+        $orderBefore = $this->getDoctrine()->getRepository('CrmMainBundle:User')->findForActBefore($companyId, $date);
+        $quotas = $this->getDoctrine()->getRepository('CrmMainBundle:User')->findAct($companyId, $date);
+        $quotaBefore = $this->getDoctrine()->getRepository('CrmMainBundle:User')->findActBefore($companyId, $date);
+        if ($orderBefore[1] == null){
+            $orderBefore[1] = 0;
+        }
+        if ($quotaBefore[1] == null){
+            $quotaBefore[1] = 0;
+        }
+
+
+        $excelService = $this->get('phpexcel');
+        // or $this->get('xls.service_pdf');
+        // or create your own is easy just modify services.yml
+
+
+        // create the object see http://phpexcel.codeplex.com documentation
+        $phpExcelObject = $this->get('phpexcel')->createPHPExcelObject();
+
+        $phpExcelObject->getProperties()->setCreator("liuggio")
+            ->setLastModifiedBy("Giulio De Donato")
+            ->setTitle("Office 2005 XLSX Test Document")
+            ->setSubject("Office 2005 XLSX Test Document")
+            ->setDescription("Test document for Office 2005 XLSX, generated using PHP classes.")
+            ->setKeywords("office 2005 openxml php")
+            ->setCategory("Test result file");
+
+        $phpExcelObject->setActiveSheetIndex(0)
+            ->setCellValue('A1', 'Дата')
+            ->setCellValue('B1', 'Тип')
+            ->setCellValue('C1', 'Номер')
+            ->setCellValue('D1', 'ФИО')
+            ->setCellValue('E1', 'Цена')
+            ->setCellValue('F1', 'Оплата')
+            ->setCellValue('G1', 'Итого')
+            ->setCellValue('H1', 'Коммент');
+
+        $phpExcelObject->setActiveSheetIndex(0)
+            ->setCellValue('A2', $date->format('d.m.Y'))
+            ->setCellValue('G2', $quotaBefore[1]-$orderBefore[1]);
+        $itog = $quotaBefore[1]-$orderBefore[1];
+        $num = 2;
+        $now = new \DateTime();
+        $now = $now->format('d.m.Y');
+        while(true) {
+            $f = $date->format('d.m.Y');
+            if (isset($orders[$f])) {
+                foreach ($orders[$f] as $o) {
+                    $num++;
+                    $itog += $o->getPrice();
+                    $phpExcelObject->setActiveSheetIndex(0)
+                        ->setCellValue('A' . $num, $f)
+                        ->setCellValue('B' . $num, ($o->getEstr() == 1 ? 'ЕСТР' : $o->getRu() == 1 ? 'РФ' : 'СКЗИ'))
+                        ->setCellValue('C' . $num, $o->getId())
+                        ->setCellValue('D' . $num, $o->getFullname())
+                        ->setCellValue('E' . $num, $o->getPrice())
+                        ->setCellValue('F' . $num, 0)
+                        ->setCellValue('G' . $num, $itog)
+                        ->setCellValue('H' . $num, '');
+                }
+            }
+            if (isset($quotas[$f])) {
+                foreach ($quotas[$f] as $o) {
+                    $num++;
+                    $itog -= $o->getQuota();
+                    $phpExcelObject->setActiveSheetIndex(0)
+                        ->setCellValue('A' . $num, $f)
+                        ->setCellValue('F' . $num, $o->getQuota())
+                        ->setCellValue('H' . $num, $o->getComment())
+                        ->setCellValue('G' . $num, $itog);
+                }
+            }
+
+            if ($f == $now || $num > 1000){
+                break;
+            }
+            $date->modify('+1 day');
+        }
+
+
+
+
+
+
+        $phpExcelObject->getActiveSheet()->setTitle('Simple');
+        // Set active sheet index to the first sheet, so Excel opens this as the first sheet
+        $phpExcelObject->setActiveSheetIndex(0);
+        header("Content-Disposition: attachment; filename=\"file.xls\"");
+        header("Content-type:application/vnd.ms-excel");
+        $writer = new \PHPExcel_Writer_Excel5($phpExcelObject);
+        $writer->save('php://output');
+        exit;
+        //create the response
+//        $response = new Response();
+////        $response = $excelService->getResponse();
+//
+//        $response->headers->set('Content-Type', 'text/vnd.ms-excel; charset=utf-8');
+//        $response->headers->set('Content-Disposition', 'attachment;filename=stdream2.xls');
+//
+//        // If you are using a https connection, you have to set those two headers and use sendHeaders() for compatibility with IE <9
+//        $response->headers->set('Pragma', 'public');
+//        $response->headers->set('Cache-Control', 'maxage=1');
+//
+//        return $response;
+    }
 }
 
