@@ -2039,7 +2039,7 @@ class UserController extends Controller
             if (isset($orders[$f])) {
                 foreach ($orders[$f] as $o) {
                     $num++;
-                    $itog +=($o->getStatus() != 10 ? $o->getPrice() : ($o->getPrice()*-1))
+                    $itog += ($o->getStatus() != 10 ? $o->getPrice() : ($o->getPrice()*-1));
                     $phpExcelObject->setActiveSheetIndex(0)
                         ->setCellValue('A' . $num, $f)
                         ->setCellValue('B' . $num, ($o->getEstr() == 1 ? 'ЕСТР' : $o->getRu() == 1 ? 'РФ' : 'СКЗИ'))
