@@ -2025,8 +2025,7 @@ class UserController extends Controller
             ->setCellValue('D1', 'ФИО')
             ->setCellValue('E1', 'Цена')
             ->setCellValue('F1', 'Оплата')
-            ->setCellValue('G1', 'Итого')
-            ->setCellValue('H1', 'Коммент');
+            ->setCellValue('G1', 'Итого');
 
         $phpExcelObject->setActiveSheetIndex(0)
             ->setCellValue('A2', $date->format('d.m.Y'))
@@ -2040,7 +2039,7 @@ class UserController extends Controller
             if (isset($orders[$f])) {
                 foreach ($orders[$f] as $o) {
                     $num++;
-                    $itog += $o->getPrice();
+                    $itog +=($o->getStatus() != 10 ? $o->getPrice() : ($o->getPrice()*-1))
                     $phpExcelObject->setActiveSheetIndex(0)
                         ->setCellValue('A' . $num, $f)
                         ->setCellValue('B' . $num, ($o->getEstr() == 1 ? 'ЕСТР' : $o->getRu() == 1 ? 'РФ' : 'СКЗИ'))
@@ -2059,7 +2058,7 @@ class UserController extends Controller
                     $phpExcelObject->setActiveSheetIndex(0)
                         ->setCellValue('A' . $num, $f)
                         ->setCellValue('F' . $num, $o->getQuota())
-                        ->setCellValue('H' . $num, $o->getComment())
+                        ->setCellValue('D' . $num, $o->getComment())
                         ->setCellValue('G' . $num, $itog);
                 }
             }

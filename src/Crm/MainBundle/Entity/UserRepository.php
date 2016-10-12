@@ -865,17 +865,22 @@ class UserRepository extends EntityRepository
             ->select('u')
             ->from('CrmMainBundle:User','u')
             ->leftJoin('u.company','c')
+            ->leftJoin('u.statuslog','s')
             ->where("c.id = '".$companyId."'")
-            ->andWhere("u.status > 1 and u.status != 10")
+            ->andWhere("u.status > 1")
+            ->andWhere('s.title = "В&nbsp;производстве"')
             ->andWhere("u.enabled = true")
-            ->andWhere("u.created >= :date")
+            ->andWhere("s.created >= :date")
             ->setParameter(':date', $date)
-            ->orderBy('u.created', 'ASC')
+            ->orderBy('s.created', 'ASC')
             ->getQuery()->getResult();
 
         $ords = [];
         foreach ($orders as $o){
-            $ords[$o->getCreated()->format('d.m.Y')][] = $o;
+            $d = $o->getDateInProductionStat();
+            if ($d and $d >= $date){
+                $ords[$d->format('d.m.Y')][] = $o;
+            }
         }
 
         return $ords;
@@ -886,10 +891,12 @@ class UserRepository extends EntityRepository
             ->select('SUM(u.price)')
             ->from('CrmMainBundle:User','u')
             ->leftJoin('u.company','c')
+            ->leftJoin('u.statuslog','s')
             ->where("c.id = '".$companyId."'")
             ->andWhere("u.status > 1 and u.status != 10")
+            ->andWhere('s.title = "В&nbsp;производстве"')
             ->andWhere("u.enabled = true")
-            ->andWhere("u.created < :date")
+            ->andWhere("s.created < :date")
             ->setParameter(':date', $date)
             ->getQuery()->getOneOrNullResult();
     }
