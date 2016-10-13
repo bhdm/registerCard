@@ -1846,9 +1846,35 @@ class UserController extends Controller
         $amountRubEstrNew = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->amountRubNew($companyId,1,0)['sumPrice'];
         $amountRubRuNew = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->amountRubNew($companyId,0,1)['sumPrice'];
 
-        $param1 = $amountRubSkziNew + $amountRubEstrNew + $amountRubRuNew.'р.';
-        $param2 = (($amountPlusQuota - ($amountRubSkzi+$amountRubEstr+$amountRubRu+($amountMinusQuota*-1))) - ($param1)).'р.';
-        $param3 = ($amountPlusQuota - ($amountRubSkzi+$amountRubEstr+$amountRubRu+($amountMinusQuota*-1))).'р';
+//      ---------------------
+
+        $amountRubSkziMaster = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->amountRubMaster($companyId,1)['sumPrice'];
+        $amountRubEstrMaster = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->amountRubMaster($companyId,2)['sumPrice'];
+        $amountRubRuMaster = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->amountRubMaster($companyId,3)['sumPrice'];
+
+        $amountRubSkziCompany = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->amountRubCompany($companyId,1)['sumPrice'];
+        $amountRubEstrCompany = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->amountRubCompany($companyId,2)['sumPrice'];
+        $amountRubRuCompany = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->amountRubCompany($companyId,3)['sumPrice'];
+
+//      ---------------------
+        $amountRubSkziNewMaster = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->amountRubNewMaster($companyId,1)['sumPrice'];
+        $amountRubEstrNewMaster = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->amountRubNewMaster($companyId,2)['sumPrice'];
+        $amountRubRuNewMaster   = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->amountRubNewMaster($companyId,3)['sumPrice'];
+
+        $amountRubSkziNewCompany = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->amountRubNewCompany($companyId,1)['sumPrice'];
+        $amountRubEstrNewCompany = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->amountRubNewCompany($companyId,2)['sumPrice'];
+        $amountRubRuNewCompany   = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->amountRubNewCompany($companyId,3)['sumPrice'];
+//      ---------------------
+
+
+        $companyAmount = $amountRubSkziCompany+$amountRubEstrCompany+$amountRubRuCompany ;
+        $masterAmount = $amountRubSkziMaster+$amountRubEstrMaster+$amountRubRuMaster;
+
+        $param1 = $amountRubSkziNew + $amountRubEstrNew + $amountRubRuNew + $amountRubSkziNewCompany + $amountRubEstrNewCompany + $amountRubRuNewCompany + $amountRubSkziNewMaster + $amountRubEstrNewMaster + $amountRubRuNewMaster.'р.';
+        $param2 = (($amountPlusQuota - ($amountRubSkzi+$amountRubEstr+$amountRubRu + $companyAmount + $masterAmount + ($amountMinusQuota*-1))) - ($param1)).'р.';
+        $param3 = ($amountPlusQuota - ($amountRubSkzi+$amountRubEstr+$amountRubRu+ $companyAmount + $masterAmount +($amountMinusQuota*-1))).'р';
+
+
 
         return new Response('Новые заявки: '.$param1."\nОсталось: ".$param3."\nОбщий итог: ".$param2);
     }
