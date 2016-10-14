@@ -2020,9 +2020,9 @@ class UserController extends Controller
         $orderBefore = $this->getDoctrine()->getRepository('CrmMainBundle:User')->findForActBefore($companyId, $date);
         $quotas = $this->getDoctrine()->getRepository('CrmMainBundle:User')->findAct($companyId, $date);
         $quotaBefore = $this->getDoctrine()->getRepository('CrmMainBundle:User')->findActBefore($companyId, $date);
-        if ($orderBefore[1] == null){
-            $orderBefore[1] = 0;
-        }
+//        if ($orderBefore[1] == null){
+//            $orderBefore[1] = 0;
+//        }
         if ($quotaBefore[1] == null){
             $quotaBefore[1] = 0;
         }
