@@ -887,7 +887,7 @@ class UserRepository extends EntityRepository
     }
 
     public function findForActBefore($companyId, $date){
-        return $this->getEntityManager()->createQueryBuilder()
+        $t =  $this->getEntityManager()->createQueryBuilder()
             ->select('SUM(u.price)')
             ->from('CrmMainBundle:User','u')
             ->leftJoin('u.company','c')
@@ -898,7 +898,10 @@ class UserRepository extends EntityRepository
             ->andWhere("u.enabled = true")
             ->andWhere("s.created < :date")
             ->setParameter(':date', $date)
-            ->getQuery()->getOneOrNullResult();
+            ->groupBy('u.id')
+            ->getQuery();
+
+        return $t->getOneOrNullResult();
     }
 
     public function findAct($companyId, $date){
