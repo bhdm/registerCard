@@ -2056,8 +2056,8 @@ class UserController extends Controller
         $phpExcelObject->setActiveSheetIndex(0)
             ->setCellValue('A2', $date->format('d.m.Y'))
             ->setCellValue('G2', $quotaBefore[1]-$orderBefore)
-            ->setCellValue('B1', $quotaBefore[1])
-            ->setCellValue('C1', $orderBefore);
+//            ->setCellValue('B1', $quotaBefore[1])
+//            ->setCellValue('C1', $orderBefore);
         $itog = $quotaBefore[1]-$orderBefore;
         $num = 2;
         $now = new \DateTime();
