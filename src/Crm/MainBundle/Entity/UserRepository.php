@@ -888,7 +888,7 @@ class UserRepository extends EntityRepository
 
     public function findForActBefore($companyId, $date){
         $t =  $this->getEntityManager()->createQueryBuilder()
-            ->select('SUM(u.price)')
+            ->select('SUM(u.price) s')
             ->from('CrmMainBundle:User','u')
             ->leftJoin('u.company','c')
             ->leftJoin('u.statuslog','s')
@@ -901,7 +901,13 @@ class UserRepository extends EntityRepository
             ->groupBy('u.id')
             ->getQuery();
 
-        return $t->getOneOrNullResult();
+        $sums = $t->getResult();
+        $sum = 0;
+        foreach ($sums as $s){
+            $sum += $s['s'];
+        }
+
+        return $sum;
     }
 
     public function findAct($companyId, $date){
