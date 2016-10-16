@@ -85,6 +85,14 @@
             </a>
         </li>
         {% if is_granted('ROLE_ADMIN') %}
+
+        <li class="{{ app.request.attributes.get('_route') == 'panel_user_list_act' ? 'active' : '' }}">
+            <a href="{{ path('panel_user_list_act') }}">
+                <i class="glyphicon glyphicon-minus"></i>
+                &nbsp;&nbsp;Акты сверки
+            </a>
+        </li>
+
         <li class="{{ app.request.attributes.get('_route') == 'debtors' ? 'active' : '' }}">
             <a href="{{ path('debtors') }}">
                 <i class="glyphicon glyphicon-minus"></i>

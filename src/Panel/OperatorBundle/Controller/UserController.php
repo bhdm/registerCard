@@ -2123,5 +2123,91 @@ class UserController extends Controller
 //
 //        return $response;
     }
+
+    /**
+     * @param Request $request
+     * @Security("has_role('ROLE_ADMIN')")
+     * @Route("/list-act/{status}/{type}/{company}/{operator}", defaults={"status" = "all", "type" = null , "company" = null , "operator" = null}, name="panel_user_list_act")
+     * @Template()
+     */
+    public function getUserOfActAction(Request $request, $status = "all", $type = null, $company = null, $operator = null){
+        if ($company == "null") {
+            $company = null;
+        }
+
+        if ($status == "null" || $status == null) {
+            $status = 0;
+        }
+
+        $filterManager = $request->query->get('filterManager');
+        if ($filterManager == 'null' || $filterManager == null){
+            $filterManager = null;
+        }else{
+            $filterManager = explode(',',$filterManager);
+        }
+
+        $searchtxt = $request->query->get('search');
+        $dateStart = ($request->query->get('dateStart') == '' ? null : $request->query->get('dateStart'));
+        $dateEnd = ($request->query->get('dateEnd') == '' ? null : $request->query->get('dateEnd'));
+
+        if ($operator == null || $operator == 'null') {
+            $operator = $this->getUser();
+            $operatorId = "null";
+        } else {
+            $operatorId = $operator;
+            $operator = $this->getDoctrine()->getRepository('CrmMainBundle:Operator')->findOneById($operator);
+        }
+
+        if ($type == null || $type == 'null') {
+            $type = 3;
+        }
+        if ($request->query->get('confirmed')){
+            $confirmed = 1;
+        }else{
+            $confirmed = 0;
+        }
+
+        $users = $this->getDoctrine()->getRepository('CrmMainBundle:User')->operatorFilter($type, $status, $company, $operator, $searchtxt, $dateStart, $dateEnd, 0, $filterManager, $confirmed);
+        $usersCount = $this->getDoctrine()->getRepository('CrmMainBundle:User')->operatorFilterCount($type, $status, $company, $operator, $searchtxt, $dateStart, $dateEnd, 0, $filterManager, $confirmed);
+
+        $paginator = $this->get('knp_paginator');
+        $pagination = $paginator->paginate(
+            $users,
+            $this->get('request')->query->get('page', 1),
+            100
+        );
+        $companyId = $company;
+        if ($companyId == null) {
+            $company = null;
+            $companyId = "null";
+        } else {
+            $company = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->find($companyId);
+        }
+
+        $companies = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->findBy(array('operator' => $this->getUser(), 'enabled' => true));
+
+        $managers = $this->getDoctrine()->getRepository('CrmMainBundle:User')->findAllManagers();
+
+        if ($managers == null){
+            $managers = array();
+        }
+
+        $vars = array(
+            'count' => $usersCount,
+            'pagination' => $pagination,
+            'companyId'  => $companyId,
+            'company'    => $company,
+            'companies'  => $companies,
+            'operator'   => $operator,
+            'operatorId' => $operatorId,
+            'managers' => $managers,
+            'filterManager' => ($filterManager != null ? array_flip($filterManager) : null ),
+            'debtors' => $this->getDoctrine()->getRepository('CrmMainBundle:Company')->debtors()
+        );
+
+        $response = $this->render('PanelOperatorBundle:User:list_act.html.twig', $vars);
+
+        return $response;
+    }
 }
 
