@@ -334,6 +334,12 @@ class CompanyUser extends BaseEntity
      */
     protected $postNumber;
 
+    /**
+     * Дата когда стала в подтвржденной
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    protected $isProduction;
+
     # ###### #
     # МЕТОДЫ #
     # ###### #
@@ -1246,5 +1252,22 @@ class CompanyUser extends BaseEntity
     public function getFileStamp(){
         return $this->stampOrder;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getIsProduction()
+    {
+        return $this->isProduction;
+    }
+
+    /**
+     * @param mixed $isProduction
+     */
+    public function setIsProduction($isProduction)
+    {
+        $this->isProduction = $isProduction;
+    }
+
 
 }

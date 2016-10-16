@@ -36,6 +36,21 @@ class GetStatusDateCommand extends ContainerAwareCommand
                 $output->writeln(' --- ');
             }
         }
+        $output->write('Карты предприятий и мастерских');
+
+        $users = $em->getRepository('CrmMainBundle:CompanyUser')->findBy(['isProduction' => null],['id' => 'ASC']);
+
+        foreach ($users as $user){
+            $output->write('Пользователь с ID '.$user->getId());
+            $date = new \DateTime();
+            if ($user->getStatus() > 0 && $user->getStatus() != 10 ){
+                $user->setIsProduction($date);
+                $em->flush($user);
+                $output->writeln(' '.$date->format('d.m.Y'));
+            }else{
+                $output->writeln(' --- ');
+            }
+        }
         $output->write('Конец');
     }
 

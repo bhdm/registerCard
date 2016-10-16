@@ -34,6 +34,14 @@
             <td>{{ stats[2]['cid']*30 }}</td>
         </tr>
         <tr>
+            <td colspan="3">Карты предприятий и мастерский</td>
+        </tr>
+        <tr>
+            <td>100</td>
+            <td>{{ statsCompany }}</td>
+            <td>{{ statsCompany*100 }}</td>
+        </tr>
+        <tr>
             <td><b>ИТОГО:</b></td>
             <td>{{ stats[0]['cid'] + stats[1]['cid'] + stats[2]['cid'] }}</td>
             <td><b>{{ stats[0]['cid']*100 + stats[1]['cid']*50 + stats[2]['cid']*30 }}</b></td>

@@ -89,7 +89,20 @@ class MoneyController extends Controller
         $st = $pdo->prepare($sql);
         $st->execute();
         $re = $st->fetchAll();
-        return array('stats' => $re, 'date' => $date3);
+
+        $sql = "SELECT SUM(companyUser.cardAmount) cid FROM
+                companyUser
+                WHERE companyUser.isProduction >= '$date1' AND 
+                      companyUser.isProduction < '$date2' AND  
+                      companyUser.status > 0 AND 
+                      companyUser.status != 10              
+                ";
+        $pdo = $this->getDoctrine()->getManager()->getConnection();
+        $st = $pdo->prepare($sql);
+        $st->execute();
+        $statsCompany = $st->fetchAll();
+
+        return array('stats' => $re, 'date' => $date3, 'statsCompany' => $statsCompany);
     }
 
     /**
