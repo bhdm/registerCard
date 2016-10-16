@@ -186,6 +186,15 @@
             </a>
         </li>
 
+        {% if is_granted('ROLE_ADMIN') %}
+            <li>
+                <a href="{{ path('panel_partner_list') }}" class="">
+                    <i class="glyphicon glyphicon-user"></i>
+                    Партнеры
+                </a>
+            </li>
+        {% endif %}
+
         {% if is_granted('ROLE_OPERATOR') %}
             <li>
                 <a href="{{ path('download') }}" class="" target="_blank">

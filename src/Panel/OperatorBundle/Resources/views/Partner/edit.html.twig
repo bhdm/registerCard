@@ -1,0 +1,34 @@
+{% extends 'PanelOperatorBundle::layout.html.twig' %}
+
+
+{% block breadcrumb %}
+    <ul class="breadcrumb well">
+        <li>Список клиентов</li>
+        <li>Редактирование</li>
+        {#<li><a href="{{ path('panel_company_add') }}"><span class="btn btn-primary">Добавить</span></a></li>#}
+    </ul>
+{% endblock %}
+
+{% block content %}
+    {% form_theme form 'bootstrap_3_horizontal_layout.html.twig' %}
+    <div class="well">
+        {{ form_start(form) }}
+        {{ form_widget(form) }}
+        {{ form_end(form) }}
+    </div>
+{% endblock %}
+
+
+{% block stylesheets %}
+    {{ parent() }}
+    <style>
+        #crm_authbundle_client_company-styler{
+            width: 182px !important;
+        }
+    </style>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script rel="script" src="{{ asset('bundles/crmadmin/lib/ckeditor/ckeditor.js') }}"></script>
+{% endblock %}

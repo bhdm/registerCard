@@ -1,0 +1,56 @@
+{% extends 'PanelOperatorBundle::layout.html.twig' %}
+
+
+{% block breadcrumb %}
+    <ul class="breadcrumb well">
+        <li>Список партнеров</li>
+        <li><a href="{{ path('panel_partner_add') }}"><span class="btn btn-primary">Добавить</span></a></li>
+    </ul>
+{% endblock %}
+
+{% block content %}
+    <div class="well">
+        <table class="table" data-toggle="table"
+               data-sort-name="login"
+               data-sort-order="asc">
+            <thead>
+            <tr>
+                <th >Название</th>
+                <th >Телефон</th>
+                <th >Нас. пункт</th>
+                <th class="setting">Инструменты</th>
+            </tr>
+            </thead>
+            {% for partner in pagination %}
+                <tr>
+                    <td>{{ partner.title }}</td>
+                    <td>{{ partner.phone }}</td>
+                    <td>{{ partner.locality }}</td>
+
+                    <td class="setting">
+                        {% spaceless %}
+                            <a href="{{ path('panel_partner_edit',{'id' : partner.id}) }}" >
+                                <button type="button" class="btn btn-primary btn-bg" title="Отправить сообщение">
+                                    <span class="glyphicon glyphicon-pencil"></span>
+                                </button>
+                            </a>
+                            &nbsp;&nbsp;
+                            <a href="#">
+                                <a href="{{ path('panel_partner_delete',{'id': partner.id }) }}"><button type="button" class="btn btn-default btn-danger" title="Удалить">
+                                        <span class="glyphicon glyphicon-remove"></span>
+                                    </button></a>
+                            </a>
+                        {% endspaceless %}
+                    </td>
+                </tr>
+            {% endfor%}
+        </table>
+        <div class="navigation">
+            {{ knp_pagination_render(pagination) }}
+        </div>
+
+        {#<div class="navigation">#}
+        {#{{ knp_pagination_render(pagination) }}#}
+        {#</div>#}
+    </div>
+{% endblock %}

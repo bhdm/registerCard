@@ -361,5 +361,29 @@ class IndexController extends Controller
     public function installTahoAction(){
         return [];
     }
+
+    /**
+     * @Route("/partners", name="partners")
+     * @Template()
+     */
+    public function mapAction(){
+        $partners = $this->getDoctrine()->getRepository('CrmMainBundle:Partner')->findAll();
+        $jpartnres = [];
+        foreach ($partners as $partner){
+            $jpartnres[] = array(
+              'id' => $partner->getId(),
+              'title' => $partner->getTitle(),
+              'desc' => $partner->getDescription(),
+              'locality' => $partner->getLocality(),
+              'adrs' => $partner->getAdrs(),
+              'phone' => $partner->getPhone(),
+              'x' => $partner->getX(),
+              'y' => $partner->getY(),
+            );
+        }
+        return ['jpartners' => json_encode($jpartnres), 'partenrs' => $partners];
+    }
+
+
 }
 
