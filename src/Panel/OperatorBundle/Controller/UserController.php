@@ -2053,6 +2053,8 @@ class UserController extends Controller
             ->setCellValue('F1', 'Оплата')
             ->setCellValue('G1', 'Итого');
 
+        $phpExcelObject->getActiveSheet()->getStyle('E3:E1000')->getNumberFormat()->setFormatCode(\PHPExcel_Style_NumberFormat::FORMAT_NUMBER_COMMA_SEPARATED1);
+
         $phpExcelObject->setActiveSheetIndex(0)
             ->setCellValue('A2', $date->format('d.m.Y'))
             ->setCellValue('G2', $quotaBefore[1]-$orderBefore);
