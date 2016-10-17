@@ -19,6 +19,11 @@ class Partner extends BaseEntity
     protected $title;
 
     /**
+     * @ORM\ManyToOne(targetEntity="Crm\MainBundle\Entity\Region")
+     */
+    protected $region;
+
+    /**
      * @ORM\Column(type="string", length=255)
      */
     protected $locality;
@@ -164,5 +169,23 @@ class Partner extends BaseEntity
     {
         $this->locality = $locality;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getRegion()
+    {
+        return $this->region;
+    }
+
+    /**
+     * @param mixed $region
+     */
+    public function setRegion($region)
+    {
+        $this->region = $region;
+    }
+
+
 
 }
