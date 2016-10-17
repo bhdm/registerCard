@@ -9,13 +9,13 @@ use
     Symfony\Component\Process\Process,
     Crm\MainBundle\Entity\StatusLog;
 
-class SetStatusInProduction extends ContainerAwareCommand
+class SetStatusInProductionCommand extends ContainerAwareCommand
 {
 
     protected function configure()
     {
         $this->setName('crm:setstatuslog')
-            ->setDescription('Добавляет дату оплаты в пользователя');
+            ->setDescription('');
     }
 
     protected function execute(InputInterface $input, OutputInterface $output)
