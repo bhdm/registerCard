@@ -8,9 +8,9 @@ use
     Symfony\Component\Console\Output\OutputInterface,
     Symfony\Component\Process\Process,
     Crm\MainBundle\Entity\StatusLog;
+
 class SetStatusInProduction extends ContainerAwareCommand
 {
-    private $testEmails = array('tulupov.m@gmail.com', 'plisenkova.o@evrika.ru');
 
     protected function configure()
     {
