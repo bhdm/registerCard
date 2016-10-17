@@ -29,7 +29,7 @@ class AdminPartnerType extends AbstractType
             ->add('title', null, array('label' => 'Название'))
             ->add('phone', 'text', array('label' => 'Телефон'))
             ->add('description', 'textarea', array('label' => 'Описание', 'attr' => ['class' => 'ckeditor']))
-            ->add('region',  'text', array('label' => 'Регион'))
+            ->add('region',  null, array('label' => 'Регион'))
             ->add('locality',  'text', array('label' => 'Населеный пункт'))
             ->add('adrs',  'text', array('label' => 'Адрес'))
             ->add('x',  'text', array('label' => 'Широта'))
