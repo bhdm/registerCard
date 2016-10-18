@@ -159,7 +159,7 @@ class CompanyRepository extends EntityRepository
             AND u.status !=1
             AND u.status !=10
             
-            LEFT JOIN companyUser cu ON cu.company_id = c.id AND 
+            LEFT JOIN companyUser cu ON cu.company_id = c.id AND cu.enabled =1
             AND cu.status !=0          
             AND cu.status !=10
 
