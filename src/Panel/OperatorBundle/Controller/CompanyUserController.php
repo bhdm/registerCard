@@ -8,6 +8,7 @@
 
 namespace Panel\OperatorBundle\Controller;
 
+use Crm\MainBundle\Entity\CompanyStatusLog;
 use Crm\MainBundle\Entity\CompanyUser;
 use Crm\MainBundle\Entity\StatusLog;
 use Crm\MainBundle\Form\CompanyUserType;
@@ -32,12 +33,17 @@ use Symfony\Component\HttpFoundation\Request;
 class CompanyUserController extends Controller{
 
     /**
-     * @Route("/list", name="operator_companyuser_list")
+     * @Route("/list/{companyType}/{cardType}", name="operator_companyuser_list", defaults={"companyType" = null, "cardType" = null})
      * @Template()
      */
-    public function listAction(){
+    public function listAction(Request $request, $companyType = null, $cardType = null){
+
         if ($this->get('security.context')->isGranted('ROLE_ADMIN')) {
-            $items = $this->getDoctrine()->getRepository('CrmMainBundle:CompanyUser')->findBy(['enabled' =>true], ['id' => 'DESC']);
+            $params = [
+                'companyId' => $request->query->get('companyId'),
+                'status' => $request->query->get('status'),
+            ];
+            $items = $this->getDoctrine()->getRepository('CrmMainBundle:CompanyUser')->findCard($companyType, $cardType, $params);
         }else{
             $items = $this->getDoctrine()->getRepository('CrmMainBundle:CompanyUser')->search($this->getUser());
         }
@@ -48,7 +54,12 @@ class CompanyUserController extends Controller{
             100
         );
 
-        return array('pagination' => $pagination);
+        return array(
+            'params' => $params,
+            'companyType' => $companyType,
+            'cardType' => $cardType,
+            'pagination' => $pagination
+        );
     }
 
     /**
@@ -310,6 +321,24 @@ class CompanyUserController extends Controller{
         }
         return new Response('Ok');
 
+    }
+
+    /**
+     * @Route("/status/change/{id}/{status}", name="companyuser_change_status", options={"expose" = true })
+     */
+    public function changeStatusAction(Request $request, $id, $status){
+        $order = $this->getDoctrine()->getRepository('CrmMainBundle:CompanyUser')->find($id);
+        $order->setStatus($status);
+        $this->getDoctrine()->getManager()->flush($order);
+        $this->getDoctrine()->getManager()->refresh($order);
+
+        $log = new CompanyStatusLog();
+        $log->setTitle($order->getStatusStr(true));
+        $this->getDoctrine()->getManager()->persist($log);
+        $this->getDoctrine()->getManager()->flush($log);
+
+        $referer = $request->headers->get('referer');
+        return $this->redirect($referer);
     }
 
     /**

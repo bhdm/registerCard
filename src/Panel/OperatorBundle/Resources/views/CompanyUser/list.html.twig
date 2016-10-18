@@ -7,84 +7,103 @@
 
 {% block content %}
     <div class="well">
-        <div class="row form-inline" role="form">
-            <div class="col-xs-5">
-                <div class="dropdown form-group">
-                    <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                        Все организации
-                        <span class="caret"></span>
-                    </button>
-                    <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                        <li><a href="#">Предприятия</a></li>
-                        <li><a href="#">Мастерские</a></li>
-                    </ul>
+        <form>
+            <div class="row form-inline" role="form">
+                <div class="col-xs-4">
+                    <div class="dropdown form-group">
+                        <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                            {% if (companyType == 'null') %}
+                                Все организации
+                            {% elseif(companyType == 1) %}
+                                Предприятия
+                            {% elseif(companyType == 2) %}
+                                Мастерские
+                            {% endif %}
+                            <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                            <li><a href="{{ path('operator_companyuser_list', {'companyType' : 'null', 'cardType' : cardType}) }}">Все типы компаний</a></li>
+                            <li><a href="{{ path('operator_companyuser_list', {'companyType' : 1, 'cardType' : cardType}) }}">Предприятия</a></li>
+                            <li><a href="{{ path('operator_companyuser_list', {'companyType' : 2, 'cardType' : cardType}) }}">Мастерские</a></li>
+                        </ul>
+                    </div>
+                    <div class="dropdown form-group">
+                        <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                            {% if (cardType == 'null') %}
+                                Вспе карты
+                            {% elseif(cardType == 1) %}
+                                СКЗИ
+                            {% elseif(cardType == 2) %}
+                                ЕСТР
+                            {% elseif(cardType == 3) %}
+                                РФ
+                            {% endif %}
+                            <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
+                            <li><a href="{{ path('operator_companyuser_list', {'companyType' : companyType, 'cardType' : 'null'}) }}">Все карты</a></li>
+                            <li><a href="{{ path('operator_companyuser_list', {'companyType' : companyType, 'cardType' : 1}) }}">СКЗИ</a></li>
+                            <li><a href="{{ path('operator_companyuser_list', {'companyType' : companyType, 'cardType' : 2}) }}">ЕСТР</a></li>
+                            <li><a href="{{ path('operator_companyuser_list', {'companyType' : companyType, 'cardType' : 3}) }}">РФ</a></li>
+                        </ul>
+                    </div>
                 </div>
-                <div class="dropdown form-group">
-                    <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                        Все карты
-                        <span class="caret"></span>
-                    </button>
-                    <ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
-                        <li><a href="#">СКЗИ</a></li>
-                        <li><a href="#">ЕСТР</a></li>
-                        <li><a href="#">РФ</a></li>
-                    </ul>
-                </div>
-            </div>
-            <div class="col-xs-4">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-lg-12">
-                            <div class="button-group">
-                                <button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" id="dropdown-status">Статусы : Все <span class="caret"></span></button>
-                                <ul class="dropdown-menu">
-                                    <li><a href="#" class="small" data-value="Новые" tabIndex="-1"><input type="checkbox"/>&nbsp;Новые</a></li>
-                                    <li><a href="#" class="small" data-value="В производстве" tabIndex="-1"><input type="checkbox"/>&nbsp;В производстве</a></li>
-                                    <li><a href="#" class="small" data-value="Изготовлены" tabIndex="-1"><input type="checkbox"/>&nbsp;Изготовлены</a></li>
-                                    <li><a href="#" class="small" data-value="На почте" tabIndex="-1"><input type="checkbox"/>&nbsp;На почте</a></li>
-                                    <li><a href="#" class="small" data-value="Полученные" tabIndex="-1"><input type="checkbox"/>&nbsp;Полученные</a></li>
-                                    <li><a href="#" class="small" data-value="Отклоненные" tabIndex="-1"><input type="checkbox"/>&nbsp;Отклоненные</a></li>
-                                </ul>
+                <div class="col-xs-4">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="button-group">
+                                    <button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" id="dropdown-status">
+                                        {% if (params.status == 'null' or params.status == null ) %}
+                                            Все статусы
+                                        {% elseif(params.status == '0') %}
+                                            Новые
+                                        {% elseif(params.status == '1') %}
+                                            В производстве
+                                        {% elseif(params.status == '2') %}
+                                            Изготовлены
+                                        {% elseif(params.status == '3') %}
+                                            На почте
+                                        {% elseif(params.status == '4') %}
+                                            Полученные
+                                        {% elseif(params.status == '10') %}
+                                            Отклоненные
+                                        {% endif %}
+                                        <span class="caret"></span></button>
+                                    <ul class="dropdown-menu">
+                                        <li><a href="{{ path('operator_companyuser_list', {'companyType' : companyType, 'cardType' : cardType}) }}">Все</a></li>
+                                        <li><a href="{{ path('operator_companyuser_list', {'companyType' : companyType, 'cardType' : cardType, 'status' : '0'}) }}">Новые</a></li>
+                                        <li><a href="{{ path('operator_companyuser_list', {'companyType' : companyType, 'cardType' : cardType, 'status' : '1'}) }}">В производстве</a></li>
+                                        <li><a href="{{ path('operator_companyuser_list', {'companyType' : companyType, 'cardType' : cardType, 'status' : '2'}) }}">Изготовлены</a></li>
+                                        <li><a href="{{ path('operator_companyuser_list', {'companyType' : companyType, 'cardType' : cardType, 'status' : '3'}) }}">На почте</a></li>
+                                        <li><a href="{{ path('operator_companyuser_list', {'companyType' : companyType, 'cardType' : cardType, 'status' : '4'}) }}">Полученные</a></li>
+                                        <li><a href="{{ path('operator_companyuser_list', {'companyType' : companyType, 'cardType' : cardType, 'status' : '10'}) }}">Отклоненные</a></li>
+                                    </ul>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
+                <div class="col-xs-2">
+                    <div class="dropdown form-group">
+                        <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                            Дейтсвие
+                            <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu"  aria-labelledby="dropdownMenu2">
+                            <li><a href="#">Скачать заявление</a></li>
+                            <li><a href="#">Скачать платежку</a></li>
+                            <li><a href="#" id="download-xml">Скачать XML</a></li>
+                        </ul>
+                    </div>
+                </div>
             </div>
-        </div>
+        </form>
     </div>
     <div class="well">
         <div class="row">
             <div class="col-xs-8">
                 <h4>ТАБЛИЦА ЗАЯВОК</h4>
-            </div>
-            <div class="col-xs-2">
-                <div class="dropdown form-group">
-                    <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                        Статус
-                        <span class="caret"></span>
-                    </button>
-                    <ul class="dropdown-menu"  aria-labelledby="dropdownMenu2">
-                        <li><a href="#" class="set-status" data-main="0">Новые</a></li>
-                        <li><a href="#" class="set-status" data-main="1">В производстве</a></li>
-                        <li><a href="#" class="set-status" data-main="2">Изготовлены</a></li>
-                        <li><a href="#" class="set-status" data-main="3">На почте</a></li>
-                        <li><a href="#" class="set-status" data-main="4">Полученны</a></li>
-                        <li><a href="#" class="set-status" data-main="10">Отклонена</a></li>
-                    </ul>
-                </div>
-            </div>
-            <div class="col-xs-2">
-                <div class="dropdown form-group">
-                    <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                        Дейтсвие
-                        <span class="caret"></span>
-                    </button>
-                    <ul class="dropdown-menu"  aria-labelledby="dropdownMenu2">
-                        <li><a href="#">Скачать заявление</a></li>
-                        <li><a href="#">Скачать платежку</a></li>
-                        <li><a href="#" id="download-xml">Скачать XML</a></li>
-                    </ul>
-                </div>
             </div>
         </div>
         {% for flashMessage in app.session.flashbag.get('error') %}
@@ -114,53 +133,67 @@
             </tr>
             </thead>
             <body>
-                {% for item in pagination %}
-                    <tr>
-                        <td><input class="user-check" type="checkbox" name="user[{{  item.id }}]" value="{{ item.id }}"></td>
-                        <td>{{ item.id }}</td>
-                        <td>{{ item.lastName }}</td>
-                        <td>
-                            <a href="{{ path('panel_user_list',{'type' : 'null', 'company' : user.company.id }) }}" {{ debtors[user.company.title] is defined ? "style='color: #CC0000'" : '' }}
-                               title="" class="getQuotaCompany"
-                               data-id="{{ user.company.id }}"
-                            >{{ item.company is defined ? ( item.company.operator.id == 1 ? item.company : item.company.operator )  : '' }}</a>
-                        </td>
-                        <td style="text-align: center"><span class="label label-{{ item.companyType == 0 ? 'danger' : item.companyType == 1 ? 'primary' : 'success' }}">{{ item.companyTypeStr }}</span></td>
-                        <td style="text-align: center"><span class="label label-{{ item.cardType == 1 ? 'Warning' : item.cardType == 2 ? 'primary' : 'success' }}">{{ item.cardTypeStr }}</td>
-                        <td><span style="font-size: 12px; cursor: pointer" title="{{ item.company }}" >{{ item.companyTitle }}</span></td>
-                        <td style="text-align: center">{{ item.cardAmount }}</td>
-                        <td style="text-align: center">{{ item.price * item.cardAmount  }} руб.</td>
-                        <td style="text-align: center">
-                            <div class="statusBox">
-                                {{ item.statusStr | raw }}&nbsp;&nbsp;<span class="glyphicon glyphicon-info-sign">&nbsp;</span>
-                                {#<div class="statusItems">#}
-                                    {#{% for status in user.statusArray %}#}
-                                        {#{{ status.title }}&nbsp;-&nbsp;{{ status.date | date('d.m.Y') }}<br />#}
-                                    {#{% endfor %}#}
-                                {#</div>#}
-                            </div>
-                        </td>
-                        <td>
-                            {{ item.comment }}
-                            {% if item.postNumber != null %}
-                                <br />
-                                <a href="https://www.pochta.ru/tracking#{{ item.postNumber }}" target="_blank">{{ item.postNumber }}</a>
-                            {% endif %}
-                        </td>
-                        <td class="settings" style="text-align: right">
-                            {% spaceless %}
-                                <a href="{{ path('operator_companyuser_edit',{'id' : item.id }) }}">
-                                    <button type="button" class="btn btn-default btn-success">
-                                        <span class="glyphicon glyphicon-edit"></span>
-                                    </button>
-                                </a>
-                                <button type="button" class="btn btn-default btn-danger remove" data-href="{{ path('operator_companyuser_remove',{'id': item.id }) }}">
-                                    <span class="glyphicon glyphicon-remove"></span>
+            {% for item in pagination %}
+                <tr>
+                    <td><input class="user-check" type="checkbox" name="user[{{  item.id }}]" value="{{ item.id }}"></td>
+                    <td>{{ item.id }}</td>
+                    <td>{{ item.lastName }}</td>
+                    <td>
+                        <a href="{{ path('panel_user_list',{'type' : 'null', 'company' : item.company.id }) }}" {{ debtors[item.company.title] is defined ? "style='color: #CC0000'" : '' }}
+                           title="" class="getQuotaCompany"
+                           data-id="{{ item.company.id }}"
+                        >{{ item.company is defined ? ( item.company.operator.id == 1 ? item.company : item.company.operator )  : '' }}</a>
+                    </td>
+                    <td style="text-align: center"><span class="label label-{{ item.companyType == 0 ? 'danger' : item.companyType == 1 ? 'primary' : 'success' }}">{{ item.companyTypeStr }}</span></td>
+                    <td style="text-align: center"><span class="label label-{{ item.cardType == 1 ? 'Warning' : item.cardType == 2 ? 'primary' : 'success' }}">{{ item.cardTypeStr }}</td>
+                    <td><span style="font-size: 12px; cursor: pointer" title="{{ item.company }}" >{{ item.companyTitle }}</span></td>
+                    <td style="text-align: center">{{ item.cardAmount }}</td>
+                    <td style="text-align: center">{{ item.price * item.cardAmount  }} руб.</td>
+                    <td style="text-align: center">
+                        <div style="position: relative">
+                        <div class="button-group">
+                            <button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" id="dropdown-status">
+                                <div class="statusBox">
+                                    {{ item.statusStr | raw }}&nbsp;<span class="glyphicon glyphicon-info-sign">&nbsp;</span>
+                                </div>
+                            </button>
+                            <ul class="dropdown-menu">
+                                <li><a href="{{ path('companyuser_change_status', {'id' : item.id, 'status' : '0'}) }}">Новые</a></li>
+                                <li><a href="{{ path('companyuser_change_status', {'id' : item.id, 'status' : '1'}) }}">В производстве</a></li>
+                                <li><a href="{{ path('companyuser_change_status', {'id' : item.id, 'status' : '2'}) }}">Изготовлены</a></li>
+                                <li><a href="{{ path('companyuser_change_status', {'id' : item.id, 'status' : '3'}) }}">На почте</a></li>
+                                <li><a href="{{ path('companyuser_change_status', {'id' : item.id, 'status' : '4'}) }}">Полученные</a></li>
+                                <li><a href="{{ path('companyuser_change_status', {'id' : item.id, 'status' : '10'}) }}">Отклоненные</a></li>
+                            </ul>
+                        </div>
+                        </div>
+                            {#<div class="statusItems">#}
+                            {#{% for status in user.statusArray %}#}
+                            {#{{ status.title }}&nbsp;-&nbsp;{{ status.date | date('d.m.Y') }}<br />#}
+                            {#{% endfor %}#}
+                            {#</div>#}
+                    </td>
+                    <td>
+                        {{ item.comment }}
+                        {% if item.postNumber != null %}
+                            <br />
+                            <a href="https://www.pochta.ru/tracking#{{ item.postNumber }}" target="_blank">{{ item.postNumber }}</a>
+                        {% endif %}
+                    </td>
+                    <td class="settings" style="text-align: right">
+                        {% spaceless %}
+                            <a href="{{ path('operator_companyuser_edit',{'id' : item.id }) }}">
+                                <button type="button" class="btn btn-default btn-success">
+                                    <span class="glyphicon glyphicon-edit"></span>
                                 </button>
-                            {% endspaceless %}
-                        </td>
-                    </tr>
-                {% endfor %}
+                            </a>
+                            <button type="button" class="btn btn-default btn-danger remove" data-href="{{ path('operator_companyuser_remove',{'id': item.id }) }}">
+                                <span class="glyphicon glyphicon-remove"></span>
+                            </button>
+                        {% endspaceless %}
+                    </td>
+                </tr>
+            {% endfor %}
             </body>
         </table>
         <div class="navigation">
