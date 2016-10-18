@@ -334,6 +334,7 @@ class CompanyUserController extends Controller{
 
         $log = new CompanyStatusLog();
         $log->setTitle($order->getStatusStr(true));
+        $log->setUser($order);
         $this->getDoctrine()->getManager()->persist($log);
         $this->getDoctrine()->getManager()->flush($log);
 
@@ -606,6 +607,20 @@ class CompanyUserController extends Controller{
 
 
 
+    }
+
+
+    /**
+    * @Route("/panel/get-status-log/companyuser", name="panel_companyuser_get_statuslog")
+    */
+    public function getStatuslogAction(Request $request){
+        $userId = $request->query->get('userId');
+        $user = $this->getDoctrine()->getRepository('CrmMainBundle:CompanyUser')->find($userId);
+        $log = $user->getStatusArray(true);
+        foreach($log as $k => $l){
+            $log[$k]['date'] = $l['date']->format('d.m.Y');
+        }
+        return new JsonResponse($log);
     }
 
 }

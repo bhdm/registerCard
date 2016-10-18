@@ -1,5 +1,25 @@
 {% extends 'PanelOperatorBundle::layout.html.twig' %}
 
+{% block stylesheet %}
+    {{ parent() }}
+    <style>
+        .statusItems{
+            display: none;
+        }
+        .statusBox{
+            font-size: 12px;
+            cursor: pointer;
+            margin-top: 6px;
+        }
+        .statusBox:hover .statusItems{
+            display: block;
+            position: absolute;
+            background: #FFFFFF;
+            border: 1px solid #C2C2C2;
+            padding: 5px;
+        }
+    </style>
+{% endblock %}
 
 {% block breadcrumb %}
     {% include 'PanelOperatorBundle:User:breadcrumb.html.twig' %}
@@ -153,8 +173,13 @@
                         <div style="position: relative">
                         <div class="button-group">
                             <button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" id="dropdown-status">
-                                <div class="statusBox">
+                                <div class="statusBox" data-id="{{ item.id }}">
                                     {{ item.statusStr | raw }}&nbsp;<span class="glyphicon glyphicon-info-sign">&nbsp;</span>
+                                    <div class="statusItems">
+                                        {% for status in item.statusArray %}
+                                            {{ status.title | raw }}&nbsp;-&nbsp;{{ status.date | date('d.m.Y') }}<br />
+                                        {% endfor %}
+                                    </div>
                                 </div>
                             </button>
                             <ul class="dropdown-menu">
@@ -336,6 +361,28 @@
                 });
             });
 
+            $('.statusBox').hover(
+                    function(){
+                        var $this = $(this);
+                        var userId = $(this).data('id');
+//                    alert('\''+$(this).children('.statusItems').html()+'\'');
+                        if ($(this).children('.statusItems').html()[0] == '\n'){
+                            $.ajax({
+                                type: "GET",
+                                url: "{{ path('panel_companyuser_get_statuslog') }}",
+                                data: "userId="+userId,
+                                success: function(msg){
+                                    console.log(s = msg);
+                                    var html = '';
+                                    $.each(s,function(h,t){
+                                        html += t.title + "&nbsp;-&nbsp;" + t.date+ '<br />';
+                                    });
+                                    $this.children('.statusItems').html(html);
+                                }
+                            });
+                        }
+                    });
         });
+
     </script>
 {% endblock %}

@@ -20,7 +20,7 @@ class CompanyUser extends BaseEntity
 {
 
     /**
-     * @ORM\OneToMany(targetEntity="StatusLog", mappedBy="user")
+     * @ORM\OneToMany(targetEntity="Crm\MainBundle\Entity\CompanyStatusLog", mappedBy="user")
      */
     protected $statuslog;
 
@@ -1320,6 +1320,21 @@ class CompanyUser extends BaseEntity
         $this->statuslog = $statuslog;
     }
 
+    public function getStatusArray($ajax = false)
+    {
+        if ($ajax === false){
+            return null;
+        }
+        $userLog = $this->statuslog;
+        $userLogArray = array();
+        foreach ($userLog as $key => $status) {
+            $userLogArray[$status->getTitle()] = array(
+                'title' => $status->getTitle(),
+                'date' => $status->getCreated(),
+            );
+        }
+        return $userLogArray;
+    }
 
 
 }
