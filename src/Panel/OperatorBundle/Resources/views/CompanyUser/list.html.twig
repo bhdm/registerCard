@@ -91,7 +91,7 @@
                                         {% endif %}
                                         <span class="caret"></span></button>
                                     <ul class="dropdown-menu">
-                                        <li><a href="{{ path('operator_companyuser_list', {'companyType' : companyType, 'cardType' : cardType}) }}">Все</a></li>
+                                        <li><a href="{{ path('operator_companyuser_list', {'companyType' : companyType, 'cardType' : cardType }) }}">Все</a></li>
                                         <li><a href="{{ path('operator_companyuser_list', {'companyType' : companyType, 'cardType' : cardType, 'status' : '0'}) }}">Новые</a></li>
                                         <li><a href="{{ path('operator_companyuser_list', {'companyType' : companyType, 'cardType' : cardType, 'status' : '1'}) }}">В производстве</a></li>
                                         <li><a href="{{ path('operator_companyuser_list', {'companyType' : companyType, 'cardType' : cardType, 'status' : '2'}) }}">Изготовлены</a></li>
@@ -159,7 +159,7 @@
                     <td>{{ item.id }}</td>
                     <td>{{ item.lastName }}</td>
                     <td>
-                        <a href="{{ path('panel_user_list',{'type' : 'null', 'company' : item.company.id }) }}" {{ debtors[item.company.title] is defined ? "style='color: #CC0000'" : '' }}
+                        <a href="{{ path('operator_companyuser_list', {'companyType' : companyType, 'cardType' : cardType, 'companyId' : item.company.id }) }}" {{ debtors[item.company.title] is defined ? "style='color: #CC0000'" : '' }}
                            title="" class="getQuotaCompany"
                            data-id="{{ item.company.id }}"
                         >{{ item.company is defined ? ( item.company.operator.id == 1 ? item.company : item.company.operator )  : '' }}</a>
