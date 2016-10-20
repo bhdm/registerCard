@@ -7,13 +7,20 @@
         <br />
         <br />
         <div class="row">
+        {% set region = null  %}
         {% for p in partenrs %}
-            <div class="col-xs-12 col-sm-6 col-md-3">
+            {% if p.region != region %}
+                {% set region = p.region %}
+                <div class="col-xs-12">
+                    <strong>{{ region }}</strong>
+                </div>
+            {% endif %}
+            <div class="col-xs-12">
                 <div class="thumbnail">
                     <div class="caption">
-                        <h3>{{ p.title }}</h3>
                         <strong>Адрес: </strong>{{ p.locality }}, {{ p.adrs }}<br />
                         <strong>Телефон: </strong>{{ p.phone}}<br />
+                        <strong>{{ p.title }}</strong>
                         <p>{{ p.description | raw }}</p>
                     </div>
                 </div>

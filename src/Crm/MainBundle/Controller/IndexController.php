@@ -367,7 +367,7 @@ class IndexController extends Controller
      * @Template()
      */
     public function mapAction(){
-        $partners = $this->getDoctrine()->getRepository('CrmMainBundle:Partner')->findAll();
+        $partners = $this->getDoctrine()->getRepository('CrmMainBundle:Partner')->findBy([],['region' => 'ASC', 'locality' => 'ASC']);
         $jpartnres = [];
         foreach ($partners as $partner){
             $jpartnres[] = array(
