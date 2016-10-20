@@ -20,7 +20,7 @@
                     <div class="caption">
                         <strong>Адрес: </strong>{{ p.locality }}, {{ p.adrs }};
                         <strong>Телефон: <span style="color: #013a57">{{ p.phone}}</span></strong>;
-                        <strong>{{ p.title }}</strong>
+                        <strong>{{ p.title | raw }}</strong>
                     </div>
                 </div>
             </div>
