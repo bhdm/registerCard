@@ -61,6 +61,11 @@
                     getPointData = function (partner) {
                         {#e = jQuery.parseJSON('{{ events | raw }}').events;#}
                         return {
+                            hasHint: true,
+                            name: '<strong> ' + partner['title'] + '</strong><br />' +
+                            '<strong>Адрес: </strong> '+partner['locality']+', '+partner['adrs']+'<br />'+
+                            '<strong>Телефон: </strong> '+partner['phone']+'<br />'+
+                            '<strong>Описание: </strong> '+partner['desc']+'<br />',
                             balloonContentBody: '<strong> ' + partner['title'] + '</strong><br />' +
                                 '<strong>Адрес: </strong> '+partner['locality']+', '+partner['adrs']+'<br />'+
                                 '<strong>Телефон: </strong> '+partner['phone']+'<br />'+
