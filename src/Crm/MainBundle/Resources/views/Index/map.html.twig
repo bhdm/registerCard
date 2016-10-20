@@ -61,12 +61,13 @@
                     getPointData = function (partner) {
                         {#e = jQuery.parseJSON('{{ events | raw }}').events;#}
                         return {
-                            hintContent: '<strong> ' + partner['title'] + '</strong><br />' +
+                            hintContent:
                             '<strong>Адрес: </strong> '+partner['locality']+', '+partner['adrs']+'<br />'+
-                            '<strong>Телефон: </strong> '+partner['phone']+'<br />',
-                            balloonContentBody: '<strong> ' + partner['title'] + '</strong><br />' +
-                                '<strong>Адрес: </strong> '+partner['locality']+', '+partner['adrs']+'<br />'+
-                                '<strong>Телефон: </strong> '+partner['phone']+'<br />',
+                            '<strong>Телефон: </strong> '+partner['phone']+'<br />'+
+                            '<strong> ' + partner['title'] + '</strong><br />',
+                            balloonContentBody: '<strong>Адрес: </strong> '+partner['locality']+', '+partner['adrs']+'<br />'+
+                            '<strong>Телефон: </strong> '+partner['phone']+'<br />'+
+                            '<strong> ' + partner['title'] + '</strong><br />',
                             clusterCaption: '<strong> ' + partner['title'] + '</strong>',
                             title: partner['title']
                         };
