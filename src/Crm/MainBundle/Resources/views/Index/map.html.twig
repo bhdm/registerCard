@@ -111,8 +111,14 @@
 
             var partners = jQuery.parseJSON('{{ jpartners | raw }}');
             jQuery.each(partners, function (k, partner) {
-                geoObjects = new ymaps.Placemark([partner['x'], partner['y']], getPointData(partner), getPointOptions());
-                clusterer.add(geoObjects);
+
+                var geoObject = new ymaps.Placemark([partner['x'], partner['y']], getPointData(partner), getPointOptions());
+                    geoObject.name = '<strong> ' + partner['title'] + '</strong><br />' +
+                    '<strong>Адрес: </strong> '+partner['locality']+', '+partner['adrs']+'<br />'+
+                    '<strong>Телефон: </strong> '+partner['phone']+'<br />'+
+                    '<strong>Описание: </strong> '+partner['desc']+'<br />';
+                    map.addOverlay(placemark);
+//                clusterer.add(geoObject);
                 });
 
 
