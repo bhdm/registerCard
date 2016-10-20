@@ -875,8 +875,29 @@ class UserRepository extends EntityRepository
             ->orderBy('s.created', 'ASC')
             ->getQuery()->getResult();
 
+        $orders2 = $this->getEntityManager()->createQueryBuilder()
+            ->select('u')
+            ->from('CrmMainBundle:CompanyUser','u')
+            ->leftJoin('u.company','c')
+            ->leftJoin('u.statuslog','s')
+            ->where("c.id = '".$companyId."'")
+            ->andWhere("u.status > 0")
+            ->andWhere("s.title = 'В&nbsp;производстве'")
+            ->andWhere("u.enabled = true")
+            ->andWhere("s.created >= :date")
+            ->setParameter(':date', $date)
+            ->orderBy('s.created', 'ASC')
+            ->getQuery()->getResult();
+
         $ords = [];
         foreach ($orders as $o){
+            $d = $o->getDateInProductionStat();
+            if ($d and $d >= $date){
+                $ords[$d->format('d.m.Y')][] = $o;
+            }
+        }
+
+        foreach ($orders2 as $o){
             $d = $o->getDateInProductionStat();
             if ($d and $d >= $date){
                 $ords[$d->format('d.m.Y')][] = $o;
@@ -901,9 +922,27 @@ class UserRepository extends EntityRepository
             ->groupBy('u.id')
             ->getQuery();
 
+        $t2 =  $this->getEntityManager()->createQueryBuilder()
+            ->select('(u.price * u.cardAmount) sd')
+            ->from('CrmMainBundle:User','u')
+            ->leftJoin('u.company','c')
+            ->leftJoin('u.statuslog','s')
+            ->where("c.id = '".$companyId."'")
+            ->andWhere("u.status > 0 and u.status != 10")
+            ->andWhere("s.title = 'В&nbsp;производстве'")
+            ->andWhere("u.enabled = true")
+            ->andWhere("s.created < :date")
+            ->setParameter(':date', $date)
+            ->groupBy('u.id')
+            ->getQuery();
+
         $sums = $t->getResult();
+        $sums2 = $t2->getResult();
         $sum = 0;
         foreach ($sums as $s){
+            $sum += $s['sd'];
+        }
+        foreach ($sums2 as $s){
             $sum += $s['sd'];
         }
 

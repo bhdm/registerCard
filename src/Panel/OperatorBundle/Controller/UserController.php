@@ -2018,6 +2018,7 @@ class UserController extends Controller
         $date = new \DateTime($date);
         $orders = $this->getDoctrine()->getRepository('CrmMainBundle:User')->findForAct($companyId, $date);
         $orderBefore = $this->getDoctrine()->getRepository('CrmMainBundle:User')->findForActBefore($companyId, $date);
+
         $quotas = $this->getDoctrine()->getRepository('CrmMainBundle:User')->findAct($companyId, $date);
         $quotaBefore = $this->getDoctrine()->getRepository('CrmMainBundle:User')->findActBefore($companyId, $date);
 //        if ($orderBefore == null){
