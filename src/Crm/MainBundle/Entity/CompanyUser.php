@@ -1336,5 +1336,14 @@ class CompanyUser extends BaseEntity
         return $userLogArray;
     }
 
+    public function getDateInProductionStat(){
+        $userLog = $this->statuslog;
+        foreach ($userLog as $key => $status) {
+            if ( $status->getTitle() === 'В&nbsp;производстве' ){
+                return $status->getCreated();
+            }
+        }
+        return null;
+    }
 
 }

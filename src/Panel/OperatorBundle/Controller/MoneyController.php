@@ -95,14 +95,28 @@ class MoneyController extends Controller
                 WHERE companyUser.isProduction >= '$date1' AND 
                       companyUser.isProduction < '$date2' AND  
                       companyUser.status > 0 AND 
-                      companyUser.status != 10              
+                      companyUser.status != 10 AND
+                      companyUser.cardType != 1
                 ";
         $pdo = $this->getDoctrine()->getManager()->getConnection();
         $st = $pdo->prepare($sql);
         $st->execute();
         $statsCompany = $st->fetchAll();
 
-        return array('stats' => $re, 'date' => $date3, 'statsCompany' => $statsCompany);
+        $sql = "SELECT SUM(companyUser.cardAmount) cid FROM
+                companyUser
+                WHERE companyUser.isProduction >= '$date1' AND 
+                      companyUser.isProduction < '$date2' AND  
+                      companyUser.status > 0 AND 
+                      companyUser.status != 10 AND
+                      companyUser.cardType = 1
+                ";
+        $pdo = $this->getDoctrine()->getManager()->getConnection();
+        $st = $pdo->prepare($sql);
+        $st->execute();
+        $statsCompany2 = $st->fetchAll();
+
+        return array('stats' => $re, 'date' => $date3, 'statsCompany' => $statsCompany, 'statsCompany2' => $statsCompany2);
     }
 
     /**
