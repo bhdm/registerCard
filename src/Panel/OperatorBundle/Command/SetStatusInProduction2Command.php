@@ -1,5 +1,6 @@
 <?php
 namespace Panel\OperatorBundle\Command;
+use Crm\MainBundle\Entity\CompanyStatusLog;
 use
     Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand,
     Symfony\Component\Console\Input\InputArgument,
@@ -29,7 +30,7 @@ class SetStatusInProductionCommand extends ContainerAwareCommand
             if ($user->getDateInProductionStat() == null){
                 $output->writeln($user->getId().' --- ');
                 $date = $user->getCreated();
-                $statusLog = new StatusLog();
+                $statusLog = new CompanyStatusLog();
                 $statusLog->setCreated($date);
                 $statusLog->setUpdated($date);
                 $statusLog->setTitle('В&nbsp;производстве');
