@@ -61,8 +61,7 @@
                     getPointData = function (partner) {
                         {#e = jQuery.parseJSON('{{ events | raw }}').events;#}
                         return {
-                            hasHint: true,
-                            name: '<strong> ' + partner['title'] + '</strong><br />' +
+                            hintContent: '<strong> ' + partner['title'] + '</strong><br />' +
                             '<strong>Адрес: </strong> '+partner['locality']+', '+partner['adrs']+'<br />'+
                             '<strong>Телефон: </strong> '+partner['phone']+'<br />'+
                             '<strong>Описание: </strong> '+partner['desc']+'<br />',
@@ -113,10 +112,10 @@
             jQuery.each(partners, function (k, partner) {
 
                 var geoObject = new ymaps.Placemark([partner['x'], partner['y']], getPointData(partner), getPointOptions());
-                    geoObject.hintContent = '<strong> ' + partner['title'] + '</strong><br />' +
-                    '<strong>Адрес: </strong> '+partner['locality']+', '+partner['adrs']+'<br />'+
-                    '<strong>Телефон: </strong> '+partner['phone']+'<br />'+
-                    '<strong>Описание: </strong> '+partner['desc']+'<br />';
+//                    geoObject.hintContent = '<strong> ' + partner['title'] + '</strong><br />' +
+//                    '<strong>Адрес: </strong> '+partner['locality']+', '+partner['adrs']+'<br />'+
+//                    '<strong>Телефон: </strong> '+partner['phone']+'<br />'+
+//                    '<strong>Описание: </strong> '+partner['desc']+'<br />';
 //                    myMap.addOverlay(geoObject);
                 clusterer.add(geoObject);
                 });
