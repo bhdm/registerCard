@@ -119,17 +119,11 @@
 
 
             myMap.geoObjects.add(clusterer);
-//            myMap.geoObjects.events.add("click", function (res) {
+
+            myMap.geoObjects.events.add("mousemove", function (res) {
 //                var city = res.get('target').properties.get('title');
-//                $.ajax({
-//                    url: Routing.generate('get_event_city'),
-//                    method: 'post',
-//                    data: 'city='+city,
-//                    success: function (events) {
-//                        $('.events').html(events);
-//                    }
-//                });
-//            });
+                    res.get('target').hint.show();
+            });
 
             /**
              * Спозиционируем карту так, чтобы на ней были видны все объекты.
