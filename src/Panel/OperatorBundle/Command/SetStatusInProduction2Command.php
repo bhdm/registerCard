@@ -10,7 +10,7 @@ use
     Symfony\Component\Process\Process,
     Crm\MainBundle\Entity\StatusLog;
 
-class SetStatusInProductionCommand extends ContainerAwareCommand
+class SetStatusInProduction2Command extends ContainerAwareCommand
 {
 
     protected function configure()
