@@ -3,6 +3,7 @@
 namespace Panel\OperatorBundle\Controller;
 
 use Crm\MainBundle\Entity\StatusLog;
+use Crm\MainBundle\Entity\User;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -2081,9 +2082,10 @@ class UserController extends Controller
                 foreach ($orders[$f] as $o) {
                     $num++;
                     $itog += ($o->getStatus() != 10 ? $o->getPrice() : ($o->getPrice()*-1));
+                    $type = ($o instanceof User ? ($o->getEstr() == 1 ? 'ЕСТР' : $o->getRu() == 1 ? 'РФ' : 'СКЗИ') : $o->getCardType() == 1? 'СКЗИ' : $o->getCardType() == 2 ? 'ЕСТР' : 'РФ');
                     $phpExcelObject->setActiveSheetIndex(0)
                         ->setCellValue('A' . $num, $f)
-                        ->setCellValue('B' . $num, ($o->getEstr() == 1 ? 'ЕСТР' : $o->getRu() == 1 ? 'РФ' : 'СКЗИ'))
+                        ->setCellValue('B' . $num, $type);
                         ->setCellValue('C' . $num, $o->getId())
                         ->setCellValue('D' . $num, $o->getFullname())
                         ->setCellValue('E' . $num, $o->getPrice())
