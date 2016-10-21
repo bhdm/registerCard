@@ -1038,7 +1038,7 @@ class UserController extends Controller
 
         $center = array(
             'alignment' => array(
-                'horizontal' => PHPExcel_Style_Alignment::HORIZONTAL_CENTER,
+                'horizontal' => \PHPExcel_Style_Alignment::HORIZONTAL_CENTER,
             )
         );
 
