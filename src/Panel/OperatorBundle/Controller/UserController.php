@@ -1020,29 +1020,38 @@ class UserController extends Controller
             ->setKeywords("office 2005 openxml php")
             ->setCategory("Test result file");
         $i = 1;
-        $phpExcelObject->setActiveSheetIndex(0)->setCellValue('F' . $i, 'Новая');
-        # Подтвержденная
-        $phpExcelObject->setActiveSheetIndex(0)->setCellValue('G' . $i, 'Подтвержденная');
-        # Оплаченная
-        $phpExcelObject->setActiveSheetIndex(0)->setCellValue('H' . $i, 'Оплаченная');
-        # В производстве
-        $phpExcelObject->setActiveSheetIndex(0)->setCellValue('I' . $i, 'В производстве');
-        # Изготовлено
-        $phpExcelObject->setActiveSheetIndex(0)->setCellValue('J' . $i, 'Изготовлена');
-        # На почте
-        $phpExcelObject->setActiveSheetIndex(0)->setCellValue('K' . $i, 'На почте');
-        # Получена
-        $phpExcelObject->setActiveSheetIndex(0)->setCellValue('L' . $i, 'Получена');
-        # Отклонена
-        $phpExcelObject->setActiveSheetIndex(0)->setCellValue('M' . $i, 'Отклонена');
+//        $phpExcelObject->setActiveSheetIndex(0)->setCellValue('F' . $i, 'Новая');
+//        # Подтвержденная
+//        $phpExcelObject->setActiveSheetIndex(0)->setCellValue('G' . $i, 'Подтвержденная');
+//        # Оплаченная
+//        $phpExcelObject->setActiveSheetIndex(0)->setCellValue('H' . $i, 'Оплаченная');
+//        # В производстве
+//        $phpExcelObject->setActiveSheetIndex(0)->setCellValue('I' . $i, 'В производстве');
+//        # Изготовлено
+//        $phpExcelObject->setActiveSheetIndex(0)->setCellValue('J' . $i, 'Изготовлена');
+//        # На почте
+//        $phpExcelObject->setActiveSheetIndex(0)->setCellValue('K' . $i, 'На почте');
+//        # Получена
+//        $phpExcelObject->setActiveSheetIndex(0)->setCellValue('L' . $i, 'Получена');
+//        # Отклонена
+//        $phpExcelObject->setActiveSheetIndex(0)->setCellValue('M' . $i, 'Отклонена');
+
+        $center = array(
+            'alignment' => array(
+                'horizontal' => PHPExcel_Style_Alignment::HORIZONTAL_CENTER,
+            )
+        );
 
         $i++;
         foreach ($users as $user) {
+
+            $sheet->getStyle("A$i:C$i")->applyFromArray($center);
             $i++;
             $type = ($user->getRu() == true ? 'РФ' : ($user->getEstr() == true ? 'ЕСТР' : 'СКЗИ'));
-            $phpExcelObject->setActiveSheetIndex(0)->setCellValue('A' . $i, $type);
-            $phpExcelObject->setActiveSheetIndex(0)->setCellValue('B' . $i, $user->getId());
-            $phpExcelObject->setActiveSheetIndex(0)->setCellValue('C' . $i, $user->getEmail());
+            $phpExcelObject->setActiveSheetIndex(0)->setCellValue('A' . $i, $user->getManagerKey());
+            $phpExcelObject->setActiveSheetIndex(0)->setCellValue('B' . $i, $type);
+            $phpExcelObject->setActiveSheetIndex(0)->setCellValue('C' . $i, $user->getId());
+//            $phpExcelObject->setActiveSheetIndex(0)->setCellValue('C' . $i, $user->getEmail());
             $fio = $user->getLastName() . ' '
                 . mb_substr($user->getFirstName(), 0, 1, 'utf-8') . '.'
                 . ($user->getSurName() ? ' ' . mb_substr($user->getSurName(), 0, 1, 'utf-8') . '.' : '');
