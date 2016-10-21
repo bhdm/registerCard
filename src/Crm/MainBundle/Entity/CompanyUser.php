@@ -1346,4 +1346,7 @@ class CompanyUser extends BaseEntity
         return null;
     }
 
+    public function getFullname(){
+        return $this->getLastName().' '.$this->getFirstName().' '.$this->getSurName();
+    }
 }
