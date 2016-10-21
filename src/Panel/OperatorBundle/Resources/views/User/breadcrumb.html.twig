@@ -1,7 +1,9 @@
 <ul class="breadcrumb well">
     {% if operator is defined and operator != null %}
         <li><a href="{{ path('panel_company_list') }}">Компании</a></li>
-        <li><a href="{{ path('panel_operator_quota',{'operatorId' : company.operator.id }) }}">{{ company.operator.username }}</a></li>
+            {% if company.operator.id is defined %}
+                <li><a href="{{ path('panel_user_list',{'operatorId' : company.operator.id }) }}">{{ company.operator.username }}</a></li>
+            {% endif %}
     {% endif %}
     {% if company is defined and company != null %}
         <li><a href="{{ path('panel_company_quota',{'companyId' : company.id }) }}">{{ company.title }}</a></li>
