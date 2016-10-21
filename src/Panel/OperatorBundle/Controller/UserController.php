@@ -1045,7 +1045,7 @@ class UserController extends Controller
         $i++;
         foreach ($users as $user) {
 
-            $sheet->getStyle("A$i:C$i")->applyFromArray($center);
+            $phpExcelObject->setActiveSheetIndex(0)->getStyle("A$i:C$i")->applyFromArray($center);
             $i++;
             $type = ($user->getRu() == true ? 'РФ' : ($user->getEstr() == true ? 'ЕСТР' : 'СКЗИ'));
             $phpExcelObject->setActiveSheetIndex(0)->setCellValue('A' . $i, $user->getManagerKey());
