@@ -3,6 +3,8 @@
         <li><a href="{{ path('panel_company_list') }}">Компании</a></li>
             {% if company.operator.id is defined %}
                 <li><a href="{{ path('panel_user_list',{'operatorId' : company.operator.id }) }}">{{ company.operator.username }}</a></li>
+            {% else %}
+                <li>{{ operator.username }}</li>
             {% endif %}
     {% endif %}
     {% if company is defined and company != null %}
