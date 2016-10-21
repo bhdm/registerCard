@@ -924,7 +924,7 @@ class UserRepository extends EntityRepository
 
         $t2 =  $this->getEntityManager()->createQueryBuilder()
             ->select('(u.price * u.cardAmount) sd')
-            ->from('CrmMainBundle:User','u')
+            ->from('CrmMainBundle:CompanyUser','u')
             ->leftJoin('u.company','c')
             ->leftJoin('u.statuslog','s')
             ->where("c.id = '".$companyId."'")

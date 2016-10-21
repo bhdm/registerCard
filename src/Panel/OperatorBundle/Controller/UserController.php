@@ -2028,6 +2028,7 @@ class UserController extends Controller
         $orders = $this->getDoctrine()->getRepository('CrmMainBundle:User')->findForAct($companyId, $date);
         $orderBefore = $this->getDoctrine()->getRepository('CrmMainBundle:User')->findForActBefore($companyId, $date);
 
+
         $quotas = $this->getDoctrine()->getRepository('CrmMainBundle:User')->findAct($companyId, $date);
         $quotaBefore = $this->getDoctrine()->getRepository('CrmMainBundle:User')->findActBefore($companyId, $date);
 //        if ($orderBefore == null){
@@ -2082,7 +2083,7 @@ class UserController extends Controller
                     $itog += ($o->getStatus() != 10 ? $o->getPrice() : ($o->getPrice()*-1));
                     $phpExcelObject->setActiveSheetIndex(0)
                         ->setCellValue('A' . $num, $f)
-                        ->setCellValue('B' . $num, ($o->getEstr() == 1 ? 'ЕСТР' : $o->getRu() == 2 ? 'РФ' : 'СКЗИ'))
+                        ->setCellValue('B' . $num, ($o->getEstr() == 1 ? 'ЕСТР' : $o->getRu() == 1 ? 'РФ' : 'СКЗИ'))
                         ->setCellValue('C' . $num, $o->getId())
                         ->setCellValue('D' . $num, $o->getFullname())
                         ->setCellValue('E' . $num, $o->getPrice())
