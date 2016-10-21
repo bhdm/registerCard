@@ -1074,27 +1074,27 @@ class UserController extends Controller
                     $userLogArray[$status->getTitle()] = $status->getCreated();
                 }
             }
-            $userLog = array();
-            foreach ($userLogArray as $key => $date) {
-                $userLog[$key] = $date->format('d.m.Y');
-            }
-            $userLogArray = $userLog;
+//            $userLog = array();
+//            foreach ($userLogArray as $key => $date) {
+//                $userLog[$key] = $date->format('d.m.Y');
+//            }
+//            $userLogArray = $userLog;
             # Новая
-            $phpExcelObject->setActiveSheetIndex(0)->setCellValue('F' . $i, (isset($userLogArray['Новая']) ? $userLogArray['Новая'] : 'Нет'));
-            # Подтвержденная
-            $phpExcelObject->setActiveSheetIndex(0)->setCellValue('G' . $i, (isset($userLogArray['Подтвержденная']) ? $userLogArray['Подтвержденная'] : 'Нет'));
-            # Оплаченная
-            $phpExcelObject->setActiveSheetIndex(0)->setCellValue('H' . $i, (isset($userLogArray['Оплаченная']) ? $userLogArray['Оплаченная'] : 'Нет'));
-            # В производстве
-            $phpExcelObject->setActiveSheetIndex(0)->setCellValue('I' . $i, (isset($userLogArray['В производстве']) ? $userLogArray['В производстве'] : 'Нет'));
-            # Изготовлено
-            $phpExcelObject->setActiveSheetIndex(0)->setCellValue('J' . $i, (isset($userLogArray['Изготовлено']) ? $userLogArray['Изготовлено'] : 'Нет'));
-            # На почте
-            $phpExcelObject->setActiveSheetIndex(0)->setCellValue('K' . $i, (isset($userLogArray['На почте']) ? $userLogArray['На почте'] : 'Нет'));
-            # Получена
-            $phpExcelObject->setActiveSheetIndex(0)->setCellValue('L' . $i, (isset($userLogArray['Получена']) ? $userLogArray['Получена'] : 'Нет'));
-            # Отклонена
-            $phpExcelObject->setActiveSheetIndex(0)->setCellValue('M' . $i, (isset($userLogArray['Отклонена']) ? $userLogArray['Отклонена'] : 'Нет'));
+//            $phpExcelObject->setActiveSheetIndex(0)->setCellValue('F' . $i, (isset($userLogArray['Новая']) ? $userLogArray['Новая'] : 'Нет'));
+//            # Подтвержденная
+//            $phpExcelObject->setActiveSheetIndex(0)->setCellValue('G' . $i, (isset($userLogArray['Подтвержденная']) ? $userLogArray['Подтвержденная'] : 'Нет'));
+//            # Оплаченная
+//            $phpExcelObject->setActiveSheetIndex(0)->setCellValue('H' . $i, (isset($userLogArray['Оплаченная']) ? $userLogArray['Оплаченная'] : 'Нет'));
+//            # В производстве
+//            $phpExcelObject->setActiveSheetIndex(0)->setCellValue('I' . $i, (isset($userLogArray['В производстве']) ? $userLogArray['В производстве'] : 'Нет'));
+//            # Изготовлено
+//            $phpExcelObject->setActiveSheetIndex(0)->setCellValue('J' . $i, (isset($userLogArray['Изготовлено']) ? $userLogArray['Изготовлено'] : 'Нет'));
+//            # На почте
+//            $phpExcelObject->setActiveSheetIndex(0)->setCellValue('K' . $i, (isset($userLogArray['На почте']) ? $userLogArray['На почте'] : 'Нет'));
+//            # Получена
+//            $phpExcelObject->setActiveSheetIndex(0)->setCellValue('L' . $i, (isset($userLogArray['Получена']) ? $userLogArray['Получена'] : 'Нет'));
+//            # Отклонена
+//            $phpExcelObject->setActiveSheetIndex(0)->setCellValue('M' . $i, (isset($userLogArray['Отклонена']) ? $userLogArray['Отклонена'] : 'Нет'));
         }
 
         $phpExcelObject->getActiveSheet()->setTitle('Simple');
