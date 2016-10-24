@@ -185,7 +185,7 @@ class XmlController extends Controller
             $files['signature']['title'] = 'Signature';
             $image->destroy();
 
-            $zip->addFromString($user->getId.'.xml',$this->renderView("PanelOperatorBundle:Xml:xml_ru.html.twig", array('user' => $user,'files' => $files)));
+            $zip->addFromString($user->getId().'.xml',$this->renderView("PanelOperatorBundle:Xml:xml_ru.html.twig", array('user' => $user,'files' => $files)));
         }
 
 
