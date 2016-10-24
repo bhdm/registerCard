@@ -150,7 +150,7 @@ class CompanyRepository extends EntityRepository
     public function debtors(){
         $sql = "
             SELECT c.id, c.title, 
-            ((SELECT SUM(q.quota) FROM CompanyQuotaLog q WHERE  q.enabled =1 AND q.company_id = c.id ) - SUM(u.price) - SUM(cu.price*cu.cardAmount))  sumPrice
+            ((SELECT SUM(q.quota) FROM CompanyQuotaLog q WHERE  q.enabled =1 AND q.company_id = c.id ) - SUM(u.price)  sumPrice
             
             FROM Company c
 
@@ -158,13 +158,6 @@ class CompanyRepository extends EntityRepository
             AND u.status !=0
             AND u.status !=1
             AND u.status !=10
-            
-            LEFT JOIN companyUser cu ON cu.company_id = c.id AND cu.enabled =1
-            AND cu.status !=0          
-            AND cu.status !=10
-
-           
-
 
             WHERE c.enabled =1 AND c.url IS NOT NULL  AND c.url !=  ''
             GROUP BY c.id
@@ -179,6 +172,35 @@ class CompanyRepository extends EntityRepository
         foreach ($re as $item) {
             $array[$item['title']] = $item;
         }
+
+        $sql = "
+            SELECT c.id, c.title, 
+            ((SELECT SUM(q.quota) FROM CompanyQuotaLog q WHERE  q.enabled =1 AND q.company_id = c.id ) - SUM(cu.price*cu.cardAmount))  sumPrice
+            
+            FROM Company c    
+            
+            LEFT JOIN companyUser cu ON cu.company_id = c.id AND cu.enabled =1
+            AND cu.status !=0          
+            AND cu.status !=10
+
+            WHERE c.enabled =1 AND c.url IS NOT NULL  AND c.url !=  ''
+            GROUP BY cu.id
+            HAVING sumPrice < 0
+            ";
+
+        $pdo = $this->getEntityManager()->getConnection();
+        $st = $pdo->prepare($sql);
+        $st->execute();
+
+        $re = $st->fetchAll();
+        foreach ($re as $item) {
+            if (isset($array[$item['title']])){
+                $array[$item['title']]['sumPrice'] += $item['sumPrice'];
+            }else{
+                $array[$item['title']] = $item;
+            }
+        }
+
         return $array;
 
     }

@@ -27,7 +27,7 @@
                                 {% if user.typeCardFile %}
                                     <br />
 
-                                    <a href="/upload/{{ user.typeCardFile}}" target="_blank">Скачать</a>
+                                    <a href="/upload/{{ user.typeCardFile.path is defined ?  user.typeCardFile.path : '' }}" target="_blank">Скачать</a>
                                 {% endif %}
                             </div>
                         </div>
