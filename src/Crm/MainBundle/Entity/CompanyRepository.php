@@ -150,7 +150,7 @@ class CompanyRepository extends EntityRepository
     public function debtors(){
         $sql = "
             SELECT c.id, c.title, 
-            ((SELECT SUM(q.quota) FROM CompanyQuotaLog q WHERE  q.enabled =1 AND q.company_id = c.id ) - SUM(u.price)  sumPrice
+            ((SELECT SUM(q.quota) FROM CompanyQuotaLog q WHERE  q.enabled =1 AND q.company_id = c.id ) - SUM(u.price))  sumPrice
             
             FROM Company c
 
@@ -175,7 +175,7 @@ class CompanyRepository extends EntityRepository
 
         $sql = "
             SELECT c.id, c.title, 
-            ((SELECT SUM(q.quota) FROM CompanyQuotaLog q WHERE  q.enabled =1 AND q.company_id = c.id ) - SUM(cu.price*cu.cardAmount))  sumPrice
+            (SUM(cu.price*cu.cardAmount))  sumPrice
             
             FROM Company c    
             
