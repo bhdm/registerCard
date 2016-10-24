@@ -489,7 +489,7 @@ class UserController extends Controller
                 $session->set('workFile', '/var/www/' . $file['path']);
             }
 
-            $file = $user->getCopyLastCardFile();
+            $file = $user->getCopyLastCard();
             if (!empty($file) && file_exists('/var/www/' . $file['path'])) {
                 $session->set('copyLastCardFile', '/var/www/' . $file['path']);
             }
