@@ -190,7 +190,7 @@ class XmlController extends Controller
 
 
         $zip->close();
-        if(file_exists($zip_name))
+        if(file_exists("XMLgeneration.zip"))
         {
 
 //        $response = new Response();
