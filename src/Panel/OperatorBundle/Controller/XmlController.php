@@ -130,9 +130,11 @@ class XmlController extends Controller
      * @Template("")
      */
     public function ruXmlMassAction(Request $request){
+        $filePath = __DIR__.'/../../../../web/';
+
         $zip = new \ZipArchive();
         $zip_name = "XMLgeneration.zip";
-        if($zip->open($zip_name, \ZIPARCHIVE::CREATE)!==TRUE)
+        if($zip->open($filePath.$zip_name, \ZIPARCHIVE::CREATE)!==TRUE)
         {
             throw $this->createNotFoundException("* Sorry ZIP creation failed at this time;");
         }
@@ -142,7 +144,6 @@ class XmlController extends Controller
         $em = $this->getDoctrine()->getManager();
         foreach ($data as $key => $val) {
             $user = $this->getDoctrine()->getRepository('CrmMainBundle:User')->find($key);
-            $filePath = __DIR__.'/../../../../web/';
 
             $image = new \Imagick($filePath.$user->getPhoto()['path']);
             $image->setImageFormat('bmp');
@@ -188,9 +189,8 @@ class XmlController extends Controller
             $zip->addFromString($user->getId().'.xml',$this->renderView("PanelOperatorBundle:Xml:xml_ru.html.twig", array('user' => $user,'files' => $files)));
         }
 
-
         $zip->close();
-        if(file_exists("XMLgeneration.zip"))
+        if(file_exists($filePath.$zip_name))
         {
 
 //        $response = new Response();
@@ -201,11 +201,11 @@ class XmlController extends Controller
 //        return $response;
             header('Content-type: application/zip');
             header('Content-Disposition: attachment; filename="XMLgeneration.zip"');
-            readfile($zip_name);
-            unlink($zip_name);
+            readfile($filePath.$zip_name);
+            unlink($filePath.$zip_name);
             exit;
         }else{
-            echo 'error';
+            echo $filePath.$zip_name;
             exit;
         }
 
