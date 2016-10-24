@@ -166,6 +166,7 @@
 {% if is_granted('ROLE_ADMIN') %}
     <div class="well well-small">
         <button id="xml" class="btn btn-primary">Массовый XML</button>
+        <button id="xml2" class="btn btn-primary">Массовый XML (РФ и ЕСТР)</button>
         <button id="print" class="btn btn-primary">Выгрузка в Excel</button>
         <button id="delivery" class="btn btn-primary">доставка</button>
         <button id="clearManager" class="btn btn-primary">Очистить Тег</button>
@@ -182,6 +183,13 @@
             $('#form-list').attr('action', url);
             $('#form-list').submit();
         });
+
+        $('#2').click(function(){
+            var url = Routing.generate('panel_operator_ru_xml_mass');
+            $('#form-list').attr('action', url);
+            $('#form-list').submit();
+        });
+
         $('#print').click(function(){
             var url = Routing.generate('panel_user_print_many');
             $('#form-list').attr('action', url);
