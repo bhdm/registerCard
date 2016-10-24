@@ -133,7 +133,7 @@ class XmlController extends Controller
         $filePath = __DIR__.'/../../../../web/';
 
         $zip = new \ZipArchive();
-        $zip_name = "XMLgeneration.zip";
+        $zip_name = "upload/XMLgeneration.zip";
         if($zip->open($filePath.$zip_name, \ZIPARCHIVE::CREATE)!==TRUE)
         {
             throw $this->createNotFoundException("* Sorry ZIP creation failed at this time;");
