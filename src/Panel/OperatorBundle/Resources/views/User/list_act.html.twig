@@ -49,7 +49,7 @@
                     <td>{{ user.price }}</td>
                     <td>{{ user.created | date('d.m.Y') }}</td>
                     <td>
-                        <a href="{{ path('panel_user_list',{'type' : 'null', 'company' : (user.company.id is defined ? user.company.id : '') }) }}" {{ debtors[(user.company.title is defined ? user.company.title : '')] is defined ? "style='color: #CC0000'" : '' }}
+                        <a href="{{ path('panel_user_list_act',{'type' : 'null', 'company' : (user.company.id is defined ? user.company.id : '') }) }}" {{ debtors[(user.company.title is defined ? user.company.title : '')] is defined ? "style='color: #CC0000'" : '' }}
                            title="" class="getQuotaCompany"
                            data-id="{{ user.company.id is defined ? user.company.id : '' }}"
                         >{{ user.company }}</a>
