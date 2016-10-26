@@ -2264,5 +2264,23 @@ class UserController extends Controller
         $referer = $request->headers->get('referer');
         return $this->redirect($referer);
     }
+
+    /**
+     * @Route("/remove-number-act/{number}/{date}", name="panel_user_remove_many_act", options={"expose"=true})
+     */
+    public function removeNumberActAction(Request $request, $number, $date){
+
+        $em = $this->getDoctrine()->getManager();
+        foreach ($data as $key => $val) {
+            $user = $this->getDoctrine()->getRepository('CrmMainBundle:User')->find($key);
+            if ($user != null) {
+                $user->setAct(null);
+                $em->flush($user);
+            }
+        }
+        $referer = $request->headers->get('referer');
+        return $this->redirect($referer);
+    }
+
 }
 

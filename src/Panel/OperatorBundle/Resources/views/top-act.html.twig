@@ -151,6 +151,7 @@
 {% if is_granted('ROLE_ADMIN') %}
     <div class="well well-small">
         <button id="act" class="btn btn-primary" data-toggle="modal" data-target="#actModal">Добавить Акт</button>
+        <button id="delact" class="btn btn-danger">Удалить акт</button>
     </div>
 {% endif %}
 
@@ -162,6 +163,13 @@
             $('#form-list').attr('target', '_self');
             $('#form-list').submit();
         });
+
+        $('#delact').click(function(){
+            var url = Routing.generate('panel_user_remove_many_act');
+            $('#form-list').attr('action', url);
+            $('#form-list').submit();
+        });
+
 
         $('#filter-send').click(function () {
             var url = Routing.generate('panel_user_list_act', { 'status' : '{{ app.request.attributes.get('_route_params').status }}', 'company': '{{ companyId }}', 'operator': '{{ operatorId }}' ,'type': $('#filter-type').val(), 'dateStart' : $('#filter-dateStart').val(), 'dateEnd' : $('#filter-dateEnd').val(),'search' : $('#filter-search').val(), 'filterManager' : $('#filter-act').val().toString() });
