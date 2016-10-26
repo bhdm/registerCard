@@ -2,6 +2,7 @@
 
 namespace Panel\OperatorBundle\Controller;
 
+use Crm\MainBundle\Entity\Act;
 use Crm\MainBundle\Entity\StatusLog;
 use Crm\MainBundle\Entity\User;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -2150,7 +2151,7 @@ class UserController extends Controller
     /**
      * @param Request $request
      * @Security("has_role('ROLE_ADMIN')")
-     * @Route("/list-act/{status}/{type}/{company}/{operator}", defaults={"status" = "all", "type" = null , "company" = null , "operator" = null}, name="panel_user_list_act")
+     * @Route("/list-act/{status}/{type}/{company}/{operator}", defaults={"status" = "all", "type" = null , "company" = null , "operator" = null}, name="panel_user_list_act", options={"expose" = true})
      * @Template()
      */
     public function getUserOfActAction(Request $request, $status = "all", $type = null, $company = null, $operator = null){
@@ -2162,11 +2163,11 @@ class UserController extends Controller
             $status = 0;
         }
 
-        $filterManager = $request->query->get('filterManager');
-        if ($filterManager == 'null' || $filterManager == null){
-            $filterManager = null;
+        $filterAct = $request->query->get('filterAct');
+        if ($filterAct == 'null' || $filterAct == null){
+            $filterAct = null;
         }else{
-            $filterManager = explode(',',$filterManager);
+            $filterAct = explode(',',$filterAct);
         }
 
         $searchtxt = $request->query->get('search');
@@ -2190,8 +2191,8 @@ class UserController extends Controller
             $confirmed = 0;
         }
 
-        $users = $this->getDoctrine()->getRepository('CrmMainBundle:User')->operatorFilter($type, $status, $company, $operator, $searchtxt, $dateStart, $dateEnd, 0, $filterManager, $confirmed);
-        $usersCount = $this->getDoctrine()->getRepository('CrmMainBundle:User')->operatorFilterCount($type, $status, $company, $operator, $searchtxt, $dateStart, $dateEnd, 0, $filterManager, $confirmed);
+        $users = $this->getDoctrine()->getRepository('CrmMainBundle:User')->operatorFilter($type, $status, $company, $operator, $searchtxt, $dateStart, $dateEnd, 0, null, $confirmed, $filterAct);
+        $usersCount = $this->getDoctrine()->getRepository('CrmMainBundle:User')->operatorFilterCount($type, $status, $company, $operator, $searchtxt, $dateStart, $dateEnd, 0, null, $confirmed, $filterAct);
 
         $paginator = $this->get('knp_paginator');
         $pagination = $paginator->paginate(
@@ -2209,10 +2210,10 @@ class UserController extends Controller
 
         $companies = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->findBy(array('operator' => $this->getUser(), 'enabled' => true));
 
-        $managers = $this->getDoctrine()->getRepository('CrmMainBundle:User')->findAllManagers();
+        $acts = $this->getDoctrine()->getRepository('CrmMainBundle:Act')->findAll();
 
-        if ($managers == null){
-            $managers = array();
+        if ($acts == null){
+            $acts = array();
         }
 
         $vars = array(
@@ -2223,14 +2224,45 @@ class UserController extends Controller
             'companies'  => $companies,
             'operator'   => $operator,
             'operatorId' => $operatorId,
-            'managers' => $managers,
-            'filterManager' => ($filterManager != null ? array_flip($filterManager) : null ),
+            'acts' => $acts,
+            'filterAct' => ($filterAct != null ? array_flip($filterAct) : null ),
             'debtors' => $this->getDoctrine()->getRepository('CrmMainBundle:Company')->debtors()
         );
 
         $response = $this->render('PanelOperatorBundle:User:list_act.html.twig', $vars);
 
         return $response;
+    }
+
+
+    /**
+     * @Route("/save-number-act/{number}/{date}", name="panel_user_save_many_act", options={"expose"=true})
+     */
+    public function saveNumberActAction(Request $request, $number, $date){
+        $date = new \DateTime($date);
+        $act = $this->getDoctrine()->getRepository('CrmMainBundle:Act')->findOneBy(['title' => $number, 'date' => $date]);
+        if ($act == null){
+            $act = new Act();
+            $act->setTitle($number);
+            $act->setDate($date);
+            $act->setEnabled(true);
+        }
+        $this->getDoctrine()->getManager()->persist($act);
+        $this->getDoctrine()->getManager()->flush($act);
+        $this->getDoctrine()->getManager()->refresh($act);
+
+
+        $data = $request->request->get('user');
+        $em = $this->getDoctrine()->getManager();
+        foreach ($data as $key => $val) {
+            $user = $this->getDoctrine()->getRepository('CrmMainBundle:User')->find($key);
+            if ($user != null) {
+                $user->setAct($act);
+                $em->flush($user);
+            }
+        }
+        $referer = $request->headers->get('referer');
+        return $this->redirect($referer);
     }
 }
 

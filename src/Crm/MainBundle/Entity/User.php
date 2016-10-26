@@ -527,6 +527,11 @@ class User extends BaseEntity implements UserInterface, EquatableInterface, \Ser
      */
     private $tags;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="Crm\MainBundle\Entity\Act", inversedBy="users")
+     */
+    private $act;
+
     public function getXmlId()
     {
         return str_pad($this->id, 8, "0", STR_PAD_LEFT);
@@ -2370,5 +2375,22 @@ class User extends BaseEntity implements UserInterface, EquatableInterface, \Ser
     {
         $this->tags = $tags;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getAct()
+    {
+        return $this->act;
+    }
+
+    /**
+     * @param mixed $act
+     */
+    public function setAct($act)
+    {
+        $this->act = $act;
+    }
+
 
 }

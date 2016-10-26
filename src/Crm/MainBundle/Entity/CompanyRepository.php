@@ -184,7 +184,7 @@ class CompanyRepository extends EntityRepository
             AND cu.status !=10
 
             WHERE c.enabled =1 AND c.url IS NOT NULL  AND c.url !=  ''
-            GROUP BY cu.id
+            GROUP BY c.id
             HAVING sumPrice < 0
             ";
 

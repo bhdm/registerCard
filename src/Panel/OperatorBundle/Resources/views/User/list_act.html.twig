@@ -10,14 +10,16 @@
 {% endblock %}
 
 {% block content %}
+    {% include 'PanelOperatorBundle::top-act.html.twig' %}
+    <form id="form-list" method="post" action="">
     <table class="table table-custom">
         <tr>
-           <th></th>
-           <th>№</th>
-           <th>Статус</th>
-           <th>Акт сверки</th>
-           <th>Стоимость</th>
-           <th>Дата создания</th>
+            <th></th>
+            <th>№</th>
+            <th>Статус</th>
+            <th>Акт сверки</th>
+            <th>Стоимость</th>
+            <th>Дата создания</th>
             <th >
                 <select class="chosen" data-placeholder="Компания">
                     {% for c in companies %}
@@ -25,40 +27,120 @@
                     {% endfor %}
                 </select>
             </th>
-           <th>ФИО / email</th>
+            <th>ФИО / email</th>
         </tr>
         {% for user in pagination %}
-            <tr>
-                <td><input type="checkbox"></td>
-                <td>{{ user.id }}</td>
-                <td>
-                    <div class="statusBox">
-                        {{ user.statusStringTwig | raw }}
-                        <div class="statusItems">
-                            {% for status in user.statusArray %}
-                                {{ status.title | raw }}&nbsp;-&nbsp;{{ status.date | date('d.m.Y') }}<br />
-                            {% endfor %}
+                <tr>
+                    <td>
+                        <input type="checkbox" name="user[{{ user.id }}]" value="{{ user.id }}">
+                    </td>
+                    <td>{{ user.id }}</td>
+                    <td>
+                        <div class="statusBox">
+                            {{ user.statusStringTwig | raw }}
+                            <div class="statusItems">
+                                {% for status in user.statusArray %}
+                                    {{ status.title | raw }}&nbsp;-&nbsp;{{ status.date | date('d.m.Y') }}<br />
+                                {% endfor %}
+                            </div>
                         </div>
-                    </div>
-                </td>
-                <td>Акт сверки</td>
-                <td>{{ user.price }}</td>
-                <td>{{ user.created | date('d.m.Y') }}</td>
-                <td>
-                    <a href="{{ path('panel_user_list',{'type' : 'null', 'company' : (user.company.id is defined ? user.company.id : '') }) }}" {{ debtors[(user.company.title is defined ? user.company.title : '')] is defined ? "style='color: #CC0000'" : '' }}
-                       title="" class="getQuotaCompany"
-                       data-id="{{ user.company.id is defined ? user.company.id : '' }}"
-                    >{{ user.company }}</a>
-                    {% if user.company.operator is defined and user.company.operator != null and user.company.operator.id != 1 %}
-                        <br /><span style="font-size: 12px">{{ user.company.operator }}</span>
-                    {% endif %}
-                </td>
-                <td>
-                    <a href="{{ path('panel_user_edit',{'userId' : user.id }) }}">{{ user }}</a>
-                    <br />
-                    <a href="?search={{ user.email }}"><span class="subtitles">{{ user.email }}</span></a>
-                </td>
-            </tr>
+                    </td>
+                    <td style="font-size: 13px">{% if user.act != null %}{{ user.act }} от {{ user.act.date | date('d.m.Y') }}{% else %}<span class="text-danger">-</span>{% endif %}</td>
+                    <td>{{ user.price }}</td>
+                    <td>{{ user.created | date('d.m.Y') }}</td>
+                    <td>
+                        <a href="{{ path('panel_user_list',{'type' : 'null', 'company' : (user.company.id is defined ? user.company.id : '') }) }}" {{ debtors[(user.company.title is defined ? user.company.title : '')] is defined ? "style='color: #CC0000'" : '' }}
+                           title="" class="getQuotaCompany"
+                           data-id="{{ user.company.id is defined ? user.company.id : '' }}"
+                        >{{ user.company }}</a>
+                        {% if user.company.operator is defined and user.company.operator != null and user.company.operator.id != 1 %}
+                            <br /><span style="font-size: 12px">{{ user.company.operator }}</span>
+                        {% endif %}
+                    </td>
+                    <td>
+                        <a href="{{ path('panel_user_edit',{'userId' : user.id }) }}">{{ user }}</a>
+                        <br />
+                        <a href="?search={{ user.email }}"><span class="subtitles">{{ user.email }}</span></a>
+                    </td>
+                </tr>
         {% endfor %}
     </table>
+    </form>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+        $(document).ready(function(){
+
+            $(".chosen").chosen({no_results_text: "Компаний по вашему запросу не найдено", width: 200});
+
+            $('.chosen').change(function(){
+                window.location.href = Routing.generate('panel_user_list_act', {'type': 'null', 'company': $(this).val() })
+            });
+
+
+
+            $('#allcheck').click(function () {
+                if($("#allcheck").prop('checked') == true){
+                    $("input[type=checkbox]" ).prop( "checked", true );
+                }else{
+                    $( "input[type=checkbox]" ).prop( "checked", false );
+                }
+            });
+
+            $('body').on('click', '.disabled-click' , function(){
+                var form =  $('<form method="post">' +
+                        '<textarea class="form-control" style="margin-bottom: 5px">'+$(this).text()+'</textarea>' +
+                        '<input type="hidden" class="old" value="'+$(this).text()+'" />' +
+                        '<button type="button" class="btn btn-default btn-success ok-textarea"> <span class="glyphicon glyphicon-ok"></span></button>' +
+                        '&nbsp;&nbsp;'+
+                        '<button type="button" class="btn btn-default btn-danger cancel-textarea"> <span class="glyphicon glyphicon-remove"></span></button>' +
+                        '</form>');
+                $(this).html(form);
+                $(this).removeClass('disabled-click');
+            });
+
+            $('.comment-box').on('click', '.cancel-textarea', function(){
+                var txt = $(this).parent().children('.old').val();
+                var div = $(this).parent().parent();
+                div.text(txt);
+                div.addClass('disabled-click');
+                return false;
+            });
+
+            $('.comment-box').on('click', '.ok-textarea', function(){
+                var txt = $(this).parent().children('.old').val();
+                var txt2 = $(this).parent().children('textarea').val();
+                var id = $(this).parent().parent().attr('data-id');
+                var div = $(this).parent().parent();
+                $.ajax({
+                    type: "POST",
+                    url: "{{ path('panel_user_set_comment') }}",
+                    data: "id="+id+'&comment='+txt2,
+                    success: function(msg){
+                        if (msg == 'ok'){
+                            div.text(txt2);
+                        }else{
+                            div.text(txt);
+                            alert('Ошибка сохранения:'+msg);
+                        }
+                    },
+                    error: function(msg){
+                        div.text(txt);
+                        alert('Ошибка сохранения:'+msg);
+                    }
+
+                });
+                if (txt2 == ''){
+                    $(this).parent().parent().parent().parent().css('background', '#FFFFFF');
+                }else{
+                    $(this).parent().parent().parent().parent().css('background', '#FFCFCF');
+                }
+
+                div.addClass('disabled-click');
+                return false;
+            });
+        });
+    </script>
 {% endblock %}

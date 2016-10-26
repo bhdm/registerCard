@@ -175,7 +175,7 @@ class UserRepository extends EntityRepository
         return $result;
     }
 
-    public function operatorFilter($type, $status,  $companyId, $user, $searchtxt = null, $dateStart = null, $dateEnd = null, $comment = 0 , $filterManager = null, $confirmed = 0){
+    public function operatorFilter($type, $status,  $companyId, $user, $searchtxt = null, $dateStart = null, $dateEnd = null, $comment = 0 , $filterManager = null, $confirmed = 0, $filterAct = null){
         if ($user){
             $userId = $user->getId();
         }else{
@@ -217,6 +217,23 @@ class UserRepository extends EntityRepository
             $strMan = substr($strMan, 0, -2);
             $res->andWhere("($strMan)");
         }
+
+        if ($filterAct !== null and is_array($filterAct)){
+            $res->leftJoin('u.act ','act');
+            $strMan = '';
+            foreach ($filterAct as $f){
+                if ($f != 'null' and $f != null){
+                    if ($f == 'nul'){
+                        $strMan .= " act.id IS NULL OR";
+                    }else{
+                        $strMan .= " act.id = '".$f."' OR";
+                    }
+                }
+            }
+            $strMan = substr($strMan, 0, -2);
+            $res->andWhere("($strMan)");
+        }
+
         if ($type == 0){
             $res->andWhere('u.estr = 0 AND u.ru = 0');
         }elseif ($type == 1){
