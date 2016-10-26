@@ -2266,9 +2266,9 @@ class UserController extends Controller
     }
 
     /**
-     * @Route("/remove-number-act/{number}/{date}", name="panel_user_remove_many_act", options={"expose"=true})
+     * @Route("/remove-number-act", name="panel_user_remove_many_act", options={"expose"=true})
      */
-    public function removeNumberActAction(Request $request, $number, $date){
+    public function removeNumberActAction(Request $request){
 
         $em = $this->getDoctrine()->getManager();
         foreach ($data as $key => $val) {
