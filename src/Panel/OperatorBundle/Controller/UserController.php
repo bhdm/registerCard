@@ -2269,7 +2269,7 @@ class UserController extends Controller
      * @Route("/remove-number-act", name="panel_user_remove_many_act", options={"expose"=true})
      */
     public function removeNumberActAction(Request $request){
-
+        $data = $request->request->get('user');
         $em = $this->getDoctrine()->getManager();
         foreach ($data as $key => $val) {
             $user = $this->getDoctrine()->getRepository('CrmMainBundle:User')->find($key);
