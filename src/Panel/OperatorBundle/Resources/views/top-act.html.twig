@@ -77,20 +77,20 @@
                        value="{{ app.request.query.all.search is defined ? app.request.query.all.search : '' }}">
             </td>
         </tr>
-        {% if is_granted('ROLE_ADMIN') %}
-            <tr>
-                <td colspan="3">
-                    <br />
-                    <select id="filter-act" class="choosenselect" multiple>
-                        <option value="null" selected>Показать всех</option>
-                        <option value="nul"  {{ filterAct['nul'] is defined ? 'selected="selected"' : '' }}>Без Акта</option>
-                        {% for a in acts %}
-                            <option value="{{ a.id }}" {{ filterAct[a.title] is defined ? 'selected="selected"' : '' }}>{{ a.title }}</option>
-                        {% endfor %}
-                    </select>
-                </td>
-            </tr>
-        {% endif %}
+        {#{% if is_granted('ROLE_ADMIN') %}#}
+            {#<tr>#}
+                {#<td colspan="3">#}
+                    {#<br />#}
+                    {#<select id="filter-act" class="choosenselect" multiple>#}
+                        {#<option value="null" selected>Показать всех</option>#}
+                        {#<option value="nul"  {{ filterAct['nul'] is defined ? 'selected="selected"' : '' }}>Без Акта</option>#}
+                        {#{% for a in acts %}#}
+                            {#<option value="{{ a.id }}" {{ filterAct[a.title] is defined ? 'selected="selected"' : '' }}>{{ a.title }}</option>#}
+                        {#{% endfor %}#}
+                    {#</select>#}
+                {#</td>#}
+            {#</tr>#}
+        {#{% endif %}#}
         <tr>
             <td style="">
                 <button class="form-control btn btn-primary" id="filter-send">Поиск</button>
