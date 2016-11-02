@@ -135,28 +135,28 @@
     <table style="margin: 0 auto; width: 100%" border="1" cellpadding="0" cellspacing="0">
         <tr>
             <td rowspan="2" colspan="2" width="50%">
-                {{ client.operator.bank }}
+                {{ client.company.bank }}
             </td>
             <td>
                 БИК
             </td>
             <td rowspan="2">
-                {{ client.operator.bik }}<br />
-                {{ client.operator.korchet }}
+                {{ client.company.bik }}<br />
+                {{ client.company.korchet }}
             </td>
         </tr>
         <tr>
             <td>Сч. №</td>
         </tr>
         <tr>
-            <td>ИНН {{ client.operator.inn }}</td>
-            <td>КПП {{ client.operator.kpp }}</td>
+            <td>ИНН {{ client.company.inn }}</td>
+            <td>КПП {{ client.company.kpp }}</td>
             <td rowspan="2">Сч. №</td>
-            <td rowspan="2">{{ client.operator.rchet }}</td>
+            <td rowspan="2">{{ client.company.rchet }}</td>
         </tr>
         <tr>
             <td colspan="2">
-                {{ client.operator.companyTitle }}<br />
+                {{ client.company.title }}<br />
                 <br />
                 Получатель
             </td>
@@ -169,10 +169,10 @@
             <tr>
                 <td>Поставщик:</td>
                 <td>
-                    {{ client.operator.companyTitle }}, ИНН {{ client.operator.inn }}, КПП {{ client.operator.kpp }},
-                    {#{{ client.adrs.zipcode }},#}
-                    {#{{ client.adrs.region }},  {{ client.adrs.city }},#}
-                    {#{{ client.adrs.street }},д.{{ client.adrs.house }} {{ client.adrs.corp }}, {{ client.adrs.room }}#}
+                    {{ client.company.title }}, ИНН {{ client.company.inn }}, КПП {{ client.company.kpp }},
+                    {{ client.company.adrs.zipcode }},
+                    {{ client.company.adrs.region }},  {{ client.company.adrs.city }},
+                    {{ client.company.adrs.street }},д.{{ client.company.adrs.house }} {{ client.company.adrs.corp }}, {{ client.company.adrs.room }}
                     {#тел.: +7(812)425-12-44#}
                 </td>
             </tr>
