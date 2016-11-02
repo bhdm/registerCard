@@ -170,9 +170,9 @@
                 <td>Поставщик:</td>
                 <td>
                     {{ client.operator.companyTitle }}, ИНН {{ client.operator.inn }}, КПП {{ client.operator.kpp }},
-                    {{ client.adrs.zipcode }},
-                    {{ client.adrs.region }},  {{ client.adrs.city }},
-                    {{ client.adrs.street }},д.{{ client.adrs.house }} {{ client.adrs.corp }}, {{ client.adrs.room }}
+                    {#{{ client.adrs.zipcode }},#}
+                    {#{{ client.adrs.region }},  {{ client.adrs.city }},#}
+                    {#{{ client.adrs.street }},д.{{ client.adrs.house }} {{ client.adrs.corp }}, {{ client.adrs.room }}#}
                     {#тел.: +7(812)425-12-44#}
                 </td>
             </tr>
@@ -188,11 +188,11 @@
                     {% if client.kpp %}
                         КПП: {{ client.kpp }},
                     {% endif %}
-                    {#{% if client.adrs.zipcode is defined %}#}
-                        {#{{ client.adrs.zipcode }},#}
-                        {#{{ client.adrs.region }},  {{ client.adrs.city }},#}
-                        {#{{ client.adrs.street }},д.{{ client.adrs.house }} {{ client.adrs.corp }}, {{ client.adrs.room }}#}
-                    {#{% endif %}#}
+                    {% if client.adrs.zipcode is defined %}
+                        {{ client.adrs.zipcode }},
+                        {{ client.adrs.region }},  {{ client.adrs.city }},
+                        {{ client.adrs.street }},д.{{ client.adrs.house }} {{ client.adrs.corp }}, {{ client.adrs.room }}
+                    {% endif %}
                 </td>
             </tr>
             <tr>
