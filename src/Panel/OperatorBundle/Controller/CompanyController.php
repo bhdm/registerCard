@@ -124,6 +124,93 @@ class CompanyController extends Controller
 
     /**
      * @Security("has_role('ROLE_OPERATOR')")
+     * @Route("/edit2/{id}", name="panel_company_add")
+     * @Template()
+     */
+    public function edit2Action(Request $request, $id){
+        $em = $this->getDoctrine()->getManager();
+        $company = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->find($id);
+
+        $petitions = $this->getDoctrine()->getRepository('CrmMainBundle:CompanyPetition')->findBy(array('operator'=> $this->getUser(), 'enabled' => true));
+        if ($request->getMethod() == 'POST'){
+            $data = $request->request;
+
+            $url = $data->get('url');
+            $c = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->findOneByUrl($url);
+            if ($c != null){
+                $session = new Session();
+                $session->getFlashBag()->add('error', 'Такой URL уже существует. Выберите пожалуйста другой');
+                $referer = $request->headers->get('referer');
+                return $this->redirect($referer);
+            }
+
+            $company->setTitle($data->get('companyName'));
+            if ($request->request->get('petition') && $request->request->get('petition')!= '' && $request->request->get('petition') != 'null'){
+                $petition = $this->getDoctrine()->getRepository('CrmMainBundle:CompanyPetition')->findOneById($request->request->get('petition'));
+                $company->setPetition($petition);
+            }else{
+                $company->setPetition(null);
+            }
+            $company->setZipcode($data->get('companyZipcode'));
+            $region = $this->getDoctrine()->getRepository('CrmMainBundle:Region')->findOneById($data->get('companyRegion'));
+            $company->setRegion($region);
+            $company->setCity($data->get('companyCity'));
+            $company->setTypeStreet($data->get('companyTypeStreet'));
+            $company->setStreet($data->get('companyStreet'));
+            $company->setHome($data->get('companyHouse'));
+            $company->setCorp($data->get('companyCorp'));
+            $company->setStructure($data->get('companyStructure'));
+            $company->setTypeRoom($data->get('companyTypeRoom'));
+            $company->setRoom($data->get('companyRoom'));
+            $company->setOperator($this->getUser());
+            $company->setUrl($data->get('url'));
+            $company->setManager($data->get('manager'));
+            $company->setDelivery(($data->get('delivery') == 1 ? true : false));
+
+            if ($data->get('confirmed') != null){
+                $company->setConfirmed(true);
+            }else{
+                $company->setConfirmed(false);
+            }
+
+            $company->setForma($data->get('forma'));
+            $company->setInn($data->get('inn'));
+            $company->setKpp($data->get('kpp'));
+            $company->setOgrn($data->get('ogrn'));
+            $company->setRchet($data->get('rchet'));
+            $company->setBank($data->get('bank'));
+            $company->setKorchet($data->get('korchet'));
+            $company->setBik($data->get('bik'));
+
+
+            $company->setPriceEstr($data->get('priceEstr'));
+            $company->setPriceSkzi($data->get('priceSkzi'));
+            $company->setPriceRu($data->get('priceRu'));
+
+            $company->setPriceMasterEstr($data->get('priceMasterEstr'));
+            $company->setPriceMasterSkzi($data->get('priceMasterSkzi'));
+            $company->setPriceMasterRu($data->get('priceMasterRu'));
+
+            $company->setPriceEnterpriseEstr($data->get('priceEnterpriseEstr'));
+            $company->setPriceEnterpriseSkzi($data->get('priceEnterpriseSkzi'));
+            $company->setPriceEnterpriseRu(  $data->get('priceEnterpriseRu'));
+
+
+            $company->setEnabled(true);
+
+            $em->persist($company);
+            $em->flush($company);
+            $em->refresh($company);
+            return $this->redirect($this->generateUrl('panel_company_list'));
+        }
+
+        $country = $this->getDoctrine()->getRepository('CrmMainBundle:Country')->findOneById(3159);
+        $regions = $this->getDoctrine()->getRepository('CrmMainBundle:Region')->findByCountry($country);
+        return array('company'=> $company, 'regions' => $regions,'petitions' => $petitions);
+    }
+
+    /**
+     * @Security("has_role('ROLE_OPERATOR')")
      * @Route("/edit/{id}", name="panel_company_edit")
      * @Template()
      */
