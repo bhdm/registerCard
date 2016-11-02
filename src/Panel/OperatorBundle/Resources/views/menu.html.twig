@@ -121,14 +121,13 @@
             {#</a>#}
             {#</li>#}
         {% endif %}
-
+        <li class="{{ app.request.attributes.get('_route') == 'panel_payment_list' ? 'active' : '' }}">
+            <a href="{{ path('panel_payment_list') }}">
+                <i class="glyphicon glyphicon-signal"></i>
+                &nbsp;&nbsp;Счета
+            </a>
+        </li>
         {% if is_granted('ROLE_ADMIN') %}
-            <li class="{{ app.request.attributes.get('_route') == 'panel_payment_list' ? 'active' : '' }}">
-                <a href="{{ path('panel_payment_list') }}">
-                    <i class="glyphicon glyphicon-signal"></i>
-                    &nbsp;&nbsp;Счета
-                </a>
-            </li>
             <li class="{{ app.request.attributes.get('_route') == 'panel_company_stats' ? 'active' : '' }}">
                 <a href="{{ path('panel_company_stats') }}">
                     <i class="glyphicon glyphicon-signal"></i>
