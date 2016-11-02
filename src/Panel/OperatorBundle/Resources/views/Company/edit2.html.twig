@@ -17,18 +17,18 @@
             <tr>
                 <td class="label">URL компании:</td>
                 <td class="value">
-                    <input name="url" id="url" type="text" class="form-control" value="" placeholder="company URL">
+                    <input name="url" id="url" type="text" class="form-control" value="{{ company.url }}" placeholder="company URL">
                 </td>
             </tr>
             <tr>
                 <td class="label">Название организации<span class="required">*</span>:</td>
                 <td class="value">
-                    <input name="companyName" id="companyName" type="text" class="form-control" value="" placeholder="Ромашка">
+                    <input name="companyName" id="companyName" type="text" class="form-control" value="{{ company.title }}" placeholder="Ромашка">
                 </td>
             </tr>
             <tr>
                 <td class="label">Наименование организации:</td>
-                <td class="value"><input style="width: 358px;" type="text" class="form-control" name="forma" placeholder='ООО "Ромашка"'></td>
+                <td class="value"><input style="width: 358px;" type="text" class="form-control" name="forma" placeholder='ООО "Ромашка"' value="{{ company.forma }}"></td>
             </tr>
             {#<tr>#}
                 {#<td class="label">Менеджер:</td>#}
@@ -55,41 +55,41 @@
                 <td class="value">
                     <select name="companyRegion" id="companyRegion">
                         {% for region in regions %}
-                            <option value="{{ region.id }}" selected="selected">{{ region.title }}</option>
+                            <option value="{{ region.id }}" {{ region.id == company.region.id ? 'selected="selected"' : '' }}>{{ region.title }}</option>
                         {% endfor %}
                     </select><br />
                     <input name="companyCity"    id="companyCity"     type="text" class="form-control" placeholder="Город" value=""><br />
 
                     <select name="companyTypeStreet" id="companyTypeStreet">
-                        <option value="ул."    >Улица</option>
-                        <option value="д."    >Дорога</option>
-                        <option value="пр-д."   >Проезд</option>
-                        <option value="туп."   >Тупик</option>
-                        <option value="ш."   >Шоссе</option>
-                        <option value="тр."   >Трасса</option>
-                        <option value="пер."   >Переулок</option>
-                        <option value="пл."   >Площадь</option>
-                        <option value="скв."   >Сквер</option>
-                        <option value="алл."   >Аллея</option>
-                        <option value="б."   >Бульвар</option>
-                        <option value="пр."   >Просека</option>
-                        <option value="пр-т"   >Проспект</option>
-                        <option value="наб."   >Набережная</option>
-                        <option value=""      >Другое</option>
+                        <option {{ 'ул.' == company.typeStreet ? 'selected="selected"' : '' }} value="ул."    >Улица</option>
+                        <option {{ 'д.' == company.typeStreet ? 'selected="selected"' : '' }} value="д."     >Дорога</option>
+                        <option {{ 'пр-д.' == company.typeStreet ? 'selected="selected"' : '' }} value="пр-д."   >Проезд</option>
+                        <option {{ 'туп.' == company.typeStreet ? 'selected="selected"' : '' }} value="туп."   >Тупик</option>
+                        <option {{ 'ш.' == company.typeStreet ? 'selected="selected"' : '' }} value="ш."   >Шоссе</option>
+                        <option {{ 'тр.' == company.typeStreet ? 'selected="selected"' : '' }} value="тр."   >Трасса</option>
+                        <option {{ 'пер.' == company.typeStreet ? 'selected="selected"' : '' }} value="пер."   >Переулок</option>
+                        <option {{ 'пл.' == company.typeStreet ? 'selected="selected"' : '' }} value="пл."   >Площадь</option>
+                        <option {{ 'скв.' == company.typeStreet ? 'selected="selected"' : '' }} value="скв."   >Сквер</option>
+                        <option {{ 'алл.' == company.typeStreet ? 'selected="selected"' : '' }} value="алл."   >Аллея</option>
+                        <option {{ 'б.' == company.typeStreet ? 'selected="selected"' : '' }} value="б."   >Бульвар</option>
+                        <option {{ 'пр.' == company.typeStreet ? 'selected="selected"' : '' }} value="пр."   >Просека</option>
+                        <option {{ 'пр-т' == company.typeStreet ? 'selected="selected"' : '' }} value="пр-т"   >Проспект</option>
+                        <option {{ 'наб.' == company.typeStreet ? 'selected="selected"' : '' }} value="наб."   >Набережная</option>
+                        <option {{ '' == company.typeStreet ? 'selected="selected"' : '' }} value=""      >Другое</option>
                     </select>
-                    <input name="companyStreet"  id="companyStreet"   type="text" class="form-control" placeholder="Название улицы" value=""><br />
+                    <input name="companyStreet"  id="companyStreet"   type="text" class="form-control" placeholder="Название улицы" value="{{ company.street }}"><br />
 
-                    <input name="companyHouse"   id="companyHouse"    type="text" class="form-control" placeholder="Дом" class="little" value="">
-                    <input name="companyCorp"    id="companyCorp"     type="text" class="form-control" placeholder="Корп"  class="little" value="">
-                    <input name="companyStructure"    id="companyStructure"     type="text" class="form-control" placeholder="Строение"  class="little" value=""><br />
+                    <input name="companyHouse"   id="companyHouse"    type="text" class="form-control" placeholder="Дом" class="little" value="{{ company.home }}">
+                    <input name="companyCorp"    id="companyCorp"     type="text" class="form-control" placeholder="Корп"  class="little" value="{{ company.corp }}">
+                    <input name="companyStructure"    id="companyStructure"     type="text" class="form-control" placeholder="Строение"  class="little" value="{{ company.structure }}"><br />
 
                     <select name="companyTypeRoom" id="companyTypeRoom">
-                        <option value="кв." >Квартира</option>
-                        <option value="оф." >Офис</option>
+                        <option value="кв." {{ 'кв.' == company.typeRoom ? 'selected' : '' }}>Квартира</option>
+                        <option value="оф." {{ 'оф.' == company.typeRoom ? 'selected' : '' }}>Офис</option>
                     </select>
-                    <input name="companyRoom"    id="companyRoom"  type="text" class="form-control" placeholder="Номер"  class="little" value="">
+                    <input name="companyRoom"    id="companyRoom"  type="text" class="form-control" placeholder="Номер"  class="little" value="{{ company.room }}">
                     <br />
-                    <input name="companyZipcode" id="companyZipcode"  type="text" class="form-control" placeholder="Индекс" value=""><br />
+                    <input name="companyZipcode" id="companyZipcode"  type="text" class="form-control" placeholder="Индекс" value="{{ company.zipcode }}"><br />
                 </td>
             </tr>
             {#<tr>#}
@@ -111,31 +111,31 @@
 
             <tr>
                 <td class="label">ИНН:</td>
-                <td class="value"><input style="width: 358px;" type="text" class="form-control" name="inn" placeholder="Индивидуальный номер налогоплатильщика"></td>
+                <td class="value"><input style="width: 358px;" type="text" class="form-control" name="inn" placeholder="Индивидуальный номер налогоплатильщика" value="{{ company.inn }}"></td>
             </tr>
             <tr>
                 <td class="label">КПП:</td>
-                <td class="value"><input style="width: 358px;" type="text" class="form-control" name="kpp" placeholder="КПП"></td>
+                <td class="value"><input style="width: 358px;" type="text" class="form-control" name="kpp" placeholder="КПП" value="{{ company.kpp }}"></td>
             </tr>
             <tr>
                 <td class="label">ОГРН:</td>
-                <td class="value"><input style="width: 358px;" type="text" class="form-control" name="ogrn"></td>
+                <td class="value"><input style="width: 358px;" type="text" class="form-control" name="ogrn" value="{{ company.ogrn }}"></td>
             </tr>
             <tr>
                 <td class="label">Р. счет:</td>
-                <td class="value"><input style="width: 358px;" type="text" class="form-control" name="rchet" placeholder="расчетный счет"></td>
+                <td class="value"><input style="width: 358px;" type="text" class="form-control" name="rchet" placeholder="расчетный счет" value="{{ company.rchet }}"></td>
             </tr>
             <tr>
                 <td class="label">БИК:</td>
-                <td class="value"><input style="width: 358px;" type="text" class="form-control" name="bik"></td>
+                <td class="value"><input style="width: 358px;" type="text" class="form-control" name="bik" value="{{ company.bik }}"></td>
             </tr>
             <tr>
                 <td class="label">Банк:</td>
-                <td class="value"><input style="width: 358px;" type="text" class="form-control" name="bank" placeholder="Полное название банка"></td>
+                <td class="value"><input style="width: 358px;" type="text" class="form-control" name="bank" placeholder="Полное название банка" value="{{ {{ company.bank }} }}"></td>
             </tr>
             <tr>
                 <td class="label">Кор. счет:</td>
-                <td class="value"><input style="width: 358px;" type="text" class="form-control" name="korchet"></td>
+                <td class="value"><input style="width: 358px;" type="text" class="form-control" name="korchet" value="{{ company.korchet }}"></td>
             </tr>
 
             <tr>
