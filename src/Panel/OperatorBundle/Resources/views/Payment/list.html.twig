@@ -14,6 +14,7 @@
             <tr>
                 <th >Номер</th>
                 <th >Дата</th>
+                <th>Оператор</th>
                 <th>
                     <select class="chosen" id="clients" data-placeholder="Клиент" style="width: 150px">
                         {% for c in clientsList %}
@@ -51,6 +52,7 @@
                             <span class="glyphicon glyphicon-print" style="color: #0000cc"></span>
                         {% endif %}
                     </td>
+                    <td>{{ p.operator }}</td>
                     <td>{{ p.client.username }}</td>
                     <td><a href="{{ path('panel_user_list', {'type' : 'null' , 'company' : p.client.company.id }) }}">{{ p.client.company }}</a></td>
                     <td>{{ p.amount }}</td>

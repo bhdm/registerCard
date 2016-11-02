@@ -62,6 +62,16 @@ class Payment extends BaseEntity
     protected $client;
 
     /**
+     * @ORM\ManyToOne(targetEntity="Crm\MainBundle\Entity\Operator", inversedBy="payments")
+     */
+    protected $operator;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Crm\MainBundle\Entity\Operator", inversedBy="myPayments")
+     */
+    protected $author;
+
+    /**
      * @ORM\OneToMany(targetEntity="PaymentOrder", mappedBy="payment")
      */
     protected $orders;
@@ -319,6 +329,39 @@ class Payment extends BaseEntity
     {
         $this->comment = $comment;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getOperator()
+    {
+        return $this->operator;
+    }
+
+    /**
+     * @param mixed $operator
+     */
+    public function setOperator($operator)
+    {
+        $this->operator = $operator;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getAuthor()
+    {
+        return $this->author;
+    }
+
+    /**
+     * @param mixed $author
+     */
+    public function setAuthor($author)
+    {
+        $this->author = $author;
+    }
+
 
 
 }

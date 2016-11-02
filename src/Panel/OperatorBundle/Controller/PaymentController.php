@@ -97,6 +97,7 @@ class PaymentController extends Controller
 //                $payment->setCorrectionAccaunt('30101810000000000340');
 //                $payment->setCheckingAccount('40702810670110000776');
 
+                $payment->setAuthor($this->getUser());
                 $em->persist($payment);
                 $em->flush();
                 $em->refresh($payment);

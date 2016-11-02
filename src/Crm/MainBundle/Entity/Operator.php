@@ -62,10 +62,10 @@ class Operator extends BaseEntity implements UserInterface
      */
     protected $checks;
 
-    /**
-     * @ORM\OneToMany(targetEntity="CompanyPayment", mappedBy="moderator", cascade={"all"})
-     */
-    protected $payments;
+//    /**
+//     * @ORM\OneToMany(targetEntity="CompanyPayment", mappedBy="moderator", cascade={"all"})
+//     */
+//    protected $payments;
 
     /**
      * @ORM\Column(type="integer")
@@ -196,9 +196,21 @@ class Operator extends BaseEntity implements UserInterface
      */
     public $eula;
 
+    /**
+     * @ORM\OneToMany(targetEntity="Crm\MainBundle\Entity\Payment", mappedBy="operator")
+     */
+    protected $payments;
+
+    /**
+     * @ORM\OneToMany(targetEntity="Crm\MainBundle\Entity\Payment", mappedBy="author")
+     */
+    protected $myPayments;
+
     public function __construct(){
         $this->roles    = 'ROLE_OPERATOR';
         $this->companies = new ArrayCollection();
+        $this->myPayments = new ArrayCollection();
+        $this->payments = new ArrayCollection();
         $this->petitions = new ArrayCollection();
         $this->payments = new ArrayCollection();
         $this->checks = new ArrayCollection();
@@ -1110,6 +1122,22 @@ class Operator extends BaseEntity implements UserInterface
     public function setEula($eula)
     {
         $this->eula = $eula;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getMyPayments()
+    {
+        return $this->myPayments;
+    }
+
+    /**
+     * @param mixed $myPayments
+     */
+    public function setMyPayments($myPayments)
+    {
+        $this->myPayments = $myPayments;
     }
 
 
