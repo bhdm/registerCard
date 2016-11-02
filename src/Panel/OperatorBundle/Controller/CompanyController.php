@@ -198,7 +198,6 @@ class CompanyController extends Controller
 
             $company->setEnabled(true);
 
-            $em->persist($company);
             $em->flush($company);
             $em->refresh($company);
             return $this->redirect($this->generateUrl('panel_company_list'));
