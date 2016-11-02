@@ -124,7 +124,7 @@ class CompanyController extends Controller
 
     /**
      * @Security("has_role('ROLE_OPERATOR')")
-     * @Route("/edit2/{id}", name="panel_company_add")
+     * @Route("/edit2/{id}", name="panel_company_edit2")
      * @Template()
      */
     public function edit2Action(Request $request, $id){
