@@ -34,13 +34,13 @@ class PaymentController extends Controller
     public function listAction(Request $request)
     {
         if ($request->query->get('companyId')){
-            $payments = $this->getDoctrine()->getRepository('CrmMainBundle:Payment')->filter(['enabled' => true, 'company' => $request->query->get('companyId')]);
+            $payments = $this->getDoctrine()->getRepository('CrmMainBundle:Payment')->filter(['operator' => $this->getUser(), 'enabled' => true, 'company' => $request->query->get('companyId')]);
         }elseif($request->query->get('clientId')){
-            $payments = $this->getDoctrine()->getRepository('CrmMainBundle:Payment')->filter(['enabled' => true, 'client' => $request->query->get('clientId')]);
+            $payments = $this->getDoctrine()->getRepository('CrmMainBundle:Payment')->filter(['operator' => $this->getUser(),'enabled' => true, 'client' => $request->query->get('clientId')]);
         }elseif($request->query->get('statusId') != null && $request->query->get('statusId') != 3 ){
-            $payments = $this->getDoctrine()->getRepository('CrmMainBundle:Payment')->findBy(['enabled' => true, 'status' => $request->query->get('statusId')],['created' => 'DESC']);
+            $payments = $this->getDoctrine()->getRepository('CrmMainBundle:Payment')->findBy(['operator' => $this->getUser(),'enabled' => true, 'status' => $request->query->get('statusId')],['created' => 'DESC']);
         }else{
-            $payments = $this->getDoctrine()->getRepository('CrmMainBundle:Payment')->findBy(['enabled' => true],['created' => 'DESC']);
+            $payments = $this->getDoctrine()->getRepository('CrmMainBundle:Payment')->findBy(['operator' => $this->getUser(),'enabled' => true],['created' => 'DESC']);
         }
 
         $sum = 0;

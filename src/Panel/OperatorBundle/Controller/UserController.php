@@ -350,6 +350,10 @@ class UserController extends Controller
             $user->setDileveryStructure($data->get('deliveryStructure'));
             $user->setDileveryRoom($data->get('deliveryRoom'));
 
+            $adrs = $user->getDeliveryAdrs();
+            $adrs['recipient'] = $data->get('deliveryRecipient');
+            $user->setDeliveryAdrs($adrs);
+
             $petitionAdrs = array();
             $petitionAdrs['zipcode']  = $data->get('petitionZipcode');
             $petitionAdrs['region']   = $data->get('petitionRegion');

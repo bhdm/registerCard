@@ -19,7 +19,10 @@ class PaymentRepository extends EntityRepository
             ->createQueryBuilder('p')
             ->leftJoin('p.client','c')
             ->leftJoin('c.company','c2')
-            ->where('p.enabled = 1 AND c.enabled = 1');
+            ->leftJoin('c2.operator','o')
+
+            ->where('p.enabled = 1 AND c.enabled = 1')
+            ->andWhere('o.id ='.$params['operator']->getId());
         if (isset($params['company'])){
             $q
                 ->andWhere('c2.id = :companyId')
