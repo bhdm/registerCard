@@ -10,8 +10,9 @@
 {% endblock %}
 
 {% block content %}
+    {% form_theme form 'bootstrap_3_horizontal_layout.html.twig' %}
     <div class="well">
-        <form class="form" method="post">
+        <form class="form form-horizontal" method="post" style="width: 500px">
             {{ form_widget(form) }}
         </form>
     </div>

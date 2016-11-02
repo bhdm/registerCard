@@ -23,40 +23,36 @@
             <tr>
                 <td class="label">Название организации<span class="required">*</span>:</td>
                 <td class="value">
-                    <input name="companyName" id="companyName" type="text" class="form-control" value="" placeholder="Название">
+                    <input name="companyName" id="companyName" type="text" class="form-control" value="" placeholder="Ромашка">
                 </td>
             </tr>
             <tr>
-                <td class="label">Менеджер:</td>
-                <td class="value">
-                    <input name="manager" id="manager" type="text" class="form-control" value="" placeholder="manager">
-                </td>
+                <td class="label">Наименование организации:</td>
+                <td class="value"><input style="width: 358px;" type="text" class="form-control" name="forma" placeholder='ООО "Ромашка"'></td>
             </tr>
+            {#<tr>#}
+                {#<td class="label">Менеджер:</td>#}
+                {#<td class="value">#}
+                    {#<input name="manager" id="manager" type="text" class="form-control" value="" placeholder="manager">#}
+                {#</td>#}
+            {#</tr>#}
+            {#<tr>#}
+                {#<td class="label">Ходатайство:</td>#}
+                {#<td class="value">#}
+                    {#<select name="petition">#}
+                        {#<option value="null">Не использовать</option>#}
+                        {#{% for p in petitions %}#}
+                            {#<option value="{{ p.id }}" >{{ p.title }}</option>#}
+                        {#{% else %}#}
+                            {#<option value="" selected="selected" disabled>Вам необходимо создать ходатайство</option>#}
+                        {#{% endfor %}#}
+                    {#</select>#}
+                {#</td>#}
+            {#</tr>#}
+
             <tr>
-                <td class="label">Ходатайство:</td>
+                <td class="label">Почтовый адрес организации<span class="required">*</span>:</td>
                 <td class="value">
-                    <select name="petition">
-                        <option value="null">Не использовать</option>
-                        {% for p in petitions %}
-                            <option value="{{ p.id }}" >{{ p.title }}</option>
-                        {% else %}
-                            <option value="" selected="selected" disabled>Вам необходимо создать ходатайство</option>
-                        {% endfor %}
-                    </select>
-                </td>
-            </tr>
-            {% if is_granted('ROLE_ADMIN') %}
-                <tr>
-                    <td class="label">Доверенная компания:</td>
-                    <td class="value" style="  padding-top: 5px;">
-                        <input name="confirmed" id="confirmed" type="checkbox" {{ company.confirmed == true ? 'checked="checked"' }} />
-                    </td>
-                </tr>
-            {% endif %}
-            <tr>
-                <td class="label">Адрес организации<span class="required">*</span>:</td>
-                <td class="value">
-                    <input name="companyZipcode" id="companyZipcode"  type="text" class="form-control" placeholder="Индекс" value=""><br />
                     <select name="companyRegion" id="companyRegion">
                         {% for region in regions %}
                             <option value="{{ region.id }}" selected="selected">{{ region.title }}</option>
@@ -92,33 +88,34 @@
                         <option value="оф." >Офис</option>
                     </select>
                     <input name="companyRoom"    id="companyRoom"  type="text" class="form-control" placeholder="Номер"  class="little" value="">
+                    <br />
+                    <input name="companyZipcode" id="companyZipcode"  type="text" class="form-control" placeholder="Индекс" value=""><br />
                 </td>
             </tr>
-            <tr>
-                <td class="label">Доставка по умолчанию:</td>
-                <td class="value">
-                    <select name="delivery" id="delivery" class="delivery">
-                        <option value="0">Да</option>
-                        <option value="1">Нет</option>
-                    </select>
-                </td>
-            </tr>
+            {#<tr>#}
+                {#<td class="label">Доставка по умолчанию:</td>#}
+                {#<td class="value">#}
+                    {#<select name="delivery" id="delivery" class="delivery">#}
+                        {#<option value="0">Да</option>#}
+                        {#<option value="1">Нет</option>#}
+                    {#</select>#}
+                {#</td>#}
+            {#</tr>#}
 
-            <tr>
-                <td class="label">Логотип организации:</td>
-                <td class="value">
-                    <input  type="file" name="logo"> <br />
-                </td>
-            </tr>
+            {#<tr>#}
+                {#<td class="label">Логотип организации:</td>#}
+                {#<td class="value">#}
+                    {#<input  type="file" name="logo"> <br />#}
+                {#</td>#}
+            {#</tr>#}
 
-
-            <tr>
-                <td class="label">Форма собственности:</td>
-                <td class="value"><input style="width: 358px;" type="text" class="form-control" name="forma" placeholder="Например: Общество с ограниченной ответственностью"></td>
-            </tr>
             <tr>
                 <td class="label">ИНН:</td>
                 <td class="value"><input style="width: 358px;" type="text" class="form-control" name="inn" placeholder="Индивидуальный номер налогоплатильщика"></td>
+            </tr>
+            <tr>
+                <td class="label">КПП:</td>
+                <td class="value"><input style="width: 358px;" type="text" class="form-control" name="kpp" placeholder="КПП"></td>
             </tr>
             <tr>
                 <td class="label">ОГРН:</td>
@@ -129,6 +126,10 @@
                 <td class="value"><input style="width: 358px;" type="text" class="form-control" name="rchet" placeholder="расчетный счет"></td>
             </tr>
             <tr>
+                <td class="label">БИК:</td>
+                <td class="value"><input style="width: 358px;" type="text" class="form-control" name="bik"></td>
+            </tr>
+            <tr>
                 <td class="label">Банк:</td>
                 <td class="value"><input style="width: 358px;" type="text" class="form-control" name="bank" placeholder="Полное название банка"></td>
             </tr>
@@ -136,10 +137,7 @@
                 <td class="label">Кор. счет:</td>
                 <td class="value"><input style="width: 358px;" type="text" class="form-control" name="korchet"></td>
             </tr>
-            <tr>
-                <td class="label">БИК:</td>
-                <td class="value"><input style="width: 358px;" type="text" class="form-control" name="bik"></td>
-            </tr>
+
             <tr>
                 <td class="label">Стоимости карт</td>
             </tr>
@@ -181,6 +179,14 @@
                 <td class="label">Предприятие РФ:</td>
                 <td class="value"><input style="width: 358px;" type="text" class="form-control"  name="priceEnterpriseRu" value="{{ company.priceEnterpriseRu }}"></td>
             </tr>
+            {% if is_granted('ROLE_ADMIN') %}
+                <tr>
+                    <td class="label">Доверенная компания:</td>
+                    <td class="value" style="  padding-top: 5px;">
+                        <input name="confirmed" id="confirmed" type="checkbox" {{ company.confirmed == true ? 'checked="checked"' }} />
+                    </td>
+                </tr>
+            {% endif %}
             <tr><td colspan="2">&nbsp;</td></tr>
             <tr>
                 <td></td>

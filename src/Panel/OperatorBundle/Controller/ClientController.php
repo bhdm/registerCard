@@ -128,6 +128,8 @@ class ClientController extends Controller
                 $company = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->findOneById($companyId);
 
                 $item->setCompany($company);
+                $item->setDeliveryAdrs($company->getAdrs());
+
                 $item->setSalt(md5(time()));
 
                 $encoder = new MessageDigestPasswordEncoder('sha512', true, 10);
