@@ -137,7 +137,7 @@ class CompanyController extends Controller
 
             $url = $data->get('url');
             $c = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->findOneByUrl($url);
-            if ($c != null){
+            if ($c != null && $c->getId() != $id){
                 $session = new Session();
                 $session->getFlashBag()->add('error', 'Такой URL уже существует. Выберите пожалуйста другой');
                 $referer = $request->headers->get('referer');
