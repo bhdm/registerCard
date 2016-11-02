@@ -38,9 +38,9 @@ class PaymentController extends Controller
         }elseif($request->query->get('clientId')){
             $payments = $this->getDoctrine()->getRepository('CrmMainBundle:Payment')->filter(['operator' => $this->getUser(),'enabled' => true, 'client' => $request->query->get('clientId')]);
         }elseif($request->query->get('statusId') != null && $request->query->get('statusId') != 3 ){
-            $payments = $this->getDoctrine()->getRepository('CrmMainBundle:Payment')->findBy(['operator' => $this->getUser(),'enabled' => true, 'status' => $request->query->get('statusId')],['created' => 'DESC']);
+            $payments = $this->getDoctrine()->getRepository('CrmMainBundle:Payment')->filter(['operator' => $this->getUser(),'enabled' => true, 'status' => $request->query->get('statusId')],['created' => 'DESC']);
         }else{
-            $payments = $this->getDoctrine()->getRepository('CrmMainBundle:Payment')->findBy(['operator' => $this->getUser(),'enabled' => true],['created' => 'DESC']);
+            $payments = $this->getDoctrine()->getRepository('CrmMainBundle:Payment')->filter(['operator' => $this->getUser(),'enabled' => true],['created' => 'DESC']);
         }
 
         $sum = 0;
