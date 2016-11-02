@@ -16,12 +16,13 @@ use Crm\MainBundle\Entity\OperatorQuotaLog;
 use Symfony\Component\Security\Core\Encoder\MessageDigestPasswordEncoder;
 
 /**
- * @Security("has_role('ROLE_MODERATOR')")
+ * @Security("has_role('ROLE_OPERATOR')")
  * @Route("/panel/moderator/operator")
  */
 class OperatorController extends Controller
 {
     /**
+     * @Security("has_role('ROLE_MODERATOR')")
      * @Route("/list", name="panel_operator_list")
      * @Template()
      */
@@ -32,6 +33,7 @@ class OperatorController extends Controller
     }
 
     /**
+     * @Security("has_role('ROLE_MODERATOR')")
      * @Route("/remove/{operatorId}", name="panel_operator_remove")
      * @Template()
      */
@@ -47,8 +49,13 @@ class OperatorController extends Controller
      * @Template()
      */
     public function editAction(Request $request, $operatorId){
+
         $em = $this->getDoctrine()->getManager();
-        $operator = $this->getDoctrine()->getRepository('CrmMainBundle:Operator')->findOneById($operatorId);
+        if ($operatorId == 0){
+            $operator = $this->getUser();
+        }else{
+            $operator = $this->getDoctrine()->getRepository('CrmMainBundle:Operator')->findOneById($operatorId);
+        }
         if (!$operator){
             return $this->redirect($this->generateUrl('panel_operator_list'));
         }
@@ -136,6 +143,7 @@ class OperatorController extends Controller
     }
 
     /**
+     * @Security("has_role('ROLE_MODERATOR')")
      * @Route("/add", name="panel_operator_add")
      * @Template()
      */
