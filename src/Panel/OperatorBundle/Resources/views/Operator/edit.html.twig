@@ -52,16 +52,12 @@
                             <option value="{{ region.id }}" {{ operator.region.id is defined and region.id == operator.region.id ? 'selected="selected"' : '' }}>{{ region.title }}</option>
                         {% endfor %}
                     </select><br />
-                    <input name="city"    id="companyCity"     type="text" class="form-control" placeholder="Город" value="{{ operator.adrs.city }}"><br />
-
-                    <input name="street"  id="companyStreet"   type="text" class="form-control" placeholder="Название улицы" value="{{ operator.adrs.street }}"><br />
-
+                    <input name="city"    id="companyCity"     type="text" class="form-control" placeholder="Город" value="{{ operator.adrs.city }}">
+                    <input name="street"  id="companyStreet"   type="text" class="form-control" placeholder="Название улицы" value="{{ operator.adrs.street }}">
                     <input name="house"   id="companyHouse"    type="text" class="form-control" placeholder="Дом" class="little" value="{{ operator.adrs.home }}">
                     <input name="corp"    id="companyCorp"     type="text" class="form-control" placeholder="Корп"  class="little" value="{{ operator.adrs.corp }}">
-                    <input name="structure"    id="companyStructure"     type="text" class="form-control" placeholder="Строение"  class="little" value="{{ operator.adrs.structure }}"><br />
-
+                    <input name="structure"    id="companyStructure"     type="text" class="form-control" placeholder="Строение"  class="little" value="{{ operator.adrs.structure }}">
                     <input name="room"    id="companyRoom"  type="text" class="form-control" placeholder="Номер"  class="little" value="{{ operator.adrs.room }}">
-                    <br />
                     <input name="zipcode" id="companyZipcode"  type="text" class="form-control" placeholder="Индекс" value="{{ operator.adrs.zipcode }}"><br />
                 </td>
             </tr>
