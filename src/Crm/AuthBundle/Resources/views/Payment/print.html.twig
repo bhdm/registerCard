@@ -135,24 +135,24 @@
     <table style="margin: 0 auto; width: 100%" border="1" cellpadding="0" cellspacing="0">
         <tr>
             <td rowspan="2" colspan="2" width="50%">
-                {{ client.company.bank }}
+                {{ client.company.operator.bank }}
             </td>
             <td>
                 БИК
             </td>
             <td rowspan="2">
-                {{ client.company.bik }}<br />
-                {{ client.company.korchet }}
+                {{ client.company.operator.bik }}<br />
+                {{ client.company.operator.korchet }}
             </td>
         </tr>
         <tr>
             <td>Сч. №</td>
         </tr>
         <tr>
-            <td>ИНН {{ client.company.inn }}</td>
-            <td>КПП {{ client.company.kpp }}</td>
+            <td>ИНН {{ client.company.operator.inn }}</td>
+            <td>КПП {{ client.company.operator.kpp }}</td>
             <td rowspan="2">Сч. №</td>
-            <td rowspan="2">{{ client.company.rchet }}</td>
+            <td rowspan="2">{{ client.company.operator.rchet }}</td>
         </tr>
         <tr>
             <td colspan="2">
