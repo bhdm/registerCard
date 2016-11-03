@@ -55,7 +55,7 @@
                 <td class="value">
                     <select name="companyRegion" id="companyRegion">
                         {% for region in regions %}
-                            <option value="{{ region.id }}" {{ company.region.id is defined and region.id == company.region.id ? 'selected="selected"' : '' }}>{{ region.title }}</option>
+                            <option value="{{ region.id }}" {{ region.id == company.region.id ? 'selected="selected"' : '' }}>{{ region.title }}</option>
                         {% endfor %}
                     </select><br />
                     <input name="companyCity"    id="companyCity"     type="text" class="form-control" placeholder="Город" value=""><br />
@@ -131,7 +131,7 @@
             </tr>
             <tr>
                 <td class="label">Банк:</td>
-                <td class="value"><input style="width: 358px;" type="text" class="form-control" name="bank" placeholder="Полное название банка" value="{{ company.bank }}"></td>
+                <td class="value"><input style="width: 358px;" type="text" class="form-control" name="bank" placeholder="Полное название банка" value="{{ {{ company.bank }}"></td>
             </tr>
             <tr>
                 <td class="label">Кор. счет:</td>
