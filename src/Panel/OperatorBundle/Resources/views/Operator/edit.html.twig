@@ -182,6 +182,11 @@
             </tr>
         </table>
     </form>
+    <script>
+        $(document).ready(function () {
+            $(".chosen").chosen({no_results_text: "Компаний по вашему запросу не найдено", width: 300});
+        })
+    </script>
 {% endblock %}
 
 {% block stylesheets %}
