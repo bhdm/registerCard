@@ -99,28 +99,28 @@ class MoneyController extends Controller
         $re = $st->fetchAll();
 
         $sql = "SELECT SUM(user.cardAmount) cid FROM
-                CompanyUser user
+                companyUser user
                 WHERE user.isProduction >= '$date1' AND user.isProduction < '$date2' AND user.status > 0 AND user.status != 10 AND
                 (( price >= 2100  AND cardType = 1) OR (  price >= 3800 AND  cardType != 1 ))
                 
                 UNION ALL
                 
                 SELECT SUM(user.cardAmount) cid FROM
-                CompanyUser user
+                companyUser user
                 WHERE user.isProduction >= '$date1' AND user.isProduction < '$date2' AND user.status > 0 AND user.status != 10 AND
                 (( price <= 2099 AND price >= 1900  AND cardType = 1) OR (  price <= 3799 AND cardType != 1))
                 
                 UNION ALL
                 
                 SELECT SUM(user.cardAmount) cid FROM
-                CompanyUser user
+                companyUser user
                 WHERE user.isProduction >= '$date1' AND user.isProduction < '$date2' AND user.status > 0 AND user.status != 10 AND
                 (( price <= 1899 AND price >= 1500 AND cardType = 1))
                 
                 UNION ALL
                 
                 SELECT SUM(user.cardAmount) cid FROM
-                CompanyUser user
+                companyUser user
                 WHERE user.isProduction >= '$date1' AND user.isProduction < '$date2' AND user.status > 0 AND user.status != 10 AND
                 (( price <= 1499  AND cardType = 1) )
                 ";
