@@ -135,7 +135,13 @@ class OperatorController extends Controller
                 }
             }
             $em->flush($operator);
-            return $this->redirect($this->generateUrl('panel_operator_list'));
+            $em->refresh($operator);
+            if ($operatorId == 0){
+                $moderators = $this->getDoctrine()->getRepository('CrmMainBundle:Operator')->findAll();
+                return array('operator' => $operator, 'moderators' => $moderators);
+            }else{
+                return $this->redirect($this->generateUrl('panel_operator_list'));
+            }
         }
         $moderators = $this->getDoctrine()->getRepository('CrmMainBundle:Operator')->findAll();
         return array('operator' => $operator, 'moderators' => $moderators);
