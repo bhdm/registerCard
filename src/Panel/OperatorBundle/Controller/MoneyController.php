@@ -133,7 +133,6 @@ class MoneyController extends Controller
         $st->execute();
         $statsCompany = $st->fetchAll();
 
-
         return array('stats' => $re, 'date' => $date3, 'statsCompany' => $statsCompany);
     }
 
