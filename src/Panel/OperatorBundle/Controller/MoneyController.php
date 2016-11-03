@@ -69,54 +69,72 @@ class MoneyController extends Controller
         $date3 = new \DateTime($date1);
         $sql = "SELECT COUNT(user.id) cid FROM
                 user
-
                 WHERE user.isProduction >= '$date1' AND user.isProduction < '$date2' AND user.status > 1 AND user.status != 10 AND
-                (( price >= 2250  AND estr = 0 AND ru = 0) OR (  price >= 3050 AND ( estr = 1 OR ru = 1)))
+                (( price >= 2100  AND estr = 0 AND ru = 0) OR (  price >= 3050 AND ( estr = 1 OR ru = 1)))
+                
                 UNION ALL
+                
                 SELECT COUNT(user.id) cid FROM
                 user
-
                 WHERE user.isProduction >= '$date1' AND user.isProduction < '$date2' AND user.status > 1 AND user.status != 10 AND
-                (( price <= 2249 AND price >= 2000  AND estr = 0 AND ru = 0) OR (  price <= 3049 AND price >= 2950 AND ( estr = 1 OR ru = 1)))
+                (( price <= 2099 AND price >= 1900  AND estr = 0 AND ru = 0) OR (  price <= 3049 AND price >= 2850 AND ( estr = 1 OR ru = 1)))
+                
                 UNION ALL
+                
                 SELECT COUNT(user.id) cid FROM
                 user
-
                 WHERE user.isProduction >= '$date1' AND user.isProduction < '$date2' AND user.status > 1 AND user.status != 10 AND
-                (( price <= 1999  AND estr = 0 AND ru = 0) OR (  price <= 2949 AND ( estr = 1 OR ru = 1)))
+                (( price <= 1899 AND price >= 1500  AND estr = 0 AND ru = 0) OR (  price <= 2849 AND price >= 2500 AND ( estr = 1 OR ru = 1)))
+                
+                UNION ALL
+                
+                SELECT COUNT(user.id) cid FROM
+                user
+                WHERE user.isProduction >= '$date1' AND user.isProduction < '$date2' AND user.status > 1 AND user.status != 10 AND
+                (( price <= 1499  AND estr = 0 AND ru = 0) OR (  price <= 2499 AND ( estr = 1 OR ru = 1)))
                 ";
         $pdo = $this->getDoctrine()->getManager()->getConnection();
         $st = $pdo->prepare($sql);
         $st->execute();
         $re = $st->fetchAll();
 
-        $sql = "SELECT SUM(companyUser.cardAmount) cid FROM
-                companyUser
-                WHERE companyUser.isProduction >= '$date1' AND 
-                      companyUser.isProduction < '$date2' AND  
-                      companyUser.status > 0 AND 
-                      companyUser.status != 10 AND
-                      companyUser.cardType != 1
+        $sql = "SELECT SUM(user.cardAmount) cid FROM
+                CompanyUser user
+                WHERE user.isProduction >= '$date1' AND user.isProduction < '$date2' AND user.status > 0 AND user.status != 10 AND
+                (( price >= 2100  AND cardType = 1) OR (  price >= 3800 AND  cardType != 1 ))
+                
+                UNION ALL
+                
+                SELECT SUM(user.cardAmount) cid FROM
+                CompanyUser user
+                WHERE user.isProduction >= '$date1' AND user.isProduction < '$date2' AND user.status > 0 AND user.status != 10 AND
+                (( price <= 2099 AND price >= 1900  AND cardType = 1) OR (  price <= 3799 AND cardType != 1))
+                
+                UNION ALL
+                
+                SELECT SUM(user.cardAmount) cid FROM
+                CompanyUser user
+                WHERE user.isProduction >= '$date1' AND user.isProduction < '$date2' AND user.status > 0 AND user.status != 10 AND
+                (( price <= 1899 AND price >= 1500 AND cardType = 1))
+                
+                UNION ALL
+                
+                SELECT SUM(user.cardAmount) cid FROM
+                CompanyUser user
+                WHERE user.isProduction >= '$date1' AND user.isProduction < '$date2' AND user.status > 0 AND user.status != 10 AND
+                (( price <= 1499  AND cardType = 1) )
                 ";
+        $pdo = $this->getDoctrine()->getManager()->getConnection();
+        $st = $pdo->prepare($sql);
+        $st->execute();
+        $re = $st->fetchAll();
         $pdo = $this->getDoctrine()->getManager()->getConnection();
         $st = $pdo->prepare($sql);
         $st->execute();
         $statsCompany = $st->fetchAll();
 
-        $sql = "SELECT SUM(companyUser.cardAmount) cid FROM
-                companyUser
-                WHERE companyUser.isProduction >= '$date1' AND 
-                      companyUser.isProduction < '$date2' AND  
-                      companyUser.status > 0 AND 
-                      companyUser.status != 10 AND
-                      companyUser.cardType = 1
-                ";
-        $pdo = $this->getDoctrine()->getManager()->getConnection();
-        $st = $pdo->prepare($sql);
-        $st->execute();
-        $statsCompany2 = $st->fetchAll();
 
-        return array('stats' => $re, 'date' => $date3, 'statsCompany' => $statsCompany, 'statsCompany2' => $statsCompany2);
+        return array('stats' => $re, 'date' => $date3, 'statsCompany' => $statsCompany);
     }
 
     /**
