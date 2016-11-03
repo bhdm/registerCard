@@ -51,7 +51,7 @@
                         {% for region in regions %}
                             <option value="{{ region.title }}" {{ operator.adrs.region is defined and region.title == operator.adrs.region ? 'selected="selected"' : '' }}>{{ region.title }}</option>
                         {% endfor %}
-                    </select><br />
+                    </select><br /><br />
                     <input name="city"    id="companyCity"     type="text" class="form-control" placeholder="Город" value="{{ operator.adrs.city }}">
                     <input name="street"  id=""   type="text" class="form-control" placeholder="Название улицы" value="{{ operator.adrs.street }}">
                     <input name="house"   id="companyHouse"    type="text" class="form-control little" placeholder="Дом"  value="{{ operator.adrs.home }}">
