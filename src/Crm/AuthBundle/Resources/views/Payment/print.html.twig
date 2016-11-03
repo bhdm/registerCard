@@ -170,10 +170,10 @@
                 <td>Поставщик:</td>
                 <td>
                     {{ client.company.operator.title }}, ИНН {{ client.operator.inn }}, КПП {{ client.operator.kpp }},
-                    {#{{ client.company.operator.adrs.zipcode }},#}
-                    {#{{ client.company.operator.adrs.region }},  {{ client.company.operator.adrs.city }},#}
-                    {#{{ client.company.operator.adrs.street }},д.{{ client.company.operator.adrs.house }}#}
-                    {#{{ client.company.operator.adrs.corp }}, {{ client.company.operator.adrs.room }}#}
+                    {{ client.company.operator.adrs.zipcode }},
+                    {{ client.company.operator.adrs.region }},  {{ client.company.operator.adrs.city }},
+                    {{ client.company.operator.adrs.street }},д.{{ client.company.operator.adrs.home }}
+                    {{ client.company.operator.adrs.corp }}, {{ client.company.operator.adrs.room }}
                     {#тел.: +7(812)425-12-44#}
                 </td>
             </tr>
