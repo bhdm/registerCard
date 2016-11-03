@@ -160,6 +160,7 @@ class Operator extends BaseEntity implements UserInterface
      */
     protected $inn;
 
+
     /**
      * @ORM\Column(type="string", nullable=true)
      */
@@ -206,9 +207,15 @@ class Operator extends BaseEntity implements UserInterface
      */
     protected $myPayments;
 
+    /**
+     * @ORM\Column(type="array")
+     */
+    protected $adrs;
+
     public function __construct(){
         $this->roles    = 'ROLE_OPERATOR';
         $this->companies = new ArrayCollection();
+        $this->adrs = array();
         $this->myPayments = new ArrayCollection();
         $this->payments = new ArrayCollection();
         $this->petitions = new ArrayCollection();
@@ -1140,6 +1147,21 @@ class Operator extends BaseEntity implements UserInterface
         $this->myPayments = $myPayments;
     }
 
+    /**
+     * @return mixed
+     */
+    public function getAdrs()
+    {
+        return $this->adrs;
+    }
+
+    /**
+     * @param mixed $adrs
+     */
+    public function setAdrs($adrs = array())
+    {
+        $this->adrs = $adrs;
+    }
 
 
 

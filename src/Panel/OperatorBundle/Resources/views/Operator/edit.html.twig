@@ -38,13 +38,41 @@
                     </td>
                 </tr>
             {% endif %}
+
             <tr>
                 <td class="label">Название компании:</td>
                 <td class="value"><input style="width: 358px;" type="text" class="form-control" name="companyTitle" placeholder="" value="{{ operator.companyTitle }}"></td>
             </tr>
+
+            <tr>
+                <td class="label">Почтовый адрес организации<span class="required">*</span>:</td>
+                <td class="value">
+                    <select name="region" id="companyRegion">
+                        {% for region in regions %}
+                            <option value="{{ region.id }}" {{ operator.region.id is defined and region.id == operator.region.id ? 'selected="selected"' : '' }}>{{ region.title }}</option>
+                        {% endfor %}
+                    </select><br />
+                    <input name="city"    id="companyCity"     type="text" class="form-control" placeholder="Город" value="{{ operator.adrs.city }}"><br />
+
+                    <input name="street"  id="companyStreet"   type="text" class="form-control" placeholder="Название улицы" value="{{ operator.adrs.street }}"><br />
+
+                    <input name="house"   id="companyHouse"    type="text" class="form-control" placeholder="Дом" class="little" value="{{ operator.adrs.home }}">
+                    <input name="corp"    id="companyCorp"     type="text" class="form-control" placeholder="Корп"  class="little" value="{{ operator.adrs.corp }}">
+                    <input name="structure"    id="companyStructure"     type="text" class="form-control" placeholder="Строение"  class="little" value="{{ operator.adrs.structure }}"><br />
+
+                    <input name="room"    id="companyRoom"  type="text" class="form-control" placeholder="Номер"  class="little" value="{{ operator.adrs.room }}">
+                    <br />
+                    <input name="zipcode" id="companyZipcode"  type="text" class="form-control" placeholder="Индекс" value="{{ operator.adrs.zipcode }}"><br />
+                </td>
+            </tr>
+
             <tr>
                 <td class="label">ИНН:</td>
                 <td class="value"><input style="width: 358px;" type="text" class="form-control" name="inn" placeholder="Индивидуальный номер налогоплатильщика" value="{{ operator.inn }}"></td>
+            </tr>
+            <tr>
+                <td class="label">КПП:</td>
+                <td class="value"><input style="width: 358px;" type="text" class="form-control" name="kpp" placeholder="КПП" value="{{ operator.kpp }}"></td>
             </tr>
             <tr>
                 <td class="label">Р. счет:</td>

@@ -49,7 +49,7 @@ class OperatorController extends Controller
      * @Template()
      */
     public function editAction(Request $request, $operatorId){
-
+        $regions = $this->getDoctrine()->getRepository('CrmMainBundle:Region')->findAll();
         $em = $this->getDoctrine()->getManager();
         if ($operatorId == 0){
             $operator = $this->getUser();
@@ -65,10 +65,23 @@ class OperatorController extends Controller
 
             $operator->setCompanytitle($request->request->get('companyTitle'));
             $operator->setInn($request->request->get('inn'));
+            $operator->setKpp($request->request->get('kpp'));
             $operator->setRchet($request->request->get('rchet'));
             $operator->setBank($request->request->get('bank'));
             $operator->setKorchet($request->request->get('korchet'));
             $operator->setBik($request->request->get('bik'));
+
+            $operator->setAdrs(array(
+                'region' => $request->request->get('region'),
+                'city' => $request->request->get('city'),
+                'street' => $request->request->get('street'),
+                'home' => $request->request->get('house'),
+                'corp' => $request->request->get('corp'),
+                'structure' => $request->request->get('structure'),
+                'room' => $request->request->get('room'),
+                'zipcode' => $request->request->get('zipcode')
+            ));
+
 
             $operator->setPriceSkzi($request->request->get('priceSkzi'));
             $operator->setPriceEstr($request->request->get('priceEstr'));
@@ -131,7 +144,7 @@ class OperatorController extends Controller
                     $password = $encoder->encodePassword($request->request->get('password'), $operator->getSalt());
                     $operator->setPassword($password);
                 }else{
-                    return array('operator' => $operator);
+                    return array('operator' => $operator, 'regions' => $regions);
                 }
             }
             $em->flush($operator);
@@ -143,7 +156,7 @@ class OperatorController extends Controller
             }
         }
         $moderators = $this->getDoctrine()->getRepository('CrmMainBundle:Operator')->findAll();
-        return array('operator' => $operator, 'moderators' => $moderators);
+        return array('operator' => $operator, 'moderators' => $moderators, 'regions' => $regions);
 
     }
 
