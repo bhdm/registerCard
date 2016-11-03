@@ -127,10 +127,6 @@ class MoneyController extends Controller
         $pdo = $this->getDoctrine()->getManager()->getConnection();
         $st = $pdo->prepare($sql);
         $st->execute();
-        $re = $st->fetchAll();
-        $pdo = $this->getDoctrine()->getManager()->getConnection();
-        $st = $pdo->prepare($sql);
-        $st->execute();
         $statsCompany = $st->fetchAll();
 
         return array('stats' => $re, 'date' => $date3, 'statsCompany' => $statsCompany);
