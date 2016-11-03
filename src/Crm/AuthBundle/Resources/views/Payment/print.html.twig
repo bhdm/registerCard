@@ -169,10 +169,11 @@
             <tr>
                 <td>Поставщик:</td>
                 <td>
-                    {{ client.company.title }}, ИНН {{ client.company.inn }}, КПП {{ client.company.kpp }},
-                    {{ client.company.adrs.zipcode }},
-                    {{ client.company.adrs.region }},  {{ client.company.adrs.city }},
-                    {{ client.company.adrs.street }},д.{{ client.company.adrs.house }} {{ client.company.adrs.corp }}, {{ client.company.adrs.room }}
+                    {{ client.company.operator.title }}, ИНН {{ client.operator.inn }}, КПП {{ client.operator.kpp }},
+                    {#{{ client.company.operator.adrs.zipcode }},#}
+                    {#{{ client.company.operator.adrs.region }},  {{ client.company.operator.adrs.city }},#}
+                    {#{{ client.company.operator.adrs.street }},д.{{ client.company.operator.adrs.house }}#}
+                    {#{{ client.company.operator.adrs.corp }}, {{ client.company.operator.adrs.room }}#}
                     {#тел.: +7(812)425-12-44#}
                 </td>
             </tr>
