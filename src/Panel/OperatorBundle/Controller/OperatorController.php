@@ -137,8 +137,7 @@ class OperatorController extends Controller
             $em->flush($operator);
             $em->refresh($operator);
             if ($operatorId == 0){
-                $moderators = $this->getDoctrine()->getRepository('CrmMainBundle:Operator')->findAll();
-                return array('operator' => $operator, 'moderators' => $moderators);
+                return $this->redirect($this->generateUrl('panel_user_list'));
             }else{
                 return $this->redirect($this->generateUrl('panel_operator_list'));
             }
