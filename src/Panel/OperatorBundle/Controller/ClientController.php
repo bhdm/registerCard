@@ -139,6 +139,7 @@ class ClientController extends Controller
                 $em->persist($item);
                 $em->flush();
                 $em->refresh($item);
+                return $this-->$this->redirectToRoute('auth_in', ['id' => $item->getId()]);
             }
         }
         return array('form' => $form->createView());
