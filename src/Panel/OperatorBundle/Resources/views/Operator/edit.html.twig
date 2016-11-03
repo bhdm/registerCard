@@ -49,7 +49,7 @@
                 <td class="value">
                     <select name="region" id="companyRegion">
                         {% for region in regions %}
-                            <option value="{{ region.title }}" {{ operator.region is defined and region.title == operator.region ? 'selected="selected"' : '' }}>{{ region.title }}</option>
+                            <option value="{{ region.title }}" {{ operator.region is defined and region.title == operator.adrs.region ? 'selected="selected"' : '' }}>{{ region.title }}</option>
                         {% endfor %}
                     </select><br />
                     <input name="city"    id="companyCity"     type="text" class="form-control" placeholder="Город" value="{{ operator.adrs.city }}">
