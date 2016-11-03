@@ -1422,7 +1422,7 @@ class UserController extends Controller
             } elseif ($user->getEstr() == 0 && $user->getRu() == 1) {
                 $price = $company->getPriceRu();
             }
-            if ($company->getQuota() >= $price || $company->getConfirmed() == true ) {
+            if ($company->getQuota() >= $price || $company->getConfirmed() == true || $company->getOperator()->getConfirmed() == true ) {
                 $company->setQuota($company->getQuota() - $price);
                 $this->getDoctrine()->getManager()->flush($user);
                 $this->getDoctrine()->getManager()->refresh($user);
