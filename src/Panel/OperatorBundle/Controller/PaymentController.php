@@ -256,8 +256,12 @@ class PaymentController extends Controller
             $paymentQuota->setQuota($price);
             $paymentQuota->setComment('Сч. '.$order->getId().' от '.$order->getCreated()->format('d.m.Y'));
             $paymentQuota->setCompany($company);
-            $paymentQuota->setOperator($company->getOperator());
-            $company->setQuota($company->getQuota()+$price);
+            $paymentQuota->setOperator($company ? $company->getOperator() : $operator);
+            if ($company){
+                $company->setQuota($company->getQuota()+$price);
+            }else{
+                $operator->setQuota($operator->getQuota()+$price);
+            }
             $em->persist($paymentQuota);
             $em->flush($paymentQuota);
             $em->flush($company);
