@@ -22,7 +22,7 @@ class PaymentRepository extends EntityRepository
             ->leftJoin('c2.operator','o')
 
             ->where('p.enabled = 1 ');
-//            ->andWhere('o.id ='.$params['operator']->getId());
+//
         if (isset($params['company'])){
             $q
                 ->andWhere('c2.id = :companyId')
@@ -32,6 +32,11 @@ class PaymentRepository extends EntityRepository
             $q
                 ->andWhere('c.id = :clientId')
                 ->setParameter(':clientId',$params['client']);
+        }
+        if ($isAdmin == false){
+            $q->andWhere('o.id ='.$params['operator']->getId());
+        }else{
+            $q->andWhere('o.id ='.$params['operator']->getId().' OR c2.id is NULL');
         }
         $q->orderBy('p.created','DESC');
 
