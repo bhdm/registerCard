@@ -216,7 +216,8 @@ class PaymentController extends Controller
         $order->setStatus($status);
         $em->flush($order);
         if ($status == '2'){
-            $company = $order->getClient()->getCompany();
+            $company = ( $order->getClient() ? $order->getClient()->getCompany() : null );
+            $operator = $order->getOperator();
             $price = 0;
             $paymentQuota = new CompanyQuotaLog();
             foreach ($order->getOrders() as $item) {
