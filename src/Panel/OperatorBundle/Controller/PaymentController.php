@@ -7,6 +7,7 @@ use Crm\AuthBundle\Form\AdminClientType;
 use Crm\MainBundle\Entity\Client;
 use Crm\MainBundle\Entity\Company;
 use Crm\MainBundle\Entity\CompanyQuotaLog;
+use Crm\MainBundle\Entity\Payment;
 use Crm\MainBundle\Entity\PaymentOrder;
 use Crm\MainBundle\Form\CompanyType;
 use Crm\MainBundle\Form\PaymentType;
@@ -28,19 +29,83 @@ use Symfony\Component\Security\Http\Event\InteractiveLoginEvent;
 class PaymentController extends Controller
 {
     /**
+     * @Route("/payment/add", name="panel_payment_add")
+     * @Template("@PanelOperator/Payment/addOperator.html.twig")
+     */
+    public function addAction(Request $request){
+        $em = $this->getDoctrine()->getManager();
+        $payment = new Payment();
+        $operator = $this->getUser();
+        $paymentForm = $this->createForm(new PaymentType($em), $payment);
+        $paymentForm->handleRequest($request);
+        if ($request->isMethod('POST')) {
+
+            if ($paymentForm->isValid()) {
+                $payment = $paymentForm->getData();
+                $payment->setOperator($this->getUser());
+                $payment->setCompanyTitle('Общество с ограниченной ответственностью "ИнфоМакс"');
+                $payment->setBankTitle('Моск.ф-л ОАО КБ «Региональный кредит»');
+                $payment->setInn('7805543860');
+                $payment->setKpp('775043001');
+                $payment->setBik('044583340');
+                $payment->setCorrectionAccaunt('30101810000000000340');
+                $payment->setCheckingAccount('40702810670110000776');
+
+                $em->persist($payment);
+                $em->flush();
+                $em->refresh($payment);
+
+
+                for ($i = 0; $i < 10; $i ++){
+                    if (isset($request->request->get('title')[$i]) && $request->request->get('title')[$i] != null){
+                        $operator = $this->getUser();
+                        switch ($request->request->get('title')[$i]){
+                            case 'Карта водителя СКЗИ': $price = $operator->getPriceSkzi(); break;
+                            case 'Карта водителя ЕСТР': $price = $operator->getPriceEstr(); break;
+                            case 'Карта водителя РФ': $price = $operator->getPriceRu(); break;
+
+                            case 'Карта предприятия СКЗИ': $price = $operator->getPriceEnterpriseSkzi(); break;
+                            case 'Карта предприятия ЕСТР': $price = $operator->getPriceEnterpriseEstr(); break;
+                            case 'Карта предприятия РФ': $price = $operator->getPriceEnterpriseRu(); break;
+
+                            case 'Карта мастерской СКЗИ': $price = $operator->getPriceMasterSkzi(); break;
+                            case 'Карта мастерской ЕСТР': $price = $operator->getPriceMasterEstr(); break;
+                            case 'Карта мастерской РФ': $price = $operator->getPriceMasterRu(); break;
+
+                            default: $price = 0; break;
+                        }
+                        $o = new PaymentOrder();
+                        $o->setPayment($payment);
+                        $o->setTitle($request->request->get('title')[$i]);
+                        $o->setAmount($request->request->get('amount')[$i]);
+                        $o->setPrice($price);
+                        $em->persist($o);
+                        $em->flush($o);
+                    }else{
+                        break;
+                    }
+                }
+
+                return $this->redirect($this->generateUrl("panel_payment_list"));
+            }
+        }
+        return array( 'form' => $paymentForm->createView(),'payment' => $payment,'c' => $operator);
+    }
+
+    /**
      * @Route("/list", name="panel_payment_list", options={"expose" = true})
      * @Template()
      */
     public function listAction(Request $request)
     {
         if ($request->query->get('companyId')){
-            $payments = $this->getDoctrine()->getRepository('CrmMainBundle:Payment')->filter(['operator' => $this->getUser(), 'enabled' => true, 'company' => $request->query->get('companyId')]);
+            $payments = $this->getDoctrine()->getRepository('CrmMainBundle:Payment')->filter(['operator' => $this->getUser(), 'enabled' => true, 'company' => $request->query->get('companyId')],$this->get('security.context')->isGranted('ROLE_OPERATOR'));
         }elseif($request->query->get('clientId')){
-            $payments = $this->getDoctrine()->getRepository('CrmMainBundle:Payment')->filter(['operator' => $this->getUser(),'enabled' => true, 'client' => $request->query->get('clientId')]);
+            $payments = $this->getDoctrine()->getRepository('CrmMainBundle:Payment')->filter(['operator' => $this->getUser(),'enabled' => true, 'client' => $request->query->get('clientId')],$this->get('security.context')->isGranted('ROLE_OPERATOR'));
         }elseif($request->query->get('statusId') != null && $request->query->get('statusId') != 3 ){
-            $payments = $this->getDoctrine()->getRepository('CrmMainBundle:Payment')->filter(['operator' => $this->getUser(),'enabled' => true, 'status' => $request->query->get('statusId')],['created' => 'DESC']);
+            $payments = $this->getDoctrine()->getRepository('CrmMainBundle:Payment')->filter(['operator' => $this->getUser(),'enabled' => true, 'status' => $request->query->get('statusId')],['created' => 'DESC'],$this->get('security.context')->isGranted('ROLE_OPERATOR'));
         }else{
-            $payments = $this->getDoctrine()->getRepository('CrmMainBundle:Payment')->filter(['operator' => $this->getUser(),'enabled' => true],['created' => 'DESC']);
+            $payments = $this->getDoctrine()->getRepository('CrmMainBundle:Payment')->filter(['operator' => $this->getUser(),'enabled' => true],['created' => 'DESC'],$this->get('security.context')->isGranted('ROLE_OPERATOR'));
         }
 
         $sum = 0;

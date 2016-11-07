@@ -1,0 +1,208 @@
+{% extends 'PanelOperatorBundle::layout.html.twig' %}
+
+
+{% block breadcrumb %}
+    <ul class="breadcrumb well">
+        <li>Список счетов</li>
+    </ul>
+{% endblock %}
+
+{% block content %}
+    {% set company = c %}
+    <div class="well">
+        <div class="">
+            <form method="POST" enctype="multipart/form-data">
+                {{ form_errors(form) }}
+                {{ form_row(form.comment) }}
+                {{ form_widget(form._token) }}
+                <br />
+                <div class="row">
+                    <div class="col-xs-4">Название услуги</div>
+                    <div class="col-xs-1">Колво</div>
+                    <div class="col-xs-2">Цена</div>
+                    <div class="col-xs-2">Сумма</div>
+                </div>
+                <div class="orders">
+                    {% for k,o in payment.orders %}
+                        <div>
+                            <div class="row">
+                                <div class="col-xs-4">
+                                    <select class="form-control chosen" name="title[{{k }}]" >
+
+                                        <option {{ o.title == 'Карта водителя СКЗИ' ? 'selected="selected"' : '' }}value="Карта водителя СКЗИ" data-price="{{ company.priceSkzi }}">Карта водителя СКЗИ</option>
+                                        <option {{ o.title == 'Карта водителя ЕСТР' ? 'selected="selected"' : '' }}value="Карта водителя ЕСТР" data-price="{{ company.priceEstr }}">Карта водителя ЕСТР</option>
+                                        <option {{ o.title == 'Карта водителя РФ' ? 'selected="selected"' : '' }}value="Карта водителя РФ" data-price="{{ company.priceRu }}">Карта водителя РФ</option>
+                                        <option {{ o.title == 'Карта предприятия СКЗИ' ? 'selected="selected"' : '' }}value="Карта предприятия СКЗИ" data-price="{{ company.priceEnterpriseSkzi }}">Карта предприятия СКЗИ</option>
+                                        <option {{ o.title == 'Карта предприятия ЕСТР' ? 'selected="selected"' : '' }}value="Карта предприятия ЕСТР" data-price="{{ company.priceEnterpriseEstr }}">Карта предприятия ЕСТР</option>
+                                        <option {{ o.title == 'Карта предприятия РФ' ? 'selected="selected"' : '' }}value="Карта предприятия РФ" data-price="{{ company.priceEnterpriseRu }}">Карта предприятия РФ</option>
+                                        <option {{ o.title == 'Карта мастерской СКЗИ' ? 'selected="selected"' : '' }}value="Карта мастерской СКЗИ" data-price="{{ company.priceMasterSkzi }}">Карта мастерской СКЗИ</option>
+                                        <option {{ o.title == 'Карта мастерской ЕСТР' ? 'selected="selected"' : '' }}value="Карта мастерской ЕСТР" data-price="{{ company.priceMasterEstr }}">Карта мастерской ЕСТР</option>
+                                        <option {{ o.title == 'Карта мастерской РФ' ? 'selected="selected"' : '' }}value="Карта мастерской РФ" data-price="{{ company.priceMasterRU }}">Карта мастерской РФ</option>
+                                    </select>
+                                </div>
+                                <div class="col-xs-1">
+                                    <input type="text" class="form-control amount" name="amount[{{ k }}]" value="{{ o.amount }}">
+                                </div>
+                                <div class="col-xs-2">
+                                    <input type="text" class="form-control price"   value="{{ o.price }}" name="price[{{ k }}]"  readonly disabled>
+                                </div>
+                                <div class="col-xs-2">
+                                    <input type="text" class="form-control summa" disabled  value="{{ o.amount*o.price }}">
+                                </div>
+                                <div class="col-xs-1">
+                                    <button type="button" class="btn btn-danger remove"><span class="glyphicon glyphicon-remove"></span></button>
+                                </div>
+                                <br />
+                            </div>
+                            <br />
+                        </div>
+                    {% endfor %}
+                    <div>
+                        <div class="row">
+                            <div class="col-xs-4">
+                                <select class="form-control chosen" name="title[{{ payment.orders | length }}]">
+
+                                    <option value="Карта водителя СКЗИ"     data-price="{{ company.priceSkzi }}"            >Карта водителя СКЗИ</option>
+                                    <option value="Карта водителя ЕСТР"     data-price="{{ company.priceEstr }}"            >Карта водителя ЕСТР</option>
+                                    <option value="Карта водителя РФ"       data-price="{{ company.priceRu }}"              >Карта водителя РФ</option>
+                                    <option value="Карта предприятия СКЗИ"  data-price="{{ company.priceCompanySkzi }}"  >Карта предприятия СКЗИ</option>
+                                    <option value="Карта предприятия ЕСТР"  data-price="{{ company.priceCompanyEstr }}"  >Карта предприятия ЕСТР</option>
+                                    <option value="Карта предприятия РФ"    data-price="{{ company.priceCompanyRu }}"    >Карта предприятия РФ</option>
+                                    <option value="Карта мастерской СКЗИ"   data-price="{{ company.priceMasterSkzi }}"      >Карта мастерской СКЗИ</option>
+                                    <option value="Карта мастерской ЕСТР"   data-price="{{ company.priceMasterEstr }}"      >Карта мастерской ЕСТР</option>
+                                    <option value="Карта мастерской РФ"     data-price="{{ company.priceMasterRU }}"        >Карта мастерской РФ</option>
+                                </select>
+                            </div>
+                            <div class="col-xs-1">
+                                <input type="text" class="form-control amount" name="amount[{{ payment.orders | length }}]" value="0" >
+                            </div>
+                            <div class="col-xs-2">
+                                <input type="text" class="form-control price"  value="{{ company.priceSkzi }}" name="price[{{ payment.orders | length }}]" readonly disabled>
+                            </div>
+                            <div class="col-xs-2">
+                                <input type="text" class="form-control summa"  readonly disabled  value="0">
+                            </div>
+                            <div class="col-xs-1">
+                                <button type="button" class="btn" id="add"><span class="glyphicon glyphicon-plus"></span></button>
+                            </div>
+                            <br />
+                        </div>
+                        <br />
+                    </div>
+                </div>
+                <div>
+                    <b>ИТОГО: <span class="sumPrice">0 руб.</span></b>
+                </div>
+                <br />
+                <button type="submit" class="btn btn-primary">Сохранить</button>
+            </form>
+        </div>
+    </div>
+
+    <style>
+        #crm_mainbundle_payment_comment{
+            width: 300px;
+            height: 100px;
+        }
+    </style>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    {% set company = c %}
+    <script>
+        $(document).ready(function(){
+//            $(".chosen").chosen({no_results_text: "По вашему запросу не найдено", width: 300});
+        });
+    </script>
+    <script>
+        $(document).ready(function(){
+            var num = {{ payment.orders | length +1 }};
+            var block =
+                    '<div>' +
+                    '<div class="row">'+
+                    '<div class="col-xs-4">'+
+                    '<select class="form-control chosen" name="title['+num+']">'+
+                    '<option value="Карта водителя СКЗИ"    data-price="{{ company.priceSkzi }}"          >Карта водителя СКЗИ</option>'+
+                    '<option value="Карта водителя ЕСТР"    data-price="{{ company.priceEstr }}"          >Карта водителя ЕСТР</option>'+
+                    '<option value="Карта водителя РФ"      data-price="{{ company.priceRu }}"            >Карта водителя РФ</option>'+
+                    '<option value="Карта предприятия СКЗИ" data-price="{{ company.priceCompanySkzi }}">Карта предприятия СКЗИ</option>'+
+                    '<option value="Карта предприятия ЕСТР" data-price="{{ company.priceCompanyEstr }}">Карта предприятия ЕСТР</option>'+
+                    '<option value="Карта предприятия РФ"   data-price="{{ company.priceCompanyRu }}"  >Карта предприятия РФ</option>'+
+                    '<option value="Карта мастерской СКЗИ"  data-price="{{ company.priceMasterSkzi }}"    >Карта мастерской СКЗИ</option>'+
+                    '<option value="Карта мастерской ЕСТР"  data-price="{{ company.priceMasterEstr }}"    >Карта мастерской ЕСТР</option>'+
+                    '<option value="Карта мастерской РФ"    data-price="{{ company.priceMasterRU }}"      >Карта мастерской РФ</option>'+
+                    '</select>'+
+                    '</div>'+
+                    '<div class="col-xs-1">'+
+                    '<input type="text" class="form-control amount" name="amount['+num+']" value="0">'+
+                    '</div>'+
+                    '<div class="col-xs-2">'+
+                    '<input type="text" class="form-control price"  disabled value="{{ company.priceSkzi }}" name="price['+num+']"  readonly disabled>'+
+                    '</div>'+
+                    '<div class="col-xs-2">'+
+                    '<input type="text" class="form-control summa"  disabled value="0">'+
+                    '</div>'+
+                    '<div class="col-xs-1">'+
+                    '<button type="button" class="btn btn-danger remove"><span class="glyphicon glyphicon-minus"></span></button>'+
+                    '</div>'+
+                    '</div>' +
+                    '<br />' +
+                    '</div>';
+
+            $('#add').click(function(){
+                $('.orders').prepend(block);
+            });
+            $('body').on("click", '.remove', function(){
+                $(this).parent().parent().parent().remove();
+                var sumPrice = 0;
+                for (i = 0 ; i < $('.summa').length ; i ++){
+                    sumPrice += parseFloat($('.summa').eq(i).val());
+                }
+                $('.sumPrice').html(sumPrice+' руб.');
+            });
+            $('body').on("change", 'select', function(){
+                var price = $(this).find("option:selected").attr("data-price");
+                var amount = $(this).parent().parent().children('div').eq(1).children('input').val();
+                $(this).parent().parent().children('div').eq(2).children('input').val(price);
+                $(this).parent().parent().children('div').eq(3).children('input').val(price*amount);
+
+                var sumPrice = 0;
+                for (i = 0 ; i < $('.summa').length ; i ++){
+                    sumPrice += parseFloat($('.summa').eq(i).val());
+                }
+                $('.sumPrice').html(sumPrice+' руб.');
+
+            });
+            $('body').on("keyup", '.amount', function(){
+                var price = $(this).parent().parent().children('div').eq(0).children('select').find("option:selected").attr("data-price");
+//                alert(price);
+                var amount = $(this).parent().parent().children('div').eq(1).children('input').val();
+                $(this).parent().parent().children('div').eq(2).children('input').val(price);
+                $(this).parent().parent().children('div').eq(3).children('input').val(price*amount);
+
+                var sumPrice = 0;
+                for (i = 0 ; i < $('.summa').length ; i ++){
+                    sumPrice += parseFloat($('.summa').eq(i).val());
+                }
+                $('.sumPrice').html(sumPrice+' руб.');
+            });
+
+            $('body').on("keyup", '.price', function(){
+                var price = $(this).val();
+//                alert(price);
+                var amount = $(this).parent().parent().children('div').eq(1).children('input').val();
+//                $(this).parent().parent().children('div').eq(2).children('input').val(price);
+                $(this).parent().parent().children('div').eq(3).children('input').val(price*amount);
+
+                var sumPrice = 0;
+                for (i = 0 ; i < $('.summa').length ; i ++){
+                    sumPrice += parseFloat($('.summa').eq(i).val());
+                }
+                $('.sumPrice').html(sumPrice+' руб.');
+            });
+
+        });
+
+    </script>
+{% endblock %}

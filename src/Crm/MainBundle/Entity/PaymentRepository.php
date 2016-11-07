@@ -13,7 +13,7 @@ class PaymentRepository extends EntityRepository
 {
 
 
-    public function filter($params)
+    public function filter($params, $isAdmin = false)
     {
         $q = $this
             ->createQueryBuilder('p')
@@ -21,8 +21,8 @@ class PaymentRepository extends EntityRepository
             ->leftJoin('c.company','c2')
             ->leftJoin('c2.operator','o')
 
-            ->where('p.enabled = 1 AND c.enabled = 1')
-            ->andWhere('o.id ='.$params['operator']->getId());
+            ->where('p.enabled = 1 ');
+//            ->andWhere('o.id ='.$params['operator']->getId());
         if (isset($params['company'])){
             $q
                 ->andWhere('c2.id = :companyId')

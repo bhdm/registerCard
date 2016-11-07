@@ -4,6 +4,7 @@
 {% block breadcrumb %}
     <ul class="breadcrumb well">
         <li>Список счетов</li>
+        <li><a href="{{ path('panel_payment_add') }}"><span class="btn btn-primary">Создать</span></a></li>
     </ul>
 {% endblock %}
 
@@ -53,8 +54,13 @@
                         {% endif %}
                     </td>
                     <td>{{ p.operator }}</td>
-                    <td>{{ p.client.username }}</td>
-                    <td><a href="{{ path('panel_user_list', {'type' : 'null' , 'company' : p.client.company.id }) }}">{{ p.client.company }}</a></td>
+                    {% if p.client.username is defined %}
+                        <td>{{ p.client.username }}</td>
+                        <td><a href="{{ path('panel_user_list', {'type' : 'null' , 'company' : p.client.company.id }) }}">{{ p.client.company }}</a></td>
+                    {% else %}
+                        <td></td>
+                        <td></td>
+                    {% endif %}
                     <td>{{ p.amount }}</td>
                     <td>{{ p.summa }}</td>
                     <td>{{ p.comment }}</td>
