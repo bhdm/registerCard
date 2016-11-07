@@ -271,7 +271,8 @@ class PaymentController extends Controller
      */
     public function printAction($id){
         $payment = $this->getDoctrine()->getRepository('CrmMainBundle:Payment')->findOneBy(['enabled' => true, 'id' => $id]);
-        $client = ($payment->getClient() ? $payment->getClient() : $payment->getOperator());
+        $client = $payment->getClient();
+        $operator = $payment->getOperator();
         $price = 0;
         foreach ($payment->getOrders() as $item) {
             $price += ($item->getAmount()*$item->getPrice());
@@ -281,7 +282,7 @@ class PaymentController extends Controller
             $payment->setPrint(1);
             $this->getDoctrine()->getManager()->flush($payment);
             $mpdfService = $this->get('tfox.mpdfport');
-            $html = $this->renderView('CrmAuthBundle:Payment:print.html.twig',array('client' => $client,'payment' => $payment,'price' => $price));
+            $html = $this->renderView('CrmAuthBundle:Payment:print.html.twig',array('client' => $client, 'operator' => $operator,'payment' => $payment,'price' => $price));
             $response = $mpdfService->generatePdfResponse($html);
             return $response;
         }

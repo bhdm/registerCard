@@ -16,7 +16,7 @@
 {#<br />#}
 {#<br />#}
 <h2 style="text-align: center"> </h2>
-{% if client.company.operator.id is defined and  ( client.company.operator.inn == null or client.company.operator.inn == '' )%}
+{% if operator or (client.company.operator.id is defined and  ( client.company.operator.inn == null or client.company.operator.inn == '' )) %}
     <table style="margin: 0 auto; width: 100%" border="1" cellpadding="0" cellspacing="0">
         <tr>
             <td rowspan="2" colspan="2" width="50%">
@@ -60,19 +60,36 @@
             <tr>
                 <td>Покупатель:</td>
                 <td>
-                    {% if client.companyTitle %}
-                        {{ client.companyTitle }},
-                    {% endif %}
-                    {% if client.inn %}
-                        ИНН: {{ client.inn }},
-                    {% endif %}
-                    {% if client.kpp %}
-                        КПП: {{ client.kpp }},
-                    {% endif %}
-                    {% if client.adrs.zipcode is defined %}
-                        {{ client.adrs.zipcode }},
-                        {{ client.adrs.region }},  {{ client.adrs.city }},
-                        {{ client.adrs.street }},д.{{ client.adrs.house }} {{ client.adrs.corp }}, {{ client.adrs.room }}
+                    {% if operator %}
+                        {% if operator.companyTitle %}
+                            {{ operator.companyTitle }},
+                        {% endif %}
+                        {% if operator.inn %}
+                            ИНН: {{ operator.inn }},
+                        {% endif %}
+                        {% if operator.kpp %}
+                            КПП: {{ operator.kpp }},
+                        {% endif %}
+                        {% if operator.adrs.zipcode is defined %}
+                            {{ operator.adrs.zipcode }},
+                            {{ operator.adrs.region }},  {{ operator.adrs.city }},
+                            {{ operator.adrs.street }},д.{{ operator.adrs.house }} {{ operator.adrs.corp }}, {{ operator.adrs.room }}
+                        {% endif %}
+                    {% else %}
+                        {% if client.companyTitle %}
+                            {{ client.companyTitle }},
+                        {% endif %}
+                        {% if client.inn %}
+                            ИНН: {{ client.inn }},
+                        {% endif %}
+                        {% if client.kpp %}
+                            КПП: {{ client.kpp }},
+                        {% endif %}
+                        {% if client.adrs.zipcode is defined %}
+                            {{ client.adrs.zipcode }},
+                            {{ client.adrs.region }},  {{ client.adrs.city }},
+                            {{ client.adrs.street }},д.{{ client.adrs.house }} {{ client.adrs.corp }}, {{ client.adrs.room }}
+                        {% endif %}
                     {% endif %}
                 </td>
             </tr>
