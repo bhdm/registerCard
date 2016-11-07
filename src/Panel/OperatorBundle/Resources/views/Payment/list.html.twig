@@ -89,12 +89,13 @@
                                     <span class="glyphicon glyphicon-print"></span>
                                 </button>
                             </a>
-                            &nbsp;&nbsp;
-                            <a href="{{ path('panel_payment_edit',{'id' : p.id}) }}" >
-                                <button type="button" class="btn btn-primary btn-bg" title="редактирование счета">
-                                    <span class="glyphicon glyphicon-edit"></span>
-                                </button>
-                            </a>
+                            {% if p.operator == null or is_granted('ROLE_ADMIN') %}
+                                <a href="{{ path('panel_payment_edit',{'id' : p.id}) }}" >
+                                    <button type="button" class="btn btn-primary btn-bg" title="редактирование счета">
+                                        <span class="glyphicon glyphicon-edit"></span>
+                                    </button>
+                                </a>
+                            {% endif %}
                             &nbsp;&nbsp;
                             <button type="button" class="btn btn-default btn-danger remove" data-href="{{ path('panel_payment_delete',{'id': p.id }) }}">
                                 <span class="glyphicon glyphicon-remove"></span>
