@@ -65,7 +65,7 @@
                     <td>{{ p.summa }}</td>
                     <td>{{ p.comment }}</td>
                     <td>
-                        {% if not ( p.operator != null or is_granted('ROLE_ADMIN') )%}
+                        {% if p.operator != null or is_granted('ROLE_ADMIN') %}
                         <div class="dropdown">
                             <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu{{ p.id }}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                                 {{ p.statusStr | raw }}
