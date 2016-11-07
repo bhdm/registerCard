@@ -271,7 +271,7 @@ class PaymentController extends Controller
      */
     public function printAction($id){
         $payment = $this->getDoctrine()->getRepository('CrmMainBundle:Payment')->findOneBy(['enabled' => true, 'id' => $id]);
-        $client = $payment->getClient();
+        $client = ($payment->getClient() ? $payment->getClient() : $payment->getOperator());
         $price = 0;
         foreach ($payment->getOrders() as $item) {
             $price += ($item->getAmount()*$item->getPrice());
