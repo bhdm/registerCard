@@ -202,13 +202,15 @@ class PaymentController extends Controller
         if ($payment->getClient()){
             $company = $payment->getClient()->getCompany();
         }else{
-            $company = $payment->getOperator();
+            $company = null;
         }
+        $operator = $payment->getOperator();
+
         $sumPrice = 0;
         foreach ($payment->getOrders() as $o){
             $sumPrice += ($o->getAmount() * $o->getPrice());
         }
-        return array( 'form' => $paymentForm->createView(),'payment' => $payment, 'company' => $company, 'sumPrice' => $sumPrice);
+        return array( 'form' => $paymentForm->createView(),'payment' => $payment, 'company' => $company, 'sumPrice' => $sumPrice, 'operator' => $operator);
     }
 
     /**

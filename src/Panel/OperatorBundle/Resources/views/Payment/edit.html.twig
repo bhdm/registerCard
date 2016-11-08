@@ -24,16 +24,27 @@
                             <div class="row">
                                 <div class="col-xs-4">
                                     <select class="form-control chosen" name="title[{{k }}]" >
-
-                                        <option {{ o.title == 'Карта водителя СКЗИ' ? 'selected="selected"' : '' }}value="Карта водителя СКЗИ" data-price="{{ company.priceSkzi }}">Карта водителя СКЗИ</option>
-                                        <option {{ o.title == 'Карта водителя ЕСТР' ? 'selected="selected"' : '' }}value="Карта водителя ЕСТР" data-price="{{ company.priceEstr }}">Карта водителя ЕСТР</option>
-                                        <option {{ o.title == 'Карта водителя РФ' ? 'selected="selected"' : '' }}value="Карта водителя РФ" data-price="{{ company.priceRu }}">Карта водителя РФ</option>
-                                        <option {{ o.title == 'Карта предприятия СКЗИ' ? 'selected="selected"' : '' }}value="Карта предприятия СКЗИ" data-price="{{ company.priceEnterpriseSkzi }}">Карта предприятия СКЗИ</option>
-                                        <option {{ o.title == 'Карта предприятия ЕСТР' ? 'selected="selected"' : '' }}value="Карта предприятия ЕСТР" data-price="{{ company.priceEnterpriseEstr }}">Карта предприятия ЕСТР</option>
-                                        <option {{ o.title == 'Карта предприятия РФ' ? 'selected="selected"' : '' }}value="Карта предприятия РФ" data-price="{{ company.priceEnterpriseRu }}">Карта предприятия РФ</option>
-                                        <option {{ o.title == 'Карта мастерской СКЗИ' ? 'selected="selected"' : '' }}value="Карта мастерской СКЗИ" data-price="{{ company.priceMasterSkzi }}">Карта мастерской СКЗИ</option>
-                                        <option {{ o.title == 'Карта мастерской ЕСТР' ? 'selected="selected"' : '' }}value="Карта мастерской ЕСТР" data-price="{{ company.priceMasterEstr }}">Карта мастерской ЕСТР</option>
-                                        <option {{ o.title == 'Карта мастерской РФ' ? 'selected="selected"' : '' }}value="Карта мастерской РФ" data-price="{{ company.priceMasterRU }}">Карта мастерской РФ</option>
+                                        {% if company %}
+                                            <option {{ o.title == 'Карта водителя СКЗИ' ? 'selected="selected"' : '' }}value="Карта водителя СКЗИ" data-price="{{ company.priceSkzi }}">Карта водителя СКЗИ</option>
+                                            <option {{ o.title == 'Карта водителя ЕСТР' ? 'selected="selected"' : '' }}value="Карта водителя ЕСТР" data-price="{{ company.priceEstr }}">Карта водителя ЕСТР</option>
+                                            <option {{ o.title == 'Карта водителя РФ' ? 'selected="selected"' : '' }}value="Карта водителя РФ" data-price="{{ company.priceRu }}">Карта водителя РФ</option>
+                                            <option {{ o.title == 'Карта предприятия СКЗИ' ? 'selected="selected"' : '' }}value="Карта предприятия СКЗИ" data-price="{{ company.priceEnterpriseSkzi }}">Карта предприятия СКЗИ</option>
+                                            <option {{ o.title == 'Карта предприятия ЕСТР' ? 'selected="selected"' : '' }}value="Карта предприятия ЕСТР" data-price="{{ company.priceEnterpriseEstr }}">Карта предприятия ЕСТР</option>
+                                            <option {{ o.title == 'Карта предприятия РФ' ? 'selected="selected"' : '' }}value="Карта предприятия РФ" data-price="{{ company.priceEnterpriseRu }}">Карта предприятия РФ</option>
+                                            <option {{ o.title == 'Карта мастерской СКЗИ' ? 'selected="selected"' : '' }}value="Карта мастерской СКЗИ" data-price="{{ company.priceMasterSkzi }}">Карта мастерской СКЗИ</option>
+                                            <option {{ o.title == 'Карта мастерской ЕСТР' ? 'selected="selected"' : '' }}value="Карта мастерской ЕСТР" data-price="{{ company.priceMasterEstr }}">Карта мастерской ЕСТР</option>
+                                            <option {{ o.title == 'Карта мастерской РФ' ? 'selected="selected"' : '' }}value="Карта мастерской РФ" data-price="{{ company.priceMasterRU }}">Карта мастерской РФ</option>
+                                        {% else %}
+                                            <option {{ o.title == 'Карта водителя СКЗИ' ? 'selected="selected"' : '' }}value="Карта водителя СКЗИ" data-price="{{ operator.priceSkzi }}">Карта водителя СКЗИ</option>
+                                            <option {{ o.title == 'Карта водителя ЕСТР' ? 'selected="selected"' : '' }}value="Карта водителя ЕСТР" data-price="{{ operator.priceEstr }}">Карта водителя ЕСТР</option>
+                                            <option {{ o.title == 'Карта водителя РФ' ? 'selected="selected"' : '' }}value="Карта водителя РФ" data-price="{{ operator.priceRu }}">Карта водителя РФ</option>
+                                            <option {{ o.title == 'Карта предприятия СКЗИ' ? 'selected="selected"' : '' }}value="Карта предприятия СКЗИ" data-price="{{ operator.priceCompanySkzi }}">Карта предприятия СКЗИ</option>
+                                            <option {{ o.title == 'Карта предприятия ЕСТР' ? 'selected="selected"' : '' }}value="Карта предприятия ЕСТР" data-price="{{ operator.priceCompanyEstr }}">Карта предприятия ЕСТР</option>
+                                            <option {{ o.title == 'Карта предприятия РФ' ? 'selected="selected"' : '' }}value="Карта предприятия РФ" data-price="{{ operator.priceCompanyRu }}">Карта предприятия РФ</option>
+                                            <option {{ o.title == 'Карта мастерской СКЗИ' ? 'selected="selected"' : '' }}value="Карта мастерской СКЗИ" data-price="{{ operator.priceMasterSkzi }}">Карта мастерской СКЗИ</option>
+                                            <option {{ o.title == 'Карта мастерской ЕСТР' ? 'selected="selected"' : '' }}value="Карта мастерской ЕСТР" data-price="{{ operator.priceMasterEstr }}">Карта мастерской ЕСТР</option>
+                                            <option {{ o.title == 'Карта мастерской РФ' ? 'selected="selected"' : '' }}value="Карта мастерской РФ" data-price="{{ operator.priceMasterRU }}">Карта мастерской РФ</option>
+                                        {% endif %}
                                     </select>
                                 </div>
                                 <div class="col-xs-1">
@@ -57,23 +68,34 @@
                         <div class="row">
                             <div class="col-xs-4">
                                 <select class="form-control chosen" name="title[{{ payment.orders | length }}]">
-
-                                    <option value="Карта водителя СКЗИ"     data-price="{{ company.priceSkzi }}"            >Карта водителя СКЗИ</option>
-                                    <option value="Карта водителя ЕСТР"     data-price="{{ company.priceEstr }}"            >Карта водителя ЕСТР</option>
-                                    <option value="Карта водителя РФ"       data-price="{{ company.priceRu }}"              >Карта водителя РФ</option>
-                                    <option value="Карта предприятия СКЗИ"  data-price="{{ company.priceEnterpriseSkzi }}"  >Карта предприятия СКЗИ</option>
-                                    <option value="Карта предприятия ЕСТР"  data-price="{{ company.priceEnterpriseEstr }}"  >Карта предприятия ЕСТР</option>
-                                    <option value="Карта предприятия РФ"    data-price="{{ company.priceEnterpriseRu }}"    >Карта предприятия РФ</option>
-                                    <option value="Карта мастерской СКЗИ"   data-price="{{ company.priceMasterSkzi }}"      >Карта мастерской СКЗИ</option>
-                                    <option value="Карта мастерской ЕСТР"   data-price="{{ company.priceMasterEstr }}"      >Карта мастерской ЕСТР</option>
-                                    <option value="Карта мастерской РФ"     data-price="{{ company.priceMasterRU }}"        >Карта мастерской РФ</option>
+                                    {% if company %}
+                                        <option value="Карта водителя СКЗИ"     data-price="{{ company.priceSkzi }}"            >Карта водителя СКЗИ</option>
+                                        <option value="Карта водителя ЕСТР"     data-price="{{ company.priceEstr }}"            >Карта водителя ЕСТР</option>
+                                        <option value="Карта водителя РФ"       data-price="{{ company.priceRu }}"              >Карта водителя РФ</option>
+                                        <option value="Карта предприятия СКЗИ"  data-price="{{ company.priceEnterpriseSkzi }}"  >Карта предприятия СКЗИ</option>
+                                        <option value="Карта предприятия ЕСТР"  data-price="{{ company.priceEnterpriseEstr }}"  >Карта предприятия ЕСТР</option>
+                                        <option value="Карта предприятия РФ"    data-price="{{ company.priceEnterpriseRu }}"    >Карта предприятия РФ</option>
+                                        <option value="Карта мастерской СКЗИ"   data-price="{{ company.priceMasterSkzi }}"      >Карта мастерской СКЗИ</option>
+                                        <option value="Карта мастерской ЕСТР"   data-price="{{ company.priceMasterEstr }}"      >Карта мастерской ЕСТР</option>
+                                        <option value="Карта мастерской РФ"     data-price="{{ company.priceMasterRU }}"        >Карта мастерской РФ</option>
+                                    {% else %}
+                                        <option value="Карта водителя СКЗИ"     data-price="{{ operator.priceSkzi }}"            >Карта водителя СКЗИ</option>
+                                        <option value="Карта водителя ЕСТР"     data-price="{{ operator.priceEstr }}"            >Карта водителя ЕСТР</option>
+                                        <option value="Карта водителя РФ"       data-price="{{ operator.priceRu }}"              >Карта водителя РФ</option>
+                                        <option value="Карта предприятия СКЗИ"  data-price="{{ operator.priceCompanySkzi }}"  >Карта предприятия СКЗИ</option>
+                                        <option value="Карта предприятия ЕСТР"  data-price="{{ operator.priceCompanyEstr }}"  >Карта предприятия ЕСТР</option>
+                                        <option value="Карта предприятия РФ"    data-price="{{ operator.priceCompanyRu }}"    >Карта предприятия РФ</option>
+                                        <option value="Карта мастерской СКЗИ"   data-price="{{ operator.priceMasterSkzi }}"      >Карта мастерской СКЗИ</option>
+                                        <option value="Карта мастерской ЕСТР"   data-price="{{ operator.priceMasterEstr }}"      >Карта мастерской ЕСТР</option>
+                                        <option value="Карта мастерской РФ"     data-price="{{ operator.priceMasterRU }}"        >Карта мастерской РФ</option>
+                                    {% endif %}
                                 </select>
                             </div>
                             <div class="col-xs-1">
                                 <input type="text" class="form-control amount" name="amount[{{ payment.orders | length }}]" value="0" >
                             </div>
                             <div class="col-xs-2">
-                                <input type="text" class="form-control price"  value="{{ company.priceSkzi }}" name="price[{{ payment.orders | length }}]">
+                                <input type="text" class="form-control price"  value="{{ company ? company.priceSkzi : operator.priceSkzi }}" name="price[{{ payment.orders | length }}]">
                             </div>
                             <div class="col-xs-2">
                                 <input type="text" class="form-control summa"  readonly disabled  value="0">
@@ -118,22 +140,22 @@
                     '<div class="row">'+
                     '<div class="col-xs-4">'+
                     '<select class="form-control chosen" name="title['+num+']">'+
-                    '<option value="Карта водителя СКЗИ"    data-price="{{ company.priceSkzi }}"          >Карта водителя СКЗИ</option>'+
-                    '<option value="Карта водителя ЕСТР"    data-price="{{ company.priceEstr }}"          >Карта водителя ЕСТР</option>'+
-                    '<option value="Карта водителя РФ"      data-price="{{ company.priceRu }}"            >Карта водителя РФ</option>'+
-                    '<option value="Карта предприятия СКЗИ" data-price="{{ company.priceEnterpriseSkzi }}">Карта предприятия СКЗИ</option>'+
-                    '<option value="Карта предприятия ЕСТР" data-price="{{ company.priceEnterpriseEstr }}">Карта предприятия ЕСТР</option>'+
-                    '<option value="Карта предприятия РФ"   data-price="{{ company.priceEnterpriseRu }}"  >Карта предприятия РФ</option>'+
-                    '<option value="Карта мастерской СКЗИ"  data-price="{{ company.priceMasterSkzi }}"    >Карта мастерской СКЗИ</option>'+
-                    '<option value="Карта мастерской ЕСТР"  data-price="{{ company.priceMasterEstr }}"    >Карта мастерской ЕСТР</option>'+
-                    '<option value="Карта мастерской РФ"    data-price="{{ company.priceMasterRU }}"      >Карта мастерской РФ</option>'+
+                    '<option value="Карта водителя СКЗИ"    data-price="{{ company ? company.priceSkzi : operator.priceSkzi    }}"          >Карта водителя СКЗИ</option>'+
+                    '<option value="Карта водителя ЕСТР"    data-price="{{ company ? company.priceEstr : operator.priceEstr    }}"          >Карта водителя ЕСТР</option>'+
+                    '<option value="Карта водителя РФ"      data-price="{{ company ? company.priceRu : operator.priceRu    }}"            >Карта водителя РФ</option>'+
+                    '<option value="Карта предприятия СКЗИ" data-price="{{ company ? company.priceEnterpriseSkzi : operator.priceCompanySkzi   }}">Карта предприятия СКЗИ</option>'+
+                    '<option value="Карта предприятия ЕСТР" data-price="{{ company ? company.priceEnterpriseEstr : operator.priceCompanyEstr   }}">Карта предприятия ЕСТР</option>'+
+                    '<option value="Карта предприятия РФ"   data-price="{{ company ? company.priceEnterpriseRu : operator.priceCompanyeRu   }}"  >Карта предприятия РФ</option>'+
+                    '<option value="Карта мастерской СКЗИ"  data-price="{{ company ? company.priceMasterSkzi : operator.priceMasterSkzi    }}"    >Карта мастерской СКЗИ</option>'+
+                    '<option value="Карта мастерской ЕСТР"  data-price="{{ company ? company.priceMasterEstr : operator.priceMasterEstr    }}"    >Карта мастерской ЕСТР</option>'+
+                    '<option value="Карта мастерской РФ"    data-price="{{ company ? company.priceMasterRU : operator.priceMasterRU    }}"      >Карта мастерской РФ</option>'+
                     '</select>'+
                     '</div>'+
                     '<div class="col-xs-1">'+
                     '<input type="text" class="form-control amount" name="amount['+num+']" value="0">'+
                     '</div>'+
                     '<div class="col-xs-2">'+
-                    '<input type="text" class="form-control price"  disabled value="{{ company.priceSkzi }}" name="price['+num+']">'+
+                    '<input type="text" class="form-control price"  disabled value="{{ company ? company.priceSkzi : operator.priceSkzi }}" name="price['+num+']">'+
                     '</div>'+
                     '<div class="col-xs-2">'+
                     '<input type="text" class="form-control summa"  disabled value="0">'+
