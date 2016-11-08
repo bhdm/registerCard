@@ -307,7 +307,7 @@ class OperatorController extends Controller
 
 
 
-        $sumVirtuals = $this->getDoctrine()->getRepository('CrmMainBundle:OperatorQuotaLog')->findByOperator($operator);
+        $sumVirtuals = $this->getDoctrine()->getRepository('CrmMainBundle:CompanyQuotaLog')->findByOperator($operator);
 
         $sumVirtual[0] = 0;
         $sumVirtual[1] = 0;
