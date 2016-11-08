@@ -4,7 +4,7 @@
             {% if company.operator.id is defined %}
                 <li><a href="{{ path('panel_user_list', {'status': 'all', 'type' : 'null', 'company' : 'null', 'operator' : company.operator.id }) }}">{{ company.operator.username }}</a></li>
             {% else %}
-                <li>{{ operator.username }}</li>
+                    <li><a href="{{ path('panel_operator_quota',{'operatorId' : operator.id }) }}">{{ operator.username }}</a></li>
             {% endif %}
     {% endif %}
     {% if company is defined and company != null %}
