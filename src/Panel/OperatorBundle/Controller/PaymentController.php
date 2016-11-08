@@ -199,7 +199,11 @@ class PaymentController extends Controller
                 return $this->redirect($this->generateUrl("panel_payment_list"));
             }
         }
-        $company = $payment->getClient()->getCompany();
+        if ($payment->getClient()){
+            $company = $payment->getClient()->getCompany();
+        }else{
+            $company = $payment->getOperator();
+        }
         $sumPrice = 0;
         foreach ($payment->getOrders() as $o){
             $sumPrice += ($o->getAmount() * $o->getPrice());
