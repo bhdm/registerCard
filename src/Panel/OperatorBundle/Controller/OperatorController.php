@@ -314,17 +314,20 @@ class OperatorController extends Controller
         $sumVirtual[2] = 0;
 
         foreach ($sumVirtuals as $item){
-            $sumVirtual[0] += $item->getDriverSkzi();
-            $sumVirtual[1] += $item->getDriverEstr();
-            $sumVirtual[2] += $item->getDriverRu();
+            if ($item->getEnabled() == true){
+                $sumVirtual[0] += $item->getDriverSkzi();
+                $sumVirtual[1] += $item->getDriverEstr();
+                $sumVirtual[2] += $item->getDriverRu();
 
-            $sumVirtual[3] += $item->getMasterSkzi();
-            $sumVirtual[4] += $item->getMasterEstr();
-            $sumVirtual[5] += $item->getMasterRu();
+                $sumVirtual[3] += $item->getMasterSkzi();
+                $sumVirtual[4] += $item->getMasterEstr();
+                $sumVirtual[5] += $item->getMasterRu();
 
-            $sumVirtual[6] += $item->getCompanySkzi();
-            $sumVirtual[7] += $item->getCompanyEstr();
-            $sumVirtual[8] += $item->getCompanyRu();
+                $sumVirtual[6] += $item->getCompanySkzi();
+                $sumVirtual[7] += $item->getCompanyEstr();
+                $sumVirtual[8] += $item->getCompanyRu();
+            }
+
         }
 
         #Сумма выставленных неоплаченных счетов
