@@ -199,6 +199,8 @@ class UserController extends Controller
         $session->set('petitionFile', null);
         $session->set('workFile', null);
         $session->set('copyLastCardFile', null);
+        $session->set('copyTypeCardFile', null);
+
 
         $session->set('origin-passportFile', null);
         $session->set('origin-passportTranslateFile', null);
@@ -212,6 +214,7 @@ class UserController extends Controller
         $session->set('origin-petitionFile', null);
         $session->set('origin-workFile', null);
         $session->set('origin-copyLastCardFile', null);
+        $session->set('origin-copyTypeCardFile', null);
 
         $session->save();
 
@@ -497,6 +500,11 @@ class UserController extends Controller
             $file = $user->getCopyLastCard();
             if (!empty($file) && file_exists('/var/www/' . $file['path'])) {
                 $session->set('copyLastCardFile', '/var/www/' . $file['path']);
+            }
+
+            $file = $user->getTypeCardFile();
+            if (!empty($file) && file_exists('/var/www/' . $file['path'])) {
+                $session->set('typeCardFile', '/var/www/' . $file['path']);
             }
 
             $session->save();

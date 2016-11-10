@@ -26,8 +26,15 @@
                                 </select>
                                 {% if user.typeCardFile %}
                                     <br />
+                                    <input type="file" name="typeCardFile" id="typeCardFile"  data-type="typeCardFile" class="fileAjax">
+                                    {% if user.typeCardFile.path is defined %}
+                                        <img src="/{{ user.typeCardFile.path }}" brightness="128" contrast="128" data-type="typeCardFile" class="document" id="typeCardFileImg">
+                                        <br>
+                                        <a href="{{ path('panel_download_png',{'filename' : user.typeCardFile.fileName }) }}">Скачать</a>
+                                    {% endif %}
 
-                                    <a href="/upload/{{ user.typeCardFile.path is defined ?  user.typeCardFile.path : '' }}" target="_blank">Скачать</a>
+
+                                    {#<a href="/upload/{{ user.typeCardFile.path is defined ?  user.typeCardFile.path : '' }}" target="_blank">Скачать</a>#}
                                 {% endif %}
                             </div>
                         </div>

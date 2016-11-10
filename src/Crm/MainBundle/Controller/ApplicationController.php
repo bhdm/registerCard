@@ -72,6 +72,7 @@ class ApplicationController extends Controller
             $user->setCopySnils($this->getImgToArray($session->get('snilsFile')));
             $user->setCopySignature($this->getImgToArray($session->get('signFile')));
             $user->setPhoto($this->getImgToArray($session->get('photoFile')));
+            $user->setTypeCardFile($this->getImgToArray($session->get('typeCardFile')));
 
             if ($company){
                 $operator = $company->getOperator();
@@ -147,16 +148,17 @@ class ApplicationController extends Controller
             $user->setCopySnils($this->getImgToArray($session->get('snilsFile')));
             $user->setCopySignature($this->getImgToArray($session->get('signFile')));
             $user->setPhoto($this->getImgToArray($session->get('photoFile')));
+            $user->setTypeCardFile($this->getImgToArray($session->get('typeCardFile')));
 
-            $files = $request->files->get('crm_mainbundle_user');
-            if (isset($files['typeCardFile']) && $files['typeCardFile'] != null){
-                $typeCardFile = $files['typeCardFile'];
-                $info = new \SplFileInfo($typeCardFile->getClientOriginalName());
-                $ex = $info->getExtension();
-                $filename = time().'.'.$ex;
-                $typeCardFile->move($rootDir, $filename);
-                $user->setTypeCardFile($filename);
-            }
+//            $files = $request->files->get('crm_mainbundle_user');
+//            if (isset($files['typeCardFile']) && $files['typeCardFile'] != null){
+//                $typeCardFile = $files['typeCardFile'];
+//                $info = new \SplFileInfo($typeCardFile->getClientOriginalName());
+//                $ex = $info->getExtension();
+//                $filename = time().'.'.$ex;
+//                $typeCardFile->move($rootDir, $filename);
+//                $user->setTypeCardFile($filename);
+//            }
 
 //            if (isset($files['copyWork']) && $files['copyWork'] != null){
 //                $copyWork = $files['copyWork'];
@@ -236,6 +238,7 @@ class ApplicationController extends Controller
             $user->setCopySnils($this->getImgToArray($session->get('snilsFile')));
             $user->setCopySignature($this->getImgToArray($session->get('signFile')));
             $user->setPhoto($this->getImgToArray($session->get('photoFile')));
+            $user->setTypeCardFile($this->getImgToArray($session->get('typeCardFile')));
 //                if ($session->get('typeCardFile')){
 //                    $user->setTypeCardFile($session->get('typeCardFile'));
 //                }
