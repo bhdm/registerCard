@@ -32,19 +32,6 @@
                     <td>Телефон<span class="required">*</span></td>
                     <td>{{ form_widget(form.username) }}</td>
                     <td class="typeCardFile">
-                        {{ form_widget(form.typeCardFile) }}
-                    </td>
-                </tr>
-                <tr>
-                    <td>Гражданство</td>
-                    <td>
-                        {{ form_widget(form.citizenship) }}
-                    </td>
-                    <td class="citizenship">Временная регистрация<span class="mini text-danger">(допустимые форматы: JPG,PNG)</span></td>
-                </tr>
-                <tr>
-                    <td>Тип заявления<span class="required">*</span></td>
-                    <td>
                         <div class="file-container">
                             <input type="file" name="typeCardFile" id="typeCardFile" class="fileAjax" >
                             <progress class="progress" value="0" max="100" style="width: 270px"></progress>
@@ -72,6 +59,19 @@
                             <input type="hidden" id="x2" name="x2">
                             <input type="hidden" id="y2" name="y2">
                         </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Гражданство</td>
+                    <td>
+                        {{ form_widget(form.citizenship) }}
+                    </td>
+                    <td class="citizenship">Временная регистрация<span class="mini text-danger">(допустимые форматы: JPG,PNG)</span></td>
+                </tr>
+                <tr>
+                    <td>Тип заявления<span class="required">*</span></td>
+                    <td>
+                        {{ form_widget(form.typeCard) }}
                     </td>
                     <td class="citizenship">
                         <div class="file-container">
