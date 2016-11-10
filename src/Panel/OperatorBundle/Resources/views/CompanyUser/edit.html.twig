@@ -287,7 +287,7 @@
                 <tr>
                     <td colspan="2">
                         <input type="file" name="fileStampFile" id="fileStampFile" data-type="fileStampFile" class="fileAjax" data-type="fileStampFile">
-                        {% if order.fileDecree['path'] is defined %}
+                        {% if order.fileStamp['path'] is defined %}
                             <img src="/upload/usercompany/{{ order.id }}/{{ order.fileStamp['fileName'] }}" brightness="0" contrast="0" class="document" id="fileStampFileImg">
                         {% else %}
                             <img src="" brightness="0" contrast="0" class="document" id="fileStampFileImg" />

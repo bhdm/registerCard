@@ -60,12 +60,14 @@
                             {% endif %}
                             <span class="caret"></span>
                         </button>
+                        {% if companyType  %}
                         <ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
                             <li><a href="{{ path('operator_companyuser_list', {'companyType' : companyType, 'cardType' : 'null'}) }}">Все карты</a></li>
                             <li><a href="{{ path('operator_companyuser_list', {'companyType' : companyType, 'cardType' : 1}) }}">СКЗИ</a></li>
                             <li><a href="{{ path('operator_companyuser_list', {'companyType' : companyType, 'cardType' : 2}) }}">ЕСТР</a></li>
                             <li><a href="{{ path('operator_companyuser_list', {'companyType' : companyType, 'cardType' : 3}) }}">РФ</a></li>
                         </ul>
+                        {% endif %}
                     </div>
                 </div>
                 <div class="col-xs-4">
