@@ -182,6 +182,7 @@ class CompanyUserController extends Controller{
         $session->set('fileOgrnFile', null);
         $session->set('fileSignFile', null);
         $session->set('fileLicenseFile', null);
+        $session->set('fileStampFile', null);
 
         $session->set('origin-fileOrderFile', null);
         $session->set('origin-fileOrder2File', null);
@@ -189,6 +190,7 @@ class CompanyUserController extends Controller{
         $session->set('origin-fileOgrnFile', null);
         $session->set('origin-fileSignFile', null);
         $session->set('origin-fileLicenseFile', null);
+        $session->set('origin-fileStampFile', null);
 
         #Помещаем все фалы-картинки в сессию, что бы потом можно было бы редактировать
         $file = $item->getfileOrder();
@@ -224,6 +226,11 @@ class CompanyUserController extends Controller{
         $file = $item->getFileDecree();
         if (!empty($file) && file_exists('/var/www/' . $file['path'])) {
             $session->set('fileDecreeFile', '/var/www/' . $file['path']);
+        }
+
+        $file = $item->getFileStamp();
+        if (!empty($file) && file_exists('/var/www/' . $file['path'])) {
+            $session->set('fileStampFile', '/var/www/' . $file['path']);
         }
 
         $session->save();
