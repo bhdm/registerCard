@@ -102,6 +102,13 @@ class XmlController extends Controller
             $files[10]['file'] = $user->getCopyDriverPassportTranslate();
         }
 
+        if (isset($user->getTypeCardFile()['originalName'])){
+            $files[12]['base'] = $this->imageToPdf($user->getTypeCardFile()['originalName']);
+            $files[12]['title'] = 'typeCardFile';
+            $files[12]['file'] = $user->getTypeCardFile();
+        }
+
+
         $region = $user->getCompany()->getRegion();
         if (!is_numeric($region)){
 //            $s = array('Республика ',' Область',' Край','Город ',' Автономный округ');
@@ -160,6 +167,11 @@ class XmlController extends Controller
             $files[11]['base'] = $this->ImageToPdf($user->getCopyInn()['originalName']);
             $files[11]['title'] = 'INN';
             $files[11]['file'] = $user->getCopyInn();
+
+            $files[12]['base'] = $this->ImageToPdf($user->getTypeCardFile()['originalName']);
+            $files[12]['title'] = 'Other';
+            $files[12]['file'] = $user->getTypeCardFile();
+
 
             $file = $user->getCopySignature();
             $file = WImage::ImageToBlackAndWhite($file);

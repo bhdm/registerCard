@@ -173,6 +173,14 @@
                 </Attachment>
             {% endif %}
             <!-- ИНН КОНЕЦ -->
+
+            {% if files[12] is defined %}
+                <Attachment>
+                    <AttachmentType>Other</AttachmentType>
+                    <FileFormat>PDF</FileFormat>
+                    <Body>{{ files[12].base }}</Body>
+                </Attachment>
+            {% endif %}
         </Order_v2>
         {% endfor %}
     </ns2:TacPackage>
