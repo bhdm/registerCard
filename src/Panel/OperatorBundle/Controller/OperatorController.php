@@ -312,6 +312,12 @@ class OperatorController extends Controller
         $sumVirtual[0] = 0;
         $sumVirtual[1] = 0;
         $sumVirtual[2] = 0;
+        $sumVirtual[3] = 0;
+        $sumVirtual[4] = 0;
+        $sumVirtual[5] = 0;
+        $sumVirtual[6] = 0;
+        $sumVirtual[7] = 0;
+        $sumVirtual[8] = 0;
 
         foreach ($sumVirtuals as $item){
             $sumVirtual[0] += $item->getDriverSkzi();
