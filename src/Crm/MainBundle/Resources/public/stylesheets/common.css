@@ -345,3 +345,6 @@ input.little{
     75% { opacity: 0.8 }
     100% { opacity: 1 }
 }
+#crm_mainbundle_user_typeCard{
+    width: 500px !important;
+}
