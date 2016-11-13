@@ -84,7 +84,7 @@ class CompanyUserController extends Controller{
         $formData = $form->handleRequest($request);
         if ($request->getMethod() === 'POST'){
 
-
+            $item = $formData->getData();
             #Если здесь все хорошо, то прикрепляем подпись
 
             $path = $this->get('kernel')->getRootDir() . '/../web/upload/usercompany/';
@@ -180,7 +180,7 @@ class CompanyUserController extends Controller{
             }
 
 
-            $item = $formData->getData();
+
             $em->persist($item);
             $em->flush();
             $em->refresh($item);
