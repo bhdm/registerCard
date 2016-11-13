@@ -119,7 +119,7 @@ class CompanyUserController extends Controller{
             if ($file){
                 $info = new \SplFileInfo($file);
                 $path = $path.$item->getId().'/'.$item->getSalt().time().'-ordertwo.'.$info->getExtension();
-                if (copy($file,$path)){
+                if (is_file($path) && copy($file,$path)){
                     unlink( $file );
                     $session->set('fileOrderTwoFile',null);
                     $array = $this->getImgToArray($path);
@@ -132,7 +132,7 @@ class CompanyUserController extends Controller{
             if ($file){
                 $info = new \SplFileInfo($file);
                 $path = $path.$item->getId().'/'.$item->getSalt().time().'-inn.'.$info->getExtension();
-                if (copy($file,$path)){
+                if (is_file($path) && copy($file,$path)){
                     unlink( $file );
                     $session->set('fileInnFile',null);
                     $array = $this->getImgToArray($path);
@@ -145,7 +145,7 @@ class CompanyUserController extends Controller{
             if ($file){
                 $info = new \SplFileInfo($file);
                 $path = $path.$item->getId().'/'.$item->getSalt().time().'-ogrn.'.$info->getExtension();
-                if (copy($file,$path)){
+                if (is_file($path) && copy($file,$path)){
                     unlink( $file );
                     $session->set('fileOgrnFile',null);
                     $array = $this->getImgToArray($path);
@@ -158,7 +158,7 @@ class CompanyUserController extends Controller{
             if ($file){
                 $info = new \SplFileInfo($file);
                 $path = $path.$item->getId().'/'.$item->getSalt().time().'-decree.'.$info->getExtension();
-                if (copy($file,$path)){
+                if (is_file($path) && copy($file,$path)){
                     unlink( $file );
                     $session->set('fileDecreeFile',null);
                     $array = $this->getImgToArray($path);
@@ -171,7 +171,7 @@ class CompanyUserController extends Controller{
             if ($file){
                 $info = new \SplFileInfo($file);
                 $path = $path.$item->getId().'/'.$item->getSalt().time().'-stamp.'.$info->getExtension();
-                if (copy($file,$path)){
+                if (is_file($path) && copy($file,$path)){
                     unlink( $file );
                     $session->set('fileStampFile',null);
                     $array = $this->getImgToArray($path);
