@@ -632,6 +632,10 @@ class OrderController extends Controller
             if ($session->get('snilsFile')){
                 $user->setCopySnils($this->getImgToArray($session->get('snilsFile')));
             }
+            if ($session->get('innFile')){
+                $user->setCopyInn($this->getImgToArray($session->get('innFile')));
+            }
+
             if ($session->get('signFile')){
                 $user->setCopySignature($this->getImgToArray($session->get('signFile')));
             }
