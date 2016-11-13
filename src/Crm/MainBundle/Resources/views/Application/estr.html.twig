@@ -25,6 +25,12 @@
 
             <table class="table-form">
                 <tr>
+                    <td>Тип заявления<span class="required">*</span></td>
+                    <td colspan="2">
+                        {{ form_widget(form.typeCard) }}
+                    </td>
+                </tr>
+                <tr>
                     <td>Email<span class="required">*</span></td>
                     <td>{{ form_widget(form.email) }}</td>
                     <td class="typeCardFile">Заявление или справка<span class="mini text-danger">(допустимые форматы: JPG,PNG)</span></td>
@@ -70,10 +76,12 @@
                     <td class="citizenship">Временная регистрация<span class="mini text-danger">(допустимые форматы: JPG,PNG)</span></td>
                 </tr>
                 <tr>
-                    <td>Тип заявления<span class="required">*</span></td>
-                    <td>
-                        {{ form_widget(form.typeCard) }}
-                    </td>
+                    {#<td>Тип заявления<span class="required">*</span></td>#}
+                    {#<td>#}
+                        {#{{ form_widget(form.typeCard) }}#}
+                    {#</td>#}
+                    <td></td>
+                    <td></td>
                     <td class="citizenship">
                         <div class="file-container">
                             <input type="file" name="copyWorkFile" id="copyWorkFile" class="fileAjax" >
