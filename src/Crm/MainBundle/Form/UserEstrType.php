@@ -18,6 +18,7 @@ class UserEstrType extends AbstractType
     {
         $builder
             ->add('typeCard', 'choice', array(
+                'expanded' => true,
                 'choices' => array(
                     '0' => 'Первичная выдача карты',
                     '1' => 'Замена в связи с истечением срока действия карты',
