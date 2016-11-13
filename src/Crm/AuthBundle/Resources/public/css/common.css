@@ -282,3 +282,7 @@ background-size: 100%;
 .loader{
     position: fixed !important;
 }
+
+#crm_mainbundle_user_typeCard{
+    width: 500px !important;
+}
