@@ -755,8 +755,13 @@
                     $('.typeCardFile').css('display','table-cell');
                     $('.typeCardFileRow').css('display','table-row');
                 }else{
-                    $('.typeCardFile').css('display','none');
-                    $('.typeCardFileRow').css('display','none');
+                    if($(this).val()  == 1){
+                        $('.typeCardFile').css('display','none');
+                        $('.typeCardFileRow').css('display','table-row');
+                    }else{
+                        $('.typeCardFile').css('display','none');
+                        $('.typeCardFileRow').css('display','none');
+                    }
                 }
             });
 
