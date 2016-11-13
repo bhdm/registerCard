@@ -61,7 +61,7 @@
                 $("input.phone").mask("+7 (999) 999-9999");
                 $('.call').click(function(){
                     $('.callbox').fadeIn();
-//                    $('input:text,input:file,input:radio,input:password').styler();
+//                    $('input:text,input:file,input:password').styler();
                 });
 
                 $('.callboxclose').click(function(){
@@ -79,7 +79,7 @@
                     $('.bg-gray').css('display', 'block');
                 });
 
-                $('input:text,input:file,input:radio,input:password').styler();
+                $('input:text,input:file,input:password').styler();
                 $('.styler').styler();
 
                 $(".fancybox").fancybox();
@@ -101,7 +101,7 @@
 
                 $('.step').click(function(){
                     type = $('.step').attr('data-type');
-                    var url = Routing.generate('application-'+type+'-step'+$(this).children('.stepn').html());
+                    var url = Routing.generate('application-'+type+'-step'+$(this).ch+ildren('.stepn').html());
                     window.location.href = url;
                 });
                 $('.dropdown-menu-title').click(function(){
