@@ -58,6 +58,7 @@ CKEDITOR.stylesSet.add( 'default', [
 	*/
 
 	{ name: 'Marker',			element: 'span', attributes: { 'class': 'marker' } },
+	{ name: 'Link',			element: 'link'},
 
 	{ name: 'Big',				element: 'big' },
 	{ name: 'Small',			element: 'small' },
