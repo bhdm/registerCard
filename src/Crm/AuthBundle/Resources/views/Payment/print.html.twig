@@ -16,7 +16,7 @@
 {#<br />#}
 {#<br />#}
 <h2 style="text-align: center"> </h2>
-{% if operator or (client.company.operator.id is defined and  ( client.company.operator.inn == null or client.company.operator.inn == '' )) %}
+{% if operator or (client.company.operator.id is defined and  (client.company.operator.id == 1 or ( client.company.operator.inn == null or client.company.operator.inn == '' ))) %}
     <table style="margin: 0 auto; width: 100%" border="1" cellpadding="0" cellspacing="0">
         <tr>
             <td rowspan="2" colspan="2" width="50%">
