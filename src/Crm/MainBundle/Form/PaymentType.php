@@ -15,7 +15,7 @@ class PaymentType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('operator', 'hidden', ['label' => 'Оператор', 'attr' => ['class' => 'chosen']])
+            ->add('operator', 'hidden', ['label' => 'Оператор', 'attr' => ['class' => '']])
             ->add('comment', null, ['label' => 'Комментарий'])
         ;
     }
