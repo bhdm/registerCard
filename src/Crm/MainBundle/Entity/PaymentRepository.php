@@ -33,6 +33,12 @@ class PaymentRepository extends EntityRepository
                 ->andWhere('c.id = :clientId')
                 ->setParameter(':clientId',$params['client']);
         }
+        if (isset($params['statusId'])){
+            $q
+                ->andWhere('p.status = :statusId')
+                ->setParameter(':statusId',$params['statusId']);
+        }
+
         if ($isAdmin == false){
             $q->andWhere('o.id ='.$params['operator']->getId());
         }else{
