@@ -232,18 +232,20 @@ class XmlController extends Controller
      */
     public function imageToPdfAction($filename){
         $mpdfService = $this->container->get('tfox.mpdfport');
+
         if (is_file('/var/www/upload/tmp/'.$filename)){
             $html = '<img src="https://im-kard.ru/upload/tmp/'.$filename.'" style="max-height: 500px; max-width: 100%"/>';
         }else{
             $html = '<img src="https://im-kard.ru/upload/docs/'.$filename.'" style="max-height: 500px; max-width: 100%"/>';
         }
 
-        echo $html;
-        exit;
+//        echo $html;
+//        exit;
 
         $width = rand(0,200);
         $html.= '<br /><br /><br />';
         $html.= '<img src="/bundles/crmmain/images/copy.png"  style="margin-left: '.$width.'px"/>';
+        $html = iconv("UTF-8","UTF-8//IGNORE",$html);
         $arguments = array(
 //            'constructorArgs' => array('utf-8', 'A4-P', 5 ,5 ,5 ,5,5 ),
             'writeHtmlMode' => null, //$mode argument for WriteHTML method
@@ -252,6 +254,10 @@ class XmlController extends Controller
             'outputFilename' => null, //$filename argument for Output method
             'outputDest' => null, //$dest argument for Output method
         );
+        $mpdfService->ignore_invalid_utf8 = true;
+        $mpdfService->allow_charset_conversion = false;
+        $mpdfService->debug = true;
+
         return $mpdfService->generatePdfResponse($html, $arguments);
     }
 
