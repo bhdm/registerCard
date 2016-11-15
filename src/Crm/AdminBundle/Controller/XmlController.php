@@ -238,6 +238,9 @@ class XmlController extends Controller
             $html = '<img src="https://im-kard.ru/upload/docs/'.$filename.'" style="max-height: 500px; width: 800px"/>';
         }
 
+        echo $html;
+        exit;
+
         $width = rand(0,200);
         $html.= '<br /><br /><br />';
         $html.= '<img src="/bundles/crmmain/images/copy.png"  style="margin-left: '.$width.'px"/>';
