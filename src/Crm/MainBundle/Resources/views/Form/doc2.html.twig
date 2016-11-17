@@ -268,7 +268,9 @@
 <div class="fio" style="">
     {{ user.lastName }} {{ user.firstName }} {{ user.surName }}
 </div>
-<div class="companyName">{{ user.myPetition == 1? 'ООО «НПО «ТЕХНОЛОГ»' : user.companyPetition != null ? user.companyPetition.title : user.company.title }}</div>
+<div class="companyName">{{
+    user.myPetition == 1 ?
+    user.companyTitle != null ? user.petitionTitle : user.companyPetition != null ? user.companyPetition.title : user.company.title }}</div>
 <div class="companyAdress">
     {% if user.myPetition == 1 %}
         {% if user.petitionAdrs.city is defined %}
