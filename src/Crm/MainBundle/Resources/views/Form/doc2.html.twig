@@ -285,7 +285,7 @@
 </div>
 <div class="companyAdress" style="width: 100%">
     {% if user.myPetition == 1 %}
-        {% if user.petitionAdrs.city is defined and user.petitionAdrs.city != null %}
+        {% if user.petitionAdrs.city is defined and user.petitionAdrs.city != null and user.petitionAdrs.city != '' %}
             {{ user.petitionAdrs.zipcode }},
             {{ user.petitionAdrs.city }},
             {{ user.petitionAdrs.street }},д.{{ user.petitionAdrs.home }} {{ user.petitionAdrs.corp }}, {{ user.petitionAdrs.room }}
