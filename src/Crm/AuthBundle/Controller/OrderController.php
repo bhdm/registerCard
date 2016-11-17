@@ -642,6 +642,10 @@ class OrderController extends Controller
             if ($session->get('photoFile')){
                 $user->setPhoto($this->getImgToArray($session->get('photoFile')));
             }
+            if ($session->get('typeCardFile')){
+                $user->setTypeCardFile($this->getImgToArray($session->get('typeCardFile')));
+            }
+
 
             $this->getDoctrine()->getManager()->flush($user);
             $this->getDoctrine()->getManager()->refresh($user);
