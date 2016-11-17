@@ -271,7 +271,13 @@
 <div class="companyName">{{ user.myPetition == 1? 'ООО «НПО «ТЕХНОЛОГ»' : user.companyPetition != null ? user.companyPetition.title : user.company.title }}</div>
 <div class="companyAdress">
     {% if user.myPetition == 1 %}
-        195196, Санкт-Петербург, ул.Громова, д.14/6, лит. А, пом. 3-Н
+        {% if user.petitionAdrs.city is defined %}
+            {{ user.petitionAdrs.zipcode }},
+            {{ user.petitionAdrs.city }},
+            {{ user.petitionAdrs.street }},д.{{ user.petitionAdrs.home }} {{ user.petitionAdrs.corp }}, {{ user.petitionAdrs.room }}
+        {% else %}
+            195196, Санкт-Петербург, ул.Громова, д.14/6, лит. А, пом. 3-Н
+        {% endif %}
     {% else %}
         {% if user.companyPetition != null %}
             {{ user.companyPetition.zipcode }},
