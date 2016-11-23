@@ -99,9 +99,9 @@ class PaymentController extends Controller
     public function listAction(Request $request)
     {
         if ($request->query->get('companyId')){
-            $payments = $this->getDoctrine()->getRepository('CrmMainBundle:Payment')->filter(['operator' => $this->getUser(), 'enabled' => true, 'company' => $request->query->get('companyId')],$this->get('security.context')->isGranted('ROLE_OPERATOR'));
+            $payments = $this->getDoctrine()->getRepository('CrmMainBundle:Payment')->filter(['operator' => $this->getUser(), 'enabled' => true, 'company' => $request->query->get('companyId')],$this->get('security.context')->isGranted('ROLE_ADMIN'));
         }elseif($request->query->get('clientId')){
-            $payments = $this->getDoctrine()->getRepository('CrmMainBundle:Payment')->filter(['operator' => $this->getUser(),'enabled' => true, 'client' => $request->query->get('clientId')],$this->get('security.context')->isGranted('ROLE_OPERATOR'));
+            $payments = $this->getDoctrine()->getRepository('CrmMainBundle:Payment')->filter(['operator' => $this->getUser(),'enabled' => true, 'client' => $request->query->get('clientId')],$this->get('security.context')->isGranted('ROLE_ADMIN'));
         }elseif($request->query->get('statusId') != null && $request->query->get('statusId') != 3 ){
             $payments = $this->getDoctrine()->getRepository('CrmMainBundle:Payment')->filter(['operator' => $this->getUser(),'enabled' => true, 'status' => $request->query->get('statusId')],['created' => 'DESC'],$this->get('security.context')->isGranted('ROLE_OPERATOR'));
         }else{
