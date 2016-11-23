@@ -243,7 +243,7 @@ class UserController extends Controller
                 $adrs.= ', '.$this->get('slugify')->slugify($user->getRegisteredStreet(),'.');
             }
             if ($user->getRegisteredHome()){
-                $adrs.= ', д.'.$this->get('slugify')->slugify($user->getRegisteredHome(),'.');
+                $adrs.= ', d.'.$this->get('slugify')->slugify($user->getRegisteredHome(),'.');
             }
             if ($user->getRegisteredCorp()){
                 $adrs.= ', '.$this->get('slugify')->slugify($user->getRegisteredCorp(),'.');

@@ -128,3 +128,5 @@ gregwar_captcha:
     invalid_message: "Код с картинки введен не правильно"
 
 
+cocur_slugify:
+    lowercase: false
