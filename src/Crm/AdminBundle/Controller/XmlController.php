@@ -234,9 +234,9 @@ class XmlController extends Controller
         $mpdfService = $this->container->get('tfox.mpdfport');
 
         if (is_file('/var/www/upload/tmp/'.$filename)){
-            $html = '<img src="https://im-kard.ru/upload/tmp/'.$filename.'" style="max-width: 100%"/>';
+            $html = '<img src="https://im-kard.ru/upload/tmp/'.$filename.'" style="max-width: 100%; max-height: 1000px"/>';
         }else{
-            $html = '<img src="https://im-kard.ru/upload/docs/'.$filename.'" style="max-width: 100%"/>';
+            $html = '<img src="https://im-kard.ru/upload/docs/'.$filename.'" style="max-width: 100%; max-height: 1000px"/>';
         }
 
 //        echo $html;
