@@ -95,7 +95,23 @@
             </div>
         </div>
     </div>
-
+    <script>
+        $(document).ready(function () {
+            $('#crm_mainbundle_user_passportIssuance').focus(function () {
+                if ($('#crm_mainbundle_user_passportIssuance').val() != ''){
+                    return false;
+                }
+              $.ajax({
+                  url: '/getpassportIssuance',
+                  method: 'POST',
+                  data: 'code='+$('#crm_mainbundle_user_passportCode').val()+'&date='+$('#crm_mainbundle_user_passportIssuanceDate').val(),
+                  success: function (msg) {
+                      $('#crm_mainbundle_user_passportIssuance').val(msg);
+                  }
+              })
+            })
+        })
+    </script>
 <!-- Yandex.Metrika counter -->
 <script type="text/javascript">
     var yaParams = {/*Здесь параметры визита*/};

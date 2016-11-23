@@ -31,9 +31,9 @@
                         <a href="{{ path('auth_operator_in',{'id' : o.id}) }}">Войти</a>
                     </td>
                     <td>
-                            <span title="Новые">{{ o.countUsers.new }}</span> /
-                            <span title="Подтвержденные">{{ o.countUsers != null and o.countUsers is not empty and o.countUsers.choose is defined ? o.countUsers.choose : 0 }}</span> /
-                            <span title="На производство">{{ o.countUsers != null and o.countUsers is not empty and o.countUsers.production is defined ? o.countUsers.production : 0 }}</span>
+                            {#<span title="Новые">{{ o.countUsers.new }}</span> /#}
+                            {#<span title="Подтвержденные">{{ o.countUsers != null and o.countUsers is not empty and o.countUsers.choose is defined ? o.countUsers.choose : 0 }}</span> /#}
+                            {#<span title="На производство">{{ o.countUsers != null and o.countUsers is not empty and o.countUsers.production is defined ? o.countUsers.production : 0 }}</span>#}
                     </td>
                     <td>{{ o.quota }}</td>
                     <td class="setting">

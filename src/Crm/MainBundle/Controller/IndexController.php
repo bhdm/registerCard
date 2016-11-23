@@ -2,6 +2,7 @@
 
 namespace Crm\MainBundle\Controller;
 
+use Crm\MainBundle\Entity\Issuer;
 use Crm\MainBundle\Entity\Review;
 use Crm\MainBundle\Form\Type\FeedbackType;
 use Crm\MainBundle\Form\Type\ReviewType;
@@ -384,6 +385,38 @@ class IndexController extends Controller
         return ['jpartners' => json_encode($jpartnres), 'partenrs' => $partners];
     }
 
+    /**
+     * @Route("/convertcsv", name="convertcsv")
+     */
+    public function convertcsvAction(){
+        $lines = file($this->get('kernel')->getRootDir() . '/../web/convertcsv.csv');
+        foreach ($lines as $line) {
+            $row = explode('|',$line);
+            $issuer = new Issuer();
+            $issuer->setCode($row[1]);
+            $issuer->setTitle(str_replace('"','',$row[2]));
+            echo $row[2].'<br />';
+            if (isset($row[3]) and $row[3]){
+                $issuer->setDateEnd(new \DateTime($row[3]));
+            }
+            $this->getDoctrine()->getManager()->persist($issuer);
+            $this->getDoctrine()->getManager()->flush($issuer);
+        }
+        exit;
+    }
 
+    /**
+     * @Route("/getpassportIssuance")
+     */
+    public function getpassportIssuanceAction(Request $request){
+        $iss = $this->getDoctrine()->getRepository('CrmMainBundle:Issuer')->findBy(['code'=> $request->request->get('code')]);
+        $dateEnd = new \DateTime($request->request->get('date'));
+        foreach ($iss as $is){
+            if ($is->getDateEnd() == null || $dateEnd <= $is->getDateEnd()){
+                echo $is->getTitle();
+            }
+        }
+        exit;
+    }
 }
 
