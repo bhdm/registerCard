@@ -40,9 +40,9 @@ class PaymentRepository extends EntityRepository
         }
 
         if ($isAdmin == false){
-            $q->andWhere('o.id ='.$params['operator']->getId());
+            $q->andWhere('o.id =' . $params['operator']->getId() );
         }else{
-            $q->andWhere('o.id ='.$params['operator']->getId().' OR c2.id is NULL');
+            $q->andWhere('o.id ='.$params['operator']->getId() . ' OR c2.id is NULL');
         }
         $q->orderBy('p.created','DESC');
 
