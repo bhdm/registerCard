@@ -20,6 +20,7 @@ class PaymentRepository extends EntityRepository
             ->leftJoin('p.client','c')
             ->leftJoin('c.company','c2')
             ->leftJoin('c2.operator','o')
+            ->leftJoin('p.operator','o2')
 
             ->where('p.enabled = 1 ');
 //
@@ -40,7 +41,7 @@ class PaymentRepository extends EntityRepository
         }
 
         if ($isAdmin == false){
-            $q->andWhere('o.id =' . $params['operator']->getId() );
+            $q->andWhere('o.id =' . $params['operator']->getId() OR 'o2.id = '.$params['operator']->getId());
         }else{
             $q->andWhere('o.id ='.$params['operator']->getId() . ' OR c2.id is NULL');
         }
