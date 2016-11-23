@@ -2,6 +2,7 @@
 
 namespace Panel\OperatorBundle\Controller;
 
+use Cocur\Slugify\Slugify;
 use Crm\MainBundle\Entity\Act;
 use Crm\MainBundle\Entity\StatusLog;
 use Crm\MainBundle\Entity\User;
@@ -221,6 +222,7 @@ class UserController extends Controller
         $user = $this->getDoctrine()->getRepository('CrmMainBundle:User')->findOneById($userId);
         $olduser = $user;
 
+        $slugify = new Slugify(null, ['lowercase' => false]);
         if ($user->getEnLastName() == null){
             $user->setEnLastName(ucfirst($this->get('slugify')->slugify($user->getLastName())));
         }
@@ -234,22 +236,22 @@ class UserController extends Controller
         if ($user->getEnDeliveryAdrs() == null){
             $adrs = $user->getRegisteredZipcode();
             if ($user->getRegisteredRegion()){
-                $adrs.= ', '.$this->get('slugify')->slugify($user->getRegisteredRegion(),'.');
+                $adrs.= ', '.$slugify->slugify($user->getRegisteredRegion(),'.');
             }
             if ($user->getRegisteredCity()){
-                $adrs.= ', '.$this->get('slugify')->slugify($user->getRegisteredCity(),'.');
+                $adrs.= ', '.$slugify->slugify($user->getRegisteredCity(),'.');
             }
             if ($user->getRegisteredStreet()){
-                $adrs.= ', '.$this->get('slugify')->slugify($user->getRegisteredStreet(),'.');
+                $adrs.= ', '.$slugify->slugify($user->getRegisteredStreet(),'.');
             }
             if ($user->getRegisteredHome()){
-                $adrs.= ', d.'.$this->get('slugify')->slugify($user->getRegisteredHome(),'.');
+                $adrs.= ', '.$slugify->slugify($user->getRegisteredHome(),'.');
             }
             if ($user->getRegisteredCorp()){
-                $adrs.= ', '.$this->get('slugify')->slugify($user->getRegisteredCorp(),'.');
+                $adrs.= ', '.$slugify->slugify($user->getRegisteredCorp(),'.');
             }
             if ($user->getRegisteredRoom()){
-                $adrs.= ', '.$this->get('slugify')->slugify($user->getRegisteredRoom(),'.');
+                $adrs.= ', '.$slugify->slugify($user->getRegisteredRoom(),'.');
             }
             $user->setEnDeliveryAdrs($adrs);
         }
