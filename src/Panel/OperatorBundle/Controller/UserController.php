@@ -234,22 +234,22 @@ class UserController extends Controller
         if ($user->getEnDeliveryAdrs() == null){
             $adrs = $user->getRegisteredZipcode();
             if ($user->getRegisteredRegion()){
-                $adrs.= ', '.ucfirst($this->get('slugify')->slugify($user->getRegisteredRegion()));
+                $adrs.= ', '.$this->get('slugify')->slugify($user->getRegisteredRegion(),'.');
             }
             if ($user->getRegisteredCity()){
-                $adrs.= ', '.ucfirst($this->get('slugify')->slugify($user->getRegisteredCity()));
+                $adrs.= ', '.$this->get('slugify')->slugify($user->getRegisteredCity(),'.');
             }
             if ($user->getRegisteredStreet()){
-                $adrs.= ', '.ucfirst($this->get('slugify')->slugify($user->getRegisteredStreet()));
+                $adrs.= ', '.$this->get('slugify')->slugify($user->getRegisteredStreet(),'.');
             }
             if ($user->getRegisteredHome()){
-                $adrs.= ', д.'.ucfirst($this->get('slugify')->slugify($user->getRegisteredHome()));
+                $adrs.= ', д.'.$this->get('slugify')->slugify($user->getRegisteredHome(),'.');
             }
             if ($user->getRegisteredCorp()){
-                $adrs.= ', '.ucfirst($this->get('slugify')->slugify($user->getRegisteredCorp()));
+                $adrs.= ', '.$this->get('slugify')->slugify($user->getRegisteredCorp(),'.');
             }
             if ($user->getRegisteredRoom()){
-                $adrs.= ', '.ucfirst($this->get('slugify')->slugify($user->getRegisteredRoom()));
+                $adrs.= ', '.$this->get('slugify')->slugify($user->getRegisteredRoom(),'.');
             }
             $user->setEnDeliveryAdrs($adrs);
         }
