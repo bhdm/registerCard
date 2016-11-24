@@ -231,48 +231,33 @@ class XmlController extends Controller
      * @Route("/image-to-pdf/{filename}", name="ImageToPdf")
      */
     public function imageToPdfAction($filename){
-
+        $mpdfService = $this->container->get('tfox.mpdfport');
 
         if (is_file('/var/www/upload/tmp/'.$filename)){
-            $filePath = '/var/www/upload/tmp/'.$filename;
+            $html = '<img src="https://im-kard.ru/upload/tmp/'.$filename.'" style="max-height: 700px; max-width: 100%"/>';
         }else{
-            $filePath = '/var/www/upload/docs/'.$filename;
+            $html = '<img src="https://im-kard.ru/upload/docs/'.$filename.'" style="max-height: 700px; max-width: 100%"/>';
         }
-        $image = new \Imagick();
-        $image->readImage($filePath);
-        $image->setResolution(300,300) ;
-        $image->setImageUnits(\Imagick::RESOLUTION_PIXELSPERINCH);
-        $image->setImageResolution(300,300);
-        $image->readImage($filePath);
-        $image->setImageFormat("png");
-        $image->setImageVirtualPixelMethod(\Imagick::VIRTUALPIXELMETHOD_TRANSPARENT);
-        $image->writeImage("/var/www/imkard/upload/test.png");
-
-//        $image = new \Imagick('/var/www/imkard/web/test.png');
-//        $pdf = new \Imagick();
-
-//        $pdf->compositeImage($image, \Imagick::COMPOSITE_MATHEMATICS, 0, 0);
-//        $pdf->setFormat('pdf');
-//        $pdf->writeImage("/var/www/imkard/test.pdf");
-//        exit;
-        $mpdfService = $this->container->get('tfox.mpdfport');
-//        if (is_file('/var/www/upload/tmp/'.$filename)){
-            $html = '<img src="https://im-kard.ru/upload/test.png" style=""/>';
-//        }else{
-//            $html = '<img src="https://im-kard.ru/upload/docs/'.$filename.'" style="max-height: 700px; max-width: 100%"/>';
-//        }
-
 
 //        echo $html;
 //        exit;
 
-        $width1 = rand(0,200);
-        $width2 = rand(0,200);
-        $width3 = rand(0,200);
+
+        $width1 = rand(0,50);
+        $width2 = rand(0,40);
+        $width3 = rand(-10,20);
+        $width3 +=$width2;
+        $r1 = rand(1,8);
+        $r2 = rand(1,8);
+        $r3 = rand(1,8);
         $html.= '<br /><br /><br />';
-        $html.= '<img src="/bundles/crmmain/images/copy1.png"  style="margin-left: '.$width1.'px"/>';
-        $html.= '<img src="/bundles/crmmain/images/copy2.png"  style="margin-left: '.$width2.'px"/><br /><br />';
-        $html.= '<img src="/bundles/crmmain/images/copy3.png"  style="margin-left: '.$width3.'px"/>';
+        $html.='<table><tr>';
+        $html.= '<td><img src="/bundles/crmmain/images/stamp/stamp_'.$r1.'.png"  style="margin-left: '.$width1.'px; width: 155px"/></td>';
+        $html.= '<td><img src="/bundles/crmmain/images/right/right_'.$r2.'.png"  style="margin-left: '.$width2.'px; width: 135px"/><br /><br />';
+        $html.= '<img src="/bundles/crmmain/images/sign/sign_'.$r3.'.png"  style="margin-left: '.$width3.'px; width: 85px"/></td>';
+        $html.='</tr></table>';
+
+
         $html = iconv("UTF-8","UTF-8//IGNORE",$html);
         $arguments = array(
 //            'constructorArgs' => array('utf-8', 'A4-P', 5 ,5 ,5 ,5,5 ),
@@ -286,8 +271,6 @@ class XmlController extends Controller
         $mpdfService->allow_charset_conversion = false;
         $mpdfService->debug = true;
 
-//        unlink('/var/www/imkard/upload/test.png');
-        $image->destroy();
         return $mpdfService->generatePdfResponse($html, $arguments);
     }
 
