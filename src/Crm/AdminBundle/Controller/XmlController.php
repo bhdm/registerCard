@@ -239,6 +239,7 @@ class XmlController extends Controller
             $filePath = '/var/www/upload/docs/'.$filename;
         }
         $image = new \Imagick();
+        $image->readImage($filePath);
         $image->setResolution(72,72) ;
         $image->setImageUnits(\Imagick::RESOLUTION_PIXELSPERINCH);
         $image->setImageResolution(300,300);
