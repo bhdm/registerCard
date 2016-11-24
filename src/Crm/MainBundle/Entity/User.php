@@ -387,6 +387,21 @@ class User extends BaseEntity implements UserInterface, EquatableInterface, \Ser
     /**
      * @ORM\Column(type="array", nullable=true)
      */
+    protected $copySignature2;
+
+    /**
+     * @ORM\Column(type="array", nullable=true)
+     */
+    protected $copySignature3;
+
+    /**
+     * @ORM\Column(type="array", nullable=true)
+     */
+    protected $copySignature4;
+
+    /**
+     * @ORM\Column(type="array", nullable=true)
+     */
     protected $copyLastCard;
 
     /**
@@ -2391,6 +2406,55 @@ class User extends BaseEntity implements UserInterface, EquatableInterface, \Ser
     {
         $this->act = $act;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getCopySignature2()
+    {
+        return $this->copySignature2;
+    }
+
+    /**
+     * @param mixed $copySignature2
+     */
+    public function setCopySignature2($copySignature2)
+    {
+        $this->copySignature2 = $copySignature2;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCopySignature3()
+    {
+        return $this->copySignature3;
+    }
+
+    /**
+     * @param mixed $copySignature3
+     */
+    public function setCopySignature3($copySignature3)
+    {
+        $this->copySignature3 = $copySignature3;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCopySignature4()
+    {
+        return $this->copySignature4;
+    }
+
+    /**
+     * @param mixed $copySignature4
+     */
+    public function setCopySignature4($copySignature4)
+    {
+        $this->copySignature4 = $copySignature4;
+    }
+
 
 
 }

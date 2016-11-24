@@ -196,6 +196,9 @@ class UserController extends Controller
         $session->set('snilsFile', null);
         $session->set('innFile', null);
         $session->set('signFile', null);
+        $session->set('sign2File', null);
+        $session->set('sign3File', null);
+        $session->set('sign4File', null);
         $session->set('photoFile', null);
         $session->set('petitionFile', null);
         $session->set('workFile', null);
@@ -211,6 +214,9 @@ class UserController extends Controller
         $session->set('origin-snilsFile', null);
         $session->set('origin-innFile', null);
         $session->set('origin-signFile', null);
+        $session->set('origin-sign2File', null);
+        $session->set('origin-sign3File', null);
+        $session->set('origin-sign4File', null);
         $session->set('origin-photoFile', null);
         $session->set('origin-petitionFile', null);
         $session->set('origin-workFile', null);
@@ -490,6 +496,20 @@ class UserController extends Controller
             if (!empty($file) && file_exists('/var/www/' . $file['path'])) {
                 $session->set('signFile', '/var/www/' . $file['path']);
             }
+
+            $file = $user->getCopySignature2();
+            if (!empty($file) && file_exists('/var/www/' . $file['path'])) {
+                $session->set('sign2File', '/var/www/' . $file['path']);
+            }
+            $file = $user->getCopySignature3();
+            if (!empty($file) && file_exists('/var/www/' . $file['path'])) {
+                $session->set('sign3File', '/var/www/' . $file['path']);
+            }
+            $file = $user->getCopySignature4();
+            if (!empty($file) && file_exists('/var/www/' . $file['path'])) {
+                $session->set('sign4File', '/var/www/' . $file['path']);
+            }
+
             $file = $user->getCopyPetition();
             if (!empty($file) && file_exists('/var/www/' . $file['path'])) {
                 $session->set('petitionFile', '/var/www/' . $file['path']);
