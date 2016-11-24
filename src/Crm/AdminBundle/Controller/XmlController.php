@@ -231,20 +231,48 @@ class XmlController extends Controller
      * @Route("/image-to-pdf/{filename}", name="ImageToPdf")
      */
     public function imageToPdfAction($filename){
-        $mpdfService = $this->container->get('tfox.mpdfport');
+
 
         if (is_file('/var/www/upload/tmp/'.$filename)){
-            $html = '<img src="https://im-kard.ru/upload/tmp/'.$filename.'" style="max-height: 700px; max-width: 100%"/>';
+            $filePath = '/var/www/upload/tmp/'.$filename;
         }else{
-            $html = '<img src="https://im-kard.ru/upload/docs/'.$filename.'" style="max-height: 700px; max-width: 100%"/>';
+            $filePath = '/var/www/upload/docs/'.$filename;
         }
+        $image = new \Imagick();
+        $image->setResolution(72,72) ;
+        $image->readImage($filePath);
+        $image->setSize(595,842);
+//        $image->setImageUnits(\Imagick::RESOLUTION_PIXELSPERINCH);
+        $image->resampleImage(72,72,\Imagick::FILTER_UNDEFINED,1);
+        $image->setImageFormat("png");
+        $image->setImageVirtualPixelMethod(\Imagick::VIRTUALPIXELMETHOD_TRANSPARENT);
+        $image->writeImage("/var/www/imkard/web/test.png");
+
+//        $image = new \Imagick('/var/www/imkard/web/test.png');
+//        $pdf = new \Imagick();
+
+//        $pdf->compositeImage($image, \Imagick::COMPOSITE_MATHEMATICS, 0, 0);
+//        $pdf->setFormat('pdf');
+//        $pdf->writeImage("/var/www/imkard/test.pdf");
+//        exit;
+        $mpdfService = $this->container->get('tfox.mpdfport');
+//        if (is_file('/var/www/upload/tmp/'.$filename)){
+            $html = '<img src="https://im-kard.ru/web/test.png" />';
+//        }else{
+//            $html = '<img src="https://im-kard.ru/upload/docs/'.$filename.'" style="max-height: 700px; max-width: 100%"/>';
+//        }
+
 
 //        echo $html;
 //        exit;
 
-        $width = rand(0,200);
+        $width1 = rand(0,200);
+        $width2 = rand(0,200);
+        $width3 = rand(0,200);
         $html.= '<br /><br /><br />';
-        $html.= '<img src="/bundles/crmmain/images/copy.png"  style="margin-left: '.$width.'px"/>';
+        $html.= '<img src="/bundles/crmmain/images/copy1.png"  style="margin-left: '.$width1.'px"/>';
+        $html.= '<img src="/bundles/crmmain/images/copy2.png"  style="margin-left: '.$width2.'px"/><br /><br />';
+        $html.= '<img src="/bundles/crmmain/images/copy3.png"  style="margin-left: '.$width3.'px"/>';
         $html = iconv("UTF-8","UTF-8//IGNORE",$html);
         $arguments = array(
 //            'constructorArgs' => array('utf-8', 'A4-P', 5 ,5 ,5 ,5,5 ),
