@@ -240,7 +240,7 @@ class XmlController extends Controller
         }
         $image = new \Imagick();
         $image->readImage($filePath);
-        $image->setResolution(72,72) ;
+        $image->setResolution(300,300) ;
         $image->setImageUnits(\Imagick::RESOLUTION_PIXELSPERINCH);
         $image->setImageResolution(300,300);
         $image->readImage($filePath);
