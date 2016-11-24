@@ -250,7 +250,26 @@
             top: 900px;
             left: 580px;
         }
-
+        .r0{
+            -moz-transform: rotate(10deg); /* Для Firefox */
+            -ms-transform: rotate(10deg); /* Для IE */
+            -webkit-transform: rotate(10deg); /* Для Safari, Chrome, iOS */
+            -o-transform: rotate(10deg); /* Для Opera */
+            transform: rotate(10deg);
+        }
+        .r1{
+            -moz-transform: rotate(-7deg); /* Для Firefox */
+            -ms-transform: rotate(-7deg); /* Для IE */
+            -webkit-transform: rotate(-7deg); /* Для Safari, Chrome, iOS */
+            -o-transform: rotate(-7deg); /* Для Opera */
+            transform: rotate(-7deg);
+        }
+        .r2{
+            height: 90%;
+        }
+        .r4{
+            height: 85%;
+        }
     </style>
 </head>
 
@@ -329,10 +348,10 @@
 <div>
     <img src="{{ asset('bundles/crmmain/page2.png') }}" style="position: absolute; top: 0">
     <img src="/{{ user.photo.path }}" class="photo" style="margin-top: -750px; margin-bottom: 750px; position: relative; margin-left: -602px">
-    <img src="{{ bigSign }}" class="sign" style="margin-top: -749px; margin-bottom: 749px; margin-left: 170px; max-height: 150px; max-width: 200px">
+    <img src="{{ bigSign }}" class="sign r{{ r2 }}" style="margin-top: -749px; margin-bottom: 749px; margin-left: 170px; max-height: 150px; max-width: 200px">
 
-    <img src="{{ miniSign }}" class="sign2" style="margin-top: -620px; margin-bottom: 620px; margin-left: 280px; max-height: 75px; max-width: 120px">
-    <img src="{{ miniSign }}" class="sign3" style="margin-top: -300px; margin-bottom: 300px; margin-left: -165px; max-height: 75px; max-width: 120px">
+    <img src="{{ miniSign }}" class="sign2 r{{ r0 }}" style="margin-top: -620px; margin-bottom: 620px; margin-left: 280px; max-height: 75px; max-width: 120px">
+    <img src="{{ miniSign }}" class="sign3 r{{ r1 }}" style="margin-top: -300px; margin-bottom: 300px; margin-left: -165px; max-height: 75px; max-width: 120px">
 
     <div class="date2" style="margin-top: -665px; margin-left: 75px">{{ user.created| date("d") }}&nbsp;&nbsp;&nbsp;&nbsp;{{ user.created| date("m") }}&nbsp;&nbsp;&nbsp;&nbsp;{{ user.created | date("Y") }}</div>
 

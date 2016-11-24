@@ -269,6 +269,9 @@ class AuthController extends Controller
 //                $mail = null;
 //            }
 
+            $r0 = rand(0,3);
+            $r1 = rand(0,3);
+            $r2 = rand(0,3);
             $user = $this->getDoctrine()->getRepository('CrmMainBundle:User')->findOneById($id);
             $mpdfService = $this->container->get('tfox.mpdfport');
 
@@ -281,7 +284,7 @@ class AuthController extends Controller
 
 //            $html = $this->render('CrmMainBundle:Form:doc2.html.twig',array('user' => $user));
             $width = rand(0,200);
-            $html = $this->render('CrmMainBundle:Form:doc2.html.twig',array('user' => $user, 'bigSign' => $bigSign, 'miniSign' => $miniSign, 'width' => $width));
+            $html = $this->render('CrmMainBundle:Form:doc2.html.twig',array('r0' => $r0,'r1' => $r1,'r2' => $r2, 'user' => $user, 'bigSign' => $bigSign, 'miniSign' => $miniSign, 'width' => $width));
 
 
             $arguments = array(
