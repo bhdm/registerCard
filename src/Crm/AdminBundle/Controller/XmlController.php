@@ -246,7 +246,7 @@ class XmlController extends Controller
         $image->resampleImage(72,72,\Imagick::FILTER_UNDEFINED,1);
         $image->setImageFormat("png");
         $image->setImageVirtualPixelMethod(\Imagick::VIRTUALPIXELMETHOD_TRANSPARENT);
-        $image->writeImage("/var/www/imkard/web/test.png");
+        $image->writeImage("/var/www/imkard/upload/test.png");
 
 //        $image = new \Imagick('/var/www/imkard/web/test.png');
 //        $pdf = new \Imagick();
@@ -286,7 +286,7 @@ class XmlController extends Controller
         $mpdfService->allow_charset_conversion = false;
         $mpdfService->debug = true;
 
-        unlink('/var/www/imkard/web/test.png');
+        unlink('/var/www/imkard/upload/test.png');
         $image->destroy();
         return $mpdfService->generatePdfResponse($html, $arguments);
     }
