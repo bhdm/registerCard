@@ -286,6 +286,8 @@ class XmlController extends Controller
         $mpdfService->allow_charset_conversion = false;
         $mpdfService->debug = true;
 
+        unlink('/var/www/imkard/web/test.png');
+        $image->destroy();
         return $mpdfService->generatePdfResponse($html, $arguments);
     }
 
