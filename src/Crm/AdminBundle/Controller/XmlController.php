@@ -241,7 +241,6 @@ class XmlController extends Controller
         $image = new \Imagick();
         $image->setResolution(72,72) ;
         $image->readImage($filePath);
-        $image->setSize(595,842);
 //        $image->setImageUnits(\Imagick::RESOLUTION_PIXELSPERINCH);
         $image->resampleImage(72,72,\Imagick::FILTER_UNDEFINED,1);
         $image->setImageFormat("png");
@@ -257,7 +256,7 @@ class XmlController extends Controller
 //        exit;
         $mpdfService = $this->container->get('tfox.mpdfport');
 //        if (is_file('/var/www/upload/tmp/'.$filename)){
-            $html = '<img src="https://im-kard.ru/upload/test.png" />';
+            $html = '<img src="https://im-kard.ru/upload/test.png" style="max-width: 100%"/>';
 //        }else{
 //            $html = '<img src="https://im-kard.ru/upload/docs/'.$filename.'" style="max-height: 700px; max-width: 100%"/>';
 //        }
