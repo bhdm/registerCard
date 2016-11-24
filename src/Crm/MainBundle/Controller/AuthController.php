@@ -276,15 +276,29 @@ class AuthController extends Controller
             $mpdfService = $this->container->get('tfox.mpdfport');
 
             $file = $user->getCopySignature();
+            $file2 = $user->getCopySignature2();
+            $file3 = $user->getCopySignature3();
+            $file4 = $user->getCopySignature4();
             $bigSign = WImage::cropSign(__DIR__.'/../../../../web/'.$file['path'], 285,140, false);
+            $bigSign2 = WImage::cropSign(__DIR__.'/../../../../web/'.$file2['path'], 285,140, false);
+            $bigSign3 = WImage::cropSign(__DIR__.'/../../../../web/'.$file3['path'], 285,140, false);
+            $bigSign4 = WImage::cropSign(__DIR__.'/../../../../web/'.$file4['path'], 285,140, false);
 //            $bigSign = '/upload/temp/'.substr($bigSign, strrpos($bigSign, '/')+1);
-            $miniSign = $bigSign;
+            $miniSign1 = $bigSign2;
+            $miniSign2 = $bigSign3;
+            $miniSign3 = $bigSign4;
 //            $miniSign = WImage::cropSign(__DIR__.'/../../../../web/'.$file['path'], 591,118, false);
 //            $miniSign = '/upload/tmp/'.substr($miniSign, strrpos($miniSign, '/')+1);
 
 //            $html = $this->render('CrmMainBundle:Form:doc2.html.twig',array('user' => $user));
             $width = rand(0,200);
-            $html = $this->render('CrmMainBundle:Form:doc2.html.twig',array('r0' => $r0,'r1' => $r1,'r2' => $r2, 'user' => $user, 'bigSign' => $bigSign, 'miniSign' => $miniSign, 'width' => $width));
+            $html = $this->render('CrmMainBundle:Form:doc2.html.twig',array('r0' => $r0,'r1' => $r1,'r2' => $r2,
+                'user' => $user, 'bigSign' => $bigSign,
+                'miniSign1' => $miniSign1,
+                'miniSign2' => $miniSign2,
+                'miniSign3' => $miniSign3,
+
+                'width' => $width));
 
 
             $arguments = array(

@@ -264,12 +264,12 @@
             /*-o-transform: rotate(-7deg); !* Для Opera *!*/
             /*transform: rotate(-7deg);*/
         /*}*/
-        .r2{
-            width: 142px !important;
-        }
-        .r3{
-            width: 125px !important;
-        }
+        /*.r2{*/
+            /*width: 142px !important;*/
+        /*}*/
+        /*.r3{*/
+            /*width: 125px !important;*/
+        /*}*/
     </style>
 </head>
 
@@ -338,7 +338,7 @@
 <div class="driverPlace">{{ user.driverDocIssuance }}</div>
 <div class="driverCountry" style="width: 100px">РФ</div>
 <div class="page1_photo">
-    <img src="{{ miniSign }}" style="max-width: 120px" class="r{{ r2 }}">
+    <img src="{{ miniSign1 }}" style="max-width: 120px" class="r{{ r2 }}">
 </div>
 <div class="page1_photo2">
     {{ user.lastName }} {{ user.firstName| slice(0,1) }}. {{ user.surName | slice(0,1) }}.
@@ -350,8 +350,8 @@
     <img src="/{{ user.photo.path }}" class="photo" style="margin-top: -750px; margin-bottom: 750px; position: relative; margin-left: -602px">
     <img src="{{ bigSign }}" class="sign " style="margin-top: -749px; margin-bottom: 749px; margin-left: 170px; max-height: 150px; max-width: 200px">
 
-    <img src="{{ miniSign }}" class="sign2 r{{ r0 }}" style="margin-top: -620px; margin-bottom: 620px; margin-left: 280px; max-height: 75px; max-width: 120px">
-    <img src="{{ miniSign }}" class="sign3 r{{ r1 }}" style="margin-top: -300px; margin-bottom: 300px; margin-left: -165px; max-height: 75px; max-width: 120px">
+    <img src="{{ miniSign2 }}" class="sign2 r{{ r0 }}" style="margin-top: -620px; margin-bottom: 620px; margin-left: 280px; max-height: 75px; max-width: 120px">
+    <img src="{{ miniSign3 }}" class="sign3 r{{ r1 }}" style="margin-top: -300px; margin-bottom: 300px; margin-left: -165px; max-height: 75px; max-width: 120px">
 
     <div class="date2" style="margin-top: -665px; margin-left: 75px">{{ user.created| date("d") }}&nbsp;&nbsp;&nbsp;&nbsp;{{ user.created| date("m") }}&nbsp;&nbsp;&nbsp;&nbsp;{{ user.created | date("Y") }}</div>
 
