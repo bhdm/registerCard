@@ -239,10 +239,10 @@ class XmlController extends Controller
             $filePath = '/var/www/upload/docs/'.$filename;
         }
         $image = new \Imagick();
-        $image->setResolution(72,72) ;
+        $image->setResolution(200,200) ;
         $image->readImage($filePath);
 //        $image->setImageUnits(\Imagick::RESOLUTION_PIXELSPERINCH);
-        $image->resampleImage(72,72,\Imagick::FILTER_UNDEFINED,1);
+        $image->resampleImage(200,200,\Imagick::FILTER_UNDEFINED,1);
         $image->setImageFormat("png");
         $image->setImageVirtualPixelMethod(\Imagick::VIRTUALPIXELMETHOD_TRANSPARENT);
         $image->writeImage("/var/www/imkard/upload/test.png");
