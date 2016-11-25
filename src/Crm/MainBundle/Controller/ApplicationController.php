@@ -147,12 +147,13 @@ class ApplicationController extends Controller
             $user->setCopyDriverPassportTranslate($this->getImgToArray($session->get('driverTranslateFile')));
             $user->setCopySnils($this->getImgToArray($session->get('snilsFile')));
             $user->setCopySignature($this->getImgToArray($session->get('signFile')));
-            copy($session->get('signFile'),$session->get('signFile').'2');
-            copy($session->get('signFile'),$session->get('signFile').'3');
-            copy($session->get('signFile'),$session->get('signFile').'4');
-            $user->setCopySignature2($this->getImgToArray($session->get('signFile').'2'));
-            $user->setCopySignature3($this->getImgToArray($session->get('signFile').'3'));
-            $user->setCopySignature4($this->getImgToArray($session->get('signFile').'4'));
+            $img = substr($session->get('signFile'),0,-4);
+            copy($session->get('signFile'),$img.'2.jpg');
+            copy($session->get('signFile'),$img.'3.jpg');
+            copy($session->get('signFile'),$img.'4.jpg');
+            $user->setCopySignature2($this->getImgToArray($img.'2.jpg'));
+            $user->setCopySignature3($this->getImgToArray($img.'3.jpg'));
+            $user->setCopySignature4($this->getImgToArray($img.'4.jpg'));
             $user->setPhoto($this->getImgToArray($session->get('photoFile')));
             $user->setTypeCardFile($this->getImgToArray($session->get('typeCardFile')));
 
