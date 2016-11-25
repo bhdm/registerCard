@@ -284,10 +284,31 @@ class UserController extends Controller
             }
             $user->setRuDeliveryAdrs($adrs);
         }
+
+        if ($user->getCopySignature2() == null){
+            copy($user->getCopySignature()['path'],$user->getCopySignature()['path'].'2');
+            $user->setCopySignature2($user->getCopySignature()['path'].'2');
+            $user->setCopySignature2($user->getCopySignature()['path'].'2');
+        }
+
+        if ($user->getCopySignature3() == null){
+            copy($user->getCopySignature()['path'],$user->getCopySignature()['path'].'3');
+            $user->setCopySignature3($user->getCopySignature()['path'].'3');
+            $user->setCopySignature3($user->getCopySignature()['path'].'3');
+        }
+
+        if ($user->getCopySignature4() == null){
+            copy($user->getCopySignature()['path'],$user->getCopySignature()['path'].'4');
+            $user->setCopySignature4($user->getCopySignature()['path'].'4');
+            $user->setCopySignature4($user->getCopySignature()['path'].'4');
+        }
+
         $this->getDoctrine()->getManager()->flush($user);
 
 
         $referer = $request->headers->get('referer').'#userr'.$userId;
+
+
 
 
         if ($request->getMethod() == 'POST') {
