@@ -49,7 +49,7 @@ class ImageController extends Controller
                 $image = new \Imagick($path);
                 $image->setImageFormat('jpg');
 //                $image->stripImage();
-                if ($type == 'signFile'){
+                if ($type == 'signFile' || $type='sign2File'|| $type='sign3File'|| $type='sign4File'){
                     $image->setImageColorSpace(\Imagick::COLORSPACE_GRAY);
 //                    $image->contrastImage (100);
 //                    $image->blackThresholdImage('#666666');
