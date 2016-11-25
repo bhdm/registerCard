@@ -9,7 +9,7 @@
 
 {% block content %}
     <div class="well" style="max-width: 940px;">
-        <form method="post">
+        <form method="post" enctype="multipart/form-data">
             <input type="hidden" name="referer" value="{{ referer }}" >
             <table class="table">
 
@@ -600,29 +600,29 @@
 
                             <div class="col-sm-4 col-sm-offset-3">
                                 <input type="file" name="sign3File" id="sign3File"  data-type="sign3File" class="fileAjax">
-                                {#{% if user.copySignature3.path is defined %}#}
+                                {% if user.copySignature3.path is defined %}
                                     <img src="/{{ user.copySignature3.path }}" brightness="0" contrast="0" data-type="sign3File" class="document" id="sign3FileImg">
                                     <br>
                                     <a href="{{ path('panel_download_png',{'filename' : user.copySignature3.fileName }) }}">Скачать</a>
-                                {#{% endif %}#}
+                                {% endif %}
                             </div>
                             <div class="col-sm-1"></div>
                             <div class="col-sm-4">
                                 <input type="file" name="sign2File" id="sign2File"  data-type="sign2File" class="fileAjax">
-                                {#{% if user.copySignature2.path is defined %}#}
+                                {% if user.copySignature2.path is defined %}
                                     <img src="/{{ user.copySignature2.path }}" brightness="0" contrast="0" data-type="sign2File" class="document" id="sign2FileImg">
                                     <br>
                                     <a href="{{ path('panel_download_png',{'filename' : user.copySignature2.fileName }) }}">Скачать</a>
-                                {#{% endif %}#}
+                                {% endif %}
                             </div>
 
                             <div class="col-sm-4 col-sm-offset-3">
                                 <input type="file" name="sign4File" id="sign4File"  data-type="sign4File" class="fileAjax">
-                                {#{% if user.copySignature4.path is defined %}#}
+                                {% if user.copySignature4.path is defined %}
                                     <img src="/{{ user.copySignature4.path }}" brightness="0" contrast="0" data-type="sign4File" class="document" id="sign4FileImg">
                                     <br>
                                     <a href="{{ path('panel_download_png',{'filename' : user.copySignature4.fileName }) }}">Скачать</a>
-                                {#{% endif %}#}
+                                {% endif %}
                             </div>
                         </div>
                     </td>

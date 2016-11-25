@@ -187,43 +187,44 @@ class UserController extends Controller
 
 
 
+        if ($request->getMethod() == 'GET') {
+            $session->set('passportFile', null);
+            $session->set('passport2File', null);
+            $session->set('passportTranslateFile', null);
+            $session->set('driverFile', null);
+            $session->set('driver2File', null);
+            $session->set('snilsFile', null);
+            $session->set('innFile', null);
+            $session->set('signFile', null);
+            $session->set('sign2File', null);
+            $session->set('sign3File', null);
+            $session->set('sign4File', null);
+            $session->set('photoFile', null);
+            $session->set('petitionFile', null);
+            $session->set('workFile', null);
+            $session->set('copyLastCardFile', null);
+            $session->set('copyTypeCardFile', null);
 
-        $session->set('passportFile', null);
-        $session->set('passport2File', null);
-        $session->set('passportTranslateFile', null);
-        $session->set('driverFile', null);
-        $session->set('driver2File', null);
-        $session->set('snilsFile', null);
-        $session->set('innFile', null);
-        $session->set('signFile', null);
-        $session->set('sign2File', null);
-        $session->set('sign3File', null);
-        $session->set('sign4File', null);
-        $session->set('photoFile', null);
-        $session->set('petitionFile', null);
-        $session->set('workFile', null);
-        $session->set('copyLastCardFile', null);
-        $session->set('copyTypeCardFile', null);
 
+            $session->set('origin-passportFile', null);
+            $session->set('origin-passportTranslateFile', null);
+            $session->set('origin-passport2File', null);
+            $session->set('origin-driverFile', null);
+            $session->set('origin-driver2File', null);
+            $session->set('origin-snilsFile', null);
+            $session->set('origin-innFile', null);
+            $session->set('origin-signFile', null);
+            $session->set('origin-sign2File', null);
+            $session->set('origin-sign3File', null);
+            $session->set('origin-sign4File', null);
+            $session->set('origin-photoFile', null);
+            $session->set('origin-petitionFile', null);
+            $session->set('origin-workFile', null);
+            $session->set('origin-copyLastCardFile', null);
+            $session->set('origin-copyTypeCardFile', null);
+            $session->save();
+        }
 
-        $session->set('origin-passportFile', null);
-        $session->set('origin-passportTranslateFile', null);
-        $session->set('origin-passport2File', null);
-        $session->set('origin-driverFile', null);
-        $session->set('origin-driver2File', null);
-        $session->set('origin-snilsFile', null);
-        $session->set('origin-innFile', null);
-        $session->set('origin-signFile', null);
-        $session->set('origin-sign2File', null);
-        $session->set('origin-sign3File', null);
-        $session->set('origin-sign4File', null);
-        $session->set('origin-photoFile', null);
-        $session->set('origin-petitionFile', null);
-        $session->set('origin-workFile', null);
-        $session->set('origin-copyLastCardFile', null);
-        $session->set('origin-copyTypeCardFile', null);
-
-        $session->save();
 
         $user = $this->getDoctrine()->getRepository('CrmMainBundle:User')->findOneById($userId);
         $olduser = $user;
@@ -1416,6 +1417,15 @@ class UserController extends Controller
                 break;
             case 'signFile' :
                 $user->setCopySignature($img);
+                break;
+            case 'sign2File' :
+                $user->setCopySignature2($img);
+                break;
+            case 'sign3File' :
+                $user->setCopySignature3($img);
+                break;
+            case 'sign4File' :
+                $user->setCopySignature4($img);
                 break;
             case 'workFile' :
                 $user->setCopyWork($img);
