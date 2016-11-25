@@ -285,6 +285,7 @@ class UserController extends Controller
             $user->setRuDeliveryAdrs($adrs);
         }
 
+
 //        if ($user->getCopySignature2() == null){
 //            copy($user->getCopySignature()['path'],$user->getCopySignature()['path'].'2');
 //            $user->setCopySignature2($user->getCopySignature()['path'].'2');
