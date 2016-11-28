@@ -307,7 +307,7 @@
         {% if user.petitionAdrs.city is defined and user.petitionAdrs.city != null and user.petitionAdrs.city != '' %}
             {{ user.petitionAdrs.zipcode }},
             {{ user.petitionAdrs.city }},
-            {{ user.petitionAdrs.street }},д.{{ user.petitionAdrs.home }} {{ user.petitionAdrs.corp }}, {{ user.petitionAdrs.room }}
+            {{ user.petitionAdrs.street }},д.{{ user.petitionAdrs.house }} {{ user.petitionAdrs.corp }}, {{ user.petitionAdrs.room }}
         {% else %}
             195196, г.Санкт-Петербург, ул.Громова, д.14/6, лит. А, пом. 3-Н
         {% endif %}
