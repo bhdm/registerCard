@@ -238,6 +238,7 @@ class XmlController extends Controller
         }
 //        1479045775.jpg
         $file = new \Imagick('/var/www/'.$filename);
+        $image->setResolution(300,300);
 
         $image = new \Imagick();
         $image->newImage(595, 842, new \ImagickPixel('white'));
