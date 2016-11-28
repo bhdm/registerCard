@@ -231,6 +231,11 @@ class XmlController extends Controller
      * @Route("/create-image/{type}/{filename}/{dpi}", defaults={"dpi" = 300})
      */
     public function createImageAction($type, $filename, $dpi){
+        $types = array(
+            'passport' => ['x' => 590, 'y' =>  800],
+            'driver' => ['x' => 400, 'y' =>  250],
+            'inn' => ['x' => 827, 'y' =>  1170]
+        );
         if (is_file('/var/www/upload/tmp/'.$filename)){
             $filename = 'upload/tmp/'.$filename;
         }else{
@@ -238,12 +243,14 @@ class XmlController extends Controller
         }
 //        1479045775.jpg
         $file = new \Imagick('/var/www/'.$filename);
-        $w = $file->getImageResolution()['x']*$file->getImageWidth()/$dpi;
-        $h = $file->getImageResolution()['y']*$file->getImageHeight()/$dpi;
+//        $w = $file->getImageResolution()['x']*$file->getImageWidth()/$dpi;
+//        $h = $file->getImageResolution()['y']*$file->getImageHeight()/$dpi;
+        $w = $types[$type]['x'];
+        $h = $types[$type]['y'];
         $file->resizeImage($w,$h, \Imagick::FILTER_LANCZOS,1);
 
         $image = new \Imagick();
-        $image->newImage(595, 842, new \ImagickPixel('white'));
+        $image->newImage(827, 1170, new \ImagickPixel('white'));
         $image->setImageArtifact('compose:args', "1,0,-0.5,0.5");
         $image->setImageVirtualPixelMethod(\Imagick::VIRTUALPIXELMETHOD_TRANSPARENT);
 
