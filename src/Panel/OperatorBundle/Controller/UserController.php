@@ -230,14 +230,15 @@ class UserController extends Controller
         $olduser = $user;
 
         $slugify = new Slugify(null, ['lowercase' => false]);
+        $slugify->addRule('й','y');
         if ($user->getEnLastName() == null){
-            $user->setEnLastName(ucfirst($this->get('slugify')->slugify($user->getLastName())));
+            $user->setEnLastName(ucfirst($slugify->slugify($user->getLastName())));
         }
         if ($user->getEnFirstName() == null){
-            $user->setEnFirstName(ucfirst($this->get('slugify')->slugify($user->getFirstName())));
+            $user->setEnFirstName(ucfirst($slugify->slugify($user->getFirstName())));
         }
         if ($user->getEnSurName() == null){
-            $user->setEnSurName(ucfirst($this->get('slugify')->slugify($user->getSurName())));
+            $user->setEnSurName(ucfirst($slugify->slugify($user->getSurName())));
         }
 
         if ($user->getEnDeliveryAdrs() == null){
