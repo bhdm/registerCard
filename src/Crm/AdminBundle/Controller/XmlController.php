@@ -238,8 +238,8 @@ class XmlController extends Controller
         }
 //        1479045775.jpg
         $file = new \Imagick('/var/www/'.$filename);
-        $w = 72*$file->getImageWidth()/$dpi;
-        $h = 72*$file->getImageHeight()/$dpi;
+        $w = $file->getImageResolution()*$file->getImageWidth()/$dpi;
+        $h = $file->getImageResolution()*$file->getImageHeight()/$dpi;
         $file->resizeImage($w,$h, \Imagick::FILTER_LANCZOS,1);
 
         $image = new \Imagick();
