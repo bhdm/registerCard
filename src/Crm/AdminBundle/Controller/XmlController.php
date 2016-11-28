@@ -252,8 +252,11 @@ class XmlController extends Controller
 
 
         $stamp = new \Imagick($this->get('kernel')->getRootDir() . '/../web/bundles/crmmain/images/stamp/stamp_1.png');
+        $stamp->resizeImage($stamp->getImageWidth()*0.85, $stamp->getImageHeight()*0.85, \Imagick::FILTER_LANCZOS,1);
         $sign = new \Imagick($this->get('kernel')->getRootDir() . '/../web/bundles/crmmain/images/sign/sign_1.png');
+        $sign->resizeImage($sign->getImageWidth()*0.85, $sign->getImageHeight()*0.85, \Imagick::FILTER_LANCZOS,1);
         $right = new \Imagick($this->get('kernel')->getRootDir() . '/../web/bundles/crmmain/images/right/right_1.png');
+        $right->resizeImage($right->getImageWidth()*0.85, $right->getImageHeight()*0.85, \Imagick::FILTER_LANCZOS,1);
 
         $width = 100;
         $height = $file->getImageHeight()+30;
