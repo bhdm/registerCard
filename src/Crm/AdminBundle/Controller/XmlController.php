@@ -228,9 +228,9 @@ class XmlController extends Controller
     }
 
     /**
-     * @Route("/create-image/{type}/{filename}")
+     * @Route("/create-image/{type}/{filename}/{dpi}", defaults={"dpi" = 300})
      */
-    public function createImageAction($type, $filename){
+    public function createImageAction($type, $filename, $dpi){
         if (is_file('/var/www/upload/tmp/'.$filename)){
             $filename = 'upload/tmp/'.$filename;
         }else{
@@ -238,8 +238,8 @@ class XmlController extends Controller
         }
 //        1479045775.jpg
         $file = new \Imagick('/var/www/'.$filename);
-        $w = 72*$file->getImageWidth()/300;
-        $h = 72*$file->getImageHeight()/300;
+        $w = 72*$file->getImageWidth()/$dpi;
+        $h = 72*$file->getImageHeight()/$dpi;
         $file->resizeImage($w,$h, \Imagick::FILTER_LANCZOS,1);
 
         $image = new \Imagick();
