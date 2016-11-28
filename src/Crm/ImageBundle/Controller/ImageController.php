@@ -47,6 +47,7 @@ class ImageController extends Controller
                 $tmpPath = $file->getPathName();
                 move_uploaded_file($tmpPath,$path);
                 $image = new \Imagick($path);
+                $image->setResolution(72);
                 $image->setImageFormat('jpg');
 //                $image->stripImage();
                 if ($type == 'signFile' || $type=='sign2File'|| $type=='sign3File'|| $type=='sign4File'){

@@ -228,6 +228,65 @@ class XmlController extends Controller
     }
 
     /**
+     * @Route("/create-image/{type}/{filename}")
+     */
+    public function createImageAction($type, $filename){
+        if (is_file('/var/www/upload/tmp/'.$filename)){
+            $filename = 'upload/tmp/'.$filename;
+        }else{
+            $filename = 'upload/docs/'.$filename;
+        }
+//        1479045775.jpg
+        $file = new \Imagick('/var/www/'.$filename);
+
+        $image = new \Imagick();
+        $image->newImage(595, 842, new \ImagickPixel('white'));
+        $image->setImageVirtualPixelMethod(\Imagick::VIRTUALPIXELMETHOD_TRANSPARENT);
+//        $image->setImageArtifact('compose:args', "1,0,-0.5,0.5");
+
+        $image->compositeImage($file, \Imagick::COMPOSITE_DEFAULT,0,0);
+
+
+        $stamp = new \Imagick($this->get('kernel')->getRootDir() . '/../web/bundles/crmmain/images/stamp/stamp_1.png');
+        $sign = new \Imagick($this->get('kernel')->getRootDir() . '/../web/bundles/crmmain/images/sign/sign_1.png');
+        $right = new \Imagick($this->get('kernel')->getRootDir() . '/../web/bundles/crmmain/images/right/right_1.png');
+
+        $width = 100;
+        $height = $file->getImageHeight()+30;
+        $image->compositeImage($stamp, \Imagick::COMPOSITE_DEFAULT,$width, $height);
+        $width = $width + $stamp->getImageWidth() + 50;
+        $height += 20;
+        $image->compositeImage($right, \Imagick::COMPOSITE_DEFAULT,$width,$height);
+        $height += 50;
+        $image->compositeImage($sign, \Imagick::COMPOSITE_DEFAULT, $width,$height);
+
+        $image->setFormat('jpg');
+        $image->setImageFormat('jpg');
+
+        $base64 = 'data:image/jpg;base64,' . base64_encode($image->getImageBlob());
+        $html = '<img src="'.$base64.'" style="width: 100%" />';
+//        header( 'Content-Type: image/jpeg' );
+//        echo $image->getImage();
+//
+//        exit;
+        $mpdfService = $this->container->get('tfox.mpdfport');
+        $arguments = array(
+//            'constructorArgs' => array('utf-8', 'A4-P', 5 ,5 ,5 ,5,5 ),
+            'writeHtmlMode' => null, //$mode argument for WriteHTML method
+            'writeHtmlInitialise' => null, //$mode argument for WriteHTML method
+            'writeHtmlClose' => null, //$close argument for WriteHTML method
+            'outputFilename' => null, //$filename argument for Output method
+            'outputDest' => null, //$dest argument for Output method
+        );
+
+        $mpdfService->ignore_invalid_utf8 = true;
+        $mpdfService->allow_charset_conversion = false;
+        $mpdfService->debug = true;
+        return $mpdfService->generatePdfResponse($html, $arguments);
+
+    }
+
+    /**
      * @Route("/image-to-pdf/{filename}", name="ImageToPdf")
      */
     public function imageToPdfAction($filename){
