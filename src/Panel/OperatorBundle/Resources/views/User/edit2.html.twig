@@ -260,6 +260,7 @@
                                     <img src="/{{ user.copyPassport.path }}" brightness="128" contrast="128" data-type="passportFile" class="document" id="passportFileImg">
                                     <br>
                                     <a href="{{ path('panel_download_png',{'filename' : user.copyPassport.fileName }) }}">Скачать</a>
+                                    <a target="_blank" href="{{ path('create_image_pdf',{'type' : 'passport', 'filename' : user.copyPassport.fileName }) }}">Скачать</a>
                                 {% endif %}
                             </div>
                             {% if user.ru == 1 or user.estr == 1 %}
@@ -494,6 +495,7 @@
                                     <img src="/{{ user.copyDriverPassport.path }}" brightness="0" contrast="0" data-type="driverFile" class="document" id="driverFileImg">
                                     <br>
                                     <a href="{{ path('panel_download_png',{'filename' : user.copyDriverPassport.fileName }) }}">Скачать</a>
+                                    <a target="_blank" href="{{ path('create_image_pdf',{'type' : 'driver', 'filename' : user.copyDriverPassport.fileName }) }}">Скачать</a>
                                 {% endif %}
                             </div>
                             <div class="col-sm-1"></div>
@@ -642,6 +644,7 @@
                                     <img src="/{{ user.copySnils.path }}" brightness="0" contrast="0" data-type="snilsFile" class="document" id="snilsFileImg">
                                     <br>
                                     <a href="{{ path('panel_download_png',{'filename' : user.copySnils.fileName }) }}">Скачать</a>
+                                    <a target="_blank" href="{{ path('create_image_pdf',{'type' : 'snils', 'filename' : user.copySnils.fileName }) }}">Скачать</a>
                                 {% else %}
                                     <img src="" brightness="0" contrast="0" data-type="snilsFile" class="document" id="snilsFileImg">
                                 {% endif %}
@@ -664,6 +667,7 @@
                                     <img src="/{{ user.copyInn.path }}" brightness="0" contrast="0" data-type="innFile" class="document" id="innFileImg">
                                     <br>
                                     <a href="{{ path('panel_download_png',{'filename' : user.copyInn.fileName }) }}">Скачать</a>
+                                    <a target="_blank" href="{{ path('create_image_pdf',{'type' : 'doc', 'filename' : user.copyInn.fileName }) }}">Скачать</a>
                                 {% else %}
                                     <img src="" brightness="0" contrast="0" data-type="innFile" class="document" id="innFileImg">
                                 {% endif %}
@@ -744,7 +748,7 @@
                             <div class="col-sm-4">
                                 <input type="file" name="petitionFile" id="petitionFile"  data-type="petitionFile" class="fileAjax">
                                 {% if user.copyPetition.path is defined %}
-                                    <img src="/{{ user.copyPetition.path }}" brightness="128" contrast="128" data-type="passportFile" class="document" id="petitionFileImg">
+                                    <img src="/{{ user.copyPetition.path }}" brightness="128" contrast="128" data-type="petitionFile" class="document" id="petitionFileImg">
                                     <br>
                                     <a href="{{ path('panel_download_png',{'filename' : user.copyPetition.fileName }) }}">Скачать</a>
                                 {% endif %}

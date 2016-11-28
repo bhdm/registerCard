@@ -228,13 +228,15 @@ class XmlController extends Controller
     }
 
     /**
-     * @Route("/create-image/{type}/{filename}/{dpi}", defaults={"dpi" = 300})
+     * @Route("/create-image-pdf/{type}/{filename}", name="create_image_pdf")
      */
-    public function createImageAction($type, $filename, $dpi){
+    public function createImageAction($type, $filename){
         $types = array(
             'passport' => ['x' => 590, 'y' =>  800],
             'driver' => ['x' => 400, 'y' =>  250],
-            'inn' => ['x' => 827, 'y' =>  1170]
+            'doc' => ['x' => 827, 'y' =>  1170],
+            'snils' => ['x' => 480, 'y' =>  340],
+            'other' => ['x' => 827, 'y' =>  1170]
         );
         if (is_file('/var/www/upload/tmp/'.$filename)){
             $filename = 'upload/tmp/'.$filename;
