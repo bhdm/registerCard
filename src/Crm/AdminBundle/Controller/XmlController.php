@@ -240,7 +240,7 @@ class XmlController extends Controller
         $file = new \Imagick('/var/www/'.$filename);
         $w = 72*$file->getImageWidth()/300;
         $h = 72*$file->getImageHeight()/300;
-        $file->resizeImage($w,$h);
+        $file->resizeImage($w,$h, \Imagick::FILTER_LANCZOS,1);
 
         $image = new \Imagick();
         $image->newImage(595, 842, new \ImagickPixel('white'));
