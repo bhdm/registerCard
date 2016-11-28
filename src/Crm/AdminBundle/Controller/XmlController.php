@@ -240,12 +240,12 @@ class XmlController extends Controller
         $file = new \Imagick('/var/www/'.$filename);
         $w = 72*$file->getImageWidth()/300;
         $h = 72*$file->getImageHeight()/300;
-        $file->adaptiveResizeImage($w,$h);
+        $file->resizeImage($w,$h);
 
         $image = new \Imagick();
         $image->newImage(595, 842, new \ImagickPixel('white'));
+        $image->setImageArtifact('compose:args', "1,0,-0.5,0.5");
         $image->setImageVirtualPixelMethod(\Imagick::VIRTUALPIXELMETHOD_TRANSPARENT);
-//        $image->setImageArtifact('compose:args', "1,0,-0.5,0.5");
 
         $image->compositeImage($file, \Imagick::COMPOSITE_DEFAULT,0,0);
 
