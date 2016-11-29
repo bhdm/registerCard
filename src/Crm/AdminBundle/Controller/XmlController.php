@@ -251,7 +251,7 @@ class XmlController extends Controller
         $h = $types[$type]['y'];
         if ($type == 'driver'){
             if ($file->getImageHeight() > $file->getImageWidth()){
-                $w = $types[$type]['y']*1.2;
+                $w = $types[$type]['y']*1.4;
                 $h = $types[$type]['x']*1.2;
             }
         }
