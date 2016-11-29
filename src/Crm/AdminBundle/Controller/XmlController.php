@@ -272,11 +272,11 @@ class XmlController extends Controller
         $right->resizeImage($right->getImageWidth(), $right->getImageHeight()*0.85, \Imagick::FILTER_LANCZOS,1);
 
         if ($type !== 'doc'){
-            $width1 = rand(120,150);
-            $width2 = rand(20,50);
+            $width1 = mt_rand(120,150);
+            $width2 = mt_rand(20,50);
 
-            $height1 = rand(20,50);
-            $height2 = rand(20,50);
+            $height1 = mt_rand(20,50);
+            $height2 = mt_rand(20,50);
 
             $width = $width1;
             $height = $file->getImageHeight()+$height1;
@@ -285,11 +285,11 @@ class XmlController extends Controller
             $height += $height2;
             $image->compositeImage($stamp, \Imagick::COMPOSITE_DEFAULT,$width, $height);
         }else{
-            $width1 = rand(80,120);
-            $width2 = rand(20,50);
+            $width1 = mt_rand(80,120);
+            $width2 = mt_rand(20,50);
 
-            $height1 = rand(20,50);
-            $height2 = rand(20,50);
+            $height1 = mt_rand(20,50);
+            $height2 = mt_rand(20,50);
 
             $width = $width1;
             $height = 1170-300+$height1;
