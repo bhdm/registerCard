@@ -288,39 +288,63 @@
     {{ user.lastName }} {{ user.firstName }} {{ user.surName }}
 </div>
 <div class="companyName">
-        {% if user.myPetition == 1 %}
-            {% if user.petitionTitle != null %}
-                {{ user.petitionTitle }}
-            {% else %}
-                ООО «НПО «ТЕХНОЛОГ»
-            {% endif %}
-        {% else %}
-            {% if user.companyPetition != null %}
-                {{ user.companyPetition.title }}
-            {% else %}
-                {{ user.company.title }}
-            {% endif %}
-        {% endif %}
+        {#{% if user.myPetition == 1 %}#}
+            {#{% if user.petitionTitle != null %}#}
+                {#{{ user.petitionTitle }}#}
+            {#{% else %}#}
+                {#ООО «НПО «ТЕХНОЛОГ»#}
+            {#{% endif %}#}
+        {#{% else %}#}
+            {#{% if user.companyPetition != null %}#}
+                {#{{ user.companyPetition.title }}#}
+            {#{% else %}#}
+                {#{{ user.company.title }}#}
+            {#{% endif %}#}
+        {#{% endif %}#}
+    {% if driver.myPetition == 1 or driver.company == null or driver.company.title is not defined or driver.company.title  == '' %}
+        ООО «НПО «ТЕХНОЛОГ»
+    {% elseif driver.companyPetition != null %}
+        {{ driver.companyPetition.title }}
+    {% elseif  driver.petitionAdrs is not empty and driver.petitionAdrs | length != 0 %}
+        {{ driver.petitionTitle }}
+    {% else %}
+        {{ driver.company.title }}
+    {% endif %}
 </div>
 <div class="companyAdress" style="width: 100%">
-    {% if user.myPetition == 1 %}
-        {% if user.petitionAdrs.city is defined and user.petitionAdrs.city != null and user.petitionAdrs.city != '' %}
-            {{ user.petitionAdrs.zipcode }},
-            {{ user.petitionAdrs.city }},
-            {{ user.petitionAdrs.street }},д.{{ user.petitionAdrs.house }} {{ user.petitionAdrs.corp }}, {{ user.petitionAdrs.room }}
-        {% else %}
-            195196, г.Санкт-Петербург, ул.Громова, д.14/6, лит. А, пом. 3-Н
-        {% endif %}
+    {#{% if user.myPetition == 1 %}#}
+        {#{% if user.petitionAdrs.city is defined and user.petitionAdrs.city != null and user.petitionAdrs.city != '' %}#}
+            {#{{ user.petitionAdrs.zipcode }},#}
+            {#{{ user.petitionAdrs.city }},#}
+            {#{{ user.petitionAdrs.street }},д.{{ user.petitionAdrs.house }} {{ user.petitionAdrs.corp }}, {{ user.petitionAdrs.room }}#}
+        {#{% else %}#}
+            {#195196, г.Санкт-Петербург, ул.Громова, д.14/6, лит. А, пом. 3-Н#}
+        {#{% endif %}#}
+    {#{% else %}#}
+        {#{% if user.companyPetition != null %}#}
+            {#{{ user.companyPetition.zipcode }},#}
+            {#{{ user.companyPetition.city }},#}
+            {#{{ user.companyPetition.street }},д.{{ user.companyPetition.home }} {{ user.companyPetition.corp }}, {{ user.companyPetition.room }}#}
+        {#{% else %}#}
+            {#{{ user.company.zipcode }},#}
+            {#{{ user.company.city }},#}
+            {#{{ user.company.street }},д.{{ user.company.home }} {{ user.company.corp }}, {{ user.company.room }}#}
+        {#{% endif %}#}
+    {#{% endif %}#}
+    {% if driver.myPetition == 1 or driver.company == null or driver.company.title is not defined or driver.company.title  == '' %}
+        195196, г.Санкт-Петербург, ул.Громова, д.14/6, лит. А, пом. 3-Н
+    {% elseif driver.companyPetition != null %}
+        {{ user.companyPetition.zipcode }},
+        {{ user.companyPetition.city }},
+        {{ user.companyPetition.street }},д.{{ user.companyPetition.home }} {{ user.companyPetition.corp }}, {{ user.companyPetition.room }}
+    {% elseif  driver.petitionAdrs is not empty and driver.petitionAdrs | length != 0 %}
+        {{ user.petitionAdrs.zipcode }},
+        {{ user.petitionAdrs.city }},
+        {{ user.petitionAdrs.street }},д.{{ user.petitionAdrs.house }} {{ user.petitionAdrs.corp }}, {{ user.petitionAdrs.room }}
     {% else %}
-        {% if user.companyPetition != null %}
-            {{ user.companyPetition.zipcode }},
-            {{ user.companyPetition.city }},
-            {{ user.companyPetition.street }},д.{{ user.companyPetition.home }} {{ user.companyPetition.corp }}, {{ user.companyPetition.room }}
-        {% else %}
-            {{ user.company.zipcode }},
-            {{ user.company.city }},
-            {{ user.company.street }},д.{{ user.company.home }} {{ user.company.corp }}, {{ user.company.room }}
-        {% endif %}
+        {{ user.company.zipcode }},
+        {{ user.company.city }},
+        {{ user.company.street }},д.{{ user.company.home }} {{ user.company.corp }}, {{ user.company.room }}
     {% endif %}
 </div>
 <div class="snils">{{ user.snils }}</div>
