@@ -247,8 +247,12 @@ class XmlController extends Controller
         $file = new \Imagick('/var/www/'.$filename);
 //        $w = $file->getImageResolution()['x']*$file->getImageWidth()/$dpi;
 //        $h = $file->getImageResolution()['y']*$file->getImageHeight()/$dpi;
-        $w = $types[$type]['x'];
-        $h = $types[$type]['y'];
+        if ($type == 'driver'){
+            if ($file->getImageHeight() > $file->getImageWidth()){
+                $w = $types[$type]['y']*1.2;
+                $h = $types[$type]['x']*1.2;
+            }
+        }
         $file->resizeImage($w,$h, \Imagick::FILTER_LANCZOS,1);
 
         $image = new \Imagick();
