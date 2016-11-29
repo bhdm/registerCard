@@ -293,10 +293,11 @@ class XmlController extends Controller
 
             $width = $width1;
             $height = 1170-200+$height1;
-            $image->compositeImage($stamp, \Imagick::COMPOSITE_DEFAULT,$width, $height);
+            $image->compositeImage($right, \Imagick::COMPOSITE_DEFAULT,$width,$height);
             $width = $width + $stamp->getImageWidth() + $width2;
             $height += $height2;
-            $image->compositeImage($right, \Imagick::COMPOSITE_DEFAULT,$width,$height);
+            $image->compositeImage($stamp, \Imagick::COMPOSITE_DEFAULT,$width, $height);
+
         }
 
 
