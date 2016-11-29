@@ -25,11 +25,11 @@ class XmlController extends Controller
 
         $files = array();
 
-        $files[0]['base'] = $this->imageToPdf($user->getCopyPassport()['originalName']);
+        $files[0]['base'] = $this->imageToPdf($user->getCopyPassport()['originalName'], 'passport');
         $files[0]['title'] = 'Passport';
         $files[0]['file'] = $user->getCopyPassport();
 
-        $files[1]['base'] = $this->imageToPdf($user->getCopyDriverPassport()['originalName']);
+        $files[1]['base'] = $this->imageToPdf($user->getCopyDriverPassport()['originalName'], 'driver');
         $files[1]['title'] = 'DriverLicense';
         $files[1]['file'] = $user->getCopyDriverPassport();
 
@@ -45,7 +45,7 @@ class XmlController extends Controller
         $files[3]['title'] = 'Signature';
         $files[3]['file'] = $user->getCopySignature();
 
-        $files[5]['base'] = $this->ImageToPdf($user->getCopySnils()['originalName']);
+        $files[5]['base'] = $this->ImageToPdf($user->getCopySnils()['originalName'], 'snils');
         $files[5]['title'] = 'SNILS';
         $files[5]['file'] = $user->getCopySnils();
 
@@ -58,7 +58,7 @@ class XmlController extends Controller
         }
 
 
-        $files[11]['base'] = $this->ImageToPdf($user->getCopyInn()['originalName']);
+        $files[11]['base'] = $this->ImageToPdf($user->getCopyInn()['originalName'], 'doc');
         $files[11]['title'] = 'INN';
         $files[11]['file'] = $user->getCopyInn();
 
@@ -262,19 +262,37 @@ class XmlController extends Controller
 
         $stamp = new \Imagick($this->get('kernel')->getRootDir() . '/../web/bundles/crmmain/images/stamp/stamp_1.png');
         $stamp->resizeImage($stamp->getImageWidth()*0.85, $stamp->getImageHeight()*0.85, \Imagick::FILTER_LANCZOS,1);
-        $sign = new \Imagick($this->get('kernel')->getRootDir() . '/../web/bundles/crmmain/images/sign/sign_1.png');
-        $sign->resizeImage($sign->getImageWidth()*0.85, $sign->getImageHeight()*0.85, \Imagick::FILTER_LANCZOS,1);
         $right = new \Imagick($this->get('kernel')->getRootDir() . '/../web/bundles/crmmain/images/right/right_1.png');
         $right->resizeImage($right->getImageWidth()*0.85, $right->getImageHeight()*0.85, \Imagick::FILTER_LANCZOS,1);
 
-        $width = 100;
-        $height = $file->getImageHeight()+30;
-        $image->compositeImage($stamp, \Imagick::COMPOSITE_DEFAULT,$width, $height);
-        $width = $width + $stamp->getImageWidth() + 50;
-        $height += 20;
-        $image->compositeImage($right, \Imagick::COMPOSITE_DEFAULT,$width,$height);
-        $height += 50;
-        $image->compositeImage($sign, \Imagick::COMPOSITE_DEFAULT, $width,$height);
+        if ($type !== 'doc'){
+            $width1 = rand(80,120);
+            $width2 = rand(20,50);
+
+            $height1 = rand(20,50);
+            $height2 = rand(20,50);
+
+            $width = $width1;
+            $height = $file->getImageHeight()+$height1;
+            $image->compositeImage($stamp, \Imagick::COMPOSITE_DEFAULT,$width, $height);
+            $width = $width + $stamp->getImageWidth() + $width2;
+            $height += $height2;
+            $image->compositeImage($right, \Imagick::COMPOSITE_DEFAULT,$width,$height);
+        }else{
+            $width1 = rand(80,120);
+            $width2 = rand(20,50);
+
+            $height1 = rand(20,50);
+            $height2 = rand(20,50);
+
+            $width = $width1;
+            $height = 1170-300+$height1;
+            $image->compositeImage($stamp, \Imagick::COMPOSITE_DEFAULT,$width, $height);
+            $width = $width + $stamp->getImageWidth() + $width2;
+            $height += $height2;
+            $image->compositeImage($right, \Imagick::COMPOSITE_DEFAULT,$width,$height);
+        }
+
 
         $image->setFormat('jpg');
         $image->setImageFormat('jpg');
@@ -309,9 +327,9 @@ class XmlController extends Controller
         $mpdfService = $this->container->get('tfox.mpdfport');
 
         if (is_file('/var/www/upload/tmp/'.$filename)){
-            $html = '<img src="https://im-kard.ru/upload/tmp/'.$filename.'" style="max-height: 700px; max-width: 100%"/>';
+            $html = '<img src="https://im-kard.ru/upload/tmp/'.$filename.'" style="max-width: 100%"/>';
         }else{
-            $html = '<img src="https://im-kard.ru/upload/docs/'.$filename.'" style="max-height: 700px; max-width: 100%"/>';
+            $html = '<img src="https://im-kard.ru/upload/docs/'.$filename.'" style="max-width: 100%"/>';
         }
 
 //        echo $html;
@@ -325,12 +343,12 @@ class XmlController extends Controller
         $r1 = rand(1,8);
         $r2 = rand(1,8);
         $r3 = rand(1,8);
-        $html.= '<br /><br /><br />';
-        $html.='<table><tr>';
-        $html.= '<td><img src="/bundles/crmmain/images/stamp/stamp_'.$r1.'.png"  style="margin-left: '.$width1.'px; width: 155px"/></td>';
-        $html.= '<td><img src="/bundles/crmmain/images/right/right_'.$r2.'.png"  style="margin-left: '.$width2.'px; width: 135px"/><br /><br />';
-        $html.= '<img src="/bundles/crmmain/images/sign/sign_'.$r3.'.png"  style="margin-left: '.$width3.'px; width: 85px"/></td>';
-        $html.='</tr></table>';
+//        $html.= '<br /><br /><br />';
+//        $html.='<table><tr>';
+//        $html.= '<td><img src="/bundles/crmmain/images/stamp/stamp_'.$r1.'.png"  style="margin-left: '.$width1.'px; width: 155px"/></td>';
+//        $html.= '<td><img src="/bundles/crmmain/images/right/right_'.$r2.'.png"  style="margin-left: '.$width2.'px; width: 135px"/><br /><br />';
+//        $html.= '<img src="/bundles/crmmain/images/sign/sign_'.$r3.'.png"  style="margin-left: '.$width3.'px; width: 85px"/></td>';
+//        $html.='</tr></table>';
 
 
         $html = iconv("UTF-8","UTF-8//IGNORE",$html);
@@ -349,8 +367,12 @@ class XmlController extends Controller
         return $mpdfService->generatePdfResponse($html, $arguments);
     }
 
-    public function imageToPdf($filename){
-        $url = 'http://'.$_SERVER['SERVER_NAME'].$this->generateUrl('ImageToPdf',array('filename' => $filename));
+    public function imageToPdf($filename, $type= null){
+        if ($type == null){
+            $url = 'http://'.$_SERVER['SERVER_NAME'].$this->generateUrl('ImageToPdf',array('filename' => $filename));
+        }else{
+            $url = 'http://'.$_SERVER['SERVER_NAME'].$this->generateUrl('create_image_pdf',array('filename' => $filename, 'type' => $type));
+        }
         $pdfdata = file_get_contents($url);
         $base64 = base64_encode($pdfdata);
         return $base64;
