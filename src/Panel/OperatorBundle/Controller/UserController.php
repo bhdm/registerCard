@@ -372,6 +372,7 @@ class UserController extends Controller
             $user->setSnils($data->get('snils'));
             $user->setInn($data->get('inn'));
             $user->setLastNumberCard($data->get('oldNumber'));
+            $user->setDateEndCard($data->get('oldNumberDate'));
             $user->setTypeCard($data->get('typeCard'));
 
 
