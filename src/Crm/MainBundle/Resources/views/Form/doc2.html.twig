@@ -301,14 +301,14 @@
                 {#{{ user.company.title }}#}
             {#{% endif %}#}
         {#{% endif %}#}
-    {% if driver.myPetition == 1 or driver.company == null or driver.company.title is not defined or driver.company.title  == '' %}
+    {% if user.myPetition == 1 or user.company == null or user.company.title is not defined or user.company.title  == '' %}
         ООО «НПО «ТЕХНОЛОГ»
-    {% elseif driver.companyPetition != null %}
-        {{ driver.companyPetition.title }}
-    {% elseif  driver.petitionAdrs is not empty and driver.petitionAdrs | length != 0 %}
-        {{ driver.petitionTitle }}
+    {% elseif user.companyPetition != null %}
+        {{ user.companyPetition.title }}
+    {% elseif  user.petitionAdrs is not empty and user.petitionAdrs | length != 0 %}
+        {{ user.petitionTitle }}
     {% else %}
-        {{ driver.company.title }}
+        {{ user.company.title }}
     {% endif %}
 </div>
 <div class="companyAdress" style="width: 100%">
@@ -331,13 +331,13 @@
             {#{{ user.company.street }},д.{{ user.company.home }} {{ user.company.corp }}, {{ user.company.room }}#}
         {#{% endif %}#}
     {#{% endif %}#}
-    {% if driver.myPetition == 1 or driver.company == null or driver.company.title is not defined or driver.company.title  == '' %}
+    {% if user.myPetition == 1 or user.company == null or user.company.title is not defined or user.company.title  == '' %}
         195196, г.Санкт-Петербург, ул.Громова, д.14/6, лит. А, пом. 3-Н
-    {% elseif driver.companyPetition != null %}
+    {% elseif user.companyPetition != null %}
         {{ user.companyPetition.zipcode }},
         {{ user.companyPetition.city }},
         {{ user.companyPetition.street }},д.{{ user.companyPetition.home }} {{ user.companyPetition.corp }}, {{ user.companyPetition.room }}
-    {% elseif  driver.petitionAdrs is not empty and driver.petitionAdrs | length != 0 %}
+    {% elseif  user.petitionAdrs is not empty and user.petitionAdrs | length != 0 %}
         {{ user.petitionAdrs.zipcode }},
         {{ user.petitionAdrs.city }},
         {{ user.petitionAdrs.street }},д.{{ user.petitionAdrs.house }} {{ user.petitionAdrs.corp }}, {{ user.petitionAdrs.room }}
