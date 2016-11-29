@@ -280,10 +280,10 @@ class XmlController extends Controller
 
             $width = $width1;
             $height = $file->getImageHeight()+$height1;
-            $image->compositeImage($stamp, \Imagick::COMPOSITE_DEFAULT,$width, $height);
+            $image->compositeImage($right, \Imagick::COMPOSITE_DEFAULT,$width,$height);
             $width = $width + $stamp->getImageWidth() + $width2;
             $height += $height2;
-            $image->compositeImage($right, \Imagick::COMPOSITE_DEFAULT,$width,$height);
+            $image->compositeImage($stamp, \Imagick::COMPOSITE_DEFAULT,$width, $height);
         }else{
             $width1 = rand(80,120);
             $width2 = rand(20,50);
