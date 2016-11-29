@@ -269,7 +269,7 @@ class XmlController extends Controller
         $stamp = new \Imagick($this->get('kernel')->getRootDir() . '/../web/bundles/crmmain/images/stamp/stamp_1.png');
         $stamp->resizeImage($stamp->getImageWidth()*0.85, $stamp->getImageHeight()*0.85, \Imagick::FILTER_LANCZOS,1);
         $right = new \Imagick($this->get('kernel')->getRootDir() . '/../web/bundles/crmmain/images/right/right_1.png');
-        $right->resizeImage($right->getImageWidth()*0.85, $right->getImageHeight()*0.85, \Imagick::FILTER_LANCZOS,1);
+        $right->resizeImage($right->getImageWidth(), $right->getImageHeight()*0.85, \Imagick::FILTER_LANCZOS,1);
 
         if ($type !== 'doc'){
             $width1 = rand(80,120);
