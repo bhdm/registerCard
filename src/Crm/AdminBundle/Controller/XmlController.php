@@ -292,7 +292,7 @@ class XmlController extends Controller
             $height2 = rand(20,50);
 
             $width = $width1;
-            $height = 1170-200+$height1;
+            $height = 1170-300+$height1;
             $image->compositeImage($right, \Imagick::COMPOSITE_DEFAULT,$width,$height);
             $width = $width + $stamp->getImageWidth() + $width2;
             $height += $height2;
