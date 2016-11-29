@@ -272,7 +272,7 @@ class XmlController extends Controller
         $right->resizeImage($right->getImageWidth(), $right->getImageHeight()*0.85, \Imagick::FILTER_LANCZOS,1);
 
         if ($type !== 'doc'){
-            $width1 = rand(80,120);
+            $width1 = rand(120,150);
             $width2 = rand(20,50);
 
             $height1 = rand(20,50);
