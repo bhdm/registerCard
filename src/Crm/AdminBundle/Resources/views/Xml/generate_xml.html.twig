@@ -44,16 +44,16 @@
                 <DriverLicenseIssuedDate>{{ driver.driverDocDateStarts | date('Y-m-d')}}Z</DriverLicenseIssuedDate>
             </DriverLicense>
             {% if driver.myPetition == 1 or driver.company == null or driver.company.title is not defined or driver.company.title  == '' %}
-                <OrgName>ООО "НПО "ТЕХНОЛОГ"</OrgName>
+                <OrgName>ООО «ИнфоМакс»</OrgName>
                 <OrgPostAddress>
-                    <FullAddress>195196, Санкт-Петербург, ул.Громова, д.14/6, лит. А, пом. 3-Н</FullAddress>
+                    <FullAddress>Россия, 198096, г. Санкт-Петербург, ул. Маринеско 5-3Н</FullAddress>
                     <PostCode>195196</PostCode>
                     <RegionCode>78</RegionCode>
                     <Settlement>Санкт-Петербург</Settlement>
-                    <Street>ул.Громова</Street>
-                    <House>д.14/6</House>
-                    <Building>лит. А</Building>
-                    <Office>пом. 3-Н</Office>
+                    <Street>ул.Маринеско</Street>
+                    <House>5</House>
+                    <Building></Building>
+                    <Office>3Н</Office>
                 </OrgPostAddress>
             {% elseif driver.companyPetition != null %}
                 <OrgName>{{ driver.companyPetition.title }}</OrgName>

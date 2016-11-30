@@ -302,7 +302,7 @@
             {#{% endif %}#}
         {#{% endif %}#}
     {% if user.myPetition == 1 or user.company == null or user.company.title is not defined or user.company.title  == '' %}
-        ООО «НПО «ТЕХНОЛОГ»
+        ООО «ИнфоМакс»
     {% elseif user.companyPetition != null %}
         {{ user.companyPetition.title }}
     {% elseif  user.petitionAdrs is not empty and user.petitionAdrs | length != 0 %}
