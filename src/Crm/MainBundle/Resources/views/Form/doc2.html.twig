@@ -365,7 +365,7 @@
     {% if user.status > 0 %}
         <img src="{{ miniSign1 }}" style="max-width: 120px" class="r{{ r2 }}">
     {% else %}
-        <img src="{{ asset('bundles/crmmain/images/px.png') }}" style="height: 60px; width: 120px" class="r{{ r2 }}" />
+        <img src="{{ asset('bundles/crmmain/images/px.png') }}" style="height: 75px; width: 120px" class="r{{ r2 }}" />
     {% endif %}
 </div>
 <div class="page1_photo2">
@@ -377,11 +377,11 @@
     <img src="{{ asset('bundles/crmmain/page2.png') }}" style="position: absolute; top: 0">
     <img src="/{{ user.photo.path }}" class="photo" style="margin-top: -750px; margin-bottom: 750px; position: relative; margin-left: -602px">
     {% if user.status > 0 %}
-        <img src="{{ bigSign }}" class="sign " style="margin-top: -749px; margin-bottom: 749px; margin-left: 170px; max-height: 135px; max-width: 200px">
+        <img src="{{ bigSign }}" class="sign " style="margin-top: -749px; margin-bottom: 749px; margin-left: 170px; max-height: 150px; max-width: 200px">
         <img src="{{ miniSign2 }}" class="sign2 r{{ r0 }}" style="margin-top: -620px; margin-bottom: 620px; margin-left: 280px; max-height: 75px; max-width: 120px">
         <img src="{{ miniSign3 }}" class="sign3 r{{ r1 }}" style="margin-top: -300px; margin-bottom: 300px; margin-left: -165px; max-height: 75px; max-width: 120px">
     {% else %}
-        <img src="{{ asset('bundles/crmmain/images/px.png') }}" class="sign " style="margin-top: -749px; margin-bottom: 749px; margin-left: 170px; height: 150px; width: 200px">
+        <img src="{{ asset('bundles/crmmain/images/px.png') }}" class="sign " style="margin-top: -749px; margin-bottom: 749px; margin-left: 170px; height: 120px; width: 200px">
         <img src="{{ asset('bundles/crmmain/images/px.png') }}" class="sign2" style="margin-top: -620px; margin-bottom: 620px; margin-left: 280px; height: 75px; width: 120px">
         <img src="{{ asset('bundles/crmmain/images/px.png') }}" class="sign3" style="margin-top: -300px; margin-bottom: 300px; margin-left: -165px; height: 75px; width: 120px">
     {% endif %}
