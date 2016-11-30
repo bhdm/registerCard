@@ -142,7 +142,9 @@ class OrderController extends Controller{
 //            if ($this->get('security.context')->isGranted('ROLE_ADMIN') or $petition->getOperator() == $this->getUser()){
             $mpdfService = $this->container->get('tfox.mpdfport');
 
-            $html = $this->render('CrmOperatorBundle:Petition:file2.html.twig',array('user' => $user));
+            $x1 = rand(0,15);
+            $x2 = rand(0,15);
+            $html = $this->render('CrmOperatorBundle:Petition:file2.html.twig',array('user' => $user, 'x1' => $x1, 'x2' => $x2));
             $arguments = array(
 //                'constructorArgs' => array('utf-8', 'A4-L', 5 ,5 ,5 ,5,5 ), //Constructor arguments. Numeric array. Don't forget about points 2 and 3 in Warning section!
                 'writeHtmlMode' => null, //$mode argument for WriteHTML method
