@@ -382,13 +382,13 @@
         <img src="{{ miniSign3 }}" class="sign3 r{{ r1 }}" style="margin-top: -300px; margin-bottom: 300px; margin-left: -165px; max-height: 75px; max-width: 120px">
     {% else %}
         <img src="{{ asset('bundles/crmmain/images/px2.png') }}" class="sign " style="margin-top: -790px; margin-bottom: 870px; margin-left: 235px; max-height: 50px; max-width: 200px">
-        <img src="{{ asset('bundles/crmmain/images/px2.png') }}" class="sign2" style="margin-top: -730px; margin-bottom: 820px; margin-left: 230px; height: 75px; width: 120px">
-        <img src="{{ asset('bundles/crmmain/images/px2.png') }}" class="sign3" style="margin-top: -310px; margin-bottom: 300px; margin-left: -165px; height: 75px; width: 120px">
+        <img src="{{ asset('bundles/crmmain/images/px2.png') }}" class="" style="height: 75px; width: 120px">
+        <img src="{{ asset('bundles/crmmain/images/px2.png') }}" class="" style="height: 75px; width: 120px">
     {% endif %}
-    <div class="date2" style="margin-top: -665px; margin-left: 75px">{{ user.created| date("d") }}&nbsp;&nbsp;&nbsp;&nbsp;{{ user.created| date("m") }}&nbsp;&nbsp;&nbsp;&nbsp;{{ user.created | date("Y") }}</div>
+    <div class="date2" style="">{{ user.created| date("d") }}&nbsp;&nbsp;&nbsp;&nbsp;{{ user.created| date("m") }}&nbsp;&nbsp;&nbsp;&nbsp;{{ user.created | date("Y") }}</div>
 
-    <div class="fio2" style="margin-left: 440px; margin-top: -25px">{{ user.lastName }} {{ user.firstName|first }}. {{ user.surName|first }}.</div>
-    <div class="fio3" style="margin-left: 440px; margin-top: -50px">{{ user.lastName }} {{ user.firstName|first }}. {{ user.surName|first }}.</div>
+    <div class="fio2" style="">{{ user.lastName }} {{ user.firstName|first }}. {{ user.surName|first }}.</div>
+    <div class="fio3" style="">{{ user.lastName }} {{ user.firstName|first }}. {{ user.surName|first }}.</div>
 </div>
 
 <br />
