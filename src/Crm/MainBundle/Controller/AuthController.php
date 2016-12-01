@@ -317,7 +317,8 @@ class AuthController extends Controller
             );
             $mpdf = new \mPDF('utf-8', 'A4', '8', '', 10, 10, 7, 7, 10, 10);
             $mpdf->charset_in = 'utf8';
-            $mpdf->Write($html1->getContent(),2);
+            $mpdf->list_indent_first_level = 0;
+            $mpdf->Write($html1->getContent(),1);
 //            $mpdf->AddPage();
 //            $mpdf->Write($html2->getContent());
             $mpdf->Output('mpdf.pdf', 'I');
