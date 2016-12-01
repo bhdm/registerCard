@@ -377,7 +377,7 @@
     <img src="{{ asset('bundles/crmmain/page2.png') }}" style="position: absolute; top: 0; width: 100%">
     <img src="/{{ user.photo.path }}" class="photo" style="margin-top: -750px; margin-bottom: 750px; position: relative; margin-left: -682px">
     {% if user.status > 0 %}
-        <img src="{{ bigSign }}" class="sign " style="margin-top: -750px; margin-bottom: 728px; margin-left: 230px; height: 90px; max-width: 150px">
+        <img src="{{ bigSign }}" class="sign " style="margin-top: -750px; margin-bottom: 725px; margin-left: 230px; height: 90px; max-width: 150px">
         <img src="{{ miniSign2 }}" class="sign2 r{{ r0 }}" style="margin-top: -620px; margin-bottom: 620px; margin-left: 280px; max-height: 75px; max-width: 120px">
         <img src="{{ miniSign3 }}" class="sign3 r{{ r1 }}" style="margin-top: -300px; margin-bottom: 300px; margin-left: -165px; max-height: 75px; max-width: 120px">
     {% else %}
@@ -385,7 +385,7 @@
         <img src="{{ asset('bundles/crmmain/images/px.png') }}" class="sign2" style="margin-top: -630px; margin-bottom: 620px; margin-left: 280px; height: 75px; width: 120px">
         <img src="{{ asset('bundles/crmmain/images/px.png') }}" class="sign3" style="margin-top: -310px; margin-bottom: 300px; margin-left: -165px; height: 75px; width: 120px">
     {% endif %}
-    <div class="date2" style="margin-top: -665px; margin-left: 75px">{{ user.created| date("d") }}&nbsp;&nbsp;&nbsp;&nbsp;{{ user.created| date("m") }}&nbsp;&nbsp;&nbsp;&nbsp;{{ user.created | date("Y") }}</div>
+    <div class="date2" style="margin-top: -625px; margin-left: 75px">{{ user.created| date("d") }}&nbsp;&nbsp;&nbsp;&nbsp;{{ user.created| date("m") }}&nbsp;&nbsp;&nbsp;&nbsp;{{ user.created | date("Y") }}</div>
 
     <div class="fio2" style="margin-left: 440px; margin-top: -25px">{{ user.lastName }} {{ user.firstName|first }}. {{ user.surName|first }}.</div>
     <div class="fio3" style="margin-left: 440px; margin-top: 300px">{{ user.lastName }} {{ user.firstName|first }}. {{ user.surName|first }}.</div>
