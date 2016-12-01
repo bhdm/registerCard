@@ -315,11 +315,12 @@ class AuthController extends Controller
                 'outputFilename' => null, //$filename argument for Output method
                 'outputDest' => null, //$dest argument for Output method
             );
-            $mpdf = new \mPDF('utf-8', 'A4', '8', '', 10, 10, 7, 7, 10, 10);
-            $mpdf->Write($html1->getContent());
-            $mpdf->AddPage();
-            $mpdf->Write($html2->getContent());
-            $mpdf->Output('mpdf.pdf', 'I');
+//            $mpdf = new \mPDF('utf-8', 'A4', '8', '', 10, 10, 7, 7, 10, 10);
+            echo  $html1->getContent();
+//            $mpdf->Write($html1->getContent());
+//            $mpdf->AddPage();
+//            $mpdf->Write($html2->getContent());
+//            $mpdf->Output('mpdf.pdf', 'I');
             exit;
 //             $response = $mpdfService->generatePdf($html->getContent(), $arguments);
 
