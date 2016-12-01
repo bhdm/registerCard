@@ -1,0 +1,72 @@
+<html>
+    <body>
+        <table>
+            <tr>
+                <td style="width:200px">
+                    <img src="{{ asset('bundles/crmmain/images/logo1.png') }}">
+                </td>
+                <td style="text-align: center">
+
+                    <h2>ООО «ИнфоМакс»</h2><br />
+                    198096, Россия, г. Санкт-Петербург, ул. Маринеско 5-3Н<br />
+                    р/с 40702810670110000776 в Московском филиале АО КБ «Модульбанк»,<br />
+                    к/с 30101810645250000092 БИК 044525092,  ИНН 7805543860, ОКПО: 90752212, КПП: 780501001<br />
+                    <br>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <hr>
+                    <br />
+                </td>
+            </tr>
+            <tr>
+                <td style="padding: 20px; font-size: 18px">
+                    {{ user.created | date("d.m.Y") }}
+                </td>
+                <td style="text-align: right;  font-size: 18px">
+                    г. Санкт - Петербург
+                    {#{{ company.city }}#}
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2" style="text-align: center">
+                    <br />
+                    <span style="font-size: 18px">Ходатайство</span>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2" style="padding: 20px; font-size: 18px">
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Прошу изготовить карту водителя для тахографа с блоком СКЗИ.
+                    <br />
+                    <br />
+                    <b>Водитель:</b> <br />
+                    {{ user.lastName }} {{ user.firstName }} {{ user.surName }}. <br />
+                </td>
+            </tr>
+            <tr>
+                <td style="padding: 20px; font-size: 18px" colspan="2">
+                    <table style="width: 100%">
+                        <tr>
+                            <td style="vertical-align: top;">
+                                Генеральный директор:
+                            </td>
+                            <td>
+                                <img src="{{ asset('bundles/crmmain/images/stamp/stamp_1.png') }}" style="float: left; margin-left: {{ x2 }}px; width: 150px">
+                            </td>
+                            <td style="text-align: right; vertical-align: top">
+                                <img src="{{ asset('bundles/crmmain/images/sign/sign_1.png') }}" style="float: right; margin-right: {{ x1 }}px; width: 60px">
+                            </td>
+                            <td style="text-align: right; vertical-align: top">
+                                Тюрин М.А.
+                            </td>
+                        </tr>
+                    </table>
+                    <br />
+                    <br />
+                    <br />
+                </td>
+            </tr>
+        </table>
+    </body>
+</html>
