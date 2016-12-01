@@ -292,20 +292,14 @@ class AuthController extends Controller
 
 //            $html = $this->render('CrmMainBundle:Form:doc2.html.twig',array('user' => $user));
             $width = rand(0,200);
-        $html1 = $this->render('CrmMainBundle:Form:doc2.html.twig',array('r0' => $r0,'r1' => $r1,'r2' => $r2,
+            $html = $this->render('CrmMainBundle:Form:doc2.html.twig',array('r0' => $r0,'r1' => $r1,'r2' => $r2,
                 'user' => $user, 'bigSign' => $bigSign,
                 'miniSign1' => $miniSign1,
                 'miniSign2' => $miniSign2,
                 'miniSign3' => $miniSign3,
 
                 'width' => $width));
-        $html2 = $this->render('CrmMainBundle:Form:doc3.html.twig',array('r0' => $r0,'r1' => $r1,'r2' => $r2,
-            'user' => $user, 'bigSign' => $bigSign,
-            'miniSign1' => $miniSign1,
-            'miniSign2' => $miniSign2,
-            'miniSign3' => $miniSign3,
 
-            'width' => $width));
 
             $arguments = array(
                 'constructorArgs' => array(null, null, 0 ,10 ,3 ,0, 3), //Constructor arguments. Numeric array. Don't forget about points 2 and 3 in Warning section!
@@ -315,15 +309,7 @@ class AuthController extends Controller
                 'outputFilename' => null, //$filename argument for Output method
                 'outputDest' => null, //$dest argument for Output method
             );
-            $mpdf = new \mPDF('utf-8', 'A4', '8', '', 10, 10, 7, 7, 10, 10);
-            $mpdf->charset_in = 'utf8';
-            $mpdf->list_indent_first_level = 0;
-            $mpdf->Write($html1->getContent(),1);
-//            $mpdf->AddPage();
-//            $mpdf->Write($html2->getContent());
-            $mpdf->Output('mpdf.pdf', 'I');
-            exit;
-//             $response = $mpdfService->generatePdf($html->getContent(), $arguments);
+             $response = $mpdfService->generatePdf($html->getContent(), $arguments);
 
 //                return new Response($html);
 //            return $response;
