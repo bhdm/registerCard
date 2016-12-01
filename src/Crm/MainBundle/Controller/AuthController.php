@@ -299,7 +299,7 @@ class AuthController extends Controller
                 'miniSign3' => $miniSign3,
 
                 'width' => $width));
-        $html21 = $this->render('CrmMainBundle:Form:doc3.html.twig',array('r0' => $r0,'r1' => $r1,'r2' => $r2,
+        $html2 = $this->render('CrmMainBundle:Form:doc3.html.twig',array('r0' => $r0,'r1' => $r1,'r2' => $r2,
             'user' => $user, 'bigSign' => $bigSign,
             'miniSign1' => $miniSign1,
             'miniSign2' => $miniSign2,
@@ -315,7 +315,7 @@ class AuthController extends Controller
                 'outputFilename' => null, //$filename argument for Output method
                 'outputDest' => null, //$dest argument for Output method
             );
-            $mpdf = $mpdfService->getMpdf();
+            $mpdf = new \mPDF('utf-8', 'A4', '8', '', 10, 10, 7, 7, 10, 10);
             $mpdf->Write($html1);
             $mpdf->AddPage();
             $mpdf->Write($html2);
