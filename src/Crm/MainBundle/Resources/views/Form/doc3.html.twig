@@ -127,11 +127,11 @@
             width: 102px;
         }
         .sign{
-            position: absolute;
-            top: 806px;
-            width: 235px;
+            /*position: absolute;*/
+            /*top: 806px;*/
+            /*width: 235px;*/
             /*height: 100px;*/
-            left: 351px;
+            /*left: 351px;*/
             z-index: 999;
         }
         .sign img{
@@ -155,12 +155,14 @@
             width: 136px;
             left: 81px;
             letter-spacing: 1px;
+            z-index: 9999;
         }
         .fio2{
             position: absolute;
             top: 1296px;
             width: 206px;
             left: 451px;
+            z-index: 999;
             letter-spacing: 1px;
         }
         .fio3{
@@ -168,6 +170,7 @@
             top: 1608px;
             width: 206px;
             left: 451px;
+            z-index: 999;
             letter-spacing: 1px;
         }
         .company0{
@@ -250,27 +253,146 @@
             top: 900px;
             left: 580px;
         }
-
+        /*.r0{*/
+        /*-moz-transform: rotate(7deg); !* Для Firefox *!*/
+        /*-ms-transform: rotate(7deg); !* Для IE *!*/
+        /*-webkit-transform: rotate(7deg); !* Для Safari, Chrome, iOS *!*/
+        /*-o-transform: rotate(7deg); !* Для Opera *!*/
+        /*transform: rotate(7deg);*/
+        /*}*/
+        /*.r1{*/
+        /*-moz-transform: rotate(-7deg); !* Для Firefox *!*/
+        /*-ms-transform: rotate(-7deg); !* Для IE *!*/
+        /*-webkit-transform: rotate(-7deg); !* Для Safari, Chrome, iOS *!*/
+        /*-o-transform: rotate(-7deg); !* Для Opera *!*/
+        /*transform: rotate(-7deg);*/
+        /*}*/
+        /*.r2{*/
+        /*width: 142px !important;*/
+        /*}*/
+        /*.r3{*/
+        /*width: 125px !important;*/
+        /*}*/
     </style>
 </head>
 
 <body>
+<img src="{{ asset('bundles/crmmain/page1.png') }}" style="">
+
+<div class="company0">ООО "ИнфоМакс"</div>
+<div class="fio0">{{ user.lastName }} {{ user.firstName }} {{ user.surName }}</div>
+<div class="line{{ user.typeCard }}">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
+<div class="line1{{ user.typeCard }}">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
+<div class="gal" style="font-size: 48px">&bull;</div>
+<div class="rud" style="">
+    {{ user.lastNumberCard|slice(3, 17) }}
+</div>
+<div class="fio" style="">
+    {{ user.lastName }} {{ user.firstName }} {{ user.surName }}
+</div>
+<div class="companyName">
+    {#{% if user.myPetition == 1 %}#}
+    {#{% if user.petitionTitle != null %}#}
+    {#{{ user.petitionTitle }}#}
+    {#{% else %}#}
+    {#ООО «НПО «ТЕХНОЛОГ»#}
+    {#{% endif %}#}
+    {#{% else %}#}
+    {#{% if user.companyPetition != null %}#}
+    {#{{ user.companyPetition.title }}#}
+    {#{% else %}#}
+    {#{{ user.company.title }}#}
+    {#{% endif %}#}
+    {#{% endif %}#}
+    {% if user.myPetition == 1 or user.company == null or user.company.title is not defined or user.company.title  == '' %}
+        ООО «ИнфоМакс»
+    {% elseif user.companyPetition != null %}
+        {{ user.companyPetition.title }}
+    {% elseif  user.petitionAdrs is not empty and user.petitionAdrs | length != 0 %}
+        {{ user.petitionTitle }}
+    {% else %}
+        {{ user.company.title }}
+    {% endif %}
+</div>
+<div class="companyAdress" style="width: 100%">
+    {#{% if user.myPetition == 1 %}#}
+    {#{% if user.petitionAdrs.city is defined and user.petitionAdrs.city != null and user.petitionAdrs.city != '' %}#}
+    {#{{ user.petitionAdrs.zipcode }},#}
+    {#{{ user.petitionAdrs.city }},#}
+    {#{{ user.petitionAdrs.street }},д.{{ user.petitionAdrs.house }} {{ user.petitionAdrs.corp }}, {{ user.petitionAdrs.room }}#}
+    {#{% else %}#}
+    {#195196, г.Санкт-Петербург, ул.Громова, д.14/6, лит. А, пом. 3-Н#}
+    {#{% endif %}#}
+    {#{% else %}#}
+    {#{% if user.companyPetition != null %}#}
+    {#{{ user.companyPetition.zipcode }},#}
+    {#{{ user.companyPetition.city }},#}
+    {#{{ user.companyPetition.street }},д.{{ user.companyPetition.home }} {{ user.companyPetition.corp }}, {{ user.companyPetition.room }}#}
+    {#{% else %}#}
+    {#{{ user.company.zipcode }},#}
+    {#{{ user.company.city }},#}
+    {#{{ user.company.street }},д.{{ user.company.home }} {{ user.company.corp }}, {{ user.company.room }}#}
+    {#{% endif %}#}
+    {#{% endif %}#}
+    {% if user.myPetition == 1 or user.company == null or user.company.title is not defined or user.company.title  == '' %}
+        198096, Россия, г. Санкт-Петербург, ул. Маринеско 5-3Н
+    {% elseif user.companyPetition != null %}
+        {{ user.companyPetition.zipcode }},
+        {{ user.companyPetition.city }},
+        {{ user.companyPetition.street }},д.{{ user.companyPetition.home }} {{ user.companyPetition.corp }}, {{ user.companyPetition.room }}
+    {% elseif  user.petitionAdrs is not empty and user.petitionAdrs | length != 0 %}
+        {{ user.petitionAdrs.zipcode }},
+        {{ user.petitionAdrs.city }},
+        {{ user.petitionAdrs.street }},д.{{ user.petitionAdrs.house }} {{ user.petitionAdrs.corp }}, {{ user.petitionAdrs.room }}
+    {% else %}
+        {{ user.company.zipcode }},
+        {{ user.company.city }},
+        {{ user.company.street }},д.{{ user.company.home }} {{ user.company.corp }}, {{ user.company.room }}
+    {% endif %}
+</div>
+<div class="snils">{{ user.snils }}</div>
+<div class="inn">{{ user.inn }}</div>
+<div class="dateBirthDate">{{ user.birthdate | date("d.m.Y") }}</div>
+
+<div class="passportNumber">{{ user.passportSerial }} {{ user.passportNumber }}</div>
+<div class="passportDate">{{ user.passportIssuanceDate | date("d") }}&nbsp;&nbsp;&nbsp;&nbsp;{{ user.passportIssuanceDate | date("m") }}&nbsp;&nbsp;&nbsp;&nbsp;{{ user.passportIssuanceDate |  date("Y") }}</div>
+<div class="passportPlace">{{ user.passportIssuance }}</div>
+<div class="passportCode">{{ user.passportCode }}</div>
+{#<div class="passportCode">133&nbsp;&nbsp;&nbsp;132</div>#}
+
+<div class="driverNumber">{{ user.driverDocNumber }}</div>
+<div class="driverDate">{{ user.driverDocDateStarts | date("d") }}&nbsp;&nbsp;&nbsp;&nbsp;{{ user.driverDocDateStarts | date("m") }}&nbsp;&nbsp;&nbsp;&nbsp;{{ user.driverDocDateStarts | date("Y") }}</div>
+<div class="driverPlace">{{ user.driverDocIssuance }}</div>
+<div class="driverCountry" style="width: 100px">РФ</div>
+<div class="page1_photo">
+    {% if user.status > 0 %}
+        <img src="{{ miniSign1 }}" style="max-width: 120px" class="r{{ r2 }}">
+    {% else %}
+        <img src="{{ asset('bundles/crmmain/images/px2.png') }}" style="height: 75px; width: 120px" class="r{{ r2 }}" />
+    {% endif %}
+</div>
+<div class="page1_photo2">
+    {{ user.lastName }} {{ user.firstName| slice(0,1) }}. {{ user.surName | slice(0,1) }}.
+</div>
+
+
+<div>
     <img src="{{ asset('bundles/crmmain/page2.png') }}" style="position: absolute; top: 0;">
     <img src="/{{ user.photo.path }}" class="" style="margin-top: -950px; margin-left: -684px; margin-bottom: 860px; width: 120px">
     {% if user.status > 0 %}
-        <img src="{{ bigSign }}" class="sign " style="margin-top: -829px; margin-bottom: 840px; margin-left: 235px; max-height: 120px; max-width: 200px">
+        <img src="{{ bigSign }}" class="sign " style="margin-top: -720px; margin-bottom: 870px; margin-left: 235px; max-height: 50px; max-width: 200px">
         <img src="{{ miniSign2 }}" class="sign2 r{{ r0 }}" style="margin-top: -620px; margin-bottom: 620px; margin-left: 280px; max-height: 75px; max-width: 120px">
         <img src="{{ miniSign3 }}" class="sign3 r{{ r1 }}" style="margin-top: -300px; margin-bottom: 300px; margin-left: -165px; max-height: 75px; max-width: 120px">
     {% else %}
-        <img src="{{ asset('bundles/crmmain/images/px2.png') }}" class="sign " style="margin-top: -790px; margin-bottom: 870px; margin-left: 235px; max-height: 50px; max-width: 200px">
-        <img src="{{ asset('bundles/crmmain/images/px2.png') }}" class="sign2" style="margin-top: -730px; margin-bottom: 820px; margin-left: 230px; height: 75px; width: 120px">
-        <img src="{{ asset('bundles/crmmain/images/px2.png') }}" class="sign3" style="margin-top: -310px; margin-bottom: 300px; margin-left: -165px; height: 75px; width: 120px">
+        <img src="{{ asset('bundles/crmmain/images/px2.png') }}" class=" " style="margin-top: -735px; margin-bottom: 880px; margin-left: 235px; max-height: 50px; max-width: 200px">
+        <img src="{{ asset('bundles/crmmain/images/px2.png') }}" class="" style="height: 75px; width: 120px">
+        <img src="{{ asset('bundles/crmmain/images/px2.png') }}" class="" style="height: 75px; width: 120px">
     {% endif %}
-    <div class="date2" style="margin-top: -665px; margin-left: 75px">{{ user.created| date("d") }}&nbsp;&nbsp;&nbsp;&nbsp;{{ user.created| date("m") }}&nbsp;&nbsp;&nbsp;&nbsp;{{ user.created | date("Y") }}</div>
+    <div class="date2" style="margin-top: -300px">{{ user.created| date("d") }}&nbsp;&nbsp;&nbsp;&nbsp;{{ user.created| date("m") }}&nbsp;&nbsp;&nbsp;&nbsp;{{ user.created | date("Y") }}</div>
 
-    <div class="fio2" style="margin-left: 440px; margin-top: -25px">{{ user.lastName }} {{ user.firstName|first }}. {{ user.surName|first }}.</div>
-    <div class="fio3" style="margin-left: 440px; margin-top: -50px">{{ user.lastName }} {{ user.firstName|first }}. {{ user.surName|first }}.</div>
-
+    <div class="fio2"  style="margin-top: -300px">{{ user.lastName }} {{ user.firstName|first }}. {{ user.surName|first }}.</div>
+    <div class="fio3"  style="margin-top: -300px">{{ user.lastName }} {{ user.firstName|first }}. {{ user.surName|first }}.</div>
+</div>
 
 <br />
 <br />

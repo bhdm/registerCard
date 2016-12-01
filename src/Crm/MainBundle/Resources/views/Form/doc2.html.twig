@@ -115,10 +115,10 @@
             font-size: 15px;
         }
         .photo{
-            /*position: absolute;*/
-            /*top: 002px;*/
-            /*width: 102px;*/
-            /*left: 0px;*/
+            position: absolute;
+            top: 302px;
+            width: 102px;
+            left: 75px;
         }
         .photo img{
             width: 102px;
@@ -127,11 +127,11 @@
             width: 102px;
         }
         .sign{
-            /*position: absolute;*/
-            /*top: 806px;*/
-            /*width: 235px;*/
+            position: absolute;
+            top: 806px;
+            width: 235px;
             /*height: 100px;*/
-            /*left: 351px;*/
+            left: 351px;
             z-index: 999;
         }
         .sign img{
@@ -155,14 +155,12 @@
             width: 136px;
             left: 81px;
             letter-spacing: 1px;
-            z-index: 9999;
         }
         .fio2{
             position: absolute;
             top: 1296px;
             width: 206px;
             left: 451px;
-            z-index: 999;
             letter-spacing: 1px;
         }
         .fio3{
@@ -170,7 +168,6 @@
             top: 1608px;
             width: 206px;
             left: 451px;
-            z-index: 999;
             letter-spacing: 1px;
         }
         .company0{
@@ -368,7 +365,7 @@
     {% if user.status > 0 %}
         <img src="{{ miniSign1 }}" style="max-width: 120px" class="r{{ r2 }}">
     {% else %}
-        <img src="{{ asset('bundles/crmmain/images/px2.png') }}" style="height: 75px; width: 120px" class="r{{ r2 }}" />
+        <img src="{{ asset('bundles/crmmain/images/px.png') }}" style="height: 75px; width: 120px" class="r{{ r2 }}" />
     {% endif %}
 </div>
 <div class="page1_photo2">
@@ -377,21 +374,21 @@
 
 
 <div>
-    <img src="{{ asset('bundles/crmmain/page2.png') }}" style="position: absolute; top: 0;">
-    <img src="/{{ user.photo.path }}" class="" style="margin-top: -950px; margin-left: -684px; margin-bottom: 860px; width: 120px">
+    <img src="{{ asset('bundles/crmmain/page2.png') }}" style="position: absolute; top: 0; width: 100%">
+    <img src="/{{ user.photo.path }}" class="photo" style="margin-top: -750px; margin-bottom: 750px; position: relative; margin-left: -602px">
     {% if user.status > 0 %}
-        <img src="{{ bigSign }}" class="sign " style="margin-top: -720px; margin-bottom: 870px; margin-left: 235px; max-height: 50px; max-width: 200px">
+        <img src="{{ bigSign }}" class="sign " style="margin-top: -749px; margin-bottom: 749px; margin-left: 170px; max-height: 150px; max-width: 200px">
         <img src="{{ miniSign2 }}" class="sign2 r{{ r0 }}" style="margin-top: -620px; margin-bottom: 620px; margin-left: 280px; max-height: 75px; max-width: 120px">
         <img src="{{ miniSign3 }}" class="sign3 r{{ r1 }}" style="margin-top: -300px; margin-bottom: 300px; margin-left: -165px; max-height: 75px; max-width: 120px">
     {% else %}
-        <img src="{{ asset('bundles/crmmain/images/px2.png') }}" class=" " style="margin-top: -735px; margin-bottom: 880px; margin-left: 235px; max-height: 50px; max-width: 200px">
-        <img src="{{ asset('bundles/crmmain/images/px2.png') }}" class="" style="height: 75px; width: 120px">
-        <img src="{{ asset('bundles/crmmain/images/px2.png') }}" class="" style="height: 75px; width: 120px">
+        <img src="{{ asset('bundles/crmmain/images/px.png') }}" class="sign " style="margin-top: -760px; margin-bottom: 749px; margin-left: 170px; height: 100px; width: 200px">
+        <img src="{{ asset('bundles/crmmain/images/px.png') }}" class="sign2" style="margin-top: -630px; margin-bottom: 620px; margin-left: 280px; height: 75px; width: 120px">
+        <img src="{{ asset('bundles/crmmain/images/px.png') }}" class="sign3" style="margin-top: -310px; margin-bottom: 300px; margin-left: -165px; height: 75px; width: 120px">
     {% endif %}
-    <div class="date2" style="margin-top: -300px">{{ user.created| date("d") }}&nbsp;&nbsp;&nbsp;&nbsp;{{ user.created| date("m") }}&nbsp;&nbsp;&nbsp;&nbsp;{{ user.created | date("Y") }}</div>
+    <div class="date2" style="margin-top: -665px; margin-left: 75px">{{ user.created| date("d") }}&nbsp;&nbsp;&nbsp;&nbsp;{{ user.created| date("m") }}&nbsp;&nbsp;&nbsp;&nbsp;{{ user.created | date("Y") }}</div>
 
-    <div class="fio2"  style="margin-top: -300px">{{ user.lastName }} {{ user.firstName|first }}. {{ user.surName|first }}.</div>
-    <div class="fio3"  style="margin-top: -300px">{{ user.lastName }} {{ user.firstName|first }}. {{ user.surName|first }}.</div>
+    <div class="fio2" style="margin-left: 440px; margin-top: -25px">{{ user.lastName }} {{ user.firstName|first }}. {{ user.surName|first }}.</div>
+    <div class="fio3" style="margin-left: 440px; margin-top: 300px">{{ user.lastName }} {{ user.firstName|first }}. {{ user.surName|first }}.</div>
 </div>
 
 <br />
