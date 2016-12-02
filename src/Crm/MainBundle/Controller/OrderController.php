@@ -153,7 +153,7 @@ class OrderController extends Controller{
                 'outputFilename' => null, //$filename argument for Output method
                 'outputDest' => null, //$dest argument for Output method
             );
-            $tPdf = $mpdfService->generatePdf($html->getContent(), $arguments);
+            $tPdf = $mpdfService->generatePdfResponse($html->getContent(), $arguments);
             $img = new \Imagick();
             $img->readImageFile($tPdf);
             $img->setFormat('jpg');
