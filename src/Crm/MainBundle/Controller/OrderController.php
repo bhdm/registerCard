@@ -146,7 +146,7 @@ class OrderController extends Controller{
             $x2 = rand(0,15);
             $html = $this->render('CrmOperatorBundle:Petition:file2.html.twig',array('user' => $user, 'x1' => $x1, 'x2' => $x2));
             $arguments = array(
-                'constructorArgs' => array('utf-8', 'A4-L', 5 ,0 ,0 ,0,0 ), //Constructor arguments. Numeric array. Don't forget about points 2 and 3 in Warning section!
+                'constructorArgs' => array('utf-8', 'A4-L', 1 ,1 ,1 ,1,5 ), //Constructor arguments. Numeric array. Don't forget about points 2 and 3 in Warning section!
                 'writeHtmlMode' => null, //$mode argument for WriteHTML method
                 'writeHtmlInitialise' => null, //$mode argument for WriteHTML method
                 'writeHtmlClose' => null, //$close argument for WriteHTML method
