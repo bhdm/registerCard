@@ -158,8 +158,11 @@ class OrderController extends Controller{
             $img->readImageFile($tPdf);
             $img->setFormat('jpg');
             $img->setImageFormat('jpg');
-            $img->writeImage();
-            echo;
+            $base64 = 'data:image/jpg;base64,' . base64_encode($img->getImageBlob());
+            $html = '<img src="'.$base64.'" style="width: 100%" />';
+            echo $html;
+            exit;
+
 
 
 //            }
