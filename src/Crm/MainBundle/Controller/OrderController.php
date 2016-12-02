@@ -160,9 +160,32 @@ class OrderController extends Controller{
     }
 
     /**
-     * @Route("my-petition-image/{id}")
+     * @Route("my-petition-image-pdf/{id}", name="my-petition-image-pdf")
      */
     public function petitionImageAction($id){
+        $img = new \Imagick();
+        $img->readImage('https://im-kard.ru'.$this->generateUrl('my-petition',['userId' => $id]));
+        $img->setFormat('jpg');
+        $img->setImageFormat('jpg');
+        $base64 = 'data:image/jpg;base64,' . base64_encode($img->getImageBlob());
+        $html = '<img src="'.$base64.'" style="width: 100%" />';
+
+        $mpdfService = $this->container->get('tfox.mpdfport');
+        $arguments = array(
+            'writeHtmlMode' => null,
+            'writeHtmlInitialise' => null,
+            'writeHtmlClose' => null,
+            'outputFilename' => null,
+            'outputDest' => null,
+        );
+        return $mpdfService->generatePdfResponse($html, $arguments);
+
+    }
+
+    /**
+     * @Route("my-petition-image-pdf/{id}")
+     */
+    public function petitionImagePdfAction($id){
         $tPdf = file_get_contents('https://im-kard.ru'.$this->generateUrl('my-petition',['userId' => $id]));
         $img = new \Imagick();
         $img->readImage('https://im-kard.ru'.$this->generateUrl('my-petition',['userId' => $id]));
