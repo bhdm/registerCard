@@ -153,21 +153,25 @@ class OrderController extends Controller{
                 'outputFilename' => null, //$filename argument for Output method
                 'outputDest' => null, //$dest argument for Output method
             );
-            $tPdf = $mpdfService->generatePdfResponse($html->getContent(), $arguments);
-            $img = new \Imagick();
-            $img->readImageFile($tPdf);
-            $img->setFormat('jpg');
-            $img->setImageFormat('jpg');
-            $base64 = 'data:image/jpg;base64,' . base64_encode($img->getImageBlob());
-            $html = '<img src="'.$base64.'" style="width: 100%" />';
-            echo $html;
-            exit;
+            return $mpdfService->generatePdfResponse($html->getContent(), $arguments);
 
-
-
-//            }
         }
         return $this->redirect($request->headers->get('referer'));
+    }
+
+    /**
+     * @Route("my-petition-image/{id}")
+     */
+    public function petitionImageAction($id){
+        $tPdf = file_get_contents($this->generateUrl('my-petition',['userId' => $id]));
+        $img = new \Imagick();
+        $img->readImageFile($tPdf);
+        $img->setFormat('jpg');
+        $img->setImageFormat('jpg');
+        $base64 = 'data:image/jpg;base64,' . base64_encode($img->getImageBlob());
+        $html = '<img src="'.$base64.'" style="width: 100%" />';
+        echo $html;
+        exit;
     }
 
     /**
