@@ -152,11 +152,11 @@ class XmlController extends Controller
             }
             $files = array();
 
-            $files[0]['base'] = $this->imageToPdf($user->getCopyPassport()['originalName']);
+            $files[0]['base'] = $this->imageToPdf($user->getCopyPassport()['originalName'], 'passport');
             $files[0]['title'] = 'Passport';
             $files[0]['file'] = $user->getCopyPassport();
 
-            $files[1]['base'] = $this->imageToPdf($user->getCopyDriverPassport()['originalName']);
+            $files[1]['base'] = $this->imageToPdf($user->getCopyDriverPassport()['originalName'], 'driver');
             $files[1]['title'] = 'DriverLicense';
             $files[1]['file'] = $user->getCopyDriverPassport();
 
@@ -164,7 +164,7 @@ class XmlController extends Controller
             $files[2]['title'] = 'Photo';
             $files[2]['file'] = $user->getPhoto();
 
-            $files[11]['base'] = $this->ImageToPdf($user->getCopyInn()['originalName']);
+            $files[11]['base'] = $this->ImageToPdf($user->getCopyInn()['originalName'], 'doc');
             $files[11]['title'] = 'INN';
             $files[11]['file'] = $user->getCopyInn();
 
@@ -181,7 +181,7 @@ class XmlController extends Controller
             $files[3]['title'] = 'Signature';
             $files[3]['file'] = $user->getCopySignature();
             ;
-            $files[5]['base'] = $this->ImageToPdf($user->getCopySnils()['originalName']);
+            $files[5]['base'] = $this->ImageToPdf($user->getCopySnils()['originalName'], 'snils');
             $files[5]['title'] = 'SNILS';
             $files[5]['file'] = $user->getCopySnils();
 
