@@ -402,6 +402,7 @@ class XmlController extends Controller
         return $base64;
     }
 
+
     public function pdfToBase64($url){
         $url = 'http://'.$_SERVER['SERVER_NAME'].$url;
         $pdfdata = file_get_contents($url);
