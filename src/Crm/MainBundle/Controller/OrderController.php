@@ -163,7 +163,7 @@ class OrderController extends Controller{
      * @Route("my-petition-image/{id}")
      */
     public function petitionImageAction($id){
-        $tPdf = file_get_contents($this->generateUrl('my-petition',['userId' => $id]));
+        $tPdf = file_get_contents('https://im-kard.ru'.$this->generateUrl('my-petition',['userId' => $id]));
         $img = new \Imagick();
         $img->readImageFile($tPdf);
         $img->setFormat('jpg');
