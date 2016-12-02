@@ -170,7 +170,9 @@ class OrderController extends Controller{
         $base64 = 'data:image/jpg;base64,' . base64_encode($img->getImageBlob());
         $html = '<img src="'.$base64.'" style="width: 100%" />';
 
-        $mpdfService = $this->container->get('tfox.mpdfport');
+//        $mpdfService = $this->container->get('tfox.mpdfport');
+        $mpdf = new \mPDF( '', 'A4',  0, '',  0, 0, 0, 0,     0,  0,  'L');
+
         $arguments = array(
             'writeHtmlMode' => null,
             'writeHtmlInitialise' => null,
@@ -178,7 +180,9 @@ class OrderController extends Controller{
             'outputFilename' => null,
             'outputDest' => null,
         );
-        return $mpdfService->generatePdfResponse($html, $arguments);
+        $mpdf->WriteHTML($html);
+        $mpdf->Output('petition.pdf','I');
+//        return $mpdfService->generatePdfResponse($html, $arguments);
 
     }
 
