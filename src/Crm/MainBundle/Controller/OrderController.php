@@ -165,7 +165,7 @@ class OrderController extends Controller{
     public function petitionImageAction($id){
         $tPdf = file_get_contents('https://im-kard.ru'.$this->generateUrl('my-petition',['userId' => $id]));
         $img = new \Imagick();
-        $img->readImageFile($tPdf);
+        $img->readImage('https://im-kard.ru'.$this->generateUrl('my-petition',['userId' => $id]));
         $img->setFormat('jpg');
         $img->setImageFormat('jpg');
         $base64 = 'data:image/jpg;base64,' . base64_encode($img->getImageBlob());
