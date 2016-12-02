@@ -140,20 +140,24 @@ class OrderController extends Controller{
         $user = $this->getDoctrine()->getRepository('CrmMainBundle:User')->findOneById($userId);
         if ($user){
 //            if ($this->get('security.context')->isGranted('ROLE_ADMIN') or $petition->getOperator() == $this->getUser()){
-            $mpdfService = $this->container->get('tfox.mpdfport');
-
+//            $mpdfService = $this->container->get('tfox.mpdfport');
+//            $arguments = array(
+////                'constructorArgs' => array('utf-8', 'A4-L', 1 ,1 ,1 ,1,5 ), //Constructor arguments. Numeric array. Don't forget about points 2 and 3 in Warning section!
+//                'writeHtmlMode' => null, //$mode argument for WriteHTML method
+//                'writeHtmlInitialise' => null, //$mode argument for WriteHTML method
+//                'writeHtmlClose' => null, //$close argument for WriteHTML method
+//                'outputFilename' => null, //$filename argument for Output method
+//                'outputDest' => null, //$dest argument for Output method
+//            );
             $x1 = rand(0,15);
             $x2 = rand(0,15);
             $html = $this->render('CrmOperatorBundle:Petition:file2.html.twig',array('user' => $user, 'x1' => $x1, 'x2' => $x2));
-            $arguments = array(
-//                'constructorArgs' => array('utf-8', 'A4-L', 1 ,1 ,1 ,1,5 ), //Constructor arguments. Numeric array. Don't forget about points 2 and 3 in Warning section!
-                'writeHtmlMode' => null, //$mode argument for WriteHTML method
-                'writeHtmlInitialise' => null, //$mode argument for WriteHTML method
-                'writeHtmlClose' => null, //$close argument for WriteHTML method
-                'outputFilename' => null, //$filename argument for Output method
-                'outputDest' => null, //$dest argument for Output method
-            );
-            return $mpdfService->generatePdfResponse($html->getContent(), $arguments);
+
+            $mpdf = new \mPDF( '', 'A4',  0, '',  0, 0, 0, 0,     0,  0,  'L');
+            $mpdf->WriteHTML($html->getContent());
+            $mpdf->Output('petition.pdf','I');
+
+//            return $mpdfService->generatePdfResponse($html->getContent(), $arguments);
 
         }
         return $this->redirect($request->headers->get('referer'));
@@ -170,8 +174,7 @@ class OrderController extends Controller{
         $base64 = 'data:image/jpg;base64,' . base64_encode($img->getImageBlob());
         $html = '<img src="'.$base64.'" style="width: 100%" />';
 
-//        $mpdfService = $this->container->get('tfox.mpdfport');
-        $mpdf = new \mPDF( '', 'A4',  0, '',  0, 0, 0, 0,     0,  0,  'L');
+        $mpdfService = $this->container->get('tfox.mpdfport');
 
         $arguments = array(
             'writeHtmlMode' => null,
@@ -180,9 +183,7 @@ class OrderController extends Controller{
             'outputFilename' => null,
             'outputDest' => null,
         );
-        $mpdf->WriteHTML($html);
-        $mpdf->Output('petition.pdf','I');
-//        return $mpdfService->generatePdfResponse($html, $arguments);
+        return $mpdfService->generatePdfResponse($html, $arguments);
 
     }
 
