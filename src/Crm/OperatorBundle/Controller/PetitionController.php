@@ -98,8 +98,6 @@ class PetitionController extends Controller
     public function generationPetitionAction($userId){
         $user = $this->getDoctrine()->getRepository('CrmMainBundle:User')->findOneById($userId);
         $em = $this->getDoctrine()->getManager();
-        $user->setProduction(1);
-        $em->flush($user);
 
         $mpdfService = $this->container->get('tfox.mpdfport');
         $arguments = array(

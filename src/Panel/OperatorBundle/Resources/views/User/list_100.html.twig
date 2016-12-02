@@ -188,7 +188,7 @@
                                             </li>
                                             {% if user.myPetition == 1 or user.copyPetition is not empty %}
                                                 <li role="presentation">
-                                                    <a role="menuitem" tabindex="-1" href="{{ path('generate_petition',{'userId' : user.id}) }}" target="_blank">Ходатайсво</a>
+                                                    <a role="menuitem" tabindex="-1" href="{{ path('my-petition',{'userId' : user.id}) }}" target="_blank">Ходатайсво</a>
                                                 </li>
                                             {% elseif user.companyPetition is not null %}
                                                 <li role="presentation">
