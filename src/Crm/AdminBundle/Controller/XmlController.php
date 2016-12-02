@@ -70,7 +70,7 @@ class XmlController extends Controller
 
         # Ходатайство
         if ($user->getMyPetition() == 1){
-            $url = $this->generateUrl('my-petition', array('userId' => $user->getId()));
+            $url = $this->generateUrl('my-petition-image-pdf', array('id' => $user->getId()));
             $files[8]['base'] = $this->pdfToBase64($url);
             $files[8]['title'] = 'Petition';
         }else{
