@@ -147,13 +147,13 @@
 
             {# Ходатайство #}
             {#<!-- Ходатайство -->#}
-            {#{% if files[8] is defined %}#}
-                {#<Attachment>#}
-                    {#<AttachmentType>Other</AttachmentType>#}
-                    {#<FileFormat>PDF</FileFormat>#}
-                    {#<Body>{{ files[8].base }}</Body>#}
-                {#</Attachment>#}
-            {#{% endif %}#}
+            {% if files[8] is defined %}
+                <Attachment>
+                    <AttachmentType>Other</AttachmentType>
+                    <FileFormat>PDF</FileFormat>
+                    <Body>{{ files[8].base }}</Body>
+                </Attachment>
+            {% endif %}
             {#<!-- Ходатайство конец -->#}
             {# Заявление #}
             {#{% if files[7] is defined %}#}
