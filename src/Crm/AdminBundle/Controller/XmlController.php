@@ -419,7 +419,7 @@ class XmlController extends Controller
     }
 
     /**
-     * @Route("/panel/merge-docs/{id}")
+     * @Route("/panel/merge-docs/{id}", name="merge_docs")
      */
     public function mergeDocsAction($id){
         $types = array(
@@ -437,7 +437,7 @@ class XmlController extends Controller
         $snils = $user->getCopySnils()['path'];
 
         $image = new \Imagick();
-        $image->newImage(1170, 1170, new \ImagickPixel('white'));
+        $image->newImage(1170, 1500, new \ImagickPixel('white'));
         $image->setImageArtifact('compose:args', "1,0,-0.5,0.5");
         $image->setImageVirtualPixelMethod(\Imagick::VIRTUALPIXELMETHOD_TRANSPARENT);
 
