@@ -243,10 +243,8 @@ class XmlController extends Controller
         }else{
             $filename = 'upload/docs/'.$filename;
         }
-//        1479045775.jpg
+
         $file = new \Imagick('/var/www/'.$filename);
-//        $w = $file->getImageResolution()['x']*$file->getImageWidth()/$dpi;
-//        $h = $file->getImageResolution()['y']*$file->getImageHeight()/$dpi;
         $w = $types[$type]['x'];
         $h = $types[$type]['y'];
         if ($type == 'driver'){
@@ -419,5 +417,66 @@ class XmlController extends Controller
         $base64 = base64_encode($pdfdata);
         return $base64;
     }
+
+    /**
+     * @Route("/merge-docs/{id}")
+     */
+    public function mergeDocsAction($id){
+        $types = array(
+            'passport' => ['x' => 590, 'y' =>  800],
+            'driver' => ['x' => 400, 'y' =>  250],
+            'doc' => ['x' => 827, 'y' =>  1170],
+            'snils' => ['x' => 480, 'y' =>  340],
+            'other' => ['x' => 827, 'y' =>  1170]
+        );
+
+        $user = $this->getDoctrine()->getRepository('CrmMainBundle:User')->find($id);
+
+        $passport = 'upload/docs/'.$user->getCopyPassport()['path'];
+        $driver = 'upload/docs/'.$user->getCopyDriverPassport()['path'];
+        $snils = 'upload/docs/'.$user->getCopySnils()['path'];
+
+        $image = new \Imagick();
+        $image->newImage(827, 1170, new \ImagickPixel('white'));
+        $image->setImageArtifact('compose:args', "1,0,-0.5,0.5");
+        $image->setImageVirtualPixelMethod(\Imagick::VIRTUALPIXELMETHOD_TRANSPARENT);
+
+
+
+        $imgPassport = new \Imagick('/var/www/'.$passport);
+        $w = $types['passport']['x'];
+        $h = $types['passport']['y'];
+        $imgPassport->resizeImage($w,$h, \Imagick::FILTER_LANCZOS,1);
+        $image->compositeImage($imgPassport, \Imagick::COMPOSITE_DEFAULT,0,0);
+
+
+        $imgDriver = new \Imagick('/var/www/'.$driver);
+        if ($imgDriver->getImageHeight() > $imgDriver->getImageWidth()){
+            $w = $types['driver']['y']*1.4;
+            $h = $types['driver']['x']*1.2;
+        }else{
+            $w = $types['driver']['x'];
+            $h = $types['driver']['y'];
+        }
+        $driverHeight = $h;
+        $imgDriver->resizeImage($w,$h, \Imagick::FILTER_LANCZOS,1);
+        $image->compositeImage($imgDriver, \Imagick::COMPOSITE_DEFAULT,600,0);
+
+
+        $imgSnils = new \Imagick('/var/www/'.$snils);
+        $w = $types['snils']['x'];
+        $h = $types['snils']['y'];
+        $imgDriver->resizeImage($w,$h, \Imagick::FILTER_LANCZOS,1);
+        $image->compositeImage($imgSnils, \Imagick::COMPOSITE_DEFAULT,600,$driverHeight);
+
+        $image->setFormat('jpg');
+        $image->setImageFormat('jpg');
+
+        $base64 = 'data:image/jpg;base64,' . base64_encode($image->getImageBlob());
+        $html = '<img src="'.$base64.'" style="width: 100%" />';
+        echo $html;
+        exit;
+    }
+
 
 }
