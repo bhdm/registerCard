@@ -419,7 +419,7 @@ class XmlController extends Controller
     }
 
     /**
-     * @Route("/merge-docs/{id}")
+     * @Route("/panel/merge-docs/{id}")
      */
     public function mergeDocsAction($id){
         $types = array(
