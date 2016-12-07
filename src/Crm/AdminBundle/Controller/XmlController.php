@@ -437,7 +437,7 @@ class XmlController extends Controller
         $snils = $user->getCopySnils()['path'];
 
         $image = new \Imagick();
-        $image->newImage(1600, 2000, new \ImagickPixel('white'));
+        $image->newImage(1170, 1500, new \ImagickPixel('white'));
         $image->setImageArtifact('compose:args', "1,0,-0.5,0.5");
         $image->setImageVirtualPixelMethod(\Imagick::VIRTUALPIXELMETHOD_TRANSPARENT);
 
@@ -466,7 +466,7 @@ class XmlController extends Controller
         $imgSnils = new \Imagick('/var/www/'.$snils);
         $w = $types['snils']['x'];
         $h = $types['snils']['y'];
-        $imgDriver->resizeImage($w,$h, \Imagick::FILTER_LANCZOS,1);
+        $imgSnils->resizeImage($w,$h, \Imagick::FILTER_LANCZOS,1);
         $image->compositeImage($imgSnils, \Imagick::COMPOSITE_DEFAULT,600,$driverHeight+30);
 
         $image->setFormat('jpg');
