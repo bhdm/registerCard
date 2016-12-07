@@ -432,9 +432,9 @@ class XmlController extends Controller
 
         $user = $this->getDoctrine()->getRepository('CrmMainBundle:User')->find($id);
 
-        $passport = 'upload/docs/'.$user->getCopyPassport()['path'];
-        $driver = 'upload/docs/'.$user->getCopyDriverPassport()['path'];
-        $snils = 'upload/docs/'.$user->getCopySnils()['path'];
+        $passport = $user->getCopyPassport()['path'];
+        $driver = $user->getCopyDriverPassport()['path'];
+        $snils = $user->getCopySnils()['path'];
 
         $image = new \Imagick();
         $image->newImage(827, 1170, new \ImagickPixel('white'));
