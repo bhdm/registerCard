@@ -111,6 +111,7 @@
             </Sign>
         </PersonOrder>
 
+
         {# Паспорт #}
         <Attachment>
             <AttachmentType>Other</AttachmentType>
@@ -145,64 +146,64 @@
         {#{% endif %}#}
 
         {# Временная регистрация #}
-        {% if files[6] is defined %}
-        <Attachment>
-            <AttachmentType>Other</AttachmentType>
-            <FileFormat>PDF</FileFormat>
-            <Body>{{ files[6].base }}</Body>
-        </Attachment>
-        {% endif %}
+        {#{% if files[6] is defined %}#}
+        {#<Attachment>#}
+            {#<AttachmentType>Other</AttachmentType>#}
+            {#<FileFormat>PDF</FileFormat>#}
+            {#<Body>{{ files[6].base }}</Body>#}
+        {#</Attachment>#}
+        {#{% endif %}#}
 
         {# Ходатайство #}
-        <!-- Ходатайство -->
-        {% if files[8] is defined %}
-            <Attachment>
-                <AttachmentType>Other</AttachmentType>
-                <FileFormat>PDF</FileFormat>
-                <Body>{{ files[8].base }}</Body>
-            </Attachment>
-        {% endif %}
-        <!-- Ходатайство конец -->
+        {#<!-- Ходатайство -->#}
+        {#{% if files[8] is defined %}#}
+            {#<Attachment>#}
+                {#<AttachmentType>Other</AttachmentType>#}
+                {#<FileFormat>PDF</FileFormat>#}
+                {#<Body>{{ files[8].base }}</Body>#}
+            {#</Attachment>#}
+        {#{% endif %}#}
+        {#<!-- Ходатайство конец -->#}
         {# Заявление #}
-        {% if files[7] is defined %}
-            <Attachment>
-                <AttachmentType>Other</AttachmentType>
-                <FileFormat>PDF</FileFormat>
-                <Body>{{ files[7].base }}</Body>
-            </Attachment>
-        {% endif %}
+        {#{% if files[7] is defined %}#}
+            {#<Attachment>#}
+                {#<AttachmentType>Other</AttachmentType>#}
+                {#<FileFormat>PDF</FileFormat>#}
+                {#<Body>{{ files[7].base }}</Body>#}
+            {#</Attachment>#}
+        {#{% endif %}#}
 
-        {% if files[9] is defined %}
-            <Attachment>
-                <AttachmentType>Other</AttachmentType>
-                <FileFormat>PDF</FileFormat>
-                <Body>{{ files[9].base }}</Body>
-            </Attachment>
-        {% endif %}
+        {#{% if files[9] is defined %}#}
+            {#<Attachment>#}
+                {#<AttachmentType>Other</AttachmentType>#}
+                {#<FileFormat>PDF</FileFormat>#}
+                {#<Body>{{ files[9].base }}</Body>#}
+            {#</Attachment>#}
+        {#{% endif %}#}
 
-        {% if files[10] is defined %}
-            <Attachment>
-                <AttachmentType>Other</AttachmentType>
-                <FileFormat>PDF</FileFormat>
-                <Body>{{ files[9].base }}</Body>
-            </Attachment>
-        {% endif %}
+        {#{% if files[10] is defined %}#}
+            {#<Attachment>#}
+                {#<AttachmentType>Other</AttachmentType>#}
+                {#<FileFormat>PDF</FileFormat>#}
+                {#<Body>{{ files[9].base }}</Body>#}
+            {#</Attachment>#}
+        {#{% endif %}#}
 
-        {% if files[11] is defined %}
-            <Attachment>
-                <AttachmentType>Other</AttachmentType>
-                <FileFormat>PDF</FileFormat>
-                <Body>{{ files[11].base }}</Body>
-            </Attachment>
-        {% endif %}
+        {#{% if files[11] is defined %}#}
+            {#<Attachment>#}
+                {#<AttachmentType>Other</AttachmentType>#}
+                {#<FileFormat>PDF</FileFormat>#}
+                {#<Body>{{ files[11].base }}</Body>#}
+            {#</Attachment>#}
+        {#{% endif %}#}
 
-        {% if files[12] is defined %}
-            <Attachment>
-                <AttachmentType>Other</AttachmentType>
-                <FileFormat>PDF</FileFormat>
-                <Body>{{ files[12].base }}</Body>
-            </Attachment>
-        {% endif %}
+        {#{% if files[12] is defined %}#}
+            {#<Attachment>#}
+                {#<AttachmentType>Other</AttachmentType>#}
+                {#<FileFormat>PDF</FileFormat>#}
+                {#<Body>{{ files[12].base }}</Body>#}
+            {#</Attachment>#}
+        {#{% endif %}#}
 
     </Order_v2>
 </ns2:TacPackage>
