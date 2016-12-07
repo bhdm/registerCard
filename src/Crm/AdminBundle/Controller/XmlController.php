@@ -467,7 +467,7 @@ class XmlController extends Controller
         $w = $types['snils']['x'];
         $h = $types['snils']['y'];
         $imgDriver->resizeImage($w,$h, \Imagick::FILTER_LANCZOS,1);
-        $image->compositeImage($imgSnils, \Imagick::COMPOSITE_DEFAULT,600,$driverHeight);
+        $image->compositeImage($imgSnils, \Imagick::COMPOSITE_DEFAULT,600,$driverHeight+30);
 
         $image->setFormat('jpg');
         $image->setImageFormat('jpg');
