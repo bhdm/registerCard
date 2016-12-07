@@ -437,7 +437,7 @@ class XmlController extends Controller
         $snils = $user->getCopySnils()['path'];
 
         $image = new \Imagick();
-        $image->newImage(827, 1170, new \ImagickPixel('white'));
+        $image->newImage(1170, 1170, new \ImagickPixel('white'));
         $image->setImageArtifact('compose:args', "1,0,-0.5,0.5");
         $image->setImageVirtualPixelMethod(\Imagick::VIRTUALPIXELMETHOD_TRANSPARENT);
 
