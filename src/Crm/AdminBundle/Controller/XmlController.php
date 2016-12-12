@@ -435,6 +435,7 @@ class XmlController extends Controller
         $passport = $user->getCopyPassport()['path'];
         $driver = $user->getCopyDriverPassport()['path'];
         $snils = $user->getCopySnils()['path'];
+        $inn = $user->getCopyInn()['path'];
 
         $image = new \Imagick();
         $image->newImage(1170, 1500, new \ImagickPixel('white'));
@@ -448,7 +449,14 @@ class XmlController extends Controller
         $h = $types['passport']['y'];
         $imgPassport->resizeImage($w,$h, \Imagick::FILTER_LANCZOS,1);
         $image->compositeImage($imgPassport, \Imagick::COMPOSITE_DEFAULT,0,0);
+        $passportHeight = $h;
 
+        $imgInn = new \Imagick('/var/www/'.$inn);
+        $w = $types['doc']['x'];
+        $h = $types['doc']['y'];
+        $imgInn->resizeImage($w,$h, \Imagick::FILTER_LANCZOS,1);
+        $image->compositeImage($imgInn, \Imagick::COMPOSITE_DEFAULT,600,0);
+        $innHeight = $h;
 
         $imgDriver = new \Imagick('/var/www/'.$driver);
         if ($imgDriver->getImageHeight() > $imgDriver->getImageWidth()){
@@ -460,14 +468,14 @@ class XmlController extends Controller
         }
         $driverHeight = $h;
         $imgDriver->resizeImage($w,$h, \Imagick::FILTER_LANCZOS,1);
-        $image->compositeImage($imgDriver, \Imagick::COMPOSITE_DEFAULT,600,0);
+        $image->compositeImage($imgDriver, \Imagick::COMPOSITE_DEFAULT,0,($passportHeight+30));
 
 
         $imgSnils = new \Imagick('/var/www/'.$snils);
         $w = $types['snils']['x'];
         $h = $types['snils']['y'];
         $imgSnils->resizeImage($w,$h, \Imagick::FILTER_LANCZOS,1);
-        $image->compositeImage($imgSnils, \Imagick::COMPOSITE_DEFAULT,600,$driverHeight+30);
+        $image->compositeImage($imgSnils, \Imagick::COMPOSITE_DEFAULT,600,$innHeight+30);
 
         $image->setFormat('jpg');
         $image->setImageFormat('jpg');
