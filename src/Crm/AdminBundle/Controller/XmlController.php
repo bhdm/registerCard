@@ -424,9 +424,9 @@ class XmlController extends Controller
     public function mergeDocsAction($id){
         $types = array(
             'passport' => ['x' => 590, 'y' =>  800],
-            'driver' => ['x' => 400, 'y' =>  250],
+            'driver' => ['x' => 400*1.475, 'y' =>  250*1.475],
             'doc' => ['x' => 827, 'y' =>  1170],
-            'snils' => ['x' => 480, 'y' =>  340],
+            'snils' => ['x' => 480*1.2, 'y' =>  340*1.2],
             'other' => ['x' => 827, 'y' =>  1170]
         );
 
@@ -475,7 +475,7 @@ class XmlController extends Controller
         $w = $types['snils']['x'];
         $h = $types['snils']['y'];
         $imgSnils->resizeImage($w,$h, \Imagick::FILTER_LANCZOS,1);
-        $image->compositeImage($imgSnils, \Imagick::COMPOSITE_DEFAULT,600,$innHeight+30);
+        $image->compositeImage($imgSnils, \Imagick::COMPOSITE_DEFAULT,0,$innHeight+$driverHeight+30);
 
         $image->setFormat('jpg');
         $image->setImageFormat('jpg');
