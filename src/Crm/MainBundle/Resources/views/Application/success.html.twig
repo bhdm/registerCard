@@ -9,7 +9,7 @@
             {#<a href="{{ path('offer',{'userId' : user.id, 'date' : '1541513'}) }}" class="btn">Скачать счет-заказ</a>#}
             <br/>
             <br/>
-            <b>Выберите способ оплаты:</b>
+            {#<b>Выберите способ оплаты:</b>#}
             <br />
         {% endif %}
         <a href="{{ path('generate_pdf_statement',{'id' : user.id}) }}" target="_parent" class="btn">Скачать заявку</a>

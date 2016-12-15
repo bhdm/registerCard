@@ -76,9 +76,9 @@ $(document).ready(function(){
 
     $( ".slider-vertical-contrast" ).slider({
         range: "min",
-        min: 0,
-        max: 255,
-        value: 128
+        min: -100,
+        max: 100,
+        value: 0
     });
 
     $( ".slider-vertical-contrast" ).on( "slidestop", function( event, ui ) {
@@ -105,9 +105,9 @@ $(document).ready(function(){
 
     $( ".slider-vertical-brightness" ).slider({
         range: "min",
-        min: 0,
+        min: -255,
         max: 255,
-        value: 128
+        value: 0
     });
 
     $( ".slider-vertical-brightness" ).on( "slidestop", function( event, ui ) {

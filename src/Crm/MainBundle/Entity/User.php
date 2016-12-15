@@ -547,6 +547,16 @@ class User extends BaseEntity implements UserInterface, EquatableInterface, \Ser
      */
     private $act;
 
+    /**
+     * @ORM\Column(type="array", nullable=true)
+     */
+    private $copyOrder;
+
+    /**
+     * @ORM\Column(type="array", nullable=true)
+     */
+    private $copyDocs;
+
     public function getXmlId()
     {
         return str_pad($this->id, 8, "0", STR_PAD_LEFT);
@@ -2455,6 +2465,37 @@ class User extends BaseEntity implements UserInterface, EquatableInterface, \Ser
         $this->copySignature4 = $copySignature4;
     }
 
+    /**
+     * @return mixed
+     */
+    public function getCopyOrder()
+    {
+        return $this->copyOrder;
+    }
+
+    /**
+     * @param mixed $copyOrder
+     */
+    public function setCopyOrder($copyOrder)
+    {
+        $this->copyOrder = $copyOrder;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCopyDocs()
+    {
+        return $this->copyDocs;
+    }
+
+    /**
+     * @param mixed $copyDocs
+     */
+    public function setCopyDocs($copyDocs)
+    {
+        $this->copyDocs = $copyDocs;
+    }
 
 
 }

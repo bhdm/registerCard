@@ -186,7 +186,7 @@ class ApplicationController extends Controller
             $em->persist($user);
             $em->flush($user);
             $em->refresh($user);
-            return $this->render('@CrmMain/Application/success.html.twig',['user' => $user, 'url' => $url, 'company' => $company]);
+            return $this->render('@CrmMain/Application/successSkzi.html.twig',['user' => $user, 'url' => $url, 'company' => $company, 'post' => false]);
 //            }
         }else{
             $this->clearSession($session);
@@ -194,6 +194,33 @@ class ApplicationController extends Controller
         return array('form' => $form->createView(), 'url' => $url, 'company' => $company);
     }
 
+    /**
+     * @Route("/application/skzi/{userId}/success-new", name="application-skzi-success-new", options={"expose"=true})
+     */
+    public function skziSuccessAction(Request $request, $userId){
+        $user = $this->getDoctrine()->getRepository('CrmMainBundle:User')->find($userId);
+        $url = null;
+        $company = null;
+
+
+        if ($request->getMethod() == 'POST'){
+            $file = $request->files->get('orderfile');
+            if ($file){
+                $info = new \SplFileInfo($file);
+                $path = $this->get('kernel')->getRootDir() . '/../web/upload/orders/';
+                $name = time().'.pdf';
+                $path = $path.$name;
+                if (copy($file,$path)){
+                    unlink( $file );
+                    $user->setCopyOrder(['path' => '/upload/orders/'.$name]);
+                    $this->getDoctrine()->getManager()->flush($user);
+                }
+            }
+
+        }
+
+        return $this->render('@CrmMain/Application/successSkzi.html.twig',['user' => $user, 'url' => $url, 'company' => $company, 'post' => true ]);
+    }
 
     /**
      * @Route("/application/ru/add", name="application-ru-add", options={"expose"=true})
