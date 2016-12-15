@@ -979,6 +979,13 @@
                     </td>
                 </tr>
                 {% endif %}
+                {% if user.copyOrder != null %}
+                <tr>
+                    <td>
+                      <iframe src="https://im-kard.ru{{ user.copyOrder }}" width="100%" height="300"></iframe>
+                    </td>
+                </tr>
+                {% endif %}
                 <tr>
                     <td>
                         <div class="form-group">
