@@ -263,16 +263,16 @@ class AuthController extends Controller
      * @Route("/generate-statement/{id}", name="generate_pdf_statement")
      */
     public function generatePdfDocAction(Request $request, $id){
-//            if ($request->query->get('mail')){
-//                $mail = $request->query->get('mail');
-//            }else{
-//                $mail = null;
-//            }
+        $user = $this->getDoctrine()->getRepository('CrmMainBundle:User')->findOneById($id);
+
+        if ($user->getCopyOrder()){
+            return $this->redirect($user->getCopyOrder()['path']);
+        }
 
             $r0 = rand(0,3);
             $r1 = rand(0,3);
             $r2 = rand(0,3);
-            $user = $this->getDoctrine()->getRepository('CrmMainBundle:User')->findOneById($id);
+
             $mpdfService = $this->container->get('tfox.mpdfport');
 
             $file = $user->getCopySignature();
