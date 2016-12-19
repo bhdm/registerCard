@@ -225,7 +225,7 @@ class ApplicationController extends Controller
                 $path = $path.$name.'-2.jpg';
                 if (copy($file,$path)){
                     unlink( $file );
-                    $user->setCopyOrder(['path' => '/upload/orders/'.$name.'-2.jpg']);
+                    $user->setCopyOrder2(['path' => '/upload/orders/'.$name.'-2.jpg']);
                     $this->getDoctrine()->getManager()->flush($user);
                 }
             }
