@@ -212,7 +212,7 @@ class ApplicationController extends Controller
                 $path = $path.$name.'-1.jpg';
                 if (copy($file,$path)){
                     unlink( $file );
-                    $user->setCopyOrder(['path' => '/upload/orders/'.$name]);
+                    $user->setCopyOrder(['path' => '/upload/orders/'.$name.'-1.jpg']);
                     $this->getDoctrine()->getManager()->flush($user);
                 }
             }
@@ -225,7 +225,7 @@ class ApplicationController extends Controller
                 $path = $path.$name.'-2.jpg';
                 if (copy($file,$path)){
                     unlink( $file );
-                    $user->setCopyOrder(['path' => '/upload/orders/'.$name]);
+                    $user->setCopyOrder(['path' => '/upload/orders/'.$name.'-2.jpg']);
                     $this->getDoctrine()->getManager()->flush($user);
                 }
             }
