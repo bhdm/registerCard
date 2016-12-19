@@ -260,12 +260,12 @@ class AuthController extends Controller
         }
     }
     /**
-     * @Route("/generate-statement/{id}", name="generate_pdf_statement")
+     * @Route("/generate-statement/{id}/{old}", name="generate_pdf_statement", defaults={"old" = 0})
      */
-    public function generatePdfDocAction(Request $request, $id){
+    public function generatePdfDocAction(Request $request, $id, $old = 0){
         $user = $this->getDoctrine()->getRepository('CrmMainBundle:User')->findOneById($id);
 
-        if ($user->getCopyOrder()){
+        if ($user->getCopyOrder() && $old == 0){
             return $this->redirect($user->getCopyOrder()['path']);
         }
 
