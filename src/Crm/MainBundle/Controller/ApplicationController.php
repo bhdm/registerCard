@@ -202,14 +202,27 @@ class ApplicationController extends Controller
         $url = null;
         $company = null;
 
-
+        $name = time();
         if ($request->getMethod() == 'POST'){
             $file = $request->files->get('orderfile');
             if ($file){
                 $info = new \SplFileInfo($file);
                 $path = $this->get('kernel')->getRootDir() . '/../web/upload/orders/';
-                $name = time().'.pdf';
-                $path = $path.$name;
+
+                $path = $path.$name.'-1.jpg';
+                if (copy($file,$path)){
+                    unlink( $file );
+                    $user->setCopyOrder(['path' => '/upload/orders/'.$name]);
+                    $this->getDoctrine()->getManager()->flush($user);
+                }
+            }
+
+            $file = $request->files->get('orderfile2');
+            if ($file){
+                $info = new \SplFileInfo($file);
+                $path = $this->get('kernel')->getRootDir() . '/../web/upload/orders/';
+                $name = time().'.jpg';
+                $path = $path.$name.'-2.jpg';
                 if (copy($file,$path)){
                     unlink( $file );
                     $user->setCopyOrder(['path' => '/upload/orders/'.$name]);

@@ -266,7 +266,23 @@ class AuthController extends Controller
         $user = $this->getDoctrine()->getRepository('CrmMainBundle:User')->findOneById($id);
 
         if ($user->getCopyOrder() && $old == 0){
-            return $this->redirect($user->getCopyOrder()['path']);
+//            return $this->redirect($user->getCopyOrder()['path']);
+            $mpdfService = $this->container->get('tfox.mpdfport');
+            $html = '<img src="https://im-kard.ru"'.$user->getCopyOrder()['path'].'/><br style="box-decoration-break: slice;"/>';
+            if (isset($user->getCopyOrder2()['path'])){
+                $html .= '<img src="https://im-kard.ru"'.$user->getCopyOrder2()['path'].'/>';
+            }
+
+            $arguments = array(
+                'constructorArgs' => array(null, null, 0 ,10 ,3 ,0, 3), //Constructor arguments. Numeric array. Don't forget about points 2 and 3 in Warning section!
+                'writeHtmlMode' => null, //$mode argument for WriteHTML method
+                'writeHtmlInitialise' => null, //$mode argument for WriteHTML method
+                'writeHtmlClose' => null, //$close argument for WriteHTML method
+                'outputFilename' => null, //$filename argument for Output method
+                'outputDest' => null, //$dest argument for Output method
+            );
+            return $mpdfService->generatePdf($html, $arguments);
+
         }
 
             $r0 = rand(0,3);
@@ -309,7 +325,7 @@ class AuthController extends Controller
                 'outputFilename' => null, //$filename argument for Output method
                 'outputDest' => null, //$dest argument for Output method
             );
-             $response = $mpdfService->generatePdf($html->getContent(), $arguments);
+            return $mpdfService->generatePdf($html->getContent(), $arguments);
 
 //                return new Response($html);
 //            return $response;

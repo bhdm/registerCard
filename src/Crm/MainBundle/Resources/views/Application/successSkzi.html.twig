@@ -39,7 +39,8 @@
             3. Загрузите Заявление на сайт
             <br/>
             <form class="form" method="post" enctype="multipart/form-data" action="{{ path('application-skzi-success-new',{'userId' : user.id }) }}">
-                <input type="file" required name="orderfile">
+                Страница 1<input type="file" required name="orderfile"><br />
+                Страница 2<input type="file" required name="orderfile2"><br />
                 <br /><br/>
                 <button class="btn" type="submit">Загрузить Заявление</button>
             </form>
