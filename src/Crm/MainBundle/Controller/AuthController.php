@@ -268,9 +268,9 @@ class AuthController extends Controller
         if ($user->getCopyOrder() && $old == 0){
 //            return $this->redirect($user->getCopyOrder()['path']);
             $mpdfService = $this->container->get('tfox.mpdfport');
-            $html = '<img src="https://im-kard.ru"'.$user->getCopyOrder()['path'].' style="width: 100%"/><br style="box-decoration-break: slice;"/>';
+            $html = '<img src="https://im-kard.ru'.$user->getCopyOrder()['path'].'" style="width: 100%"/><br style="box-decoration-break: slice;"/>';
             if (isset($user->getCopyOrder2()['path'])){
-                $html .= '<img src="https://im-kard.ru"'.$user->getCopyOrder2()['path'].' style="width: 100%"/>';
+                $html .= '<img src="https://im-kard.ru'.$user->getCopyOrder2()['path'].'" style="width: 100%"/>';
             }
 
             $arguments = array(
@@ -281,9 +281,9 @@ class AuthController extends Controller
                 'outputFilename' => null, //$filename argument for Output method
                 'outputDest' => null, //$dest argument for Output method
             );
-//            return $mpdfService->generatePdf($html, $arguments);
-            echo $html;
-            exit;
+            return $mpdfService->generatePdf($html, $arguments);
+//            echo $html;
+//            exit;
 
         }
 
