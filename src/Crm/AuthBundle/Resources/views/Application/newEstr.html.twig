@@ -169,6 +169,7 @@
                     <td>Имя<span class="required">*</span></td>
                     <td>{{ form_widget(form.firstName) }}</td>
                     <td rowspan="4" style="vertical-align: top">
+                        (<a href="{{ asset('bundles/crmmain/images/template/Prim_pass.jpg') }}" class="fancybox">пример</a>)
                         <div class="file-container">
                             <input type="file" name="passportFile" id="passportFile" class="fileAjax" {{ edit is not defined ? 'required' : '' }} >
                             <progress class="progress" value="0" max="100" style="width: 270px"></progress>
@@ -307,6 +308,7 @@
                 <tr>
                     <td style="vertical-align: top; padding-top: 10px">Копия СНИЛС<span class="required">*</span></td>
                     <td colspan="2">
+                        (<a href="{{ asset('bundles/crmmain/images/template/Prim_SNILS.jpg') }}" class="fancybox">пример</a>)
                         <div class="file-container">
                             <input type="file" name="snilsFile" id="snilsFile" class="fileAjax" {{ edit is not defined ? 'required' : '' }} >
                             <progress class="progress" value="0" max="100" style="width: 270px"></progress>
@@ -349,6 +351,7 @@
                         {{ form_widget(form.driverDocNumber) }}
                     </td>
                     <td rowspan="2" style="vertical-align: top">
+                        (<a href="{{ asset('bundles/crmmain/images/template/Prim_vod.jpg') }}" class="fancybox">пример</a>)
                         <div class="file-container">
                             <input type="file" name="driverFile" id="driverFile" class="fileAjax" {{ edit is not defined ? 'required' : '' }} >
                             <progress class="progress" value="0" max="100" style="width: 270px"></progress>
@@ -495,6 +498,7 @@
                 <tr>
                     <td style="vertical-align: top; padding-top: 10px">Подпись<span class="required">*</span></td>
                     <td colspan="2">
+                        (<a href="{{ asset('bundles/crmmain/images/template/Prim_podp.jpg') }}" class="fancybox">пример</a>)
                         <div class="file-container">
                             <input type="file" name="signFile" id="signFile" class="fileAjax" {{ edit is not defined ? 'required' : '' }} >
                             <progress class="progress" value="0" max="100" style="width: 270px"></progress>
@@ -528,6 +532,7 @@
                 <tr>
                     <td style="vertical-align: top; padding-top: 10px">Фотография<span class="required">*</span></td>
                     <td colspan="2">
+                        (<a href="{{ asset('bundles/crmmain/images/template/Prim_foto.jpg') }}" class="fancybox">пример</a>)
                         <div class="file-container">
                             <input type="file" name="photoFile" id="photoFile" class="fileAjax" {{ edit is not defined ? 'required' : '' }} >
                             <progress class="progress" value="0" max="100" style="width: 270px"></progress>
