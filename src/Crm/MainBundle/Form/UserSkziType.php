@@ -56,8 +56,8 @@ class UserSkziType extends AbstractType
 //
             ->add('myPetition', 'choice',
                 array('label' => 'Ходатайство','choices'=>array(
-                    '0' => 'Свое ходатайство',
-                    '1' => 'Ходатайство по умолчанию',
+                    '0' => 'Ходатайство по умолчанию',
+                    '1' => 'Свое ходатайство'
                 )))
             ->add('driverDocCountry', null, array('label' => 'Страна выдачи ВУ'))
             ->add('driverDocNumber', null ,['label' => 'Номер', 'attr' => ['class' => 'driverNumber']])
