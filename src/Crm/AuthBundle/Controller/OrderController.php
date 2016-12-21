@@ -135,7 +135,8 @@ class OrderController extends Controller
             $em->flush($user);
             $em->refresh($user);
             if ($this->getUser()->getCompany() != null && $this->getUser()->getCompany()->getUrl() != 'NO_COMPANY'){
-                return $this->redirect($this->generateUrl('auth_order'));
+//                return $this->redirect($this->generateUrl('auth_order'));
+                return $this->render('@CrmAuth/Application/successSkzi.html.twig',['user' => $user]);
             }else{
                 return $this->render('@CrmAuth/Application/successSkzi.html.twig',['user' => $user]);
             }
@@ -395,7 +396,8 @@ class OrderController extends Controller
 
         }
 
-        return $this->render('@CrmAuth/Application/successSkzi.html.twig',['user' => $user, 'url' => $url, 'company' => $company, 'post' => true ]);
+//        return $this->render('@CrmAuth/Application/successSkzi.html.twig',['user' => $user, 'url' => $url, 'company' => $company, 'post' => true ]);
+        return $this->redirectToRoute('auth_order');
     }
 
 

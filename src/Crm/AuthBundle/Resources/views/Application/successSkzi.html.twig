@@ -38,7 +38,7 @@
             <br />
             3. Загрузите Заявление на сайт
             <br/>
-            <form class="form" method="post" enctype="multipart/form-data" action="{{ path('application-skzi-success-new',{'userId' : user.id }) }}">
+            <form class="form" method="post" enctype="multipart/form-data" action="{{ path('auth_application-skzi-success-new',{'userId' : user.id }) }}">
                 <br />
                 <br />
                 Страница 1<br /><input type="file" required name="orderfile"><br />
@@ -48,7 +48,7 @@
             </form>
             <br/>
             <p>Вы можете пропустить данный шаг - распечатать и подписать Заявление из личного кабинета</p>
-            <a href="{{ path('application-skzi-success-new',{'userId' : user.id }) }}" class="btn">Пропустить</a>
+            <a href="{{ path('auth_order') }}" class="btn">Пропустить</a>
         {% endif %}
     </div>
 {% endblock %}
