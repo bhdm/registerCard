@@ -137,7 +137,7 @@ class OrderController extends Controller
             if ($this->getUser()->getCompany() != null && $this->getUser()->getCompany()->getUrl() != 'NO_COMPANY'){
                 return $this->redirect($this->generateUrl('auth_order'));
             }else{
-                return $this->render('@CrmAuth/Application/success.html.twig',['user' => $user]);
+                return $this->render('@CrmAuth/Application/successSkzi.html.twig',['user' => $user]);
             }
 //            }
         }else{
@@ -356,6 +356,48 @@ class OrderController extends Controller
         $company = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->findOneBy(['id' => $this->getUser()->getCompany()]);
         return array('form' => $form->createView(),'company2' => $company);
     }
+
+    /**
+     * @Route("/order/add-skzi/{userId}/success-new", name="auth_application-skzi-success-new", options={"expose"=true})
+     */
+    public function skziSuccessAction(Request $request, $userId){
+        $user = $this->getDoctrine()->getRepository('CrmMainBundle:User')->find($userId);
+        $url = null;
+        $company = null;
+
+        $name = time();
+        if ($request->getMethod() == 'POST'){
+            $file = $request->files->get('orderfile');
+            if ($file){
+                $info = new \SplFileInfo($file);
+                $path = $this->get('kernel')->getRootDir() . '/../web/upload/orders/';
+
+                $path = $path.$name.'-1.jpg';
+                if (copy($file,$path)){
+                    unlink( $file );
+                    $user->setCopyOrder(['path' => '/upload/orders/'.$name.'-1.jpg']);
+                    $this->getDoctrine()->getManager()->flush($user);
+                }
+            }
+
+            $file = $request->files->get('orderfile2');
+            if ($file){
+                $info = new \SplFileInfo($file);
+                $path = $this->get('kernel')->getRootDir() . '/../web/upload/orders/';
+                $name = time().'.jpg';
+                $path = $path.$name.'-2.jpg';
+                if (copy($file,$path)){
+                    unlink( $file );
+                    $user->setCopyOrder2(['path' => '/upload/orders/'.$name.'-2.jpg']);
+                    $this->getDoctrine()->getManager()->flush($user);
+                }
+            }
+
+        }
+
+        return $this->render('@CrmAuth/Application/successSkzi.html.twig',['user' => $user, 'url' => $url, 'company' => $company, 'post' => true ]);
+    }
+
 
     /**
      * @Route("/order/add-company", name="auth_add_company")
