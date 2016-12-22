@@ -562,6 +562,11 @@ class User extends BaseEntity implements UserInterface, EquatableInterface, \Ser
      */
     private $copyDocs;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $authcode;
+
     public function getXmlId()
     {
         return str_pad($this->id, 8, "0", STR_PAD_LEFT);
@@ -2518,7 +2523,23 @@ class User extends BaseEntity implements UserInterface, EquatableInterface, \Ser
         $this->copyOrder2 = $copyOrder2;
     }
 
-    
+    /**
+     * @return mixed
+     */
+    public function getAuthcode()
+    {
+        return $this->authcode;
+    }
+
+    /**
+     * @param mixed $authcode
+     */
+    public function setAuthcode($authcode)
+    {
+        $this->authcode = $authcode;
+    }
+
+
 
 
 }
