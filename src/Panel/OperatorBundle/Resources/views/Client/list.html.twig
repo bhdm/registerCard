@@ -17,6 +17,7 @@
                data-sort-order="asc">
             <thead>
             <tr>
+                <th >ID</th>
                 <th >Опеатор</th>
                 <th >Компания</th>
                 <th >Название</th>
@@ -54,6 +55,7 @@
             </thead>
             {% for client in pagination %}
                 <tr style="{{ client.quota < 0 ? 'background: #FFCACA' : 0 }}" >
+                    <td>{{ client.id }}</td>
                     <td>
                         {% if client.company != null and client.company.operator != null %}
                             {{ client.company.operator }}
