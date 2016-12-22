@@ -134,6 +134,11 @@ class Client extends BaseEntity implements UserInterface
      */
     protected $send;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $authcode;
+
     public function __construct(){
         $this->roles = 'ROLE_CLIENT';
         $this->enabled = true;
@@ -572,6 +577,25 @@ class Client extends BaseEntity implements UserInterface
         $this->deliveryAdrs = $deliveryAdrs;
     }
 
+    public function getFullname(){
+        return $this->lastName.' '.$this->firstName.' '.$this->surName;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getAuthcode()
+    {
+        return $this->authcode;
+    }
+
+    /**
+     * @param mixed $authcode
+     */
+    public function setAuthcode($authcode)
+    {
+        $this->authcode = $authcode;
+    }
 
 
 
