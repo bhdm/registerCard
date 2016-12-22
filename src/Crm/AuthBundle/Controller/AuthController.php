@@ -281,4 +281,38 @@ class AuthController extends Controller
         }
         return $this->redirect($this->generateUrl('auth_order'));
     }
+
+    /**
+     * @Route("/auth-iframe/{id}/{code}", name="auth_in")
+     */
+    public function authIframeAction(Request $request, $id, $code){
+        $md5 = $request->query->get('hash');
+        $md52 = md5($id.$code);
+        if ($md5 != $md52){
+            return new Response('Bad auth');
+        }
+
+        $user = $this->getDoctrine()->getRepository('CrmMainBundle:Client')->find($id);
+        if ($user == null){
+            return new Response('Bad auth');
+        }
+
+        if ($user->getAuthcode() != $code){
+            return new Response('Bad auth');
+        }
+
+        $password = $user->getPassword();
+        $username = $user->getUsername();
+        $roles    = $user->getRoles();
+        // Get the security firewall name, login
+        #$providerKey = $this->container->getParameter('fos_user.firewall_name');
+        $token = new UsernamePasswordToken($user, $password, 'auth', $roles);
+        $this->get("security.context")->setToken($token);
+        // Fire the login event
+        $event = new InteractiveLoginEvent($request, $token);
+        $this->get("event_dispatcher")->dispatch("security.interactive_login", $event);
+
+
+        return $this->redirect($this->generateUrl('auth_order'));
+    }
 }

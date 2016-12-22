@@ -387,6 +387,26 @@ class User extends BaseEntity implements UserInterface, EquatableInterface, \Ser
     /**
      * @ORM\Column(type="array", nullable=true)
      */
+    protected $copySignature2;
+
+    /**
+     * @ORM\Column(type="array", nullable=true)
+     */
+    protected $copySignature3;
+
+    /**
+     * @ORM\Column(type="array", nullable=true)
+     */
+    protected $copySignature4;
+
+    /**
+     * @ORM\Column(type="array", nullable=true)
+     */
+    protected $copyLastCard;
+
+    /**
+     * @ORM\Column(type="array", nullable=true)
+     */
     protected $copySnils;
 
     /**
@@ -465,7 +485,7 @@ class User extends BaseEntity implements UserInterface, EquatableInterface, \Ser
     protected $ru = 0;
 
     /**
-     * @ORM\Column(type="string", nullable=true)
+     * @ORM\Column(type="array", nullable=true)
      */
     protected $typeCardFile;
 
@@ -502,6 +522,51 @@ class User extends BaseEntity implements UserInterface, EquatableInterface, \Ser
      */
     protected $isProduction;
 
+    /**
+     * @ORM\Column(type="string", nullable=true)
+     */
+    protected $meta;
+
+    /**
+     * @ORM\Column(type="string", nullable=true)
+     */
+    protected $post;
+
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    protected $dateEndCard;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="Crm\MainBundle\Entity\Tag", mappedBy="users")
+     */
+    private $tags;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Crm\MainBundle\Entity\Act", inversedBy="users")
+     */
+    private $act;
+
+    /**
+     * @ORM\Column(type="array", nullable=true)
+     */
+    private $copyOrder;
+
+    /**
+     * @ORM\Column(type="array", nullable=true)
+     */
+    private $copyOrder2;
+
+    /**
+     * @ORM\Column(type="array", nullable=true)
+     */
+    private $copyDocs;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $authcode;
+
     public function getXmlId()
     {
         return str_pad($this->id, 8, "0", STR_PAD_LEFT);
@@ -517,6 +582,8 @@ class User extends BaseEntity implements UserInterface, EquatableInterface, \Ser
         $this->deliveryAdrs = array();
         $this->registeredAdrs = array();
         $this->petitionAdrs = array();
+        $this->meta = serialize($_SERVER['HTTP_USER_AGENT']);
+        $this->tags = new ArrayCollection();
     }
 
     public function __toString()
@@ -548,6 +615,10 @@ class User extends BaseEntity implements UserInterface, EquatableInterface, \Ser
     public function getFirstName()
     {
         return $this->firstName;
+    }
+
+    public function getFullname(){
+        return $this->lastName.' '.$this->firstName.' '.$this->surName;
     }
 
     /**
@@ -1744,10 +1815,10 @@ class User extends BaseEntity implements UserInterface, EquatableInterface, \Ser
         $userLog = $this->statuslog;
         $userLogArray = array();
         foreach ($userLog as $key => $status) {
-                $userLogArray[$status->getTitle()] = array(
-                    'title' => $status->getTitle(),
-                    'date' => $status->getCreated(),
-                );
+            $userLogArray[$status->getTitle()] = array(
+                'title' => $status->getTitle(),
+                'date' => $status->getCreated(),
+            );
         }
         return $userLogArray;
     }
@@ -1756,6 +1827,16 @@ class User extends BaseEntity implements UserInterface, EquatableInterface, \Ser
         $userLog = $this->statuslog;
         foreach ($userLog as $key => $status) {
             if ( $status->getTitle() === 'Оплаченная' ){
+                return $status->getCreated();
+            }
+        }
+        return null;
+    }
+
+    public function getDateInProductionStat(){
+        $userLog = $this->statuslog;
+        foreach ($userLog as $key => $status) {
+            if ( $status->getTitle() === 'В&nbsp;производстве' ){
                 return $status->getCreated();
             }
         }
@@ -2221,6 +2302,70 @@ class User extends BaseEntity implements UserInterface, EquatableInterface, \Ser
     /**
      * @return mixed
      */
+    public function getMeta()
+    {
+        return $this->meta;
+    }
+
+    /**
+     * @param mixed $meta
+     */
+    public function setMeta($meta)
+    {
+        $this->meta = $meta;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getPost()
+    {
+        return $this->post;
+    }
+
+    /**
+     * @param mixed $post
+     */
+    public function setPost($post)
+    {
+        $this->post = $post;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getDateEndCard()
+    {
+        return $this->dateEndCard;
+    }
+
+    /**
+     * @param mixed $dateEndCard
+     */
+    public function setDateEndCard($dateEndCard)
+    {
+        $this->dateEndCard = $dateEndCard;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCopyLastCard()
+    {
+        return $this->copyLastCard;
+    }
+
+    /**
+     * @param mixed $copyLastCard
+     */
+    public function setCopyLastCard($copyLastCard)
+    {
+        $this->copyLastCard = $copyLastCard;
+    }
+
+    /**
+     * @return mixed
+     */
     public function getInn()
     {
         return $this->inn;
@@ -2248,5 +2393,149 @@ class User extends BaseEntity implements UserInterface, EquatableInterface, \Ser
     public function setCopyInn($copyInn)
     {
         $this->copyInn = $copyInn;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getTags()
+    {
+        return $this->tags;
+    }
+
+    /**
+     * @param mixed $tags
+     */
+    public function setTags($tags)
+    {
+        $this->tags = $tags;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getAct()
+    {
+        return $this->act;
+    }
+
+    /**
+     * @param mixed $act
+     */
+    public function setAct($act)
+    {
+        $this->act = $act;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCopySignature2()
+    {
+        return $this->copySignature2;
+    }
+
+    /**
+     * @param mixed $copySignature2
+     */
+    public function setCopySignature2($copySignature2)
+    {
+        $this->copySignature2 = $copySignature2;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCopySignature3()
+    {
+        return $this->copySignature3;
+    }
+
+    /**
+     * @param mixed $copySignature3
+     */
+    public function setCopySignature3($copySignature3)
+    {
+        $this->copySignature3 = $copySignature3;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCopySignature4()
+    {
+        return $this->copySignature4;
+    }
+
+    /**
+     * @param mixed $copySignature4
+     */
+    public function setCopySignature4($copySignature4)
+    {
+        $this->copySignature4 = $copySignature4;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCopyOrder()
+    {
+        return $this->copyOrder;
+    }
+
+    /**
+     * @param mixed $copyOrder
+     */
+    public function setCopyOrder($copyOrder)
+    {
+        $this->copyOrder = $copyOrder;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCopyDocs()
+    {
+        return $this->copyDocs;
+    }
+
+    /**
+     * @param mixed $copyDocs
+     */
+    public function setCopyDocs($copyDocs)
+    {
+        $this->copyDocs = $copyDocs;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCopyOrder2()
+    {
+        return $this->copyOrder2;
+    }
+
+    /**
+     * @param mixed $copyOrder2
+     */
+    public function setCopyOrder2($copyOrder2)
+    {
+        $this->copyOrder2 = $copyOrder2;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getAuthcode()
+    {
+        return $this->authcode;
+    }
+
+    /**
+     * @param mixed $authcode
+     */
+    public function setAuthcode($authcode)
+    {
+        $this->authcode = $authcode;
     }
 }
