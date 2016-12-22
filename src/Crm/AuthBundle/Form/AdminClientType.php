@@ -30,6 +30,7 @@ class AdminClientType extends AbstractType
 
         $builder
             ->add('username', 'email', array('label' => 'Email'))
+            ->add('authcode', 'text', array('label' => 'Код авторизации'))
             ->add('phone', 'text', array('label' => 'Телефон'))
             ->add('companyTitle', 'text', array('label' => 'Название организации'))
             ->add('adrs', new AdrsType())
