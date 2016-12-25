@@ -306,8 +306,8 @@ class XmlController extends Controller
         }
         if ( $request->query->get('test') == 3){
             try {
-            $image->blurImage(1.3,1.5);
-            $image->sharpenImage(2,2);
+            $image->blurImage(0.7,1.5);
+            $image->sharpenImage(3,2);
             } catch(\ImagickException $e) {
                 echo 'Error: ' , $e->getMessage();
                 die();
