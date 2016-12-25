@@ -410,6 +410,36 @@ class UserController extends Controller
                 $user->setComfirmed(true);
             }
 
+            $name = time();
+
+            $file = $request->files->get('orderfile');
+            if ($file){
+                $info = new \SplFileInfo($file);
+                $path = $this->get('kernel')->getRootDir() . '/../web/upload/orders/';
+
+                $path = $path.$name.'-1.jpg';
+                if (copy($file,$path)){
+                    unlink( $file );
+                    $user->setCopyOrder(['path' => '/upload/orders/'.$name.'-1.jpg']);
+                    $this->getDoctrine()->getManager()->flush($user);
+                }
+            }
+
+            $file = $request->files->get('orderfile2');
+            if ($file){
+                $info = new \SplFileInfo($file);
+                $path = $this->get('kernel')->getRootDir() . '/../web/upload/orders/';
+                $name = time().'.jpg';
+                $path = $path.$name.'-2.jpg';
+                if (copy($file,$path)){
+                    unlink( $file );
+                    $user->setCopyOrder2(['path' => '/upload/orders/'.$name.'-2.jpg']);
+                    $this->getDoctrine()->getManager()->flush($user);
+                }
+            }
+            $file = null;
+
+
             $petition = $this->getDoctrine()->getRepository('CrmMainBundle:CompanyPetition')->findOneById($data->get('petition'));
             $user->setCompanyPetition($petition);
 

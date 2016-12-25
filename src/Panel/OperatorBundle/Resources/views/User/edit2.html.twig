@@ -979,10 +979,24 @@
                     </td>
                 </tr>
                 {% endif %}
+                <tr>
+                    <td>
+                        <input type="file" name="copyOrder">
+                        <br />
+                        <br />
+                        <input type="file" name="copyOrder2">
+                    </td>
+                </tr>
                 {% if user.copyOrder.path is defined %}
                 <tr>
                     <td>
-                      <iframe src="{{ path('generate_pdf_statement',{'id' : user.id }) }}" width="100%" height="600"></iframe>
+                        <input type="file" name="copyOrder">
+                        <br />
+                        <br />
+                        <input type="file" name="copyOrder2">
+                        <br />
+                        <br />
+                        <iframe src="{{ path('generate_pdf_statement',{'id' : user.id }) }}" width="100%" height="600"></iframe>
                     </td>
                 </tr>
                 {% endif %}
