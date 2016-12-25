@@ -305,13 +305,14 @@ class XmlController extends Controller
             $image->blurImage(1.8,2);
         }
         if ( $request->query->get('test') == 3){
+            $image->adaptiveSharpenImage(2,1);
 //            $image->adaptiveBlurImage(1.3,1.2);
 //            $image->contrastImage(5);
 //            $image->sigmoidalContrastImage(1,2,0);
 //            $image->spreadImage(0.0001);
-            $image->blurImage(1.0,1.3);
+//            $image->blurImage(1.0,1.3);
 //            $image->thresholdImage(1);
-            $image->spreadImage(0.001);
+//            $image->spreadImage(0.001);
 //            $image->blurImage(0,0.7);
         }
         if ( $request->query->get('test') == 4){
