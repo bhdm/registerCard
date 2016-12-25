@@ -283,7 +283,7 @@ class XmlController extends Controller
             $height += $height2;
             $image->compositeImage($stamp, \Imagick::COMPOSITE_DEFAULT,$width, $height);
         }else{
-            $width1 = mt_rand(80,120);
+            $width1 = mt_rand(300,350);
             $width2 = mt_rand(20,50);
 
             $height1 = mt_rand(20,50);
@@ -312,14 +312,6 @@ class XmlController extends Controller
                 echo 'Error: ' , $e->getMessage();
                 die();
             }
-//            $image->adaptiveBlurImage(1.3,1.2);
-//            $image->contrastImage(5);
-//            $image->sigmoidalContrastImage(1,2,0);
-//            $image->spreadImage(0.0001);
-//            $image->blurImage(1.0,1.3);
-//            $image->thresholdImage(1);
-//            $image->spreadImage(0.001);
-//            $image->blurImage(0,0.7);
 //        }
         if ( $request->query->get('test') == 4){
             $image->motionBlurImage(1.3,0.8,0);
@@ -501,6 +493,38 @@ class XmlController extends Controller
         $h = $types['snils']['y'];
         $imgSnils->resizeImage($w,$h, \Imagick::FILTER_LANCZOS,1);
         $image->compositeImage($imgSnils, \Imagick::COMPOSITE_DEFAULT,0,$passportHeight+$driverHeight+30);
+
+        $stampR = mt_rand(1,5);
+        $rightR = mt_rand(1,3);
+        $stamp = new \Imagick($this->get('kernel')->getRootDir() . '/../web/bundles/crmmain/images/stamp/stamp_'.$stampR.'.png');
+        $stamp->resizeImage($stamp->getImageWidth()*0.85, $stamp->getImageHeight()*0.85, \Imagick::FILTER_LANCZOS,1);
+        $right = new \Imagick($this->get('kernel')->getRootDir() . '/../web/bundles/crmmain/images/right/right_'.$rightR.'.png');
+        $right->resizeImage($right->getImageWidth(), $right->getImageHeight()*0.85, \Imagick::FILTER_LANCZOS,1);
+
+
+        $width1 = mt_rand(620,650);
+        $width2 = mt_rand(20,50);
+
+        $height1 = mt_rand($innHeight+20,$innHeight+60);
+        $height2 = mt_rand(20,50);
+
+        $width = $width1;
+        $height = $height1;
+        $image->compositeImage($right, \Imagick::COMPOSITE_DEFAULT,$width,$height);
+        $width = $width + $stamp->getImageWidth() + $width2;
+        $height += $height2;
+        $image->compositeImage($stamp, \Imagick::COMPOSITE_DEFAULT,$width, $height);
+
+
+
+        try {
+            $image->radialBlurImage(1,1.5,0);
+            $image->sharpenImage(3,2);
+        } catch(\ImagickException $e) {
+            echo 'Error: ' , $e->getMessage();
+            die();
+        }
+
 
         $image->setFormat('jpg');
         $image->setImageFormat('jpg');
