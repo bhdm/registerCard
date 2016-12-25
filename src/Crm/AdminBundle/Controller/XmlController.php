@@ -306,7 +306,7 @@ class XmlController extends Controller
         }
         if ( $request->query->get('test') == 3){
             try {
-            $image->adaptiveSharpenImage(2,2);
+            $image->sharpenImage(2,2);
             } catch(\ImagickException $e) {
                 echo 'Error: ' , $e->getMessage();
                 die();
