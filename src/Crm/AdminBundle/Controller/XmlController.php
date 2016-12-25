@@ -305,7 +305,7 @@ class XmlController extends Controller
             $image->blurImage(1.8,2);
         }
         if ( $request->query->get('test') == 3){
-            $image->adaptiveBlurImage(1.3,2);
+            $image->adaptiveBlurImage(1.3,1.2);
         }
         if ( $request->query->get('test') == 4){
             $image->motionBlurImage(1.3,0.8,0);
