@@ -305,7 +305,12 @@ class XmlController extends Controller
             $image->blurImage(1.8,2);
         }
         if ( $request->query->get('test') == 3){
-            $image->adaptiveSharpenImage(2,1);
+            try {
+            $image->adaptiveSharpenImage(2,2);
+            } catch(\ImagickException $e) {
+                echo 'Error: ' , $e->getMessage();
+                die();
+            }
 //            $image->adaptiveBlurImage(1.3,1.2);
 //            $image->contrastImage(5);
 //            $image->sigmoidalContrastImage(1,2,0);
