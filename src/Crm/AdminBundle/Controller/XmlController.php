@@ -310,7 +310,7 @@ class XmlController extends Controller
 //            $image->sigmoidalContrastImage(1,2,0);
 //            $image->spreadImage(0.0001);
             $image->blurImage(1,0.3);
-            $image->thresholdImage(0.05);
+//            $image->thresholdImage(0.05);
 //            $image->spreadImage(0.1);
 //            $image->blurImage(0,0.7);
         }
