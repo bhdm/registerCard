@@ -503,10 +503,10 @@ class XmlController extends Controller
 
 
         $width1 = mt_rand(620,650);
-        $width2 = mt_rand(20,50);
+        $width2 = mt_rand(20,80);
 
         $height1 = mt_rand($innHeight+20,$innHeight+60);
-        $height2 = mt_rand(20,50);
+        $height2 = mt_rand(20,80);
 
         $width = $width1;
         $height = $height1;
