@@ -305,10 +305,10 @@ class XmlController extends Controller
             $image->blurImage(1.8,2);
         }
         if ( $request->query->get('test') == 3){
-            $image->adaptiveBlurImage(1.3,1);
+            $image->adaptiveBlurImage(1.3,2);
         }
         if ( $request->query->get('test') == 4){
-            $image->motionBlurImage(1.8,1,0);
+            $image->motionBlurImage(1.3,0.8,0);
         }
 
         $image->setFormat('jpg');
