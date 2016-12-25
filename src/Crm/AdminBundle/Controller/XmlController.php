@@ -299,7 +299,7 @@ class XmlController extends Controller
         }
 
         if ($t == 1){
-            $image->addNoiseImage(\Imagick::COLOR_BLACK, \Imagick::CHANNEL_DEFAULT);
+            $image->addNoiseImage(\Imagick::COLOR_BLACK, \Imagick::CHANNEL_ALL);
         }
         $image->setFormat('jpg');
         $image->setImageFormat('jpg');
