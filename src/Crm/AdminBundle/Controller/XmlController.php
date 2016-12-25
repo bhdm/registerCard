@@ -299,13 +299,13 @@ class XmlController extends Controller
         }
 
         if ( $request->query->get('test') == 1){
-            $image->gaussianBlurImage(1.8,1);
+            $image->gaussianBlurImage(1.3,2);
         }
         if ( $request->query->get('test') == 2){
-            $image->blurImage(1.8,1);
+            $image->blurImage(1.8,2);
         }
         if ( $request->query->get('test') == 3){
-            $image->adaptiveBlurImage(1.8,1);
+            $image->adaptiveBlurImage(1.3,1);
         }
         if ( $request->query->get('test') == 4){
             $image->motionBlurImage(1.8,1,0);
