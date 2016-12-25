@@ -309,10 +309,10 @@ class XmlController extends Controller
 //            $image->contrastImage(5);
 //            $image->sigmoidalContrastImage(1,2,0);
             $image->spreadImage(0.1);
-            $image->blurImage(0,0.3);
-            $image->thresholdImage(0.5);
-            $image->spreadImage(0.1);
-            $image->blurImage(0,0.7);
+//            $image->blurImage(0,0.3);
+//            $image->thresholdImage(0.5);
+//            $image->spreadImage(0.1);
+//            $image->blurImage(0,0.7);
         }
         if ( $request->query->get('test') == 4){
             $image->motionBlurImage(1.3,0.8,0);
