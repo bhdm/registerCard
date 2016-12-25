@@ -230,7 +230,7 @@ class XmlController extends Controller
     /**
      * @Route("/create-image-pdf/{type}/{filename}/{t}", name="create_image_pdf", defaults={"t" = 0})
      */
-    public function createImageAction($type, $filename, $t = 0){
+    public function createImageAction(Request $request, $type, $filename, $t = 0){
         $types = array(
             'passport' => ['x' => 590, 'y' =>  800],
             'driver' => ['x' => 400, 'y' =>  250],
@@ -298,9 +298,19 @@ class XmlController extends Controller
 
         }
 
-        if ($t == 1){
-            $image->addNoiseImage(\Imagick::COLOR_BLACK, \Imagick::CHANNEL_ALL);
+        if ( $request->query->get('test') == 1){
+            $image->gaussianBlurImage(1.8,1);
         }
+        if ( $request->query->get('test') == 2){
+            $image->blurImage(1.8,1);
+        }
+        if ( $request->query->get('test') == 3){
+            $image->adaptiveBlurImage(1.8,1);
+        }
+        if ( $request->query->get('test') == 4){
+            $image->motionBlurImage(1.8,1,0);
+        }
+
         $image->setFormat('jpg');
         $image->setImageFormat('jpg');
 
