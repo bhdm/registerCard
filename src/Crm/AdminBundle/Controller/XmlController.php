@@ -228,9 +228,9 @@ class XmlController extends Controller
     }
 
     /**
-     * @Route("/create-image-pdf/{type}/{filename}", name="create_image_pdf")
+     * @Route("/create-image-pdf/{type}/{filename}/{t}", name="create_image_pdf", defaults={"t" = 0})
      */
-    public function createImageAction($type, $filename){
+    public function createImageAction($type, $filename, $t = 0){
         $types = array(
             'passport' => ['x' => 590, 'y' =>  800],
             'driver' => ['x' => 400, 'y' =>  250],
@@ -261,7 +261,6 @@ class XmlController extends Controller
         $image->setImageVirtualPixelMethod(\Imagick::VIRTUALPIXELMETHOD_TRANSPARENT);
 
         $image->compositeImage($file, \Imagick::COMPOSITE_DEFAULT,0,0);
-
 
         $stampR = mt_rand(1,5);
         $rightR = mt_rand(1,3);
@@ -299,7 +298,9 @@ class XmlController extends Controller
 
         }
 
-
+        if ($t == 1){
+            $image->addNoiseImage(\Imagick::COLOR_BLACK, \Imagick::CHANNEL_DEFAULT);
+        }
         $image->setFormat('jpg');
         $image->setImageFormat('jpg');
 
