@@ -270,7 +270,7 @@ class XmlController extends Controller
         $right->resizeImage($right->getImageWidth(), $right->getImageHeight()*0.85, \Imagick::FILTER_LANCZOS,1);
 
         if ($type !== 'doc'){
-            $width1 = mt_rand(120,150);
+            $width1 = mt_rand(30,60);
             $width2 = mt_rand(20,50);
 
             $height1 = mt_rand(20,50);
@@ -304,7 +304,7 @@ class XmlController extends Controller
         if ( $request->query->get('test') == 2){
             $image->blurImage(1.8,2);
         }
-        if ( $request->query->get('test') == 3){
+//        if ( $request->query->get('test') == 3){
             try {
             $image->radialBlurImage(1,1.5,0);
             $image->sharpenImage(3,2);
@@ -320,7 +320,7 @@ class XmlController extends Controller
 //            $image->thresholdImage(1);
 //            $image->spreadImage(0.001);
 //            $image->blurImage(0,0.7);
-        }
+//        }
         if ( $request->query->get('test') == 4){
             $image->motionBlurImage(1.3,0.8,0);
         }
