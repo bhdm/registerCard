@@ -525,7 +525,7 @@ class XmlController extends Controller
 
 
         try {
-            $image->radialBlurImage(1);
+            $image->motionBlurImage(1,1.5,0);
             $image->sharpenImage(3,2);
         } catch(\ImagickException $e) {
             echo 'Error: ' , $e->getMessage();
