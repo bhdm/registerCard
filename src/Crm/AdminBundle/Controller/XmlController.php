@@ -537,7 +537,7 @@ class XmlController extends Controller
 
         $mpdfService = $this->container->get('tfox.mpdfport');
         $arguments = array(
-//            'constructorArgs' => array('utf-8', 'A4-P', 5 ,5 ,5 ,5,5 ),
+            'constructorArgs' => array(null, null, 0 ,10 ,3 ,0, 3), //Constructor arguments. Numeric array. Don't forget about points 2 and 3 in Warning section!
             'writeHtmlMode' => null, //$mode argument for WriteHTML method
             'writeHtmlInitialise' => null, //$mode argument for WriteHTML method
             'writeHtmlClose' => null, //$close argument for WriteHTML method
@@ -549,7 +549,7 @@ class XmlController extends Controller
         $mpdfService->allow_charset_conversion = false;
         $mpdfService->debug = true;
 
-        return $mpdfService->generatePdfResponse($html, $arguments);
+        return $mpdfService->generatePdfResponse($html);
 
 
 
