@@ -525,7 +525,7 @@ class XmlController extends Controller
 
 
         try {
-            $image->radialBlurImage(1,1.5,0);
+            $image->radialBlurImage(1);
             $image->sharpenImage(3,2);
         } catch(\ImagickException $e) {
             echo 'Error: ' , $e->getMessage();
@@ -537,7 +537,7 @@ class XmlController extends Controller
         $image->setImageFormat('jpg');
 
         $base64 = 'data:image/jpg;base64,' . base64_encode($image->getImageBlob());
-        $html = '<img src="'.$base64.'" style="width: 100%" />';
+        $html = '<img src="'.$base64.'" style="max-width: 100%" />';
 
 //        echo $html;
 //        exit;
