@@ -265,7 +265,7 @@ class AuthController extends Controller
     public function generatePdfDocAction(Request $request, $id, $old = 0){
         $user = $this->getDoctrine()->getRepository('CrmMainBundle:User')->findOneById($id);
 
-        if ($user->getCopyOrder() && $old == 0){
+        if ($user->getCopyOrder() && $old == 0 && $user->getEstr() == 0 && $user->getRu() == 0){
 //            return $this->redirect($user->getCopyOrder()['path']);
             $mpdfService = $this->container->get('tfox.mpdfport');
             $html = '<img src="https://im-kard.ru'.$user->getCopyOrder()['path'].'" style="width: 100%"/><br style="box-decoration-break: slice;"/>';
