@@ -548,8 +548,8 @@ class XmlController extends Controller
         $mpdfService->ignore_invalid_utf8 = true;
         $mpdfService->allow_charset_conversion = false;
         $mpdfService->debug = true;
-
-        return $mpdfService->generatePdfResponse($html);
+        $html = iconv("UTF-8","UTF-8//IGNORE",$html);
+        return $mpdfService->generatePdfResponse($html, $arguments);
 
 
 
