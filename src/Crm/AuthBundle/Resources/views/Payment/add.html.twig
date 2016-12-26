@@ -9,7 +9,7 @@
             {{ form_widget(form) }}
             <div class="row">
                 <div class="col-xs-4">Название услуги</div>
-                <div class="col-xs-1">Колво</div>
+                <div class="col-xs-2">Колво</div>
                 <div class="col-xs-2">Цена</div>
                 <div class="col-xs-2">Сумма</div>
             </div>
@@ -30,7 +30,7 @@
                                 <option value="Карта мастерской РФ"     data-price="{{ c.priceMasterRU }}"        >Карта мастерской РФ</option>
                             </select>
                         </div>
-                        <div class="col-xs-1">
+                        <div class="col-xs-2">
                             <input type="text" class="form-control amount" name="amount[0]" >
                         </div>
                         <div class="col-xs-2">
@@ -80,7 +80,7 @@
                         '<option value="Карта мастерской РФ"    data-price="{{ c.priceMasterRU }}"      >Карта мастерской РФ</option>'+
                         '</select>'+
                         '</div>'+
-                        '<div class="col-xs-1">'+
+                        '<div class="col-xs-2">'+
                         '<input type="text" class="form-control amount" name="amount['+num+']">'+
                         '</div>'+
                         '<div class="col-xs-2">'+
