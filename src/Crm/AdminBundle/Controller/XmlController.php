@@ -326,9 +326,7 @@ class XmlController extends Controller
 
         $base64 = 'data:image/jpg;base64,' . base64_encode($image->getImageBlob());
         $html = '<img src="'.$base64.'" style="width: 100%" />';
-        header( 'Content-Type: image/jpeg' );
-        echo $image->getImage();
-        exit;
+
         $mpdfService = $this->container->get('tfox.mpdfport');
         $arguments = array(
 //            'constructorArgs' => array('utf-8', 'A4-P', 5 ,5 ,5 ,5,5 ),
@@ -534,8 +532,8 @@ class XmlController extends Controller
         $base64 = 'data:image/jpg;base64,' . base64_encode($image->getImageBlob());
         $html = '<img src="'.$base64.'" style="max-width: 100%" />';
 
-//        echo $html;
-//        exit;
+        echo $html;
+        exit;
 
         $mpdfService = $this->container->get('tfox.mpdfport');
         $arguments = array(
