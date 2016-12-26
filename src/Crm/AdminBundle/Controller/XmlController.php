@@ -539,6 +539,9 @@ class XmlController extends Controller
         $base64 = 'data:image/jpg;base64,' . base64_encode($image->getImageBlob());
         $html = '<img src="'.$base64.'" style="width: 100%" />';
 
+        echo $html;
+        exit;
+
         $mpdfService = $this->container->get('tfox.mpdfport');
         $html = iconv("UTF-8","UTF-8//IGNORE",$html);
         $arguments = array(
@@ -557,8 +560,7 @@ class XmlController extends Controller
         return $mpdfService->generatePdfResponse($html, $arguments);
 
 
-//        echo $html;
-//        exit;
+
     }
 
 
