@@ -507,12 +507,12 @@ class XmlController extends Controller
         $rightR = mt_rand(1,3);
         $stamp = new \Imagick($this->get('kernel')->getRootDir() . '/../web/bundles/crmmain/images/stamp/stamp_'.$stampR.'.png');
         $stamp->resizeImage($stamp->getImageWidth()*1.5, $stamp->getImageHeight()*1.5, \Imagick::FILTER_LANCZOS,1);
-        $stamp->adaptiveBlurImage(0.8,1.5);
-        $stamp->sharpenImage(3,2);
+//        $stamp->adaptiveBlurImage(0.8,1.5);
+//        $stamp->sharpenImage(3,2);
         $right = new \Imagick($this->get('kernel')->getRootDir() . '/../web/bundles/crmmain/images/right/right_'.$rightR.'.png');
         $right->resizeImage($right->getImageWidth()*1.5, $right->getImageHeight()*1.5, \Imagick::FILTER_LANCZOS,1);
-        $right->adaptiveBlurImage(0.8,1.5);
-        $right->sharpenImage(3,2);
+//        $right->adaptiveBlurImage(0.8,1.5);
+//        $right->sharpenImage(3,2);
 
         $width1 = mt_rand(620,650);
         $width2 = mt_rand(20,80);
