@@ -309,13 +309,13 @@ class XmlController extends Controller
         }
 
 
-//            try {
-//            $image->radialBlurImage(0.8,2,0);
-//            $image->sharpenImage(3,2);
-//            } catch(\ImagickException $e) {
-//                echo 'Error: ' , $e->getMessage();
-//                die();
-//            }
+            try {
+            $image->radialBlurImage(0.8,2,0);
+            $image->sharpenImage(3,2);
+            } catch(\ImagickException $e) {
+                echo 'Error: ' , $e->getMessage();
+                die();
+            }
 //        }
         if ( $request->query->get('test') == 4){
             $image->motionBlurImage(1.3,0.8,0);
@@ -326,10 +326,9 @@ class XmlController extends Controller
 
         $base64 = 'data:image/jpg;base64,' . base64_encode($image->getImageBlob());
         $html = '<img src="'.$base64.'" style="width: 100%" />';
-//        header( 'Content-Type: image/jpeg' );
-//        echo $image->getImage();
-//
-//        exit;
+        header( 'Content-Type: image/jpeg' );
+        echo $image->getImage();
+        exit;
         $mpdfService = $this->container->get('tfox.mpdfport');
         $arguments = array(
 //            'constructorArgs' => array('utf-8', 'A4-P', 5 ,5 ,5 ,5,5 ),
