@@ -57,10 +57,9 @@ class XmlController extends Controller
             $files[6]['file'] = $user->getCopyWork();
         }
 
-        if (isset($files[12])){
-            $files[12]['base'] = $this->pdfToBase64($this->generateUrl('merge_docs',['id' => $user->getId()]));
-            $files[12]['title'] = 'merge-docs';
-        }
+        $files[15]['base'] = $this->pdfToBase64($this->generateUrl('merge_docs',['id' => $user->getId()]));
+        $files[15]['title'] = 'merge-docs';
+
 
 
         $files[11]['base'] = $this->ImageToPdf($user->getCopyInn()['originalName'], 'doc');
@@ -176,6 +175,10 @@ class XmlController extends Controller
             $files[12]['base'] = $this->ImageToPdf($user->getTypeCardFile()['originalName']);
             $files[12]['title'] = 'Other';
             $files[12]['file'] = $user->getTypeCardFile();
+
+            $files[15]['base'] = $this->pdfToBase64($this->generateUrl('merge_docs',['id' => $user->getId()]));
+            $files[15]['title'] = 'merge-docs';
+
 
 
             $file = $user->getCopySignature();

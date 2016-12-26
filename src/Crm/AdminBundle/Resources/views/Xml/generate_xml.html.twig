@@ -154,6 +154,12 @@
         {#</Attachment>#}
         {#{% endif %}#}
 
+        <Attachment>
+            <AttachmentType>Other</AttachmentType>
+            <FileFormat>PDF</FileFormat>
+            <Body>{{ files[15].base }}</Body>
+        </Attachment>
+
         {# Ходатайство #}
         {#<!-- Ходатайство -->#}
         {% if files[8] is defined %}
