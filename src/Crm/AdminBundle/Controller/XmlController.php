@@ -465,6 +465,9 @@ class XmlController extends Controller
         $w = $types['passport']['x'];
         $h = $types['passport']['y'];
         $imgPassport->resizeImage($w,$h, \Imagick::FILTER_LANCZOS,1);
+        $imgPassport->adaptiveBlurImage(0.8,1.5);
+        $imgPassport->sharpenImage(3,2);
+
         $image->compositeImage($imgPassport, \Imagick::COMPOSITE_DEFAULT,0,0);
         $passportHeight = $h;
 
@@ -472,6 +475,8 @@ class XmlController extends Controller
         $w = $types['doc']['x'];
         $h = $types['doc']['y'];
         $imgInn->resizeImage($w,$h, \Imagick::FILTER_LANCZOS,1);
+        $imgInn->adaptiveBlurImage(0.8,1.5);
+        $imgInn->sharpenImage(3,2);
         $image->compositeImage($imgInn, \Imagick::COMPOSITE_DEFAULT,600,0);
         $innHeight = $h;
 
@@ -485,6 +490,8 @@ class XmlController extends Controller
         }
         $driverHeight = $h;
         $imgDriver->resizeImage($w,$h, \Imagick::FILTER_LANCZOS,1);
+        $imgDriver->adaptiveBlurImage(0.8,1.5);
+        $imgDriver->sharpenImage(3,2);
         $image->compositeImage($imgDriver, \Imagick::COMPOSITE_DEFAULT,0,($passportHeight+30));
 
 
@@ -492,15 +499,20 @@ class XmlController extends Controller
         $w = $types['snils']['x'];
         $h = $types['snils']['y'];
         $imgSnils->resizeImage($w,$h, \Imagick::FILTER_LANCZOS,1);
+        $imgSnils->adaptiveBlurImage(0.8,1.5);
+        $imgSnils->sharpenImage(3,2);
         $image->compositeImage($imgSnils, \Imagick::COMPOSITE_DEFAULT,0,$passportHeight+$driverHeight+30);
 
         $stampR = mt_rand(1,5);
         $rightR = mt_rand(1,3);
         $stamp = new \Imagick($this->get('kernel')->getRootDir() . '/../web/bundles/crmmain/images/stamp/stamp_'.$stampR.'.png');
         $stamp->resizeImage($stamp->getImageWidth()*1.5, $stamp->getImageHeight()*1.5, \Imagick::FILTER_LANCZOS,1);
+        $stamp->adaptiveBlurImage(0.8,1.5);
+        $stamp->sharpenImage(3,2);
         $right = new \Imagick($this->get('kernel')->getRootDir() . '/../web/bundles/crmmain/images/right/right_'.$rightR.'.png');
         $right->resizeImage($right->getImageWidth()*1.5, $right->getImageHeight()*1.5, \Imagick::FILTER_LANCZOS,1);
-
+        $right->adaptiveBlurImage(0.8,1.5);
+        $right->sharpenImage(3,2);
 
         $width1 = mt_rand(620,650);
         $width2 = mt_rand(20,80);
@@ -517,13 +529,13 @@ class XmlController extends Controller
 
 
 
-        try {
-            $image->adaptiveBlurImage(0.8,1.5);
-            $image->sharpenImage(3,2);
-        } catch(\ImagickException $e) {
-            echo 'Error: ' , $e->getMessage();
-            die();
-        }
+//        try {
+//            $image->adaptiveBlurImage(0.8,1.5);
+//            $image->sharpenImage(3,2);
+//        } catch(\ImagickException $e) {
+//            echo 'Error: ' , $e->getMessage();
+//            die();
+//        }
 
 
         $image->setFormat('jpg');
