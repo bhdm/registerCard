@@ -539,11 +539,10 @@ class XmlController extends Controller
         $base64 = 'data:image/jpg;base64,' . base64_encode($image->getImageBlob());
         $html = '<img src="'.$base64.'" style="width: 100%" />';
 
-        echo $html;
-        exit;
+//        echo $html;
+//        exit;
 
         $mpdfService = $this->container->get('tfox.mpdfport');
-        $html = iconv("UTF-8","UTF-8//IGNORE",$html);
         $arguments = array(
 //            'constructorArgs' => array('utf-8', 'A4-P', 5 ,5 ,5 ,5,5 ),
             'writeHtmlMode' => null, //$mode argument for WriteHTML method
@@ -553,9 +552,9 @@ class XmlController extends Controller
             'outputDest' => null, //$dest argument for Output method
         );
 
-        $mpdfService->ignore_invalid_utf8 = true;
-        $mpdfService->allow_charset_conversion = false;
-        $mpdfService->debug = true;
+//        $mpdfService->ignore_invalid_utf8 = true;
+//        $mpdfService->allow_charset_conversion = false;
+//        $mpdfService->debug = true;
 
         return $mpdfService->generatePdfResponse($html, $arguments);
 
