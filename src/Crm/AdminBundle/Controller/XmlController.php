@@ -57,6 +57,11 @@ class XmlController extends Controller
             $files[6]['file'] = $user->getCopyWork();
         }
 
+        if (isset($files[12])){
+            $files[12]['base'] = $this->pdfToBase64($this->generateUrl('merge_docs',['id' => $user->getId()]));
+            $files[12]['title'] = 'merge-docs';
+        }
+
 
         $files[11]['base'] = $this->ImageToPdf($user->getCopyInn()['originalName'], 'doc');
         $files[11]['title'] = 'INN';
@@ -376,7 +381,6 @@ class XmlController extends Controller
 //        $html.= '<img src="/bundles/crmmain/images/sign/sign_'.$r3.'.png"  style="margin-left: '.$width3.'px; width: 85px"/></td>';
 //        $html.='</tr></table>';
 
-
         $html = iconv("UTF-8","UTF-8//IGNORE",$html);
         $arguments = array(
 //            'constructorArgs' => array('utf-8', 'A4-P', 5 ,5 ,5 ,5,5 ),
@@ -531,8 +535,27 @@ class XmlController extends Controller
 
         $base64 = 'data:image/jpg;base64,' . base64_encode($image->getImageBlob());
         $html = '<img src="'.$base64.'" style="width: 100%" />';
-        echo $html;
-        exit;
+
+        $mpdfService = $this->container->get('tfox.mpdfport');
+        $html = iconv("UTF-8","UTF-8//IGNORE",$html);
+        $arguments = array(
+//            'constructorArgs' => array('utf-8', 'A4-P', 5 ,5 ,5 ,5,5 ),
+            'writeHtmlMode' => null, //$mode argument for WriteHTML method
+            'writeHtmlInitialise' => null, //$mode argument for WriteHTML method
+            'writeHtmlClose' => null, //$close argument for WriteHTML method
+            'outputFilename' => null, //$filename argument for Output method
+            'outputDest' => null, //$dest argument for Output method
+        );
+
+        $mpdfService->ignore_invalid_utf8 = true;
+        $mpdfService->allow_charset_conversion = false;
+        $mpdfService->debug = true;
+
+        return $mpdfService->generatePdfResponse($html, $arguments);
+
+
+//        echo $html;
+//        exit;
     }
 
 
