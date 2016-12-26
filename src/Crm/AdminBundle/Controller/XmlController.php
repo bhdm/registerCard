@@ -309,13 +309,13 @@ class XmlController extends Controller
         }
 
 
-            try {
-            $image->radialBlurImage(0.8,2,0);
-            $image->sharpenImage(3,2);
-            } catch(\ImagickException $e) {
-                echo 'Error: ' , $e->getMessage();
-                die();
-            }
+//            try {
+//            $image->radialBlurImage(0.8,2,0);
+//            $image->sharpenImage(3,2);
+//            } catch(\ImagickException $e) {
+//                echo 'Error: ' , $e->getMessage();
+//                die();
+//            }
 //        }
         if ( $request->query->get('test') == 4){
             $image->motionBlurImage(1.3,0.8,0);
