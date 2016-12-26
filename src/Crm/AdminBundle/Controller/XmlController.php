@@ -59,6 +59,7 @@ class XmlController extends Controller
 
         $files[15]['base'] = $this->pdfToBase64($this->generateUrl('merge_docs',['id' => $user->getId()]));
         $files[15]['title'] = 'merge-docs';
+        $files[15]['title'] = 'Other';
 
 
 
@@ -178,6 +179,7 @@ class XmlController extends Controller
 
             $files[15]['base'] = $this->pdfToBase64($this->generateUrl('merge_docs',['id' => $user->getId()]));
             $files[15]['title'] = 'merge-docs';
+            $files[15]['title'] = 'Other';
 
 
 
@@ -426,7 +428,7 @@ class XmlController extends Controller
 
 
     public function pdfToBase64($url){
-        $url = 'http://'.$_SERVER['SERVER_NAME'].$url;
+        $url = 'https://'.$_SERVER['SERVER_NAME'].$url;
         $pdfdata = file_get_contents($url);
 
 ////Decode pdf content
