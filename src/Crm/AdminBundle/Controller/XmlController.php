@@ -515,7 +515,7 @@ class XmlController extends Controller
 //        $right->sharpenImage(3,2);
 
         $width1 = mt_rand(620,650);
-        $width2 = mt_rand(60,100);
+        $width2 = mt_rand(100,130);
 
         $height1 = mt_rand($innHeight+20,$innHeight+60);
         $height2 = mt_rand(20,80);
