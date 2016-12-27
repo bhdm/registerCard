@@ -506,11 +506,11 @@ class XmlController extends Controller
         $stampR = mt_rand(1,5);
         $rightR = mt_rand(1,3);
         $stamp = new \Imagick($this->get('kernel')->getRootDir() . '/../web/bundles/crmmain/images/stamp/stamp_'.$stampR.'.png');
-        $stamp->resizeImage($stamp->getImageWidth()*1.5, $stamp->getImageHeight()*1.5, \Imagick::FILTER_LANCZOS,1);
+        $stamp->resizeImage($stamp->getImageWidth()*1.2, $stamp->getImageHeight()*1.2, \Imagick::FILTER_LANCZOS,1);
 //        $stamp->adaptiveBlurImage(0.8,1.5);
 //        $stamp->sharpenImage(3,2);
         $right = new \Imagick($this->get('kernel')->getRootDir() . '/../web/bundles/crmmain/images/right/right_'.$rightR.'.png');
-        $right->resizeImage($right->getImageWidth()*1.5, $right->getImageHeight()*1.5, \Imagick::FILTER_LANCZOS,1);
+        $right->resizeImage($right->getImageWidth()*1.7, $right->getImageHeight()*1.7, \Imagick::FILTER_LANCZOS,1);
 //        $right->adaptiveBlurImage(0.8,1.5);
 //        $right->sharpenImage(3,2);
 
