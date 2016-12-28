@@ -309,13 +309,13 @@ class XmlController extends Controller
         }
 
 
-            try {
+        try {
             $image->radialBlurImage(0.8,2,0);
             $image->sharpenImage(3,2);
-            } catch(\ImagickException $e) {
-                echo 'Error: ' , $e->getMessage();
-                die();
-            }
+        } catch(\ImagickException $e) {
+            echo 'Error: ' , $e->getMessage();
+            die();
+        }
 //        }
         if ( $request->query->get('test') == 4){
             $image->motionBlurImage(1.3,0.8,0);
@@ -436,9 +436,9 @@ class XmlController extends Controller
     }
 
     /**
-     * @Route("/panel/merge-docs/{id}", name="merge_docs")
+     * @Route("/panel/merge-docs/{id}/{img}", name="merge_docs", defaults={"img" = 0})
      */
-    public function mergeDocsAction($id){
+    public function mergeDocsAction($id, $img = 0){
         $types = array(
             'passport' => ['x' => 590, 'y' =>  800],
             'driver' => ['x' => 400*1.475, 'y' =>  250*1.475],
@@ -544,8 +544,10 @@ class XmlController extends Controller
         $base64 = 'data:image/jpg;base64,' . base64_encode($image->getImageBlob());
         $html = '<img src="'.$base64.'" style="max-width: 100%" />';
 
-//        echo $html;
-//        exit;
+        if ($img == 1){
+            echo $html;
+            exit;
+        }
 
         $mpdfService = $this->container->get('tfox.mpdfport');
         $arguments = array(

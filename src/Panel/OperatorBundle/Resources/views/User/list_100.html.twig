@@ -173,7 +173,10 @@
                                         <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu4">
 
                                             <li role="presentation">
-                                                <a role="menuitem" tabindex="-1" href="{{ path('merge_docs',{'id' : user.id}) }}" target="_blank">Документы на листе</a>
+                                                <a role="menuitem" tabindex="-1" href="{{ path('merge_docs',{'id' : user.id}) }}" target="_blank">Документы на листе PDF</a>
+                                            </li>
+                                            <li role="presentation">
+                                                <a role="menuitem" tabindex="-1" href="{{ path('merge_docs',{'id' : user.id, 'img' : 1 }) }}" target="_blank">Документы на листе JPG</a>
                                             </li>
                                             <li role="presentation">
                                                 <a role="menuitem" tabindex="-1" href="{{ path('xml_generator',{'userId' : user.id}) }}" target="_blank">XML</a>
