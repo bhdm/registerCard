@@ -72,6 +72,7 @@ security:
             anonymous: true
 
     access_control:
+        - { path: ^auth/auth-iframe$, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/panel/login$, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: /operator/, role: ROLE_OPERATOR }
         - { path: ^/auth/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
