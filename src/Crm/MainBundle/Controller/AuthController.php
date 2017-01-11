@@ -293,15 +293,25 @@ class AuthController extends Controller
 
             $mpdfService = $this->container->get('tfox.mpdfport');
 
-            $file = $user->getCopySignature();
-            $file2 = $user->getCopySignature2();
-            $file3 = $user->getCopySignature3();
-            $file4 = $user->getCopySignature4();
-            $bigSign = WImage::cropSign(__DIR__.'/../../../../web/'.$file['path'], 240,100, false);
-            $bigSign2 = WImage::cropSign(__DIR__.'/../../../../web/'.$file2['path'], 285,140, false);
-            $bigSign3 = WImage::cropSign(__DIR__.'/../../../../web/'.$file3['path'], 285,140, false);
-            $bigSign4 = WImage::cropSign(__DIR__.'/../../../../web/'.$file4['path'], 285,140, false);
-//            $bigSign = '/upload/temp/'.substr($bigSign, strrpos($bigSign, '/')+1);
+            if ( $user->getEstr() ==  1 || $user->getEstr() ==  1 ){
+                $file =  $user->getCopySignature();
+                $file2 = $user->getCopySignature();
+                $file3 = $user->getCopySignature();
+                $file4 = $user->getCopySignature();
+                $bigSign = WImage::cropSign(__DIR__.'/../../../../web/'.$file['path'], 240,100, false);
+                $bigSign2 = WImage::cropSign(__DIR__.'/../../../../web/'.$file2['path'], 285,140, false);
+                $bigSign3 = WImage::cropSign(__DIR__.'/../../../../web/'.$file3['path'], 285,140, false);
+                $bigSign4 = WImage::cropSign(__DIR__.'/../../../../web/'.$file4['path'], 285,140, false);
+            }else{
+                $file = $user->getCopySignature();
+                $file2 = $user->getCopySignature2();
+                $file3 = $user->getCopySignature3();
+                $file4 = $user->getCopySignature4();
+                $bigSign = WImage::cropSign(__DIR__.'/../../../../web/'.$file['path'], 240,100, false);
+                $bigSign2 = WImage::cropSign(__DIR__.'/../../../../web/'.$file2['path'], 285,140, false);
+                $bigSign3 = WImage::cropSign(__DIR__.'/../../../../web/'.$file3['path'], 285,140, false);
+                $bigSign4 = WImage::cropSign(__DIR__.'/../../../../web/'.$file4['path'], 285,140, false);
+            }
             $miniSign1 = $bigSign2;
             $miniSign2 = $bigSign3;
             $miniSign3 = $bigSign4;
