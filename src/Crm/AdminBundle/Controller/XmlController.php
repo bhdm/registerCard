@@ -470,7 +470,7 @@ class XmlController extends Controller
         $bg->newImage($w+20,$h+20, new \ImagickPixel("white"));
         $bg->compositeImage($imgPassport,\Imagick::COMPOSITE_DEFAULT,10,10);
 
-        $bg->blueShiftImage(1);
+//        $bg->blueShiftImage(1);
         $bg->adaptiveSharpenImage(2,1);
         $bg->motionBlurImage(1.5,3,1);
         $bg->adaptiveBlurImage(1,3);
