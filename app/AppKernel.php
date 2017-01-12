@@ -32,6 +32,7 @@ class AppKernel extends Kernel
             new Craue\FormFlowBundle\CraueFormFlowBundle(),
             new Cocur\Slugify\Bridge\Symfony\CocurSlugifyBundle(),
             new Crm\AuthBundle\CrmAuthBundle(),
+
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

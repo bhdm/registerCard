@@ -26,13 +26,13 @@
         "zelenin/smsru" : "1.4.2",
         "tfox/mpdf-port-bundle": "1.2.*",
         "phpmailer/phpmailer": "dev-master",
-        "gregwar/captcha-bundle": "dev-master",
+        "gregwar/captcha-bundle": "^2.0",
         "liuggio/excelbundle": ">=1.0.4",
         "doctrine/doctrine-fixtures-bundle": "2.2.*",
         "braincrafted/bootstrap-bundle": "dev-master",
         "friendsofsymfony/http-cache-bundle": "~1.0",
         "craue/formflow-bundle": "~3.0@dev",
-        "cocur/slugify": "~1.2"
+        "cocur/slugify": "~1.2",
     },
     "scripts": {
         "post-install-cmd": [

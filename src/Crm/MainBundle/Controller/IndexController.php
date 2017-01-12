@@ -13,6 +13,7 @@ use Crm\MainBundle\Entity\Page;
 use Crm\MainBundle\Entity\Faq;
 use Crm\MainBundle\Entity\Feedback;
 use Crm\MainBundle\Entity\Document;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Zelenin\smsru;
@@ -33,7 +34,9 @@ class IndexController extends Controller
         $userCount = (is_array($userCount) ? $userCount['cu'] : $userCount);
 
         $em = $this->getDoctrine()->getManager();
-        if ($request->isMethod('POST')) {
+
+
+        if ($request->isMethod('POST') && $request->request->get('tt') == '196') {
             $review = new Review();
             $review->setName($request->request->get('name'));
             $review->setEmail($request->request->get('email'));
