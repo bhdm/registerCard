@@ -477,7 +477,7 @@ class XmlController extends Controller
 //        $bg->adaptiveBlurImage(1,3);
         $bg->sharpenImage(3,2);
         $bg->trimImage(1);
-//
+        $bg->setImageCompressionQuality(40);
         $image->compositeImage($bg, \Imagick::COMPOSITE_DEFAULT,0,0);
 
         $passportHeight = $h;
