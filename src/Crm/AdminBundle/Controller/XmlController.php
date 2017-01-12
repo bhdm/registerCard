@@ -466,19 +466,10 @@ class XmlController extends Controller
         $h = $types['passport']['y'];
         $imgPassport->resizeImage($w,$h, \Imagick::FILTER_LANCZOS,1);
 
-        $bg = new \Imagick();
-        $bg->newImage($w+20,$h+20, new \ImagickPixel("white"));
-        $bg->compositeImage($imgPassport,\Imagick::COMPOSITE_DEFAULT,10,10);
+        $imgPassport->adaptiveBlurImage(0.8,1.5);
+        $imgPassport->sharpenImage(3,2);
 
-//        $bg->blueShiftImage(1);
-        $bg->adaptiveSharpenImage(2,1);
-        $bg->motionBlurImage(1.5,1,1.5);
-        $bg->adaptiveBlurImage(1,3);
-        $bg->sharpenImage(3,2);
-        $bg->mosaicImages();
-//
-        $image->compositeImage($bg, \Imagick::COMPOSITE_DEFAULT,0,0);
-
+        $image->compositeImage($imgPassport, \Imagick::COMPOSITE_DEFAULT,0,0);
         $passportHeight = $h;
 
         $imgInn = new \Imagick('/var/www/'.$inn);
