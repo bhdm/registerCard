@@ -476,7 +476,7 @@ class XmlController extends Controller
         $bg->motionBlurImage(1.5,1,1.5);
 //        $bg->adaptiveBlurImage(1,3);
         $bg->sharpenImage(3,2);
-        $bg->trimImage(1);
+//        $bg->trimImage(1);
 //
         $image->compositeImage($bg, \Imagick::COMPOSITE_DEFAULT,0,0);
 
