@@ -878,6 +878,7 @@ class UserRepository extends EntityRepository
     }
 
     public function findForAct($companyId, $date){
+        $date = $date->format('Y-m-d').' 00:00:00';
         $orders = $this->getEntityManager()->createQueryBuilder()
             ->select('u')
             ->from('CrmMainBundle:User','u')
@@ -891,6 +892,9 @@ class UserRepository extends EntityRepository
             ->setParameter(':date', $date)
             ->orderBy('u.created', 'ASC')
             ->groupBy('u.id')
+//            ->getQuery()->getSQL();
+//        echo $orders;
+//        exit;
             ->getQuery()->getResult();
 
         $orders2 = $this->getEntityManager()->createQueryBuilder()
