@@ -488,7 +488,7 @@ class XmlController extends Controller
         $imgInn->resizeImage($w,$h, \Imagick::FILTER_LANCZOS,1);
         $imgInn->adaptiveBlurImage(0.8,1.5);
         $imgInn->sharpenImage(3,2);
-        $image->compositeImage($imgInn, \Imagick::COMPOSITE_DEFAULT,600,0);
+        $image->compositeImage($imgInn, \Imagick::COMPOSITE_DEFAULT,590,0);
         $innHeight = $h;
 
         $imgDriver = new \Imagick('/var/www/'.$driver);
@@ -503,7 +503,7 @@ class XmlController extends Controller
         $imgDriver->resizeImage($w,$h, \Imagick::FILTER_LANCZOS,1);
         $imgDriver->adaptiveBlurImage(0.8,1.5);
         $imgDriver->sharpenImage(3,2);
-        $image->compositeImage($imgDriver, \Imagick::COMPOSITE_DEFAULT,0,($passportHeight+30));
+        $image->compositeImage($imgDriver, \Imagick::COMPOSITE_DEFAULT,0,($passportHeight));
 
 
         $imgSnils = new \Imagick('/var/www/'.$snils);
@@ -512,7 +512,7 @@ class XmlController extends Controller
         $imgSnils->resizeImage($w,$h, \Imagick::FILTER_LANCZOS,1);
         $imgSnils->adaptiveBlurImage(0.8,1.5);
         $imgSnils->sharpenImage(3,2);
-        $image->compositeImage($imgSnils, \Imagick::COMPOSITE_DEFAULT,0,$passportHeight+$driverHeight+30);
+        $image->compositeImage($imgSnils, \Imagick::COMPOSITE_DEFAULT,0,$passportHeight+$driverHeight);
 
         $stampR = mt_rand(1,5);
         $rightR = mt_rand(1,3);
