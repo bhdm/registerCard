@@ -468,7 +468,7 @@ class XmlController extends Controller
 
         $bg = new \Imagick();
         $bg->newImage($w,$h, new \ImagickPixel("white"));
-        $bg->compositeImage($imgPassport,\Imagick::COMPOSITE_DEFAULT,10,10);
+        $bg->compositeImage($imgPassport,\Imagick::COMPOSITE_DEFAULT,0,0);
 
 //        $bg->deskewImage(80);
 //        $bg->blueShiftImage(1);
