@@ -2098,11 +2098,13 @@ class UserController extends Controller
     public function massChangeTagAction(Request $request, $tag){
         $data = $request->request->get('user');
         $em = $this->getDoctrine()->getManager();
-        foreach ($data as $key => $val) {
-            $user = $this->getDoctrine()->getRepository('CrmMainBundle:User')->find($key);
-            if ($user != null) {
-                $user->setManagerKey($tag);
-                $em->flush($user);
+        if (is_array($data)){
+            foreach ($data as $key => $val) {
+                $user = $this->getDoctrine()->getRepository('CrmMainBundle:User')->find($key);
+                if ($user != null) {
+                    $user->setManagerKey($tag);
+                    $em->flush($user);
+                }
             }
         }
         $referer = $request->headers->get('referer');
