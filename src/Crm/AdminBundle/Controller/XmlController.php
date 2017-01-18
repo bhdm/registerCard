@@ -467,7 +467,7 @@ class XmlController extends Controller
         $imgPassport->resizeImage($w,$h, \Imagick::FILTER_LANCZOS,1);
 
         $bg = new \Imagick();
-        $bg->newImage($w+20,$h+20, new \ImagickPixel("white"));
+        $bg->newImage($w,$h, new \ImagickPixel("white"));
         $bg->compositeImage($imgPassport,\Imagick::COMPOSITE_DEFAULT,10,10);
 
 //        $bg->deskewImage(80);
