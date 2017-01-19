@@ -125,12 +125,12 @@ class PaymentController extends Controller
         $clientsList = $this->getDoctrine()->getRepository('CrmMainBundle:Client')->findAll();
         $companyList = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->findAll();
         if ($this->get('security.context')->isGranted('ROLE_ADMIN')){
-            $companyList = $this->getDoctrine()->getRepository('CrmMainBundle:operator')->findAll();
+            $operatorList = $this->getDoctrine()->getRepository('CrmMainBundle:operator')->findAll();
         }else{
-            $companyList = array();
+            $operatorList = array();
         }
 
-        return ['pagination' => $pagination, 'clientsList' => $clientsList, 'companiesList' => $companyList,'sum' => $sum ];
+        return ['pagination' => $pagination, 'clientsList' => $clientsList, 'companiesList' => $companyList,'sum' => $sum, 'operatorList'=> $operatorList ];
     }
 
     /**
