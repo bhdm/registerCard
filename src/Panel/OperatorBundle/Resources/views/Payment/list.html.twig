@@ -15,7 +15,13 @@
             <tr>
                 <th >Номер</th>
                 <th >Дата</th>
-                <th>Оператор</th>
+                <th>
+                    <select class="chosen" id="operator" data-placeholder="Оператор" style="width: 150px">
+                        {% for o in operatorList %}
+                            <option value="{{ o.id }}">{{ o.title }}</option>
+                        {% endfor %}
+                    </select>
+                </th>
                 <th>
                     <select class="chosen" id="clients" data-placeholder="Клиент" style="width: 150px">
                         {% for c in clientsList %}
@@ -125,6 +131,11 @@
             $('#companies').change(function(){
                 window.location.href = Routing.generate('panel_payment_list', {'companyId': $(this).val() })
             });
+
+            $('#operator').change(function(){
+                window.location.href = Routing.generate('panel_payment_list', {'operatorId': $(this).val() })
+            });
+
             $('#clients').change(function(){
                 window.location.href = Routing.generate('panel_payment_list', {'clientId': $(this).val() })
             });

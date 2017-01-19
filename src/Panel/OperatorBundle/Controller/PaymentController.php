@@ -104,6 +104,9 @@ class PaymentController extends Controller
             $payments = $this->getDoctrine()->getRepository('CrmMainBundle:Payment')->filter(['operator' => $this->getUser(),'enabled' => true, 'client' => $request->query->get('clientId')],$this->get('security.context')->isGranted('ROLE_ADMIN'));
         }elseif($request->query->get('statusId') != null && $request->query->get('statusId') != 3 ){
             $payments = $this->getDoctrine()->getRepository('CrmMainBundle:Payment')->filter(['operator' => $this->getUser(),'enabled' => true, 'status' => $request->query->get('statusId')],['created' => 'DESC'],$this->get('security.context')->isGranted('ROLE_ADMIN'));
+        }elseif($request->query->get('operatorId') != null){
+            $o = $this->getDoctrine()->getRepository('CrmMainBundle:Operator')->find($request->query->get('operatorId'));
+            $payments = $this->getDoctrine()->getRepository('CrmMainBundle:Payment')->filter(['operator' => $o, 'enabled' => true, $this->get('security.context')->isGranted('ROLE_ADMIN')]);
         }else{
             $payments = $this->getDoctrine()->getRepository('CrmMainBundle:Payment')->filter(['operator' => $this->getUser(),'enabled' => true],$this->get('security.context')->isGranted('ROLE_ADMIN'));
         }
