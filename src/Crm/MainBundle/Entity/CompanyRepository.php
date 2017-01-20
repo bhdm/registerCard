@@ -239,7 +239,7 @@ class CompanyRepository extends EntityRepository
     public function amountRubMaster($companyId,$type){
 
         $res = $this->getEntityManager()->createQueryBuilder()
-            ->select('SUM(u.price*u.cardAmount) sumPrice')
+            ->select('SUM(u.price) sumPrice')
             ->from('CrmMainBundle:Company', 'c')
             ->leftJoin('c.companies','u')
             ->where("u.enabled = 1 AND c.id = ".$companyId)
@@ -254,7 +254,7 @@ class CompanyRepository extends EntityRepository
     public function amountRubCompany($companyId,$type){
 
         $res = $this->getEntityManager()->createQueryBuilder()
-            ->select('SUM(u.price*u.cardAmount) sumPrice')
+            ->select('SUM(u.price) sumPrice')
             ->from('CrmMainBundle:Company', 'c')
             ->leftJoin('c.companies','u')
             ->where("u.enabled = 1 AND c.id = ".$companyId)
