@@ -59,7 +59,10 @@
                 </tr>
                 <tr>
                     <td>Стоимость<span class="required">*</span></td>
-                    <td>{{ form_widget(form.price) }}</td>
+                    <td>
+                        {{ form_widget(form.price) }}
+                        ( {{ form.price.vars.value / form.cardAmount.vars.value }} шт.  )
+                    </td>
                 </tr>
                 <tr>
                     <td></td>
