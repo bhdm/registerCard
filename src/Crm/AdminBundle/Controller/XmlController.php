@@ -602,7 +602,7 @@ class XmlController extends Controller
         $currentImage->compositeImage($borderTop, \Imagick::COMPOSITE_DEFAULT,0, 0);
         $currentImage->compositeImage($borderRight, \Imagick::COMPOSITE_DEFAULT,0, 0);
         $currentImage->compositeImage($borderLeft, \Imagick::COMPOSITE_DEFAULT,$currentImage->getImageWidth()-15, 0);
-        $currentImage->compositeImage($borderBottom, \Imagick::COMPOSITE_DEFAULT, 0, $currentImage->getImageHeight()-15);
+        $currentImage->compositeImage($borderBottom, \Imagick::COMPOSITE_DEFAULT, 0, $currentImage->getImageHeight()-5);
 
         return $currentImage;
     }
