@@ -592,17 +592,17 @@ class XmlController extends Controller
         $currentImage->setFormat('png');
 
         $borderTop = new \Imagick($this->get('kernel')->getRootDir() . '/../web/bundles/crmmain/images/l-top.png');
-        $borderTop->resizeImage($currentImage->getImageWidth(),15, \Imagick::FILTER_CUBIC,1);
+        $borderTop->resizeImage($currentImage->getImageWidth(),6, \Imagick::FILTER_CUBIC,1);
         $borderLeft = new \Imagick($this->get('kernel')->getRootDir() . '/../web/bundles/crmmain/images/l-right.png');
-        $borderLeft->resizeImage(15,$currentImage->getImageHeight(), \Imagick::FILTER_CUBIC,1);
+        $borderLeft->resizeImage(6,$currentImage->getImageHeight(), \Imagick::FILTER_CUBIC,1);
         $borderRight = new \Imagick($this->get('kernel')->getRootDir() . '/../web/bundles/crmmain/images/l-left.png');
-        $borderRight->resizeImage(15,$currentImage->getImageHeight(), \Imagick::FILTER_CUBIC,1);
+        $borderRight->resizeImage(6,$currentImage->getImageHeight(), \Imagick::FILTER_CUBIC,1);
         $borderBottom = new \Imagick($this->get('kernel')->getRootDir() . '/../web/bundles/crmmain/images/l-bottom.png');
-        $borderBottom->resizeImage($currentImage->getImageWidth(),15, \Imagick::FILTER_CUBIC,1);
+        $borderBottom->resizeImage($currentImage->getImageWidth(),6, \Imagick::FILTER_CUBIC,1);
         $currentImage->compositeImage($borderTop, \Imagick::COMPOSITE_DEFAULT,0, 0);
         $currentImage->compositeImage($borderRight, \Imagick::COMPOSITE_DEFAULT,0, 0);
-        $currentImage->compositeImage($borderLeft, \Imagick::COMPOSITE_DEFAULT,$currentImage->getImageWidth()-15, 0);
-        $currentImage->compositeImage($borderBottom, \Imagick::COMPOSITE_DEFAULT, 0, $currentImage->getImageHeight()-15);
+        $currentImage->compositeImage($borderLeft, \Imagick::COMPOSITE_DEFAULT,$currentImage->getImageWidth()-6, 0);
+        $currentImage->compositeImage($borderBottom, \Imagick::COMPOSITE_DEFAULT, 0, $currentImage->getImageHeight()-6);
 
         return $currentImage;
     }
