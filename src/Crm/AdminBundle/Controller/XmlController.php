@@ -491,7 +491,7 @@ class XmlController extends Controller
         $imgInn->adaptiveBlurImage(0.8,1.5);
         $imgInn->sharpenImage(3,2);
         $imgInn = $this->setBorder($imgInn);
-        $image->compositeImage($imgInn, \Imagick::COMPOSITE_DEFAULT,590,0);
+        $image->compositeImage($imgInn, \Imagick::COMPOSITE_DEFAULT,600,0);
         $innHeight = $h;
 
         $imgDriver = new \Imagick('/var/www/'.$driver);
@@ -507,7 +507,7 @@ class XmlController extends Controller
         $imgDriver->adaptiveBlurImage(0.8,1.5);
         $imgDriver->sharpenImage(3,2);
         $imgDriver = $this->setBorder($imgDriver);
-        $image->compositeImage($imgDriver, \Imagick::COMPOSITE_DEFAULT,0,($passportHeight));
+        $image->compositeImage($imgDriver, \Imagick::COMPOSITE_DEFAULT,0,($passportHeight+10));
 
 
         $imgSnils = new \Imagick('/var/www/'.$snils);
@@ -517,7 +517,7 @@ class XmlController extends Controller
         $imgSnils->adaptiveBlurImage(0.8,1.5);
         $imgSnils->sharpenImage(3,2);
         $imgSnils = $this->setBorder($imgSnils);
-        $image->compositeImage($imgSnils, \Imagick::COMPOSITE_DEFAULT,0,$passportHeight+$driverHeight);
+        $image->compositeImage($imgSnils, \Imagick::COMPOSITE_DEFAULT,0,$passportHeight+$driverHeight+20);
 
         $stampR = mt_rand(1,5);
         $rightR = mt_rand(1,3);
@@ -592,17 +592,17 @@ class XmlController extends Controller
         $currentImage->setFormat('png');
 
         $borderTop = new \Imagick($this->get('kernel')->getRootDir() . '/../web/bundles/crmmain/images/l-top.png');
-        $borderTop->resizeImage($currentImage->getImageWidth(),6, \Imagick::FILTER_CUBIC,1);
+        $borderTop->resizeImage($currentImage->getImageWidth(),15, \Imagick::FILTER_CUBIC,1);
         $borderLeft = new \Imagick($this->get('kernel')->getRootDir() . '/../web/bundles/crmmain/images/l-right.png');
-        $borderLeft->resizeImage(6,$currentImage->getImageHeight(), \Imagick::FILTER_CUBIC,1);
+        $borderLeft->resizeImage(15,$currentImage->getImageHeight(), \Imagick::FILTER_CUBIC,1);
         $borderRight = new \Imagick($this->get('kernel')->getRootDir() . '/../web/bundles/crmmain/images/l-left.png');
-        $borderRight->resizeImage(6,$currentImage->getImageHeight(), \Imagick::FILTER_CUBIC,1);
+        $borderRight->resizeImage(15,$currentImage->getImageHeight(), \Imagick::FILTER_CUBIC,1);
         $borderBottom = new \Imagick($this->get('kernel')->getRootDir() . '/../web/bundles/crmmain/images/l-bottom.png');
         $borderBottom->resizeImage($currentImage->getImageWidth(),6, \Imagick::FILTER_CUBIC,1);
         $currentImage->compositeImage($borderTop, \Imagick::COMPOSITE_DEFAULT,0, 0);
         $currentImage->compositeImage($borderRight, \Imagick::COMPOSITE_DEFAULT,0, 0);
-        $currentImage->compositeImage($borderLeft, \Imagick::COMPOSITE_DEFAULT,$currentImage->getImageWidth()-6, 0);
-        $currentImage->compositeImage($borderBottom, \Imagick::COMPOSITE_DEFAULT, 0, $currentImage->getImageHeight()-6);
+        $currentImage->compositeImage($borderLeft, \Imagick::COMPOSITE_DEFAULT,$currentImage->getImageWidth()-15, 0);
+        $currentImage->compositeImage($borderBottom, \Imagick::COMPOSITE_DEFAULT, 0, $currentImage->getImageHeight()-15);
 
         return $currentImage;
     }
