@@ -598,11 +598,11 @@ class XmlController extends Controller
         $borderRight = new \Imagick($this->get('kernel')->getRootDir() . '/../web/bundles/crmmain/images/l-left.png');
         $borderRight->resizeImage(15,$currentImage->getImageHeight(), \Imagick::FILTER_CUBIC,1);
         $borderBottom = new \Imagick($this->get('kernel')->getRootDir() . '/../web/bundles/crmmain/images/l-bottom.png');
-        $borderBottom->resizeImage($currentImage->getImageWidth(),6, \Imagick::FILTER_CUBIC,1);
+        $borderBottom->resizeImage($currentImage->getImageWidth(),15, \Imagick::FILTER_CUBIC,1);
         $currentImage->compositeImage($borderTop, \Imagick::COMPOSITE_DEFAULT,0, 0);
         $currentImage->compositeImage($borderRight, \Imagick::COMPOSITE_DEFAULT,0, 0);
         $currentImage->compositeImage($borderLeft, \Imagick::COMPOSITE_DEFAULT,$currentImage->getImageWidth()-15, 0);
-        $currentImage->compositeImage($borderBottom, \Imagick::COMPOSITE_DEFAULT, 0, $currentImage->getImageHeight()-5);
+        $currentImage->compositeImage($borderBottom, \Imagick::COMPOSITE_DEFAULT, 0, $currentImage->getImageHeight()-15);
 
         return $currentImage;
     }
