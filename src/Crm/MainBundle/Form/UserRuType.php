@@ -31,7 +31,7 @@ class UserRuType extends AbstractType
                     return $er->createQueryBuilder('c')
                         ->orderBy('c.sort', 'DESC')
                         ->addOrderBy('c.title', 'ASC');
-                }, 'attr' => ['class' => 'styler']])
+                }, 'attr' => ['class' => 'chosen']])
             ->add('lastNumberCard', null ,['label' => 'Прошлый номер карты', 'required' => false])
 
             ->add('lastName', null,['label'=>'Фамилия'])
