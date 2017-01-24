@@ -47,6 +47,11 @@ class Country
      */
     protected $driverDocCountries;
 
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    protected $sort;
+
     public function __construct(){
         $this->regions = new ArrayCollection();
         $this->cities = new ArrayCollection();
