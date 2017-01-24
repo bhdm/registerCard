@@ -597,7 +597,6 @@ class UserController extends Controller
         $clients = $this->getDoctrine()->getRepository('CrmMainBundle:Client')->findAll();
         $companies = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->getCompanies();
         $petitions = $this->getUser()->getPetitions();
-
         $countries = $this->getDoctrine()->getRepository('CrmMainBundle:Country')->findAll();
         return array('user' => $user, 'regions' => $regions, 'referer' => $referer,'companies' => $companies,'petitions' => $petitions, 'clients' => $clients, 'countries' => $countries);
 
