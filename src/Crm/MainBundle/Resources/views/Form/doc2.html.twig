@@ -199,8 +199,8 @@
         }
         .c2{
             position: absolute;
-            top: 385px;
-            left: 450px;
+            top: 405px;
+            left: 470px;
         }
         .line0{
             position: absolute;
@@ -377,7 +377,7 @@
 <div class="driverNumber">{{ user.driverDocNumber }}</div>
 <div class="driverDate">{{ user.driverDocDateStarts | date("d") }}&nbsp;&nbsp;&nbsp;&nbsp;{{ user.driverDocDateStarts | date("m") }}&nbsp;&nbsp;&nbsp;&nbsp;{{ user.driverDocDateStarts | date("Y") }}</div>
 <div class="driverPlace">{{ user.driverDocIssuance }}</div>
-<div class="driverCountry" style="width: 100px">РФ</div>
+<div class="driverCountry" style="width: 250px">{{ user.citizenship.title }}</div>
 <div class="page1_photo">
     {% if user.status > 0 %}
         <img src="{{ miniSign1 }}" style="max-width: 120px" class="r{{ r2 }}">
