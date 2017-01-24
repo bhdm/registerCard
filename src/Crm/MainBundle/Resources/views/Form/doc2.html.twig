@@ -191,6 +191,17 @@
             left: 267px;
             font-size: 17px;
         }
+        .gal2{
+            position: absolute;
+            top: 385px;
+            left: 418px;
+            font-size: 17px;
+        }
+        .c2{
+            position: absolute;
+            top: 385px;
+            left: 450px;
+        }
         .line0{
             position: absolute;
             top: 222px;
@@ -281,7 +292,12 @@
 <div class="fio0">{{ user.lastName }} {{ user.firstName }} {{ user.surName }}</div>
 <div class="line{{ user.typeCard }}">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
 <div class="line1{{ user.typeCard }}">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
-<div class="gal" style="font-size: 48px">&bull;</div>
+{% if (user.citizenship.id == 3159) %}
+    <div class="gal" style="font-size: 48px">&bull;</div>
+{% else %}
+    <div class="gal2" style="font-size: 48px">&bull;</div>
+    <div class="c2">{{ user.citizenship.title }}</div>
+{% endif %}
 <div class="rud" style="">
     {{ user.lastNumberCard|slice(3, 17) }}
 </div>
