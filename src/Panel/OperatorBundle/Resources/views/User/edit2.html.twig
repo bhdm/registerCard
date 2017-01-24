@@ -307,6 +307,23 @@
                 <tr>
                     <td>
                         <div class="form-group">
+                            <label class="control-label col-sm-3" for="lastName">Гражданство:</label>
+                            <div class="col-sm-4">
+                                <select name="citizenship">
+                                    {% for c in countres %}
+                                        <option value="{{ c.id }}" {{ user.citizenship.id == c.id ? 'selected' : '' }}>{{ c.title }}</option>
+                                    {% endfor %}
+                                    <option></option>
+                                </select>
+
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>
+                        <div class="form-group">
                             <label class="control-label col-sm-3" for="lastName">Фамилия:</label>
                             <div class="col-sm-4">
                                 <input type="text"  name="lastName" id="lastName" class="form-control" value="{{ user.lastName }}">

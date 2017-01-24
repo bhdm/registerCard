@@ -363,6 +363,10 @@ class UserController extends Controller
             $user->setEnDeliveryAdrs($data->get('address'));
             $user->setRuDeliveryAdrs($data->get('address2'));
 
+            $country = $this->getDoctrine()->getRepository('CrmMainBundle:Country')->find($data->get('citizenship'));
+            $user->setCitizenship($country);
+
+
             $user->setDriverDocNumber($data->get('driverNumber'));
             $date = new \DateTime($data->get('driverStarts'));
             $user->setDriverDocDateStarts($date);
@@ -594,7 +598,8 @@ class UserController extends Controller
         $companies = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->getCompanies();
         $petitions = $this->getUser()->getPetitions();
 
-        return array('user' => $user, 'regions' => $regions, 'referer' => $referer,'companies' => $companies,'petitions' => $petitions, 'clients' => $clients);
+        $countries = $this->getDoctrine()->getRepository('CrmMainBundle:Country')->findAll();
+        return array('user' => $user, 'regions' => $regions, 'referer' => $referer,'companies' => $companies,'petitions' => $petitions, 'clients' => $clients, 'countries' => $countries);
 
     }
 
