@@ -27,11 +27,12 @@ class UserSkziType extends AbstractType
                 )))
             ->add('citizenship', null ,['label' => 'Гражданство',
                 'class' => 'CrmMainBundle:Country',
+                'required' => true,
                 'query_builder' => function (EntityRepository $er) {
                     return $er->createQueryBuilder('c')
                         ->orderBy('c.sort', 'DESC')
                         ->addOrderBy('c.title', 'ASC');
-                }, 'attr' => ['class' => 'chosen']])
+                }, 'attr' => ['class' => '']])
             ->add('lastNumberCard', null ,['label' => 'Прошлый номер карты', 'required' => false])
             ->add('lastName', null,['label'=>'Фамилия'])
             ->add('firstName', null,['label'=>'Имя'])

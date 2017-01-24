@@ -27,11 +27,14 @@ class UserEstrType extends AbstractType
                 )))
             ->add('citizenship', null ,['label' => 'Гражданство',
                 'class' => 'CrmMainBundle:Country',
+                'required' => true,
                 'query_builder' => function (EntityRepository $er) {
                     return $er->createQueryBuilder('c')
                         ->orderBy('c.sort', 'DESC')
                         ->addOrderBy('c.title', 'ASC');
-                }, 'attr' => ['class' => 'chosen']])
+                }, 'attr' => ['class' => '']])
+
+
             ->add('comment', null,['label'=>'Комментарий пользователя', 'required' => false])
 
             ->add('lastNumberCard', null ,['label' => 'Прошлый номер карты', 'required' => false])
