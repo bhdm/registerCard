@@ -31,7 +31,7 @@ class UserEstrType extends AbstractType
                     return $er->createQueryBuilder('c')
                         ->orderBy('c.sort', 'DESC')
                         ->addOrderBy('c.title', 'ASC');
-                }, 'attr' => ['class' => 'choices']])
+                }, 'attr' => ['class' => 'styler']])
             ->add('comment', null,['label'=>'Комментарий пользователя', 'required' => false])
 
             ->add('lastNumberCard', null ,['label' => 'Прошлый номер карты', 'required' => false])
