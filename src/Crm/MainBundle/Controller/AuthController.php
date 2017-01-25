@@ -304,9 +304,9 @@ class AuthController extends Controller
                 $bigSign4 = WImage::cropSign(__DIR__.'/../../../../web/'.$file4['path'], 285,140, false);
             }else{
                 $file = $user->getCopySignature();
-                $file2 = $user->getCopySignature2();
-                $file3 = $user->getCopySignature3();
-                $file4 = $user->getCopySignature4();
+                $file2 = $user->getCopySignature();
+                $file3 = $user->getCopySignature();
+                $file4 = $user->getCopySignature();
                 $bigSign = WImage::cropSign(__DIR__.'/../../../../web/'.$file['path'], 240,100, false);
                 $bigSign2 = WImage::cropSign(__DIR__.'/../../../../web/'.$file2['path'], 285,140, false);
                 $bigSign3 = WImage::cropSign(__DIR__.'/../../../../web/'.$file3['path'], 285,140, false);
