@@ -207,16 +207,16 @@
                             {% spaceless %}
                                 {% if not is_granted('ROLE_ADMIN') %}
                                     <a href="{{ path('panel_user_set_choose_payment',{'userId' : user.id }) }}">
-                                        <button type="button" class="btn btn-default btn-{{ user.payment == false ? 'warning' : 'success' }}" title="Оплачено">
+                                        <button type="button" class="btn btn-default btn-{{ user.payment == false ? 'warning' : 'success' }}" title="В производство">
                                             <span class="glyphicon glyphicon-ok"></span>
                                         </button>
                                     </a>
                                     &nbsp;&nbsp;
-                                    <a href="{{ path('panel_user_set_choose_confirmed',{'userId' : user.id }) }}">
-                                        <button type="button" class="btn btn-default btn-{{ user.comfirmed == false ? 'warning' : 'success' }}" title="Проверено">
-                                            <span class="glyphicon glyphicon-saved"></span>
-                                        </button>
-                                    </a>
+                                    {#<a href="{{ path('panel_user_set_choose_confirmed',{'userId' : user.id }) }}">#}
+                                        {#<button type="button" class="btn btn-default btn-{{ user.comfirmed == false ? 'warning' : 'success' }}" title="Проверено">#}
+                                            {#<span class="glyphicon glyphicon-saved"></span>#}
+                                        {#</button>#}
+                                    {#</a>#}
                                     &nbsp;&nbsp;
                                 {% else %}
                                     {% if  user.payment == true %}

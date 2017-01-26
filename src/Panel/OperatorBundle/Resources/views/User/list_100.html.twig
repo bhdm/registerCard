@@ -211,6 +211,13 @@
                             </td>
                         {% endif %}
                         <td>
+                            {% if not is_granted('ROLE_ADMIN') %}
+                            <a href="{{ path('panel_user_set_choose_payment',{'userId' : user.id }) }}">
+                                <button type="button" class="btn btn-default btn-{{ user.payment == false ? 'warning' : 'success' }}" title="В производство">
+                                    <span class="glyphicon glyphicon-ok"></span>
+                                </button>
+                            </a>
+                            {% endif %}
                             {% if user.post != null %}
                                 {% if user.comment != null %}
                                     <a style="color: #CC0000" title="{{ user.comment }}" href="https://www.pochta.ru/tracking#{{ user.post }}" target="_blank">{{ user.post }}</a>
