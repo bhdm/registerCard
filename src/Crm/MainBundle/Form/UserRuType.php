@@ -33,7 +33,7 @@ class UserRuType extends AbstractType
                         ->orderBy('c.sort', 'DESC')
                         ->addOrderBy('c.title', 'ASC');
                 }, 'attr' => ['class' => '']])
-            ->add('lastNumberCard', null ,['label' => 'Прошлый номер карты', 'required' => false])
+            ->add('lastNumberCard', null ,['label' => 'Прошлый номер карты', 'required' => false, 'attr' => ['class' => 'oldCardNumber']])
 
             ->add('lastName', null,['label'=>'Фамилия'])
             ->add('firstName', null,['label'=>'Имя'])
