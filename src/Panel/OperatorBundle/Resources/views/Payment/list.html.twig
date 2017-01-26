@@ -59,7 +59,11 @@
                             <span class="glyphicon glyphicon-print" style="color: #0000cc"></span>
                         {% endif %}
                     </td>
-                    <td>{{ p.operator ? p.operator  : p.client.company.operator }}</td>
+                    <td>
+                        <a href="{{ path('panel_user_list', {'status' : 'all', 'type' : 'null', 'company' : 'null', 'operator' : (p.operator ? p.operator.id  : p.client.company.operator.id ) }) }}">
+                            {{ p.operator ? p.operator  : p.client.company.operator }}
+                        </a>
+                    </td>
                     {% if p.client.username is defined %}
                         <td>{{ p.client.username }}</td>
                         <td><a href="{{ path('panel_user_list', {'type' : 'null' , 'company' : p.client.company.id }) }}">{{ p.client.company }}</a></td>
