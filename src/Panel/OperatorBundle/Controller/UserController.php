@@ -2217,7 +2217,7 @@ class UserController extends Controller
                     $type = ($o instanceof User ? ($o->getEstr() == 1 ? 'ЕСТР' : $o->getRu() == 1 ? 'РФ' : 'СКЗИ') : $o->getCardType() == 1? 'СКЗИ' : $o->getCardType() == 2 ? 'ЕСТР' : 'РФ');
                     $phpExcelObject->setActiveSheetIndex(0)
                         ->setCellValue('A' . $num, $f)
-                        ->setCellValue('B' . $num, $type)
+                        ->setCellValue('B' . $num, $type->getEstr().' '.$type->getRu())
                         ->setCellValue('C' . $num, $o->getId())
                         ->setCellValue('D' . $num, $o->getFullname())
                         ->setCellValue('E' . $num, $o->getPrice())
