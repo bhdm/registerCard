@@ -4,6 +4,7 @@ namespace Panel\OperatorBundle\Controller;
 
 use Cocur\Slugify\Slugify;
 use Crm\MainBundle\Entity\Act;
+use Crm\MainBundle\Entity\CompanyUser;
 use Crm\MainBundle\Entity\StatusLog;
 use Crm\MainBundle\Entity\User;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -2214,10 +2215,17 @@ class UserController extends Controller
                 foreach ($orders[$f] as $o) {
                     $num++;
                     $itog += ($o->getStatus() != 10 ? $o->getPrice() : ($o->getPrice()*-1));
-                    $type = ($o instanceof User ? ($o->getEstr() == 1 ? 'ЕСТР' : $o->getRu() == 1 ? 'РФ' : 'СКЗИ') : $o->getCardType() == 1? 'СКЗИ' : $o->getCardType() == 2 ? 'ЕСТР' : 'РФ');
+
+                    if ($o instanceof CompanyUser){
+                        $type = ($o->getCardType() == 1? 'СКЗИ' : $o->getCardType() == 2 ? 'ЕСТР' : 'РФ');
+                    }else{
+                        $type = ($o->getEstr() == 1 ? 'ЕСТР' : $o->getRu() == 1 ? 'РФ' : 'СКЗИ');
+                    }
+
+
                     $phpExcelObject->setActiveSheetIndex(0)
                         ->setCellValue('A' . $num, $f)
-                        ->setCellValue('B' . $num, ($o instanceof User ? $o->getEstr().' '.$o->getRu() : '').' '.$type)
+                        ->setCellValue('B' . $num, $type)
                         ->setCellValue('C' . $num, $o->getId())
                         ->setCellValue('D' . $num, $o->getFullname())
                         ->setCellValue('E' . $num, $o->getPrice())
