@@ -998,12 +998,25 @@
                 {% endif %}
                 <tr>
                     <td>
-                        <input type="file" name="copyOrder">
-                        <br />
-                        <br />
-                        <input type="file" name="copyOrder2">
+                        <input type="file" name="copyOrderFile" id="copyOrderFile"  data-type="copyOrderFile" class="fileAjax">
+                        {% if user.copyOrder.path is defined %}
+                            <img src="/{{ user.copyOrder.path }}" brightness="0" contrast="0" class="document" />
+                        {% else %}
+                            <img src="" brightness="0" contrast="0" data-type="snilsFile" class="document" id="copyOrderImg">
+                        {% endif %}
                     </td>
                 </tr>
+                <tr>
+                    <td>
+                        <input type="file" name="copyOrder2File" id="copyOrder2File"  data-type="copyOrder2File" class="fileAjax">
+                        {% if user.copyOrder2.path is defined %}
+                            <img src="/{{ user.copyOrder2.path }}" brightness="0" contrast="0" class="document" />
+                        {% else %}
+                            <img src="" brightness="0" contrast="0" data-type="snilsFile" class="document" id="copyOrder2Img">
+                        {% endif %}
+                    </td>
+                </tr>
+
                 {% if user.copyOrder.path is defined %}
                 <tr>
                     <td>

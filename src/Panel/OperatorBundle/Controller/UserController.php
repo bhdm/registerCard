@@ -204,6 +204,8 @@ class UserController extends Controller
             $session->set('workFile', null);
             $session->set('copyLastCardFile', null);
             $session->set('copyTypeCardFile', null);
+            $session->set('copyOrderFile', null);
+            $session->set('copyOrder2File', null);
 
 
             $session->set('origin-passportFile', null);
@@ -222,6 +224,8 @@ class UserController extends Controller
             $session->set('origin-workFile', null);
             $session->set('origin-copyLastCardFile', null);
             $session->set('origin-copyTypeCardFile', null);
+            $session->set('origin-copyOrderFile', null);
+            $session->set('origin-copyOrder2File', null);
             $session->save();
         }
 
@@ -416,32 +420,32 @@ class UserController extends Controller
 
             $name = time();
 
-            $file = $request->files->get('orderfile');
-            if ($file){
-                $info = new \SplFileInfo($file);
-                $path = $this->get('kernel')->getRootDir() . '/../web/upload/orders/';
-
-                $path = $path.$name.'-1.jpg';
-                if (copy($file,$path)){
-                    unlink( $file );
-                    $user->setCopyOrder(['path' => '/upload/orders/'.$name.'-1.jpg']);
-                    $this->getDoctrine()->getManager()->flush($user);
-                }
-            }
-
-            $file = $request->files->get('orderfile2');
-            if ($file){
-                $info = new \SplFileInfo($file);
-                $path = $this->get('kernel')->getRootDir() . '/../web/upload/orders/';
-                $name = time().'.jpg';
-                $path = $path.$name.'-2.jpg';
-                if (copy($file,$path)){
-                    unlink( $file );
-                    $user->setCopyOrder2(['path' => '/upload/orders/'.$name.'-2.jpg']);
-                    $this->getDoctrine()->getManager()->flush($user);
-                }
-            }
-            $file = null;
+//            $file = $request->files->get('orderfile');
+//            if ($file){
+//                $info = new \SplFileInfo($file);
+//                $path = $this->get('kernel')->getRootDir() . '/../web/upload/orders/';
+//
+//                $path = $path.$name.'-1.jpg';
+//                if (copy($file,$path)){
+//                    unlink( $file );
+//                    $user->setCopyOrder(['path' => '/upload/orders/'.$name.'-1.jpg']);
+//                    $this->getDoctrine()->getManager()->flush($user);
+//                }
+//            }
+//
+//            $file = $request->files->get('orderfile2');
+//            if ($file){
+//                $info = new \SplFileInfo($file);
+//                $path = $this->get('kernel')->getRootDir() . '/../web/upload/orders/';
+//                $name = time().'.jpg';
+//                $path = $path.$name.'-2.jpg';
+//                if (copy($file,$path)){
+//                    unlink( $file );
+//                    $user->setCopyOrder2(['path' => '/upload/orders/'.$name.'-2.jpg']);
+//                    $this->getDoctrine()->getManager()->flush($user);
+//                }
+//            }
+//            $file = null;
 
 
             $petition = $this->getDoctrine()->getRepository('CrmMainBundle:CompanyPetition')->findOneById($data->get('petition'));
@@ -587,6 +591,16 @@ class UserController extends Controller
             $file = $user->getTypeCardFile();
             if (!empty($file) && file_exists('/var/www/' . $file['path'])) {
                 $session->set('typeCardFile', '/var/www/' . $file['path']);
+            }
+
+            $file = $user->getCopyOrder();
+            if (!empty($file) && file_exists('/var/www/' . $file['path'])) {
+                $session->set('copyOrderFile', '/var/www/' . $file['path']);
+            }
+
+            $file = $user->getCopyOrder2();
+            if (!empty($file) && file_exists('/var/www/' . $file['path'])) {
+                $session->set('copyOrder2File', '/var/www/' . $file['path']);
             }
 
             $session->save();
