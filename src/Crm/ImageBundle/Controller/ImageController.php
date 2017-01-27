@@ -49,6 +49,12 @@ class ImageController extends Controller
                 $image = new \Imagick($path);
                 $image->setResolution(72,72);
                 $image->setImageFormat('jpg');
+                if ($image->getImageWidth() > 1000 || $image->getImageHeight() > 1000){
+                    $h = 1000 / $image->getImageWidth();
+                    $image->resizeImage(1000,$image->getImageHeight()*$h);
+                }
+
+
 //                $image->stripImage();
                 if ($type == 'signFile' || $type=='sign2File'|| $type=='sign3File'|| $type=='sign4File'){
                     $image->setImageColorSpace(\Imagick::COLORSPACE_GRAY);
