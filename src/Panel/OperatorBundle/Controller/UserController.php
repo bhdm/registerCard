@@ -2203,7 +2203,7 @@ class UserController extends Controller
         $phpExcelObject->getActiveSheet()->getStyle('F2:F1000')->getNumberFormat()->setFormatCode(\PHPExcel_Style_NumberFormat::FORMAT_NUMBER_COMMA_SEPARATED1);
         $style = array(
             'alignment' => array(
-                'horizontal' => PHPExcel_Style_Alignment::HORIZONTAL_CENTER,
+                'horizontal' => \PHPExcel_Style_Alignment::HORIZONTAL_CENTER,
             )
         );
         $phpExcelObject->getActiveSheet()->getStyle('B1:C1000')->applyFromArray($center);
