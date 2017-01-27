@@ -2219,6 +2219,12 @@ class UserController extends Controller
         $num = 2;
         $now = new \DateTime();
         $now = $now->format('d.m.Y');
+
+        $styleRed = array(
+            'font'  => array(
+                'color' => array('rgb' => 'CC0000'),
+            ));
+
         while(true) {
             $f = $date->format('d.m.Y');
             if (isset($orders[$f])) {
@@ -2243,12 +2249,7 @@ class UserController extends Controller
                         ->setCellValue('G' . $num, $itog)
                         ->setCellValue('H' . $num, '');
                     if ($itog < 0){
-                        $phpExcelObject->getActiveSheet()->getStyle('G' . $num)->getFill()->applyFromArray(array(
-                            'type' => \PHPExcel_Style_Fill::FILL_SOLID,
-                            'startcolor' => array(
-                                'rgb' => '#f0898c'
-                            )
-                        ));
+                        $phpExcelObject->getActiveSheet()->getStyle('G' . $num)->applyFromArray($styleRed);
                     }
                 }
             }
@@ -2262,12 +2263,7 @@ class UserController extends Controller
                         ->setCellValue('D' . $num, $o->getComment())
                         ->setCellValue('G' . $num, $itog);
                     if ($itog < 0){
-                        $phpExcelObject->getActiveSheet()->getStyle('G' . $num)->getFill()->applyFromArray(array(
-                            'type' => \PHPExcel_Style_Fill::FILL_SOLID,
-                            'startcolor' => array(
-                                'rgb' => '#f0898c'
-                            )
-                        ));
+                        $phpExcelObject->getActiveSheet()->getStyle('G' . $num)->applyFromArray($styleRed);
                     }
                 }
             }
