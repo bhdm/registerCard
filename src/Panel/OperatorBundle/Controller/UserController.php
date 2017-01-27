@@ -2243,8 +2243,8 @@ class UserController extends Controller
                         ->setCellValue('G' . $num, $itog)
                         ->setCellValue('H' . $num, '');
                     if ($itog < 0){
-                        $objPHPExcel->getActiveSheet()->getStyle('G' . $num)->getFill()->applyFromArray(array(
-                            'type' => PHPExcel_Style_Fill::FILL_SOLID,
+                        $phpExcelObject->getActiveSheet()->getStyle('G' . $num)->getFill()->applyFromArray(array(
+                            'type' => \PHPExcel_Style_Fill::FILL_SOLID,
                             'startcolor' => array(
                                 'rgb' => '#f0898c'
                             )
@@ -2262,8 +2262,8 @@ class UserController extends Controller
                         ->setCellValue('D' . $num, $o->getComment())
                         ->setCellValue('G' . $num, $itog);
                     if ($itog < 0){
-                        $objPHPExcel->getActiveSheet()->getStyle('G' . $num)->getFill()->applyFromArray(array(
-                            'type' => PHPExcel_Style_Fill::FILL_SOLID,
+                        $phpExcelObject->getActiveSheet()->getStyle('G' . $num)->getFill()->applyFromArray(array(
+                            'type' => \PHPExcel_Style_Fill::FILL_SOLID,
                             'startcolor' => array(
                                 'rgb' => '#f0898c'
                             )
