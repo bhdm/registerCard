@@ -2200,6 +2200,7 @@ class UserController extends Controller
 
         $phpExcelObject->getActiveSheet()->getStyle('E3:E1000')->getNumberFormat()->setFormatCode(\PHPExcel_Style_NumberFormat::FORMAT_NUMBER_COMMA_SEPARATED1);
         $phpExcelObject->getActiveSheet()->getStyle('G2:G1000')->getNumberFormat()->setFormatCode(\PHPExcel_Style_NumberFormat::FORMAT_NUMBER_COMMA_SEPARATED1);
+        $phpExcelObject->getActiveSheet()->getStyle('F2:F1000')->getNumberFormat()->setFormatCode(\PHPExcel_Style_NumberFormat::FORMAT_NUMBER_COMMA_SEPARATED1);
 
         $phpExcelObject->setActiveSheetIndex(0)
             ->setCellValue('A2', $date->format('d.m.Y'))
