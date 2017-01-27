@@ -911,14 +911,14 @@ class UserRepository extends EntityRepository
 
         $ords = [];
         foreach ($orders as $o){
-            $d = $o->created();
+            $d = $o->getCreated();
             if ($d and $d >= $date){
                 $ords[$d->format('d.m.Y')][] = $o;
             }
         }
 
         foreach ($orders2 as $o){
-            $d = $o->created();
+            $d = $o->getCreated();
             if ($d and $d >= $date ){
                 $ords[$d->format('d.m.Y')][] = $o;
             }
