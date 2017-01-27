@@ -77,13 +77,13 @@
                                     {% endif %}
                                 {% endif %}
                                 &nbsp;
-                                {% if  user.comfirmed == true %}
+                                {#{% if  user.comfirmed == true %}#}
                                     <span class="glyphicon glyphicon-saved" style="color: #00cc00"></span>
-                                {% else %}
-                                    {% if user.company.operator is defined and user.company.operator != null and user.company.operator.id != 1 %}
-                                        <span class="glyphicon glyphicon-saved" style="color: #cc0000"></span>
-                                    {% endif %}
-                                {% endif %}
+                                {#{% else %}#}
+                                    {#{% if user.company.operator is defined and user.company.operator != null and user.company.operator.id != 1 %}#}
+                                        {#<span class="glyphicon glyphicon-saved" style="color: #cc0000"></span>#}
+                                    {#{% endif %}#}
+                                {#{% endif %}#}
                             {% endif %}
                         </td>
                         <td>
