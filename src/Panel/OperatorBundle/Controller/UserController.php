@@ -7,6 +7,7 @@ use Crm\MainBundle\Entity\Act;
 use Crm\MainBundle\Entity\CompanyUser;
 use Crm\MainBundle\Entity\StatusLog;
 use Crm\MainBundle\Entity\User;
+use Panel\OperatorBundle\PanelOperatorBundle;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -2241,6 +2242,14 @@ class UserController extends Controller
                         ->setCellValue('F' . $num, 0)
                         ->setCellValue('G' . $num, $itog)
                         ->setCellValue('H' . $num, '');
+                    if ($itog < 0){
+                        $objPHPExcel->getActiveSheet()->getStyle('G' . $num)->getFill()->applyFromArray(array(
+                            'type' => PHPExcel_Style_Fill::FILL_SOLID,
+                            'startcolor' => array(
+                                'rgb' => '#f0898c'
+                            )
+                        ));
+                    }
                 }
             }
             if (isset($quotas[$f])) {
@@ -2252,6 +2261,14 @@ class UserController extends Controller
                         ->setCellValue('F' . $num, $o->getQuota())
                         ->setCellValue('D' . $num, $o->getComment())
                         ->setCellValue('G' . $num, $itog);
+                    if ($itog < 0){
+                        $objPHPExcel->getActiveSheet()->getStyle('G' . $num)->getFill()->applyFromArray(array(
+                            'type' => PHPExcel_Style_Fill::FILL_SOLID,
+                            'startcolor' => array(
+                                'rgb' => '#f0898c'
+                            )
+                        ));
+                    }
                 }
             }
 
