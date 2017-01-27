@@ -167,6 +167,7 @@
                                             <li><a href="{{ path('payment_assist',{'userId' : o.id} )  }}" target="_blank">Робокасса - онлайн оплата</a></li>
                                         {% endif %}
                                         <li><a href="{{ path('generate_pdf_statement',{'id' : o.id}) }}" target="_blank">Скачать заявку</a></li>
+                                        <li><a href="{{ path('auth_add_order',{'id' : o.id}) }}" target="_blank">Загрузить PDF</a></li>
                                     </ul>
                                 </div>
                             {% endif %}

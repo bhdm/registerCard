@@ -25,6 +25,21 @@ class OrderController extends Controller
 {
 
     /**
+     * @Route("/order/add-order/{id}", name="auth_add_order")
+     * @Template("CrmAuthBundle:Application:add_order.html.twig")
+     */
+    public function addOrderAction(Request $request, $id){
+        $session = $request->getSession();
+        $user = $this->getDoctrine()->getRepository('CrmMainBundle:User')->findOneBy(['id' => $id, 'client' => $this->getUser() ]);
+        if ($request->getMethod('POST')){
+            $user->setCopyOrder($this->getImgToArray($session->get('copyOrderFile')));
+            $user->setCopyOrder2($this->getImgToArray($session->get('copyOrder2File')));
+            $this->getDoctrine()->getManager()->flush($user);
+        }
+        return ['user' => $user ];
+    }
+
+    /**
      * @Route("/order/add-skzi", name="auth_add_skzi")
      * @Template("CrmAuthBundle:Application:newSkzi.html.twig")
      */
