@@ -878,45 +878,48 @@ class UserRepository extends EntityRepository
     }
 
     public function findForAct($companyId, $date){
+        $date = $date->format('Y-m-d').' 00:00:00';
         $orders = $this->getEntityManager()->createQueryBuilder()
             ->select('u')
             ->from('CrmMainBundle:User','u')
             ->leftJoin('u.company','c')
-            ->leftJoin('u.statuslog','s')
+//            ->leftJoin('u.statuslog','s')
             ->where("c.id = '".$companyId."'")
             ->andWhere("u.status > 1")
-            ->andWhere("s.title = 'В&nbsp;производстве'")
+//            ->andWhere("s.title = 'В&nbsp;производстве'")
             ->andWhere("u.enabled = true")
-            ->andWhere("s.created >= :date")
-            ->setParameter(':date', $date)
-            ->orderBy('s.created', 'ASC')
+            ->andWhere("u.created >= '$date'")
+            ->orderBy('u.created', 'ASC')
+            ->groupBy('u.id')
+//        echo $orders;
+//        exit;
             ->getQuery()->getResult();
 
         $orders2 = $this->getEntityManager()->createQueryBuilder()
             ->select('u')
             ->from('CrmMainBundle:CompanyUser','u')
             ->leftJoin('u.company','c')
-            ->leftJoin('u.statuslog','s')
+//            ->leftJoin('u.statuslog','s')
             ->where("c.id = '".$companyId."'")
             ->andWhere("u.status > 0")
-            ->andWhere("s.title = 'В&nbsp;производстве'")
+//            ->andWhere("s.title = 'В&nbsp;производстве'")
             ->andWhere("u.enabled = true")
-            ->andWhere("s.created >= :date")
-            ->setParameter(':date', $date)
-            ->orderBy('s.created', 'ASC')
+            ->andWhere("u.created >= '$date'")
+            ->orderBy('u.created', 'ASC')
+            ->groupBy('u.id')
             ->getQuery()->getResult();
 
         $ords = [];
         foreach ($orders as $o){
-            $d = $o->getDateInProductionStat();
+            $d = $o->created();
             if ($d and $d >= $date){
                 $ords[$d->format('d.m.Y')][] = $o;
             }
         }
 
         foreach ($orders2 as $o){
-            $d = $o->getDateInProductionStat();
-            if ($d and $d >= $date){
+            $d = $o->created();
+            if ($d and $d >= $date ){
                 $ords[$d->format('d.m.Y')][] = $o;
             }
         }
@@ -929,12 +932,12 @@ class UserRepository extends EntityRepository
             ->select('u.price sd')
             ->from('CrmMainBundle:User','u')
             ->leftJoin('u.company','c')
-            ->leftJoin('u.statuslog','s')
+//            ->leftJoin('u.statuslog','s')
             ->where("c.id = '".$companyId."'")
             ->andWhere("u.status > 1 and u.status != 10")
-            ->andWhere("s.title = 'В&nbsp;производстве'")
+//            ->andWhere("s.title = 'В&nbsp;производстве'")
             ->andWhere("u.enabled = true")
-            ->andWhere("s.created < :date")
+            ->andWhere("u.created < :date")
             ->setParameter(':date', $date)
             ->groupBy('u.id')
             ->getQuery();
@@ -943,12 +946,12 @@ class UserRepository extends EntityRepository
             ->select('(u.price * u.cardAmount) sd')
             ->from('CrmMainBundle:CompanyUser','u')
             ->leftJoin('u.company','c')
-            ->leftJoin('u.statuslog','s')
+//            ->leftJoin('u.statuslog','s')
             ->where("c.id = '".$companyId."'")
             ->andWhere("u.status > 0 and u.status != 10")
-            ->andWhere("s.title = 'В&nbsp;производстве'")
+//            ->andWhere("s.title = 'В&nbsp;производстве'")
             ->andWhere("u.enabled = true")
-            ->andWhere("s.created < :date")
+            ->andWhere("u.created < :date")
             ->setParameter(':date', $date)
             ->groupBy('u.id')
             ->getQuery();
