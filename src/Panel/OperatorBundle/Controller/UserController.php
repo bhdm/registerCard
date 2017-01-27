@@ -2215,7 +2215,7 @@ class UserController extends Controller
             if (isset($orders[$f])) {
                 foreach ($orders[$f] as $o) {
                     $num++;
-                    $itog += ($o->getStatus() != 10 ? $o->getPrice() : ($o->getPrice()*-1));
+                    $itog -= ($o->getStatus() != 10 ? $o->getPrice() : ($o->getPrice()*-1));
 
                     if ($o instanceof CompanyUser){
                         $type = ($o->getCardType() == 1? 'СКЗИ' : $o->getCardType() == 2 ? 'ЕСТР' : 'РФ');
@@ -2238,7 +2238,7 @@ class UserController extends Controller
             if (isset($quotas[$f])) {
                 foreach ($quotas[$f] as $o) {
                     $num++;
-                    $itog -= $o->getQuota();
+                    $itog += $o->getQuota();
                     $phpExcelObject->setActiveSheetIndex(0)
                         ->setCellValue('A' . $num, $f)
                         ->setCellValue('F' . $num, $o->getQuota())
