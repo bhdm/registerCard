@@ -878,38 +878,32 @@ class UserRepository extends EntityRepository
     }
 
     public function findForAct($companyId, $date){
-        $date = $date->format('Y-m-d').' 00:00:00';
         $orders = $this->getEntityManager()->createQueryBuilder()
             ->select('u')
             ->from('CrmMainBundle:User','u')
             ->leftJoin('u.company','c')
-//            ->leftJoin('u.statuslog','s')
+            ->leftJoin('u.statuslog','s')
             ->where("c.id = '".$companyId."'")
             ->andWhere("u.status > 1")
-//            ->andWhere("s.title = 'В&nbsp;производстве'")
+            ->andWhere("s.title = 'В&nbsp;производстве'")
             ->andWhere("u.enabled = true")
-            ->andWhere("u.created >= :date")
+            ->andWhere("s.created >= :date")
             ->setParameter(':date', $date)
-            ->orderBy('u.created', 'ASC')
-            ->groupBy('u.id')
-//            ->getQuery()->getSQL();
-//        echo $orders;
-//        exit;
+            ->orderBy('s.created', 'ASC')
             ->getQuery()->getResult();
 
         $orders2 = $this->getEntityManager()->createQueryBuilder()
             ->select('u')
             ->from('CrmMainBundle:CompanyUser','u')
             ->leftJoin('u.company','c')
-//            ->leftJoin('u.statuslog','s')
+            ->leftJoin('u.statuslog','s')
             ->where("c.id = '".$companyId."'")
             ->andWhere("u.status > 0")
-//            ->andWhere("s.title = 'В&nbsp;производстве'")
+            ->andWhere("s.title = 'В&nbsp;производстве'")
             ->andWhere("u.enabled = true")
-            ->andWhere("u.created >= :date")
+            ->andWhere("s.created >= :date")
             ->setParameter(':date', $date)
-            ->orderBy('u.created', 'ASC')
-            ->groupBy('u.id')
+            ->orderBy('s.created', 'ASC')
             ->getQuery()->getResult();
 
         $ords = [];
@@ -935,12 +929,12 @@ class UserRepository extends EntityRepository
             ->select('u.price sd')
             ->from('CrmMainBundle:User','u')
             ->leftJoin('u.company','c')
-//            ->leftJoin('u.statuslog','s')
+            ->leftJoin('u.statuslog','s')
             ->where("c.id = '".$companyId."'")
             ->andWhere("u.status > 1 and u.status != 10")
-//            ->andWhere("s.title = 'В&nbsp;производстве'")
+            ->andWhere("s.title = 'В&nbsp;производстве'")
             ->andWhere("u.enabled = true")
-            ->andWhere("u.created < :date")
+            ->andWhere("s.created < :date")
             ->setParameter(':date', $date)
             ->groupBy('u.id')
             ->getQuery();
@@ -949,12 +943,12 @@ class UserRepository extends EntityRepository
             ->select('(u.price * u.cardAmount) sd')
             ->from('CrmMainBundle:CompanyUser','u')
             ->leftJoin('u.company','c')
-//            ->leftJoin('u.statuslog','s')
+            ->leftJoin('u.statuslog','s')
             ->where("c.id = '".$companyId."'")
             ->andWhere("u.status > 0 and u.status != 10")
-//            ->andWhere("s.title = 'В&nbsp;производстве'")
+            ->andWhere("s.title = 'В&nbsp;производстве'")
             ->andWhere("u.enabled = true")
-            ->andWhere("u.created < :date")
+            ->andWhere("s.created < :date")
             ->setParameter(':date', $date)
             ->groupBy('u.id')
             ->getQuery();
