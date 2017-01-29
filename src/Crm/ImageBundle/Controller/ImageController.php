@@ -51,7 +51,7 @@ class ImageController extends Controller
                 $image->setImageFormat('jpg');
                 if ($image->getImageWidth() > 1000 || $image->getImageHeight() > 1000){
                     $h = 1000 / $image->getImageWidth();
-                    $image->resizeImage(1000,$image->getImageHeight()*$h);
+                    $image->resizeImage(1000,$image->getImageHeight()*$h, \Imagick::FILTER_LANCZOS,1);
                 }
 
 
