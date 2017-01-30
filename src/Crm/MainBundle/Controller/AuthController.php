@@ -275,17 +275,17 @@ class AuthController extends Controller
                 $html .= '<img src="https://im-kard.ru/'.$user->getCopyOrder2()['path'].'" style="width: 100%"/>';
             }
 
-//            $arguments = array(
-//                'constructorArgs' => array(null, null, 0 ,10 ,3 ,0, 3), //Constructor arguments. Numeric array. Don't forget about points 2 and 3 in Warning section!
-//                'writeHtmlMode' => null, //$mode argument for WriteHTML method
-//                'writeHtmlInitialise' => null, //$mode argument for WriteHTML method
-//                'writeHtmlClose' => null, //$close argument for WriteHTML method
-//                'outputFilename' => null, //$filename argument for Output method
-//                'outputDest' => null, //$dest argument for Output method
-//            );
-//            return $mpdfService->generatePdf($html, $arguments);
-            echo $html;
-            exit;
+            $arguments = array(
+                'constructorArgs' => array(null, null, 0 ,10 ,3 ,0, 3), //Constructor arguments. Numeric array. Don't forget about points 2 and 3 in Warning section!
+                'writeHtmlMode' => null, //$mode argument for WriteHTML method
+                'writeHtmlInitialise' => null, //$mode argument for WriteHTML method
+                'writeHtmlClose' => null, //$close argument for WriteHTML method
+                'outputFilename' => null, //$filename argument for Output method
+                'outputDest' => null, //$dest argument for Output method
+            );
+            return $mpdfService->generatePdf($html, $arguments);
+//            echo $html;
+//            exit;
 
         }
 
