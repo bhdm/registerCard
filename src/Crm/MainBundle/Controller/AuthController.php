@@ -293,7 +293,7 @@ class AuthController extends Controller
 
             $mpdfService = $this->container->get('tfox.mpdfport');
 
-            if ($old == 0){
+//            if ($old == 0){
                 if ( $user->getEstr() ==  1 || $user->getEstr() ==  1 ){
                     $file =  $user->getCopySignature();
                     $file2 = $user->getCopySignature();
@@ -313,12 +313,12 @@ class AuthController extends Controller
                     $bigSign3 = WImage::cropSign(__DIR__.'/../../../../web/'.$file3['path'], 285,140, false);
                     $bigSign4 = WImage::cropSign(__DIR__.'/../../../../web/'.$file4['path'], 285,140, false);
                 }
-            }else{
-                $bigSign = WImage::cropSign(__DIR__.'/../../../../web/bundles/crmmain/images/s-te-1.png', 240,100, false);
-                $bigSign2 = WImage::cropSign(__DIR__.'/../../../../web/bundles/crmmain/images/s-te-2.png', 285,140, false);
-                $bigSign3 = WImage::cropSign(__DIR__.'/../../../../web/bundles/crmmain/images/s-te-2.png', 285,140, false);
-                $bigSign4 = WImage::cropSign(__DIR__.'/../../../../web/bundles/crmmain/images/s-te-2.png', 285,140, false);
-            }
+//            }else{
+//                $bigSign = WImage::cropSign(__DIR__.'/../../../../web/bundles/crmmain/images/s-te-1.png', 240,100, false);
+//                $bigSign2 = WImage::cropSign(__DIR__.'/../../../../web/bundles/crmmain/images/s-te-2.png', 285,140, false);
+//                $bigSign3 = WImage::cropSign(__DIR__.'/../../../../web/bundles/crmmain/images/s-te-2.png', 285,140, false);
+//                $bigSign4 = WImage::cropSign(__DIR__.'/../../../../web/bundles/crmmain/images/s-te-2.png', 285,140, false);
+//            }
             $miniSign1 = $bigSign2;
             $miniSign2 = $bigSign3;
             $miniSign3 = $bigSign4;
