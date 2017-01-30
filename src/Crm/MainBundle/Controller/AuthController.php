@@ -293,24 +293,31 @@ class AuthController extends Controller
 
             $mpdfService = $this->container->get('tfox.mpdfport');
 
-            if ( $user->getEstr() ==  1 || $user->getEstr() ==  1 ){
-                $file =  $user->getCopySignature();
-                $file2 = $user->getCopySignature();
-                $file3 = $user->getCopySignature();
-                $file4 = $user->getCopySignature();
-                $bigSign = WImage::cropSign(__DIR__.'/../../../../web/'.$file['path'], 240,100, false);
-                $bigSign2 = WImage::cropSign(__DIR__.'/../../../../web/'.$file2['path'], 285,140, false);
-                $bigSign3 = WImage::cropSign(__DIR__.'/../../../../web/'.$file3['path'], 285,140, false);
-                $bigSign4 = WImage::cropSign(__DIR__.'/../../../../web/'.$file4['path'], 285,140, false);
+            if ($old == 0){
+                if ( $user->getEstr() ==  1 || $user->getEstr() ==  1 ){
+                    $file =  $user->getCopySignature();
+                    $file2 = $user->getCopySignature();
+                    $file3 = $user->getCopySignature();
+                    $file4 = $user->getCopySignature();
+                    $bigSign = WImage::cropSign(__DIR__.'/../../../../web/'.$file['path'], 240,100, false);
+                    $bigSign2 = WImage::cropSign(__DIR__.'/../../../../web/'.$file2['path'], 285,140, false);
+                    $bigSign3 = WImage::cropSign(__DIR__.'/../../../../web/'.$file3['path'], 285,140, false);
+                    $bigSign4 = WImage::cropSign(__DIR__.'/../../../../web/'.$file4['path'], 285,140, false);
+                }else{
+                    $file = $user->getCopySignature();
+                    $file2 = $user->getCopySignature();
+                    $file3 = $user->getCopySignature();
+                    $file4 = $user->getCopySignature();
+                    $bigSign = WImage::cropSign(__DIR__.'/../../../../web/'.$file['path'], 240,100, false);
+                    $bigSign2 = WImage::cropSign(__DIR__.'/../../../../web/'.$file2['path'], 285,140, false);
+                    $bigSign3 = WImage::cropSign(__DIR__.'/../../../../web/'.$file3['path'], 285,140, false);
+                    $bigSign4 = WImage::cropSign(__DIR__.'/../../../../web/'.$file4['path'], 285,140, false);
+                }
             }else{
-                $file = $user->getCopySignature();
-                $file2 = $user->getCopySignature();
-                $file3 = $user->getCopySignature();
-                $file4 = $user->getCopySignature();
-                $bigSign = WImage::cropSign(__DIR__.'/../../../../web/'.$file['path'], 240,100, false);
-                $bigSign2 = WImage::cropSign(__DIR__.'/../../../../web/'.$file2['path'], 285,140, false);
-                $bigSign3 = WImage::cropSign(__DIR__.'/../../../../web/'.$file3['path'], 285,140, false);
-                $bigSign4 = WImage::cropSign(__DIR__.'/../../../../web/'.$file4['path'], 285,140, false);
+                $bigSign = WImage::cropSign(__DIR__.'/../../../../web/bundles/crmmain/images/s-te-1.png', 240,100, false);
+                $bigSign2 = WImage::cropSign(__DIR__.'/../../../../web/bundles/crmmain/images/s-te-2.png', 285,140, false);
+                $bigSign3 = WImage::cropSign(__DIR__.'/../../../../web/bundles/crmmain/images/s-te-2.png', 285,140, false);
+                $bigSign4 = WImage::cropSign(__DIR__.'/../../../../web/bundles/crmmain/images/s-te-2.png', 285,140, false);
             }
             $miniSign1 = $bigSign2;
             $miniSign2 = $bigSign3;
@@ -325,7 +332,7 @@ class AuthController extends Controller
                 'miniSign1' => $miniSign1,
                 'miniSign2' => $miniSign2,
                 'miniSign3' => $miniSign3,
-
+                'old' => $old,
                 'width' => $width));
 
 
