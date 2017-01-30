@@ -265,25 +265,27 @@ class AuthController extends Controller
     public function generatePdfDocAction(Request $request, $id, $old = 0){
         $user = $this->getDoctrine()->getRepository('CrmMainBundle:User')->findOneById($id);
 
-        if ($user->getCopyOrder() && $old == 0 && $user->getEstr() == 0 && $user->getRu() == 0){
+        if (isset($user->getCopyOrder()['path']) && $old == 0 && $user->getEstr() == 0 && $user->getRu() == 0){
 //            return $this->redirect($user->getCopyOrder()['path']);
             $mpdfService = $this->container->get('tfox.mpdfport');
-            $html = '<img src="https://im-kard.ru'.$user->getCopyOrder()['path'].'" style="width: 100%"/><br style="box-decoration-break: slice;"/>';
+
+            $html = '<img src="https://im-kard.ru'.$user->getCopyOrder()['path'].'" style="width: 100%"/>
+            <br style="box-decoration-break: slice;"/>';
             if (isset($user->getCopyOrder2()['path'])){
                 $html .= '<img src="https://im-kard.ru'.$user->getCopyOrder2()['path'].'" style="width: 100%"/>';
             }
 
-            $arguments = array(
-                'constructorArgs' => array(null, null, 0 ,10 ,3 ,0, 3), //Constructor arguments. Numeric array. Don't forget about points 2 and 3 in Warning section!
-                'writeHtmlMode' => null, //$mode argument for WriteHTML method
-                'writeHtmlInitialise' => null, //$mode argument for WriteHTML method
-                'writeHtmlClose' => null, //$close argument for WriteHTML method
-                'outputFilename' => null, //$filename argument for Output method
-                'outputDest' => null, //$dest argument for Output method
-            );
-            return $mpdfService->generatePdf($html, $arguments);
-//            echo $html;
-//            exit;
+//            $arguments = array(
+//                'constructorArgs' => array(null, null, 0 ,10 ,3 ,0, 3), //Constructor arguments. Numeric array. Don't forget about points 2 and 3 in Warning section!
+//                'writeHtmlMode' => null, //$mode argument for WriteHTML method
+//                'writeHtmlInitialise' => null, //$mode argument for WriteHTML method
+//                'writeHtmlClose' => null, //$close argument for WriteHTML method
+//                'outputFilename' => null, //$filename argument for Output method
+//                'outputDest' => null, //$dest argument for Output method
+//            );
+//            return $mpdfService->generatePdf($html, $arguments);
+            echo $html;
+            exit;
 
         }
 
