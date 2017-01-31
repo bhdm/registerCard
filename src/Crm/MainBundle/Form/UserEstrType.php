@@ -23,10 +23,14 @@ class UserEstrType extends AbstractType
                     '2' => 'Замена в связи с дефектом, утерей или утратой карты',
                     '3' => 'Замена карты вследствие изменения персональных данных',
                 )))
-            ->add('citizenship', 'choice' ,['label' => 'Гражданство', 'choices' => array(
-                '0' => 'Российская Федерация',
-                '1' => 'Иностранное гражданство'
-            )])
+            ->add('citizenship', null ,['label' => 'Гражданство',
+                'class' => 'CrmMainBundle:Country',
+                'required' => true,
+                'query_builder' => function (EntityRepository $er) {
+                    return $er->createQueryBuilder('c')
+                        ->orderBy('c.sort', 'DESC')
+                        ->addOrderBy('c.title', 'ASC');
+                }, 'attr' => ['class' => '']])
             ->add('userComment', null,['label'=>'Комментарий пользователя', 'required' => false])
 
             ->add('lastNumberCard', null ,['label' => 'Прошлый номер карты', 'required' => false])

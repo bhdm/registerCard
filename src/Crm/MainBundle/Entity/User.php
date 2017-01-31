@@ -41,7 +41,7 @@ class User extends BaseEntity implements UserInterface, EquatableInterface, \Ser
     protected $petitionTitle;
 
     /**
-     * @ORM\Column(type="integer", nullable=true)
+     * @ORM\ManyToOne(targetEntity="Crm\MainBundle\Entity\Country")
      */
     protected $citizenship;
 
