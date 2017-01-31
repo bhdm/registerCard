@@ -1486,6 +1486,12 @@ class UserController extends Controller
             case 'petitionFile' :
                 $user->setCopyPetition($img);
                 break;
+            case 'copyOrderFile' :
+                $user->setCopyOrder($img);
+                break;
+            case 'copyOrder2File' :
+                $user->setCopyOrder2($img);
+                break;
         }
         $this->getDoctrine()->getManager()->flush($user);
         return new Response($img['path'] . '?time' . time());
