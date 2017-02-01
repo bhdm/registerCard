@@ -26,7 +26,7 @@
             <div class="col-xs-6">
                 <h3>Сообщения <a href="https://im-kard.ru/panel/operator/user/list?search={{ username.username }}" target="_blank">Перейти</a></h3>
                 <form method="POST">
-                    <textarea class="form-control" name="body"></textarea>
+                    <textarea class="form-control" name="body">{{ order ? 'Вопрос по заявке № '~order~'.' : ''}}</textarea>
                     <br />
                     <button type="submit" class="btn btn-primary">Отправить</button>
                 </form>

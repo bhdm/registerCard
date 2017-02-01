@@ -79,7 +79,7 @@ class ClientMessageController extends Controller
             $pdo->exec($query);
 
         }
-
-        return ['clients' => $client, 'activeClient'=> $clientId,'messages' => $messages, 'notAnswer' => $notAnswer, 'username'=>$username];
+        $order = $request->query->get('order');
+        return ['clients' => $client, 'activeClient'=> $clientId,'messages' => $messages, 'notAnswer' => $notAnswer, 'username'=>$username, 'order' => $order];
     }
 }
