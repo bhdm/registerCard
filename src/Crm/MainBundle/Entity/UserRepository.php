@@ -154,6 +154,7 @@ class UserRepository extends EntityRepository
             ->from('CrmMainBundle:User','u')
             ->leftJoin('u.company ','co')
             ->leftJoin('co.operator ','op')
+            ->leftJoin('op.moderator ','op2')
             ->where('u.enabled = true')
             ->andWhere('co.enabled = true')
             ->andWhere('op.enabled = true');
@@ -163,9 +164,9 @@ class UserRepository extends EntityRepository
         if ($companyId != null){
             $res->andWhere('co.id = '.$companyId);
         }elseif($operatorId != null){
-            $res->andWhere('op.id = '.$operatorId);
+            $res->andWhere('op.id = '.$operatorId.' OR op2.id = '.$operatorId);
         }else{
-            $res->andWhere('op.id = '.$userId);
+            $res->andWhere('op.id = '.$userId.' OR op2.id = '.$userId);
         }
 
 //        echo '<br />';
