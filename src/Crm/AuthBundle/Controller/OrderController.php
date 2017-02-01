@@ -388,6 +388,8 @@ class OrderController extends Controller
             $user->setCopyOrder($this->getImgToArray($session->get('copyOrderFile')));
             $user->setCopyOrder2($this->getImgToArray($session->get('copyOrder2File')));
             $this->getDoctrine()->getManager()->flush($user);
+            $session->set('copyOrderFile', null);
+            $session->set('copyOrder2File', null);
         }
 
 //        return $this->render('@CrmAuth/Application/successSkzi.html.twig',['user' => $user, 'url' => $url, 'company' => $company, 'post' => true ]);
