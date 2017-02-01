@@ -333,7 +333,8 @@ class UserRepository extends EntityRepository
             ->select('COUNT(u.id)')
             ->from('CrmMainBundle:User','u')
             ->leftJoin('u.company ','co')
-            ->leftJoin('co.operator ','op');
+            ->leftJoin('co.operator ','op')
+            ;
 
         $res->where('u.enabled = true');
 //        $res->andWhere('op.id = '.$userId);
@@ -378,13 +379,13 @@ class UserRepository extends EntityRepository
                 if ($status !== 'all'){
                     $res->andWhere('u.status = '.$status);
                 }
-                if ($status == 'all' || $status == 3 || $status == 4 || $status == 6 ){
+//                if ($status == 'all' || $status == 3 || $status == 4 || $status == 6 ){
                     $res->leftJoin('op.moderator','mo');
                     $res->leftJoin('mo.moderator','mo2');
                     $res->andWhere('op.id = '.$userId.' OR mo.id ='.$userId .' OR mo2.id = '.$userId);
-                }else{
-                    $res->andWhere('op.id = '.$userId);
-                }
+//                }else{
+//                    $res->andWhere('op.id = '.$userId);
+//                }
             }else{
                 $res->andWhere('u.status = 0');
                 $res->andWhere('op.id = '.$userId);
@@ -397,7 +398,9 @@ class UserRepository extends EntityRepository
                     $res->andWhere('u.status = '.$status);
                 }
             }
-            $res->andWhere('op.id = '.$userId);
+            $res->leftJoin('op.moderator','mo');
+            $res->leftJoin('mo.moderator','mo2');
+            $res->andWhere('op.id = '.$userId.' OR mo.id ='.$userId .' OR mo2.id = '.$userId);
 
         }
 
