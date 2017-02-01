@@ -382,33 +382,12 @@ class OrderController extends Controller
         $company = null;
 
         $name = time();
-        if ($request->getMethod() == 'POST'){
-            $file = $request->files->get('orderfile');
-            if ($file){
-                $info = new \SplFileInfo($file);
-                $path = $this->get('kernel')->getRootDir() . '/../web/upload/orders/';
-
-                $path = $path.$name.'-1.jpg';
-                if (copy($file,$path)){
-                    unlink( $file );
-                    $user->setCopyOrder(['path' => '/upload/orders/'.$name.'-1.jpg']);
-                    $this->getDoctrine()->getManager()->flush($user);
-                }
-            }
-
-            $file = $request->files->get('orderfile2');
-            if ($file){
-                $info = new \SplFileInfo($file);
-                $path = $this->get('kernel')->getRootDir() . '/../web/upload/orders/';
-                $name = time().'.jpg';
-                $path = $path.$name.'-2.jpg';
-                if (copy($file,$path)){
-                    unlink( $file );
-                    $user->setCopyOrder2(['path' => '/upload/orders/'.$name.'-2.jpg']);
-                    $this->getDoctrine()->getManager()->flush($user);
-                }
-            }
-
+        $session = $request->getSession();
+        $user = $this->getDoctrine()->getRepository('CrmMainBundle:User')->findOneBy(['id' => $userId, 'client' => $this->getUser() ]);
+        if ($request->getMethod('POST')){
+            $user->setCopyOrder($this->getImgToArray($session->get('copyOrderFile')));
+            $user->setCopyOrder2($this->getImgToArray($session->get('copyOrder2File')));
+            $this->getDoctrine()->getManager()->flush($user);
         }
 
 //        return $this->render('@CrmAuth/Application/successSkzi.html.twig',['user' => $user, 'url' => $url, 'company' => $company, 'post' => true ]);
