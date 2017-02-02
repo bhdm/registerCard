@@ -101,28 +101,28 @@ class MoneyController extends Controller
         $sql = "SELECT SUM(user.cardAmount) cid FROM
                 companyUser user
                 WHERE user.isProduction >= '$date1' AND user.isProduction < '$date2' AND user.status > 0 AND user.status != 10 AND
-                (( price >= 2100  AND cardType = 1) OR (  price >= 3800 AND  cardType != 1 ))
+                (( user.price/user.cardAmount >= 2100  AND cardType = 1) OR (  user.price/user.cardAmount >= 3800 AND  cardType != 1 ))
                 
                 UNION ALL
                 
                 SELECT SUM(user.cardAmount) cid FROM
                 companyUser user
                 WHERE user.isProduction >= '$date1' AND user.isProduction < '$date2' AND user.status > 0 AND user.status != 10 AND
-                (( price <= 2099 AND price >= 1900  AND cardType = 1) OR (  price <= 3799 AND cardType != 1))
+                (( user.price/user.cardAmount <= 2099 AND user.price/user.cardAmount >= 1900  AND cardType = 1) OR (  user.price/user.cardAmount <= 3799 AND cardType != 1))
                 
                 UNION ALL
                 
                 SELECT SUM(user.cardAmount) cid FROM
                 companyUser user
                 WHERE user.isProduction >= '$date1' AND user.isProduction < '$date2' AND user.status > 0 AND user.status != 10 AND
-                (( price <= 1899 AND price >= 1500 AND cardType = 1))
+                (( user.price/user.cardAmount <= 1899 AND user.price/user.cardAmount >= 1500 AND cardType = 1))
                 
                 UNION ALL
                 
                 SELECT SUM(user.cardAmount) cid FROM
                 companyUser user
                 WHERE user.isProduction >= '$date1' AND user.isProduction < '$date2' AND user.status > 0 AND user.status != 10 AND
-                (( price <= 1499  AND cardType = 1) )
+                (( user.price/user.cardAmount <= 1499  AND cardType = 1) )
                 ";
         $pdo = $this->getDoctrine()->getManager()->getConnection();
         $st = $pdo->prepare($sql);
