@@ -261,7 +261,10 @@
                                     <br>
                                     <a href="{{ path('panel_download_png',{'filename' : user.copyPassport.fileName }) }}">Скачать</a>
                                     <a target="_blank" href="{{ path('create_image_pdf',{'type' : 'passport', 'filename' : user.copyPassport.fileName }) }}">Скачать</a>
+                                {% else %}
+                                    <img src="" brightness="0" contrast="0" data-type="copyPassportFile" class="document" id="passportFileImg">
                                 {% endif %}
+
                             </div>
                             {% if user.ru == 1 or user.estr == 1 %}
                                 <div class="col-sm-1"></div>
@@ -271,6 +274,8 @@
                                         <img src="/{{ user.copyPassport2.path }}" brightness="128" contrast="128" data-type="passport2File" class="document" id="passport2FileImg">
                                         <br>
                                         <a href="{{ path('panel_download_png',{'filename' : user.copyPassport2.fileName }) }}">Скачать</a>
+                                    {% else %}
+                                        <img src="" brightness="0" contrast="0" data-type="copyPassport2File" class="document" id="passport2FileImg">
                                     {% endif %}
                                 </div>
                             {% endif %}
@@ -513,6 +518,8 @@
                                     <br>
                                     <a href="{{ path('panel_download_png',{'filename' : user.copyDriverPassport.fileName }) }}">Скачать</a>
                                     <a target="_blank" href="{{ path('create_image_pdf',{'type' : 'driver', 'filename' : user.copyDriverPassport.fileName }) }}">Скачать</a>
+                                {% else %}
+                                    <img src="" brightness="0" contrast="0" data-type="driverFile" class="document" id="driverFileImg">
                                 {% endif %}
                             </div>
                             <div class="col-sm-1"></div>
@@ -523,6 +530,8 @@
                                         <img src="/{{ user.copyDriverPassport2.path }}" brightness="0" contrast="0" data-type="driver2File" class="document" id="driver2FileImg">
                                         <br>
                                         <a href="{{ path('panel_download_png',{'filename' : user.copyDriverPassport2.fileName }) }}">Скачать</a>
+                                    {% else %}
+                                        <img src="" brightness="0" contrast="0" data-type="driver2File" class="document" id="driver2FileImg">
                                     {% endif %}
                                 </div>
                             {% endif %}
