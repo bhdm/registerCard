@@ -436,9 +436,9 @@ class XmlController extends Controller
     }
 
     /**
-     * @Route("/panel/merge-docs/{id}/{img}", name="merge_docs", defaults={"img" = 0})
+     * @Route("/panel/merge-docs/{id}/{img}/{stamp}", name="merge_docs", defaults={"img" = 0, {"stamp" = 1 }})
      */
-    public function mergeDocsAction($id, $img = 0){
+    public function mergeDocsAction($id, $img = 0, $stamp = 1){
         $types = array(
             'passport' => ['x' => 590, 'y' =>  800],
             'driver' => ['x' => 400*1.475, 'y' =>  250*1.475],
@@ -524,28 +524,30 @@ class XmlController extends Controller
         $rightR = mt_rand(1,10);
         $rotateR = mt_rand(-15,15);
 
-        $stamp = new \Imagick($this->get('kernel')->getRootDir() . '/../web/bundles/crmmain/images/stamp/stamp_'.$stampR.'.png');
-        $stamp->rotateImage(new \ImagickPixel('#FFFFFFFF'),$rotateR);
-        $stamp->resizeImage($stamp->getImageWidth()*1.2, $stamp->getImageHeight()*1.2, \Imagick::FILTER_LANCZOS,1);
+        if ($stamp == 1){
+            $stamp = new \Imagick($this->get('kernel')->getRootDir() . '/../web/bundles/crmmain/images/stamp/stamp_'.$stampR.'.png');
+            $stamp->rotateImage(new \ImagickPixel('#FFFFFFFF'),$rotateR);
+            $stamp->resizeImage($stamp->getImageWidth()*1.2, $stamp->getImageHeight()*1.2, \Imagick::FILTER_LANCZOS,1);
 //        $stamp->adaptiveBlurImage(0.8,1.5);
 //        $stamp->sharpenImage(3,2);
-        $right = new \Imagick($this->get('kernel')->getRootDir() . '/../web/bundles/crmmain/images/right/right_'.$rightR.'.png');
-        $right->resizeImage($right->getImageWidth()*1.7, $right->getImageHeight()*1.7, \Imagick::FILTER_LANCZOS,1);
+            $right = new \Imagick($this->get('kernel')->getRootDir() . '/../web/bundles/crmmain/images/right/right_'.$rightR.'.png');
+            $right->resizeImage($right->getImageWidth()*1.7, $right->getImageHeight()*1.7, \Imagick::FILTER_LANCZOS,1);
 //        $right->adaptiveBlurImage(0.8,1.5);
 //        $right->sharpenImage(3,2);
 
-        $width1 = mt_rand(620,650);
-        $width2 = rand(120,160);
+            $width1 = mt_rand(620,650);
+            $width2 = rand(120,160);
 
-        $height1 = mt_rand($innHeight+20,$innHeight+60);
-        $height2 = mt_rand(20,80);
+            $height1 = mt_rand($innHeight+20,$innHeight+60);
+            $height2 = mt_rand(20,80);
 
-        $width = $width1;
-        $height = $height1;
-        $image->compositeImage($right, \Imagick::COMPOSITE_DEFAULT,$width,$height);
-        $width = $width + $stamp->getImageWidth() + $width2;
-        $height += $height2;
-        $image->compositeImage($stamp, \Imagick::COMPOSITE_DEFAULT,$width, $height);
+            $width = $width1;
+            $height = $height1;
+            $image->compositeImage($right, \Imagick::COMPOSITE_DEFAULT,$width,$height);
+            $width = $width + $stamp->getImageWidth() + $width2;
+            $height += $height2;
+            $image->compositeImage($stamp, \Imagick::COMPOSITE_DEFAULT,$width, $height);
+        }
 
 
 
