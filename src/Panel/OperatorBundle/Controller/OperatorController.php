@@ -253,6 +253,8 @@ class OperatorController extends Controller
             $quotaLog->setQuota($quota);
             $quotaLog->setComment($comment);
             $quotaLog->setOperator($operator);
+
+            $date = $request->request->get('created');
             if (!$date){
                 $date = new \DateTime();
             }else{
