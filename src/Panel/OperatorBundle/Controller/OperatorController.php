@@ -253,6 +253,12 @@ class OperatorController extends Controller
             $quotaLog->setQuota($quota);
             $quotaLog->setComment($comment);
             $quotaLog->setOperator($operator);
+            if (!$date){
+                $date = new \DateTime();
+            }else{
+                $date = new \DateTime($date.' 00:00:00');
+            }
+            $quotaLog->setCreated($operator);
             $quotaLog->setModerator($this->getUser());
             $quotaLog->setDriverSkzi($request->request->get('driverSkzi'));
             $quotaLog->setDriverEstr($request->request->get('driverEstr'));
