@@ -205,7 +205,7 @@ class ApplicationController extends Controller
         $name = time();
         $session = $request->getSession();
         $user = $this->getDoctrine()->getRepository('CrmMainBundle:User')->findOneBy(['id' => $userId, 'client' => $this->getUser() ]);
-        if ($request->getMethod('POST')){
+        if ($request->getMethod()=='POST' && $user){
             $user->setCopyOrder($this->getImgToArray($session->get('copyOrderFile')));
             $user->setCopyOrder2($this->getImgToArray($session->get('copyOrder2File')));
             $this->getDoctrine()->getManager()->flush($user);
