@@ -520,8 +520,12 @@ class XmlController extends Controller
         $image->compositeImage($imgSnils, \Imagick::COMPOSITE_DEFAULT,0,$passportHeight+$driverHeight+20);
 
         $stampR = mt_rand(1,5);
-        $rightR = mt_rand(1,3);
+
+        $rightR = mt_rand(1,10);
+        $rotateR = mt_rand(-15,15);
+
         $stamp = new \Imagick($this->get('kernel')->getRootDir() . '/../web/bundles/crmmain/images/stamp/stamp_'.$stampR.'.png');
+        $stamp->rotateImage(new \ImagickPixel('#FFFFFFFF'),$rotateR);
         $stamp->resizeImage($stamp->getImageWidth()*1.2, $stamp->getImageHeight()*1.2, \Imagick::FILTER_LANCZOS,1);
 //        $stamp->adaptiveBlurImage(0.8,1.5);
 //        $stamp->sharpenImage(3,2);
