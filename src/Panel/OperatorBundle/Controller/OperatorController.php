@@ -258,9 +258,10 @@ class OperatorController extends Controller
             if (!$date){
                 $date = new \DateTime();
             }else{
-                $date = new \DateTime($date.' 00:00:00');
+                $date = explode('.',$date);
+                $date = new \DateTime($date[2].'-'.$date[1].'-'.$date[0].' 00:00:00');
             }
-            $quotaLog->setCreated($operator);
+            $quotaLog->setCreated($date);
             $quotaLog->setModerator($this->getUser());
             $quotaLog->setDriverSkzi($request->request->get('driverSkzi'));
             $quotaLog->setDriverEstr($request->request->get('driverEstr'));

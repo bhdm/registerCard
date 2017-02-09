@@ -272,11 +272,13 @@ class CompanyController extends Controller
             $oldQuota = $company->getQuota();
             $quota = $request->request->get('quota');
             $comment = $request->request->get('comment');
+
             $date = $request->request->get('created');
             if (!$date){
                 $date = new \DateTime();
             }else{
-                $date = new \DateTime($date.' 00:00:00');
+                $date = explode('.',$date);
+                $date = new \DateTime($date[2].'-'.$date[1].'-'.$date[0].' 00:00:00');
             }
             $quotaLog = new CompanyQuotaLog();
             $quotaLog->setQuota($quota);
