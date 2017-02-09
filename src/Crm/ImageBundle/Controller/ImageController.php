@@ -29,6 +29,7 @@ class ImageController extends Controller
             $time = time();
             $path='/var/www/upload/tmp/'.$time.'.jpg';
             $path2='/var/www/upload/tmp/origin-'.$time.'.jpg';
+            $path3='/var/www/upload/tmp/'.$time.'-or.jpg';
             $file = $request->files->get('file');
             if ($file == null){
                 $error = array('error' => 'Ошибка загрузки. Повторите пожалуйста');
@@ -54,6 +55,10 @@ class ImageController extends Controller
                     $image->resizeImage(1000,$image->getImageHeight()*$h, \Imagick::FILTER_LANCZOS,1);
                 }
 
+                $image3 = new \Imagick($path);
+                $image3->setResolution(72,72);
+                $image3->setImageFormat('jpg');
+
 
 //                $image->stripImage();
                 if ($type == 'signFile' || $type=='sign2File'|| $type=='sign3File'|| $type=='sign4File'){
@@ -68,6 +73,7 @@ class ImageController extends Controller
 
                 $image->writeImage($path);
                 $image->writeImage($path2);
+                $image3->writeImage($path3);
 
                 $session->set($type,$path);
                 $session->set('origin-'.$type,$path2);
