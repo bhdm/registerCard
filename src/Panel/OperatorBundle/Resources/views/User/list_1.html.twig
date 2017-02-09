@@ -131,7 +131,14 @@
                         </td>
                     {% endif %}
                     <td>
-                        <a href="{{ path('panel_user_edit',{'userId' : user.id }) }}">{{ user }}</a>
+                        <a href="{{ path('panel_user_edit',{'userId' : user.id }) }}">{{ user }}
+                            {% if user.typeCard != 0 %}
+                                <span class="glyphicon glyphicon-exclamation-sign" style="color: #cc0000"></span>
+                            {% endif %}
+                            {% if user.citizenship.id != 3159 %}
+                                <span class="glyphicon glyphicon-exclamation-sign" style="color: #ff9409"></span>
+                            {% endif %}
+                        </a>
                         <br />
                         <a href="?search={{ user.email }}"><span class="subtitles">{{ user.email }}</span></a>
                     </td>
