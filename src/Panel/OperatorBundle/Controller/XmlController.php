@@ -289,6 +289,22 @@ class XmlController extends Controller
                 $image->destroy();
             }
 
+            if (isset($user->getCopyInn()['path'])) {
+                $image = new \Imagick($filePath . $this->getOriginImageName($user->getCopyInn()['path']));
+                $image->setFormat('jpg');
+                $files['inn']['base'] = $image->getImageBlob();
+                $files['inn']['title'] = 'inn';
+                $image->destroy();
+            }
+
+            if (isset($user->getCopySnils()['path'])) {
+                $image = new \Imagick($filePath . $this->getOriginImageName($user->getCopySnils()['path']));
+                $image->setFormat('jpg');
+                $files['inn']['base'] = $image->getImageBlob();
+                $files['inn']['title'] = 'snils';
+                $image->destroy();
+            }
+
             $file = $user->getCopySignature();
             $file = WImage::ImageToBlackAndWhite($file);
             $file = WImage::cropSign($file, 591, 118);
