@@ -165,6 +165,7 @@
 
 {% if is_granted('ROLE_ADMIN') %}
     <div class="well well-small">
+        <button id="phmass" class="btn btn-primary">Массовый фото</button>
         <button id="xml" class="btn btn-primary">Массовый XML</button>
         <button id="xml2" class="btn btn-primary">Массовый XML (РФ и ЕСТР)</button>
         <button id="print" class="btn btn-primary">Выгрузка в Excel</button>
@@ -229,6 +230,14 @@
             $('#form-list').attr('target', '_self');
             $('#form-list').submit();
         })
+
+        $('#phmass').click(function () {
+            var url = Routing.generate('panel_operator_photo_mass');
+            $('#form-list').attr('action', url);
+            $('#form-list').attr('target', '_self');
+            $('#form-list').submit();
+        })
+
 
 
         $('.checkxml').click(function(){

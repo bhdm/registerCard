@@ -232,4 +232,89 @@ class XmlController extends Controller
             }
         }
     }
+
+    /**
+     * @Route("/photo-mass", name="panel_operator_photo_mass", options={"expose"=true})
+     * @Template("")
+     */
+    public function MassPhotoAction(Request $request)
+    {
+        $filePath = __DIR__ . '/../../../../web/';
+
+        $zip = new \ZipArchive();
+        $zip_name = "upload/XMLgeneration.zip";
+        if ($zip->open($filePath . $zip_name, \ZIPARCHIVE::CREATE) !== TRUE) {
+            throw $this->createNotFoundException("* Sorry ZIP creation failed at this time;");
+        }
+
+
+        $data = $request->request->get('user');
+        $em = $this->getDoctrine()->getManager();
+        foreach ($data as $key => $val) {
+            $user = $this->getDoctrine()->getRepository('CrmMainBundle:User')->find($key);
+
+            $image = new \Imagick($filePath . $user->getPhoto()['path']);
+            $image->setFormat('jpg');
+            $files['photo']['base'] = base64_encode($image->getImageBlob());
+            $files['photo']['title'] = 'Photo';
+            $files['photo']['file'] = $user->getPhoto();
+            $image->destroy();
+
+            if (isset($user->getCopyPassport()['path'])) {
+                $image = new \Imagick($filePath . $user->getCopyPassport()['path']);
+                $image->setFormat('jpg');
+                $files['passport']['base'] = base64_encode($image->getImageBlob());
+                $files['passport']['title'] = 'Passport';
+                $image->destroy();
+            }
+            if (isset($user->getCopyPassport2()['path'])) {
+                $image = new \Imagick($filePath . $user->getCopyPassport2()['path']);
+                $image->setFormat('jpg');
+                $files['passport2']['base'] = base64_encode($image->getImageBlob());
+                $files['passport2']['title'] = 'Passport2';
+                $image->destroy();
+            }
+            if (isset($user->getCopyDriverPassport()['path'])) {
+                $image = new \Imagick($filePath . $user->getCopyDriverPassport()['path']);
+                $image->setFormat('jpg');
+                $files['driver']['base'] = base64_encode($image->getImageBlob());
+                $files['driver']['title'] = 'DriverPassport';
+                $image->destroy();
+            }
+            if (isset($user->getCopyDriverPassport2()['path'])) {
+                $image = new \Imagick($filePath . $user->getCopyDriverPassport2()['path']);
+                $image->setFormat('jpg');
+                $files['driver2']['base'] = base64_encode($image->getImageBlob());
+                $files['driver2']['title'] = 'DriverPassport2';
+                $image->destroy();
+            }
+
+            $file = $user->getCopySignature();
+            $file = WImage::ImageToBlackAndWhite($file);
+            $file = WImage::cropSign($file, 591, 118);
+            $image = new \Imagick($file);
+            $image->setImageFormat('jpg');
+
+            $files['signature']['base'] = base64_encode($image->getImageBlob());
+            $files['signature']['title'] = 'Signature';
+            $image->destroy();
+
+            foreach ($files as  $k => $file) {
+                $zip->addFromString($user->getId().'-' . $k.'.jpg', $file['base']);
+            }
+        }
+
+        $zip->close();
+        if (file_exists($filePath . $zip_name)) {
+
+            header('Content-type: application/zip');
+            header('Content-Disposition: attachment; filename="XMLgeneration.zip"');
+            readfile($filePath . $zip_name);
+            unlink($filePath . $zip_name);
+            exit;
+        } else {
+            echo $filePath . $zip_name;
+            exit;
+        }
+    }
 }
