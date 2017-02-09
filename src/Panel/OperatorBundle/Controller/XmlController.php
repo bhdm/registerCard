@@ -320,7 +320,7 @@ class XmlController extends Controller
 
     public function getOriginImageName($path){
         $pathA = explode('/',$path);
-        $pathA[count($pathA)-1] = 'origin-'.[count($pathA)-1];
+        $pathA[count($pathA)-1] = 'origin-'.$pathA[count($pathA)-1];
 
         return implode('/',$pathA);
     }
