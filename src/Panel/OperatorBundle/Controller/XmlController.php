@@ -253,12 +253,12 @@ class XmlController extends Controller
         foreach ($data as $key => $val) {
             $user = $this->getDoctrine()->getRepository('CrmMainBundle:User')->find($key);
 
-            $image = new \Imagick($filePath . $user->getPhoto()['path']);
-            $image->setFormat('jpg');
-            $files['photo']['base'] = $image->getImageBlob();
-            $files['photo']['title'] = 'Photo';
-            $files['photo']['file'] = $this->getOriginImageName($user->getPhoto()['path']);
-            $image->destroy();
+//            $image = new \Imagick($filePath . $user->getPhoto()['path']);
+//            $image->setFormat('jpg');
+//            $files['photo']['base'] = $image->getImageBlob();
+//            $files['photo']['title'] = 'Photo';
+//            $files['photo']['file'] = $this->getOriginImageName($user->getPhoto()['path']);
+//            $image->destroy();
 
             if (isset($user->getCopyPassport()['path'])) {
                 $image = new \Imagick($filePath . $this->getOriginImageName($user->getCopyPassport()['path']));
@@ -300,20 +300,20 @@ class XmlController extends Controller
             if (isset($user->getCopySnils()['path'])) {
                 $image = new \Imagick($filePath . $this->getOriginImageName($user->getCopySnils()['path']));
                 $image->setFormat('jpg');
-                $files['inn']['base'] = $image->getImageBlob();
-                $files['inn']['title'] = 'snils';
+                $files['snils']['base'] = $image->getImageBlob();
+                $files['snils']['title'] = 'snils';
                 $image->destroy();
             }
 
-            $file = $user->getCopySignature();
-            $file = WImage::ImageToBlackAndWhite($file);
-            $file = WImage::cropSign($file, 591, 118);
-            $image = new \Imagick($file);
-            $image->setImageFormat('jpg');
+//            $file = $user->getCopySignature();
+//            $file = WImage::ImageToBlackAndWhite($file);
+//            $file = WImage::cropSign($file, 591, 118);
+//            $image = new \Imagick($file);
+//            $image->setImageFormat('jpg');
 
-            $files['signature']['base'] = $image->getImageBlob();
-            $files['signature']['title'] = 'Signature';
-            $image->destroy();
+//            $files['signature']['base'] = $image->getImageBlob();
+//            $files['signature']['title'] = 'Signature';
+//            $image->destroy();
 
             foreach ($files as  $k => $file) {
                 $zip->addFromString($user->getId().'-' . $k.'.jpg', $file['base']);
