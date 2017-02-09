@@ -64,9 +64,9 @@ class PaymentController extends Controller
                             case 'Карта водителя ЕСТР': $price = $operator->getPriceEstr(); break;
                             case 'Карта водителя РФ': $price = $operator->getPriceRu(); break;
 
-                            case 'Карта предприятия СКЗИ': $price = $operator->getPriceEnterpriseSkzi(); break;
-                            case 'Карта предприятия ЕСТР': $price = $operator->getPriceEnterpriseEstr(); break;
-                            case 'Карта предприятия РФ': $price = $operator->getPriceEnterpriseRu(); break;
+                            case 'Карта предприятия СКЗИ': $price = $operator->getPriceCompanySkzi(); break;
+                            case 'Карта предприятия ЕСТР': $price = $operator->getPriceCompanyEstr(); break;
+                            case 'Карта предприятия РФ': $price = $operator->getPriceCompanyRu(); break;
 
                             case 'Карта мастерской СКЗИ': $price = $operator->getPriceMasterSkzi(); break;
                             case 'Карта мастерской ЕСТР': $price = $operator->getPriceMasterEstr(); break;
