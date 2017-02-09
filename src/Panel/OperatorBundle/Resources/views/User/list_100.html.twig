@@ -50,7 +50,7 @@
                 {% for user in pagination %}
                     <tr style="{{ user.comment != null and user.comment != '' ? 'background: #FFCFCF;' : '' }}" id="userr{{ user.id }}">
                         <td>
-                            <a href="{{ path('panel_client_message_list', { 'userId' : user.client.id, 'order' :  user.id }) }}"  target="_blank">
+                            <a href="{{ path('panel_client_message_list', { 'clientId' : user.client.id, 'order' :  user.id }) }}"  target="_blank">
                                 <button type="button" class="btn-xs btn-primary btn-bg" title="Отправить сообщение"><span class="glyphicon glyphicon-envelope"></span></button>
                             </a>
                             {% if user.price == 0   %}
