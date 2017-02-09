@@ -257,32 +257,32 @@ class XmlController extends Controller
             $image->setFormat('jpg');
             $files['photo']['base'] = $image->getImageBlob();
             $files['photo']['title'] = 'Photo';
-            $files['photo']['file'] = $user->getPhoto();
+            $files['photo']['file'] = $this->getOriginImageName($user->getPhoto()['path']);
             $image->destroy();
 
             if (isset($user->getCopyPassport()['path'])) {
-                $image = new \Imagick($filePath . $user->getCopyPassport()['path']);
+                $image = new \Imagick($filePath . $this->getOriginImageName($user->getCopyPassport()['path']));
                 $image->setFormat('jpg');
                 $files['passport']['base'] = $image->getImageBlob();
                 $files['passport']['title'] = 'Passport';
                 $image->destroy();
             }
             if (isset($user->getCopyPassport2()['path'])) {
-                $image = new \Imagick($filePath . $user->getCopyPassport2()['path']);
+                $image = new \Imagick($filePath . $this->getOriginImageName($user->getCopyPassport2()['path']));
                 $image->setFormat('jpg');
                 $files['passport2']['base'] = $image->getImageBlob();
                 $files['passport2']['title'] = 'Passport2';
                 $image->destroy();
             }
             if (isset($user->getCopyDriverPassport()['path'])) {
-                $image = new \Imagick($filePath . $user->getCopyDriverPassport()['path']);
+                $image = new \Imagick($filePath . $this->getOriginImageName($user->getCopyDriverPassport()['path']));
                 $image->setFormat('jpg');
                 $files['driver']['base'] = $image->getImageBlob();
                 $files['driver']['title'] = 'DriverPassport';
                 $image->destroy();
             }
             if (isset($user->getCopyDriverPassport2()['path'])) {
-                $image = new \Imagick($filePath . $user->getCopyDriverPassport2()['path']);
+                $image = new \Imagick($filePath . $this->getOriginImageName($user->getCopyDriverPassport2()['path']));
                 $image->setFormat('jpg');
                 $files['driver2']['base'] = $image->getImageBlob();
                 $files['driver2']['title'] = 'DriverPassport2';
@@ -316,5 +316,12 @@ class XmlController extends Controller
             echo $filePath . $zip_name;
             exit;
         }
+    }
+
+    public function getOriginImageName($path){
+        $pathA = explode('/',$path);
+        $pathA[count($pathA)-1] = 'origin-'.[count($pathA)-1];
+
+        return implode('/',$pathA);
     }
 }
