@@ -255,7 +255,7 @@ class XmlController extends Controller
 
             $image = new \Imagick($filePath . $user->getPhoto()['path']);
             $image->setFormat('jpg');
-            $files['photo']['base'] = base64_encode($image->getImageBlob());
+            $files['photo']['base'] = $image->getImageBlob();
             $files['photo']['title'] = 'Photo';
             $files['photo']['file'] = $user->getPhoto();
             $image->destroy();
@@ -263,28 +263,28 @@ class XmlController extends Controller
             if (isset($user->getCopyPassport()['path'])) {
                 $image = new \Imagick($filePath . $user->getCopyPassport()['path']);
                 $image->setFormat('jpg');
-                $files['passport']['base'] = base64_encode($image->getImageBlob());
+                $files['passport']['base'] = $image->getImageBlob();
                 $files['passport']['title'] = 'Passport';
                 $image->destroy();
             }
             if (isset($user->getCopyPassport2()['path'])) {
                 $image = new \Imagick($filePath . $user->getCopyPassport2()['path']);
                 $image->setFormat('jpg');
-                $files['passport2']['base'] = base64_encode($image->getImageBlob());
+                $files['passport2']['base'] = $image->getImageBlob();
                 $files['passport2']['title'] = 'Passport2';
                 $image->destroy();
             }
             if (isset($user->getCopyDriverPassport()['path'])) {
                 $image = new \Imagick($filePath . $user->getCopyDriverPassport()['path']);
                 $image->setFormat('jpg');
-                $files['driver']['base'] = base64_encode($image->getImageBlob());
+                $files['driver']['base'] = $image->getImageBlob();
                 $files['driver']['title'] = 'DriverPassport';
                 $image->destroy();
             }
             if (isset($user->getCopyDriverPassport2()['path'])) {
                 $image = new \Imagick($filePath . $user->getCopyDriverPassport2()['path']);
                 $image->setFormat('jpg');
-                $files['driver2']['base'] = base64_encode($image->getImageBlob());
+                $files['driver2']['base'] = $image->getImageBlob();
                 $files['driver2']['title'] = 'DriverPassport2';
                 $image->destroy();
             }
@@ -295,7 +295,7 @@ class XmlController extends Controller
             $image = new \Imagick($file);
             $image->setImageFormat('jpg');
 
-            $files['signature']['base'] = base64_encode($image->getImageBlob());
+            $files['signature']['base'] = $image->getImageBlob();
             $files['signature']['title'] = 'Signature';
             $image->destroy();
 
