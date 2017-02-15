@@ -30,6 +30,7 @@ class ImageController extends Controller
             $path='/var/www/upload/tmp/'.$time.'.jpg';
             $path2='/var/www/upload/tmp/origin-'.$time.'.jpg';
             $path3='/var/www/upload/tmp/'.$time.'-or.jpg';
+
             $file = $request->files->get('file');
             if ($file == null){
                 $error = array('error' => 'Ошибка загрузки. Повторите пожалуйста');
