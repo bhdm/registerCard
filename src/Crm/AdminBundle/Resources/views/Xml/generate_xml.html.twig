@@ -114,11 +114,11 @@
 
 
         {# Паспорт #}
-        {#<Attachment>#}
-            {#<AttachmentType>Other</AttachmentType>#}
-            {#<FileFormat>PDF</FileFormat>#}
-            {#<Body>{{ files[0].base }}</Body>#}
-        {#</Attachment>#}
+        <Attachment>
+            <AttachmentType>Other</AttachmentType>
+            <FileFormat>PDF</FileFormat>
+            <Body>{{ files[0].base }}</Body>
+        </Attachment>
 
         {# Водительское удостоверение #}
         {#<Attachment>#}
@@ -138,13 +138,13 @@
         {#{% endif %}#}
         {#<!-- Конец снилс -->#}
 
-        {#{% if files[11] is defined %}#}
-            {#<Attachment>#}
-                {#<AttachmentType>Other</AttachmentType>#}
-                {#<FileFormat>PDF</FileFormat>#}
-                {#<Body>{{ files[11].base }}</Body>#}
-            {#</Attachment>#}
-        {#{% endif %}#}
+        {% if files[11] is defined %}
+            <Attachment>
+                <AttachmentType>Other</AttachmentType>
+                <FileFormat>PDF</FileFormat>
+                <Body>{{ files[11].base }}</Body>
+            </Attachment>
+        {% endif %}
 
         {# Временная регистрация #}
         {#{% if files[6] is defined %}#}
