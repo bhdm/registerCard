@@ -53,59 +53,67 @@ function getImage(data,container, first){
         fileDoc.children('.jcrop-holder').children('img').attr('src',data.data.img);
         var type = container.children('.jq-file').children('input[type=file]').attr('id');
 
-        if ( first == 0 ){
-            var maxHeight = 400;
-            var maxWidth = 400;
-            if (type == 'photoFile'){
-                fileDoc.children('img').Jcrop({
-                    boxHeight: maxHeight,
-                    boxWidth:  maxWidth,
-                    onChange:   function(c){showCoords(c, container) },
-                    onSelect:   function(c){showCoords(c, container) },
-                    aspectRatio: 1 / 1.285
-                },function(){
-                    jcrop_api = this;
-                });
-                //console.log(tt = fileDoc.children('.jcrop-holder').children('div').children('div').children('.jcrop-tracker'));
-                fileDoc.children('.jcrop-holder').children('div').children('div').children('.jcrop-tracker').addClass('imgareaselect-selection2');
+        console.log(fileDoc);
+        console.log('-------');
+        console.log(fileDoc.hasClass('noCrop'));
+        console.log('-------');
+
+        if (fileDoc.hasClass('noCrop') == false){
+            if ( first == 0 ){
+                var maxHeight = 400;
+                var maxWidth = 400;
+                if (type == 'photoFile'){
+                    fileDoc.children('img').Jcrop({
+                        boxHeight: maxHeight,
+                        boxWidth:  maxWidth,
+                        onChange:   function(c){showCoords(c, container) },
+                        onSelect:   function(c){showCoords(c, container) },
+                        aspectRatio: 1 / 1.285
+                    },function(){
+                        jcrop_api = this;
+                    });
+                    //console.log(tt = fileDoc.children('.jcrop-holder').children('div').children('div').children('.jcrop-tracker'));
+                    fileDoc.children('.jcrop-holder').children('div').children('div').children('.jcrop-tracker').addClass('imgareaselect-selection2');
+                }else{
+                    fileDoc.children('img').Jcrop({
+                        boxHeight:  maxHeight,
+                        boxWidth:  maxWidth,
+                        onChange:   function(c){showCoords(c, container) },
+                        onSelect:   function(c){showCoords(c, container) }
+                    },function(){
+                        jcrop_api = this;
+                    });
+                }
             }else{
-                fileDoc.children('img').Jcrop({
-                    boxHeight:  maxHeight,
-                    boxWidth:  maxWidth,
-                    onChange:   function(c){showCoords(c, container) },
-                    onSelect:   function(c){showCoords(c, container) }
-                },function(){
-                    jcrop_api = this;
-                });
-            }
-        }else{
-            var maxHeight = 600;
-            var maxWidth = 600;
-            if (type == 'photoFile'){
-                fileDoc.children('img').Jcrop({
-                    boxHeight: maxHeight,
-                    boxWidth:  maxWidth,
-                    setSelect: [0, 0, 160, 140],
-                    onChange:   function(c){showCoords(c, container) },
-                    onSelect:   function(c){showCoords(c, container) },
-                    aspectRatio: 1 / 1.285
-                },function(){
-                    jcrop_api = this;
-                });
-                //console.log(tt = fileDoc.children('.jcrop-holder').children('div').children('div').children('.jcrop-tracker'));
-                fileDoc.children('.jcrop-holder').children('div').children('div').children('.jcrop-tracker').addClass('imgareaselect-selection2');
-            }else{
-                fileDoc.children('img').Jcrop({
-                    boxHeight:  maxHeight,
-                    boxWidth:  maxWidth,
-                    setSelect: [0, 0, 160, 140],
-                    onChange:   function(c){showCoords(c, container) },
-                    onSelect:   function(c){showCoords(c, container) }
-                },function(){
-                    jcrop_api = this;
-                });
+                var maxHeight = 600;
+                var maxWidth = 600;
+                if (type == 'photoFile'){
+                    fileDoc.children('img').Jcrop({
+                        boxHeight: maxHeight,
+                        boxWidth:  maxWidth,
+                        setSelect: [0, 0, 160, 140],
+                        onChange:   function(c){showCoords(c, container) },
+                        onSelect:   function(c){showCoords(c, container) },
+                        aspectRatio: 1 / 1.285
+                    },function(){
+                        jcrop_api = this;
+                    });
+                    //console.log(tt = fileDoc.children('.jcrop-holder').children('div').children('div').children('.jcrop-tracker'));
+                    fileDoc.children('.jcrop-holder').children('div').children('div').children('.jcrop-tracker').addClass('imgareaselect-selection2');
+                }else{
+                    fileDoc.children('img').Jcrop({
+                        boxHeight:  maxHeight,
+                        boxWidth:  maxWidth,
+                        setSelect: [0, 0, 160, 140],
+                        onChange:   function(c){showCoords(c, container) },
+                        onSelect:   function(c){showCoords(c, container) }
+                    },function(){
+                        jcrop_api = this;
+                    });
+                }
             }
         }
+
 
 
     }
