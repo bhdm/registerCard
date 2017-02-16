@@ -323,8 +323,10 @@ class XmlController extends Controller
         $zip->close();
 //        if (file_exists($filePath . $zip_name)) {
 
+        header("Content-Transfer-Encoding: Binary");
         header('Content-type: application/zip');
         header('Content-Disposition: attachment; filename="XMLgeneration.zip"');
+        header("Content-length: ".filesize($filePath . $zip_name).";\n");
         readfile($filePath . $zip_name);
         unlink($filePath . $zip_name);
             exit;

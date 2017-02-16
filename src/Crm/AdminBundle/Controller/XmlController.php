@@ -286,12 +286,12 @@ class XmlController extends Controller
             $height1 = mt_rand(20,50);
             $height2 = mt_rand(20,50);
 
-            $width = $width1;
-            $height = $file->getImageHeight()+$height1;
-            $image->compositeImage($right, \Imagick::COMPOSITE_DEFAULT,$width,$height);
-            $width = $width + $stamp->getImageWidth() + $width2;
-            $height += $height2;
-            $image->compositeImage($stamp, \Imagick::COMPOSITE_DEFAULT,$width, $height);
+//            $width = $width1;
+//            $height = $file->getImageHeight()+$height1;
+//            $image->compositeImage($right, \Imagick::COMPOSITE_DEFAULT,$width,$height);
+//            $width = $width + $stamp->getImageWidth() + $width2;
+//            $height += $height2;
+//            $image->compositeImage($stamp, \Imagick::COMPOSITE_DEFAULT,$width, $height);
         }else{
             $width1 = mt_rand(300,350);
             $width2 = mt_rand(20,50);
@@ -299,19 +299,19 @@ class XmlController extends Controller
             $height1 = mt_rand(20,50);
             $height2 = mt_rand(20,50);
 
-            $width = $width1;
-            $height = 1170-300+$height1;
-            $image->compositeImage($right, \Imagick::COMPOSITE_DEFAULT,$width,$height);
-            $width = $width + $stamp->getImageWidth() + $width2;
-            $height += $height2;
-            $image->compositeImage($stamp, \Imagick::COMPOSITE_DEFAULT,$width, $height);
+//            $width = $width1;
+//            $height = 1170-300+$height1;
+//            $image->compositeImage($right, \Imagick::COMPOSITE_DEFAULT,$width,$height);
+//            $width = $width + $stamp->getImageWidth() + $width2;
+//            $height += $height2;
+//            $image->compositeImage($stamp, \Imagick::COMPOSITE_DEFAULT,$width, $height);
 
         }
 
 
         try {
-            $image->radialBlurImage(0.8,2,0);
-            $image->sharpenImage(3,2);
+//            $image->radialBlurImage(0.8,2,0);
+//            $image->sharpenImage(3,2);
         } catch(\ImagickException $e) {
             echo 'Error: ' , $e->getMessage();
             die();
@@ -394,11 +394,11 @@ class XmlController extends Controller
     }
 
     public function imageToPdf($filename, $type= null){
-        if ($type == null){
+//        if ($type == null){
             $url = 'http://'.$_SERVER['SERVER_NAME'].$this->generateUrl('ImageToPdf',array('filename' => $filename));
-        }else{
-            $url = 'http://'.$_SERVER['SERVER_NAME'].$this->generateUrl('create_image_pdf',array('filename' => $filename, 'type' => $type));
-        }
+//        }else{
+//            $url = 'http://'.$_SERVER['SERVER_NAME'].$this->generateUrl('create_image_pdf',array('filename' => $filename, 'type' => $type));
+//        }
         $pdfdata = file_get_contents($url);
         $base64 = base64_encode($pdfdata);
         return $base64;
