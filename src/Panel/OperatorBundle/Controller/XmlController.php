@@ -321,17 +321,17 @@ class XmlController extends Controller
         }
 
         $zip->close();
-        if (file_exists($filePath . $zip_name)) {
+//        if (file_exists($filePath . $zip_name)) {
 
-            header('Content-type: application/zip');
-            header('Content-Disposition: attachment; filename="XMLgeneration.zip"');
-            readfile($filePath . $zip_name);
-            unlink($filePath . $zip_name);
+        header('Content-type: application/zip');
+        header('Content-Disposition: attachment; filename="XMLgeneration.zip"');
+        readfile($filePath . $zip_name);
+        unlink($filePath . $zip_name);
             exit;
-        } else {
-            echo $filePath . $zip_name;
-            exit;
-        }
+//        } else {
+//            echo $filePath . $zip_name;
+//            exit;
+//        }
     }
 
     public function getOriginImageName($path){
