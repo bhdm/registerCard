@@ -53,15 +53,12 @@ function getImage(data,container, first){
         fileDoc.children('.jcrop-holder').children('img').attr('src',data.data.img);
         var type = container.children('.jq-file').children('input[type=file]').attr('id');
 
-        console.log(fileDoc);
-        console.log('-------');
-        console.log(fileDoc.hasClass('noCrop'));
-        console.log('-------');
-
+        console.log(first);
         if (fileDoc.hasClass('noCrop') == false){
             if ( first == 0 ){
                 var maxHeight = 400;
                 var maxWidth = 400;
+                console.log(type );
                 if (type == 'photoFile'){
                     fileDoc.children('img').Jcrop({
                         boxHeight: maxHeight,
@@ -85,9 +82,11 @@ function getImage(data,container, first){
                     });
                 }
             }else{
+                console.log(type );
                 var maxHeight = 600;
                 var maxWidth = 600;
                 if (type == 'photoFile'){
+                    console.log(' YES');
                     fileDoc.children('img').Jcrop({
                         boxHeight: maxHeight,
                         boxWidth:  maxWidth,
@@ -114,8 +113,6 @@ function getImage(data,container, first){
             }
         }
 
-
-
     }
 }
 
@@ -123,13 +120,13 @@ function getImage(data,container, first){
 
 $(document).ready(function(){
 
-    $( ".slider-vertical-contrast" ).slider({
-        orientation: "vertical",
-        range: "min",
-        min: 0,
-        max: 255,
-        value: 128
-    });
+    //$( ".slider-vertical-contrast" ).slider({
+    //    orientation: "vertical",
+    //    range: "min",
+    //    min: 0,
+    //    max: 255,
+    //    value: 128
+    //});
 
     $( ".slider-vertical-contrast" ).on( "slidestop", function( event, ui ) {
             var container = $(this).parent().parent().parent();
@@ -153,13 +150,13 @@ $(document).ready(function(){
     );
 
 
-    $( ".slider-vertical-brightness" ).slider({
-        orientation: "vertical",
-        range: "min",
-        min: 0,
-        max: 255,
-        value: 128
-    });
+    //$( ".slider-vertical-brightness" ).slider({
+    //    orientation: "vertical",
+    //    range: "min",
+    //    min: 0,
+    //    max: 255,
+    //    value: 128
+    //});
 
     $( ".slider-vertical-brightness" ).on( "slidestop", function( event, ui ) {
             var container = $(this).parent().parent().parent();
@@ -200,7 +197,6 @@ $(document).ready(function(){
             container = container.parent();
         }
         var progressbar = container.children('.progress');
-
         var navigateFile = container.children('.navigateFile');
 
         //return false;
@@ -217,7 +213,10 @@ $(document).ready(function(){
         //var loader = 'http://im-kard.ru/bundles/crmmain/images/ajax_loader.gif';
         //container.children('.fileDoc').children('img').attr('src', loader);
         //if(file.value.length){
-        $('body').css('position','fixed');
+        // $('body').css('position','fixed');
+        // $('body').css('right','0');
+        // $('body').css('left','0');
+
         $('body').loader('show',
             {
                 className: 'loader',
@@ -227,16 +226,6 @@ $(document).ready(function(){
                 delay: 200,
                 loader: true,       // if true, you can hide the loader by clicking on it
                 overlay: true      // display or not the overlay
-                // onHide: function () {
-                //     $('body').css('position','relative');
-                //     $('body').css('right','auto');
-                //     $('body').css('left','auto');
-                // },
-                // onShow: function () {
-                //
-                //     $('body').css('right','0');
-                //     $('body').css('left','0');
-                // }
 
             }
         );
@@ -245,7 +234,8 @@ $(document).ready(function(){
         //alert('1');
 
         $.ajax({
-            url: Routing.generate('upload_document', {'type': type}),
+            url: '/app_dev.php/upload-document/'+type,
+            //url: Routing.generate('upload_document', {'type': type}),
             type: 'POST',
             //xhr: function()
             //{
@@ -283,20 +273,15 @@ $(document).ready(function(){
             success: function(msg){
                 //progressbar.css('display','none');
                 getImage(msg, container, 1);
-                var fileDoc = container.children('.fileDoc');
-                if (fileDoc.hasClass('noCrop') == false){
-                    $('.navigateFile').css('display','mome');
-                    navigateFile.css('display','block');
-                }
-
-
+                $('.navigateFile').css('display','mome');
+                navigateFile.css('display','block');
                 $('body').loader('hide');
-                $('body').css('position','relative');
+                // $('body').css('position','relative');
             },
             error:function (error) {
-                console.log(error);
+                console.log(s=error);
                 $('body').loader('hide');
-                $('body').css('position','relative');
+                // $('body').css('position','relative');
                 var $popup = $('<div class="flash-message">' + error.responseJSON.data.error  + '</div>');
                 $popup.insertAfter('body');
                 setTimeout(function() {
