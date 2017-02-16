@@ -335,9 +335,17 @@ class XmlController extends Controller
     }
 
     public function getOriginImageName($path){
+        $filePath = __DIR__.'/../../../../web/';
         $pathA = explode('/',$path);
+        $pathB = explode('/',$path);
         $pathA[count($pathA)-1] = str_replace('.jpg', '-or.jpg', $pathA[count($pathA)-1]);
 
-        return implode('/',$pathA);
+        $file =  implode('/',$pathA);
+        if (is_file($filePath . $file)){
+            return $file;
+        }else{
+            $pathB[count($pathB)-1] = 'origin-'.$pathB[count($pathB)-1];
+            return  implode('/',$pathB);
+        }
     }
 }
