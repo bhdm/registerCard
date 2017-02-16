@@ -341,7 +341,7 @@ class XmlController extends Controller
         $pathA[count($pathA)-1] = str_replace('.jpg', '-or.jpg', $pathA[count($pathA)-1]);
 
         $file =  implode('/',$pathA);
-        if (is_file($filePath . $file)){
+        if (readfile($filePath . $file)){
             return $file;
         }else{
             $pathB[count($pathB)-1] = 'origin-'.$pathB[count($pathB)-1];
