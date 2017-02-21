@@ -768,11 +768,11 @@ class OrderController extends Controller
         }
 
         if ($user->getRu() == 0 && $user->getEstr() == 0 ){
-            return $this->render('CrmAuthBundle:Application:newSkzi.html.twig',array('edit' => true,'form' => $form->createView()));
+            return $this->render('CrmAuthBundle:Application:newSkzi.html.twig',array('edit' => true,'form' => $form->createView(), 'user' => $user));
         }elseif ($user->getRu() == 1 ){
-            return $this->render('CrmAuthBundle:Application:newRu.html.twig',array('edit' => true,'form' => $form->createView()));
+            return $this->render('CrmAuthBundle:Application:newRu.html.twig',array('edit' => true,'form' => $form->createView(), 'user' => $user));
         }else{
-            return $this->render('CrmAuthBundle:Application:newEstr.html.twig',array('edit' => true,'form' => $form->createView()));
+            return $this->render('CrmAuthBundle:Application:newEstr.html.twig',array('edit' => true,'form' => $form->createView(), 'user' => $user));
         }
 
     }
