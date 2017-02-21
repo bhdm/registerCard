@@ -647,6 +647,16 @@
                     <td></td>
                 </tr>
                 <tr>
+                    <td colspan="2" style="text-align: left">
+                        {% if user.copyOrder.path is defined %}
+                            <img src="/{{ user.copyOrder.path }}" brightness="0" contrast="0" style="max-width: 250px">
+                        {% endif %}
+                        {% if user.copyOrder2.path is defined %}
+                            <img src="/{{ user.copyOrder2.path }}" brightness="0" contrast="0" style="max-width: 250px">
+                        {% endif %}
+                    </td>
+                </tr>
+                <tr>
                     <td></td>
                     <td colspan="2" style="text-align: left">
                         {% if edit is not defined  %}
@@ -661,16 +671,6 @@
                 </tr>
 
                 {{ form_row(form._token) }}
-                <tr>
-                    <td colspan="2" style="text-align: left">
-                        {% if user.copyOrder.path is defined %}
-                            <img src="/{{ user.copyOrder.path }}" brightness="0" contrast="0" style="max-width: 250px">
-                        {% endif %}
-                        {% if user.copyOrder2.path is defined %}
-                            <img src="/{{ user.copyOrder2.path }}" brightness="0" contrast="0" style="max-width: 250px">
-                        {% endif %}
-                    </td>
-                </tr>
                 <tr>
                     <td></td>
                     <td>
