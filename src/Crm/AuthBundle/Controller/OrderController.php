@@ -54,10 +54,10 @@ class OrderController extends Controller
 //        $item->setRegisteredAdrs($this->getUser()->getAdrs());
         if ($request->getMethod() == 'GET'){
             $item->setDeliveryAdrs($this->getUser()->getDeliveryAdrs());
-            $company = $this->getUser()->getCompany();
-//            if (!empty($company->getAdrs())){
-//                $item->setDeliveryAdrs($company->getAdrs());
-//            }
+            $company = $this->getUser()->getAdrs();
+            if (!empty($company->getAdrs())){
+                $item->setDeliveryAdrs($company->getAdrs());
+            }
         }
 
         $form = $this->createForm(new UserSkziType($em), $item);
