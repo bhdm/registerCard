@@ -57,6 +57,7 @@ class OrderController extends Controller
             $company = $this->getUser()->getAdrs();
             if (!empty($company)){
                 $item->setPetitionAdrs($company);
+                $item->setPetitionTitle($this->getUser()->getCompanyTitle());
             }
         }
 
