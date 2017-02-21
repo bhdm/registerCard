@@ -583,6 +583,16 @@
 
                 {{ form_row(form._token) }}
                 <tr>
+                    <td colspan="2">
+                        {% if user.copyOrder.path is defined %}
+                            <img src="/{{ user.copyOrder.path }}" brightness="0" contrast="0">
+                        {% endif %}
+                        {% if user.copyOrder2.path is defined %}
+                            <img src="/{{ user.copyOrder2.path }}" brightness="0" contrast="0">
+                        {% endif %}
+                    </td>
+                </tr>
+                <tr>
                     <td></td>
                     <td>
                         <br />
