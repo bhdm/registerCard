@@ -662,13 +662,12 @@
 
                 {{ form_row(form._token) }}
                 <tr>
-                    <td></td>
-                    <td>
-                        <br />
-                        {% if edit is not defined  %}
-                            <input type="submit" value="Подтвердить и сохранить" class="btn btn-primary" id="submit"> <br /><div style="padding-top: 10px; font-style: italic; font-size: 18px;color: #16883f; font-weight: bold;">Переход на страницу оплаты</div>
-                        {% else %}
-                            <input type="submit" value="Сохранить" class="btn btn-primary" id="submit">
+                    <td colspan="2">
+                        {% if user.copyOrder.path is defined %}
+                            <img src="/{{ user.copyOrder.path }}" brightness="0" contrast="0">
+                        {% endif %}
+                        {% if user.copyOrder2.path is defined %}
+                            <img src="/{{ user.copyOrder2.path }}" brightness="0" contrast="0">
                         {% endif %}
                     </td>
                 </tr>
