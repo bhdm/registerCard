@@ -56,7 +56,7 @@ class OrderController extends Controller
             $item->setDeliveryAdrs($this->getUser()->getDeliveryAdrs());
             $company = $this->getUser()->getAdrs();
             if (!empty($company)){
-                $item->setDeliveryAdrs($company);
+                $item->setPetitionAdrs($company);
             }
         }
 
