@@ -212,6 +212,12 @@ class Operator extends BaseEntity implements UserInterface
      */
     protected $adrs;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="Crm\MainBundle\Entity\Operator")
+     */
+    protected $highOperator;
+
+
     public function __construct(){
         $this->roles    = 'ROLE_OPERATOR';
         $this->companies = new ArrayCollection();
@@ -1161,6 +1167,22 @@ class Operator extends BaseEntity implements UserInterface
     public function setAdrs($adrs = array())
     {
         $this->adrs = $adrs;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getHighOperator()
+    {
+        return $this->highOperator;
+    }
+
+    /**
+     * @param mixed $highOperator
+     */
+    public function setHighOperator($highOperator)
+    {
+        $this->highOperator = $highOperator;
     }
 
 

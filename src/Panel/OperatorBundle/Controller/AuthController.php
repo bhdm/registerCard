@@ -112,4 +112,12 @@ class AuthController extends Controller
         return $this->redirect($this->generateUrl('panel_user_list'));
     }
 
+    /**
+     * @Route("/high-in/{id}", name="high-in")
+     * @Template()
+     */
+    public function inHighAction(){
+        return ['users' => $this->getDoctrine()->getRepository('CrmMainBundle:Operator')->findBy(['highOperator' => $this->getUser()])];
+    }
+
 }

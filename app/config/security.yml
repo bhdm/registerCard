@@ -10,6 +10,7 @@ security:
            iterations: 10
 
     role_hierarchy:
+        ROLE_HIGH:     [ROLE_OPERATOR]
         ROLE_ADMIN:     [ROLE_MODERATOR]
         ROLE_MODERATOR: [ROLE_OPERATOR]
 

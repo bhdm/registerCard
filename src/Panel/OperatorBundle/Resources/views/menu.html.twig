@@ -1,176 +1,181 @@
 <div class="well">
     <h2 class="modal-title">Навигация</h2>
-    {#{{ app.request.attributes.get('_route') }}#}
-    <ul class="nav nav-pills nav-stacked">
-        {#{% if is_granted("ROLE_ADMIN") %}#}
-        {#<li class="{{ app.request.attributes.get('_route') == 'panel_user_list' ? 'active' : '' }}">#}
-        {#<a href="{{ path('panel_user_list') }}">#}
-        {#<i class="glyphicon glyphicon-user"></i>#}
-        {#&nbsp;&nbsp;Новые заявки#}
-        {#</a>#}
-        {#</li>#}
-        {#<li class="{{ app.request.attributes.get('_route') == 'panel_user_choose' ? 'active' : '' }}">#}
-        {#<a href="{{ path('panel_user_choose') }}">#}
-        {#<i class="glyphicon glyphicon-inbox"></i>#}
-        {#&nbsp;&nbsp;Ожидающие#}
-        {#</a>#}
-        {#</li>#}
-        {#<li class="{{ app.request.attributes.get('_route') == 'panel_user_production' ? 'active' : '' }}">#}
-        {#<a href="{{ path('panel_user_production') }}">#}
-        {#<i class="glyphicon glyphicon-tags"></i>#}
-        {#&nbsp;&nbsp;Производство#}
-        {#</a>#}
-        {#</li>#}
-        {#<li class="{{ app.request.attributes.get('_route') == 'panel_company_list' ? 'active' : '' }}">#}
-        {#<a href="{{ path('panel_company_list') }}">#}
-        {#<i class="glyphicon glyphicon-link"></i>#}
-        {#&nbsp;&nbsp;Компании#}
-        {#</a>#}
-        {#</li>#}
-
-        {#{% elseif is_granted("ROLE_OPERATOR") %}#}
-        {#<li class="{{ app.request.attributes.get('_route') == 'panel_user_list' ? 'active' : '' }}">#}
-        {#<a href="{{ path('panel_user_list') }}">#}
-        {#<i class="glyphicon glyphicon-user"></i>#}
-        {#&nbsp;&nbsp;Новые заявки#}
-        {#</a>#}
-        {#</li>#}
-        {#<li class="{{ app.request.attributes.get('_route') == 'panel_user_choose' ? 'active' : '' }}">#}
-        {#<a href="{{ path('panel_user_choose') }}">#}
-        {#<i class="glyphicon glyphicon-inbox"></i>#}
-        {#&nbsp;&nbsp;Производство#}
-        {#</a>#}
-        {#</li>#}
-        {#<li class="{{ app.request.attributes.get('_route') == 'panel_company_list' ? 'active' : '' }}">#}
-        {#<a href="{{ path('panel_company_list') }}">#}
-        {#<i class="glyphicon glyphicon-link"></i>#}
-        {#&nbsp;&nbsp;Компании#}
-        {#</a>#}
-        {#</li>#}
-        {#<li class="{{ app.request.attributes.get('_route') == 'panel_user_production' ? 'active' : '' }}">#}
-        {#<a href="{{ path('panel_user_production') }}">#}
-        {#<i class="glyphicon glyphicon-tags"></i>#}
-        {#&nbsp;&nbsp;Архив#}
-        {#</a>#}
-        {#</li>#}
-        {#{% endif %}#}
-
-        <li class="{{ app.request.attributes.get('_route') == 'panel_main' ? 'active' : '' }}">
-            <a href="{{ path('panel_main') }}">
-                <i class="glyphicon glyphicon-index"></i>
-                &nbsp;&nbsp;Главная
-            </a>
-        </li>
-        {% if is_granted('ROLE_OPERATOR') %}
-        <li class="{{ app.request.attributes.get('_route') == 'operator_companyuser_list' ? 'active' : '' }}">
-            <a href="{{ path('operator_companyuser_list') }}" style="{{ render(controller("PanelOperatorBundle:CompanyUser:newUser"))}}">
-                <i class="glyphicon glyphicon-index"></i>
-                &nbsp;&nbsp;Юр. лица
-            </a>
-        </li>
-        {% endif %}
-
-
-        {#<li class="{{ app.request.attributes.get('_route') == 'panel_petition_list' ? 'active' : '' }}">#}
-            {#<a href="{{ path('panel_petition_list') }}">#}
-                {#<i class="glyphicon glyphicon-link"></i>#}
-                {#&nbsp;&nbsp;Ходатайства#}
-            {#</a>#}
-        {#</li>#}
-
-        <li class="{{ app.request.attributes.get('_route') == 'panel_company_list' ? 'active' : '' }}">
-            <a href="{{ path('panel_company_list') }}">
-                <i class="glyphicon glyphicon-link"></i>
-                &nbsp;&nbsp;Компании
-            </a>
-        </li>
-        {% if is_granted('ROLE_ADMIN') %}
-
-        <li class="{{ app.request.attributes.get('_route') == 'panel_user_list_act' ? 'active' : '' }}">
-            <a href="{{ path('panel_user_list_act') }}">
-                <i class="glyphicon glyphicon-minus"></i>
-                &nbsp;&nbsp;Акты сверки
-            </a>
-        </li>
-
-        <li class="{{ app.request.attributes.get('_route') == 'debtors' ? 'active' : '' }}">
-            <a href="{{ path('debtors') }}">
-                <i class="glyphicon glyphicon-minus"></i>
-                &nbsp;&nbsp;Должники
-            </a>
-        </li>
-        <li class="{{ app.request.attributes.get('_route') == 'panel_client_list' ? 'active' : '' }}">
-            <a href="{{ path('panel_client_list') }}">
-                <i class="glyphicon glyphicon-link"></i>
-                &nbsp;&nbsp;Клиенты
-            </a>
-        </li>
-        {% endif %}
-        {% if is_granted('ROLE_MODERATOR') %}
-            <li class="{{ app.request.attributes.get('_route') == 'panel_operator_list' ? 'active' : '' }}">
-                <a href="{{ path('panel_operator_list') }}">
-                    <i class="glyphicon glyphicon-user"></i>
-                    &nbsp;&nbsp;Операторы
-                </a>
-            </li>
-            {#<li>&nbsp;</li>#}
-            {#<li class="">#}
-            {#<a href="{{ path('panel_quota') }}">#}
-            {#<i class="glyphicon glyphicon-ruble"></i>#}
-            {#&nbsp;&nbsp;Квота#}
+    {% if is_granted('ROLE_HIGH') %}
+        <ul class="nav nav-pills nav-stacked">
+            {{ controller(render('PanelOperator:Auth:inHigh')) }}
+        </ul>
+    {% else %}
+        {#{{ app.request.attributes.get('_route') }}#}
+        <ul class="nav nav-pills nav-stacked">
+            {#{% if is_granted("ROLE_ADMIN") %}#}
+            {#<li class="{{ app.request.attributes.get('_route') == 'panel_user_list' ? 'active' : '' }}">#}
+            {#<a href="{{ path('panel_user_list') }}">#}
+            {#<i class="glyphicon glyphicon-user"></i>#}
+            {#&nbsp;&nbsp;Новые заявки#}
             {#</a>#}
             {#</li>#}
-        {% endif %}
-        <li class="{{ app.request.attributes.get('_route') == 'panel_payment_list' ? 'active' : '' }}">
-            <a href="{{ path('panel_payment_list') }}">
-                <i class="glyphicon glyphicon-signal"></i>
-                &nbsp;&nbsp;Счета
-            </a>
-        </li>
-
-        {% if is_granted('ROLE_ADMIN') %}
-            <li class="{{ app.request.attributes.get('_route') == 'panel_company_stats' ? 'active' : '' }}">
-                <a href="{{ path('panel_company_stats') }}">
-                    <i class="glyphicon glyphicon-signal"></i>
-                    &nbsp;&nbsp;Статистика
-                </a>
-            </li>
-            <li class="{{ app.request.attributes.get('_route') == 'panel_operator_test_xml' ? 'active' : '' }}">
-                <a href="{{ path('panel_operator_test_xml') }}">
-                    <i class="glyphicon glyphicon-signal"></i>
-                    &nbsp;&nbsp;Проверка XML
-                </a>
-            </li>
-            <li class="{{ app.request.attributes.get('_route') == 'operator_setting_price' ? 'active' : '' }}">
-                <a href="{{ path('operator_setting_price') }}">
-                    <i class="glyphicon glyphicon-signal"></i>
-                    &nbsp;&nbsp;Настройка
-                </a>
-            </li>
-
-
-        {% endif %}
-
-        {#<li class="{{ app.request.attributes.get('_route') == 'panel_message' ? 'active' : '' }}">#}
-            {#<a href="{{ path('panel_message') }}">#}
-                {#<i class="glyphicon glyphicon-user"></i>#}
-                {#&nbsp;&nbsp;Обратная связь#}
+            {#<li class="{{ app.request.attributes.get('_route') == 'panel_user_choose' ? 'active' : '' }}">#}
+            {#<a href="{{ path('panel_user_choose') }}">#}
+            {#<i class="glyphicon glyphicon-inbox"></i>#}
+            {#&nbsp;&nbsp;Ожидающие#}
             {#</a>#}
-        {#</li>#}
-        {% if is_granted('ROLE_ADMIN') %}
-            <li>
-                <a href="{{ path('panel_review_list') }}">
-                    <i class="glyphicon glyphicon glyphicon-th"></i>
-                    &nbsp;&nbsp;Отзывы
+            {#</li>#}
+            {#<li class="{{ app.request.attributes.get('_route') == 'panel_user_production' ? 'active' : '' }}">#}
+            {#<a href="{{ path('panel_user_production') }}">#}
+            {#<i class="glyphicon glyphicon-tags"></i>#}
+            {#&nbsp;&nbsp;Производство#}
+            {#</a>#}
+            {#</li>#}
+            {#<li class="{{ app.request.attributes.get('_route') == 'panel_company_list' ? 'active' : '' }}">#}
+            {#<a href="{{ path('panel_company_list') }}">#}
+            {#<i class="glyphicon glyphicon-link"></i>#}
+            {#&nbsp;&nbsp;Компании#}
+            {#</a>#}
+            {#</li>#}
+
+            {#{% elseif is_granted("ROLE_OPERATOR") %}#}
+            {#<li class="{{ app.request.attributes.get('_route') == 'panel_user_list' ? 'active' : '' }}">#}
+            {#<a href="{{ path('panel_user_list') }}">#}
+            {#<i class="glyphicon glyphicon-user"></i>#}
+            {#&nbsp;&nbsp;Новые заявки#}
+            {#</a>#}
+            {#</li>#}
+            {#<li class="{{ app.request.attributes.get('_route') == 'panel_user_choose' ? 'active' : '' }}">#}
+            {#<a href="{{ path('panel_user_choose') }}">#}
+            {#<i class="glyphicon glyphicon-inbox"></i>#}
+            {#&nbsp;&nbsp;Производство#}
+            {#</a>#}
+            {#</li>#}
+            {#<li class="{{ app.request.attributes.get('_route') == 'panel_company_list' ? 'active' : '' }}">#}
+            {#<a href="{{ path('panel_company_list') }}">#}
+            {#<i class="glyphicon glyphicon-link"></i>#}
+            {#&nbsp;&nbsp;Компании#}
+            {#</a>#}
+            {#</li>#}
+            {#<li class="{{ app.request.attributes.get('_route') == 'panel_user_production' ? 'active' : '' }}">#}
+            {#<a href="{{ path('panel_user_production') }}">#}
+            {#<i class="glyphicon glyphicon-tags"></i>#}
+            {#&nbsp;&nbsp;Архив#}
+            {#</a>#}
+            {#</li>#}
+            {#{% endif %}#}
+
+            <li class="{{ app.request.attributes.get('_route') == 'panel_main' ? 'active' : '' }}">
+                <a href="{{ path('panel_main') }}">
+                    <i class="glyphicon glyphicon-index"></i>
+                    &nbsp;&nbsp;Главная
                 </a>
             </li>
-            <li>
-                <a data-toggle="modal" data-target="#calc" href="#">
-                    <i class="glyphicon glyphicon glyphicon-th"></i>
-                    &nbsp;&nbsp;Калькулятор
+            {% if is_granted('ROLE_OPERATOR') %}
+                <li class="{{ app.request.attributes.get('_route') == 'operator_companyuser_list' ? 'active' : '' }}">
+                    <a href="{{ path('operator_companyuser_list') }}" style="{{ render(controller("PanelOperatorBundle:CompanyUser:newUser"))}}">
+                        <i class="glyphicon glyphicon-index"></i>
+                        &nbsp;&nbsp;Юр. лица
+                    </a>
+                </li>
+            {% endif %}
+
+
+            {#<li class="{{ app.request.attributes.get('_route') == 'panel_petition_list' ? 'active' : '' }}">#}
+            {#<a href="{{ path('panel_petition_list') }}">#}
+            {#<i class="glyphicon glyphicon-link"></i>#}
+            {#&nbsp;&nbsp;Ходатайства#}
+            {#</a>#}
+            {#</li>#}
+
+            <li class="{{ app.request.attributes.get('_route') == 'panel_company_list' ? 'active' : '' }}">
+                <a href="{{ path('panel_company_list') }}">
+                    <i class="glyphicon glyphicon-link"></i>
+                    &nbsp;&nbsp;Компании
                 </a>
             </li>
-        {% endif %}
+            {% if is_granted('ROLE_ADMIN') %}
+
+                <li class="{{ app.request.attributes.get('_route') == 'panel_user_list_act' ? 'active' : '' }}">
+                    <a href="{{ path('panel_user_list_act') }}">
+                        <i class="glyphicon glyphicon-minus"></i>
+                        &nbsp;&nbsp;Акты сверки
+                    </a>
+                </li>
+
+                <li class="{{ app.request.attributes.get('_route') == 'debtors' ? 'active' : '' }}">
+                    <a href="{{ path('debtors') }}">
+                        <i class="glyphicon glyphicon-minus"></i>
+                        &nbsp;&nbsp;Должники
+                    </a>
+                </li>
+                <li class="{{ app.request.attributes.get('_route') == 'panel_client_list' ? 'active' : '' }}">
+                    <a href="{{ path('panel_client_list') }}">
+                        <i class="glyphicon glyphicon-link"></i>
+                        &nbsp;&nbsp;Клиенты
+                    </a>
+                </li>
+            {% endif %}
+            {% if is_granted('ROLE_MODERATOR') %}
+                <li class="{{ app.request.attributes.get('_route') == 'panel_operator_list' ? 'active' : '' }}">
+                    <a href="{{ path('panel_operator_list') }}">
+                        <i class="glyphicon glyphicon-user"></i>
+                        &nbsp;&nbsp;Операторы
+                    </a>
+                </li>
+                {#<li>&nbsp;</li>#}
+                {#<li class="">#}
+                {#<a href="{{ path('panel_quota') }}">#}
+                {#<i class="glyphicon glyphicon-ruble"></i>#}
+                {#&nbsp;&nbsp;Квота#}
+                {#</a>#}
+                {#</li>#}
+            {% endif %}
+            <li class="{{ app.request.attributes.get('_route') == 'panel_payment_list' ? 'active' : '' }}">
+                <a href="{{ path('panel_payment_list') }}">
+                    <i class="glyphicon glyphicon-signal"></i>
+                    &nbsp;&nbsp;Счета
+                </a>
+            </li>
+
+            {% if is_granted('ROLE_ADMIN') %}
+                <li class="{{ app.request.attributes.get('_route') == 'panel_company_stats' ? 'active' : '' }}">
+                    <a href="{{ path('panel_company_stats') }}">
+                        <i class="glyphicon glyphicon-signal"></i>
+                        &nbsp;&nbsp;Статистика
+                    </a>
+                </li>
+                <li class="{{ app.request.attributes.get('_route') == 'panel_operator_test_xml' ? 'active' : '' }}">
+                    <a href="{{ path('panel_operator_test_xml') }}">
+                        <i class="glyphicon glyphicon-signal"></i>
+                        &nbsp;&nbsp;Проверка XML
+                    </a>
+                </li>
+                <li class="{{ app.request.attributes.get('_route') == 'operator_setting_price' ? 'active' : '' }}">
+                    <a href="{{ path('operator_setting_price') }}">
+                        <i class="glyphicon glyphicon-signal"></i>
+                        &nbsp;&nbsp;Настройка
+                    </a>
+                </li>
+
+
+            {% endif %}
+
+            {#<li class="{{ app.request.attributes.get('_route') == 'panel_message' ? 'active' : '' }}">#}
+            {#<a href="{{ path('panel_message') }}">#}
+            {#<i class="glyphicon glyphicon-user"></i>#}
+            {#&nbsp;&nbsp;Обратная связь#}
+            {#</a>#}
+            {#</li>#}
+            {% if is_granted('ROLE_ADMIN') %}
+                <li>
+                    <a href="{{ path('panel_review_list') }}">
+                        <i class="glyphicon glyphicon glyphicon-th"></i>
+                        &nbsp;&nbsp;Отзывы
+                    </a>
+                </li>
+                <li>
+                    <a data-toggle="modal" data-target="#calc" href="#">
+                        <i class="glyphicon glyphicon glyphicon-th"></i>
+                        &nbsp;&nbsp;Калькулятор
+                    </a>
+                </li>
+            {% endif %}
             <li>
                 <a  href="{{ path('panel_client_message_list') }}" style="{{ render(controller("CrmAuthBundle:Message:newMessage"))}}" target="_blank">
                     <i class="glyphicon glyphicon glyphicon-th"></i>
@@ -179,50 +184,50 @@
             </li>
 
 
-        <li class="{{ app.request.attributes.get('_route') == 'panel_reset_password' ? 'active' : '' }}">
-            <a href="{{ path('panel_reset_password') }}" class="">
-                <i class="glyphicon glyphicon-collapse-down"></i>
-                &nbsp;&nbsp;Сменить пароль
-            </a>
-        </li>
-
-        {% if is_granted('ROLE_ADMIN') %}
-            <li>
-                <a href="{{ path('panel_partner_list') }}" class="">
-                    <i class="glyphicon glyphicon-user"></i>
-                    Партнеры
+            <li class="{{ app.request.attributes.get('_route') == 'panel_reset_password' ? 'active' : '' }}">
+                <a href="{{ path('panel_reset_password') }}" class="">
+                    <i class="glyphicon glyphicon-collapse-down"></i>
+                    &nbsp;&nbsp;Сменить пароль
                 </a>
             </li>
-        {% endif %}
 
-        {% if is_granted('ROLE_OPERATOR') %}
-            <li>
-                <a href="{{ path('download') }}" class="" target="_blank">
-                    <i class="glyphicon glyphicon-align-justify"></i>
+            {% if is_granted('ROLE_ADMIN') %}
+                <li>
+                    <a href="{{ path('panel_partner_list') }}" class="">
+                        <i class="glyphicon glyphicon-user"></i>
+                        Партнеры
+                    </a>
+                </li>
+            {% endif %}
+
+            {% if is_granted('ROLE_OPERATOR') %}
+                <li>
+                    <a href="{{ path('download') }}" class="" target="_blank">
+                        <i class="glyphicon glyphicon-align-justify"></i>
                         Документы
+                    </a>
+                </li>
+            {% endif %}
+
+            <li class="{{ app.request.attributes.get('_route') == 'panel_operator_edit' ? 'active' : '' }}">
+                <a href="{{ path('panel_operator_edit', {'operatorId' : 0}) }}">
+                    <i class="glyphicon glyphicon-signal"></i>
+                    &nbsp;&nbsp;Профиль
                 </a>
             </li>
-        {% endif %}
 
-        <li class="{{ app.request.attributes.get('_route') == 'panel_operator_edit' ? 'active' : '' }}">
-            <a href="{{ path('panel_operator_edit', {'operatorId' : 0}) }}">
-                <i class="glyphicon glyphicon-signal"></i>
-                &nbsp;&nbsp;Профиль
-            </a>
-        </li>
-
-        <li class="{{ app.request.attributes.get('_route') == 'panel_security_logout' ? 'active' : '' }}">
-            <a href="{{ path('panel_security_logout') }}" class="text-danger">
-                <i class="glyphicon glyphicon-collapse-down"></i>
-                &nbsp;&nbsp;Выйти
-            </a>
-        </li>
-        {#<li class="">#}
-        {#<a href="#">#}
-        {#<i class="glyphicon glyphicon-align-justify"></i>#}
-        {#Квоты#}
-        {#</a>#}
-        {#</li>#}
-    </ul>
-
+            <li class="{{ app.request.attributes.get('_route') == 'panel_security_logout' ? 'active' : '' }}">
+                <a href="{{ path('panel_security_logout') }}" class="text-danger">
+                    <i class="glyphicon glyphicon-collapse-down"></i>
+                    &nbsp;&nbsp;Выйти
+                </a>
+            </li>
+            {#<li class="">#}
+            {#<a href="#">#}
+            {#<i class="glyphicon glyphicon-align-justify"></i>#}
+            {#Квоты#}
+            {#</a>#}
+            {#</li>#}
+        </ul>
+    {% endif %}
 </div>
