@@ -31,6 +31,7 @@
                     <td class="label">Модератор:</td>
                     <td class="value">
                         <select id="moderator" name="moderator" style="width: 270px;" class="moderator">
+                            <option>нету</option>
                             {% for m in moderators %}
                                 <option value="{{ m.id }}"  {{ operator.moderator != null and operator.moderator.id == m.id ? 'selected'  : '' }}>{{ m.username }}</option>
                             {% endfor %}
