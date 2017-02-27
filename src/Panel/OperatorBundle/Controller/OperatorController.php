@@ -62,6 +62,7 @@ class OperatorController extends Controller
 
         if ($request->getMethod() == 'POST'){
             $operator->setUsername($request->request->get('username'));
+            $operator->setHighOperator($request->request->get('highOperator'));
 
             $operator->setCompanytitle($request->request->get('companyTitle'));
             $operator->setInn($request->request->get('inn'));
