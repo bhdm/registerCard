@@ -206,7 +206,7 @@ class CompanyController extends Controller
 
         $country = $this->getDoctrine()->getRepository('CrmMainBundle:Country')->findOneById(3159);
         $regions = $this->getDoctrine()->getRepository('CrmMainBundle:Region')->findByCountry($country);
-        $operators = $this->getDoctrine()->getRepository('CrmMainBundle:Operator')->findBy([],['title' => 'ASC']);
+        $operators = $this->getDoctrine()->getRepository('CrmMainBundle:Operator')->findAll();
         return array('company'=> $company, 'regions' => $regions,'petitions' => $petitions, 'operators' => $operators);
     }
 
