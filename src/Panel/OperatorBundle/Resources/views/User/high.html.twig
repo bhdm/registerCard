@@ -3,7 +3,7 @@
 {% block content %}
     <table class="table">
         <tr>
-            <th colspan="2">
+            <th>
                 Найдено: {{ users | length }} шт.
             </th>
             <th>
@@ -21,15 +21,6 @@
                 </select>
             </th>
             <th></th>
-            <th></th>
-            <th></th>
-        </tr>
-        <tr>
-            <th>ID</th>
-            <th>Дата заявки</th>
-            <th>Оператор</th>
-            <th>Компания</th>
-            <th>ФИО</th>
             <th>
                 <select name="status">
                     <option value="0">Новые</option>
@@ -40,6 +31,15 @@
                     <option value="5">Получены</option>
                 </select>
             </th>
+            <th></th>
+        </tr>
+        <tr>
+            <th>ID</th>
+            <th>Дата заявки</th>
+            <th>Оператор</th>
+            <th>Компания</th>
+            <th>ФИО</th>
+            <th>Статус</th>
             <th>Цена</th>
         </tr>
         {% for user in users %}
