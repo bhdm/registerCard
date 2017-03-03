@@ -1013,7 +1013,7 @@ class UserRepository extends EntityRepository
             ->leftJoin('c.operator','o')
             ->where('o.highOperator = :user')
             ->setParameter('user', $user)
-            ->orderBy('id', 'DESC')
+            ->orderBy('u.id', 'DESC')
             ->getQuery()->getResult();
 
         return $res;
