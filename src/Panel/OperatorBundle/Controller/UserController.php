@@ -2449,6 +2449,10 @@ class UserController extends Controller
 
         $params = $request->query->get('params');
 
+        if ($params == null){
+            $params = [];
+        }
+
         $users = $this->getDoctrine()->getRepository('CrmMainBundle:User')->findHigh($this->getUser(), $params);
 
 
