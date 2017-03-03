@@ -2,7 +2,20 @@
     <h2 class="modal-title">Навигация</h2>
     {% if is_granted('ROLE_HIGH') %}
         <ul class="nav nav-pills nav-stacked">
-            {{ render(controller('PanelOperatorBundle:Auth:inHigh')) }}
+            {#{{ render(controller('PanelOperatorBundle:Auth:inHigh')) }}#}
+            <li class="{{ app.request.attributes.get('_route') == 'panel_operator_edit' ? 'active' : '' }}">
+                <a href="{{ path('panel_operator_edit', {'operatorId' : 0}) }}">
+                    <i class="glyphicon glyphicon-signal"></i>
+                    &nbsp;&nbsp;Профиль
+                </a>
+            </li>
+
+            <li class="{{ app.request.attributes.get('_route') == 'panel_security_logout' ? 'active' : '' }}">
+                <a href="{{ path('panel_security_logout') }}" class="text-danger">
+                    <i class="glyphicon glyphicon-collapse-down"></i>
+                    &nbsp;&nbsp;Выйти
+                </a>
+            </li>
         </ul>
     {% else %}
         {#{{ app.request.attributes.get('_route') }}#}

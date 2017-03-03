@@ -26,8 +26,10 @@ class AuthController extends Controller
 //        $newsUsers = $this->getDoctrine()->getRepository('CrmMainBundle:User')->findNewUser($this->getUser());
         if ($this->get('security.context')->isGranted('ROLE_ADMIN')){
             return $this->redirect($this->generateUrl('panel_user_list'));
-        }elseif($this->get('security.context')->isGranted('ROLE_MODERATOR')){
+        }elseif($this->get('security.context')->isGranted('ROLE_MODERATOR')) {
             return $this->redirect($this->generateUrl('panel_company_stats'));
+        }elseif($this->get('security.context')->isGranted('ROLE_HIGH')) {
+            return $this->redirect($this->generateUrl('panel_high_list'));
         }else{
             return $this->redirect($this->generateUrl('panel_user_list'));
         }

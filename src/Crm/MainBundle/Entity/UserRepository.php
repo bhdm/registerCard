@@ -1004,5 +1004,20 @@ class UserRepository extends EntityRepository
             ->setParameter(':date', $date)
             ->getQuery()->getOneOrNullResult();
     }
+
+    public function findHigh($user, $param = []){
+        $res = $this->getEntityManager()->createQueryBuilder()
+            ->select('u')
+            ->from('CrmMainBundle:User','u')
+            ->leftJoin('u.company','c')
+            ->leftJoin('c.operator','o')
+            ->where('o.highOperator = :user')
+            ->setParameter('user', $user)
+            ->orderBy('id', 'DESC')
+            ->getQuery()->getResult();
+
+        return $res;
+
+    }
 }
 

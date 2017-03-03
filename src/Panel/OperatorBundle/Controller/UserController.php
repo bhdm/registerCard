@@ -2441,5 +2441,13 @@ class UserController extends Controller
         return $this->redirect($referer);
     }
 
+    /**
+     * @Route("/high", name="panel_high_list")
+     * @Template()
+     */
+    public function highAction(){
+        $users = $this->getDoctrine()->getRepository('CrmMainBundle:User')->findHigh($this->getUser());
+        return ['users' => $users];
+    }
 }
 

@@ -1,0 +1,26 @@
+{% extends 'PanelOperatorBundle::layout.html.twig' %}
+
+{% block content %}
+    <table class="table">
+        <tr>
+            <th>ID</th>
+            <th>Дата заявки</th>
+            <th>Оператор</th>
+            <th>Компания</th>
+            <th>ФИО</th>
+            <th>Статус</th>
+            <th>Цена</th>
+        </tr>
+        {% for user in users %}
+            <tr>
+                <td>{{ user.id }}td>
+                <td>{{ user.created | date('d.m.Y') }}</td>
+                <td>{{ user.operator }}</td>
+                <td>{{ user.company }}</td>
+                <td>{{ user }}</td>
+                <td>{{ user.statusStringTwig }}</td>
+                <td>{{ user.price }}</td>
+            </tr>
+        {% endfor %}
+    </table>
+{% endblock %}
