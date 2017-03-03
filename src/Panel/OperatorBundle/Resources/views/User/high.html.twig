@@ -1,58 +1,71 @@
 {% extends 'PanelOperatorBundle::layout.html.twig' %}
 
 {% block content %}
-    <table class="table">
-        <tr>
-            <th>
-                Найдено: {{ users | length }} шт.
-            </th>
-            <th></th>
-            <th>
-                <select name="operator">
-                    {% for o in operators %}
-                        <option value="{{ o.id }}">{{ o }}</option>
-                    {% endfor %}
-                </select>
-            </th>
-            <th>
-                <select name="company">
-                    {% for c in companies %}
-                        <option value="{{ c.id }}">{{ c }}</option>
-                    {% endfor %}
-                </select>
-            </th>
-            <th></th>
-            <th>
-                <select name="status">
-                    <option value="0">Новые</option>
-                    <option value="2">Оплаченные</option>
-                    <option value="3">В&nbsp;производстве</option>
-                    <option value="6">Изготовлено</option>
-                    <option value="4">На почте</option>
-                    <option value="5">Получены</option>
-                </select>
-            </th>
-            <th></th>
-        </tr>
-        <tr>
-            <th>ID</th>
-            <th>Дата заявки</th>
-            <th>Оператор</th>
-            <th>Компания</th>
-            <th>ФИО</th>
-            <th>Статус</th>
-            <th>Цена</th>
-        </tr>
-        {% for user in users %}
+    <form method="get">
+        <div class="row">
+            <div class="col-xs-3">
+                <input type="date" name="params[start]">
+            </div>
+            <div class="col-xs-3">
+                <input type="date" name="params[end]">
+            </div>
+        </div>
+        <table class="table">
             <tr>
-                <td>{{ user.id }}</td>
-                <td>{{ user.created | date('d.m.Y') }}</td>
-                <td>{{ user.company.operator }}</td>
-                <td>{{ user.company }}</td>
-                <td>{{ user }}</td>
-                <td>{{ user.statusStringTwig |raw }}</td>
-                <td>{{ user.price }}</td>
+                <th>
+                    Найдено: {{ users | length }} шт.
+                </th>
+                <th></th>
+                <th>
+                    <select name="params[operator]">
+                        {% for o in operators %}
+                            <option value="{{ o.id }}">{{ o }}</option>
+                        {% endfor %}
+                    </select>
+                </th>
+                <th>
+                    <select name="params[company]">
+                        {% for c in companies %}
+                            <option value="{{ c.id }}">{{ c }}</option>
+                        {% endfor %}
+                    </select>
+                </th>
+                <th></th>
+                <th>
+                    <select name="params[status]">
+                        <option value="100">Все</option>
+                        <option value="0">Новые</option>
+                        <option value="2">Оплаченные</option>
+                        <option value="3">В&nbsp;производстве</option>
+                        <option value="6">Изготовлено</option>
+                        <option value="4">На почте</option>
+                        <option value="5">Получены</option>
+                    </select>
+                </th>
+                <th>
+                    <button type="submit" class="btn btn-default">Фильтр</button>
+                </th>
             </tr>
-        {% endfor %}
-    </table>
+            <tr>
+                <th>ID</th>
+                <th>Дата заявки</th>
+                <th>Оператор</th>
+                <th>Компания</th>
+                <th>ФИО</th>
+                <th>Статус</th>
+                <th>Цена</th>
+            </tr>
+            {% for user in users %}
+                <tr>
+                    <td>{{ user.id }}</td>
+                    <td>{{ user.created | date('d.m.Y') }}</td>
+                    <td>{{ user.company.operator }}</td>
+                    <td>{{ user.company }}</td>
+                    <td>{{ user }}</td>
+                    <td>{{ user.statusStringTwig |raw }}</td>
+                    <td>{{ user.price }}</td>
+                </tr>
+            {% endfor %}
+        </table>
+    </form>
 {% endblock %}

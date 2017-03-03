@@ -2445,8 +2445,13 @@ class UserController extends Controller
      * @Route("/high", name="panel_high_list")
      * @Template()
      */
-    public function highAction(){
+    public function highAction(Request $request){
+
+        $params = $request->query->get('params');
+
         $users = $this->getDoctrine()->getRepository('CrmMainBundle:User')->findHigh($this->getUser());
+
+
         $operators = $this->getDoctrine()->getRepository('CrmMainBundle:Operator')->findBy(['highOperator' => $this->getUser()]);
         $companies = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->findHigh($this->getUser());
         return ['users' => $users, 'operators' => $operators, 'companies' => $companies];
