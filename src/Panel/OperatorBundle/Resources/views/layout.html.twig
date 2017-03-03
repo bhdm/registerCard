@@ -157,8 +157,10 @@
     <div class="col-sm-3 col-md-3 col-lg-2" style="padding: 0;">
       {% block menu %}
         {% include 'PanelOperatorBundle::menu.html.twig' %}
-        {% include 'PanelOperatorBundle::quotas.html.twig' %}
-        {{ render(path('calc')) }}
+          {% if not is_granted('ROLE_HIGH') %}
+            {% include 'PanelOperatorBundle::quotas.html.twig' %}
+            {{ render(path('calc')) }}
+        {% endif %}
       {% endblock %}
     </div>
     <div class="col-sm-9 col-md-9 col-lg-10">

@@ -13,12 +13,12 @@
         </tr>
         {% for user in users %}
             <tr>
-                <td>{{ user.id }}td>
+                <td>{{ user.id }}<td>
                 <td>{{ user.created | date('d.m.Y') }}</td>
                 <td>{{ user.company.operator }}</td>
                 <td>{{ user.company }}</td>
                 <td>{{ user }}</td>
-                <td>{{ user.statusStringTwig }}</td>
+                <td>{{ user.statusStringTwig |raw }}</td>
                 <td>{{ user.price }}</td>
             </tr>
         {% endfor %}
