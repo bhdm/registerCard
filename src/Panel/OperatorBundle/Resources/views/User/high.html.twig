@@ -20,7 +20,7 @@
                     <select name="params[operator]">
                             <option value="">Все операторы</option>
                         {% for o in operators %}
-                            <option value="{{ o.id }}">{{ o }}</option>
+                            <option value="{{ o.id }}" {{ o.id == params['operator'] ? 'selected' }}>{{ o }}</option>
                         {% endfor %}
                     </select>
                 </th>
@@ -28,20 +28,20 @@
                     <select name="params[company]">
                         <option value="">Все компании</option>
                         {% for c in companies %}
-                            <option value="{{ c.id }}">{{ c }}</option>
+                            <option value="{{ c.id }}" {{ c.id == params['company'] ? 'selected' }}>{{ c }}</option>
                         {% endfor %}
                     </select>
                 </th>
                 <th></th>
                 <th>
                     <select name="params[status]">
-                        <option value="100">Все</option>
-                        <option value="0">Новые</option>
-                        <option value="2">Оплаченные</option>
-                        <option value="3">В&nbsp;производстве</option>
-                        <option value="6">Изготовлено</option>
-                        <option value="4">На почте</option>
-                        <option value="5">Получены</option>
+                        <option  {{ '' == params['status'] ? 'selected' }} value="100">Все</option>
+                        <option  {{ '0' == params['status'] ? 'selected' }} value="0">Новые</option>
+                        <option  {{ '2' == params['status'] ? 'selected' }} value="2">Оплаченные</option>
+                        <option  {{ '3' == params['status'] ? 'selected' }} value="3">В&nbsp;производстве</option>
+                        <option  {{ '6' == params['status'] ? 'selected' }} value="6">Изготовлено</option>
+                        <option  {{ '4' == params['status'] ? 'selected' }} value="4">На почте</option>
+                        <option  {{ '5' == params['status'] ? 'selected' }} value="5">Получены</option>
                     </select>
                 </th>
                 <th>
