@@ -30,7 +30,16 @@
             <th>Оператор</th>
             <th>Компания</th>
             <th>ФИО</th>
-            <th>Статус</th>
+            <th>
+                <select name="status">
+                    <option value="0">Новые</option>
+                    <option value="2">Оплаченные</option>
+                    <option value="3">В&nbsp;производстве</option>
+                    <option value="6">Изготовлено</option>
+                    <option value="4">На почте</option>
+                    <option value="5">Получены</option>
+                </select>
+            </th>
             <th>Цена</th>
         </tr>
         {% for user in users %}
