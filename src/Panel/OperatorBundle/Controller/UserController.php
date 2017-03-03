@@ -2447,7 +2447,7 @@ class UserController extends Controller
      */
     public function highAction(){
         $users = $this->getDoctrine()->getRepository('CrmMainBundle:User')->findHigh($this->getUser());
-        $operators = $this->getDoctrine()->getRepository('CrmMainBundle:Operator')->findBy(['hignOperator' => $this->getUser()]);
+        $operators = $this->getDoctrine()->getRepository('CrmMainBundle:Operator')->findBy(['highOperator' => $this->getUser()]);
         $companies = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->findHigh($this->getUser());
         return ['users' => $users, 'operators' => $operators, 'companies' => $companies];
     }
