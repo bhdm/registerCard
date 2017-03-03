@@ -1006,7 +1006,7 @@ class UserRepository extends EntityRepository
     }
 
     public function findHigh($user, $params = []){
-        var_dump($params);
+//        var_dump($params);
 
         $res = $this->getEntityManager()->createQueryBuilder()
             ->select('u')
