@@ -1013,39 +1013,41 @@ class UserRepository extends EntityRepository
             ->from('CrmMainBundle:User','u')
             ->leftJoin('u.company','c')
             ->leftJoin('c.operator','o')
-            ->where('o.highOperator = :user');
+            ->where('o.highOperator = :user')
+            ->setParameter('user', $user);
 
-        if ($params['status'] != null and $params['status'] != 100){
+        if (isset($params['status']) and $params['status'] != null and $params['status'] != 100){
             $res->andWhere('u.status = '.$params['status']);
         }
 
-        if ($params['operator'] != null){
+        if (isset($params['operator']) and $params['operator'] != null){
             $res->andWhere('o.id = '.$params['operator']);
         }
 
-        if ($params['company'] != null){
+        if (isset($params['company']) and $params['company'] != null){
             $res->andWhere('c.id = '.$params['company']);
         }
 
-        if ($params['start'] != null){
+        if (isset($params['start']) and $params['start'] != null){
             $t = new \DateTime($params['start']);
             $t = $t->format('Y-m-d').' 00:00:00';
             $res->andWhere('u.created >= :date1');
             $res->setParameter('date1', $t);
         }
 
-        if ($params['end'] != null){
+        if (isset($params['end']) and $params['end'] != null){
             $t = new \DateTime($params['end']);
             $t = $t->format('Y-m-d').' 00:00:00';
             $res->andWhere("u.created <= :date2");
             $res->setParameter('date2', $t);
         }
 
-        $res->setParameter('user', $user)
+        $res
             ->orderBy('u.id', 'DESC')
-            ->getQuery()->getResult();
+            ->getQuery();
 
-        return $res;
+        echo $res->getSQL();
+        return $res->getResult();
 
     }
 }
