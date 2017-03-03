@@ -334,7 +334,7 @@ class UserRepository extends EntityRepository
             ->from('CrmMainBundle:User','u')
             ->leftJoin('u.company ','co')
             ->leftJoin('co.operator ','op')
-            ;
+        ;
 
         $res->where('u.enabled = true');
 //        $res->andWhere('op.id = '.$userId);
@@ -380,9 +380,9 @@ class UserRepository extends EntityRepository
                     $res->andWhere('u.status = '.$status);
                 }
 //                if ($status == 'all' || $status == 3 || $status == 4 || $status == 6 ){
-                    $res->leftJoin('op.moderator','mo');
-                    $res->leftJoin('mo.moderator','mo2');
-                    $res->andWhere('op.id = '.$userId.' OR mo.id ='.$userId .' OR mo2.id = '.$userId);
+                $res->leftJoin('op.moderator','mo');
+                $res->leftJoin('mo.moderator','mo2');
+                $res->andWhere('op.id = '.$userId.' OR mo.id ='.$userId .' OR mo2.id = '.$userId);
 //                }else{
 //                    $res->andWhere('op.id = '.$userId);
 //                }
@@ -1005,14 +1005,39 @@ class UserRepository extends EntityRepository
             ->getQuery()->getOneOrNullResult();
     }
 
-    public function findHigh($user, $param = []){
+    public function findHigh($user, $params = []){
         $res = $this->getEntityManager()->createQueryBuilder()
             ->select('u')
             ->from('CrmMainBundle:User','u')
             ->leftJoin('u.company','c')
             ->leftJoin('c.operator','o')
-            ->where('o.highOperator = :user')
-            ->setParameter('user', $user)
+            ->where('o.highOperator = :user');
+
+        if ($params['status'] != null and $params['status'] != 100){
+            $res->andWhere('u.status = '.$params['status']);
+        }
+
+        if ($params['operator'] != null){
+            $res->andWhere('o.id = '.$params['operator']);
+        }
+
+        if ($params['company'] != null){
+            $res->andWhere('c.id = '.$params['company']);
+        }
+
+        if ($params['start'] != null){
+            $t = new \DateTime($params['start']);
+            $t = $t->format('Y-m-d').' 00:00:00';
+            $res->andWhere('u.created >= "'.$t.'"');
+        }
+
+        if ($params['end'] != null){
+            $t = new \DateTime($params['end']);
+            $t = $t->format('Y-m-d').' 00:00:00';
+            $res->andWhere('u.created <= "'.$t.'"');
+        }
+
+        $res->setParameter('user', $user)
             ->orderBy('u.id', 'DESC')
             ->getQuery()->getResult();
 

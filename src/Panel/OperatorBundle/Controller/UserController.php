@@ -2449,7 +2449,7 @@ class UserController extends Controller
 
         $params = $request->query->get('params');
 
-        $users = $this->getDoctrine()->getRepository('CrmMainBundle:User')->findHigh($this->getUser());
+        $users = $this->getDoctrine()->getRepository('CrmMainBundle:User')->findHigh($this->getUser(), $params);
 
 
         $operators = $this->getDoctrine()->getRepository('CrmMainBundle:Operator')->findBy(['highOperator' => $this->getUser()]);
