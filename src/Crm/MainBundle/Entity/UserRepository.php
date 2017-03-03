@@ -1045,7 +1045,7 @@ class UserRepository extends EntityRepository
         $res
             ->orderBy('u.id', 'DESC');
 
-        echo $res->getQuery()->getSQL();
+//        echo $res->getQuery()->getSQL();
         return $res->getQuery()->getResult();
 
     }
