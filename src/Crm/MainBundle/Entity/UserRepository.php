@@ -1006,6 +1006,8 @@ class UserRepository extends EntityRepository
     }
 
     public function findHigh($user, $params = []){
+        dump($params);
+
         $res = $this->getEntityManager()->createQueryBuilder()
             ->select('u')
             ->from('CrmMainBundle:User','u')
