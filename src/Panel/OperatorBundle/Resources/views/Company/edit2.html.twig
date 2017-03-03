@@ -188,7 +188,19 @@
                         <input name="confirmed" id="confirmed" type="checkbox" {{ company.confirmed == true ? 'checked="checked"' }} />
                     </td>
                 </tr>
-            {#{% endif %}#}
+            {% if is_granted('ROLE_ADMIN') %}
+                <tr>
+                    <td class="label">Доверенная компания:</td>
+                    <td class="value" style="  padding-top: 5px;">
+                        <select name="high">
+                            <option value="">Не выбрано</option>
+                            {% for o in operators %}
+                                <option value="{{ o.id }}">{{ o.operator }}</option>
+                            {% endfor %}
+                        </select>
+                    </td>
+                </tr>
+            {% endif %}
             <tr><td colspan="2">&nbsp;</td></tr>
             <tr>
                 <td></td>

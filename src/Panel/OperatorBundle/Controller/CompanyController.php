@@ -172,7 +172,8 @@ class CompanyController extends Controller
             }else{
                 $company->setConfirmed(false);
             }
-
+            $op = $this->getDoctrine()->getRepository('CrmMainBundle:Operator')->find($data->get('high'));
+            $company->setHighOperator($op);
             $company->setForma($data->get('forma'));
             $company->setInn($data->get('inn'));
             $company->setKpp($data->get('kpp'));
@@ -205,7 +206,8 @@ class CompanyController extends Controller
 
         $country = $this->getDoctrine()->getRepository('CrmMainBundle:Country')->findOneById(3159);
         $regions = $this->getDoctrine()->getRepository('CrmMainBundle:Region')->findByCountry($country);
-        return array('company'=> $company, 'regions' => $regions,'petitions' => $petitions);
+        $operators = $this->getDoctrine()->getRepository('CrmMainBundle:Operator')->findBy([],['title' => 'ASC']);
+        return array('company'=> $company, 'regions' => $regions,'petitions' => $petitions, 'operators' => $operators);
     }
 
     /**
