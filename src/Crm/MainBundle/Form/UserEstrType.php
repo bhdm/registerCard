@@ -37,8 +37,8 @@ class UserEstrType extends AbstractType
 
             ->add('comment', null,['label'=>'Комментарий пользователя', 'required' => false])
 
-            ->add('lastNumberCard', null ,['label' => 'Прошлый номер карты', 'required' => false, 'attr' => ['class' => 'oldCardNumber']])
-            ->add('dateEndCard', 'text',['label'=>'Дата окончания', 'attr' => ['class' => 'date'], 'required' => false])
+            ->add('lastNumberCard', null ,['label' => 'Номер прошлой карты', 'required' => false, 'attr' => ['class' => 'oldCardNumber', 'placeholder' => 'Номер прошлой карты']])
+            ->add('dateEndCard', 'text',['label'=>'Дата окончания прошлой карты', 'attr' => ['class' => 'date'], 'required' => false, 'placeholder' => 'Дата окончания прошлой карты'])
 
             ->add('passportSerial', null,['label'=>'Серия и номер паспорта'])
             ->add('passportNumber', null,['label'=>'', 'required' => true])
