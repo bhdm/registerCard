@@ -32,40 +32,40 @@
                 <tr>
                     <td>Email<span class="required">*</span></td>
                     <td>{{ form_widget(form.email) }}</td>
-                    <td class="typeCardFile">Заявление или справка<span class="mini text-danger">(допустимые форматы: JPG,PNG)</span></td>
+                    {#<td class="typeCardFile">Заявление или справка<span class="mini text-danger">(допустимые форматы: JPG,PNG)</span></td>#}
                 </tr>
                 <tr>
                     <td>Телефон<span class="required">*</span></td>
                     <td>{{ form_widget(form.username) }}</td>
-                    <td class="typeCardFile">
-                        <div class="file-container">
-                            <input type="file" name="typeCardFile" id="typeCardFile" class="fileAjax" >
-                            <progress class="progress" value="0" max="100" style="width: 270px"></progress>
-                            <br />
-                            <br />
-                            <div class="fileDoc">
-                                {% if form.vars.value.typeCardFile.path is defined %}
-                                    <img src="/{{ form.vars.value.typeCardFile.path }}" brightness="0" contrast="0">
-                                {% else %}
-                                    <img src="" brightness="0" contrast="0">
-                                {% endif %}
-                            </div>
-                            <div class="navigateFile">
-                                <img src="{{ asset('bundles/crmmain/icons/rotateLeft.png') }}" class="rotateLeft" title="Повернуть налево">
-                                <img src="{{ asset('bundles/crmmain/icons/rotateRight.png') }}" class="rotateRight" title="Повернуть вправо">
-                                <div style="">
-                                    <span class="cropImage minibtn" title="Обрезать изображение">Обрезать</span>
-                                    <br />
-                                    <br />
-                                </div>
+                    {#<td class="typeCardFile">#}
+                        {#<div class="file-container">#}
+                            {#<input type="file" name="typeCardFile" id="typeCardFile" class="fileAjax" >#}
+                            {#<progress class="progress" value="0" max="100" style="width: 270px"></progress>#}
+                            {#<br />#}
+                            {#<br />#}
+                            {#<div class="fileDoc">#}
+                                {#{% if form.vars.value.typeCardFile.path is defined %}#}
+                                    {#<img src="/{{ form.vars.value.typeCardFile.path }}" brightness="0" contrast="0">#}
+                                {#{% else %}#}
+                                    {#<img src="" brightness="0" contrast="0">#}
+                                {#{% endif %}#}
+                            {#</div>#}
+                            {#<div class="navigateFile">#}
+                                {#<img src="{{ asset('bundles/crmmain/icons/rotateLeft.png') }}" class="rotateLeft" title="Повернуть налево">#}
+                                {#<img src="{{ asset('bundles/crmmain/icons/rotateRight.png') }}" class="rotateRight" title="Повернуть вправо">#}
+                                {#<div style="">#}
+                                    {#<span class="cropImage minibtn" title="Обрезать изображение">Обрезать</span>#}
+                                    {#<br />#}
+                                    {#<br />#}
+                                {#</div>#}
 
-                            </div>
-                            <input type="hidden" id="x1" name="x1">
-                            <input type="hidden" id="y1" name="y1">
-                            <input type="hidden" id="x2" name="x2">
-                            <input type="hidden" id="y2" name="y2">
-                        </div>
-                    </td>
+                            {#</div>#}
+                            {#<input type="hidden" id="x1" name="x1">#}
+                            {#<input type="hidden" id="y1" name="y1">#}
+                            {#<input type="hidden" id="x2" name="x2">#}
+                            {#<input type="hidden" id="y2" name="y2">#}
+                        {#</div>#}
+                    {#</td>#}
                 </tr>
                 <tr>
                     <td>Гражданство</td>
