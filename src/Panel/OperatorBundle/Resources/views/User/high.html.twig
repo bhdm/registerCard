@@ -3,6 +3,27 @@
 {% block content %}
     <table class="table">
         <tr>
+            <th></th>
+            <th></th>
+            <th>
+                <select class="form-control" name="operator">
+                    {% for o in operators %}
+                        <option value="{{ o.id }}">{{ o }}</option>
+                    {% endfor %}
+                </select>
+            </th>
+            <th>
+                <select class="form-control" name="company">
+                    {% for c in companies %}
+                        <option value="{{ c.id }}">{{ c }}</option>
+                    {% endfor %}
+                </select>
+            </th>
+            <th></th>
+            <th></th>
+            <th></th>
+        </tr>
+        <tr>
             <th>ID</th>
             <th>Дата заявки</th>
             <th>Оператор</th>

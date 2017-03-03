@@ -289,6 +289,17 @@ class CompanyRepository extends EntityRepository
             ->andWhere('u.status = 0');
         return $res->getQuery()->getOneOrNullResult();
     }
+
+    public function findHigh($user){
+        $res = $this->getEntityManager()->createQueryBuilder()
+            ->select('c')
+            ->from('CrmMainBundle:Company', 'c')
+            ->leftJoin('c.operator', 'o')
+            ->where('o.highOperator = :user')
+            ->setParameter('user', $user)
+            ->orderBy('c.title', 'ASC');
+        return $res->getQuery()->getResult();
+    }
 }
 
 
