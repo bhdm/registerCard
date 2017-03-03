@@ -346,6 +346,11 @@ class Company extends BaseEntity
      */
     protected $clients;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="Crm\MainBundle\Entity\Operator")
+     */
+    protected $highOperator;
+
     public function __construct(){
         $this->quotaLog = new ArrayCollection();
         $this->companies = new ArrayCollection();
@@ -1428,6 +1433,23 @@ class Company extends BaseEntity
     {
         $this->priceSaleRu = $priceSaleRu;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getHighOperator()
+    {
+        return $this->highOperator;
+    }
+
+    /**
+     * @param mixed $highOperator
+     */
+    public function setHighOperator($highOperator)
+    {
+        $this->highOperator = $highOperator;
+    }
+
 
 
 

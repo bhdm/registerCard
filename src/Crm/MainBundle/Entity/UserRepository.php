@@ -1006,14 +1006,13 @@ class UserRepository extends EntityRepository
     }
 
     public function findHigh($user, $params = []){
-//        var_dump($params);
 
         $res = $this->getEntityManager()->createQueryBuilder()
             ->select('u')
             ->from('CrmMainBundle:User','u')
             ->leftJoin('u.company','c')
             ->leftJoin('c.operator','o')
-            ->where('o.highOperator = :user')
+            ->where('(o.highOperator = :user or c.highOperator = :user)')
             ->setParameter('user', $user);
 
         if (isset($params['status']) and $params['status'] != null and $params['status'] != 100){

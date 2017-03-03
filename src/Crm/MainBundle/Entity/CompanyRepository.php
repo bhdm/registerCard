@@ -295,7 +295,7 @@ class CompanyRepository extends EntityRepository
             ->select('c')
             ->from('CrmMainBundle:Company', 'c')
             ->leftJoin('c.operator', 'o')
-            ->where('o.highOperator = :user')
+            ->where('o.highOperator = :user or c.highOperator = :user')
             ->setParameter('user', $user)
             ->orderBy('c.title', 'ASC');
         return $res->getQuery()->getResult();
