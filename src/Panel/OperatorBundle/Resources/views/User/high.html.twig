@@ -3,8 +3,9 @@
 {% block content %}
     <table class="table">
         <tr>
-            <th></th>
-            <th></th>
+            <th colspan="2">
+                Найдено: {{ users | length }} шт.
+            </th>
             <th>
                 <select name="operator">
                     {% for o in operators %}
