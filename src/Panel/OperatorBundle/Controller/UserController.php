@@ -378,10 +378,10 @@ class UserController extends Controller
             $date = new \DateTime($data->get('driverStarts'));
             $user->setDriverDocDateStarts($date);
             $user->setDriverDocIssuance($data->get('driverPlace'));
-            $user->setCheckedDriver(($data['checkedDriver'] ? true : false ));
-            $user->setCheckedSnils(($data['checkedSnils'] ? true : false ));
-            $user->setCheckedDriverTranslate(($data['checkedDriverTranslate'] ? true : false ));
-            $user->setCheckedPassportTranslate(($data['checkedPassportTranslate'] ? true : false ));
+            $user->setCheckedDriver(($data->get('checkedDriver') == 'on' ? true : false ));
+            $user->setCheckedSnils(($data->get('checkedSnils') == 'on' ? true : false ));
+            $user->setCheckedDriverTranslate(($data->get('checkedDriverTranslate') == 'on' ? true : false ));
+            $user->setCheckedPassportTranslate(($data->get('checkedPassportTranslate') == 'on' ? true : false ));
 
             $user->setSnils($data->get('snils'));
             $user->setInn($data->get('inn'));
