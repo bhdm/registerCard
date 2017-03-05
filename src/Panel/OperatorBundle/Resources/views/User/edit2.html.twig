@@ -282,7 +282,7 @@
                         </div>
                         <br style="clear: both"/>
                         <div class="form-group">
-                            <label class="control-label col-sm-3" for="lastName">Перевод паспорта:</label>
+                            <label class="control-label col-sm-3" for="lastName">Перевод паспорта:<input type="checkbox" {{ user.checkedPassportTranslate == true ? 'checked' : '' }} name="checkedPassportTranslate" /></label>
                             <div class="col-sm-4">
                                 <input type="file" name="passportTranslateFile" id="passportTranslateFile"  data-type="passportTranslateFile" class="fileAjax">
                                 {% if user.copyPassportTranslate.path is defined %}
@@ -510,7 +510,7 @@
                 <tr>
                     <td>
                         <div class="form-group">
-                            <label class="control-label col-sm-3" for="lastName">Сканы документа:</label>
+                            <label class="control-label col-sm-3" for="lastName">Копия ВУ: <input type="checkbox" {{ user.checkedDriver == true ? 'checked' : '' }} name="checkedDriver" /></label>
                             <div class="col-sm-4">
                                 <input type="file" name="driverFile" id="driverFile"  data-type="driverFile" class="fileAjax">
                                 {% if user.copyDriverPassport.path is defined %}
@@ -538,7 +538,7 @@
                         </div>
                         <br style="clear: both"/>
                         <div class="form-group">
-                            <label class="control-label col-sm-3" for="lastName">Перевод вод. удостоверения:</label>
+                            <label class="control-label col-sm-3" for="lastName">Перевод вод. удостоверения:<input type="checkbox" {{ user.checkedDriverTranslate == true ? 'checked' : '' }} name="checkedDriverTranslate" /></label>
                             <div class="col-sm-4">
                                 <input type="file" name="driverTranslateFile" id="driverTranslateFile"  data-type="driverTranslateFile" class="fileAjax">
                                 {% if user.copyDriverPassportTranslate.path is defined %}
@@ -659,7 +659,7 @@
                 <tr>
                     <td>
                         <div class="form-group">
-                            <label class="control-label col-sm-3" for="snils">Снилс:</label>
+                            <label class="control-label col-sm-3" for="snils">Снилс: <input type="checkbox" {{ user.checkedSnils == true ? 'checked' : '' }} name="checkedSnils" /></label>
                             <div class="col-sm-4">
                                 <input type="text"  name="snils" id="snils" class="form-control snils" value="{{ user.snils }}">
                             </div>

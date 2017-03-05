@@ -369,6 +369,7 @@ class UserController extends Controller
             $user->setEnDeliveryAdrs($data->get('address'));
             $user->setRuDeliveryAdrs($data->get('address2'));
 
+
             $country = $this->getDoctrine()->getRepository('CrmMainBundle:Country')->find($data->get('citizenship'));
             $user->setCitizenship($country);
 
@@ -377,7 +378,10 @@ class UserController extends Controller
             $date = new \DateTime($data->get('driverStarts'));
             $user->setDriverDocDateStarts($date);
             $user->setDriverDocIssuance($data->get('driverPlace'));
-
+            $user->setCheckedDriver(($data['checkedDriver'] ? true : false ));
+            $user->setCheckedSnils(($data['checkedSnils'] ? true : false ));
+            $user->setCheckedDriverTranslate(($data['checkedDriverTranslate'] ? true : false ));
+            $user->setCheckedPassportTranslate(($data['checkedPassportTranslate'] ? true : false ));
 
             $user->setSnils($data->get('snils'));
             $user->setInn($data->get('inn'));

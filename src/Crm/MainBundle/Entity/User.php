@@ -567,6 +567,26 @@ class User extends BaseEntity implements UserInterface, EquatableInterface, \Ser
      */
     private $authcode;
 
+    /**
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private $checkedDriver;
+
+    /**
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private $checkedSnils;
+
+    /**
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private $checkedPassportTranslate;
+
+    /**
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private $checkedDriverTranslate;
+
     public function getXmlId()
     {
         return str_pad($this->id, 8, "0", STR_PAD_LEFT);
@@ -584,6 +604,11 @@ class User extends BaseEntity implements UserInterface, EquatableInterface, \Ser
         $this->petitionAdrs = array();
         $this->meta = serialize($_SERVER['HTTP_USER_AGENT']);
         $this->tags = new ArrayCollection();
+
+        $this->checkedDriver = false;
+        $this->checkedSnils = false;
+        $this->checkedDriverTranslate = false;
+        $this->checkedPassportTranslate= false;
     }
 
     public function __toString()
@@ -2539,7 +2564,69 @@ class User extends BaseEntity implements UserInterface, EquatableInterface, \Ser
         $this->authcode = $authcode;
     }
 
+    /**
+     * @return mixed
+     */
+    public function getCheckedDriver()
+    {
+        return $this->checkedDriver;
+    }
 
+    /**
+     * @param mixed $checkedDriver
+     */
+    public function setCheckedDriver($checkedDriver)
+    {
+        $this->checkedDriver = $checkedDriver;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCheckedSnils()
+    {
+        return $this->checkedSnils;
+    }
+
+    /**
+     * @param mixed $checkedSnils
+     */
+    public function setCheckedSnils($checkedSnils)
+    {
+        $this->checkedSnils = $checkedSnils;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCheckedPassportTranslate()
+    {
+        return $this->checkedPassportTranslate;
+    }
+
+    /**
+     * @param mixed $checkedPassportTranslate
+     */
+    public function setCheckedPassportTranslate($checkedPassportTranslate)
+    {
+        $this->checkedPassportTranslate = $checkedPassportTranslate;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCheckedDriverTranslate()
+    {
+        return $this->checkedDriverTranslate;
+    }
+
+    /**
+     * @param mixed $checkedDriverTranslate
+     */
+    public function setCheckedDriverTranslate($checkedDriverTranslate)
+    {
+        $this->checkedDriverTranslate = $checkedDriverTranslate;
+    }
 
 
 }
