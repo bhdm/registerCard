@@ -131,13 +131,14 @@
 
     {# СНИЛС #}
     {#<!-- Снилс -->#}
-    {% if user.checkedSnils == true %}
         {% if files[5] is defined %}
+            {% if user.checkedSnils == true %}
             <Attachment>
                 <AttachmentType>Other</AttachmentType>
                 <FileFormat>PDF</FileFormat>
                 <Body>{{ files[5].base }}</Body>
             </Attachment>
+        {% endif %}
         {% endif %}
         {#<!-- Конец снилс -->#}
 
