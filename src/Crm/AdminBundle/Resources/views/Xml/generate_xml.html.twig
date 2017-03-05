@@ -121,7 +121,7 @@
     </Attachment>
 
     {# Водительское удостоверение #}
-    {% if user.checkedDriver == true %}
+    {% if driver.checkedDriver == true %}
         <Attachment>
             <AttachmentType>Other</AttachmentType>
             <FileFormat>PDF</FileFormat>
@@ -132,7 +132,7 @@
     {# СНИЛС #}
     {#<!-- Снилс -->#}
         {% if files[5] is defined %}
-            {% if user.checkedSnils == true %}
+            {% if driver.checkedSnils == true %}
             <Attachment>
                 <AttachmentType>Other</AttachmentType>
                 <FileFormat>PDF</FileFormat>
@@ -185,7 +185,7 @@
         {% endif %}
 
         {% if files[9] is defined %}
-            {% if user.checkedPassportTranslate == true %}
+            {% if driver.checkedPassportTranslate == true %}
                 <Attachment>
                     <AttachmentType>Other</AttachmentType>
                     <FileFormat>PDF</FileFormat>
@@ -195,7 +195,7 @@
         {% endif %}
 
         {% if files[10] is defined %}
-            {% if user.checkedDriverTranslate == true %}
+            {% if driver.checkedDriverTranslate == true %}
                 <Attachment>
                     <AttachmentType>Other</AttachmentType>
                     <FileFormat>PDF</FileFormat>
