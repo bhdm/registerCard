@@ -120,7 +120,7 @@ class PaymentController extends Controller
         $pagination = $paginator->paginate(
             $payments,
             $request->query->get('page', 1),
-            20
+            100
         );
         $clientsList = $this->getDoctrine()->getRepository('CrmMainBundle:Client')->findAll();
         $companyList = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->findAll();
