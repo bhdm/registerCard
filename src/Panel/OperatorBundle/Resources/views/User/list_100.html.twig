@@ -157,7 +157,7 @@
                                    title="" class="getQuotaCompany"
                                    data-id="{{ user.company.id is defined ? user.company.id : '' }}"
                                 >{{ user.company }}
-                                {{ debtors[(user.company.title is defined ? user.company.title : '')] }}
+                                {{ dump(debtors[(user.company.title is defined ? user.company.title : '')]) }}
                                 </a>
                                 {% if user.company.operator is defined and user.company.operator != null and user.company.operator.id != 1 %}
                                     <br /><span style="font-size: 12px">{{ user.company.operator }}</span>
