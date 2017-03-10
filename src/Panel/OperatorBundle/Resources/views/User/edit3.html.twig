@@ -242,7 +242,7 @@
                             <div class="col-sm-4">
                                 <input type="file" name="copyWorkFile" id="copyWorkFile"  data-type="copyWorkFile" class="fileAjax">
                                 {% if user.copyWork.path is defined %}
-                                    <img src="/{{ user.copyWork.path }}" brightness="128" contrast="128" data-type="copyWorkFile" class="document" id="copyWorkFileImg">
+                                    <a href="/{{ user.copyWork.path | getOriginal}}" class="fancybox" ><img src="/{{ user.copyWork.path | getOriginal}}" brightness="128" contrast="128" data-type="copyWorkFile" class="" id="copyWorkFileImg"></a>
                                     <br>
                                     <a href="{{ path('panel_download_png',{'filename' : user.copyWork.fileName }) }}">Скачать</a>
                                 {% endif %}
@@ -257,7 +257,7 @@
                             <div class="col-sm-4">
                                 <input type="file" name="passportFile" id="passportFile"  data-type="passportFile" class="fileAjax">
                                 {% if user.copyPassport.path is defined %}
-                                    <img src="/{{ user.copyPassport.path }}" brightness="128" contrast="128" data-type="passportFile" class="document" id="passportFileImg">
+                                    <a href="/{{ user.copyPassport.path | getOriginal}}" class="fancybox" ><img src="/{{ user.copyPassport.path | getOriginal }}" brightness="128" contrast="128" data-type="passportFile" class="" id="passportFileImg"></a>
                                     <br>
                                     <a href="{{ path('panel_download_png',{'filename' : user.copyPassport.fileName }) }}">Скачать</a>
                                     <a target="_blank" href="{{ path('create_image_pdf',{'type' : 'passport', 'filename' : user.copyPassport.fileName }) }}">Скачать</a>
@@ -271,7 +271,7 @@
                                 <div class="col-sm-4">
                                     <input type="file" name="passport2File" id="passport2File" data-type="passport2File" class="fileAjax">
                                     {% if user.copyPassport2.path is defined %}
-                                        <img src="/{{ user.copyPassport2.path }}" brightness="128" contrast="128" data-type="passport2File" class="document" id="passport2FileImg">
+                                        <a href="/{{ user.copyPassport2.path | getOriginal}}" class="fancybox" ><img src="/{{ user.copyPassport2.path | getOriginal}}" brightness="128" contrast="128" data-type="passport2File" class="" id="passport2FileImg"></a>
                                         <br>
                                         <a href="{{ path('panel_download_png',{'filename' : user.copyPassport2.fileName }) }}">Скачать</a>
                                     {% else %}
@@ -514,7 +514,7 @@
                             <div class="col-sm-4">
                                 <input type="file" name="driverFile" id="driverFile"  data-type="driverFile" class="fileAjax">
                                 {% if user.copyDriverPassport.path is defined %}
-                                    <img src="/{{ user.copyDriverPassport.path }}" brightness="0" contrast="0" data-type="driverFile" class="document" id="driverFileImg">
+                                    <a href="/{{ user.copyDriverPassport.path | getOriginal}}" class="fancybox" ><img src="/{{ user.copyDriverPassport.path | getOriginal }}" brightness="0" contrast="0" data-type="driverFile" class="" id="driverFileImg"></a>
                                     <br>
                                     <a href="{{ path('panel_download_png',{'filename' : user.copyDriverPassport.fileName }) }}">Скачать</a>
                                     <a target="_blank" href="{{ path('create_image_pdf',{'type' : 'driver', 'filename' : user.copyDriverPassport.fileName }) }}">Скачать</a>
@@ -667,7 +667,7 @@
                             <div class="col-sm-4">
                                 <input type="file" name="snilsFile" id="snilsFile"  data-type="snilsFile" class="fileAjax">
                                 {% if user.copySnils.path is defined %}
-                                    <img src="/{{ user.copySnils.path }}" brightness="0" contrast="0" data-type="snilsFile" class="document" id="snilsFileImg">
+                                    <a href="/{{ user.copySnils.path | getOriginal}}" class="fancybox" ><img src="/{{ user.copySnils.path | getOriginal}}" brightness="0" contrast="0" data-type="snilsFile" class="" id="snilsFileImg"></a>
                                     <br>
                                     <a href="{{ path('panel_download_png',{'filename' : user.copySnils.fileName }) }}">Скачать</a>
                                     <a target="_blank" href="{{ path('create_image_pdf',{'type' : 'snils', 'filename' : user.copySnils.fileName }) }}">Скачать</a>
@@ -690,7 +690,7 @@
                             <div class="col-sm-4">
                                 <input type="file" name="innFile" id="innFile"  data-type="innFile" class="fileAjax">
                                 {% if user.copyInn.path is defined %}
-                                    <img src="/{{ user.copyInn.path }}" brightness="0" contrast="0" data-type="innFile" class="document" id="innFileImg">
+                                    <a href="/{{ user.copyInn.path | getOriginal}}" class="fancybox" ><img src="/{{ user.copyInn.path | getOriginal}}" brightness="0" contrast="0" data-type="innFile" class="" id="innFileImg"></a>
                                     <br>
                                     <a href="{{ path('panel_download_png',{'filename' : user.copyInn.fileName }) }}">Скачать</a>
                                     <a target="_blank" href="{{ path('create_image_pdf',{'type' : 'doc', 'filename' : user.copyInn.fileName }) }}">Скачать</a>
@@ -1129,7 +1129,15 @@
     <link href="{{ asset('bundles/crmmain/kladrapi/jquery.kladr.css') }}" rel="stylesheet" media="all">
     <link href="{{ asset('bundles/crmmain/tapmodo-Jcrop/css/jquery.Jcrop.min.css') }}" rel="stylesheet" media="all">
     <link href="{{ asset('bundles/crmmain/lib/jquery-ui/jquery-ui.min.css') }}" rel="stylesheet" media="all">
+    <link href="{{ asset('bundles/crmmain/fancybox/source/jquery.fancybox.css') }}" rel="stylesheet" media="all">
     <style>
+        .fancybox img{
+            width: 350px;
+        }
+        input[type="checkbox"]{
+            width: 20px;
+            height: 20px;
+        }
         .imgareaselect-selection2{
             background: url({{ asset('bundles/crmmain/images/nophoto.png') }}) no-repeat;
             -moz-background-size: 100%; /* Firefox 3.6+ */
@@ -1242,10 +1250,12 @@
     <script src="{{ asset('bundles/crmmain/kladrapi/jquery.kladr.min.js') }}" type="text/javascript"></script>
     <script src="{{ asset('bundles/crmmain/tapmodo-Jcrop/js/jquery.Jcrop.min.js') }}" type="text/javascript"></script>
     <script src="{{ asset('bundles/paneloperator/js/file.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('bundles/crmmain/fancybox/source/jquery.fancybox.js') }}" type="text/javascript"></script>
 
     <script>
         $(document).ready(function(){
 
+            $('.fancybox').fancybox();
 //            $('#confirm').click(function(){
 //                $('#input-confirm').val(1);
 //                return true;
