@@ -153,13 +153,10 @@
                         {#</td>#}
                         {% if company is not defined or company == null %}
                             <td>
-                                <a href="{{ path('panel_user_list',{'type' : 'null', 'company' : (user.company.id is defined ? user.company.id : '') }) }}" {{ debtors[(user.company.title is defined ? user.company.title : '')] is defined ? (debtors[(user.company.title is defined ? user.company.title : '')] ==0 ? "style='color: #ccc600'" : "style='color: #CC0000'") : '' }}
+                                <a href="{{ path('panel_user_list',{'type' : 'null', 'company' : (user.company.id is defined ? user.company.id : '') }) }}" {{ debtors[(user.company.title is defined ? user.company.title : '')] is defined ? (debtors[(user.company.title is defined ? user.company.title : '')]['sumPrice'] ==0 ? "style='color: #ccc600'" : "style='color: #CC0000'") : '' }}
                                    title="" class="getQuotaCompany"
                                    data-id="{{ user.company.id is defined ? user.company.id : '' }}"
                                 >{{ user.company }}
-                                    {% if debtors[(user.company.title is defined ? user.company.title : '')] is defined %}
-                                {{ dump(debtors[(user.company.title is defined ? user.company.title : '')]) }}
-                                    {% endif %}
                                 </a>
                                 {% if user.company.operator is defined and user.company.operator != null and user.company.operator.id != 1 %}
                                     <br /><span style="font-size: 12px">{{ user.company.operator }}</span>
