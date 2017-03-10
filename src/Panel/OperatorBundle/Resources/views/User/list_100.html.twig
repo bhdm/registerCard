@@ -157,7 +157,7 @@
                                    title="" class="getQuotaCompany"
                                    data-id="{{ user.company.id is defined ? user.company.id : '' }}"
                                 >{{ user.company }}
-                                    {% if debtors[(user.company.title is defined ? user.company.title : '')] is edfined %}
+                                    {% if debtors[(user.company.title is defined ? user.company.title : '')] is defined %}
                                 {{ dump(debtors[(user.company.title is defined ? user.company.title : '')]) }}
                                     {% endif %}
                                 </a>
