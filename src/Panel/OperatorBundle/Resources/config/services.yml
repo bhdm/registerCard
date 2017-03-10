@@ -4,7 +4,8 @@ services:
         tags:
             - { name: 'twig.extension' }
 
-    vidal.twig_extension:
+    app.twig_extension:
         class: Panel\OperatorBundle\Service\TwigExtension
         tags:
             - { name: twig.extension }
+

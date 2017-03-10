@@ -21,6 +21,7 @@ class TwigExtension extends \Twig_Extension
             'evrikaImg'       => new \Twig_Function_Method($this, 'evrikaImg'),
             'formatDate'      => new \Twig_Function_Method($this, 'formatDate'),
             'getClass'        => new \Twig_Function_Method($this, 'getClass'),
+            'getOriginal'     => new \Twig_Function_Method($this, 'getOriginal'),
         );
     }
 
@@ -38,6 +39,7 @@ class TwigExtension extends \Twig_Extension
             new \Twig_SimpleFilter('type', array($this, 'type')),
             new \Twig_SimpleFilter('values', array($this, 'values')),
             new \Twig_SimpleFilter('regNumber', array($this, 'regNumber')),
+            new \Twig_SimpleFilter('getOriginal', array($this, 'getOriginal')),
         );
     }
 
@@ -180,5 +182,19 @@ class TwigExtension extends \Twig_Extension
         }
 
         return substr($str, 0, 18) . ' ' . substr($str, 18);
+    }
+
+    public function getOriginal($filename)
+    {
+        $pathA = explode('/',$filename);
+        $pathA[count($pathA)-1] = str_replace('.jpg', '-or.jpg', $pathA[count($pathA)-1]);
+        $file = implode('/',$pathA);
+        if (!is_file(__DIR__.$file)){
+            $pathA = explode('/',$filename);
+            $pathA[count($pathA)-1] = 'origin-'.$pathA[count($pathA)-1];
+            $file = implode('/',$pathA);
+        }
+
+        return $file;
     }
 }
