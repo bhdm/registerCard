@@ -667,7 +667,7 @@
                             <div class="col-sm-4">
                                 <input type="file" name="snilsFile" id="snilsFile"  data-type="snilsFile" class="fileAjax">
                                 {% if user.copySnils.path is defined %}
-                                    <img src="/{{ user.copySnils.path }}" brightness="0" contrast="0" data-type="snilsFile" class="document" id="snilsFileImg">
+                                    <a href="/{{ user.copySnils.path | getOriginal}}" class="fancybox" ><img src="/{{ user.copySnils.path | getOriginal}}" brightness="0" contrast="0" data-type="snilsFile" class="" id="snilsFileImg"></a>
                                     <br>
                                     <a href="{{ path('panel_download_png',{'filename' : user.copySnils.fileName }) }}">Скачать</a>
                                     <a target="_blank" href="{{ path('create_image_pdf',{'type' : 'snils', 'filename' : user.copySnils.fileName }) }}">Скачать</a>
@@ -690,7 +690,7 @@
                             <div class="col-sm-4">
                                 <input type="file" name="innFile" id="innFile"  data-type="innFile" class="fileAjax">
                                 {% if user.copyInn.path is defined %}
-                                    <img src="/{{ user.copyInn.path }}" brightness="0" contrast="0" data-type="innFile" class="document" id="innFileImg">
+                                    <a href="/{{ user.copyInn.path | getOriginal}}" class="fancybox" ><img src="/{{ user.copyInn.path | getOriginal}}" brightness="0" contrast="0" data-type="innFile" class="" id="innFileImg"></a>
                                     <br>
                                     <a href="{{ path('panel_download_png',{'filename' : user.copyInn.fileName }) }}">Скачать</a>
                                     <a target="_blank" href="{{ path('create_image_pdf',{'type' : 'doc', 'filename' : user.copyInn.fileName }) }}">Скачать</a>
