@@ -153,14 +153,16 @@
                         {#</td>#}
                         {% if company is not defined or company == null %}
                             <td>
-                                {% set sumPrice = debtors[(user.company.title is defined ? user.company.title : '')]['s0']-debtors[(user.company.title is defined ? user.company.title : '')]['s1']-debtors[(user.company.title is defined ? user.company.title : '')]['s2'] %}
+                                {% if user.company.title is defined %}
+                                    {% set sumPrice = debtors[user.company.title)]['s0']-debtors[user.company.title)]['s1']-debtors[user.company.title)]['s2'] %}
+                                {% else %}
+                                    {% set sumPrice = 0 %}
+                                {% endif %}
                                 <a href="{{ path('panel_user_list',{'type' : 'null', 'company' : (user.company.id is defined ? user.company.id : '') }) }}" {{ sumPrice == 0 ? "style='color: #ccc600'" : (sumPrice < 0 ? "style='color: #CC0000'" : '') }}
                                    title="" class="getQuotaCompany"
                                    data-id="{{ user.company.id is defined ? user.company.id : '' }}"
                                 >{{ user.company }}
-                                    {% if debtors[(user.company.title is defined ? user.company.title : '')]['sumPrice'] is defined %}
-                                        <span style="font-size: 10px">({{ sumPrice }})</span>
-                                    {% endif %}
+                                    <span style="font-size: 10px">({{ sumPrice }})</span>
                                 </a>
                                 {% if user.company.operator is defined and user.company.operator != null and user.company.operator.id != 1 %}
                                     <br /><span style="font-size: 12px">{{ user.company.operator }}</span>

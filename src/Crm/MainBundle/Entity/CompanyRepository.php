@@ -251,7 +251,7 @@ class CompanyRepository extends EntityRepository
             AND u2.status !=0        
             AND u2.status !=10
             AND  u2.company_id = c.id 
-             )) s3 
+             )) s2
             
             FROM Company c
 
