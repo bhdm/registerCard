@@ -161,6 +161,7 @@ class CompanyRepository extends EntityRepository
 
             WHERE c.enabled =1 AND c.url IS NOT NULL  AND c.url !=  ''
             GROUP BY c.id
+            HAVING sumPrice <= 0
             ";
         $pdo = $this->getEntityManager()->getConnection();
         $st = $pdo->prepare($sql);
@@ -184,7 +185,7 @@ class CompanyRepository extends EntityRepository
 
             WHERE c.enabled =1 AND c.url IS NOT NULL  AND c.url !=  ''
             GROUP BY c.id
-          
+            HAVING sumPrice <= 0
             ";
 
         $pdo = $this->getEntityManager()->getConnection();
