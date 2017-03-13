@@ -1551,16 +1551,16 @@ class UserController extends Controller
             } elseif ($user->getEstr() == 0 && $user->getRu() == 1) {
                 $price = $company->getPriceRu();
             }
-//            if ($company->getQuota() >= $price || $company->getConfirmed() == true || $company->getOperator()->getConfirmed() == true ) {
+            if ($company->getQuota() >= $price || $company->getConfirmed() == true || $company->getOperator()->getConfirmed() == true ) {
                 $company->setQuota($company->getQuota() - $price);
                 $this->getDoctrine()->getManager()->flush($user);
                 $this->getDoctrine()->getManager()->refresh($user);
                 $em->flush($company);
                 $session->getFlashBag()->add('notice', 'Пользователь ' . $user->getLastName() . ' переведен в оплаченные');
-//            } else {
-//                $session->getFlashBag()->add('error', 'не хватает денег у компании ( ' . $company->getQuota() . ' из ' . $price . ' )');
-//                return false;
-//            }
+            } else {
+                $session->getFlashBag()->add('error', 'не хватает денег у компании ( ' . $company->getQuota() . ' из ' . $price . ' )');
+                return false;
+            }
         }
 
         /**
