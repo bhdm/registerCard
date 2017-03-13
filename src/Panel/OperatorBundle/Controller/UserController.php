@@ -103,7 +103,7 @@ class UserController extends Controller
             'operatorId' => $operatorId,
             'managers' => $managers,
             'filterManager' => ($filterManager != null ? array_flip($filterManager) : null ),
-            'debtors' => $this->getDoctrine()->getRepository('CrmMainBundle:Company')->debtors()
+            'debtors' => $this->getDoctrine()->getRepository('CrmMainBundle:Company')->debtors3()
         );
 
         if ($this->get('security.context')->isGranted('ROLE_ADMIN')) {
@@ -2468,5 +2468,6 @@ class UserController extends Controller
         $companies = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->findHigh($this->getUser());
         return ['users' => $users, 'operators' => $operators, 'companies' => $companies, 'params' => $request->query->get('params')];
     }
+
 }
 
