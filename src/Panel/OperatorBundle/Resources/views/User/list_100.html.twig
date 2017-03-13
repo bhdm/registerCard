@@ -153,7 +153,7 @@
                         {#</td>#}
                         {% if company is not defined or company == null %}
                             <td>
-                                {% if user.company.title is defined %}
+                                {% if user.company.title is defined and debtors[user.company.title] is defined%}
                                     {% set sumPrice = debtors[user.company.title]['s0']-debtors[user.company.title]['s1']-debtors[user.company.title]['s2'] %}
                                 {% else %}
                                     {% set sumPrice = 0 %}
