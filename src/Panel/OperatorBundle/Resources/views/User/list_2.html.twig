@@ -177,11 +177,13 @@
                     </td>
                     <td class="setting">
                         {% spaceless %}
+                        {% if is_granted("ROLE_ADMIN") %}
                             <a href="{{ path('panel_user_set_production',{'userId' : user.id }) }}" title="В производство">
                                 <button type="button" class="btn btn-default btn-success">
                                     <span class="glyphicon glyphicon-ok"></span>
                                 </button>
                             </a>
+                        {% endif %}
                             {#&nbsp;&nbsp;#}
                             {#<a href="{{ path('panel_user_set_payment',{'userId' : user.id, 'type': 'false' }) }}" class="remove" title="В подтвержденные">#}
                                 {#<button type="button" class="btn btn-default btn-danger">#}

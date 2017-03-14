@@ -145,11 +145,13 @@
                     <td><div class="comment-box disabled-click" data-id="{{ user.id }}">{{ user.comment }}</div></td>
                     <td class="setting">
                         {% spaceless %}
+                            {% if is_granted("ROLE_ADMIN") %}
                             <a href="{{ path('panel_user_set_payment',{'userId' : user.id }) }}">
                                 <button type="button" class="btn btn-default btn-success">
                                     <span class="glyphicon glyphicon-ok"></span>
                                 </button>
                             </a>
+                        {% endif %}
                             {#&nbsp;&nbsp;#}
                             {#<a href="{{ path('panel_user_set_choose',{'userId' : user.id, 'type': 'false' }) }}" class="remove" title="Убрать из подтвержденных">#}
                                 {#<button type="button" class="btn btn-default btn-danger">#}

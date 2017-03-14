@@ -234,14 +234,14 @@
                                             <span class="glyphicon glyphicon-ok"  style="color: #cc0000"></span>
                                         {% endif %}
                                     {% endif %}
-                                {% endif %}
+
 
                                     <a href="{{ path('panel_user_set_choose',{'userId' : user.id }) }}">
                                         <button type="button" class="btn btn-default btn-success">
                                             <span class="glyphicon glyphicon-star"></span>
                                         </button>
                                     </a>
-                                &nbsp;&nbsp;
+                                {% endif %}                                &nbsp;&nbsp;
                                     <button type="button" class="btn btn-default btn-danger remove" data-href="{{ path('panel_user_remove',{'userId' : user.id }) }}">
                                         <span class="glyphicon glyphicon-remove"></span>
                                     </button>
