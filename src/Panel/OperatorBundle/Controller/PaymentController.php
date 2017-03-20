@@ -237,7 +237,6 @@ class PaymentController extends Controller
             $price = 0;
             if ($order->getClient() == null && $order->getOperator() != null){
                 $paymentQuota = new OperatorQuotaLog();
-                $paymentQuota->setCompany(null);
                 $paymentQuota->setOperator($operator);
             }else{
                 $paymentQuota = new CompanyQuotaLog();
