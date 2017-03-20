@@ -310,6 +310,7 @@ class OperatorController extends Controller
         $amountRubSkzi = $this->getDoctrine()->getRepository('CrmMainBundle:Operator')->amountRub($operatorId,0,0)['sumPrice'];
         $amountRubEstr = $this->getDoctrine()->getRepository('CrmMainBundle:Operator')->amountRub($operatorId,1,0)['sumPrice'];
         $amountRubRu = $this->getDoctrine()->getRepository('CrmMainBundle:Operator')->amountRub($operatorId,0,1)['sumPrice'];
+
         $amountPlusQuota = $this->getDoctrine()->getRepository('CrmMainBundle:Operator')->amountPlusQuota($operatorId)['sumQuota'];
         $amountMinusQuota= $this->getDoctrine()->getRepository('CrmMainBundle:Operator')->amountMinusQuota($operatorId)['sumQuota'];
 

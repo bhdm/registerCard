@@ -7,6 +7,7 @@ use Crm\AuthBundle\Form\AdminClientType;
 use Crm\MainBundle\Entity\Client;
 use Crm\MainBundle\Entity\Company;
 use Crm\MainBundle\Entity\CompanyQuotaLog;
+use Crm\MainBundle\Entity\OperatorQuotaLog;
 use Crm\MainBundle\Entity\Payment;
 use Crm\MainBundle\Entity\PaymentOrder;
 use Crm\MainBundle\Form\CompanyType;
@@ -234,7 +235,15 @@ class PaymentController extends Controller
             $company = ( $order->getClient() ? $order->getClient()->getCompany() : null );
             $operator = $order->getOperator();
             $price = 0;
-            $paymentQuota = new CompanyQuotaLog();
+            if ($order->getClient() == null && $order->getOperator() != null){
+                $paymentQuota = new OperatorQuotaLog();
+                $paymentQuota->setCompany(null);
+                $paymentQuota->setOperator($operator);
+            }else{
+                $paymentQuota = new CompanyQuotaLog();
+                $paymentQuota->setCompany($company);
+                $paymentQuota->setOperator($company ? $company->getOperator() : $operator);
+            }
             foreach ($order->getOrders() as $item) {
                 if ($item->getTitle() === 'Карта водителя ЕСТР'){
                     $paymentQuota->setDriverEstr($item->getAmount());
@@ -270,8 +279,6 @@ class PaymentController extends Controller
             }
             $paymentQuota->setQuota($price);
             $paymentQuota->setComment('Сч. '.$order->getId().' от '.$order->getCreated()->format('d.m.Y'));
-            $paymentQuota->setCompany($company);
-            $paymentQuota->setOperator($company ? $company->getOperator() : $operator);
             if ($company){
                 $company->setQuota($company->getQuota()+$price);
             }else{
