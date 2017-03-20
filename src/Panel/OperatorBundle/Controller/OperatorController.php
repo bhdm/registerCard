@@ -290,7 +290,7 @@ class OperatorController extends Controller
         $pagination = $paginator->paginate(
             $quotes,
             $this->get('request')->query->get('page', 1),
-            50
+            100
         );
 
         return array('operator'=> $operator, 'quotes' => $pagination);
