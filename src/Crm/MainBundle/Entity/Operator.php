@@ -124,6 +124,7 @@ class Operator extends BaseEntity implements UserInterface
 
     /**
      * @ORM\OneToMany(targetEntity="OperatorQuotaLog", mappedBy="operator")
+     * @ORM\OrderBy({"id" = "asc"})
      */
     protected $quotaLog;
 

@@ -229,6 +229,7 @@ class PaymentController extends Controller
     public function chooseStatusAction(Request $request, $id, $status){
         $em = $this->getDoctrine()->getManager();
         $order = $this->getDoctrine()->getRepository('CrmMainBundle:Payment')->find($id);
+        $moderator = $this->getDoctrine()->getRepository('CrmMainBundle:Operator')->find(1);
         $order->setStatus($status);
         $em->flush($order);
         if ($status == '2'){
@@ -238,6 +239,7 @@ class PaymentController extends Controller
             if ($order->getClient() == null && $order->getOperator() != null){
                 $paymentQuota = new OperatorQuotaLog();
                 $paymentQuota->setOperator($operator);
+                $paymentQuota->setModerator($moderator);
             }else{
                 $paymentQuota = new CompanyQuotaLog();
                 $paymentQuota->setCompany($company);
