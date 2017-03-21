@@ -74,4 +74,41 @@ class IndexController extends Controller
     public function calcAction(){
         return array('user'=> $this->getUser());
     }
+
+    /**
+     * @Route("/test-image-stamp/{userId}", name="test_image_stamp")
+     * @Template()
+     */
+    public function testImageStampAction(Request $request, $userId){
+        $user = $this->getDoctrine()->getRepository('CrmMainBundle:User')->find($userId);
+        $filename = $user->getCopyPassport();
+        $filename = $filename['path'];
+        $pathA = explode('/',$filename);
+        $pathA[count($pathA)-1] = str_replace('.jpg', '-or.jpg', $pathA[count($pathA)-1]);
+        $file = implode('/',$pathA);
+        if (!is_file(__DIR__.$file)){
+            $pathA = explode('/',$filename);
+            $pathA[count($pathA)-1] = 'origin-'.$pathA[count($pathA)-1];
+            $file = implode('/',$pathA);
+        }
+
+        if ($request->getMethod() === 'POST'){
+
+            $src = $request->request->get('src');
+            $width = $request->request->get('clientX')-394;
+            $height = $request->request->get('clientY')-129;
+
+            $filePath = __DIR__.'/../../../../web/';
+            $image = new \Imagick($filePath.$file);
+            $image->setFormat('png');
+            $right = new \Imagick($filePath.$src);
+            $image->compositeImage($right, \Imagick::COMPOSITE_DEFAULT,$width,$height);
+            header("Content-Type: image/png");
+            echo $image;
+            $image->destroy();
+            exit;
+        }else{
+            return ['file' => $file];
+        }
+    }
 }

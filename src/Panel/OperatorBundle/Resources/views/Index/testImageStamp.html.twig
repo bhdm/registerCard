@@ -1,0 +1,47 @@
+{% extends 'PanelOperatorBundle::layout.html.twig' %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script>
+        $( function() {
+            $( ".draggable" ).draggable({
+                containment: "#containment-wrapper",
+                stop: function (e) {
+                    console.log(t=e);
+                    console.log(e.clientX+' '+e.clientY);
+                    $('#clientX').val(e.clientX);
+                    $('#clientY').val(e.clientY);
+                    $('#src').val($(t.target).data('src'));
+                }
+            });
+        } );
+    </script>
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+
+{% endblock %}
+
+{% block content %}
+    <div id="containment-wrapper">
+        <img src="/{{ file }}" />
+    </div>
+    <br />
+    <br />
+    <div>
+        <img src="{{ asset('bundles/crmmain/stamp_png/23.png') }}" data-src="bundles/crmmain/stamp_png/23.png" class="img-thumbnail draggable" style="height: 150px; background: none;">
+        <img src="{{ asset('bundles/crmmain/stamp_png/24.png') }}" data-src="bundles/crmmain/stamp_png/24.png" class="img-thumbnail draggable" style="height: 150px; background: none;">
+        <img src="{{ asset('bundles/crmmain/stamp_png/25.png') }}" data-src="bundles/crmmain/stamp_png/25.png" class="img-thumbnail draggable" style="height: 150px; background: none;">
+        <img src="{{ asset('bundles/crmmain/stamp_png/26.png') }}" data-src="bundles/crmmain/stamp_png/26.png" class="img-thumbnail draggable" style="height: 150px; background: none;">
+    </div>
+    <form method="post">
+        <input type="hidden" name="clientX" id="clientX" value="">
+        <input type="hidden" name="clientY" id="clientY" value="">
+        <input type="hidden" name="src" id="src" value="">
+        <button type="submit" class="btn btn-primary">Сохранить</button>
+    </form>
+{% endblock %}
