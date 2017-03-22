@@ -176,6 +176,7 @@
             </tr>
             <tr><td colspan="2">&nbsp;</td></tr>
 
+            {% if is_granted("ROLE_ADMIN") %}
             <tr>
                 <td class="label">Надзиратель: </td>
                 <td class="value">
@@ -186,6 +187,7 @@
                     </select>
                 </td>
             </tr>
+            {% endif %}
 
             <tr>
                 <td></td>
