@@ -32,6 +32,9 @@ class UserController extends Controller
      */
     public function listAction(Request $request, $status = "all", $type = null, $company = null, $operator = null)
     {
+
+        $positive = $request->query->get('positive');
+
         if ($company == "null") {
             $company = null;
         }
@@ -68,8 +71,8 @@ class UserController extends Controller
             $confirmed = 0;
         }
 
-        $users = $this->getDoctrine()->getRepository('CrmMainBundle:User')->operatorFilter($type, $status, $company, $operator, $searchtxt, $dateStart, $dateEnd, 0, $filterManager, $confirmed);
-        $usersCount = $this->getDoctrine()->getRepository('CrmMainBundle:User')->operatorFilterCount($type, $status, $company, $operator, $searchtxt, $dateStart, $dateEnd, 0, $filterManager, $confirmed);
+        $users = $this->getDoctrine()->getRepository('CrmMainBundle:User')->operatorFilter($type, $status, $company, $operator, $searchtxt, $dateStart, $dateEnd, 0, $filterManager, $confirmed, null, $positive);
+        $usersCount = $this->getDoctrine()->getRepository('CrmMainBundle:User')->operatorFilterCount($type, $status, $company, $operator, $searchtxt, $dateStart, $dateEnd, 0, $filterManager, $confirmed, null, $positive);
 
         $paginator = $this->get('knp_paginator');
         $pagination = $paginator->paginate(

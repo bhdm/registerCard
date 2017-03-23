@@ -18,17 +18,67 @@
             });
         } );
     </script>
+    <script>
+        $( function() {
+            var handle = $( "#custom-handle" );
+            $( "#slider" ).slider({
+                min:0,
+                max:255,
+
+                create: function() {
+                    handle.text( $( this ).slider( "value" ) );
+                },
+                slide: function( event, ui ) {
+                    handle.text( ui.value );
+                    $('#image').css('filter', 'brightness('+ui.value+'%)');
+                    $('#brightness').val(ui.value);
+
+                }
+            });
+
+            var handle2 = $( "#custom-handle2" );
+            $( "#slider2" ).slider({
+                min:0,
+                max:255,
+                create: function() {
+                    handle2.text( $( this ).slider( "value" ) );
+                },
+                slide: function( event, ui ) {
+                    handle2.text( ui.value );
+                    $('#image').css('filter', 'contrast('+ui.value+'%)');
+                    $('#contrast').val(ui.value);
+                }
+            });
+        } );
+    </script>
 {% endblock %}
 
 {% block stylesheets %}
     {{ parent() }}
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-
+    <style>
+        #custom-handle {
+            width: 3em;
+            height: 1.6em;
+            top: 50%;
+            margin-top: -.8em;
+            text-align: center;
+            line-height: 1.6em;
+        }
+        #custom-handle2 {
+            width: 3em;
+            height: 1.6em;
+            top: 50%;
+            margin-top: -.8em;
+            text-align: center;
+            line-height: 1.6em;
+        }
+    </style>
 {% endblock %}
 
 {% block content %}
     <div id="containment-wrapper">
-        <img src="/{{ file }}" />
+        <img src="/{{ file }}" id="image"/>
     </div>
     <br />
     <br />
@@ -38,8 +88,26 @@
         <img src="{{ asset('bundles/crmmain/stamp_png/25.png') }}" data-src="bundles/crmmain/stamp_png/25.png" class="img-thumbnail draggable" style="height: 150px; background: none;">
         <img src="{{ asset('bundles/crmmain/stamp_png/26.png') }}" data-src="bundles/crmmain/stamp_png/26.png" class="img-thumbnail draggable" style="height: 150px; background: none;">
     </div>
+    <br />
+    <br />
+    <div class="row">
+        <div class="col-sm-5 col-sm-offset-1">
+            <div id="slider">
+                <div id="custom-handle" class="ui-slider-handle"></div>
+            </div>
+        </div>
+        <div class="col-sm-5">
+            <div id="slider2">
+                <div id="custom-handle2" class="ui-slider-handle"></div>
+            </div>
+        </div>
+    </div>
+    <br />
+    <br />
     <form method="post">
-        <input type="hidden" name="clientX" id="clientX" value="">
+        <input type="hidden" name="brightness" id="brightness" value="">
+        <input type="hidden" name="contrast" id="contrast" value="0">
+        <input type="hidden" name="clientX" id="clientX" value="0">
         <input type="hidden" name="clientY" id="clientY" value="">
         <input type="hidden" name="src" id="src" value="">
         <button type="submit" class="btn btn-primary">Сохранить</button>
