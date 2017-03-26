@@ -587,6 +587,11 @@ class User extends BaseEntity implements UserInterface, EquatableInterface, \Ser
      */
     private $checkedDriverTranslate;
 
+    /**
+     * @ORM\Column(type="string", nullable=true)
+     */
+    private $currentNumber;
+
     public function getXmlId()
     {
         return str_pad($this->id, 8, "0", STR_PAD_LEFT);
@@ -2627,6 +2632,23 @@ class User extends BaseEntity implements UserInterface, EquatableInterface, \Ser
     {
         $this->checkedDriverTranslate = $checkedDriverTranslate;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getCurrentNumber()
+    {
+        return $this->currentNumber;
+    }
+
+    /**
+     * @param mixed $currentNumber
+     */
+    public function setCurrentNumber($currentNumber)
+    {
+        $this->currentNumber = $currentNumber;
+    }
+
 
 
 }

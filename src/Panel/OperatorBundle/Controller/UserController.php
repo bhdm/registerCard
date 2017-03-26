@@ -6,6 +6,7 @@ use Cocur\Slugify\Slugify;
 use Crm\MainBundle\Entity\Act;
 use Crm\MainBundle\Entity\CompanyUser;
 use Crm\MainBundle\Entity\StatusLog;
+use Crm\MainBundle\Entity\Tag;
 use Crm\MainBundle\Entity\User;
 use Panel\OperatorBundle\PanelOperatorBundle;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -2470,6 +2471,41 @@ class UserController extends Controller
         $operators = $this->getDoctrine()->getRepository('CrmMainBundle:Operator')->findBy(['highOperator' => $this->getUser()]);
         $companies = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->findHigh($this->getUser());
         return ['users' => $users, 'operators' => $operators, 'companies' => $companies, 'params' => $request->query->get('params')];
+    }
+
+    /**
+     * @Route("/excel/import", name="panel_import_user_excel")
+     * @Template()
+     */
+    public function importExcelAction(Request $request)
+    {
+        $txt = null;
+        if ( $request->getMethod() == 'POST') {
+            $em = $this->getDoctrine()->getManager();
+            $csv = $request->files->get('csv');
+            $csv = array_map('str_getcsv', file($csv->getPathname()));
+            $txt = '';
+            $tag = $request->request->get('key');
+            foreach ($csv as $row) {
+                $user = $this->getDoctrine()->getRepository('CrmMainBundle:User')->findBy([
+                    'lastName' => $row[1],
+                    'firstName' => $row[2],
+                    'surName' => $row[3]
+                ]);
+                if (count($user) > 1) {
+                    $txt .= 'Ошибка с '.$row[1].' '.$row[2].' '.$row[3].'( '.$row[0].' )<br />';
+                }elseif(count($user) == 0){
+                    $txt .= 'Не найден '.$row[1].' '.$row[2].' '.$row[3].'( '.$row[0].' )<br />';
+                }else {
+                    $user = $user[0];
+                    $user->setCurrentNumber($row[0]);
+                    $user->setManagerKey($tag);
+                    $em->flush($user);
+                }
+
+            }
+        }
+        return ['txt' => $txt];
     }
 
 }
