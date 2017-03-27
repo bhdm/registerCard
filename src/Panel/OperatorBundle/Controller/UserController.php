@@ -1933,7 +1933,7 @@ class UserController extends Controller
             $phpExcelObject->setActiveSheetIndex(0)->setCellValue('F' . $i, $adrs);
 
         }
-        $phpExcelObject->setActiveSheetIndex(0)->setCellValue('G' . $i, $user->getDeliveryRecipient());
+        $phpExcelObject->setActiveSheetIndex(0)->setCellValue('G' . $i, $user->getDeliveryAdrs()['recipient']);
 
         $phpExcelObject->getActiveSheet()->setTitle('Simple');
         // Set active sheet index to the first sheet, so Excel opens this as the first sheet
