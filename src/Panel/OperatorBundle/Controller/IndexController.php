@@ -127,8 +127,8 @@ class IndexController extends Controller
             $src = $request->request->get('stamp');
             foreach ($src as $stamp){
                 if ($stamp['clientX'] && $stamp['clientY']){
-                    $width = $stamp['clientX']-394;
-                    $height = $stamp['clientY']-129;
+                    $width = $stamp['clientX'];
+                    $height = $stamp['clientY'];
                     $right = new \Imagick($filePath.$stamp['src']);
                     $image->compositeImage($right, \Imagick::COMPOSITE_DEFAULT,$width,$height);
                     $right->destroy();

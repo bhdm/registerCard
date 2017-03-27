@@ -10,9 +10,13 @@
                 containment: "#containment-wrapper",
                 stop: function (e) {
                     console.log(t=e);
-                    console.log(e.clientX+' '+e.clientY);
-                    $(this).parent().find('[data="x"]').val(e.clientX);
-                    $(this).parent().find('[data="y"]').val(e.clientY);
+                    console.log($(this).offset().left+' '+$(this).offset().top);
+                    $(this).parent().find('[data="x"]').val(
+                        $(this).offset().left - 340
+                    );
+                    $(this).parent().find('[data="y"]').val(
+                        $(this).offset().top - 70
+                    );
                 }
             });
         } );
