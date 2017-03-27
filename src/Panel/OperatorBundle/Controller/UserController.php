@@ -1908,9 +1908,6 @@ class UserController extends Controller
             if ($user->getDileveryRegion() != null){
                 $adrs .= ', '.$user->getDileveryRegion();
             }
-            if ($user->getDileveryArea() != null){
-                $adrs .= ', '.$user->getDileveryArea();
-            }
             if ($user->getDileveryCity() != null){
                 $adrs .= ', '.$user->getDileveryCity();
             }
