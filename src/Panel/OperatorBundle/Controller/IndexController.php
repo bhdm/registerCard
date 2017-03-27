@@ -134,10 +134,11 @@ class IndexController extends Controller
                     $right->destroy();
                 }
             }
-            header("Content-Type: image/png");
-            echo $image;
+//            header("Content-Type: image/png");
+//            echo $image;
             $image->destroy();
-            exit;
+            $image->writeImage();
+            return $this->redirectToRoute('panel_user_edit', ['userId' => $userId]);
         }else{
             return ['file' => $file];
         }
