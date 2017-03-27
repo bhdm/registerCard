@@ -76,12 +76,20 @@ class IndexController extends Controller
     }
 
     /**
-     * @Route("/test-image-stamp/{userId}", name="test_image_stamp")
+     * @Route("/test-image-stamp/{userId}/{type}", name="test_image_stamp")
      * @Template()
      */
-    public function testImageStampAction(Request $request, $userId){
+    public function testImageStampAction(Request $request, $userId, $type){
         $user = $this->getDoctrine()->getRepository('CrmMainBundle:User')->find($userId);
-        $filename = $user->getCopyPassport();
+        if ($type == 'passport'){
+            $filename = $user->getCopyPassport();
+        }elseif($type == 'driver'){
+            $filename = $user->getCopyDriverPassport();
+        }elseif($type == 'snils'){
+            $filename = $user->getCopySnils();
+        }elseif($type == 'inn'){
+            $filename = $user->getCopyInn();
+        }
         $filename = $filename['path'];
         $pathA = explode('/',$filename);
         $pathA[count($pathA)-1] = str_replace('.jpg', '-or.jpg', $pathA[count($pathA)-1]);
@@ -94,33 +102,36 @@ class IndexController extends Controller
 
         if ($request->getMethod() === 'POST'){
 
-            $src = $request->request->get('src');
-            $width = $request->request->get('clientX')-394;
-            $height = $request->request->get('clientY')-129;
-
             $filePath = __DIR__.'/../../../../web/';
             $image = new \Imagick($filePath.$file);
-            if ($request->request->get('contrast') > 0){
+            if ($request->request->get('contrast') != 100){
                 $contrast = $request->request->get('contrast');
-                if ($contrast > 127){
-                    for ($i = 1; $i < $contrast; $i++){
+                if ($contrast > 100){
+                    for ($i = 100; $i < $contrast; $i++){
                         $image->contrastImage(1);
                     }
-                }else if ($contrast < 127) {
+                }else if ($contrast < 100) {
 
-                    for ($i = 0; $i > $contrast; $i--) {
+                    for ($i = 100; $i > $contrast; $i--) {
 
                         $image->contrastImage(0);
                     }
                 }
             }
-            if ($request->request->get('brightness') > 0 ){
-                $image->modulateImage($request->request->get('brightness'), 0,100);
+            if ($request->request->get('brightness') != 100 ){
+                $image->modulateImage($request->request->get('brightness'), 1, 100);
             }
 
             $image->setFormat('png');
-            $right = new \Imagick($filePath.$src);
-            $image->compositeImage($right, \Imagick::COMPOSITE_DEFAULT,$width,$height);
+
+            $src = $request->request->get('stamp');
+            foreach ($src as $stamp){
+                $width = $stamp['clientX']-394;
+                $height = $stamp['clientY']-129;
+                $right = new \Imagick($filePath.$stamp['src']);
+                $image->compositeImage($right, \Imagick::COMPOSITE_DEFAULT,$width,$height);
+                $right->destroy();
+            }
             header("Content-Type: image/png");
             echo $image;
             $image->destroy();

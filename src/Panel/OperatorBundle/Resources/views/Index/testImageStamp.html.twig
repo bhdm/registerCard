@@ -11,9 +11,8 @@
                 stop: function (e) {
                     console.log(t=e);
                     console.log(e.clientX+' '+e.clientY);
-                    $('#clientX').val(e.clientX);
-                    $('#clientY').val(e.clientY);
-                    $('#src').val($(t.target).data('src'));
+                    $(this).parent().find('[data="x"]').val(e.clientX);
+                    $(this).parent().find('[data="y"]').val(e.clientY);
                 }
             });
         } );
@@ -23,8 +22,8 @@
             var handle = $( "#custom-handle" );
             $( "#slider" ).slider({
                 min:0,
-                max:255,
-
+                max:200,
+                value: 100,
                 create: function() {
                     handle.text( $( this ).slider( "value" ) );
                 },
@@ -39,7 +38,8 @@
             var handle2 = $( "#custom-handle2" );
             $( "#slider2" ).slider({
                 min:0,
-                max:255,
+                max:200,
+                value: 100,
                 create: function() {
                     handle2.text( $( this ).slider( "value" ) );
                 },
@@ -82,34 +82,35 @@
     </div>
     <br />
     <br />
-    <div>
-        <img src="{{ asset('bundles/crmmain/stamp_png/23.png') }}" data-src="bundles/crmmain/stamp_png/23.png" class="img-thumbnail draggable" style="height: 150px; background: none;">
-        <img src="{{ asset('bundles/crmmain/stamp_png/24.png') }}" data-src="bundles/crmmain/stamp_png/24.png" class="img-thumbnail draggable" style="height: 150px; background: none;">
-        <img src="{{ asset('bundles/crmmain/stamp_png/25.png') }}" data-src="bundles/crmmain/stamp_png/25.png" class="img-thumbnail draggable" style="height: 150px; background: none;">
-        <img src="{{ asset('bundles/crmmain/stamp_png/26.png') }}" data-src="bundles/crmmain/stamp_png/26.png" class="img-thumbnail draggable" style="height: 150px; background: none;">
-    </div>
-    <br />
-    <br />
-    <div class="row">
-        <div class="col-sm-5 col-sm-offset-1">
-            <div id="slider">
-                <div id="custom-handle" class="ui-slider-handle"></div>
-            </div>
-        </div>
-        <div class="col-sm-5">
-            <div id="slider2">
-                <div id="custom-handle2" class="ui-slider-handle"></div>
-            </div>
-        </div>
-    </div>
-    <br />
-    <br />
     <form method="post">
+        <div class="row">
+            {% for key in 1..36 %}
+            <div class="col-sm-3">
+                <img src="{{ asset('bundles/crmmain/stamp_png/'~key~'.png') }}" data-src="bundles/crmmain/stamp_png/{{key}}.png" class="img-thumbnail draggable" style="background: none;">
+                <input type="hidden" data="x" name="stamp[{{ key-1 }}][clientX]" id="" value="">
+                <input type="hidden" data="y" name="stamp[{{ key-1 }}][clientY]" id="" value="">
+                <input type="hidden" name="stamp[{{ key-1 }}][src]" id="" value="{{ asset('bundles/crmmain/stamp_png/'~key~'.png') }}">
+            </div>
+            {% endfor %}
+        </div>
+        <br />
+        <br />
+        <div class="row">
+            <div class="col-sm-5 col-sm-offset-1">
+                <div id="slider">
+                    <div id="custom-handle" class="ui-slider-handle"></div>
+                </div>
+            </div>
+            <div class="col-sm-5">
+                <div id="slider2">
+                    <div id="custom-handle2" class="ui-slider-handle"></div>
+                </div>
+            </div>
+        </div>
+        <br />
+        <br />
         <input type="hidden" name="brightness" id="brightness" value="">
         <input type="hidden" name="contrast" id="contrast" value="0">
-        <input type="hidden" name="clientX" id="clientX" value="0">
-        <input type="hidden" name="clientY" id="clientY" value="">
-        <input type="hidden" name="src" id="src" value="">
         <button type="submit" class="btn btn-primary">Сохранить</button>
     </form>
 {% endblock %}
