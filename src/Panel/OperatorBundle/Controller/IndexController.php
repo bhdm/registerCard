@@ -119,7 +119,7 @@ class IndexController extends Controller
                 }
             }
             if ($request->request->get('brightness') != 100 ){
-                $image->modulateImage($request->request->get('brightness'), 1, 100);
+                $image->modulateImage(intval($request->request->get('brightness')), 1, 100);
             }
 
             $image->setFormat('png');
