@@ -1856,7 +1856,7 @@ class User extends BaseEntity implements UserInterface, EquatableInterface, \Ser
     public function getDateInProduction(){
         $userLog = $this->statuslog;
         foreach ($userLog as $key => $status) {
-            if ( $status->getTitle() === 'Оплаченная' ){
+            if ( $status->getTitle() === 'Оплаченная' || $status->getTitle() === 'В&nbsp;производстве' || $status->getTitle() === 'В производстве' ){
                 return $status->getCreated();
             }
         }
