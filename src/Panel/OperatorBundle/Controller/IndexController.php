@@ -136,8 +136,8 @@ class IndexController extends Controller
             }
 //            header("Content-Type: image/png");
 //            echo $image;
-            $image->destroy();
             $image->writeImage();
+            $image->destroy();
             return $this->redirectToRoute('panel_user_edit', ['userId' => $userId]);
         }else{
             return ['file' => $file];
