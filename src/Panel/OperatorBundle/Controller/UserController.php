@@ -1924,7 +1924,7 @@ class UserController extends Controller
                 $adrs .= ', стр.'.$user->getDileveryStructure();
             }
             if ($user->getDileveryRoom() != null){
-                $adrs .= ', кв'.$user->getDileveryRoom();
+                $adrs .= ', кв.'.$user->getDileveryRoom();
             }
 
 
