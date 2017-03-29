@@ -2488,11 +2488,11 @@ class UserController extends Controller
             }
 
 
-            dump($csv);
+            print_r($csv);
             $csv = array_map('str_getcsv',$csv);
             $txt = '';
             $tag = $request->request->get('key');
-            dump($csv);
+            print_r($csv);
             foreach ($csv as $row) {
                 $user = $this->getDoctrine()->getRepository('CrmMainBundle:User')->findBy([
                     'lastName' => $row[1],
