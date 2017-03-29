@@ -2495,7 +2495,9 @@ class UserController extends Controller
                 $user = $this->getDoctrine()->getRepository('CrmMainBundle:User')->findBy([
                     'lastName' => $row[1],
                     'firstName' => $row[2],
-                    'surName' => $row[3]
+                    'surName' => $row[3],
+                    'ru' => 0,
+                    'estr' => 0,
                 ]);
                 if (count($user) > 1) {
                     $txt .= 'Есть копии с '.$row[1].' '.$row[2].' '.$row[3].'( '.$row[0].' )<br />';
