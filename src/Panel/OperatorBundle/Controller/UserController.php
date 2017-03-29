@@ -2488,11 +2488,9 @@ class UserController extends Controller
             }
 
 
-            print_r($csv);
             $csv = array_map('str_getcsv',$csv);
             $txt = '';
             $tag = $request->request->get('key');
-            print_r($csv);
             foreach ($csv as $row) {
                 $user = $this->getDoctrine()->getRepository('CrmMainBundle:User')->findBy([
                     'lastName' => $row[1],
@@ -2500,11 +2498,11 @@ class UserController extends Controller
                     'surName' => $row[3]
                 ]);
                 if (count($user) > 1) {
-                    $txt .= 'Ошибка с '.$row[1].' '.$row[2].' '.$row[3].'( '.$row[0].' )<br />';
+                    $txt .= 'Есть копии с '.$row[1].' '.$row[2].' '.$row[3].'( '.$row[0].' )<br />';
                 }elseif(count($user) == 0){
                     $txt .= 'Не найден '.$row[1].' '.$row[2].' '.$row[3].'( '.$row[0].' )<br />';
                 }else {
-                    $txt .= 'Найден '.$row[1].' '.$row[2].' '.$row[3].'( '.$user[0].' )<br />';
+//                    $txt .= 'Найден '.$row[1].' '.$row[2].' '.$row[3].'( '.$user[0].' )<br />';
                     $user = $user[0];
                     $user->setCurrentNumber($row[0]);
                     $user->setManagerKey($tag);
