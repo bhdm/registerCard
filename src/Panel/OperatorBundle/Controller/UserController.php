@@ -2481,7 +2481,7 @@ class UserController extends Controller
         if ( $request->getMethod() == 'POST') {
             $em = $this->getDoctrine()->getManager();
             $csv = $request->files->get('csv');
-            $csv = file($csv->getPathname($csv));
+            $csv = file($csv->getPathname());
             foreach ($csv as $k => $v ){
                 $csv[$k] = iconv('windows-1251', 'UTF-8', $v);
                 $csv[$k] = str_replace(';',',', $csv[$k]);
