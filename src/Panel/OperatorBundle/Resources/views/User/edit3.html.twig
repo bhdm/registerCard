@@ -262,7 +262,7 @@
                                     <a href="{{ path('panel_download_png',{'filename' : user.copyPassport.fileName }) }}">Скачать</a>
                                     <a target="_blank" href="{{ path('create_image_pdf',{'type' : 'passport', 'filename' : user.copyPassport.fileName }) }}">Скачать</a>
                                     {% if is_granted("ROLE_ADMIN") %}
-                                    <a href="{{ path('test_image_stamp',{'userId' : user.id , 'type' : 'passport' }) }}" target="_blank">Поставить печать</a>
+                                    <a href="{{ path('test_image_stamp',{'userId' : user.id , 'type' : 'passport' }) }}" >Поставить печать</a>
                                     {% endif %}
                                 {% else %}
                                     <img src="" brightness="0" contrast="0" data-type="copyPassportFile" class="document" id="passportFileImg">
@@ -522,7 +522,7 @@
                                     <a href="{{ path('panel_download_png',{'filename' : user.copyDriverPassport.fileName }) }}">Скачать</a>
                                     <a target="_blank" href="{{ path('create_image_pdf',{'type' : 'driver', 'filename' : user.copyDriverPassport.fileName }) }}">Скачать</a>
                                 {% if is_granted("ROLE_ADMIN") %}
-                                        <a href="{{ path('test_image_stamp',{'userId' : user.id , 'type' : 'driver' }) }}" target="_blank">Поставить печать</a>
+                                        <a href="{{ path('test_image_stamp',{'userId' : user.id , 'type' : 'driver' }) }}" >Поставить печать</a>
                                     {% endif %}
                                 {% else %}
                                     <img src="" brightness="0" contrast="0" data-type="driverFile" class="document" id="driverFileImg">
@@ -678,7 +678,7 @@
                                     <a href="{{ path('panel_download_png',{'filename' : user.copySnils.fileName }) }}">Скачать</a>
                                     <a target="_blank" href="{{ path('create_image_pdf',{'type' : 'snils', 'filename' : user.copySnils.fileName }) }}">Скачать</a>
                                 {% if is_granted("ROLE_ADMIN") %}
-                                    <a href="{{ path('test_image_stamp',{'userId' : user.id , 'type' : 'snils' }) }}" target="_blank">Поставить печать</a>
+                                    <a href="{{ path('test_image_stamp',{'userId' : user.id , 'type' : 'snils' }) }}" >Поставить печать</a>
                                     {% endif %}
                                 {% else %}
                                     <img src="" brightness="0" contrast="0" data-type="snilsFile" class="document" id="snilsFileImg">
@@ -704,7 +704,7 @@
                                     <a href="{{ path('panel_download_png',{'filename' : user.copyInn.fileName }) }}">Скачать</a>
                                     <a target="_blank" href="{{ path('create_image_pdf',{'type' : 'doc', 'filename' : user.copyInn.fileName }) }}">Скачать</a>
                                 {% if is_granted("ROLE_ADMIN") %}
-                                    <a href="{{ path('test_image_stamp',{'userId' : user.id , 'type' : 'inn' }) }}" target="_blank">Поставить печать</a>
+                                    <a href="{{ path('test_image_stamp',{'userId' : user.id , 'type' : 'inn' }) }}" >Поставить печать</a>
                                     {% endif %}
                                 {% else %}
                                     <img src="" brightness="0" contrast="0" data-type="innFile" class="document" id="innFileImg">
