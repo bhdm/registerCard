@@ -2484,6 +2484,7 @@ class UserController extends Controller
             $csv = file($csv->getPathname($csv));
             foreach ($csv as $k => $v ){
                 $csv[$k] = iconv('windows-1251', 'UTF-8', $v);
+                $csv[$k] = str_replace(';',',', $csv[$k]);
             }
 
             $csv = array_map('str_getcsv',$csv);
