@@ -2501,6 +2501,7 @@ class UserController extends Controller
                 }elseif(count($user) == 0){
                     $txt .= 'Не найден '.$row[1].' '.$row[2].' '.$row[3].'( '.$row[0].' )<br />';
                 }else {
+                    $txt .= 'Найден '.$row[1].' '.$row[2].' '.$row[3].'( '.$user[0].' )<br />';
                     $user = $user[0];
                     $user->setCurrentNumber($row[0]);
                     $user->setManagerKey($tag);
