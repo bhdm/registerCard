@@ -2487,9 +2487,12 @@ class UserController extends Controller
                 $csv[$k] = str_replace(';',',', $csv[$k]);
             }
 
+
+            dump($csv);
             $csv = array_map('str_getcsv',$csv);
             $txt = '';
             $tag = $request->request->get('key');
+            dump($csv);
             foreach ($csv as $row) {
                 $user = $this->getDoctrine()->getRepository('CrmMainBundle:User')->findBy([
                     'lastName' => $row[1],
