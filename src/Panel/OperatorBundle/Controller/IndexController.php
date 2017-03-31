@@ -139,7 +139,7 @@ class IndexController extends Controller
 //            echo $image;
             $image->writeImage();
             $image->destroy();
-            return $this->redirectToRoute('panel_user_edit', ['userId' => $userId]);
+            return $this->redirect($this->generateUrl('panel_user_list').'#userr'.$userId);
         }else{
             return ['file' => $file];
         }
