@@ -353,6 +353,8 @@ class XmlController extends Controller
     public function imageToPdfAction($filename){
         $mpdfService = $this->container->get('tfox.mpdfport');
 
+        $filename = str_replace('.jpg', '-or.jpg', $filename);
+
         if (is_file('/var/www/upload/tmp/'.$filename)){
             $html = '<img src="https://im-kard.ru/upload/tmp/'.$filename.'" style="max-width: 100%;"/>';
         }else{
