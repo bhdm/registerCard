@@ -354,6 +354,11 @@ class XmlController extends Controller
         $mpdfService = $this->container->get('tfox.mpdfport');
 
         $filename = str_replace('.jpg', '-or.jpg', $filename);
+        if (!is_file(__DIR__.$filename)){
+            $filename = 'origin-'.$filename;
+            $file = implode('/',$filename);
+            $filename = str_replace('-or.jpg', '.jpg', $filename);
+        }
 
         if (is_file('/var/www/upload/tmp/'.$filename)){
             $html = '<img src="https://im-kard.ru/upload/tmp/'.$filename.'" style="max-width: 100%;"/>';
