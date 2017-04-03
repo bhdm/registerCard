@@ -146,4 +146,45 @@ class IndexController extends Controller
             return ['file' => $file];
         }
     }
+
+    /**
+     * @Route("/refresh-image/{userId}/{type}", name="refresh_image")
+     */
+    public function refreshImageAction(Request $request, $userId, $type)
+    {
+        $filePath = __DIR__.'/../../../../web/';
+
+        $user = $this->getDoctrine()->getRepository('CrmMainBundle:User')->find($userId);
+        if ($type == 'passport') {
+            $filename = $user->getCopyPassport();
+        } elseif ($type == 'driver') {
+            $filename = $user->getCopyDriverPassport();
+        } elseif ($type == 'snils') {
+            $filename = $user->getCopySnils();
+        } elseif ($type == 'inn') {
+            $filename = $user->getCopyInn();
+        }
+        $filename = $filename['path'];
+        $filenameO = $filename;
+        $pathA = explode('/', $filename);
+        $pathA[count($pathA) - 1] = str_replace('.jpg', '-or.jpg', $pathA[count($pathA) - 1]);
+        $file = implode('/', $pathA);
+        if (!is_file(__DIR__ . $file)) {
+            $pathA = explode('/', $filename);
+            $pathA[count($pathA) - 1] = 'origin-' . $pathA[count($pathA) - 1];
+            $file = implode('/', $pathA);
+        }
+
+        $image = new \Imagick($filePath.$file);
+
+//        header("Content-Type: image/jpeg");
+
+        $thumbnail = $image->getImageBlob();
+
+        echo "<img src='data:image/jpg;base64,".base64_encode($thumbnail)."' />";
+
+        copy($filePath.$filenameO, $filePath.$file);
+
+        exit;
+    }
 }
