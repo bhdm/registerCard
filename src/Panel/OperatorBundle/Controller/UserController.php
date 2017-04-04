@@ -1591,7 +1591,7 @@ class UserController extends Controller
                 $price = $operator->getPriceEstr();
             }
             $quota -= $price;
-            if ($quota >= 0 ) {
+            if ($quota >= 0 || $operator->getConfirmed() == true) {
                 $operator->setQuota($quota);
                 $moderator = $operator->getModerator();
 
