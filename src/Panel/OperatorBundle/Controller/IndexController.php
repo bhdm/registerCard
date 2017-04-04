@@ -104,9 +104,14 @@ class IndexController extends Controller
 
             $filePath = __DIR__.'/../../../../web/';
             $image = new \Imagick($filePath.$file);
-            if ($image->getImageWidth() >= (2480/2)){
-                $image->resizeImage(2480/2,3508/2, \Imagick::FILTER_LANCZOS,1);
+            if ($image->getImageWidth() > (1000)){
+                $y = $image->getImageWidth()/1000 * $image->getImageHeight();
+                $image->resizeImage(1000,$y, \Imagick::FILTER_LANCZOS,1);
+            }elseif($image->getImageWidth() < (1000)){
+                $y = $image->getImageWidth()/1000 * $image->getImageHeight();
+                $image->resizeImage(1000,$y, \Imagick::FILTER_LANCZOS,1);
             }
+
             if ($request->request->get('contrast') != 100){
                 $contrast = $request->request->get('contrast');
                 if ($contrast > 100){
