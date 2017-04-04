@@ -213,7 +213,7 @@
         });
 
         $('#comfirmedsavepost').click(function(){
-            var url = Routing.generate('panel_user_save_number_post',{'number' : $('#inputNumberPost').val()});
+            var url = Routing.generate('panel_user_save_number_post',{'number' : $('#inputNumberPost').val(),'spiStatus' : $('#spiStatus').val() });
             $('#form-list').attr('action', url);
             $('#form-list').attr('target', '_self');
             $('#form-list').submit();
@@ -302,6 +302,10 @@
             <div class="modal-body">
                 <p>Укажите номер ШПИ</p>
                 <input type="text" class="form-control" name="numberPost" id="inputNumberPost">
+            </div>
+            <div class="modal-body">
+                <p>Выставить статус на почте</p>
+                <input type="checkbox" class="form-control" name="spiStatus" id="spiStatus">
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Закрыть</button>
