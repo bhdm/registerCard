@@ -172,7 +172,11 @@ class CompanyController extends Controller
             }else{
                 $company->setConfirmed(false);
             }
-            $op = $this->getDoctrine()->getRepository('CrmMainBundle:Operator')->find($data->get('high'));
+            if ($data->get('high')){
+                $op = $this->getDoctrine()->getRepository('CrmMainBundle:Operator')->find($data->get('high'));
+            }else{
+                $op =  null;
+            }
             $company->setHighOperator($op);
             $company->setForma($data->get('forma'));
             $company->setInn($data->get('inn'));
