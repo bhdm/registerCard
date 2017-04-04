@@ -109,7 +109,7 @@
         <br />
         <div class="row">
             {% for key in 1..35 %}
-            <div class="col-sm-3">
+            <div class="">
                 <img src="{{ asset('bundles/crmmain/stamp_png/'~key~'.png') }}" data-src="bundles/crmmain/stamp_png/{{key}}.png" class="img-thumbnail draggable" style="background: none;">
                 <input type="hidden" data="x" name="stamp[{{ key-1 }}][clientX]" id="" value="">
                 <input type="hidden" data="y" name="stamp[{{ key-1 }}][clientY]" id="" value="">
