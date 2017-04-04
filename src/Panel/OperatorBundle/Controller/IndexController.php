@@ -92,7 +92,7 @@ class IndexController extends Controller
         }elseif($type == 'passportTranslate'){
             $filename = $user->getCopyPassportTranslate();
         }elseif($type == 'driverTranslate'){
-            $filename = $user->getPassportTranslate();
+            $filename = $user->getCopyPassportTranslate();
         }
         $filename = $filename['path'];
         $pathA = explode('/',$filename);
@@ -173,9 +173,9 @@ class IndexController extends Controller
         } elseif ($type == 'inn') {
             $filename = $user->getCopyInn();
         }elseif($type == 'passportTranslate'){
-            $filename = $user->getPassportTranslate();
+            $filename = $user->getCopyPassportTranslate();
         }elseif($type == 'driverTranslate'){
-            $filename = $user->getPassportTranslate();
+            $filename = $user->getCopyPassportTranslate();
         }
 
         $filename = $filename['path'];
