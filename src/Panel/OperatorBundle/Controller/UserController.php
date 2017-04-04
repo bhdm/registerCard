@@ -319,7 +319,15 @@ class UserController extends Controller
         $this->getDoctrine()->getManager()->flush($user);
 
 
-        $referer = $request->headers->get('referer').'#userr'.$userId;
+
+
+        if (!$request->query->get('ref') ){
+            $referer = $request->headers->get('referer').'#userr'.$userId;
+            $refererBase = base64_encode($referer);
+        }else{
+            $referer = base64_decode($request->query->get('ref'));
+            $refererBase = $request->query->get('ref');
+        }
 
 
 
@@ -623,9 +631,9 @@ class UserController extends Controller
         $petitions = $this->getUser()->getPetitions();
         $countries = $this->getDoctrine()->getRepository('CrmMainBundle:Country')->findAll();
         if ($user->getEstr() == 0 and $user->getRu() == 0){
-            return $this->render('PanelOperatorBundle:User:edit3.html.twig', array('user' => $user, 'regions' => $regions, 'referer' => $referer,'companies' => $companies,'petitions' => $petitions, 'clients' => $clients, 'countries' => $countries));
+            return $this->render('PanelOperatorBundle:User:edit3.html.twig', array('user' => $user, 'regions' => $regions, 'referer' => $referer,'companies' => $companies,'petitions' => $petitions, 'clients' => $clients, 'countries' => $countries, 'ref' => $refererBase));
         }else{
-            return array('user' => $user, 'regions' => $regions, 'referer' => $referer,'companies' => $companies,'petitions' => $petitions, 'clients' => $clients, 'countries' => $countries);
+            return array('user' => $user, 'regions' => $regions, 'referer' => $referer,'companies' => $companies,'petitions' => $petitions, 'clients' => $clients, 'countries' => $countries, 'ref' => $refererBase);
         }
 
     }

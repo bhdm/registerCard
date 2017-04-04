@@ -146,7 +146,7 @@ class IndexController extends Controller
 //            echo $image;
             $image->writeImage();
             $image->destroy();
-            return $this->redirectToRoute('panel_user_edit',['userId' => $userId]);
+            return $this->redirectToRoute('panel_user_edit',['userId' => $userId, 'ref' => $request->query->get('ref')]);
         }else{
             return ['file' => $file];
         }
