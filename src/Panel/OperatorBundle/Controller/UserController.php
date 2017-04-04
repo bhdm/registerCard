@@ -2121,7 +2121,15 @@ class UserController extends Controller
             $user = $this->getDoctrine()->getRepository('CrmMainBundle:User')->find($key);
             if ($user != null) {
                 $user->setPost($number);
+                $user->setStatus(4);
                 $em->flush($user);
+                $date = new \DateTime();
+                $log = new StatusLog();
+                $log->setUser($user);
+                $log->setCreated($date);
+                $log->setTitle('На почте');
+                $em->persist($log);
+                $em->flush($log);
             }
         }
         $referer = $request->headers->get('referer');
