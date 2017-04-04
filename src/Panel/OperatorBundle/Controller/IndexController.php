@@ -89,6 +89,10 @@ class IndexController extends Controller
             $filename = $user->getCopySnils();
         }elseif($type == 'inn'){
             $filename = $user->getCopyInn();
+        }elseif($type == 'passportTranslate'){
+            $filename = $user->getPassportTranslate();
+        }elseif($type == 'driverTranslate'){
+            $filename = $user->getPassportTranslate();
         }
         $filename = $filename['path'];
         $pathA = explode('/',$filename);
