@@ -90,7 +90,7 @@ class IndexController extends Controller
         }elseif($type == 'inn'){
             $filename = $user->getCopyInn();
         }elseif($type == 'passportTranslate'){
-            $filename = $user->getPassportTranslate();
+            $filename = $user->getCopyPassportTranslate();
         }elseif($type == 'driverTranslate'){
             $filename = $user->getPassportTranslate();
         }
