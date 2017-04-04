@@ -105,7 +105,7 @@ class IndexController extends Controller
             $filePath = __DIR__.'/../../../../web/';
             $image = new \Imagick($filePath.$file);
             if ($image->getImageWidth() > (1000)){
-                $y = $image->getImageWidth()/1000 * $image->getImageHeight();
+                $y = $image->getImageHeight() / $image->getImageWidth()/1000;
                 $image->resizeImage(1000,$y, \Imagick::FILTER_LANCZOS,1);
             }elseif($image->getImageWidth() < (1000)){
                 $y = $image->getImageWidth()/1000 * $image->getImageHeight();
