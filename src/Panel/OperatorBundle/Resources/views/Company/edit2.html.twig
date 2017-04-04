@@ -53,11 +53,11 @@
             <tr>
                 <td class="label">Почтовый адрес организации<span class="required">*</span>:</td>
                 <td class="value">
-                    <select name="companyRegion" id="companyRegion">
-                        {% for region in regions %}
-                            <option value="{{ region.id }}" {{ region.id == company.region.id ? 'selected="selected"' : '' }}>{{ region.title }}</option>
-                        {% endfor %}
-                    </select><br />
+                    {#<select name="companyRegion" id="companyRegion">#}
+                        {#{% for region in regions %}#}
+                            {#<option value="{{ region.id }}" {{ region.id == company.region.id ? 'selected="selected"' : '' }}>{{ region.title }}</option>#}
+                        {#{% endfor %}#}
+                    {#</select><br />#}
                     <input name="companyCity"    id="companyCity"     type="text" class="form-control" placeholder="Город" value=""><br />
 
                     <select name="companyTypeStreet" id="companyTypeStreet">
