@@ -292,7 +292,7 @@
                             <div class="col-sm-4">
                                 <input type="file" name="passportTranslateFile" id="passportTranslateFile"  data-type="passportTranslateFile" class="fileAjax">
                                 {% if user.copyPassportTranslate.path is defined %}
-                                    <img src="/{{ user.copyPassportTranslate.path }}" brightness="128" contrast="128" data-type="passportTranslateFile" class="document" id="passportTranslateFileImg">
+                                    <a href="/{{ user.copyPassportTranslate.path | getOriginal}}" class="fancybox" ><img src="/{{ user.copyPassportTranslate.path | getOriginal }}" brightness="128" contrast="128" data-type="passportTranslateFile" class="" id="passportTranslateFileImg"></a>
                                     <br>
                                     <a href="{{ path('panel_download_png',{'filename' : user.copyPassportTranslate.fileName }) }}">Скачать</a>
                                     {% if is_granted("ROLE_ADMIN") %}
@@ -560,7 +560,7 @@
                             <div class="col-sm-4">
                                 <input type="file" name="driverTranslateFile" id="driverTranslateFile"  data-type="driverTranslateFile" class="fileAjax">
                                 {% if user.copyDriverPassportTranslate.path is defined %}
-                                    <img src="/{{ user.copyDriverPassportTranslate.path }}" brightness="128" contrast="128" data-type="driverTranslateFile" class="document" id="driverTranslateFileImg">
+                                    <a href="/{{ user.copyDriverPassportTranslate.path | getOriginal}}" class="fancybox" ><img src="/{{ user.copyDriverPassportTranslate.path | getOriginal }}" brightness="128" contrast="128" data-type="driverTranslateFile" class="" id="driverTranslateFileImg"></a>
                                     <br>
                                     <a href="{{ path('panel_download_png',{'filename' : user.copyDriverPassportTranslate.fileName }) }}">Скачать</a>
                                     {% if is_granted("ROLE_ADMIN") %}
