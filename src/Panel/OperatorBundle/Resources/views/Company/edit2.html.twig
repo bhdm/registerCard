@@ -196,12 +196,12 @@
                 </tr>
             {% if is_granted('ROLE_ADMIN') %}
                 <tr>
-                    <td class="label">Доверенная компания:</td>
+                    <td class="label">Надзиратель: </td>
                     <td class="value" style="  padding-top: 5px;">
                         <select name="high">
                             <option value="">Не выбрано</option>
-                            {% for o in operators %}
-                                <option value="{{ o.id }}">{{ o }}</option>
+                            {% for ho in operators %}
+                                <option value="{{ ho.id }}" {{ company.highOperator.id is defined and company.highOperator.id == ho.id ? 'selected' : '' }}>{{ ho.username }}</option>
                             {% endfor %}
                         </select>
                     </td>
