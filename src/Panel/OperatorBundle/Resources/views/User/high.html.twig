@@ -27,7 +27,7 @@
                             {% endif %}
                         {% endif %}
                     {% endfor %}
-                    На сумму: {{ priceToSuccess }} шт.<br />
+                    На сумму: {{ priceToSuccess }} руб.<br />
                 </th>
                 <th></th>
                 <th>
@@ -81,10 +81,10 @@
                     <td>{{ user.statusStringTwig |raw }}</td>
                     <td>
                         {% if user.company.referPrice != 0 and  user.company.referPrice != null %}
-                            {{ uu.company.referPrice }}
+                            {{ user.company.referPrice }}
                         {% else %}
                             {% if user.company.operator is defined and user.company.operator.referPrice != null  %}
-                                {{ uu.company.operator.referPrice }}
+                                {{ user.company.operator.referPrice }}
                             {% else %}
                                 0
                             {% endif %}
