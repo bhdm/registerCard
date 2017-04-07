@@ -188,7 +188,7 @@
                 <td class="value">
                     <select name="highOperator" class="form-control">
                         {% for ho in moderators %}
-                            <option value="{{ ho.id }}" {{ operator.highOperator.id is defined and operator.highOperator.id == ho.id ? 'selectd' : '' }}>{{ ho.username }}</option>
+                            <option value="{{ ho.id }}" {{ operator.highOperator.id is defined and operator.highOperator.id == ho.id ? 'selected' : '' }}>{{ ho.username }}</option>
                         {% endfor %}
                     </select>
                 </td>
