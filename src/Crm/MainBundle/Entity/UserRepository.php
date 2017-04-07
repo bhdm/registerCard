@@ -1063,7 +1063,7 @@ class UserRepository extends EntityRepository
             ->setParameter('user', $user);
 
 
-            $res->andWhere('u.status >= 3 AND u.status != 10');
+            $res->andWhere('u.status = 6 OR u.status = 4 OR u.status = 5');
 
 
         if (isset($params['operator']) and $params['operator'] != null){
