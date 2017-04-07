@@ -1190,6 +1190,23 @@ class Operator extends BaseEntity implements UserInterface
         $this->highOperator = $highOperator;
     }
 
+    /**
+     * @return mixed
+     */
+    public function getReferPrice()
+    {
+        return $this->referPrice;
+    }
+
+    /**
+     * @param mixed $referPrice
+     */
+    public function setReferPrice($referPrice)
+    {
+        $this->referPrice = $referPrice;
+    }
+
+
 
 
 }
