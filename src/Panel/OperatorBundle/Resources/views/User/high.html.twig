@@ -80,10 +80,10 @@
                     <td>{{ user }}</td>
                     <td>{{ user.statusStringTwig |raw }}</td>
                     <td>
-                        {% if user.company.referPrice  %}
+                        {% if user.company.referPrice != 0 and  user.company.referPrice != null %}
                             {{ uu.company.referPrice }}
                         {% else %}
-                            {% if user.company.operator is defined and user.company.operator.referPrice  %}
+                            {% if user.company.operator is defined and user.company.operator.referPrice != null  %}
                                 {{ uu.company.operator.referPrice }}
                             {% else %}
                                 0
