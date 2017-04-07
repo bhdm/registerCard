@@ -181,7 +181,13 @@
                 <td class="label">Предприятие РФ:</td>
                 <td class="value"><input style="width: 358px;" type="text" class="form-control"  name="priceEnterpriseRu" value="{{ company.priceEnterpriseRu }}"></td>
             </tr>
-            {#{% if is_granted('ROLE_ADMIN') %}#}
+
+            {% if is_granted('ROLE_ADMIN') %}
+                <tr>
+                    <td class="label">Цена реф. партнерства:</td>
+                    <td class="value"><input style="width: 358px;" type="text" class="form-control"  name="referPrice" value="{{ company.referPrice }}"></td>
+                </tr>
+            {% endid %}
                 <tr>
                     <td class="label">Доверенная компания:</td>
                     <td class="value" style="  padding-top: 5px;">

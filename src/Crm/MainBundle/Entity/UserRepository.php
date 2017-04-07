@@ -1052,5 +1052,49 @@ class UserRepository extends EntityRepository
         return $res->getQuery()->getResult();
 
     }
+
+    public function findSuccessHigh($user, $params = []){
+        $res = $this->getEntityManager()->createQueryBuilder()
+            ->select('u')
+            ->from('CrmMainBundle:User','u')
+            ->leftJoin('u.company','c')
+            ->leftJoin('c.operator','o')
+            ->where('(o.highOperator = :user or c.highOperator = :user)')
+            ->setParameter('user', $user);
+
+
+            $res->andWhere('u.status >= 3 AND u.status != 10');
+
+
+        if (isset($params['operator']) and $params['operator'] != null){
+            $res->andWhere('o.id = '.$params['operator']);
+        }
+
+        if (isset($params['company']) and $params['company'] != null){
+            $res->andWhere('c.id = '.$params['company']);
+        }
+
+        if (isset($params['start']) and $params['start'] != null){
+            $t = new \DateTime($params['start']);
+            $t = $t->format('Y-m-d').' 00:00:00';
+            $res->andWhere('u.created >= :date1');
+            $res->setParameter('date1', $t);
+        }
+
+        if (isset($params['end']) and $params['end'] != null){
+            $t = new \DateTime($params['end']);
+            $t = $t->format('Y-m-d').' 00:00:00';
+            $res->andWhere("u.created <= :date2");
+            $res->setParameter('date2', $t);
+        }
+
+        $res
+            ->orderBy('u.id', 'DESC');
+
+//        echo $res->getQuery()->getSQL();
+        return $res->getQuery()->getResult();
+    }
+
+
 }
 

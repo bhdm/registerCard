@@ -13,7 +13,14 @@
         <table class="table">
             <tr>
                 <th>
-                    Найдено: {{ users | length }} шт.
+                    Найдено: {{ users | length }} шт.<br />
+                    Изготовлено: {{ usersToSuccess | length }} шт.<br />
+
+                    {% set priceToSuccess = 0 %}
+                    {% for uu in usersToSuccess %}
+                        {% set priceToSuccess = priceToSuccess + (uu.company.referPrice ? uu.company.referPrice : 0) %}
+                    {% endfor %}
+                    На сумму: {{ priceToSuccess }} шт.<br />
                 </th>
                 <th></th>
                 <th>

@@ -200,6 +200,8 @@ class CompanyController extends Controller
             $company->setPriceEnterpriseSkzi($data->get('priceEnterpriseSkzi'));
             $company->setPriceEnterpriseRu(  $data->get('priceEnterpriseRu'));
 
+            $company->setReferPrice(  $data->get('referPrice'));
+
 
             $company->setEnabled(true);
 

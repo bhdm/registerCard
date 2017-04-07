@@ -351,6 +351,11 @@ class Company extends BaseEntity
      */
     protected $highOperator;
 
+    /**
+     * @ORM\Column(type="integer", name="referPrice", nullable=true)
+     */
+    protected $referPrice;
+
     public function __construct(){
         $this->quotaLog = new ArrayCollection();
         $this->companies = new ArrayCollection();
@@ -1448,6 +1453,22 @@ class Company extends BaseEntity
     public function setHighOperator($highOperator)
     {
         $this->highOperator = $highOperator;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getReferPrice()
+    {
+        return $this->referPrice;
+    }
+
+    /**
+     * @param mixed $referPrice
+     */
+    public function setReferPrice($referPrice)
+    {
+        $this->referPrice = $referPrice;
     }
 
 
