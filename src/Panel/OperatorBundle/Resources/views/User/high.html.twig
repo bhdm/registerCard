@@ -18,7 +18,14 @@
 
                     {% set priceToSuccess = 0 %}
                     {% for uu in usersToSuccess %}
-                        {% set priceToSuccess = priceToSuccess + (uu.company.referPrice ? uu.company.referPrice : 0) %}
+                        {#{% set priceToSuccess = priceToSuccess + (uu.company.referPrice ? uu.company.referPrice : ) %}#}
+                        {% if uu.company.referPrice  %}
+                            {% set priceToSuccess = priceToSuccess + uu.company.referPrice %}
+                        {% else %}
+                            {% if uu.company.operator is defined and uu.company.operator.referPrice  %}
+                                {% set priceToSuccess = priceToSuccess + uu.company.operator.referPrice %}
+                            {% endif %}
+                        {% endif %}
                     {% endfor %}
                     На сумму: {{ priceToSuccess }} шт.<br />
                 </th>
@@ -72,7 +79,17 @@
                     <td>{{ user.company }}</td>
                     <td>{{ user }}</td>
                     <td>{{ user.statusStringTwig |raw }}</td>
-                    <td>{{ user.company.oferPrice ? user.company.oferPrice : 0 }}</td>
+                    <td>
+                        {% if user.company.referPrice  %}
+                            {{ uu.company.referPrice }}
+                        {% else %}
+                            {% if user.company.operator is defined and user.company.operator.referPrice  %}
+                                {{ uu.company.operator.referPrice }}
+                            {% else %}
+                                0
+                            {% endif %}
+                        {% endif %}
+                    </td>
                 </tr>
             {% endfor %}
         </table>

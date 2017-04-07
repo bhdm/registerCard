@@ -97,6 +97,8 @@ class OperatorController extends Controller
             $operator->setPriceMasterEstr($request->request->get('priceMasterEstr'));
             $operator->setPriceMasterRu($request->request->get('priceMasterRu'));
 
+            $company->setReferPrice(  $data->get('referPrice'));
+
 
             if ($request->request->get('confirmed') != null){
                 $operator->setConfirmed(true);

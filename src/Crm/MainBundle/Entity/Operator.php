@@ -218,6 +218,10 @@ class Operator extends BaseEntity implements UserInterface
      */
     protected $highOperator;
 
+    /**
+     * @ORM\Column(type="integer", name="referPrice", nullable=true)
+     */
+    protected $referPrice;
 
     public function __construct(){
         $this->roles    = 'ROLE_OPERATOR';
