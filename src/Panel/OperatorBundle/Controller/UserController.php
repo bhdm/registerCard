@@ -2485,7 +2485,7 @@ class UserController extends Controller
 
         $operators = $this->getDoctrine()->getRepository('CrmMainBundle:Operator')->findBy(['highOperator' => $this->getUser()]);
         $companies = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->findHigh($this->getUser());
-        return ['users' => $users, 'operators' => $operators, 'companies' => $companies, 'params' => $request->query->get('params'), 'priceToSuccess' => $priceToSuccess];
+        return ['users' => $users, 'operators' => $operators, 'companies' => $companies, 'params' => $request->query->get('params'), 'usersToSuccess' => $usersToSuccess];
     }
 
     /**
