@@ -45,6 +45,7 @@
                 <td class="value"><input style="width: 358px;" type="text" class="form-control" name="companyTitle" placeholder="" value="{{ operator.companyTitle }}"></td>
             </tr>
 
+            {#{{ dump(operator.adrs) }}#}
             <tr>
                 <td class="label">Почтовый адрес организации<span class="required">*</span>:</td>
                 <td class="value">
@@ -53,13 +54,13 @@
                             <option value="{{ region.title }}" {{ operator.adrs.region is defined and region.title == operator.adrs.region ? 'selected="selected"' : '' }}>{{ region.title }}</option>
                         {% endfor %}
                     </select><br /><br />
-                    <input name="city"    id="companyCity"     type="text" class="form-control" placeholder="Город" value="{{ operator.adrs.city }}">
-                    <input name="street"  id=""   type="text" class="form-control" placeholder="Название улицы" value="{{ operator.adrs.street }}">
-                    <input name="house"   id="companyHouse"    type="text" class="form-control little" placeholder="Дом"  value="{{ operator.adrs.home }}">
-                    <input name="corp"    id="companyCorp"     type="text" class="form-control little" placeholder="Корп"   value="{{ operator.adrs.corp }}">
-                    <input name="structure"    id="companyStructure"     type="text" class="form-control" placeholder="Строение"  class="little" value="{{ operator.adrs.structure }}">
-                    <input name="room"    id="companyRoom"  type="text" class="form-control" placeholder="Номер"  class="little" value="{{ operator.adrs.room }}">
-                    <input name="zipcode" id="companyZipcode"  type="text" class="form-control" placeholder="Индекс" value="{{ operator.adrs.zipcode }}"><br />
+                    <input name="city"    id="companyCity"     type="text" class="form-control" placeholder="Город" value="{{ operator.adrs.city is defined ? operator.adrs.city :  '' }}">
+                    <input name="street"  id=""   type="text" class="form-control" placeholder="Название улицы" value="{{ operator.adrs.street is defined ? operator.adrs.street : '' }}">
+                    <input name="house"   id="companyHouse"    type="text" class="form-control little" placeholder="Дом"  value="{{ operator.adrs.home is defined ? operator.adrs.home : '' }}">
+                    <input name="corp"    id="companyCorp"     type="text" class="form-control little" placeholder="Корп"   value="{{ operator.adrs.corp is defined ? operator.adrs.corp : '' }}">
+                    <input name="structure"    id="companyStructure"     type="text" class="form-control" placeholder="Строение"  class="little" value="{{ operator.adrs.structure is defined ? operator.adrs.structure : '' }}">
+                    <input name="room"    id="companyRoom"  type="text" class="form-control" placeholder="Номер"  class="little" value="{{ operator.adrs.room is defined ? operator.adrs.room : '' }}">
+                    <input name="zipcode" id="companyZipcode"  type="text" class="form-control" placeholder="Индекс" value="{{ operator.adrs.zipcode is defined ? operator.adrs.zipcode : '' }}"><br />
                 </td>
             </tr>
 

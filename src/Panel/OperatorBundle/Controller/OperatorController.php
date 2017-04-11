@@ -62,8 +62,10 @@ class OperatorController extends Controller
 
         if ($request->getMethod() == 'POST'){
             $operator->setUsername($request->request->get('username'));
-            $ho = $this->getDoctrine()->getRepository('CrmMainBundle:Operator')->find($request->request->get('highOperator'));
-            $operator->setHighOperator($ho);
+            if ($request->request->get('highOperator') != null){
+                $ho = $this->getDoctrine()->getRepository('CrmMainBundle:Operator')->find($request->request->get('highOperator'));
+                $operator->setHighOperator($ho);
+            }
 
             $operator->setCompanytitle($request->request->get('companyTitle'));
             $operator->setInn($request->request->get('inn'));
