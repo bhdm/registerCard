@@ -41,6 +41,7 @@
                 {% endif %}
                 <th >ФИО / Email</th>
                 <th>Комментарий</th>
+                <th></th>
                 <th class="setting">Инструменты</th>
             </tr>
             </thead>
@@ -136,6 +137,15 @@
                     <td>
                         <div class="comment-box disabled-click" data-id="{{ user.id }}">{{ user.comment }}</div>
                         <a href="https://www.pochta.ru/tracking#{{ user.post }}" target="_blank">{{ user.post }}</a>
+                    </td>
+                    <td>
+                        {% if is_granted("ROLE_ADMIN") %}
+                            {% if user.privateComment == null %}
+                                <button type="button" class="btn btn-success openPrivateComment" data-id="{{ user.id }}" data-message="{{ user.privateComment }}" ><span class="glyphicon glyphicon-envelope"></span></button>
+                            {% else %}
+                                <button type="button" class="btn btn-warning openPrivateComment" data-id="{{ user.id }}" data-message="{{ user.privateComment }}"><span class="glyphicon glyphicon-envelope"></span></button>
+                            {% endif %}
+                        {% endif %}
                     </td>
                     <td class="setting">
                         {% spaceless %}

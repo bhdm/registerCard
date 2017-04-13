@@ -43,6 +43,7 @@
                 <th >ФИО / Email</th>
                 <th>Комментарий</th>
                 <th>Документы</th>
+                <th></th>
                 <th class="setting">Инструменты</th>
             </tr>
             </thead>
@@ -182,6 +183,15 @@
                                 </ul>
                             </div>
                         {% endspaceless %}
+                    </td>
+                    <td>
+                        {% if is_granted("ROLE_ADMIN") %}
+                            {% if user.privateComment == null %}
+                                <button type="button" class="btn btn-success openPrivateComment" data-id="{{ user.id }}" data-message="{{ user.privateComment }}" ><span class="glyphicon glyphicon-envelope"></span></button>
+                            {% else %}
+                                <button type="button" class="btn btn-warning openPrivateComment" data-id="{{ user.id }}" data-message="{{ user.privateComment }}"><span class="glyphicon glyphicon-envelope"></span></button>
+                            {% endif %}
+                        {% endif %}
                     </td>
                     <td class="setting">
                         {% spaceless %}

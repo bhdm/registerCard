@@ -44,6 +44,7 @@
                     <td></td>
                 {% endif %}
                 <th>Комментарий</th>
+                <th></th>
             </tr>
             </thead>
             <form id="form-list" method="POST">
@@ -253,6 +254,15 @@
                                 </a>
                             {% endif %}
                         </td>
+                        <td>
+                            {% if is_granted("ROLE_ADMIN") %}
+                                {% if user.privateComment == null %}
+                                    <button type="button" class="btn btn-success openPrivateComment" data-id="{{ user.id }}" data-message="{{ user.privateComment }}" ><span class="glyphicon glyphicon-envelope"></span></button>
+                                {% else %}
+                                    <button type="button" class="btn btn-warning openPrivateComment" data-id="{{ user.id }}" data-message="{{ user.privateComment }}"><span class="glyphicon glyphicon-envelope"></span></button>
+                                {% endif %}
+                            {% endif %}
+                        </td>
                     </tr>
                 {% endfor%}
             </form>
@@ -261,6 +271,7 @@
             {{ knp_pagination_render(pagination) }}
         </div>
     </div>
+
 {% endblock %}
 
 {% block stylesheets %}
@@ -296,6 +307,7 @@
     {{ parent() }}
     <script>
         $(document).ready(function(){
+
 
             $(".chosen").chosen({no_results_text: "Компаний по вашему запросу не найдено", width: 200});
 

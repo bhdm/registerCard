@@ -592,6 +592,11 @@ class User extends BaseEntity implements UserInterface, EquatableInterface, \Ser
      */
     private $currentNumber;
 
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $privateComment;
+
     public function getXmlId()
     {
         return str_pad($this->id, 8, "0", STR_PAD_LEFT);
@@ -2652,6 +2657,22 @@ class User extends BaseEntity implements UserInterface, EquatableInterface, \Ser
     public function setCurrentNumber($currentNumber)
     {
         $this->currentNumber = $currentNumber;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getPrivateComment()
+    {
+        return $this->privateComment;
+    }
+
+    /**
+     * @param mixed $privateComment
+     */
+    public function setPrivateComment($privateComment)
+    {
+        $this->privateComment = $privateComment;
     }
 
 

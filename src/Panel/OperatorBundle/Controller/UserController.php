@@ -2533,5 +2533,19 @@ class UserController extends Controller
         return ['txt' => $txt];
     }
 
+    /**
+     * @param Request $request
+     * @return RedirectResponse
+     * @Route("/private-message", name="panel_operator_private_message")
+     */
+    public function privateCommentAction(Request $request){
+        $user = $this->getDoctrine()->getRepository('CrmMainBundle:User')->find($request->request->get('userId'));
+        $user->setPrivateComment($request->request->get('privateCommentText'));
+        $this->getDoctrine()->getManager()->flush($user);
+
+        $referer = $request->headers->get('referer');
+        return $this->redirect($referer);
+    }
+
 }
 

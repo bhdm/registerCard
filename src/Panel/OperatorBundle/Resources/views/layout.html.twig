@@ -88,6 +88,12 @@
           });
         {% endif %}
 
+          
+          $('.openPrivateComment').click(function () {
+                $('#privateCommentUserId').val($(this).data('id'));
+                $('#privateCommentText').val($(this).data('message'));
+                $('#privateComment').modal();
+          });
       });
     </script>
   {% endblock %}
@@ -170,6 +176,28 @@
   </div>
 </div>
 {% block body %}{% endblock %}
+
+<div class="modal fade" id="privateComment" tabindex="-1" role="dialog" aria-labelledby="privateCommentLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Приватный комментарий</h4>
+            </div>
+            <form method="POST" action="{{ path('panel_operator_private_message') }}">
+                <div class="modal-body">
+                    <input type="hidden" name="userId" value="" id="privateCommentUserId">
+                    <textarea class="form-control" name="privateCommentText" id="privateCommentText"></textarea>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Закрыть</button>
+                    <button type="submit" class="btn btn-primary">Сохранить</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
 </body>
 <div id="myquota-box">
 
