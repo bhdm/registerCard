@@ -356,7 +356,7 @@ class XmlController extends Controller
         $filename = str_replace('.jpg', '-or.jpg', $filename);
         if (!is_file(__DIR__.$filename)){
             $filename = 'origin-'.$filename;
-            $file = implode('/',$filename);
+//            $file = implode('/',$filename);
             $filename = str_replace('-or.jpg', '.jpg', $filename);
         }
 
