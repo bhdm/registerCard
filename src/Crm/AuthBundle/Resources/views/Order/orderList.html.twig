@@ -125,11 +125,11 @@
                             {#{% if o.estr == 0 and o.ru == 0 %}#}
                             {#<a href="{{ path('auth_user_skzi_edit', {'userId' : o.id}) }}">{{ o.id }}</a>#}
                             {#{% else %}#}
-                            {% if o.estr == 1 %}
-                                {{ o.id }}
-                            {% else %}
+                            {#{% if o.estr == 1 %}#}
+                                {#{{ o.id }}#}
+                            {#{% else %}#}
                                 <a href="{{ path('auth_user_edit', {'userId' : o.id}) }}" title="Редактирование заявки" style="font-size: 17px; font-weight: bold">{{ o.id }}</a>
-                            {% endif %}
+                            {#{% endif %}#}
                             {#{% endif %}#}
                         </td>
                         <td>{{ o.created | date('d.m.Y') }}</td>
