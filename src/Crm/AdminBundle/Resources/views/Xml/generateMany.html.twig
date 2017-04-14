@@ -123,26 +123,30 @@
 
             {# Паспорт #}
             <Attachment>
-                <AttachmentType>Other</AttachmentType>
+                <AttachmentType>Passport</AttachmentType>
                 <FileFormat>PDF</FileFormat>
                 <Body>{{ files[0].base }}</Body>
             </Attachment>
 
-            {# Водительское удостоверение #}
-            {#<Attachment>#}
-                {#<AttachmentType>Other</AttachmentType>#}
-                {#<FileFormat>PDF</FileFormat>#}
-                {#<Body>{{ files[1].base }}</Body>#}
-            {#</Attachment>#}
+             {#Водительское удостоверение#}
+            {% if driver.checkedDriver == true %}
+            <Attachment>
+                <AttachmentType>DriverLicense</AttachmentType>
+                <FileFormat>PDF</FileFormat>
+                <Body>{{ files[1].base }}</Body>
+            </Attachment>
+            {% endif %}
 
-            {# СНИЛС #}
-            {#{% if files[5] is defined %}#}
-                {#<Attachment>#}
-                    {#<AttachmentType>Other</AttachmentType>#}
-                    {#<FileFormat>PDF</FileFormat>#}
-                    {#<Body>{{ files[5].base }}</Body>#}
-                {#</Attachment>#}
-            {#{% endif %}#}
+             {#СНИЛС#}
+            {% if driver.checkedDriver == true %}
+                {% if files[5] is defined %}
+                    <Attachment>
+                        <AttachmentType>Other</AttachmentType>
+                        <FileFormat>PDF</FileFormat>
+                        <Body>{{ files[5].base }}</Body>
+                    </Attachment>
+                {% endif %}
+            {% endif %}
 
             {# Временная регистрация #}
             {#{% if files[6] is defined %}#}
@@ -166,7 +170,7 @@
             {# Заявление #}
             {% if files[7] is defined %}
                 <Attachment>
-                    <AttachmentType>Other</AttachmentType>
+                    <AttachmentType>CardOrder</AttachmentType>
                     <FileFormat>PDF</FileFormat>
                     <Body>{{ files[7].base }}</Body>
                 </Attachment>
