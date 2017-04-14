@@ -1,30 +1,38 @@
 {% spaceless %}
     <ns2:TacPackage xmlns:ns2="http://www.example.org/">
     <MessageInfo>
-        <MessageId>FLGMN-{{ driver.xmlId }}</MessageId>
+        <MessageId>INFMX-{{ driver.xmlId }}</MessageId>
         <MessageDate>{{ "now" | date('Y-m-d')}}Z</MessageDate>
-        <MessageOwn>FLGMN</MessageOwn>
-        <MessageRecipient>ATLAS</MessageRecipient>
+        <MessageOwn>INFMX</MessageOwn>
+        <MessageRecipient>MIKRN</MessageRecipient>
     </MessageInfo>
     <PackageInfo>
-        <PackageNumber>FLGMN-{{ driver.xmlId }}</PackageNumber>
+        <PackageNumber>INFMX-{{ driver.xmlId }}</PackageNumber>
         <PackageDate> {{ "now" | date('Y-m-d')}}Z</PackageDate>
-        <OvkId>FLGMN</OvkId>
-        <CardManufacturerId>ATLAS</CardManufacturerId>
+        <OvkId>INFMX</OvkId>
+        <CardManufacturerId>MIKRN</CardManufacturerId>
     </PackageInfo>
     <Order_v2>
-    <OrderNumber>FLGMN-{{ driver.xmlId }}</OrderNumber>
+    <OrderNumber>INFMX-{{ driver.xmlId }}</OrderNumber>
     <OrderDate>{{ driver.created | date('Y-m-d')}}Z</OrderDate>
     <OrderCardType>D</OrderCardType>
     <OrderCardCount>1</OrderCardCount>
-    <OrderReason>create</OrderReason>
+        {% if driver.typeCard == 0 %}
+            <OrderReason>create</OrderReason>
+        {% elseif driver.typeCard == 1 %}
+            <OrderReason>refresh</OrderReason>
+        {% elseif driver.typeCard == 2 %}
+            <OrderReason>change</OrderReason>
+        {% elseif driver.typeCard == 3 %}
+            <OrderReason>change</OrderReason>
+        {% endif %}
     <PersonOrder>
         <PersonInfo>
             <NameFirst>{{ driver.firstName }}</NameFirst>
             <NameMiddle>{{ driver.surName is not null ? driver.surName : '' }}</NameMiddle>
             <NameLast>{{ driver.lastName }}</NameLast>
-            <Resident>true</Resident>
-            <Nationality>РФ</Nationality>
+            <Resident>{{ driver.citizenship.id is defined ? driver.citizenship.id == 3159 ? 'true' : 'false' }}</Resident>
+            <Nationality>{{ driver.citizenship.title ? driver.citizenship.title : '' }}</Nationality>
             <BirthDate>{{ driver.birthDate | date('Y-m-d')}}Z</BirthDate>
             <SNILS>{{ driver.snils }}</SNILS>
             <INN>{{ driver.inn }}</INN>
@@ -37,6 +45,9 @@
                 <IssuedDate>{{ driver.passportIssuanceDate | date('Y-m-d')}}Z</IssuedDate>
             </Credential>
         </PersonInfo>
+        {% if driver.typeCard != 0 %}
+            <PrevCardNumber>{{ driver.lastNumberCard }}</PrevCardNumber>
+        {% endif %}
         <DriverLicense>
             <DriverLicenseNumber>{{ driver.driverDocNumber }}</DriverLicenseNumber>
             <DriverLicenseCountryEstrCode>43</DriverLicenseCountryEstrCode>
