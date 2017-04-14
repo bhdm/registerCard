@@ -353,11 +353,12 @@ class XmlController extends Controller
     public function imageToPdfAction($filename){
         $mpdfService = $this->container->get('tfox.mpdfport');
 
-        $filename = str_replace('.jpg', '-or.jpg', $filename);
+//        $filename = str_replace('.jpg', '-or.jpg', $filename);
 //        if (!is_file(__DIR__.$filename)){
-//            $filename = 'origin-'.$filename;
+            $filename = 'origin-'.$filename;
 //            $file = implode('/',$filename);
-//            $filename = str_replace('-or.jpg', '.jpg', $filename);
+//            $file = str_replace('-or.jpg', '.jpg', $filename);
+
 //        }
 
         if (is_file('/var/www/upload/tmp/'.$filename)){
