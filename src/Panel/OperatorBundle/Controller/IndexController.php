@@ -112,7 +112,7 @@ class IndexController extends Controller
                 $y = $image->getImageHeight() / $image->getImageWidth()/1000;
                 $image->resizeImage(1000,$y, \Imagick::FILTER_LANCZOS,1);
             }elseif($image->getImageWidth() < (1000)){
-                $y = $image->getImageWidth()/1000 * $image->getImageHeight();
+                $y = $image->getImageHeight() / $image->getImageWidth()/1000;
                 $image->resizeImage(1000,$y, \Imagick::FILTER_LANCZOS,1);
             }
 
