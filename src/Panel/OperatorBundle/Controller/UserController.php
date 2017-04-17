@@ -1726,7 +1726,7 @@ class UserController extends Controller
     }
 
     /**
-     * @Route("/xml-generatorMany", name="panel_xml_generator_many", options={"expose"=true})
+     * @Route("/xml-generatorMany-2", name="panel_xml_generator_many", options={"expose"=true})
      */
     public function generateManyAction(Request $request)
     {
