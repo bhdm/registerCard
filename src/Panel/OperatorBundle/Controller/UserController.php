@@ -1831,11 +1831,12 @@ class UserController extends Controller
     }
 
     public function imageToPdf($filename, $type = null){
-        if ($type == null){
-            $url = 'http://'.$_SERVER['SERVER_NAME'].$this->generateUrl('ImageToPdf',array('filename' => $filename));
-        }else{
-            $url = 'http://'.$_SERVER['SERVER_NAME'].$this->generateUrl('create_image_pdf',array('filename' => $filename, 'type' => $type));
-        }
+//        if ($type == null){
+//            $url = 'http://'.$_SERVER['SERVER_NAME'].$this->generateUrl('ImageToPdf',array('filename' => $filename));
+//        }else{
+//            $url = 'http://'.$_SERVER['SERVER_NAME'].$this->generateUrl('create_image_pdf',array('filename' => $filename, 'type' => $type));
+//        }
+        $url = 'http://'.$_SERVER['SERVER_NAME'].$this->generateUrl('ImageToPdf',array('filename' => $filename));
         $pdfdata = file_get_contents($url);
         $base64 = base64_encode($pdfdata);
         return $base64;
