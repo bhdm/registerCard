@@ -355,16 +355,17 @@ class XmlController extends Controller
 
 //        $filename = str_replace('.jpg', '-or.jpg', $filename);
 //        if (!is_file(__DIR__.$filename)){
-            $filename = 'origin-'.$filename;
+            $filename1 = 'origin-'.$filename;
+            $filename2 = str_replace('.jpg', '-or.jpg', $filename);
 //            $file = implode('/',$filename);
 //            $file = str_replace('-or.jpg', '.jpg', $filename);
 
 //        }
 
         if (is_file('/var/www/upload/tmp/'.$filename)){
-            $html = '<img src="https://im-kard.ru/upload/tmp/'.$filename.'" style="max-width: 100%;"/>';
+            $html = '<img src="https://im-kard.ru/upload/tmp/'.$filename1.'" style="max-width: 100%;"/>';
         }else{
-            $html = '<img src="https://im-kard.ru/upload/docs/'.$filename.'" style="max-width: 100%;"/>';
+            $html = '<img src="https://im-kard.ru/upload/tmp/'.$filename2.'" style="max-width: 100%;"/>';
         }
 
 //        echo $html;
