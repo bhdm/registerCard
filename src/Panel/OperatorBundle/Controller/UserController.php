@@ -1726,7 +1726,7 @@ class UserController extends Controller
     }
 
     /**
-     * @Route("/xml-generatorMany-2", name="panel_xml_generator_many", options={"expose"=true})
+     * @Route("/xml-generatorMany", name="panel_xml_generator_many", options={"expose"=true})
      */
     public function generateManyAction(Request $request)
     {
@@ -1831,12 +1831,11 @@ class UserController extends Controller
     }
 
     public function imageToPdf($filename, $type = null){
-//        if ($type == null){
-//            $url = 'http://'.$_SERVER['SERVER_NAME'].$this->generateUrl('ImageToPdf',array('filename' => $filename));
-//        }else{
-//            $url = 'http://'.$_SERVER['SERVER_NAME'].$this->generateUrl('create_image_pdf',array('filename' => $filename, 'type' => $type));
-//        }
-        $url = 'http://'.$_SERVER['SERVER_NAME'].$this->generateUrl('ImageToPdf',array('filename' => $filename));
+        if ($type == null){
+            $url = 'http://'.$_SERVER['SERVER_NAME'].$this->generateUrl('ImageToPdf',array('filename' => $filename));
+        }else{
+            $url = 'http://'.$_SERVER['SERVER_NAME'].$this->generateUrl('create_image_pdf',array('filename' => $filename, 'type' => $type));
+        }
         $pdfdata = file_get_contents($url);
         $base64 = base64_encode($pdfdata);
         return $base64;
