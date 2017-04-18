@@ -1045,9 +1045,9 @@
                     <td>
                         <input type="file" name="copyOrderFile" id="copyOrderFile"  data-type="copyOrderFile" class="fileAjax">
                         {% if user.copyOrder.path is defined %}
-                            <img src="/{{ user.copyOrder.path }}" brightness="0" contrast="0" class="document" />
+                            <img src="/{{ user.copyOrder.path }}" brightness="0" contrast="0" class="document notZoom" />
                         {% else %}
-                            <img src="" brightness="0" contrast="0" data-type="copyOrderFile" class="document" id="copyOrderImg">
+                            <img src="" brightness="0" contrast="0" data-type="copyOrderFile" class="document notZoom" id="copyOrderImg">
                         {% endif %}
                     </td>
                 </tr>
@@ -1055,9 +1055,9 @@
                     <td>
                         <input type="file" name="copyOrder2File" id="copyOrder2File"  data-type="copyOrder2File" class="fileAjax">
                         {% if user.copyOrder2.path is defined %}
-                            <img src="/{{ user.copyOrder2.path }}" brightness="0" contrast="0" class="document" />
+                            <img src="/{{ user.copyOrder2.path }}" brightness="0" contrast="0" class="document notZoom" />
                         {% else %}
-                            <img src="" brightness="0" contrast="0" data-type="copyOrder2File" class="document" id="copyOrder2Img">
+                            <img src="" brightness="0" contrast="0" data-type="copyOrder2File" class="document notZoom" id="copyOrder2Img">
                         {% endif %}
                     </td>
                 </tr>
