@@ -634,7 +634,7 @@
                             <div class="col-sm-4">
                                 <input type="file" name="photoFile" id="photoFile"  data-type="photoFile" class="fileAjax">
                                 {% if user.photo.path is defined %}
-                                    <img src="/{{ user.photo.path }}" brightness="0" contrast="0" data-type="photoFile" class="document" id="photoFileImg">
+                                    <img src="/{{ user.photo.path }}" brightness="0" contrast="0" data-type="photoFile" class="document notZoom" id="photoFileImg">
                                     <br>
                                     <a href="{{ path('panel_download_png',{'filename' : user.photo.fileName }) }}">Скачать</a>
                                 {% endif %}
@@ -643,7 +643,7 @@
                             <div class="col-sm-4">
                                 <input type="file" name="signFile" id="signFile"  data-type="signFile" class="fileAjax">
                                 {#{% if user.copySignature.path is defined %}#}
-                                    <img src="/{{ user.copySignature.path }}" brightness="0" contrast="0" data-type="signFile" class="document" id="signFileImg">
+                                    <img src="/{{ user.copySignature.path }}" brightness="0" contrast="0" data-type="signFile" class="document notZoom" id="signFileImg">
                                     <br>
                                     <a href="{{ path('panel_download_png',{'filename' : user.copySignature.fileName }) }}">Скачать</a>
                                 {#{% endif %}#}
@@ -1292,7 +1292,7 @@
     <script>
         $(document).ready(function(){
 
-            $("img").imagezoomsl({
+            $("img").not('.notZoom').imagezoomsl({
                 zoomrange: [1, 10],
                 cursorshadeborder: "10px solid #000",
                 magnifiereffectanimate: "fadeIn",
