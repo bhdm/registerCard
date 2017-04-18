@@ -1293,10 +1293,12 @@
         $(document).ready(function(){
 
             $("img").imagezoomsl({
-                zoomrange: [3, 10],
-                cursorshadeborder: "10px solid #000",
-                magnifiereffectanimate: "fadeIn",
-                magnifierpos: "left"
+                zoomrange: [1, 10],
+//                cursorshadeborder: "10px solid #000",
+//                magnifiereffectanimate: "fadeIn",
+//                magnifierpos: "left"
+                zoomstart: 4,
+                innerzoom: true,
             });
 
             $('.fancybox').fancybox();
