@@ -625,9 +625,9 @@ class OrderController extends Controller
         if ($user->getPassportIssuanceDate() != null){
             $user->setPassportIssuanceDate($user->getPassportIssuanceDate()->format('d.m.Y'));
         }
-        if ($user->getDateEndCard() != null){
-            $user->setDateEndCard($user->getDateEndCard()->format('d.m.Y'));
-        }
+//        if ($user->getDateEndCard() != null){
+//            $user->setDateEndCard($user->getDateEndCard()->format('d.m.Y'));
+//        }
 //        if ($user->getDateEndCard() != null){
 //            $user->setDateEndCard($user->getDateEndCard()->format('d.m.Y'));
 //        }
