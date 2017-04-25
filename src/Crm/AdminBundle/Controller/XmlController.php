@@ -329,7 +329,7 @@ class XmlController extends Controller
 
         $mpdfService = $this->container->get('tfox.mpdfport');
         $arguments = array(
-//            'constructorArgs' => array('utf-8', 'A4-P', 5 ,5 ,5 ,5,5 ),
+            'constructorArgs' => array('utf-8', 'A4-P', 5 ,5 ,5 ,5,5 ),
             'writeHtmlMode' => null, //$mode argument for WriteHTML method
             'writeHtmlInitialise' => null, //$mode argument for WriteHTML method
             'writeHtmlClose' => null, //$close argument for WriteHTML method
@@ -337,9 +337,9 @@ class XmlController extends Controller
             'outputDest' => null, //$dest argument for Output method
         );
 
-        $mpdfService->ignore_invalid_utf8 = true;
-        $mpdfService->allow_charset_conversion = false;
-        $mpdfService->debug = true;
+//        $mpdfService->ignore_invalid_utf8 = true;
+//        $mpdfService->allow_charset_conversion = false;
+//        $mpdfService->debug = true;
         return $mpdfService->generatePdfResponse($html, $arguments);
 
     }
