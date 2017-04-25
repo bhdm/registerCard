@@ -1940,9 +1940,11 @@ class UserController extends Controller
             # Адрес
             $phpExcelObject->setActiveSheetIndex(0)->setCellValue('F' . $i, $adrs);
 
-        }
-        $phpExcelObject->setActiveSheetIndex(0)->setCellValue('G' . $i, (isset($user->getDeliveryAdrs()['recipient']) ? $user->getDeliveryAdrs()['recipient'] : ''));
 
+            $phpExcelObject->setActiveSheetIndex(0)->setCellValue('G' . $i,
+                (isset($user->getDeliveryAdrs()['recipient']) ? $user->getDeliveryAdrs()['recipient'] : '')
+            );
+        }
         $phpExcelObject->getActiveSheet()->setTitle('Simple');
         // Set active sheet index to the first sheet, so Excel opens this as the first sheet
         $phpExcelObject->setActiveSheetIndex(0);
