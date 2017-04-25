@@ -218,6 +218,14 @@
             $('#form-list').attr('target', '_self');
             $('#form-list').submit();
         });
+        $('#inputNumberPost').keypress(function(e){
+            if(e.which == 13) {
+                var url = Routing.generate('panel_user_save_number_post',{'number' : $('#inputNumberPost').val() });
+                $('#form-list').attr('action', url);
+                $('#form-list').attr('target', '_self');
+                $('#form-list').submit();
+            }
+        });
 
         $('#comfirmednewstatus').click(function () {
             var url = Routing.generate('panel_user_change_status',{'type' : $('#newstatusselect').val()});
