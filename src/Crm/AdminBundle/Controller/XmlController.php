@@ -398,7 +398,7 @@ class XmlController extends Controller
 
 //        $html = iconv("UTF-8","UTF-8//IGNORE",$html);
         $arguments = array(
-//            'constructorArgs' => array('utf-8', null, 0 ,0 ,0 ,0,0,0,0,0,'' ),
+            'constructorArgs' => array('utf-8', null, 0 ,0 ,0 ,0,0,0,0,0,'' ),
             'writeHtmlMode' => null, //$mode argument for WriteHTML method
             'writeHtmlInitialise' => null, //$mode argument for WriteHTML method
             'writeHtmlClose' => null, //$close argument for WriteHTML method
@@ -407,7 +407,7 @@ class XmlController extends Controller
         );
         $mpdfService->ignore_invalid_utf8 = true;
         $mpdfService->allow_charset_conversion = false;
-        $mpdfService->debug = true;
+//        $mpdfService->debug = true;
 
         return $mpdfService->generatePdfResponse($html, $arguments);
     }
