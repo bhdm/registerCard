@@ -368,9 +368,9 @@ class XmlController extends Controller
 //        }
 
         if (is_file('/var/www/upload/tmp/'.$filename)){
-            $html = 'https://im-kard.ru/upload/tmp/'.$filename;
+            $html = '/var/www/upload/tmp/'.$filename;
         }else{
-            $html = 'https://im-kard.ru/upload/docs/'.$filename;
+            $html = '/var/www/upload/docs/'.$filename;
         }
 
         $image2 = new \Imagick($html);
