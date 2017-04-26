@@ -321,10 +321,10 @@ class XmlController extends Controller
             $image->motionBlurImage(1.3,0.8,0);
         }
 
-        $image->setFormat('jpg');
-        $image->setImageFormat('jpg');
+        $image->setFormat('png');
+        $image->setImageFormat('png');
 
-        $base64 = 'data:image/jpg;base64,' . base64_encode($image->getImageBlob());
+        $base64 = 'data:image/png;base64,' . base64_encode($image->getImageBlob());
         $html = '<img src="'.$base64.'" style="width: 100%" />';
 
         $mpdfService = $this->container->get('tfox.mpdfport');
