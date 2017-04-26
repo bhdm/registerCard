@@ -373,13 +373,24 @@ class XmlController extends Controller
             $html = '/var/www/upload/docs/'.$filename;
         }
 
+        $image = new \Imagick();
+        $image->newImage(827, 1170, new \ImagickPixel('white'));
+        $image->setImageArtifact('compose:args', "1,0,-0.5,0.5");
+        $image->setImageVirtualPixelMethod(\Imagick::VIRTUALPIXELMETHOD_TRANSPARENT);
+
         $image2 = new \Imagick($html);
+        $image2->resizeImage(827,1170, \Imagick::FILTER_LANCZOS,1);
+
+
+        $image->compositeImage($image2, \Imagick::COMPOSITE_DEFAULT,0,0);
+
+
 //        echo $html;
 //        $image2->newImage(827, 1170, $html);
 //        $image2->setImageArtifact('compose:args', "1,0,-0.5,0.5");
 //        $image2->setImageVirtualPixelMethod(\Imagick::VIRTUALPIXELMETHOD_TRANSPARENT);
 
-        $base64 = 'data:image/jpeg;base64,' . base64_encode($image2->getImageBlob());
+        $base64 = 'data:image/jpeg;base64,' . base64_encode($image->getImageBlob());
         $html = '<img src="'.$base64.'" style="width: 100%" />';
 
 //        echo $html;
