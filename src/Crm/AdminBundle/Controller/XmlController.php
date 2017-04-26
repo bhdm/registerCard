@@ -361,11 +361,22 @@ class XmlController extends Controller
 
 //        }
 
+//        if (is_file('/var/www/upload/tmp/'.$filename)){
+//            $html = '<img src="https://im-kard.ru/upload/tmp/'.$filename.'" style="max-width: 100%;"/>';
+//        }else{
+//            $html = '<img src="https://im-kard.ru/upload/docs/'.$filename.'" style="max-width: 100%;"/>';
+//        }
+
         if (is_file('/var/www/upload/tmp/'.$filename)){
-            $html = '<img src="https://im-kard.ru/upload/tmp/'.$filename.'" style="max-width: 100%;"/>';
+            $html = 'https://im-kard.ru/upload/tmp/'.$filename;
         }else{
-            $html = '<img src="https://im-kard.ru/upload/docs/'.$filename.'" style="max-width: 100%;"/>';
+            $html = 'https://im-kard.ru/upload/docs/'.$filename;
         }
+
+        $image2 = new \Imagick($html);
+
+        $base64 = 'data:image/jpeg;base64,' . base64_encode($image2->getImageBlob());
+        $html = '<img src="'.$base64.'" style="width: 100%" />';
 
 //        echo $html;
 //        exit;
@@ -385,9 +396,9 @@ class XmlController extends Controller
 //        $html.= '<img src="/bundles/crmmain/images/sign/sign_'.$r3.'.png"  style="margin-left: '.$width3.'px; width: 85px"/></td>';
 //        $html.='</tr></table>';
 
-        $html = iconv("UTF-8","UTF-8//IGNORE",$html);
+//        $html = iconv("UTF-8","UTF-8//IGNORE",$html);
         $arguments = array(
-            'constructorArgs' => array('utf-8', null, 0 ,0 ,0 ,0,0,0,0,0,'' ),
+//            'constructorArgs' => array('utf-8', null, 0 ,0 ,0 ,0,0,0,0,0,'' ),
             'writeHtmlMode' => null, //$mode argument for WriteHTML method
             'writeHtmlInitialise' => null, //$mode argument for WriteHTML method
             'writeHtmlClose' => null, //$close argument for WriteHTML method
