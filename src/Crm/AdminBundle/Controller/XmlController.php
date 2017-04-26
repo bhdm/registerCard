@@ -384,6 +384,7 @@ class XmlController extends Controller
 
         $image->compositeImage($image2, \Imagick::COMPOSITE_DEFAULT,0,0);
         $image->setFormat('jpg');
+        $image->setImageFormat('jpg');
 
 //        echo $html;
 //        $image2->newImage(827, 1170, $html);
