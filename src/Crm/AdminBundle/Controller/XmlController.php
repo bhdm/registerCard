@@ -379,7 +379,8 @@ class XmlController extends Controller
         $image->setImageVirtualPixelMethod(\Imagick::VIRTUALPIXELMETHOD_TRANSPARENT);
 
         $image2 = new \Imagick($html);
-        $image2->resizeImage(827,1170, \Imagick::FILTER_LANCZOS,1);
+        $ttt = $image2->getImageHeight()/($image2->getImageWidth()/827);
+        $image2->resizeImage(827,$ttt, \Imagick::FILTER_LANCZOS,1);
 
 
         $image->compositeImage($image2, \Imagick::COMPOSITE_DEFAULT,0,0);
