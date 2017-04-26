@@ -375,8 +375,8 @@ class XmlController extends Controller
 
         $image2 = new \Imagick();
         $image2->newImage(827, 1170, $html);
-        $image2->setImageArtifact('compose:args', "1,0,-0.5,0.5");
-        $image2->setImageVirtualPixelMethod(\Imagick::VIRTUALPIXELMETHOD_TRANSPARENT);
+//        $image2->setImageArtifact('compose:args', "1,0,-0.5,0.5");
+//        $image2->setImageVirtualPixelMethod(\Imagick::VIRTUALPIXELMETHOD_TRANSPARENT);
 
         $base64 = 'data:image/jpeg;base64,' . base64_encode($image2->getImageBlob());
         $html = '<img src="'.$base64.'" style="width: 100%" />';
