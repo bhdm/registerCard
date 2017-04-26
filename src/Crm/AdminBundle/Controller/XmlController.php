@@ -329,7 +329,7 @@ class XmlController extends Controller
 
         $mpdfService = $this->container->get('tfox.mpdfport');
         $arguments = array(
-            'constructorArgs' => array('utf-8', 'A4-P', 5 ,5 ,5 ,5,5 ),
+//            'constructorArgs' => array('utf-8', 'A4-P', 5 ,5 ,5 ,5,5 ),
             'writeHtmlMode' => null, //$mode argument for WriteHTML method
             'writeHtmlInitialise' => null, //$mode argument for WriteHTML method
             'writeHtmlClose' => null, //$close argument for WriteHTML method
