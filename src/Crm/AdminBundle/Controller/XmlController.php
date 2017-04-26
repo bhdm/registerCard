@@ -373,10 +373,9 @@ class XmlController extends Controller
             $html = '/var/www/upload/docs/'.$filename;
         }
 
-        $image2 = new \Imagick();
-        echo $html;
-        exit;
-        $image2->newImage(827, 1170, $html);
+        $image2 = new \Imagick($html);
+//        echo $html;
+//        $image2->newImage(827, 1170, $html);
 //        $image2->setImageArtifact('compose:args', "1,0,-0.5,0.5");
 //        $image2->setImageVirtualPixelMethod(\Imagick::VIRTUALPIXELMETHOD_TRANSPARENT);
 
