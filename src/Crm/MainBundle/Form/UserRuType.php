@@ -58,7 +58,7 @@ class UserRuType extends AbstractType
                 )))
 
             ->add('driverDocNumber', null ,['label' => 'Номер', 'attr' => ['class' => 'driverNumber']])
-            ->add('driverDocIssuance', null ,['label' => 'Кем выдано', 'attr' => ['maxlength' => 33]])
+            ->add('driverDocIssuance', null ,['label' => 'Кем выдано'])
             ->add('driverDocDateStarts', 'text' ,['label' => 'Дата выдачи', 'attr' => ['class' => 'date']])
             ->add('comment', null,['label'=>'Комментарий пользователя', 'required' => false])
 //
