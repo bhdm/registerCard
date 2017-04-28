@@ -111,7 +111,16 @@ function getImage(data,container, first){
                     });
                 }
             }
+
         }
+        $(".zoom").imagezoomsl({
+            zoomrange: [1, 10],
+            cursorshadeborder: "10px solid #000",
+            magnifiereffectanimate: "fadeIn",
+            magnifierpos: "left",
+            zoomstart: 2,
+//                innerzoom: true,
+        });
 
     }
 }

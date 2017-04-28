@@ -126,16 +126,12 @@
             </table>
         </div>
         <hr>
-        <div class="alert alert-danger text-center">
-            <div class="alert alert-warning text-center" style="    color: #d80808; background-color: #fff1ab; border-color: #faebcc;">
-                <strong>!!!! ВАЖНО !!!</strong> Необходимые документы должны быть отксерокопированы как показано на образцах -
-                <a href="{{ asset('bundles/crmmain/images/obrazec.jpg') }}"  class="fancybox">Образец 1</a>,
-                <a href="{{ asset('bundles/crmmain/images/obrazec2.jpg') }}"  class="fancybox">Образец 2</a>
-                <br />
-                <strong>Фотографии документов не принимаются !!!!</strong>
-            </div>
+        <div class="alert alert-warning text-center" style="    color: #d80808; background-color: #fff1ab; border-color: #faebcc;">
+            <strong>!!!! ВАЖНО !!!</strong> Необходимые документы должны быть отксерокопированы как показано на образцах -
             <a href="{{ asset('bundles/crmmain/images/obrazec.jpg') }}"  class="fancybox">Образец 1</a>,
             <a href="{{ asset('bundles/crmmain/images/obrazec2.jpg') }}"  class="fancybox">Образец 2</a>
+            <br />
+            <strong>Фотографии документов не принимаются !!!!</strong>
         </div>
         <div class="block-form" >
             <table class="table-form">
@@ -157,9 +153,9 @@
                             <br />
                             <div class="fileDoc noCrop">
                                 {% if form.vars.value.copyPassport.path is defined %}
-                                    <img src="/{{ form.vars.value.copyPassport.path }}" brightness="0" contrast="0">
+                                    <img src="/{{ form.vars.value.copyPassport.path }}" brightness="0" contrast="0" class="zoom">
                                 {% else %}
-                                    <img src="" brightness="0" contrast="0">
+                                    <img src="" brightness="0" contrast="0" class="zoom">
                                 {% endif %}
                             </div>
                             <div class="navigateFile">
@@ -261,9 +257,9 @@
                             <br />
                             <div class="fileDoc noCrop">
                                 {% if form.vars.value.copySnils.path is defined %}
-                                    <img src="/{{ form.vars.value.copySnils.path }}" brightness="0" contrast="0">
+                                    <img src="/{{ form.vars.value.copySnils.path }}" brightness="0" contrast="0" class="zoom">
                                 {% else %}
-                                    <img src="" brightness="0" contrast="0">
+                                    <img src="" brightness="0" contrast="0" class="zoom">
                                 {% endif %}
                             </div>
                             <div class="navigateFile">
@@ -294,9 +290,9 @@
                             <br />
                             <div class="fileDoc noCrop">
                                 {% if form.vars.value.copyInn.path is defined %}
-                                    <img src="/{{ form.vars.value.copyInn.path }}" brightness="0" contrast="0">
+                                    <img src="/{{ form.vars.value.copyInn.path }}" brightness="0" contrast="0" class="zoom">
                                 {% else %}
-                                    <img src="" brightness="0" contrast="0">
+                                    <img src="" brightness="0" contrast="0" class="zoom">
                                 {% endif %}
                             </div>
                             <div class="navigateFile">
@@ -330,9 +326,9 @@
                             <br />
                             <div class="fileDoc noCrop">
                                 {% if form.vars.value.copyDriverPassport.path is defined %}
-                                    <img src="/{{ form.vars.value.copyDriverPassport.path }}" brightness="0" contrast="0">
+                                    <img src="/{{ form.vars.value.copyDriverPassport.path }}" brightness="0" contrast="0" class="zoom">
                                 {% else %}
-                                    <img src="" brightness="0" contrast="0">
+                                    <img src="" brightness="0" contrast="0" class="zoom">
                                 {% endif %}
                             </div>
                             <div class="navigateFile">

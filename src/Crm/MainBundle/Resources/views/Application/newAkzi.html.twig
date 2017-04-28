@@ -78,9 +78,9 @@
                             <br />
                             <div class="fileDoc">
                                 {% if order.passportFilePath is defined %}
-                                    <img src="{{ path('get_image', {'type' : 'passport'}) }}" brightness="0" contrast="0">
+                                    <img src="{{ path('get_image', {'type' : 'passport'}) }}" brightness="0" contrast="0" class="zoom">
                                 {% else %}
-                                    <img src="" brightness="0" contrast="0">
+                                    <img src="" brightness="0" contrast="0" class="zoom">
                                 {% endif %}
                             </div>
                             <div class="navigateFile">
@@ -149,9 +149,9 @@
                             <br />
                             <div class="fileDoc">
                                 {% if order.photoFilePath is defined %}
-                                    <img src="{{ path('get_image', {'type' : 'snils'}) }}" brightness="0" contrast="0">
+                                    <img src="{{ path('get_image', {'type' : 'snils'}) }}" brightness="0" contrast="0" class="zoom">
                                 {% else %}
-                                    <img src="" brightness="0" contrast="0">
+                                    <img src="" brightness="0" contrast="0" class="zoom">
                                 {% endif %}
                             </div>
                             <div class="navigateFile">
@@ -196,9 +196,9 @@
                             <br />
                             <div class="fileDoc">
                                 {% if order.driverFilePath is defined %}
-                                    <img src="{{ path('get_image', {'type' : 'driver'}) }}" brightness="0" contrast="0">
+                                    <img src="{{ path('get_image', {'type' : 'driver'}) }}" brightness="0" contrast="0" class="zoom">
                                 {% else %}
-                                    <img src="" brightness="0" contrast="0">
+                                    <img src="" brightness="0" contrast="0" class="zoom">
                                 {% endif %}
                             </div>
                             <div class="navigateFile">
@@ -518,6 +518,7 @@
     <script src="{{ asset('bundles/crmmain/tapmodo-Jcrop/js/jquery.Jcrop.min.js') }}" type="text/javascript"></script>
     <script src="{{ asset('bundles/crmmain/kladrapi/jquery.kladr.min.js') }}" type="text/javascript"></script>
     <script src="{{ asset('bundles/crmmain/javascripts/file.js') }}" type="text/javascript"></script>
+
     <script>
 
         $(document).ready(function(){
