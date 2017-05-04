@@ -1479,11 +1479,17 @@ class UserController extends Controller
             case 'passport2File' :
                 $user->setCopyPassport2($img);
                 break;
+            case 'passportTranslateFile' :
+                $user->setCopyPassportTranslate($img);
+                break;
             case 'driverFile' :
                 $user->setCopyDriverPassport($img);
                 break;
             case 'driver2File' :
                 $user->setCopyDriverPassport2($img);
+                break;
+            case 'driverPassportTranslateFile' :
+                $user->setCopyDriverPassportTranslate($img);
                 break;
             case 'snilsFile' :
                 $user->setCopySnils($img);
