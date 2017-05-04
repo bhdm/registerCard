@@ -116,9 +116,6 @@ class XmlController extends Controller
 
         $region = $user->getCompany()->getRegion();
         if (!is_numeric($region)){
-//            $s = array('Республика ',' Область',' Край','Город ',' Автономный округ');
-//            $r = array('','','','','');
-//            $region = str_replace($r,$s,$region);
         }
         $region = $this->getDoctrine()->getRepository('CrmMainBundle:RegionCode')->findByTitle($region);
 
@@ -200,6 +197,18 @@ class XmlController extends Controller
                 $files[6]['title'] = 'Work';
                 $files[6]['file'] = $user->getCopyWork();
             }
+
+            if (isset($user->getCopyPassportTranslate()['originalName'])){
+                $files[9]['base'] = $this->imageToPdf($user->getCopyPassportTranslate()['originalName']);
+                $files[9]['title'] = 'PassportTranslate';
+                $files[9]['file'] = $user->getCopyPassportTranslate();
+            }
+            if (isset($user->getCopyDriverPassportTranslate()['originalName'])){
+                $files[10]['base'] = $this->imageToPdf($user->getCopyDriverPassportTranslate()['originalName']);
+                $files[10]['title'] = 'DriverPassportTranslate';
+                $files[10]['file'] = $user->getCopyDriverPassportTranslate();
+            }
+
 
             # Заявление
             $url = $this->generateUrl('generate_pdf_statement',array('id'=>$user->getId()));

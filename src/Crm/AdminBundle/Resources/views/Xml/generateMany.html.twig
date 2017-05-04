@@ -197,6 +197,26 @@
             {% endif %}
             {#<!-- ИНН КОНЕЦ -->#}
 
+            {% if files[9] is defined %}
+                {% if driver.checkedPassportTranslate == true %}
+                    <Attachment>
+                        <AttachmentType>Other</AttachmentType>
+                        <FileFormat>PDF</FileFormat>
+                        <Body>{{ files[9].base }}</Body>
+                    </Attachment>
+                {% endif %}
+            {% endif %}
+
+            {% if files[10] is defined %}
+                {% if driver.checkedDriverTranslate == true %}
+                    <Attachment>
+                        <AttachmentType>Other</AttachmentType>
+                        <FileFormat>PDF</FileFormat>
+                        <Body>{{ files[10].base }}</Body>
+                    </Attachment>
+                {% endif %}
+            {% endif %}
+
             {#{% if files[12] is defined %}#}
                 {#<Attachment>#}
                     {#<AttachmentType>Other</AttachmentType>#}
