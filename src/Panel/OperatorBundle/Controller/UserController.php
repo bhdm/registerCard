@@ -199,6 +199,7 @@ class UserController extends Controller
             $session->set('passportTranslateFile', null);
             $session->set('driverFile', null);
             $session->set('driver2File', null);
+            $session->set('driverPassportTranslateFile', null);
             $session->set('snilsFile', null);
             $session->set('innFile', null);
             $session->set('signFile', null);
@@ -219,6 +220,7 @@ class UserController extends Controller
             $session->set('origin-passport2File', null);
             $session->set('origin-driverFile', null);
             $session->set('origin-driver2File', null);
+            $session->set('origin-driverPassportTranslateFile', null);
             $session->set('origin-snilsFile', null);
             $session->set('origin-innFile', null);
             $session->set('origin-signFile', null);
@@ -561,6 +563,10 @@ class UserController extends Controller
             $file = $user->getCopyDriverPassport2();
             if (!empty($file) && file_exists('/var/www/' . $file['path'])) {
                 $session->set('driver2File', '/var/www/' . $file['path']);
+            }
+            $file = $user->getCopyDriverPassportTranslate();
+            if (!empty($file) && file_exists('/var/www/' . $file['path'])) {
+                $session->set('driverPassportTranslateFile', '/var/www/' . $file['path']);
             }
             $file = $user->getCopySnils();
             if (!empty($file) && file_exists('/var/www/' . $file['path'])) {

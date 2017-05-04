@@ -376,19 +376,20 @@ class ApplicationController extends Controller
                 $em->refresh($client);
 
             }
-
-            $message = \Swift_Message::newInstance()
-                ->setSubject('Ваш заказ создан')
-                ->setFrom('info@im-kard.ru')
-                ->setTo($user->getEmail())
-                ->setBody(
-                    $this->renderView(
-                        'CrmAuthBundle:Mail:register.html.twig',
-                        array('client' => $client, 'pass' => $pass )
-                    ), 'text/html'
-                )
-            ;
-            $this->get('mailer')->send($message);
+            if ($this->container->getParameter('kernel.environment') != 'dev'){
+                $message = \Swift_Message::newInstance()
+                    ->setSubject('Ваш заказ создан')
+                    ->setFrom('info@im-kard.ru')
+                    ->setTo($user->getEmail())
+                    ->setBody(
+                        $this->renderView(
+                            'CrmAuthBundle:Mail:register.html.twig',
+                            array('client' => $client, 'pass' => $pass )
+                        ), 'text/html'
+                    )
+                ;
+                $this->get('mailer')->send($message);
+            }
 
         }
 
