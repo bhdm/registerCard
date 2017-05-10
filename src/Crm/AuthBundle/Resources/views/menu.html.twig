@@ -14,10 +14,10 @@
     <li>
         <a href="{{ path('auth_payment_list') }}">Счета</a>
     </li>
+    {% endif %}
     <li>
         <a href="{{ path('auth_docs') }}" style="">Документы</a>
     </li>
-    {% endif %}
     <li>
         <a href="{{ path('auth_message') }}" style="{{ render(controller("CrmAuthBundle:Message:newMessageClient"))}}">Мои сообщения</a>
     </li>
