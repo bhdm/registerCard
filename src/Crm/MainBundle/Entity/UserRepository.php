@@ -1083,7 +1083,7 @@ class UserRepository extends EntityRepository
 
         if (isset($params['end']) and $params['end'] != null){
             $t = new \DateTime($params['end']);
-            $t = $t->format('Y-m-d').' 00:00:00';
+            $t = $t->format('Y-m-d').' 23:59:59';
             $res->andWhere("u.created <= :date2");
             $res->setParameter('date2', $t);
         }
