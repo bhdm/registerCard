@@ -27,6 +27,7 @@ class ChatRepository extends EntityRepository
             ->where('u.enabled = 1')
             ->andWhere('u.id is not null')
             ->andWhere('o.id = '.$operatorId)
+            ->andWhere('c.created = (SELECT MAX(c2.created) FROM CrmMainBundle:Chat c2 WHERE c2.client = u)')
             ->groupBy('u.id')
             ->orderBy('c.created','DESC')
             ->getQuery();
