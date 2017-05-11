@@ -31,8 +31,8 @@ class ChatRepository extends EntityRepository
             ->groupBy('u.id')
             ->orderBy('c.created','DESC')
             ->getQuery();
-        echo $q->getSQL();
-        exit;
+//        echo $q->getSQL();
+//        exit;
         return $q->getResult();
     }
 
