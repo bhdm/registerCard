@@ -28,7 +28,7 @@ class ChatRepository extends EntityRepository
             ->andWhere('u.id is not null')
             ->andWhere('o.id = '.$operatorId)
             ->groupBy('u.id')
-            ->orderBy('c.created','DESC')
+            ->orderBy('c.id','DESC')
             ->getQuery();
 //        echo $q->getSQL();
 //        exit;
