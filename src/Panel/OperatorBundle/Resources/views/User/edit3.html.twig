@@ -260,7 +260,7 @@
                                     <a href="/{{ user.copyPassport.path | getOriginal}}" class="fancybox" ><img src="/{{ user.copyPassport.path | getOriginal }}" brightness="128" contrast="128" data-type="passportFile" class="" id="passportFileImg" data-large="/{{ user.copyPassport.path | getOriginal}}"></a>
                                     <br>
                                     <a href="{{ path('panel_download_png',{'filename' : user.copyPassport.fileName }) }}">Скачать</a>
-                                    <a target="_blank" href="{{ path('create_image_pdf',{'type' : 'passport', 'filename' : user.copyPassport.fileName }) }}">Скачать</a>
+                                    <a target="_blank" href="{{ path('ImageToPdf',{'type' : 'passport', 'filename' : user.copyPassport.fileName }) }}">Скачать</a>
                                     {% if is_granted("ROLE_ADMIN") %}
                                     <a href="{{ path('test_image_stamp',{'userId' : user.id , 'type' : 'passport' }) }}?ref={{ ref }}" >Поставить печать</a>
                                         <a href="{{ path('refresh_image',{'userId' : user.id , 'type' : 'passport' }) }}" target="_blank">
@@ -529,7 +529,7 @@
                                     <a href="/{{ user.copyDriverPassport.path | getOriginal}}" class="fancybox" ><img src="/{{ user.copyDriverPassport.path | getOriginal }}" brightness="0" contrast="0" data-type="driverFile" class="" id="driverFileImg"  data-large="/{{ user.copyDriverPassport.path | getOriginal}}"></a>
                                     <br>
                                     <a href="{{ path('panel_download_png',{'filename' : user.copyDriverPassport.fileName }) }}">Скачать</a>
-                                    <a target="_blank" href="{{ path('create_image_pdf',{'type' : 'driver', 'filename' : user.copyDriverPassport.fileName }) }}">Скачать</a>
+                                    <a target="_blank" href="{{ path('ImageToPdf',{'type' : 'driver', 'filename' : user.copyDriverPassport.fileName }) }}">Скачать</a>
                                 {% if is_granted("ROLE_ADMIN") %}
                                         <a href="{{ path('test_image_stamp',{'userId' : user.id , 'type' : 'driver' }) }}?ref={{ ref }}" >Поставить печать</a>
                                     <a href="{{ path('refresh_image',{'userId' : user.id , 'type' : 'driver' }) }}" target="_blank">
@@ -694,7 +694,7 @@
                                     <a href="/{{ user.copySnils.path | getOriginal}}" class="fancybox" ><img src="/{{ user.copySnils.path | getOriginal}}" brightness="0" contrast="0" data-type="snilsFile" class="" id="snilsFileImg" data-large="/{{ user.copySnils.path | getOriginal}}"></a>
                                     <br>
                                     <a href="{{ path('panel_download_png',{'filename' : user.copySnils.fileName }) }}">Скачать</a>
-                                    <a target="_blank" href="{{ path('create_image_pdf',{'type' : 'snils', 'filename' : user.copySnils.fileName }) }}">Скачать</a>
+                                    <a target="_blank" href="{{ path('ImageToPdf',{'type' : 'snils', 'filename' : user.copySnils.fileName }) }}">Скачать</a>
                                 {% if is_granted("ROLE_ADMIN") %}
                                     <a href="{{ path('test_image_stamp',{'userId' : user.id , 'type' : 'snils' }) }}?ref={{ ref }}" >Поставить печать</a>
                                     <a href="{{ path('refresh_image',{'userId' : user.id , 'type' : 'snils' }) }}" target="_blank">
@@ -723,7 +723,7 @@
                                     <a href="/{{ user.copyInn.path | getOriginal}}" class="fancybox" ><img src="/{{ user.copyInn.path | getOriginal}}" brightness="0" contrast="0" data-type="innFile" class="" id="innFileImg"  data-large="/{{ user.copyInn.path | getOriginal}}"></a>
                                     <br>
                                     <a href="{{ path('panel_download_png',{'filename' : user.copyInn.fileName }) }}">Скачать</a>
-                                    <a target="_blank" href="{{ path('create_image_pdf',{'type' : 'doc', 'filename' : user.copyInn.fileName }) }}">Скачать</a>
+                                    <a target="_blank" href="{{ path('ImageToPdf',{'type' : 'doc', 'filename' : user.copyInn.fileName }) }}">Скачать</a>
                                 {% if is_granted("ROLE_ADMIN") %}
                                     <a href="{{ path('test_image_stamp',{'userId' : user.id , 'type' : 'inn' }) }}?ref={{ ref }}" >Поставить печать</a>
                                     <a href="{{ path('refresh_image',{'userId' : user.id , 'type' : 'inn' }) }}" target="_blank">
