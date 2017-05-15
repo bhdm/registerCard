@@ -388,8 +388,13 @@ class XmlController extends Controller
         $image->setImageVirtualPixelMethod(\Imagick::VIRTUALPIXELMETHOD_TRANSPARENT);
 
         $image2 = new \Imagick($html);
-        $ttt = $image2->getImageHeight()/($image2->getImageWidth()/827);
-        $image2->resizeImage(827,$ttt, \Imagick::FILTER_LANCZOS,1);
+        $height = $image2->getImageHeight()/($image2->getImageWidth()/827);
+        $width = 827;
+        if ($height > 1170){
+            $height = 1170;
+            $width = $image2->getImageWidth()/($image2->getImageHeight()/1170);
+        }
+        $image2->resizeImage($width,$height, \Imagick::FILTER_LANCZOS,1);
 
 
         $image->compositeImage($image2, \Imagick::COMPOSITE_DEFAULT,0,0);
@@ -402,7 +407,7 @@ class XmlController extends Controller
 //        $image2->setImageVirtualPixelMethod(\Imagick::VIRTUALPIXELMETHOD_TRANSPARENT);
 
         $base64 = 'data:image/jpeg;base64,' . base64_encode($image->getImageBlob());
-        $html = '<img src="'.$base64.'" style="width: 100%" />';
+        $html = '<img src="'.$base64.'" style="max-width: 100%; max-height: 100%" />';
 
 //        echo $html;
 //        exit;
