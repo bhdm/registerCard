@@ -407,7 +407,7 @@ class XmlController extends Controller
 //        $image2->setImageVirtualPixelMethod(\Imagick::VIRTUALPIXELMETHOD_TRANSPARENT);
 
         $base64 = 'data:image/jpeg;base64,' . base64_encode($image->getImageBlob());
-        $html = '<img src="'.$base64.'" style="max-width: 100%; max-height: 100%" />';
+        $html = '<img src="'.$base64.'" style="width: 100%;" />';
 
 //        echo $html;
 //        exit;
