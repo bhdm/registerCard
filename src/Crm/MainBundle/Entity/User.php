@@ -279,7 +279,6 @@ class User extends BaseEntity implements UserInterface, EquatableInterface, \Ser
     protected $passportNumber;
 
     /**
-     * @Assert\Length( max = "63", maxMessage = "Максимум  500 символа")
      * @ORM\Column(type="text", nullable=true)
      */
     protected $passportIssuance;

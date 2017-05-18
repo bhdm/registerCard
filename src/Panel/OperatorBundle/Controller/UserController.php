@@ -79,7 +79,7 @@ class UserController extends Controller
         $pagination = $paginator->paginate(
             $users,
             $this->get('request')->query->get('page', 1),
-            100
+            300
         );
         $companyId = $company;
         if ($companyId == null) {
