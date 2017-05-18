@@ -316,7 +316,7 @@
                     <td>
                         <input type="file" name="fileLicenseFile" id="fileLicenseFile" data-type="fileLicenseFile" class="fileAjax" data-type="fileLicenseFile">
                         {% if order.fileLicense['path'] is defined %}
-                            <img src="/upload/usercompany/{{ order.id }}/{{ order.fileDecree['fileName'] }}" brightness="0" contrast="0" class="document" id="fileLicenseFileImg">
+                            <img src="/upload/usercompany/{{ order.id }}/{{ order.fileLicense['fileName'] }}" brightness="0" contrast="0" class="document" id="fileLicenseFileImg">
                         {% else %}
                             <img src="" brightness="0" contrast="0" class="document" id="fileLicenseFileImg" />
                         {% endif %}
