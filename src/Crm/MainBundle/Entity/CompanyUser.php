@@ -345,6 +345,7 @@ class CompanyUser extends BaseEntity
      */
     protected $isProduction;
 
+
     # ###### #
     # МЕТОДЫ #
     # ###### #
@@ -1166,6 +1167,8 @@ class CompanyUser extends BaseEntity
             case 3: return 'РФ';
         }
     }
+
+
 
     /**
      * @return mixed

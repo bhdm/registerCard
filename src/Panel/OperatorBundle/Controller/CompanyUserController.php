@@ -614,19 +614,6 @@ class CompanyUserController extends Controller{
                 $this->getDoctrine()->getManager()->flush($order);
             }
         }
-
-
-
-
-
-
-
-
-
-
-
-
-
     }
 
 
@@ -641,6 +628,46 @@ class CompanyUserController extends Controller{
             $log[$k]['date'] = $l['date']->format('d.m.Y');
         }
         return new JsonResponse($log);
+    }
+
+    /**
+     * Показывает циферку в меню
+     * @Security("has_role('ROLE_OPERATOR')")
+     * @Route("/company-user/set/comment", name="panel_company_user_set_comment", options={"expose"=true})
+     * @Template()
+     */
+    public function setCommentAction(Request $request)
+    {
+        if ($request->getMethod() == 'POST') {
+            $request = $request->request;
+            $user = $this->getDoctrine()->getRepository('CrmMainBundle:CompanyUser')->find($request->get('id'));
+            if ($user) {
+                $user->setComment($request->get('comment'));
+                $this->getDoctrine()->getManager()->flush($user);
+                return new Response('ok');
+            }
+            return new Response('no');
+        }
+    }
+
+    /**
+     * @Route("/panel/edit/manager/company-user", name="panel_edit_manager_company_user", options={"expose"=true})
+     */
+    public function panelEditManagerAction(Request $request){
+        if ($request->getMethod()== 'POST'){
+            $id = $request->request->get('id');
+            $key = $request->request->get('key');
+
+            $user = $this->getDoctrine()->getRepository('CrmMainBundle:CompanyUser')->findOneById($id);
+            if ($user){
+                $user->setManagerKey($key);
+                $this->getDoctrine()->getManager()->flush($user);
+                echo 'ok';
+                exit;
+            }
+        }
+        echo 'error';
+        exit;
     }
 
 }
