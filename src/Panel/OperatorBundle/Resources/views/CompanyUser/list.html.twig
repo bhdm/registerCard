@@ -209,9 +209,9 @@
                     <td>
                         {% if item.post != null %}
                             {% if item.comment != null %}
-                                <a style="color: #CC0000" title="{{ item.comment }}" href="https://www.pochta.ru/tracking#{{ item.post }}" target="_blank">{{ item.post }}</a>
+                                <a style="color: #CC0000" title="{{ item.comment }}" href="https://www.pochta.ru/tracking#{{ item.postNumber }}" target="_blank">{{ item.postNumber }}</a>
                             {% else %}
-                                <a href="https://www.pochta.ru/tracking#{{ item.post }}" target="_blank">{{ item.post }}</a>
+                                <a href="https://www.pochta.ru/tracking#{{ item.postNumber }}" target="_blank">{{ item.postNumber }}</a>
                             {% endif %}
                         {% else %}
                             <div class="comment-box disabled-click" data-id="{{ item.id }}">{{ item.comment }}</div>
