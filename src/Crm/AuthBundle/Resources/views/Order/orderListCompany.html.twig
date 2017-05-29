@@ -35,6 +35,7 @@
                 <td>Статус</td>
                 <td>Цена</td>
                 <td>Сумма (р.)</td>
+                <td>Коммент./Почтовый код </td>
             </tr>
             {% for o in orders | reverse %}
                 <tr>
@@ -52,6 +53,18 @@
                     <td>{{ o.StatusStr is defined ? o.StatusStr | raw : '' }}</td>
                     <td>{{ o.price / o.cardAmount }}</td>
                     <td>{{ o.price }}</td>
+                    <td>
+                        {% if o.post != null and o.post != '' %}
+                            {% if o.comment != null %}
+                                <a style="color: #CC0000" title="{{ o.comment }}" href="https://www.pochta.ru/tracking#{{ o.post }}" target="_blank">{{ o.post }}</a>
+                            {% else %}
+                                <a href="https://www.pochta.ru/tracking#{{ o.post }}" target="_blank">{{ o.post }}</a>
+                            {% endif %}
+                        {% else %}
+                            {{ o.comment }}
+                        {% endif %}
+
+                    </td>
                     {#<td>#}
                         {#{% if o.status == 0 %}#}
                             {#<a href="{{ path('generate_payment_company_pdf') }}?ord={{ o.id }}"><button class="btn-default">#}
