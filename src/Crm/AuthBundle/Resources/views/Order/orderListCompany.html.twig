@@ -53,11 +53,11 @@
                     <td>{{ o.price / o.cardAmount }}</td>
                     <td>{{ o.price }}</td>
                     <td>
-                        {% if o.post != null and o.post != '' %}
+                        {% if o.postNumber != null and o.postNumber != '' %}
                             {% if o.comment != null %}
-                                <a style="color: #CC0000" title="{{ o.comment }}" href="https://www.pochta.ru/tracking#{{ o.post }}" target="_blank">{{ o.post }}</a>
+                                <a style="color: #CC0000" title="{{ o.comment }}" href="https://www.pochta.ru/tracking#{{ o.postNumber }}" target="_blank">{{ o.postNumber }}</a>
                             {% else %}
-                                <a href="https://www.pochta.ru/tracking#{{ o.post }}" target="_blank">{{ o.post }}</a>
+                                <a href="https://www.pochta.ru/tracking#{{ o.postNumber }}" target="_blank">{{ o.postNumber }}</a>
                             {% endif %}
                         {% else %}
                             {{ o.comment }}

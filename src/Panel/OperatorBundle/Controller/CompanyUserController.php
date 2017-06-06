@@ -642,7 +642,11 @@ class CompanyUserController extends Controller{
             $request = $request->request;
             $user = $this->getDoctrine()->getRepository('CrmMainBundle:CompanyUser')->find($request->get('id'));
             if ($user) {
-                $user->setComment($request->get('comment'));
+                if ($user->getStatus() == 2){
+                    $user->setPostNumber($request->get('comment'));
+                }else{
+                    $user->setComment($request->get('comment'));
+                }
                 $this->getDoctrine()->getManager()->flush($user);
                 return new Response('ok');
             }
