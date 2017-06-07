@@ -67,6 +67,11 @@ class XmlController extends Controller
         $files[11]['title'] = 'INN';
         $files[11]['file'] = $user->getCopyInn();
 
+        if (isset($user->getCopyDoc()['path'])){
+            $files[18]['base'] = $this->ImageToPdf($user->getCopyDoc()['originalName']);
+            $files[18]['title'] = 'Other';
+            $files[18]['file'] = $user->getCopyDoc();
+        }
 
         # Заявление
         $url = $this->generateUrl('generate_pdf_statement',array('id'=>$user->getId()));
@@ -178,6 +183,11 @@ class XmlController extends Controller
             $files[15]['title'] = 'merge-docs';
             $files[15]['title'] = 'Other';
 
+            if (isset($user->getCopyDoc()['path'])){
+                $files[18]['base'] = $this->ImageToPdf($user->getCopyDoc()['originalName']);
+                $files[18]['title'] = 'Other';
+                $files[18]['file'] = $user->getCopyDoc();
+            }
 
 
             $file = $user->getCopySignature();

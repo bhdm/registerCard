@@ -215,6 +215,17 @@
             {% endif %}
         {% endif %}
 
+
+        {% if files[18] is defined %}
+            {% if driver.checkedDriverTranslate == true %}
+                <Attachment>
+                    <AttachmentType>Other</AttachmentType>
+                    <FileFormat>PDF</FileFormat>
+                    <Body>{{ files[18].base }}</Body>
+                </Attachment>
+            {% endif %}
+        {% endif %}
+
         {#{% if files[11] is defined %}#}
         {#<Attachment>#}
         {#<AttachmentType>Other</AttachmentType>#}
