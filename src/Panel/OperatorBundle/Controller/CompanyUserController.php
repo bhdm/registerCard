@@ -618,19 +618,6 @@ class CompanyUserController extends Controller{
 
 
     /**
-    * @Route("/panel/get-status-log/companyuser", name="panel_companyuser_get_statuslog")
-    */
-    public function getStatuslogAction(Request $request){
-        $userId = $request->query->get('userId');
-        $user = $this->getDoctrine()->getRepository('CrmMainBundle:CompanyUser')->find($userId);
-        $log = $user->getStatusArray(true);
-        foreach($log as $k => $l){
-            $log[$k]['date'] = $l['date']->format('d.m.Y');
-        }
-        return new JsonResponse($log);
-    }
-
-    /**
      * Показывает циферку в меню
      * @Security("has_role('ROLE_OPERATOR')")
      * @Route("/company-user/set/comment", name="panel_company_user_set_comment", options={"expose"=true})
@@ -652,6 +639,19 @@ class CompanyUserController extends Controller{
             }
             return new Response('no');
         }
+    }
+
+    /**
+    * @Route("/panel/get-status-log/companyuser", name="panel_companyuser_get_statuslog")
+    */
+    public function getStatuslogAction(Request $request){
+        $userId = $request->query->get('userId');
+        $user = $this->getDoctrine()->getRepository('CrmMainBundle:CompanyUser')->find($userId);
+        $log = $user->getStatusArray(true);
+        foreach($log as $k => $l){
+            $log[$k]['date'] = $l['date']->format('d.m.Y');
+        }
+        return new JsonResponse($log);
     }
 
     /**
