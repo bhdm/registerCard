@@ -147,6 +147,8 @@ class ApplicationController extends Controller
             $user->setCopyDriverPassportTranslate($this->getImgToArray($session->get('driverTranslateFile')));
             $user->setCopySnils($this->getImgToArray($session->get('snilsFile')));
             $user->setCopySignature($this->getImgToArray($session->get('signFile')));
+            $user->setCopyDoc($this->getImgToArray($session->get('copyDoc')));
+
             $img = substr($session->get('signFile'),0,-4);
             copy($session->get('signFile'),$img.'2.jpg');
             copy($session->get('signFile'),$img.'3.jpg');

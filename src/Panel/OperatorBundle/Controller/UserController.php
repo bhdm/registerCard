@@ -213,6 +213,7 @@ class UserController extends Controller
             $session->set('copyTypeCardFile', null);
             $session->set('copyOrderFile', null);
             $session->set('copyOrder2File', null);
+            $session->set('copyDoc', null);
 
 
             $session->set('origin-passportFile', null);
@@ -234,6 +235,7 @@ class UserController extends Controller
             $session->set('origin-copyTypeCardFile', null);
             $session->set('origin-copyOrderFile', null);
             $session->set('origin-copyOrder2File', null);
+            $session->set('origin-copyDoc', null);
             $session->save();
         }
 
@@ -606,7 +608,6 @@ class UserController extends Controller
             if (!empty($file) && file_exists('/var/www/' . $file['path'])) {
                 $session->set('workFile', '/var/www/' . $file['path']);
             }
-
             $file = $user->getCopyLastCard();
             if (!empty($file) && file_exists('/var/www/' . $file['path'])) {
                 $session->set('copyLastCardFile', '/var/www/' . $file['path']);
@@ -626,7 +627,10 @@ class UserController extends Controller
             if (!empty($file) && file_exists('/var/www/' . $file['path'])) {
                 $session->set('copyOrder2File', '/var/www/' . $file['path']);
             }
-
+            $file = $user->getCopyDoc();
+            if (!empty($file) && file_exists('/var/www/' . $file['path'])) {
+                $session->set('workDoc', '/var/www/' . $file['path']);
+            }
             $session->save();
         }
 
@@ -1523,6 +1527,9 @@ class UserController extends Controller
                 break;
             case 'copyOrder2File' :
                 $user->setCopyOrder2($img);
+                break;
+            case 'copyDocFile' :
+                $user->setCopyDoc($img);
                 break;
         }
         $this->getDoctrine()->getManager()->flush($user);

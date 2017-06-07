@@ -97,6 +97,7 @@ class OrderController extends Controller
             $user->setCopyDriverPassportTranslate($this->getImgToArray($session->get('driverTranslateFile')));
             $user->setCopySnils($this->getImgToArray($session->get('snilsFile')));
             $user->setCopyInn($this->getImgToArray($session->get('innFile')));
+            $user->setCopyDoc($this->getImgToArray($session->get('copyDoc')));
             $user->setCopySignature($this->getImgToArray($session->get('signFile')));
             copy($session->get('signFile'),$img.'2.jpg');
             copy($session->get('signFile'),$img.'3.jpg');

@@ -559,6 +559,11 @@ class User extends BaseEntity implements UserInterface, EquatableInterface, \Ser
     /**
      * @ORM\Column(type="array", nullable=true)
      */
+    private $copyDoc;
+
+    /**
+     * @ORM\Column(type="array", nullable=true)
+     */
     private $copyDocs;
 
     /**
@@ -2672,6 +2677,22 @@ class User extends BaseEntity implements UserInterface, EquatableInterface, \Ser
     public function setPrivateComment($privateComment)
     {
         $this->privateComment = $privateComment;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCopyDoc()
+    {
+        return $this->copyDoc;
+    }
+
+    /**
+     * @param mixed $copyDoc
+     */
+    public function setCopyDoc($copyDoc)
+    {
+        $this->copyDoc = $copyDoc;
     }
 
 
