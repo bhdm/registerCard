@@ -310,7 +310,8 @@ $(document).ready(function(){
         var container = $(this).parent().parent();
         var type = container.children('.jq-file').children('input[type=file]').attr('id');
         $.ajax({
-            url: Routing.generate('image_rotate', {'type': type, 'rotate': 'left'}),
+            // url: Routing.generate('image_rotate', {'type': type, 'rotate': 'left'}),
+            url: 'https://im-kard.ru/rotate-image/'+type+'/left',
             type: 'POST',
             success: function(msg){ getImage(msg, container); },
             error:function (error) {
@@ -323,7 +324,8 @@ $(document).ready(function(){
         var container = $(this).parent().parent();
         var type = container.children('.jq-file').children('input[type=file]').attr('id');
         $.ajax({
-            url: Routing.generate('image_rotate', {'type': type, 'rotate': 'right'}),
+            url: 'https://im-kard.ru/rotate-image/'+type+'/right',
+            // url: Routing.generate('image_rotate', {'type': type, 'rotate': 'right'}),
             type: 'POST',
             success: function(msg){ getImage(msg, container); },
             error:function (error) {
