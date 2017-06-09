@@ -1101,8 +1101,10 @@ class UserRepository extends EntityRepository
             ->select('u')
             ->from('CrmMainBundle:User','u')
             ->where("u.deliveryAdrs LIKE '%$param[recipient]%'")
-            ->andWhere("u.managerKey LIKE '%$param[managerKey].%'")
+            ->andWhere("u.managerKey LIKE '%$param[managerKey]%'")
             ->orderBy('u.id', 'DESC');
+
+        echo  $res->getQuery()->getSQL();
 
         return $res->getQuery()->getResult();
     }
