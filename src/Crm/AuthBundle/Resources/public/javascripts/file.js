@@ -343,7 +343,8 @@ $(document).ready(function(){
         var height = container.children('.fileDoc').children('img').css('height');
         var type = container.children('.jq-file').children('input[type=file]').attr('id');
         $.ajax({
-            url: Routing.generate('crop_image_2', {'type': type,  'width' : width, 'height' : height, 'x1': x1, 'y1' : y1, 'x2' : x2, 'y2' : y2 }),
+            // url: Routing.generate('crop_image', {'type': type,  'width' : width, 'height' : height, 'x1': x1, 'y1' : y1, 'x2' : x2, 'y2' : y2 }),
+            url: 'https://im-kard.ru/crop-image/'+type+'/'+width+'/'+height+'/'+x1+'/'+y1+'/'+x2+'/'+y2,
             type: 'POST',
             success: function(msg){ getImage(msg, container); },
             error:function (error) {

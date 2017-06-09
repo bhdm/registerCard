@@ -162,7 +162,6 @@ class ImageController extends Controller
 
     /**
      * @Route("/crop-image/{type}/{width}/{height}/{x1}/{y1}/{x2}/{y2}", name="crop_image", options={"expose"=true})
-     * @Route("/crop-image/{type}/{width}/{height}/{x1}/{y1}/{x2}/{y2}", name="crop_image_2", options={"expose"=true})
      */
     public function cropAction(Request $request, $type, $width, $height, $x1,$y1,$x2,$y2){
 
