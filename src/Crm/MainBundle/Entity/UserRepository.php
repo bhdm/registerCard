@@ -1100,8 +1100,8 @@ class UserRepository extends EntityRepository
         $res = $this->getEntityManager()->createQueryBuilder()
             ->select('u')
             ->from('CrmMainBundle:User','u')
-            ->where('u.deliveryAdrs LIKE "%'.$param['recipient'].'%"')
-            ->andWhere('u.managerKey LIKE "%'.$param['managerKey'].'%"')
+            ->where("u.deliveryAdrs LIKE '%$param[recipient]%'")
+            ->andWhere("u.managerKey LIKE '%$param[managerKey].%'")
             ->orderBy('u.id', 'DESC');
 
         return $res->getQuery()->getResult();
