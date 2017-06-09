@@ -2586,9 +2586,9 @@ class UserController extends Controller
                     'managerKey' => $row[0]
                 ]);
                 if (count($user) > 1) {
-                    $txt .= 'Есть копии с '.$row[1].' '.$row[2].' '.$row[3].'( '.$row[0].' )<br />';
+                    $txt .= 'Есть копии с '.$row[1].'<br />';
                 }elseif(count($user) == 0){
-                    $txt .= 'Не найден '.$row[1].' '.$row[2].' '.$row[3].'( '.$row[0].' )<br />';
+                    $txt .= 'Не найден  '.$row[1].'<br />';
                 }else {
 //                    $txt .= 'Найден '.$row[1].' '.$row[2].' '.$row[3].'( '.$user[0].' )<br />';
                     $user = $user[0];
