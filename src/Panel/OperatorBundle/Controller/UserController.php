@@ -2595,6 +2595,13 @@ class UserController extends Controller
                     $user->setStatus(4);
                     $user->setPost($row[2]);
                     $em->flush($user);
+                    $em->refresh($user);
+
+                    $statusLog = new StatusLog();
+                    $statusLog->setTitle($user->getStatusString());
+                    $statusLog->setUser($user);
+                    $this->getDoctrine()->getManager()->persist($statusLog);
+                    $this->getDoctrine()->getManager()->flush($statusLog);
                 }
 
             }
