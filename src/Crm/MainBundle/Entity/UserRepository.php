@@ -1104,7 +1104,7 @@ class UserRepository extends EntityRepository
             ->andWhere("u.managerKey LIKE '%$param[managerKey]%'")
             ->orderBy('u.id', 'DESC');
 
-        echo  $res->getQuery()->getSQL();
+//        echo  $res->getQuery()->getSQL();
 
         return $res->getQuery()->getResult();
     }
