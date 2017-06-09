@@ -1096,5 +1096,17 @@ class UserRepository extends EntityRepository
     }
 
 
+    public function findForPost($param){
+        $res = $this->getEntityManager()->createQueryBuilder()
+            ->select('u')
+            ->from('CrmMainBundle:User','u')
+            ->where('u.deliveryAdrs LIKE "%'.$param['recipient'].'%"')
+            ->andWhere('u.managerKey LIKE "%'.$param['managerKey'].'%"')
+            ->orderBy('u.id', 'DESC');
+
+        return $res->getQuery()->getResult();
+    }
 }
+
+
 

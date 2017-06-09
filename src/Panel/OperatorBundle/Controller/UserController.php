@@ -2559,6 +2559,50 @@ class UserController extends Controller
         return ['txt' => $txt];
     }
 
+
+    /**
+     * @Route("/excel/import-post", name="panel_import_user_excel_post")
+     * @Template()
+     */
+    public function importExcelPostAction(Request $request)
+    {
+        $txt = null;
+        if ( $request->getMethod() == 'POST') {
+            $em = $this->getDoctrine()->getManager();
+            $csv = $request->files->get('csv');
+            $csv = file($csv->getPathname());
+            foreach ($csv as $k => $v ){
+                $csv[$k] = iconv('windows-1251', 'UTF-8', $v);
+                $csv[$k] = str_replace(';',',', $csv[$k]);
+            }
+
+
+            $csv = array_map('str_getcsv',$csv);
+            $txt = '';
+            $tag = $request->request->get('key');
+            foreach ($csv as $row) {
+                $user = $this->getDoctrine()->getRepository('CrmMainBundle:User')->findForPost([
+                    'recipient' => $row[1],
+                    'managerKey' => $row[0]
+                ]);
+                if (count($user) > 1) {
+                    $txt .= 'Есть копии с '.$row[1].' '.$row[2].' '.$row[3].'( '.$row[0].' )<br />';
+                }elseif(count($user) == 0){
+                    $txt .= 'Не найден '.$row[1].' '.$row[2].' '.$row[3].'( '.$row[0].' )<br />';
+                }else {
+//                    $txt .= 'Найден '.$row[1].' '.$row[2].' '.$row[3].'( '.$user[0].' )<br />';
+                    $user = $user[0];
+                    $user->setStatus(4);
+                    $user->setPost($row[2]);
+                    $em->flush($user);
+                }
+
+            }
+        }
+        return ['txt' => $txt];
+    }
+
+
     /**
      * @param Request $request
      * @return RedirectResponse
