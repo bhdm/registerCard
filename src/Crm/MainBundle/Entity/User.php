@@ -2079,6 +2079,8 @@ class User extends BaseEntity implements UserInterface, EquatableInterface, \Ser
         $this->enDeliveryAdrs = $enDeliveryAdrs;
     }
 
+
+
     /**
      * @return mixed
      */
@@ -2109,6 +2111,10 @@ class User extends BaseEntity implements UserInterface, EquatableInterface, \Ser
     public function setDeliveryAdrs($deliveryAdrs)
     {
         $this->deliveryAdrs = $deliveryAdrs;
+    }
+
+    public function addDeliveryAdrs($param){
+        $this->deliveryAdrs[key($param)] = $param[key($param)];
     }
 
     /**
