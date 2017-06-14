@@ -32,7 +32,7 @@
         "braincrafted/bootstrap-bundle": "dev-master",
         "friendsofsymfony/http-cache-bundle": "~1.0",
         "craue/formflow-bundle": "~3.0@dev",
-        "cocur/slugify": "~1.2",
+        "cocur/slugify": "~1.2"
     },
     "scripts": {
         "post-install-cmd": [
