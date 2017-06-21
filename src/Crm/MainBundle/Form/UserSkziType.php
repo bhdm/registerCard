@@ -63,8 +63,7 @@ class UserSkziType extends AbstractType
                 array('label' => 'Ходатайство','choices'=>array(
                     '0' => 'Ходатайство от "ИнфоМакс" ',
                     '1' => 'Свое ходатайство'
-                ),
-                    'data' => '0'
+                )
                 ))
             ->add('driverDocCountry', null, array('label' => 'Страна выдачи ВУ'))
             ->add('driverDocNumber', null ,['label' => 'Номер', 'attr' => ['class' => 'driverNumber']])
