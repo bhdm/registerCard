@@ -671,6 +671,10 @@ class OrderController extends Controller
                 $user->setCopyPassport($this->getImgToArray($session->get('passportFile')));
             }
 
+            if ($session->get('petitionFile')){
+                $user->setCopyPetition($this->getImgToArray($session->get('petitionFile')));
+            }
+
             if ($session->get('passport2File')){
                 $user->setCopyPassport2($this->getImgToArray($session->get('passport2File')));
             }
