@@ -264,7 +264,7 @@ class AuthController extends Controller
      */
     public function generatePdfDocAction(Request $request, $id, $old = 0){
         $user = $this->getDoctrine()->getRepository('CrmMainBundle:User')->findOneById($id);
-        if ($this->getUser()->getId()==1  || $user->getClient() == $this->getUser()){
+//        if ($this->getUser()->getId()==1  || $user->getClient() == $this->getUser()){
             if (isset($user->getCopyOrder()['path']) && $old == 0 && $user->getEstr() == 0 && $user->getRu() == 0){
 //            return $this->redirect($user->getCopyOrder()['path']);
                 $mpdfService = $this->container->get('tfox.mpdfport');
@@ -350,7 +350,7 @@ class AuthController extends Controller
                 'outputDest' => null, //$dest argument for Output method
             );
             return $mpdfService->generatePdf($html->getContent(), $arguments);
-        }
+//        }
 
 
 
