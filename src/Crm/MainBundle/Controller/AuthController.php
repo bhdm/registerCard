@@ -264,33 +264,33 @@ class AuthController extends Controller
      */
     public function generatePdfDocAction(Request $request, $id, $old = 0){
         $user = $this->getDoctrine()->getRepository('CrmMainBundle:User')->findOneById($id);
-
-        if (isset($user->getCopyOrder()['path']) && $old == 0 && $user->getEstr() == 0 && $user->getRu() == 0){
+        if ($this->isGranted("ROLE_ADMIN") || $user->getClient() == $this->getUser()){
+            if (isset($user->getCopyOrder()['path']) && $old == 0 && $user->getEstr() == 0 && $user->getRu() == 0){
 //            return $this->redirect($user->getCopyOrder()['path']);
-            $mpdfService = $this->container->get('tfox.mpdfport');
-            $file1 = new \Imagick('/var/www/'.$user->getCopyOrder()['path']);
-            $base64_1 = 'data:image/jpeg;base64,' . base64_encode($file1->getImageBlob());
-            $html = '<img src="'.$base64_1.'" style="width: 100%"/>
+                $mpdfService = $this->container->get('tfox.mpdfport');
+                $file1 = new \Imagick('/var/www/'.$user->getCopyOrder()['path']);
+                $base64_1 = 'data:image/jpeg;base64,' . base64_encode($file1->getImageBlob());
+                $html = '<img src="'.$base64_1.'" style="width: 100%"/>
             <br style="box-decoration-break: slice;"/>';
-            if (isset($user->getCopyOrder2()['path'])){
-                $file2 = new \Imagick('/var/www/'.$user->getCopyOrder2()['path']);
-                $base64_2 = 'data:image/jpeg;base64,' . base64_encode($file2->getImageBlob());
-                $html .= '<img src="'.$base64_2.'" style="width: 100%"/>';
-            }
+                if (isset($user->getCopyOrder2()['path'])){
+                    $file2 = new \Imagick('/var/www/'.$user->getCopyOrder2()['path']);
+                    $base64_2 = 'data:image/jpeg;base64,' . base64_encode($file2->getImageBlob());
+                    $html .= '<img src="'.$base64_2.'" style="width: 100%"/>';
+                }
 
-            $arguments = array(
-                'constructorArgs' => array(null, null, 0 ,10 ,3 ,0, 3), //Constructor arguments. Numeric array. Don't forget about points 2 and 3 in Warning section!
-                'writeHtmlMode' => null, //$mode argument for WriteHTML method
-                'writeHtmlInitialise' => null, //$mode argument for WriteHTML method
-                'writeHtmlClose' => null, //$close argument for WriteHTML method
-                'outputFilename' => null, //$filename argument for Output method
-                'outputDest' => null, //$dest argument for Output method
-            );
-            return $mpdfService->generatePdf($html, $arguments);
+                $arguments = array(
+                    'constructorArgs' => array(null, null, 0 ,10 ,3 ,0, 3), //Constructor arguments. Numeric array. Don't forget about points 2 and 3 in Warning section!
+                    'writeHtmlMode' => null, //$mode argument for WriteHTML method
+                    'writeHtmlInitialise' => null, //$mode argument for WriteHTML method
+                    'writeHtmlClose' => null, //$close argument for WriteHTML method
+                    'outputFilename' => null, //$filename argument for Output method
+                    'outputDest' => null, //$dest argument for Output method
+                );
+                return $mpdfService->generatePdf($html, $arguments);
 //            echo $html;
 //            exit;
 
-        }
+            }
 
             $r0 = rand(0,3);
             $r1 = rand(0,3);
@@ -299,25 +299,25 @@ class AuthController extends Controller
             $mpdfService = $this->container->get('tfox.mpdfport');
 
 //            if ($old == 0){
-                if ( $user->getEstr() ==  1 || $user->getEstr() ==  1 ){
-                    $file =  $user->getCopySignature();
-                    $file2 = $user->getCopySignature();
-                    $file3 = $user->getCopySignature();
-                    $file4 = $user->getCopySignature();
-                    $bigSign = WImage::cropSign(__DIR__.'/../../../../web/'.$file['path'], 240,100, false);
-                    $bigSign2 = WImage::cropSign(__DIR__.'/../../../../web/'.$file2['path'], 285,140, false);
-                    $bigSign3 = WImage::cropSign(__DIR__.'/../../../../web/'.$file3['path'], 285,140, false);
-                    $bigSign4 = WImage::cropSign(__DIR__.'/../../../../web/'.$file4['path'], 285,140, false);
-                }else{
-                    $file = $user->getCopySignature();
-                    $file2 = $user->getCopySignature();
-                    $file3 = $user->getCopySignature();
-                    $file4 = $user->getCopySignature();
-                    $bigSign = WImage::cropSign(__DIR__.'/../../../../web/'.$file['path'], 240,100, false);
-                    $bigSign2 = WImage::cropSign(__DIR__.'/../../../../web/'.$file2['path'], 285,140, false);
-                    $bigSign3 = WImage::cropSign(__DIR__.'/../../../../web/'.$file3['path'], 285,140, false);
-                    $bigSign4 = WImage::cropSign(__DIR__.'/../../../../web/'.$file4['path'], 285,140, false);
-                }
+            if ( $user->getEstr() ==  1 || $user->getEstr() ==  1 ){
+                $file =  $user->getCopySignature();
+                $file2 = $user->getCopySignature();
+                $file3 = $user->getCopySignature();
+                $file4 = $user->getCopySignature();
+                $bigSign = WImage::cropSign(__DIR__.'/../../../../web/'.$file['path'], 240,100, false);
+                $bigSign2 = WImage::cropSign(__DIR__.'/../../../../web/'.$file2['path'], 285,140, false);
+                $bigSign3 = WImage::cropSign(__DIR__.'/../../../../web/'.$file3['path'], 285,140, false);
+                $bigSign4 = WImage::cropSign(__DIR__.'/../../../../web/'.$file4['path'], 285,140, false);
+            }else{
+                $file = $user->getCopySignature();
+                $file2 = $user->getCopySignature();
+                $file3 = $user->getCopySignature();
+                $file4 = $user->getCopySignature();
+                $bigSign = WImage::cropSign(__DIR__.'/../../../../web/'.$file['path'], 240,100, false);
+                $bigSign2 = WImage::cropSign(__DIR__.'/../../../../web/'.$file2['path'], 285,140, false);
+                $bigSign3 = WImage::cropSign(__DIR__.'/../../../../web/'.$file3['path'], 285,140, false);
+                $bigSign4 = WImage::cropSign(__DIR__.'/../../../../web/'.$file4['path'], 285,140, false);
+            }
 //            }else{
 //                $bigSign = WImage::cropSign(__DIR__.'/../../../../web/bundles/crmmain/images/s-te-1.png', 240,100, false);
 //                $bigSign2 = WImage::cropSign(__DIR__.'/../../../../web/bundles/crmmain/images/s-te-2.png', 285,140, false);
@@ -350,6 +350,9 @@ class AuthController extends Controller
                 'outputDest' => null, //$dest argument for Output method
             );
             return $mpdfService->generatePdf($html->getContent(), $arguments);
+        }
+
+
 
 //                return new Response($html);
 //            return $response;
