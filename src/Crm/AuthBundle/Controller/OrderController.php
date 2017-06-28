@@ -618,6 +618,7 @@ class OrderController extends Controller
     public function editAction(Request $request, $userId)
     {
         $user = $this->getDoctrine()->getRepository('CrmMainBundle:User')->findOneById($userId);
+        if ($user->getClient() != $this->getUser()){ return []; }
         if ($user->getBirthDate() != null){
             $user->setBirthDate($user->getBirthDate()->format('d.m.Y'));
         }
@@ -793,6 +794,7 @@ class OrderController extends Controller
     public function editSkziAction(Request $request, $userId)
     {
         $item = $this->getDoctrine()->getRepository('CrmMainBundle:User')->findOneById($userId);
+        if ($item->getClient() != $this->getUser()){ return []; }
         $em = $this->getDoctrine()->getManager();
         $form = $this->createForm(new UserSkziType($em), $item);
         $formData = $form->handleRequest($request);
