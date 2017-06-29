@@ -223,6 +223,16 @@ class Operator extends BaseEntity implements UserInterface
      */
     protected $referPrice;
 
+    /**
+     * @ORM\Column(type="datetime", name="highStart", nullable=true)
+     */
+    protected $highStart;
+
+    /**
+     * @ORM\Column(type="datetime", name="highEnd", nullable=true)
+     */
+    protected $highEnd;
+
     public function __construct(){
         $this->roles    = 'ROLE_OPERATOR';
         $this->companies = new ArrayCollection();
@@ -1205,6 +1215,39 @@ class Operator extends BaseEntity implements UserInterface
     {
         $this->referPrice = $referPrice;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getHighStart()
+    {
+        return $this->highStart;
+    }
+
+    /**
+     * @param mixed $highStart
+     */
+    public function setHighStart($highStart)
+    {
+        $this->highStart = $highStart;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getHighEnd()
+    {
+        return $this->highEnd;
+    }
+
+    /**
+     * @param mixed $highEnd
+     */
+    public function setHighEnd($highEnd)
+    {
+        $this->highEnd = $highEnd;
+    }
+
 
 
 
