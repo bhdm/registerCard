@@ -74,6 +74,7 @@ class OperatorController extends Controller
             $operator->setBank($request->request->get('bank'));
             $operator->setKorchet($request->request->get('korchet'));
             $operator->setBik($request->request->get('bik'));
+            $operator->setHighEnd($request->request->get('highEnd'));
 
             $operator->setAdrs(array(
                 'region' => $request->request->get('region'),
