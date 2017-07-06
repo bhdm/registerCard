@@ -1049,6 +1049,7 @@ class UserRepository extends EntityRepository
         (u.created <= o.highEnd OR o.highEnd IS null) AND 
         (u.created <= c.highEnd OR c.highEnd IS null)
         ");
+        $res->andWhere('u.status = 6 OR u.status = 4 OR u.status = 5');
 
         $res
             ->orderBy('u.id', 'DESC');
