@@ -2582,13 +2582,13 @@ class UserController extends Controller
             $tag = $request->request->get('key');
             foreach ($csv as $row) {
                 $user = $this->getDoctrine()->getRepository('CrmMainBundle:User')->find($row[0]);
-                if (count($user) > 1) {
-                    $txt .= 'Есть копии с '.$row[1].'<br />';
-                }elseif(count($user) == 0){
-                    $txt .= 'Не найден  '.$row[1].'<br />';
-                }else {
+//                if (count($user) > 1) {
+//                    $txt .= 'Есть копии с '.$row[1].'<br />';
+//                }elseif(count($user) == 0){
+//                    $txt .= 'Не найден  '.$row[1].'<br />';
+//                }else {
 //                    $txt .= 'Найден '.$row[1].' '.$row[2].' '.$row[3].'( '.$user[0].' )<br />';
-                    $user = $user[0];
+//                    $user = $user[0];
                     $user->setStatus(4);
                     $user->setPost($row[1]);
                     $em->flush($user);
@@ -2599,7 +2599,7 @@ class UserController extends Controller
                     $statusLog->setUser($user);
                     $this->getDoctrine()->getManager()->persist($statusLog);
                     $this->getDoctrine()->getManager()->flush($statusLog);
-                }
+//                }
 
             }
         }
