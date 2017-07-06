@@ -1065,6 +1065,10 @@ class UserRepository extends EntityRepository
             ->leftJoin('u.company','c')
             ->leftJoin('c.operator','o')
             ->where('(o.highOperator = :user or c.highOperator = :user)')
+            ->andWhere("
+                (u.created <= o.highEnd OR o.highEnd IS null) AND 
+                (u.created <= c.highEnd OR c.highEnd IS null)
+                ")
             ->setParameter('user', $user);
 
 
