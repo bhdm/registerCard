@@ -352,14 +352,20 @@
         198096, Россия, г. Санкт-Петербург, ул. Маринеско 5-3Н
     {% elseif user.companyPetition != null %}
         {{ user.companyPetition.zipcode }},
+        {{ user.companyPetition.region ? user.companyPetition.region~', ' : '' }}
+        {{ user.companyPetition.area ? user.companyPetition.area~', ' : '' }}
         {{ user.companyPetition.city }},
         {{ user.companyPetition.street }},д.{{ user.companyPetition.home }} {{ user.companyPetition.corp }}, {{ user.companyPetition.room }}
     {% elseif  user.petitionAdrs is not empty and user.petitionAdrs | length != 0 %}
         {{ user.petitionAdrs.zipcode }},
+        {{ user.petitionAdrs.region ? user.petitionAdrs.region~', ' : '' }}
+        {{ user.petitionAdrs.area ? user.petitionAdrs.area~', ' : '' }}
         {{ user.petitionAdrs.city }},
         {{ user.petitionAdrs.street }},д.{{ user.petitionAdrs.house }} {{ user.petitionAdrs.corp }}, {{ user.petitionAdrs.room }}
     {% else %}
         {{ user.company.zipcode }},
+        {{ user.company.region ? user.company.region~', ' : '' }}
+        {{ user.company.area ? user.company.area~', ' : '' }}
         {{ user.company.city }},
         {{ user.company.street }},д.{{ user.company.home }} {{ user.company.corp }}, {{ user.company.room }}
     {% endif %}
