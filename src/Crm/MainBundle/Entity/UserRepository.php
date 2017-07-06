@@ -1019,9 +1019,6 @@ class UserRepository extends EntityRepository
             ->where('(o.highOperator = :user or c.highOperator = :user)')
             ->setParameter('user', $user);
 
-//        if (isset($params['status']) and $params['status'] != null and $params['status'] != 100){
-//            $res->andWhere('u.status = '.$params['status']);
-//        }
         $res->andWhere('u.status = 6 OR u.status = 4 OR u.status = 5');
 
         if (isset($params['operator']) and $params['operator'] != null){
@@ -1041,7 +1038,7 @@ class UserRepository extends EntityRepository
 
         if (isset($params['end']) and $params['end'] != null){
             $t = new \DateTime($params['end']);
-            $t = $t->format('Y-m-d').' 00:00:00';
+            $t = $t->format('Y-m-d').' 23:59:59';
             $res->andWhere("u.created <= :date2");
             $res->setParameter('date2', $t);
         }
