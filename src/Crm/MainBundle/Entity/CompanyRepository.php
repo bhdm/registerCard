@@ -331,7 +331,7 @@ class CompanyRepository extends EntityRepository
             ->from('CrmMainBundle:Company', 'c')
             ->leftJoin('c.operator', 'o')
             ->where('o.highOperator = :user or c.highOperator = :user')
-            ->andWhere("( u.created <= c.highEnd OR c.highEnd IS null ) ")
+            ->andWhere('c.created <= c.highEnd OR c.highEnd IS null')
             ->setParameter('user', $user)
             ->orderBy('c.title', 'ASC');
         return $res->getQuery()->getResult();
