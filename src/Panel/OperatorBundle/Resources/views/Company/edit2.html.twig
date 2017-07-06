@@ -209,7 +209,7 @@
                 <tr>
                     <td class="label">По: </td>
                     <td class="value">
-                        <input type="date" name="highEnd" value="{{ company.highEnd }}">
+                        <input type="date" name="highEnd" value="{{ company.highEnd | date('Y-m-d') }}">
                     </td>
                 </tr>
             {% endif %}
