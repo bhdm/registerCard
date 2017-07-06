@@ -176,7 +176,7 @@ class CompanyController extends Controller
             }else{
                 $op =  null;
             }
-            $company->setHighEnd($data->get('highEnd'));
+            $company->setHighEnd(new \DateTime($data->get('highEnd')));
 
             $company->setHighOperator($op);
             $company->setForma($data->get('forma'));
