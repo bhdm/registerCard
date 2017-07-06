@@ -166,7 +166,6 @@ class CompanyController extends Controller
             $company->setUrl($data->get('url'));
             $company->setManager($data->get('manager'));
             $company->setDelivery(($data->get('delivery') == 1 ? true : false));
-
             if ($data->get('confirmed') != null){
                 $company->setConfirmed(true);
             }else{
@@ -177,6 +176,8 @@ class CompanyController extends Controller
             }else{
                 $op =  null;
             }
+            $company->setHighEnd($data->get('highEnd'));
+
             $company->setHighOperator($op);
             $company->setForma($data->get('forma'));
             $company->setInn($data->get('inn'));

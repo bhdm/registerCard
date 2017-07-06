@@ -352,6 +352,11 @@ class Company extends BaseEntity
     protected $highOperator;
 
     /**
+     * @ORM\Column(type="datetime", name="highEnd", nullable=true)
+     */
+    protected $highEnd;
+
+    /**
      * @ORM\Column(type="integer", name="referPrice", nullable=true)
      */
     protected $referPrice;
@@ -1471,7 +1476,23 @@ class Company extends BaseEntity
         $this->referPrice = $referPrice;
     }
 
+    /**
+     * @return mixed
+     */
+    public function getHighEnd()
+    {
+        return $this->highEnd;
+    }
 
+    /**
+     * @param mixed $highEnd
+     */
+    public function setHighEnd($highEnd)
+    {
+        $this->highEnd = $highEnd;
+    }
+
+    
 
 
 }
