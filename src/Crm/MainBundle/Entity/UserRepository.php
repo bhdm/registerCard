@@ -1019,9 +1019,10 @@ class UserRepository extends EntityRepository
             ->where('(o.highOperator = :user or c.highOperator = :user)')
             ->setParameter('user', $user);
 
-        if (isset($params['status']) and $params['status'] != null and $params['status'] != 100){
-            $res->andWhere('u.status = '.$params['status']);
-        }
+//        if (isset($params['status']) and $params['status'] != null and $params['status'] != 100){
+//            $res->andWhere('u.status = '.$params['status']);
+//        }
+        $res->andWhere('u.status = 6 OR u.status = 4 OR u.status = 5');
 
         if (isset($params['operator']) and $params['operator'] != null){
             $res->andWhere('o.id = '.$params['operator']);
@@ -1049,7 +1050,6 @@ class UserRepository extends EntityRepository
         (u.created <= o.highEnd OR o.highEnd IS null) AND 
         (u.created <= c.highEnd OR c.highEnd IS null)
         ");
-        $res->andWhere('u.status = 6 OR u.status = 4 OR u.status = 5');
 
         $res
             ->orderBy('u.id', 'DESC');
