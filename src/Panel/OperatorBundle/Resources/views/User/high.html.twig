@@ -48,15 +48,15 @@
                 </th>
                 <th></th>
                 <th>
-                    <select name="params[status]">
-                        <option  {{ '' == params['status'] ? 'selected' }} value="100">Все</option>
-                        <option  {{ '0' == params['status'] ? 'selected' }} value="0">Новые</option>
-                        <option  {{ '2' == params['status'] ? 'selected' }} value="2">Оплаченные</option>
-                        <option  {{ '3' == params['status'] ? 'selected' }} value="3">В&nbsp;производстве</option>
-                        <option  {{ '6' == params['status'] ? 'selected' }} value="6">Изготовлено</option>
-                        <option  {{ '4' == params['status'] ? 'selected' }} value="4">На почте</option>
-                        <option  {{ '5' == params['status'] ? 'selected' }} value="5">Получены</option>
-                    </select>
+                    {#<select name="params[status]">#}
+                        {#<option  {{ '' == params['status'] ? 'selected' }} value="100">Все</option>#}
+                        {#<option  {{ '0' == params['status'] ? 'selected' }} value="0">Новые</option>#}
+                        {#<option  {{ '2' == params['status'] ? 'selected' }} value="2">Оплаченные</option>#}
+                        {#<option  {{ '3' == params['status'] ? 'selected' }} value="3">В&nbsp;производстве</option>#}
+                        {#<option  {{ '6' == params['status'] ? 'selected' }} value="6">Изготовлено</option>#}
+                        {#<option  {{ '4' == params['status'] ? 'selected' }} value="4">На почте</option>#}
+                        {#<option  {{ '5' == params['status'] ? 'selected' }} value="5">Получены</option>#}
+                    {#</select>#}
                 </th>
                 <th>
                     <button type="submit" class="btn btn-primary">Фильтр</button>
