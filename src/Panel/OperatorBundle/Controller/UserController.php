@@ -2582,8 +2582,7 @@ class UserController extends Controller
             $tag = $request->request->get('key');
             foreach ($csv as $row) {
                 $user = $this->getDoctrine()->getRepository('CrmMainBundle:User')->findForPost([
-                    'recipient' => $row[1],
-                    'managerKey' => $row[0]
+                    'id' => $row[0],
                 ]);
                 if (count($user) > 1) {
                     $txt .= 'Есть копии с '.$row[1].'<br />';
@@ -2593,7 +2592,7 @@ class UserController extends Controller
 //                    $txt .= 'Найден '.$row[1].' '.$row[2].' '.$row[3].'( '.$user[0].' )<br />';
                     $user = $user[0];
                     $user->setStatus(4);
-                    $user->setPost($row[2]);
+                    $user->setPost($row[1]);
                     $em->flush($user);
                     $em->refresh($user);
 
