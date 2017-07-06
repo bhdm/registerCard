@@ -2581,9 +2581,7 @@ class UserController extends Controller
             $txt = '';
             $tag = $request->request->get('key');
             foreach ($csv as $row) {
-                $user = $this->getDoctrine()->getRepository('CrmMainBundle:User')->findForPost([
-                    'id' => $row[0],
-                ]);
+                $user = $this->getDoctrine()->getRepository('CrmMainBundle:User')->find($row[0]);
                 if (count($user) > 1) {
                     $txt .= 'Есть копии с '.$row[1].'<br />';
                 }elseif(count($user) == 0){
