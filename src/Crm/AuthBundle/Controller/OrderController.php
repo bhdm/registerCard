@@ -36,6 +36,9 @@ class OrderController extends Controller
             $user->setCopyOrder2($this->getImgToArray($session->get('copyOrder2File')));
             $this->getDoctrine()->getManager()->flush($user);
         }
+        $session->set('copyOrderFile', null);
+        $session->set('copyOrder2File', null);
+        $session->save();
         return ['user' => $user ];
     }
 
