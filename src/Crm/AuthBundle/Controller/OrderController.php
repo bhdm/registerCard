@@ -32,8 +32,38 @@ class OrderController extends Controller
         $session = $request->getSession();
         $user = $this->getDoctrine()->getRepository('CrmMainBundle:User')->findOneBy(['id' => $id, 'client' => $this->getUser() ]);
         if ($request->getMethod('POST')){
-            $user->setCopyOrder($this->getImgToArray($session->get('copyOrderFile')));
-            $user->setCopyOrder2($this->getImgToArray($session->get('copyOrder2File')));
+
+//            $user->setCopyOrder($this->getImgToArray($session->get('copyOrderFile')));
+//            $user->setCopyOrder2($this->getImgToArray($session->get('copyOrder2File')));
+
+
+            $path = $this->get('kernel')->getRootDir() . '/../web/upload/tmp/';
+            $file = $session->get('copyOrderFile');
+            if ($file){
+                $info = new \SplFileInfo($file);
+                $path = $path.$user->getId().'/'.$user->getSalt().time().'-copyOrderFile.'.$info->getExtension();
+                if (copy($file,$path)){
+                    unlink( $file );
+                    $session->set('copyOrderFile',null);
+                    $array = $this->getImgToArray($path);
+                    $user->setCopyOrder($array);
+                }
+            }
+
+            $path = $this->get('kernel')->getRootDir() . '/../web/upload/tmp/';
+            $file = $session->get('copyOrder2File');
+            if ($file){
+                $info = new \SplFileInfo($file);
+                $path = $path.$user->getId().'/'.$user->getSalt().time().'-copyOrder2File.'.$info->getExtension();
+                if (copy($file,$path)){
+                    unlink( $file );
+                    $session->set('copyOrder2File',null);
+                    $array = $this->getImgToArray($path);
+                    $user->setCopyOrder2($array);
+                }
+            }
+
+
             $this->getDoctrine()->getManager()->flush($user);
         }
         $session->set('copyOrderFile', null);
