@@ -286,9 +286,9 @@ class AuthController extends Controller
                     'outputFilename' => null, //$filename argument for Output method
                     'outputDest' => null, //$dest argument for Output method
                 );
-                return $mpdfService->generatePdf($html, $arguments);
+                $mpdfService->generatePdf($html, $arguments);
 //            echo $html;
-//            exit;
+                exit;
 
             }
 
@@ -349,7 +349,8 @@ class AuthController extends Controller
                 'outputFilename' => null, //$filename argument for Output method
                 'outputDest' => null, //$dest argument for Output method
             );
-            return $mpdfService->generatePdf($html->getContent(), $arguments);
+            $mpdfService->generatePdf($html->getContent(), $arguments);
+            exit;
 //        }
 
 
