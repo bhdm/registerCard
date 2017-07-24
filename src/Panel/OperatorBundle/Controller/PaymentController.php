@@ -183,7 +183,7 @@ class PaymentController extends Controller
                 $em->flush();
                 $em->refresh($payment);
 
-                $operator = $payment->getCLient()->getCompany()->getOperator();
+                $operator = $payment->getClient()->getCompany()->getOperator();
                 for ($i = 0; $i < 10; $i ++){
                     if (isset($request->request->get('title')[$i]) && $request->request->get('title')[$i] != null){
 //                        switch ($request->request->get('title')[$i]){
