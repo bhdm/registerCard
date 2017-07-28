@@ -542,7 +542,7 @@ class UserController extends Controller
                 if ( $referer != null )
                     return $this->redirect($referer);
                 else{
-                    return array('user' => $user);
+                    return $this->redirectToRoute('panel_user_list');
                 }
             }
 
