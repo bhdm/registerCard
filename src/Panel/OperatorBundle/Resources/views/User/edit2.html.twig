@@ -36,6 +36,19 @@
 
                                     {#<a href="/upload/{{ user.typeCardFile.path is defined ?  user.typeCardFile.path : '' }}" target="_blank">Скачать</a>#}
                                 {% endif %}
+
+                                {% if user.copyDoc.path is defined %}
+                                    <br />
+                                    <input type="file" name="copyDocFile" id="copyDocFile"  data-type="copyDocFile" class="fileAjax">
+                                    {% if user.typeCardFile.path is defined %}
+                                        <img src="/{{ user.copyDoc.path }}" brightness="128" contrast="128" data-type="copyDocFile" class="document" id="copyDocImg">
+                                        <br>
+                                        <a href="{{ path('panel_download_png',{'filename' : user.copyDoc.fileName }) }}">Скачать заявление</a>
+                                    {% endif %}
+
+
+                                    {#<a href="/upload/{{ user.typeCardFile.path is defined ?  user.typeCardFile.path : '' }}" target="_blank">Скачать</a>#}
+                                {% endif %}
                             </div>
                         </div>
                     </td>
@@ -1041,8 +1054,11 @@
 
                             </div>
                             <div class="col-sm-8">
-                                <button type="submit" class="btn btn-default btn-primary"   title="Сохранить">
+                                <button type="submit" name="refresh" value="1" class="btn btn-default btn-primary"   title="Сохранить">
                                     Сохранить
+                                </button>
+                                <button type="submit" class="btn btn-default btn-primary"   title="Сохранить">
+                                    Сохранить и выйти
                                 </button>
 
                                 <a target="_blank" href="{{ path("generate_pdf_statement", {'id' : user.id, 'old' : 1}) }}"><button type="button" class="btn btn-default btn-primary"   title="Распечатать заявление">

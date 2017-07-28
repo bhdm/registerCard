@@ -536,10 +536,14 @@ class UserController extends Controller
             }
 //            }
 
-            if ( $referer != null )
-                return $this->redirect($referer);
-            else{
-                return array('user' => $user);
+            if ($request->request->get('refresh') == 1){
+                return $this->redirectToRoute('panel_user_edit', ['userId' => $userId]);
+            }else{
+                if ( $referer != null )
+                    return $this->redirect($referer);
+                else{
+                    return array('user' => $user);
+                }
             }
 
         } else {
