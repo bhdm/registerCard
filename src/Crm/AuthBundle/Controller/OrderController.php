@@ -673,6 +673,9 @@ class OrderController extends Controller
                 $user->setPassportIssuanceDate(new \DateTime($user->getPassportIssuanceDate()));
             }
 
+            if ($session->get('copyDocFile')){
+                $user->setCopyDocs($this->getImgToArray($session->get('copyDocFile')));
+            }
 
             if ($session->get('passportFile')){
                 $user->setCopyPassport($this->getImgToArray($session->get('passportFile')));
@@ -716,6 +719,7 @@ class OrderController extends Controller
             return $this->redirect($this->generateUrl('auth_order'));
         } else {
 
+            $session->set('copyDocFile', null);
             $session->set('passportFile', null);
             $session->set('passport2File', null);
             $session->set('driverFile', null);
@@ -727,6 +731,7 @@ class OrderController extends Controller
             $session->set('workFile', null);
             $session->set('typeCardFile', null);
 
+            $session->set('origin-copyDocFile', null);
             $session->set('origin-passportFile', null);
             $session->set('origin-passport2File', null);
             $session->set('origin-driverFile', null);
@@ -739,6 +744,11 @@ class OrderController extends Controller
             $session->set('origin-typeCardFile', null);
 
             #Помещаем все фалы-картинки в сессию, что бы потом можно было бы редактировать
+            $file = $user->getCopyDoc();
+            if (!empty($file) && file_exists('/var/www/' . $file['path'])) {
+                $session->set('copyDocFile', '/var/www/' . $file['path']);
+            }
+
             $file = $user->getCopyPassport();
             if (!empty($file) && file_exists('/var/www/' . $file['path'])) {
                 $session->set('passportFile', '/var/www/' . $file['path']);
