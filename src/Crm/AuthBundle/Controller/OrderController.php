@@ -674,7 +674,7 @@ class OrderController extends Controller
             }
 
             if ($session->get('copyDocFile')){
-                $user->setCopyDocs($this->getImgToArray($session->get('copyDocFile')));
+                $user->setCopyDoc($this->getImgToArray($session->get('copyDocFile')));
             }
 
             if ($session->get('passportFile')){

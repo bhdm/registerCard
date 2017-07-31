@@ -123,8 +123,8 @@
                             <br />
                             <br />
                             <div class="fileDoc" style="text-align: left">
-                                {% if form.vars.value.copyDoc.path is defined %}
-                                    <img src="/{{ form.vars.value.copyDoc.path }}" brightness="0" contrast="0">
+                                {% if user.copyDoc.path is defined %}
+                                    <img src="/{{ user.copyDoc.path }}" brightness="0" contrast="0">
                                 {% else %}
                                     <img src="" brightness="0" contrast="0">
                                 {% endif %}
