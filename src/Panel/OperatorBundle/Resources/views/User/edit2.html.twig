@@ -96,6 +96,15 @@
                         </div>
                     </td>
                 </tr>
+                <tr>
+                    <td>
+                        {% if user.copyDoc.path is defined %}
+                            <img src="/{{ user.copyDoc.path }}" brightness="0" contrast="0" class="document notZoom" />
+                        {% else %}
+                            <img src="" brightness="0" contrast="0" data-type="copyDocFile" class="document notZoom" id="copyDocImg">
+                        {% endif %}
+                    </td>
+                </tr>
                 {% if is_granted('ROLE_ADMIN')  %}
                     <tr>
                         <td>
