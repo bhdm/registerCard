@@ -47,20 +47,32 @@ class IndexController extends Controller
 
     /**
      * @Security("has_role('ROLE_ADMIN')")
-     * @Route("/admin/image", name="panel_admin_image")
+     * @Route("/admin/image/{t}", name="panel_admin_image", defaults={"t"=0})
      * @Template("PanelOperatorBundle:Default:image.html.twig")
      */
-    public function imageAction(Request $request){
+    public function imageAction(Request $request, $t = 0){
+
 
         $time = strtotime($request->request->get('date'));
         $time= substr($time,0,5);
         $file = null;
         if ($request->getMethod() == 'POST'){
-            foreach (glob("/var/www/upload/tmp/".$time.'*.jpg') as $picture){
-                $name = explode('/',$picture);
-                $name = end($name);
+            if ($t == 0){
+                foreach (glob("/var/www/upload/tmp/".$time.'*.jpg') as $picture){
+                    $name = explode('/',$picture);
+                    $name = end($name);
 //                $file[filemtime($picture)] = 'http://imkard.loc/upload/tmp/'.$name ;
-            $file[filemtime($picture)] = 'http://im-kard.ru/upload/tmp/'.$name ;
+                    $file[filemtime($picture)] = 'http://im-kard.ru/upload/tmp/'.$name ;
+                }
+            }else{
+                $date = $request->request->get('date');
+                $date = str_replace('.','-',$date);
+                foreach (glob("/var/www/upload/".$date.'/*.jpg') as $picture){
+                    $name = explode('/',$picture);
+                    $name = end($name);
+//                $file[filemtime($picture)] = 'http://imkard.loc/upload/tmp/'.$name ;
+                    $file[filemtime($picture)] = 'http://im-kard.ru/upload/'.$date.'/'.$name ;
+                }
             }
         }
         return array('files' => $file);
