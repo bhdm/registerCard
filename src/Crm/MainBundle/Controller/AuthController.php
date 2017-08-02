@@ -293,7 +293,7 @@ class AuthController extends Controller
                 );
                 $mpdf = $mpdfService->getMpdf();
                 $mpdf->WriteHTML($html);
-                return $mpdf->Output("order.pdf");
+                return $mpdf->Output("order.pdf", "D");
 //            echo $html;
                 exit;
 
