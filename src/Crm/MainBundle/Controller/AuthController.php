@@ -273,8 +273,6 @@ class AuthController extends Controller
                 $file1->setImageFormat('jpg');
                 $base64_1 = 'data:image/jpg;base64,' . base64_encode($file1->getImageBlob());
                 $html = '<img src="'.$base64_1.'" style="width: 200mm"/><br />';
-                $html .= '<img src="'.$base64_1.'" style="width: 200mm"/><br />';
-                $html .= '<img src="'.$base64_1.'" style="width: 200mm"/><br />';
 //            <br style="box-decoration-break: slice;"/>
                 if (isset($user->getCopyOrder2()['path'])){
                     $file2 = new \Imagick('/var/www/'.$user->getCopyOrder2()['path']);
@@ -293,7 +291,9 @@ class AuthController extends Controller
                     'outputFilename' => null, //$filename argument for Output method
                     'outputDest' => null, //$dest argument for Output method
                 );
-                $mpdfService->generatePdf($html, $arguments);
+                $mpdf = $mpdfService->getMpdf($arguments);
+                $mpdf->WriteHTML($html);
+                $mpdf->Output("order.pdf",'F');
 //            echo $html;
                 exit;
 
