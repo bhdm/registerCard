@@ -269,31 +269,28 @@ class AuthController extends Controller
 //            return $this->redirect($user->getCopyOrder()['path']);
                 $mpdfService = $this->container->get('tfox.mpdfport');
                 $file1 = new \Imagick('/var/www/'.$user->getCopyOrder()['path']);
-                $file1->setFormat('jpg');
-                $file1->setImageFormat('jpg');
-                $base64_1 = 'data:image/jpg;base64,' . base64_encode($file1->getImageBlob());
-                $html = '<img src="'.$base64_1.'" style="width: 200mm"/><br />';
-//            <br style="box-decoration-break: slice;"/>
+//                $file1->setFormat('jpg');
+//                $file1->setImageFormat('jpg');
+                $base64_1 = 'data:image/jpeg;base64,' . base64_encode($file1->getImageBlob());
+                $html = '<img src="'.$base64_1.'" style="max-width: 100%"/>
+            <br style="box-decoration-break: slice;"/>';
                 if (isset($user->getCopyOrder2()['path'])){
                     $file2 = new \Imagick('/var/www/'.$user->getCopyOrder2()['path']);
 //                    $file2->setFormat('jpg');
 //                    $file2->setImageFormat('jpg');
-                    $base64_2 = 'data:image/jpg;base64,' . base64_encode($file2->getImageBlob());
-                    $html .= '<img src="'.$base64_2.'" style="width: 200mm"/>';
+                    $base64_2 = 'data:image/jpeg;base64,' . base64_encode($file2->getImageBlob());
+                    $html .= '<img src="'.$base64_2.'" style="max-width: 100%"/>';
                 }
-//                echo $html;
-//                exit;
+
                 $arguments = array(
-                    'constructorArgs' => array(null, null, 0 ,0 ,0 ,0, 0), //Constructor arguments. Numeric array. Don't forget about points 2 and 3 in Warning section!
+                    'constructorArgs' => array(null, null, 0 ,10 ,3 ,0, 3), //Constructor arguments. Numeric array. Don't forget about points 2 and 3 in Warning section!
                     'writeHtmlMode' => null, //$mode argument for WriteHTML method
                     'writeHtmlInitialise' => null, //$mode argument for WriteHTML method
                     'writeHtmlClose' => null, //$close argument for WriteHTML method
                     'outputFilename' => null, //$filename argument for Output method
                     'outputDest' => null, //$dest argument for Output method
                 );
-                $mpdf = $mpdfService->getMpdf();
-                $mpdf->WriteHTML($html);
-                return $mpdf->Output("order.pdf", "D");
+                $mpdfService->generatePdf($html, $arguments);
 //            echo $html;
                 exit;
 
