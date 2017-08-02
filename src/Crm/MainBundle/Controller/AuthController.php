@@ -291,9 +291,9 @@ class AuthController extends Controller
                     'outputFilename' => null, //$filename argument for Output method
                     'outputDest' => null, //$dest argument for Output method
                 );
-                $mpdf = $mpdfService->getMpdf($arguments);
+                $mpdf = $mpdfService->getMpdf();
                 $mpdf->WriteHTML($html);
-                $mpdf->Output("order.pdf",'F');
+                return $mpdf->Output("order.pdf");
 //            echo $html;
                 exit;
 
