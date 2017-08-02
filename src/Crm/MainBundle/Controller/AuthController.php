@@ -272,16 +272,14 @@ class AuthController extends Controller
                 $file1->setFormat('jpg');
                 $file1->setImageFormat('jpg');
                 $base64_1 = 'data:image/jpeg;base64,' . base64_encode($file1->getImageBlob());
-                $html = '<img src="'.$base64_1.'" style="width: 100%"/>
+                $html = '<img src="'.$base64_1.'" style="max-width: 100%"/>
             <br style="box-decoration-break: slice;"/>';
-                echo  $html;
-                exit;
                 if (isset($user->getCopyOrder2()['path'])){
                     $file2 = new \Imagick('/var/www/'.$user->getCopyOrder2()['path']);
                     $file2->setFormat('jpg');
                     $file2->setImageFormat('jpg');
                     $base64_2 = 'data:image/jpeg;base64,' . base64_encode($file2->getImageBlob());
-                    $html .= '<img src="'.$base64_2.'" style="width: 100%"/>';
+                    $html .= '<img src="'.$base64_2.'" style="max-width: 100%"/>';
                 }
 
                 $arguments = array(
