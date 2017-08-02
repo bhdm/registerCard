@@ -277,7 +277,7 @@ class AuthController extends Controller
                     $file2 = new \Imagick('/var/www/'.$user->getCopyOrder2()['path']);
 //                    $base64_2 = 'data:image/jpeg;base64,' . base64_encode($file2->getImageBlob());
                     $base64_2 = $user->getCopyOrder2()['path'];
-                    $html .= '<img src="https://im-kard.ru'.$base64_2.'" style="width: 100%"/>
+                    $html .= '<img src="https://im-kard.ru'.$base64_2.'" style="width: 100%"/>';
                 }
 
                 $arguments = array(
