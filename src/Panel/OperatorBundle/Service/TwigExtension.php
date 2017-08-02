@@ -40,6 +40,7 @@ class TwigExtension extends \Twig_Extension
             new \Twig_SimpleFilter('values', array($this, 'values')),
             new \Twig_SimpleFilter('regNumber', array($this, 'regNumber')),
             new \Twig_SimpleFilter('getOriginal', array($this, 'getOriginal')),
+            new \Twig_SimpleFilter('base64', array($this, 'base64Filter')),
         );
     }
 
@@ -196,5 +197,17 @@ class TwigExtension extends \Twig_Extension
         }
 
         return $file;
+    }
+
+    public function base64Filter($imagePath)
+    {
+        $rootDir = __DIR__.'/../../../../web/upload';
+        if($this->is_file($rootDir.$imagePath)){
+            $image = new \Imagick($rootDir.$imagePath);
+            $base = 'data:image/jpeg;base64,' . $image->getImageBlob();
+            return $base;
+        }else{
+            return '';
+        }
     }
 }
