@@ -269,10 +269,10 @@ class AuthController extends Controller
 //            return $this->redirect($user->getCopyOrder()['path']);
                 $mpdfService = $this->container->get('tfox.mpdfport');
                 $file1 = new \Imagick('/var/www/'.$user->getCopyOrder()['path']);
-//                $file1->setFormat('jpg');
-//                $file1->setImageFormat('jpg');
-                $base64_1 = 'data:image/jpeg;base64,' . base64_encode($file1->getImageBlob());
-                $html = '<img src="'.$base64_1.'" style="width: 200px"/>
+                $file1->setFormat('png');
+                $file1->setImageFormat('png');
+                $base64_1 = 'data:image/png;base64,' . base64_encode($file1->getImageBlob());
+                $html = '<img src="'.$base64_1.'" style="width: 100%"/>
             <br style="box-decoration-break: slice;"/>';
                 if (isset($user->getCopyOrder2()['path'])){
                     $file2 = new \Imagick('/var/www/'.$user->getCopyOrder2()['path']);
