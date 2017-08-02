@@ -1071,15 +1071,6 @@
                                     Сохранить и выйти
                                 </button>
 
-                                <a target="_blank" href="{{ path("generate_pdf_statement", {'id' : user.id, 'old' : 1}) }}"><button type="button" class="btn btn-default btn-primary"   title="Распечатать заявление">
-                                    Распечатать заявление
-                                </button></a>
-
-                                {#{% if not is_granted('ROLE_ADMIN') %}#}
-                                    {#<button type="submit" class="btn btn-default btn-success"  id="confirm" title="Сохранить и подтвердить правильность">#}
-                                        {#Сохранить и подтвердить правильность#}
-                                    {#</button>#}
-                                {#{% endif %}#}
 
                                 <a href="{{ referer }}">
                                 <button type="button" class="btn btn-default btn-danger"   title="Отмена">
