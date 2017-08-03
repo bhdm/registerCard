@@ -297,7 +297,7 @@ class AuthController extends Controller
 //                $mpdfService->generatePdf($html, $arguments);
 
                 $mpdf->WriteHTML($html);
-                $mpdf->Output('', 'F');
+                $mpdf->Output('', 'D');
 
 //            echo $html;
                 exit;
