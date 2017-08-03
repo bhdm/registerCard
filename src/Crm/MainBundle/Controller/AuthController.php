@@ -238,8 +238,8 @@ class AuthController extends Controller
             }
 
             $user = $this->getDoctrine()->getRepository('CrmMainBundle:User')->findOneById($userId);
-//            $mpdfService = $this->container->get('tfox.mpdfport');
-            $mpdf = new \mPDF();
+            $mpdfService = $this->container->get('tfox.mpdfport');
+
             $html = $this->render('CrmMainBundle:Form:doc.html.twig',array('user' => $user,'mail' => $mail));
             $width = rand(0,200);
             $html = $html->getContent();
@@ -254,11 +254,7 @@ class AuthController extends Controller
                 'outputFilename' => null, //$filename argument for Output method
                 'outputDest' => null, //$dest argument for Output method
             );
-//            $mpdfService->generatePdfResponse($html, $arguments);
-            $mpdf->WriteHTML($html);
-            $mpdf->Output();
-            exit;
-
+            $mpdfService->generatePdfResponse($html, $arguments);
         }else{
             return $this->redirect($this->generateUrl('main'));
         }
@@ -272,6 +268,8 @@ class AuthController extends Controller
             if (isset($user->getCopyOrder()['path']) && $old == 0 && $user->getEstr() == 0 && $user->getRu() == 0){
 //            return $this->redirect($user->getCopyOrder()['path']);
                 $mpdfService = $this->container->get('tfox.mpdfport');
+                $mpdf = new \mPDF();
+
                 $file1 = new \Imagick('/var/www/'.$user->getCopyOrder()['path']);
 //                $file1->setFormat('jpg');
 //                $file1->setImageFormat('jpg');
@@ -283,7 +281,7 @@ class AuthController extends Controller
                     $file2 = new \Imagick('/var/www/'.$user->getCopyOrder2()['path']);
 //                    $file2->setFormat('jpg');
 //                    $file2->setImageFormat('jpg');
-                    $base64_2 = 'https://im-kard.ru' . $user->getCopyOrder2()['path'];;
+                    $base64_2 = 'https://im-kard.ru' . $user->getCopyOrder()['path'];;
 //                    $base64_2 = 'data:image/jpeg;base64,' . base64_encode($file2->getImageBlob());
                     $html .= '<img src="'.$base64_2.'" style="max-width: 100%"/>';
                 }
@@ -296,7 +294,11 @@ class AuthController extends Controller
                     'outputFilename' => null, //$filename argument for Output method
                     'outputDest' => null, //$dest argument for Output method
                 );
-                $mpdfService->generatePdf($html, $arguments);
+//                $mpdfService->generatePdf($html, $arguments);
+
+                $mpdf->WriteHTML($html);
+                $mpdf->Output('', 'F');
+
 //            echo $html;
                 exit;
 
