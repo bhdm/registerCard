@@ -238,8 +238,8 @@ class AuthController extends Controller
             }
 
             $user = $this->getDoctrine()->getRepository('CrmMainBundle:User')->findOneById($userId);
-            $mpdfService = $this->container->get('tfox.mpdfport');
-
+//            $mpdfService = $this->container->get('tfox.mpdfport');
+            $mpdf = new \mPDF();
             $html = $this->render('CrmMainBundle:Form:doc.html.twig',array('user' => $user,'mail' => $mail));
             $width = rand(0,200);
             $html = $html->getContent();
@@ -254,7 +254,11 @@ class AuthController extends Controller
                 'outputFilename' => null, //$filename argument for Output method
                 'outputDest' => null, //$dest argument for Output method
             );
-            $mpdfService->generatePdfResponse($html, $arguments);
+//            $mpdfService->generatePdfResponse($html, $arguments);
+            $mpdf->WriteHTML($html);
+            $mpdf->Output();
+            exit;
+
         }else{
             return $this->redirect($this->generateUrl('main'));
         }
