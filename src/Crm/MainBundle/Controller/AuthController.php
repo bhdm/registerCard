@@ -296,10 +296,10 @@ class AuthController extends Controller
                 );
 //                $mpdfService->generatePdf($html, $arguments);
 
-                $mpdf->WriteHTML($html);
-                $mpdf->Output('', 'D');
+//                $mpdf->WriteHTML($html);
+//                $mpdf->Output('', 'D');
 
-//            echo $html;
+            echo $html;
                 exit;
 
             }
