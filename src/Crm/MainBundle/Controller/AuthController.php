@@ -269,7 +269,7 @@ class AuthController extends Controller
 //            return $this->redirect($user->getCopyOrder()['path']);
                 $mpdfService = $this->container->get('tfox.mpdfport');
                 $mpdf = new \mPDF();
-
+                $mpdf->showImageErrors = true;
                 $file1 = new \Imagick('/var/www/'.$user->getCopyOrder()['path']);
 //                $file1->setFormat('jpg');
 //                $file1->setImageFormat('jpg');
