@@ -25,11 +25,11 @@ class XmlController extends Controller
 
         $files = array();
 
-        $files[0]['base'] = $this->imageToPdf($user->getCopyPassport()['originalName'], 'passport');
+        $files[0]['base'] = $this->imageToPdf($user->getCopyPassport()['path'], 'passport');
         $files[0]['title'] = 'Passport';
         $files[0]['file'] = $user->getCopyPassport();
 
-        $files[1]['base'] = $this->imageToPdf($user->getCopyDriverPassport()['originalName'], 'driver');
+        $files[1]['base'] = $this->imageToPdf($user->getCopyDriverPassport()['path'], 'driver');
         $files[1]['title'] = 'DriverLicense';
         $files[1]['file'] = $user->getCopyDriverPassport();
 
@@ -45,14 +45,14 @@ class XmlController extends Controller
         $files[3]['title'] = 'Signature';
         $files[3]['file'] = $user->getCopySignature();
 
-        $files[5]['base'] = $this->ImageToPdf($user->getCopySnils()['originalName'], 'snils');
+        $files[5]['base'] = $this->ImageToPdf($user->getCopySnils()['path'], 'snils');
         $files[5]['title'] = 'SNILS';
         $files[5]['file'] = $user->getCopySnils();
 
 
 
         if (isset($files[6])){
-            $files[6]['base'] = $this->ImageToPdf($user->getCopyWork()['originalName']);
+            $files[6]['base'] = $this->ImageToPdf($user->getCopyWork()['path']);
             $files[6]['title'] = 'Work';
             $files[6]['file'] = $user->getCopyWork();
         }
@@ -63,12 +63,12 @@ class XmlController extends Controller
 
 
 
-        $files[11]['base'] = $this->ImageToPdf($user->getCopyInn()['originalName'], 'doc');
+        $files[11]['base'] = $this->ImageToPdf($user->getCopyInn()['path'], 'doc');
         $files[11]['title'] = 'INN';
         $files[11]['file'] = $user->getCopyInn();
 
         if (isset($user->getCopyDoc()['path'])){
-            $files[18]['base'] = $this->ImageToPdf($user->getCopyDoc()['originalName']);
+            $files[18]['base'] = $this->ImageToPdf($user->getCopyDoc()['path']);
             $files[18]['title'] = 'Other';
             $files[18]['file'] = $user->getCopyDoc();
         }
@@ -86,7 +86,7 @@ class XmlController extends Controller
         }else{
             if ($user->getCompanyPetition() == null ){
                 $file= $user->getCopyPetition();
-                $files[8]['base'] = $this->ImageToPdf((isset($file['originalName']) ? $file['originalName'] : null ));
+                $files[8]['base'] = $this->ImageToPdf((isset($file['path']) ? $file['originalName'] : null ));
                 $files[8]['title'] = 'Petition';
             }else{
                 if ($user->getCompanyPetition()->getFile() != null ){
@@ -102,18 +102,18 @@ class XmlController extends Controller
         }
 
         if (isset($user->getCopyPassportTranslate()['originalName'])){
-            $files[9]['base'] = $this->imageToPdf($user->getCopyPassportTranslate()['originalName']);
+            $files[9]['base'] = $this->imageToPdf($user->getCopyPassportTranslate()['path']);
             $files[9]['title'] = 'PassportTranslate';
             $files[9]['file'] = $user->getCopyPassportTranslate();
         }
         if (isset($user->getCopyDriverPassportTranslate()['originalName'])){
-            $files[10]['base'] = $this->imageToPdf($user->getCopyDriverPassportTranslate()['originalName']);
+            $files[10]['base'] = $this->imageToPdf($user->getCopyDriverPassportTranslate()['path']);
             $files[10]['title'] = 'DriverPassportTranslate';
             $files[10]['file'] = $user->getCopyDriverPassportTranslate();
         }
 
         if (isset($user->getTypeCardFile()['originalName'])){
-            $files[12]['base'] = $this->imageToPdf($user->getTypeCardFile()['originalName']);
+            $files[12]['base'] = $this->imageToPdf($user->getTypeCardFile()['path']);
             $files[12]['title'] = 'typeCardFile';
             $files[12]['file'] = $user->getTypeCardFile();
         }
@@ -370,11 +370,17 @@ class XmlController extends Controller
      * @Route("/image-to-pdf/{filename}", name="ImageToPdf")
      */
     public function imageToPdfAction($filename){
+        $path = base64_decode($filename);
+        $filename = basename($path);
+
+
         $mpdfService = $this->container->get('tfox.mpdfport');
 
 //        $filename = str_replace('.jpg', '-or.jpg', $filename);
 //        if (!is_file(__DIR__.$filename)){
-            $filename = 'origin-'.$filename;
+            $new_filename = 'origin-'.$filename;
+
+            $filename = str_replace($filename,$new_filename, $path);
 //            $file = implode('/',$filename);
 //            $file = str_replace('-or.jpg', '.jpg', $filename);
 
@@ -386,8 +392,8 @@ class XmlController extends Controller
 //            $html = '<img src="https://im-kard.ru/upload/docs/'.$filename.'" style="max-width: 100%;"/>';
 //        }
 
-        if (is_file('/var/www/upload/tmp/'.$filename)){
-            $html = '/var/www/upload/tmp/'.$filename;
+        if (is_file('/var/www/'.$filename)){
+            $html = '/var/www/upload/'.$filename;
         }else{
             $html = '/var/www/upload/docs/'.$filename;
         }
@@ -455,7 +461,7 @@ class XmlController extends Controller
 
     public function imageToPdf($filename, $type= null){
 //        if ($type == null){
-            $url = 'http://'.$_SERVER['SERVER_NAME'].$this->generateUrl('ImageToPdf',array('filename' => $filename));
+            $url = 'http://'.$_SERVER['SERVER_NAME'].$this->generateUrl('ImageToPdf',array('filename' => base64_encode($filename)));
 //        }else{
 //            $url = 'http://'.$_SERVER['SERVER_NAME'].$this->generateUrl('create_image_pdf',array('filename' => $filename, 'type' => $type));
 //        }
