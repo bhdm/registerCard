@@ -1765,11 +1765,11 @@ class UserController extends Controller
             }
             $files = array();
 
-            $files[0]['base'] = $this->imageToPdf($user->getCopyPassport()['originalName'], 'passport');
+            $files[0]['base'] = $this->imageToPdf($user->getCopyPassport()['path'], 'passport');
             $files[0]['title'] = 'Passport';
             $files[0]['file'] = $user->getCopyPassport();
 
-            $files[1]['base'] = $this->imageToPdf($user->getCopyDriverPassport()['originalName'], 'driver');
+            $files[1]['base'] = $this->imageToPdf($user->getCopyDriverPassport()['path'], 'driver');
             $files[1]['title'] = 'DriverLicense';
             $files[1]['file'] = $user->getCopyDriverPassport();
 
@@ -1785,22 +1785,22 @@ class UserController extends Controller
             $files[3]['title'] = 'Signature';
             $files[3]['file'] = $user->getCopySignature();
             ;
-            $files[5]['base'] = $this->ImageToPdf($user->getCopySnils()['originalName'], 'snils');
+            $files[5]['base'] = $this->ImageToPdf($user->getCopySnils()['path'], 'snils');
             $files[5]['title'] = 'SNILS';
             $files[5]['file'] = $user->getCopySnils();
 
-            $files[11]['base'] = $this->ImageToPdf($user->getCopyInn()['originalName'], 'doc');
+            $files[11]['base'] = $this->ImageToPdf($user->getCopyInn()['path'], 'doc');
             $files[11]['title'] = 'INN';
             $files[11]['file'] = $user->getCopyInn();
 
             if (isset($user->getCopyDoc()['path'])){
-                $files[18]['base'] = $this->ImageToPdf($user->getCopyDoc()['originalName']);
+                $files[18]['base'] = $this->ImageToPdf($user->getCopyDoc()['path']);
                 $files[18]['title'] = 'Other';
                 $files[18]['file'] = $user->getCopyDoc();
             }
 
             if (isset($files[6])){
-                $files[6]['base'] = $this->ImageToPdf($user->getCopyWork()['originalName']);
+                $files[6]['base'] = $this->ImageToPdf($user->getCopyWork()['path']);
                 $files[6]['title'] = 'Work';
                 $files[6]['file'] = $user->getCopyWork();
             }
@@ -1823,13 +1823,13 @@ class UserController extends Controller
                         $files[8]['title'] = 'Petition';
                     }else{
                         $file = $user->getCopyPetition();
-                        $files[8]['base'] = $this->ImageToPdf($file['originalName']);
+                        $files[8]['base'] = $this->ImageToPdf($file['path']);
                         $files[8]['title'] = 'Petition';
                     }
                 }else{
                     if ($user->getCompanyPetition()->getFile() != null ){
                         $file= $user->getCompanyPetition()->getFile();
-                        $files[8]['base'] = $this->ImageToPdf($file['originalName']);
+                        $files[8]['base'] = $this->ImageToPdf($file['path']);
                         $files[8]['title'] = 'Petition';
                     }
                 }
@@ -1860,9 +1860,9 @@ class UserController extends Controller
 
     public function imageToPdf($filename, $type = null){
         if ($type == null){
-            $url = 'http://'.$_SERVER['SERVER_NAME'].$this->generateUrl('ImageToPdf',array('filename' => $filename));
+            $url = 'http://'.$_SERVER['SERVER_NAME'].$this->generateUrl('ImageToPdf',array('filename' => base64_encode($filename)));
         }else{
-            $url = 'http://'.$_SERVER['SERVER_NAME'].$this->generateUrl('create_image_pdf',array('filename' => $filename, 'type' => $type));
+            $url = 'http://'.$_SERVER['SERVER_NAME'].$this->generateUrl('create_image_pdf',array('filename' => base64_encode($filename), 'type' => $type));
         }
         $pdfdata = file_get_contents($url);
         $base64 = base64_encode($pdfdata);

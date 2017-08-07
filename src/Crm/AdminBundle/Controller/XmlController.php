@@ -260,6 +260,15 @@ class XmlController extends Controller
      * @Route("/create-image-pdf/{type}/{filename}/{t}", name="create_image_pdf", defaults={"t" = 0})
      */
     public function createImageAction(Request $request, $type, $filename, $t = 0){
+
+        $path = base64_decode($filename);
+        $filename = basename($path);
+
+        $new_filename = 'origin-'.$filename;
+
+        $filename = str_replace($filename,$new_filename, $path);
+
+
         $types = array(
             'passport' => ['x' => 590, 'y' =>  800],
             'driver' => ['x' => 400, 'y' =>  250],
@@ -267,11 +276,6 @@ class XmlController extends Controller
             'snils' => ['x' => 480, 'y' =>  340],
             'other' => ['x' => 827, 'y' =>  1170]
         );
-        if (is_file('/var/www/upload/tmp/'.$filename)){
-            $filename = 'upload/tmp/'.$filename;
-        }else{
-            $filename = 'upload/docs/'.$filename;
-        }
 
         $file = new \Imagick('/var/www/'.$filename);
         $w = $types[$type]['x'];
