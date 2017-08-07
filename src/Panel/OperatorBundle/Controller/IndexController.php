@@ -69,7 +69,7 @@ class IndexController extends Controller
                 $date = str_replace('.','-',$date);
 
                 echo $date;
-
+                exit;
                 foreach (glob("/var/www/upload/".$date.'/*.jpg') as $picture){
                     $name = explode('/',$picture);
                     $name = end($name);
