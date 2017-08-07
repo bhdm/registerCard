@@ -69,7 +69,7 @@ class IndexController extends Controller
                 $date = str_replace('.','-',$date);
                 $date = explode('-',$date);
                 $date = $date[2] . '-' . $date[1] . '-' . $date[0];
-                foreach (glob("/var/www/upload/".$date.'/*.jpg') as $picture){
+                foreach (glob("/var/www/upload/".$date.'/origin-*.jpg') as $picture){
                     $name = explode('/',$picture);
                     $name = end($name);
 //                $file[filemtime($picture)] = 'http://imkard.loc/upload/tmp/'.$name ;
