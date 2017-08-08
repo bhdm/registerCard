@@ -41,6 +41,7 @@ class TwigExtension extends \Twig_Extension
             new \Twig_SimpleFilter('regNumber', array($this, 'regNumber')),
             new \Twig_SimpleFilter('getOriginal', array($this, 'getOriginal')),
             new \Twig_SimpleFilter('base64', array($this, 'base64Filter')),
+            new \Twig_SimpleFilter('baseEncode', array($this, 'baseEncodeFilter')),
         );
     }
 
@@ -209,5 +210,10 @@ class TwigExtension extends \Twig_Extension
         }else{
             return '';
         }
+    }
+
+    public function baseEncodeFilter($imagePath)
+    {
+        return base64_encode($imagePath);
     }
 }

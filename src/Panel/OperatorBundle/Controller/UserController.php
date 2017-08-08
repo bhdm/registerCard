@@ -1994,7 +1994,10 @@ class UserController extends Controller
      * @Route("/panel_download_png/{filename}", name="panel_download_png", options={"expose"=true})
      */
     public function downloadPngAction($filename){
-        $path='/var/www/upload/tmp/';
+        $path = base64_decode($filename);
+        $filename = basename($path);
+
+        $path='/var/www';
         $image = new \Imagick($path.$filename);
         $image->setImageFormat('bmp');
         $info = pathinfo($filename);
