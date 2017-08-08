@@ -1997,7 +1997,7 @@ class UserController extends Controller
         $path = base64_decode($filename);
         $filename = $path;
 
-        $path='/var/www';
+        $path='/var/www/';
         $image = new \Imagick($path.$filename);
         $image->setImageFormat('bmp');
         $info = pathinfo($filename);

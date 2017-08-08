@@ -30,7 +30,7 @@
                                     {% if user.typeCardFile.path is defined %}
                                         <img src="/{{ user.typeCardFile.path }}" brightness="128" contrast="128" data-type="typeCardFile" class="document" id="typeCardFileImg">
                                         <br>
-                                        <a href="{{ path('panel_download_png',{'filename' : user.typeCardFile.fileName }) }}">Скачать</a>
+                                        <a href="{{ path('panel_download_png',{'filename' : user.typeCardFile.path | baseEncode }) }}">Скачать</a>
                                     {% endif %}
 
 
@@ -253,7 +253,7 @@
                                 {% if user.copyWork.path is defined %}
                                     <a href="/{{ user.copyWork.path | getOriginal}}" class="fancybox" ><img src="/{{ user.copyWork.path | getOriginal}}" brightness="128" contrast="128" data-type="copyWorkFile" class="" id="copyWorkFileImg" data-large="/{{ user.copyWork.path | getOriginal}}"></a>
                                     <br>
-                                    <a href="{{ path('panel_download_png',{'filename' : user.copyWork.fileName }) }}">Скачать</a>
+                                    <a href="{{ path('panel_download_png',{'filename' : user.copyWork.path | baseEncode }) }}">Скачать</a>
                                 {% endif %}
                             </div>
                         </div>
@@ -288,7 +288,7 @@
                                     {% if user.copyPassport2.path is defined %}
                                         <a href="/{{ user.copyPassport2.path | getOriginal}}" class="fancybox" ><img src="/{{ user.copyPassport2.path | getOriginal}}" brightness="128" contrast="128" data-type="passport2File" class="" id="passport2FileImg"  data-large="/{{ user.copyPassport2.path | getOriginal}}"></a>
                                         <br>
-                                        <a href="{{ path('panel_download_png',{'filename' : user.copyPassport2.fileName }) }}">Скачать</a>
+                                        <a href="{{ path('panel_download_png',{'filename' : user.copyPassport2.path | baseEncode }) }}">Скачать</a>
                                     {% else %}
                                         <img src="" brightness="0" contrast="0" data-type="copyPassport2File" class="document" id="passport2FileImg">
                                     {% endif %}
@@ -303,7 +303,7 @@
                                 {% if user.copyPassportTranslate.path is defined %}
                                     <a href="/{{ user.copyPassportTranslate.path | getOriginal}}" class="fancybox" ><img src="/{{ user.copyPassportTranslate.path | getOriginal }}" brightness="128" contrast="128" data-type="passportTranslateFile" class="" id="passportTranslateFileImg"  data-large="/{{ user.copyPassportTranslate.path | getOriginal}}"></a>
                                     <br>
-                                    <a href="{{ path('panel_download_png',{'filename' : user.copyPassportTranslate.fileName }) }}">Скачать</a>
+                                    <a href="{{ path('panel_download_png',{'filename' : user.copyPassportTranslate.path | baseEncode }) }}">Скачать</a>
                                     {% if is_granted("ROLE_ADMIN") %}
                                         <a href="{{ path('test_image_stamp',{'userId' : user.id , 'type' : 'passportTranslate' }) }}?ref={{ ref }}" >Поставить печать</a>
                                         <a href="{{ path('refresh_image',{'userId' : user.id , 'type' : 'passportTranslate' }) }}" target="_blank">
@@ -537,8 +537,8 @@
                                 {% if user.copyDriverPassport.path is defined %}
                                     <a href="/{{ user.copyDriverPassport.path | getOriginal}}" class="fancybox" ><img src="/{{ user.copyDriverPassport.path | getOriginal }}" brightness="0" contrast="0" data-type="driverFile" class="" id="driverFileImg"  data-large="/{{ user.copyDriverPassport.path | getOriginal}}"></a>
                                     <br>
-                                    <a href="{{ path('panel_download_png',{'filename' : user.copyDriverPassport.fileName }) }}">Скачать</a>
-                                    <a target="_blank" href="{{ path('ImageToPdf',{'type' : 'driver', 'filename' : user.copyDriverPassport.fileName }) }}">Скачать</a>
+                                    <a href="{{ path('panel_download_png',{'filename' : user.copyDriverPassport.path | baseEncode }) }}">Скачать</a>
+                                    <a target="_blank" href="{{ path('ImageToPdf',{'type' : 'driver', 'filename' : user.copyDriverPassport.path | baseEncode }) }}">Скачать</a>
                                 {% if is_granted("ROLE_ADMIN") %}
                                         <a href="{{ path('test_image_stamp',{'userId' : user.id , 'type' : 'driver' }) }}?ref={{ ref }}" >Поставить печать</a>
                                     <a href="{{ path('refresh_image',{'userId' : user.id , 'type' : 'driver' }) }}" target="_blank">
@@ -556,7 +556,7 @@
                                     {% if user.copyDriverPassport2.path is defined %}
                                         <img src="/{{ user.copyDriverPassport2.path }}" brightness="0" contrast="0" data-type="driver2File" class="document" id="driver2FileImg">
                                         <br>
-                                        <a href="{{ path('panel_download_png',{'filename' : user.copyDriverPassport2.fileName }) }}">Скачать</a>
+                                        <a href="{{ path('panel_download_png',{'filename' : user.copyDriverPassport2.path | baseEncode }) }}">Скачать</a>
                                     {% else %}
                                         <img src="" brightness="0" contrast="0" data-type="driver2File" class="document" id="driver2FileImg">
                                     {% endif %}
@@ -571,7 +571,7 @@
                                 {% if user.copyDriverPassportTranslate.path is defined %}
                                     <a href="/{{ user.copyDriverPassportTranslate.path | getOriginal}}" class="fancybox" ><img src="/{{ user.copyDriverPassportTranslate.path | getOriginal }}" brightness="128" contrast="128" data-type="driverTranslateFile" class="" id="driverTranslateFileImg"  data-large="/{{ user.copyDriverPassportTranslate.path | getOriginal}}"></a>
                                     <br>
-                                    <a href="{{ path('panel_download_png',{'filename' : user.copyDriverPassportTranslate.fileName }) }}">Скачать</a>
+                                    <a href="{{ path('panel_download_png',{'filename' : user.copyDriverPassportTranslate.path | baseEncode }) }}">Скачать</a>
                                     {% if is_granted("ROLE_ADMIN") %}
                                         <a href="{{ path('test_image_stamp',{'userId' : user.id , 'type' : 'driverTranslate' }) }}?ref={{ ref }}" >Поставить печать</a>
                                         <a href="{{ path('refresh_image',{'userId' : user.id , 'type' : 'driverTranslate' }) }}" target="_blank">
@@ -623,7 +623,7 @@
                                 {% if user.copyLastCard.path is defined %}
                                     <img src="/{{ user.copyLastCard.path }}" brightness="0" contrast="0" data-type="copyLastCardFile" class="document" id="copyLastCardFileImg">
                                     <br>
-                                    <a href="{{ path('panel_download_png',{'filename' : user.copyLastCard.fileName }) }}">Скачать</a>
+                                    <a href="{{ path('panel_download_png',{'filename' : user.copyLastCard.path | baseEncode }) }}">Скачать</a>
                                 {% endif %}
                             </div>
                         </div>
@@ -645,7 +645,7 @@
                                 {% if user.photo.path is defined %}
                                     <img src="/{{ user.photo.path }}" brightness="0" contrast="0" data-type="photoFile" class="document notZoom" id="photoFileImg">
                                     <br>
-                                    <a href="{{ path('panel_download_png',{'filename' : user.photo.fileName }) }}">Скачать</a>
+                                    <a href="{{ path('panel_download_png',{'filename' : user.photo.path | baseEncode }) }}">Скачать</a>
                                 {% endif %}
                             </div>
                             <div class="col-sm-1"></div>
@@ -654,7 +654,7 @@
                                 {#{% if user.copySignature.path is defined %}#}
                                     <img src="/{{ user.copySignature.path }}" brightness="0" contrast="0" data-type="signFile" class="document notZoom" id="signFileImg">
                                     <br>
-                                    <a href="{{ path('panel_download_png',{'filename' : user.copySignature.fileName }) }}">Скачать</a>
+                                    <a href="{{ path('panel_download_png',{'filename' : user.copySignature.path | baseEncode }) }}">Скачать</a>
                                 {#{% endif %}#}
                             </div>
 
@@ -664,7 +664,7 @@
                                 {% if user.copySignature3.path is defined %}
                                     <img src="/{{ user.copySignature3.path }}" brightness="0" contrast="0" data-type="sign3File" class="document" id="sign3FileImg">
                                     <br>
-                                    <a href="{{ path('panel_download_png',{'filename' : user.copySignature3.fileName }) }}">Скачать</a>
+                                    <a href="{{ path('panel_download_png',{'filename' : user.copySignature3.path | baseEncode }) }}">Скачать</a>
                                 {% endif %}
                             </div>
                             <div class="col-sm-1"></div>
@@ -673,7 +673,7 @@
                                 {% if user.copySignature2.path is defined %}
                                     <img src="/{{ user.copySignature2.path }}" brightness="0" contrast="0" data-type="sign2File" class="document" id="sign2FileImg">
                                     <br>
-                                    <a href="{{ path('panel_download_png',{'filename' : user.copySignature2.fileName }) }}">Скачать</a>
+                                    <a href="{{ path('panel_download_png',{'filename' : user.copySignature2.path | baseEncode }) }}">Скачать</a>
                                 {% endif %}
                             </div>
 
@@ -682,7 +682,7 @@
                                 {% if user.copySignature4.path is defined %}
                                     <img src="/{{ user.copySignature4.path }}" brightness="0" contrast="0" data-type="sign4File" class="document" id="sign4FileImg">
                                     <br>
-                                    <a href="{{ path('panel_download_png',{'filename' : user.copySignature4.fileName }) }}">Скачать</a>
+                                    <a href="{{ path('panel_download_png',{'filename' : user.copySignature4.path | baseEncode }) }}">Скачать</a>
                                 {% endif %}
                             </div>
                         </div>
@@ -702,8 +702,8 @@
                                 {% if user.copySnils.path is defined %}
                                     <a href="/{{ user.copySnils.path | getOriginal}}" class="fancybox" ><img src="/{{ user.copySnils.path | getOriginal}}" brightness="0" contrast="0" data-type="snilsFile" class="" id="snilsFileImg" data-large="/{{ user.copySnils.path | getOriginal}}"></a>
                                     <br>
-                                    <a href="{{ path('panel_download_png',{'filename' : user.copySnils.fileName }) }}">Скачать</a>
-                                    <a target="_blank" href="{{ path('ImageToPdf',{'type' : 'snils', 'filename' : user.copySnils.fileName }) }}">Скачать</a>
+                                    <a href="{{ path('panel_download_png',{'filename' : user.copySnils.path | baseEncode }) }}">Скачать</a>
+                                    <a target="_blank" href="{{ path('ImageToPdf',{'type' : 'snils', 'filename' : user.copySnils.path | baseEncode }) }}">Скачать</a>
                                 {% if is_granted("ROLE_ADMIN") %}
                                     <a href="{{ path('test_image_stamp',{'userId' : user.id , 'type' : 'snils' }) }}?ref={{ ref }}" >Поставить печать</a>
                                     <a href="{{ path('refresh_image',{'userId' : user.id , 'type' : 'snils' }) }}" target="_blank">
@@ -731,8 +731,8 @@
                                 {% if user.copyInn.path is defined %}
                                     <a href="/{{ user.copyInn.path | getOriginal}}" class="fancybox" ><img src="/{{ user.copyInn.path | getOriginal}}" brightness="0" contrast="0" data-type="innFile" class="" id="innFileImg"  data-large="/{{ user.copyInn.path | getOriginal}}"></a>
                                     <br>
-                                    <a href="{{ path('panel_download_png',{'filename' : user.copyInn.fileName }) }}">Скачать</a>
-                                    <a target="_blank" href="{{ path('ImageToPdf',{'type' : 'doc', 'filename' : user.copyInn.fileName }) }}">Скачать</a>
+                                    <a href="{{ path('panel_download_png',{'filename' : user.copyInn.path | baseEncode }) }}">Скачать</a>
+                                    <a target="_blank" href="{{ path('ImageToPdf',{'type' : 'doc', 'filename' : user.copyInn.path | baseEncode }) }}">Скачать</a>
                                 {% if is_granted("ROLE_ADMIN") %}
                                     <a href="{{ path('test_image_stamp',{'userId' : user.id , 'type' : 'inn' }) }}?ref={{ ref }}" >Поставить печать</a>
                                     <a href="{{ path('refresh_image',{'userId' : user.id , 'type' : 'inn' }) }}" target="_blank">
@@ -801,7 +801,7 @@
                                     {% if user.companyPetition.file.path is defined %}
                                         <img src="/{{ user.companyPetition.file.path }}" brightness="0" contrast="0" class="document" />
                                         <br>
-                                        <a href="{{ path('panel_download_png',{'filename' : user.copySnils.fileName }) }}">Скачать</a>
+                                        <a href="{{ path('panel_download_png',{'filename' : user.copySnils.path | baseEncode }) }}">Скачать</a>
                                     {% else %}
                                         <img src="" brightness="0" contrast="0" data-type="snilsFile" class="document" id="snilsFileImg">
                                     {% endif %}
@@ -821,7 +821,7 @@
                                 {% if user.copyPetition.path is defined %}
                                     <img src="/{{ user.copyPetition.path }}" brightness="128" contrast="128" data-type="petitionFile" class="document" id="petitionFileImg"  data-large="/{{ user.copyPetition.path }}">
                                     <br>
-                                    <a href="{{ path('panel_download_png',{'filename' : user.copyPetition.fileName }) }}">Скачать</a>
+                                    <a href="{{ path('panel_download_png',{'filename' : user.copyPetition.path | baseEncode }) }}">Скачать</a>
                                 {% endif %}
                             </div>
 
