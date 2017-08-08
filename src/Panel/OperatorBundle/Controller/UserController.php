@@ -1995,7 +1995,7 @@ class UserController extends Controller
      */
     public function downloadPngAction($filename){
         $path = base64_decode($filename);
-        $filename = basename($path);
+//        $filename = basename($path);
 
         $path='/var/www';
         $image = new \Imagick($path.$filename);
