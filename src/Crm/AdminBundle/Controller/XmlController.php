@@ -257,11 +257,11 @@ class XmlController extends Controller
     }
 
     /**
-     * @Route("/create-image-pdf/{type}/{filename}/{t}", name="create_image_pdf", defaults={"t" = 0})
+     * @Route("/create-image-pdf/{type}/{t}", name="create_image_pdf", defaults={"t" = 0})
      */
-    public function createImageAction(Request $request, $type, $filename, $t = 0){
+    public function createImageAction(Request $request, $type, $t = 0){
 
-        $path = base64_decode($filename);
+        $path = base64_decode($request->query->get('filename'));
         $filename = basename($path);
 
         $new_filename = 'origin-'.$filename;
