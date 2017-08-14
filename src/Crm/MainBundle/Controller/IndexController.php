@@ -6,6 +6,7 @@ use Crm\MainBundle\Entity\Issuer;
 use Crm\MainBundle\Entity\Review;
 use Crm\MainBundle\Form\Type\FeedbackType;
 use Crm\MainBundle\Form\Type\ReviewType;
+use Crm\MainBundle\Robokassa\Robokassa;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
@@ -79,6 +80,34 @@ class IndexController extends Controller
               'reviews' => $reviews,
               'userCount' => "$userCount"
         );
+    }
+
+    /**
+     * @Route("/get-code", name="get_code")
+     * @Template()
+     */
+    public function getCodeAction(Request $request){
+        if ($request->getMethod() == 'POST'){
+            $fio = $request->request->get('fio');
+            $code = $request->request->get('code');
+            $email = $request->request->get('email');
+            $phone = $request->request->get('phone');
+
+            $robokassa = new Robokassa('infomax', 'Uflzoaac1', 'Uflzoaac2');
+//            $robokassa = new Robokassa('NPO_Tehnolog', 'Uflzoaac1', 'Uflzoaac2');
+            $robokassa->OutSum = 300;
+//            $robokassa->IncCurrLabel = 'WMR';
+            $robokassa->Desc = base64_encode('ФИО: '.$fio.
+                ' <br />email: '.$email.
+                ' <br />Телефон: '.$phone.
+                ' <br />Номер карты: '.$code);
+            ;
+            $robokassa->addCustomValues(array(
+                'shp_order' => time(),
+            ));
+            return $this->redirect($robokassa->getRedirectURL());
+        }
+        return [];
     }
 
     /**

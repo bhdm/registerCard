@@ -1,0 +1,72 @@
+{% extends 'CrmMainBundle::layout_new.html.twig' %}
+
+{% block title %}
+    <title>Востановление кода для карты тахографа</title>
+    <meta name="description" content="Востановление кода для карты тахографа">
+    <meta name="keywords" content="Востановление кода для карты тахографа">
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <style>
+        .form-code{
+            width: 600px;
+            margin: 0 auto;
+            height: 600px;
+        }
+        .txt-red{
+            padding: 20px 20px !important;
+            font-size: 18px;
+            color: #CC0000;
+        }
+    </style>
+{% endblock %}
+{% block content %}
+    <h2>
+        Воставноление кода
+    </h2>
+    <p>
+        Осознание того, что телефонная книга осталась у побеждённого наступило не сразу. И через некоторое время сотрудник обратился в ближайший сервис с просьбой извлечь телефонную книгу.
+    </p>
+    <p>
+        На этом история могла бы и закончиться, но по какой-то причине в сервисе ему отказали под предлогом того, что у них нет специализированной программы для этого телефона.
+    </p>
+    <p>
+        Проверили, вроде включается. Во всяком случае, загорается подсветка клавиатуры.
+
+    </p>
+    <form class="form-horizontal form-code" enctype="multipart/form-data" method="POST">
+        <div class="block-form">
+            <table class="table-form">
+                <tr>
+                    <td>Фамилия Имя Отчество</td>
+                    <td><input type="text" required class="form-control" placeholder="Иванов Иван Иванович" name="fio" value="{{ app.user != null ? app.user.lastName~' '~app.user.firstName~' '~app.user.surName : null }}"></td>
+                </tr>
+                <tr>
+                    <td>E-mail</td>
+                    <td><input type="text" required class="form-control" placeholder="example@example.ru" name="email"></td>
+                </tr>
+                <tr>
+                    <td>Телефон</td>
+                    <td><input type="text" required class="form-control" placeholder="+7 123 456 1232" name="phone"></td>
+                </tr>
+                <tr>
+                    <td>Номер карты</td>
+                    <td><input type="text" required class="form-control" placeholder="RUD12345678" name="code"></td>
+                </tr>
+                <tr>
+                    <td colspan="2" class="txt-red">
+                        Стоимость услуги составляет 300 рублей
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>
+                        <button class="btn btn-primary">ОПЛАТИТЬ</button>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </form>
+{% endblock %}
+

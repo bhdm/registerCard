@@ -186,7 +186,7 @@
                                     </ul>
                                 </div>
                             {% endif %}
-                            {% if o.status == 4 %}
+                            {% if o.status == 4 or o.status == 6 %}
                                 <a data-href="{{ path('auth_status_set', { 'id' : o.id }) }}" class="setCard"><button class="btn btn-primary">Получено</button></a>
                             {% endif %}
                         </td>
