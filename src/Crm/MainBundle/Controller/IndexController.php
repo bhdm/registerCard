@@ -3,6 +3,7 @@
 namespace Crm\MainBundle\Controller;
 
 use Crm\MainBundle\Entity\Issuer;
+use Crm\MainBundle\Entity\Pincode;
 use Crm\MainBundle\Entity\Review;
 use Crm\MainBundle\Form\Type\FeedbackType;
 use Crm\MainBundle\Form\Type\ReviewType;
@@ -87,13 +88,27 @@ class IndexController extends Controller
      * @Template()
      */
     public function getCodeAction(Request $request){
+        $em = $this->getDoctrine()->getManager();
         if ($request->getMethod() == 'POST'){
+
+
             $fio = $request->request->get('fio');
             $code = $request->request->get('code');
             $email = $request->request->get('email');
             $phone = $request->request->get('phone');
 
-            $robokassa = new Robokassa('infomax', 'Uflzoaac1', 'Uflzoaac2');
+            $pincode = new Pincode();
+            $pincode->setFio($fio);
+            $pincode->setCode($code);
+            $pincode->setEmail($email);
+            $pincode->setPhone($phone);
+            $pincode->setClient($this->getUser());
+            $em->persist($pincode);
+            $em->flush($pincode);
+            $em->refresh($pincode);
+
+
+            $robokassa = new Robokassa('imkard.ru', 'nk7Kbn1ThF3Nu4Zn6DbM', 'AOHtNFMi8ZK5oa22yoG7');
 //            $robokassa = new Robokassa('NPO_Tehnolog', 'Uflzoaac1', 'Uflzoaac2');
             $robokassa->OutSum = 300;
 //            $robokassa->IncCurrLabel = 'WMR';
@@ -103,11 +118,58 @@ class IndexController extends Controller
                 ' <br />Номер карты: '.$code);
             ;
             $robokassa->addCustomValues(array(
-                'shp_order' => time(),
+                'shp_order' => $pincode->getId(),
             ));
             return $this->redirect($robokassa->getRedirectURL());
         }
         return [];
+    }
+
+    /**
+     * @Route("/get-code/success")
+     */
+    public function getCodeSuccessAction(Request $request){
+        $em = $this->getDoctrine()->getManager();
+        $orderId = $request->query->get('InvId');
+        $price = $request->query->get('OutSum');
+
+        $pincode = $this->getDoctrine()->getRepository('CrmMainBundle:Pincode')->find($orderId);
+        $pincode->setPrice($price);
+        $pincode->setStatus(2);
+        $em->flush($pincode);
+        return $this->render('@CrmMain/Index/getCode.html.twig', ['success' => true]);
+    }
+
+    /**
+     * @Route("/get-code/fail")
+     */
+    public function getCodeErrorAction(Request $request){
+        $em = $this->getDoctrine()->getManager();
+        $orderId = $request->query->get('InvId');
+        $price = $request->query->get('OutSum');
+
+        $pincode = $this->getDoctrine()->getRepository('CrmMainBundle:Pincode')->find($orderId);
+        $pincode->setPrice($price);
+        $pincode->setStatus(-1);
+        $em->flush($pincode);
+        return $this->render('@CrmMain/Index/getCode.html.twig', ['success' => false]);
+
+    }
+
+    /**
+     * @Route("/get-code/result")
+     */
+    public function getCodeResultAction(Request $request){
+        $em = $this->getDoctrine()->getManager();
+        $orderId = $request->query->get('InvId');
+        $price = $request->query->get('OutSum');
+        $pincode = $this->getDoctrine()->getRepository('CrmMainBundle:Pincode')->find($orderId);
+        $pincode->setPrice($price);
+        $pincode->setStatus(2);
+        $em->flush($pincode);
+
+        echo 'OK'.$orderId;
+        exit;
     }
 
     /**

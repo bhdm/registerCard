@@ -23,18 +23,24 @@
 {% endblock %}
 {% block content %}
     <h2>
-        Воставноление кода
+        Воставноление кодов
     </h2>
-    <p>
-        Осознание того, что телефонная книга осталась у побеждённого наступило не сразу. И через некоторое время сотрудник обратился в ближайший сервис с просьбой извлечь телефонную книгу.
+    <p style="font-size: 17px">
+        Восстановление PIN, PUK кодов для карт тахографов СКЗИ. После оплаты коды будут отправлены на указанныю Вами электронную почту в течение 4-х часов.
     </p>
-    <p>
-        На этом история могла бы и закончиться, но по какой-то причине в сервисе ему отказали под предлогом того, что у них нет специализированной программы для этого телефона.
+    <p style="font-size: 17px">
+        <strong>Выдача кодов происходит с 10<sup>00</sup> - 18<sup>00</sup> по рабочим дням.</strong>
     </p>
-    <p>
-        Проверили, вроде включается. Во всяком случае, загорается подсветка клавиатуры.
-
-    </p>
+    {% if success is defined and succes == true %}
+        <div style="text-align: center">
+            <div style="padding: 5px 20px; border: 1px solid #2e6da4; color: #2e6da4; font-weight: bold">Ваша заявка принята</div>
+        </div>
+    {% endif %}
+    {% if success is defined and succes == false %}
+        <div style="text-align: center">
+            <div style="padding: 5px 20px; border: 1px solid #2e6da4; color: #2e6da4; font-weight: bold">Ошибка оплаты заявки.</div>
+        </div>
+    {% endif %}
     <form class="form-horizontal form-code" enctype="multipart/form-data" method="POST">
         <div class="block-form">
             <table class="table-form">

@@ -33,6 +33,11 @@ class Pincode extends BaseEntity
     protected $email;
 
     /**
+     * @ORM\Column(type="string", length=250)
+     */
+    protected $phone;
+
+    /**
      * @ORM\Column(type="string", length=250, nullable=true)
      */
     protected $pin;
@@ -57,10 +62,16 @@ class Pincode extends BaseEntity
      */
     protected $dateSend;
 
+    /**
+     * @ORM\Column(type="string", nullable=true)
+     */
+    protected $price;
+
     public function __construct()
     {
         $this->status = 0;
         $this->enabled = true;
+        $this->price = '300';
     }
 
     /**
@@ -193,6 +204,9 @@ class Pincode extends BaseEntity
             case 3:
                 $status = '<span class="status" style="border: 1px solid #2135cc; color: #2135cc">Выполнена</span>';
                 break;
+            case -1:
+                $status = '<span class="status" style="border: 1px solid #ca0c49; color: #ca0c49">Ошибка транзакции</span>';
+                break;
         }
         return $status;
     }
@@ -212,6 +226,39 @@ class Pincode extends BaseEntity
     {
         $this->puk = $puk;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getPhone()
+    {
+        return $this->phone;
+    }
+
+    /**
+     * @param mixed $phone
+     */
+    public function setPhone($phone)
+    {
+        $this->phone = $phone;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getPrice()
+    {
+        return $this->price;
+    }
+
+    /**
+     * @param mixed $price
+     */
+    public function setPrice($price)
+    {
+        $this->price = $price;
+    }
+
 
 
 }

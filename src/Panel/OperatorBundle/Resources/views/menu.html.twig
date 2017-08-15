@@ -79,6 +79,15 @@
                     &nbsp;&nbsp;Главная
                 </a>
             </li>
+            {% if is_granted('ROLE_ADMIN') %}
+                <li class="{{ app.request.attributes.get('_route') == 'panel_pincode_list' ? 'active' : '' }}">
+                    <a href="{{ path('panel_pincode_list') }}">
+                        <i class="glyphicon glyphicon-index"></i>
+                        Пин коды
+                    </a>
+                </li>
+            {% endif %}
+
             {% if is_granted('ROLE_OPERATOR') %}
                 <li class="{{ app.request.attributes.get('_route') == 'operator_companyuser_list' ? 'active' : '' }}">
                     <a href="{{ path('operator_companyuser_list') }}" style="{{ render(controller("PanelOperatorBundle:CompanyUser:newUser"))}}">

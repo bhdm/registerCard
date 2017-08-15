@@ -579,3 +579,7 @@ input.little{
 .loader{
     position: fixed !important;
 }
+#navbarCollapse{
+    padding-left: 0;
+    padding-right: 0;
+}
