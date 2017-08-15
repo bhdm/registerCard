@@ -284,7 +284,7 @@ class CompanyUserController extends Controller{
 
         $file = $order->getFileSign();
         $file = WImage::ImageToBlackAndWhite($file);
-        $file = WImage::cropSign($file, 591,118);
+        $file = WImage::cropSign($file, 560,140);
         $image = new \Imagick($file);
         $image->setImageFormat('bmp');
         $files['signature']['base'] = base64_encode($image->getImageBlob());
