@@ -15,7 +15,7 @@
         <Order_v2>
             <OrderNumber>FLGMN-00072372</OrderNumber>
             <OrderDate>{{ order.created | date('Y-m-d') }}</OrderDate>
-            <OrderCardType>P</OrderCardType> {# M - Мастер #}
+            <OrderCardType>{{ order.companyType == 1 ? 'P' : 'M' }}</OrderCardType> {# M - Мастер #}
             <OrderCardCount>{{ order.cardAmount }}</OrderCardCount>
             <OrderReason>create</OrderReason>
             <CompanyOrder>
