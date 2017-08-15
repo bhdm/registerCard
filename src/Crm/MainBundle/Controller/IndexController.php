@@ -108,7 +108,7 @@ class IndexController extends Controller
             $em->refresh($pincode);
 
 
-            $robokassa = new Robokassa('imkard.ru', 'nk7Kbn1ThF3Nu4Zn6DbM', 'AOHtNFMi8ZK5oa22yoG7');
+            $robokassa = new Robokassa('imkard.ru', 'nk7Kbn1ThF3Nu4Zn6DbM', 'AOHtNFMi8ZK5oa22yoG7', true);
 //            $robokassa = new Robokassa('NPO_Tehnolog', 'Uflzoaac1', 'Uflzoaac2');
             $robokassa->OutSum = 300;
 //            $robokassa->IncCurrLabel = 'WMR';
