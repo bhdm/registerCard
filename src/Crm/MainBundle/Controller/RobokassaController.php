@@ -36,6 +36,7 @@ class RobokassaController extends Controller
             $robokassa->Desc = $id.': '.$user->getLastName().' '.$user->getFirstName().' '.$user->getSurName();
             $robokassa->addCustomValues(array(
                 'shp_order' => $user->getId(),
+                'shp_type' => 'card',
             ));
             return $this->redirect($robokassa->getRedirectURL());
         }
@@ -58,6 +59,7 @@ class RobokassaController extends Controller
             $robokassa->Desc = $id.': '.$user->getLastName().' '.$user->getFirstName().' '.$user->getSurName();
             $robokassa->addCustomValues(array(
                 'shp_order' => $user->getId(),
+                'shp_type' => 'card',
             ));
             return $this->redirect($robokassa->getRedirectURL());
         }
@@ -79,6 +81,7 @@ class RobokassaController extends Controller
             $robokassa->Desc = $id.': '.$user->getLastName().' '.$user->getFirstName().' '.$user->getSurName();
             $robokassa->addCustomValues(array(
                 'shp_order' => $user->getId(),
+                'shp_type' => 'card',
             ));
             return $this->redirect($robokassa->getRedirectURL());
         }
@@ -93,6 +96,11 @@ class RobokassaController extends Controller
 //        https://im-kard.ru/payment/success?inv_id=1235162225&InvId=1235162225&out_summ=125.000000&OutSum=125.000000&crc=1431e5c4e792c50c736d3755cbf48357&SignatureValue=1431e5c4e792c50c736d3755cbf48357&Culture=ru&shp_order=10321
         $orderId = $request->query->get('shp_order');
         $price = $request->query->get('OutSum');
+        $type = $request->query->get('shp_type');
+        if ($type == 'pin'){
+            return $this->redirectToRoute('payed_pin_success');
+        }
+
 
         mail('tulupov.m@gmail.com','Оплата карты для тахографа', "orderId: $orderId, price: $price");
         $em = $this->getDoctrine()->getManager();
@@ -112,6 +120,20 @@ class RobokassaController extends Controller
     public function resultPaymentAction(Request $request){
         $orderId = $request->query->get('InvId');
         $price = $request->query->get('OutSum');
+        $type = $request->query->get('shp_type');
+
+        if ($type == 'pin'){
+            $em = $this->getDoctrine()->getManager();
+            $orderId = $request->query->get('InvId');
+            $price = $request->query->get('OutSum');
+            $pincode = $this->getDoctrine()->getRepository('CrmMainBundle:Pincode')->find($orderId);
+            $pincode->setPrice($price);
+            $pincode->setStatus(2);
+            $em->flush($pincode);
+            echo 'OK'.$orderId;
+            exit;
+        }
+
 
         mail('tulupov.m@gmail.com','Оплата карты для тахографа', "orderId: $orderId, price: $price");
         $em = $this->getDoctrine()->getManager();
@@ -132,7 +154,12 @@ class RobokassaController extends Controller
      * @Route("/course/payment/error", name="payment_course_error")
      * @Template("CrmMainBundle:Assist:payment.html.twig")
      */
-    public function errorPaymentAction(){
+    public function errorPaymentAction(Request $request){
+        $type = $request->query->get('shp_type');
+        if ($type == 'pin'){
+            return $this->redirectToRoute('payed_pin_fail');
+        }
+
         return array(
             'success'   => false,
         );

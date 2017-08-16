@@ -108,17 +108,12 @@ class IndexController extends Controller
             $em->refresh($pincode);
 
 
-            $robokassa = new Robokassa('imkard.ru', 'nk7Kbn1ThF3Nu4Zn6DbM', 'AOHtNFMi8ZK5oa22yoG7', true);
-//            $robokassa = new Robokassa('NPO_Tehnolog', 'Uflzoaac1', 'Uflzoaac2');
-            $robokassa->OutSum = 300;
-//            $robokassa->IncCurrLabel = 'WMR';
-            $robokassa->Desc = base64_encode('ФИО: '.$fio.
-                ' <br />email: '.$email.
-                ' <br />Телефон: '.$phone.
-                ' <br />Номер карты: '.$code);
-            ;
+            $robokassa = new Robokassa('infomax', 'Uflzoaac1', 'Uflzoaac2');
+            $robokassa->OutSum = 2;
+            $robokassa->Desc = 'Заказ востановления пинкода' . $code;
             $robokassa->addCustomValues(array(
                 'shp_order' => $pincode->getId(),
+                'shp_type' => 'pin',
             ));
             return $this->redirect($robokassa->getRedirectURL());
         }
@@ -126,32 +121,17 @@ class IndexController extends Controller
     }
 
     /**
-     * @Route("/get-code/success")
+     * @Route("/get-code/success", name="payed_pin_success")
      */
     public function getCodeSuccessAction(Request $request){
-        $em = $this->getDoctrine()->getManager();
-        $orderId = $request->query->get('InvId');
-        $price = $request->query->get('OutSum');
 
-        $pincode = $this->getDoctrine()->getRepository('CrmMainBundle:Pincode')->find($orderId);
-        $pincode->setPrice($price);
-        $pincode->setStatus(2);
-        $em->flush($pincode);
         return $this->render('@CrmMain/Index/getCode.html.twig', ['success' => true]);
     }
 
     /**
-     * @Route("/get-code/fail")
+     * @Route("/get-code/fail", name="payed_pin_fail")
      */
     public function getCodeErrorAction(Request $request){
-        $em = $this->getDoctrine()->getManager();
-        $orderId = $request->query->get('InvId');
-        $price = $request->query->get('OutSum');
-
-        $pincode = $this->getDoctrine()->getRepository('CrmMainBundle:Pincode')->find($orderId);
-        $pincode->setPrice($price);
-        $pincode->setStatus(-1);
-        $em->flush($pincode);
         return $this->render('@CrmMain/Index/getCode.html.twig', ['success' => false]);
 
     }
