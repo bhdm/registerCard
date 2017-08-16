@@ -1,0 +1,59 @@
+{% extends 'PanelOperatorBundle::layout.html.twig' %}
+
+{% block content %}
+    <div class="well">
+        <form method="POST">
+        <table>
+            <tr>
+                <td style="font-weight: bold">Заявлние номер:</td>
+                <td style="text-align: right">
+                    {{ code.id }}
+                </td>
+            </tr>
+            <tr>
+                <td style="font-weight: bold">ФИО:</td>
+                <td style="text-align: right">
+                    {{ code.fio }}
+                </td>
+            </tr>
+            <tr>
+                <td style="font-weight: bold">Телефон:</td>
+                <td style="text-align: right">
+                    {{ code.phone }}
+                </td>
+            </tr>
+            <tr>
+                <td style="font-weight: bold">E-mail:</td>
+                <td style="text-align: right">
+                    {{ code.email }}
+                </td>
+            </tr>
+            <tr>
+                <td style="font-weight: bold">Номер карты:</td>
+                <td style="text-align: right">
+                    {{ code.code }}
+                </td>
+            </tr>
+            <tr>
+                <td style="font-weight: bold">PIN:</td>
+                <td style="text-align: right">
+                    <input type="text" value="{{ code.pin }}" name="pin" class="form-control">
+                </td>
+            </tr>
+            <tr>
+                <td style="font-weight: bold">PIN:</td>
+                <td style="text-align: right">
+                    <button class="btn btn-primary">Сохранить</button>
+                </td>
+            </tr>
+        </table>
+        </form>
+    </div>
+
+{% endblock %}
+
+{% block breadcrumb %}
+    <ul class="breadcrumb well">
+        <li>Заявка на пин код</li>
+    </ul>
+{% endblock %}

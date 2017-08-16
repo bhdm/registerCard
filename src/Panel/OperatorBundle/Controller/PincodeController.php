@@ -46,13 +46,20 @@ class PincodeController extends Controller
 
     /**
      * @Route("/add-pin/{id}", name="panel_pincode_add_pin")
+     * @Template()
      */
     public function addPinCodeAction(Request $request, $id){
         $em = $this->getDoctrine()->getManager();
         $item = $this->getDoctrine()->getRepository('CrmMainBundle:Pincode')->findOneById($id);
-        $code = $item->setPin($request->request->get('pin'));
+        if ($request->getMethod() == 'POST'){
+            $item->setPin($request->request->get('pin'));
+            $em->flush($item);
+            $em->refresh($item);
+            return $this->redirectToRoute('panel_pincode_list');
+        }
+        return ['code' => $item];
 
-        return new JsonResponse(['status' => 'Ok']);
+
     }
 
     /**
@@ -65,9 +72,9 @@ class PincodeController extends Controller
         $code = $item->setPin($request->request->get('pin'));
 
         $message = \Swift_Message::newInstance()
-            ->setSubject('Заявка отправлена')
+            ->setSubject('Востановления пинкода')
             ->setFrom('info@im-kard.ru')
-            ->setTo('bhd.m@ya.ru')
+            ->setTo('i.pinich@cmtransport.ru')
             ->setBody(
                 $this->renderView(
                     '@PanelOperator/Mail/getCode.html.twig',
@@ -98,14 +105,14 @@ class PincodeController extends Controller
             ->setTo($code->getEmail())
             ->setBody(
                 $this->renderView(
-                    '@PanelOperator/Mail/getCode.html.twig',
+                    '@PanelOperator/Mail/sendCode.html.twig',
                     array('code' => $code)
                 ), 'text/html'
             )
         ;
         $this->get('mailer')->send($message);
 
-        $code->setStatus(2);
+        $code->setStatus(3);
         $em->flush($code);
 
         $referer = $request->headers->get('referer');

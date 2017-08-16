@@ -16,6 +16,8 @@
                 <th>Дата создания</th>
                 <th>ФИО пользователя</th>
                 <th>Клиент</th>
+                <th>Номер карты</th>
+                <th>PIN</th>
                 <th>Статус</th>
 
                 <th class="setting">Инструменты</th>
@@ -29,16 +31,38 @@
                     </td>
                     <td>{{ p.fio }}</td>
                     <td>{{ p.client }}</td>
+                    <td>{{ p.code }}</td>
+                    <td>{{ p.pin }}</td>
                     <td>{{ p.statusStringTwig | raw }}</td>
 
 
                     <td class="setting">
+
+
+
                         {% spaceless %}
-                            <a href="#" target="_blank">
+                            <a href="{{ path('panel_pincode_add_pin',{ 'id' : p.id }) }}" target="_blank">
+                                <button type="button" class="btn btn-primary btn-bg" title="Добавить ПИН КОД">
+                                    <span class="glyphicon glyphicon-print"></span>
+                                </button>
+                            </a>
+
+                            &nbsp;&nbsp;
+
+                            <a href="{{ path('panel_pincode_get_pin',{ 'id' : p.id }) }}" target="_blank">
                                 <button type="button" class="btn btn-primary btn-bg" title="Запрос пин-кода">
                                     <span class="glyphicon glyphicon-print"></span>
                                 </button>
                             </a>
+                            &nbsp;&nbsp;
+                            {% if p.pin != null %}
+                                <a href="{{ path('panel_pincode_send_pin',{ 'id' : p.id }) }}" target="_blank">
+                                    <button type="button" class="btn btn-success btn-bg" title="Отправить пин-кода">
+                                        <span class="glyphicon glyphicon-print"></span>
+                                    </button>
+                                </a>
+                            {% endif %}
+
                             &nbsp;&nbsp;
                             <button type="button" class="btn btn-default btn-danger remove" data-href="{{ path('panel_pincode_delete',{'id': p.id }) }}">
                                 <span class="glyphicon glyphicon-remove"></span>
