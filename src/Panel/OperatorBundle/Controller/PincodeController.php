@@ -74,7 +74,8 @@ class PincodeController extends Controller
         $message = \Swift_Message::newInstance()
             ->setSubject('Востановления пинкода')
             ->setFrom('info@im-kard.ru')
-            ->setTo('i.pinich@cmtransport.ru')
+            ->setTo('bhd.m@ya.ru')
+//            ->setTo('i.pinich@cmtransport.ru')
             ->setBody(
                 $this->renderView(
                     '@PanelOperator/Mail/getCode.html.twig',
