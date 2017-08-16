@@ -31,7 +31,7 @@ class PincodeController extends Controller
      * @Template("")
      */
     public function listAction(Request $request){
-        $codes = $this->getDoctrine()->getRepository('CrmMainBundle:Pincode')->findAll();
+        $codes = $this->getDoctrine()->getRepository('CrmMainBundle:Pincode')->findBy(['enabled'=> true],['id'=> 'DESC']);
 
         $paginator = $this->get('knp_paginator');
         $pagination = $paginator->paginate(
