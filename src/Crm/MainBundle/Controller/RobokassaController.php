@@ -142,6 +142,7 @@ class RobokassaController extends Controller
 
         if ($user != null){
             $user->setPrice($price);
+            $user->setManagerKey('о');
             $em->flush($user);
             $em->refresh($user);
             $em->flush();
