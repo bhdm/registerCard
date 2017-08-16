@@ -41,6 +41,15 @@
 
 
                         {% spaceless %}
+
+                            {% if p.pin != null %}
+                                <a href="{{ path('panel_pincode_send_pin',{ 'id' : p.id }) }}" target="_blank">
+                                    <button type="button" class="btn btn-success btn-bg" title="Отправить пин-кода">
+                                        <span class="glyphicon glyphicon-print"></span>
+                                    </button>
+                                </a>
+                            {% endif %}
+                            &nbsp;&nbsp;
                             <a href="{{ path('panel_pincode_add_pin',{ 'id' : p.id }) }}" target="_blank">
                                 <button type="button" class="btn btn-primary btn-bg" title="Добавить ПИН КОД">
                                     <span class="glyphicon glyphicon-align-justify"></span>
@@ -54,14 +63,6 @@
                                     <span class="glyphicon glyphicon-print"></span>
                                 </button>
                             </a>
-                            &nbsp;&nbsp;
-                            {% if p.pin != null %}
-                                <a href="{{ path('panel_pincode_send_pin',{ 'id' : p.id }) }}" target="_blank">
-                                    <button type="button" class="btn btn-success btn-bg" title="Отправить пин-кода">
-                                        <span class="glyphicon glyphicon-print"></span>
-                                    </button>
-                                </a>
-                            {% endif %}
 
                             &nbsp;&nbsp;
                             <button type="button" class="btn btn-default btn-danger remove" data-href="{{ path('panel_pincode_delete',{'id': p.id }) }}">
