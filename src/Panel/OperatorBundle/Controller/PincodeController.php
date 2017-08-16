@@ -68,8 +68,7 @@ class PincodeController extends Controller
      */
     public function getPinCodeAction(Request $request, $id){
         $em = $this->getDoctrine()->getManager();
-        $item = $this->getDoctrine()->getRepository('CrmMainBundle:Pincode')->findOneById($id);
-        $code = $item->setPin($request->request->get('pin'));
+        $code = $this->getDoctrine()->getRepository('CrmMainBundle:Pincode')->findOneById($id);
 
         $message = \Swift_Message::newInstance()
             ->setSubject('Востановления пинкода')
@@ -97,11 +96,10 @@ class PincodeController extends Controller
      */
     public function sendPinCodeAction(Request $request, $id){
         $em = $this->getDoctrine()->getManager();
-        $item = $this->getDoctrine()->getRepository('CrmMainBundle:Pincode')->findOneById($id);
-        $code = $item->setPin($request->request->get('pin'));
+        $code = $this->getDoctrine()->getRepository('CrmMainBundle:Pincode')->findOneById($id);
 
         $message = \Swift_Message::newInstance()
-            ->setSubject('Заявка отправлена')
+            ->setSubject('Востановление PIN PUK кода')
             ->setFrom('info@im-kard.ru')
             ->setTo($code->getEmail())
             ->setBody(
