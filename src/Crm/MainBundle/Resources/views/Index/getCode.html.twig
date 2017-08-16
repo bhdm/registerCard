@@ -31,16 +31,16 @@
     <p style="font-size: 17px">
         <strong>Выдача кодов происходит с 10<sup>00</sup> - 18<sup>00</sup> по рабочим дням.</strong>
     </p>
-    {% if success is defined and succes == true %}
-        <div style="text-align: center">
-            <div style="padding: 5px 20px; border: 1px solid #2e6da4; color: #2e6da4; font-weight: bold">Ваша заявка принята</div>
-        </div>
-    {% endif %}
-    {% if success is defined and succes == false %}
-        <div style="text-align: center">
-            <div style="padding: 5px 20px; border: 1px solid #2e6da4; color: #2e6da4; font-weight: bold">Ошибка оплаты заявки.</div>
-        </div>
-    {% endif %}
+    {#{% if success is defined and succes == true %}#}
+        {#<div style="text-align: center">#}
+            {#<div style="padding: 5px 20px; border: 1px solid #2e6da4; color: #2e6da4; font-weight: bold">Ваша заявка принята</div>#}
+        {#</div>#}
+    {#{% endif %}#}
+    {#{% if success is defined and succes == false %}#}
+        {#<div style="text-align: center">#}
+            {#<div style="padding: 5px 20px; border: 1px solid #2e6da4; color: #2e6da4; font-weight: bold">Ошибка оплаты заявки.</div>#}
+        {#</div>#}
+    {#{% endif %}#}
     <form class="form-horizontal form-code" enctype="multipart/form-data" method="POST">
         <div class="block-form">
             <table class="table-form">

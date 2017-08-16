@@ -109,8 +109,8 @@ class IndexController extends Controller
 
 
             $robokassa = new Robokassa('infomax', 'Uflzoaac1', 'Uflzoaac2');
-            $robokassa->OutSum = 2;
-            $robokassa->Desc = 'Заказ востановления пинкода' . $code;
+            $robokassa->OutSum = 300;
+            $robokassa->Desc = 'Заказ востановления пинкода ' . $code;
             $robokassa->addCustomValues(array(
                 'shp_order' => $pincode->getId(),
                 'shp_type' => 'pin',
