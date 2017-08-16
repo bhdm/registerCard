@@ -129,7 +129,7 @@ class RobokassaController extends Controller
 //            $price = $request->query->get('OutSum');
             $pincode = $this->getDoctrine()->getRepository('CrmMainBundle:Pincode')->find($orderId);
             $pincode->setPrice($price);
-            $pincode->setStatus(2);
+            $pincode->setStatus(1);
             $em->flush($pincode);
             echo 'OK'.$orderId;
             exit;
