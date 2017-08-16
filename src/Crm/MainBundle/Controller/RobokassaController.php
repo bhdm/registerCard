@@ -118,7 +118,8 @@ class RobokassaController extends Controller
      * @Route("/payment/result", name="payment_result")
      */
     public function resultPaymentAction(Request $request){
-        $orderId = $request->query->get('InvId');
+//        $orderId = $request->query->get('InvId');
+        $orderId = $request->query->get('shp_order');
         $price = $request->query->get('OutSum');
         $type = $request->query->get('shp_type');
 
