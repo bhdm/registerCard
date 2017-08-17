@@ -1784,10 +1784,24 @@ class UserController extends Controller
             $files[3]['base'] = $file;
             $files[3]['title'] = 'Signature';
             $files[3]['file'] = $user->getCopySignature();
-            ;
+
             $files[5]['base'] = $this->ImageToPdf($user->getCopySnils()['path'], 'snils');
             $files[5]['title'] = 'SNILS';
             $files[5]['file'] = $user->getCopySnils();
+
+
+
+            if (isset($files[6])){
+                $files[6]['base'] = $this->ImageToPdf($user->getCopyWork()['path']);
+                $files[6]['title'] = 'Work';
+                $files[6]['file'] = $user->getCopyWork();
+            }
+
+            $files[15]['base'] = $this->pdfToBase64($this->generateUrl('merge_docs',['id' => $user->getId()]));
+            $files[15]['title'] = 'merge-docs';
+            $files[15]['title'] = 'Other';
+
+
 
             $files[11]['base'] = $this->ImageToPdf($user->getCopyInn()['path'], 'doc');
             $files[11]['title'] = 'INN';
@@ -1797,12 +1811,6 @@ class UserController extends Controller
                 $files[18]['base'] = $this->ImageToPdf($user->getCopyDoc()['path']);
                 $files[18]['title'] = 'Other';
                 $files[18]['file'] = $user->getCopyDoc();
-            }
-
-            if (isset($files[6])){
-                $files[6]['base'] = $this->ImageToPdf($user->getCopyWork()['path']);
-                $files[6]['title'] = 'Work';
-                $files[6]['file'] = $user->getCopyWork();
             }
 
             # Заявление
@@ -1817,22 +1825,37 @@ class UserController extends Controller
                 $files[8]['title'] = 'Petition';
             }else{
                 if ($user->getCompanyPetition() == null ){
-                    if ($user->getCopyPetition() == null or $user->getCopyPetition() == array()){
-                        $url = $this->generateUrl('my-petition', array('userId' => $user->getId()));
-                        $files[8]['base'] = $this->pdfToBase64($url);
-                        $files[8]['title'] = 'Petition';
-                    }else{
-                        $file = $user->getCopyPetition();
-                        $files[8]['base'] = $this->ImageToPdf($file['path']);
-                        $files[8]['title'] = 'Petition';
-                    }
+                    $file= $user->getCopyPetition();
+                    $files[8]['base'] = $this->ImageToPdf((isset($file['path']) ? $file['originalName'] : null ));
+                    $files[8]['title'] = 'Petition';
                 }else{
                     if ($user->getCompanyPetition()->getFile() != null ){
-                        $file= $user->getCompanyPetition()->getFile();
-                        $files[8]['base'] = $this->ImageToPdf($file['path']);
+                        /** @todo Здесь  должна быть генерация ходатайства от компании */
+//                    $files[8]['base'] = $this->ImageToPdf($file['originalName']);
+                        $url = $this->generateUrl('company-petition', array('userId' => $user->getId()));
+                        $files[8]['base'] = $this->pdfToBase64($url);
+
+
                         $files[8]['title'] = 'Petition';
                     }
                 }
+            }
+
+            if (isset($user->getCopyPassportTranslate()['originalName'])){
+                $files[9]['base'] = $this->imageToPdf($user->getCopyPassportTranslate()['path']);
+                $files[9]['title'] = 'PassportTranslate';
+                $files[9]['file'] = $user->getCopyPassportTranslate();
+            }
+            if (isset($user->getCopyDriverPassportTranslate()['originalName'])){
+                $files[10]['base'] = $this->imageToPdf($user->getCopyDriverPassportTranslate()['path']);
+                $files[10]['title'] = 'DriverPassportTranslate';
+                $files[10]['file'] = $user->getCopyDriverPassportTranslate();
+            }
+
+            if (isset($user->getTypeCardFile()['originalName'])){
+                $files[12]['base'] = $this->imageToPdf($user->getTypeCardFile()['path']);
+                $files[12]['title'] = 'typeCardFile';
+                $files[12]['file'] = $user->getTypeCardFile();
             }
 
             $xmls[$user->getId()]['user'] = $user;
@@ -1858,12 +1881,13 @@ class UserController extends Controller
         return $response;
     }
 
-    public function imageToPdf($filename, $type = null){
-        if ($type == null){
-            $url = 'http://'.$_SERVER['SERVER_NAME'].$this->generateUrl('ImageToPdf',array('filename' => base64_encode($filename)));
-        }else{
-            $url = 'http://'.$_SERVER['SERVER_NAME'].$this->generateUrl('create_image_pdf',array('filename' => base64_encode($filename), 'type' => $type));
-        }
+    public function imageToPdf($filename, $type= null)
+    {
+//        if ($type == null){
+        $url = 'http://' . $_SERVER['SERVER_NAME'] . $this->generateUrl('ImageToPdf', array('filename' => base64_encode($filename)));
+//        }else{
+//            $url = 'http://'.$_SERVER['SERVER_NAME'].$this->generateUrl('create_image_pdf',array('filename' => $filename, 'type' => $type));
+//        }
         $pdfdata = file_get_contents($url);
         $base64 = base64_encode($pdfdata);
         return $base64;

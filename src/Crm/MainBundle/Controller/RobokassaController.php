@@ -125,8 +125,6 @@ class RobokassaController extends Controller
 
         if ($type == 'pin'){
             $em = $this->getDoctrine()->getManager();
-//            $orderId = $request->query->get('shp_order');
-//            $price = $request->query->get('OutSum');
             $pincode = $this->getDoctrine()->getRepository('CrmMainBundle:Pincode')->find($orderId);
             $pincode->setPrice($price);
             $pincode->setStatus(1);
