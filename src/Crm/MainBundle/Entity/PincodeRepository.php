@@ -37,7 +37,7 @@ class PincodeRepository extends EntityRepository
             $qb->setParameter(':client', $params['client']);
         }
 
-        $qb->orderBy('id', 'DESC');
+        $qb->orderBy('p.id', 'DESC');
         return $qb->getQuery()->getResult();
 
         }
