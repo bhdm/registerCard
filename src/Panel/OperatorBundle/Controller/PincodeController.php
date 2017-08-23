@@ -39,6 +39,7 @@ class PincodeController extends Controller
         ];
 
         $codes = $this->getDoctrine()->getRepository('CrmMainBundle:Pincode')->filter($params);
+        $count = count($codes);
 
         $paginator = $this->get('knp_paginator');
         $pagination = $paginator->paginate(
@@ -48,7 +49,7 @@ class PincodeController extends Controller
         );
 
         $clients = $this->getDoctrine()->getRepository('CrmMainBundle:Client')->findBy([],['lastName' => 'DESC']);
-        return ['pagination' => $pagination, 'clients' => $clients, 'params' => $params];
+        return ['pagination' => $pagination, 'clients' => $clients, 'params' => $params, 'count' =>$count];
     }
 
 
