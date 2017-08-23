@@ -13,7 +13,7 @@ use Doctrine\Common\Collections\ArrayCollection;
  * PinCode
  *
  * @ORM\Table()
- * @ORM\Entity()
+ * @ORM\Entity(repositoryClass="Crm\MainBundle\Entity\PincodeRepository")
  */
 class Pincode extends BaseEntity
 {

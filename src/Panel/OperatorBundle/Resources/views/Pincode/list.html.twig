@@ -12,6 +12,31 @@
         <table class="table">
             <thead>
             <tr>
+                <th colspan="8">
+                    <form method="GET" class="form-inline">
+                        <input type="date" name="start" value=""  class="form-control">
+                        <input type="date" name="end" value=""  class="form-control">
+                        <select class="chosen" name="client" data-placeholder="Клиент">
+                            <option value="">Все</option>
+                            {% for c in clients %}
+                                <option value="{{ c.id }}">{{ c }}</option>
+                            {% endfor %}
+                        </select>
+                        <select class="form-control" name="status">
+                            <option value="">Все статусы</option>
+                            <option value="0">Новая</option>
+                            <option value="1">Оплаченная</option>
+                            <option value="2">Ожидает получения кода</option>
+                            <option value="3">Выполнена</option>
+                            <option value="-1">Ошибка транзакции</option>
+                        </select>
+
+                        <button class="btn btn-primary">Фильтр</button>
+                        <a href="{{ path('panel_pincode_list') }}"><button class="btn btn-danger">Очистить</button></a>
+                    </form>
+                </th>
+            </tr>
+            <tr>
                 <th>Номер</th>
                 <th>Дата создания</th>
                 <th>ФИО пользователя</th>
@@ -23,6 +48,7 @@
                 <th class="setting">Инструменты</th>
             </tr>
             </thead>
+            {% set sum = 0 %}
             {% for p in pagination %}
                 <tr>
                     <td>{{ p.id }}</td>
@@ -34,6 +60,7 @@
                     <td>{{ p.code }}</td>
                     <td>{{ p.pin }}</td>
                     <td>{{ p.statusStringTwig | raw }}</td>
+                    {% set sum = sum + p.price %}
 
 
                     <td class="setting">

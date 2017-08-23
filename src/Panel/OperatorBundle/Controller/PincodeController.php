@@ -31,16 +31,24 @@ class PincodeController extends Controller
      * @Template("")
      */
     public function listAction(Request $request){
-        $codes = $this->getDoctrine()->getRepository('CrmMainBundle:Pincode')->findBy(['enabled'=> true],['id'=> 'DESC']);
+        $params = [
+            'start' => $request->query->get('start'),
+            'end' => $request->query->get('end'),
+            'client' => $request->query->get('client'),
+            'status' => $request->query->get('status')
+        ];
+
+        $codes = $this->getDoctrine()->getRepository('CrmMainBundle:Pincode')->filter($params);
 
         $paginator = $this->get('knp_paginator');
         $pagination = $paginator->paginate(
             $codes,
             $this->get('request')->query->get('page', 1),
-            50
+            100
         );
 
-        return ['pagination' => $pagination];
+        $clients = $this->getDoctrine()->getRepository('CrmMainBundle:Client')->findBy([],['title' => 'DESC']);
+        return ['pagination' => $pagination, 'clients' => $clients];
     }
 
 
