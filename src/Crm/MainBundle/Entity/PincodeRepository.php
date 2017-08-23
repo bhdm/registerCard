@@ -23,7 +23,7 @@ class PincodeRepository extends EntityRepository
         }
         if ($params['end'] != null){
             $qb->andWhere('p.created <= :end');
-            $qb->setParameter(':end', new \DateTime($params['end']));
+            $qb->setParameter(':end', new \DateTime($params['end'].' 23:59:59'));
         }
 
         if ($params['status'] != null && $params['status'] != "" ){
