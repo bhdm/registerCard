@@ -19,7 +19,7 @@
                         <select class="chosen" name="client" data-placeholder="Клиент">
                             <option value="">Все</option>
                             {% for c in clients %}
-                                <option value="{{ c.id }}">{{ c.lastName }} {{ c.firstName }} {{ c.surName }}</option>
+                                <option value="{{ c.id }}">{{ c }}</option>
                             {% endfor %}
                         </select>
                         <select class="" name="status">
