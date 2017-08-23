@@ -14,21 +14,21 @@
             <tr>
                 <th colspan="8">
                     <form method="GET" class="form-inline">
-                        <input type="date" name="start" value=""  class="form-control">
-                        <input type="date" name="end" value=""  class="form-control">
+                        <input type="date" name="start" value="{{ params.start }}"  class="form-control" >
+                        <input type="date" name="end" value="{{ params.end }}"  class="form-control">
                         <select class="chosen" name="client" data-placeholder="Клиент">
                             <option value="">Все</option>
                             {% for c in clients %}
-                                <option value="{{ c.id }}">{{ c }}</option>
+                                <option value="{{ c.id }}" {{ params.client == c.id ? 'selected' : '' }}>{{ c }}</option>
                             {% endfor %}
                         </select>
                         <select class="" name="status">
                             <option value="">Все статусы</option>
-                            <option value="0">Новая</option>
-                            <option value="1">Оплаченная</option>
-                            <option value="2">Ожидает получения кода</option>
-                            <option value="3">Выполнена</option>
-                            <option value="-1">Ошибка транзакции</option>
+                            <option value="0"  {{ params.status == 0 ? 'selected' : '' }}>Новая</option>
+                            <option value="1"  {{ params.status == 1 ? 'selected' : '' }}>Оплаченная</option>
+                            <option value="2"  {{ params.status == 2 ? 'selected' : '' }}>Ожидает получения кода</option>
+                            <option value="3"  {{ params.status == 3 ? 'selected' : '' }}>Выполнена</option>
+                            <option value="-1" {{ params.status == -1 ? 'selected' : '' }}>Ошибка транзакции</option>
                         </select>
 
                         <button class="btn btn-primary">Фильтр</button>
