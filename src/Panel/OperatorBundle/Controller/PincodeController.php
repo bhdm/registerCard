@@ -47,7 +47,7 @@ class PincodeController extends Controller
             100
         );
 
-        $clients = $this->getDoctrine()->getRepository('CrmMainBundle:Client')->findBy([],['title' => 'DESC']);
+        $clients = $this->getDoctrine()->getRepository('CrmMainBundle:Client')->findBy([],['id' => 'DESC']);
         return ['pagination' => $pagination, 'clients' => $clients];
     }
 
