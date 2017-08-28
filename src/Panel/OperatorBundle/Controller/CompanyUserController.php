@@ -80,8 +80,6 @@ class CompanyUserController extends Controller{
 
         $em = $this->getDoctrine()->getManager();
         $item = $this->getDoctrine()->getRepository('CrmMainBundle:CompanyUser')->findOneById($id);
-        $form = $this->createForm(new CompanyUserType($em), $item);
-        $formData = $form->handleRequest($request);
         $old_fileSignFile = $item->getFileSign();
         $old_fileOrderFile = $item->getFileOrder();
         $old_fileOrderTwoFile = $item->getFileOrderTwo();
@@ -91,6 +89,8 @@ class CompanyUserController extends Controller{
         $old_fileStampFile = $item->getFileStamp();
         $old_fileLicenseFile = $item->getFileLicense();
 
+        $form = $this->createForm(new CompanyUserType($em), $item);
+        $formData = $form->handleRequest($request);
         if ($request->getMethod() === 'POST'){
 
             $item = $formData->getData();
