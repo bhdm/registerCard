@@ -371,9 +371,9 @@ class XmlController extends Controller
 
 
     /**
-     * @Route("/image-to-pdf/{filename}", name="ImageToPdf")
+     * @Route("/image-to-pdf/{filename}/{ur}", name="ImageToPdf", defaults={"ur" = 0})
      */
-    public function imageToPdfAction($filename){
+    public function imageToPdfAction($filename, $ur = 0){
         $path = base64_decode($filename);
         $filename = basename($path);
 
@@ -382,20 +382,11 @@ class XmlController extends Controller
 
 //        $filename = str_replace('.jpg', '-or.jpg', $filename);
 //        if (!is_file(__DIR__.$filename)){
+        if ($ur == 0){
             $new_filename = 'origin-'.$filename;
 
             $filename = str_replace($filename,$new_filename, $path);
-//            $file = implode('/',$filename);
-//            $file = str_replace('-or.jpg', '.jpg', $filename);
-
-//        }
-
-//        if (is_file('/var/www/upload/tmp/'.$filename)){
-//            $html = '<img src="https://im-kard.ru/upload/tmp/'.$filename.'" style="max-width: 100%;"/>';
-//        }else{
-//            $html = '<img src="https://im-kard.ru/upload/docs/'.$filename.'" style="max-width: 100%;"/>';
-//        }
-
+        }
         if (is_file('/var/www/'.$filename)){
             $html = '/var/www/upload/'.$filename;
         }else{
