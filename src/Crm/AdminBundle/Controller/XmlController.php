@@ -375,7 +375,13 @@ class XmlController extends Controller
      */
     public function imageToPdfAction($filename, $ur = 0){
         $path = base64_decode($filename);
-        $filename = basename($path);
+        if ($ur == 1){
+            $path = explode('|', $path);
+            $filename = $path[0].'/'.basename($path[1]);
+        }else{
+            $filename = basename($path);
+        }
+
 
 
         $mpdfService = $this->container->get('tfox.mpdfport');
@@ -393,6 +399,7 @@ class XmlController extends Controller
                 $html = '/var/www/upload/docs/'.$filename;
             }
         }else{
+
             $html = '/var/www/upload/usercompany/'.$filename;
         }
 

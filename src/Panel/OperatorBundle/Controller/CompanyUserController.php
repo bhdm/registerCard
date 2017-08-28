@@ -675,7 +675,7 @@ class CompanyUserController extends Controller{
 
     public function imageToPdf($order, $filename, $type= null){
 //        if ($type == null){
-        $url = 'http://'.$_SERVER['SERVER_NAME'].$this->generateUrl('ImageToPdf',array('filename' => base64_encode($order->getId().'/'.$filename), 'ur' => 1));
+        $url = 'http://'.$_SERVER['SERVER_NAME'].$this->generateUrl('ImageToPdf',array('filename' => base64_encode($order->getId().'|'.$filename), 'ur' => 1));
 //        }else{
 //            $url = 'http://'.$_SERVER['SERVER_NAME'].$this->generateUrl('create_image_pdf',array('filename' => $filename, 'type' => $type));
 //        }
