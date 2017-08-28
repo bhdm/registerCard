@@ -386,12 +386,16 @@ class XmlController extends Controller
             $new_filename = 'origin-'.$filename;
 
             $filename = str_replace($filename,$new_filename, $path);
-        }
-        if (is_file('/var/www/'.$filename)){
-            $html = '/var/www/upload/'.$filename;
+
+            if (is_file('/var/www/'.$filename)){
+                $html = '/var/www/upload/'.$filename;
+            }else{
+                $html = '/var/www/upload/docs/'.$filename;
+            }
         }else{
-            $html = '/var/www/upload/docs/'.$filename;
+            $html = '/var/www/upload/usercompany/'.$filename;
         }
+
 
         $image = new \Imagick();
         $image->newImage(827, 1170, new \ImagickPixel('white'));
