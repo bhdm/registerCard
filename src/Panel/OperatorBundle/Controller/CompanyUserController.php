@@ -289,7 +289,7 @@ class CompanyUserController extends Controller{
 
 
 
-        $files['fileOrder']['base'] = $this->imageToPdf($order->getFileOrder()['path'], 'passport');
+        $files['fileOrder']['base'] = $this->imageToPdf($order, $order->getFileOrder()['path'], 'passport');
         $files['fileOrder']['title'] = 'fileOrder';
         $files['fileOrder']['file'] = $order->getFileOrder();
 
