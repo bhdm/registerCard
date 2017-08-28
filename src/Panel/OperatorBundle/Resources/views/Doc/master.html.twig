@@ -1,0 +1,115 @@
+<ns2:TacPackage>
+    <MessageInfo>
+        <MessageId>INFMX2017080413122096884117b</MessageId>
+        <MessageDate>{{ 'now' | date('Y-m-d') }}</MessageDate>
+        <MessageOwn>INFMX</MessageOwn>
+        <MessageRecipient>MIKRN</MessageRecipient>
+    </MessageInfo>
+    <PackageInfo>
+        <PackageNumber>FLGMN-{{ order.xmlId }}</PackageNumber>
+        <PackageDate>{{ 'now' | date('Y-m-d') }}</PackageDate>
+        <OvkId>INFMX</OvkId>
+        <CardManufacturerId>MIKRN</CardManufacturerId>
+    </PackageInfo>
+    <Order_v2>
+        <OrderNumber>INFMX-00238106</OrderNumber>
+        <OrderDate>{{ order.created | date('Y-m-d') }}</OrderDate>
+        <OrderCardType>M</OrderCardType>
+        <OrderCardCount>{{ order.cardAmount }}</OrderCardCount>
+        <OrderReason>create</OrderReason>
+        <CompanyOrder>
+            <OrgInfo>
+                <OrgName>{{ order.companyFullTitle}}</OrgName>
+                <OrgShortName>{{ order.companyTitle }}</OrgShortName>
+                <OrgFace>{{ order.companyExecutive}}</OrgFace>
+                <INN>{{ order.companyInn }}</INN>
+                <KPP>{{ order.companyKpp }}</KPP>
+                <AddressPost>
+                    <FullAddress>
+                        {{ order.fullmailingAdrs }}
+                    </FullAddress>
+                    <PostCode>{{ order.MailingAdrs.zipcode }}</PostCode>
+                    <RegionCode>94</RegionCode>
+                    <District>{{ order.MailingAdrs.area }}</District>
+                    <Settlement>г.П-Камчатский</Settlement>
+                    <Street>{{ order.MailingAdrs.street }}</Street>
+                    <House>{{ order.MailingAdrs.house }}{{ order.MailingAdrs.corp ? ' к. '~order.MailingAdrs.corp }}</House>
+                    <Building>{{ order.MailingAdrs.structure ? 'стр. '~order.MailingAdrs.structure }}</Building>
+                    <Office>{{ order.MailingAdrs.room }}</Office>
+                </AddressPost>
+                <AddressLegal>
+                    <FullAddress>
+                        {{ order.fullLegalAdrs }}
+                    </FullAddress>
+                    <PostCode>{{ order.legalAdrs.zipcode }}</PostCode>
+                    <RegionCode>94</RegionCode>
+                    <District>{{ order.legalAdrs.area }}</District>
+                    <Settlement>г.П-Камчатский</Settlement>
+                    {#<Settlement>{{ order.legalAdrs.city }}</Settlement>#}
+                    <Street>{{ order.legalAdrs.street }}</Street>
+                    <House>{{ order.legalAdrs.house }}{{ order.legalAdrs.corp ? ' к. '~order.legalAdrs.corp }}</House>
+                    <Building>{{ order.legalAdrs.structure ? 'стр. '~order.legalAdrs.structure }}</Building>
+                    <Office>{{ order.legalAdrs.room }}</Office>
+                </AddressLegal>
+            </OrgInfo>
+            <Resident>true</Resident>
+            <OGRN>{{ order.companyOgrn }}</OGRN>
+            <ResponsiblePerson>
+                <ResponsiblePersonNameFirst>{{ order.firstName }}</ResponsiblePersonNameFirst>
+                <ResponsiblePersonNameMiddle>{{ order.surName }}</ResponsiblePersonNameMiddle>
+                <ResponsiblePersonNameLast>{{ order.lastName }}</ResponsiblePersonNameLast>
+                <ResponsiblePersonPosition>{{ order.post }}</ResponsiblePersonPosition>
+                <ResponsiblePersonReason/>
+            </ResponsiblePerson>
+            <Sign>
+                <AttachmentType>Signature</AttachmentType>
+                <FileFormat>PNG</FileFormat>
+                <Body>{{ files.signature.base }}</Body>
+            </Sign>
+        </CompanyOrder>
+
+        {% if files.fileOrder is defined %}
+            <Attachment>
+                <AttachmentType>Other</AttachmentType>
+                <FileFormat>PNG</FileFormat>
+                <Body>{{ files.fileOrder }}</Body>
+            </Attachment>
+        {% endif %}
+        {% if files.fileOrderTwo is defined %}
+            <Attachment>
+                <AttachmentType>Other</AttachmentType>
+                <FileFormat>PNG</FileFormat>
+                <Body>{{ files.fileOrderTwo }}</Body>
+            </Attachment>
+        {% endif %}
+        {% if files.fileInn is defined %}
+            <Attachment>
+                <AttachmentType>Other</AttachmentType>
+                <FileFormat>PNG</FileFormat>
+                <Body>{{ files.fileInn }}</Body>
+            </Attachment>
+        {% endif %}
+        {% if files.fileOgrn is defined %}
+            <Attachment>
+                <AttachmentType>Other</AttachmentType>
+                <FileFormat>PNG</FileFormat>
+                <Body>{{ files.fileOgrn }}</Body>
+            </Attachment>
+        {% endif %}
+        {% if files.fileDecree is defined %}
+            <Attachment>
+                <AttachmentType>Other</AttachmentType>
+                <FileFormat>PNG</FileFormat>
+                <Body>{{ files.fileDecree }}</Body>
+            </Attachment>
+        {% endif %}
+        {% if files.fileLicense is defined %}
+            <Attachment>
+                <AttachmentType>Other</AttachmentType>
+                <FileFormat>PNG</FileFormat>
+                <Body>{{ files.fileLicense }}</Body>
+            </Attachment>
+        {% endif %}
+
+    </Order_v2>
+</ns2:TacPackage>

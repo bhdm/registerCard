@@ -1126,6 +1126,8 @@ class CompanyUser extends BaseEntity
         return implode(', ', $data);
     }
 
+
+
     public function getFullmailingAdrs(){
         $data = $this->mailingAdrs;
         foreach($data as $key => $val){

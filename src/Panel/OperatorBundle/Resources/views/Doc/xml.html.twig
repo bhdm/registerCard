@@ -27,14 +27,12 @@
                     <KPP>{{ order.companyKpp }}</KPP>
                     <AddressPost>
                         <FullAddress>
-                            {#{{ order.fullMailingAdrs }}#}
                             г.П-Камчатский, ул. Космонавтов, д. 1, 683905
                         </FullAddress>
                         <PostCode>{{ order.MailingAdrs.zipcode }}</PostCode>
                         <RegionCode>94</RegionCode>
                         <District>{{ order.MailingAdrs.area }}</District>
                         <Settlement>г.П-Камчатский</Settlement>
-                        {#<Settlement>{{ order.MailingAdrs.city }}</Settlement>#}
                         <Street>{{ order.MailingAdrs.street }}</Street>
                         <House>{{ order.MailingAdrs.house }}{{ order.MailingAdrs.corp ? ' к. '~order.MailingAdrs.corp }}</House>
                         <Building>{{ order.MailingAdrs.structure ? 'стр. '~order.MailingAdrs.structure }}</Building>

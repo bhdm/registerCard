@@ -275,12 +275,8 @@ class CompanyUserController extends Controller{
         $filePath = $this->get('kernel')->getRootDir() . '/../web/upload/usercompany/'.$order->getId();
         $url = 'https://'.$_SERVER['SERVER_NAME'] . '/upload/usercompany/'.$order->getId();
 
-//        if (isset($order->getCopyDriverPassport2()['path'])){
-//            $image = new \Imagick($filePath.$order->getCopyDriverPassport2()['path']);
-//            $files['driver2']['base'] = base64_encode($image->getImageBlob());
-//            $files['driver2']['title'] = 'DriverPassport2';
-//            $image->destroy();
-//        }
+
+
 
         $file = $order->getFileSign();
         $file = WImage::ImageToBlackAndWhite($file);
@@ -293,36 +289,38 @@ class CompanyUserController extends Controller{
 
 
 
-        if (isset($order->getFileOrder()['path'])){
-//            $filename = base64_encode($order->getFileOrder()['path']);
-//            $url = $url.$this->generateUrl('panel_image_to_pdf_company',['filename' => $filename ]);
-//            $files['fileOrder'] = base64_encode(file_get_contents($url));
-            $files['fileOrder'] = base64_encode(file_get_contents($url.'/'.$order->getFileOrder()['fileName']));
-        }
+        $files['fileOrder']['base'] = $this->imageToPdf($order->getFileOrder()['path'], 'passport');
+        $files['fileOrder']['title'] = 'Passport';
+        $files['fileOrder']['file'] = $order->getFileOrder();
 
-        if (isset($order->getFileOrderTwo()['path'])){
-            $files['fileOrderTwo'] = base64_encode(file_get_contents($url.'/'.$order->getFileOrderTwo()['fileName']));
-        }
 
-        if (isset($order->getFileInn()['path'])){
-            $files['fileInn'] = base64_encode(file_get_contents($url.'/'.$order->getFileInn()['fileName']));
-        }
+        $files['fileOrderTwo']['base'] = $this->imageToPdf($order->getFileOrderTwo()['path'], 'passport');
+        $files['fileOrderTwo']['title'] = 'Passport';
+        $files['fileOrderTwo']['file'] = $order->getFileOrderTwo();
 
-        if (isset($order->getFileOgrn()['path'])){
-            $files['fileOgrn'] = base64_encode(file_get_contents($url.'/'.$order->getFileOgrn()['fileName']));
-        }
+        $files['fileInn']['base'] = $this->imageToPdf($order->getFileInn()['path'], 'passport');
+        $files['fileInn']['title'] = 'Passport';
+        $files['fileInn']['file'] = $order->getFileInn();
 
-        if (isset($order->getFileDecree()['path'])){
-            $files['fileDecree'] = base64_encode(file_get_contents($url.'/'.$order->getFileDecree()['fileName']));
-        }
+        $files['fileOgrn']['base'] = $this->imageToPdf($order->getFileOgrn()['path'], 'passport');
+        $files['fileOgrn']['title'] = 'Passport';
+        $files['fileOgrn']['file'] = $order->getFileOgrn();
 
-        if (isset($order->getFileLicense()['path'])){
-            $files['fileLicense'] = base64_encode(file_get_contents($url.'/'.$order->getFileLicense()['fileName']));
-        }
+        $files['fileDecree']['base'] = $this->imageToPdf($order->getFileDecree()['path'], 'passport');
+        $files['fileDecree']['title'] = 'Passport';
+        $files['fileDecree']['file'] = $order->getFileDecree();
+
+        $files['fileLicense']['base'] = $this->imageToPdf($order->getFileLicense()['path'], 'passport');
+        $files['fileLicense']['title'] = 'Passport';
+        $files['fileLicense']['file'] = $order->getFileLicense();
 
         $response = new Response();
         $response->headers->set('Content-Type', 'text/xml');
-        $content = $this->renderView("PanelOperatorBundle:Doc:xml.html.twig", array('order' => $order,'files' => $files));
+        if ($order->getType() == 1){
+            $content = $this->renderView("PanelOperatorBundle:Doc:company.html.twig", array('order' => $order,'files' => $files));
+        }else{
+            $content = $this->renderView("PanelOperatorBundle:Doc:master.html.twig", array('order' => $order,'files' => $files));
+        }
         $response->headers->set('Content-Disposition', 'attachment;filename="XMLgeneration.xml');
         $response->setContent($content);
         return $response;
@@ -674,4 +672,32 @@ class CompanyUserController extends Controller{
         exit;
     }
 
+
+    public function imageToPdf($filename, $type= null){
+//        if ($type == null){
+        $url = 'http://'.$_SERVER['SERVER_NAME'].$this->generateUrl('ImageToPdf',array('filename' => base64_encode($filename)));
+//        }else{
+//            $url = 'http://'.$_SERVER['SERVER_NAME'].$this->generateUrl('create_image_pdf',array('filename' => $filename, 'type' => $type));
+//        }
+        $pdfdata = file_get_contents($url);
+        $base64 = base64_encode($pdfdata);
+        return $base64;
+    }
+
+    public function pdfToBase64($url){
+        $url = 'https://'.$_SERVER['SERVER_NAME'].$url;
+        $pdfdata = file_get_contents($url);
+
+////Decode pdf content
+//        $pdf_decoded = base64_decode ($pdf_content);
+////Write data back to pdf file
+//        $pdf = fopen ('test.pdf','w');
+//        fwrite ($pdf,$pdf_decoded);
+////close output file
+//        fclose ($pdf);
+//        echo 'Done';
+
+        $base64 = base64_encode($pdfdata);
+        return $base64;
+    }
 }
