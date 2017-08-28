@@ -325,7 +325,7 @@ class CompanyUserController extends Controller{
 
         $response = new Response();
         $response->headers->set('Content-Type', 'text/xml');
-        if ($order->getType() == 1){
+        if ($order->getCompanyType() == 1){
             $content = $this->renderView("PanelOperatorBundle:Doc:company.html.twig", array('order' => $order,'files' => $files));
         }else{
             $content = $this->renderView("PanelOperatorBundle:Doc:master.html.twig", array('order' => $order,'files' => $files));
