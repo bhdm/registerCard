@@ -1,4 +1,5 @@
-<ns2:TacPackage>
+{% spaceless %}
+<ns2:TacPackage xmlns:ns2="http://www.example.org/">
     <MessageInfo>
         <MessageId>INFMX2017080413122096884117b</MessageId>
         <MessageDate>{{ 'now' | date('Y-m-d') }}</MessageDate>
@@ -113,3 +114,4 @@
 
     </Order_v2>
 </ns2:TacPackage>
+{% endspaceless %}
