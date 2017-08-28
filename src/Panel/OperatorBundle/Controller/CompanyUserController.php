@@ -91,7 +91,7 @@ class CompanyUserController extends Controller{
             $file = $request->files->get("fileSignFile");
             if ($file){
                 $filename = $item->getSalt().time().'-sign.'.$file->getClientOriginalExtension();
-                $file->move($path.$item->getId().'/'.$filename);
+                $file->move($path.$item->getId(), $filename);
                 unset( $file );
                 $session->set('fileSignFile',null);
                 $array = $this->getImgToArray($path.$item->getId().'/'.$filename);
@@ -101,7 +101,7 @@ class CompanyUserController extends Controller{
             $file = $request->files->get("fileOrderFile");
             if ($file){
                 $filename = $item->getSalt().time().'-order.'.$file->getClientOriginalExtension();
-                $file->move($path.$item->getId().'/'.$filename);
+                $file->move($path.$item->getId(), $filename);
                 unset( $file );
                 $session->set('fileOrderFile',null);
                 $array = $this->getImgToArray($path.$item->getId().'/'.$filename);
@@ -111,7 +111,7 @@ class CompanyUserController extends Controller{
             $file = $request->files->get("fileOrderTwoFile");
             if ($file){
                 $filename = $item->getSalt().time().'-ordertwo.'.$file->getClientOriginalExtension();
-                $file->move($path.$item->getId().'/'.$filename);
+                $file->move($path.$item->getId(), $filename);
                 unset( $file );
                 $session->set('fileOrderTwoFile',null);
                 $array = $this->getImgToArray($path.$item->getId().'/'.$filename);
@@ -121,7 +121,7 @@ class CompanyUserController extends Controller{
             $file = $request->files->get("fileInnFile");
             if ($file){
                 $filename = $item->getSalt().time().'-inn.'.$file->getClientOriginalExtension();
-                $file->move($path.$item->getId().'/'.$filename);
+                $file->move($path.$item->getId(), $filename);
                 unset( $file );
                 $session->set('fileInnFile',null);
                 $array = $this->getImgToArray($path.$item->getId().'/'.$filename);
@@ -131,7 +131,7 @@ class CompanyUserController extends Controller{
             $file = $request->files->get("fileOgrnFile");
             if ($file){
                 $filename = $item->getSalt().time().'-ogrn.'.$file->getClientOriginalExtension();
-                $file->move($path.$item->getId().'/'.$filename);
+                $file->move($path.$item->getId(), $filename);
                 unset( $file );
                 $session->set('fileOgrnFile',null);
                 $array = $this->getImgToArray($path.$item->getId().'/'.$filename);
@@ -141,7 +141,7 @@ class CompanyUserController extends Controller{
             $file = $request->files->get("fileDecreeFile");
             if ($file){
                 $filename = $item->getSalt().time().'-decree.'.$file->getClientOriginalExtension();
-                $file->move($path.$item->getId().'/'.$filename);
+                $file->move($path.$item->getId(), $filename);
                 unset( $file );
                 $session->set('fileDecreeFile',null);
                 $array = $this->getImgToArray($path.$item->getId().'/'.$filename);
@@ -151,7 +151,7 @@ class CompanyUserController extends Controller{
             $file = $request->files->get("fileStampFile");
             if ($file){
                 $filename = $item->getSalt().time().'-stamp.'.$file->getClientOriginalExtension();
-                $file->move($path.$item->getId().'/'.$filename);
+                $file->move($path.$item->getId(), $filename);
                 unset( $file );
                 $session->set('fileStampFile',null);
                 $array = $this->getImgToArray($path.$item->getId().'/'.$filename);
@@ -161,7 +161,7 @@ class CompanyUserController extends Controller{
             $file = $request->files->get("fileLicenseFile");
             if ($file){
                 $filename = $item->getSalt().time().'-license.'.$file->getClientOriginalExtension();
-                $file->move($path.$item->getId().'/'.$filename);
+                $file->move($path.$item->getId(), $filename);
                 unset( $file );
                 $session->set('fileLicenseFile',null);
                 $array = $this->getImgToArray($path.$item->getId().'/'.$filename);
