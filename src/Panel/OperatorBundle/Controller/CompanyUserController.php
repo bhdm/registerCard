@@ -288,31 +288,40 @@ class CompanyUserController extends Controller{
         $image->destroy();
 
 
+        if (isset($order->getFileOrder()['path'])) {
+            $files['fileOrder']['base'] = $this->imageToPdf($order, $order->getFileOrder()['path'], 'passport');
+            $files['fileOrder']['title'] = 'fileOrder';
+            $files['fileOrder']['file'] = $order->getFileOrder();
+        }
 
-        $files['fileOrder']['base'] = $this->imageToPdf($order, $order->getFileOrder()['path'], 'passport');
-        $files['fileOrder']['title'] = 'fileOrder';
-        $files['fileOrder']['file'] = $order->getFileOrder();
 
+        if (isset($order->getFileOrderTwo()['path'])) {
+            $files['fileOrderTwo']['base'] = $this->imageToPdf($order, $order->getFileOrderTwo()['path'], 'passport');
+            $files['fileOrderTwo']['title'] = 'fileOrderTwo';
+            $files['fileOrderTwo']['file'] = $order->getFileOrderTwo();
+        }
 
-        $files['fileOrderTwo']['base'] = $this->imageToPdf($order, $order->getFileOrderTwo()['path'], 'passport');
-        $files['fileOrderTwo']['title'] = 'fileOrderTwo';
-        $files['fileOrderTwo']['file'] = $order->getFileOrderTwo();
+        if (isset($order->getFileInn()['path'])) {
+            $files['fileInn']['base'] = $this->imageToPdf($order, $order->getFileInn()['path'], 'passport');
+            $files['fileInn']['title'] = 'INN';
+            $files['fileInn']['file'] = $order->getFileInn();
+        }
 
-        $files['fileInn']['base'] = $this->imageToPdf($order,$order->getFileInn()['path'], 'passport');
-        $files['fileInn']['title'] = 'INN';
-        $files['fileInn']['file'] = $order->getFileInn();
-
-        $files['fileOgrn']['base'] = $this->imageToPdf($order, $order->getFileOgrn()['path'], 'passport');
-        $files['fileOgrn']['title'] = 'OGRN';
-        $files['fileOgrn']['file'] = $order->getFileOgrn();
-
-        $files['fileDecree']['base'] = $this->imageToPdf($order, $order->getFileDecree()['path'], 'passport');
-        $files['fileDecree']['title'] = 'Decree';
-        $files['fileDecree']['file'] = $order->getFileDecree();
-
-        $files['fileLicense']['base'] = $this->imageToPdf($order, $order->getFileLicense()['path'], 'passport');
-        $files['fileLicense']['title'] = 'license';
-        $files['fileLicense']['file'] = $order->getFileLicense();
+        if (isset($order->getFileOgrn()['path'])) {
+            $files['fileOgrn']['base'] = $this->imageToPdf($order, $order->getFileOgrn()['path'], 'passport');
+            $files['fileOgrn']['title'] = 'OGRN';
+            $files['fileOgrn']['file'] = $order->getFileOgrn();
+        }
+        if (isset($order->getFileDecree()['path'])) {
+            $files['fileDecree']['base'] = $this->imageToPdf($order, $order->getFileDecree()['path'], 'passport');
+            $files['fileDecree']['title'] = 'Decree';
+            $files['fileDecree']['file'] = $order->getFileDecree();
+        }
+        if (isset($order->getFileLicense()['path'])){
+            $files['fileLicense']['base'] = $this->imageToPdf($order, $order->getFileLicense()['path'], 'passport');
+            $files['fileLicense']['title'] = 'license';
+            $files['fileLicense']['file'] = $order->getFileLicense();
+        }
 
         $response = new Response();
         $response->headers->set('Content-Type', 'text/xml');
