@@ -39,7 +39,7 @@ class CompanyUserType extends AbstractType
             ->add('price', null, array('required' => false))
             ->add('phone', null, array('attr' => array('class' => 'phone')))
             ->add('cardAmount')
-            ->add('companyFullTitle', ['attr' => ['size' => '64']])
+            ->add('companyFullTitle', null, ['attr' => ['size' => '64']])
             ->add('companyTitle')
             ->add('companyExecutive',null, array('required' => false))
             ->add('companyInn', null, array('attr' => array('class' => 'inn','size' => '12')))
