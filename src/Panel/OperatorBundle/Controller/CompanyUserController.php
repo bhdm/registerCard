@@ -82,6 +82,15 @@ class CompanyUserController extends Controller{
         $item = $this->getDoctrine()->getRepository('CrmMainBundle:CompanyUser')->findOneById($id);
         $form = $this->createForm(new CompanyUserType($em), $item);
         $formData = $form->handleRequest($request);
+        $old_fileSignFile = $item->getFileSign();
+        $old_fileOrderFile = $item->getFileOrder();
+        $old_fileOrderTwoFile = $item->getFileOrderTwo();
+        $old_fileInnFile = $item->getFileInn();
+        $old_fileOgrnFile = $item->getFileOgrn();
+        $old_fileDecreeFile = $item->getFileDecree();
+        $old_fileStampFile = $item->getFileStamp();
+        $old_fileLicenseFile = $item->getFileLicense();
+
         if ($request->getMethod() === 'POST'){
 
             $item = $formData->getData();
@@ -96,6 +105,8 @@ class CompanyUserController extends Controller{
                 $session->set('fileSignFile',null);
                 $array = $this->getImgToArray($path.$item->getId().'/'.$filename);
                 $item->setFileSign($array);
+            }else{
+                $item->setFileSign($old_fileSignFile);
             }
 
             $file = $request->files->get("fileOrderFile");
@@ -106,6 +117,8 @@ class CompanyUserController extends Controller{
                 $session->set('fileOrderFile',null);
                 $array = $this->getImgToArray($path.$item->getId().'/'.$filename);
                 $item->setFileOrder($array);
+            }else{
+                $item->setFileOrder($old_fileOrderFile);
             }
 
             $file = $request->files->get("fileOrderTwoFile");
@@ -116,6 +129,8 @@ class CompanyUserController extends Controller{
                 $session->set('fileOrderTwoFile',null);
                 $array = $this->getImgToArray($path.$item->getId().'/'.$filename);
                 $item->setFileOrderTwo($array);
+            }else{
+                $item->setFileOrderTwo($old_fileOrderTwoFile);
             }
 
             $file = $request->files->get("fileInnFile");
@@ -126,6 +141,8 @@ class CompanyUserController extends Controller{
                 $session->set('fileInnFile',null);
                 $array = $this->getImgToArray($path.$item->getId().'/'.$filename);
                 $item->setFileInn($array);
+            }else{
+                $item->setFileInn($old_fileInnFile);
             }
 
             $file = $request->files->get("fileOgrnFile");
@@ -136,6 +153,8 @@ class CompanyUserController extends Controller{
                 $session->set('fileOgrnFile',null);
                 $array = $this->getImgToArray($path.$item->getId().'/'.$filename);
                 $item->setFileOgrn($array);
+            }else{
+                $item->setFileOgrn($old_fileOgrnFile);
             }
 
             $file = $request->files->get("fileDecreeFile");
@@ -146,6 +165,8 @@ class CompanyUserController extends Controller{
                 $session->set('fileDecreeFile',null);
                 $array = $this->getImgToArray($path.$item->getId().'/'.$filename);
                 $item->setFileDecree($array);
+            }else{
+                $item->setFileDecree($old_fileDecreeFile);
             }
 
             $file = $request->files->get("fileStampFile");
@@ -156,6 +177,8 @@ class CompanyUserController extends Controller{
                 $session->set('fileStampFile',null);
                 $array = $this->getImgToArray($path.$item->getId().'/'.$filename);
                 $item->setFileStamp($array);
+            }else{
+                $item->setFileStamp($old_fileStampFile);
             }
 
             $file = $request->files->get("fileLicenseFile");
@@ -166,6 +189,8 @@ class CompanyUserController extends Controller{
                 $session->set('fileLicenseFile',null);
                 $array = $this->getImgToArray($path.$item->getId().'/'.$filename);
                 $item->setFileLicense($array);
+            }else{
+                $item->setFileLicense($old_fileLicenseFile);
             }
 
 
