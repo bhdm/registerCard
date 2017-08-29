@@ -1122,7 +1122,12 @@ class CompanyUser extends BaseEntity
                 unset ($data[$key]);
             }
         }
-        unset($data[0]);
+
+        if (isset($data['zipcode'])){
+            array_unshift($data,$data['zipcode']);
+            unset($data['zipcode']);
+        }
+
         return implode(', ', $data);
     }
 
@@ -1135,7 +1140,13 @@ class CompanyUser extends BaseEntity
                 unset ($data[$key]);
             }
         }
-        unset($data[0]);
+
+        if (isset($data['zipcode'])){
+            array_unshift($data,$data['zipcode']);
+            unset($data['zipcode']);
+        }
+
+//        unset($data[0]);
         return implode(', ', $data);
     }
 
