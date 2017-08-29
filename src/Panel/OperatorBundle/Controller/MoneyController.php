@@ -39,7 +39,7 @@ class MoneyController extends Controller
         $countDay = cal_days_in_month(CAL_GREGORIAN, $month, $year);
 
         #Формируем массив дат
-        for ($i = 0 ; $i < 7 ; $i ++){
+        for ($i = 0 ; $i < 10 ; $i ++){
             $t = '';
             if ($i > 0){
                 $t = '-'.$i.'month';
