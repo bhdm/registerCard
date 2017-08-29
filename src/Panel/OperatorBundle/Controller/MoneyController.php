@@ -42,10 +42,11 @@ class MoneyController extends Controller
         for ($i = 0 ; $i < 10 ; $i ++){
             $t = '';
             if ($i > 0){
-                $t = '-'.$i.'month';
+                $t = '-'.$i.' month';
             }
             $dates[] = new \DateTime($t);
         }
+
         return array(
             'statsByYear' => $statsByYear,
             'countDay' => $countDay,
