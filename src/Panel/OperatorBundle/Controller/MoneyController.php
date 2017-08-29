@@ -39,7 +39,7 @@ class MoneyController extends Controller
         $countDay = cal_days_in_month(CAL_GREGORIAN, $month, $year);
 
         #Формируем массив дат
-        $now =  new \DateTime()
+        $now =  new \DateTime();
         $now = new \DateTime($now->format('Y-m').'-1 00:00:00');
         for ($i = 0 ; $i < 10 ; $i ++){
             $t = '';
