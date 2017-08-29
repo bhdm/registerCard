@@ -39,12 +39,16 @@ class MoneyController extends Controller
         $countDay = cal_days_in_month(CAL_GREGORIAN, $month, $year);
 
         #Формируем массив дат
+        $now =  new \DateTime()
+        $now = new \DateTime($now->format('Y-m').'-1 00:00:00');
         for ($i = 0 ; $i < 10 ; $i ++){
             $t = '';
             if ($i > 0){
                 $t = '-'.$i.' month';
             }
-            $dates[] = new \DateTime($t);
+            $x = clone $now;
+            $x->modify($t);
+            $dates[] =  $x;
         }
 
         return array(
