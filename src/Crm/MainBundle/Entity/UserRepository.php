@@ -558,7 +558,7 @@ class UserRepository extends EntityRepository
     public function statsByYear($user,$year){
         $dateEnd = new \DateTime(date("Y-m-01 00:00:00"));
         $dateFirst = clone $dateEnd;
-        $dateFirst->modify('-5 month');
+        $dateFirst->modify('-8 month');
         $dateFirst = $dateFirst->format('Y-m-d').' 00:00:00';
 
         if ( $user->isRole('ROLE_OPERATOR') ){
