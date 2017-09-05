@@ -277,6 +277,9 @@ class PaymentController extends Controller
                 if ($item->getTitle() === 'Карта мастерской РФ'){
                     $paymentQuota->setMasterRu($item->getAmount());
                 }
+                if ($item->getTitle() === 'Востановление пин-кода'){
+                    $paymentQuota->setPincode($item->getAmount());
+                }
 
                 $price += ($item->getAmount()*$item->getPrice());
             }

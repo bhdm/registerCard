@@ -307,6 +307,7 @@ class CompanyController extends Controller
             $quotaLog->setMasterSkzi($request->request->get('masterSkzi'));
             $quotaLog->setMasterEstr($request->request->get('masterEstr'));
             $quotaLog->setMasterRu(  $request->request->get('masterRu'));
+            $quotaLog->setPincode(  $request->request->get('pincode'));
 
 
             $quotaLog->setOperator($this->getUser());
@@ -380,6 +381,7 @@ class CompanyController extends Controller
             $quotaLog->setMasterSkzi($request->request->get('masterSkzi'));
             $quotaLog->setMasterEstr($request->request->get('masterEstr'));
             $quotaLog->setMasterRu(  $request->request->get('masterRu'));
+            $quotaLog->setPincode(  $request->request->get('pincode'));
 
 
             $this->getDoctrine()->getManager()->persist($quotaLog);

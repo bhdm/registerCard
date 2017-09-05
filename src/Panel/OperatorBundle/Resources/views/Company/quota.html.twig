@@ -46,6 +46,9 @@
                             <div class="col-xs-4" title="мастерская ЕСТР">{{ q.masterEstr }}</div>
                             <div class="col-xs-4" title="мастерская РФ"  >{{ q.masterRu }}</div>
                         </div>
+                        <div class="row">
+                            <div class="col-xs-4" title="Пинкоды">{{ q.pincode }}</div>
+                        </div>
                     </td>
                     <td>{{ q.comment }}</td>
                     <td class="setting">
@@ -146,6 +149,14 @@
                                     </div>
                                     <div class="col-xs-3">
                                         <input type="text" name="masterRu" class="form-control"  placeholder="РФ" >
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-xs-3">
+                                        <label class="control-label">Пинкоды</label>
+                                    </div>
+                                    <div class="col-xs-3">
+                                        <input type="text" name="pincode" class="form-control"  placeholder="Пинкоды" >
                                     </div>
                                 </div>
                                 <div class="form-group">
