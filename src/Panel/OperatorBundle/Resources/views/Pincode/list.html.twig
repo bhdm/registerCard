@@ -44,7 +44,7 @@
                 <th>Номер карты</th>
                 <th>PIN</th>
                 <th>Статус</th>
-
+                <th>Тип</th>
                 <th class="setting">Инструменты</th>
             </tr>
             </thead>
@@ -60,6 +60,7 @@
                     <td>{{ p.code }}</td>
                     <td>{{ p.pin }}</td>
                     <td>{{ p.statusStringTwig | raw }}</td>
+                    <td>{{ p.paymentType }}</td>
                     {% set sum = sum + p.price %}
 
 
