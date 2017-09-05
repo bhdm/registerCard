@@ -132,6 +132,11 @@ class Company extends BaseEntity
     protected $priceSaleEnterpriseRu = 0;
 
     /**
+     * @ORM\Column(type="integer")
+     */
+    protected $pricePincode;
+
+    /**
      * @Assert\NotBlank( message = "Поле почтоый индекс обязательно для заполнения" )
      * @Assert\Regex(pattern= "/^[0-9]{6}$/", message="Неверный формат ввода.")
      * @ORM\Column(type="string", length=12)
@@ -1490,6 +1495,22 @@ class Company extends BaseEntity
     public function setHighEnd($highEnd)
     {
         $this->highEnd = $highEnd;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getPricePincode()
+    {
+        return ($this->pricePincode ? $this->pricePincode : $this->operator->getPricePincode());
+    }
+
+    /**
+     * @param mixed $pricePincode
+     */
+    public function setPricePincode($pricePincode)
+    {
+        $this->pricePincode = $pricePincode;
     }
 
     

@@ -85,6 +85,11 @@ class CompanyQuotaLog extends BaseEntity
     protected $masterRu = 0;
 
     /**
+     * @ORM\Column(type="integer")
+     */
+    protected $pincode = 0;
+
+    /**
      * @return mixed
      */
     public function getOperator()
@@ -290,6 +295,22 @@ class CompanyQuotaLog extends BaseEntity
     public function setMasterRu($masterRu)
     {
         $this->masterRu = $masterRu;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getPincode()
+    {
+        return $this->pincode;
+    }
+
+    /**
+     * @param mixed $pincode
+     */
+    public function setPincode($pincode)
+    {
+        $this->pincode = $pincode;
     }
 
 

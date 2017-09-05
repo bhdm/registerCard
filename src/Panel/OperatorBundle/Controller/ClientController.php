@@ -30,6 +30,7 @@ class ClientController extends Controller
      * @Template("")
      */
     public function listAction(Request $request, $companyId = null){
+        $operator = null;
         if ($companyId == null){
             if ($request->query->get('companyId')){
                 $company = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->findOneById($request->query->get('companyId'));

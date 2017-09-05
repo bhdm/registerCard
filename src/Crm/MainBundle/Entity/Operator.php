@@ -118,6 +118,11 @@ class Operator extends BaseEntity implements UserInterface
     protected $priceMasterRu = 0;
 
     /**
+     * @ORM\Column(type="integer")
+     */
+    protected $pricePincode = 0;
+
+    /**
      * @ORM\OneToMany(targetEntity="CompanyQuotaLog", mappedBy="operator")
      */
     protected $companyQuotaLog;
@@ -1246,6 +1251,22 @@ class Operator extends BaseEntity implements UserInterface
     public function setHighEnd($highEnd)
     {
         $this->highEnd = $highEnd;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getPricePincode()
+    {
+        return $this->pricePincode;
+    }
+
+    /**
+     * @param mixed $pricePincode
+     */
+    public function setPricePincode($pricePincode)
+    {
+        $this->pricePincode = $pricePincode;
     }
 
 

@@ -99,6 +99,7 @@ class OperatorController extends Controller
             $operator->setPriceMasterSkzi($request->request->get('priceMasterSkzi'));
             $operator->setPriceMasterEstr($request->request->get('priceMasterEstr'));
             $operator->setPriceMasterRu($request->request->get('priceMasterRu'));
+            $operator->setPricePincode($request->request->get('pricePincode'));
 
             $operator->setReferPrice(  $request->request->get('referPrice'));
 

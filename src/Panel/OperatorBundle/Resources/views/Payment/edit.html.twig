@@ -45,6 +45,7 @@
                                             <option {{ o.title == 'Карта мастерской ЕСТР' ? 'selected="selected"' : '' }}value="Карта мастерской ЕСТР" data-price="{{ operator.priceMasterEstr }}">Карта мастерской ЕСТР</option>
                                             <option {{ o.title == 'Карта мастерской РФ' ? 'selected="selected"' : '' }}value="Карта мастерской РФ" data-price="{{ operator.priceMasterRU }}">Карта мастерской РФ</option>
                                         {% endif %}
+                                        <option {{ o.title == 'Востановление пин-кода' ? 'selected="selected"' : '' }}value="Востановление пин-кода" data-price="{{ operator.pricePincode }}">Востановление пин-кода</option>
                                     </select>
                                 </div>
                                 <div class="col-xs-1">
@@ -88,6 +89,7 @@
                                         <option value="Карта мастерской СКЗИ"   data-price="{{ operator.priceMasterSkzi }}"      >Карта мастерской СКЗИ</option>
                                         <option value="Карта мастерской ЕСТР"   data-price="{{ operator.priceMasterEstr }}"      >Карта мастерской ЕСТР</option>
                                         <option value="Карта мастерской РФ"     data-price="{{ operator.priceMasterRU }}"        >Карта мастерской РФ</option>
+                                        <option value="Востановление пин-кода"     data-price="{{ operator.pricePincode }}"        >Востановление пин-кода</option>
                                     {% endif %}
                                 </select>
                             </div>
@@ -149,6 +151,7 @@
                     '<option value="Карта мастерской СКЗИ"  data-price="{{ company ? company.priceMasterSkzi : operator.priceMasterSkzi    }}"    >Карта мастерской СКЗИ</option>'+
                     '<option value="Карта мастерской ЕСТР"  data-price="{{ company ? company.priceMasterEstr : operator.priceMasterEstr    }}"    >Карта мастерской ЕСТР</option>'+
                     '<option value="Карта мастерской РФ"    data-price="{{ company ? company.priceMasterRU : operator.priceMasterRU    }}"      >Карта мастерской РФ</option>'+
+                    '<option value="Востановление пин-кода"    data-price="{{ operator.pricePincode    }}"      >Востановление пин-кода</option>'+
                     '</select>'+
                     '</div>'+
                     '<div class="col-xs-1">'+

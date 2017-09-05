@@ -42,4 +42,28 @@ class PincodeRepository extends EntityRepository
 
         }
 
+        public function getCount($company){
+            $qb =   $this->createQueryBuilder('p')
+                ->select('COUNT(p.id)')
+                ->leftJoin('p.client', 'client')
+                ->leftJoin('client.company', 'c')
+                ->where('p.status > 0')
+                ->andWhere('c.id = :companyId')
+                ->setParameter(':companyId', $company->getId());
+
+            return $qb->getQuery()->getOneOrNullResult();
+        }
+
+    public function getSum($company){
+        $qb =   $this->createQueryBuilder('p')
+            ->select('SUM(p.price)')
+            ->leftJoin('p.client', 'client')
+            ->leftJoin('client.company', 'c')
+            ->where('p.status > 0')
+            ->andWhere('c.id = :companyId')
+            ->setParameter(':companyId', $company->getId());
+
+        return $qb->getQuery()->getOneOrNullResult();
+    }
+
 }

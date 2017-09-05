@@ -82,6 +82,7 @@ class PaymentController extends Controller
                             case 'Карта мастерской СКЗИ': $price = $company->getPriceMasterSkzi(); break;
                             case 'Карта мастерской ЕСТР': $price = $company->getPriceMasterEstr(); break;
                             case 'Карта мастерской РФ': $price = $company->getPriceMasterRu(); break;
+                            case 'Восстановление пин-кода': $price = $company->getPricePincode(); break;
 
                             default: $price = 0; break;
                         }

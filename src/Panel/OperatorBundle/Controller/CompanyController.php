@@ -426,6 +426,7 @@ class CompanyController extends Controller
         $sumVirtual[6] = 0;
         $sumVirtual[7] = 0;
         $sumVirtual[8] = 0;
+        $sumVirtual[9] = 0;
 
         foreach ($sumVirtuals as $item){
             $sumVirtual[0] += $item->getDriverSkzi();
@@ -438,6 +439,7 @@ class CompanyController extends Controller
             $sumVirtual[6] += $item->getCompanySkzi();
             $sumVirtual[7] += $item->getCompanyEstr();
             $sumVirtual[8] += $item->getCompanyRu();
+            $sumVirtual[9] += $item->getPincode();
         }
 
         #Сумма выставленных неоплаченных счетов
@@ -458,6 +460,9 @@ class CompanyController extends Controller
         $amountRubSkziNewCompany = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->amountRubNewCompany($companyId,1)['sumPrice'];
         $amountRubEstrNewCompany = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->amountRubNewCompany($companyId,2)['sumPrice'];
         $amountRubRuNewCompany   = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->amountRubNewCompany($companyId,3)['sumPrice'];
+
+        $pinSuccess = $this->getDoctrine()->getRepository('CrmMainBundle:Pincode')->getSum($company);
+        $pinCount = $this->getDoctrine()->getRepository('CrmMainBundle:Pincode')->getCount($company);
 
         return array(
             'company' => $company,
@@ -486,7 +491,12 @@ class CompanyController extends Controller
             'amountRubRuNewMaster'    => $amountRubRuNewMaster,
             'amountRubSkziNewCompany' => $amountRubSkziNewCompany,
             'amountRubEstrNewCompany' => $amountRubEstrNewCompany,
-            'amountRubRuNewCompany'   => $amountRubRuNewCompany
+            'amountRubRuNewCompany'   => $amountRubRuNewCompany,
+
+            'pinPayment' => $sumVirtual[9],
+            'pinCompleted' => $pinSuccess[1],
+            'pinCount' => $pinCount[1]
+
         );
     }
 

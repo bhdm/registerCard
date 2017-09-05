@@ -73,6 +73,8 @@ class PaymentController extends Controller
                             case 'Карта мастерской ЕСТР': $price = $operator->getPriceMasterEstr(); break;
                             case 'Карта мастерской РФ': $price = $operator->getPriceMasterRu(); break;
 
+                            case 'Востановление пин-кода': $price = $operator->getPriceMasterRu(); break;
+
                             default: $price = 0; break;
                         }
                         $o = new PaymentOrder();
