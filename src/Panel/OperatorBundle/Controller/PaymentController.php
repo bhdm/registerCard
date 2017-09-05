@@ -73,7 +73,7 @@ class PaymentController extends Controller
                             case 'Карта мастерской ЕСТР': $price = $operator->getPriceMasterEstr(); break;
                             case 'Карта мастерской РФ': $price = $operator->getPriceMasterRu(); break;
 
-                            case 'Востановление пин-кода': $price = $operator->getPriceMasterRu(); break;
+                            case 'Восcтановление пин-кода': $price = $operator->getPriceMasterRu(); break;
 
                             default: $price = 0; break;
                         }
@@ -277,7 +277,7 @@ class PaymentController extends Controller
                 if ($item->getTitle() === 'Карта мастерской РФ'){
                     $paymentQuota->setMasterRu($item->getAmount());
                 }
-                if ($item->getTitle() === 'Востановление пин-кода'){
+                if ($item->getTitle() === 'Восстановление пин-кода'){
                     $paymentQuota->setPincode($item->getAmount());
                 }
 
