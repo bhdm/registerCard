@@ -118,6 +118,8 @@ class IndexController extends Controller
                 ));
                 return $this->redirect($robokassa->getRedirectURL());
             }elseif($request->request->get('payment') == 2){
+                    $pincode->setPaymentType('Квитанция');
+                    $em->flush($pincode);
                     $userId = $request->query->get('ord');
 
                     $mpdfService = $this->container->get('tfox.mpdfport');
@@ -143,6 +145,8 @@ class IndexController extends Controller
                     $response->setContent($html);
                     return $response;
             }elseif ($request->request->get('payment') == 3){
+                $pincode->setPaymentType('Квота');
+                $em->flush($pincode);
                 return $this->redirectToRoute('auth_order');
             }
 
