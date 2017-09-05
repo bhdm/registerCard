@@ -108,14 +108,45 @@ class IndexController extends Controller
             $em->refresh($pincode);
 
 
-            $robokassa = new Robokassa('infomax', 'Uflzoaac1', 'Uflzoaac2');
-            $robokassa->OutSum = 300;
-            $robokassa->Desc = 'Заказ востановления пинкода ' . $code;
-            $robokassa->addCustomValues(array(
-                'shp_order' => $pincode->getId(),
-                'shp_type' => 'pin',
-            ));
-            return $this->redirect($robokassa->getRedirectURL());
+            if ($request->request->get('payment') == 1){
+                $robokassa = new Robokassa('infomax', 'Uflzoaac1', 'Uflzoaac2');
+                $robokassa->OutSum = 300;
+                $robokassa->Desc = 'Заказ востановления пинкода ' . $code;
+                $robokassa->addCustomValues(array(
+                    'shp_order' => $pincode->getId(),
+                    'shp_type' => 'pin',
+                ));
+                return $this->redirect($robokassa->getRedirectURL());
+            }elseif($request->request->get('payment') == 2){
+                    $userId = $request->query->get('ord');
+
+                    $mpdfService = $this->container->get('tfox.mpdfport');
+                    $html = $this->render('CrmMainBundle:Form:payment_doc_pin.html.twig',array('pincode' => $pincode));
+//            return $html;
+                    $arguments = array(
+//                'constructorArgs' => array('utf-8', 'A4', 5 ,5 ,5 ,5,5 ), //Constructor arguments. Numeric array. Don't forget about points 2 and 3 in Warning section!
+                        'writeHtmlMode' => null, //$mode argument for WriteHTML method
+                        'writeHtmlInitialise' => null, //$mode argument for WriteHTML method
+                        'writeHtmlClose' => null, //$close argument for WriteHTML method
+                        'outputFilename' => null, //$filename argument for Output method
+                        'outputDest' => null, //$dest argument for Output method
+                    );
+
+                    $html =  $mpdfService->generatePdf($html->getContent(), $arguments);
+                    $response = new Response();
+                    $response->headers->set('Content-type', 'application/octect-stream');
+                    $response->headers->set("Content-Description", "File Transfer");
+                    $response->headers->set('Content-Disposition', 'attachment; filename="doc.pdf"');
+                    $response->headers->set('Content-Transfer-Encoding', 'binary');
+                    $response->headers->set('Pragma', 'no-cache');
+                    $response->headers->set('Expires', '0');
+                    $response->setContent($html);
+                    return $response;
+            }elseif ($request->request->get('payment') == 3){
+                return $this->redirectToRoute('auth_order');
+            }
+
+
         }
         return [];
     }

@@ -68,7 +68,14 @@
                 <tr>
                     <td></td>
                     <td>
-                        <button class="btn btn-primary">ОПЛАТИТЬ</button>
+                        <button class="btn btn-primary" name="payment" value="1">ОПЛАТИТЬ ОНЛАЙН</button>
+
+                        <button class="btn btn-primary" name="payment" value="2">СГЕНЕРИРОВАТЬ КВИТАНЦИЮ</button>
+
+                        {% if app.user.company != null and app.user.company.id != 551 %}
+                            <button class="btn btn-primary"  name="payment" value="3">СПИСАТЬ с СКВОТЫ</button>
+                        {% endif %}
+
                     </td>
                 </tr>
             </table>
