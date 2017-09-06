@@ -1502,7 +1502,11 @@ class Company extends BaseEntity
      */
     public function getPricePincode()
     {
-        return ($this->pricePincode ? $this->pricePincode : $this->operator->getPricePincode());
+        if ($this->operator != null){
+            return ( $this->pricePincode ? $this->pricePincode : $this->operator->getPricePincode() );
+        }else{
+            $this->pricePincode ;
+        }
     }
 
     /**
