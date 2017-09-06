@@ -132,7 +132,7 @@ class Company extends BaseEntity
     protected $priceSaleEnterpriseRu = 0;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="integer", nullable=true)
      */
     protected $pricePincode;
 
