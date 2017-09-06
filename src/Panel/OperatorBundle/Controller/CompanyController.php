@@ -108,6 +108,8 @@ class CompanyController extends Controller
             $company->setPriceEnterpriseSkzi($data->get('priceEnterpriseSkzi'));
             $company->setPriceEnterpriseRu(  $data->get('priceEnterpriseRu'));
 
+            $company->setPricePincode(  $data->get('pricePincode'));
+
 
             $company->setEnabled(true);
 
