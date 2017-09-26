@@ -147,7 +147,7 @@ class IndexController extends Controller
             }elseif ($request->request->get('payment') == 3){
                 $pincode->setPaymentType('Квота');
                 $em->flush($pincode);
-                return $this->redirectToRoute('auth_order');
+                return $this->redirectToRoute('auth_order', ['post' => 1]);
             }
 
 
