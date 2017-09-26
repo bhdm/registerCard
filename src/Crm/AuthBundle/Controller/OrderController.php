@@ -605,7 +605,7 @@ class OrderController extends Controller
             $request->query->get('search')
         );
         $post = $request->query->get('post');
-        return ['orders' => $orders. $post];
+        return ['orders' => $orders, 'post' => $post];
     }
 
     /**
