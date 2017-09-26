@@ -253,21 +253,14 @@ class UserRepository extends EntityRepository
                 if ($status !== 'all'){
                     $res->andWhere('u.status = '.$status);
                 }
-//                if ($status == 'all' || $status == 3 || $status == 4 || $status == 6 ){
-////                    $res->leftJoin('op.moderator','mo');
-////                    $res->leftJoin('mo.moderator','mo2');
-////                    $res->andWhere('op.id = '.$userId.' OR mo.id ='.$userId .' OR mo2.id = '.$userId);
-//                }else{
-//                    $res->andWhere('op.id = '.$userId);
-//                }
             }else{
                 $res->andWhere('u.status = 0');
-//                $res->andWhere('op.id = '.$userId);
             }
         }else{
             if ( $status !== 'all' ){
                 if ($status == 3 || $status == 4 || $status == 6 ){
-                    $res->andWhere('u.status = 3 OR u.status = 4 OR u.status = 6');
+                    $res->andWhere('u.status = '.$status);
+//                    $res->andWhere('u.status = 3 OR u.status = 4 OR u.status = 6');
                 }else{
                     $res->andWhere('u.status = '.$status);
                 }
@@ -395,7 +388,8 @@ class UserRepository extends EntityRepository
         }else{
             if ( $status !== 'all' ){
                 if ($status == 3 || $status == 4 || $status == 6 ){
-                    $res->andWhere('u.status = 3 OR u.status = 4 OR u.status = 6');
+                    $res->andWhere('u.status = '.$status);
+//                    $res->andWhere('u.status = 3 OR u.status = 4 OR u.status = 6');
                 }else{
                     $res->andWhere('u.status = '.$status);
                 }
