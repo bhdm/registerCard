@@ -26,6 +26,15 @@
 {% endblock %}
 
 {% block content %}
+    {% set filter = '' %}
+    {% if companyId is defined and companyId != null %}
+        {% set filter = 'companyId='~companyId %}
+    {% endif %}
+
+    {% if operatorId is defined and operatorId != null %}
+        {% set filter = 'operatorId='~operatorId %}
+    {% endif %}
+
     <div class="well">
         <form>
             <div class="row form-inline" role="form">
@@ -42,9 +51,9 @@
                             <span class="caret"></span>
                         </button>
                         <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                            <li><a href="{{ path('operator_companyuser_list', {'companyType' : 'null', 'cardType' : cardType}) }}">Все типы компаний</a></li>
-                            <li><a href="{{ path('operator_companyuser_list', {'companyType' : 1, 'cardType' : cardType}) }}">Предприятия</a></li>
-                            <li><a href="{{ path('operator_companyuser_list', {'companyType' : 2, 'cardType' : cardType}) }}">Мастерские</a></li>
+                            <li><a href="{{ path('operator_companyuser_list', {'companyType' : 'null', 'cardType' : cardType}) }}?{{ filter }}">Все типы компаний</a></li>
+                            <li><a href="{{ path('operator_companyuser_list', {'companyType' : 1, 'cardType' : cardType}) }}?{{ filter }}">Предприятия</a></li>
+                            <li><a href="{{ path('operator_companyuser_list', {'companyType' : 2, 'cardType' : cardType}) }}?{{ filter }}">Мастерские</a></li>
                         </ul>
                     </div>
                     <div class="dropdown form-group">
@@ -62,10 +71,10 @@
                         </button>
                         {% if companyType  %}
                         <ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
-                            <li><a href="{{ path('operator_companyuser_list', {'companyType' : companyType, 'cardType' : 'null'}) }}">Все карты</a></li>
-                            <li><a href="{{ path('operator_companyuser_list', {'companyType' : companyType, 'cardType' : 1}) }}">СКЗИ</a></li>
-                            <li><a href="{{ path('operator_companyuser_list', {'companyType' : companyType, 'cardType' : 2}) }}">ЕСТР</a></li>
-                            <li><a href="{{ path('operator_companyuser_list', {'companyType' : companyType, 'cardType' : 3}) }}">РФ</a></li>
+                            <li><a href="{{ path('operator_companyuser_list', {'companyType' : companyType, 'cardType' : 'null'}) }}?{{ filter }}">Все карты</a></li>
+                            <li><a href="{{ path('operator_companyuser_list', {'companyType' : companyType, 'cardType' : 1}) }}?{{ filter }}">СКЗИ</a></li>
+                            <li><a href="{{ path('operator_companyuser_list', {'companyType' : companyType, 'cardType' : 2}) }}?{{ filter }}">ЕСТР</a></li>
+                            <li><a href="{{ path('operator_companyuser_list', {'companyType' : companyType, 'cardType' : 3}) }}?{{ filter }}">РФ</a></li>
                         </ul>
                         {% endif %}
                     </div>
@@ -144,7 +153,16 @@
                 <th>ID</th>
                 <th></th>
                 <th>Фамилия</th>
-                <th>Компания</th>
+                <th>
+                    <form class="filter-form" method="GET">
+                        <select class="chosen operator" name="operatorId">
+                            <option value="0"></option>
+                            {% for o in operators %}
+                                <option value="{{ o.id }}" {{ o.id == operatorId ? 'selected' : '' }}>{{ o }}</option>
+                            {% endfor %}
+                        </select>
+                    </form>
+                </th>
                 <th>Тип компании</th>
                 <th>Тип карт</th>
                 <th>Название</th>
@@ -423,6 +441,11 @@
                     });
                 }
             });
+
+            $('.operator').change(function () {
+                $('.filter-form').submit();
+
+            })
         });
 
     </script>

@@ -55,11 +55,15 @@ class CompanyUserController extends Controller{
             100
         );
 
+        $operators = $this->getDoctrine()->getRepository('CrmMainBundle:Operator')->findBy(['enabled'=> true],['username' => 'ASC']);
         return array(
             'params' => $params,
             'companyType' => $companyType,
             'cardType' => $cardType,
-            'pagination' => $pagination
+            'pagination' => $pagination,
+            'companyId' => $request->query->get('companyId'),
+            'operatorId' => $request->query->get('operatorId'),
+            'operators' => $operators,
         );
     }
 
