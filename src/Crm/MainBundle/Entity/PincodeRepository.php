@@ -62,7 +62,7 @@ class PincodeRepository extends EntityRepository
             ->leftJoin('p.client', 'client')
             ->leftJoin('client.company', 'c')
             ->where('p.status > 0')
-            ->andWhere('p.paymentType > :type')
+            ->andWhere('p.paymentType = :type')
             ->setParameter(':type', 'Квота')
             ->andWhere('c.id = :companyId')
             ->setParameter(':companyId', $company->getId());
