@@ -167,10 +167,19 @@
                     </td>
                     <td>{{ item.lastName }}</td>
                     <td>
-                        <a href="{{ path('operator_companyuser_list', {'companyType' : companyType, 'cardType' : cardType, 'companyId' : item.company.id }) }}" {{ debtors[item.company.title] is defined ? "style='color: #CC0000'" : '' }}
-                           title="" class="getQuotaCompany"
-                           data-id="{{ item.company.id }}"
-                        >{{ item.company is defined ? ( item.company.operator.id == 1 ? item.company : item.company.operator )  : '' }}</a>
+
+                        {% if item.company.operator.id == 1 %}
+                            <a href="{{ path('operator_companyuser_list', {'companyType' : companyType, 'cardType' : cardType, 'companyId' : item.company.id }) }}" {{ debtors[item.company.title] is defined ? "style='color: #CC0000'" : '' }}
+                               title="" class="getQuotaCompany"
+                               data-id="{{ item.company.id }}"
+                            >{{ item.company is defined ? ( item.company.operator.id == 1 ? item.company : item.company.operator )  : '' }}</a>
+                        {% else %}
+                            <a href="{{ path('operator_companyuser_list', {'companyType' : companyType, 'cardType' : cardType, 'operatorId' : item.company.operator.id }) }}" {{ debtors[item.company.title] is defined ? "style='color: #CC0000'" : '' }}
+                               title="" class="getQuotaCompany"
+                               data-id="{{ item.company.operator.id }}"
+                            >{{ item.company.operator }}</a>
+                        {% endif %}
+
                     </td>
                     <td style="text-align: center"><span class="label label-{{ item.companyType == 0 ? 'danger' : item.companyType == 1 ? 'primary' : 'success' }}">{{ item.companyTypeStr }}</span></td>
                     <td style="text-align: center"><span class="label label-{{ item.cardType == 1 ? 'Warning' : item.cardType == 2 ? 'primary' : 'success' }}">{{ item.cardTypeStr }}</td>

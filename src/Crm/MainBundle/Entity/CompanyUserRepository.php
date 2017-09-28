@@ -50,6 +50,7 @@ class CompanyUserRepository extends EntityRepository
             $res->setParameter(':companyType', $companyType);
         }
 
+
         if ($cardType != null){
             $res->andWhere('u.cardType = :cardType');
             $res->setParameter(':cardType', $cardType);
@@ -58,6 +59,11 @@ class CompanyUserRepository extends EntityRepository
         if ($params['companyId'] != null ){
             $res->andWhere('c.id = :companyId');
             $res->setParameter(':companyId', $params['companyId']);
+        }
+
+        if ($params['operatorId'] != null ){
+            $res->andWhere('o.id = :operatorId');
+            $res->setParameter(':operatorId', $params['operatorId']);
         }
 
         if ($params['status'] != null ){

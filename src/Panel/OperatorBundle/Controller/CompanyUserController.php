@@ -41,6 +41,7 @@ class CompanyUserController extends Controller{
         if ($this->get('security.context')->isGranted('ROLE_ADMIN')) {
             $params = [
                 'companyId' => $request->query->get('companyId'),
+                'operatorId' => $request->query->get('operatorId'),
                 'status' => $request->query->get('status'),
             ];
             $items = $this->getDoctrine()->getRepository('CrmMainBundle:CompanyUser')->findCard($companyType, $cardType, $params);
