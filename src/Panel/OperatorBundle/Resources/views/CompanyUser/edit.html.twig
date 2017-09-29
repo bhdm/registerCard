@@ -65,6 +65,13 @@
                     </td>
                 </tr>
                 <tr>
+                    <td>Цена (сумма) оператора<span class="required">*</span></td>
+                    <td>
+                        {{ form_widget(form.priceOperator) }}<br />
+                        ( {{ form.priceOperator.vars.value / form.cardAmount.vars.value }} цена за шт )
+                    </td>
+                </tr>
+                <tr>
                     <td></td>
                     <td></td>
                     <td></td>

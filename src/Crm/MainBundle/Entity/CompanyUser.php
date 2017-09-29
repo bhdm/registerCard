@@ -279,6 +279,11 @@ class CompanyUser extends BaseEntity
      */
     protected $price = 0;
 
+    /**
+     * @ORM\Column(type="decimal", precision=10, scale=2, nullable=true)
+     */
+    protected $priceOperator = 0;
+
     # ######################### #
     # ИНФОРМАЦИЯ О ЛИЦЕНЗИИ ФСБ #
     # ######################### #
@@ -1365,4 +1370,22 @@ class CompanyUser extends BaseEntity
     public function getFullname(){
         return $this->getLastName().' '.$this->getFirstName().' '.$this->getSurName();
     }
+
+    /**
+     * @return mixed
+     */
+    public function getPriceOperator()
+    {
+        return $this->priceOperator;
+    }
+
+    /**
+     * @param mixed $priceOperator
+     */
+    public function setPriceOperator($priceOperator)
+    {
+        $this->priceOperator = $priceOperator;
+    }
+
+
 }
