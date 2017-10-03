@@ -16,6 +16,7 @@ use Crm\MainBundle\Entity\Faq;
 use Crm\MainBundle\Entity\Feedback;
 use Crm\MainBundle\Entity\Document;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Zelenin\smsru;
@@ -526,6 +527,47 @@ class IndexController extends Controller
             }
         }
         exit;
+    }
+
+    /**
+     * @Route("/api/users")
+     */
+    public function getUSerForAppAction(){
+        $users = $this->getDoctrine()->getRepository('CrmMainBundle:User')->findBy(
+            [
+                'enabled' => true,
+                'estr' => 0,
+                'ru' => 0,
+                'status' => 1
+            ],
+            [
+                'id' => 'DESC'
+            ],
+            5
+        );
+        $userJson = [];
+        foreach ($users as $user){
+            $userJson[] = [
+                'id' => $user->getId(),
+                'lastName' => $user->getLastName(),
+                'firstName' => $user->getFirstName(),
+                'surName' => $user->getSurName(),
+                'birthDate' => $user->getBirthDate()->format('d.m.Y'),
+                'passportSeries' => $user->getPassportSerial(),
+                'passportNumber' => $user->getPassportNumber(),
+                'passportCode' => $user->getPassportCode(),
+                'passportIssuance' => $user->getPassportIssuance(),
+                'passportIssuanceDate' => $user->getPassportIssuanceDate()->format('d.m.Y'),
+                'DriverNumber' => $user->getDriverDocNumber(),
+                'DriverDate' => $user->getDriverDocDateStarts(),
+                'DriverIssuance' => $user->getDriverDocIssuance(),
+                'inn' => $user->getInn(),
+                'snils' => $user->getSnils(),
+                'email' => $user->getEmail(),
+            ];
+        }
+
+        return new JsonResponse($userJson);
     }
 }
 
