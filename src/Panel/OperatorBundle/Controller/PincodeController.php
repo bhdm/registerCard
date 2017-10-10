@@ -140,4 +140,12 @@ class PincodeController extends Controller
         return $this->redirect($referer);
     }
 
+    public function getRedAction(Request $request){
+        $r = $this->getDoctrine()->getRepository('CrmMainBundle:Pincode')->getRed();
+
+        if (count($r) > 0){
+            echo 'color: #CC0000';
+        }
+    }
+
 }

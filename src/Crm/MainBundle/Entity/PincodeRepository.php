@@ -70,4 +70,13 @@ class PincodeRepository extends EntityRepository
         return $qb->getQuery()->getOneOrNullResult();
     }
 
+    public function getRed(){
+        $qb =   $this->createQueryBuilder('p')
+            ->select('p.id')
+            ->where('p.status = 0 AND p.created >= :date')
+            ->orWhere('p.status = 1')
+            ->setParameter(':date', new \DateTime('now'));
+        return $qb->getQuery()->getResult();
+    }
+
 }
