@@ -86,13 +86,19 @@
 
                             &nbsp;&nbsp;
 
-                            <a href="{{ path('panel_pincode_get_pin',{ 'id' : p.id }) }}">
-                                <button type="button" class="btn btn-primary btn-bg" title="Запрос пин-кода">
-                                    <span class="glyphicon glyphicon glyphicon glyphicon-envelope"></span>
-                                </button>
-                            </a>
 
-                            &nbsp;&nbsp;
+                            <div class="btn-group">
+                               <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="Запрос пин-кода">
+                                   <span class="glyphicon glyphicon glyphicon glyphicon-envelope"></span>
+                                   <span class="caret"></span>
+                               </button>
+                               <ul class="dropdown-menu">
+                                   <li><a href="{{ path('panel_pincode_get_pin',{ 'id' : p.id, 'type' : 1 }) }}">Атлас</a></li>
+                                   <li><a href="{{ path('panel_pincode_get_pin',{ 'id' : p.id, 'type' : 2 }) }}">Микрон</a></li>
+                              </ul>
+                            </div>
+
+
                             <button type="button" class="btn btn-default btn-danger remove" data-href="{{ path('panel_pincode_delete',{'id': p.id }) }}">
                                 <span class="glyphicon glyphicon-remove"></span>
                             </button>

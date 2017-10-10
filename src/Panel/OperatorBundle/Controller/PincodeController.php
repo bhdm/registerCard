@@ -73,17 +73,22 @@ class PincodeController extends Controller
 
     /**
      * Отправка сообщения для предостовления кода
-     * @Route("/get-pin/{id}", name="panel_pincode_get_pin")
+     * @Route("/get-pin/{id}/{type}", name="panel_pincode_get_pin")
      */
-    public function getPinCodeAction(Request $request, $id){
+    public function getPinCodeAction(Request $request, $id, $type){
         $em = $this->getDoctrine()->getManager();
         $code = $this->getDoctrine()->getRepository('CrmMainBundle:Pincode')->findOneById($id);
 
+        if ($type == 1){
+            $mail = 'i.pinich@cmtransport.ru';
+        }else{
+            $mail = 'nlancheva@mikron.ru';
+        }
         $message = \Swift_Message::newInstance()
             ->setSubject('Востановления пинкода')
             ->setFrom('info@im-kard.ru')
 //            ->setTo('bhd.m@ya.ru')
-            ->setTo('i.pinich@cmtransport.ru')
+            ->setTo($mail)
             ->setBody(
                 $this->renderView(
                     '@PanelOperator/Mail/getCode.html.twig',
