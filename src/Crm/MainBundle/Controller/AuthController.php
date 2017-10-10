@@ -382,7 +382,7 @@ class AuthController extends Controller
         $pdfRoute = $this->generateUrl('generate_pdf_statement', ['id' => $id, 'old' => $old]);
         $im = new \Imagick();
 
-//        $im->setResolution(300,300);
+        $im->setResolution(300,300);
         $im->readimage('https://im-kard.ru'.$pdfRoute.'['.$page.']');
         $im->setImageFormat('jpeg');
 
