@@ -1109,6 +1109,15 @@
                                 <a target="_blank" href="{{ path("generate_pdf_statement", {'id' : user.id, 'old' : 1}) }}"><button type="button" class="btn btn-default btn-primary"   title="Распечатать заявление">
                                         Распечатать заявление
                                     </button></a>
+
+                                <a target="_blank" href="{{ path("generate_jpg_statement", {'id' : user.id, 'page' : 0,  'old' : 1}) }}"><button type="button" class="btn btn-default btn-primary"   title="1 страница">
+                                        1.jpg
+                                    </button></a>
+
+                                <a target="_blank" href="{{ path("generate_jpg_statement", {'id' : user.id, 'page' : 1,  'old' : 1}) }}"><button type="button" class="btn btn-default btn-primary"   title="2 страница">
+                                        2.jpg
+                                    </button></a>
+
                             </div>
                         </div>
                     </td>
