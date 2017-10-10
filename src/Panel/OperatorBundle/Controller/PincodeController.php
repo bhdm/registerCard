@@ -82,7 +82,7 @@ class PincodeController extends Controller
         if ($type == 1){
             $mail = 'i.pinich@cmtransport.ru';
         }else{
-            $mail = 'nlancheva@mikron.ru';
+            $mail = 'snikolenko@mikron.ru';
         }
         $message = \Swift_Message::newInstance()
             ->setSubject('Востановления пинкода')
