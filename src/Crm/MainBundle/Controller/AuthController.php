@@ -383,9 +383,9 @@ class AuthController extends Controller
         $im = new \Imagick();
 
         $im->setResolution(200,200);
-        $im->readimage('https://im-kard.ru'.$pdfRoute.'['.$page.']');
+        $im->readimage('https://im-kard.ru'.$pdfRoute);
+        $im->setIteratorIndex($page);
         $im->setImageFormat('jpeg');
-
         $base64 = 'data:image/jpeg;base64,' . base64_encode($im->getImageBlob());
         echo  '<img src="'.$base64.'" style="max-width: 100%"/>';
 
