@@ -379,7 +379,7 @@ class AuthController extends Controller
      * @Route("/generate-jpg-statement/{id}/{page}/{old}", name="generate_jpg_statement", defaults={"old" = 0})
      */
     public function generateJpgDocAction($id, $page, $old){
-        $pdfRoute = $this->generateUrl('generate_pdf_statement', ['id' => $id, 'odl' => $old]);
+        $pdfRoute = $this->generateUrl('generate_pdf_statement', ['id' => $id, 'old' => $old]);
         $im = new \Imagick();
 
 //        $im->setResolution(300,300);
