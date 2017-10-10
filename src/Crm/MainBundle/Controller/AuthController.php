@@ -259,6 +259,8 @@ class AuthController extends Controller
             return $this->redirect($this->generateUrl('main'));
         }
     }
+
+
     /**
      * @Route("/generate-statement/{id}/{old}", name="generate_pdf_statement", defaults={"old" = 0})
      */
@@ -370,6 +372,26 @@ class AuthController extends Controller
 //                return new Response($html);
 //            return $response;
 //            return $this->render('CrmMainBundle:Form:doc2.html.twig', array('user' => $user, 'bigSign' => $bigSign, 'miniSign' => $miniSign));
+    }
+
+
+    /**
+     * @Route("/generate-jpg-statement/{id}/{page}/{old}", name="generate_jpg_statement", defaults={"old" = 0})
+     */
+    public function generateJpgDocAction($id, $page, $old){
+        $pdfRoute = $this->generateUrl('generate_pdf_statement', ['id' => $id, 'odl' => $old]);
+        $im = new \Imagick();
+
+//        $im->setResolution(300,300);
+        $im->readimage($pdfRoute.'['.$page.']');
+        $im->setImageFormat('jpeg');
+
+        $base64 = 'data:image/jpeg;base64,' . base64_encode($im->getImageBlob());
+        echo  '<img src="'.$base64.'" style="max-width: 100%"/>';
+
+        $im->clear();
+        $im->destroy();
+        exit;
     }
 
     /**
