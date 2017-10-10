@@ -73,8 +73,8 @@ class PincodeRepository extends EntityRepository
     public function getRed(){
         $qb =   $this->createQueryBuilder('p')
             ->select('p.id')
-            ->where('p.status = 0 AND p.created >= :date')
-            ->orWhere('p.status = 1')
+            ->where('(p.status = 0 AND p.created >= :date) OR ( p.status = 1 )')
+            ->andWhere('p.enabled = 1')
             ->setParameter(':date', new \DateTime('now'));
         return $qb->getQuery()->getResult();
     }
