@@ -383,7 +383,7 @@ class AuthController extends Controller
         $im = new \Imagick();
 
 //        $im->setResolution(300,300);
-        $im->readimage($pdfRoute.'['.$page.']');
+        $im->readimage('https://im-kard.ru'.$pdfRoute.'['.$page.']');
         $im->setImageFormat('jpeg');
 
         $base64 = 'data:image/jpeg;base64,' . base64_encode($im->getImageBlob());
