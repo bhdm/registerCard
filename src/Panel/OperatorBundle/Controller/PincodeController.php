@@ -98,6 +98,7 @@ class PincodeController extends Controller
         ;
         $this->get('mailer')->send($message);
         $code->setStatus(2);
+        $code->setCardType(($type == 1 ? 'A' : 'M' ));
         $em->flush($code);
 
         $referer = $request->headers->get('referer');

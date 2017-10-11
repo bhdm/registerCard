@@ -72,6 +72,11 @@ class Pincode extends BaseEntity
      */
     protected $paymentType;
 
+    /**
+     * @ORM\Column(type="string", nullable=true)
+     */
+    protected $cardType;
+
     public function __construct()
     {
         $this->status = 0;
@@ -279,6 +284,22 @@ class Pincode extends BaseEntity
     public function setPaymentType($paymentType)
     {
         $this->paymentType = $paymentType;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCardType()
+    {
+        return $this->cardType;
+    }
+
+    /**
+     * @param mixed $cardType
+     */
+    public function setCardType($cardType)
+    {
+        $this->cardType = $cardType;
     }
 
 
