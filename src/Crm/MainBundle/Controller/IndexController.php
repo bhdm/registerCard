@@ -97,6 +97,7 @@ class IndexController extends Controller
             $code = $request->request->get('code');
             $email = $request->request->get('email');
             $phone = $request->request->get('phone');
+            $manufacturer = $request->request->get('manufacturer');
 
             $pincode = new Pincode();
             $pincode->setFio($fio);
@@ -104,6 +105,7 @@ class IndexController extends Controller
             $pincode->setEmail($email);
             $pincode->setPhone($phone);
             $pincode->setClient($this->getUser());
+            $pincode->setManufacturer($manufacturer);
             $em->persist($pincode);
             $em->flush($pincode);
             $em->refresh($pincode);

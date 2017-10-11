@@ -57,8 +57,8 @@
                     </td>
                     <td>{{ p.fio }}</td>
                     <td>{{ p.client }}</td>
-                    <td>({{ p.cardType }}) {{ p.code }}</td>
-                    <td>{{ p.pin }}</td>
+                    <td>{{ p.manufacturer }}<br /> {{ p.code }}</td>
+                    <td>({{ p.cardType }}) {{ p.pin }}</td>
                     <td>{{ p.statusStringTwig | raw }}</td>
                     <td>{{ p.paymentType }}</td>
                     {% set sum = sum + p.price %}
