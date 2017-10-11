@@ -61,6 +61,17 @@
                     <td><input type="text" required class="form-control" placeholder="RUD12345678" name="code"></td>
                 </tr>
                 <tr>
+                    <td>Производитель карты <a href="{{ asset('bundles/crmmain/images/pincardtype.jpg') }}">картинка</a></td>
+                    <td>
+                        <select class="form-control" name="manufacturer">
+                            <option value="0">Вы</option>
+                            <option value="Микрон">Микрон</option>
+                            <option value="Атлас">Атлас</option>
+                        </select>
+                    </td>
+                </tr>
+
+                <tr>
                     <td colspan="2" class="txt-red">
                         Стоимость услуги составляет 300 рублей
                     </td>
