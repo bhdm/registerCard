@@ -168,7 +168,7 @@
                         <select class="chosen company" name="companyId">
                             <option value="0"></option>
                             {% for c in companies %}
-                                <option value="{{ c.id }}" {{ c.id == companyId ? 'selected' : '' }}>{{ c }}</option>
+                                <option value="{{ c.id }}" {{ c.id == companyId ? 'selected' : '' }}>{{ c.title }}</option>
                             {% endfor %}
                         </select>
                     </form>
