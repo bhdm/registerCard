@@ -155,7 +155,7 @@
                 <th>Фамилия</th>
                 <th>
                     <form class="filter-form" method="GET">
-                        <select class="styler operator" name="operatorId">
+                        <select class="chosen operator" name="operatorId">
                             <option value="0"></option>
                             {% for o in operators %}
                                 <option value="{{ o.id }}" {{ o.id == operatorId ? 'selected' : '' }}>{{ o }}</option>
@@ -165,7 +165,7 @@
                 </th>
                 <th>
                     <form class="filter-form-2" method="GET">
-                        <select class="styler company" name="companyId" style="max-width: 200px">
+                        <select class="chosen company" name="companyId" style="max-width: 200px">
                             <option value="0"></option>
                             {% for c in companies %}
                                 <option value="{{ c.id }}" {{ c.id == companyId ? 'selected' : '' }}>{{ c.title }}</option>
