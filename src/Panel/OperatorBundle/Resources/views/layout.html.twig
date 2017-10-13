@@ -33,6 +33,7 @@
         });
 
         $('input:text, input:file, select:not([id*="manager"]):not(.chosen)').styler();
+        $('.styler').styler();
         {% if is_granted('ROLE_OPERATOR') %}
         $('#myquota').click(function () {
           BootstrapDialog.alert(
