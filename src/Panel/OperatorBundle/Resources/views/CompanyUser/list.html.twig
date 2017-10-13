@@ -163,7 +163,16 @@
                         </select>
                     </form>
                 </th>
-                <th>Тип компании</th>
+                <th>
+                    <form class="filter-form-2" method="GET">
+                        <select class="chosen company" name="companyId">
+                            <option value="0"></option>
+                            {% for c in companies %}
+                                <option value="{{ c.id }}" {{ c.id == companyId ? 'selected' : '' }}>{{ c }}</option>
+                            {% endfor %}
+                        </select>
+                    </form>
+                </th>
                 <th>Тип карт</th>
                 <th>Название</th>
                 <th>Кол-во</th>
@@ -444,7 +453,10 @@
 
             $('.operator').change(function () {
                 $('.filter-form').submit();
+            })
 
+            $('.company').change(function () {
+                $('.filter-form-2').submit();
             })
         });
 

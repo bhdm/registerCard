@@ -56,6 +56,7 @@ class CompanyUserController extends Controller{
         );
 
         $operators = $this->getDoctrine()->getRepository('CrmMainBundle:Operator')->findBy(['enabled'=> true],['username' => 'ASC']);
+        $companies = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->findBy(['operator'=> $this->getUser()],['username' => 'ASC']);
         return array(
             'params' => $params,
             'companyType' => $companyType,
@@ -64,6 +65,7 @@ class CompanyUserController extends Controller{
             'companyId' => $request->query->get('companyId'),
             'operatorId' => $request->query->get('operatorId'),
             'operators' => $operators,
+            'companies' => $companies,
         );
     }
 
