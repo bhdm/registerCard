@@ -182,9 +182,11 @@ class IndexController extends Controller
         $orderId = $request->query->get('InvId');
         $price = $request->query->get('OutSum');
         $pincode = $this->getDoctrine()->getRepository('CrmMainBundle:Pincode')->find($orderId);
-        $pincode->setPrice($price);
-        $pincode->setStatus(2);
-        $em->flush($pincode);
+        if ($pincode->getStatus() < 2){
+            $pincode->setPrice($price);
+            $pincode->setStatus(2);
+            $em->flush($pincode);
+        }
 
         echo 'OK'.$orderId;
         exit;
