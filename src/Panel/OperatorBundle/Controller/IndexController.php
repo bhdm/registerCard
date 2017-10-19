@@ -222,7 +222,7 @@ class IndexController extends Controller
     public function downloadAllAction($userId){
         $user = $this->getDoctrine()->getRepository('CrmMainBundle:User')->find($userId);
         $zip = new \ZipArchive();
-        $filename = "./".$user->getId."-documents.zip";
+        $filename = "./".$user->getId()."-documents.zip";
 
         if ($zip->open($filename, \ZipArchive::CREATE)!==TRUE) {
             exit("Невозможно открыть <$filename>\n");
