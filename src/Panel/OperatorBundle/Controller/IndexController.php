@@ -215,4 +215,42 @@ class IndexController extends Controller
 
         exit;
     }
+
+    /**
+     * @Route("/download-all/{userId}", name="download_all")
+     */
+    public function downloadAllAction($userId){
+        $user = $this->getDoctrine()->getRepository('User')->find($userId);
+        $zip = new \ZipArchive();
+        $filename = "./".$user->getId."-documents.zip";
+
+        if ($zip->open($filename, \ZipArchive::CREATE)!==TRUE) {
+            exit("Невозможно открыть <$filename>\n");
+        }
+
+
+        $passportUrl = 'http://'.$_SERVER['SERVER_NAME'].$this->generateUrl('ImageToPdf',array('filename' => base64_encode($user->getCopyPassport()['path'])));
+        $driverUrl = 'http://'.$_SERVER['SERVER_NAME'].$this->generateUrl('ImageToPdf',array('filename' => base64_encode($user->getCopyDriverPassport()['path'])));
+        $photoUrl = 'http://'.$_SERVER['SERVER_NAME'].$user->getPhoto()['path'];
+        $innUrl = 'http://'.$_SERVER['SERVER_NAME'].$this->generateUrl('ImageToPdf',array('filename' => base64_encode($user->getCopyInn()['path'])));
+        $snilsUrl = 'http://'.$_SERVER['SERVER_NAME'].$this->generateUrl('ImageToPdf',array('filename' => base64_encode($user->getCopySnils()['path'])));
+        $orderUrl = 'http://'.$_SERVER['SERVER_NAME'].$this->generateUrl('generate_pdf_statement',array('id'=>$user->getId()));
+
+        $zip->addFile( $passportUrl,"passport.pdf");
+        $zip->addFile( $driverUrl,"driver.pdf");
+        $zip->addFile( $innUrl,"inn.pdf");
+        $zip->addFile( $snilsUrl,"snils.pdf");
+        $zip->addFile( $orderUrl,"order.pdf");
+        $zip->addFile( $photoUrl);
+
+        $zip->close();
+
+        header("Content-type: application/zip");
+        header("Content-Disposition: attachment; filename=$filename");
+        header("Content-length: " . filesize($filename));
+        header("Pragma: no-cache");
+        header("Expires: 0");
+        readfile("$filename");
+        exit;
+    }
 }
