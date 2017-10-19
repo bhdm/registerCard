@@ -220,7 +220,7 @@ class IndexController extends Controller
      * @Route("/download-all/{userId}", name="download_all")
      */
     public function downloadAllAction($userId){
-        $user = $this->getDoctrine()->getRepository('User')->find($userId);
+        $user = $this->getDoctrine()->getRepository('CrmMainBundle:User')->find($userId);
         $zip = new \ZipArchive();
         $filename = "./".$user->getId."-documents.zip";
 
