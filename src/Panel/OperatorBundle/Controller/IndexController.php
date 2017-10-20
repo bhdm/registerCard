@@ -241,10 +241,13 @@ class IndexController extends Controller
                 exit;
             }
         }
-//        if (isset($user->getCopyDriverPassport()['path'])){
-//            $driverUrl = 'http://'.$_SERVER['SERVER_NAME'].$this->generateUrl('ImageToPdf',array('filename' => base64_encode($user->getCopyDriverPassport()['path'])));
-//            $zip->addFile( $driverUrl,"driver.pdf");
-//        }
+        if (isset($user->getCopyDriverPassport()['path'])){
+            $driverUrl = 'http://'.$_SERVER['SERVER_NAME'].$this->generateUrl('ImageToPdf',array('filename' => base64_encode($user->getCopyDriverPassport()['path'])));
+            $file = file_get_contents($driverUrl);
+            $zip->addFromString( $file,"driver.pdf");
+        }
+
+
 //        if (isset($user->getCopyInn()['path'])){
 //            $innUrl = 'http://'.$_SERVER['SERVER_NAME'].$this->generateUrl('ImageToPdf',array('filename' => base64_encode($user->getCopyInn()['path'])));
 //            $zip->addFile( $innUrl,"inn.pdf");
