@@ -277,7 +277,10 @@ class IndexController extends Controller
         }
 
         $photoUrl = 'http://'.$_SERVER['SERVER_NAME'].$user->getPhoto()['path'];
-        $zip->addFile( $photoUrl);
+        $file = file_get_contents($orderUrl);
+        if ($file){
+            $zip->addFromString( "photo.jpg", $file);
+        }
 
 
 
