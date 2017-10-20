@@ -257,7 +257,7 @@ class IndexController extends Controller
         $zip->close();
 
         header("Content-type: application/zip");
-        header("Content-Disposition: attachment; filename=".$filePath.$filename);
+        header("Content-Disposition: attachment; filename=".$filename);
         header("Content-length: " . filesize($filePath.$filename));
         header("Pragma: no-cache");
         header("Expires: 0");
