@@ -562,12 +562,13 @@ class IndexController extends Controller
                 'passportCode' => $user->getPassportCode(),
                 'passportIssuance' => $user->getPassportIssuance(),
                 'passportIssuanceDate' => $user->getPassportIssuanceDate()->format('d.m.Y'),
-                'DriverNumber' => $user->getDriverDocNumber(),
-                'DriverDate' => $user->getDriverDocDateStarts(),
-                'DriverIssuance' => $user->getDriverDocIssuance(),
+                'driverNumber' => $user->getDriverDocNumber(),
+                'driverDate' => $user->getDriverDocDateStarts(),
+                'driverIssuance' => $user->getDriverDocIssuance(),
                 'inn' => $user->getInn(),
                 'snils' => $user->getSnils(),
                 'email' => $user->getEmail(),
+                'phone' => $user->getPhone(),
             ];
         }
 
