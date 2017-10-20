@@ -272,13 +272,16 @@ class IndexController extends Controller
 
 
 
-        $orderUrl = 'http://'.$_SERVER['SERVER_NAME'].$this->generateUrl('generate_pdf_statement',array('id'=>$user->getId()));
+        $orderUrl = 'https://'.$_SERVER['SERVER_NAME'].$this->generateUrl('generate_pdf_statement',array('id'=>$user->getId()));
         $file = file_get_contents($orderUrl);
         if ($file){
             $zip->addFromString( "order.pdf", $file);
         }
 
-        $photoUrl = 'http://'.$_SERVER['SERVER_NAME'].$user->getPhoto()['path'];
+        $photoUrl = 'https://'.$_SERVER['SERVER_NAME'].$user->getPhoto()['path'];
+        echo $photoUrl ;
+        exit;
+
         $file = file_get_contents($photoUrl);
         if ($file){
             $zip->addFromString( "photo.jpg", $file);
