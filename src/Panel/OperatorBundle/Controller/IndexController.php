@@ -232,8 +232,9 @@ class IndexController extends Controller
 
 
         if (isset($user->getCopyPassport()['path'])){
-            $passportUrl = 'https://'.$_SERVER['SERVER_NAME'].$this->generateUrl('ImageToPdf',array('filename' => base64_encode($user->getCopyPassport()['path'])));
-            $zip->addFromString("passport.pdf", file_get_contents($passportUrl));
+            $passportUrl = 'http://'.$_SERVER['SERVER_NAME'].':'.$_SERVER['SERVER_PORT'].$this->generateUrl('ImageToPdf',array('filename' => base64_encode($user->getCopyPassport()['path'])));
+            $file = file_get_contents($passportUrl);
+            $zip->addFromString("passport.pdf", $file);
         }
 //        if (isset($user->getCopyDriverPassport()['path'])){
 //            $driverUrl = 'http://'.$_SERVER['SERVER_NAME'].$this->generateUrl('ImageToPdf',array('filename' => base64_encode($user->getCopyDriverPassport()['path'])));
