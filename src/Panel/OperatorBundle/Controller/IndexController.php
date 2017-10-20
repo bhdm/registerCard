@@ -232,7 +232,7 @@ class IndexController extends Controller
 
 
         if (isset($user->getCopyPassport()['path'])){
-            $passportUrl = 'http://'.$_SERVER['SERVER_NAME'].$this->generateUrl('ImageToPdf',array('filename' => base64_encode($user->getCopyPassport()['path'])));
+            $passportUrl = 'https://'.$_SERVER['SERVER_NAME'].$this->generateUrl('ImageToPdf',array('filename' => base64_encode($user->getCopyPassport()['path'])));
             $file = file_get_contents($passportUrl);
             try{
             $zip->addFromString("passport.pdf", $file);
@@ -242,10 +242,41 @@ class IndexController extends Controller
             }
         }
         if (isset($user->getCopyDriverPassport()['path'])){
-            $driverUrl = 'http://'.$_SERVER['SERVER_NAME'].$this->generateUrl('ImageToPdf',array('filename' => base64_encode($user->getCopyDriverPassport()['path'])));
+            $driverUrl = 'https://'.$_SERVER['SERVER_NAME'].$this->generateUrl('ImageToPdf',array('filename' => base64_encode($user->getCopyDriverPassport()['path'])));
             $file = file_get_contents($driverUrl);
-            $zip->addFromString( $file,"driver.pdf");
+            if ($file){
+                $zip->addFromString( $file,"driver.pdf");
+            }
         }
+
+        if (isset($user->getCopyInn()['path'])){
+            $innUrl = 'https://'.$_SERVER['SERVER_NAME'].$this->generateUrl('ImageToPdf',array('filename' => base64_encode($user->getCopyInn()['path'])));
+            $file = file_get_contents($innUrl);
+            if ($file){
+                $zip->addFromString( $file,"inn.pdf");
+            }
+        }
+
+        if (isset($user->getCopySnils()['path'])){
+            $snilsUrl = 'https://'.$_SERVER['SERVER_NAME'].$this->generateUrl('ImageToPdf',array('filename' => base64_encode($user->getCopySnils()['path'])));
+            $file = file_get_contents($snilsUrl);
+            if ($file){
+                $zip->addFromString( $file,"snils.pdf");
+            }
+        }
+
+
+
+        $orderUrl = 'http://'.$_SERVER['SERVER_NAME'].$this->generateUrl('generate_pdf_statement',array('id'=>$user->getId()));
+        $file = file_get_contents($orderUrl);
+        if ($file){
+            $zip->addFromString( $file,"order.pdf");
+        }
+
+        $photoUrl = 'http://'.$_SERVER['SERVER_NAME'].$user->getPhoto()['path'];
+        $zip->addFile( $photoUrl);
+
+
 
 
 //        if (isset($user->getCopyInn()['path'])){
@@ -257,7 +288,7 @@ class IndexController extends Controller
 //            $zip->addFile( $snilsUrl,"snils.pdf");
 //        }
 //
-//        $orderUrl = 'http://'.$_SERVER['SERVER_NAME'].$this->generateUrl('generate_pdf_statement',array('id'=>$user->getId()));
+//
 //        $zip->addFile( $orderUrl,"order.pdf");
 //
 //        $photoUrl = 'http://'.$_SERVER['SERVER_NAME'].$user->getPhoto()['path'];
