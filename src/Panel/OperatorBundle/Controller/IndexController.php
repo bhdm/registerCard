@@ -232,7 +232,7 @@ class IndexController extends Controller
 
 
         if (isset($user->getCopyPassport()['path'])){
-            $passportUrl = 'http://'.$_SERVER['SERVER_NAME'].':'.$_SERVER['SERVER_PORT'].$this->generateUrl('ImageToPdf',array('filename' => base64_encode($user->getCopyPassport()['path'])));
+            $passportUrl = 'http://'.$_SERVER['SERVER_NAME'].$this->generateUrl('ImageToPdf',array('filename' => base64_encode($user->getCopyPassport()['path'])));
             $file = file_get_contents($passportUrl);
             $zip->addFromString("passport.pdf", $file);
         }
