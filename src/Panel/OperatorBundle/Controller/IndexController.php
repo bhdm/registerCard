@@ -2,6 +2,7 @@
 
 namespace Panel\OperatorBundle\Controller;
 
+use Crm\MainBundle\WImage\WImage;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -10,6 +11,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Component\Security\Core\SecurityContext;
 use Symfony\Component\Security\Core\Encoder\MessageDigestPasswordEncoder;
+
 
 /**
  * @Route("/panel")
@@ -277,10 +279,39 @@ class IndexController extends Controller
         }
 
         $photoUrl = 'http://'.$_SERVER['SERVER_NAME'].$user->getPhoto()['path'];
-        $file = file_get_contents($orderUrl);
+        $file = file_get_contents($photoUrl);
         if ($file){
             $zip->addFromString( "photo.jpg", $file);
         }
+
+        if ($user->getMyPetition() == 1){
+            $petitionUrl = 'http://'.$_SERVER['SERVER_NAME'].$this->generateUrl('my-petition-image-pdf', array('id' => $user->getId()));
+        }else{
+            if ($user->getCompanyPetition() == null ){
+                $petitionUrl = 'http://'.$_SERVER['SERVER_NAME'].$this->ImageToPdf((isset($file['path']) ? $file['originalName'] : null ));
+            }else{
+                if ($user->getCompanyPetition()->getFile() != null ){
+                    $petitionUrl = 'http://'.$_SERVER['SERVER_NAME'].$this->generateUrl('company-petition', array('userId' => $user->getId()));
+                }
+            }
+        }
+        if (isset($petitionUrl) && $petitionUrl!= '' && $petitionUrl!= null){
+            $file = file_get_contents($petitionUrl);
+            if ($file){
+                $zip->addFromString( "petition.pdf", $file);
+            }
+        }
+
+        $file = $user->getCopySignature();
+        $file = WImage::ImageToBlackAndWhite($file);
+        $file = WImage::cropSign($file, 591,118);
+        $imagedata = file_get_contents($file);
+        if ($imagedata){
+            $zip->addFromString( "sign.jpg", $imagedata);
+        }
+
+
+
 
 
 
