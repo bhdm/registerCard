@@ -278,7 +278,7 @@ class IndexController extends Controller
             $zip->addFromString( "order.pdf", $file);
         }
 
-        $photoUrl = 'https://'.$_SERVER['SERVER_NAME'].$user->getPhoto()['path'];
+        $photoUrl = 'https://'.$_SERVER['SERVER_NAME'].'/'.$user->getPhoto()['path'];
         echo $photoUrl ;
         exit;
 
