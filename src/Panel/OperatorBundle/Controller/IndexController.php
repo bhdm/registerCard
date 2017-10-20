@@ -244,11 +244,11 @@ class IndexController extends Controller
         if (isset($user->getCopyDriverPassport()['path'])){
             $driverUrl = 'https://'.$_SERVER['SERVER_NAME'].$this->generateUrl('ImageToPdf',array('filename' => base64_encode($user->getCopyDriverPassport()['path'])));
             $file = file_get_contents($driverUrl);
-            echo $driverUrl.'<br /><br /><br />';
-            echo $file;
-            exit;
+//            echo $driverUrl.'<br /><br /><br />';
+//            echo $file;
+//            exit;
             if ($file){
-                $zip->addFromString( $file,"driver.pdf");
+                $zip->addFromString( "driver.pdf", $file);
             }
         }
 
@@ -256,7 +256,7 @@ class IndexController extends Controller
             $innUrl = 'https://'.$_SERVER['SERVER_NAME'].$this->generateUrl('ImageToPdf',array('filename' => base64_encode($user->getCopyInn()['path'])));
             $file = file_get_contents($innUrl);
             if ($file){
-                $zip->addFromString( $file,"inn.pdf");
+                $zip->addFromString( "inn.pdf", $file);
             }
         }
 
@@ -264,7 +264,7 @@ class IndexController extends Controller
             $snilsUrl = 'https://'.$_SERVER['SERVER_NAME'].$this->generateUrl('ImageToPdf',array('filename' => base64_encode($user->getCopySnils()['path'])));
             $file = file_get_contents($snilsUrl);
             if ($file){
-                $zip->addFromString( $file,"snils.pdf");
+                $zip->addFromString( "snils.pdf", $file);
             }
         }
 
@@ -273,7 +273,7 @@ class IndexController extends Controller
         $orderUrl = 'http://'.$_SERVER['SERVER_NAME'].$this->generateUrl('generate_pdf_statement',array('id'=>$user->getId()));
         $file = file_get_contents($orderUrl);
         if ($file){
-            $zip->addFromString( $file,"order.pdf");
+            $zip->addFromString( "order.pdf", $file);
         }
 
         $photoUrl = 'http://'.$_SERVER['SERVER_NAME'].$user->getPhoto()['path'];
