@@ -244,6 +244,9 @@ class IndexController extends Controller
         if (isset($user->getCopyDriverPassport()['path'])){
             $driverUrl = 'https://'.$_SERVER['SERVER_NAME'].$this->generateUrl('ImageToPdf',array('filename' => base64_encode($user->getCopyDriverPassport()['path'])));
             $file = file_get_contents($driverUrl);
+            echo $driverUrl.'<br /><br /><br />';
+            echo $file;
+            exit;
             if ($file){
                 $zip->addFromString( $file,"driver.pdf");
             }
