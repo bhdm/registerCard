@@ -32,7 +32,7 @@ class OrderController extends Controller{
      * @Template()
      */
     public function indexAction(Request $request){
-        return $this->redirectToRoute('application-skzi-add');
+        return $this->redirectToRoute('application-skzi-add', 301);
 
 //        $country = $this->getDoctrine()->getRepository('CrmMainBundle:Country')->findOneById(3159);
 //        $regions = $this->getDoctrine()->getRepository('CrmMainBundle:Region')->findByCountry($country);
