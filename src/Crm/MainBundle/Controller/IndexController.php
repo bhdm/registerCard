@@ -563,7 +563,7 @@ class IndexController extends Controller
                 'passportIssuance' => $user->getPassportIssuance(),
                 'passportIssuanceDate' => $user->getPassportIssuanceDate()->format('d.m.Y'),
                 'driverNumber' => $user->getDriverDocNumber(),
-                'driverDate' => $user->getDriverDocDateStarts(),
+                'driverDate' => $user->getDriverDocDateStarts()->format('d.m.Y'),
                 'driverIssuance' => $user->getDriverDocIssuance(),
                 'inn' => $user->getInn(),
                 'snils' => $user->getSnils(),
