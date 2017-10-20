@@ -224,7 +224,9 @@ class IndexController extends Controller
         $zip = new \ZipArchive();
         $filename = "./".$user->getId()."-documents.zip";
 
-        if ($zip->open($filename, \ZipArchive::CREATE)!==TRUE) {
+        $filePath = __DIR__.'/../../../../web/upload/';
+
+        if ($zip->open($filePath.$filename, \ZipArchive::CREATE)!==TRUE) {
             exit("Невозможно открыть <$filename>\n");
         }
 
@@ -233,33 +235,33 @@ class IndexController extends Controller
             $passportUrl = 'http://'.$_SERVER['SERVER_NAME'].$this->generateUrl('ImageToPdf',array('filename' => base64_encode($user->getCopyPassport()['path'])));
             $zip->addFile( $passportUrl,"passport.pdf");
         }
-        if (isset($user->getCopyDriverPassport()['path'])){
-            $driverUrl = 'http://'.$_SERVER['SERVER_NAME'].$this->generateUrl('ImageToPdf',array('filename' => base64_encode($user->getCopyDriverPassport()['path'])));
-            $zip->addFile( $driverUrl,"driver.pdf");
-        }
-        if (isset($user->getCopyInn()['path'])){
-            $innUrl = 'http://'.$_SERVER['SERVER_NAME'].$this->generateUrl('ImageToPdf',array('filename' => base64_encode($user->getCopyInn()['path'])));
-            $zip->addFile( $innUrl,"inn.pdf");
-        }
-        if (isset($user->getCopySnils()['path'])){
-            $snilsUrl = 'http://'.$_SERVER['SERVER_NAME'].$this->generateUrl('ImageToPdf',array('filename' => base64_encode($user->getCopySnils()['path'])));
-            $zip->addFile( $snilsUrl,"snils.pdf");
-        }
-
-        $orderUrl = 'http://'.$_SERVER['SERVER_NAME'].$this->generateUrl('generate_pdf_statement',array('id'=>$user->getId()));
-        $zip->addFile( $orderUrl,"order.pdf");
-
-        $photoUrl = 'http://'.$_SERVER['SERVER_NAME'].$user->getPhoto()['path'];
-        $zip->addFile( $photoUrl);
+//        if (isset($user->getCopyDriverPassport()['path'])){
+//            $driverUrl = 'http://'.$_SERVER['SERVER_NAME'].$this->generateUrl('ImageToPdf',array('filename' => base64_encode($user->getCopyDriverPassport()['path'])));
+//            $zip->addFile( $driverUrl,"driver.pdf");
+//        }
+//        if (isset($user->getCopyInn()['path'])){
+//            $innUrl = 'http://'.$_SERVER['SERVER_NAME'].$this->generateUrl('ImageToPdf',array('filename' => base64_encode($user->getCopyInn()['path'])));
+//            $zip->addFile( $innUrl,"inn.pdf");
+//        }
+//        if (isset($user->getCopySnils()['path'])){
+//            $snilsUrl = 'http://'.$_SERVER['SERVER_NAME'].$this->generateUrl('ImageToPdf',array('filename' => base64_encode($user->getCopySnils()['path'])));
+//            $zip->addFile( $snilsUrl,"snils.pdf");
+//        }
+//
+//        $orderUrl = 'http://'.$_SERVER['SERVER_NAME'].$this->generateUrl('generate_pdf_statement',array('id'=>$user->getId()));
+//        $zip->addFile( $orderUrl,"order.pdf");
+//
+//        $photoUrl = 'http://'.$_SERVER['SERVER_NAME'].$user->getPhoto()['path'];
+//        $zip->addFile( $photoUrl);
 
         $zip->close();
 
         header("Content-type: application/zip");
-        header("Content-Disposition: attachment; filename=$filename");
-        header("Content-length: " . filesize($filename));
+        header("Content-Disposition: attachment; filename=".$filePath.$filename);
+        header("Content-length: " . filesize($filePath.$filename));
         header("Pragma: no-cache");
         header("Expires: 0");
-        readfile("$filename");
+        readfile("$filePath.$filename");
         exit;
     }
 }
