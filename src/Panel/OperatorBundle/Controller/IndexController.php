@@ -279,8 +279,8 @@ class IndexController extends Controller
         }
 
         $photoUrl = 'https://'.$_SERVER['SERVER_NAME'].'/'.$user->getPhoto()['path'];
-        echo $photoUrl ;
-        exit;
+//        echo $photoUrl ;
+//        exit;
 
         $file = file_get_contents($photoUrl);
         if ($file){
