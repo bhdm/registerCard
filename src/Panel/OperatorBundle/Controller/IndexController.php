@@ -267,7 +267,7 @@ class IndexController extends Controller
         header("Content-length: " . filesize($filePath.$filename));
         header("Pragma: no-cache");
         header("Expires: 0");
-        readfile("$filePath.$filename");
+        readfile($filePath.$filename);
         exit;
     }
 }
