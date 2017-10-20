@@ -310,7 +310,7 @@ class IndexController extends Controller
         $file = WImage::cropSign($file, 591,118);
         $imagedata = file_get_contents($file);
         if ($imagedata){
-            $zip->addFromString( "sign.jpg", $imagedata);
+            $zip->addFromString( "sign.png", $imagedata);
         }
 
 
