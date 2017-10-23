@@ -55,7 +55,7 @@
                     <tr style="{{ user.comment != null and user.comment != '' ? 'background: #FFCFCF;' : '' }}" id="userr{{ user.id }}">
                         <td>
                             {% if is_granted("ROLE_ADMIN") %}
-                                <a href="{{ path('panel_user_set_chrome', {'userId' : user.id }) }}"  target="_blank">
+                                <a href="{{ path('panel_user_set_chrome', {'userId' : user.id }) }}">
                                     <button type="button" class="btn-xs btn-{{ user.chrome == true ? 'danger' : 'success' }} btn-bg" title="Отправить в расширение"><span class="glyphicon glyphicon-screenshot"></span></button>
                                 </a>
                             {% endif %}
