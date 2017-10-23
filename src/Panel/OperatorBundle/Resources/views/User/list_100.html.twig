@@ -19,6 +19,9 @@
                data-sort-order="asc">
             <thead>
             <tr>
+                {% if is_granted("ROLE_ADMIN") %}
+                    <th></th>
+                {% endif %}
                 <th></th>
                 <th><input type="checkbox" id="allcheck"></th>
                 {% if is_granted('ROLE_ADMIN') %}
@@ -50,6 +53,13 @@
             <form id="form-list" method="POST">
                 {% for user in pagination %}
                     <tr style="{{ user.comment != null and user.comment != '' ? 'background: #FFCFCF;' : '' }}" id="userr{{ user.id }}">
+                        <td>
+                            {% if is_granted("ROLE_ADMIN") %}
+                                <a href="{{ path('panel_user_set_chrome', {'userId' : user.id }) }}"  target="_blank">
+                                    <button type="button" class="btn-xs btn-{{ user.chrome == true ? 'danger' : 'success' }} btn-bg" title="Отправить в расширение"><span class="glyphicon glyphicon-screenshot"></span></button>
+                                </a>
+                            {% endif %}
+                        </td>
                         <td>
                             {% if user.client.id is defined %}
                             <a href="{{ path('panel_client_message_list', { 'clientId' : user.client.id, 'order' :  user.id }) }}"  target="_blank">

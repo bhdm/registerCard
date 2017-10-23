@@ -2658,5 +2658,22 @@ class UserController extends Controller
         return $this->redirect($referer);
     }
 
+    /**
+     * @Route("/set-chrome/{userId}", name="panel_user_set_chrome")
+     */
+    public function setChromeAction(Request $request, $userId){
+        $user = $this->getDoctrine()->getRepository('CrmMainBundle:User')->find($userId);
+
+        if ($user->getChrome() == true){
+            $user->setChrome(false);
+        }else{
+            $user->setChrome(true);
+        }
+
+        $this->getDoctrine()->getManager()->flush($user);
+
+        $referer = $request->headers->get('referer');
+        return $this->redirect($referer);
+    }
 }
 

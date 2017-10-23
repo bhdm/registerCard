@@ -601,6 +601,11 @@ class User extends BaseEntity implements UserInterface, EquatableInterface, \Ser
      */
     private $privateComment;
 
+    /**
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private $chrome;
+
     public function getXmlId()
     {
         return str_pad($this->id, 8, "0", STR_PAD_LEFT);
@@ -623,6 +628,7 @@ class User extends BaseEntity implements UserInterface, EquatableInterface, \Ser
         $this->checkedSnils = false;
         $this->checkedDriverTranslate = false;
         $this->checkedPassportTranslate= false;
+        $this->chrome = false;
     }
 
     public function __toString()
@@ -2701,8 +2707,13 @@ class User extends BaseEntity implements UserInterface, EquatableInterface, \Ser
         $this->copyDoc = $copyDoc;
     }
 
+    public function getChrome(){
+        return $this->chrome;
+    }
 
-
+    public function setChrome($chrome){
+        $this->chrome = $chrome;
+    }
 
 
 }
