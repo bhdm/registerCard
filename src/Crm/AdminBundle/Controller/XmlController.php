@@ -479,10 +479,9 @@ class XmlController extends Controller
             $url = 'http://'.$_SERVER['SERVER_NAME'].$this->generateUrl('ImageToPdf',array('filename' => base64_encode($filename)));
         }else{
             $url = 'http://'.$_SERVER['SERVER_NAME'].$this->generateUrl('ImageToPdf',array('filename' => base64_encode($filename), 'ur' => 2));
+            echo  $url;
+            exit;
         }
-
-        echo  $url;
-        exit;
 //        }else{
 //            $url = 'http://'.$_SERVER['SERVER_NAME'].$this->generateUrl('create_image_pdf',array('filename' => $filename, 'type' => $type));
 //        }
