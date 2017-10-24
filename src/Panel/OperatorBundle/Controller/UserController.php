@@ -2682,25 +2682,25 @@ class UserController extends Controller
     public function imageRotateAction(Request $request, $type, $userId){
         $user = $this->getDoctrine()->getRepository('CrmMainBundle:User')->find($userId);
         $passport = $user->getCopyPassport();
-        $passportFile = _DIR__.'/../../../../web/'.$passport['path'];
-        $passportFile2 = _DIR__.'/../../../../web/'.$this->getOriginal($passport['path']);
+        $passportFile = __DIR__.'/../../../../web/'.$passport['path'];
+        $passportFile2 = __DIR__.'/../../../../web/'.$this->getOriginal($passport['path']);
         $format = pathinfo($passportFile)['extension'];
         if ($format == 'jpg' || $format == 'jpeg'){
             $img = imagecreatefromjpeg($passportFile);
-            $newImg = imagerotate($img, 90);
+            $newImg = imagerotate($img, 90, 0 );
             imagejpeg($newImg, $passportFile);
 
             $img = imagecreatefromjpeg($passportFile2);
-            $newImg = imagerotate($img, 90);
+            $newImg = imagerotate($img, 90,0);
             imagejpeg($newImg, $passportFile2);
 
         }elseif($format == 'png'){
             $img = imagecreatefrompng($passportFile);
-            $newImg = imagerotate($img, 90);
+            $newImg = imagerotate($img, 90,0);
             imagepng($newImg, $passportFile);
 
             $img = imagecreatefrompng($passportFile2);
-            $newImg = imagerotate($img, 90);
+            $newImg = imagerotate($img, 90,0);
             imagepng($newImg, $passportFile2);
         }else{
             echo  'Неизвестное расширение файла';
