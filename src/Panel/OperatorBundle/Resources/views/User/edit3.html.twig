@@ -268,7 +268,7 @@
                                 {% if user.copyPassport.path is defined %}
                                     <a href="/{{ user.copyPassport.path | getOriginal}}" class="fancybox" ><img src="/{{ user.copyPassport.path | getOriginal }}" brightness="128" contrast="128" data-type="passportFile" class="" id="passportFileImg" data-large="/{{ user.copyPassport.path | getOriginal}}"></a>
                                     <br>
-                                    <a href="{{ path('panel_operator_rotate', {'type' : 'password', 'userId' : user.id }) }}"><span class="glyphicon glyphicon-share-alt"></span></a>
+                                    <a href="{{ path('panel_operator_rotate', {'type' : 'passport', 'userId' : user.id }) }}"><span class="glyphicon glyphicon-share-alt"></span></a>
                                     <a href="{{ path('panel_download_png',{'filename' : user.copyPassport.path | baseEncode }) }}">Скачать</a>
                                     <a target="_blank" href="{{ path('ImageToPdf',{'type' : 'passport', 'filename' : user.copyPassport.path | baseEncode }) }}">Скачать</a>
                                     {% if is_granted("ROLE_ADMIN") %}

@@ -86,7 +86,7 @@ class XmlController extends Controller
         }else{
             if ($user->getCompanyPetition() == null ){
                 $file= $user->getCopyPetition();
-                $files[8]['base'] = $this->ImageToPdf((isset($file['path']) ? $file['originalName'] : null ));
+                $files[8]['base'] = $this->ImageToPdf((isset($file['path']) ? $file['path'] : null ), 'full');
                 $files[8]['title'] = 'Petition';
             }else{
                 if ($user->getCompanyPetition()->getFile() != null ){
@@ -375,6 +375,8 @@ class XmlController extends Controller
      */
     public function imageToPdfAction($filename, $ur = 0){
         $path = base64_decode($filename);
+        $basepath = base64_decode($filename);
+        $basepath = str_replace('|','/', $basepath);
         if ($ur == 1){
             $path = explode('|', $path);
             $filename = $path[0].'/'.basename($path[1]);
@@ -391,12 +393,18 @@ class XmlController extends Controller
         if ($ur == 0){
             $new_filename = 'origin-'.$filename;
 
+            $basepath = str_replace($filename,$new_filename, $basepath);
             $filename = str_replace($filename,$new_filename, $path);
 
             if (is_file('/var/www/'.$filename)){
+                $html = '/var/www/'.$filename;
+            }elseif(is_file('/var/www/upload/'.$filename)){
                 $html = '/var/www/upload/'.$filename;
+            }elseif (is_file('/var/www'.$basepath)) {
+                $html = '/var/www/upload' . $filename;
             }else{
-                $html = '/var/www/upload/docs/'.$filename;
+
+                $html = '/var/www/upload/docs'.$filename;
             }
         }else{
 
@@ -467,7 +475,12 @@ class XmlController extends Controller
 
     public function imageToPdf($filename, $type= null){
 //        if ($type == null){
+        if ($type != 'full'){
             $url = 'http://'.$_SERVER['SERVER_NAME'].$this->generateUrl('ImageToPdf',array('filename' => base64_encode($filename)));
+        }else{
+            $url = 'http://'.$_SERVER['SERVER_NAME'].$this->generateUrl('ImageToPdf',array('filename' => base64_encode($filename), 'ur' => 2));
+        }
+
 //        }else{
 //            $url = 'http://'.$_SERVER['SERVER_NAME'].$this->generateUrl('create_image_pdf',array('filename' => $filename, 'type' => $type));
 //        }
