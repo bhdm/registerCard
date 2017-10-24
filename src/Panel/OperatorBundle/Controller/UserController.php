@@ -2675,5 +2675,31 @@ class UserController extends Controller
         $referer = $request->headers->get('referer');
         return $this->redirect($referer);
     }
+
+    /**
+     * @Route("/image-rotate/{type}/{userId}", name="panel_operator_rotate")
+     */
+    public function imageRotateAction(Request $request, $type, $userId){
+        $user = $this->getDoctrine()->getRepository('CrmMainBundle:User')->find($userId);
+        $passport = $user->getCopyPassport();
+        $passportFile = _DIR__.'/../../../../web/'.$passport['path'];
+        $format = pathinfo($passportFile)['extension'];
+        if ($format == 'jpg' || $format == 'jpeg'){
+            $img = imagecreatefromjpeg($passportFile);
+        }elseif($format == 'png'){
+            $img = imagecreatefrompng($passportFile);
+        }else{
+            echo  'Неизвестное расширение файла';
+            exit;
+        }
+        $newImg = imagerotate($passportFile, 90);
+        imagejpeg($newImg, $passportFile);
+
+        imagedestroy($img);
+        imagedestroy($newImg);
+
+        $referer = $request->headers->get('referer');
+        return $this->redirect($referer);
+    }
 }
 
