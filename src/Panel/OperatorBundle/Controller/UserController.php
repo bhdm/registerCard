@@ -2683,23 +2683,49 @@ class UserController extends Controller
         $user = $this->getDoctrine()->getRepository('CrmMainBundle:User')->find($userId);
         $passport = $user->getCopyPassport();
         $passportFile = _DIR__.'/../../../../web/'.$passport['path'];
+        $passportFile2 = _DIR__.'/../../../../web/'.$this->getOriginal($passport['path']);
         $format = pathinfo($passportFile)['extension'];
         if ($format == 'jpg' || $format == 'jpeg'){
             $img = imagecreatefromjpeg($passportFile);
+            $newImg = imagerotate($img, 90);
+            imagejpeg($newImg, $passportFile);
+
+            $img = imagecreatefromjpeg($passportFile2);
+            $newImg = imagerotate($img, 90);
+            imagejpeg($newImg, $passportFile2);
+
         }elseif($format == 'png'){
             $img = imagecreatefrompng($passportFile);
+            $newImg = imagerotate($img, 90);
+            imagepng($newImg, $passportFile);
+
+            $img = imagecreatefrompng($passportFile2);
+            $newImg = imagerotate($img, 90);
+            imagepng($newImg, $passportFile2);
         }else{
             echo  'Неизвестное расширение файла';
             exit;
         }
-        $newImg = imagerotate($passportFile, 90);
-        imagejpeg($newImg, $passportFile);
 
         imagedestroy($img);
         imagedestroy($newImg);
 
         $referer = $request->headers->get('referer');
         return $this->redirect($referer);
+    }
+
+    public function getOriginal($filename)
+    {
+        $pathA = explode('/',$filename);
+        $pathA[count($pathA)-1] = str_replace('.jpg', '-or.jpg', $pathA[count($pathA)-1]);
+        $file = implode('/',$pathA);
+        if (!is_file(__DIR__.$file)){
+            $pathA = explode('/',$filename);
+            $pathA[count($pathA)-1] = 'origin-'.$pathA[count($pathA)-1];
+            $file = implode('/',$pathA);
+        }
+
+        return $file;
     }
 }
 
