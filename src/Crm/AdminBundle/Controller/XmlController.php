@@ -390,7 +390,7 @@ class XmlController extends Controller
 
 //        $filename = str_replace('.jpg', '-or.jpg', $filename);
 //        if (!is_file(__DIR__.$filename)){
-        if ($ur == 0){
+        if ($ur == 0 || $ur == 2){
             $new_filename = 'origin-'.$filename;
 
             $basepath = str_replace($filename,$new_filename, $basepath);
