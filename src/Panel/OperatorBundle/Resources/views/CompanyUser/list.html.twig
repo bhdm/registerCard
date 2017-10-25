@@ -451,13 +451,17 @@
                 }
             });
 
-            $('.operator').change(function () {
-                $('.filter-form').submit();
-            })
+            $(".chosen.operator").chosen({no_results_text: "Компаний по вашему запросу не найдено", width: 200});
 
-            $('.company').change(function () {
+            $('.chosen.operator').change(function(){
+                $('.filter-form').submit();
+            });
+
+            $(".chosen.company").chosen({no_results_text: "Компаний по вашему запросу не найдено", width: 200});
+
+            $('.chosen.company').change(function(){
                 $('.filter-form-2').submit();
-            })
+            });
         });
 
     </script>
