@@ -2324,7 +2324,13 @@ class UserController extends Controller
                     if ($o instanceof CompanyUser){
                         $type = ($o->getCardType() == 1? 'СКЗИ' : $o->getCardType() == 2 ? 'ЕСТР' : 'РФ');
                     }else{
-                        $type = ($o->getEstr() == 1 ? 'ЕСТР' : $o->getRu() == 1 ? 'РФ' : 'СКЗИ');
+                        if ($o->getEstr() == 1){
+                            $type = 'ЕСТР';
+                        }elseif ($o->getRu() == 1){
+                            $type = 'РФ';
+                        }else{
+                            $type = 'СКЗИ';
+                        }
                     }
 
 
