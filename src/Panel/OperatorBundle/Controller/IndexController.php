@@ -291,6 +291,7 @@ class IndexController extends Controller
             $petitionUrl = 'http://'.$_SERVER['SERVER_NAME'].$this->generateUrl('my-petition-image-pdf', array('id' => $user->getId()));
         }else{
             if ($user->getCompanyPetition() == null ){
+                $file= $user->getCopyPetition();
                 $petitionUrl = 'http://'.$_SERVER['SERVER_NAME'].$this->ImageToPdf((isset($file['path']) ? $file['originalName'] : null ));
             }else{
                 if ($user->getCompanyPetition()->getFile() != null ){
