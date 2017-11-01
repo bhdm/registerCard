@@ -344,4 +344,21 @@ class IndexController extends Controller
         readfile($filePath.$filename);
         exit;
     }
+
+    public function imageToPdf($filename, $type= null){
+//        if ($type == null){
+        if ($type != 'full'){
+            $url = 'http://'.$_SERVER['SERVER_NAME'].$this->generateUrl('ImageToPdf',array('filename' => base64_encode($filename)));
+        }else{
+            $url = 'http://'.$_SERVER['SERVER_NAME'].$this->generateUrl('ImageToPdf',array('filename' => base64_encode($filename), 'ur' => 2));
+//            echo  $url;
+//            exit;
+        }
+//        }else{
+//            $url = 'http://'.$_SERVER['SERVER_NAME'].$this->generateUrl('create_image_pdf',array('filename' => $filename, 'type' => $type));
+//        }
+        $pdfdata = file_get_contents($url);
+        $base64 = base64_encode($pdfdata);
+        return $base64;
+    }
 }
