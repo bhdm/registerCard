@@ -1,0 +1,35 @@
+{% extends 'PanelOperatorBundle::layout.html.twig' %}
+
+
+{% block breadcrumb %}
+    <ul class="breadcrumb well">
+        <li>Список компаний</li>
+        <li><a href="{{ path('panel_company_add') }}"><span class="btn btn-primary">Добавить</span></a></li>
+    </ul>
+{% endblock %}
+
+{% block content %}
+<div class="well">
+    <form class="form-horizontal" method="post">
+        <table>
+            <tr>
+                <td class="label">Дата проверки:</td>
+                <td class="value">
+                    <input type="date" class="form-control" name="date" placeholder="01.01.2017" value="{{ company.testDate ? company.testDate | date('Y-m-d') : '' }}" format="dd.mm.yyyy">
+                </td>
+            </tr>
+            <tr>
+                <td class="label">Сумма:</td>
+                <td class="value">
+                    <input type="text" class="form-control" name="summ" value="{{ company.testSum }}">
+                </td>
+            </tr>
+            <tr>
+                <td class="value">
+                    <button type="submit">Сохранить</button>
+                </td>
+            </tr>
+        </table>
+    </form>
+</div>
+{% endblock %}

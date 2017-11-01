@@ -85,6 +85,12 @@
                                 {#</button>#}
                             {#</a>#}
                             &nbsp;&nbsp;
+                            <a href="{{ path('panel_company_test',{'id' : company.id}) }}">
+                                <button type="button" class="btn btn-default btn-danger" title="Проверка">
+                                    <span class="glyphicon glyphicon-question-sign"></span>
+                                </button>
+                            </a>
+                            &nbsp;&nbsp;
                             <a href="{{ path('panel_company_remove',{'id' : company.id}) }}">
                                 <button type="button" class="btn btn-default btn-danger" title="Удалить">
                                     <span class="glyphicon glyphicon-remove"></span>

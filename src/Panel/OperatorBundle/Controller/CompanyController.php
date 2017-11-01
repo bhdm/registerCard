@@ -559,4 +559,17 @@ class CompanyController extends Controller
         return ['debtors' => $debtors];
     }
 
+    /**
+     * @Route("/test/{id}", name="panel_company_test")
+     * @Template("")
+     *
+     */
+    public function testAction(Request  $request, $id){
+        $company = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->find($id);
+        if ($request->getMethod() == 'POST'){
+            $company->setTestDate(new \DateTime($request->request->get('date')));
+            $company->setTestSum($request->request->get('summ'));
+        }
+        return ['company' => $company];
+    }
 }

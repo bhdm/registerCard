@@ -366,6 +366,17 @@ class Company extends BaseEntity
      */
     protected $referPrice;
 
+    /**
+     * @ORM\Column(type="datetime", name="testDate", nullable=true)
+     */
+    protected $testDate;
+
+    /**
+     * @ORM\Column(type="integer", name="testSum", nullable=true)
+     */
+    protected $testSum;
+
+
     public function __construct(){
         $this->quotaLog = new ArrayCollection();
         $this->companies = new ArrayCollection();
@@ -1517,7 +1528,39 @@ class Company extends BaseEntity
         $this->pricePincode = $pricePincode;
     }
 
-    
+    /**
+     * @return mixed
+     */
+    public function getTestDate()
+    {
+        return $this->testDate;
+    }
+
+    /**
+     * @param mixed $testDate
+     */
+    public function setTestDate($testDate)
+    {
+        $this->testDate = $testDate;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getTestSum()
+    {
+        return $this->testSum;
+    }
+
+    /**
+     * @param mixed $testSum
+     */
+    public function setTestSum($testSum)
+    {
+        $this->testSum = $testSum;
+    }
+
+
 
 
 }
