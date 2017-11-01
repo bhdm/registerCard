@@ -278,11 +278,9 @@ class IndexController extends Controller
             $zip->addFromString( "order.pdf", $file);
         }
 
-        $photoUrl = 'https://'.$_SERVER['SERVER_NAME'].'/'.$user->getPhoto()['path'];
-//        echo $photoUrl ;
-//        exit;
-
-        $file = file_get_contents($photoUrl);
+//        $photoUrl = 'https://'.$_SERVER['SERVER_NAME'].'/'.$user->getPhoto()['path'];
+        $image = WImage::cropSign($user->getPhoto()['path'], 591,118, true);
+        $file = file_get_contents($image);
         if ($file){
             $zip->addFromString( "photo.jpg", $file);
         }
@@ -319,18 +317,6 @@ class IndexController extends Controller
 
 
 
-
-
-
-//        if (isset($user->getCopyInn()['path'])){
-//            $innUrl = 'http://'.$_SERVER['SERVER_NAME'].$this->generateUrl('ImageToPdf',array('filename' => base64_encode($user->getCopyInn()['path'])));
-//            $zip->addFile( $innUrl,"inn.pdf");
-//        }
-//        if (isset($user->getCopySnils()['path'])){
-//            $snilsUrl = 'http://'.$_SERVER['SERVER_NAME'].$this->generateUrl('ImageToPdf',array('filename' => base64_encode($user->getCopySnils()['path'])));
-//            $zip->addFile( $snilsUrl,"snils.pdf");
-//        }
-//
 //
 //        $zip->addFile( $orderUrl,"order.pdf");
 //
