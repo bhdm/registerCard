@@ -103,7 +103,6 @@
                                     <br />
                                     <br />
                                 </div>
-
                             </div>
                             <input type="hidden" id="x1" name="x1">
                             <input type="hidden" id="y1" name="y1">
@@ -1083,6 +1082,20 @@
             $('.petition').css('display','table-row');
             $('.petition-td').css('display','table-cell');
             {% endif %}
+
+            $('body').on("keypress", "#crm_mainbundle_user_passportCode" , function () {
+                $.ajax({
+                    url: Routing.generate('api_get_passport_issuance'),
+                    data: {
+                        'date': $('#crm_mainbundle_user_passportIssuanceDate').val(),
+                        'code': $('#crm_mainbundle_user_passportCode').val(),
+                    },
+                    method: 'POST',
+                    success: function (issuance) {
+                        $('#crm_mainbundle_user_passportIssuance').append(issuance);
+                    }
+                });
+            });
         });
     </script>
 {% endblock %}

@@ -113,12 +113,6 @@
                     <td>{{ form_widget(form.passportSerial) }} {{ form_widget(form.passportNumber) }}</td>
                 </tr>
                 <tr>
-                    <td>{{ form_label(form.passportIssuance) }}<span class="required">*</span></td>
-                    <td>
-                        {{ form_widget(form.passportIssuance) }}
-                    </td>
-                </tr>
-                <tr>
                     <td>{{ form_label(form.passportIssuanceDate) }}</td>
                     <td>{{ form_widget(form.passportIssuanceDate) }}</td>
                     <td>
@@ -128,6 +122,12 @@
                 <tr>
                     <td>{{ form_label(form.passportCode) }}<span class="required">*</span></td>
                     <td>{{ form_widget(form.passportCode) }}</td>
+                </tr>
+                <tr>
+                    <td>{{ form_label(form.passportIssuance) }}<span class="required">*</span></td>
+                    <td>
+                        {{ form_widget(form.passportIssuance) }}
+                    </td>
                 </tr>
             </table>
         </div>
@@ -700,7 +700,24 @@
                 }else{
                     $('.master').css('display','none');
                 }
-            })
+            });
+
+
+            $('body').on("keypress", "#crm_mainbundle_user_passportCode" , function () {
+                $.ajax({
+                    url: Routing.generate('api_get_passport_issuance'),
+                    data: {
+                        'date': $('#crm_mainbundle_user_passportIssuanceDate').val(),
+                        'code': $('#crm_mainbundle_user_passportCode').val(),
+                    },
+                    method: 'POST',
+                    success: function (issuance) {
+                        $('#crm_mainbundle_user_passportIssuance').append(issuance);
+                    }
+                });
+            });
+
+
         });
     </script>
 {% endblock %}

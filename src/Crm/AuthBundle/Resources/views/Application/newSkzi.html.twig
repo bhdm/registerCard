@@ -206,12 +206,6 @@
                     </td>
                 </tr>
                 <tr>
-                    <td>Кем выдан<span class="required">*</span></td>
-                    <td>
-                        {{ form_widget(form.passportIssuance) }}
-                    </td>
-                </tr>
-                <tr>
                     <td>Дата выдачи</td>
                     <td>{{ form_widget(form.passportIssuanceDate) }}</td>
                     <td class="citizenship">Перевод паспорта <span class="mini text-danger">(допустимые форматы: JPG,PNG)</span></td>
@@ -247,6 +241,12 @@
                             <input type="hidden" id="x2" name="x2">
                             <input type="hidden" id="y2" name="y2">
                         </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Кем выдан<span class="required">*</span></td>
+                    <td>
+                        {{ form_widget(form.passportIssuance) }}
                     </td>
                 </tr>
             </table>
@@ -962,6 +962,20 @@
                 $('.petition').css('display','table-row');
                 $('.petition-td').css('display','table-cell');
             {% endif %}
+
+            $('body').on("keypress", "#crm_mainbundle_user_passportCode" , function () {
+                $.ajax({
+                    url: '/api/passport-issuance/get',
+                    data: {
+                        'date': $('#crm_mainbundle_user_passportIssuanceDate').val(),
+                        'code': $('#crm_mainbundle_user_passportCode').val(),
+                    },
+                    method: 'POST',
+                    success: function (issuance) {
+                        $('#crm_mainbundle_user_passportIssuance').append(issuance);
+                    }
+                });
+            });
         });
     </script>
 {% endblock %}

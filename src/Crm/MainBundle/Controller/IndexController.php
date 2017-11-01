@@ -575,5 +575,21 @@ class IndexController extends Controller
 
         return new JsonResponse($userJson);
     }
+
+    /**
+     * @Route("/api/passport-issuance/get", name="api_get_passport_issuance", options={"expose"=true})
+     */
+    public function apiGetPassportIssuanceAction(Request $request){
+        $date = $request->request->get('date');
+        $code = $request->request->get('code');
+        $issuance = $this->getDoctrine()->getRepository('CrmMainBundle:PassportCode')->findOneBy(['code' => $code]);
+        if ($issuance){
+            $issuance = $issuance->getTitle();
+        }else{
+            $issuance = '';
+        }
+
+        return new Response($issuance);
+    }
 }
 
