@@ -569,6 +569,7 @@ class CompanyController extends Controller
         if ($request->getMethod() == 'POST'){
             $company->setTestDate(new \DateTime($request->request->get('date')));
             $company->setTestSum($request->request->get('summ'));
+            $this->getDoctrine()->getManager()->flush($company);
         }
         return ['company' => $company];
     }
