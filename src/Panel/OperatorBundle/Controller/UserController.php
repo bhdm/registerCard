@@ -2245,7 +2245,7 @@ class UserController extends Controller
     }
 
     /**
-     * @Route("/generate-act/{companyId}/{date}")
+     * @Route("/generate-act/{companyId}/{date}", name="generate_act_of_company", options={"expose" = true})
      */
     public function generateActAction($companyId, $date){
         $date = new \DateTime($date);

@@ -10,6 +10,12 @@
 
 {% block content %}
 <div class="well">
+    <form method="GET">
+        <input type="date" name="date" value="{{ "now" | date('Y-m-d') }}" format="dd.mm.yyyy" id="adate">
+        <input type="hidden" name="companyId" value="{{ company.id }}" id="acompanyId">
+        <button type="button" class="btn btn-primary" id="generate_act">Сгенерировать отчет</button>
+    </form>
+    <hr />
     <form class="form-horizontal" method="post">
         <table>
             <tr>
@@ -32,4 +38,20 @@
         </table>
     </form>
 </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+        $(document).ready(function () {
+            $('#generate_act').click(function () {
+                var adate = $('#adate').val();
+                var aid = $('#acompanyId').val();
+                var url = Routing.generate('generate_act_of_company', {'companyId' : aid, 'date' : adate });
+                window.location.href = url;
+            });
+
+
+        })
+    </script>
 {% endblock %}
