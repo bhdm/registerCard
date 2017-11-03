@@ -4,6 +4,7 @@
 {% block breadcrumb %}
     <ul class="breadcrumb well">
         <li>Список компаний</li>
+        <li>{{ operator.username }}</li>
         <li><a href="{{ path('panel_company_add') }}"><span class="btn btn-primary">Добавить</span></a></li>
     </ul>
 {% endblock %}
