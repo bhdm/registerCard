@@ -587,7 +587,7 @@ class OperatorController extends Controller
                         ->setCellValue('E' . $num, $o->getPrice())
                         ->setCellValue('F' . $num, 0)
                         ->setCellValue('G' . $num, $itog)
-                        ->setCellValue('H' . $num, $o->getCompany());
+                        ->setCellValue('H' . $num, $o->getCompany()->getTitle());
                     if ($itog < 0){
                         $phpExcelObject->getActiveSheet()->getStyle('G' . $num)->applyFromArray($styleRed);
                     }
