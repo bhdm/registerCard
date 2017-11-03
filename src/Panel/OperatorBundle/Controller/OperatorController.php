@@ -530,7 +530,8 @@ class OperatorController extends Controller
             ->setCellValue('D1', 'ФИО')
             ->setCellValue('E1', 'Цена')
             ->setCellValue('F1', 'Оплата')
-            ->setCellValue('G1', 'Итого');
+            ->setCellValue('G1', 'Итого')
+            ->setCellValue('H1', 'Компания');
 
         $phpExcelObject->getActiveSheet()->getStyle('E3:E1000')->getNumberFormat()->setFormatCode(\PHPExcel_Style_NumberFormat::FORMAT_NUMBER_COMMA_SEPARATED1);
         $phpExcelObject->getActiveSheet()->getStyle('G2:G1000')->getNumberFormat()->setFormatCode(\PHPExcel_Style_NumberFormat::FORMAT_NUMBER_COMMA_SEPARATED1);
@@ -586,7 +587,7 @@ class OperatorController extends Controller
                         ->setCellValue('E' . $num, $o->getPrice())
                         ->setCellValue('F' . $num, 0)
                         ->setCellValue('G' . $num, $itog)
-                        ->setCellValue('H' . $num, '');
+                        ->setCellValue('H' . $num, $o->getCompany());
                     if ($itog < 0){
                         $phpExcelObject->getActiveSheet()->getStyle('G' . $num)->applyFromArray($styleRed);
                     }
