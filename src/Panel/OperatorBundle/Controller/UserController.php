@@ -1826,7 +1826,7 @@ class UserController extends Controller
             }else{
                 if ($user->getCompanyPetition() == null ){
                     $file= $user->getCopyPetition();
-                    $files[8]['base'] = $this->ImageToPdf((isset($file['path']) ? $file['originalName'] : null ));
+                    $files[8]['base'] = $this->ImageToPdf((isset($file['path']) ? $file['path'] : null ));
                     $files[8]['title'] = 'Petition';
                 }else{
                     if ($user->getCompanyPetition()->getFile() != null ){
