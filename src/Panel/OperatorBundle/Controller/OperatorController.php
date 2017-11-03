@@ -493,12 +493,12 @@ class OperatorController extends Controller
      */
     public function generateActAction($id, $date){
         $date = new \DateTime($date);
-        $orders = $this->getDoctrine()->getRepository('CrmMainBundle:User')->findForOpearatorAct($companyId, $date);
-        $orderBefore = $this->getDoctrine()->getRepository('CrmMainBundle:User')->findForActOpearatorBefore($companyId, $date);
+        $orders = $this->getDoctrine()->getRepository('CrmMainBundle:User')->findForOpearatorAct($id, $date);
+        $orderBefore = $this->getDoctrine()->getRepository('CrmMainBundle:User')->findForActOpearatorBefore($id, $date);
 
 
-        $quotas = $this->getDoctrine()->getRepository('CrmMainBundle:User')->findOpearatorAct($companyId, $date);
-        $quotaBefore = $this->getDoctrine()->getRepository('CrmMainBundle:User')->findActOpearatorBefore($companyId, $date);
+        $quotas = $this->getDoctrine()->getRepository('CrmMainBundle:User')->findOpearatorAct($id, $date);
+        $quotaBefore = $this->getDoctrine()->getRepository('CrmMainBundle:User')->findActOpearatorBefore($id, $date);
 //        if ($orderBefore == null){
 //            $orderBefore = 0;
 //        }
