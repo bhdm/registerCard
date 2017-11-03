@@ -55,6 +55,13 @@
                                     {#<span class="glyphicon glyphicon-pause"></span>#}
                                 {#</button>#}
                             {#</a>#}
+
+                            &nbsp;&nbsp;
+                            <a href="{{ path('panel_operator_test',{'id' : o.id}) }}">
+                                <button type="button" class="btn btn-default btn-danger" title="Проверка">
+                                    <span class="glyphicon glyphicon-question-sign"></span>
+                                </button>
+                            </a>
                             &nbsp;&nbsp;
                             <a href="{{ path('panel_operator_remove',{'operatorId' : o.id}) }}">
                                 <button type="button" class="btn btn-default btn-danger" title="Удалить">

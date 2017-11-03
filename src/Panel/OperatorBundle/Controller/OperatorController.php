@@ -2,6 +2,7 @@
 
 namespace Panel\OperatorBundle\Controller;
 
+use Crm\MainBundle\Entity\CompanyUser;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Security\Core\SecurityContext;
 use Symfony\Component\DependencyInjection\Container;
@@ -474,6 +475,169 @@ class OperatorController extends Controller
 
         $referer = $request->headers->get('referer');
         return $this->redirect($referer);
+    }
+
+    /**
+     * @Route("/test/{id}", name="panel_operator_test")
+     * @Template("")
+     *
+     */
+    public function testAction(Request  $request, $id){
+        $operator = $this->getDoctrine()->getRepository('CrmMainBundle:Operator')->find($id);
+        return ['operator' => $operator];
+    }
+
+
+    /**
+     * @Route("/generate-act/{id}/{date}", name="generate_act_of_operator", options={"expose" = true})
+     */
+    public function generateActAction($companyId, $date){
+        $date = new \DateTime($date);
+        $orders = $this->getDoctrine()->getRepository('CrmMainBundle:User')->findForOpearatorAct($companyId, $date);
+        $orderBefore = $this->getDoctrine()->getRepository('CrmMainBundle:User')->findForActOpearatorBefore($companyId, $date);
+
+
+        $quotas = $this->getDoctrine()->getRepository('CrmMainBundle:User')->findOpearatorAct($companyId, $date);
+        $quotaBefore = $this->getDoctrine()->getRepository('CrmMainBundle:User')->findActOpearatorBefore($companyId, $date);
+//        if ($orderBefore == null){
+//            $orderBefore = 0;
+//        }
+        if ($quotaBefore[1] == null){
+            $quotaBefore[1] = 0;
+        }
+
+
+        $excelService = $this->get('phpexcel');
+        // or $this->get('xls.service_pdf');
+        // or create your own is easy just modify services.yml
+
+
+        // create the object see http://phpexcel.codeplex.com documentation
+        $phpExcelObject = $this->get('phpexcel')->createPHPExcelObject();
+
+        $phpExcelObject->getProperties()->setCreator("liuggio")
+            ->setLastModifiedBy("Giulio De Donato")
+            ->setTitle("Office 2005 XLSX Test Document")
+            ->setSubject("Office 2005 XLSX Test Document")
+            ->setDescription("Test document for Office 2005 XLSX, generated using PHP classes.")
+            ->setKeywords("office 2005 openxml php")
+            ->setCategory("Test result file");
+
+        $phpExcelObject->setActiveSheetIndex(0)
+            ->setCellValue('A1', 'Дата')
+            ->setCellValue('B1', 'Тип')
+            ->setCellValue('C1', 'Номер')
+            ->setCellValue('D1', 'ФИО')
+            ->setCellValue('E1', 'Цена')
+            ->setCellValue('F1', 'Оплата')
+            ->setCellValue('G1', 'Итого');
+
+        $phpExcelObject->getActiveSheet()->getStyle('E3:E1000')->getNumberFormat()->setFormatCode(\PHPExcel_Style_NumberFormat::FORMAT_NUMBER_COMMA_SEPARATED1);
+        $phpExcelObject->getActiveSheet()->getStyle('G2:G1000')->getNumberFormat()->setFormatCode(\PHPExcel_Style_NumberFormat::FORMAT_NUMBER_COMMA_SEPARATED1);
+        $phpExcelObject->getActiveSheet()->getStyle('F2:F1000')->getNumberFormat()->setFormatCode(\PHPExcel_Style_NumberFormat::FORMAT_NUMBER_COMMA_SEPARATED1);
+        $center = array(
+            'alignment' => array(
+                'horizontal' => \PHPExcel_Style_Alignment::HORIZONTAL_CENTER,
+            )
+        );
+        $phpExcelObject->getActiveSheet()->getStyle('B1:C1000')->applyFromArray($center);
+
+
+        $phpExcelObject->setActiveSheetIndex(0)
+            ->setCellValue('A2', $date->format('d.m.Y'))
+            ->setCellValue('G2', $quotaBefore[1]-$orderBefore);
+//            ->setCellValue('B1', $quotaBefore[1])
+//            ->setCellValue('C1', $orderBefore);
+        $itog = $quotaBefore[1]-$orderBefore;
+        $num = 2;
+        $now = new \DateTime();
+        $now = $now->format('d.m.Y');
+
+        $styleRed = array(
+            'font'  => array(
+                'color' => array('rgb' => 'CC0000'),
+            ));
+
+        while(true) {
+            $f = $date->format('d.m.Y');
+            if (isset($orders[$f])) {
+                foreach ($orders[$f] as $o) {
+                    $num++;
+                    $itog -= ($o->getStatus() != 10 ? $o->getPrice() : ($o->getPrice()*-1));
+
+                    if ($o instanceof CompanyUser){
+                        $type = ($o->getCardType() == 1? 'СКЗИ' : $o->getCardType() == 2 ? 'ЕСТР' : 'РФ');
+                    }else{
+                        if ($o->getEstr() == 1){
+                            $type = 'ЕСТР';
+                        }elseif ($o->getRu() == 1){
+                            $type = 'РФ';
+                        }else{
+                            $type = 'СКЗИ';
+                        }
+                    }
+
+
+                    $phpExcelObject->setActiveSheetIndex(0)
+                        ->setCellValue('A' . $num, $f)
+                        ->setCellValue('B' . $num, $type)
+                        ->setCellValue('C' . $num, $o->getId())
+                        ->setCellValue('D' . $num, $o->getFullname())
+                        ->setCellValue('E' . $num, $o->getPrice())
+                        ->setCellValue('F' . $num, 0)
+                        ->setCellValue('G' . $num, $itog)
+                        ->setCellValue('H' . $num, '');
+                    if ($itog < 0){
+                        $phpExcelObject->getActiveSheet()->getStyle('G' . $num)->applyFromArray($styleRed);
+                    }
+                }
+            }
+            if (isset($quotas[$f])) {
+                foreach ($quotas[$f] as $o) {
+                    $num++;
+                    $itog += $o->getQuota();
+                    $phpExcelObject->setActiveSheetIndex(0)
+                        ->setCellValue('A' . $num, $f)
+                        ->setCellValue('F' . $num, $o->getQuota())
+                        ->setCellValue('D' . $num, $o->getComment())
+                        ->setCellValue('G' . $num, $itog);
+                    if ($itog < 0){
+                        $phpExcelObject->getActiveSheet()->getStyle('G' . $num)->applyFromArray($styleRed);
+                    }
+                }
+            }
+
+            if ($f == $now || $num > 1000){
+                break;
+            }
+            $date->modify('+1 day');
+        }
+
+
+
+
+
+
+        $phpExcelObject->getActiveSheet()->setTitle('Simple');
+        // Set active sheet index to the first sheet, so Excel opens this as the first sheet
+        $phpExcelObject->setActiveSheetIndex(0);
+        header("Content-Disposition: attachment; filename=\"file.xls\"");
+        header("Content-type:application/vnd.ms-excel");
+        $writer = new \PHPExcel_Writer_Excel5($phpExcelObject);
+        $writer->save('php://output');
+        exit;
+        //create the response
+//        $response = new Response();
+////        $response = $excelService->getResponse();
+//
+//        $response->headers->set('Content-Type', 'text/vnd.ms-excel; charset=utf-8');
+//        $response->headers->set('Content-Disposition', 'attachment;filename=stdream2.xls');
+//
+//        // If you are using a https connection, you have to set those two headers and use sendHeaders() for compatibility with IE <9
+//        $response->headers->set('Pragma', 'public');
+//        $response->headers->set('Cache-Control', 'maxage=1');
+//
+//        return $response;
     }
 
 }

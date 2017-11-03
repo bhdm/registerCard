@@ -1,0 +1,36 @@
+{% extends 'PanelOperatorBundle::layout.html.twig' %}
+
+
+{% block breadcrumb %}
+    <ul class="breadcrumb well">
+        <li>Список компаний</li>
+        <li><a href="{{ path('panel_company_add') }}"><span class="btn btn-primary">Добавить</span></a></li>
+    </ul>
+{% endblock %}
+
+{% block content %}
+<div class="well">
+    <form method="GET">
+        <input type="date" name="date" value="{{ "now" | date('Y-m-d') }}" format="dd.mm.yyyy" id="adate">
+        <input type="hidden" name="companyId" value="{{ operator.id }}" id="acompanyId">
+        <button type="button" class="btn btn-primary" id="generate_act">Сгенерировать отчет</button>
+    </form>
+    <hr />
+</div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+        $(document).ready(function () {
+            $('#generate_act').click(function () {
+                var adate = $('#adate').val();
+                var aid = $('#acompanyId').val();
+                var url = Routing.generate('generate_act_of_operator', {'id' : aid, 'date' : adate });
+                window.location.href = url;
+            });
+
+
+        })
+    </script>
+{% endblock %}

@@ -1109,7 +1109,156 @@ class UserRepository extends EntityRepository
 
         return $res->getQuery()->getResult();
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    public function findForOperatorAct($operatorId, $date){
+        $date = $date->format('Y-m-d').' 00:00:00';
+        $orders = $this->getEntityManager()->createQueryBuilder()
+            ->select('u')
+            ->from('CrmMainBundle:User','u')
+            ->leftJoin('u.company','c')
+            ->leftJoin('c.operator','o')
+            ->where("o.id = '".$operatorId."'")
+            ->andWhere("u.status > 1")
+            ->andWhere("u.status != 10")
+//            ->andWhere("s.title = 'В&nbsp;производстве'")
+            ->andWhere("u.enabled = true")
+            ->andWhere("u.created >= '$date'")
+            ->orderBy('u.created', 'ASC')
+            ->groupBy('u.id')
+//        echo $orders;
+//        exit;
+            ->getQuery()->getResult();
+
+        $orders2 = $this->getEntityManager()->createQueryBuilder()
+            ->select('u')
+            ->from('CrmMainBundle:CompanyUser','u')
+            ->leftJoin('u.company','c')
+            ->leftJoin('c.operator','o')
+            ->where("o.id = '".$operatorId."'")
+            ->andWhere("u.status > 0")
+            ->andWhere("u.status != 10")
+//            ->andWhere("s.title = 'В&nbsp;производстве'")
+            ->andWhere("u.enabled = true")
+            ->andWhere("u.created >= '$date'")
+            ->orderBy('u.created', 'ASC')
+            ->groupBy('u.id')
+            ->getQuery()->getResult();
+
+        $ords = [];
+        foreach ($orders as $o){
+            $d = $o->getCreated();
+            if ($d and $d >= $date){
+                $ords[$d->format('d.m.Y')][] = $o;
+            }
+        }
+
+        foreach ($orders2 as $o){
+            $d = $o->getCreated();
+            if ($d and $d >= $date ){
+                $ords[$d->format('d.m.Y')][] = $o;
+            }
+        }
+
+        return $ords;
+    }
+
+    public function findForActOperatorBefore($operatorId, $date){
+        $t =  $this->getEntityManager()->createQueryBuilder()
+            ->select('u.price sd')
+            ->from('CrmMainBundle:User','u')
+            ->leftJoin('u.company','c')
+            ->leftJoin('c.operator','o')
+            ->where("o.id = '".$operatorId."'")
+            ->andWhere("u.status > 1 and u.status != 10")
+//            ->andWhere("s.title = 'В&nbsp;производстве'")
+            ->andWhere("u.enabled = true")
+            ->andWhere("u.created < :date")
+            ->setParameter(':date', $date)
+            ->groupBy('u.id')
+            ->getQuery();
+
+        $t2 =  $this->getEntityManager()->createQueryBuilder()
+            ->select('(u.price * u.cardAmount) sd')
+            ->from('CrmMainBundle:CompanyUser','u')
+            ->leftJoin('u.company','c')
+            ->leftJoin('c.operator','o')
+            ->where("o.id = '".$operatorId."'")
+            ->andWhere("u.status > 0 and u.status != 10")
+//            ->andWhere("s.title = 'В&nbsp;производстве'")
+            ->andWhere("u.enabled = true")
+            ->andWhere("u.created < :date")
+            ->setParameter(':date', $date)
+            ->groupBy('u.id')
+            ->getQuery();
+
+        $sums = $t->getResult();
+        $sums2 = $t2->getResult();
+        $sum = 0;
+        foreach ($sums as $s){
+            $sum += $s['sd'];
+        }
+        foreach ($sums2 as $s){
+            $sum += $s['sd'];
+        }
+
+        return $sum;
+    }
+
+    public function findOperatorAct($operatorId, $date){
+        $quotas = $this->getEntityManager()->createQueryBuilder()
+            ->select('q')
+            ->from('CrmMainBundle:CompanyQuotaLog','q')
+            ->leftJoin('u.company','c')
+            ->leftJoin('c.operator','o')
+
+            ->where('q.enabled = true')
+            ->andWhere("o.id = '".$operatorId."'")
+            ->andWhere("q.created >= :date")
+            ->setParameter(':date', $date)
+            ->orderBy('q.created', 'ASC')
+            ->getQuery()->getResult();
+
+        $ords = [];
+        foreach ($quotas as $o){
+            $ords[$o->getCreated()->format('d.m.Y')][] = $o;
+        }
+
+        return $ords;
+    }
+
+    public function findActOperatorBefore($operatorId, $date){
+        return $this->getEntityManager()->createQueryBuilder()
+            ->select('SUM(q.quota)')
+            ->from('CrmMainBundle:OperatorQuotaLog','q')
+            ->leftJoin('q.operator', 'c')
+            ->where('q.enabled = true')
+            ->andWhere("c.id = '".$operatorId."'")
+            ->andWhere("q.created < :date")
+            ->setParameter(':date', $date)
+            ->getQuery()->getOneOrNullResult();
+    }
 }
+
+
 
 
 
