@@ -491,7 +491,7 @@ class OperatorController extends Controller
     /**
      * @Route("/generate-act/{id}/{date}", name="generate_act_of_operator", options={"expose" = true})
      */
-    public function generateActAction($companyId, $date){
+    public function generateActAction($id, $date){
         $date = new \DateTime($date);
         $orders = $this->getDoctrine()->getRepository('CrmMainBundle:User')->findForOpearatorAct($companyId, $date);
         $orderBefore = $this->getDoctrine()->getRepository('CrmMainBundle:User')->findForActOpearatorBefore($companyId, $date);
