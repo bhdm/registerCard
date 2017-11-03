@@ -1226,10 +1226,8 @@ class UserRepository extends EntityRepository
     public function findOperatorAct($operatorId, $date){
         $quotas = $this->getEntityManager()->createQueryBuilder()
             ->select('q')
-            ->from('CrmMainBundle:CompanyQuotaLog','q')
-            ->leftJoin('u.company','c')
-            ->leftJoin('c.operator','o')
-
+            ->from('CrmMainBundle:OperatorQuotaLog','q')
+            ->leftJoin('q.operator', 'o')
             ->where('q.enabled = true')
             ->andWhere("o.id = '".$operatorId."'")
             ->andWhere("q.created >= :date")
