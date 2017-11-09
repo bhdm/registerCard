@@ -1,247 +1,249 @@
 {% spaceless %}
     <ns2:TacPackage xmlns:ns2="http://www.example.org/">
-    <MessageInfo>
-        <MessageId>INFMX-{{ driver.xmlId }}</MessageId>
-        <MessageDate>{{ "now" | date('Y-m-d')}}Z</MessageDate>
-        <MessageOwn>INFMX</MessageOwn>
-        <MessageRecipient>MIKRN</MessageRecipient>
-    </MessageInfo>
-    <PackageInfo>
-        <PackageNumber>INFMX-{{ driver.xmlId }}</PackageNumber>
-        <PackageDate> {{ "now" | date('Y-m-d')}}Z</PackageDate>
-        <OvkId>INFMX</OvkId>
-        <CardManufacturerId>MIKRN</CardManufacturerId>
-    </PackageInfo>
-    <Order_v2>
-    <OrderNumber>INFMX-{{ driver.xmlId }}</OrderNumber>
-    <OrderDate>{{ driver.created | date('Y-m-d')}}Z</OrderDate>
-    <OrderCardType>D</OrderCardType>
-    <OrderCardCount>1</OrderCardCount>
-        {% if driver.typeCard == 0 %}
-            <OrderReason>create</OrderReason>
-        {% elseif driver.typeCard == 1 %}
-            <OrderReason>refresh</OrderReason>
-        {% elseif driver.typeCard == 2 %}
-            <OrderReason>change</OrderReason>
-        {% elseif driver.typeCard == 3 %}
-            <OrderReason>change</OrderReason>
-        {% endif %}
-    <PersonOrder>
-        <PersonInfo>
-            <NameFirst>{{ driver.firstName }}</NameFirst>
-            <NameMiddle>{{ driver.surName is not null ? driver.surName : '' }}</NameMiddle>
-            <NameLast>{{ driver.lastName }}</NameLast>
-            <Resident>{{ driver.citizenship.id is defined ? driver.citizenship.id == 3159 ? 'true' : 'false' }}</Resident>
-            <Nationality>{{ driver.citizenship.title ? driver.citizenship.title : '' }}</Nationality>
-            <BirthDate>{{ driver.birthDate | date('Y-m-d')}}Z</BirthDate>
-            <SNILS>{{ driver.snils }}</SNILS>
-            <INN>{{ driver.inn }}</INN>
-            <Credential>
-                <Type>passport</Type>
-                <Series>{{ driver.passportSerial }}</Series>
-                <Number>{{ driver.passportNumber }}</Number>
-                <IssuedBy>{{ driver.passportIssuance }}</IssuedBy>
-                <Division>{{ driver.passportCode }}</Division>
-                <IssuedDate>{{ driver.passportIssuanceDate | date('Y-m-d')}}Z</IssuedDate>
-            </Credential>
-        </PersonInfo>
-        {% if driver.typeCard != 0 %}
-            <PrevCardNumber>{{ driver.lastNumberCard }}</PrevCardNumber>
-        {% endif %}
-        <DriverLicense>
-            <DriverLicenseNumber>{{ driver.driverDocNumber }}</DriverLicenseNumber>
-            <DriverLicenseCountryEstrCode>43</DriverLicenseCountryEstrCode>
-            <DriverLicenseCountry>RUS</DriverLicenseCountry>
-            <DriverLicenseOrg>{{ driver.driverDocIssuance }}</DriverLicenseOrg>
-            <DriverLicenseIssuedDate>{{ driver.driverDocDateStarts | date('Y-m-d')}}Z</DriverLicenseIssuedDate>
-        </DriverLicense>
-        {% if driver.myPetition == 1 or driver.company == null or driver.company.title is not defined or driver.company.title  == '' %}
-            <OrgName>ООО «ИнфоМакс»</OrgName>
-            <OrgPostAddress>
-                <FullAddress>198096, Россия, г. Санкт-Петербург, ул. Маринеско 5-3Н</FullAddress>
-                <PostCode>195196</PostCode>
-                <RegionCode>78</RegionCode>
-                <Settlement>Санкт-Петербург</Settlement>
-                <Street>ул.Маринеско</Street>
-                <House>5</House>
-                <Building></Building>
-                <Office>3Н</Office>
-            </OrgPostAddress>
-        {% elseif driver.companyPetition != null %}
-            <OrgName>{{ driver.companyPetition.title }}</OrgName>
-            <OrgPostAddress>
-                <FullAddress>{{ driver.companyPetition.zipcode }},
-                    {{ driver.companyPetition.region }},  {{ driver.companyPetition.city }},
-                    {{ driver.companyPetition.street }},д.{{ driver.companyPetition.home }} {{ driver.companyPetition.corp }}, {{ driver.companyPetition.room }}</FullAddress>
-                <PostCode>{{ driver.companyPetition.zipcode }}</PostCode>
-                <RegionCode>16</RegionCode>
-                <Settlement>{{ driver.companyPetition.city }}</Settlement>
-                <Street>{{ driver.companyPetition.street }}</Street>
-                <House>{{ driver.companyPetition.home }}</House>
-                <Building>{{ driver.companyPetition.corp }}</Building>
-                <Office>{{ driver.companyPetition.room }}</Office>
-            </OrgPostAddress>
-        {% elseif  driver.petitionAdrs is not empty and driver.petitionAdrs | length != 0 %}
-            <OrgName>{{ driver.petitionTitle }}</OrgName>
-            <OrgPostAddress>
-                <FullAddress>{{ driver.petitionAdrs.zipcode }},
-                    {{ driver.petitionAdrs.region }},  {{ driver.petitionAdrs.city }},
-                    {{ driver.petitionAdrs.street }},д.{{ driver.petitionAdrs.house }} {{ driver.petitionAdrs.corp }}, {{ driver.petitionAdrs.room }}</FullAddress>
-                <PostCode>{{ driver.petitionAdrs.zipcode }}</PostCode>
-                <RegionCode>16</RegionCode>
-                <Settlement>{{ driver.petitionAdrs.city }}</Settlement>
-                <Street>{{ driver.petitionAdrs.street }}</Street>
-                <House>{{ driver.petitionAdrs.house }}</House>
-                <Building>{{ driver.petitionAdrs.corp }}</Building>
-                <Office>{{ driver.petitionAdrs.room }}</Office>
-            </OrgPostAddress>
-        {% else %}
-            <OrgName>{{ driver.company.title }}</OrgName>
-            <OrgPostAddress>
-                <FullAddress>{{ driver.company.zipcode }},
-                    {{ driver.company.region }},  {{ driver.company.city }},
-                    {{ driver.company.street }},д.{{ driver.company.home }} {{ driver.company.corp }}, {{ driver.company.room }}</FullAddress>
-                <PostCode>{{ driver.company.zipcode }}</PostCode>
-                <RegionCode>16</RegionCode>
-                <Settlement>{{ driver.company.city }}</Settlement>
-                <Street>{{ driver.company.street }}</Street>
-                <House>{{ driver.company.home }}</House>
-                <Building>{{ driver.company.corp }}</Building>
-                <Office>{{ driver.company.room }}</Office>
-            </OrgPostAddress>
-        {% endif %}
-        <Photo>
-            <AttachmentType>Photo</AttachmentType>
-            <FileFormat>{% if files[2].file.mimeType == 'image/jpeg' %}JPG{% elseif files[2].file.mimeType == 'image/png' %}PNG{% elseif files[2].file.mimeType == 'image/gif' %}GIF{% else %}FILE{% endif %}</FileFormat>
-            <Body>{{ files[2].base }}</Body>
-        </Photo>
+        <MessageInfo>
+            <MessageId>INFMX-{{ driver.xmlId }}</MessageId>
+            <MessageDate>{{ "now" | date('Y-m-d')}}Z</MessageDate>
+            <MessageOwn>INFMX</MessageOwn>
+            <MessageRecipient>MIKRN</MessageRecipient>
+        </MessageInfo>
+        <PackageInfo>
+            <PackageNumber>INFMX-{{ driver.xmlId }}</PackageNumber>
+            <PackageDate> {{ "now" | date('Y-m-d')}}Z</PackageDate>
+            <OvkId>INFMX</OvkId>
+            <CardManufacturerId>MIKRN</CardManufacturerId>
+        </PackageInfo>
+        <Order_v2>
+            <OrderNumber>INFMX-{{ driver.xmlId }}</OrderNumber>
+            <OrderDate>{{ driver.created | date('Y-m-d')}}Z</OrderDate>
+            <OrderCardType>D</OrderCardType>
+            <OrderCardCount>1</OrderCardCount>
+            {% if driver.typeCard == 0 %}
+                <OrderReason>create</OrderReason>
+            {% elseif driver.typeCard == 1 %}
+                <OrderReason>refresh</OrderReason>
+            {% elseif driver.typeCard == 2 %}
+                <OrderReason>change</OrderReason>
+            {% elseif driver.typeCard == 3 %}
+                <OrderReason>change</OrderReason>
+            {% endif %}
+            <PersonOrder>
+                <PersonInfo>
+                    <NameFirst>{{ driver.firstName }}</NameFirst>
+                    <NameMiddle>{{ driver.surName is not null ? driver.surName : '' }}</NameMiddle>
+                    <NameLast>{{ driver.lastName }}</NameLast>
+                    <Resident>{{ driver.citizenship.id is defined ? driver.citizenship.id == 3159 ? 'true' : 'false' }}</Resident>
+                    <Nationality>{{ driver.citizenship.title ? driver.citizenship.title : '' }}</Nationality>
+                    <BirthDate>{{ driver.birthDate | date('Y-m-d')}}Z</BirthDate>
+                    <SNILS>{{ driver.snils }}</SNILS>
+                    <INN>{{ driver.inn }}</INN>
+                    <Credential>
+                        <Type>passport</Type>
+                        <Series>{{ driver.passportSerial }}</Series>
+                        <Number>{{ driver.passportNumber }}</Number>
+                        <IssuedBy>{{ driver.passportIssuance }}</IssuedBy>
+                        <Division>{{ driver.passportCode }}</Division>
+                        <IssuedDate>{{ driver.passportIssuanceDate | date('Y-m-d')}}Z</IssuedDate>
+                    </Credential>
+                </PersonInfo>
+                {% if driver.typeCard != 0 %}
+                    <PrevCardNumber>{{ driver.lastNumberCard }}</PrevCardNumber>
+                {% endif %}
+                <DriverLicense>
+                    <DriverLicenseNumber>{{ driver.driverDocNumber }}</DriverLicenseNumber>
+                    <DriverLicenseCountryEstrCode>43</DriverLicenseCountryEstrCode>
+                    <DriverLicenseCountry>RUS</DriverLicenseCountry>
+                    <DriverLicenseOrg>{{ driver.driverDocIssuance }}</DriverLicenseOrg>
+                    <DriverLicenseIssuedDate>{{ driver.driverDocDateStarts | date('Y-m-d')}}Z</DriverLicenseIssuedDate>
+                </DriverLicense>
+                {% if driver.myPetition == 1 or driver.company == null or driver.company.title is not defined or driver.company.title  == '' %}
+                    <OrgName>ООО «ИнфоМакс»</OrgName>
+                    <OrgPostAddress>
+                        <FullAddress>198096, Россия, г. Санкт-Петербург, ул. Маринеско 5-3Н</FullAddress>
+                        <PostCode>195196</PostCode>
+                        <RegionCode>78</RegionCode>
+                        <Settlement>Санкт-Петербург</Settlement>
+                        <Street>ул.Маринеско</Street>
+                        <House>5</House>
+                        <Building></Building>
+                        <Office>3Н</Office>
+                    </OrgPostAddress>
+                {% elseif driver.companyPetition != null %}
+                    <OrgName>{{ driver.companyPetition.title }}</OrgName>
+                    <OrgPostAddress>
+                        <FullAddress>{{ driver.companyPetition.zipcode }},
+                            {{ driver.companyPetition.region }},  {{ driver.companyPetition.city }},
+                            {{ driver.companyPetition.street }},д.{{ driver.companyPetition.home }} {{ driver.companyPetition.corp }}, {{ driver.companyPetition.room }}</FullAddress>
+                        <PostCode>{{ driver.companyPetition.zipcode }}</PostCode>
+                        <RegionCode>16</RegionCode>
+                        <Settlement>{{ driver.companyPetition.city }}</Settlement>
+                        <Street>{{ driver.companyPetition.street }}</Street>
+                        <House>{{ driver.companyPetition.home }}</House>
+                        <Building>{{ driver.companyPetition.corp }}</Building>
+                        <Office>{{ driver.companyPetition.room }}</Office>
+                    </OrgPostAddress>
+                {% elseif  driver.petitionAdrs is not empty and driver.petitionAdrs | length != 0 %}
+                    <OrgName>{{ driver.petitionTitle }}</OrgName>
+                    <OrgPostAddress>
+                        <FullAddress>{{ driver.petitionAdrs.zipcode }},
+                            {{ driver.petitionAdrs.region }},  {{ driver.petitionAdrs.city }},
+                            {{ driver.petitionAdrs.street }},д.{{ driver.petitionAdrs.house }} {{ driver.petitionAdrs.corp }}, {{ driver.petitionAdrs.room }}</FullAddress>
+                        <PostCode>{{ driver.petitionAdrs.zipcode }}</PostCode>
+                        <RegionCode>16</RegionCode>
+                        <Settlement>{{ driver.petitionAdrs.city }}</Settlement>
+                        <Street>{{ driver.petitionAdrs.street }}</Street>
+                        <House>{{ driver.petitionAdrs.house }}</House>
+                        <Building>{{ driver.petitionAdrs.corp }}</Building>
+                        <Office>{{ driver.petitionAdrs.room }}</Office>
+                    </OrgPostAddress>
+                {% else %}
+                    <OrgName>{{ driver.company.title }}</OrgName>
+                    <OrgPostAddress>
+                        <FullAddress>{{ driver.company.zipcode }},
+                            {{ driver.company.region }},  {{ driver.company.city }},
+                            {{ driver.company.street }},д.{{ driver.company.home }} {{ driver.company.corp }}, {{ driver.company.room }}</FullAddress>
+                        <PostCode>{{ driver.company.zipcode }}</PostCode>
+                        <RegionCode>16</RegionCode>
+                        <Settlement>{{ driver.company.city }}</Settlement>
+                        <Street>{{ driver.company.street }}</Street>
+                        <House>{{ driver.company.home }}</House>
+                        <Building>{{ driver.company.corp }}</Building>
+                        <Office>{{ driver.company.room }}</Office>
+                    </OrgPostAddress>
+                {% endif %}
+                <Photo>
+                    <AttachmentType>Photo</AttachmentType>
+                    <FileFormat>{% if files[2].file.mimeType == 'image/jpeg' %}JPG{% elseif files[2].file.mimeType == 'image/png' %}PNG{% elseif files[2].file.mimeType == 'image/gif' %}GIF{% else %}FILE{% endif %}</FileFormat>
+                    <Body>{{ files[2].base }}</Body>
+                </Photo>
 
-        <Sign>
-            <AttachmentType>Signature</AttachmentType>
-            <FileFormat>{% if files[3].file.mimeType == 'image/jpeg' %}JPG{% elseif files[3].file.mimeType == 'image/png' %}PNG{% elseif files[3].file.mimeType == 'image/gif' %}GIF{% else %}FILE{% endif %}</FileFormat>
-            <Body>{{ files[3].base }}</Body>
-        </Sign>
-    </PersonOrder>
+                <Sign>
+                    <AttachmentType>Signature</AttachmentType>
+                    <FileFormat>{% if files[3].file.mimeType == 'image/jpeg' %}JPG{% elseif files[3].file.mimeType == 'image/png' %}PNG{% elseif files[3].file.mimeType == 'image/gif' %}GIF{% else %}FILE{% endif %}</FileFormat>
+                    <Body>{{ files[3].base }}</Body>
+                </Sign>
+            </PersonOrder>
 
 
-    {# Паспорт #}
-    <Attachment>
-        <AttachmentType>Passport</AttachmentType>
-        <FileFormat>PDF</FileFormat>
-        <Body>{{ files[0].base }}</Body>
-    </Attachment>
+            {# Паспорт #}
+            {% if files[0].base is defined %}
+                <Attachment>
+                    <AttachmentType>Passport</AttachmentType>
+                    <FileFormat>PDF</FileFormat>
+                    <Body>{{ files[0].base }}</Body>
+                </Attachment>
+            {% endif %}
 
-    {# Водительское удостоверение #}
-    {% if driver.checkedDriver == true %}
-        <Attachment>
-            <AttachmentType>DriverLicense</AttachmentType>
-            <FileFormat>PDF</FileFormat>
-            <Body>{{ files[1].base }}</Body>
-        </Attachment>
-    {% endif %}
+            {# Водительское удостоверение #}
+            {% if driver.checkedDriver == true %}
+                <Attachment>
+                    <AttachmentType>DriverLicense</AttachmentType>
+                    <FileFormat>PDF</FileFormat>
+                    <Body>{{ files[1].base }}</Body>
+                </Attachment>
+            {% endif %}
 
-    {# СНИЛС #}
-    {#<!-- Снилс -->#}
-        {% if files[5] is defined %}
-            {% if driver.checkedSnils == true %}
-            <Attachment>
-                <AttachmentType>Other</AttachmentType>
-                <FileFormat>PDF</FileFormat>
-                <Body>{{ files[5].base }}</Body>
-            </Attachment>
-        {% endif %}
-        {% endif %}
-        {#<!-- Конец снилс -->#}
+            {# СНИЛС #}
+            {#<!-- Снилс -->#}
+            {% if files[5].base is defined %}
+                {% if driver.checkedSnils == true %}
+                    <Attachment>
+                        <AttachmentType>Other</AttachmentType>
+                        <FileFormat>PDF</FileFormat>
+                        <Body>{{ files[5].base }}</Body>
+                    </Attachment>
+                {% endif %}
+            {% endif %}
+            {#<!-- Конец снилс -->#}
 
-        {% if files[11] is defined %}
-            <Attachment>
-                <AttachmentType>Other</AttachmentType>
-                <FileFormat>PDF</FileFormat>
-                <Body>{{ files[11].base }}</Body>
-            </Attachment>
-        {% endif %}
-
-        {# Временная регистрация #}
-        {#{% if files[6] is defined %}#}
-        {#<Attachment>#}
-        {#<AttachmentType>Other</AttachmentType>#}
-        {#<FileFormat>PDF</FileFormat>#}
-        {#<Body>{{ files[6].base }}</Body>#}
-        {#</Attachment>#}
-        {#{% endif %}#}
-
-        {#<Attachment>#}
-        {#<AttachmentType>Other</AttachmentType>#}
-        {#<FileFormat>PDF</FileFormat>#}
-        {#<Body>{{ files[15].base }}</Body>#}
-        {#</Attachment>#}
-
-        {# Ходатайство #}
-        {#<!-- Ходатайство -->#}
-        {% if files[8] is defined %}
-            <Attachment>
-                <AttachmentType>Other</AttachmentType>
-                <FileFormat>PDF</FileFormat>
-                <Body>{{ files[8].base }}</Body>
-            </Attachment>
-        {% endif %}
-        {#<!-- Ходатайство конец -->#}
-        {# Заявление #}
-        {% if files[7] is defined %}
-            <Attachment>
-                <AttachmentType>CardOrder</AttachmentType>
-                <FileFormat>PDF</FileFormat>
-                <Body>{{ files[7].base }}</Body>
-            </Attachment>
-        {% endif %}
-
-        {% if files[9] is defined %}
-            {% if driver.checkedPassportTranslate == true %}
+            {% if files[11] is defined %}
                 <Attachment>
                     <AttachmentType>Other</AttachmentType>
                     <FileFormat>PDF</FileFormat>
-                    <Body>{{ files[9].base }}</Body>
+                    <Body>{{ files[11].base }}</Body>
                 </Attachment>
             {% endif %}
-        {% endif %}
 
-        {% if files[10] is defined %}
-            {% if driver.checkedDriverTranslate == true %}
+            {# Временная регистрация #}
+            {#{% if files[6] is defined %}#}
+            {#<Attachment>#}
+            {#<AttachmentType>Other</AttachmentType>#}
+            {#<FileFormat>PDF</FileFormat>#}
+            {#<Body>{{ files[6].base }}</Body>#}
+            {#</Attachment>#}
+            {#{% endif %}#}
+
+            {#<Attachment>#}
+            {#<AttachmentType>Other</AttachmentType>#}
+            {#<FileFormat>PDF</FileFormat>#}
+            {#<Body>{{ files[15].base }}</Body>#}
+            {#</Attachment>#}
+
+            {# Ходатайство #}
+            {#<!-- Ходатайство -->#}
+            {% if files[8] is defined %}
                 <Attachment>
                     <AttachmentType>Other</AttachmentType>
                     <FileFormat>PDF</FileFormat>
-                    <Body>{{ files[10].base }}</Body>
+                    <Body>{{ files[8].base }}</Body>
                 </Attachment>
             {% endif %}
-        {% endif %}
-
-
-        {% if files[18] is defined %}
-            {% if driver.checkedDriverTranslate == true %}
+            {#<!-- Ходатайство конец -->#}
+            {# Заявление #}
+            {% if files[7] is defined %}
                 <Attachment>
-                    <AttachmentType>Other</AttachmentType>
+                    <AttachmentType>CardOrder</AttachmentType>
                     <FileFormat>PDF</FileFormat>
-                    <Body>{{ files[18].base }}</Body>
+                    <Body>{{ files[7].base }}</Body>
                 </Attachment>
             {% endif %}
-        {% endif %}
 
-        {#{% if files[11] is defined %}#}
-        {#<Attachment>#}
-        {#<AttachmentType>Other</AttachmentType>#}
-        {#<FileFormat>PDF</FileFormat>#}
-        {#<Body>{{ files[11].base }}</Body>#}
-        {#</Attachment>#}
-        {#{% endif %}#}
+            {% if files[9] is defined %}
+                {% if driver.checkedPassportTranslate == true %}
+                    <Attachment>
+                        <AttachmentType>Other</AttachmentType>
+                        <FileFormat>PDF</FileFormat>
+                        <Body>{{ files[9].base }}</Body>
+                    </Attachment>
+                {% endif %}
+            {% endif %}
 
-        {#{% if files[12] is defined %}#}
-        {#<Attachment>#}
-        {#<AttachmentType>Other</AttachmentType>#}
-        {#<FileFormat>PDF</FileFormat>#}
-        {#<Body>{{ files[12].base }}</Body>#}
-        {#</Attachment>#}
-        {#{% endif %}#}
+            {% if files[10] is defined %}
+                {% if driver.checkedDriverTranslate == true %}
+                    <Attachment>
+                        <AttachmentType>Other</AttachmentType>
+                        <FileFormat>PDF</FileFormat>
+                        <Body>{{ files[10].base }}</Body>
+                    </Attachment>
+                {% endif %}
+            {% endif %}
+
+
+            {% if files[18] is defined %}
+                {% if driver.checkedDriverTranslate == true %}
+                    <Attachment>
+                        <AttachmentType>Other</AttachmentType>
+                        <FileFormat>PDF</FileFormat>
+                        <Body>{{ files[18].base }}</Body>
+                    </Attachment>
+                {% endif %}
+            {% endif %}
+
+            {#{% if files[11] is defined %}#}
+            {#<Attachment>#}
+            {#<AttachmentType>Other</AttachmentType>#}
+            {#<FileFormat>PDF</FileFormat>#}
+            {#<Body>{{ files[11].base }}</Body>#}
+            {#</Attachment>#}
+            {#{% endif %}#}
+
+            {#{% if files[12] is defined %}#}
+            {#<Attachment>#}
+            {#<AttachmentType>Other</AttachmentType>#}
+            {#<FileFormat>PDF</FileFormat>#}
+            {#<Body>{{ files[12].base }}</Body>#}
+            {#</Attachment>#}
+            {#{% endif %}#}
 
         </Order_v2>
-        </ns2:TacPackage>
-        {% endspaceless %}
+    </ns2:TacPackage>
+{% endspaceless %}

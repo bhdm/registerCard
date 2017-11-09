@@ -25,9 +25,11 @@ class XmlController extends Controller
 
         $files = array();
 
+        if (isset($user->getCopyPassport()['path'])){
         $files[0]['base'] = $this->imageToPdf($user->getCopyPassport()['path'], 'passport');
         $files[0]['title'] = 'Passport';
         $files[0]['file'] = $user->getCopyPassport();
+        }
 
         $files[1]['base'] = $this->imageToPdf($user->getCopyDriverPassport()['path'], 'driver');
         $files[1]['title'] = 'DriverLicense';
@@ -45,9 +47,11 @@ class XmlController extends Controller
         $files[3]['title'] = 'Signature';
         $files[3]['file'] = $user->getCopySignature();
 
-        $files[5]['base'] = $this->ImageToPdf($user->getCopySnils()['path'], 'snils');
-        $files[5]['title'] = 'SNILS';
-        $files[5]['file'] = $user->getCopySnils();
+        if (isset($user->getCopySnils()['path'])) {
+            $files[5]['base'] = $this->ImageToPdf($user->getCopySnils()['path'], 'snils');
+            $files[5]['title'] = 'SNILS';
+            $files[5]['file'] = $user->getCopySnils();
+        }
 
 
 
@@ -159,9 +163,11 @@ class XmlController extends Controller
             }
             $files = array();
 
-            $files[0]['base'] = $this->imageToPdf($user->getCopyPassport()['originalName'], 'passport');
-            $files[0]['title'] = 'Passport';
-            $files[0]['file'] = $user->getCopyPassport();
+            if (isset($user->getCopyPassport()['originalName'])){
+                $files[0]['base'] = $this->imageToPdf($user->getCopyPassport()['originalName'], 'passport');
+                $files[0]['title'] = 'Passport';
+                $files[0]['file'] = $user->getCopyPassport();
+            }
 
             $files[1]['base'] = $this->imageToPdf($user->getCopyDriverPassport()['originalName'], 'driver');
             $files[1]['title'] = 'DriverLicense';
@@ -197,10 +203,12 @@ class XmlController extends Controller
             $files[3]['base'] = $file;
             $files[3]['title'] = 'Signature';
             $files[3]['file'] = $user->getCopySignature();
-            ;
-            $files[5]['base'] = $this->ImageToPdf($user->getCopySnils()['originalName'], 'snils');
-            $files[5]['title'] = 'SNILS';
-            $files[5]['file'] = $user->getCopySnils();
+
+            if (isset($user->getCopySnils()['originalName'])) {
+                $files[5]['base'] = $this->ImageToPdf($user->getCopySnils()['originalName'], 'snils');
+                $files[5]['title'] = 'SNILS';
+                $files[5]['file'] = $user->getCopySnils();
+            }
 
             if (isset($files[6])){
                 $files[6]['base'] = $this->ImageToPdf($user->getCopyWork()['originalName']);

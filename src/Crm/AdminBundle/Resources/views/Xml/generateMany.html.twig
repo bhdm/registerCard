@@ -133,11 +133,13 @@
             {#</Attachment>#}
 
             {# Паспорт #}
-            <Attachment>
-                <AttachmentType>Passport</AttachmentType>
-                <FileFormat>PDF</FileFormat>
-                <Body>{{ files[0].base }}</Body>
-            </Attachment>
+            {% if files[0].base is defined %}
+                <Attachment>
+                    <AttachmentType>Passport</AttachmentType>
+                    <FileFormat>PDF</FileFormat>
+                    <Body>{{ files[0].base }}</Body>
+                </Attachment>
+            {% endif %}
 
              {#Водительское удостоверение#}
             {% if driver.checkedDriver == true %}
@@ -150,7 +152,7 @@
 
              {#СНИЛС#}
             {% if driver.checkedDriver == true %}
-                {% if files[5] is defined %}
+                {% if files[5].base is defined %}
                     <Attachment>
                         <AttachmentType>Other</AttachmentType>
                         <FileFormat>PDF</FileFormat>
