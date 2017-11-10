@@ -146,9 +146,9 @@ class IndexController extends Controller
                     }
                 }
             }
-//            if ($request->request->get('brightness') != 100 ){
-//                $image->modulateImage(intval($request->request->get('brightness')), 1, 100);
-//            }
+            if ($request->request->get('brightness') != 100 ){
+                $image->modulateImage(intval($request->request->get('brightness')), 1, 100);
+            }
 
             $image->setFormat('png');
 
@@ -159,9 +159,9 @@ class IndexController extends Controller
                     $height = $stamp['clientY'];
                     $right = new \Imagick($filePath.$stamp['src']);
 //                    for ($i = 0 ; $i < 5 ; $i ++){
-                        $image->modulateImage(90,1, 100);
-                        $image->contrastImage(1);
-                        $image->contrastImage(1);
+//                        $image->modulateImage(90,1, 100);
+//                        $image->contrastImage(1);
+//                        $image->contrastImage(1);
 //                    }
                     $image->compositeImage($right, \Imagick::COMPOSITE_DEFAULT,$width,$height);
                     $right->destroy();
