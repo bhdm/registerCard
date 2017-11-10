@@ -132,23 +132,23 @@ class IndexController extends Controller
                 $image->resizeImage(1000,$y, \Imagick::FILTER_LANCZOS,1);
             }
 
-//            if ($request->request->get('contrast') != 100){
-//                $contrast = $request->request->get('contrast');
-//                if ($contrast > 100){
-//                    for ($i = 100; $i < $contrast; $i++){
-//                        $image->contrastImage(1);
-//                    }
-//                }else if ($contrast < 100) {
-//
-//                    for ($i = 100; $i > $contrast; $i--) {
-//
-//                        $image->contrastImage(0);
-//                    }
-//                }
-//            }
-//            if ($request->request->get('brightness') != 100 ){
-//                $image->modulateImage(intval($request->request->get('brightness')), 1, 100);
-//            }
+            if ($request->request->get('contrast') != 100){
+                $contrast = $request->request->get('contrast');
+                if ($contrast > 100){
+                    for ($i = 100; $i < $contrast; $i++){
+                        $image->contrastImage(1);
+                    }
+                }else if ($contrast < 100) {
+
+                    for ($i = 100; $i > $contrast; $i--) {
+
+                        $image->contrastImage(0);
+                    }
+                }
+            }
+            if ($request->request->get('brightness') != 100 ){
+                $image->modulateImage(intval($request->request->get('brightness')), 1, 100);
+            }
 
             $image->setFormat('png');
 
@@ -158,7 +158,7 @@ class IndexController extends Controller
                     $width = $stamp['clientX'];
                     $height = $stamp['clientY'];
                     $right = new \Imagick($filePath.$stamp['src']);
-                    $image->compositeImage($right, \Imagick::COMPOSITE_DEFAULT,$width,$height);
+                    $image->compositeImage($right, \Imagick::COMPOSITE_DST,$width,$height);
                     $right->destroy();
                 }
             }
