@@ -158,7 +158,10 @@ class IndexController extends Controller
                     $width = $stamp['clientX'];
                     $height = $stamp['clientY'];
                     $right = new \Imagick($filePath.$stamp['src']);
-                    $image->compositeImage($right, \Imagick::COMPOSITE_MODULATE,$width,$height);
+                    for ($i = 0 ; $i < 5 ; $i ++){
+                        $image->contrastImage(1);
+                    }
+                    $image->compositeImage($right, \Imagick::COMPOSITE_DEFAULT,$width,$height);
                     $right->destroy();
                 }
             }
