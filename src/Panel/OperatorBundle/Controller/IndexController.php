@@ -159,7 +159,7 @@ class IndexController extends Controller
                     $height = $stamp['clientY'];
                     $right = new \Imagick($filePath.$stamp['src']);
 //                    for ($i = 0 ; $i < 5 ; $i ++){
-                        $image->modulateImage(95,0, 100);
+                        $image->modulateImage(90,1, 100);
                         $image->contrastImage(1);
                         $image->contrastImage(1);
 //                    }
