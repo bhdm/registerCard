@@ -625,7 +625,9 @@ class OrderController extends Controller
     public function editAction(Request $request, $userId)
     {
         $user = $this->getDoctrine()->getRepository('CrmMainBundle:User')->findOneById($userId);
+
         if ($user->getClient() != $this->getUser()){ return []; }
+
         if ($user->getBirthDate() != null){
             $user->setBirthDate($user->getBirthDate()->format('d.m.Y'));
         }
@@ -635,6 +637,14 @@ class OrderController extends Controller
         if ($user->getPassportIssuanceDate() != null){
             $user->setPassportIssuanceDate($user->getPassportIssuanceDate()->format('d.m.Y'));
         }
+        if ($user->getdateEndCard() != null){
+            $user->setdateEndCard($user->getdateEndCard()->format('d.m.Y'));
+        }
+
+
+
+
+
 //        if ($user->getDateEndCard() != null){
 //            $user->setDateEndCard($user->getDateEndCard()->format('d.m.Y'));
 //        }
