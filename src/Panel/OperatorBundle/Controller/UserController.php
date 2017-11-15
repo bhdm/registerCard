@@ -2245,10 +2245,11 @@ class UserController extends Controller
     }
 
     /**
-     * @Route("/generate-act/{companyId}/{date}", name="generate_act_of_company", options={"expose" = true})
+     * @Route("/generate-act/{companyId}/{date}/{dateEnd}", name="generate_act_of_company", options={"expose" = true})
      */
-    public function generateActAction($companyId, $date){
-        $date = new \DateTime($date);
+    public function generateActAction($companyId, $dateStart, $dateEnd){
+        $date = new \DateTime($dateStart);
+        $dateEnd = new \DateTime($dateEnd);
         $orders = $this->getDoctrine()->getRepository('CrmMainBundle:User')->findForAct($companyId, $date);
         $orderBefore = $this->getDoctrine()->getRepository('CrmMainBundle:User')->findForActBefore($companyId, $date);
 
@@ -2366,7 +2367,12 @@ class UserController extends Controller
             if ($f == $now || $num > 1000){
                 break;
             }
+
             $date->modify('+1 day');
+
+            if ($date > $dateEnd){
+                break;
+            }
         }
 
 

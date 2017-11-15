@@ -11,7 +11,8 @@
 {% block content %}
 <div class="well">
     <form method="GET">
-        <input type="date" name="date" value="{{ "now" | date('Y-m-d') }}" format="dd.mm.yyyy" id="adate">
+        <input type="date" name="dateStart" value="{{ "now" | date('Y-m-d') }}" format="dd.mm.yyyy" id="adate">
+        <input type="date" name="dateEnd" value="{{ "now" | date('Y-m-d') }}" format="dd.mm.yyyy" id="bdate">
         <input type="hidden" name="companyId" value="{{ company.id }}" id="acompanyId">
         <button type="button" class="btn btn-primary" id="generate_act">Сгенерировать отчет</button>
     </form>
@@ -46,8 +47,9 @@
         $(document).ready(function () {
             $('#generate_act').click(function () {
                 var adate = $('#adate').val();
+                var bdate = $('#bdate').val();
                 var aid = $('#acompanyId').val();
-                var url = Routing.generate('generate_act_of_company', {'companyId' : aid, 'date' : adate });
+                var url = Routing.generate('generate_act_of_company', {'companyId' : aid, 'dateStart' : adate, 'dateEnd' : bdate });
                 window.location.href = url;
             });
 
