@@ -637,9 +637,6 @@ class OrderController extends Controller
         if ($user->getPassportIssuanceDate() != null){
             $user->setPassportIssuanceDate($user->getPassportIssuanceDate()->format('d.m.Y'));
         }
-        if ($user->getdateEndCard() != null){
-            $user->setdateEndCard($user->getdateEndCard()->format('d.m.Y'));
-        }
 
 
 
@@ -666,6 +663,10 @@ class OrderController extends Controller
         }elseif ($user->getRu() == 1 ){
             $form = $this->createForm(new UserRuType($em), $user);
         }else{
+            if ($user->getdateEndCard() != null){
+                $user->setdateEndCard($user->getdateEndCard()->format('d.m.Y'));
+            }
+
             $form = $this->createForm(new UserEstrType($em), $user);
         }
 
