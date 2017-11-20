@@ -601,8 +601,6 @@ class IndexController extends Controller
         $code = $request->request->get('code');
         $issuances = $this->getDoctrine()->getRepository('CrmMainBundle:PassportCode')->findBy(['code' => $code]);
         $json = [];
-        var_dump($issuances);
-        exit;
         foreach ($issuances as $val){
             $json[] = [
                 'id' => $val->getId(),
