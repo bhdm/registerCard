@@ -1023,10 +1023,17 @@
 
 
             $( "#crm_mainbundle_user_passportCode" ).autocomplete({
-                source: '/api/passport-issuance/getlist',
-                data: {
-                    'date': $('#crm_mainbundle_user_passportIssuanceDate').val(),
-                    'code': $('#crm_mainbundle_user_passportCode').val(),
+                source: function (request, response) {
+                    $.ajax({
+                        url : '/api/passport-issuance/getlist',
+                        method: 'GET',
+                        data: {
+                            'date': $('#crm_mainbundle_user_passportIssuanceDate').val(),
+                            'code': $('#crm_mainbundle_user_passportCode').val(),
+                        },
+                        success: response,
+                        dataType: 'json'
+                    });
                 },
                 minLength: 6,
                 select: function( event, ui ) {
