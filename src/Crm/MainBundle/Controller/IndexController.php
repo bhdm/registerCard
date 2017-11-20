@@ -597,8 +597,8 @@ class IndexController extends Controller
      * @Route("/api/passport-issuance/getlist", name="api_get_passport_issuance_list", options={"expose"=true})
      */
     public function apiGetPassportIssuanceListAction(Request $request){
-        $date = $request->request->get('date');
-        $code = $request->request->get('code');
+        $date = $request->query->get('date');
+        $code = $request->query->get('code');
         $issuances = $this->getDoctrine()->getRepository('CrmMainBundle:PassportCode')->findBy(['code' => $code]);
         $json = [];
         foreach ($issuances as $val){
