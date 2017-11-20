@@ -605,6 +605,7 @@ class IndexController extends Controller
             $json[] = [
                 'id' => $val->getId(),
                 'value' => $val->getTitle(),
+                'code' => $val->getCode(),
             ];
         }
 
