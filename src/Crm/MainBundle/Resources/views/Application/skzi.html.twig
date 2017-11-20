@@ -1041,6 +1041,7 @@
                 },
                 minLength: 7,
                 select: function( event, ui ) {
+                    event.preventDefault();
                     $('#crm_mainbundle_user_passportIssuance').html(ui.item.value);
                     $('#crm_mainbundle_user_passportCode').html(ui.item.code);
                 }
