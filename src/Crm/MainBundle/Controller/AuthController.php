@@ -388,7 +388,7 @@ class AuthController extends Controller
         $page1->readImage($pdfLink.'[0]');
         $page1->setFormat('jpg');
         $page1->setImageFormat('jpg');
-        $page1->writeImage('converted.jpg');
+        echo '<img src="data:image/png;base64,' . base64_encode($page1->getImageBlob()).'" />';
         exit;
 
 
