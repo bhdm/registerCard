@@ -379,7 +379,10 @@ class AuthController extends Controller
      * @Route("/generate-statement-pdf-to-pdf/{id}", name="generate_statement_pdf_to_pdf")
      */
     public function generatePdfToPdfAction($id){
-        $pdfLink = $this->generateUrl('generate_pdf_statement', ['id' => $id, 'old' => 1]);
+//        $url = 'https://'.$_SERVER['SERVER_NAME'].$url;
+//        $pdfdata = file_get_contents($url);
+
+        $pdfLink = 'https://im-kard.ru'.$this->generateUrl('generate_pdf_statement', ['id' => $id, 'old' => 1]);
         $page1 = new \Imagick();
         $page1->readImage($pdfLink.'[0]');
         $page1->setFormat('jpg');
