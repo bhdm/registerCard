@@ -408,7 +408,7 @@ class AuthController extends Controller
 
 
         $arguments = array(
-            'constructorArgs' => array(null, null, 0 ,10 ,3 ,0, 3), //Constructor arguments. Numeric array. Don't forget about points 2 and 3 in Warning section!
+            'constructorArgs' => array(null, null, 0 ,0 ,0 ,0, 0), //Constructor arguments. Numeric array. Don't forget about points 2 and 3 in Warning section!
             'writeHtmlMode' => null, //$mode argument for WriteHTML method
             'writeHtmlInitialise' => null, //$mode argument for WriteHTML method
             'writeHtmlClose' => null, //$close argument for WriteHTML method
