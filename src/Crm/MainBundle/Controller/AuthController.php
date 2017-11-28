@@ -376,6 +376,50 @@ class AuthController extends Controller
 
 
     /**
+     * @Route("/generate-statement-pdf-to-pdf/{id}", name="generate_statement_pdf_to_pdf")
+     */
+    public function generatePdfToPdfAction($id){
+        $pdfLink = $this->generateUrl('generate_pdf_statement', ['id' => $id, 'old' => 1]);
+        $page1 = new \Imagick();
+        $page1->readImage($pdfLink.'[0]');
+        $page1->setFormat('jpg');
+        $page1->setImageFormat('jpg');
+
+        $page2 = new \Imagick();
+        $page2->readImage($pdfLink.'[1]');
+        $page2->setFormat('jpg');
+        $page2->setImageFormat('jpg');
+
+        $mpdf = new \mPDF();
+        $mpdf->showImageErrors = true;
+        $base64_1 = 'data:image/png;base64,' . base64_encode($page1->getImageBlob());
+        $html = '<img src="'.$base64_1.'" style="max-width: 100%"/>
+            <br style="box-decoration-break: slice;"/>';
+        $base64_2 = 'data:image/png;base64,' . base64_encode($page2->getImageBlob());
+        $html .= '<img src="'.$base64_2.'" style="max-width: 100%"/>';
+
+
+        $arguments = array(
+            'constructorArgs' => array(null, null, 0 ,10 ,3 ,0, 3), //Constructor arguments. Numeric array. Don't forget about points 2 and 3 in Warning section!
+            'writeHtmlMode' => null, //$mode argument for WriteHTML method
+            'writeHtmlInitialise' => null, //$mode argument for WriteHTML method
+            'writeHtmlClose' => null, //$close argument for WriteHTML method
+            'outputFilename' => null, //$filename argument for Output method
+            'outputDest' => null, //$dest argument for Output method
+        );
+//                $mpdfService->generatePdf($html, $arguments);
+
+        $mpdf->WriteHTML($html);
+        $mpdf->Output('' );
+
+//            echo $html;
+        exit;
+
+
+
+    }
+
+    /**
      * @Route("/generate-jpg-statement/{id}/{page}/{old}", name="generate_jpg_statement", defaults={"old" = 0})
      */
     public function generateJpgDocAction($id, $page, $old){
