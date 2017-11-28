@@ -385,7 +385,8 @@ class AuthController extends Controller
         $pdfLink = 'https://im-kard.ru'.$this->generateUrl('generate_pdf_statement', ['id' => $id, 'old' => 1]);
         $page1 = new \Imagick();
         $page1->setResolution(200,200);
-        $page1->readImage($pdfLink.'[0]');
+        $page1->readImage($pdfLink);
+        $page1->setIteratorIndex(0);
         $page1->setFormat('jpg');
         $page1->setImageFormat('jpg');
 //        echo '<img src="data:image/png;base64,' . base64_encode($page1->getImageBlob()).'" />';
@@ -393,8 +394,10 @@ class AuthController extends Controller
 
 
 
-        $page2 = new \Imagick($pdfLink.'[1]');
-//        $page2->readImage();
+        $page2 = new \Imagick();
+        $page2->setResolution(200,200);
+        $page2->readImage($pdfLink);
+        $page2->setIteratorIndex(1);
         $page2->setFormat('jpg');
         $page2->setImageFormat('jpg');
 
