@@ -383,27 +383,25 @@ class AuthController extends Controller
 //        $pdfdata = file_get_contents($url);
 
         $pdfLink = 'https://im-kard.ru'.$this->generateUrl('generate_pdf_statement', ['id' => $id, 'old' => 1]);
-        $page1 = new \Imagick();
-        $page1->setResolution(300,300);
-        $page1->readImage($pdfLink.'[0]');
+        $page1 = new \Imagick($pdfLink.'[0]');
         $page1->setFormat('jpg');
         $page1->setImageFormat('jpg');
-        echo '<img src="data:image/png;base64,' . base64_encode($page1->getImageBlob()).'" />';
-        exit;
+//        echo '<img src="data:image/png;base64,' . base64_encode($page1->getImageBlob()).'" />';
+//        exit;
 
 
 
-        $page2 = new \Imagick();
-        $page2->readImage($pdfLink.'[1]');
+        $page2 = new \Imagick($pdfLink.'[1]');
+//        $page2->readImage();
         $page2->setFormat('jpg');
         $page2->setImageFormat('jpg');
 
         $mpdf = new \mPDF();
         $mpdf->showImageErrors = true;
-        $base64_1 = 'data:image/png;base64,' . base64_encode($page1->getImageBlob());
+        $base64_1 = 'data:image/jpeg;base64,' . base64_encode($page1->getImageBlob());
         $html = '<img src="'.$base64_1.'" style="max-width: 100%"/>
             <br style="box-decoration-break: slice;"/>';
-        $base64_2 = 'data:image/png;base64,' . base64_encode($page2->getImageBlob());
+        $base64_2 = 'data:image/jpeg;base64,' . base64_encode($page2->getImageBlob());
         $html .= '<img src="'.$base64_2.'" style="max-width: 100%"/>';
 
 
