@@ -383,7 +383,9 @@ class AuthController extends Controller
 //        $pdfdata = file_get_contents($url);
 
         $pdfLink = 'https://im-kard.ru'.$this->generateUrl('generate_pdf_statement', ['id' => $id, 'old' => 1]);
-        $page1 = new \Imagick($pdfLink.'[0]');
+        $page1 = new \Imagick();
+        $page1->setResolution(300,300);
+        $page1->readImage($pdfLink.'[0]');
         $page1->setFormat('jpg');
         $page1->setImageFormat('jpg');
         $page1->writeImage('converted.jpg');
