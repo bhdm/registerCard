@@ -1997,7 +1997,7 @@ class UserController extends Controller
             $phpExcelObject->setActiveSheetIndex(0)->setCellValue('H' . $i, $user->getDileveryRegion());
             $phpExcelObject->setActiveSheetIndex(0)->setCellValue('I' . $i, $user->getDileveryCity());
             $phpExcelObject->setActiveSheetIndex(0)->setCellValue('J' . $i, $user->getDileveryStreet());
-            $phpExcelObject->setActiveSheetIndex(0)->setCellValue('K' . $i, 'д.'.$user->getDileveryHome().' к.'.$user->getDileveryCorp()).' стр.'.$user->getDileveryStructure();
+            $phpExcelObject->setActiveSheetIndex(0)->setCellValue('K' . $i, 'д.'.$user->getDileveryHome().' к.'.$user->getDileveryCorp().' стр.'.$user->getDileveryStructure());
             $phpExcelObject->setActiveSheetIndex(0)->setCellValue('L' . $i, ' кв.'.$user->getDileveryRoom());
 
 
