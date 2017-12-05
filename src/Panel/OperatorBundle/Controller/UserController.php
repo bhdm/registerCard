@@ -1988,14 +1988,19 @@ class UserController extends Controller
             }
 
 
-
-            # Адрес
-            $phpExcelObject->setActiveSheetIndex(0)->setCellValue('F' . $i, $adrs);
-
-
-            $phpExcelObject->setActiveSheetIndex(0)->setCellValue('G' . $i,
+            $phpExcelObject->setActiveSheetIndex(0)->setCellValue('F' . $i,
                 (isset($user->getDeliveryAdrs()['recipient']) ? $user->getDeliveryAdrs()['recipient'] : '')
             );
+
+            # Адрес
+            $phpExcelObject->setActiveSheetIndex(0)->setCellValue('G' . $i, $user->getDileveryZipcode());
+            $phpExcelObject->setActiveSheetIndex(0)->setCellValue('H' . $i, $user->getDileveryRegion());
+            $phpExcelObject->setActiveSheetIndex(0)->setCellValue('I' . $i, $user->getDileveryCity());
+            $phpExcelObject->setActiveSheetIndex(0)->setCellValue('J' . $i, $user->getDileveryStreet());
+            $phpExcelObject->setActiveSheetIndex(0)->setCellValue('K' . $i, 'д.'.$user->getDileveryHome().' к.'.$user->getDileveryCorp()).' стр.'.$user->getDileveryStructure();
+            $phpExcelObject->setActiveSheetIndex(0)->setCellValue('L' . $i, ' кв.'.$user->getDileveryRoom());
+
+
         }
         $phpExcelObject->getActiveSheet()->setTitle('Simple');
         // Set active sheet index to the first sheet, so Excel opens this as the first sheet
