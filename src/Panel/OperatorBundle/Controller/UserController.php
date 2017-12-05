@@ -1993,11 +1993,22 @@ class UserController extends Controller
             );
 
             # Адрес
+            $home = '';
+            if ($user->getDileveryHome() != null){
+                $adrs .= 'д.'.$user->getDileveryHome();
+            }
+            if ($user->getDileveryCorp() != null){
+                $adrs .= ' к.'.$user->getDileveryCorp();
+            }
+            if ($user->getDileveryStructure() != null){
+                $adrs .= ' стр.'.$user->getDileveryStructure();
+            }
+
             $phpExcelObject->setActiveSheetIndex(0)->setCellValue('G' . $i, $user->getDileveryZipcode());
             $phpExcelObject->setActiveSheetIndex(0)->setCellValue('H' . $i, $user->getDileveryRegion());
             $phpExcelObject->setActiveSheetIndex(0)->setCellValue('I' . $i, $user->getDileveryCity());
             $phpExcelObject->setActiveSheetIndex(0)->setCellValue('J' . $i, $user->getDileveryStreet());
-            $phpExcelObject->setActiveSheetIndex(0)->setCellValue('K' . $i, 'д.'.$user->getDileveryHome().' к.'.$user->getDileveryCorp().' стр.'.$user->getDileveryStructure());
+            $phpExcelObject->setActiveSheetIndex(0)->setCellValue('K' . $i, $home);
             $phpExcelObject->setActiveSheetIndex(0)->setCellValue('L' . $i, ' кв.'.$user->getDileveryRoom());
 
 
