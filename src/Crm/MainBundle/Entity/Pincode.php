@@ -202,6 +202,30 @@ class Pincode extends BaseEntity
         $this->dateSend = $dateSend;
     }
 
+    public function getStatusString(){
+        switch ($this->status) {
+            case null:
+                $status = 'Новая';
+                break;
+            case 0:
+                $status = 'Новая';
+                break;
+            case 1:
+                $status = 'Оплаченная';
+                break;
+            case 2:
+                $status = 'Ожидает получения кода';
+                break;
+            case 3:
+                $status = 'Выполнена';
+                break;
+            case -1:
+                $status = 'Ошибка транзакции';
+                break;
+        }
+        return $status;
+    }
+
     public function getStatusStringTwig()
     {
         switch ($this->status) {

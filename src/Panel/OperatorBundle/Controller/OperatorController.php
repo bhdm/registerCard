@@ -508,11 +508,6 @@ class OperatorController extends Controller
 
 
         $excelService = $this->get('phpexcel');
-        // or $this->get('xls.service_pdf');
-        // or create your own is easy just modify services.yml
-
-
-        // create the object see http://phpexcel.codeplex.com documentation
         $phpExcelObject = $this->get('phpexcel')->createPHPExcelObject();
 
         $phpExcelObject->getProperties()->setCreator("liuggio")

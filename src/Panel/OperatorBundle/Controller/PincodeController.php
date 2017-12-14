@@ -147,6 +147,49 @@ class PincodeController extends Controller
     }
 
     /**
+     * @Route("/print", name="panel_pincode_print")
+     */
+    public function printAction(Request $request){
+        $excelService = $this->get('phpexcel');
+        $phpExcelObject = $this->get('phpexcel')->createPHPExcelObject();
+
+        $phpExcelObject->getProperties()->setCreator("liuggio")
+            ->setLastModifiedBy("Giulio De Donato")
+            ->setTitle("Office 2005 XLSX Test Document")
+            ->setSubject("Office 2005 XLSX Test Document")
+            ->setDescription("Test document for Office 2005 XLSX, generated using PHP classes.")
+            ->setKeywords("office 2005 openxml php")
+            ->setCategory("Test result file");
+
+        $data = $request->request->get('pin');
+        $i = 0;
+        foreach ($data as $key => $pin){
+            $i ++;
+            $pin = $this->getDoctrine()->getRepository('CrmMainBundle:Pincode')->find($key);
+            $phpExcelObject->setActiveSheetIndex(0)->setCellValue('A'.$i , $pin->getFio());
+            $phpExcelObject->setActiveSheetIndex(0)->setCellValue('B'.$i , $pin->getCode());
+            $phpExcelObject->setActiveSheetIndex(0)->setCellValue('C'.$i , $pin->getEmail());
+            $phpExcelObject->setActiveSheetIndex(0)->setCellValue('D'.$i , $pin->getPhone());
+            $phpExcelObject->setActiveSheetIndex(0)->setCellValue('E'.$i , $pin->getPuk());
+            $phpExcelObject->setActiveSheetIndex(0)->setCellValue('F'.$i , $pin->getStatusString());
+            $phpExcelObject->setActiveSheetIndex(0)->setCellValue('G'.$i , $pin->getPrice());
+            $phpExcelObject->setActiveSheetIndex(0)->setCellValue('H'.$i , $pin->getPaymentType());
+            $phpExcelObject->setActiveSheetIndex(0)->setCellValue('I'.$i , $pin->getCardType());
+            $phpExcelObject->setActiveSheetIndex(0)->setCellValue('K'.$i , $pin->getManufacturer());
+        }
+
+        $phpExcelObject->getActiveSheet()->setTitle('Simple');
+        // Set active sheet index to the first sheet, so Excel opens this as the first sheet
+        $phpExcelObject->setActiveSheetIndex(0);
+        header("Content-Disposition: attachment; filename=\"file.xls\"");
+        header("Content-type:application/vnd.ms-excel");
+        $writer = new \PHPExcel_Writer_Excel5($phpExcelObject);
+        $writer->save('php://output');
+        exit;
+
+    }
+
+    /**
      * @Route("/get-red", name="get-red")
      * @Template()
      */

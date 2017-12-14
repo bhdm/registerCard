@@ -37,6 +37,7 @@
                 </th>
             </tr>
             <tr>
+                <th></th>
                 <th>Номер</th>
                 <th>Дата создания</th>
                 <th>ФИО пользователя</th>
@@ -49,8 +50,12 @@
             </tr>
             </thead>
             {% set sum = 0 %}
+            <form id="print" method="POST" action="{{ path('panel_pincode_print') }}">
             {% for p in pagination %}
                 <tr>
+                    <td>
+                        <input type="checkbox" name="pin[{{ p.id }}]" value="1" />
+                    </td>
                     <td>{{ p.id }}</td>
                     <td>
                         {{ p.created | date('d.m.Y') }}
@@ -106,6 +111,7 @@
                     </td>
                 </tr>
             {% endfor%}
+            </form>
             <tr>
                 <td colspan="4"></td>
                 <td><b>ИТОГО:</b></td>
