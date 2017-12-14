@@ -9,6 +9,7 @@
 
 {% block content %}
     <div class="well">
+        <button class="btn btn-primary" id="print-button">Печать</button>
         <table class="table" style="font-size: 12px">
             <thead>
             <tr>
@@ -128,6 +129,13 @@
     {{ parent() }}
     <script>
         $(document).ready(function(){
+
+            $('#print-button').click(function () {
+                $(document).ready(function () {
+                    $('#print').submit();
+                });
+            });
+
             $(".chosen").chosen({no_results_text: "По вашему запросу не найдено", width: 150});
 
             $('#companies').change(function(){
