@@ -2186,6 +2186,36 @@ class User extends BaseEntity implements UserInterface, EquatableInterface, \Ser
     }
 
     /**
+     * @ORM\PreUpdate()
+     */
+    public function preFlush()
+    {
+        if (!empty($this->deliveryAdrs)) {
+            $this->dileveryRegion = $this->deliveryAdrs['region'];
+            $this->dileveryArea = $this->deliveryAdrs['area'];
+            $this->dileveryCity = $this->deliveryAdrs['city'];
+            $this->dileveryStreet = $this->deliveryAdrs['street'];
+            $this->dileveryHome = $this->deliveryAdrs['house'];
+            $this->dileveryCorp = $this->deliveryAdrs['corp'];
+            $this->dileveryStructure = $this->deliveryAdrs['structure'];
+            $this->dileveryRoom = $this->deliveryAdrs['room'];
+            $this->dileveryZipcode = $this->deliveryAdrs['zipcode'];
+        }
+        if (!empty($this->registeredAdrs)) {
+            $this->registeredRegion =   $this->registeredAdrs['region'];
+            $this->registeredArea =     $this->registeredAdrs['area'];
+            $this->registeredCity =     $this->registeredAdrs['city'];
+            $this->registeredStreet =   $this->registeredAdrs['street'];
+            $this->registeredHome =     $this->registeredAdrs['house'];
+            $this->registeredCorp =     $this->registeredAdrs['corp'];
+            $this->registeredStructure =$this->registeredAdrs['structure'];
+            $this->registeredRoom =     $this->registeredAdrs['room'];
+            $this->registeredZipcode =  $this->registeredAdrs['zipcode'];
+        }
+
+    }
+
+    /**
      * @return mixed
      */
     public function getUserComment()
