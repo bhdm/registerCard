@@ -136,9 +136,9 @@
 
             $('#ch-all').change(function () {
                 if (this.checked){
-                    $('input[type="checkbox"]').attr('checked', 'checked');
+                    $('input[type="checkbox"]').prop('checked', true);
                 }else{
-                    $('input[type="checkbox"]').removeAttr('checked');
+                    $('input[type="checkbox"]').prop('checked', false);
                 }
             })
 
