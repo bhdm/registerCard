@@ -9,7 +9,10 @@
 
 {% block content %}
     <div class="well">
-        <button class="btn btn-primary" id="print-button">Печать</button>
+        <button class="btn btn-primary" type="button" id="print-button">Печать выделеного</button>
+        <form method="POST">
+            <button class="btn btn-success">Печать фильтрованных</button>
+        </form>
         <table class="table" style="font-size: 12px">
             <thead>
             <tr>
@@ -38,7 +41,7 @@
                 </th>
             </tr>
             <tr>
-                <th></th>
+                <th><input type="checkbox" id="ch-all"></th>
                 <th>Номер</th>
                 <th>Дата создания</th>
                 <th>ФИО пользователя</th>
@@ -129,6 +132,14 @@
     {{ parent() }}
     <script>
         $(document).ready(function(){
+
+            $('#ch-all').change(function () {
+                if (this.checked){
+                    $('input[type="checkbox"]').attr('checked', 'checked');
+                }else{
+                    $('input[type="checkbox"]').removeAttr('checked');
+                }
+            })
 
             $('#print-button').click(function () {
                 $(document).ready(function () {
