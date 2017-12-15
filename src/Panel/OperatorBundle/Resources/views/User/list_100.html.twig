@@ -194,7 +194,7 @@
                             <a href="?search={{ user.email }}"><span class="subtitles">{{ user.email }}</span></a>
                             {% if is_granted("ROLE_ADMIN") %}
                                 <br />
-                                <span style="font-size: 13px; font-style: italic">{{ user.currentNumber }}</span>
+                                <span style="font-size: 13px; font-style: italic" class="text-success">{{ user.currentNumber }}</span>
                             {% endif %}
                         </td>
                         {% if is_granted('ROLE_ADMIN') %}
