@@ -192,6 +192,10 @@
                             </a>
                             <br />
                             <a href="?search={{ user.email }}"><span class="subtitles">{{ user.email }}</span></a>
+                            {% if is_granted("ROLE_ADMIN") and user.curentNumber != null %}
+                                <br />
+                                {{ user.curentNumber }}
+                            {% endif %}
                         </td>
                         {% if is_granted('ROLE_ADMIN') %}
                             <td>
