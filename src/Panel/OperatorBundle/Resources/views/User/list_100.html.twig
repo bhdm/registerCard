@@ -192,10 +192,10 @@
                             </a>
                             <br />
                             <a href="?search={{ user.email }}"><span class="subtitles">{{ user.email }}</span></a>
-                            {#{% if is_granted("ROLE_ADMIN") %}#}
+                            {% if is_granted("ROLE_ADMIN") %}
                                 <br />
-                                Номер: {{ user.curentNumber }}
-                            {#{% endif %}#}
+                                {{ user.currentNumber }}
+                            {% endif %}
                         </td>
                         {% if is_granted('ROLE_ADMIN') %}
                             <td>
