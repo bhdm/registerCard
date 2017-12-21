@@ -1995,13 +1995,13 @@ class UserController extends Controller
             # Адрес
             $home = '';
             if ($user->getDileveryHome() != null){
-                $adrs .= 'д. '.$user->getDileveryHome();
+                $home .= 'д. '.$user->getDileveryHome();
             }
             if ($user->getDileveryCorp() != null){
-                $adrs .= ' к. '.$user->getDileveryCorp();
+                $home .= ' к. '.$user->getDileveryCorp();
             }
             if ($user->getDileveryStructure() != null){
-                $adrs .= ' стр. '.$user->getDileveryStructure();
+                $home .= ' стр. '.$user->getDileveryStructure();
             }
 
             $phpExcelObject->setActiveSheetIndex(0)->setCellValue('G' . $i, $user->getDileveryZipcode());
