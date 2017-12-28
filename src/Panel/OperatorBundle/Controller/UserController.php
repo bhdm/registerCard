@@ -1215,11 +1215,11 @@ class UserController extends Controller
                 $phpExcelObject->setActiveSheetIndex(0)->setCellValue('E' . $i, $user->getCompany()->getTitle());
             }
             if ($user->getRu() == true){
-                $phpExcelObject->setActiveSheetIndex(0)->setCellValue('F' . $i, ($user->getCompany()->getOperator() != null  ? $user->getCompany()->getOperator()->getPriceRu() : ''));
+                $phpExcelObject->setActiveSheetIndex(0)->setCellValue('F' . $i, ($user->getCompany() != null  ? $user->getCompany()->getPriceRu() : ''));
             }elseif ($user->getEstr() == true){
-                $phpExcelObject->setActiveSheetIndex(0)->setCellValue('F' . $i, ($user->getCompany()->getOperator() != null  ? $user->getCompany()->getOperator()->getPriceEstr() : ''));
+                $phpExcelObject->setActiveSheetIndex(0)->setCellValue('F' . $i, ($user->getCompany() != null  ? $user->getCompany()->getPriceEstr() : ''));
             }else{
-                $phpExcelObject->setActiveSheetIndex(0)->setCellValue('F' . $i, ($user->getCompany()->getOperator() != null  ? $user->getCompany()->getOperator()->getPriceSkzi() : ''));
+                $phpExcelObject->setActiveSheetIndex(0)->setCellValue('F' . $i, ($user->getCompany() != null  ? $user->getCompany()->getPriceSkzi() : ''));
             }
 
 
