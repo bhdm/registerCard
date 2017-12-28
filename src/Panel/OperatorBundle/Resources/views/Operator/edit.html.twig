@@ -188,25 +188,25 @@
             </tr>
             <tr><td colspan="2">&nbsp;</td></tr>
 
-            {% if is_granted("ROLE_ADMIN") and operator.id != 1 %}
-            <tr>
-                <td class="label">Надзиратель: </td>
-                <td class="value">
-                    <select name="highOperator" class="form-control">
-                        <option>Никто</option>
-                        {% for ho in moderators %}
-                            <option value="{{ ho.id }}" {{ operator.highOperator.id is defined and operator.highOperator.id == ho.id ? 'selected' : '' }}>{{ ho.username }}</option>
-                        {% endfor %}
-                    </select>
-                </td>
-            </tr>
-            <tr>
-                <td class="label">По: </td>
-                <td class="value">
-                    <input type="date" name="highEnd" value="{{ operator.highEnd }}">
-                </td>
-            </tr>
-            {% endif %}
+            {#{% if is_granted("ROLE_ADMIN") and operator.id != 1 %}#}
+            {#<tr>#}
+                {#<td class="label">Надзиратель: </td>#}
+                {#<td class="value">#}
+                    {#<select name="highOperator" class="form-control">#}
+                        {#<option>Никто</option>#}
+                        {#{% for ho in moderators %}#}
+                            {#<option value="{{ ho.id }}" {{ operator.highOperator.id is defined and operator.highOperator.id == ho.id ? 'selected' : '' }}>{{ ho.username }}</option>#}
+                        {#{% endfor %}#}
+                    {#</select>#}
+                {#</td>#}
+            {#</tr>#}
+            {#<tr>#}
+                {#<td class="label">По: </td>#}
+                {#<td class="value">#}
+                    {#<input type="date" name="highEnd" value="{{ operator.highEnd }}">#}
+                {#</td>#}
+            {#</tr>#}
+            {#{% endif %}#}
 
             <tr>
                 <td></td>
