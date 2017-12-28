@@ -1214,6 +1214,14 @@ class UserController extends Controller
             if ($user->getCompany()) {
                 $phpExcelObject->setActiveSheetIndex(0)->setCellValue('E' . $i, $user->getCompany()->getTitle());
             }
+            if ($user->getRu() == true){
+                $phpExcelObject->setActiveSheetIndex(0)->setCellValue('F' . $i, ($user->getCompany()->getOperator() != null  ? $user->getCompany()->getOperator()->getPriceRu() : ''));
+            }elseif ($user->getEstr() == true){
+                $phpExcelObject->setActiveSheetIndex(0)->setCellValue('F' . $i, ($user->getCompany()->getOperator() != null  ? $user->getCompany()->getOperator()->getPriceEstr() : ''));
+            }else{
+                $phpExcelObject->setActiveSheetIndex(0)->setCellValue('F' . $i, ($user->getCompany()->getOperator() != null  ? $user->getCompany()->getOperator()->getPriceSkzi() : ''));
+            }
+
 
             $userLog = $this->getDoctrine()->getRepository('CrmMainBundle:StatusLog')->findByUser($user);
 
