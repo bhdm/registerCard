@@ -131,9 +131,8 @@
             <td>{{ s }} р.</td>
         </tr>
         <tr>
-            <td></td>
-            <td style="text-align: right;">В т.ч. НДС 18%:</td>
-            <td>{{ s*18/118 | round(2)  }}</td>
+            <td colspan="2" style="text-align: right;">В т.ч. НДС 18%:</td>
+            <td>{{ (s*18/118) | round(2)  }}</td>
         </tr>
         <tr>
             <td></td>
