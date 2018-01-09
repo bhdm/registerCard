@@ -128,16 +128,16 @@
         <tr>
             <td style="width: 65%"></td>
             <td style="text-align: right;">ИТОГО:</td>
-            <td style="text-align: right;">{{ s }}.00 р.</td>
+            <td style="text-align: left;">{{ s }}.00 р.</td>
         </tr>
         <tr>
             <td colspan="2" style="text-align: right;">В т.ч. НДС 18%:</td>
-            <td style="text-align: right;">{{ (s*18/118) | round(2)  }} р.</td>
+            <td style="text-align: left;">{{ (s*18/118) | round(2)  }} р.</td>
         </tr>
         <tr>
             <td></td>
             <td style="text-align: right;">Всего к оплате:</td>
-            <td style="text-align: right;">{{ s }}.00 р.</td>
+            <td style="text-align: left;">{{ s }}.00 р.</td>
         </tr>
     </table>
     <br />
