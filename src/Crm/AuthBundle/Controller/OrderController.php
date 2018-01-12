@@ -859,7 +859,7 @@ class OrderController extends Controller
         return $array;
     }
 
-    protected function clearSession($session){
+    protected function clearSession(Session $session){
         $session->set('passportFile', null);
         $session->set('passport2File', null);
         $session->set('driverFile', null);
@@ -886,6 +886,7 @@ class OrderController extends Controller
         $session->set('origin-driverTranslateFile', null);
         $session->set('origin-copyLastCardFile', null);
 
+        $session->save();
         return true;
     }
 

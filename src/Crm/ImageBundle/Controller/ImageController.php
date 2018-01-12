@@ -86,6 +86,7 @@ class ImageController extends Controller
                 $session->set('origin-'.$type,$path2);
 
                 $image->destroy();
+                $image3->destroy();
 
                 $data = $this->imageToArray($path);
                 $response = new JsonResponse($data);

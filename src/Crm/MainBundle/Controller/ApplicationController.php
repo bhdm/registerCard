@@ -298,7 +298,7 @@ class ApplicationController extends Controller
     }
 
 
-    protected function clearSession($session){
+    protected function clearSession(Session $session){
         $session->set('passportFile', null);
         $session->set('passport2File', null);
         $session->set('driverFile', null);
@@ -320,6 +320,7 @@ class ApplicationController extends Controller
         $session->set('origin-photoFile', null);
         $session->set('origin-petitionFile', null);
         $session->set('origin-workFile', null);
+        $session->save();
 
         return true;
     }

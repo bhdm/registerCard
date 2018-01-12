@@ -243,7 +243,7 @@ $(document).ready(function(){
         //alert('1');
 
         $.ajax({
-            url: '/app_dev.php/upload-document/'+type,
+            url: '/upload-document/'+type,
             //url: Routing.generate('upload_document', {'type': type}),
             type: 'POST',
             //xhr: function()
