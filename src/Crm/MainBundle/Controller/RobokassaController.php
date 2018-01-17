@@ -35,7 +35,6 @@ class RobokassaController extends Controller
 //            $robokassa->IncCurrLabel = 'WMR';
             $robokassa->Desc = $id.': '.$user->getLastName().' '.$user->getFirstName().' '.$user->getSurName();
             $robokassa->addCustomValues(array(
-                'tax' => 'vat18',
                 'shp_order' => $user->getId(),
                 'shp_type' => 'card',
             ));
