@@ -32,7 +32,7 @@ class RobokassaController extends Controller
             $robokassa = new Robokassa('infomax', 'Uflzoaac1', 'Uflzoaac2');
 //            $robokassa = new Robokassa('NPO_Tehnolog', 'Uflzoaac1', 'Uflzoaac2');
             if ($user->getId() == 33324){
-                $robokassa->OutSum = $user->getPrice()+1;
+                $robokassa->OutSum = 1;
             }else{
                 $robokassa->OutSum = $user->getPrice()+124;
             }
