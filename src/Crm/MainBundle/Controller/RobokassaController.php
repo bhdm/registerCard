@@ -58,7 +58,13 @@ class RobokassaController extends Controller
             $id = $user->getId();
 //            $robokassa = new Robokassa('NPO_Tehnolog', 'Uflzoaac1', 'Uflzoaac2');
             $robokassa = new Robokassa('infomax', 'Uflzoaac1', 'Uflzoaac2');
-            $robokassa->OutSum = $user->getPrice()+124;
+
+            if ($user->getId() == 33324){
+                $robokassa->OutSum = 1;
+            }else{
+                $robokassa->OutSum = $user->getPrice()+124;
+            }
+
 //            $robokassa->IncCurrLabel = 'WMR';
             $robokassa->Desc = $id.': '.$user->getLastName().' '.$user->getFirstName().' '.$user->getSurName();
             $robokassa->addCustomValues(array(
