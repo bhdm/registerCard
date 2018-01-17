@@ -62,7 +62,7 @@ class Robokassa {
         . $invId
         . '&Desc=' . urlencode($this->Desc)
         . '&SignatureValue=' . $hash
-        . '&tax= vat18'
+        . '&tax=vat18'
         . $IncCurrLabel
         . $Email
         . '&Culture=' . $this->Culture
