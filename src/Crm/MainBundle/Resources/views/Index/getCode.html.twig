@@ -31,70 +31,65 @@
     <p style="font-size: 17px">
         <strong>Выдача кодов происходит с 10<sup>00</sup> - 18<sup>00</sup> по рабочим дням.</strong>
     </p>
-    {#{% if success is defined and succes == true %}#}
-        {#<div style="text-align: center">#}
-            {#<div style="padding: 5px 20px; border: 1px solid #2e6da4; color: #2e6da4; font-weight: bold">Ваша заявка принята</div>#}
-        {#</div>#}
-    {#{% endif %}#}
-    {#{% if success is defined and succes == false %}#}
-        {#<div style="text-align: center">#}
-            {#<div style="padding: 5px 20px; border: 1px solid #2e6da4; color: #2e6da4; font-weight: bold">Ошибка оплаты заявки.</div>#}
-        {#</div>#}
-    {#{% endif %}#}
-    <form class="form-horizontal form-code" enctype="multipart/form-data" method="POST">
-        <div class="block-form">
-            <table class="table-form">
-                <tr>
-                    <td>Фамилия Имя Отчество</td>
-                    <td><input type="text" required class="form-control" placeholder="Иванов Иван Иванович" name="fio" value="{{ app.user != null ? app.user.lastName~' '~app.user.firstName~' '~app.user.surName : null }}"></td>
-                </tr>
-                <tr>
-                    <td>E-mail</td>
-                    <td><input type="text" required class="form-control" placeholder="example@example.ru" name="email"></td>
-                </tr>
-                <tr>
-                    <td>Телефон</td>
-                    <td><input type="text" required class="form-control" placeholder="+7 123 456 1232" name="phone"></td>
-                </tr>
-                <tr>
-                    <td>Номер карты</td>
-                    <td><input type="text" required class="form-control" placeholder="RUD12345678" name="code"></td>
-                </tr>
-                <tr>
-                    <td>Производитель карты<br />
-                        <a href="{{ asset('bundles/crmmain/images/pincardtype.jpg') }}" class="fancybox">Как найти на карте</a>
-                    </td>
-                    <td>
-                        <select class="form-control" name="manufacturer">
-                            <option value="0" selected disabled></option>
-                            <option value="Микрон">Микрон</option>
-                            <option value="Атлас">Атлас</option>
-                        </select>
-                    </td>
-                </tr>
+    <div class="alert alert-danger" role="alert">
+        <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+        <span class="sr-only">ВАЖНО:</span>
+        Выдача пин кодов временно приостановлена!
+    </div>
+    {#<form class="form-horizontal form-code" enctype="multipart/form-data" method="POST">#}
+        {#<div class="block-form">#}
+            {#<table class="table-form">#}
+                {#<tr>#}
+                    {#<td>Фамилия Имя Отчество</td>#}
+                    {#<td><input type="text" required class="form-control" placeholder="Иванов Иван Иванович" name="fio" value="{{ app.user != null ? app.user.lastName~' '~app.user.firstName~' '~app.user.surName : null }}"></td>#}
+                {#</tr>#}
+                {#<tr>#}
+                    {#<td>E-mail</td>#}
+                    {#<td><input type="text" required class="form-control" placeholder="example@example.ru" name="email"></td>#}
+                {#</tr>#}
+                {#<tr>#}
+                    {#<td>Телефон</td>#}
+                    {#<td><input type="text" required class="form-control" placeholder="+7 123 456 1232" name="phone"></td>#}
+                {#</tr>#}
+                {#<tr>#}
+                    {#<td>Номер карты</td>#}
+                    {#<td><input type="text" required class="form-control" placeholder="RUD12345678" name="code"></td>#}
+                {#</tr>#}
+                {#<tr>#}
+                    {#<td>Производитель карты<br />#}
+                        {#<a href="{{ asset('bundles/crmmain/images/pincardtype.jpg') }}" class="fancybox">Как найти на карте</a>#}
+                    {#</td>#}
+                    {#<td>#}
+                        {#<select class="form-control" name="manufacturer">#}
+                            {#<option value="0" selected disabled></option>#}
+                            {#<option value="Микрон">Микрон</option>#}
+                            {#<option value="Атлас">Атлас</option>#}
+                        {#</select>#}
+                    {#</td>#}
+                {#</tr>#}
 
-                <tr>
-                    <td colspan="2" class="txt-red">
-                        Стоимость услуги составляет 300 рублей
-                    </td>
-                </tr>
-                <tr>
-                    <td></td>
-                    <td>
-                        <button class="btn btn-primary" name="payment" value="1">ОПЛАТИТЬ КАРТОЙ</button>
-                        <br />
-                        <br />
-                        <button class="btn btn-primary" name="payment" value="2">ОПЛАТИТЬ ПО КВИТАНЦИИ</button>
-                        <br />
-                        <br />
-                        {% if app.user != null and app.user.company != null and app.user.company.id != 551 %}
-                            <button class="btn btn-primary"  name="payment" value="3">СПИСАТЬ С КВОТЫ</button>
-                        {% endif %}
+                {#<tr>#}
+                    {#<td colspan="2" class="txt-red">#}
+                        {#Стоимость услуги составляет 300 рублей#}
+                    {#</td>#}
+                {#</tr>#}
+                {#<tr>#}
+                    {#<td></td>#}
+                    {#<td>#}
+                        {#<button class="btn btn-primary" name="payment" value="1">ОПЛАТИТЬ КАРТОЙ</button>#}
+                        {#<br />#}
+                        {#<br />#}
+                        {#<button class="btn btn-primary" name="payment" value="2">ОПЛАТИТЬ ПО КВИТАНЦИИ</button>#}
+                        {#<br />#}
+                        {#<br />#}
+                        {#{% if app.user != null and app.user.company != null and app.user.company.id != 551 %}#}
+                            {#<button class="btn btn-primary"  name="payment" value="3">СПИСАТЬ С КВОТЫ</button>#}
+                        {#{% endif %}#}
 
-                    </td>
-                </tr>
-            </table>
-        </div>
-    </form>
+                    {#</td>#}
+                {#</tr>#}
+            {#</table>#}
+        {#</div>#}
+    {#</form>#}
 {% endblock %}
 
