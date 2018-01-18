@@ -34,62 +34,62 @@
     <div class="alert alert-danger" role="alert">
         <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
         <span class="sr-only">ВАЖНО:</span>
-        Выдача кодов временно приостановлена!
+        Восстанавливаем коды только карт произведенных на ПАО "Микрон" , (<a href="{{ asset('bundles/crmmain/images/cardback.jpg') }}" class="fancybox">как определить производителя</a>)
     </div>
-    {#<form class="form-horizontal form-code" enctype="multipart/form-data" method="POST">#}
-        {#<div class="block-form">#}
-            {#<table class="table-form">#}
-                {#<tr>#}
-                    {#<td>Фамилия Имя Отчество</td>#}
-                    {#<td><input type="text" required class="form-control" placeholder="Иванов Иван Иванович" name="fio" value="{{ app.user != null ? app.user.lastName~' '~app.user.firstName~' '~app.user.surName : null }}"></td>#}
-                {#</tr>#}
-                {#<tr>#}
-                    {#<td>E-mail</td>#}
-                    {#<td><input type="text" required class="form-control" placeholder="example@example.ru" name="email"></td>#}
-                {#</tr>#}
-                {#<tr>#}
-                    {#<td>Телефон</td>#}
-                    {#<td><input type="text" required class="form-control" placeholder="+7 123 456 1232" name="phone"></td>#}
-                {#</tr>#}
-                {#<tr>#}
-                    {#<td>Номер карты</td>#}
-                    {#<td><input type="text" required class="form-control" placeholder="RUD12345678" name="code"></td>#}
-                {#</tr>#}
-                {#<tr>#}
-                    {#<td>Производитель карты<br />#}
-                        {#<a href="{{ asset('bundles/crmmain/images/pincardtype.jpg') }}" class="fancybox">Как найти на карте</a>#}
-                    {#</td>#}
-                    {#<td>#}
-                        {#<select class="form-control" name="manufacturer">#}
-                            {#<option value="0" selected disabled></option>#}
-                            {#<option value="Микрон">Микрон</option>#}
-                            {#<option value="Атлас">Атлас</option>#}
-                        {#</select>#}
-                    {#</td>#}
-                {#</tr>#}
+    <form class="form-horizontal form-code" enctype="multipart/form-data" method="POST">
+        <div class="block-form">
+            <table class="table-form">
+                <tr>
+                    <td>Фамилия Имя Отчество</td>
+                    <td><input type="text" required class="form-control" placeholder="Иванов Иван Иванович" name="fio" value="{{ app.user != null ? app.user.lastName~' '~app.user.firstName~' '~app.user.surName : null }}"></td>
+                </tr>
+                <tr>
+                    <td>E-mail</td>
+                    <td><input type="text" required class="form-control" placeholder="example@example.ru" name="email"></td>
+                </tr>
+                <tr>
+                    <td>Телефон</td>
+                    <td><input type="text" required class="form-control" placeholder="+7 123 456 1232" name="phone"></td>
+                </tr>
+                <tr>
+                    <td>Номер карты</td>
+                    <td><input type="text" required class="form-control" placeholder="RUD12345678" name="code"></td>
+                </tr>
+                <tr>
+                    <td>Производитель карты<br />
+                        <a href="{{ asset('bundles/crmmain/images/pincardtype.jpg') }}" class="fancybox">Как найти на карте</a>
+                    </td>
+                    <td>
+                        <select class="form-control" name="manufacturer">
+                            <option value="0" selected disabled></option>
+                            <option value="Микрон">Микрон</option>
+                            <option value="Атлас">Атлас</option>
+                        </select>
+                    </td>
+                </tr>
 
-                {#<tr>#}
-                    {#<td colspan="2" class="txt-red">#}
-                        {#Стоимость услуги составляет 300 рублей#}
-                    {#</td>#}
-                {#</tr>#}
-                {#<tr>#}
-                    {#<td></td>#}
-                    {#<td>#}
-                        {#<button class="btn btn-primary" name="payment" value="1">ОПЛАТИТЬ КАРТОЙ</button>#}
-                        {#<br />#}
-                        {#<br />#}
-                        {#<button class="btn btn-primary" name="payment" value="2">ОПЛАТИТЬ ПО КВИТАНЦИИ</button>#}
-                        {#<br />#}
-                        {#<br />#}
-                        {#{% if app.user != null and app.user.company != null and app.user.company.id != 551 %}#}
-                            {#<button class="btn btn-primary"  name="payment" value="3">СПИСАТЬ С КВОТЫ</button>#}
-                        {#{% endif %}#}
+                <tr>
+                    <td colspan="2" class="txt-red">
+                        Стоимость услуги составляет 300 рублей
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>
+                        <button class="btn btn-primary" name="payment" value="1">ОПЛАТИТЬ КАРТОЙ</button>
+                        <br />
+                        <br />
+                        <button class="btn btn-primary" name="payment" value="2">ОПЛАТИТЬ ПО КВИТАНЦИИ</button>
+                        <br />
+                        <br />
+                        {% if app.user != null and app.user.company != null and app.user.company.id != 551 %}
+                            <button class="btn btn-primary"  name="payment" value="3">СПИСАТЬ С КВОТЫ</button>
+                        {% endif %}
 
-                    {#</td>#}
-                {#</tr>#}
-            {#</table>#}
-        {#</div>#}
-    {#</form>#}
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </form>
 {% endblock %}
 
