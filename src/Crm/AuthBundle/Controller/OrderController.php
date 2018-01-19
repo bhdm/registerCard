@@ -110,9 +110,9 @@ class OrderController extends Controller
             $user->setCopyInn($this->getImgToArray($session->get('innFile')));
             $user->setCopyDoc($this->getImgToArray($session->get('copyDoc')));
             $user->setCopySignature($this->getImgToArray($session->get('signFile')));
-            copy($session->get('signFile'),$img.'2.jpg');
-            copy($session->get('signFile'),$img.'3.jpg');
-            copy($session->get('signFile'),$img.'4.jpg');
+//            copy($session->get('signFile'),$img.'2.jpg');
+//            copy($session->get('signFile'),$img.'3.jpg');
+//            copy($session->get('signFile'),$img.'4.jpg');
             $user->setCopySignature2($this->getImgToArray($img.'2.jpg'));
             $user->setCopySignature3($this->getImgToArray($img.'3.jpg'));
             $user->setCopySignature4($this->getImgToArray($img.'4.jpg'));
