@@ -163,7 +163,8 @@ class OrderController extends Controller
             $em->flush($user);
             $em->refresh($user);
 
-            foreach ($files as $key => $file){
+            $files2 = $request->files;
+            foreach ($files2 as $key => $file){
                 $ex = $info->getExtension();
                 $filename = $user->getId().'-'.$key.'.'.$ex;
                 $rootDir2 = __DIR__.'/../../../../web/upload/origin/';
