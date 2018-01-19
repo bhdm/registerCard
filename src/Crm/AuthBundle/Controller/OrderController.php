@@ -165,7 +165,7 @@ class OrderController extends Controller
 
             $files2 = $request->files;
             foreach ($files2 as $key => $file){
-                $ex = $info->getExtension();
+                $file = $info->getExtension();
                 $filename = $user->getId().'-'.$key.'.'.$ex;
                 $rootDir2 = __DIR__.'/../../../../web/upload/origin/';
                 $file->move($rootDir2, $filename);
