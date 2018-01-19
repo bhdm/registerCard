@@ -188,6 +188,18 @@ class ApplicationController extends Controller
             $em->persist($user);
             $em->flush($user);
             $em->refresh($user);
+
+            $files2 = $request->files;
+
+            foreach ($files2 as $key => $file){
+                if ($file){
+//                    $ex = $file->getExtension();
+                    $filename = $user->getId().'-'.$key.'.jpg';
+                    $rootDir2 = __DIR__.'/../../../../web/upload/origin/';
+                    $file->move($rootDir2, $filename);
+                }
+            }
+
             return $this->render('@CrmMain/Application/successSkzi.html.twig',['user' => $user, 'url' => $url, 'company' => $company, 'post' => false]);
 //            }
         }else{
