@@ -31,7 +31,7 @@ class OrderController extends Controller
     public function addOrderAction(Request $request, $id){
         $session = $request->getSession();
         $user = $this->getDoctrine()->getRepository('CrmMainBundle:User')->findOneBy(['id' => $id, 'client' => $this->getUser() ]);
-        if ($request->getMethod('POST')){
+        if ($request->getMethod() == 'POST'){
 
             $user->setCopyOrder($this->getImgToArray($session->get('copyOrderFile')));
             $user->setCopyOrder2($this->getImgToArray($session->get('copyOrder2File')));
@@ -42,6 +42,7 @@ class OrderController extends Controller
 
             $session->set('copyOrderFile', null);
             $session->set('copyOrder2File', null);
+            return $this->redirectToRoute('auth_order');
         }
         $session->set('copyOrderFile', null);
         $session->set('copyOrder2File', null);
