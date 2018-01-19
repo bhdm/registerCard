@@ -38,6 +38,10 @@ class OrderController extends Controller
 
             $this->getDoctrine()->getManager()->flush($user);
             $this->getDoctrine()->getManager()->refresh($user);
+
+            $session->set('copyOrderFile', null);
+            $session->set('copyOrder2File', null);
+            return $this->redirectToRoute('auth_order');
         }
         $session->set('copyOrderFile', null);
         $session->set('copyOrder2File', null);

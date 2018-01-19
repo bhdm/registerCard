@@ -167,7 +167,7 @@
                                     </button>
                                     <ul class="dropdown-menu" aria-labelledby="dropdownPayment2">
                                         <li><a href="{{ path('generate_pdf_statement',{'old' : 1, 'id' : o.id}) }}" target="_blank">Скачать заявление</a></li>
-                                        <li><a href="{{ path('auth_add_order',{'id' : o.id}) }}" target="_blank">Загрузить заявление</a></li>
+                                        <li><a href="{{ path('auth_add_order',{'id' : o.id}) }}">Загрузить заявление</a></li>
                                     </ul>
                                 </div>
                             {% endif %}
