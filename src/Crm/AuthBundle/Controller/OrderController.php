@@ -168,7 +168,9 @@ class OrderController extends Controller
 //                $ex = $file->getExtension();
                 $filename = $user->getId().'-'.$key.'.jpg';
                 $rootDir2 = __DIR__.'/../../../../web/upload/origin/';
+                echo '<pre>';
                 var_dump($files2);
+                echo '</pre>';
                 exit;
 //                $file->move($rootDir2, $filename);
             }
