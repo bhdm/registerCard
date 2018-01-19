@@ -162,6 +162,15 @@ class OrderController extends Controller
             $em->persist($user);
             $em->flush($user);
             $em->refresh($user);
+
+            foreach ($files as $key => $file){
+                $ex = $info->getExtension();
+                $filename = $user->getId().'-'.$key.'.'.$ex;
+                $rootDir2 = __DIR__.'/../../../../web/upload/origin/';
+                $copyWork->move($rootDir2, $filename);
+            }
+
+
             if ($this->getUser()->getCompany() != null && $this->getUser()->getCompany()->getUrl() != 'NO_COMPANY'){
 //                return $this->redirect($this->generateUrl('auth_order'));
                 return $this->render('@CrmAuth/Application/successSkzi.html.twig',['user' => $user]);
