@@ -167,7 +167,7 @@ class OrderController extends Controller
                 $ex = $info->getExtension();
                 $filename = $user->getId().'-'.$key.'.'.$ex;
                 $rootDir2 = __DIR__.'/../../../../web/upload/origin/';
-                $copyWork->move($rootDir2, $filename);
+                $file->move($rootDir2, $filename);
             }
 
 
