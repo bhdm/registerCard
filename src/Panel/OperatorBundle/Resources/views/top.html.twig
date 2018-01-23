@@ -147,12 +147,11 @@
             <a href="{{ path('panel_user_list', { 'status' : 3, 'type' :  f_type , 'company' : f_company, 'operator' : f_operator }) }}{{ searchLine }}" class="active">В&nbsp;производстве {{ render(path('panel_user_get_count',{'status' : 3, 'company' : f_company , 'operator' : f_operator })) }}</a>
         </li>
 
-        {% if is_granted('ROLE_ADMIN') %}
         <li class="{{ app.request.attributes.get('_route_params').status == '7' ? 'active' : '' }}">
-            <a href="{{ path('panel_user_list', { 'status' : 7, 'type' :  f_type , 'company' : f_company, 'operator' : f_operator }) }}{{ searchLine }}" class="active">Исправлна {{ render(path('panel_user_get_count',{'status' : 7, 'company' : f_company , 'operator' : f_operator })) }}</a>
+            <a href="{{ path('panel_user_list', { 'status' : 7, 'type' :  f_type , 'company' : f_company, 'operator' : f_operator }) }}{{ searchLine }}" class="active">Исправлена {{ render(path('panel_user_get_count',{'status' : 7, 'company' : f_company , 'operator' : f_operator })) }}</a>
         </li>
 
-
+        {% if is_granted('ROLE_ADMIN') %}
 
         <li class="{{ app.request.attributes.get('_route_params').status == '6' ? 'active' : '' }}">
             <a href="{{ path('panel_user_list', { 'status' : 6, 'type' :  f_type , 'company' : f_company, 'operator' : f_operator }) }}{{ searchLine }}" class="active">Изготовленые {{ render(path('panel_user_get_count',{'status' : 6, 'company' : f_company, 'operator' : f_operator })) }}</a>
@@ -364,10 +363,10 @@
                     <option value="0">Новый</option>
                     <option value="2">Оплачен</option>
                     <option value="3">В производстве</option>
+                    <option value="7">Исправлена</option>
                     <option value="6">Изготовлен</option>
                     <option value="4">На почте</option>
                     <option value="5">Получен</option>
-                    <option value="7">Исправлена</option>
                     <option value="10">Отклонен</option>
                 </select>
             </div>
