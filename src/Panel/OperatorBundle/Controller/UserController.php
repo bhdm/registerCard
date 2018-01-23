@@ -351,10 +351,6 @@ class UserController extends Controller
                 $user->setPrice($data->get('price'));
             }
 
-            if ($user->getStatus() == 10){
-                $user->setStatus(7);
-            }
-
             $user->setLastName($data->get('lastName'));
             $user->setFirstName($data->get('firstName'));
             $user->setSurName($data->get('surName'));

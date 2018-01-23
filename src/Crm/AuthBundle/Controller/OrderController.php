@@ -741,6 +741,9 @@ class OrderController extends Controller
                 $user->setTypeCardFile($this->getImgToArray($session->get('typeCardFile')));
             }
 
+            if ($user->getStatus() == 10){
+                $user->setStatus(7);
+            }
 
             $this->getDoctrine()->getManager()->flush($user);
             $this->getDoctrine()->getManager()->refresh($user);
