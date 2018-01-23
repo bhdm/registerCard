@@ -133,6 +133,9 @@ class UserController extends Controller
                 case '5':
                     $response = $this->render('PanelOperatorBundle:User:list_5.html.twig', $vars);
                     break;
+                case '7':
+                    $response = $this->render('PanelOperatorBundle:User:list_7.html.twig', $vars);
+                    break;
                 case '10':
                     $response = $this->render('PanelOperatorBundle:User:list_10.html.twig', $vars);
                     break;
@@ -165,6 +168,9 @@ class UserController extends Controller
                     break;
                 case '5':
                     $response = $this->render('PanelOperatorBundle:User:list_5.html.twig', $vars);
+                    break;
+                case '7':
+                    $response = $this->render('PanelOperatorBundle:User:list_7.html.twig', $vars);
                     break;
                 case '10':
                     $response = $this->render('PanelOperatorBundle:User:list_10.html.twig', $vars);

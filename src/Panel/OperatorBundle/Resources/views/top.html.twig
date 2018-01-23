@@ -148,6 +148,12 @@
         </li>
 
         {% if is_granted('ROLE_ADMIN') %}
+        <li class="{{ app.request.attributes.get('_route_params').status == '7' ? 'active' : '' }}">
+            <a href="{{ path('panel_user_list', { 'status' : 7, 'type' :  f_type , 'company' : f_company, 'operator' : f_operator }) }}{{ searchLine }}" class="active">Исправлна {{ render(path('panel_user_get_count',{'status' : 7, 'company' : f_company , 'operator' : f_operator })) }}</a>
+        </li>
+
+
+
         <li class="{{ app.request.attributes.get('_route_params').status == '6' ? 'active' : '' }}">
             <a href="{{ path('panel_user_list', { 'status' : 6, 'type' :  f_type , 'company' : f_company, 'operator' : f_operator }) }}{{ searchLine }}" class="active">Изготовленые {{ render(path('panel_user_get_count',{'status' : 6, 'company' : f_company, 'operator' : f_operator })) }}</a>
         </li>
