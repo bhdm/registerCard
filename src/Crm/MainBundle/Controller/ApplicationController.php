@@ -5,6 +5,8 @@ namespace Crm\MainBundle\Controller;
 use Crm\MainBundle\Entity\Client;
 use Crm\MainBundle\Entity\CompanyPetition;
 use Crm\MainBundle\Entity\CompanyUser;
+use Crm\MainBundle\Entity\FastOrder;
+use Crm\MainBundle\Entity\FastOrderFile;
 use Crm\MainBundle\Entity\StatusLog;
 use Crm\MainBundle\Form\CompanyUserType;
 use Crm\MainBundle\Form\UserEstrType;
@@ -612,4 +614,53 @@ class ApplicationController extends Controller
         return array('form' => $form->createView());
     }
 
+    /**
+     * @Route("/order/fast", name="add_fast_order")
+     * @Template("")
+     */
+    public function fastOrderAction(Request $request){
+        if ($request->getMethod() == "POST"){
+            $em = $this->getDoctrine()->getManager();
+            $order = new FastOrder();
+            $data = $request->request;
+            $order->setPhone($data->get("phone"));
+            $order->setEmail($data->get("email"));
+            $order->setComment($data->get("comment"));
+
+            $order->setDeliveryType($data->get("deliveryType"));
+            $order->setRegion($data->get("region"));
+            $order->setArea($data->get("area"));
+            $order->setStreet($data->get("street"));
+            $order->setHouse($data->get("house"));
+            $order->setRoom($data->get("room"));
+            $order->setZipcode($data->get("zipcode"));
+            $order->setRecipient($data->get("recipient"));
+            $em->persist($order);
+            $em->flush($order);
+            $em->refresh($order);
+
+            $files2 = $request->files;
+
+            foreach ($files2 as $key => $file){
+                if ($file){
+                    $ex = $file->getGuessExtension();
+                    $filename = $order->getId().'-'.$key.$ex;
+                    $rootDir2 = __DIR__.'/../../../../web/upload/fast/';
+                    $file->move($rootDir2, $filename);
+
+                    $doc = new FastOrderFile();
+                    $doc->setOrder($order);
+                    $doc->setTitle($key);
+                    $doc->setFile(['path'=> '/upload/fast/'.$filename]);
+
+                    $em->persist($doc);
+                    $em->flush($doc);
+                    $em->refresh($doc);
+                }
+            }
+            return $this->render("@CrmMain/Application/fast_order_payment.html.twig");
+        }
+
+        return $this->render("@CrmMain/Application/fast_order.html.twig");
+    }
 }

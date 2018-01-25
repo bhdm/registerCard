@@ -1,0 +1,210 @@
+{% extends 'CrmMainBundle::layout.html.twig' %}
+{#{% extends is_granted('ROLE_CLIENT') ? 'CrmAuthBundle::layout.html.twig' : 'CrmMainBundle::layout.html.twig'  %}#}
+
+{% block title %}
+    <title>Заказать карту предприятия тахографа с СКЗИ, РФ. ЕСТР Online</title>
+    <meta name="description" content="Быстро и удобно заказать карту предприятия для тахографов">
+    <meta name="keywords" content="Заказать карту водителя, тахографы, СКЗИ, ЕСТР, РФ, онлайн продажа карт для тахографа">
+{% endblock %}
+
+{% block content %}
+    <h2 style="text-align: center !important;">Заказать карту тахографа</h2>
+    <p style="font-size: 16px">
+        После оформления оператором Заявки, на Вашу эл.почту будет отправлена ссылка для входа в личный кабинет.
+        В личном кабинете Вы сможете отследить все стадии изготовления карты.
+    </p>
+    <p style="font-size: 16px">
+        Заявка оформляется оператором только после поступления оплаты.
+    </p>
+    <div class="row">
+        <div class="col-sm-6 col-sm-offset-3">
+            <form class="form-horizontal" method="post" enctype="multipart/form-data">
+                <div class="form-group">
+                    <label class="col-sm-4"><br />E-mail</label>
+                    <div class="col-sm-8">
+                        <input type="email" name="email" class="form-control" value="" placeholder="example@mail.ru">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-4"><br />Телефон</label>
+                    <div class="col-sm-8">
+                        <input type="text" name="phone" class="form-control phone" value="" placeholder="+7 (999) 123-45-67">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-4">Копия паспорта</label>
+                    <div class="col-sm-8 text-right">
+                        <input type="file" name="passport" class="chosen">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-4">Водительское удостоверение</label>
+                    <div class="col-sm-8 text-right">
+                        <input type="file" name="driver" class="chosen">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-4">ИНН</label>
+                    <div class="col-sm-8 text-right">
+                        <input type="file" name="inn" class="chosen">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-4">СНИЛС</label>
+                    <div class="col-sm-8 text-right">
+                        <input type="file" name="snils" class="chosen">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-4">Фотография</label>
+                    <div class="col-sm-8 text-right">
+                        <input type="file" name="photo" class="chosen">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-4">Подпись</label>
+                    <div class="col-sm-8 text-right">
+                        <input type="file" name="signature" class="chosen">
+                    </div>
+                </div>
+
+                <div class="other-documents" id="other-documents">
+
+                </div>
+
+                <div class="form-group text-right">
+                    <button class="btn-success add-other-document" type="button">Добавить документ</button>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-4">Тип доставки</label>
+                    <div class="col-sm-8">
+                        <select class="form-control" name="deliveryType" id="deliveryType">
+                            <option value="0">Самовывоз</option>
+                            <option value="1">Доставка почтой россии</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="delivery-form" style="display: none">
+                    <div class="form-group">
+                        <label class="col-sm-4">&nbsp;</label>
+                        <div class="col-sm-4">
+                            <input type="text" name="region" class="form-control" value="" placeholder="Регион">
+                        </div>
+                        <div class="col-sm-4">
+                            <input type="text" name="area" class="form-control" value="" placeholder="Район">
+                        </div>
+                    </div>
+                    {#<div class="form-group">#}
+                        {#<label class="col-sm-4">Район</label>#}
+                        {#<div class="col-sm-8">#}
+                            {#<input type="text" name="area" class="form-control" value="">#}
+                        {#</div>#}
+                    {#</div>#}
+                    <div class="form-group">
+                        <label class="col-sm-4">&nbsp;</label>
+                        <div class="col-sm-8">
+                            <input type="text" name="city" class="form-control" value="" placeholder="Город">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-4">&nbsp;</label>
+                        <div class="col-sm-8">
+                            <input type="text" name="street" class="form-control" value="" placeholder="Название улицы">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-4">&nbsp;</label>
+                        <div class="col-sm-4">
+                            <input type="text" name="house" class="form-control" value="" placeholder="Дом №">
+                        </div>
+                        <div class="col-sm-4">
+                            <input type="text" name="room" class="form-control" value="" placeholder="Квартира">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-4">&nbsp;</label>
+                        <div class="col-sm-8">
+                            <input type="text" name="zipcode" class="form-control zipcode" value="" placeholder="Индекс">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-4">&nbsp;</label>
+                        <div class="col-sm-8">
+                            <input type="text" name="recipient" class="form-control" placeholder="ФИО получателя">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-sm-4">&nbsp;</label>
+                    <div class="col-sm-8">
+                        <textarea class="form-control" style="height: 50px" name="comment" placeholder="Комментарий к заказу"></textarea>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <button class="btn btn-primary" type="submit">Перейти к оплате</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    {#
+
+    Email
+    Телефон
+    Адрес доставки
+
+    Паспорт
+    Водительское
+    СНИЛС
+    ИНН
+    Подпись
+    Фото
+
+    //Другие документы (Динамическая форма добавления файлов)
+
+
+    #}
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <style>
+        .form-group .col-sm-4{
+            /*margin-top: 13px;*/
+            text-align: right;
+        }
+        .add-other-document{
+            margin-right: 17px;
+        }
+    </style>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+        $(document).ready(function () {
+            $("#deliveryType").change(function(){
+                if ($(this).val() == 0){
+                    $('.delivery-form').css('display', 'none');
+                }else{
+                    $('.delivery-form').css('display', 'block');
+                }
+            });
+
+            $('.add-other-document').click(function () {
+                var count = $('input[type="file"].oth-doc').length;
+               var html = '' +
+                   '<div class="form-group">\n' +
+                   '  <label class="col-sm-4">Другой документ '+(count + 1)+'</label>\n' +
+                   '  <div class="col-sm-8 text-right">\n' +
+                   '    <input type="file" name="other['+count+']" class="chosen oth-doc">\n' +
+                   '  </div>\n' +
+                   '</div>';
+               $('.other-documents').append(html);
+               $('input[type="file"]').styler();
+            });
+        });
+    </script>
+{% endblock %}
