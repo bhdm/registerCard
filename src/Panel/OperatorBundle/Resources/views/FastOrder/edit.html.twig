@@ -1,0 +1,131 @@
+{% extends 'PanelOperatorBundle::layout.html.twig' %}
+
+{% block breadcrumb %}{% endblock %}
+
+{% block content %}
+    <h1>Быстрые заказы</h1>
+    <form class="form-horizontal" method="post" enctype="multipart/form-data">
+        <div class="form-group">
+            <label class="col-sm-4"><br />Статус</label>
+            <div class="col-sm-8">
+                <select class="form-control" name="status">
+                    <option value="Новая" {{ order.status =='Новая' ? 'selected' }}>Новая</option>
+                    <option value="Оплачена" {{ order.status =='Оплачена' ? 'selected' }}>Оплачена</option>
+                    <option value="Сделана" {{ order.status =='Сделана' ? 'selected' }}>Сделана</option>
+                    <option value="Отклонена" {{ order.status =='Отклонена' ? 'selected' }}>Отклонена</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-sm-4"><br />Ф.И.О.</label>
+            <div class="col-sm-8">
+                <input type="email" name="fio" class="form-control" value="{{ order.fio }}" placeholder="Фамилия Имя Отчество">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-4"><br />E-mail</label>
+            <div class="col-sm-8">
+                <input type="email" name="email" class="form-control" value="{{ order.email }}" placeholder="example@mail.ru">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-4"><br />Телефон</label>
+            <div class="col-sm-8">
+                <input type="text" name="phone" class="form-control phone" value="{{ order.phone }}" placeholder="+7 (999) 123-45-67">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-4">&nbsp;</label>
+            <div class="col-sm-8 text-right">
+                <select class="form-control" name="cardType">
+                    <option disabled selected>Выбор типа карты</option>
+                    <option value="СКЗИ" {{ order.cardType == 'СКЗИ' ? 'selected' }}>СКЗИ</option>
+                    <option value="ЕСТР" {{ order.cardType == 'ЕСТР' ? 'selected' }}>ЕСТР</option>
+                    <option value="РФ" {{ order.cardType == 'РФ' ? 'selected' }}>РФ</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-4">&nbsp;</label>
+            <div class="col-sm-8 text-right">
+                <input type="text" class="form-control card" name="oldCard" placeholder="Номер старой карты (Если есть)" value="{{ order.oldCard }}">
+            </div>
+        </div>
+        {% for f in order.files %}
+            <div class="form-group">
+                <label class="col-sm-4">{{ f.title }}</label>
+                <div class="col-sm-8 text-right">
+                    <img src="{{ f.file.path }}" style="max-width: 250px">
+                </div>
+            </div>
+        {% endfor %}
+
+
+        <div class="form-group">
+            <label class="col-sm-4">Тип доставки</label>
+            <div class="col-sm-8">
+                <select class="form-control" name="deliveryType" id="deliveryType">
+                    <option value="0" {{ order.deliveryType == 0 ? 'selected' }}>Самовывоз</option>
+                    <option value="1" {{ order.deliveryType == 1 ? 'selected' }}>Доставка почтой россии</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="delivery-form" style="display: {{ order.deliveryType == 0 ? 'none' : 'block' }}">
+            <div class="form-group">
+                <label class="col-sm-4">&nbsp;</label>
+                <div class="col-sm-4">
+                    <input type="text" name="region" class="form-control" value="{{ order.region }}" placeholder="Регион">
+                </div>
+                <div class="col-sm-4">
+                    <input type="text" name="area" class="form-control" value="{{ order.area }}" placeholder="Район">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-4">&nbsp;</label>
+                <div class="col-sm-8">
+                    <input type="text" name="city" class="form-control" value="{{ order.city }}" placeholder="Город">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-4">&nbsp;</label>
+                <div class="col-sm-8">
+                    <input type="text" name="street" class="form-control" value="{{ order.street }}" placeholder="Название улицы">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-4">&nbsp;</label>
+                <div class="col-sm-4">
+                    <input type="text" name="house" class="form-control" value="{{ order.house }}" placeholder="Дом №">
+                </div>
+                <div class="col-sm-4">
+                    <input type="text" name="room" class="form-control" value="{{ order.room }}" placeholder="Квартира">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-4">&nbsp;</label>
+                <div class="col-sm-8">
+                    <input type="text" name="zipcode" class="form-control zipcode" value="{{ order.zipcode }}" placeholder="Индекс">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-4">&nbsp;</label>
+                <div class="col-sm-8">
+                    <input type="text" name="recipient" class="form-control" placeholder="ФИО получателя" value="{{ order.recipient }}">
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-sm-4">&nbsp;</label>
+            <div class="col-sm-8">
+                <textarea class="form-control" style="height: 50px" name="comment" placeholder="Комментарий к заказу">{{ order.comment }}</textarea>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <button class="btn btn-primary" type="submit">Сохранить</button>
+        </div>
+    </form>
+{% endblock %}

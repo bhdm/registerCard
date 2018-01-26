@@ -13,6 +13,11 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class FastOrder
 {
+    const STATUS_NEW = 0;
+    const STATUS_PAYMENT = 1;
+    const STATUS_SUCCESS = 2;
+    const STATUS_REJECTED = 10;
+
     /**
      * @var integer
      *
@@ -143,6 +148,13 @@ class FastOrder
     /**
      * @var string
      *
+     * @ORM\Column(name="old_card", type="string", nullable=true)
+     */
+    private $oldCard;
+
+    /**
+     * @var string
+     *
      * @ORM\Column(name="cardType", type="string")
      */
     private $cardType;
@@ -151,6 +163,13 @@ class FastOrder
      * @ORM\ManyToOne(targetEntity="Crm\MainBundle\Entity\Client")
      */
     private $client;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="price", type="integer")
+     */
+    private $price;
 
 
     public function __toString()
@@ -161,7 +180,7 @@ class FastOrder
     {
         $this->files = new ArrayCollection();
         $this->created = new \DateTime();
-        $this->status = 0;
+        $this->status = self::STATUS_NEW;
     }
 
     /**
@@ -573,6 +592,39 @@ class FastOrder
     {
         $this->client = $client;
     }
+
+    /**
+     * @return int
+     */
+    public function getPrice()
+    {
+        return $this->price;
+    }
+
+    /**
+     * @param int $price
+     */
+    public function setPrice($price)
+    {
+        $this->price = $price;
+    }
+
+    /**
+     * @return string
+     */
+    public function getOldCard()
+    {
+        return $this->oldCard;
+    }
+
+    /**
+     * @param string $oldCard
+     */
+    public function setOldCard($oldCard)
+    {
+        $this->oldCard = $oldCard;
+    }
+
 
 
 }

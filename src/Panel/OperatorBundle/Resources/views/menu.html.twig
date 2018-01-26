@@ -79,7 +79,15 @@
                     &nbsp;&nbsp;Главная
                 </a>
             </li>
+
             {% if is_granted('ROLE_ADMIN') %}
+                <li class="{{ app.request.attributes.get('_route') == 'panel_pincode_list' ? 'active' : '' }}">
+                    <a href="{{ path('panel_fastOrder_list',{'statusId' : 0}) }}">
+                        <i class="glyphicon glyphicon-index"></i>
+                        Быстрые заказы
+                    </a>
+                </li>
+
                 <li class="{{ app.request.attributes.get('_route') == 'panel_pincode_list' ? 'active' : '' }}">
                     <a href="{{ path('panel_pincode_list') }}" style="{{ render(controller("PanelOperatorBundle:Pincode:getRed"))}}">
                         <i class="glyphicon glyphicon-index"></i>
