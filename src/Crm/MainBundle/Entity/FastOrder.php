@@ -118,6 +118,41 @@ class FastOrder
      */
     private $files;
 
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="status", type="integer", nullable=true)
+     */
+    private $status;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="operatorComment", type="text", nullable=true)
+     */
+    private $operatorComment;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="fio", type="string", nullable=true)
+     */
+    private $fio;
+
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="cardType", type="string")
+     */
+    private $cardType;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Crm\MainBundle\Entity\Client")
+     */
+    private $client;
+
+
     public function __toString()
     {
         return $this->email;
@@ -126,6 +161,7 @@ class FastOrder
     {
         $this->files = new ArrayCollection();
         $this->created = new \DateTime();
+        $this->status = 0;
     }
 
     /**
@@ -457,6 +493,87 @@ class FastOrder
     {
         $this->files = $files;
     }
+
+    /**
+     * @return int
+     */
+    public function getStatus()
+    {
+        return $this->status;
+    }
+
+    /**
+     * @param int $status
+     */
+    public function setStatus($status)
+    {
+        $this->status = $status;
+    }
+
+    /**
+     * @return string
+     */
+    public function getOperatorComment()
+    {
+        return $this->operatorComment;
+    }
+
+    /**
+     * @param string $operatorComment
+     */
+    public function setOperatorComment($operatorComment)
+    {
+        $this->operatorComment = $operatorComment;
+    }
+
+    /**
+     * @return string
+     */
+    public function getFio()
+    {
+        return $this->fio;
+    }
+
+    /**
+     * @param string $fio
+     */
+    public function setFio($fio)
+    {
+        $this->fio = $fio;
+    }
+
+    /**
+     * @return string
+     */
+    public function getCardType()
+    {
+        return $this->cardType;
+    }
+
+    /**
+     * @param string $cardType
+     */
+    public function setCardType($cardType)
+    {
+        $this->cardType = $cardType;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getClient()
+    {
+        return $this->client;
+    }
+
+    /**
+     * @param mixed $client
+     */
+    public function setClient($client)
+    {
+        $this->client = $client;
+    }
+
 
 }
 
