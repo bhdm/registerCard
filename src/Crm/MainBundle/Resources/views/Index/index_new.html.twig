@@ -297,6 +297,38 @@
                         </div>
                     </div>
                     <hr />
+                    <div class="row thumbnail">
+                        <div class="col-sm-8">
+                            <div class="">
+                                {#<img src="{{ asset('bundles/crmmain/images/card2-3.png') }}">#}
+                                <div class="caption">
+                                    <h3><strong>Заказать карту тахографа через оператора</strong></h3>
+                                    <p>
+                                        Вам необходимо только отправить копии документов -  оператор сам правильно оформит заявку.<br />
+                                        При этом, на Вашу эл.почту будет отправлена ссылка для входа в личный кабинет.
+                                        <br />
+                                        В личном кабинете Вы сможете отследить все стадии изготовления карты.
+                                    </p>
+                                    <div class="row">
+                                        <div class="col-xs-6 price">
+                                            СКЗИ - {{ company.priceSkzi + 300 }},00 руб<br />
+                                            ЕСТР - {{ company.priceEstr + 300 }},00 руб<br />
+                                            РФ (Без СКЗИ) - {{ company.priceRu + 300 }},00 руб<br />
+                                        </div>
+                                    </div>
+                                    <br />
+                                    <a href="{{ path('add_fast_order') }}" class="btn-lg btn-primary text-center" role="button">Заказать карту</a>
+                                    <br /><br />
+                                    {#<div class="row text-center">#}
+                                    {#</div>#}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <img src="{{ asset('bundles/crmmain/images/cards.png') }}" style="max-width: 100%; margin-top: 30px; margin-left: -12px">
+                        </div>
+                    </div>
+                    <hr />
                 </div>
                 <div role="tabpanel" class="tab-pane fade" id="company" aria-labelledby="company-tab">
                     <h2 class="text-primary">Карты для предприятий</h2>
