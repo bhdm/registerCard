@@ -171,6 +171,11 @@ class FastOrder
      */
     private $price;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="Crm\MainBundle\Entity\Company")
+     */
+    private $company;
+
 
     public function __toString()
     {
@@ -623,6 +628,22 @@ class FastOrder
     public function setOldCard($oldCard)
     {
         $this->oldCard = $oldCard;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCompany()
+    {
+        return $this->company;
+    }
+
+    /**
+     * @param mixed $company
+     */
+    public function setCompany($company)
+    {
+        $this->company = $company;
     }
 
 

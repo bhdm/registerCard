@@ -15,6 +15,7 @@ use Crm\MainBundle\Form\UserSkziType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Session\Session;
@@ -620,12 +621,28 @@ class ApplicationController extends Controller
      */
     public function fastOrderAction(Request $request){
         if ($request->getMethod() == "POST"){
+            /**
+             * @var $company Company
+             */
+            $company = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->findOneByUrl('NO_COMPANY');
             $em = $this->getDoctrine()->getManager();
             $order = new FastOrder();
             $data = $request->request;
             $order->setPhone($data->get("phone"));
             $order->setEmail($data->get("email"));
             $order->setComment($data->get("comment"));
+            $order->setCardType($data->get("cardType"));
+            $order->setFio($data->get("fio"));
+            $order->setOldCard($data->get("oldCard"));
+            $order->setCompany($company);
+            if ($order->getCardType() == 'SKZI'){
+                $order->setPrice($company->getPriceSkzi()+300);
+            }elseif($order->getCardType() == 'ESTR'){
+                $order->setPrice($company->getPriceEstr()+300);
+            }else{
+                $order->setPrice($company->getPriceRu()+300);
+            }
+            $order->setStatus(FastOrder::STATUS_NEW);
 
             $order->setDeliveryType($data->get("deliveryType"));
             $order->setRegion($data->get("region"));
@@ -643,8 +660,11 @@ class ApplicationController extends Controller
 
             foreach ($files2 as $key => $file){
                 if ($file){
-                    $ex = $file->getGuessExtension();
-                    $filename = $order->getId().'-'.$key.$ex;
+                    /**
+                     * @var $file UploadedFile
+                     */
+                    $ex = $file->getClientOriginalExtension();
+                    $filename = $order->getId().'-'.$key.'.'.$ex;
                     $rootDir2 = __DIR__.'/../../../../web/upload/fast/';
                     $file->move($rootDir2, $filename);
 
@@ -658,7 +678,7 @@ class ApplicationController extends Controller
                     $em->refresh($doc);
                 }
             }
-            return $this->render("@CrmMain/Application/fast_order_payment.html.twig");
+            return $this->render("@CrmMain/Application/fast_order_payment.html.twig", ['order'=> $order]);
         }
 
         return $this->render("@CrmMain/Application/fast_order.html.twig");
