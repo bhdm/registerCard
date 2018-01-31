@@ -4,8 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "16a5c13e852101b05391dcc62e57f958",
-    "content-hash": "a640ba9e9d321e231c2833098bac4a50",
+    "content-hash": "be71042ca85228b57cf0e0452ed0657d",
     "packages": [
         {
             "name": "behat/transliterator",
@@ -45,7 +44,7 @@
                 "slug",
                 "transliterator"
             ],
-            "time": "2014-05-15 22:08:22"
+            "time": "2014-05-15T22:08:22+00:00"
         },
         {
             "name": "braincrafted/bootstrap-bundle",
@@ -58,7 +57,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/braincrafted/bootstrap-bundle/zipball/23ae42061668d0fdc999b63db55c264265e037ab",
+                "url": "https://api.github.com/repos/braincrafted/bootstrap-bundle/zipball/dd53559cfe15428f07ac3681826573fab1557bd9",
                 "reference": "dd53559cfe15428f07ac3681826573fab1557bd9",
                 "shasum": ""
             },
@@ -105,7 +104,7 @@
             "keywords": [
                 "bootstrap"
             ],
-            "time": "2015-04-15 11:59:36"
+            "time": "2015-04-15T11:59:36+00:00"
         },
         {
             "name": "cocur/slugify",
@@ -168,7 +167,7 @@
                 "slug",
                 "slugify"
             ],
-            "time": "2015-07-02 20:13:51"
+            "time": "2015-07-02T20:13:51+00:00"
         },
         {
             "name": "craue/formflow-bundle",
@@ -180,7 +179,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/craue/CraueFormFlowBundle/zipball/aaca0758a4abec1144d7b466375e5569226f61bc",
+                "url": "https://api.github.com/repos/craue/CraueFormFlowBundle/zipball/10d8e5e8ace5f2abf6d623875d468725bff33a89",
                 "reference": "10d8e5e8ace5f2abf6d623875d468725bff33a89",
                 "shasum": ""
             },
@@ -230,7 +229,70 @@
                 "step",
                 "wizard"
             ],
-            "time": "2015-08-02 15:38:04"
+            "time": "2015-08-02T15:38:04+00:00"
+        },
+        {
+            "name": "defuse/php-encryption",
+            "version": "v2.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/defuse/php-encryption.git",
+                "reference": "5176f5abb38d3ea8a6e3ac6cd3bbb54d8185a689"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/defuse/php-encryption/zipball/5176f5abb38d3ea8a6e3ac6cd3bbb54d8185a689",
+                "reference": "5176f5abb38d3ea8a6e3ac6cd3bbb54d8185a689",
+                "shasum": ""
+            },
+            "require": {
+                "ext-openssl": "*",
+                "paragonie/random_compat": "~2.0",
+                "php": ">=5.4.0"
+            },
+            "require-dev": {
+                "nikic/php-parser": "^2.0|^3.0",
+                "phpunit/phpunit": "^4|^5"
+            },
+            "bin": [
+                "bin/generate-defuse-key"
+            ],
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Defuse\\Crypto\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Taylor Hornby",
+                    "email": "taylor@defuse.ca",
+                    "homepage": "https://defuse.ca/"
+                },
+                {
+                    "name": "Scott Arciszewski",
+                    "email": "info@paragonie.com",
+                    "homepage": "https://paragonie.com"
+                }
+            ],
+            "description": "Secure PHP Encryption Library",
+            "keywords": [
+                "aes",
+                "authenticated encryption",
+                "cipher",
+                "crypto",
+                "cryptography",
+                "encrypt",
+                "encryption",
+                "openssl",
+                "security",
+                "symmetric key cryptography"
+            ],
+            "time": "2017-05-18T21:28:48+00:00"
         },
         {
             "name": "doctrine/annotations",
@@ -298,7 +360,7 @@
                 "docblock",
                 "parser"
             ],
-            "time": "2014-12-23 22:40:37"
+            "time": "2014-12-23T22:40:37+00:00"
         },
         {
             "name": "doctrine/cache",
@@ -368,7 +430,7 @@
                 "cache",
                 "caching"
             ],
-            "time": "2015-04-15 00:11:59"
+            "time": "2015-04-15T00:11:59+00:00"
         },
         {
             "name": "doctrine/collections",
@@ -434,7 +496,7 @@
                 "collections",
                 "iterator"
             ],
-            "time": "2015-04-14 22:21:58"
+            "time": "2015-04-14T22:21:58+00:00"
         },
         {
             "name": "doctrine/common",
@@ -507,7 +569,7 @@
                 "persistence",
                 "spl"
             ],
-            "time": "2015-04-02 19:55:44"
+            "time": "2015-04-02T19:55:44+00:00"
         },
         {
             "name": "doctrine/data-fixtures",
@@ -564,7 +626,7 @@
             "keywords": [
                 "database"
             ],
-            "time": "2015-03-30 12:14:13"
+            "time": "2015-03-30T12:14:13+00:00"
         },
         {
             "name": "doctrine/dbal",
@@ -635,7 +697,7 @@
                 "persistence",
                 "queryobject"
             ],
-            "time": "2015-01-12 21:52:47"
+            "time": "2015-01-12T21:52:47+00:00"
         },
         {
             "name": "doctrine/doctrine-bundle",
@@ -712,7 +774,7 @@
                 "orm",
                 "persistence"
             ],
-            "time": "2015-02-28 11:04:45"
+            "time": "2015-02-28T11:04:45+00:00"
         },
         {
             "name": "doctrine/doctrine-cache-bundle",
@@ -796,7 +858,7 @@
                 "cache",
                 "caching"
             ],
-            "time": "2014-11-28 09:43:36"
+            "time": "2014-11-28T09:43:36+00:00"
         },
         {
             "name": "doctrine/doctrine-fixtures-bundle",
@@ -856,7 +918,7 @@
                 "Fixture",
                 "persistence"
             ],
-            "time": "2013-09-05 11:23:37"
+            "time": "2013-09-05T11:23:37+00:00"
         },
         {
             "name": "doctrine/inflector",
@@ -923,7 +985,7 @@
                 "singularize",
                 "string"
             ],
-            "time": "2014-12-20 21:24:13"
+            "time": "2014-12-20T21:24:13+00:00"
         },
         {
             "name": "doctrine/instantiator",
@@ -977,7 +1039,7 @@
                 "constructor",
                 "instantiate"
             ],
-            "time": "2014-10-13 12:58:55"
+            "time": "2014-10-13T12:58:55+00:00"
         },
         {
             "name": "doctrine/lexer",
@@ -1031,7 +1093,7 @@
                 "lexer",
                 "parser"
             ],
-            "time": "2014-09-09 13:34:57"
+            "time": "2014-09-09T13:34:57+00:00"
         },
         {
             "name": "doctrine/orm",
@@ -1108,7 +1170,7 @@
                 "database",
                 "orm"
             ],
-            "time": "2015-04-02 20:40:18"
+            "time": "2015-04-02T20:40:18+00:00"
         },
         {
             "name": "friendsofsymfony/http-cache",
@@ -1181,7 +1243,7 @@
                 "purge",
                 "varnish"
             ],
-            "time": "2015-04-01 08:01:55"
+            "time": "2015-04-01T08:01:55+00:00"
         },
         {
             "name": "friendsofsymfony/http-cache-bundle",
@@ -1258,7 +1320,7 @@
                 "purge",
                 "varnish"
             ],
-            "time": "2015-02-20 15:34:57"
+            "time": "2015-02-20T15:34:57+00:00"
         },
         {
             "name": "friendsofsymfony/jsrouting-bundle",
@@ -1316,7 +1378,7 @@
                 "javascript",
                 "routing"
             ],
-            "time": "2015-01-23 02:44:26"
+            "time": "2015-01-23T02:44:26+00:00"
         },
         {
             "name": "gedmo/doctrine-extensions",
@@ -1328,7 +1390,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Atlantic18/DoctrineExtensions/zipball/149d60342f759bad5bb78ab404d74ce3c9febff1",
+                "url": "https://api.github.com/repos/Atlantic18/DoctrineExtensions/zipball/2972a09764e4e915b070f4325b79fa660c371e6d",
                 "reference": "2972a09764e4e915b070f4325b79fa660c371e6d",
                 "shasum": ""
             },
@@ -1395,7 +1457,7 @@
                 "tree",
                 "uploadable"
             ],
-            "time": "2015-04-15 01:03:59"
+            "time": "2015-04-15T01:03:59+00:00"
         },
         {
             "name": "gregwar/captcha",
@@ -1443,20 +1505,20 @@
                 "captcha",
                 "spam"
             ],
-            "time": "2015-09-11 15:23:20"
+            "time": "2015-09-11T15:23:20+00:00"
         },
         {
             "name": "gregwar/captcha-bundle",
-            "version": "dev-master",
+            "version": "v2.0.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Gregwar/CaptchaBundle.git",
-                "reference": "18c85d3a4fb98c9c76372b7d00fb6cc8eea6f5b9"
+                "reference": "f6c45045f020e2be45b325bced6c36ce51d8075f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Gregwar/CaptchaBundle/zipball/18c85d3a4fb98c9c76372b7d00fb6cc8eea6f5b9",
-                "reference": "18c85d3a4fb98c9c76372b7d00fb6cc8eea6f5b9",
+                "url": "https://api.github.com/repos/Gregwar/CaptchaBundle/zipball/f6c45045f020e2be45b325bced6c36ce51d8075f",
+                "reference": "f6c45045f020e2be45b325bced6c36ce51d8075f",
                 "shasum": ""
             },
             "require": {
@@ -1497,7 +1559,7 @@
                 "spam",
                 "visual"
             ],
-            "time": "2016-10-24 10:05:50"
+            "time": "2016-09-21T08:36:55+00:00"
         },
         {
             "name": "guzzle/guzzle",
@@ -1592,7 +1654,8 @@
                 "rest",
                 "web service"
             ],
-            "time": "2015-03-18 18:23:50"
+            "abandoned": "guzzlehttp/guzzle",
+            "time": "2015-03-18T18:23:50+00:00"
         },
         {
             "name": "incenteev/composer-parameter-handler",
@@ -1644,7 +1707,7 @@
             "keywords": [
                 "parameters management"
             ],
-            "time": "2013-12-07 10:10:39"
+            "time": "2013-12-07T10:10:39+00:00"
         },
         {
             "name": "iphp/filestore-bundle",
@@ -1657,7 +1720,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/vitiko/IphpFileStoreBundle/zipball/fd6fd1658f4524f9ca0a05e191cbc5648fcbc935",
+                "url": "https://api.github.com/repos/vitiko/IphpFileStoreBundle/zipball/ca1254176096e00061e6d507e0324a8364510d6f",
                 "reference": "ca1254176096e00061e6d507e0324a8364510d6f",
                 "shasum": ""
             },
@@ -1703,7 +1766,7 @@
                 "symfony file upload",
                 "upload"
             ],
-            "time": "2014-12-10 08:01:03"
+            "time": "2014-12-10T08:01:03+00:00"
         },
         {
             "name": "jdorn/sql-formatter",
@@ -1753,7 +1816,90 @@
                 "highlight",
                 "sql"
             ],
-            "time": "2014-01-12 16:20:24"
+            "time": "2014-01-12T16:20:24+00:00"
+        },
+        {
+            "name": "jms/payment-core-bundle",
+            "version": "1.3.0",
+            "target-dir": "JMS/Payment/CoreBundle",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/schmittjoh/JMSPaymentCoreBundle.git",
+                "reference": "8ea0b3a10cba35af038ce63713ac7d27b0d01f8d"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/schmittjoh/JMSPaymentCoreBundle/zipball/8ea0b3a10cba35af038ce63713ac7d27b0d01f8d",
+                "reference": "8ea0b3a10cba35af038ce63713ac7d27b0d01f8d",
+                "shasum": ""
+            },
+            "require": {
+                "defuse/php-encryption": "~2.0",
+                "doctrine/common": "~2.3",
+                "doctrine/dbal": "~2.3",
+                "doctrine/orm": "~2.3",
+                "php": ">=5.4",
+                "symfony/browser-kit": "~2.3|~3.0",
+                "symfony/config": "~2.3|~3.0",
+                "symfony/dependency-injection": "~2.3|~3.0",
+                "symfony/event-dispatcher": "~2.3|~3.0",
+                "symfony/form": "~2.3|~3.0",
+                "symfony/http-foundation": "~2.3|~3.0",
+                "symfony/http-kernel": "~2.3|~3.0",
+                "symfony/options-resolver": "~2.3|~3.0",
+                "symfony/validator": "~2.3|~3.0"
+            },
+            "require-dev": {
+                "doctrine/doctrine-bundle": "~1.6",
+                "jms/payment-paypal-bundle": "~1.0",
+                "matthiasnoback/symfony-config-test": "^2.1",
+                "phpunit/phpunit": "~4.8|~5.4",
+                "sensio/framework-extra-bundle": "~3.0",
+                "symfony/doctrine-bridge": "~2.3|~3.0",
+                "symfony/dom-crawler": "~2.3|~3.0",
+                "symfony/framework-bundle": "~2.3|~3.0",
+                "symfony/phpunit-bridge": "~2.7",
+                "symfony/routing": "~2.3|~3.0",
+                "symfony/templating": "~2.3|~3.0",
+                "symfony/twig-bridge": "~2.3|~3.0",
+                "symfony/twig-bundle": "~2.3|~3.0",
+                "twig/twig": "~1.0"
+            },
+            "type": "symfony-bundle",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.3-dev"
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "JMS\\Payment\\CoreBundle": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "Apache2"
+            ],
+            "authors": [
+                {
+                    "name": "Paulo Rodrigues Pinto",
+                    "email": "regularjack@gmail.com"
+                },
+                {
+                    "name": "Johannes M. Schmitt",
+                    "email": "schmittjoh@gmail.com"
+                },
+                {
+                    "name": "Contributors",
+                    "homepage": "https://github.com/schmittjoh/JMSPaymentCoreBundle/contributors"
+                }
+            ],
+            "description": "A unified API for processing payments with Symfony",
+            "homepage": "http://jmspaymentcorebundle.readthedocs.io",
+            "keywords": [
+                "payment"
+            ],
+            "time": "2017-01-22T17:49:09+00:00"
         },
         {
             "name": "knplabs/knp-components",
@@ -1821,7 +1967,7 @@
                 "pager",
                 "paginator"
             ],
-            "time": "2014-10-06 10:38:10"
+            "time": "2014-10-06T10:38:10+00:00"
         },
         {
             "name": "knplabs/knp-paginator-bundle",
@@ -1880,7 +2026,7 @@
                 "pagination",
                 "paginator"
             ],
-            "time": "2014-09-15 15:49:24"
+            "time": "2014-09-15T15:49:24+00:00"
         },
         {
             "name": "kriswallsmith/assetic",
@@ -1954,7 +2100,7 @@
                 "compression",
                 "minification"
             ],
-            "time": "2014-12-12 05:04:05"
+            "time": "2014-12-12T05:04:05+00:00"
         },
         {
             "name": "liuggio/ExcelBundle",
@@ -2020,7 +2166,7 @@
                 "excel",
                 "xls"
             ],
-            "time": "2016-04-20 09:58:50"
+            "time": "2016-04-20T09:58:50+00:00"
         },
         {
             "name": "monolog/monolog",
@@ -2093,7 +2239,7 @@
                 "logging",
                 "psr-3"
             ],
-            "time": "2015-03-09 09:58:04"
+            "time": "2015-03-09T09:58:04+00:00"
         },
         {
             "name": "mpdf/mpdf",
@@ -2136,7 +2282,55 @@
                 "php",
                 "utf-8"
             ],
-            "time": "2015-03-01 10:27:49"
+            "time": "2015-03-01T10:27:49+00:00"
+        },
+        {
+            "name": "paragonie/random_compat",
+            "version": "v2.0.11",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/paragonie/random_compat.git",
+                "reference": "5da4d3c796c275c55f057af5a643ae297d96b4d8"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/paragonie/random_compat/zipball/5da4d3c796c275c55f057af5a643ae297d96b4d8",
+                "reference": "5da4d3c796c275c55f057af5a643ae297d96b4d8",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.2.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "4.*|5.*"
+            },
+            "suggest": {
+                "ext-libsodium": "Provides a modern crypto API that can be used to generate random bytes."
+            },
+            "type": "library",
+            "autoload": {
+                "files": [
+                    "lib/random.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Paragon Initiative Enterprises",
+                    "email": "security@paragonie.com",
+                    "homepage": "https://paragonie.com"
+                }
+            ],
+            "description": "PHP 5.x polyfill for random_bytes() and random_int() from PHP 7",
+            "keywords": [
+                "csprng",
+                "pseudorandom",
+                "random"
+            ],
+            "time": "2017-09-27T21:40:39+00:00"
         },
         {
             "name": "phpmailer/phpmailer",
@@ -2148,7 +2342,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/PHPMailer/PHPMailer/zipball/f97b9cd3c2dcf348d110d17613a82614d1163ab5",
+                "url": "https://api.github.com/repos/PHPMailer/PHPMailer/zipball/245d73be7fae265a38ba4729d778e01bd028f8fa",
                 "reference": "245d73be7fae265a38ba4729d778e01bd028f8fa",
                 "shasum": ""
             },
@@ -2189,7 +2383,7 @@
                 }
             ],
             "description": "PHPMailer is a full-featured email creation and transfer class for PHP",
-            "time": "2015-04-17 13:10:54"
+            "time": "2015-04-17T13:10:54+00:00"
         },
         {
             "name": "phpoffice/phpexcel",
@@ -2246,7 +2440,8 @@
                 "xls",
                 "xlsx"
             ],
-            "time": "2014-03-02 15:22:49"
+            "abandoned": "phpoffice/phpspreadsheet",
+            "time": "2014-03-02T15:22:49+00:00"
         },
         {
             "name": "psr/log",
@@ -2284,7 +2479,50 @@
                 "psr",
                 "psr-3"
             ],
-            "time": "2012-12-21 11:40:51"
+            "time": "2012-12-21T11:40:51+00:00"
+        },
+        {
+            "name": "rispo/yandexkassa-bundle",
+            "version": "1.0.0",
+            "target-dir": "Rispo/YandexKassaBundle",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/rispo-service/RispoYandexKassaBundle.git",
+                "reference": "47d5f805772984f6b1caedb9e84d5baeb81e2054"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/rispo-service/RispoYandexKassaBundle/zipball/47d5f805772984f6b1caedb9e84d5baeb81e2054",
+                "reference": "47d5f805772984f6b1caedb9e84d5baeb81e2054",
+                "shasum": ""
+            },
+            "require": {
+                "jms/payment-core-bundle": "~1.0",
+                "php": ">=5.3.2",
+                "symfony/framework-bundle": ">=2.6,<3.0"
+            },
+            "type": "symfony-bundle",
+            "autoload": {
+                "psr-0": {
+                    "Rispo\\YandexKassaBundle": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Alexander Ivanisov",
+                    "email": "ivanisov@rispo.ru"
+                }
+            ],
+            "description": "Bundle allows you to accept YandexKassa payments",
+            "keywords": [
+                "payment",
+                "yandexkassa"
+            ],
+            "time": "2016-07-08T16:42:05+00:00"
         },
         {
             "name": "sensio/distribution-bundle",
@@ -2330,7 +2568,7 @@
                 "configuration",
                 "distribution"
             ],
-            "time": "2015-04-10 06:19:33"
+            "time": "2015-04-10T06:19:33+00:00"
         },
         {
             "name": "sensio/framework-extra-bundle",
@@ -2385,7 +2623,7 @@
                 "annotations",
                 "controllers"
             ],
-            "time": "2015-04-02 12:28:58"
+            "time": "2015-04-02T12:28:58+00:00"
         },
         {
             "name": "sensio/generator-bundle",
@@ -2433,7 +2671,7 @@
                 }
             ],
             "description": "This bundle generates code for you",
-            "time": "2015-03-17 06:36:52"
+            "time": "2015-03-17T06:36:52+00:00"
         },
         {
             "name": "swiftmailer/swiftmailer",
@@ -2485,7 +2723,7 @@
                 "mail",
                 "mailer"
             ],
-            "time": "2015-03-14 06:06:39"
+            "time": "2015-03-14T06:06:39+00:00"
         },
         {
             "name": "symfony/assetic-bundle",
@@ -2550,7 +2788,7 @@
                 "compression",
                 "minification"
             ],
-            "time": "2015-01-27 12:45:16"
+            "time": "2015-01-27T12:45:16+00:00"
         },
         {
             "name": "symfony/monolog-bundle",
@@ -2609,7 +2847,7 @@
                 "log",
                 "logging"
             ],
-            "time": "2015-01-04 20:21:17"
+            "time": "2015-01-04T20:21:17+00:00"
         },
         {
             "name": "symfony/swiftmailer-bundle",
@@ -2666,7 +2904,7 @@
             ],
             "description": "Symfony SwiftmailerBundle",
             "homepage": "http://symfony.com",
-            "time": "2014-12-01 17:44:50"
+            "time": "2014-12-01T17:44:50+00:00"
         },
         {
             "name": "symfony/symfony",
@@ -2783,7 +3021,7 @@
             "keywords": [
                 "framework"
             ],
-            "time": "2015-04-01 16:55:26"
+            "time": "2015-04-01T16:55:26+00:00"
         },
         {
             "name": "tfox/mpdf-port-bundle",
@@ -2838,7 +3076,7 @@
                 "mpdf",
                 "pdf"
             ],
-            "time": "2015-01-29 11:58:49"
+            "time": "2015-01-29T11:58:49+00:00"
         },
         {
             "name": "twig/extensions",
@@ -2890,7 +3128,7 @@
                 "i18n",
                 "text"
             ],
-            "time": "2014-10-30 14:30:03"
+            "time": "2014-10-30T14:30:03+00:00"
         },
         {
             "name": "twig/twig",
@@ -2947,7 +3185,7 @@
             "keywords": [
                 "templating"
             ],
-            "time": "2015-04-19 08:30:27"
+            "time": "2015-04-19T08:30:27+00:00"
         },
         {
             "name": "willdurand/jsonp-callback-validator",
@@ -2987,7 +3225,45 @@
                 }
             ],
             "description": "JSONP callback validator.",
-            "time": "2014-01-20 22:35:06"
+            "time": "2014-01-20T22:35:06+00:00"
+        },
+        {
+            "name": "yandex-money/yandex-checkout-sdk-php",
+            "version": "1.0.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/yandex-money/yandex-checkout-sdk-php.git",
+                "reference": "7be7d9f0d4d88abcd6630593821f70530ce1faff"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/yandex-money/yandex-checkout-sdk-php/zipball/7be7d9f0d4d88abcd6630593821f70530ce1faff",
+                "reference": "7be7d9f0d4d88abcd6630593821f70530ce1faff",
+                "shasum": ""
+            },
+            "require": {
+                "ext-curl": "*",
+                "ext-json": "*",
+                "ext-mbstring": "*",
+                "php": ">=5.3.0",
+                "psr/log": "^1.0"
+            },
+            "require-dev": {
+                "ext-xml": "*",
+                "mockery/mockery": "^0.9.9",
+                "phpunit/phpunit": "4.*"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "YandexCheckout\\": "lib/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "time": "2017-12-13T08:17:24+00:00"
         },
         {
             "name": "zelenin/smsru",
@@ -3031,7 +3307,7 @@
                 "sms",
                 "sms.ru"
             ],
-            "time": "2014-01-10 00:00:00"
+            "time": "2014-01-10T00:00:00+00:00"
         }
     ],
     "packages-dev": [],
@@ -3042,7 +3318,6 @@
         "iphp/filestore-bundle": 20,
         "friendsofsymfony/jsrouting-bundle": 0,
         "phpmailer/phpmailer": 20,
-        "gregwar/captcha-bundle": 20,
         "braincrafted/bootstrap-bundle": 20,
         "craue/formflow-bundle": 20
     },

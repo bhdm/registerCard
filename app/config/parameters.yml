@@ -15,3 +15,4 @@ parameters:
     upload_dir: upload
     rootPath: /var/www/imkard/
     protocol: http
+    yandex_key: AIzaSyAUyXxgk-W2aoP78drkVf91XHCp0-aAkZI
