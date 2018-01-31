@@ -9,10 +9,10 @@
             <label class="col-sm-4"><br />Статус</label>
             <div class="col-sm-8">
                 <select class="form-control" name="status">
-                    <option value="Новая" {{ order.status =='Новая' ? 'selected' }}>Новая</option>
-                    <option value="Оплачена" {{ order.status =='Оплачена' ? 'selected' }}>Оплачена</option>
-                    <option value="Сделана" {{ order.status =='Сделана' ? 'selected' }}>Сделана</option>
-                    <option value="Отклонена" {{ order.status =='Отклонена' ? 'selected' }}>Отклонена</option>
+                    <option value="Новая" {{ order.status == 0 ? 'selected' }}>Новая</option>
+                    <option value="Оплачена" {{ order.status ==1 ? 'selected' }}>Оплачена</option>
+                    <option value="Сделана" {{ order.status == 2 ? 'selected' }}>Сделана</option>
+                    <option value="Отклонена" {{ order.status == 10 ? 'selected' }}>Отклонена</option>
                 </select>
             </div>
         </div>
