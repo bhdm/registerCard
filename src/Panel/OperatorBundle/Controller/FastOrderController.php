@@ -70,4 +70,18 @@ class FastOrderController extends Controller
         }
     }
 
+    /**
+     * @Route("/get-red", name="get_fast_red")
+     * @Template()
+     */
+    public function getRedAction(){
+        $r = $this->getDoctrine()->getRepository('CrmMainBundle:FastOrder')->getRed();
+
+        if (count($r) > 0){
+            return ['color' => 'color: #CC0000'];
+        }else{
+            return ['color' => ''];
+        }
+    }
+
 }
