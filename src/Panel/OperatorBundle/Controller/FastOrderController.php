@@ -52,7 +52,8 @@ class FastOrderController extends Controller
 
 
         foreach ($files as $k => $file){
-            $zip->addFile($filePath.$file->getFile()['path']);
+//            $zip->addFromString($file->getTitle().'-' . $k.'.jpg', $filePath.$file->getFile()['path']);
+            $zip->addFile($filePath.$file->getFile()['path'], $file->getTitle().'-' . $k.'.jpg');
         }
 //        exit;
 
