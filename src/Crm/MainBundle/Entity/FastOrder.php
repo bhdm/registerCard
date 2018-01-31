@@ -534,6 +534,15 @@ class FastOrder
         $this->status = $status;
     }
 
+    public function getStatusStr(){
+        switch ($this->status){
+            case self::STATUS_NEW : return 'Новая'; break;
+            case self::STATUS_PAYMENT: return 'Оплачена'; break;
+            case self::STATUS_SUCCESS: return 'Выполнена'; break;
+            case self::STATUS_REJECTED: return 'отклонена'; break;
+        }
+    }
+
     /**
      * @return string
      */
