@@ -21,6 +21,7 @@
                 <td>{{ o.price }}</td>
                 <td>{{ o.fio }}</td>
                 <td class="setting">
+                    <a href="{{ path('get_images',{'id' : o.id }) }}" class="btn btn-success"><span class="glyphicon glyphicon-send"></span></a>
                     <a href="{{ path('panel_fastOrder_edit',{'id' : o.id }) }}" class="btn btn-primary"><span class="glyphicon glyphicon-edit"></span></a>
                     <a href="#" class="btn btn-danger"><span class="glyphicon glyphicon-remove"></span></a>
                 </td>

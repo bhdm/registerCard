@@ -37,7 +37,6 @@ class FastOrderController extends Controller
 
     /**
      * @Route("/get-images/{id}", name="get_images")
-     * @Template()
      */
     public function zipImagesAction($id){
         $order = $this->getDoctrine()->getRepository('CrmMainBundle:FastOrder')->find($id);
