@@ -50,6 +50,31 @@ class ApplicationController extends Controller
 
         $em = $this->getDoctrine()->getManager();
         $item = new User();
+
+        if ($request->query->get('fid')){
+            $f_order = $this->getDoctrine()->getRepository('CrmMainBundle:FastOrder')->find($request->query->get('fid'));
+        }else{
+            $f_order = null;
+        }
+        if ($f_order){
+            $item->setPhone($f_order->getPhone());
+            $item->setEmail($f_order->getEmail());
+            $item->setDeliveryAdrs(
+                [
+                    'region'    => $f_order->getRegion(),
+                    'area'      => $f_order->getArea(),
+                    'city'      => $f_order->getCity(),
+                    'street'    => $f_order->getStreet(),
+                    'house'     => $f_order->getHouse(),
+                    'corp'      => '',
+                    'structure' => '',
+                    'room'      => $f_order->getRoom(),
+                    'zipcode'   => $f_order->getZipcode(),
+                    'recipient' => $f_order->getRecipient(),
+                ]
+            );
+        }
+
         $form = $this->createForm(new UserEstrType($em), $item);
         $formData = $form->handleRequest($request);
         if ($request->getMethod() == 'POST'){
@@ -95,7 +120,7 @@ class ApplicationController extends Controller
         }else{
             $this->clearSession($session);
         }
-        return array('form' => $form->createView(), 'url' => $url, 'company' => $company);
+        return array('form' => $form->createView(), 'url' => $url, 'company' => $company, 'forder' => $f_order);
     }
 
 
@@ -106,11 +131,6 @@ class ApplicationController extends Controller
      */
     public function skziAction(Request $request, $url = null){
 
-        if ($request->query->get('fid')){
-            $f_order = $this->getDoctrine()->getRepository('CrmMainBundle:FastOrder')->find($request->query->get('fid'));
-        }else{
-            $f_order = null;
-        }
 
         $session = $request->getSession();
         if ($url != null){
@@ -125,6 +145,11 @@ class ApplicationController extends Controller
         $order = $session->get('order');
         $em = $this->getDoctrine()->getManager();
         $item = new User();
+        if ($request->query->get('fid')){
+            $f_order = $this->getDoctrine()->getRepository('CrmMainBundle:FastOrder')->find($request->query->get('fid'));
+        }else{
+            $f_order = null;
+        }
         if ($f_order){
             $item->setPhone($f_order->getPhone());
             $item->setEmail($f_order->getEmail());
@@ -276,6 +301,32 @@ class ApplicationController extends Controller
         $order = $session->get('order');
         $em = $this->getDoctrine()->getManager();
         $item = new User();
+
+        if ($request->query->get('fid')){
+            $f_order = $this->getDoctrine()->getRepository('CrmMainBundle:FastOrder')->find($request->query->get('fid'));
+        }else{
+            $f_order = null;
+        }
+        if ($f_order){
+            $item->setPhone($f_order->getPhone());
+            $item->setEmail($f_order->getEmail());
+            $item->setDeliveryAdrs(
+                [
+                    'region'    => $f_order->getRegion(),
+                    'area'      => $f_order->getArea(),
+                    'city'      => $f_order->getCity(),
+                    'street'    => $f_order->getStreet(),
+                    'house'     => $f_order->getHouse(),
+                    'corp'      => '',
+                    'structure' => '',
+                    'room'      => $f_order->getRoom(),
+                    'zipcode'   => $f_order->getZipcode(),
+                    'recipient' => $f_order->getRecipient(),
+                ]
+            );
+        }
+
+
         $form = $this->createForm(new UserRuType($em), $item);
         $formData = $form->handleRequest($request);
         if ($request->getMethod() == 'POST'){
@@ -334,7 +385,7 @@ class ApplicationController extends Controller
         }else{
             $this->clearSession($session);
         }
-        return array('form' => $form->createView(), 'url' => $url, 'company' => $company);
+        return array('form' => $form->createView(), 'url' => $url, 'company' => $company, 'forder' => $f_order);
     }
 
 

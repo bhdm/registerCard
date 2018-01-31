@@ -514,8 +514,8 @@
                         <td>Ввести адрес доставки</td>
                         <td>
                             <select id="delivery" class="form-control">
-                                <option value="1">Да</option>
-                                <option value="0">Нет</option>
+                                <option value="1" {{ forder.deliveryType is defined and forder.deliveryType == 1 ? 'selected' : '' }}>Да</option>
+                                <option value="0" {{ forder.deliveryType is defined and forder.deliveryType == 0 ? 'selected' : '' }}>Нет</option>
                             </select>
                         </td>
                         <td></td>
