@@ -14,8 +14,8 @@ class FastOrderRepository extends \Doctrine\ORM\EntityRepository
     public function getRed(){
         $qb =   $this->createQueryBuilder('p')
             ->select('p.id')
-            ->where('(p.status = 0 AND p.created >= :date) OR ( p.status = 1 )')
-            ->setParameter(':date', new \DateTime('-1 day'));
+            ->where('p.status = 0 OR  p.status = 1')
+//            ->setParameter(':date', new \DateTime('-1 day'));
         return $qb->getQuery()->getResult();
     }
 }
