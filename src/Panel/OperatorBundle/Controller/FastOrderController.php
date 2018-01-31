@@ -35,5 +35,38 @@ class FastOrderController extends Controller
         return ['order' => $order];
     }
 
+    /**
+     * @Route("/get-images/{id}", name="get_images")
+     * @Template()
+     */
+    public function zipImagesAction($id){
+        $order = $this->getDoctrine()->getRepository('CrmMainBundle:FastOrder')->find($id);
+        $files = $order->getFiles();
+        $zip_name = "upload/XMLgeneration.zip";
+        $zip = new \ZipArchive();
+        $filePath = __DIR__.'/../../../../web/';
+
+        if($zip->open($filePath.$zip_name, \ZIPARCHIVE::CREATE)!==TRUE)
+        {
+            throw $this->createNotFoundException("* Sorry ZIP creation failed at this time;");
+        }
+
+
+        foreach ($files as $k => $file){
+            $zip->addFromString($file->getTitle().'-' . $k.'.jpg', $filePath.$file['path']);
+        }
+
+
+
+        $zip->close();
+        if(file_exists($filePath.$zip_name))
+        {
+            header('Content-type: application/zip');
+            header('Content-Disposition: attachment; filename="XMLgeneration.zip"');
+            readfile($filePath.$zip_name);
+            unlink($filePath.$zip_name);
+            exit;
+        }
+    }
 
 }
