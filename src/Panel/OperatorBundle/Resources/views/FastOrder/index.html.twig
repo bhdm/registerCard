@@ -7,6 +7,7 @@
     <table class="table">
         <tr>
             <th>№</th>
+            <th>Тег</th>
             <th>Дата</th>
             <th>Тип</th>
             <th>Цена</th>
@@ -17,6 +18,9 @@
         {% for o in orders %}
             <tr>
                 <td>{{ o.id }}</td>
+                <td>
+                    <input type="text" style="width: 50px" value="{{ user.managerKey }}" class="managers3" id="{{ user.id }}">
+                </td>
                 <td>{{ o.created | date("d.m.Y") }}</td>
                 <td>{{ o.cardType }}</td>
                 <td>{{ o.price }}</td>
@@ -37,4 +41,31 @@
             </tr>
         {% endfor %}
     </table>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+        $(document).ready(function () {
+            $('.managers3').keypress(function(e){
+                var input = $(this);
+                $(input).css('color','rgb(0, 0, 0)');
+                if(e.which == 13) {
+                    $.ajax({
+                        type: "POST",
+                        url: Routing.generate('panel_edit_fast_manager'),
+                        data: 'id='+$(input).attr('id')+'&key='+$(input).val(),
+                        success: function (msg) {
+                            if (msg == 'ok'){
+                                $(input).css('color','rgb(46, 124, 55)');
+                            }else{
+                                alert('Ошибка сохраненния');
+                                $(input).css('color','rgb(124, 46, 55)');
+                            }
+                        }
+                    });
+                }
+            });
+        })
+    </script>
 {% endblock %}

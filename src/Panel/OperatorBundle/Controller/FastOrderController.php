@@ -5,6 +5,7 @@ namespace Panel\OperatorBundle\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Request;
 
 /**
  * Class FastOrderController
@@ -82,6 +83,26 @@ class FastOrderController extends Controller
         }else{
             return ['color' => ''];
         }
+    }
+
+    /**
+     * @Route("/panel/edit/manager-fast", name="panel_edit_fast_manager", options={"expose"=true})
+     */
+    public function panelEditManagerAction(Request $request){
+        if ($request->getMethod()== 'POST'){
+            $id = $request->request->get('id');
+            $key = $request->request->get('key');
+
+            $user = $this->getDoctrine()->getRepository('CrmMainBundle:FastOrder')->findOneById($id);
+            if ($user){
+                $user->setManagerKey($key);
+                $this->getDoctrine()->getManager()->flush($user);
+                echo 'ok';
+                exit;
+            }
+        }
+        echo 'error';
+        exit;
     }
 
 }

@@ -176,6 +176,11 @@ class FastOrder
      */
     private $company;
 
+    /**
+     * @ORM\Column(type="string", nullable=true)
+     */
+    protected $managerKey;
+
 
     public function __toString()
     {
@@ -653,6 +658,22 @@ class FastOrder
     public function setCompany($company)
     {
         $this->company = $company;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getManagerKey()
+    {
+        return $this->managerKey;
+    }
+
+    /**
+     * @param mixed $managerKey
+     */
+    public function setManagerKey($managerKey)
+    {
+        $this->managerKey = $managerKey;
     }
 
 
