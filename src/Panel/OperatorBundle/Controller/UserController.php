@@ -1408,41 +1408,38 @@ class UserController extends Controller
         $em = $this->getDoctrine()->getManager();
         $usersId = $request->request->get('user');
 
+        $email = '365643584@inbox.ru'; // Логин в системе
+        $password = '375HiDc9'; // Пароль в системе
 
         foreach ($usersId as $userId => $val){
             $user = $this->getDoctrine()->getRepository('CrmMainBundle:User')->findOneById($userId);
 
-            $phone = '79778785515'; // Телефон абонента
-            $email = '365643584@mail.ru'; // Логин в системе
-            $password = '375HiDc9'; // Пароль в системе
+            $phone = $user->getPhone(); // Телефон абонента
 
-            $text = 'Тест - '.rand(1,100);
-            $sender_name = 'IM-KARD';
-            $result = $this->smsapi_push_msg_nologin($email, $password, $phone, $text, array("sender_name"=>$sender_name));
-            //var_dump($result); //Раскомментируйте, чтобы посмотреть какой массив возвращает
 
-            //Далее, пример обработки полученных данных
-            if (isset($result['response'])) {
+            $text = $request->query->get('txt');
+            $sender_name = 'IM-KARD.RU';
+            if ($phone){
+                $result = $this->smsapi_push_msg_nologin($email, $password, $phone, $text, array("sender_name"=>$sender_name));
+                if (isset($result['response'])) {
 
-                if ($result['response']['msg']['err_code'] > 0) {
-                    // Получили ошибку
-                    print $result['response']['msg']['err_code']; // код ошибки
-                    print $result['response']['msg']['text']; // текстовое описание ошибки
+                    if ($result['response']['msg']['err_code'] > 0) {
+                        // Получили ошибку
+                        print $result['response']['msg']['err_code']; // код ошибки
+                        print $result['response']['msg']['text']; // текстовое описание ошибки
 
-                } else {
-                    // Запрос прошел без ошибок, получаем нужные данные
-                    print $result['response']['data']['id']; // id SMS
-                    $result['response']['data']['credits']; // Стоимость
-                    $result['response']['data']['n_raw_sms']; // Количество сегментов SMS
-                    $result['response']['data']['sender_name']; // Отправитель
+                    } else {
+                        // Запрос прошел без ошибок, получаем нужные данные
+                        print $result['response']['data']['id']; // id SMS
+                        $result['response']['data']['credits']; // Стоимость
+                        $result['response']['data']['n_raw_sms']; // Количество сегментов SMS
+                        $result['response']['data']['sender_name']; // Отправитель
+
+                    }
 
                 }
-
             }
-
-
         }
-
         $referer = $request->headers->get('referer');
         return $this->redirect($referer);
     }
