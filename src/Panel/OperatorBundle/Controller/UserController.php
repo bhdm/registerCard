@@ -1440,8 +1440,9 @@ class UserController extends Controller
                 }
             }
         }
-        $referer = $request->headers->get('referer');
-        return $this->redirect($referer);
+        exit;
+//        $referer = $request->headers->get('referer');
+//        return $this->redirect($referer);
     }
 
     /**
