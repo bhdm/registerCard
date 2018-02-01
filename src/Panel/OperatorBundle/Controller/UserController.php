@@ -20,6 +20,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\Security\Core\SecurityContext;
 use Crm\MainBundle\WImage\WImage;
+use Zelenin\smsru;
 
 /**
  * @Route("/panel/operator/user")
@@ -1375,7 +1376,7 @@ class UserController extends Controller
     }
 
     /**
-     * Показывает водителей определенной компании
+     *
      * @Security("has_role('ROLE_ADMIN')")
      * @Route("/change-status/{userId}/{status}", name="panel_user_change_status", options={"expose"=true})
      * @Template()
@@ -1394,6 +1395,32 @@ class UserController extends Controller
         $em->flush($statuslog);
 
         return new Response('Ok');
+    }
+
+    /**
+     *
+     * @Security("has_role('ROLE_ADMIN')")
+     * @Route("/send-sms", name="panel_user_sms_send", options={"expose"=true})
+     * @Template()
+     */
+    public function smsSendAction(Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $usersId = $request->request->get('user');
+
+
+        foreach ($usersId as $userId => $val){
+            $user = $this->getDoctrine()->getRepository('CrmMainBundle:User')->findOneById($userId);
+            $sms = new smsru('a8f0f6b6-93d1-3144-a9a1-13415e3b9721');
+            $txt = $request->query->get('txt');
+            $txt = base64_decode($txt);
+            $sms->sms_send( $user->getPhone(), $txt, true  ); # последний параметр заменить на true
+
+
+        }
+
+        $referer = $request->headers->get('referer');
+        return $this->redirect($referer);
     }
 
     /**
