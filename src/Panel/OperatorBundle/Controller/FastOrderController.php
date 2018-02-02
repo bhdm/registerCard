@@ -20,7 +20,7 @@ class FastOrderController extends Controller
      */
     public function indexAction($statusId)
     {
-        $orders = $this->getDoctrine()->getRepository('CrmMainBundle:FastOrder')->findBy(['status'=> $statusId],['id'=> 'DESC']);
+        $orders = $this->getDoctrine()->getRepository('CrmMainBundle:FastOrder')->findBy([],['id'=> 'DESC']); //'status'=> $statusId
 
         return ['orders' => $orders];
     }
@@ -29,9 +29,20 @@ class FastOrderController extends Controller
      * @Route("/edit/{id}", name="panel_fastOrder_edit")
      * @Template()
      */
-    public function editAction($id)
+    public function editAction(Request $request, $id)
     {
         $order = $this->getDoctrine()->getRepository('CrmMainBundle:FastOrder')->find($id);
+
+        if ($request->getMethod() == 'POST'){
+            $order->setStatus($request->request->get('status'));
+            $order->setFio($request->request->get('fio'));
+            $order->setEmail($request->request->get('email'));
+            $order->setPhone($request->request->get('phone'));
+            $order->setCardType($request->request->get('cardType'));
+            $order->setOldCard($request->request->get('oldCard'));
+            $this->getDoctrine()->getManager()->flush($order);
+            return $this->redirectToRoute('panel_fastOrder_list');
+        }
 
         return ['order' => $order];
     }
