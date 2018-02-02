@@ -41,7 +41,7 @@ class FastOrderController extends Controller
             $order->setCardType($request->request->get('cardType'));
             $order->setOldCard($request->request->get('oldCard'));
             $this->getDoctrine()->getManager()->flush($order);
-            return $this->redirectToRoute('panel_fastOrder_list');
+            return $this->redirectToRoute('panel_fastOrder_list', ['statusId' => 0]);
         }
 
         return ['order' => $order];
