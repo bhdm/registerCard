@@ -20,9 +20,9 @@ class FastOrderController extends Controller
      */
     public function indexAction($statusId)
     {
-        $orders = $this->getDoctrine()->getRepository('CrmMainBundle:FastOrder')->findBy([],['id'=> 'DESC']); //'status'=> $statusId
+        $orders = $this->getDoctrine()->getRepository('CrmMainBundle:FastOrder')->findBy(['status'=> $statusId],['id'=> 'DESC']);
 
-        return ['orders' => $orders];
+        return ['orders' => $orders, 'statusId' => $statusId];
     }
 
     /**
