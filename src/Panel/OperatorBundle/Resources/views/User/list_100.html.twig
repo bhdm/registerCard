@@ -186,7 +186,7 @@
                                 {% if user.typeCard != 0 %}
                                     <span class="glyphicon glyphicon-exclamation-sign" style="color: #cc0000"></span>
                                 {% endif %}
-                                {% if user.citizenship.id != 3159 %}
+                                {% if user.citizenship != null and user.citizenship.id != 3159 %}
                                     <span class="glyphicon glyphicon-exclamation-sign" style="color: #ff9409"></span>
                                 {% endif %}
                             </a>
