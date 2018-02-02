@@ -711,9 +711,9 @@ class ApplicationController extends Controller
             $order->setFio($data->get("fio"));
             $order->setOldCard($data->get("oldCard"));
             $order->setCompany($company);
-            if ($order->getCardType() == 'SKZI'){
+            if ($order->getCardType() == 'СКЗИ'){
                 $order->setPrice($company->getPriceSkzi()+300);
-            }elseif($order->getCardType() == 'ESTR'){
+            }elseif($order->getCardType() == 'ЕСТР'){
                 $order->setPrice($company->getPriceEstr()+300);
             }else{
                 $order->setPrice($company->getPriceRu()+300);
