@@ -75,6 +75,29 @@
                     });
                 }
             });
+
+            $('.remove').click(function () {
+                var url = $(this).attr('data-href');
+                BootstrapDialog.show({
+                    title: 'УДАЛЕНИЕ',
+                    size: BootstrapDialog.SIZE_SMALL,
+                    type: BootstrapDialog.TYPE_DANGER,
+                    message: 'Вы точно хотите безвозратно удалить',
+                    buttons: [{
+                        label: 'Удалить',
+                        cssClass: 'btn-danger',
+                        autospin: true,
+                        action: function (dialogRef) {
+                            window.location.href = url;
+                        }
+                    }, {
+                        label: 'Отмена',
+                        action: function (dialogRef) {
+                            dialogRef.close();
+                        }
+                    }]
+                });
+            });
         })
     </script>
 {% endblock %}
