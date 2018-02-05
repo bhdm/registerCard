@@ -48,6 +48,23 @@ class FastOrderController extends Controller
     }
 
     /**
+     * @Security("has_role('ROLE_ADMIN')")
+     * @Route("/remove/{id}", name="panel_fastOrder_remove")
+     */
+    public function removeAction(Request $request, $id){
+        $em = $this->getDoctrine()->getManager();
+
+        $item = $em->getRepository('CrmMainBundle:FastOrder')->findOneById($id);
+        if ($item){
+            $item->setStatus(10);
+            $em->flush($item);
+        }
+        return $this->redirect($request->headers->get('referer'));
+    }
+
+
+
+    /**
      * @Route("/get-images/{id}", name="get_images")
      */
     public function zipImagesAction($id){

@@ -42,7 +42,10 @@
                     {% endif %}
                     <a href="{{ path('get_images',{'id' : o.id }) }}" class="btn btn-success"><span class="glyphicon glyphicon-send"></span></a>
                     <a href="{{ path('panel_fastOrder_edit',{'id' : o.id }) }}" class="btn btn-primary"><span class="glyphicon glyphicon-edit"></span></a>
-                    <a href="#" class="btn btn-danger"><span class="glyphicon glyphicon-remove"></span></a>
+
+                    <button type="button" class="btn btn-default btn-danger remove" data-href="{{ path('panel_fastOrder_remove',{'id': item.id }) }}">
+                        <span class="glyphicon glyphicon-remove"></span>
+                    </button>
                 </td>
             </tr>
         {% endfor %}
