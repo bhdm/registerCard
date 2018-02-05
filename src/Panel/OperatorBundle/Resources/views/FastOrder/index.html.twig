@@ -6,10 +6,10 @@
     <h1>Быстрые заказы</h1>
     <ul class="nav nav-tabs">
         <li role="presentation" class="{{ statusId is null ? 'active' }}"><a href="{{ path('panel_fastOrder_list' ) }}">Все</a></li>
-        <li role="presentation" class="{{ statusId == 0 ? 'active' }}"><a href="{{ path('panel_fastOrder_list', {'statusId' : 0} ) }}">Новые</a></li>
-        <li role="presentation" class="{{ statusId == 1 ? 'active' }}"><a href="{{ path('panel_fastOrder_list', {'statusId' : 1} ) }}">Оплаченные</a></li>
-        <li role="presentation" class="{{ statusId == 2 ? 'active' }}"><a href="{{ path('panel_fastOrder_list', {'statusId' : 2} ) }}">Сделанные</a></li>
-        <li role="presentation" class="{{ statusId == 10 ? 'active' }}"><a href="{{ path('panel_fastOrder_list', {'statusId' : 10} ) }}">Отклоненные</a></li>
+        <li role="presentation" class="{{ statusId == '0' ? 'active' }}"><a href="{{ path('panel_fastOrder_list', {'statusId' : 0} ) }}">Новые</a></li>
+        <li role="presentation" class="{{ statusId == '1' ? 'active' }}"><a href="{{ path('panel_fastOrder_list', {'statusId' : 1} ) }}">Оплаченные</a></li>
+        <li role="presentation" class="{{ statusId == '2' ? 'active' }}"><a href="{{ path('panel_fastOrder_list', {'statusId' : 2} ) }}">Сделанные</a></li>
+        <li role="presentation" class="{{ statusId == '10' ? 'active' }}"><a href="{{ path('panel_fastOrder_list', {'statusId' : 10} ) }}">Отклоненные</a></li>
     </ul>
     <table class="table">
         <tr>
