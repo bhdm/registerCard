@@ -15,12 +15,17 @@ use Symfony\Component\HttpFoundation\Request;
 class FastOrderController extends Controller
 {
     /**
-     * @Route("/{statusId}", name="panel_fastOrder_list")
+     * @Route("/{statusId}", name="panel_fastOrder_list", defaults={"statusId"=null})
      * @Template()
      */
-    public function indexAction($statusId)
+    public function indexAction($statusId = null)
     {
-        $orders = $this->getDoctrine()->getRepository('CrmMainBundle:FastOrder')->findBy(['status'=> $statusId],['id'=> 'DESC']);
+        if ($statusId != null){
+            $orders = $this->getDoctrine()->getRepository('CrmMainBundle:FastOrder')->findBy(['status'=> $statusId],['id'=> 'DESC']);
+        }else{
+            $orders = $this->getDoctrine()->getRepository('CrmMainBundle:FastOrder')->findBy([],['id'=> 'DESC']);
+        }
+
 
         return ['orders' => $orders, 'statusId' => $statusId];
     }
