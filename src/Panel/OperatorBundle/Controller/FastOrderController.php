@@ -48,7 +48,6 @@ class FastOrderController extends Controller
     }
 
     /**
-     * @Security("has_role('ROLE_ADMIN')")
      * @Route("/remove/{id}", name="panel_fastOrder_remove")
      */
     public function removeAction(Request $request, $id){
