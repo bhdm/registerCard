@@ -54,6 +54,66 @@
                     });
         });
 
+
+        $(document).ready(function () {
+            var orders = [];
+            function getOrders() {
+                var orders = [];
+                $('.tch_one:checked').each(function(indx, element) {
+                    var id = $(element).val();
+                    var order = {
+                        id: id,
+                    };
+                    orders[id] = order;
+                });
+                return orders;
+            }
+
+            function addIDsInputs() {
+                var orders = getOrders();
+                $("#order_ids").html('');
+                orders.forEach(function(order) {
+                    $("#order_ids").append('<input type="hidden" name="task_id[]" value="' + order.id + '" />');
+                });
+            }
+
+            function showSelected() {
+                var orders = getOrders();
+                if(orders.length > 0) {
+                    $('.footer-setting').css('display', 'block');
+                } else {
+                    $('.footer-setting').css('display', 'none');
+                }
+            }
+
+            $('.tch_one').on('change', function (e) {
+                if($(this).is(':checked') === false) {
+                    $(this).parents('.tasks-table').find('.tch_all').prop('checked', false);
+                }
+                addIDsInputs();
+                showSelected();
+            });
+
+
+            $('#all-change-status-button').click(function () {
+
+                var orders = [];
+                $('.tch_one:checked').each(function(indx, element) {
+                    var id = $(element).val();
+                    orders[id] = id;
+                });
+
+                $.ajax({
+                    url: "{{ path('auth_change_ctatus_all') }}",
+                    method: "POST",
+                    data: {'orders' : orders },
+                    success: function (msg) {
+                        parent.location.reload(true);
+                    }
+                })
+            });
+        })
+
     </script>
 {% endblock %}
 
@@ -112,6 +172,7 @@
     <div class="row">
         <table class="table">
             <tr>
+                <td></td>
                 <td>Номер</td>
                 <td>Дата заявки</td>
                 <td>Ф.И.О.</td>
@@ -125,6 +186,10 @@
             {% for o in orders %}
                 {% if o.enabled == 1 %}
                     <tr class="{{ o.comment != null and o.comment != '' ? 'warning' : ''}}">
+                        <td>
+                            <input type="checkbox" name="order[]" value="{{ o.id }}"
+                                   class="tch_one">
+                        </td>
                         <td>
                             {#{% if o.estr == 0 and o.ru == 0 %}#}
                             {#<a href="{{ path('auth_user_skzi_edit', {'userId' : o.id}) }}">{{ o.id }}</a>#}
@@ -201,6 +266,13 @@
                 </tr>
             {% endfor %}
         </table>
+    </div>
+    <div class="footer-setting">
+        <div class="row">
+            <div class="col-sm-3 col-sm-offset-9">
+                <button type="button" class="btn btn-success" id="all-change-status-button">Перевести в полученные</button>
+            </div>
+        </div>
     </div>
 {% endblock %}
 

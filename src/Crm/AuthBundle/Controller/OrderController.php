@@ -630,6 +630,28 @@ class OrderController extends Controller
     }
 
     /**
+     * @Route("/order/api/change-status-all", name="auth_change_ctatus_all")
+     */
+    public function changeStatusAction(Request $request){
+        $orders = $request->request->get('orders');
+
+        foreach ($orders as $t){
+            if ($t != ""){
+                /**
+                 * @var $task User
+                 */
+                $order = $this->getDoctrine()->getRepository('AppBundle:User')->find($t);
+                $order->setStatus(5);
+                $this->getDoctrine()->getManager()->flush($order);
+
+            }
+        }
+
+        return new Response('Ok');
+//        return $this->redirect($request->headers->get('referer'));
+    }
+
+    /**
      * @Route("/order-company", name="auth_order_company")
      * @Template()
      */

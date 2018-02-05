@@ -286,3 +286,14 @@ background-size: 100%;
 #crm_mainbundle_user_typeCard{
     width: 500px !important;
 }
+.footer-setting{
+    position: fixed;
+    height: 50px;
+    background: #EEE;
+    border-top: 1px solid #CCC;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    display: none;
+    padding-top: 10px;
+}
