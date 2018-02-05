@@ -100,7 +100,7 @@
                 var orders = [];
                 $('.tch_one:checked').each(function(indx, element) {
                     var id = $(element).val();
-                    orders[id] = id;
+                    orders.push(id);
                 });
 
                 $.ajax({

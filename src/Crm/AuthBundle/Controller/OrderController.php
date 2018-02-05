@@ -634,13 +634,13 @@ class OrderController extends Controller
      */
     public function changeStatusAction(Request $request){
         $orders = $request->request->get('orders');
-
-        foreach ($orders as $t){
+        foreach ($orders as $key => $t){
+            echo $key.' = '.$t."\r\n";
             if ($t != ""){
                 /**
                  * @var $task User
                  */
-                $order = $this->getDoctrine()->getRepository('AppBundle:User')->find($t);
+                $order = $this->getDoctrine()->getRepository('CrmMainBundle:User')->find($t);
                 $order->setStatus(5);
                 $this->getDoctrine()->getManager()->flush($order);
 
