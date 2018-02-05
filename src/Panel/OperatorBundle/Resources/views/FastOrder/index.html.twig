@@ -31,7 +31,22 @@
                 <td>{{ o.cardType }}</td>
                 <td>{{ o.price }}</td>
                 <td>{{ o.fio }}</td>
-                <td>{{ o.statusStr }}</td>
+                <td>
+                    <div class="dropdown">
+                        <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu{{ o.id }}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                            {{ o.statusStr }}
+                            <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu" aria-labelledby="dropdownMenu{{ o.id }}">
+                            <li><a href="{{ path('panel_fastOrder_change_status', {'id': o.id, 'status' : 0 }) }}">Новая</a></li>
+                            <li><a href="{{ path('panel_fastOrder_change_status', {'id': o.id, 'status' : 1 }) }}">Оплаченная</a></li>
+                            <li><a href="{{ path('panel_fastOrder_change_status', {'id': o.id, 'status' : 2 }) }}">Сделанная</a></li>
+                            <li role="separator" class="divider"></li>
+                            <li><a href="{{ path('panel_fastOrder_change_status', {'id': o.id, 'status' : 10 }) }}">Отклоненная</a></li>
+                        </ul>
+                    </div>
+
+                </td>
                 <td class="setting">
                     {% if o.cardType == 'СКЗИ' %}
                         <a href="{{ path('application-skzi-add',{'fid' : o.id }) }}" class="btn btn-primary" target="_blank"><span class="glyphicon glyphicon-send"></span></a>

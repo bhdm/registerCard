@@ -61,6 +61,19 @@ class FastOrderController extends Controller
         return $this->redirect($request->headers->get('referer'));
     }
 
+    /**
+     * @Route("/change-status/{id}/{status}", name="panel_fastOrder_change_status")
+     */
+    public function changeStatusAction(Request $request, $id, $status){
+        $em = $this->getDoctrine()->getManager();
+
+        $item = $em->getRepository('CrmMainBundle:FastOrder')->findOneById($id);
+        if ($item){
+            $item->setStatus($status);
+            $em->flush($item);
+        }
+        return $this->redirect($request->headers->get('referer'));
+    }
 
 
     /**
