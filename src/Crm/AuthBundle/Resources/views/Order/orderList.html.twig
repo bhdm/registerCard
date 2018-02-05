@@ -112,6 +112,16 @@
                     }
                 })
             });
+
+            $('.tch_all').on('change', function (e) {
+                if($(this).is(':checked')) {
+                    $(this).parents('.table').find('.tch_one').prop('checked', true);
+                } else {
+                    $(this).parents('.table').find('.tch_one').prop('checked', false);
+                }
+                showSelected();
+                addIDsInputs();
+            });
         })
 
     </script>
@@ -172,7 +182,9 @@
     <div class="row">
         <table class="table">
             <tr>
-                <td></td>
+                <td>
+                    <input type="checkbox" name="order_group[]" class="tch tch_all">
+                </td>
                 <td>Номер</td>
                 <td>Дата заявки</td>
                 <td>Ф.И.О.</td>
