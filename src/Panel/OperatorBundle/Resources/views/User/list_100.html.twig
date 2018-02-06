@@ -206,10 +206,13 @@
                                             <span class="caret"></span>
                                         </button>
                                         <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu4">
-
+                                            <li role="presentation">
+                                                <a role="menuitem" tabindex="-1" href="{{ path('download_all',{'userId' : user.id}) }}" target="_blank">Скачать документы</a>
+                                            </li>
                                             <li role="presentation">
                                                 <a role="menuitem" tabindex="-1" href="{{ path('merge_docs',{'id' : user.id}) }}" target="_blank">Документы на листе PDF</a>
                                             </li>
+
                                             <li role="presentation">
                                                 <a role="menuitem" tabindex="-1" href="{{ path('merge_docs',{'id' : user.id, 'img' : 1 }) }}" target="_blank">Документы на листе JPG</a>
                                             </li>
