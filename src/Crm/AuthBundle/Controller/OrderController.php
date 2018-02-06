@@ -36,9 +36,9 @@ class OrderController extends Controller
             $user->setCopyOrder($this->getImgToArray($session->get('copyOrderFile')));
             $user->setCopyOrder2($this->getImgToArray($session->get('copyOrder2File')));
 
-//            if ($user->getStatus() == 10){
-//                $user->setStatus(7);
-//            }
+            if ($user->getStatus() == 10){
+                $user->setStatus(7);
+            }
 
             $this->getDoctrine()->getManager()->flush($user);
             $this->getDoctrine()->getManager()->refresh($user);
