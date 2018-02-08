@@ -296,6 +296,7 @@
             // var txt = base64_encode();
             var txt = $('#smsText').val();
             var url = Routing.generate('panel_user_sms_send')+'?txt='+txt;
+            alert(url);
             $('#form-list').attr('action', url);
             $('#form-list').attr('target', '_self');
             $('#form-list').submit();
