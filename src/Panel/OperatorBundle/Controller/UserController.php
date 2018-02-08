@@ -1417,93 +1417,93 @@ class UserController extends Controller
 
                 $file = $user->getCopyPassport();
                 if (isset($file['path'])){
-                    unlink('/var/www').$file['path'];
+                    unlink('/var/www'.$file['path']);
                     $p = $this->getOriginal($file['path']);
-                    unlink('/var/www').$p;
+                    unlink('/var/www'.$p);
                 }
                 $file = $user->getCopyPassport2();
                 if (isset($file['path'])){
-                    unlink('/var/www').$file['path'];
+                    unlink('/var/www'.$file['path']);
                     $p = $this->getOriginal($file['path']);
-                    unlink('/var/www').$p;
+                    unlink('/var/www'.$p);
                 }
                 $file = $user->getCopyPassportTranslate();
                 if (isset($file['path'])){
-                    unlink('/var/www').$file['path'];
+                    unlink('/var/www'.$file['path']);
                     $p = $this->getOriginal($file['path']);
-                    unlink('/var/www').$p;
+                    unlink('/var/www'.$p);
                 }
                 $file = $user->getCopyDriverPassport();
                 if (isset($file['path'])){
-                    unlink('/var/www').$file['path'];
+                    unlink('/var/www'.$file['path']);
                     $p = $this->getOriginal($file['path']);
-                    unlink('/var/www').$p;
+                    unlink('/var/www'.$p);
                 }
                 $file = $user->getCopyDriverPassport2();
                 if (isset($file['path'])){
-                    unlink('/var/www').$file['path'];
+                    unlink('/var/www'.$file['path']);
                     $p = $this->getOriginal($file['path']);
-                    unlink('/var/www').$p;
+                    unlink('/var/www'.$p);
                 }
                 $file = $user->getCopyDriverPassportTranslate();
                 if (isset($file['path'])){
-                    unlink('/var/www').$file['path'];
+                    unlink('/var/www'.$file['path']);
                     $p = $this->getOriginal($file['path']);
-                    unlink('/var/www').$p;
+                    unlink('/var/www'.$p);
                 }
                 $file = $user->getCopyDoc();
                 if (isset($file['path'])){
-                    unlink('/var/www').$file['path'];
+                    unlink('/var/www'.$file['path']);
                     $p = $this->getOriginal($file['path']);
-                    unlink('/var/www').$p;
+                    unlink('/var/www'.$p);
                 }
                 $file = $user->getCopyDocs();
                 if (isset($file['path'])){
-                    unlink('/var/www').$file['path'];
+                    unlink('/var/www'.$file['path']);
                     $p = $this->getOriginal($file['path']);
-                    unlink('/var/www').$p;
+                    unlink('/var/www'.$p);
                 }
                 $file = $user->getCopyInn();
                 if (isset($file['path'])){
-                    unlink('/var/www').$file['path'];
+                    unlink('/var/www'.$file['path']);
                     $p = $this->getOriginal($file['path']);
-                    unlink('/var/www').$p;
+                    unlink('/var/www'.$p);
                 }
                 $file = $user->getCopySnils();
                 if (isset($file['path'])){
-                    unlink('/var/www').$file['path'];
+                    unlink('/var/www'.$file['path']);
                     $p = $this->getOriginal($file['path']);
-                    unlink('/var/www').$p;
+                    unlink('/var/www'.$p);
                 }
                 $file = $user->getCopySignature();
                 if (isset($file['path'])){
-                    unlink('/var/www').$file['path'];
+                    unlink('/var/www'.$file['path']);
                     $p = $this->getOriginal($file['path']);
-                    unlink('/var/www').$p;
+                    unlink('/var/www'.$p);
                 }
                 $file = $user->getTypeCardFile();
                 if (isset($file['path'])){
-                    unlink('/var/www').$file['path'];
+                    unlink('/var/www'.$file['path']);
                     $p = $this->getOriginal($file['path']);
-                    unlink('/var/www').$p;
+                    unlink('/var/www'.$p);
                 }
                 $file = $user->getCopyOrder();
                 if (isset($file['path'])){
-                    unlink('/var/www').$file['path'];
+                    unlink('/var/www'.$file['path']);
                     $p = $this->getOriginal($file['path']);
-                    unlink('/var/www').$p;
+                    unlink('/var/www'.$p);
                 }
                 $file = $user->getCopyOrder2();
                 if (isset($file['path'])){
-                    unlink('/var/www').$file['path'];
+                    unlink('/var/www'.$file['path']);
                     $p = $this->getOriginal($file['path']);
-                    unlink('/var/www').$p;
+                    unlink('/var/www'.$p);
                 }
                 $file = $user->getCopyPetition();
                 if (isset($file['path'])){
-                    unlink('/var/www').$file['path'];
+                    unlink('/var/www'.$file['path']);
                     $p = $this->getOriginal($file['path']);
-                    unlink('/var/www').$p;
+                    unlink('/var/www'.$p);
                 }
                 $this->getDoctrine()->getManager()->remove($user);
                 $this->getDoctrine()->getManager()->flush($user);
