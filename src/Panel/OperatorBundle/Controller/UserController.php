@@ -1505,6 +1505,11 @@ class UserController extends Controller
                     $p = $this->getOriginal($file['path']);
                     @unlink('/var/www'.$p);
                 }
+
+                foreach ($user->getStatuslog() as $log){
+                    $this->getDoctrine()->getManager()->remove($log);
+                    $this->getDoctrine()->getManager()->flush($log);
+                }
                 $this->getDoctrine()->getManager()->remove($user);
                 $this->getDoctrine()->getManager()->flush($user);
 //            }
