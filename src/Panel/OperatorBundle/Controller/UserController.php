@@ -1403,7 +1403,7 @@ class UserController extends Controller
      * @Security("has_role('ROLE_ADMIN')")
      * @Route("/full-remove", name="panel_user_full_remove", options={"expose"=true})
      */
-    public function smsSendAction(Request $request)
+    public function fullRemoveAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
         $usersId = $request->request->get('user');
