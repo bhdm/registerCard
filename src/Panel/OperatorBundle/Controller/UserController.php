@@ -1543,8 +1543,8 @@ class UserController extends Controller
 
 
             $text = $request->query->get('txt');
-            echo $text;
-            exit;
+//            echo $text;
+//            exit;
 //            $text = base64_decode($request->query->get('txt'));
             $sender_name = 'IM-KARD.RU';
             if ($phone){
