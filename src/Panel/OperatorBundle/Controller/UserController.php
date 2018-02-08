@@ -1397,6 +1397,97 @@ class UserController extends Controller
         return new Response('Ok');
     }
 
+
+    /**
+     *
+     * @Security("has_role('ROLE_ADMIN')")
+     * @Route("/full-remove", name="panel_user_full_remove", options={"expose"=true})
+     */
+    public function smsSendAction(Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $usersId = $request->request->get('user');
+
+        foreach ($usersId as $userId => $val){
+            /**
+             * @var $user User
+             */
+            $user = $this->getDoctrine()->getRepository('CrmMainBundle:User')->findOneById($userId);
+            if ($user->getStatus() == 10){
+
+                $file = $user->getCopyPassport();
+                if (isset($file['path'])){
+                    unlink('/var/www/').$file['path'];
+                }
+                $file = $user->getCopyPassport2();
+                if (isset($file['path'])){
+                    unlink('/var/www/').$file['path'];
+                }
+                $file = $user->getCopyPassportTranslate();
+                if (isset($file['path'])){
+                    unlink('/var/www/').$file['path'];
+                }
+                $file = $user->getCopyDriverPassport();
+                if (isset($file['path'])){
+                    unlink('/var/www/').$file['path'];
+                }
+                $file = $user->getCopyDriverPassport2();
+                if (isset($file['path'])){
+                    unlink('/var/www/').$file['path'];
+                }
+                $file = $user->getCopyDriverPassportTranslate();
+                if (isset($file['path'])){
+                    unlink('/var/www/').$file['path'];
+                }
+                $file = $user->getCopyDoc();
+                if (isset($file['path'])){
+                    unlink('/var/www/').$file['path'];
+                }
+                $file = $user->getCopyDocs();
+                if (isset($file['path'])){
+                    unlink('/var/www/').$file['path'];
+                }
+                $file = $user->getCopyInn();
+                if (isset($file['path'])){
+                    unlink('/var/www/').$file['path'];
+                }
+                $file = $user->getCopySnils();
+                if (isset($file['path'])){
+                    unlink('/var/www/').$file['path'];
+                }
+                $file = $user->getCopySignature();
+                if (isset($file['path'])){
+                    unlink('/var/www/').$file['path'];
+                }
+                $file = $user->getTypeCardFile();
+                if (isset($file['path'])){
+                    unlink('/var/www/').$file['path'];
+                }
+                $file = $user->getCopyOrder();
+                if (isset($file['path'])){
+                    unlink('/var/www/').$file['path'];
+                }
+                $file = $user->getCopyOrder2();
+                if (isset($file['path'])){
+                    unlink('/var/www/').$file['path'];
+                }
+                $file = $user->getCopyPetition();
+                if (isset($file['path'])){
+                    unlink('/var/www/').$file['path'];
+                }
+                $this->getDoctrine()->getManager()->remove($user);
+                $this->getDoctrine()->getManager()->flush($user);
+            }
+
+        }
+
+
+        $referer = $request->headers->get('referer');
+        return $this->redirect($referer);
+    }
+
+
+
     /**
      *
      * @Security("has_role('ROLE_ADMIN')")

@@ -311,7 +311,7 @@ class AuthController extends Controller
         // Get the security firewall name, login
         #$providerKey = $this->container->getParameter('fos_user.firewall_name');
         $token = new UsernamePasswordToken($user, $password, 'auth', $roles);
-        $this->get("security.context")->setToken($token);
+        $this->get("security.contex0t")->setToken($token);
         // Fire the login event
         $event = new InteractiveLoginEvent($request, $token);
         $this->get("event_dispatcher")->dispatch("security.interactive_login", $event);
