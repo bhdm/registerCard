@@ -1542,7 +1542,8 @@ class UserController extends Controller
             $phone = $user->getPhone(); // Телефон абонента
 
 
-            $text = base64_decode($request->query->get('txt'));
+            $text = $request->query->get('txt');
+//            $text = base64_decode($request->query->get('txt'));
             $sender_name = 'IM-KARD.RU';
             if ($phone){
                 $result = $this->smsapi_push_msg_nologin($email, $password, $phone, $text, array("sender_name"=>$sender_name));
