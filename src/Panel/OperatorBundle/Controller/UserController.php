@@ -1413,7 +1413,7 @@ class UserController extends Controller
              * @var $user User
              */
             $user = $this->getDoctrine()->getRepository('CrmMainBundle:User')->findOneById($userId);
-            if ($user->getStatus() == 10){
+//            if ($user->getStatus() == 10){
 
                 $file = $user->getCopyPassport();
                 if (isset($file['path'])){
@@ -1477,7 +1477,7 @@ class UserController extends Controller
                 }
                 $this->getDoctrine()->getManager()->remove($user);
                 $this->getDoctrine()->getManager()->flush($user);
-            }
+//            }
 
         }
 
