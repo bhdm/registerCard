@@ -1542,7 +1542,9 @@ class UserController extends Controller
             $phone = $user->getPhone(); // Телефон абонента
 
 
-            $text = iconv('utf-8','windows-1251',$request->query->get('txt'));
+            $text = $request->query->get('txt');
+            echo $text;
+            exit;
 //            $text = base64_decode($request->query->get('txt'));
             $sender_name = 'IM-KARD.RU';
             if ($phone){
