@@ -284,8 +284,8 @@ class IndexController extends Controller
         }
 
 //        $photoUrl = 'https://'.$_SERVER['SERVER_NAME'].'/'.$user->getPhoto()['path'];
-        $image = WImage::cropSign($user->getPhoto()['path'], 394,506, true);
-        $image = WImage::convertPNGto8bitPNG($image);
+        $image = WImage::cropSign($user->getPhoto()['path'], 394,506, true, true);
+//        $image = WImage::convertPNGto8bitPNG($image);
         $file = file_get_contents($image);
         if ($file){
             $zip->addFromString( "photo.jpg", $file);

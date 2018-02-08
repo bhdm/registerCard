@@ -15,7 +15,7 @@
             return $pathName;
         }
 
-        static public function cropSign( $path, $w, $h , $base = false){
+        static public function cropSign( $path, $w, $h , $base = false, $t = false){
 
             $image = self::getResourceImage($path);
             $crop = imagecreatetruecolor($w,$h);
@@ -27,7 +27,10 @@
             $margin = ($w-$width)/2;
             $height = $h;
             imagecopyresized( $crop, $image, $margin, 0,0, 0, $width, $height, imagesx($image), imagesy($image) );
-
+            if ($t == true){
+                imagetruecolortopalette($crop, false, 255);
+                imagesavealpha($crop, true);
+            }
             $tmpPath = self::getTmpPath($crop);
 
             if ($base == false){
