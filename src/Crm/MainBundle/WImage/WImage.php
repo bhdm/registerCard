@@ -37,6 +37,23 @@
             }
         }
 
+        static public function convertPNGto8bitPNG($path) {
+            $srcimage = imagecreatefrompng($path);
+            list($width, $height) = getimagesize($path);
+            $img = imagecreatetruecolor($width, $height);
+            $bga = imagecolorallocatealpha($img, 0, 0, 0, 127);
+            imagecolortransparent($img, $bga);
+            imagefill($img, 0, 0, $bga);
+            imagecopy($img, $srcimage, 0, 0, 0, 0, $width, $height);
+            imagetruecolortopalette($img, false, 255);
+            imagesavealpha($img, true);
+            $tmpPath = self::getTmpPath($img);
+
+            return self::imgToBase($tmpPath);
+        }
+
+
+
         static public function imageToBlackAndWhite($path) {
             $im = imagecreatefromjpeg('/var/www/'.$path['path']);
             for ($x = imagesx($im); $x--;) {
