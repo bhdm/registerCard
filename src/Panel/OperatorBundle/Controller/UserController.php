@@ -1517,22 +1517,6 @@ class UserController extends Controller
     }
 
 
-    public function getOriginal($filename)
-    {
-        $pathA = explode('/',$filename);
-        $pathA[count($pathA)-1] = str_replace('.jpg', '-or.jpg', $pathA[count($pathA)-1]);
-        $file = implode('/',$pathA);
-        if (!is_file(__DIR__.$file)){
-            $pathA = explode('/',$filename);
-            $pathA[count($pathA)-1] = 'origin-'.$pathA[count($pathA)-1];
-            $file = implode('/',$pathA);
-        }
-
-        return $file;
-    }
-
-
-
     /**
      *
      * @Security("has_role('ROLE_ADMIN')")
@@ -2946,22 +2930,6 @@ class UserController extends Controller
         return $this->redirect($referer);
     }
 
-    public function getOriginal($filename)
-    {
-        $pathA = explode('/',$filename);
-        $pathA[count($pathA)-1] = str_replace('.jpg', '-or.jpg', $pathA[count($pathA)-1]);
-        $file = implode('/',$pathA);
-        if (!is_file(__DIR__.$file)){
-            $pathA = explode('/',$filename);
-            $pathA[count($pathA)-1] = 'origin-'.$pathA[count($pathA)-1];
-            $file = implode('/',$pathA);
-        }
-
-        return $file;
-    }
-
-
-
 
 
     /**
@@ -3073,6 +3041,21 @@ class UserController extends Controller
         if($resp['err_code'] > 0) {
             return array ( "response" => array ( "msg" => array ( "err_code" => $resp["err_code"], "text" => $resp["err_message"], "type" => "error" ), "data" => null ) )	;
         } else return $resp['data'];
+    }
+
+
+    public function getOriginal($filename)
+    {
+        $pathA = explode('/',$filename);
+        $pathA[count($pathA)-1] = str_replace('.jpg', '-or.jpg', $pathA[count($pathA)-1]);
+        $file = implode('/',$pathA);
+        if (!is_file(__DIR__.$file)){
+            $pathA = explode('/',$filename);
+            $pathA[count($pathA)-1] = 'origin-'.$pathA[count($pathA)-1];
+            $file = implode('/',$pathA);
+        }
+
+        return $file;
     }
 }
 
