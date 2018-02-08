@@ -167,11 +167,11 @@
         <li class="{{ app.request.attributes.get('_route_params').status == '10' ? 'active' : '' }}">
             <a href="{{ path('panel_user_list', { 'status' : 10, 'type' :  f_type , 'company' : f_company, 'operator' : f_operator }) }}{{ searchLine }}" class="active">Отклоненные {{ render(path('panel_user_get_count',{'status' : 10, 'company' : f_company, 'operator' : f_operator })) }}</a>
         </li>
-        {% if is_granted("ROLE_ADMIN") %}
-            <li class="{{ app.request.attributes.get('_route_params').status == '10' ? 'active' : '' }}">
-                <button id="full-remove" class="btn btn-danger">Полное удаление</button>
-            </li>
-        {% endif %}
+        {#{% if is_granted("ROLE_ADMIN") %}#}
+            {#<li class="{{ app.request.attributes.get('_route_params').status == '10' ? 'active' : '' }}">#}
+                {#<button id="full-remove" class="btn btn-danger">Полное удаление</button>#}
+            {#</li>#}
+        {#{% endif %}#}
 
     </ul>
 </div>
