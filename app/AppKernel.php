@@ -21,11 +21,11 @@ class AppKernel extends Kernel
             new FOS\JsRoutingBundle\FOSJsRoutingBundle(),
             new Liuggio\ExcelBundle\LiuggioExcelBundle(),
             new TFox\MpdfPortBundle\TFoxMpdfPortBundle(),
-            new JMS\Payment\CoreBundle\JMSPaymentCoreBundle(),
-            new JMS\DiExtraBundle\JMSDiExtraBundle(),
-            new JMS\AopBundle\JMSAopBundle(),
 
-            new Rispo\YandexKassaBundle\RispoYandexKassaBundle(),
+//            new JMS\Payment\CoreBundle\JMSPaymentCoreBundle(),
+//            new JMS\DiExtraBundle\JMSDiExtraBundle(),
+//            new JMS\AopBundle\JMSAopBundle(),
+//            new Rispo\YandexKassaBundle\RispoYandexKassaBundle(),
 
             new Crm\MainBundle\CrmMainBundle(),
             new Crm\AdminBundle\CrmAdminBundle(),

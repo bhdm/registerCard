@@ -140,22 +140,22 @@ gregwar_captcha:
 cocur_slugify:
     lowercase: false
 
-jms_di_extra:
-    automatic_controller_injections:
-        properties:
-            request: "@request"
-            router: "@router"
-
-        method_calls:
-            setRouter: ["@router"]
-
-
-jms_payment_core:
-    encryption:
-        secret: def0000085f0f56d5dd5367226c0798bf077ddc826e98fa65e2505a61a452f5e3509429d4bf1fb30dabd85ad70d3da71334d1558f9fe544504431b5e57a79285f8a17351
-
-rispo_yandex_kassa:
-    rispo_yandexkassa_shopId: %rispo_yandexkassa_shopid%
-    rispo_yandexkassa_scid: %rispo_yandexkassa_scid%
-    rispo_yandexkassa_ShopPassword: %rispo_yandexkassa_shoppassword%
-    rispo_yandexkassa_test: %rispo_yandexkassa_test%
+#jms_di_extra:
+#    automatic_controller_injections:
+#        properties:
+#            request: "@request"
+#            router: "@router"
+#
+#        method_calls:
+#            setRouter: ["@router"]
+#
+#
+#jms_payment_core:
+#    encryption:
+#        secret: def0000085f0f56d5dd5367226c0798bf077ddc826e98fa65e2505a61a452f5e3509429d4bf1fb30dabd85ad70d3da71334d1558f9fe544504431b5e57a79285f8a17351
+#
+#rispo_yandex_kassa:
+#    rispo_yandexkassa_shopId: %rispo_yandexkassa_shopid%
+#    rispo_yandexkassa_scid: %rispo_yandexkassa_scid%
+#    rispo_yandexkassa_ShopPassword: %rispo_yandexkassa_shoppassword%
+#    rispo_yandexkassa_test: %rispo_yandexkassa_test%
