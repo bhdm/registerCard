@@ -33,7 +33,8 @@
         "friendsofsymfony/http-cache-bundle": "~1.0",
         "craue/formflow-bundle": "~3.0@dev",
         "cocur/slugify": "~1.2",
-        "yandex-money/yandex-checkout-sdk-php": "dev-master"
+        "rispo/yandexkassa-bundle": "^1.0",
+        "jms/di-extra-bundle": "^1.9"
     },
     "scripts": {
         "post-install-cmd": [

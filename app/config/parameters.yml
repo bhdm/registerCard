@@ -15,3 +15,9 @@ parameters:
     upload_dir: upload
     rootPath: /var/www/imkard/
     protocol: http
+    rispo_yandexkassa_shopid: 182863
+    rispo_yandexkassa_shopId: 182863
+    rispo_yandexkassa_scid: 711772
+    rispo_yandexkassa_shoppassword: Alexzh701494+
+    rispo_yandexkassa_shopPassword: Alexzh701494+
+    rispo_yandexkassa_test: true

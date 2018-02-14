@@ -57,3 +57,7 @@ panel_security_check:
     pattern:  /panel/login_check
 panel_security_logout:
     pattern:  /panel/logout
+
+rispo_yandexkassa:
+    resource: "@RispoYandexKassaBundle/Resources/config/routing.yml"
+    prefix:   /

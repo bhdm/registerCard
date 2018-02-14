@@ -14,3 +14,10 @@ parameters:
     locale:            en
     secret:            ThisTokenIsNotSoSecretChangeIt
     upload_dir:        %kernel.root_dir%/../web/upload
+
+    rispo_yandexkassa_shopid: ~
+    rispo_yandexkassa_shopId: ~
+    rispo_yandexkassa_scid: ~
+    rispo_yandexkassa_shoppassword: ~
+    rispo_yandexkassa_shopPassword: ~
+    rispo_yandexkassa_test: true
