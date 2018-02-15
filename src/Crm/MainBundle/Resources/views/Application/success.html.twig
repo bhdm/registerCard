@@ -15,7 +15,7 @@
         <a href="{{ path('generate_pdf_statement',{'id' : user.id}) }}" target="_parent" class="btn">Скачать заявку</a>
         <br/><br /><br />
         {% if url == null or ( user.company.operator is defined and user.company.operator.iframe == true) %}
-            <a href="{{ path('payment_assist',{'userId' : user.id} )  }}" class="btn" target="_parent">Онлайн оплата Робокасса</a>
+            <a href="{{ path('yandex_payment',{'userId' : user.id} )  }}" class="btn" target="_parent">Онлайн оплата</a>
             <br />
             Стоимость составит {{ user.price + 124 }} рублей ( НДС не облагается ) с учетом комиссии платежной системы (124 рубля). Нет очереди, работает круглосуточно. Срок поступления денежных средств до 45 минут, после проведения оплаты.
             <br/>
