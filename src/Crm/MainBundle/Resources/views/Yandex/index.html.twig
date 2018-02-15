@@ -1,47 +1,50 @@
-<div>
-    <h2>Тест yandex кассы</h2>
-
-    {#<form action="https://demomoney.yandex.ru/eshop.xml" method="post">#}
-    <form action="https://money.yandex.ru/eshop.xml" method="post">
+<div style="opacity: 0">
+    <form action="https://money.yandex.ru/eshop.xml" method="post" id="fd">
         <table>
             <tr>
-                <td>Номер магазина</td>
+                {#<td>Номер магази*на</td>#}
                 <td><input name="shopId" value="{{ rispo_yandexkassa_shopid }}" type="text"/></td>
             </tr>
             <tr>
-                <td>Еще код магазина</td>
+                {#<td>Еще код магазина</td>#}
                 <td><input name="scid" value="{{ rispo_yandexkassa_scid }}" type="text"/></td>
             </tr>
             <tr>
-                <td>Цена</td>
-                <td><input name="sum" value="100.50" type="text"></td>
+                {#<td>Цена</td>#}
+                {% set price = 3200 %}
+                {% if user.ru == 0 and user.estr == 0 %}
+                    {% set price = user.priceSkzi %}
+                {% elseif user.estr == 1 %}
+                    {% set price = user.priceEstr %}
+                {% else %}
+                    {% set price = user.priceRu %}
+                {% endif %}
+                <td><input name="sum" value="{{ price }}" type="text"></td>
             </tr>
             <tr>
-                <td>Id клиента</td>
-                <td><input name="customerNumber" value="551" type="text"/></td>
+                {#<td>Id клиента</td>#}
+                <td><input name="customerNumber" value="{{ user.client.id }}" type="text"/></td>
             </tr>
             <tr>
-                <td>Буквы для оплаты картой</td>
-                <td><input name="paymentType" value="AC" type="text"/></td>
+                {#<td>Буквы для оплаты картой</td>#}
+                <td><input name="paymentType" value="" type="text"/></td>
             </tr>
             <tr>
-                <td>Номер заказа</td>
-                <td><input name="orderNumber" value="31770" type="text"/></td>
+                {#<td>Номер заказа</td>#}
+                <td><input name="orderNumber" value="{{ user.id }}" type="text"/></td>
             </tr>
             <tr>
-                <td>Телефон</td>
-                <td><input name="cps_phone" value="79778785515" type="text"/></td>
+                {#<td>Телефон</td>#}
+                <td><input name="cps_phone" value="{{ user.phone }}" type="text"/></td>
             </tr>
             <tr>
-                <td>Email</td>
-                <td><input name="cps_email" value="bdh.m@ya.ru" type="text"/></td>
-            </tr>
-            <tr>
-                <td>
-                    <input type="submit" value="Заплатить"/>
-                </td>
+                {#<td>Email</td>#}
+                <td><input name="cps_email" value="{{ user.email }}" type="text"/></td>
             </tr>
         </table>
 
     </form>
 </div>
+<script>
+    document.getElementById('fd').submit();
+</script>
