@@ -414,15 +414,15 @@ class UserController extends Controller
             $user->setTypeCard($data->get('typeCard'));
 
 
-            $user->setDileveryZipcode($data->get('deliveryZipcode'));
-            $user->setDileveryRegion($data->get('deliveryRegion'));
-            $user->setDileveryArea($data->get('deliveryArea'));
-            $user->setDileveryCity($data->get('deliveryCity'));
-            $user->setDileveryStreet($data->get('deliveryStreet'));
-            $user->setDileveryHome($data->get('deliveryHouse'));
-            $user->setDileveryCorp($data->get('deliveryCorp'));
-            $user->setDileveryStructure($data->get('deliveryStructure'));
-            $user->setDileveryRoom($data->get('deliveryRoom'));
+            $user->setDeliveryZipcode($data->get('deliveryZipcode'));
+            $user->setDeleveryRegion($data->get('deliveryRegion'));
+            $user->setDeleveryArea($data->get('deliveryArea'));
+            $user->setDeleveryCity($data->get('deliveryCity'));
+            $user->setDeleveryStreet($data->get('deliveryStreet'));
+            $user->setDeleveryHome($data->get('deliveryHouse'));
+            $user->setDeleveryCorp($data->get('deliveryCorp'));
+            $user->setDeleveryStructure($data->get('deliveryStructure'));
+            $user->setDeleveryRoom($data->get('deliveryRoom'));
 
             $adrs = $user->getDeliveryAdrs();
             $adrs['recipient'] = $data->get('deliveryRecipient');
