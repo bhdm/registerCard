@@ -35,13 +35,13 @@ class YandexController extends Controller
      * @Route("/yandex_kassa/check_order")
      */
     public function checkOrderAction(Request $request){
-      $id = $request->query->get('orderNumber');
+      $id = $request->request->get('orderNumber');
 //      $clientId = $request->query->get('customerNumber');
-      $price = $request->query->get('orderSumAmount');
-      $time = $request->query->get('requestDatetime');
+      $price = $request->request->get('orderSumAmount');
+      $time = $request->request->get('requestDatetime');
       $code = 0;
-      $shopId = $request->query->get('shopId');
-      $invoiceId = $request->query->get('invoiceId');
+      $shopId = $request->request->get('shopId');
+      $invoiceId = $request->request->get('invoiceId');
 
 //      $client = $this->getDoctrine()->getRepository('CrmMainBundle:Client')->find($clientId);
       $user = $this->getDoctrine()->getRepository('CrmMainBundle:User')->findBy(['id'=> $id]);
