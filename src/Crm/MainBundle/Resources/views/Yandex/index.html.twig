@@ -19,6 +19,7 @@
                 {% else %}
                     {% set price = user.priceRu %}
                 {% endif %}
+                {% set price = price + (price/100*4) %}
                 <td><input name="sum" value="{{ price }}" type="text"></td>
             </tr>
             <tr>
