@@ -1,0 +1,62 @@
+{% extends 'CrmMainBundle::layout_new.html.twig' %}
+
+{% block content %}
+    <div class="box" style="text-align: center">
+        <h2>Ошибка оплаты</h2>
+        <br />
+        <br />
+        <p><strong>При оплате платежа произошла ошибка</strong></p>
+        <br />
+        <br />
+        <a href="{{ path('main') }}" class="btn btn-primary">На главную</a>
+    </div>
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <style>
+        textarea{
+            width: 520px;
+            height: 120px;
+        }
+        .faq-box{
+            padding: 5px 10px;
+            border-bottom: 1px solid #CCC;
+        }
+        .faq-box:hover{
+            /*box-shadow: -5px 5px 15px #888;*/
+            background: #EEEEEE;
+        }
+        .faq-question{
+            color: #003866;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        .faq-answer{
+            color: #444444;
+            padding-left: 30px;
+            display: none;
+        }
+        .feedback-box{
+            background: #F8F8F8;
+            border: 1px solid #cfd1cf;
+            width: 630px;
+            padding: 20px 20px 0 20px;
+            border-radius: 10px;
+        }
+    </style>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+        $(document).ready(function(){
+            $('.faq-box').click(function(){
+                $('.faq-answer').fadeOut();
+                $(this).children('.faq-answer').fadeIn();
+                $('.faq-box').css('background','none');
+                $(this).css('background','#EEEEEE');
+            })
+        })
+    </script>
+{% endblock %}
