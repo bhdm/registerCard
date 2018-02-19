@@ -127,7 +127,7 @@ class YandexController extends Controller
     }
 
     /**
-     * @Route("/yandex_kassa/error")
+     * @Route("/yandex_kassa/fail")
      * @Template("CrmMainBundle:Assist:payment.html.twig")
      */
     public function paymentErrorAction(Request $request){
