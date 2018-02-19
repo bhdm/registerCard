@@ -12,14 +12,14 @@
             <tr>
                 {#<td>Цена</td>#}
                 {% set price = 3200 %}
-                {% if user.ru == 0 and user.estr == 0 %}
-                    {% set price = user.priceSkzi %}
-                {% elseif user.estr == 1 %}
-                    {% set price = user.priceEstr %}
-                {% else %}
-                    {% set price = user.priceRu %}
-                {% endif %}
-                {% set price = price + (price/100*4) %}
+                {#{% if user.ru == 0 and user.estr == 0 %}#}
+                    {#{% set price = user.priceSkzi %}#}
+                {#{% elseif user.estr == 1 %}#}
+                    {#{% set price = user.priceEstr %}#}
+                {#{% else %}#}
+                    {#{% set price = user.priceRu %}#}
+                {#{% endif %}#}
+                {% set price = user.price + (price/100*4) %}
                 <td><input name="sum" value="{{ price }}" type="text"></td>
             </tr>
             <tr>
