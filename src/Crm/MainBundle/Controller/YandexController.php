@@ -36,22 +36,22 @@ class YandexController extends Controller
      */
     public function checkOrderAction(Request $request){
       $id = $request->query->get('orderNumber');
-      $clientId = $request->query->get('customerNumber');
+//      $clientId = $request->query->get('customerNumber');
       $price = $request->query->get('orderSumAmount');
       $time = $request->query->get('requestDatetime');
       $code = 0;
       $shopId = $request->query->get('shopId');
       $invoiceId = $request->query->get('invoiceId');
 
-      $client = $this->getDoctrine()->getRepository('CrmMainBundle:Client')->find($clientId);
-      $user = $this->getDoctrine()->getRepository('CrmMainBundle:User')->findBy(['id'=> $id, 'client' => $client]);
+//      $client = $this->getDoctrine()->getRepository('CrmMainBundle:Client')->find($clientId);
+      $user = $this->getDoctrine()->getRepository('CrmMainBundle:User')->findBy(['id'=> $id]);
       if ($user){
           $response = new Response();
           $response->headers->set('Content-Type', 'application/pkcs7-mime');
           $response->setContent($this->renderView("CrmMainBundle:Yandex:check_order.html.twig", [
               'price' => $price,
               'user' => $user,
-              'client' => $client,
+//              'client' => $client,
               'time' => $time,
               'code' => 0,
               'shopId' => $shopId,
