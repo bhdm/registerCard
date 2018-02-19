@@ -69,6 +69,8 @@ class YandexController extends Controller
               'shopId' => $shopId,
               'invoiceId' => $invoiceId,
           ]));
+
+          return $response;
       }
 
     }
