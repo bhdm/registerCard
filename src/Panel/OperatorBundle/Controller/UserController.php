@@ -413,7 +413,7 @@ class UserController extends Controller
             $user->setDateEndCard($date);
             $user->setTypeCard($data->get('typeCard'));
 
-            dump($data);
+            var_dump($data);
             exit;
             $user->setDileveryZipcode($data->get('deliveryZipcode'));
             $user->setDileveryRegion($data->get('deliveryRegion'));
