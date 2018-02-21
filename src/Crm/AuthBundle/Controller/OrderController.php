@@ -651,6 +651,57 @@ class OrderController extends Controller
 //        return $this->redirect($request->headers->get('referer'));
     }
 
+
+    /**
+     * @Route("/order/api/sms-send", name="auth_sms_send")
+     */
+    public function smsSendAction(Request $request){
+        $orders = $request->request->get('orders');
+        foreach ($orders as $key => $t){
+            echo $key.' = '.$t."\r\n";
+            if ($t != ""){
+                /**
+                 * @var $task User
+                 */
+                $order = $this->getDoctrine()->getRepository('CrmMainBundle:User')->find($t);
+
+                $phone = $order->getPhone(); // Телефон абонента
+
+                $email = '365643584@inbox.ru'; // Логин в системе
+                $password = '375HiDc9'; // Пароль в системе
+
+
+                $text = $request->request->get('txt');
+                $sender_name = 'IM-KARD.RU';
+                if ($phone){
+                    $result = $this->smsapi_push_msg_nologin($email, $password, $phone, $text, array("sender_name"=>$sender_name));
+                    if (isset($result['response'])) {
+
+                        if ($result['response']['msg']['err_code'] > 0) {
+                            // Получили ошибку
+                            print $result['response']['msg']['err_code']; // код ошибки
+                            print $result['response']['msg']['text']; // текстовое описание ошибки
+
+                        } else {
+                            // Запрос прошел без ошибок, получаем нужные данные
+                            print $result['response']['data']['id']; // id SMS
+                            $result['response']['data']['credits']; // Стоимость
+                            $result['response']['data']['n_raw_sms']; // Количество сегментов SMS
+                            $result['response']['data']['sender_name']; // Отправитель
+
+                        }
+
+                    }
+                }
+
+            }
+        }
+
+        return new Response('Ok');
+//        return $this->redirect($request->headers->get('referer'));
+    }
+
+
     /**
      * @Route("/order-company", name="auth_order_company")
      * @Template()

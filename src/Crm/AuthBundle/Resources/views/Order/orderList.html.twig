@@ -113,6 +113,24 @@
                 })
             });
 
+
+            $('#sms-send').click(function () {
+                var orders = [];
+                $('.tch_one:checked').each(function(indx, element) {
+                    var id = $(element).val();
+                    orders.push(id);
+                });
+
+                $.ajax({
+                    url: "{{ path('auth_sms_send') }}",
+                    method: "POST",
+                    data: {'orders' : orders, 'txt' : $('#smsText').val() },
+                    success: function (msg) {
+                        parent.location.reload(true);
+                    }
+                })
+            });
+
             $('.tch_all').on('change', function (e) {
                 if($(this).is(':checked')) {
                     $(this).parents('.table').find('.tch_one').prop('checked', true);
@@ -261,11 +279,11 @@
                                         {% if o.company != null and not ( o.company.operator.id is defined and o.company.operator.id == 39 ) %}
                                             <li><a href="{{ path('generate_payment_pdf') }}?ord={{ o.id }}" target="_blank">Платежное поручение</a></li>
 
-                                            {% if app.user.username == 'bipur@mail.ru' %}
-                                                <li><a href="{{ path('yandex_payment',{'userId' : o.id} )  }}" class="btn">Онлайн оплата</a></li>
-                                            {% else %}
-                                                <li><a href="{{ path('payment_assist',{'userId' : o.id} )  }}" target="_blank">Робокасса - онлайн оплата</a></li>
-                                            {% endif %}
+                                            {#{% if app.user.username == 'bipur@mail.ru' %}#}
+                                            <li><a href="{{ path('yandex_payment',{'userId' : o.id} )  }}" class="btn">Онлайн оплата</a></li>
+                                            {#{% else %}#}
+                                                {#<li><a href="{{ path('payment_assist',{'userId' : o.id} )  }}" target="_blank">Робокасса - онлайн оплата</a></li>#}
+                                            {#{% endif %}#}
 
                                         {% endif %}
 
@@ -291,6 +309,25 @@
         <div class="row">
             <div class="col-sm-12" style="text-align: center">
                 <button type="button" class="btn btn-success" id="all-change-status-button">Перевести в полученные</button>
+                <button type="button" class="btn btn-primary" id="all-sen-sms-button" data-toggle="modal" data-target="#smsModal">Отправить СМС</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="smsModal" tabindex="-1" role="dialog" aria-labelledby="smsModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">Отправка СМС опоещений</h4>
+                </div>
+                    <div class="modal-body">
+                        <textarea class="form-control" placeholder="Введите текст сообщения" name="smsText" id="smsText"></textarea>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Отмена</button>
+                        <button type="button" class="btn btn-primary" id="sms-send">Отправить</button>
+                    </div>
             </div>
         </div>
     </div>
