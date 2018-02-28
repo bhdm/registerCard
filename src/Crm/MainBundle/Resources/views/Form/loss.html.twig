@@ -4,10 +4,10 @@
             <tr>
                 <td style="width: 50%"></td>
                 <td style="width: 50%; text-align: right">
-                    В ООО "Инфомакс"
+                    В <strong>ООО "Инфомакс"</strong>
                     <div style="text-align: center; font-size: 10px; color: #777"> наименование организации по выдаче карт</div>
                     <br />
-                    От {{ order.lastName }} {{ order.firstName }} {{ order.surName }}
+                    От <strong>{{ order.lastName }} {{ order.firstName }} {{ order.surName }}</strong>
                     <div style="text-align: center; font-size: 10px; color: #777"> наименование организации по выдаче карт</div>
                 </td>
             </tr>
@@ -15,14 +15,15 @@
         <br />
         <div style="text-align: center">
             <h2>ЗАЯВЛЕНИЕ</h2>
-            <p>
+            <p><strong>
                 об учете сведений в перечне о каждом экземпляре переданной,
                 активизированной, утилизированной организациями-изготовителями карты
                 тахографа
+                </strong>
             </p>
             <br />
             <br />
-            <p>
+            <p style="text-align: left; font-size: 16px">
                 Я, {{ order.lastName }} {{ order.firstName }} {{ order.surName }},
 
                 прошу учесть соответствующие сведения в перечне о каждом экземпляре
@@ -52,10 +53,10 @@
             <br />
             <br />
             <br />
-            <table style="width: 100%">
+            <table style="width: 100%; font-size: 16px">
                 <tr>
                     <td style="width: 40%">{{ "now" | date("«d» m Y") }}г.</td>
-                    <td style="width: 30%"><img src="{{ order.copySignature.path }}"></td>
+                    <td style="width: 30%"><img src="{{ order.copySignature.path }}" style="width: 120px"></td>
                     <td style="width: 30%">{{ order.lastName }}</td>
                 </tr>
             </table>
