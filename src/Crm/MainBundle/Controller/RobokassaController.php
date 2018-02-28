@@ -241,4 +241,30 @@ class RobokassaController extends Controller
     }
 
 
+    /**
+     * Генерирует чеки по заказу
+     * @Route("/get-order-about-loss/{orderId}", name="get_order_about_loss")
+     * @Template("CrmMainBundle:Assist:check.html.twig")
+     */
+    public function getOrderLossAction($orderId){
+        $order = $this->getDoctrine()->getRepository('CrmMainBundle:User')->findOneById($orderId);
+
+        $mpdfService = $this->container->get('tfox.mpdfport');
+
+        $html = $this->render('CrmMainBundle:Form:loss.html.twig',array('order' => $order));
+
+        $arguments = array(
+//                    'constructorArgs' => array('utf-8', 'A4-L', 5 ,5 ,5 ,5,5 ), //Constructor arguments. Numeric array. Don't forget about points 2 and 3 in Warning section!
+            'writeHtmlMode' => null, //$mode argument for WriteHTML method
+            'writeHtmlInitialise' => null, //$mode argument for WriteHTML method
+            'writeHtmlClose' => null, //$close argument for WriteHTML method
+            'outputFilename' => null, //$filename argument for Output method
+            'outputDest' => null, //$dest argument for Output method
+        );
+
+        return $mpdfService->generatePdfResponse($html->getContent(), $arguments);
+
+    }
+
+
 }

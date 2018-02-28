@@ -1,0 +1,64 @@
+<html>
+    <body>
+        <table style="width: 100%">
+            <tr>
+                <td style="width: 50%"></td>
+                <td style="width: 50%; text-align: right">
+                    В ООО "Инфомакс"
+                    <div style="text-align: center; font-size: 10px; color: #777"> наименование организации по выдаче карт</div>
+                    <br />
+                    От {{ order.lastName }} {{ order.firstName }} {{ order.surName }}
+                    <div style="text-align: center; font-size: 10px; color: #777"> наименование организации по выдаче карт</div>
+                </td>
+            </tr>
+        </table>
+        <br />
+        <div style="text-align: center">
+            <h2>ЗАЯВЛЕНИЕ</h2>
+            <p>
+                об учете сведений в перечне о каждом экземпляре переданной,
+                активизированной, утилизированной организациями-изготовителями карты
+                тахографа
+            </p>
+            <br />
+            <br />
+            <p>
+                Я, {{ order.lastName }} {{ order.firstName }} {{ order.surName }},
+
+                прошу учесть соответствующие сведения в перечне о каждом экземпляре
+                переданной, активизированной, утилизированной организациями-изготовителями
+                карты тахографа, соответствующей требованиям приказа Минтранса России от 13
+                февраля 2013 г. № 36 «Об утверждении требований к тахографам, устанавливаемым
+                на транспортные средства, категорий и видов транспортных средств, оснащаемых
+                тахографами, правил использования, обслуживания и контроля работы тахографов,
+                установленных на транспортные средства» о карте водителя
+                RUD {{ order.lastNumberCard }}, оформленной на мое имя
+                <br />
+                {% if order.typeCard == 1 %}
+                    в связи с истечением срока действия карты
+                {% elseif order.typeCard == 2 %}
+                    в связи с дефектом, утерей или утратой карты
+                {% elseif order.typeCard == 3 %}
+                    в связи с заменой карты вследствие изменения персональных данных
+                {% endif %}
+                <br />
+                Предъявлен паспорт гражданина РФ
+                <br />
+                серия {{ order.passportSeries }} номер {{ order.passportNumber }} выдан {{ order.passportIssuanceDate | date("«d» m Y") }} г.<br />
+                кем выдан {{ order.passportIssuance }},<br />
+                дата рождения {{ order.birthDate | date("«d» m Y") }}г.<br />
+                Страховой номер индивидуального лицевого счета (СНИЛС): {{ order.snils }}<br />
+            </p>
+            <br />
+            <br />
+            <br />
+            <table style="width: 100%">
+                <tr>
+                    <td style="width: 40%">{{ "now" | date("«d» m Y") }}г.</td>
+                    <td style="width: 30%"><img src="{{ order.copySignature.path }}"></td>
+                    <td style="width: 30%">{{ order.lastName }}</td>
+                </tr>
+            </table>
+        </div>
+    </body>
+</html>
