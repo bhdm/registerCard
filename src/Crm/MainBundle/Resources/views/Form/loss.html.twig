@@ -47,11 +47,10 @@
                 Предъявлен <b>паспорт гражданина РФ</b>
                 <br />
                 серия <b>{{ order.passportSeries }}</b> номер <b>{{ order.passportNumber }}</b> выдан <b>{{ order.passportIssuanceDate | date("«d» m Y") }} г.</b><br />
-                кем выдан <b>{{ order.passportIssuance }}</,<br />
+                кем выдан <b>{{ order.passportIssuance }}</b><br />
                 дата рождения <b>{{ order.birthDate | date("«d» m Y") }}г.</b><br />
                 Страховой номер индивидуального лицевого счета (СНИЛС): <b>{{ order.snils }}</b><br />
             </p>
-            <br />
             <br />
             <br />
             <table style="width: 100%; font-size: 16px">
