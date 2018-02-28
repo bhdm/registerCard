@@ -23,7 +23,7 @@
             </p>
             <br />
             <br />
-            <p style="text-align: left; font-size: 16px">
+            <p style="text-align: left; font-size: 16px; line-height: 20px">
                 Я, {{ order.lastName }} {{ order.firstName }} {{ order.surName }},
 
                 прошу учесть соответствующие сведения в перечне о каждом экземпляре
@@ -43,12 +43,13 @@
                     в связи с заменой карты вследствие изменения персональных данных
                 {% endif %}
                 <br />
-                Предъявлен паспорт гражданина РФ
                 <br />
-                серия {{ order.passportSeries }} номер {{ order.passportNumber }} выдан {{ order.passportIssuanceDate | date("«d» m Y") }} г.<br />
-                кем выдан {{ order.passportIssuance }},<br />
-                дата рождения {{ order.birthDate | date("«d» m Y") }}г.<br />
-                Страховой номер индивидуального лицевого счета (СНИЛС): {{ order.snils }}<br />
+                Предъявлен <b>паспорт гражданина РФ</b>
+                <br />
+                серия <b>{{ order.passportSeries }}</b> номер <b>{{ order.passportNumber }}</b> выдан <b>{{ order.passportIssuanceDate | date("«d» m Y") }} г.</b><br />
+                кем выдан <b>{{ order.passportIssuance }}</,<br />
+                дата рождения <b>{{ order.birthDate | date("«d» m Y") }}г.</b><br />
+                Страховой номер индивидуального лицевого счета (СНИЛС): <b>{{ order.snils }}</b><br />
             </p>
             <br />
             <br />
