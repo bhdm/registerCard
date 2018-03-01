@@ -109,25 +109,26 @@
                     </td>
                 </tr>
                 <tr class="typeCardFileRow">
-                    <td>Номер прошлой карты или заявление об утере</td>
+                    <td>Номер прошлой карты (если есть)</td>
                     <td>{{ form_widget(form.lastNumberCard) }}</td>
                     <td style="text-align: left">
-                        <a href="/bundles/crmmain/docs/10. Заявление_для_водителя_при_утере.pdf" target="_blank">Скачать заявление об утере</a>
-                        <br />
-                        <br />
-                        <div class="file-container">
-                            <input type="file" name="copyDocFile" id="copyDocFile" class="fileAjax" >
-                            <progress class="progress" value="0" max="100" style="width: 270px"></progress>
-                            <br />
-                            <br />
-                            <div class="fileDoc" style="text-align: left">
-                                {% if form.vars.value.copyDoc.path is defined %}
-                                    <img src="/{{ form.vars.value.copyDoc.path }}" brightness="0" contrast="0">
-                                {% else %}
-                                    <img src="" brightness="0" contrast="0">
-                                {% endif %}
-                            </div>
-                        </div></td>
+                        {#<a href="/bundles/crmmain/docs/10. Заявление_для_водителя_при_утере.pdf" target="_blank">Скачать заявление об утере</a>#}
+                        {#<br />#}
+                        {#<br />#}
+                        {#<div class="file-container">#}
+                            {#<input type="file" name="copyDocFile" id="copyDocFile" class="fileAjax" >#}
+                            {#<progress class="progress" value="0" max="100" style="width: 270px"></progress>#}
+                            {#<br />#}
+                            {#<br />#}
+                            {#<div class="fileDoc" style="text-align: left">#}
+                                {#{% if form.vars.value.copyDoc.path is defined %}#}
+                                    {#<img src="/{{ form.vars.value.copyDoc.path }}" brightness="0" contrast="0">#}
+                                {#{% else %}#}
+                                    {#<img src="" brightness="0" contrast="0">#}
+                                {#{% endif %}#}
+                            {#</div>#}
+                        {#</div>#}
+                    </td>
                 </tr>
                 <tr>
                     <td>
