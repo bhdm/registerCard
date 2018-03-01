@@ -22,7 +22,6 @@
                 </strong>
             </p>
             <br />
-            <br />
             <p style="text-align: left; font-size: 16px; line-height: 24px">
                 Я, {{ order.lastName }} {{ order.firstName }} {{ order.surName }},
 
@@ -51,8 +50,6 @@
                 дата рождения <b>{{ order.birthDate | date("«d» m Y") }}г.</b><br />
                 Страховой номер индивидуального лицевого счета (СНИЛС): <b>{{ order.snils }}</b><br />
             </p>
-            <br />
-            <br />
             <table style="width: 100%; font-size: 16px">
                 <tr>
                     <td style="width: 40%">{{ "now" | date("«d» m Y") }}г.</td>
