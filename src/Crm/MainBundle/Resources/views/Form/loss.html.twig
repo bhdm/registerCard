@@ -57,6 +57,18 @@
                     <td style="width: 30%">{{ order.lastName }}</td>
                 </tr>
             </table>
+            <br />
+            <table>
+                <tr>
+                    <td>
+                        Заявление принято и проверено:<br />
+                        <strong>Лукаш Юрий Алексеевич</strong>
+                    </td>
+                    <td style="text-align: right">
+                        {{ "now" | date ("d.m.Y") }}г.
+                    </td>
+                </tr>
+            </table>
             <img src="{{ asset('bundles/crmmain/images/stamp-loss.png') }}" style="width: 80%">
         </div>
     </body>
