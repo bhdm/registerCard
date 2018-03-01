@@ -72,12 +72,14 @@
                             </div>
                         </div>
                     </td>
+                </tr>
+                {% if user.typeCard %}
+                <tr>
                     <td>
-                        {% if user.lastNumberCard == null and user.typeCard != 0 %}
-                            <a href="{{ path('get_order_about_loss', {'orderId' : user.id }) }}">Скачать заявление</a>
-                        {% endif %}
+                        <iframe src="{{ path('get_order_about_loss',{'orderId' : user.id }) }}" width="100%" height="500"></iframe>
                     </td>
                 </tr>
+                {% endif %}
                 <tr>
                     <td>
                         <div class="form-group">
