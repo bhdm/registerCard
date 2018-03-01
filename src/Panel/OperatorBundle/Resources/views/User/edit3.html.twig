@@ -73,7 +73,7 @@
                         </div>
                     </td>
                 </tr>
-                {% if user.typeCard %}
+                {% if user.typeCard and user.lastNumberCard == null %}
                 <tr>
                     <td>
                         <iframe src="{{ path('get_order_about_loss',{'orderId' : user.id }) }}" width="100%" height="500"></iframe>
