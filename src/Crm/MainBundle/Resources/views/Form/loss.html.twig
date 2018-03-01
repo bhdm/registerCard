@@ -48,7 +48,7 @@
                 серия <b>{{ order.passportSeries }}</b> номер <b>{{ order.passportNumber }}</b> выдан <b>{{ order.passportIssuanceDate | date("«d» m Y") }} г.</b><br />
                 кем выдан <b>{{ order.passportIssuance }}</b><br />
                 дата рождения <b>{{ order.birthDate | date("«d» m Y") }}г.</b><br />
-                Страховой номер индивидуального лицевого счета (СНИЛС): <b>{{ order.snils }}</b><br />
+                Страховой номер индивидуального лицевого счета (СНИЛС): <b>{{ order.snils }}</b>
             </p>
             <table style="width: 100%; font-size: 16px">
                 <tr>
@@ -57,8 +57,7 @@
                     <td style="width: 30%">{{ order.lastName }}</td>
                 </tr>
             </table>
-            <br />
-            <table>
+            <table style="width: 100%">
                 <tr>
                     <td>
                         Заявление принято и проверено:<br />
