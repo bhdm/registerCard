@@ -72,6 +72,11 @@
                             </div>
                         </div>
                     </td>
+                    <td>
+                        {% if user.lastNumberCard == null and user.typeCard != 0 %}
+                            <a href="{{ path('get_order_about_loss', {'orderId' : user.id }) }}">Скачать заявление</a>
+                        {% endif %}
+                    </td>
                 </tr>
                 <tr>
                     <td>
