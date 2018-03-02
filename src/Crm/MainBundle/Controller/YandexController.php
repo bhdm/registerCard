@@ -81,13 +81,13 @@ class YandexController extends Controller
      * @Route("/yandex_kassa/payment_aviso")
      */
     public function payment_avisoAction(Request $request){
-        $id = $request->query->get('orderNumber');
-        $clientId = $request->query->get('customerNumber');
-        $price = $request->query->get('orderSumAmount');
-        $time = $request->query->get('requestDatetime');
+        $id = $request->request->get('orderNumber');
+        $clientId = $request->request->get('customerNumber');
+        $price = $request->request->get('orderSumAmount');
+        $time = $request->request->get('requestDatetime');
         $code = 0;
-        $shopId = $request->query->get('shopId');
-        $invoiceId = $request->query->get('invoiceId');
+        $shopId = $request->request->get('shopId');
+        $invoiceId = $request->request->get('invoiceId');
 
         $client = $this->getDoctrine()->getRepository('CrmMainBundle:Client')->findOneBy(['id' => $clientId]);
         $user = $this->getDoctrine()->getRepository('CrmMainBundle:User')->findOneBy(['id'=> $id, 'client' => $client]);
