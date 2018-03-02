@@ -548,6 +548,16 @@ class FastOrder
         }
     }
 
+    public function getStatusStrTwig(){
+        switch ($this->status){
+            case self::STATUS_NEW : return '<span class="label label-default">Новая</span>'; break;
+            case self::STATUS_PAYMENT: return '<span class="label label-primary">Оплачена</span>'; break;
+            case self::STATUS_SUCCESS: return '<span class="label label-success">Выполнена</span>'; break;
+            case self::STATUS_REJECTED: return '<span class="label label-danger">Отклонена</span>'; break;
+        }
+    }
+
+
     /**
      * @return string
      */
