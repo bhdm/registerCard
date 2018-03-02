@@ -35,6 +35,15 @@ class YandexController extends Controller
      * @Route("/yandex_kassa/check_order", name="yandex_check_order")
      */
     public function checkOrderAction(Request $request){
+
+        $file = "/var/www/imkard/current/web/yandex.txt";
+        if (!file_exists($file)) {
+            $fp = fopen($file, "w"); // ("r" - считывать "w" - создавать "a" - добовлять к тексту),мы создаем файл
+            fwrite($fp, var_dump($_POST));
+            fclose($fp);
+        }
+
+
       $id = $request->request->get('orderNumber');
 //      $clientId = $request->query->get('customerNumber');
       $price = $request->request->get('orderSumAmount');
