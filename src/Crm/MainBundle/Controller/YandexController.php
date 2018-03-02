@@ -90,7 +90,7 @@ class YandexController extends Controller
         $invoiceId = $request->request->get('invoiceId');
 
         $client = $this->getDoctrine()->getRepository('CrmMainBundle:Client')->find($clientId);
-        $user = $this->getDoctrine()->getRepository('CrmMainBundle:User')->findBy(['id'=> $id, 'client' => $client]);
+        $user = $this->getDoctrine()->getRepository('CrmMainBundle:User')->findOneBy(['id'=> $id, 'client' => $client]);
         if ($user){
             $user->setPrice($price);
             $user->setStatus(1);
