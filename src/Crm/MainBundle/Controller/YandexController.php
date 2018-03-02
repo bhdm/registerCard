@@ -122,6 +122,8 @@ class YandexController extends Controller
                 'invoiceId' => $invoiceId,
             ]));
         }
+
+        return $response;
     }
 
     /**
