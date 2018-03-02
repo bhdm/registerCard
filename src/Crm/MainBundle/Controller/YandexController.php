@@ -12,7 +12,7 @@ class YandexController extends Controller
 {
     /**
      * @Route("/yandex")
-     * @Template("@CrmMain/Yandex/index.html.twig")
+     * @Template("@CrmMain/Yandex/test.html.twig")
      */
     public function indexAction(Request $request){
         return [];
@@ -32,7 +32,7 @@ class YandexController extends Controller
     }
 
     /**
-     * @Route("/yandex_kassa/check_order")
+     * @Route("/yandex_kassa/check_order", name="yandex_check_order")
      */
     public function checkOrderAction(Request $request){
       $id = $request->request->get('orderNumber');
@@ -47,7 +47,7 @@ class YandexController extends Controller
       $user = $this->getDoctrine()->getRepository('CrmMainBundle:User')->findBy(['id'=> $id]);
       if ($user && $user->getStatus() == 0){
           $response = new Response();
-          $response->headers->set('Content-Type', 'application/pkcs7-mime');
+//          $response->headers->set('Content-Type', 'application/pkcs7-mime');
           $response->setContent($this->renderView("CrmMainBundle:Yandex:check_order.html.twig", [
               'error' => false,
               'price' => $price,
@@ -60,7 +60,7 @@ class YandexController extends Controller
           ]));
       }else{
           $response = new Response();
-          $response->headers->set('Content-Type', 'application/pkcs7-mime');
+//          $response->headers->set('Content-Type', 'application/pkcs7-mime');
           $response->setContent($this->renderView("CrmMainBundle:Yandex:check_order.html.twig", [
               'error' => true,
               'price' => $price,
@@ -97,7 +97,7 @@ class YandexController extends Controller
             $user->setManagerKey('Y');
             $this->getDoctrine()->getManager()->flush($user);
             $response = new Response();
-            $response->headers->set('Content-Type', 'application/pkcs7-mime');
+//            $response->headers->set('Content-Type', 'application/pkcs7-mime');
             $response->setContent($this->renderView("CrmMainBundle:Yandex:aviso_order.html.twig", [
                 'error' => false,
                 'price' => $price,
@@ -110,7 +110,7 @@ class YandexController extends Controller
             ]));
         }else{
             $response = new Response();
-            $response->headers->set('Content-Type', 'application/pkcs7-mime');
+//            $response->headers->set('Content-Type', 'application/pkcs7-mime');
             $response->setContent($this->renderView("CrmMainBundle:Yandex:aviso_order.html.twig", [
                 'error' => true,
                 'price' => $price,
