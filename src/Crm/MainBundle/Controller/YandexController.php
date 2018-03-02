@@ -37,11 +37,11 @@ class YandexController extends Controller
     public function checkOrderAction(Request $request){
 
         $file = "/var/www/imkard/current/web/yandex.txt";
-        if (!file_exists($file)) {
-            $fp = fopen($file, "w"); // ("r" - считывать "w" - создавать "a" - добовлять к тексту),мы создаем файл
-            fwrite($fp, var_dump($_POST));
-            fclose($fp);
-        }
+
+        $fp = fopen($file, "a"); // ("r" - считывать "w" - создавать "a" - добовлять к тексту),мы создаем файл
+        fwrite($fp, var_dump($_POST));
+        fclose($fp);
+
 
 
       $id = $request->request->get('orderNumber');
