@@ -1,4 +1,4 @@
-{% if error == true %}
+{% if error == false %}
     <checkOrderResponse performedDatetime="{{ time }}" code="0" invoiceId="{{ invoiceId }}" shopId="{{ shopId }}"/>
 {% else %}
     <checkOrderResponse performedDatetime="{{ time }}" code="100" invoiceId="{{ invoiceId }}" shopId="{{ shopId }}"

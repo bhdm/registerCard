@@ -55,7 +55,7 @@ class YandexController extends Controller
       $invoiceId = $request->request->get('invoiceId');
 
 //      $client = $this->getDoctrine()->getRepository('CrmMainBundle:Client')->find($clientId);
-      $user = $this->getDoctrine()->getRepository('CrmMainBundle:User')->findOneBy(['id'=> $id]);
+      $user = $this->getDoctrine()->getRepository('CrmMainBundle:User')->fin($id);
       if ($user != null){
           $response = new Response();
 //          $response->headers->set('Content-Type', 'application/pkcs7-mime');
