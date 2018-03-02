@@ -77,10 +77,16 @@ class XmlController extends Controller
             $files[18]['title'] = 'Other';
         }
 
+
         # Заявление
-        $url = $this->generateUrl('generate_pdf_statement',array('id'=>$user->getId()));
+        if (isset($user->getCopyOrder()['path'])){
+            $url = $this->generateUrl('generate_pdf_statement',array('id'=>$user->getId()));
+        }else{
+            $url = $this->generateUrl('generate_pdf_statement',array('id'=>$user->getId(), 'old' => 3));
+        }
         $files[7]['base'] = $this->pdfToBase64($url);
         $files[7]['title'] = 'Order';
+
 
         # Ходатайство
         if ($user->getMyPetition() == 1){
