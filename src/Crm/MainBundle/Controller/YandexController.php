@@ -105,7 +105,7 @@ class YandexController extends Controller
         if ($user){
             $user->setPrice($price);
             $user->setStatus(1);
-            $user->setManagerKey('Y');
+            $user->setManagerKey('о');
             $this->getDoctrine()->getManager()->flush($user);
             $response = new Response();
 //            $response->headers->set('Content-Type', 'application/pkcs7-mime');
