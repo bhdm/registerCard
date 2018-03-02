@@ -224,13 +224,13 @@
             {% endif %}
 
             {% if files[18] is defined %}
-                {% if driver.checkedDriverTranslate == true %}
+                {#{% if driver.checkedDriverTranslate == true %}#}
                     <Attachment>
                         <AttachmentType>Other</AttachmentType>
                         <FileFormat>PDF</FileFormat>
                         <Body>{{ files[18].base }}</Body>
                     </Attachment>
-                {% endif %}
+                {#{% endif %}#}
             {% endif %}
 
             {#{% if files[12] is defined %}#}
