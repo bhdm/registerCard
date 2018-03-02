@@ -39,7 +39,9 @@ class YandexController extends Controller
         $file = "/var/www/imkard/current/web/yandex.txt";
 
         $fp = fopen($file, "a"); // ("r" - считывать "w" - создавать "a" - добовлять к тексту),мы создаем файл
-        fwrite($fp, var_dump($_GET));
+        fwrite($fp, serialize($_GET));
+        fwrite($fp, "\r\n\r\n");
+        fwrite($fp, serialize($_POST));
         fclose($fp);
 
 
