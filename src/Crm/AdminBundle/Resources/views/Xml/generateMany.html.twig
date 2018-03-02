@@ -50,7 +50,11 @@
                     </Credential>
                 </PersonInfo>
                 {% if driver.typeCard != 0 %}
-                    <PrevCardNumber>{{ driver.lastNumberCard }}</PrevCardNumber>
+                    {% if driver.lastNumberCard != null and driver.lastNumberCard != '' %}
+                        <PrevCardNumber>{{ driver.lastNumberCard }}</PrevCardNumber>
+                    {% else %}
+                        <PrevCardNumber>RUD0000000000000</PrevCardNumber>
+                    {% endif %}
                 {% endif %}
                 <DriverLicense>
                     <DriverLicenseNumber>{{ driver.driverDocNumber }}</DriverLicenseNumber>
