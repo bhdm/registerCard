@@ -45,10 +45,11 @@ class YandexController extends Controller
 
 //      $client = $this->getDoctrine()->getRepository('CrmMainBundle:Client')->find($clientId);
       $user = $this->getDoctrine()->getRepository('CrmMainBundle:User')->findBy(['id'=> $id]);
-      if ($user){
+      if ($user && $user->getStatus() == 0){
           $response = new Response();
           $response->headers->set('Content-Type', 'application/pkcs7-mime');
           $response->setContent($this->renderView("CrmMainBundle:Yandex:check_order.html.twig", [
+              'error' => false,
               'price' => $price,
               'user' => $user,
 //              'client' => $client,
@@ -61,9 +62,9 @@ class YandexController extends Controller
           $response = new Response();
           $response->headers->set('Content-Type', 'application/pkcs7-mime');
           $response->setContent($this->renderView("CrmMainBundle:Yandex:check_order.html.twig", [
+              'error' => true,
               'price' => $price,
               'user' => $user,
-              'client' => $client,
               'time' => $time,
               'code' => 1,
               'shopId' => $shopId,
@@ -80,13 +81,13 @@ class YandexController extends Controller
      * @Route("/yandex_kassa/payment_aviso")
      */
     public function payment_avisoAction(Request $request){
-        $id = $request->query->get('orderNumber');
-        $clientId = $request->query->get('customerNumber');
-        $price = $request->query->get('orderSumAmount');
-        $time = $request->query->get('requestDatetime');
+        $id = $request->request->get('orderNumber');
+        $clientId = $request->request->get('customerNumber');
+        $price = $request->request->get('orderSumAmount');
+        $time = $request->request->get('requestDatetime');
         $code = 0;
-        $shopId = $request->query->get('shopId');
-        $invoiceId = $request->query->get('invoiceId');
+        $shopId = $request->request->get('shopId');
+        $invoiceId = $request->request->get('invoiceId');
 
         $client = $this->getDoctrine()->getRepository('CrmMainBundle:Client')->find($clientId);
         $user = $this->getDoctrine()->getRepository('CrmMainBundle:User')->findBy(['id'=> $id, 'client' => $client]);
@@ -98,6 +99,7 @@ class YandexController extends Controller
             $response = new Response();
             $response->headers->set('Content-Type', 'application/pkcs7-mime');
             $response->setContent($this->renderView("CrmMainBundle:Yandex:aviso_order.html.twig", [
+                'error' => false,
                 'price' => $price,
                 'user' => $user,
                 'client' => $client,
@@ -110,6 +112,7 @@ class YandexController extends Controller
             $response = new Response();
             $response->headers->set('Content-Type', 'application/pkcs7-mime');
             $response->setContent($this->renderView("CrmMainBundle:Yandex:aviso_order.html.twig", [
+                'error' => true,
                 'price' => $price,
                 'user' => $user,
                 'client' => $client,

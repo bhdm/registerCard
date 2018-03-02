@@ -282,7 +282,7 @@
                                             {#{% if app.user.username == 'bipur@mail.ru' %}#}
                                             {#<li><a href="{{ path('yandex_payment',{'userId' : o.id} )  }}" class="btn">Онлайн оплата</a></li>#}
                                             {#{% else %}#}
-                                                <li><a href="{{ path('payment_assist',{'userId' : o.id} )  }}" target="_blank">Робокасса - онлайн оплата</a></li>
+                                                <li><a href="{{ path('yandex_payment',{'userId' : o.id} )  }}" target="_blank">Онлайн оплата</a></li>
                                             {#{% endif %}#}
 
                                         {% endif %}
