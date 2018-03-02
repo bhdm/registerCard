@@ -44,8 +44,8 @@ class YandexController extends Controller
       $invoiceId = $request->request->get('invoiceId');
 
 //      $client = $this->getDoctrine()->getRepository('CrmMainBundle:Client')->find($clientId);
-      $user = $this->getDoctrine()->getRepository('CrmMainBundle:User')->findBy(['id'=> $id]);
-      if ($user && $user->getStatus() == 0){
+      $user = $this->getDoctrine()->getRepository('CrmMainBundle:User')->findOneBy(['id'=> $id]);
+      if ($user != null && $user->getStatus() == 0){
           $response = new Response();
 //          $response->headers->set('Content-Type', 'application/pkcs7-mime');
           $response->setContent($this->renderView("CrmMainBundle:Yandex:check_order.html.twig", [
