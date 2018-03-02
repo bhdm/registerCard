@@ -219,6 +219,8 @@
                                     <div class="col-sm-4">
                                         <input type="text"  name="priceOperator" id="priceOperator" class="form-control" value="{{ user.priceOperator }}" style="width: 200px">
                                     </div>
+                                {% else %}
+                                    <input type="hidden"  name="priceOperator" value="{{ user.priceOperator }}" >
                                 {% endif %}
                             </div>
                         </td>
