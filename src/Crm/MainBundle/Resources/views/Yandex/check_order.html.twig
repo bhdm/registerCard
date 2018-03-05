@@ -1,8 +1,8 @@
 {% if error == false %}
-    <checkOrderResponse performedDatetime="{{ time }}" code="0" invoiceId="{{ invoiceId }}" shopId="{{ shopId }}"/>
+<checkOrderResponse performedDatetime="{{ time }}" code="0" invoiceId="{{ invoiceId }}" shopId="{{ shopId }}"/>
 {% else %}
-    <checkOrderResponse performedDatetime="{{ time }}" code="100" invoiceId="{{ invoiceId }}" shopId="{{ shopId }}"
-                        message="Заказа не существует или она уже оплаченна" techMessage="Заказа не существует или она уже оплаченна"/>
+<checkOrderResponse performedDatetime="{{ time }}" code="100" invoiceId="{{ invoiceId }}" shopId="{{ shopId }}"
+   message="Заказа не существует или она уже оплаченна" techMessage="Заказа не существует или она уже оплаченна"/>
 {% endif %}
 {#<checkOrderRequest#}
         {#requestDatetime="{{ time }}"#}
