@@ -1,5 +1,5 @@
 {% if error == false %}
-<checkOrderResponse performedDatetime="{{ time }}" code="0" invoiceId="{{ invoiceId }}" shopId="{{ shopId }}"/>
+<paymentAvisoResponse performedDatetime="{{ time }}" code="0" invoiceId="{{ invoiceId }}" shopId="{{ shopId }}"/>
 {% else %}
 <paymentAvisoResponse performedDatetime="{{ time }}" code="1" message="Заказ не найден"/>
 {% endif %}
