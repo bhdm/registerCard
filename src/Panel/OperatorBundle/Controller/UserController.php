@@ -2004,10 +2004,10 @@ class UserController extends Controller
             $files[11]['title'] = 'INN';
             $files[11]['file'] = $user->getCopyInn();
 
-            if (isset($user->getCopyDoc()['path'])){
-                $files[18]['base'] = $this->ImageToPdf($user->getCopyDoc()['path']);
+            if ($user->getTypeCard() != 0  && $user->getLastNumberCard() == null ){
+                $url = $this->generateUrl('get_order_about_loss', array('orderId' => $user->getId()));
+                $files[18]['base'] = $this->pdfToBase64($url);
                 $files[18]['title'] = 'Other';
-                $files[18]['file'] = $user->getCopyDoc();
             }
 
             # Заявление
