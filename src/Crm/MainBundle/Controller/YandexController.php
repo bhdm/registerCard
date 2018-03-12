@@ -103,7 +103,7 @@ class YandexController extends Controller
         $client = $this->getDoctrine()->getRepository('CrmMainBundle:Client')->findOneBy(['id' => $clientId]);
         $user = $this->getDoctrine()->getRepository('CrmMainBundle:User')->findOneBy(['id'=> $id, 'client' => $client]);
         if ($user){
-            $user->setPrice($price);
+            $user->setPrice($price-110);
 //            $user->setStatus(1);
             $user->setManagerKey('о');
             $this->getDoctrine()->getManager()->flush($user);
