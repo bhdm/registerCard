@@ -17,7 +17,7 @@
         {% if url == null or ( user.company.operator is defined and user.company.operator.iframe == true) %}
             <a href="{{ path('yandex_payment',{'userId' : user.id} )  }}" class="btn" target="_parent">Онлайн оплата</a>
             <br />
-            Стоимость составит {{ user.price + 110 }} рублей ( в том числе НДС {{ (user.price * 18 / 100)) | number_format(2, '.', '') }})р.
+            Стоимость составит {{ user.price + 110 }} рублей ( в том числе НДС {{ (user.price * 18 / 100) | number_format(2, '.', '') }})р.
             с учетом комиссии платежной системы (110 рубля). Нет очереди, работает круглосуточно. Срок поступления денежных средств до 45 минут, после проведения оплаты.
             <br/>
             <br/>
