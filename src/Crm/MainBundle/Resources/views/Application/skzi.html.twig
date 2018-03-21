@@ -140,11 +140,9 @@
         </div>
         <hr>
         <div class="alert alert-warning text-center" style="    color: #d80808; background-color: #fff1ab; border-color: #faebcc;">
-            <strong>!!!! ВАЖНО !!!</strong> Необходимые документы должны быть отксерокопированы как показано на образцах -
-            <a href="{{ asset('bundles/crmmain/images/obrazec.jpg') }}"  class="fancybox">Образец 1</a>,
-            <a href="{{ asset('bundles/crmmain/images/obrazec2.jpg') }}"  class="fancybox">Образец 2</a>
+            <strong>!!! ВАЖНЫЕ ИЗМЕНЕНИЯ ПРИЕМА КОПИЙ ДОКУМЕНТОВ!!!</strong>
             <br />
-            <strong>Фотографии документов не принимаются !!!!</strong>
+            <strong>документы не соответствующие образцам приниматься не будут</strong>
         </div>
         <div class="block-form" >
             <table class="table-form">
@@ -158,7 +156,7 @@
                     <td>Имя<span class="required">*</span></td>
                     <td>{{ form_widget(form.firstName) }}</td>
                     <td rowspan="7" style="vertical-align: top">
-                        (<a href="{{ asset('bundles/crmmain/images/obrazec.jpg') }}" class="fancybox">Образец</a>)
+                        (<a href="{{ asset('bundles/crmmain/images/new/Pasport.jpg') }}" class="fancybox">Образец</a>)
                         <div class="file-container">
                             <input type="file" name="passportFile" id="passportFile" class="fileAjax" {{ edit is not defined ? 'required' : '' }} >
                             <progress class="progress" value="0" max="100" style="width: 270px"></progress>
@@ -263,7 +261,7 @@
                 <tr>
                     <td style="vertical-align: top; padding-top: 10px">Копия СНИЛС<span class="required">*</span></td>
                     <td colspan="2">
-                        (<a href="{{ asset('bundles/crmmain/images/obrazec.jpg') }}" class="fancybox">Образец</a>)
+                        (<a href="{{ asset('bundles/crmmain/images/new/SNILS.jpg') }}" class="fancybox">Образец</a>)
                         <div class="file-container">
                             <input type="file" name="snilsFile" id="snilsFile" class="fileAjax" {{ edit is not defined ? 'required' : '' }} >
                             <progress class="progress" value="0" max="100" style="width: 270px"></progress>
@@ -297,7 +295,7 @@
                 <tr>
                     <td style="vertical-align: top; padding-top: 10px">Копия ИНН<span class="required">*</span></td>
                     <td colspan="2">
-                        (<a href="{{ asset('bundles/crmmain/images/obrazec2.jpg') }}" class="fancybox">Образец</a>)
+                        (<a href="{{ asset('bundles/crmmain/images/new/inn.jpg') }}" class="fancybox">Образец</a>)
                         <div class="file-container">
                             <input type="file" name="innFile" id="innFile" class="fileAjax" {{ edit is not defined ? 'required' : '' }} >
                             <progress class="progress" value="0" max="100" style="width: 270px"></progress>
@@ -333,7 +331,7 @@
                         {{ form_widget(form.driverDocNumber) }}
                     </td>
                     <td rowspan="7" style="vertical-align: top">
-                        (<a href="{{ asset('bundles/crmmain/images/obrazec.jpg') }}" class="fancybox">Образец</a>)
+                        (<a href="{{ asset('bundles/crmmain/images/new/VU.jpg') }}" class="fancybox">Образец</a>)
                         <div class="file-container">
                             <input type="file" name="driverFile" id="driverFile" class="fileAjax" {{ edit is not defined ? 'required' : '' }}  >
                             <progress class="progress" value="0" max="100" style="width: 270px"></progress>
