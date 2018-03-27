@@ -1535,7 +1535,7 @@ class UserController extends Controller
         $usersId = $request->request->get('user');
 
         $email = '365643584@inbox.ru'; // Логин в системе
-        $password = '375HiDc9'; // Пароль в системе
+        $password = 'yymPm8'; // Пароль в системе
 
         foreach ($usersId as $userId => $val){
             $user = $this->getDoctrine()->getRepository('CrmMainBundle:User')->findOneById($userId);
