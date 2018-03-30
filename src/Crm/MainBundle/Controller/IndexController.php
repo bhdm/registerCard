@@ -543,6 +543,7 @@ class IndexController extends Controller
         $imageBlob = base64_decode($base);
         header("Content-Type: application/octet-stream");
         echo $imageBlob;
+        exit;
     }
 
     /**
