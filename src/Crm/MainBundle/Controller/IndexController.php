@@ -555,7 +555,6 @@ class IndexController extends Controller
                 'enabled' => true,
                 'estr' => 0,
                 'ru' => 0,
-                'status' => 0,
                 'chrome' => true,
             ],
             [
