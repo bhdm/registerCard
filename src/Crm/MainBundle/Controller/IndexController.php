@@ -547,7 +547,7 @@ class IndexController extends Controller
     }
 
     /**
-     * @Route("/api/users")
+     * @Route("/api/users", name="api_users")
      */
     public function getUSerForAppAction(){
         $users = $this->getDoctrine()->getRepository('CrmMainBundle:User')->findBy(
@@ -586,6 +586,19 @@ class IndexController extends Controller
         }
 
         return new JsonResponse($userJson);
+    }
+
+    /**
+     * @Route("/set-chrome/{userId}", name="panel_user_set_chrome")
+     */
+    public function setChromeAction(Request $request, $userId){
+        $user = $this->getDoctrine()->getRepository('CrmMainBundle:User')->find($userId);
+
+        $user->setChrome(false);
+
+        $this->getDoctrine()->getManager()->flush($user);
+
+        return $this->redirectToRoute('api_users');
     }
 
     /**
