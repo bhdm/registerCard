@@ -589,7 +589,7 @@ class IndexController extends Controller
     }
 
     /**
-     * @Route("/set-chrome/{userId}", name="panel_user_set_chrome")
+     * @Route("/set-chrome/{userId}", )
      */
     public function setChromeAction(Request $request, $userId){
         $user = $this->getDoctrine()->getRepository('CrmMainBundle:User')->find($userId);
