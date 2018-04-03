@@ -301,7 +301,7 @@ class IndexController extends Controller
 
         $file = $im->getImageBlob();
         if ($file){
-            $zip->addFromString( "photot.png", $file);
+            $zip->addFromString( "Photo.png", $file);
         }
 
         if ($user->getMyPetition() == 1){
@@ -325,12 +325,23 @@ class IndexController extends Controller
             }
         }
 
-        $file = $user->getCopySignature();
-        $file = WImage::ImageToBlackAndWhite($file);
-        $file = WImage::cropSign($file, 560,140);
-        $imagedata = file_get_contents($file);
-        if ($imagedata){
-            $zip->addFromString( "sign.png", $imagedata);
+//        $file = $user->getCopySignature();
+//        $file = WImage::ImageToBlackAndWhite($file);
+//        $file = WImage::cropSign($file, 560,140);
+//        $imagedata = file_get_contents($file);
+
+        $im = new \Imagick($user->getCopySignature()['path']);
+        $im->resizeImage(560,140, \Imagick::FILTER_POINT, 0);
+
+        $im->setImageFormat('PNG8');
+        $colors = min(2, $im->getImageColors());
+        $im->quantizeImage($colors, \Imagick::COLORSPACE_RGB, 0, false, false );
+        $im->setImageDepth(1 /* bits */);
+
+        $file = $im->getImageBlob();
+
+        if ($file){
+            $zip->addFromString( "sign.png", $file);
         }
 
 
