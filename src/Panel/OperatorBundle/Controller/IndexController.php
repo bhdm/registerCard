@@ -335,14 +335,14 @@ class IndexController extends Controller
 
         $im->setImageFormat('PNG8');
         $colors = min(2, $im->getImageColors());
-        $im->quantizeImage(2, \Imagick::COLORSPACE_GRAY, 5, false, true );
         $im->setImageDepth(1 /* bits */);
+        $im->quantizeImage(2, \Imagick::COLORSPACE_GRAY, 1, false, false );
 
 
         $file = $im->getImageBlob();
 
         if ($file){
-            $zip->addFromString( "4sign.png", $file);
+            $zip->addFromString( "5sign.png", $file);
         }
 
 
