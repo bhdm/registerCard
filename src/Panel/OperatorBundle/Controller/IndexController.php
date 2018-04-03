@@ -275,6 +275,13 @@ class IndexController extends Controller
             }
         }
 
+        if ($user->getTypeCard() && $user->getLastNumberCard() == null){
+            $snilsUrl = 'https://'.$_SERVER['SERVER_NAME'].$this->generateUrl('get_order_about_loss', ['orderId' => $userId]);
+            $file = file_get_contents($snilsUrl);
+            if ($file){
+                $zip->addFromString( "loss.pdf", $file);
+            }
+        }
 
 
         $orderUrl = 'https://'.$_SERVER['SERVER_NAME'].$this->generateUrl('generate_pdf_statement',array('id'=>$user->getId()));
