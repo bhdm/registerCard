@@ -334,8 +334,8 @@ class IndexController extends Controller
         $im->resizeImage(560,140, \Imagick::FILTER_UNDEFINED, 1, false);
 
         $im->setImageFormat('PNG8');
-        $colors = min(2, $im->getImageColors());
-        $im->quantizeImage(2, \Imagick::COLORSPACE_GRAY, 1, false, false );
+        $colors = min(1, $im->getImageColors());
+        $im->quantizeImage(1, \Imagick::COLORSPACE_GRAY, 1, false, false );
         $im->setImageDepth(1 /* bits */);
         $im->setImageChannelDepth(\Imagick::CHANNEL_ALL, 1);
         $im->setImageType(\Imagick::IMGTYPE_BILEVEL);
@@ -343,21 +343,7 @@ class IndexController extends Controller
         $file = $im->getImageBlob();
 
         if ($file){
-            $zip->addFromString( "6sign.png", $file);
-        }
-
-
-
-
-        $im = new \Imagick($user->getCopySignature()['path']);
-        $im->resizeImage(560,140, \Imagick::FILTER_UNDEFINED, 1, false);
-        $im->setImageType(\Imagick::IMGTYPE_BILEVEL);
-        $im->posterizeimage(2, false);
-
-        $file = $im->getImageBlob();
-
-        if ($file){
-            $zip->addFromString( "6sign.bmp", $file);
+            $zip->addFromString( "7sign.png", $file);
         }
 
 
