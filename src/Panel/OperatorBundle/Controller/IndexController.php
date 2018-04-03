@@ -343,7 +343,7 @@ class IndexController extends Controller
         $im->setImageFormat('PNG8');
         $colors = min(1, $im->getImageColors());
         $im->setImageType(\Imagick::IMGTYPE_BILEVEL);
-        $im->quantizeImage(2, \Imagick::COLORSPACE_RGB, 1, false, false );
+        $im->quantizeImage(2, \Imagick::COLORSPACE_RGB, 0, false, false );
         $im->setImageDepth(1 /* bits */);
         $im->setImageChannelDepth(\Imagick::CHANNEL_ALL, 1);
         $file = $im->getImageBlob();
