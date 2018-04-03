@@ -288,7 +288,7 @@ class IndexController extends Controller
 //        $image = WImage::cropSign($user->getPhoto()['path'], 394,506, true, true);
 //        $file = file_get_contents($image);
         $im = new \Imagick($user->getPhoto()['path']);
-        $im->setSize(394,506);
+        $im->resizeImage(394,506, \Imagick::FILTER_POINT, 0);
         $im->quantizeImage(256, \Imagick::COLORSPACE_SRGB, 0, false, false);
         $file = $im->getImageBlob();
         if ($file){
