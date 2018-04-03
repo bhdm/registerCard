@@ -341,7 +341,7 @@ class IndexController extends Controller
         $file = $im->getImageBlob();
 
         if ($file){
-            $zip->addFromString( "sign.png", $file);
+            $zip->addFromString( "1sign.png", $file);
         }
 
 
