@@ -333,11 +333,10 @@ class IndexController extends Controller
         $im = new \Imagick($user->getCopySignature()['path']);
         $im->resizeImage(560,140, \Imagick::FILTER_UNDEFINED, 1, false);
 
-//        $im->setImageFormat('PNG2');
+        $im->setImageFormat('PNG8');
         $colors = min(2, $im->getImageColors());
-        $im->quantizeImage($colors, \Imagick::COLORSPACE_RGB, 0, false, false );
+        $im->quantizeImage(2, \Imagick::COLORSPACE_GRAY, 5, false, true );
         $im->setImageDepth(1 /* bits */);
-        $im->posterizeimage(2, false);
 
 
         $file = $im->getImageBlob();
