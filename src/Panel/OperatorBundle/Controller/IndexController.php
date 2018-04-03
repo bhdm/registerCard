@@ -292,6 +292,7 @@ class IndexController extends Controller
         $im->quantizeImage(128, \Imagick::COLORSPACE_RGB, 0, false, false);
         $im->setType(\Imagick::IMGTYPE_TRUECOLOR);
         $im->transformImageColorspace(\Imagick::COLORSPACE_SRGB);
+        $im->setImageDepth(4);
 
         $file = $im->getImageBlob();
         if ($file){
