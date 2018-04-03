@@ -284,9 +284,13 @@ class IndexController extends Controller
         }
 
 //        $photoUrl = 'https://'.$_SERVER['SERVER_NAME'].'/'.$user->getPhoto()['path'];
-        $image = WImage::cropSign($user->getPhoto()['path'], 394,506, true, true);
-//        $image = WImage::convertPNGto8bitPNG($image);
-        $file = file_get_contents($image);
+
+//        $image = WImage::cropSign($user->getPhoto()['path'], 394,506, true, true);
+//        $file = file_get_contents($image);
+        $im = new \Imagick($user->getPhoto()['path']);
+        $im->setSize(394,506);
+        $im->quantizeImage(256, \Imagick::COLORSPACE_SRGB, 0, false, false);
+        $file = $im->getImageBlob();
         if ($file){
             $zip->addFromString( "photo.jpg", $file);
         }
