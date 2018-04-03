@@ -290,6 +290,9 @@ class IndexController extends Controller
         $im = new \Imagick($user->getPhoto()['path']);
         $im->resizeImage(394,506, \Imagick::FILTER_POINT, 0);
         $im->quantizeImage(128, \Imagick::COLORSPACE_RGB, 0, false, false);
+        $im->setType(\Imagick::IMGTYPE_TRUECOLOR);
+        $im->transformImageColorspace(\Imagick::COLORSPACE_SRGB);
+
         $file = $im->getImageBlob();
         if ($file){
             $zip->addFromString( "photo.jpg", $file);
