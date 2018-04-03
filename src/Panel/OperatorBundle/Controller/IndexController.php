@@ -301,7 +301,7 @@ class IndexController extends Controller
 
         $file = $im->getImageBlob();
         if ($file){
-            $zip->addFromString( "photo.png", $file);
+            $zip->addFromString( "photot.png", $file);
         }
 
         if ($user->getMyPetition() == 1){
