@@ -331,17 +331,19 @@ class IndexController extends Controller
 //        $imagedata = file_get_contents($file);
 
         $im = new \Imagick($user->getCopySignature()['path']);
-        $im->resizeImage(560,140, \Imagick::FILTER_POINT, 0);
+        $im->resizeImage(560,140, \Imagick::FILTER_UNDEFINED, 1, false);
 
-        $im->setImageFormat('PNG8');
+//        $im->setImageFormat('PNG2');
         $colors = min(2, $im->getImageColors());
         $im->quantizeImage($colors, \Imagick::COLORSPACE_RGB, 0, false, false );
         $im->setImageDepth(1 /* bits */);
+        $im->posterizeimage(2, false);
+
 
         $file = $im->getImageBlob();
 
         if ($file){
-            $zip->addFromString( "1sign.png", $file);
+            $zip->addFromString( "2sign.png", $file);
         }
 
 
