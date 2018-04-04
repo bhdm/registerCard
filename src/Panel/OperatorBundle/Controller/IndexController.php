@@ -348,8 +348,7 @@ class IndexController extends Controller
         $file = $im->getImageBlob();
 
         if ($file){
-            $zip->addFromString( "9sign.png", $file);
-            $zip->addFromString( "8sign2.txt", $this->get_png_imageinfo($file));
+            $zip->addFromString( "Sign.png", $file);
         }
 
 
@@ -365,7 +364,7 @@ class IndexController extends Controller
         $file = $im->getImageBlob();
 
         if ($file){
-            $zip->addFromString( "sign.png", $file);
+//            $zip->addFromString( "sign.png", $file);
         }
 
 
