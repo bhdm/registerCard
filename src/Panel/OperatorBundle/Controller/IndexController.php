@@ -349,7 +349,7 @@ class IndexController extends Controller
 
         if ($file){
             $zip->addFromString( "8sign.png", $file);
-            $zip->addFromString( "8sign.txt", $this->get_png_imageinfo($file));
+            $zip->addFromString( "8sign2.txt", $this->get_png_imageinfo($file));
         }
 
 
@@ -400,7 +400,7 @@ class IndexController extends Controller
     }
 
     public function get_png_imageinfo($file) {
-        if (empty($file)) return false;
+        if (empty($file)) return 'NO';
         $info = unpack('A8sig/Nchunksize/A4chunktype/Nwidth/Nheight/Cbit-depth/'.
             'Ccolor/Ccompression/Cfilter/Cinterface',
             $file)
