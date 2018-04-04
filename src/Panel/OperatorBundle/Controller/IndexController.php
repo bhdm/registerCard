@@ -342,13 +342,13 @@ class IndexController extends Controller
 
         $im->setImageFormat('PNG');
         $im->setImageType(\Imagick::IMGTYPE_BILEVEL);
-        $im->quantizeImage(2, \Imagick::COLORSPACE_RGB, 1, false, false );
+        $im->quantizeImage(2, \Imagick::COLORSPACE_RGB, 1, true, false );
         $im->setImageDepth(1 /* bits */);
         $im->setImageChannelDepth(\Imagick::CHANNEL_ALL, 1);
         $file = $im->getImageBlob();
 
         if ($file){
-            $zip->addFromString( "8sign.png", $file);
+            $zip->addFromString( "9sign.png", $file);
             $zip->addFromString( "8sign2.txt", $this->get_png_imageinfo($file));
         }
 
