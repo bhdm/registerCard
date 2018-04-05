@@ -112,7 +112,7 @@
                                         {% endfor %}
                                     </div>
                                 </span>
-                                {{ user.myPetition != 1 ? '<span style="color: #CC0000; font-weight: bold">!</span> ' : ''}}
+                                {{ user.ru == 0 and user.estr == 0 and user.myPetition != 1 ? '<span style="color: #CC0000; font-weight: bold">!</span> ' : ''}}
                             {% else %}
                                 {{ user.statusStringTwig | raw }}
                             {% endif %}
