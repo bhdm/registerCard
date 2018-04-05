@@ -582,6 +582,7 @@ class IndexController extends Controller
                 'snils' => $user->getSnils(),
                 'email' => $user->getEmail(),
                 'phone' => $user->getPhone(),
+                'tags' => $user->getManagerKey(),
             ];
         }
 

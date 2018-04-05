@@ -374,6 +374,20 @@ class AuthController extends Controller
 //            return $this->render('CrmMainBundle:Form:doc2.html.twig', array('user' => $user, 'bigSign' => $bigSign, 'miniSign' => $miniSign));
     }
 
+    /**
+     * @Route("/clear-statement/{id}", name="clear_pdf_statement")
+     */
+    public function clearPdfAction($id){
+        $user = $this->getDoctrine()->getRepository('CrmMainBundle:User')->find($id);
+        $user->setCopyOrder([]);
+        $user->setCopyOrder2([]);
+
+        $this->getDoctrine()->getManager()->flush($user);
+
+        $referer = $request->headers->get('referer');
+        return $this->redirect($referer);
+    }
+
 
     /**
      * @Route("/generate-statement-pdf-to-pdf/{id}", name="generate_statement_pdf_to_pdf")
