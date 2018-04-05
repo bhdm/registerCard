@@ -317,7 +317,8 @@ class IndexController extends Controller
             if ($user->getCompanyPetition() == null ){
                 $file = $user->getCopyPetition();
                 if (isset($file['originalName'])){
-                    $petitionUrl = 'http://'.$_SERVER['SERVER_NAME'].$this->imageToPdf((isset($file['originalName']) ? $file['originalName'] : null ));
+//                    $petitionUrl = 'http://'.$_SERVER['SERVER_NAME'].$this->imageToPdf((isset($file['originalName']) ? $file['originalName'] : null ));
+                    $petitionUrl = 'https://'.$_SERVER['SERVER_NAME'].$this->generateUrl('ImageToPdf',array('filename' => base64_encode($user->$file()['path'])));
                 }
             }else{
                 if ($user->getCompanyPetition()->getFile() != null ){
