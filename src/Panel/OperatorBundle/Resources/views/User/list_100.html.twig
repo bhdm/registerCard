@@ -104,7 +104,7 @@
                         </td>
                         <td>
                             {% if is_granted('ROLE_ADMIN') %}
-                                {{ myPetition != 1 ? '<span style="color: #CC0000">!</span> ' : ''}}
+                                {{ user.myPetition != 1 ? '<span style="color: #CC0000">!</span> ' : ''}}
                                 <span class="statusBox">
                                     {{ user.statusStringTwig | raw }}
                                     <div class="statusItems">
