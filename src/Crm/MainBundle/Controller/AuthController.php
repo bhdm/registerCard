@@ -377,7 +377,7 @@ class AuthController extends Controller
     /**
      * @Route("/clear-statement/{id}", name="clear_pdf_statement")
      */
-    public function clearPdfAction($request, $id){
+    public function clearPdfAction(Request $request, $id){
         $user = $this->getDoctrine()->getRepository('CrmMainBundle:User')->find($id);
         $user->setCopyOrder([]);
         $user->setCopyOrder2([]);
