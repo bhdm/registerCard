@@ -564,6 +564,8 @@ class IndexController extends Controller
         );
         $userJson = [];
         foreach ($users as $user){
+            $phone = $user->getPhone();
+            $phone =  substr($phone, 0, -2).'-'.substr($phone, -2);
             $userJson[] = [
                 'id' => $user->getId(),
                 'lastName' => $user->getLastName(),
@@ -581,7 +583,7 @@ class IndexController extends Controller
                 'inn' => $user->getInn(),
                 'snils' => $user->getSnils(),
                 'email' => $user->getEmail(),
-                'phone' => $user->getPhone(),
+                'phone' => $phone,
                 'tags' => $user->getManagerKey(),
             ];
         }
