@@ -2167,4 +2167,81 @@ class OrderController extends Controller
 //        }
         throw $this->createAccessDeniedException('Доступ запрещен');
     }
+
+
+    /**
+     * Sends a message via 1000sms api, combining authenticating and sending
+     * message in one request.
+     * @param $email, $passwrod - login info
+     * @param $phone - recipient phone number in international format (like 7xxxyyyzzzz)
+     * @param $text - message text, ASCII or UTF-8.
+     * @param $params - additional parameters as key => value array, see API doc.
+     * @return
+     * * NULL if API communication went a wrong way
+     * * array(>0) - if an error has occurred (see API error codes)
+     * * array(0, n_raw_sms, credits) - number of SMS parts in message and
+     * price for a single part
+     */
+    protected function smsapi_push_msg_nologin($email, $password, $phone, $text, $params = NULL){
+        $req = array(
+            "method" => "push_msg",
+            "api_v"=>"2.0",
+            "email"=>$email,
+            "password"=>$password,
+            "phone"=>$phone,
+            "text"=>$text);
+        if(!is_null($params)){
+            $req = array_merge($req, $params);
+        }
+        $resp = $this->_smsapi_communicate($req);
+        if($resp['err_code'] > 0) {
+            return array ( "response" => array ( "msg" => array ( "err_code" => $resp["err_code"], "text" => $resp["err_message"], "type" => "error" ), "data" => null ) )	;
+        } else return $resp['data'];
+    }
+
+    protected function smsapi_push_msg_nologin_key($key, $phone, $text, $params = NULL){
+        $req = array(
+            "method" => "push_msg",
+            "api_v"=>"2.0",
+            "key"=>@$key,
+            "phone"=>@$phone,
+            "text"=>@$text);
+        if(!is_null($params)){
+            $req = array_merge($req, $params);
+        }
+        $resp = $this->_smsapi_communicate($req);
+        if($resp['err_code'] > 0) {
+            return array ( "response" => array ( "msg" => array ( "err_code" => $resp["err_code"], "text" => $resp["err_message"], "type" => "error" ), "data" => null ) )	;
+        } else return $resp['data'];
+    }
+
+    protected function smsapi_add_number_to_base_nologin_key($key, $phone, $id_base, $params = NULL) {
+        $req = array(
+            "method" => "add_number_to_base",
+            "api_v"=>"2.0",
+            "key"=>@$key,
+            "phone"=>@$phone,
+            "id_base"=>@$id_base);
+        if(!is_null($params)){
+            $req = array_merge($req, $params);
+        }
+        $resp = $this->_smsapi_communicate($req);
+        if($resp['err_code'] > 0) {
+            return array ( "response" => array ( "msg" => array ( "err_code" => $resp["err_code"], "text" => $resp["err_message"], "type" => "error" ), "data" => null ) )	;
+        } else return $resp['data'];
+    }
+
+    protected function smsapi_get_list_base_nologin_key($key, $params = NULL) {
+        $req = array(
+            "method" => "get_list_base",
+            "api_v"=>"2.0",
+            "key"=>@$key);
+        if(!is_null($params)){
+            $req = array_merge($req, $params);
+        }
+        $resp = $this->_smsapi_communicate($req);
+        if($resp['err_code'] > 0) {
+            return array ( "response" => array ( "msg" => array ( "err_code" => $resp["err_code"], "text" => $resp["err_message"], "type" => "error" ), "data" => null ) )	;
+        } else return $resp['data'];
+    }
 }
