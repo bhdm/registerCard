@@ -641,8 +641,10 @@ class OrderController extends Controller
                  * @var $task User
                  */
                 $order = $this->getDoctrine()->getRepository('CrmMainBundle:User')->find($t);
-                $order->setStatus(5);
-                $this->getDoctrine()->getManager()->flush($order);
+                if ($order->getStatus() == 6 || $order->getStatus() == 4){
+                    $order->setStatus(5);
+                    $this->getDoctrine()->getManager()->flush($order);
+                }
 
             }
         }
