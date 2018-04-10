@@ -668,7 +668,7 @@ class OrderController extends Controller
                 $phone = $order->getPhone(); // Телефон абонента
 
                 $email = '365643584@inbox.ru'; // Логин в системе
-                $password = '375HiDc9'; // Пароль в системе
+                $password = 'yymPm8'; // Пароль в системе
 
 
                 $text = $request->request->get('txt');
