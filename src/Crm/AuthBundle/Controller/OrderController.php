@@ -2168,6 +2168,39 @@ class OrderController extends Controller
         throw $this->createAccessDeniedException('Доступ запрещен');
     }
 
+    /**
+     * Sends request to API
+     * @param $request - associative array to pass to API, "format"
+     * key will be overridden
+     * @param $cookie - cookies string to be passed
+     * @return
+     * * NULL - communication to API failed
+     * * ($err_code, $data) if response was OK, $data is an associative
+     * array, $err_code is an error numeric code
+     */
+
+    protected function _smsapi_communicate($request, $cookie=NULL) {
+        $request['format'] = "json";
+        $curl = curl_init();
+        curl_setopt($curl, CURLOPT_URL, "http://api.1000sms.ru/");
+//	curl_setopt($curl, CURLOPT_URL, "https://ssl.bs00.ru/"); // раскомментируйте, если хотите отправлять по HTTPS
+        curl_setopt($curl, CURLOPT_POST, True);
+        curl_setopt($curl, CURLOPT_POSTFIELDS, $request);
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, True);
+        curl_setopt($curl, CURLOPT_TIMEOUT, 40);
+        if(!is_null($cookie)){
+            curl_setopt($curl, CURLOPT_COOKIE, $cookie);
+        }
+        $data = curl_exec($curl);
+        if($data === False){
+            $ERROR = curl_error($curl); //код ошибки запроса
+            curl_close($curl);
+            return array("err_code" => 1, "err_message" => $ERROR);
+        }
+        curl_close($curl);
+        $js = json_decode($data, $assoc=True);
+        return array("err_code" => 0, "data" => $js);
+    }
 
     /**
      * Sends a message via 1000sms api, combining authenticating and sending
