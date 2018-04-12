@@ -20,6 +20,8 @@ class UserRepository extends EntityRepository
             ->where('u.isProduction IS NULL')
             ->andWhere('u.id > 20000')
             ->orderBy('u.id', 'ASC');
+
+        return $res->getQuery()->getResult();
     }
 
     public function fullSumma($estr,$ru){
