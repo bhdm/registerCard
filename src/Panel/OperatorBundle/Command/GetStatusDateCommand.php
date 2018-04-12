@@ -32,13 +32,13 @@ class GetStatusDateCommand extends ContainerAwareCommand
         foreach ($users as $user){
             $output->write('Пользователь с ID '.$user->getId());
             $date = $user->getDateInProduction();
-            ob_start();
-            var_dump($date);
-            $result = ob_get_clean();
-            $output->writeln($result);
+//            ob_start();
+//            var_dump($date);
+//            $result = ob_get_clean();
+//            $output->writeln($result);
             if ($date !== null){
                 $user->setIsProduction($date);
-                $em->flush($user);
+//                $em->flush($user);
                 $output->writeln(' '.$date->format('d.m.Y'));
             }else{
                 $output->writeln(' --- ');
