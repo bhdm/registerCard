@@ -13,6 +13,15 @@ class UserRepository extends EntityRepository
         return $this->findBy(array('enabled'=> 1 ), array('created' => 'DESC'));
     }
 
+    public function filterByCommand(){
+        $res = $this->getEntityManager()->createQueryBuilder()
+            ->select('u')
+            ->from('CrmMainBundle:User','u')
+            ->where('u.isProduction IS NULL')
+            ->andWhere('u.id > 20000')
+            ->orderBy('u.id', 'ASC');
+    }
+
     public function fullSumma($estr,$ru){
         $users = $this->getEntityManager()->createQuery('
 		 	SELECT COUNT(u.id) as fullSumma

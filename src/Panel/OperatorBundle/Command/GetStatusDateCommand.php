@@ -23,7 +23,7 @@ class GetStatusDateCommand extends ContainerAwareCommand
         $container = $this->getContainer();
         $em = $container->get('doctrine')->getManager();
 
-        $users = $em->getRepository('CrmMainBundle:User')->findBy(['isProduction' => null],['id' => 'ASC']);
+        $users = $em->getRepository('CrmMainBundle:User')->filterByCommand();
 
         foreach ($users as $user){
             $output->write('Пользователь с ID '.$user->getId());
