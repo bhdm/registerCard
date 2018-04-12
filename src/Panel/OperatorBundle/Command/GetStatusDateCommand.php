@@ -1,4 +1,5 @@
 <?php
+
 namespace Panel\OperatorBundle\Command;
 use Crm\MainBundle\Entity\User;
 use
@@ -21,6 +22,8 @@ class GetStatusDateCommand extends ContainerAwareCommand
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
+        error_reporting(E_ERROR | E_WARNING | E_PARSE);
+
         $container = $this->getContainer();
         $em = $container->get('doctrine')->getManager();
 
