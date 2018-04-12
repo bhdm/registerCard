@@ -38,7 +38,7 @@ class GetStatusDateCommand extends ContainerAwareCommand
 //            $output->writeln($result);
             if ($date !== null){
                 $user->setIsProduction($date);
-//                $em->flush($user);
+                $em->flush($user);
                 $output->writeln(' '.$date->format('d.m.Y'));
             }else{
                 $output->writeln(' --- ');
