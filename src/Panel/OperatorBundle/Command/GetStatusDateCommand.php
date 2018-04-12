@@ -36,7 +36,7 @@ class GetStatusDateCommand extends ContainerAwareCommand
 //            var_dump($date);
 //            $result = ob_get_clean();
 //            $output->writeln($result);
-            if ($date !== null){
+            if ($date !== null && $user->getId() != 38404){
                 $user->setIsProduction($date);
                 $em->flush($user);
                 $output->writeln(' '.$date->format('d.m.Y'));
