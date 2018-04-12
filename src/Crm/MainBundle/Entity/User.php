@@ -1881,11 +1881,7 @@ class User extends BaseEntity implements UserInterface, EquatableInterface, \Ser
                 return $status->getCreated();
             }
         }
-        foreach ($userLog as $key => $status) {
-            if ( $status->getTitle() === 'В&nbsp;производстве' || $status->getTitle() === 'В производстве' ){
-                return $status->getCreated();
-            }
-        }
+
         return null;
     }
 

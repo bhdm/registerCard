@@ -18,6 +18,7 @@ class UserRepository extends EntityRepository
             ->select('u')
             ->from('CrmMainBundle:User','u')
             ->where('u.isProduction IS NULL')
+            ->andWhere('u.enabled = 1')
             ->andWhere('u.id > 20000')
             ->orderBy('u.id', 'ASC');
 

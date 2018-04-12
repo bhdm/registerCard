@@ -1,5 +1,6 @@
 <?php
 namespace Panel\OperatorBundle\Command;
+use Crm\MainBundle\Entity\User;
 use
     Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand,
     Symfony\Component\Console\Input\InputArgument,
@@ -25,10 +26,13 @@ class GetStatusDateCommand extends ContainerAwareCommand
 
         $users = $em->getRepository('CrmMainBundle:User')->filterByCommand();
 
+        /**
+         * @var $user User
+         */
         foreach ($users as $user){
             $output->write('Пользователь с ID '.$user->getId());
             $date = $user->getDateInProduction();
-            $output->write(' '.($date ? '0' : $date->format('d.m.Y')));
+            $output->write(' '.($date != null ? '0' : $date->format('d.m.Y')));
             if ($date !== null){
                 $user->setIsProduction($date);
                 $em->flush($user);
