@@ -33,7 +33,6 @@ class GetStatusDateCommand extends ContainerAwareCommand
             $output->write('Пользователь с ID '.$user->getId());
             $date = $user->getDateInProduction();
             ob_start();
-            var_dump($user);
             $result = ob_get_clean();
             $output->writeln($result);
             if ($date !== null && $user->getId() != 38404){
