@@ -10,21 +10,14 @@
                 <td><input name="scid" value="{{ rispo_yandexkassa_scid }}" type="text"/></td>
             </tr>
             <tr>
-                {#<td>Цена</td>#}
-                {% set price = 3200 %}
-                {#{% if user.ru == 0 and user.estr == 0 %}#}
-                    {#{% set price = user.priceSkzi %}#}
-                {#{% elseif user.estr == 1 %}#}
-                    {#{% set price = user.priceEstr %}#}
-                {#{% else %}#}
-                    {#{% set price = user.priceRu %}#}
-                {#{% endif %}#}
-                {% set price = user.price+110  %}
+
+                {% set price = 300 %}
+
                 <td><input name="sum" value="{{ price }}" type="text"></td>
             </tr>
             <tr>
                 {#<td>Id клиента</td>#}
-                <td><input name="customerNumber" value="{{ user.client.id }}" type="text"/></td>
+                <td><input name="customerNumber" value="{{ pincode.client.id }}" type="text"/></td>
             </tr>
             <tr>
                 {#<td>Буквы для оплаты картой</td>#}
@@ -32,18 +25,18 @@
             </tr>
             <tr>
                 {#<td>Номер заказа</td>#}
-                <td><input name="orderNumber" value="{{ user.id }}" type="text"/></td>
+                <td><input name="orderNumber" value="{{ pincode.id }}" type="text"/></td>
             </tr>
             <tr>
                 {#<td>Телефон</td>#}
-                <td><input name="cps_phone" value="{{ user.phone }}" type="text"/></td>
+                <td><input name="cps_phone" value="{{ pincode.phone }}" type="text"/></td>
             </tr>
             <tr>
                 {#<td>Email</td>#}
                 <td><input name="cps_email" value="{{ user.email }}" type="text"/></td>
             </tr>
             <tr>
-                <td><input name="product_type" value="card" type="text"/></td>
+                <td><input name="product_type" value="pincode" type="text"/></td>
             </tr>
         </table>
 

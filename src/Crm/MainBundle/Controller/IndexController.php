@@ -20,6 +20,9 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Zelenin\smsru;
+use YandexCheckout\Client;
+
+
 class IndexController extends Controller
 {
     /**
@@ -112,14 +115,21 @@ class IndexController extends Controller
 
 
             if ($request->request->get('payment') == 1){
-                $robokassa = new Robokassa('infomax', 'Uflzoaac1', 'Uflzoaac2');
-                $robokassa->OutSum = 300;
-                $robokassa->Desc = 'Заказ востановления пинкода ' . $code;
-                $robokassa->addCustomValues(array(
-                    'shp_order' => $pincode->getId(),
-                    'shp_type' => 'pin',
-                ));
-                return $this->redirect($robokassa->getRedirectURL());
+                $shopId = $request->request->get('shopId');
+                $invoiceId = $request->request->get('invoiceId');
+
+                return $this->render('CrmMainBundle:Index:YandexGetCode.html.twig',['pincode' => $pincode]);
+//                $robokassa = new Robokassa('infomax', 'Uflzoaac1', 'Uflzoaac2');
+//                $robokassa->OutSum = 300;
+//                $robokassa->Desc = 'Заказ востановления пинкода ' . $code;
+//                $robokassa->addCustomValues(array(
+//                    'shp_order' => $pincode->getId(),
+//                    'shp_type' => 'pin',
+//                ));
+//                return $this->redirect($robokassa->getRedirectURL());
+
+
+
             }elseif($request->request->get('payment') == 2){
                     $pincode->setPaymentType('Квитанция');
                     $em->flush($pincode);

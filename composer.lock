@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "724c11b22da6af05ec886e4eca584df0",
+    "content-hash": "e8e803d2b6cf6520729f7bc540a10e46",
     "packages": [
         {
             "name": "behat/transliterator",
@@ -3451,16 +3451,16 @@
         },
         {
             "name": "yandex-money/yandex-checkout-sdk-php",
-            "version": "1.0.3",
+            "version": "1.0.8",
             "source": {
                 "type": "git",
                 "url": "https://github.com/yandex-money/yandex-checkout-sdk-php.git",
-                "reference": "7be7d9f0d4d88abcd6630593821f70530ce1faff"
+                "reference": "519f9bf2683c0132369f8387a7522ee0f25a0fa9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/yandex-money/yandex-checkout-sdk-php/zipball/7be7d9f0d4d88abcd6630593821f70530ce1faff",
-                "reference": "7be7d9f0d4d88abcd6630593821f70530ce1faff",
+                "url": "https://api.github.com/repos/yandex-money/yandex-checkout-sdk-php/zipball/519f9bf2683c0132369f8387a7522ee0f25a0fa9",
+                "reference": "519f9bf2683c0132369f8387a7522ee0f25a0fa9",
                 "shasum": ""
             },
             "require": {
@@ -3485,7 +3485,7 @@
             "license": [
                 "MIT"
             ],
-            "time": "2017-12-13T08:17:24+00:00"
+            "time": "2018-04-10T15:02:11+00:00"
         },
         {
             "name": "zelenin/smsru",

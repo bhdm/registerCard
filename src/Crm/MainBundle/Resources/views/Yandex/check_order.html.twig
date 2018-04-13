@@ -2,22 +2,5 @@
 <checkOrderResponse performedDatetime="{{ time }}" code="0" invoiceId="{{ invoiceId }}" shopId="{{ shopId }}"/>
 {% else %}
 <checkOrderResponse performedDatetime="{{ time }}" code="100" invoiceId="{{ invoiceId }}" shopId="{{ shopId }}"
-   message="Заказа не существует или она уже оплаченна" techMessage="Заказа не существует или она уже оплаченна"/>
+   message="Заказа не существует или он уже оплачен" techMessage="Заказа не существует или он уже оплачен"/>
 {% endif %}
-{#<checkOrderRequest#}
-        {#requestDatetime="{{ time }}"#}
-        {#invoiceId="{{ invoiceId }}"#}
-        {#shopId="{{ shopId }}"#}
-        {#shopArticleId="{{ user.id }}"#}
-        {#customerNumber="{{ client.id }}"#}
-        {#orderCreatedDatetime="2011-05-04T20:38:00.000+04:00"#}
-        {#paymentPayerCode="42007148320"#}
-        {#orderSumAmount="87.10"#}
-        {#orderSumCurrencyPaycash="643"#}
-        {#orderSumBankPaycash="1001"#}
-        {#shopSumAmount="86.23"#}
-        {#shopSumCurrencyPaycash="643"#}
-        {#shopSumBankPaycash="1001"#}
-        {#paymentType="AC">#}
-    {#<param key="MyField" val="Поле, добавленное магазином"/>#}
-{#</checkOrderRequest>#}
