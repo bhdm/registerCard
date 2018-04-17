@@ -578,6 +578,7 @@ class IndexController extends Controller
             $phone =  substr($phone, 0, -2).'-'.substr($phone, -2);
             $userJson[] = [
                 'id' => $user->getId(),
+                'typeCard' => ($user->getTypeCard() == 0 ? 41 : $user->getTypeCard() == 1 ? 43 : $user->getTypeCard() == 2 ? 42 : $user->getTypeCard() == 44),
                 'lastName' => $user->getLastName(),
                 'firstName' => $user->getFirstName(),
                 'surName' => $user->getSurName(),
