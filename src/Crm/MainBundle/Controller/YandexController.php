@@ -156,6 +156,7 @@ class YandexController extends Controller
             $card = $this->getDoctrine()->getRepository('CrmMainBundle:Pincode')->findOneBy(['id'=> $id, 'client' => $client]);
             if ($card){
                 $card->setPrice(300);
+                $card->setStatus(1);
                 $this->getDoctrine()->getManager()->flush($card);
                 $response = new Response();
 //            $response->headers->set('Content-Type', 'application/pkcs7-mime');
