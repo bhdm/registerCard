@@ -160,7 +160,7 @@ class PincodeController extends Controller
         $message = \Swift_Message::newInstance()
             ->setSubject('Востановление PIN PUK кода')
             ->setFrom('info@im-kard.ru')
-            ->setTo($code->getEmail())
+            ->setTo(trim($code->getEmail()))
             ->setBody(
                 $this->renderView(
                     '@PanelOperator/Mail/sendCode.html.twig',
