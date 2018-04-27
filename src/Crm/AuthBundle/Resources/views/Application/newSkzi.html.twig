@@ -40,33 +40,33 @@
                     <td>Телефон<span class="required">*</span></td>
                     <td>{{ form_widget(form.username) }}</td>
                     {#<td class="typeCardFile">#}
-                        {#<div class="file-container">#}
-                            {#<input type="file" name="typeCardFile" id="typeCardFile" class="fileAjax" >#}
-                            {#<progress class="progress" value="0" max="100" style="width: 270px"></progress>#}
-                            {#<br />#}
-                            {#<br />#}
-                            {#<div class="fileDoc">#}
-                                {#{% if form.vars.value.typeCardFile.path is defined %}#}
-                                    {#<img src="/{{ form.vars.value.typeCardFile.path }}" brightness="0" contrast="0">#}
-                                {#{% else %}#}
-                                    {#<img src="" brightness="0" contrast="0">#}
-                                {#{% endif %}#}
-                            {#</div>#}
-                            {#<div class="navigateFile">#}
-                                {#<img src="{{ asset('bundles/crmmain/icons/rotateLeft.png') }}" class="rotateLeft" title="Повернуть налево">#}
-                                {#<img src="{{ asset('bundles/crmmain/icons/rotateRight.png') }}" class="rotateRight" title="Повернуть вправо">#}
-                                {#<div style="">#}
-                                    {#<span class="cropImage minibtn" title="Обрезать изображение">Обрезать</span>#}
-                                    {#<br />#}
-                                    {#<br />#}
-                                {#</div>#}
+                    {#<div class="file-container">#}
+                    {#<input type="file" name="typeCardFile" id="typeCardFile" class="fileAjax" >#}
+                    {#<progress class="progress" value="0" max="100" style="width: 270px"></progress>#}
+                    {#<br />#}
+                    {#<br />#}
+                    {#<div class="fileDoc">#}
+                    {#{% if form.vars.value.typeCardFile.path is defined %}#}
+                    {#<img src="/{{ form.vars.value.typeCardFile.path }}" brightness="0" contrast="0">#}
+                    {#{% else %}#}
+                    {#<img src="" brightness="0" contrast="0">#}
+                    {#{% endif %}#}
+                    {#</div>#}
+                    {#<div class="navigateFile">#}
+                    {#<img src="{{ asset('bundles/crmmain/icons/rotateLeft.png') }}" class="rotateLeft" title="Повернуть налево">#}
+                    {#<img src="{{ asset('bundles/crmmain/icons/rotateRight.png') }}" class="rotateRight" title="Повернуть вправо">#}
+                    {#<div style="">#}
+                    {#<span class="cropImage minibtn" title="Обрезать изображение">Обрезать</span>#}
+                    {#<br />#}
+                    {#<br />#}
+                    {#</div>#}
 
-                            {#</div>#}
-                            {#<input type="hidden" id="x1" name="x1">#}
-                            {#<input type="hidden" id="y1" name="y1">#}
-                            {#<input type="hidden" id="x2" name="x2">#}
-                            {#<input type="hidden" id="y2" name="y2">#}
-                        {#</div>#}
+                    {#</div>#}
+                    {#<input type="hidden" id="x1" name="x1">#}
+                    {#<input type="hidden" id="y1" name="y1">#}
+                    {#<input type="hidden" id="x2" name="x2">#}
+                    {#<input type="hidden" id="y2" name="y2">#}
+                    {#</div>#}
                     {#</td>#}
                 </tr>
                 <tr>
@@ -79,7 +79,7 @@
                 <tr>
                     {#<td>Тип заявления<span class="required">*</span></td>#}
                     {#<td>#}
-                        {#{{ form_widget(form.typeCard) }}#}
+                    {#{{ form_widget(form.typeCard) }}#}
                     {#</td>#}
                     <td></td>
                     <td></td>
@@ -121,17 +121,17 @@
                         {#<br />#}
                         {#<br />#}
                         {#<div class="file-container">#}
-                            {#<input type="file" name="copyDocFile" id="copyDocFile" class="fileAjax" >#}
-                            {#<progress class="progress" value="0" max="100" style="width: 270px"></progress>#}
-                            {#<br />#}
-                            {#<br />#}
-                            {#<div class="fileDoc" style="text-align: left">#}
-                                {#{% if user.copyDoc.path is defined %}#}
-                                    {#<img src="/{{ user.copyDoc.path }}" brightness="0" contrast="0">#}
-                                {#{% else %}#}
-                                    {#<img src="" brightness="0" contrast="0">#}
-                                {#{% endif %}#}
-                            {#</div>#}
+                        {#<input type="file" name="copyDocFile" id="copyDocFile" class="fileAjax" >#}
+                        {#<progress class="progress" value="0" max="100" style="width: 270px"></progress>#}
+                        {#<br />#}
+                        {#<br />#}
+                        {#<div class="fileDoc" style="text-align: left">#}
+                        {#{% if user.copyDoc.path is defined %}#}
+                        {#<img src="/{{ user.copyDoc.path }}" brightness="0" contrast="0">#}
+                        {#{% else %}#}
+                        {#<img src="" brightness="0" contrast="0">#}
+                        {#{% endif %}#}
+                        {#</div>#}
                         {#</div>#}
                     </td>
                 </tr>
@@ -422,7 +422,33 @@
                 <tr>
                     <td>Ходатайство</td>
 
-                    <td>{{ form_widget(form.myPetition) }}</td>
+                    <td>
+                        <select id="crm_mainbundle_user_myPetition" name="crm_mainbundle_user[myPetition]" class="form-control">
+                            <option value="1" selected="selected">Ходатайство от "ИнфоМакс" </option>
+                            {% if petitions is defined %}
+                                {% for p in petitions %}
+                                    <option value="{{ p.id }}"
+                                            data-title="{{ p.title }}"
+                                            data-forma="{{ p.forma }}"
+                                            data-inn="{{ p.inn }}"
+                                            data-kpp="{{ p.kpp }}"
+                                            data-ogrn="{{ p.ogrn }}"
+
+                                            data-region="{{ p.region }}"
+                                            data-area="{{ p.area }}"
+                                            data-city="{{ p.city }}"
+                                            data-street="{{ p.street }}"
+                                            data-home="{{ p.home }}"
+                                            data-corp="{{ p.corp }}"
+                                            data-structure="{{ p.structure }}"
+                                            data-room="{{ p.room }}"
+                                            data-zipcode="{{ p.zipcode }}"
+                                    >{{ p.title }}</option>
+                                {% endfor %}
+                            {% endif %}
+                            <option value="0">Новое ходатайство</option>
+                        </select>
+                    </td>
                     <td></td>
                 </tr>
                 <tr class="petition">
@@ -514,14 +540,14 @@
             <table class="table-form">
                 <caption>Информация о доставке</caption>
                 {#<tr>#}
-                    {#<td>Ввести адрес доставки</td>#}
-                    {#<td>#}
-                        {#<select id="delivery" class="form-control" name="delivery">#}
-                            {#<option value="0">Нет</option>#}
-                            {#<option value="1">Да</option>#}
-                        {#</select>#}
-                    {#</td>#}
-                    {#<td></td>#}
+                {#<td>Ввести адрес доставки</td>#}
+                {#<td>#}
+                {#<select id="delivery" class="form-control" name="delivery">#}
+                {#<option value="0">Нет</option>#}
+                {#<option value="1">Да</option>#}
+                {#</select>#}
+                {#</td>#}
+                {#<td></td>#}
                 {#</tr>#}
                 <tr class="delivery">
                     <td>Регион<span class="required">*</span>:</td>
@@ -806,12 +832,32 @@
             });
 
             $('#crm_mainbundle_user_myPetition').change(function(){
-                if ($(this).val()!= 1){
-                    $('.petition').css('display','table-row');
-                    $('.petition-td').css('display','table-cell');
-                }else{
+                if ($(this).val()== 1){
                     $('.petition').css('display','none');
                     $('.petition-td').css('display','none');
+                    $('#crm_mainbundle_user_petitionTitle').val('');
+                    $('#crm_mainbundle_user_petitionAdrs_region').val('');
+                    $('#crm_mainbundle_user_petitionAdrs_area').val('');
+                    $('#crm_mainbundle_user_petitionAdrs_city').val('');
+                    $('#crm_mainbundle_user_petitionAdrs_street').val('');
+                    $('#crm_mainbundle_user_petitionAdrs_house').val('');
+                    $('#crm_mainbundle_user_petitionAdrs_corp').val('');
+                    $('#crm_mainbundle_user_petitionAdrs_structure').val('');
+                    $('#crm_mainbundle_user_petitionAdrs_room').val('');
+                    $('#crm_mainbundle_user_petitionAdrs_zipcode').val('');
+                }else{
+                    $('.petition').css('display','table-row');
+                    $('.petition-td').css('display','table-cell');
+                    $('#crm_mainbundle_user_petitionTitle').val($(this).find(':selected').attr('data-title'));
+                    $('#crm_mainbundle_user_petitionAdrs_region').val($(this).find(':selected').attr('data-region'));
+                    $('#crm_mainbundle_user_petitionAdrs_area').val($(this).find(':selected').attr('data-area'));
+                    $('#crm_mainbundle_user_petitionAdrs_city').val($(this).find(':selected').attr('data-city'));
+                    $('#crm_mainbundle_user_petitionAdrs_street').val($(this).find(':selected').attr('data-street'));
+                    $('#crm_mainbundle_user_petitionAdrs_house').val($(this).find(':selected').attr('data-house'));
+                    $('#crm_mainbundle_user_petitionAdrs_corp').val($(this).find(':selected').attr('data-corp'));
+                    $('#crm_mainbundle_user_petitionAdrs_structure').val($(this).find(':selected').attr('data-structure'));
+                    $('#crm_mainbundle_user_petitionAdrs_room').val($(this).find(':selected').attr('data-room'));
+                    $('#crm_mainbundle_user_petitionAdrs_zipcode').val($(this).find(':selected').attr('data-zipcode'));
                 }
             });
 
@@ -974,8 +1020,8 @@
 
 
             {% if form.vars.value.myPetition is defined and form.vars.value.myPetition == 1 %}
-                $('.petition').css('display','table-row');
-                $('.petition-td').css('display','table-cell');
+            $('.petition').css('display','table-row');
+            $('.petition-td').css('display','table-cell');
             {% endif %}
 
 

@@ -190,7 +190,8 @@ class OrderController extends Controller
             $this->clearSession($session);
         }
         $company = $this->getDoctrine()->getRepository('CrmMainBundle:Company')->findOneBy(['id' => $this->getUser()->getCompany()]);
-        return array('form' => $form->createView(),'company2' => $company);
+        $petitions = $this->getDoctrine()->getRepository('CrmMainBundle:CompanyPetition')->findByClient($this->getUser());
+        return array('form' => $form->createView(),'company2' => $company, 'petitions' => $petitions);
     }
 
     /**
