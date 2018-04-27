@@ -1,0 +1,40 @@
+{% extends 'CrmAuthBundle::layout.html.twig' %}
+
+{% block body %}
+
+
+    <div>
+        <h2>Ходатайства компании</h2>
+        <div style="float: right; margin-top: -55px">
+            <a href="{{ path('auth_petition_add') }}">
+                <button class="btn btn-primary" type="button">
+                    Добавить
+                </button>
+            </a>
+        </div>
+    </div>
+    <table class="table">
+        <tr>
+            <th></th>
+            <th>ИНН</th>
+            <th>Название</th>
+            <th></th>
+        </tr>
+        {% for p in petitions %}
+            <tr>
+                <td>{{ p.id }}</td>
+                <td>{{ p.inn }}</td>
+                <td>{{ p.title }}</td>
+                <td class="text-right">
+                    <a href="{{ path('auth_petition_edit', {'petitionId' : p.id }) }}" class="btn btn-primary" type="button"><span class="glyphicon glyphicon-edit"></span></a>
+                    <a href="{{ path('auth_petition_remove', {'petitionId' : p.id }) }}"  class="btn btn-danger" type="button"><span class="glyphicon glyphicon-remove"></span></a>
+                </td>
+            </tr>
+        {% endfor %}
+    </table>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+
+{% endblock %}

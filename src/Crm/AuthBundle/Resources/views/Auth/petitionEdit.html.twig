@@ -1,0 +1,57 @@
+{% extends 'CrmAuthBundle::layout.html.twig' %}
+
+{% block body %}
+    <h2>Изменение ходатайства {{ petition.title }}</h2>
+    <form method="post" style="width: 500px" class="form-horizontal">
+        {#{{  form_widget(form) }}#}
+        {{ form_errors(form) }}
+        {{ form_row(form.title) }}
+        {{ form_row(form.inn) }}
+        {{ form_row(form.kpp) }}
+        {{ form_row(form.ogrn) }}
+
+        <h3>Адрес организации</h3>
+        <div class="form-group">
+            <label class="col-sm-4 control-label required">Регион</label>
+            <div class="col-sm-8">{{ form_widget(form.region) }}</div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-4 control-label required">Район</label>
+            <div class="col-sm-8">{{ form_widget(form.area) }}</div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-4 control-label required">Город</label>
+            <div class="col-sm-8">{{ form_widget(form.city) }}</div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-4 control-label required">Улица</label>
+            <div class="col-sm-8">{{ form_widget(form.street) }}</div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-4 control-label required">Номер здания</label>
+            <div class="col-sm-8">
+                <div class="row">
+                    <div class="col-xs-6">{{ form_widget(form.home) }}</div>
+                    <div class="col-xs-6">{{ form_widget(form.corp) }}</div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-6">{{ form_widget(form.structure) }}</div>
+                    <div class="col-xs-6">{{ form_widget(form.room) }}</div>
+                    <input type="hidden" name="registered[typeRoom]" id="mailing-typeRoom" value="кв.">
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-4 control-label required">Индекс</label>
+            <div class="col-sm-8">{{ form_widget(form.zipcode) }}</div>
+        </div>
+
+        {{ form_row(form.submit,{'attr' : {'class' : 'btn-primary'}}) }}
+        {{ form_row(form._token) }}
+    </form>
+
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+{% endblock %}

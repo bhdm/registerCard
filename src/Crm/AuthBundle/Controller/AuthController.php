@@ -4,8 +4,10 @@ namespace Crm\AuthBundle\Controller;
 
 use Crm\AuthBundle\Form\PasswordCompanyType;
 use Crm\AuthBundle\Form\ProfileCompanyType;
+use Crm\AuthBundle\Form\ProfilePetitionType;
 use Crm\AuthBundle\Form\RegisterCompanyType;
 use Crm\MainBundle\Entity\Client;
+use Crm\MainBundle\Entity\CompanyPetition;
 use Crm\MainBundle\Entity\StatusLog;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -154,6 +156,92 @@ class AuthController extends Controller
 
         return array('form' => $form->createView(), 'formPass' => $formPass->createView(), 'isIframe' => $item->getCompany()->getOperator()->getIframe());
     }
+
+    /**
+     * @Route("/petitions", name="auth_petitions")
+     * @Template()
+     */
+    public function petitionsAction(Request $request){
+        $item = $this->getDoctrine()->getRepository('CrmMainBundle:Client')->findOneById($this->getUser()->getId());
+        $petitions = $this->getDoctrine()->getRepository('CrmMainBundle:CompanyPetition')->findByClient($item);
+
+        return array('petitions' => $petitions, 'isIframe' => $item->getCompany()->getOperator()->getIframe());
+
+    }
+
+    /**
+     * @Route("/petition/add", name="auth_petition_add")
+     * @Template()
+     */
+    public function petitionAddAction(Request $request){
+        $em = $this->getDoctrine()->getManager();
+        $item = $this->getDoctrine()->getRepository('CrmMainBundle:Client')->findOneById($this->getUser()->getId());
+        $petition = new CompanyPetition();
+        $form = $this->createForm(new ProfilePetitionType(), $petition);
+        $formData = $form->handleRequest($request);
+        if ($request->getMethod() === 'POST'){
+            if ($formData->isValid()){
+                /**
+                 * @var  CompanyPetition $item
+                 */
+               $petition = $formData->getData();
+               $petition->setClient($item);
+               $petition->setEnabled(true);
+               $petition->setOperator($item->getCompany()->getOperator());
+               $em->persist($petition);
+               $em->flush($petition);
+               $em->refresh($petition);
+               return $this->redirectToRoute('auth_petitions');
+            }
+        }
+
+        return array('form' => $form->createView(), 'isIframe' => $item->getCompany()->getOperator()->getIframe());
+    }
+
+    /**
+     * @Route("/petition/edit/{petitionId}", name="auth_petition_edit")
+     * @Template()
+     */
+    public function petitionEditAction(Request $request, $petitionId){
+        $em = $this->getDoctrine()->getManager();
+        $item = $this->getDoctrine()->getRepository('CrmMainBundle:Client')->findOneById($this->getUser()->getId());
+        $petition = $this->getDoctrine()->getRepository('CrmMainBundle:CompanyPetition')->find($petitionId);
+        $form = $this->createForm(new ProfilePetitionType(), $petition);
+        $formData = $form->handleRequest($request);
+        if ($request->getMethod() === 'POST'){
+            if ($formData->isValid()){
+                /**
+                 * @var  CompanyPetition $item
+                 */
+                $petition = $formData->getData();
+                $petition->setClient($item);
+                $petition->setEnabled(true);
+                $petition->setOperator($item->getCompany()->getOperator());
+                $em->flush($petition);
+                $em->refresh($petition);
+                return $this->redirectToRoute('auth_petitions');
+            }
+        }
+
+        return array('form' => $form->createView(), 'isIframe' => $item->getCompany()->getOperator()->getIframe(), 'petition' => $petition);
+    }
+
+    /**
+     * @Route("/petition/remove/{petitionId}", name="auth_petition_remove")
+     * @Template()
+     */
+    public function petitionRemoveAction(Request $request, $petitionId){
+        $em = $this->getDoctrine()->getManager();
+        $item = $this->getDoctrine()->getRepository('CrmMainBundle:Client')->findOneById($this->getUser()->getId());
+        $petition = $this->getDoctrine()->getRepository('CrmMainBundle:CompanyPetition')->find($petitionId);
+
+        $em->remove($petition);
+        $em->flush($petition);
+
+        return $this->redirectToRoute('auth_petitions');
+    }
+
+
 
     /**
      * @Route("/email-confirmed/{salt}", name="email_confirmed")
