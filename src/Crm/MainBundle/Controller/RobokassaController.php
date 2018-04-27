@@ -81,28 +81,36 @@ class RobokassaController extends Controller
      * @Route("/payment/assist-fast/{orderId}", name="payment_assist_fast")
      */
     public function PostAssistFastAction(Request $request, $orderId){
-        if ($request->getMethod()=='GET'){
-            /**
-             * @var $user FastOrder
-             */
-            $user = $this->getDoctrine()->getRepository('CrmMainBundle:FastOrder')->findOneById($orderId);
-            $id = $user->getId();
-//            $robokassa = new Robokassa('NPO_Tehnolog', 'Uflzoaac1', 'Uflzoaac2');
-            $robokassa = new Robokassa('infomax', 'Uflzoaac1', 'Uflzoaac2');
+
+        $shopId = $request->request->get('shopId');
+        $invoiceId = $request->request->get('invoiceId');
+        $order = $this->getDoctrine()->getRepository('CrmMainBundle:FastOrder')->find($orderId);
+
+        return $this->render('CrmMainBundle:Index:YandexFastOrder.html.twig',['order' => $order]);
 
 
-            $robokassa->OutSum = $user->getPrice()+124;
-
-
-//            $robokassa->IncCurrLabel = 'WMR';
-            $robokassa->Desc = $id.': '.$user->getFio();
-            $robokassa->addCustomValues(array(
-                'shp_order' => $user->getId(),
-                'shp_type' => 'card',
-            ));
-            return $this->redirect($robokassa->getRedirectURL());
-        }
-        return $this->redirect($this->generateUrl('main'));
+//        if ($request->getMethod()=='GET'){
+//            /**
+//             * @var $user FastOrder
+//             */
+//            $user = $this->getDoctrine()->getRepository('CrmMainBundle:FastOrder')->findOneById($orderId);
+//            $id = $user->getId();
+////            $robokassa = new Robokassa('NPO_Tehnolog', 'Uflzoaac1', 'Uflzoaac2');
+//            $robokassa = new Robokassa('infomax', 'Uflzoaac1', 'Uflzoaac2');
+//
+//
+//            $robokassa->OutSum = $user->getPrice()+124;
+//
+//
+////            $robokassa->IncCurrLabel = 'WMR';
+//            $robokassa->Desc = $id.': '.$user->getFio();
+//            $robokassa->addCustomValues(array(
+//                'shp_order' => $user->getId(),
+//                'shp_type' => 'card',
+//            ));
+//            return $this->redirect($robokassa->getRedirectURL());
+//        }
+//        return $this->redirect($this->generateUrl('main'));
     }
 
 

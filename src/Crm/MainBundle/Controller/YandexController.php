@@ -2,6 +2,7 @@
 
 namespace Crm\MainBundle\Controller;
 
+use Crm\MainBundle\Entity\FastOrder;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller,
     Sensio\Bundle\FrameworkExtraBundle\Configuration\Route,
     Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
@@ -45,7 +46,21 @@ class YandexController extends Controller
       $invoiceId = $request->request->get('invoiceId');
       $type = $request->request->get('product_type');
 
-      if ($type == 'card'){
+      if ($type == 'fast'){
+          $user = $this->getDoctrine()->getRepository('CrmMainBundle:FastOrder')->find($id);
+          if ($user != null) {
+              $response = new Response();
+              $response->setContent($this->renderView("CrmMainBundle:Yandex:check_order.html.twig", [
+                  'error' => false,
+                  'price' => $price,
+                  'user' => $user,
+                  'time' => $time,
+                  'code' => 0,
+                  'shopId' => $shopId,
+                  'invoiceId' => $invoiceId,
+              ]));
+          }
+      }elseif ($type == 'card'){
           $user = $this->getDoctrine()->getRepository('CrmMainBundle:User')->find($id);
           if ($user != null){
               $response = new Response();
@@ -119,7 +134,38 @@ class YandexController extends Controller
         $type = $request->request->get('product_type');
         $client = $this->getDoctrine()->getRepository('CrmMainBundle:Client')->findOneBy(['id' => $clientId]);
 
-        if ($type == 'card'){
+        if ($type == 'fast'){
+            $card = $this->getDoctrine()->getRepository('CrmMainBundle:FastOrder')->findOneBy(['id'=> $id, 'client' => $client]);
+            if ($card){
+                $card->setStatus(FastOrder::STATUS_PAYMENT);
+                $this->getDoctrine()->getManager()->flush($card);
+                $response = new Response();
+//            $response->headers->set('Content-Type', 'application/pkcs7-mime');
+                $response->setContent($this->renderView("CrmMainBundle:Yandex:aviso_order.html.twig", [
+                    'error' => false,
+                    'price' => $price,
+                    'card' => $card,
+                    'client' => $client,
+                    'time' => $time,
+                    'code' => 0,
+                    'shopId' => $shopId,
+                    'invoiceId' => $invoiceId,
+                ]));
+            }else{
+                $response = new Response();
+//            $response->headers->set('Content-Type', 'application/pkcs7-mime');
+                $response->setContent($this->renderView("CrmMainBundle:Yandex:aviso_order.html.twig", [
+                    'error' => true,
+                    'price' => $price,
+                    'card' => $card,
+                    'client' => $client,
+                    'time' => $time,
+                    'code' => 1,
+                    'shopId' => $shopId,
+                    'invoiceId' => $invoiceId,
+                ]));
+            }
+        }elseif ($type == 'card'){
             $user = $this->getDoctrine()->getRepository('CrmMainBundle:User')->findOneBy(['id'=> $id, 'client' => $client]);
             if ($user){
                 $user->setPrice($price-110);
