@@ -18,6 +18,11 @@
         Срок изготовления: : <span style="font-weight: bold">15 дней</span><br />
         <strong>Переход на страницу оплаты - после оформления и сохранения Заявки</strong>
     </p>
+    <div class="alert alert-danger">
+        <strong>В связи с прекращением ПАО "МИКРОН" приема заказов на выпуск карт тахографов,
+            прием Заявлений на карты СКЗИ приостановлена до 29.05.18г.</strong>
+    </div>
+    {% if 1==2 %}
     <form method="POST"  enctype="multipart/form-data">
         <div class="block-form">
             {{ form_errors(form) }}
@@ -678,6 +683,7 @@
             </table>
         </div>
     </form>
+    {% endif %}
 {% endblock %}
 
 {% block stylesheets %}
