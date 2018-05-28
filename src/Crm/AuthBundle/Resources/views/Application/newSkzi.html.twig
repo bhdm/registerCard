@@ -24,6 +24,14 @@
         <strong>В связи с прекращением ПАО "МИКРОН" приема заказов на выпуск карт тахографов,
             прием Заявлений на карты СКЗИ приостановлена до 29.05.18г.</strong>
     </div>
+    {% if app.user.company != null and app.user.company.id != 551 %}
+        <div class="alert alert-danger">
+            <strong>
+                Просьба новые Заявки от клиентов по старым ценами не принимать ,
+                о новых ценах сообщим в ближайшее время.
+            </strong>
+        </div>
+    {% endif %}
     {% if 1==2 %}
     <form method="POST"  enctype="multipart/form-data">
         <div class="block-form">
