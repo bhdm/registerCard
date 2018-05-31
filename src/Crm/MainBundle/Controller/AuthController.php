@@ -225,6 +225,18 @@ class AuthController extends Controller
     }
 
     /**
+     * @Route("/generate-consent/{id}", name="generate-consent")
+     */
+    public function generateConsentAction(Request $request, $id){
+        if ($this->$this->getUser()->isRole('ROLE_ADMIN')){
+            $user = $this->getDoctrine()->getRepository('CrmMainBundle:User')->findOneById($id);
+            
+        }
+
+    }
+
+
+    /**
      * @Route("/generatePdf", name="generate_pdf")
      */
     public function generatePdfAction(Request $request){

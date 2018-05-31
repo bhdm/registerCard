@@ -560,12 +560,15 @@ class IndexController extends Controller
      * @Route("/api/users", name="api_users")
      */
     public function getUSerForAppAction(){
+        $user = $this->getUser();
+        $userCompany = $user->getCompany();
         $users = $this->getDoctrine()->getRepository('CrmMainBundle:User')->findBy(
             [
                 'enabled' => true,
                 'estr' => 0,
                 'ru' => 0,
                 'chrome' => true,
+                'company' => $userCompany,
             ],
             [
                 'id' => 'DESC'
