@@ -576,7 +576,17 @@ class IndexController extends Controller
             10
         );
         $userJson = [];
-        $infomax = json_decode('a:9:{s:7:"zipcode";s:6:"198096";s:6:"region";s:32:"г.Санкт-Петербург";s:4:"area";s:0:"";s:4:"city";s:32:"г.Санкт-Петербург";s:6:"street";s:23:"ул.Маринеско";s:5:"house";s:5:"5-3Н";s:4:"corp";s:0:"";s:9:"structure";s:0:"";s:4:"room";s:0:"";}');
+        $infomax = [
+            'zipcode' => '198096',
+            'region' => 'г.Санкт-Петербург',
+            'area' => '',
+            'city' => 'г.Санкт-Петербург',
+            'street' => 'ул.Маринеско',
+            'house' => '5-3Н',
+            'corp' => '',
+            'structure' => '',
+            'room' => ''
+        ];
         foreach ($users as $user){
             $phone = $user->getPhone();
             $phone =  substr($phone, 0, -2).'-'.substr($phone, -2);
