@@ -573,7 +573,7 @@ class IndexController extends Controller
             [
                 'id' => 'DESC'
             ],
-            5
+            10
         );
         $userJson = [];
         foreach ($users as $user){
