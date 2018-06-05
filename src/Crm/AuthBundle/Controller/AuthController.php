@@ -433,4 +433,23 @@ class AuthController extends Controller
     public function docsAction(){
         return [];
     }
+
+    /**
+     * @Route("/set-chrome/{userId}", name="user_set_chrome")
+     */
+    public function setChromeAction(Request $request, $userId){
+        $company = $this->getUser()->getCompany();
+        $user = $this->getDoctrine()->getRepository('CrmMainBundle:User')->find($userId, $company);
+
+        if ($user->getChrome() == true){
+            $user->setChrome(false);
+        }else{
+            $user->setChrome(true);
+        }
+
+        $this->getDoctrine()->getManager()->flush($user);
+
+        $referer = $request->headers->get('referer');
+        return $this->redirect($referer);
+    }
 }

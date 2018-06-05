@@ -295,6 +295,9 @@
                             {% if o.status == 4 or o.status == 6 %}
                                 <a data-href="{{ path('auth_status_set', { 'id' : o.id }) }}" class="setCard"><button class="btn btn-primary">Получено</button></a>
                             {% endif %}
+                            <a href="{{ path('user_set_chrome', {'userId' : user.id }) }}">
+                                <button type="button" class="btn-xs btn-{{ user.chrome == true ? 'danger' : 'success' }} btn-bg" title="Отправить в расширение"><span class="glyphicon glyphicon-screenshot"></span></button>
+                            </a>
                         </td>
                     </tr>
                 {% endif %}
