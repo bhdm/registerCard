@@ -599,6 +599,7 @@ class IndexController extends Controller
                 'email' => $user->getEmail(),
                 'phone' => $phone,
                 'tags' => $user->getManagerKey(),
+                'adrs' => $user->getPetitionAdrs()
             ];
         }
 
