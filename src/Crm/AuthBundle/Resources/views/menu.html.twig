@@ -7,9 +7,9 @@
     <li>
         <a href="{{ path('auth_order') }}">Карты водителей</a>
     </li>
-    <li>
-        <a href="{{ path('get_code') }}">Восстановление PIN/PUK</a>
-    </li>
+    {#<li>#}
+        {#<a href="{{ path('get_code') }}">Восстановление PIN/PUK</a>#}
+    {#</li>#}
     {% if app.user.company != null and app.user.company.id != 551 %}
     <li>
         <a href="{{ path('auth_order_company') }}">Карты предпр.и мастерских</a>
