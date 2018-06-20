@@ -284,7 +284,7 @@ class IndexController extends Controller
         }
 
 
-        $orderUrl = 'https://'.$_SERVER['SERVER_NAME'].$this->generateUrl('generate_pdf_statement',array('id'=>$user->getId(), 'old'=> 3));
+        $orderUrl = 'https://'.$_SERVER['SERVER_NAME'].$this->generateUrl('generate_pdf_statement',array('id'=>$user->getId(), 'old'=> 0));
         $file = file_get_contents($orderUrl);
         if ($file){
             $zip->addFromString( "order.pdf", $file);
