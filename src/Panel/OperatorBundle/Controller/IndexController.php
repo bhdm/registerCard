@@ -296,11 +296,6 @@ class IndexController extends Controller
 //        $file = file_get_contents($image);
         $im = new \Imagick($user->getPhoto()['path']);
         $im->resizeImage(394,506, \Imagick::FILTER_POINT, 0);
-//        $im->quantizeImage(128, \Imagick::COLORSPACE_RGB, 0, false, false);
-//        $im->setType(\Imagick::IMGTYPE_TRUECOLOR);
-//        $im->transformImageColorspace(\Imagick::COLORSPACE_SRGB);
-//        $im->setImageDepth(4);
-
         $im->setImageFormat('PNG8');
         $colors = min(255, $im->getImageColors());
         $im->quantizeImage($colors, \Imagick::COLORSPACE_RGB, 0, false, false );
