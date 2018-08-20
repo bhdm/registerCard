@@ -349,7 +349,7 @@
         {#{% endif %}#}
     {#{% endif %}#}
     {% if user.myPetition == 1 or user.company == null or user.company.title is not defined or user.company.title  == '' %}
-        198096, Россия, г. Санкт-Петербург, ул. Маринеско, д.5-3Н
+        198096, Россия, г. Санкт-Петербург, ул. Маринеско, д.5, лит.А, пом.3Н
     {% elseif user.companyPetition != null %}
         {{ user.companyPetition.zipcode }},
         {{ user.companyPetition.region ? user.companyPetition.region~', ' : '' }}
