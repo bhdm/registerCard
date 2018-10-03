@@ -92,6 +92,7 @@ class IndexController extends Controller
      * @Template()
      */
     public function getCodeAction(Request $request){
+        return new Response('');
         $em = $this->getDoctrine()->getManager();
         if ($request->getMethod() == 'POST'){
 

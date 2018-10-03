@@ -69,6 +69,18 @@ class MoneyController extends Controller
      * @Template()
      */
     public function maximAction($year, $month){
+        /*
+         * SELECT COUNT(user.id) cid FROM
+                user
+                WHERE user.isProduction >= '2018-06-01 00:00:00' AND user.isProduction < '2018-09-01 00:00:00' AND user.status > 1 AND user.status != 10 AND
+                (estr = 1 OR ru = 1);
+
+
+            SELECT SUM(user.cardAmount) cid FROM
+                companyUser user
+                WHERE user.isProduction >= '2018-06-01 00:00:00' AND user.isProduction < '2018-09-01 00:00:00' AND user.status > 0 AND user.status != 10
+                AND cardType != 1;
+         */
         $date1 = $year.'-'.$month.'-01 00:00:00';
         $date2 = $year.'-'.($month+1).'-01 00:00:00';
         $date3 = new \DateTime($date1);
