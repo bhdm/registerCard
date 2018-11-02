@@ -195,6 +195,7 @@ class ApplicationController extends Controller
             $user->setCopyPetition($this->getImgToArray($session->get('petitionFile')));
             $user->setCopyInn($this->getImgToArray($session->get('innFile')));
             $user->setCopyPassport($this->getImgToArray($session->get('passportFile')));
+            $user->setCopyPassport2($this->getImgToArray($session->get('passport2File')));
             $user->setCopyPassportTranslate($this->getImgToArray($session->get('passportTranslateFile')));
             $user->setCopyDriverPassport($this->getImgToArray($session->get('driverFile')));
             $user->setCopyDriverPassportTranslate($this->getImgToArray($session->get('driverTranslateFile')));
