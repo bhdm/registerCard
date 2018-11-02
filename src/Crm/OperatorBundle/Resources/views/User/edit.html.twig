@@ -239,6 +239,22 @@
             </tr>
             <tr>
                 <td class="label">
+                    <div class="label-text">Паспорт 2<span class="required">*</span>:</div>
+                </td>
+                <td class="value">
+                    <form enctype="multipart/form-data" id="form-1">
+                        <input name="passport2" id="passport2File" type="file" value="Выбирите файл">
+                    </form>
+                </td>
+                <td class="passportStatus">
+                    <a class="fancy" href="/{{ user.copyPassport2.path }}" target="_blank">
+                        <img src="{{ asset('bundles/crmoperator/images/icon/image10.png') }}" class="icon" id="DocPassport2" title="Документ">
+                    </a>
+                    <img src="{{ asset('bundles/crmoperator/images/icon/image29.png') }}" class="icon" id="helpPassport" title="Данные">
+                </td>
+            </tr>
+            <tr>
+                <td class="label">
                     <div class="label-text">Водительское удостоверение<span class="required">*</span>:</div>
                 </td>
                 <td class="value">
