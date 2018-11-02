@@ -163,7 +163,7 @@
                 <tr>
                     <td>Имя<span class="required">*</span></td>
                     <td>{{ form_widget(form.firstName) }}</td>
-                    <td rowspan="7" style="vertical-align: top">
+                    <td rowspan="4" style="vertical-align: top">
                         (<a href="{{ asset('bundles/crmmain/images/new/Pasport.jpg') }}" class="fancybox">Образец</a>)
                         <div class="file-container">
                             <input type="file" name="passportFile" id="passportFile" class="fileAjax" {{ edit is not defined ? 'required' : '' }} >
@@ -206,6 +206,40 @@
                             <div class="col-sm-8">
                                 {{ form_widget(form.passportNumber) }}
                             </div>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td>Копия паспорта (стр. регистрации)<span class="mini text-danger">(допустимые форматы: JPG,PNG)</span></td>
+                    <td rowspan="5" style="vertical-align: top">
+                        <div class="file-container">
+                            <input type="file" name="passport2File" id="passport2File" class="fileAjax" {{ edit is not defined ? 'required' : '' }} >
+                            <progress class="progress" value="0" max="100" style="width: 270px"></progress>
+                            <br />
+                            <br />
+                            <div class="fileDoc">
+                                {% if form.vars.value.copyPassport2.path is defined %}
+                                    <img src="/{{ form.vars.value.copyPassport2.path }}" brightness="0" contrast="0">
+                                {% else %}
+                                    <img src="" brightness="0" contrast="0">
+                                {% endif %}
+                            </div>
+                            <div class="navigateFile">
+                                <img src="{{ asset('bundles/crmmain/icons/rotateLeft.png') }}" class="rotateLeft" title="Повернуть налево">
+                                <img src="{{ asset('bundles/crmmain/icons/rotateRight.png') }}" class="rotateRight" title="Повернуть вправо">
+                                <div style="">
+                                    <span class="cropImage minibtn" title="Обрезать изображение">Обрезать</span>
+                                    <br />
+                                    <br />
+                                </div>
+
+                            </div>
+                            <input type="hidden" id="x1" name="x1">
+                            <input type="hidden" id="y1" name="y1">
+                            <input type="hidden" id="x2" name="x2">
+                            <input type="hidden" id="y2" name="y2">
                         </div>
                     </td>
                 </tr>
