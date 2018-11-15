@@ -113,6 +113,13 @@
                 })
             });
 
+            $('#print').click(function(){
+                var url = Routing.generate('auth_user_print_many');
+                $('#form-list').attr('action', url);
+                $('#form-list').attr('target', '_blank');
+                $('#form-list').submit();
+            });
+
 
             $('#sms-send').click(function () {
                 var orders = [];
@@ -198,6 +205,8 @@
             </div>
         </div>
     </form>
+    <button id="print" class="btn btn-primary">Выгрузка в Excel</button>
+    <form method="POST"  id="form-list">
     <div class="row">
         <table class="table">
             <tr>
@@ -312,6 +321,7 @@
             {% endfor %}
         </table>
     </div>
+    </form>
     <div class="footer-setting">
         <div class="row">
             <div class="col-sm-12" style="text-align: center">
