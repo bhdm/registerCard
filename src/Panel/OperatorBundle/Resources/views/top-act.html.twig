@@ -132,8 +132,13 @@
 
         {% if is_granted('ROLE_ADMIN') %}
             <li class="{{ app.request.attributes.get('_route_params').status == '6' ? 'active' : '' }}">
-                <a href="{{ path('panel_user_list_act', { 'status' : 6, 'type' :  f_type , 'company' : f_company, 'operator' : f_operator }) }}{{ searchLine }}" class="active">Изготовленые {{ render(path('panel_user_get_count',{'status' : 6, 'company' : f_company, 'operator' : f_operator })) }}</a>
+                <a href="{{ path('panel_user_list_act', { 'status' : 6, 'type' :  f_type , 'company' : f_company, 'operator' : f_operator }) }}{{ searchLine }}" class="active">Получено СПБ {{ render(path('panel_user_get_count',{'status' : 6, 'company' : f_company, 'operator' : f_operator })) }}</a>
             </li>
+            <li class="{{ app.request.attributes.get('_route_params').status == '8' ? 'active' : '' }}">
+                <a href="{{ path('panel_user_list_act', { 'status' : 8, 'type' :  f_type , 'company' : f_company, 'operator' : f_operator }) }}{{ searchLine }}" class="active">Получено МСК {{ render(path('panel_user_get_count',{'status' : 6, 'company' : f_company, 'operator' : f_operator })) }}</a>
+            </li>
+
+
             <li class="{{ app.request.attributes.get('_route_params').status == '4' ? 'active' : '' }}">
                 <a href="{{ path('panel_user_list_act', { 'status' : 4, 'type' :  f_type , 'company' : f_company, 'operator' : f_operator }) }}{{ searchLine }}" class="active">На почте {{ render(path('panel_user_get_count',{'status' : 4, 'company' : f_company, 'operator' : f_operator })) }}</a>
             </li>

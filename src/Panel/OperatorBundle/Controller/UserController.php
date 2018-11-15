@@ -734,7 +734,7 @@ class UserController extends Controller
         $user = $this->getDoctrine()->getRepository('CrmMainBundle:User')->findOneById($userId);
         $user->setStatus(6);
         $statusLog = new StatusLog();
-        $statusLog->setTitle('Изготовлено');
+        $statusLog->setTitle('Получено МСК');
         $statusLog->setUser($user);
         $this->getDoctrine()->getManager()->persist($statusLog);
         $session->getFlashBag()->add('notice', 'Пользователь ' . $user->getLastName() . ' переведен в Изготовлено');

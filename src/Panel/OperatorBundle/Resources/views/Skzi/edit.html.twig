@@ -133,7 +133,8 @@
                                     <option value="2"  {{ user.status == 2 ? 'selected="selected"' : '' }}>Оплаченная</option>
                                     <option value="3"  {{ user.status == 3 ? 'selected="selected"' : '' }}>В производстве</option>
                                     {% if is_granted('ROLE_ADMIN') %}
-                                        <option value="6"  {{ user.status == 6 ? 'selected="selected"' : '' }}>Изготовлено</option>
+                                        <option value="6"  {{ user.status == 6 ? 'selected="selected"' : '' }}>Получено СПБ</option>
+                                        <option value="8"  {{ user.status == 8 ? 'selected="selected"' : '' }}>Получено МСК</option>
                                         <option value="4"  {{ user.status == 4 ? 'selected="selected"' : '' }}>На почте</option>
                                         <option value="5"  {{ user.status == 5 ? 'selected="selected"' : '' }}>Получена</option>
                                         <option value="10" {{ user.status == 10 ? 'selected="selected"' : '' }}>Отклонена</option>
