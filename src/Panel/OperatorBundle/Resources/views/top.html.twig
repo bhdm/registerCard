@@ -65,17 +65,17 @@
                 </select>
             </td>
             {#<td style="padding-left: 10px">#}
-                {#{% if app.request.attributes.get('_route_params').view is defined %}#}
-                    {#{% set f_view = app.request.attributes.get('_route_params').view %}#}
-                {#{% else %}#}
-                    {#{% set f_view = 'null' %}#}
-                {#{% endif %}#}
-                {#<select style="width: 250px" name="type" id="filter-view">#}
-                    {#<option value="null" {{ f_view == 'null' ? 'selected="selected"' : '' }}>Все виды</option>#}
-                    {#<option value="0" {{ f_view == '0' ? 'selected="selected"' : '' }}>КВ</option>#}
-                    {#<option value="1" {{ f_view == '1' ? 'selected="selected"' : '' }}>КП</option>#}
-                    {#<option value="2" {{ f_view == '2' ? 'selected="selected"' : '' }}>КМ</option>#}
-                {#</select>#}
+            {#{% if app.request.attributes.get('_route_params').view is defined %}#}
+            {#{% set f_view = app.request.attributes.get('_route_params').view %}#}
+            {#{% else %}#}
+            {#{% set f_view = 'null' %}#}
+            {#{% endif %}#}
+            {#<select style="width: 250px" name="type" id="filter-view">#}
+            {#<option value="null" {{ f_view == 'null' ? 'selected="selected"' : '' }}>Все виды</option>#}
+            {#<option value="0" {{ f_view == '0' ? 'selected="selected"' : '' }}>КВ</option>#}
+            {#<option value="1" {{ f_view == '1' ? 'selected="selected"' : '' }}>КП</option>#}
+            {#<option value="2" {{ f_view == '2' ? 'selected="selected"' : '' }}>КМ</option>#}
+            {#</select>#}
             {#</td>#}
             <td>
                 <input type="date" class="form-control" style="width: 150px;margin: 0 10px" id="filter-dateStart" placeholder="начало"
@@ -91,20 +91,20 @@
             </td>
         </tr>
         {% if is_granted('ROLE_ADMIN') %}
-        <tr>
-            <td colspan="3">
-                <br />
-                <select id="filter-manager" class="choosenselect" multiple>
-                    <option value="null" selected>Показать всех</option>
-                    <option value="nul"  {{ filterManager['nul'] is defined ? 'selected="selected"' : '' }}>Без тега</option>
-                    {% for manager in managers %}
-                        <option value="{{ manager.managerKey }}"
-                                {{ filterManager[manager.managerKey] is defined ? 'selected="selected"' : '' }}>
-                            {{ manager.managerKey }}</option>
-                    {% endfor %}
-                </select>
-            </td>
-        </tr>
+            <tr>
+                <td colspan="3">
+                    <br />
+                    <select id="filter-manager" class="choosenselect" multiple>
+                        <option value="null" selected>Показать всех</option>
+                        <option value="nul"  {{ filterManager['nul'] is defined ? 'selected="selected"' : '' }}>Без тега</option>
+                        {% for manager in managers %}
+                            <option value="{{ manager.managerKey }}"
+                                    {{ filterManager[manager.managerKey] is defined ? 'selected="selected"' : '' }}>
+                                {{ manager.managerKey }}</option>
+                        {% endfor %}
+                    </select>
+                </td>
+            </tr>
         {% else %}
             <input type="hidden" value="null" name="filter-manager" id="filter-manager"/>
         {% endif %}
@@ -138,7 +138,7 @@
             </a>
         </li>
         {#<li class="{{ app.request.attributes.get('_route_params').status == '1' ? 'active' : '' }}">#}
-            {#<a href="{{ path('panel_user_list', { 'status' : 1, 'type' :  f_type , 'company' : f_company, 'operator' : f_operator }) }}{{ searchLine }}" class="active">Подтвержденные {{ render(path('panel_user_get_count',{'status' : 1, 'company' : f_company, 'operator' : f_operator })) }}</a>#}
+        {#<a href="{{ path('panel_user_list', { 'status' : 1, 'type' :  f_type , 'company' : f_company, 'operator' : f_operator }) }}{{ searchLine }}" class="active">Подтвержденные {{ render(path('panel_user_get_count',{'status' : 1, 'company' : f_company, 'operator' : f_operator })) }}</a>#}
         {#</li>#}
         <li class="{{ app.request.attributes.get('_route_params').status == '2' ? 'active' : '' }}">
             <a href="{{ path('panel_user_list', { 'status' : 2, 'type' :  f_type , 'company' : f_company, 'operator' : f_operator }) }}{{ searchLine }}" class="active">Оплаченные {{ render(path('panel_user_get_count',{'status' : 2, 'company' : f_company, 'operator' : f_operator })) }}</a>
@@ -153,12 +153,12 @@
 
         {% if is_granted('ROLE_ADMIN') %}
 
-        <li class="{{ app.request.attributes.get('_route_params').status == '6' ? 'active' : '' }}">
-            <a href="{{ path('panel_user_list', { 'status' : 6, 'type' :  f_type , 'company' : f_company, 'operator' : f_operator }) }}{{ searchLine }}" class="active">Изготовленые {{ render(path('panel_user_get_count',{'status' : 6, 'company' : f_company, 'operator' : f_operator })) }}</a>
-        </li>
-        <li class="{{ app.request.attributes.get('_route_params').status == '4' ? 'active' : '' }}">
-            <a href="{{ path('panel_user_list', { 'status' : 4, 'type' :  f_type , 'company' : f_company, 'operator' : f_operator }) }}{{ searchLine }}" class="active">На почте {{ render(path('panel_user_get_count',{'status' : 4, 'company' : f_company, 'operator' : f_operator })) }}</a>
-        </li>
+            <li class="{{ app.request.attributes.get('_route_params').status == '6' ? 'active' : '' }}">
+                <a href="{{ path('panel_user_list', { 'status' : 6, 'type' :  f_type , 'company' : f_company, 'operator' : f_operator }) }}{{ searchLine }}" class="active">Изготовленые {{ render(path('panel_user_get_count',{'status' : 6, 'company' : f_company, 'operator' : f_operator })) }}</a>
+            </li>
+            <li class="{{ app.request.attributes.get('_route_params').status == '4' ? 'active' : '' }}">
+                <a href="{{ path('panel_user_list', { 'status' : 4, 'type' :  f_type , 'company' : f_company, 'operator' : f_operator }) }}{{ searchLine }}" class="active">На почте {{ render(path('panel_user_get_count',{'status' : 4, 'company' : f_company, 'operator' : f_operator })) }}</a>
+            </li>
         {% endif %}
 
         <li class="{{ app.request.attributes.get('_route_params').status == '5' ? 'active' : '' }}">
@@ -168,20 +168,20 @@
             <a href="{{ path('panel_user_list', { 'status' : 10, 'type' :  f_type , 'company' : f_company, 'operator' : f_operator }) }}{{ searchLine }}" class="active">Отклоненные {{ render(path('panel_user_get_count',{'status' : 10, 'company' : f_company, 'operator' : f_operator })) }}</a>
         </li>
         {#{% if is_granted("ROLE_ADMIN") %}#}
-            {#<li class="{{ app.request.attributes.get('_route_params').status == '10' ? 'active' : '' }}">#}
-                {#<button id="full-remove" class="btn btn-danger">Полное удаление</button>#}
-            {#</li>#}
+        {#<li class="{{ app.request.attributes.get('_route_params').status == '10' ? 'active' : '' }}">#}
+        {#<button id="full-remove" class="btn btn-danger">Полное удаление</button>#}
+        {#</li>#}
         {#{% endif %}#}
 
     </ul>
 </div>
 
-{% if is_granted('ROLE_ADMIN') %}
-    <div class="well well-small">
+<div class="well well-small">
+    <button id="print" class="btn btn-primary">Выгрузка в Excel</button>
+    {% if is_granted('ROLE_ADMIN') %}
         <button id="phmass" class="btn btn-primary">Массовый фото</button>
         <button id="xml" class="btn btn-primary">Массовый XML</button>
         <button id="xml2" class="btn btn-primary">Массовый XML (РФ и ЕСТР)</button>
-        <button id="print" class="btn btn-primary">Выгрузка в Excel</button>
         <button id="delivery" class="btn btn-primary">доставка</button>
         <button id="clearManager" class="btn btn-primary">Очистить Тег</button>
         <button id="setNumberPost" class="btn btn-primary" data-toggle="modal" data-target="#modalSetNumberPost">Добавить ШПИ</button>
@@ -190,8 +190,8 @@
         <a href="{{ path('panel_import_user_excel') }}"><button type="button" class="btn btn-warning">Импорт CSV</button></a>
         <a href="{{ path('panel_import_user_excel_post') }}"><button type="button" class="btn btn-warning">Импорт Почта</button></a>
         <button id="smsSend" class="btn btn-primary" data-toggle="modal" data-target="#modalSmsSend">СМС</button>
-    </div>
-{% endif %}
+    {% endif %}
+</div>
 
 <script>
     $(document).ready(function(){
@@ -325,46 +325,46 @@
         });
 
         $(' .getQuotaCompany').hover(
-                function(){
-                    var item = $(this);
-                    if (item.attr('title') == ''){
-                        $.ajax({
-                            type: "POST",
-                            url: "{{ path('get_quota_title') }}/"+item.attr('data-id'),
-                            success: function(msg){
-                                item.attr('title',msg);
-                            },
-                            error: function(msg){
-                                div.text(txt);
-                                alert('Ошибка получения информации');
-                            }
+            function(){
+                var item = $(this);
+                if (item.attr('title') == ''){
+                    $.ajax({
+                        type: "POST",
+                        url: "{{ path('get_quota_title') }}/"+item.attr('data-id'),
+                        success: function(msg){
+                            item.attr('title',msg);
+                        },
+                        error: function(msg){
+                            div.text(txt);
+                            alert('Ошибка получения информации');
+                        }
 
-                        });
-                    }
-                });
+                    });
+                }
+            });
 
         $('.statusBox').hover(
-                function(){
-                    var $this = $(this);
-                    var userId = $(this).parent().parent().attr('id');
-                    userId = userId.substr(5);
+            function(){
+                var $this = $(this);
+                var userId = $(this).parent().parent().attr('id');
+                userId = userId.substr(5);
 //                    alert('\''+$(this).children('.statusItems').html()+'\'');
-                        if ($(this).children('.statusItems').html()[0] == '\n'){
-                            $.ajax({
-                                type: "GET",
-                                url: "{{ path('panel_user_get_statuslog') }}",
-                                data: "userId="+userId,
-                                success: function(msg){
-                                    console.log(s = msg);
-                                    var html = '';
-                                    $.each(s,function(h,t){
-                                        html += t.title + "&nbsp;-&nbsp;" + t.date+ '<br />';
-                                    });
-                                    $this.children('.statusItems').html(html);
-                                }
+                if ($(this).children('.statusItems').html()[0] == '\n'){
+                    $.ajax({
+                        type: "GET",
+                        url: "{{ path('panel_user_get_statuslog') }}",
+                        data: "userId="+userId,
+                        success: function(msg){
+                            console.log(s = msg);
+                            var html = '';
+                            $.each(s,function(h,t){
+                                html += t.title + "&nbsp;-&nbsp;" + t.date+ '<br />';
                             });
+                            $this.children('.statusItems').html(html);
                         }
-                });
+                    });
+                }
+            });
     });
 </script>
 
@@ -381,8 +381,8 @@
                 <input type="text" class="form-control" name="numberPost" id="inputNumberPost">
             </div>
             {#<div class="modal-body">#}
-                {#<p>Выставить статус на почте</p>#}
-                {#<input type="checkbox" class="form-control" name="spiStatus" id="spiStatus">#}
+            {#<p>Выставить статус на почте</p>#}
+            {#<input type="checkbox" class="form-control" name="spiStatus" id="spiStatus">#}
             {#</div>#}
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Закрыть</button>
