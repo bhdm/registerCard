@@ -640,7 +640,7 @@ class OrderController extends Controller
         $data = $request->request->get('order');
         $users = array();
         foreach ($data as $key => $val) {
-            $user = $this->getDoctrine()->getRepository('CrmMainBundle:User')->find($key);
+            $user = $this->getDoctrine()->getRepository('CrmMainBundle:User')->find($val);
             if ($user != null) {
                 $users[] = $user;
             }
