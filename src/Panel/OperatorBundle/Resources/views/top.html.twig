@@ -157,7 +157,7 @@
                 <a href="{{ path('panel_user_list', { 'status' : 6, 'type' :  f_type , 'company' : f_company, 'operator' : f_operator }) }}{{ searchLine }}" class="active">Получено СПБ {{ render(path('panel_user_get_count',{'status' : 6, 'company' : f_company, 'operator' : f_operator })) }}</a>
             </li>
             <li class="{{ app.request.attributes.get('_route_params').status == '8' ? 'active' : '' }}">
-                <a href="{{ path('panel_user_list', { 'status' : 8, 'type' :  f_type , 'company' : f_company, 'operator' : f_operator }) }}{{ searchLine }}" class="active">Получено МСК {{ render(path('panel_user_get_count',{'status' : 6, 'company' : f_company, 'operator' : f_operator })) }}</a>
+                <a href="{{ path('panel_user_list', { 'status' : 8, 'type' :  f_type , 'company' : f_company, 'operator' : f_operator }) }}{{ searchLine }}" class="active">Получено МСК {{ render(path('panel_user_get_count',{'status' : 8, 'company' : f_company, 'operator' : f_operator })) }}</a>
             </li>
 
             <li class="{{ app.request.attributes.get('_route_params').status == '4' ? 'active' : '' }}">
