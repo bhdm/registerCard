@@ -387,11 +387,11 @@ class IndexController extends Controller
         return $this->redirect($referer);
     }
 
-    /**
-     * @Route("/download", name="download")
+    /***
      * @Template()
      */
     public function downloadAction(){
+        #@Route("/download", name="download")
         return array();
     }
 
