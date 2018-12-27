@@ -1220,7 +1220,7 @@ class UserController extends Controller
 
             $phpExcelObject->setActiveSheetIndex(0)->setCellValue('D' . $i, $fio);
             if ($user->getCompany()) {
-                $phpExcelObject->setActiveSheetIndex(0)->setCellValue('E' . $i, $user->getCompany()->getTitle());
+                $phpExcelObject->setActiveSheetIndex(0)->setCellValue('E' . $i, $user->getCompany()->getForma());
             }
             if ($user->getRu() == true){
                 $phpExcelObject->setActiveSheetIndex(0)->setCellValue('F' . $i, ($user->getCompany() != null  ? $user->getCompany()->getPriceRu() : ''));
