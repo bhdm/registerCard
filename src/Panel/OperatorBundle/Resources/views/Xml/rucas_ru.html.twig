@@ -1,0 +1,46 @@
+{% spaceless %}
+    <?xml version="1.0"?>
+    <CardXMLRequest>
+        <Card CardType="Driver">
+            <CardNumber></CardNumber>
+            <CardNumberMessageType></CardNumberMessageType>
+            <CardNumberMessage></CardNumberMessage>
+            <RequestType>{{ user.typeCard }}</RequestType>
+            <DateBegin>{{ "now" | date('d.m.Y') }}</DateBegin>
+            <CardNumberLast>{{ user.lastNumberCard }}</CardNumberLast>
+            <DrivingLicenseNumber>{{ user.driverDocNumber }}</DrivingLicenseNumber>
+            <DriverLicenceIssuingAuthority>{{ user.driverDocIssuance }}</DriverLicenceIssuingAuthority>
+            <DriverLicenceIssuingNationID>1</DriverLicenceIssuingNationID>
+            <FirstNameUTF8>{{ user.enFirstName }}</FirstNameUTF8>
+            <FirstNameUTF8_Alternative>{{ user.firstName }}</FirstNameUTF8_Alternative>
+            <SurNameUTF8>{{ user.enLastname }}</SurNameUTF8>
+            <SurNameUTF8_Alternative>{{ user.lastName }}</SurNameUTF8_Alternative>
+            <ThirdNameUTF8_Alternative>{{ user.surName }}</ThirdNameUTF8_Alternative>
+            {#{% if user.myPetition == 1 or user.company == null or user.company.title is not defined or user.company.title  == '' %}#}
+            {#<Organization>ООО "НПО "ТЕХНОЛОГ"</Organization>#}
+            {#{% elseif user.companyPetition != null %}#}
+            {#<Organization>{{ user.companyPetition.title }}</Organization>#}
+            {#{% else %}#}
+            {#<Organization>{{ user.company.title }}</Organization>#}
+            {#{% endif %}#}
+            <CardHolderBirthDateDMY>{{ user.birthDate | date('d.m.Y') }}</CardHolderBirthDateDMY>
+            <LanguageID>1</LanguageID>
+
+            <AddressUTF8>{{ user.enDeliveryAdrs }}</AddressUTF8>
+            <AddressUTF8_Alternative>{{ user.ruDeliveryAdrs }}</AddressUTF8_Alternative>
+            <Index>{{ user.registeredArea ? user.registeredArea : user.registeredRegion }}</Index>
+            <House>{{ user.registeredCity }}, {{ user.registeredStreet }}, {{ user.registeredHome }}, {{ user.registeredStructure }}, {{ user.registeredCorp }},{{ user.registeredRoom }}</House>
+            <Photo>{{ files.photo.base }}</Photo>
+            <passportscan>{{ files.passport is defined ? files.passport.base : '' }}</passportscan>
+            {#<passport2>{{ files.passport2 is defined ? files.passport2.base : '' }}</passport2>#}
+            <pravascan>{{ files.driver is defined ? files.driver.base : '' }}</pravascan>
+            {#<sriver2>{{ files.driver2 is defined ? files.driver2.base : '' }}</sriver2>#}
+            <Signature>{{ files.signature.base }}</Signature>
+            <documents></documents>
+            <cardstandart>{{ user.ru == 1 ? '720' : 'ectr'}}</cardstandart>
+            <passportnum>{{ user.passportNumber }}</passportnum>
+            <passportser>{{ user.passportSerial }}</passportser>
+            <snils>{{user.snils }}</snils>
+        </Card>
+    </CardXMLRequest>
+{% endspaceless %}

@@ -187,6 +187,7 @@
         <button id="phmass" class="btn btn-primary">Массовый фото</button>
         <button id="xml" class="btn btn-primary">Массовый XML</button>
         <button id="xml2" class="btn btn-primary">Массовый XML (РФ и ЕСТР)</button>
+        <button id="xml3" class="btn btn-primary">Массовый XML RUSAC</button>
         <button id="delivery" class="btn btn-primary">доставка</button>
         <button id="clearManager" class="btn btn-primary">Очистить Тег</button>
         <button id="setNumberPost" class="btn btn-primary" data-toggle="modal" data-target="#modalSetNumberPost">Добавить ШПИ</button>
@@ -215,6 +216,12 @@
 
         $('#xml2').click(function(){
             var url = Routing.generate('panel_operator_ru_xml_mass');
+            $('#form-list').attr('action', url);
+            $('#form-list').submit();
+        });
+
+        $('#xml3').click(function(){
+            var url = Routing.generate('panel_operator_rucas_xml_mass');
             $('#form-list').attr('action', url);
             $('#form-list').submit();
         });
