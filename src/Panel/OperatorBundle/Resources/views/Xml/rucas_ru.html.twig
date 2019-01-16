@@ -1,46 +1,62 @@
 {% spaceless %}
-    <?xml version="1.0"?>
-    <CardXMLRequest>
-        <Card CardType="Driver">
-            <CardNumber></CardNumber>
-            <CardNumberMessageType></CardNumberMessageType>
-            <CardNumberMessage></CardNumberMessage>
-            <RequestType>{{ user.typeCard }}</RequestType>
-            <DateBegin>{{ "now" | date('d.m.Y') }}</DateBegin>
-            <CardNumberLast>{{ user.lastNumberCard }}</CardNumberLast>
-            <DrivingLicenseNumber>{{ user.driverDocNumber }}</DrivingLicenseNumber>
-            <DriverLicenceIssuingAuthority>{{ user.driverDocIssuance }}</DriverLicenceIssuingAuthority>
-            <DriverLicenceIssuingNationID>1</DriverLicenceIssuingNationID>
-            <FirstNameUTF8>{{ user.enFirstName }}</FirstNameUTF8>
-            <FirstNameUTF8_Alternative>{{ user.firstName }}</FirstNameUTF8_Alternative>
-            <SurNameUTF8>{{ user.enLastname }}</SurNameUTF8>
-            <SurNameUTF8_Alternative>{{ user.lastName }}</SurNameUTF8_Alternative>
-            <ThirdNameUTF8_Alternative>{{ user.surName }}</ThirdNameUTF8_Alternative>
-            {#{% if user.myPetition == 1 or user.company == null or user.company.title is not defined or user.company.title  == '' %}#}
-            {#<Organization>ООО "НПО "ТЕХНОЛОГ"</Organization>#}
-            {#{% elseif user.companyPetition != null %}#}
-            {#<Organization>{{ user.companyPetition.title }}</Organization>#}
-            {#{% else %}#}
-            {#<Organization>{{ user.company.title }}</Organization>#}
-            {#{% endif %}#}
-            <CardHolderBirthDateDMY>{{ user.birthDate | date('d.m.Y') }}</CardHolderBirthDateDMY>
-            <LanguageID>1</LanguageID>
-
-            <AddressUTF8>{{ user.enDeliveryAdrs }}</AddressUTF8>
-            <AddressUTF8_Alternative>{{ user.ruDeliveryAdrs }}</AddressUTF8_Alternative>
-            <Index>{{ user.registeredArea ? user.registeredArea : user.registeredRegion }}</Index>
-            <House>{{ user.registeredCity }}, {{ user.registeredStreet }}, {{ user.registeredHome }}, {{ user.registeredStructure }}, {{ user.registeredCorp }},{{ user.registeredRoom }}</House>
-            <Photo>{{ files.photo.base }}</Photo>
-            <passportscan>{{ files.passport is defined ? files.passport.base : '' }}</passportscan>
-            {#<passport2>{{ files.passport2 is defined ? files.passport2.base : '' }}</passport2>#}
-            <pravascan>{{ files.driver is defined ? files.driver.base : '' }}</pravascan>
-            {#<sriver2>{{ files.driver2 is defined ? files.driver2.base : '' }}</sriver2>#}
-            <Signature>{{ files.signature.base }}</Signature>
-            <documents></documents>
-            <cardstandart>{{ user.ru == 1 ? '720' : 'ectr'}}</cardstandart>
-            <passportnum>{{ user.passportNumber }}</passportnum>
-            <passportser>{{ user.passportSerial }}</passportser>
-            <snils>{{user.snils }}</snils>
-        </Card>
-    </CardXMLRequest>
+    <?xml version="1.0" encoding="utf-8"?>
+    <ns2:EstrPackage xmlns:ns2="http://www.example.org/">
+        <PackageInfo>
+            <OvkId>INFMX</OvkId>
+        </PackageInfo>
+        <Order>
+            <OrderNumber></OrderNumber>
+            <OrderKind>OrderNew</OrderKind>
+            <DriverOrder>
+                <PersonInfo>
+                    <NameFirst>{{ user.firstName }}</NameFirst>
+                    <NameFirstLat>{{ user.enFastName }}</NameFirstLat>
+                    <NameMiddle>{{ user.surName }}</NameMiddle>
+                    <NameMiddleLat>{{ user.enSurName }}</NameMiddleLat>
+                    <NameLast>{{ user.lastName }}</NameLast>
+                    <NameLastLat>{{ user.enLastName }}</NameLastLat>
+                    <BirthDate>{{ user.birthDate | date('Y-m-d') }}</BirthDate>
+                    <Resident>RU</Resident>
+                    <SNILS>{{ user.snils }}</SNILS>
+                    <Document>
+                        <DocName>Паспорт</DocName>
+                        <DocSeries>{{ user.passportSerial }}</DocSeries>
+                        <DocNumber>{{ user.passportNumber }}</DocNumber>
+                        <DocIssuedBy>
+                            {{ user.passportIssuance }}
+                        </DocIssuedBy>
+                        <DocDivision>{{ user.passportCode }}</DocDivision>
+                        <DocIssuedDate>{{ user.passportIssuanceDate | date('Y-m-d') }}</DocIssuedDate>
+                    </Document>
+                </PersonInfo>
+                <DriverLicense>
+                    <DriverLicenseNumber>{{ user.driverDocNumber }}</DriverLicenseNumber>
+                    <DriverLicenseIssuedBy>{{ user.driverDocIssuance }}</DriverLicenseIssuedBy>
+                    <DriverLicenseCountry>RU</DriverLicenseCountry>
+                    <DriverLicenseIssuedDate>{{ user.driverDocDateStarts | date('Y-m-d') }}</DriverLicenseIssuedDate>
+                </DriverLicense>
+                <AddressActual>
+                    <FullAddress>{{ user.ruDeliveryAdrs }}</FullAddress>
+                    <FullAddressLat>{{ user.enDeliveryAdrs }}</FullAddressLat>
+                    <PostCode>{{ user.deliveryAdrs.zipcode }}</PostCode>
+                    <Country>RU</Country>
+                    <Region></Region>
+                    <District>{{ user.deliveryAdrs.area }}</District>
+                    <DistrictLat></DistrictLat>
+                    <Settlement>{{ user.deliveryAdrs.city }}</Settlement>
+                    <SettlementLat></SettlementLat>
+                    <Street>{{ user.deliveryAdrs.street }}</Street>
+                    <StreetLat></StreetLat>
+                    <House>{{ user.deliveryAdrs }}, {{ user.deliveryAdrs }}, {{ user.deliveryAdrs }},{{ user.deliveryAdrs }}</House>
+                    <HouseLat></HouseLat>
+                    <Building/>
+                    <BuildingLat/>
+                    <Office/>
+                    <OfficeLat/>
+                </AddressActual>
+                <Photo>{{ files.photo.base }}</Photo>
+                <Sign>{{ files.signature.base }}</Sign>
+            </DriverOrder>
+        </Order>
+    </ns2:EstrPackage>
 {% endspaceless %}
