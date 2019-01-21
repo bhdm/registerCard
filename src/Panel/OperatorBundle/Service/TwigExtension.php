@@ -42,6 +42,7 @@ class TwigExtension extends \Twig_Extension
             new \Twig_SimpleFilter('getOriginal', array($this, 'getOriginal')),
             new \Twig_SimpleFilter('base64', array($this, 'base64Filter')),
             new \Twig_SimpleFilter('baseEncode', array($this, 'baseEncodeFilter')),
+            new \Twig_SimpleFilter('translate', array($this, 'translateFilter')),
         );
     }
 
@@ -215,5 +216,14 @@ class TwigExtension extends \Twig_Extension
     public function baseEncodeFilter($imagePath)
     {
         return base64_encode($imagePath);
+    }
+
+    public function translateFilter($string)
+    {
+        $slugify = new Slugify(null, ['lowercase' => false]);
+        $slugify->addRule('й','y');
+        $string = ucfirst($slugify->slugify($string));
+
+        return $string;
     }
 }
