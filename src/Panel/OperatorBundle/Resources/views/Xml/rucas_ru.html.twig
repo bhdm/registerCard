@@ -40,22 +40,34 @@
                     <FullAddressLat>{{ user.enDeliveryAdrs }}</FullAddressLat>
                     <PostCode>{{ user.deliveryAdrs.zipcode }}</PostCode>
                     <Country>RU</Country>
-                    <Region></Region>
+                    <Region>77</Region>
                     <District>{{ user.deliveryAdrs.area }}</District>
-                    <DistrictLat></DistrictLat>
+                    <DistrictLat>{{ user.deliveryAdrs.area | translate }}</DistrictLat>
                     <Settlement>{{ user.deliveryAdrs.city }}</Settlement>
-                    <SettlementLat></SettlementLat>
+                    <SettlementLat>{{ user.deliveryAdrs.city | translate }}</SettlementLat>
                     <Street>{{ user.deliveryAdrs.street }}</Street>
-                    <StreetLat></StreetLat>
-                    <House>{{ user.deliveryAdrs }}, {{ user.deliveryAdrs }}, {{ user.deliveryAdrs }},{{ user.deliveryAdrs }}</House>
-                    <HouseLat></HouseLat>
+                    <StreetLat>{{ user.deliveryAdrs.street | translate }}</StreetLat>
+                    <House>{{ user.deliveryAdrs.house }}</House>
+                    <HouseLat>{{ user.deliveryAdrs.house | translate }}</HouseLat>
                     <Building/>
                     <BuildingLat/>
                     <Office/>
                     <OfficeLat/>
                 </AddressActual>
-                <Photo>{{ files.photo.base }}</Photo>
-                <Sign>{{ files.signature.base }}</Sign>
+                <Photo>
+                    <AttachmentName>photo</AttachmentName>
+                    <AttachmentType>Photo</AttachmentType>
+                    <FileFormat>BMP</FileFormat>
+                    <Description>Фотография</Description>
+                    <Body>{{ files.photo.base }}</Body>
+                </Photo>
+                <Sign>
+                    <AttachmentName>sign</AttachmentName>
+                    <AttachmentType>Signature</AttachmentType>
+                    <FileFormat>BMP</FileFormat>
+                    <Description>Подпись</Description>
+                    <Body>{{ files.signature.base }}</Body>
+                </Sign>
             </DriverOrder>
         </Order>
     </ns2:EstrPackage>
