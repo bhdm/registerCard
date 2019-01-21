@@ -31,7 +31,7 @@
                 </PersonInfo>
                 <DriverLicense>
                     <DriverLicenseNumber>{{ user.driverDocNumber }}</DriverLicenseNumber>
-                    <DriverLicenseIssuedBy>{{ user.driverDocIssuance }}</DriverLicenseIssuedBy>
+                    <DriverLicenseIssuedBy>{{ user.driverDocIssuance | translate}}</DriverLicenseIssuedBy>
                     <DriverLicenseCountry>RU</DriverLicenseCountry>
                     <DriverLicenseIssuedDate>{{ user.driverDocDateStarts | date('Y-m-d') }}</DriverLicenseIssuedDate>
                 </DriverLicense>
