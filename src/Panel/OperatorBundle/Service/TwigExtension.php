@@ -1,6 +1,8 @@
 <?php
 namespace Panel\OperatorBundle\Service;
 
+use Cocur\Slugify\Slugify;
+
 class TwigExtension extends \Twig_Extension
 {
     public function getName()
