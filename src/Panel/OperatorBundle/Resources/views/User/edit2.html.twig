@@ -1398,12 +1398,33 @@
 
             $('#address-txt').html($('#address').val().length);
             $('#address2-txt').html($('#address2').val().length);
+            if ($('#address').val().length > 35){
+                $('#address-txt').css('color', '#CC0000');
+            }else{
+                $('#address-txt').css('color', '#000');
+            }
+            if ($('#address2').val().length > 35){
+                $('#address2-txt').css('color', '#CC0000');
+            }else{
+                $('#address2-txt').css('color', '#000');
+            }
 
             $('#address').keyup(function () {
                 $('#address-txt').html($('#address').val().length);
+                if ($('#address').val().length > 35){
+                    $('#address-txt').css('color', '#CC0000');
+                }else{
+                    $('#address-txt').css('color', '#000');
+                }
+
             })
             $('#address2').keyup(function () {
                 $('#address2-txt').html($('#address2').val().length);
+                if ($('#address2').val().length > 35){
+                    $('#address2-txt').css('color', '#CC0000');
+                }else{
+                    $('#address2-txt').css('color', '#000');
+                }
             })
         });
     </script>
