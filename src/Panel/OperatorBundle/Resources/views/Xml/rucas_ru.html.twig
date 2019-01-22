@@ -7,7 +7,7 @@
         <Order>
             <OrderNumber></OrderNumber>
             <OrderKind>
-                {% if user.typeCard == 0 %}OrderNew{% elseif user.typeCard == 1 %}OrderReNew{% elseif %}{% elseif user.typeCard == 2 %}OrderReplaceDamaged{% elseif user.typeCard == 3 %}OrderPersonChange{% endif %}</OrderKind>
+                {% if user.typeCard == 0 %}OrderNew{% elseif user.typeCard == 1 %}OrderReNew{% elseif user.typeCard == 2 %}OrderReplaceDamaged{% elseif user.typeCard == 3 %}OrderPersonChange{% endif %}</OrderKind>
             <DriverOrder>
                 <PersonInfo>
                     <NameFirst>{{ user.firstName }}</NameFirst>
