@@ -12,7 +12,7 @@
                     <NameFirst>{{ user.firstName }}</NameFirst>
                     <NameFirstLat>{{ user.enFirstName }}</NameFirstLat>
                     <NameMiddle>{{ user.surName }}</NameMiddle>
-                    <NameMiddleLat>{{ user.enSurName }}</NameMiddleLat>
+                    <NameMiddleLat>{{ user.surName | translate }}</NameMiddleLat>
                     <NameLast>{{ user.lastName }}</NameLast>
                     <NameLastLat>{{ user.enLastName }}</NameLastLat>
                     <BirthDate>{{ user.birthDate | date('Y-m-d') }}</BirthDate>
