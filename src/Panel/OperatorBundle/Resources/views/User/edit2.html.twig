@@ -507,8 +507,11 @@
                     <td>
                         <div class="form-group">
                             <label class="control-label col-sm-3" for="zipcode">Адрес на рус.:</label>
-                            <div class="col-sm-3">
+                            <div class="col-sm-8">
                                 <textarea class="form-control" placeholder="Адрес на рус." name="address2" id="address2" style="width: 500px">{{ user.ruDeliveryAdrs }}</textarea>
+                            </div>
+                            <div class="col-sm-1">
+                                <span id="address2-txt"></span>
                             </div>
                         </div>
                     </td>
@@ -517,8 +520,11 @@
                     <td>
                         <div class="form-group">
                             <label class="control-label col-sm-3" for="zipcode">Адрес на англ.:</label>
-                            <div class="col-sm-3">
+                            <div class="col-sm-8">
                                 <textarea class="form-control" placeholder="Адрес на англ." name="address" id="address" style="width: 500px">{{ user.enDeliveryAdrs }}</textarea>
+                            </div>
+                            <div class="col-sm-1">
+                                <span id="address-txt"></span>
                             </div>
                         </div>
                     </td>
@@ -1389,6 +1395,16 @@
                 input_temp=this.value;
                 $(this).select();
             });
+
+            $('#address-txt').html($('#address').val().length);
+            $('#address2-txt').html($('#address2').val().length);
+
+            $('#address').keyup(function () {
+                $('#address-txt').html($('#address').val().length);
+            })
+            $('#address2').keyup(function () {
+                $('#address2-txt').html($('#address2').val().length);
+            })
         });
     </script>
 {% endblock %}
