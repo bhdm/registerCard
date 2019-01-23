@@ -263,13 +263,7 @@ class UserController extends Controller
         }
 
         if ($user->getEnDeliveryAdrs() == null){
-            $adrs = $user->getRegisteredZipcode();
-            if ($user->getRegisteredRegion()){
-                $adrs.= ', '.$slugify->slugify($user->getRegisteredRegion(),'.');
-            }
-            if ($user->getRegisteredCity()){
-                $adrs.= ', '.$slugify->slugify($user->getRegisteredCity(),'.');
-            }
+            $adrs = '';
             if ($user->getRegisteredStreet()){
                 $adrs.= ', '.$slugify->slugify($user->getRegisteredStreet(),'.');
             }
@@ -282,13 +276,20 @@ class UserController extends Controller
             if ($user->getRegisteredRoom()){
                 $adrs.= ', '.$slugify->slugify($user->getRegisteredRoom(),'.');
             }
+            if ($user->getRegisteredCity()){
+                $adrs.= ', '.$slugify->slugify($user->getRegisteredCity(),'.');
+            }
+            if ($user->getRegisteredRegion()){
+                $adrs .= $slugify->slugify($user->getRegisteredRegion(),'.');
+            }
+
             $user->setEnDeliveryAdrs($adrs);
         }
 
         if ($user->getRuDeliveryAdrs() == null){
-            $adrs = $user->getRegisteredZipcode();
+            $adrs = '';
             if ($user->getRegisteredRegion()){
-                $adrs.= ', '.ucfirst($user->getRegisteredRegion());
+                $adrs.= ucfirst($user->getRegisteredRegion());
             }
             if ($user->getRegisteredCity()){
                 $adrs.= ', '.ucfirst($user->getRegisteredCity());
