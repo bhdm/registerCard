@@ -234,36 +234,13 @@ class XmlController extends Controller
             $user = $this->getDoctrine()->getRepository('CrmMainBundle:User')->find($key);
 
             $image = new \Imagick($filePath.$user->getPhoto()['path']);
+            $image->scaleimage(394,506);
             $image->setImageFormat('bmp');
             $files['photo']['base'] = base64_encode($image->getImageBlob());
             $files['photo']['title'] = 'Photo';
             $files['photo']['file'] = $user->getPhoto();
             $image->destroy();
 
-            if (isset($user->getCopyPassport()['path'])){
-                $image = new \Imagick($filePath.$user->getCopyPassport()['path']);
-                $files['passport']['base'] = base64_encode($image->getImageBlob());
-                $files['passport']['title'] = 'Passport';
-                $image->destroy();
-            }
-            if (isset($user->getCopyPassport2()['path'])) {
-                $image = new \Imagick($filePath . $user->getCopyPassport2()['path']);
-                $files['passport2']['base'] = base64_encode($image->getImageBlob());
-                $files['passport2']['title'] = 'Passport2';
-                $image->destroy();
-            }
-            if (isset($user->getCopyDriverPassport()['path'])){
-                $image = new \Imagick($filePath.$user->getCopyDriverPassport()['path']);
-                $files['driver']['base'] = base64_encode($image->getImageBlob());
-                $files['driver']['title'] = 'DriverPassport';
-                $image->destroy();
-            }
-            if (isset($user->getCopyDriverPassport2()['path'])){
-                $image = new \Imagick($filePath.$user->getCopyDriverPassport2()['path']);
-                $files['driver2']['base'] = base64_encode($image->getImageBlob());
-                $files['driver2']['title'] = 'DriverPassport2';
-                $image->destroy();
-            }
 
             $file = $user->getCopySignature();
             $file = WImage::ImageToBlackAndWhite($file);
