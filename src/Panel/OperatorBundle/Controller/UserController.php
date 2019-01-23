@@ -253,10 +253,10 @@ class UserController extends Controller
         $slugify = new Slugify(null, ['lowercase' => false]);
         $slugify->addRule('й','y');
         if ($user->getEnLastName() == null){
-            $user->setEnLastName(ucfirst($slugify->slugify($user->getLastName())));
+            $user->setEnLastName(str_replace(['`','\''],['', ''], ucfirst($slugify->slugify($user->getLastName()))));
         }
         if ($user->getEnFirstName() == null){
-            $user->setEnFirstName(ucfirst($slugify->slugify($user->getFirstName())));
+            $user->setEnFirstName(str_replace(['`','\''],['', ''], ucfirst($slugify->slugify($user->getFirstName()))));
         }
         if ($user->getEnSurName() == null){
             $user->setEnSurName(ucfirst($slugify->slugify($user->getSurName())));

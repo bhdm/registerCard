@@ -18,7 +18,7 @@ class AppExtension extends \Twig_Extension
         $slugify = new Slugify(null, ['lowercase' => false]);
         $slugify->addRule('й','y');
         $string = ucfirst($slugify->slugify($string));
-
+        $string = str_replace(['`','\''],['', ''], $string);
         return $string;
     }
 
