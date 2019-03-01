@@ -633,9 +633,11 @@ class User extends BaseEntity implements UserInterface, EquatableInterface, \Ser
 
     public function __toString()
     {
-        return $this->lastName . ' '
-        . mb_substr($this->firstName, 0, 1, 'utf-8') . '.'
-        . ($this->surName ? ' ' . mb_substr($this->surName, 0, 1, 'utf-8') . '.' : '');
+//        return $this->lastName . ' '
+//        . mb_substr($this->firstName, 0, 1, 'utf-8') . '.'
+//        . ($this->surName ? ' ' . mb_substr($this->surName, 0, 1, 'utf-8') . '.' : '');
+
+        return $this->lastName.' '.$this->firstName.' '.$this->surName;
     }
 
     /**
