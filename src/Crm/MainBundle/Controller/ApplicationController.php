@@ -127,7 +127,7 @@ class ApplicationController extends Controller
     /**
      * @Route("/application/skzi/add", name="application-skzi-add", options={"expose"=true})
      * @Route("/{url}/application/skzi/add", name="company-application-skzi-add", options={"expose"=true})
-     * @Template("")
+     * @Template("CrmMainBundle:Application:Message.html.twig")
      */
     public function skziAction(Request $request, $url = null){
 
