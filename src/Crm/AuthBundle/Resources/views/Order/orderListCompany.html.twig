@@ -15,7 +15,7 @@
                 {% if app.user.company.operator.id is defined and app.user.company.operator.id == 33 %}
                 {% else %}
                     <li> &nbsp; </li>
-                    <li><a  href="#"  data-toggle="modal" data-target="#myModal2" >Карта мастерской СКЗИ</a></li>
+                    <li><a href="{{ path('auth_add_master_skzi') }}" >Карта мастерской СКЗИ</a></li>
                     <li><a href="{{ path('auth_add_master_estr') }}">Карта мастерской ЕСТР</a></li>
                     <li><a href="{{ path('auth_add_master_ru') }}">Карта мастерской РФ</a></li>
                 {% endif %}
