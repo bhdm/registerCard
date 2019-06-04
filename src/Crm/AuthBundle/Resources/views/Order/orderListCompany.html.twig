@@ -9,7 +9,7 @@
                 <span class="caret"></span>
             </button>
             <ul class="dropdown-menu" aria-labelledby="addOrder">
-                <li><a  href="#"  data-toggle="modal" data-target="#myModal2">Карта предприятия СКЗИ</a></li>
+                <li><a  href="{{ path('auth_add_company_skzi') }}">Карта предприятия СКЗИ</a></li>
                 <li><a href="{{ path('auth_add_company_estr') }}">Карта предприятия ЕСТР</a></li>
                 <li><a href="{{ path('auth_add_company_ru') }}">Карта предприятия РФ</a></li>
                 {% if app.user.company.operator.id is defined and app.user.company.operator.id == 33 %}
