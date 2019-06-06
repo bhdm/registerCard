@@ -137,6 +137,8 @@
                             {% if user.citizenship.id != 3159 %}
                                 <span class="glyphicon glyphicon-exclamation-sign" style="color: #ff9409"></span>
                             {% endif %}
+                            <br />
+                            {{ user.birthDate ? user.birthDate| date('d.m.Y') }}
                         </a>
                         <br />
                         <a href="?search={{ user.email }}"><span class="subtitles">{{ user.email }}</span></a>

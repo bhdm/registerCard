@@ -124,7 +124,8 @@
                         </td>
                     {% endif %}
                     <td>
-                        <a href="{{ path('panel_user_edit',{'userId' : user.id }) }}">{{ user }}</a>
+                        <a href="{{ path('panel_user_edit',{'userId' : user.id }) }}">{{ user }}<br />
+                            {{ user.birthDate ? user.birthDate| date('d.m.Y') }}</a>
                         <br />
                         <a href="?search={{ user.email }}"><span class="subtitles">{{ user.email }}</span></a>
                     </td>
