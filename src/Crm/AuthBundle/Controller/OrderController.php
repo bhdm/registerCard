@@ -618,8 +618,6 @@ class OrderController extends Controller
      */
     public function orderListAction(Request $request)
     {
-//        $orders = $this->getUser()->getOrders();
-//        findBy(['client' => $this->getUser()],['id' => 'DESC'])
         $orders = $this->getDoctrine()->getRepository('CrmMainBundle:User')->filterForClient(
             $this->getUser()->getId(),
             $request->query->get('type'),
@@ -627,7 +625,16 @@ class OrderController extends Controller
             $request->query->get('search')
         );
         $post = $request->query->get('post');
-        return ['orders' => $orders, 'post' => $post];
+
+        $paginator = $this->get('knp_paginator');
+        $pagination = $paginator->paginate(
+            $orders,
+            $this->get('request')->query->get('page', 1),
+            50
+        );
+
+
+        return ['orders' => $pagination, 'post' => $post];
     }
 
 

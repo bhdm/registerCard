@@ -157,7 +157,7 @@
         {% if post is defined and post == 1 %}
             <div class="alert alert-primary">Ваша заявка принята.</div>
         {% endif %}
-        <h2>Карты водителей ({{ orders | length }} шт)</h2>
+        <h2>Карты водителей ({{ orders.getTotalItemCount }} шт)</h2>
         <div class="dropdown" style="float: right; margin-top: -55px">
             <button class="btn btn-primary dropdown-toggle" type="button" id="addOrder" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                 Добавить новый заказ
@@ -322,6 +322,10 @@
                 </tr>
             {% endfor %}
         </table>
+
+        <div class="navigation" style="text-align: center;">
+            {{ knp_pagination_render(orders) }}
+        </div>
     </div>
     </form>
     <div class="footer-setting">
