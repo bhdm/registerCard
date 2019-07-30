@@ -8,6 +8,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller,
     Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use YandexCheckout\Client;
 
 class YandexController extends Controller
 {
@@ -16,7 +17,26 @@ class YandexController extends Controller
      * @Template("@CrmMain/Yandex/test.html.twig")
      */
     public function indexAction(Request $request){
-        return [];
+        $client = new Client();
+        $client->setAuth('<Идентификатор магазина>', '<Секретный ключ>');
+        $payment = $client->createPayment(
+            array(
+                'amount' => array(
+                    'value' => 5.0,
+                    'currency' => 'RUB',
+                ),
+                'confirmation' => array(
+                    'type' => 'redirect',
+                    'return_url' => 'https://im-kard.ru/yandex_kassa/check_order',
+                ),
+                'capture' => true,
+                'description' => 'Заказ №1',
+            ),
+            uniqid('', true)
+        );
+
+        dump($payment);
+        exit;
     }
 
     /**

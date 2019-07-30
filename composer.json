@@ -35,7 +35,7 @@
         "cocur/slugify": "~1.2",
         "rispo/yandexkassa-bundle": "^1.0",
         "jms/di-extra-bundle": "^1.9",
-        "yandex-money/yandex-checkout-sdk-php": "^1.0"
+        "yandex-money/yandex-checkout-sdk-php": "^1.2"
     },
     "scripts": {
         "post-install-cmd": [
