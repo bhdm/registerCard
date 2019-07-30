@@ -1,7 +1,13 @@
-<form method="POST" action="{{ path('yandex_check_order') }}">
-    <input type="text" value="33503" name="orderNumber">
-    <input type="text" value="12" name="orderSumAmount">
-    <input type="text" value="2011-05-04T20:38:11.000+04:00" name="requestDatetime">
-    <input type="text" value="182863" name="shopId">
-    <input type="text" value="213" name="invoiceId">
+<form action="https://money.yandex.ru/eshop.xml" method="post">
+    <input name="shopId" value="{{ rispo_yandexkassa_shopid }}" type="hidden"/>
+    <input name="scid" value="{{ rispo_yandexkassa_scid }}" type="hidden"/>
+    <input name="sum" value="746.47" type="hidden">
+    <input name="customerNumber" value="abc000" type="hidden"/>
+    <input name="paymentType" value="AC" type="hidden"/>
+    <input name="orderNumber" value="abc1111111" type="hidden"/>
+    <input name="cps_phone" value="+79123456543" type="hidden"/>
+    <input name="cps_email" value="user@domain.com" type="hidden"/>
+    <input name="ym_merchant_receipt" value='{"customerContact": "+79001231212","taxSystem": 1, "items":[{"quantity": 1.154, "price": {"amount": 300.23},  "tax": 3,"text": "Зеленый чай \"Юн Ву\", кг","paymentMethodType": "full_prepayment ","paymentSubjectType": "commodity"},{"quantity": 2, "price": {"amount": 200.00},  "tax": 3,"text": "Кружка для чая, шт., скидка 10%","paymentMethodType": "full_prepayment ","paymentSubjectType": "commodity"}]}'
+           type="hidden"/>
+    <input type="submit" value="Заплатить"/>
 </form>

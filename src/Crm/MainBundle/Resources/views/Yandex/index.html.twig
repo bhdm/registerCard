@@ -20,7 +20,7 @@
                     {#{% set price = user.priceRu %}#}
                 {#{% endif %}#}
                 {% set price = user.price+110  %}
-                <td><input name="sum" value="{{ price }}" type="text"></td>
+                <td><input name="sum" value="{{ price | number_format(2) }}" type="text"></td>
             </tr>
             <tr>
                 {#<td>Id клиента</td>#}
@@ -53,7 +53,7 @@
                         [
                             {
                             "quantity": 1,
-                            "price": {"amount": {{ price }} },
+                            "price": {"amount": {{ price | number_format(2) }} },
                             "tax": 4,
                             "text": "Карта тахографа",
                             "paymentMethodType": "full_prepayment",
