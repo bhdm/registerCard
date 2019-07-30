@@ -47,7 +47,7 @@
                 <td>
                     <input name="ym_merchant_receipt" value='
                     {
-                    "customerContact": "{{ user.phone | replace({' ' : '', '(' : '', ')' : ''}) }}",
+                    "customerContact": "{{ user.phone | replace({' ' : '', '(' : '', ')' : '', '-' : ''}) }}",
                     "taxSystem": 1,
                     "items":
                         [
