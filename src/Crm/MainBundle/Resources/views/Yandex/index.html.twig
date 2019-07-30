@@ -45,7 +45,22 @@
             <tr>
                 {#<td>Email</td>#}
                 <td>
-                    <input name="ym_merchant_receipt" value='{"customerContact": "{{ user.phone }}","taxSystem": 1, "items":[{"quantity": 1, "price": {"amount": {{ price }}},  "tax": 4,"text": "Карта тахографа","paymentMethodType": "full_prepayment ","paymentSubjectType": "commodity"}]}' type="hidden"/>
+                    <input name="ym_merchant_receipt" value='
+                    {
+                    "customerContact": "{{ user.phone | replace({' ' : '', '(' : '', ')' : ''}) }}",
+                    "taxSystem": 1,
+                    "items":
+                        [
+                            {
+                            "quantity": 1,
+                            "price": {"amount": {{ price }} },
+                            "tax": 4,
+                            "text": "Карта тахографа",
+                            "paymentMethodType": "full_prepayment",
+                            "paymentSubjectType": "commodity"
+                            }
+                        ]
+                    }' type="hidden"/>
                 </td>
             </tr>
 
