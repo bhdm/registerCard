@@ -18,7 +18,7 @@ class YandexController extends Controller
      */
     public function indexAction(Request $request){
         $client = new Client();
-        $client->setAuth('<Идентификатор магазина>', '<Секретный ключ>');
+        $client->setAuth($this->container->getParameter('rispo_yandexkassa_shopid'), $this->container->getParameter('rispo_yandexkassa_shoppassword'));
         $payment = $client->createPayment(
             array(
                 'amount' => array(
