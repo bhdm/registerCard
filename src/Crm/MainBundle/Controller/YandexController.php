@@ -17,26 +17,7 @@ class YandexController extends Controller
      * @Template("@CrmMain/Yandex/test.html.twig")
      */
     public function indexAction(Request $request){
-        $client = new Client();
-        $client->setAuth(182863, 'Alexzh701494+');
-        $payment = $client->createPayment(
-            array(
-                'amount' => array(
-                    'value' => 5.0,
-                    'currency' => 'RUB',
-                ),
-                'confirmation' => array(
-                    'type' => 'redirect',
-                    'return_url' => 'https://im-kard.ru/yandex_kassa/check_order',
-                ),
-                'capture' => true,
-                'description' => 'Заказ №1',
-            ),
-            uniqid('', true)
-        );
-
-        dump($payment);
-        exit;
+        return [];
     }
 
     /**
