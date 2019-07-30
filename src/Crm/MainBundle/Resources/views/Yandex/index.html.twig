@@ -43,6 +43,14 @@
                 <td><input name="cps_email" value="{{ user.email }}" type="text"/></td>
             </tr>
             <tr>
+                {#<td>Email</td>#}
+                <td>
+                    <input name="ym_merchant_receipt" value='{"customerContact": "{{ user.phone }}","taxSystem": 1, "items":[{"quantity": 1, "price": {"amount": {{ price }}},  "tax": 4,"text": "Карта тахографа","paymentMethodType": "full_prepayment ","paymentSubjectType": "commodity"}]}' type="hidden"/>
+                </td>
+            </tr>
+
+
+            <tr>
                 <td><input name="product_type" value="card" type="text"/></td>
             </tr>
         </table>
