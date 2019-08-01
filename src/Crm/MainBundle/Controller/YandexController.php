@@ -9,6 +9,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller,
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use YandexCheckout\Client;
+
 // https://kassa.yandex.ru/tech/payment-form/payment-form-receipt.html
 // https://kassa.yandex.ru/developers/payments/quick-start
 
