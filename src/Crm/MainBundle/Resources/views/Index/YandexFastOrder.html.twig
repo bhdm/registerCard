@@ -36,6 +36,28 @@
             <tr>
                 <td><input name="product_type" value="fast" type="text"/></td>
             </tr>
+            <tr>
+                {#<td>Email</td>#}
+                <td>
+                    <input name="ym_merchant_receipt" value='
+                    {
+                    "customerContact": "{{ order.phone | replace({' ' : '', '(' : '', ')' : '', '-' : ''}) }}",
+                    "taxSystem": 1,
+                    "items":
+                        [
+                            {
+                            "quantity": 1,
+                            "price": {"amount": {{  order.price | number_format(2, '.', '') }} },
+                            "tax": 4,
+                            "text": "Карта тахографа, Заказ №Б-{{ order.id }}",
+                            "paymentMethodType": "full_prepayment",
+                            "paymentSubjectType": "commodity"
+                            }
+                        ]
+                    }' type="hidden"/>
+                </td>
+            </tr>
+
         </table>
 
     </form>
