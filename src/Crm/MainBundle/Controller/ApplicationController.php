@@ -713,11 +713,11 @@ class ApplicationController extends Controller
             $order->setOldCard($data->get("oldCard"));
             $order->setCompany($company);
             if ($order->getCardType() == 'СКЗИ'){
-                $order->setPrice($company->getPriceSkzi()+300);
+                $order->setPrice($company->getPriceSkzi()+0);
             }elseif($order->getCardType() == 'ЕСТР'){
-                $order->setPrice($company->getPriceEstr()+300);
+                $order->setPrice($company->getPriceEstr()+0);
             }else{
-                $order->setPrice($company->getPriceRu()+300);
+                $order->setPrice($company->getPriceRu()+0);
             }
             $order->setStatus(FastOrder::STATUS_NEW);
 
