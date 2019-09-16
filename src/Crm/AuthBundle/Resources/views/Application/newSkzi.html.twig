@@ -20,16 +20,12 @@
         Срок изготовления: : <span style="font-weight: bold">15 дней</span><br />
         <strong>Переход на страницу оплаты - после оформления и сохранения Заявки</strong>
     </p>
-    {#<div class="alert alert-danger">#}
-        {#<p><strong>В связи с тем, что запускается производство карт тахографа «Диамант-2» вместо «Диамант-1» на новых производственных площадях, временно приостановлен прием заявлений для выпуска карт.</strong></p>#}
-        {#<p><strong>Просьба также приостановить прием заявлений от клиентов, так как изменятся формы заявлений, пакет документов и стоимость карт.</strong></p>#}
-        {#<p><strong>Более подробная информация будет предоставлена вам в ближайшее время.</strong></p>#}
-    {#</div>#}
-{#    <div class="alert alert-danger">#}
-{#        <p><strong> Ввод заявок на карты СКЗИ возобновляется только после перезаключения <a href="{{ asset('bundles/crmmain/docs/doc-skzi-new.doc') }}" target="_blank">нового Договора</a> ,#}
-{#                форма Заявлений и копии прикладываемых документов , пока остаются старыми.</strong></p>#}
-{#    </div>#}
-    {#{% if 1==2 %}#}
+
+<div class="alert alert-danger">
+    Для оформления счетов СКЗИ и ЕСТР перейдите на портал <a href="https://infomax24.ru">infomax24.ru</a><br />
+    Телефон для связи +7 (967)359-98-05, эл.почта - imkardru@gmail.com
+</div>
+<div style="display: none">
     <form method="POST"  enctype="multipart/form-data">
         <div class="block-form">
             {{ form_errors(form) }}
@@ -729,7 +725,7 @@
             </table>
         </div>
     </form>
-    {#{% endif %}#}
+</div>
 {% endblock %}
 
 {% block stylesheets %}
