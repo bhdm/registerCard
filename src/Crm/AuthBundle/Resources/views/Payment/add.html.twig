@@ -6,8 +6,10 @@
     <h2>Добавление счета</h2>
     <div class="">
         <div class="alert alert-danger">
-            Для оформления счетов СКЗИ перейдите на портал <a href="https://infomax24.ru">infomax24.ru</a>
+            Для оформления счетов СКЗИ и ЕСТР перейдите на портал <a href="https://infomax24.ru">infomax24.ru</a><br />
+            Телефон для связи +7 (967)359-98-05, эл.почта - imkardru@gmail.com
         </div>
+        <div style="display: none">
         <form method="POST" enctype="multipart/form-data">
             {{ form_widget(form) }}
             <div class="row">
@@ -57,6 +59,7 @@
             <br />
             <button type="submit" class="btn btn-primary">Сохранить</button>
         </form>
+        </div>
     </div>
 {% endblock %}
 
