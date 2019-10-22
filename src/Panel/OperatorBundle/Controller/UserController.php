@@ -1231,6 +1231,11 @@ class UserController extends Controller
                 $phpExcelObject->setActiveSheetIndex(0)->setCellValue('F' . $i, ($user->getCompany() != null  ? $user->getCompany()->getPriceSkzi() : ''));
             }
 
+            $phpExcelObject->setActiveSheetIndex(0)->setCellValue('G' . $i, $user->getFullname());
+            $phpExcelObject->setActiveSheetIndex(0)->setCellValue('H' . $i, ($user->getBirthDate() ? $user->getBirthDate()->format('d.m.Y') : ''));
+            $phpExcelObject->setActiveSheetIndex(0)->setCellValue('I' . $i, $user->getCreated()->format('d.m.Y'));
+            $phpExcelObject->setActiveSheetIndex(0)->setCellValue('J' . $i, $user->getPhone());
+            $phpExcelObject->setActiveSheetIndex(0)->setCellValue('K' . $i, $user->getEmail());
 
             $userLog = $this->getDoctrine()->getRepository('CrmMainBundle:StatusLog')->findByUser($user);
 
