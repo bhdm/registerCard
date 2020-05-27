@@ -131,6 +131,7 @@ class ApplicationController extends Controller
      */
     public function skziAction(Request $request, $url = null){
 
+        return $this->redirect('https://infomax24.ru/order/create?cardView=0&cardType=1');
 
         $session = $request->getSession();
         if ($url != null){

@@ -18,12 +18,12 @@ class TwigExtension extends \Twig_Extension
     public function getFunctions()
     {
         return array(
-            'is_file'         => new \Twig_Function_Method($this, 'is_file'),
-            'dateFromMinutes' => new \Twig_Function_Method($this, 'dateFromMinutes'),
-            'evrikaImg'       => new \Twig_Function_Method($this, 'evrikaImg'),
-            'formatDate'      => new \Twig_Function_Method($this, 'formatDate'),
-            'getClass'        => new \Twig_Function_Method($this, 'getClass'),
-            'getOriginal'     => new \Twig_Function_Method($this, 'getOriginal'),
+            'is_file'         => new \Twig_SimpleFilter('is_file', [$this, 'is_file']),
+            'dateFromMinutes' => new \Twig_SimpleFilter('dateFromMinutes', [$this, 'dateFromMinutes']),
+            'evrikaImg'       => new \Twig_SimpleFilter('evrikaImg', [$this, 'evrikaImg']),
+            'formatDate'      => new \Twig_SimpleFilter('formatDate', [$this, 'formatDate']),
+            'getClass'        => new \Twig_SimpleFilter('getClass', [$this, 'getClass']),
+            'getOriginal'     => new \Twig_SimpleFilter('getOriginal', [$this, 'getOriginal']),
         );
     }
 
